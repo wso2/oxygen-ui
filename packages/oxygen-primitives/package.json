@@ -4,6 +4,7 @@
   "type": "commonjs",
   "devDependencies": {
     "@babel/core": "^7.19.6",
+    "@oxygen/eslint-config": "*",
     "@nrwl/jest": "15.0.1",
     "@nrwl/linter": "15.0.1",
     "@nrwl/rollup": "15.0.1",

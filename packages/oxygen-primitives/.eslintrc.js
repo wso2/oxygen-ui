@@ -1,5 +1,5 @@
-{
-  "extends": ["../../.eslintrc.json"],
+module.exports = {
+  "extends": ["@oxygen/eslint-config"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {

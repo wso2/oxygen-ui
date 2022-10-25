@@ -68,6 +68,7 @@ importers:
       '@nrwl/jest': 15.0.1
       '@nrwl/linter': 15.0.1
       '@nrwl/rollup': 15.0.1
+      '@oxygen/eslint-config': '*'
       '@types/jest': 28.1.1
       '@types/node': 16.11.7
       jest: 28.1.1
@@ -83,6 +84,7 @@ importers:
       '@nrwl/jest': 15.0.1_skbbjha2plwid3olelj6gej3oi
       '@nrwl/linter': 15.0.1_skbbjha2plwid3olelj6gej3oi
       '@nrwl/rollup': 15.0.1_okathpcgwyxlyhbwbohywuy47u
+      '@oxygen/eslint-config': link:../oxygen-eslint-config
       '@types/jest': 28.1.1
       '@types/node': 16.11.7
       jest: 28.1.1_6m7kcbkkzjz4ln6z66tlzx44we
