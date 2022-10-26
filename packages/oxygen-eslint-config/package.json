@@ -4,6 +4,7 @@
   "description": "ESLint configuration for WSO2 Oxygen Design System",
   "author": "WSO2",
   "license": "Apache-2.0",
+  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/wso2/oxygen/issues"
   },
@@ -24,7 +25,7 @@
   ],
   "dependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
-    "@nrwl/eslint-plugin-nx": "15.0.1",
+    "@nrwl/eslint-plugin-nx": "15.0.0",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
     "eslint-config-prettier": "^8.5.0"
