@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@oxygen/oxygen-scss": ["packages/oxygen-scss/src/index.ts"],
       "@oxygen/primitives": ["packages/oxygen-primitives/src/index.ts"]
     }
   },
