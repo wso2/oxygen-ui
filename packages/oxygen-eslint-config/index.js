@@ -7,7 +7,10 @@ require("@rushstack/eslint-patch/modern-module-resolution");
 const config = {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
+  "plugins": [
+    "@nrwl/nx",
+    "plugin:@nrwl/nx/react"
+  ],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
