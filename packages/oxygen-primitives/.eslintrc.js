@@ -1,12 +1,9 @@
-module.exports = {
+const config = {
   "extends": ["@oxygen/eslint-config"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "parserOptions": {
-        "project": ["packages/oxygen-primitives/tsconfig.*?.json"]
-      },
       "rules": {}
     },
     {
@@ -19,3 +16,5 @@ module.exports = {
     }
   ]
 }
+
+module.exports = config;

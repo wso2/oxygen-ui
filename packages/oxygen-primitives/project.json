@@ -8,6 +8,7 @@
       "executor": "@nrwl/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "project": "packages/oxygen-primitives/package.json",
         "outputPath": "packages/oxygen-primitives/dist",
         "main": "packages/oxygen-primitives/src/index.ts",
         "tsConfig": "packages/oxygen-primitives/tsconfig.lib.json",
