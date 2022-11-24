@@ -14,11 +14,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {
-      "@oxygen/oxygen-scss": ["packages/oxygen-scss/src/index.ts"],
-      "@oxygen/primitives": ["packages/oxygen-primitives/src/index.ts"],
-      "@oxygen/react": ["packages/oxygen-react/src/index.ts"]
-    }
+    "paths": {}
   },
   "exclude": ["node_modules", "tmp"]
 }
