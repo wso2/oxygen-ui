@@ -1,7 +1,7 @@
 {
-  "name": "@oxygen/scss",
+  "name": "@oxygen/styles",
   "version": "0.1.0",
-  "description": "The SCSS implementation of WSO2 Oxygen Design System",
+  "description": "Styling system of WSO2 Oxygen Design System",
   "author": "WSO2",
   "license": "Apache-2.0",
   "bugs": {
@@ -10,37 +10,32 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/wso2/oxygen",
-    "directory": "packages/oxygen-scss"
+    "directory": "packages/oxygen-styles"
   },
   "homepage": "https://design.wso2.com/css",
-  "style": "dist/oxygen.css",
-  "sass": "index.scss",
+  "style": "dist/css/oxygen.css",
+  "sass": "dist/sass/index.scss",
   "type": "module",
-  "main": "dist/oxygen.js",
   "keywords": [
+    "css",
     "scss",
     "sass",
     "styling",
-    "design-system",
-    "oxygen-scss"
+    "design-system"
   ],
   "scripts": {
-    "build:css": "script/build-css.js",
-    "build": "script/build.js",
-    "build:watch": "chokidar \"src/**/*.scss\" -c \"script/dist.js\"",
+    "build": "scripts/build.js",
+    "build:watch": "chokidar \"src/**/*.scss\" -c \"scripts/build.js\"",
     "stylelint": "stylelint --quiet --rd 'src/**/*.scss'",
     "stylelint:fix": "pnpm stylelint -- --fix",
-    "eslint": "eslint deprecations.js script",
+    "lint": "eslint deprecations.js script",
     "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest"
   },
-  "dependencies": {},
   "devDependencies": {
     "@koddsson/postcss-sass": "5.0.1",
-    "@wso2/eslint-config": "^0.1.0",
-    "@wso2/prettier-config": "^0.1.0",
-    "@wso2/stylelint-config": "^0.1.0",
     "autoprefixer": "10.4.12",
     "chokidar-cli": "3.0.0",
+    "cssstats": "^4.0.5",
     "eslint": "8.25.0",
     "fs-extra": "10.1.0",
     "globby": "13.1.2",
@@ -48,7 +43,7 @@
     "postcss": "8.4.16",
     "postcss-import": "15.0.0",
     "postcss-scss": "4.0.4",
-    "prettier": "2.7.1",
+    "prettier": "^2.8.0",
     "stylelint": "14.11.0",
     "typescript": "^4.9.3"
   },

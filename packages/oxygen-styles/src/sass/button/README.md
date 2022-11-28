@@ -1,11 +1,11 @@
-# Oxygen SCSS: `buttons` bundle
+# Oxygen Styles: `buttons` bundle
 
 ## Usage
 
 To include this SCSS module, ensure that your `node_modules` directory is listed in your Sass include paths, then import it with:
 
 ```scss
-@import "@oxygen/scss/buttons/index.scss";
+@import "@oxygen/styles/scss/buttons/index.scss";
 ```
 
 ## Build

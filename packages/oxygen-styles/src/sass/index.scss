@@ -1,4 +1,5 @@
 // Imports all files in their intended order for easy mass-inclusion.
 // Should you need specific files, you can easily use separate `@import`s.
 
-@import './components/index.scss';
+@import './button/index.scss';
+@import './sign-in/index.scss';

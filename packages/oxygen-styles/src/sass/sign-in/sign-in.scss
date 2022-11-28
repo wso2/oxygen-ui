@@ -1,0 +1,42 @@
+.oxygen-sign-in {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+
+  &__box {
+    padding: 32px;
+    background: #FFFFFF;
+    border-radius: 4px;
+    min-width: 350px;
+    max-width: 500px;
+  }
+
+  &__logo {
+    max-height: 100px;
+    width: 150px;
+    margin-bottom: 30px;
+  }
+
+  &__header {
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 32px;
+  }
+
+  &__form {
+    .oxygen-text-field {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__sign-up-link {
+    font-size: 14px;
+  }
+
+  &__sign-up-link-action {
+    margin-left: 5px;
+  }
+}
