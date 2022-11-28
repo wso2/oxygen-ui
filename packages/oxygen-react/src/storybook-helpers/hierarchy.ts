@@ -19,19 +19,24 @@
 
 enum StorybookCategories {
   Buttons = 'Buttons',
-  Introduction = 'Introduction',
-  Primitives = 'Primitives',
-  Layout = 'Layout',
-  Inputs = 'Inputs',
   DataDisplay = 'Data Display',
-  Overlays = 'Overlays',
-  Typography = 'Typography',
   Feedback = 'Feedback',
-  Miscellaneous = 'Miscellaneous',
   Hooks = 'Hooks',
+  Inputs = 'Inputs',
+  Introduction = 'Introduction',
+  Layout = 'Layout',
+  Miscellaneous = 'Miscellaneous',
+  Navigation = 'Navigation',
+  Overlays = 'Overlays',
+  Patterns = 'Patterns',
+  Primitives = 'Primitives',
+  Typography = 'Typography',
 }
 
-export const STORYBOOK_HIERARCHY = {
-  WELCOME: `${StorybookCategories.Introduction}/Welcome`,
+export const STORYBOOK_HIERARCHY: Record<string, string> = {
   BUTTON: `${StorybookCategories.Buttons}/Button`,
+  LINK: `${StorybookCategories.Navigation}/Link`,
+  SIGN_IN: `${StorybookCategories.Patterns}/SignIn`,
+  TEXT_FIELD: `${StorybookCategories.Inputs}/TextField`,
+  WELCOME: `${StorybookCategories.Introduction}/Welcome`,
 };

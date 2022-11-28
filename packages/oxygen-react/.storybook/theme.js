@@ -20,8 +20,8 @@ import {themes as defaultThemes} from '@storybook/theming';
 
 const commons = {
   brandUrl: 'https://asgardeo.io',
-  colorSecondary: '#ff5000',
-  brandTitle: 'Asgardeo Design System | ${version}',
+  colorSecondary: '#47EBD8',
+  brandTitle: 'Oxygen Design System',
   brandTarget: '_blank',
 };
 
@@ -32,9 +32,10 @@ const commons = {
 export const themes = {
   dark: {
     ...defaultThemes.dark,
+    appBg: '#2f2f2f',
+    appContentBg: '#333333',
     brandImage: './assets/images/design-system-logo.svg',
-    appBg: '#000000',
-    appContentBg: '#111111',
+    barSelectedColor: '#47EBD8',
     ...commons,
   },
   light: {

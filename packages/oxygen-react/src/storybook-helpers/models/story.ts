@@ -21,42 +21,42 @@
  * Interface for sub stories.
  */
 export interface SubStoryInterface {
-    /**
-     * Title of the example.
-     */
-    title: string;
-    /**
-     * Story description.
-     */
-    description: string;
-    /**
-     * Source code related to the example.
-     */
-    source?: string;
+  /**
+   * Title of the example.
+   */
+  title: string;
+  /**
+   * Story description.
+   */
+  description: string;
+  /**
+   * Source code related to the example.
+   */
+  source?: string;
 }
 
 /**
  * Interface for the story meta.
  */
 export interface StoryMetaInterface {
-    /**
-     * Description of the main story.
-     */
-    description: string;
-    /**
-     * Components to import.
-     */
-    components: string[] | string;
-    /**
-     * Array of sub stories.
-     */
-    stories?: SubStoryInterface[];
-    /**
-     * Module to import the components.
-     */
-    importModule?: string;
-    /**
-     * Title of the main story.
-     */
-    title: string;
+  /**
+   * Description of the main story.
+   */
+  description: string;
+  /**
+   * Components to import.
+   */
+  components: string[] | string;
+  /**
+   * Array of sub stories.
+   */
+  stories?: SubStoryInterface[];
+  /**
+   * Module to import the components.
+   */
+  importModule?: string;
+  /**
+   * Title of the main story.
+   */
+  title: string;
 }

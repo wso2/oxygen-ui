@@ -36,7 +36,8 @@ module.exports = {
         "@storybook/addon-essentials",
         "@storybook/addon-links",
         "storybook-addon-designs",
-        "storybook-dark-mode"
+        "storybook-dark-mode",
+        '@storybook/preset-scss'
     ],
     "previewHead": (head) => (`
         ${head}
@@ -53,12 +54,6 @@ module.exports = {
               extensions: config.resolve.extensions,
              })
         ];
-
-        config.module.rules.push({
-          test: /\.scss$/,
-          use: ['style-loader', 'css-loader', 'sass-loader'],
-          include: path.resolve(__dirname, '../'),
-        });
 
         return config;
     },

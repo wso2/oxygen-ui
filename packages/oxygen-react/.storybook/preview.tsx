@@ -16,18 +16,69 @@
  * under the License.
  */
 
-import React, { PropsWithChildren, ReactNode } from "react";
-import { addParameters, Story, StoryContext } from "@storybook/react";
-import { DocsContainer, DocsContainerProps, DocsPage } from "@storybook/addon-docs";
-import { themes } from "./theme";
+import React, {PropsWithChildren, ReactNode} from 'react';
+import {addParameters, Story, StoryContext} from '@storybook/react';
+import {DocsContainer, DocsContainerProps, DocsPage} from '@storybook/addon-docs';
+import {themes} from './theme';
 import {
-    createTheme as MuiCreateTheme,
-    ThemeProvider as MUIThemeProvider
-} from "@mui/material/styles";
-import { ThemeProvider as EmotionThemeProvider } from "@emotion/react";
-import { createTheme, CssBaseline } from "@mui/material";
+  experimental_extendTheme as extendTheme,
+  Experimental_CssVarsProvider as CssVarsProvider,
+} from '@mui/material/styles';
+import {CssBaseline, StyledEngineProvider} from '@mui/material';
 
-export const theme = createTheme({});
+const theme = extendTheme({
+  colorSchemes: {
+    light: {
+      palette: {
+        primary: {
+          main: '#47EBD8',
+          contrastText: "#fff"
+        },
+        secondary: {
+          main: '#F7F8FB',
+          contrastText: "#40404B"
+        }
+      },
+    },
+    dark: {
+      palette: {
+        primary: {
+          main: '#47EBD8',
+        },
+      },
+    },
+  },
+  components: {
+    MuiButton: {
+      variants: [
+        {
+          props: { variant: 'contained', color: 'primary' },
+          style: {
+            textTransform: 'none'
+          },
+        },
+        {
+          props: { variant: 'secondary', color: 'secondary' },
+          style: {
+            textTransform: 'none'
+          },
+        }
+      ],
+    },
+  },
+  shape: {
+    borderRadius: 8
+  },
+  typography: {
+    fontFamily: [
+      'Montserrat',
+      'sans-serif'
+    ].join(','),
+    button: {
+      textTransform: 'none'
+    }
+  }
+});
 
 /**
  * Wrapper for all the required providers.
@@ -37,61 +88,61 @@ export const theme = createTheme({});
  * @returns Stroy wrapped in providers.
  */
 const withProviders = (Story: Story, context: StoryContext) => {
-    return (
-        <EmotionThemeProvider theme={theme}>
-            <MUIThemeProvider theme={theme}>
-                <CssBaseline />
-                <Story {...context} />
-            </MUIThemeProvider>
-        </EmotionThemeProvider>
-    );
+  return (
+    <StyledEngineProvider injectFirst>
+      <CssVarsProvider theme={theme}>
+        <CssBaseline />
+        <Story {...context} />
+      </CssVarsProvider>
+    </StyledEngineProvider>
+  );
 };
 
 addParameters({
-    darkMode: {
-        current: "light",
-        // Override the default dark theme
-        dark: themes.dark,
-        // Override the default light theme
-        light: themes.light,
-        normal: themes.normal
-    },
-    layout: "centered",
-    controls: {
-        expanded: true,
-        sort: "requiredFirst"
-    },
-    docs: {
-        inlineStories: true,
-        container: (props: PropsWithChildren<DocsContainerProps>): any => {
-            const {
-                context,
-                children
-            } = props;
+  darkMode: {
+    current: 'dark',
+    // Override the default dark theme
+    dark: themes.dark,
+    // Override the default light theme
+    light: themes.light,
+    normal: themes.normal,
+  },
+  layout: 'centered',
+  controls: {
+    expanded: true,
+    sort: 'requiredFirst',
+  },
+  backgrounds: {
+    default: 'dark',
+    values: [
+      {
+        name: 'dark',
+        value: '#1e1e1e',
+      },
+    ],
+  },
+  docs: {
+    inlineStories: true,
+    container: (props: PropsWithChildren<DocsContainerProps>): any => {
+      const {context, children} = props;
 
-            return (
-                <DocsContainer
-                    context={ context }
-                >
-                    { children }
-                </DocsContainer>
-            );
-        },
-        page: DocsPage,
-        theme: themes.light
+      return <DocsContainer context={context}>{children}</DocsContainer>;
     },
-    viewMode: "docs",
-    previewTabs: {
-        "storybook/docs/panel": {
-            index: -1
-        },
-        canvas: { title: "Sandbox" }
+    page: DocsPage,
+    theme: themes.dark,
+  },
+  viewMode: 'docs',
+  previewTabs: {
+    'storybook/docs/panel': {
+      index: -1,
     },
-    options: {
-        storySort: {
-            order: ["Introduction", "Inputs", "*", "Accessibility", "Hooks"]
-        }
-    }
+    canvas: {title: 'Sandbox'},
+  },
+  options: {
+    storySort: {
+      order: ['Introduction', 'Inputs', '*', 'Accessibility', 'Hooks'],
+    },
+  },
 });
 
 export const decorators = [withProviders];
