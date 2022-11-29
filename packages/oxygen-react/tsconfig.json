@@ -1,6 +1,17 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "compileOnSave": false,
   "compilerOptions": {
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
     "jsx": "react-jsx",
     "allowJs": true,
     "esModuleInterop": true,
@@ -12,6 +23,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
+  "exclude": ["node_modules", "tmp"],
   "files": [],
   "include": [],
   "references": [

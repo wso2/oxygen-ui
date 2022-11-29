@@ -1,8 +1,11 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
-    "types": ["node"]
+    "declaration": true,
+    "outDir": "dist",
+    "declarationDir": "types",
+    "types": ["node"],
+    "emitDeclarationOnly": true
   },
   "files": [],
   "exclude": [
@@ -16,5 +19,5 @@
     "**/*.spec.jsx",
     "**/*.test.jsx"
   ],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "rollup.config.cjs"]
 }
