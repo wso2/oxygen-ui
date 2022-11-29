@@ -34,6 +34,7 @@ enum StorybookCategories {
 
 const StorybookHierarchy: Record<string, string> = Object.freeze({
   Button: `${StorybookCategories.Buttons}/Button`,
+  Grid: `${StorybookCategories.Layout}/Grid`,
   Link: `${StorybookCategories.Navigation}/Link`,
   SignIn: `${StorybookCategories.Patterns}/SignIn`,
   TextField: `${StorybookCategories.Inputs}/TextField`,
