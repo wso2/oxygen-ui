@@ -1,4 +1,6 @@
-# Add files here to ignore them from prettier formatting
+# Global ignore file incase if a child package doesn't include one.
 
 /dist
+/build
+/node_modules
 /coverage

@@ -1,1 +1,2 @@
-export * from './lib/oxygen-react';
+export * from './components';
+export * from './theme';
