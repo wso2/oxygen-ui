@@ -1,1 +1,1 @@
-export * from './hierarchy';
+export {default} from './hierarchy';

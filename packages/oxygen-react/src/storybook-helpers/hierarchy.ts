@@ -23,7 +23,6 @@ enum StorybookCategories {
   Feedback = 'Feedback',
   Hooks = 'Hooks',
   Inputs = 'Inputs',
-  Introduction = 'Introduction',
   Layout = 'Layout',
   Miscellaneous = 'Miscellaneous',
   Navigation = 'Navigation',
@@ -33,10 +32,12 @@ enum StorybookCategories {
   Typography = 'Typography',
 }
 
-export const STORYBOOK_HIERARCHY: Record<string, string> = {
-  BUTTON: `${StorybookCategories.Buttons}/Button`,
-  LINK: `${StorybookCategories.Navigation}/Link`,
-  SIGN_IN: `${StorybookCategories.Patterns}/SignIn`,
-  TEXT_FIELD: `${StorybookCategories.Inputs}/TextField`,
-  WELCOME: `${StorybookCategories.Introduction}/Welcome`,
-};
+const StorybookHierarchy: Record<string, string> = Object.freeze({
+  Button: `${StorybookCategories.Buttons}/Button`,
+  Link: `${StorybookCategories.Navigation}/Link`,
+  SignIn: `${StorybookCategories.Patterns}/SignIn`,
+  TextField: `${StorybookCategories.Inputs}/TextField`,
+  Welcome: 'Welcome',
+});
+
+export default StorybookHierarchy;

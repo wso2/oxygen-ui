@@ -22,10 +22,6 @@
  */
 export interface SubStoryInterface {
   /**
-   * Title of the example.
-   */
-  title: string;
-  /**
    * Story description.
    */
   description: string;
@@ -33,6 +29,10 @@ export interface SubStoryInterface {
    * Source code related to the example.
    */
   source?: string;
+  /**
+   * Title of the example.
+   */
+  title: string;
 }
 
 /**
@@ -40,21 +40,21 @@ export interface SubStoryInterface {
  */
 export interface StoryMetaInterface {
   /**
-   * Description of the main story.
-   */
-  description: string;
-  /**
    * Components to import.
    */
   components: string[] | string;
   /**
-   * Array of sub stories.
+   * Description of the main story.
    */
-  stories?: SubStoryInterface[];
+  description: string;
   /**
    * Module to import the components.
    */
   importModule?: string;
+  /**
+   * Array of sub stories.
+   */
+  stories?: SubStoryInterface[];
   /**
    * Title of the main story.
    */
