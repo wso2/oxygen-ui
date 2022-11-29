@@ -28,12 +28,12 @@ const SignIn: FC<SignInProps> & MuiWrapperProps = (props: SignInProps): ReactEle
 
   return (
     <Box className={classes} {...rest}>
-      <Box className="oxygen-sign-in__logo" component="img" src={logoUrl} />
-      <Paper className="oxygen-sign-in__box">
-        <Typography className="oxygen-sign-in__header" component="h1" variant="h6">
+      <Box className="oxygen-sign-in-logo" component="img" src={logoUrl} />
+      <Paper className="oxygen-sign-in-box" elevation={0} variant="outlined">
+        <Typography className="oxygen-sign-in-header" component="h1" variant="h6">
           Sign in
         </Typography>
-        <Box className="oxygen-sign-in__form" component="form" onSubmit={() => null} noValidate sx={{mt: 1}}>
+        <Box className="oxygen-sign-in-form" component="form" onSubmit={() => null} noValidate sx={{mt: 1}}>
           <TextField
             required
             fullWidth
@@ -53,13 +53,13 @@ const SignIn: FC<SignInProps> & MuiWrapperProps = (props: SignInProps): ReactEle
             placeholder="Enter your password"
             autoComplete="current-password"
           />
-          <Button variant="primary" className="oxygen-sign-in__cta" type="submit" fullWidth sx={{mt: 3, mb: 2}}>
+          <Button variant="primary" className="oxygen-sign-in-cta" type="submit" fullWidth sx={{mt: 3, mb: 2}}>
             Sign In
           </Button>
-          <Grid container className="oxygen-sign-in__sign-up-link">
+          <Grid container className="oxygen-sign-in-sign-up-link">
             <Grid item>Don&apos;t have an account?</Grid>
             <Grid item>
-              <Link href={signUpUrl} className="oxygen-sign-in__sign-up-link-action">
+              <Link href={signUpUrl} className="oxygen-sign-in-sign-up-link-action">
                 Sign up
               </Link>
             </Grid>

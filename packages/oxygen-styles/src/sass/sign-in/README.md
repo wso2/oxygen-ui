@@ -1,17 +1,21 @@
-# Oxygen Styles: `buttons` bundle
+# Oxygen Styles: `sign-in` bundle
 
 ## Usage
 
-To include this SCSS module, ensure that your `node_modules` directory is listed in your Sass include paths, then import it with:
+To include this SCSS module, import it with:
 
 ```scss
-@import "@oxygen/styles/scss/buttons/index.scss";
+@import "@oxygen/styles/dist/sass/sign-in/index.scss";
 ```
 
 ## Build
 
-The `@oxygen/css` npm package includes a standalone CSS build of this module in `dist/buttons.css`.
+The `@oxygen/styles` npm package includes a standalone CSS build of this module. Import it with:
+
+```css
+@import "@oxygen/styles/dist/css/sign-in.css";
+```
 
 ## License
 
-[Apache 2.0](../../../../LICENSE) &copy; [WSO2](https://wso2.com/)
+[Apache 2.0](../../../../../LICENSE) &copy; [WSO2](https://wso2.com/)

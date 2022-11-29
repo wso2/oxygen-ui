@@ -5,8 +5,9 @@
   align-content: center;
   justify-content: center;
   align-items: center;
+  text-align: left;
 
-  &__box {
+  .oxygen-sign-in-box {
     padding: 32px;
     background: #FFFFFF;
     border-radius: 4px;
@@ -14,29 +15,29 @@
     max-width: 500px;
   }
 
-  &__logo {
+  .oxygen-sign-in-logo {
     max-height: 100px;
     width: 150px;
     margin-bottom: 30px;
   }
 
-  &__header {
+  .oxygen-sign-in-header {
     font-weight: 700;
     font-size: 20px;
     margin-bottom: 32px;
   }
 
-  &__form {
+  .oxygen-sign-in-form {
     .oxygen-text-field {
       margin-bottom: 20px;
     }
-  }
 
-  &__sign-up-link {
-    font-size: 14px;
-  }
+    .oxygen-sign-in-sign-up-link {
+      font-size: 14px;
+    }
 
-  &__sign-up-link-action {
-    margin-left: 5px;
+    .oxygen-sign-in-sign-up-link-action {
+      margin-left: 5px;
+    }
   }
 }
