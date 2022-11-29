@@ -1,6 +1,7 @@
-import {CssVarsTheme, experimental_extendTheme as extendTheme, Theme} from '@mui/material/styles';
+import {experimental_extendTheme as extendTheme} from '@mui/material/styles';
+import {Theme} from '../models';
 
-const defaultTheme: Omit<Theme, 'palette'> & CssVarsTheme = extendTheme({
+const defaultTheme: Theme = extendTheme({
   colorSchemes: {
     dark: {
       palette: {
@@ -43,6 +44,7 @@ const defaultTheme: Omit<Theme, 'palette'> & CssVarsTheme = extendTheme({
       ],
     },
   },
+  cssVarPrefix: 'oxygen',
   shape: {
     borderRadius: 8,
   },

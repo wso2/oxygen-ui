@@ -4,8 +4,6 @@ import {CssBaseline, StyledEngineProvider} from '@mui/material';
 import {CssVarsProviderConfig} from '@mui/system';
 import defaultTheme from './default-theme';
 
-export type ColorScheme = 'light' | 'dark';
-
 export type ThemeProviderProps = Partial<CssVarsProviderConfig<ColorScheme>> & {
   /**
    * The node used to attach the color-scheme attribute
