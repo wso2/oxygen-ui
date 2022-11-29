@@ -23,7 +23,6 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "nx": "15.2.1",
-    "prettier": "^2.6.2"
+    "nx": "15.2.1"
   }
 }

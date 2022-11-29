@@ -5,10 +5,8 @@ importers:
   .:
     specifiers:
       nx: 15.2.1
-      prettier: ^2.6.2
     devDependencies:
       nx: 15.2.1
-      prettier: 2.8.0
 
   examples/choreo-brand-identity:
     specifiers:
@@ -20,6 +18,10 @@ importers:
       '@types/node': ^16.18.3
       '@types/react': ^18.0.25
       '@types/react-dom': ^18.0.9
+      '@wso2/eslint-config': file:/Users/brion/Desktop/wso2/portal-rearchitecture/poc/wso2-ui-configs/packages/eslint-config
+      '@wso2/prettier-config': file:/Users/brion/Desktop/wso2/portal-rearchitecture/poc/wso2-ui-configs/packages/prettier-config
+      eslint: 8.25.0
+      prettier: ^2.8.0
       react: ^18.2.0
       react-dom: ^18.2.0
       react-scripts: 5.0.1
@@ -36,9 +38,14 @@ importers:
       '@types/react-dom': 18.0.9
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      react-scripts: 5.0.1_eetduzquwu67aqoq5644t6dxzu
+      react-scripts: 5.0.1_s2hgag2ocusjvrufmzo6vlksh4
       typescript: 4.9.3
       web-vitals: 2.1.4
+    devDependencies:
+      '@wso2/eslint-config': file:../wso2-ui-configs/packages/eslint-config_y3lcoog3mldtsznblxumncz46y
+      '@wso2/prettier-config': file:../wso2-ui-configs/packages/prettier-config_brpckf4sz23pco3jyty2eys3iq
+      eslint: 8.25.0
+      prettier: 2.8.0
 
   packages/oxygen-react:
     specifiers:
@@ -69,7 +76,7 @@ importers:
       '@types/react': ^18.0.25
       '@types/react-dom': ^18.0.9
       '@wso2/eslint-config': file:/Users/brion/Desktop/wso2/portal-rearchitecture/poc/wso2-ui-configs/packages/eslint-config
-      '@wso2/prettier-config': /Users/brion/Desktop/wso2/portal-rearchitecture/poc/wso2-ui-configs/packages/prettier-config
+      '@wso2/prettier-config': file:/Users/brion/Desktop/wso2/portal-rearchitecture/poc/wso2-ui-configs/packages/prettier-config
       babel-loader: ^8.3.0
       clsx: ^1.2.1
       eslint: 8.25.0
@@ -122,7 +129,7 @@ importers:
       '@types/react': 18.0.25
       '@types/react-dom': 18.0.9
       '@wso2/eslint-config': file:../wso2-ui-configs/packages/eslint-config_qtkr63mixph7ed4unfx47ofd2i
-      '@wso2/prettier-config': link:../../../wso2-ui-configs/packages/prettier-config
+      '@wso2/prettier-config': file:../wso2-ui-configs/packages/prettier-config_brpckf4sz23pco3jyty2eys3iq
       babel-loader: 8.3.0_@babel+core@7.20.2
       eslint: 8.25.0
       eslint-plugin-mdx: 2.0.5_eslint@8.25.0
@@ -8652,6 +8659,27 @@ packages:
       - typescript
     dev: true
 
+  /eslint-plugin-jest/27.1.6_nukueg5rlwdimjfoubaefzo2ga:
+    resolution: {integrity: sha512-XA7RFLSrlQF9IGtAmhddkUkBuICCTuryfOTfCSWcZHiHb69OilIH05oozH2XA6CEOtztnOd0vgXyvxZodkxGjg==}
+    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
+    peerDependencies:
+      '@typescript-eslint/eslint-plugin': ^5.0.0
+      eslint: ^7.0.0 || ^8.0.0
+      jest: '*'
+    peerDependenciesMeta:
+      '@typescript-eslint/eslint-plugin':
+        optional: true
+      jest:
+        optional: true
+    dependencies:
+      '@typescript-eslint/eslint-plugin': 5.44.0_f4445qdbitw4qyocesp4jiavwe
+      '@typescript-eslint/utils': 5.44.0_5ldjemcacbssrrv7slgrertrym
+      eslint: 8.25.0
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+    dev: true
+
   /eslint-plugin-jsx-a11y/6.6.1_eslint@8.25.0:
     resolution: {integrity: sha512-sXgFVNHiWffBq23uiS/JaP6eVR622DqwB4yTzKvGZGcPq6/yZ3WmOZfuBks/vHWo9GaFOqC2ZK4i6+C35knx7Q==}
     engines: {node: '>=4.0'}
@@ -15438,11 +15466,12 @@ packages:
     resolution: {integrity: sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==}
     engines: {node: '>=0.10.0'}
 
-  /react-scripts/5.0.1_eetduzquwu67aqoq5644t6dxzu:
+  /react-scripts/5.0.1_s2hgag2ocusjvrufmzo6vlksh4:
     resolution: {integrity: sha512-8VAmEm/ZAwQzJ+GOMLbBsTdDKOpuZh7RPs0UymvBR2vRk4iZWCskjbFnxqjrzoIvlNNRZ3QJFx6/qDSi6zSnaQ==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     peerDependencies:
+      eslint: '*'
       react: '>= 16'
       typescript: ^3.2.1 || ^4
     peerDependenciesMeta:
@@ -18931,4 +18960,61 @@ packages:
       - jest
       - prettier
       - supports-color
+    dev: true
+
+  file:../wso2-ui-configs/packages/eslint-config_y3lcoog3mldtsznblxumncz46y:
+    resolution: {directory: ../wso2-ui-configs/packages/eslint-config, type: directory}
+    id: file:../wso2-ui-configs/packages/eslint-config
+    name: '@wso2/eslint-config'
+    version: 0.1.0
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      eslint: '>=8.0.0'
+      typescript: '>=4.0.0'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@babel/core': 7.20.2
+      '@babel/eslint-parser': 7.19.1_yzlgzeqhkqtjvex36cv2ggowoy
+      '@rushstack/eslint-patch': 1.2.0
+      '@typescript-eslint/eslint-plugin': 5.44.0_f4445qdbitw4qyocesp4jiavwe
+      '@typescript-eslint/parser': 5.44.0_5ldjemcacbssrrv7slgrertrym
+      eslint: 8.25.0
+      eslint-config-airbnb: 19.0.4_ijp6igxggz3stbivvjimg5zhvy
+      eslint-config-airbnb-typescript: 17.0.0_r465mnaunst4hgr4pfaex4nzqa
+      eslint-config-prettier: 8.5.0_eslint@8.25.0
+      eslint-plugin-import: 2.26.0_kfqi3ff2wraiwkvhtrdmkwiv5u
+      eslint-plugin-jest: 27.1.6_nukueg5rlwdimjfoubaefzo2ga
+      eslint-plugin-jsx-a11y: 6.6.1_eslint@8.25.0
+      eslint-plugin-prettier: 4.2.1_5wldh2qskrkkuj5r7hgfqqm4fa
+      eslint-plugin-react: 7.31.11_eslint@8.25.0
+      eslint-plugin-react-hooks: 4.6.0_eslint@8.25.0
+      eslint-plugin-testing-library: 5.9.1_5ldjemcacbssrrv7slgrertrym
+      eslint-plugin-tsdoc: 0.2.17
+      eslint-plugin-typescript-sort-keys: 2.1.0_f4445qdbitw4qyocesp4jiavwe
+      typescript: 4.9.3
+    transitivePeerDependencies:
+      - eslint-import-resolver-typescript
+      - eslint-import-resolver-webpack
+      - jest
+      - prettier
+      - supports-color
+    dev: true
+
+  file:../wso2-ui-configs/packages/prettier-config_brpckf4sz23pco3jyty2eys3iq:
+    resolution: {directory: ../wso2-ui-configs/packages/prettier-config, type: directory}
+    id: file:../wso2-ui-configs/packages/prettier-config
+    name: '@wso2/prettier-config'
+    version: 0.1.0
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      prettier: '>=2.0.0'
+      typescript: '>=4.0.0'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      prettier: 2.8.0
+      typescript: 4.9.3
     dev: true

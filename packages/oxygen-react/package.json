@@ -62,7 +62,7 @@
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "@wso2/eslint-config": "file:/Users/brion/Desktop/wso2/portal-rearchitecture/poc/wso2-ui-configs/packages/eslint-config",
-    "@wso2/prettier-config": "/Users/brion/Desktop/wso2/portal-rearchitecture/poc/wso2-ui-configs/packages/prettier-config",
+    "@wso2/prettier-config": "file:/Users/brion/Desktop/wso2/portal-rearchitecture/poc/wso2-ui-configs/packages/prettier-config",
     "babel-loader": "^8.3.0",
     "eslint": "8.25.0",
     "eslint-plugin-mdx": "^2.0.5",
