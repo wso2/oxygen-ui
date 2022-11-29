@@ -20,65 +20,7 @@ import React, {PropsWithChildren, ReactNode} from 'react';
 import {addParameters, Story, StoryContext} from '@storybook/react';
 import {DocsContainer, DocsContainerProps, DocsPage} from '@storybook/addon-docs';
 import {themes} from './theme';
-import {
-  experimental_extendTheme as extendTheme,
-  Experimental_CssVarsProvider as CssVarsProvider,
-} from '@mui/material/styles';
-import {CssBaseline, StyledEngineProvider} from '@mui/material';
-
-const theme = extendTheme({
-  colorSchemes: {
-    light: {
-      palette: {
-        primary: {
-          main: '#47EBD8',
-          contrastText: "#fff"
-        },
-        secondary: {
-          main: '#F7F8FB',
-          contrastText: "#40404B"
-        }
-      },
-    },
-    dark: {
-      palette: {
-        primary: {
-          main: '#47EBD8',
-        },
-      },
-    },
-  },
-  components: {
-    MuiButton: {
-      variants: [
-        {
-          props: { variant: 'contained', color: 'primary' },
-          style: {
-            textTransform: 'none'
-          },
-        },
-        {
-          props: { variant: 'secondary', color: 'secondary' },
-          style: {
-            textTransform: 'none'
-          },
-        }
-      ],
-    },
-  },
-  shape: {
-    borderRadius: 8
-  },
-  typography: {
-    fontFamily: [
-      'Montserrat',
-      'sans-serif'
-    ].join(','),
-    button: {
-      textTransform: 'none'
-    }
-  }
-});
+import ThemeProvider from '../src/theme/ThemeProvider';
 
 /**
  * Wrapper for all the required providers.
@@ -89,12 +31,9 @@ const theme = extendTheme({
  */
 const withProviders = (Story: Story, context: StoryContext) => {
   return (
-    <StyledEngineProvider injectFirst>
-      <CssVarsProvider theme={theme}>
-        <CssBaseline />
-        <Story {...context} />
-      </CssVarsProvider>
-    </StyledEngineProvider>
+    <ThemeProvider>
+      <Story {...context} />
+    </ThemeProvider>
   );
 };
 
