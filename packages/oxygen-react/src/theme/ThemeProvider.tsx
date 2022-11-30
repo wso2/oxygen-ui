@@ -1,10 +1,10 @@
 import React, {PropsWithChildren, ReactElement} from 'react';
-import {Experimental_CssVarsProvider as CssVarsProvider} from '@mui/material/styles';
+import {Experimental_CssVarsProvider as CssVarsProvider, SupportedColorScheme} from '@mui/material/styles';
 import {CssBaseline, StyledEngineProvider} from '@mui/material';
 import {CssVarsProviderConfig} from '@mui/system';
 import defaultTheme from './default-theme';
 
-export type ThemeProviderProps = Partial<CssVarsProviderConfig<ColorScheme>> & {
+export type ThemeProviderProps = Partial<CssVarsProviderConfig<SupportedColorScheme>> & {
   /**
    * The node used to attach the color-scheme attribute
    * @default document
@@ -25,10 +25,12 @@ export type ThemeProviderProps = Partial<CssVarsProviderConfig<ColorScheme>> & {
    * @default window
    */
   storageWindow?: Window | null;
-  theme?: {
-    colorSchemes: Record<ColorScheme, Record<string, any>>;
-    cssVarPrefix?: string;
-  };
+  theme?:
+    | {
+        colorSchemes: Record<SupportedColorScheme, Record<string, any>>;
+        cssVarPrefix?: string | undefined;
+      }
+    | undefined;
 };
 
 const ThemeProvider = (props: PropsWithChildren<ThemeProviderProps>): ReactElement => {
