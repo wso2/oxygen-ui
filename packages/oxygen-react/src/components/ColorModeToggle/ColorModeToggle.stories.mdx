@@ -1,0 +1,77 @@
+import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import Box from '@mui/material/Box';
+import StorybookHierarchy from '../../storybook-helpers/hierarchy';
+import ColorModeToggle from './ColorModeToggle';
+
+export const meta = {
+  component: ColorModeToggle,
+  title: StorybookHierarchy.ColorModeToggle,
+};
+
+<Meta title={meta.title} component={meta.component} />
+
+export const Template = args => (
+  <Box
+    sx={{
+      alignItems: 'center',
+      bgcolor: 'background.default',
+      borderRadius: 1,
+      color: 'text.primary',
+      display: 'flex',
+      justifyContent: 'center',
+      p: 3,
+      width: '100%',
+    }}
+  >
+    <ColorModeToggle {...args} />
+  </Box>
+);
+
+# Color Mode Toggle
+
+- [Overview](#overview)
+- [Props](#props)
+- [Usage](#usage)
+- [Variants](#variants)
+
+## Overview
+
+Toggle to switch between the two palette modes: ` light` (the default) and `dark`.
+
+<Canvas>
+  <Story name="Overview" args={{}}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Overview" />
+
+## Usage
+
+Import and use the `ColorModeToggle` component in your components as follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`
+import ColorModeToggle from '@oxygen/react/ColorModeToggle';\n
+function Demo() {
+  return <ColorModeToggle />;
+}`}
+/>
+
+## Variants
+
+### Basic
+
+Basic color mode toggle variant.
+
+<Canvas>
+  <Story name="Basic" args={{}}>
+    {Template.bind({})}
+  </Story>
+</Canvas>

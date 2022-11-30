@@ -1,7 +1,7 @@
 {
-  "name": "@oxygen-examples/choreo-brand-identity",
+  "name": "@oxygen-examples/multi-brand-identity",
   "version": "0.1.0",
-  "description": "WSO2 Choreo flavored sample app to showcase Oxygen Design System capabilities.",
+  "description": "Sample app to showcase Oxygen Design System multi-branding capabilities.",
   "author": "WSO2",
   "license": "Apache-2.0",
   "bugs": {
@@ -10,12 +10,12 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/wso2/oxygen",
-    "directory": "examples/choreo-brand-identity"
+    "directory": "examples/multi-brand-identity"
   },
   "homepage": "https://design.wso2.com/examples",
   "keywords": [
     "oxygen-samples",
-    "choreo",
+    "multi-brand",
     "branding"
   ],
   "scripts": {

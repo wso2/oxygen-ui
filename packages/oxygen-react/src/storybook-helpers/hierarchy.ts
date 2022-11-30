@@ -29,15 +29,17 @@ enum StorybookCategories {
   Overlays = 'Overlays',
   Patterns = 'Patterns',
   Primitives = 'Primitives',
+  Theme = 'Theme',
   Typography = 'Typography',
 }
 
 const StorybookHierarchy: Record<string, string> = Object.freeze({
   Button: `${StorybookCategories.Buttons}/Button`,
+  ColorModeToggle: `${StorybookCategories.Theme}/Color Mode Toggle`,
   Grid: `${StorybookCategories.Layout}/Grid`,
   Link: `${StorybookCategories.Navigation}/Link`,
-  SignIn: `${StorybookCategories.Patterns}/SignIn`,
-  TextField: `${StorybookCategories.Inputs}/TextField`,
+  SignIn: `${StorybookCategories.Patterns}/Sign In`,
+  TextField: `${StorybookCategories.Inputs}/Text Field`,
   Welcome: 'Welcome',
 });
 
