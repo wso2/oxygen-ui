@@ -94,11 +94,11 @@
         "type": "color"
       },
       "_hue": {
-        "value": "7",
+        "value": "11",
         "type": "color"
       },
       "_sat": {
-        "value": "99%",
+        "value": "100%",
         "type": "color"
       }
     },
@@ -324,7 +324,7 @@
         "type": "color"
       },
       "_hue": {
-        "value": "29",
+        "value": "40",
         "type": "color"
       },
       "_sat": {
