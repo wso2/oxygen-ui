@@ -26,8 +26,8 @@ const pathToPascalCase = (token) => token.path.map((tokenPathItems) => capitaliz
 
 StyleDictionary.registerTransform({
   name: 'name/js/es6',
-  type: 'name',
   transformer: pathToPascalCase,
+  type: 'name',
 });
 
 const styleDictionary = StyleDictionary.extend(Config);
