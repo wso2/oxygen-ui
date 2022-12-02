@@ -30,7 +30,7 @@ const SignIn: FC<SignInProps> & MuiWrapperProps = (props: SignInProps): ReactEle
     <Box className={classes} {...rest}>
       <Box className="oxygen-sign-in-logo" component="img" src={logoUrl} />
       <Paper className="oxygen-sign-in-box" elevation={0} variant="outlined">
-        <Typography className="oxygen-sign-in-header" component="h1" variant="h6">
+        <Typography className="oxygen-sign-in-header" variant="h5">
           Sign in
         </Typography>
         <Box className="oxygen-sign-in-form" component="form" onSubmit={() => null} noValidate sx={{mt: 1}}>

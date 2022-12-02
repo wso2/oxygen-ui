@@ -51,15 +51,6 @@ addParameters({
     expanded: true,
     sort: 'requiredFirst',
   },
-  backgrounds: {
-    default: 'dark',
-    values: [
-      {
-        name: 'dark',
-        value: '#1e1e1e',
-      },
-    ],
-  },
   docs: {
     inlineStories: true,
     container: (props: PropsWithChildren<DocsContainerProps>): any => {
@@ -68,7 +59,7 @@ addParameters({
       return <DocsContainer context={context}>{children}</DocsContainer>;
     },
     page: DocsPage,
-    theme: themes.dark,
+    theme: themes.light,
   },
   viewMode: 'docs',
   previewTabs: {
@@ -79,7 +70,18 @@ addParameters({
   },
   options: {
     storySort: {
-      order: ['Introduction', 'Inputs', '*', 'Accessibility', 'Hooks'],
+      order: [
+        'Introduction',
+        'Foundations',
+        'Inputs',
+        'Buttons',
+        'Navigation',
+        'Data Display',
+        'Layout',
+        'Patters',
+        'Theme',
+        '*',
+      ],
     },
   },
 });

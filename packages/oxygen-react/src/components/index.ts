@@ -7,6 +7,9 @@
 export {default as Button} from './Button';
 export * from './Button';
 
+export {default as ColorModeToggle} from './ColorModeToggle';
+export * from './ColorModeToggle';
+
 export {default as Grid} from './Grid';
 export * from './Grid';
 
@@ -18,3 +21,6 @@ export * from './SignIn';
 
 export {default as TextField} from './TextField';
 export * from './TextField';
+
+export {default as Tooltip} from './Tooltip';
+export * from './Tooltip';

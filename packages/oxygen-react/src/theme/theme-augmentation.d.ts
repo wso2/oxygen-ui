@@ -1,13 +1,11 @@
-declare module '@mui/material/Button' {
-  interface ButtonPropsVariantOverrides {
+import type {} from '@mui/material/themeCssVarsAugmentation';
+
+declare module '@mui/material/style' {
+  interface SupportedColorScheme {
     /**
      * Provides extra visual weight to identify the primary action from a set of buttons.
      */
-    primary: true;
-    /**
-     * Any actions that are less important.
-     */
-    secondary: true;
+    highContrast: true;
   }
 }
 

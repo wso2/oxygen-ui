@@ -1,6 +1,6 @@
 import React, {FC, ReactElement} from 'react';
 import clsx from 'clsx';
-import MuiButton, {ButtonProps as MuiButtonProps} from '@mui/material/Button';
+import MuiButton, {LoadingButtonProps as MuiButtonProps} from '@mui/lab/LoadingButton';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import '@oxygen/styles/dist/sass/button/index.scss';
@@ -8,6 +8,19 @@ import '@oxygen/styles/dist/sass/button/index.scss';
 export interface ButtonProps extends MuiButtonProps {}
 
 const COMPONENT_NAME: string = 'Button';
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsVariantOverrides {
+    /**
+     * Provides extra visual weight to identify the primary action from a set of buttons.
+     */
+    primary: true;
+    /**
+     * Any actions that are less important.
+     */
+    secondary: true;
+  }
+}
 
 const Button: FC<ButtonProps> & WithWrapperProps = (props: ButtonProps): ReactElement => {
   const {className, ...rest} = props;
