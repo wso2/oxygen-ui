@@ -55,12 +55,14 @@ export default function Home() {
             </h2>
             <code>@oxygen/primitives</code>
             <p className={spaceGrotesk.className}>
-              Low level foundation of Oxygen Design System.
+              Low level building blocks of Oxygen Design System.
             </p>
           </a>
           <a
-            href="/react"
+            href="https://oxygen-react.vercel.app/?path=/docs/welcome--page"
             className={styles.card}
+            target="_blank"
+            rel="noreferrer"
           >
             <h2>
               <Image
@@ -113,7 +115,7 @@ export default function Home() {
             </h2>
             <code>@oxygen/figma</code>
             <p className={spaceGrotesk.className}>
-              The core origin of Oxygen Design System in Figma
+              The origin of Oxygen Design System in Figma
             </p>
           </a>
         </div>
@@ -121,15 +123,17 @@ export default function Home() {
         <h2>Showcase</h2>
         <div className={styles.examples}>
           <a
-            href="/examples/multi-brand-identity"
+            href="https://oxygen-multi-brand-example.vercel.app"
             className={styles.card}
+            target="_blank"
+            rel="noreferrer"
           >
             <h2>
               Multi Brand Identity Example
             </h2>
             <code>@oxygen-examples/multi-brand-identity</code>
             <p className={spaceGrotesk.className}>
-              The core origin of Oxygen Design System in Figma
+              Sample app to showcase Oxygen Design System&apos; multi-branding capabilities
             </p>
           </a>
         </div>
