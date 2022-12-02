@@ -21,3 +21,6 @@ export * from './SignIn';
 
 export {default as TextField} from './TextField';
 export * from './TextField';
+
+export {default as Tooltip} from './Tooltip';
+export * from './Tooltip';
