@@ -5,14 +5,14 @@ export const defaultTheme = extendTheme({
     dark: {
       brand: {
         logo: {
-          main: '/assets/brands/oxygen/images/oxygen-logo.svg',
+          main: `${process.env.PUBLIC_URL}/assets/brands/oxygen/images/oxygen-logo.svg`,
         },
       },
     },
     light: {
       brand: {
         logo: {
-          main: '/assets/brands/oxygen/images/oxygen-logo-inverted.svg',
+          main: `${process.env.PUBLIC_URL}/assets/brands/oxygen/images/oxygen-logo-inverted.svg`,
         },
       },
     },

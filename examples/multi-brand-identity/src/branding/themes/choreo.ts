@@ -300,7 +300,7 @@ export const choreoTheme = extendTheme({
     light: {
       brand: {
         logo: {
-          main: '/assets/brands/choreo/images/choreo-logo.svg',
+          main: `${process.env.PUBLIC_URL}/assets/brands/choreo/images/choreo-logo.svg`,
         },
       },
       palette: {
@@ -342,7 +342,7 @@ export const choreoTheme = extendTheme({
     dark: {
       brand: {
         logo: {
-          main: '/assets/brands/choreo/images/choreo-logo-inverted.svg',
+          main: `${process.env.PUBLIC_URL}/assets/brands/choreo/images/choreo-logo-inverted.svg`,
         },
       },
       palette: {

@@ -5,28 +5,28 @@ const BRANDS = [
   {
     name: 'Oxygen',
     switcher: {
-      logo: '/assets/brands/oxygen/images/oxygen-mini-logo.svg',
+      logo: `${process.env.PUBLIC_URL}/assets/brands/oxygen/images/oxygen-mini-logo.svg`,
       tooltip: 'Oxygen (Default',
     },
   },
   {
     name: 'Asgardeo',
     switcher: {
-      logo: '/assets/brands/asgardeo/images/asgardeo-mini-logo.svg',
+      logo: `${process.env.PUBLIC_URL}/assets/brands/asgardeo/images/asgardeo-mini-logo.svg`,
       tooltip: 'Asgardeo',
     },
   },
   {
     name: 'Choreo',
     switcher: {
-      logo: '/assets/brands/choreo/images/choreo-mini-logo.svg',
+      logo: `${process.env.PUBLIC_URL}/assets/brands/choreo/images/choreo-mini-logo.svg`,
       tooltip: 'Choreo',
     },
   },
   {
     name: 'WSO2',
     switcher: {
-      logo: '/assets/brands/wso2/images/wso2-mini-logo.svg',
+      logo: `${process.env.PUBLIC_URL}/assets/brands/wso2/images/wso2-mini-logo.svg`,
       tooltip: 'WSO2',
     },
   },
