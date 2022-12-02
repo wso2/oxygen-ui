@@ -1,4 +1,4 @@
-.asgardeo-storybook-welcome-header {
+.storybook-welcome-header {
     border-radius: 10px;
     position: relative;
     width: 100%;
@@ -12,9 +12,9 @@
     background-image: url("../../../static/assets/images/welcome-banner.png");
     margin-bottom: 2em;
 
-    &__text {
+    .storybook-welcome-header-text {
         color: #fff;
-        font-family: "Montserrat";
+        font-family: Inter, sans-serif;
         font-size: 40px;
         line-height: 48px;
         font-weight: 600;
@@ -26,7 +26,7 @@
         align-content: center;
     }
 
-    &__sub-text {
+    .storybook-welcome-header-sub-text {
       color: #dbdbdb;
       width: max-content;
       font-size: 0.4em;
@@ -35,7 +35,7 @@
       padding-right: 1em;
     }
 
-    &_image {
+    .storybook-welcome-header-image {
         right: 0;
         position: absolute;
     }
