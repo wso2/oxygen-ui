@@ -3,22 +3,15 @@
 We would love for you to contribute to Oxygen and help make it even better than it is today!
 As a contributor, here are the guidelines we would like you to follow:
 
- - [Code of Conduct](#coc)
- - [Question or Problem?](#question)
- - [Issues and Bugs](#issue)
- - [Feature Requests](#feature)
- - [Submission Guidelines](#submit)
- - [Coding Rules](#rules)
- - [Commit Message Guidelines](#commit)
- - [Signing the CLA](#cla)
+ - [Setup The Project](#setup-the-project)
+ - [Commit Message Guidelines](#commit-message-guidelines)
 
-To ensure consistency throughout the source code, keep these rules in mind as you are working:
+## Setup The Project
 
-* All features or bug fixes **must be tested** by one or more specs (unit-tests).
-* All public API methods **must be documented**.
-* Checked in code is free of any code smells or formatting errors.
 
-## <a name="commit"></a> Commit Message Format
+
+
+## Commit Message Guidelines
 
 *This specification is inspired by and supersedes the [AngularJS commit message format][commit-message-format].*
 
@@ -26,7 +19,6 @@ We have very precise rules over how our Git commit messages must be formatted.
 This format leads to **easier to read commit history**.
 
 Each commit message consists of a **header**, a **body**, and a **footer**.
-
 
 ```
 <header>
@@ -78,9 +70,10 @@ The scope should be the name of the npm package affected (as perceived by the pe
 
 The following is the list of supported scopes:
 
-* `primitives`
-* `scss`
-* `react`
+* `examples` - Changes to any of the `examples`.
+* `primitives` - Changes to the `@oxygen/primitives` package.
+* `styles` - Changes to the `@oxygen/styles` package.
+* `react` - Changes to the `@oxygen/react` package.
 
 There are currently a few exceptions to the "use package name" rule:
 
@@ -88,13 +81,11 @@ There are currently a few exceptions to the "use package name" rule:
 
 * `changelog`: used for updating the release notes in CHANGELOG.md
 
-* `dev-infra`: used for dev-infra related changes within the directories /scripts and /tools
+* `dev-infra`: used for dev-infra related changes within the directories like /scripts.
 
-* `docs-infra`: used for docs-app (angular.io) related changes within the /aio directory of the repo
+* `docs-infra`: used for docs page changes. (`<ROOT>/docs`)
 
-* `migrations`: used for changes to the `ng update` migrations.
-
-* none/empty string: useful for `test` and `refactor` changes that are done across all packages (e.g. `test: add missing unit tests`) and for docs changes that are not related to a specific package (e.g. `docs: fix typo in tutorial`).
+* none/empty string: useful for `test` and `refactor` changes that are done across all packages (e.g. `test: add missing unit tests`) and for docs changes that are not related to a specific package (e.g. `docs: fix typo in example`).
 
 
 ##### Summary
@@ -152,16 +143,3 @@ The content of the commit message body should contain:
 
 - information about the SHA of the commit being reverted in the following format: `This reverts commit <SHA>`,
 - a clear description of the reason for reverting the commit message.
-
-
-## <a name="cla"></a> Signing the CLA
-
-Please sign our Contributor License Agreement (CLA) before sending pull requests. For any code
-changes to be accepted, the CLA must be signed. It's a quick process, we promise!
-
-* Sign here -> [CLA form](https://cla-assistant.io/wso2/oxygen).
-
-If you have more than one GitHub accounts, or multiple email addresses associated with a single GitHub account, you must sign the CLA using the primary email address of the GitHub account used to author Git commits and send pull requests.
-
-
-[commit-message-format]: https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#
