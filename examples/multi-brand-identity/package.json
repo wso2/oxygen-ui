@@ -12,7 +12,6 @@
     "url": "https://github.com/wso2/oxygen",
     "directory": "examples/multi-brand-identity"
   },
-  "homepage": "https://design.wso2.com/examples",
   "keywords": [
     "oxygen-samples",
     "multi-brand",
@@ -25,6 +24,8 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@fontsource/inter": "^4.5.14",
+    "@fontsource/montserrat": "^4.5.13",
     "@oxygen/react": "*",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

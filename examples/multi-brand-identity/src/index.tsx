@@ -1,34 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import {ThemeProvider, extendTheme} from '@oxygen/react';
-import App from './App';
+import App from './app';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-const theme = extendTheme({
-  colorSchemes: {
-    light: {
-      palette: {
-        brand: {
-          primary: 'green',
-          secondary: 'red',
-        },
-      },
-    },
-  },
-  cssVarPrefix: 'tee',
-  shape: {
-    borderRadius: 8,
-  },
-});
-
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <App />
   </React.StrictMode>,
 );
 
