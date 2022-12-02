@@ -37,7 +37,12 @@ const ThemeProvider = (props: PropsWithChildren<ThemeProviderProps>): ReactEleme
   const {children, theme, ...rest} = props;
   return (
     <StyledEngineProvider injectFirst>
-      <CssVarsProvider theme={theme ?? defaultTheme} {...rest}>
+      <CssVarsProvider
+        modeStorageKey="oxygen-mode"
+        colorSchemeStorageKey="oxygen-color-scheme"
+        theme={theme ?? defaultTheme}
+        {...rest}
+      >
         <CssBaseline />
         {children}
       </CssVarsProvider>

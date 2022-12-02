@@ -52,7 +52,7 @@ const defaultTheme: Theme = extendTheme({
     button: {
       textTransform: 'none',
     },
-    fontFamily: ['Montserrat', 'sans-serif'].join(','),
+    fontFamily: ['Inter', 'sans-serif'].join(','),
   },
 });
 
