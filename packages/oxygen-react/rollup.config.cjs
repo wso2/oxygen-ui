@@ -11,6 +11,7 @@ const pkg = require('./package.json');
 
 module.exports = [
   {
+    cache: false,
     input: 'src/index.ts',
     output: [
       {
@@ -35,6 +36,7 @@ module.exports = [
     ],
   },
   {
+    cache: false,
     external: [/\.css$/],
     input: 'dist/esm/types/index.d.ts',
     output: [{file: 'dist/index.d.ts', format: 'esm'}],
