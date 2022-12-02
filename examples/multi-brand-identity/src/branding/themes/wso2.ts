@@ -5,7 +5,7 @@ export const wso2Theme = extendTheme({
     dark: {
       brand: {
         logo: {
-          main: '/assets/brands/wso2/images/wso2-logo-inverted.svg',
+          main: `${process.env.PUBLIC_URL}/assets/brands/wso2/images/wso2-logo-inverted.svg`,
         },
       },
       palette: {
@@ -17,7 +17,7 @@ export const wso2Theme = extendTheme({
     light: {
       brand: {
         logo: {
-          main: '/assets/brands/wso2/images/wso2-logo.svg',
+          main: `${process.env.PUBLIC_URL}/assets/brands/wso2/images/wso2-logo.svg`,
         },
       },
       palette: {

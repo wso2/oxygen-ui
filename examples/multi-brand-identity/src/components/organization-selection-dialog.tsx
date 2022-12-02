@@ -96,7 +96,7 @@ export const OrganizationSelectionDialog: FC<OrganizationSelectionDialogProps> =
       <DialogTitle className="organization-selection-dialog-title">
         <img
           className="provider-logo"
-          src="/assets/brands/asgardeo/images/asgardeo-mini-logo.svg"
+          src={`${process.env.PUBLIC_URL}/assets/brands/asgardeo/images/asgardeo-mini-logo.svg`}
           alt="asgardeo-logo"
         />
         Connect with Asgardeo Branding

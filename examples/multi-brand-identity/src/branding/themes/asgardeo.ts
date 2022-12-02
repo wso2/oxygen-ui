@@ -5,7 +5,7 @@ export const asgardeoTheme = extendTheme({
     dark: {
       brand: {
         logo: {
-          main: '/assets/brands/asgardeo/images/asgardeo-logo-inverted.svg',
+          main: `${process.env.PUBLIC_URL}/assets/brands/asgardeo/images/asgardeo-logo-inverted.svg`,
         },
       },
       palette: {
@@ -17,7 +17,7 @@ export const asgardeoTheme = extendTheme({
     light: {
       brand: {
         logo: {
-          main: '/assets/brands/asgardeo/images/asgardeo-logo.svg',
+          main: `${process.env.PUBLIC_URL}/assets/brands/asgardeo/images/asgardeo-logo.svg`,
         },
       },
       palette: {
