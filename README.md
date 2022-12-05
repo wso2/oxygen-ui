@@ -10,6 +10,10 @@ powering <a href="https://wso2.com">WSO2</a>'s core products.</p>
   <a href="https://stackoverflow.com/questions/tagged/wso2is"><img src="https://img.shields.io/badge/Ask%20for%20help%20on-Stackoverflow-orange" alt="Stackoverflow"></a>
   <a href="https://discord.gg/wso2"><img src="https://img.shields.io/badge/Join%20us%20on-Discord-%23e01563.svg" alt="Discord"></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
+
+  <br>
+
+  🚧 This is still a conceptual project. Please do not use this in production 🚧
 </div>
 
 <br>
