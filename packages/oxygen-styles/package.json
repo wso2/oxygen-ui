@@ -1,7 +1,7 @@
 {
   "name": "@oxygen/styles",
   "version": "0.1.0",
-  "description": "Styling system of WSO2 Oxygen Design System",
+  "description": "Styling system of the Oxygen Design System",
   "author": "WSO2",
   "license": "Apache-2.0",
   "bugs": {
@@ -28,11 +28,14 @@
     "build:watch": "chokidar \"src/**/*.scss\" -c \"scripts/build.js\"",
     "stylelint": "stylelint --quiet --rd 'src/**/*.scss'",
     "stylelint:fix": "pnpm stylelint -- --fix",
-    "lint": "eslint deprecations.js script",
+    "lint": "eslint . --ext .js,.ts",
     "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest"
   },
   "devDependencies": {
     "@koddsson/postcss-sass": "5.0.1",
+    "@wso2/eslint-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-config?main",
+    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?main",
+    "@wso2/stylelint-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/stylelint-config?main",
     "autoprefixer": "10.4.12",
     "chokidar-cli": "3.0.0",
     "cssstats": "^4.0.5",

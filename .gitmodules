@@ -1,3 +1,0 @@
-[submodule "oxygen-configs"]
-	path = packages/oxygen-configs
-	url = https://github.com/brionmario/wso2-ui-configs.git

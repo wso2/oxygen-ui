@@ -1,7 +1,7 @@
 {
   "name": "@oxygen/react",
   "version": "0.1.0",
-  "description": "The React implementation of WSO2 Oxygen Design System",
+  "description": "The React implementation of the Oxygen Design System",
   "keywords": [
     "react",
     "react-library",
@@ -64,8 +64,8 @@
     "@types/jest": "^29.2.3",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
-    "@wso2/eslint-config": "file:/Users/brion/Desktop/wso2/portal-rearchitecture/poc/wso2-ui-configs/packages/eslint-config",
-    "@wso2/prettier-config": "file:/Users/brion/Desktop/wso2/portal-rearchitecture/poc/wso2-ui-configs/packages/prettier-config",
+    "@wso2/eslint-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-config?main",
+    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?main",
     "babel-loader": "^8.3.0",
     "eslint": "8.25.0",
     "eslint-plugin-mdx": "^2.0.5",
