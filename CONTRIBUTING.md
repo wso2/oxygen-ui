@@ -3,13 +3,112 @@
 We would love for you to contribute to Oxygen and help make it even better than it is today!
 As a contributor, here are the guidelines we would like you to follow:
 
- - [Setup The Project](#setup-the-project)
+ - [Setting Up Development Environment](#setting-up-development-environment)
  - [Commit Message Guidelines](#commit-message-guidelines)
 
-## Setup The Project
+## Setting Up Development Environment
+
+Follow this guide to set up the source code, development tools & other software.
+
+* [Mandatory Software & Tools](#mandatory-software-and-tools)
+* [Setting up Development Tools](#setting-up-development-tools)
+* [Setting up the Source Code](#setting-up-the-source-code)
+
+### Mandatory Software & Tools
+
+To build and write code, make sure you have the following set of tools on your local environment.
 
 
+#### [Git](https://git-scm.com/downloads)
 
+* Description 🗒️ : Open source distributed version control system.
+* Download Link 🔗 : [https://git-scm.com/downloads](https://git-scm.com/downloads)
+
+#### [NodeJS](https://nodejs.org/en/download/)
+
+* Description 🗒️ : JavaScript runtime.
+* Version: LTS (Latest Stable Version)
+
+    > **Warning**
+    > This project requires atleast NodeJS **v14.6.x** or above to work.
+* Download Link 🔗 : [https://nodejs.org/en/download](https://nodejs.org/en/download)
+
+#### [pnpm](https://pnpm.io)
+
+* Description 🗒️ : Fast, disk space efficient package manager.
+* Version: Latest (**v7.9.5** or higher)
+* Download Link 🔗 : [https://pnpm.io/installation](https://pnpm.io/installation)
+
+### Setting up Development Tools
+
+These developer tools will help you to have a better developer experience since they'll help with debugging code, etc.
+
+#### React Developer Tools
+
+* Type 🧰 : Browser Extension
+* Description 🗒️ : Browser DevTools extension for the open-source React JavaScript library. 
+* Download Links 🔗
+    * [Download for Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
+    * [Download for Firefox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/)
+
+#### ESLint
+
+* Type 🧰 : IDE Extension
+* Description 🗒️ : Static code analysis tool for JavaScript. 
+* Download Links 🔗
+    * [Download for Webstorm](https://www.jetbrains.com/help/webstorm/eslint.html)
+    * [Download for VS Code](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+
+#### ShellCheck
+
+* Type 🧰 : IDE Extension
+* Description 🗒️ : A shell script static analysis tool. Used by our static analyzer PR check. 
+* Download Links 🔗
+    * [ShellCheck Core](https://github.com/koalaman/shellcheck#installing)
+    * [Download for VS Code](https://github.com/vscode-shellcheck/vscode-shellcheck)
+
+#### NX Console
+
+* Type 🧰 : IDE Extension
+* Description 🗒️ : Wrapper around NX commands so you don't have to memorize. 
+* Download Links 🔗
+    * [Download for VS Code](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console)
+    * [Download for Web Storm](https://plugins.jetbrains.com/plugin/15000-nx-webstorm)
+
+### Setting up the Source Code
+
+#### Fork the repo
+
+1. [Fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) the repository.
+2. Clone your fork to the local machine.
+
+Replace `<github username>` with your own username.
+
+```shell
+git clone https://github.com/<github username>/oxygen.git
+```
+
+3. Set the original repo as the upstream remote.
+
+```shell
+git remote add upstream https://github.com/wso2/oxygen.git
+```
+
+#### Install the dependencies
+
+From the root of the project, execute the following command to install the project dependencies with `pnpm`.
+
+```shell
+pnpm install
+```
+
+#### Build the project
+
+From the root of the project, execute the following command to build the project.
+
+```shell
+pnpm build
+```
 
 ## Commit Message Guidelines
 

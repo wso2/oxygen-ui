@@ -14,17 +14,5 @@
         ]
       }
     }
-  },
-  "targetDefaults": {
-    "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
-    },
-    "lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.js"]
-    },
-    "test": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.config.js"]
-    }
   }
 }

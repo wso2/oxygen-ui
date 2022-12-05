@@ -1,7 +1,7 @@
 module.exports = {
   platforms: {
-    buildPath: 'dist/css/',
     css: {
+      buildPath: 'dist/css/',
       files: [{
         destination: 'variables.css',
         format: 'css/variables',
@@ -18,7 +18,7 @@ module.exports = {
       // map the array of token file paths to style dictionary output files
       files: [{
         format: 'javascript/es6',
-        destination: 'var.js'
+        destination: 'var.js',
       }],
     },
     scss: {

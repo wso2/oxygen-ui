@@ -1,7 +1,7 @@
 {
   "name": "@oxygen/primitives",
   "version": "0.1.0",
-  "description": "Low level foundation of WSO2 Oxygen Design System.",
+  "description": "Low level building blocks of the Oxygen Design System",
   "author": "WSO2",
   "license": "Apache-2.0",
   "bugs": {
@@ -21,12 +21,14 @@
     "design-system"
   ],
   "scripts": {
-    "build": "node -e \"require('./scripts/build')._init()\"",
+    "build": "node ./scripts/build.js",
     "lint": "eslint .",
     "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest"
   },
   "devDependencies": {
     "@babel/parser": "^7.20.5",
+    "@wso2/eslint-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-config?main",
+    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?main",
     "eslint": "8.25.0",
     "jest": "29.0.3",
     "prettier": "^2.8.0",
