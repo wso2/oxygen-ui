@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['@wso2/eslint-config'],
+  extends: ['plugin:@wso2/javascript', 'plugin:@wso2/internal', 'plugin:@wso2/jest'],
   parserOptions: {
     project: './tsconfig.json',
   },
