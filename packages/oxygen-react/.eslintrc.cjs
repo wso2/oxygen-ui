@@ -20,7 +20,15 @@ const path = require('path');
 
 module.exports = {
   plugins: ['@wso2'],
-  extends: ['plugin:@wso2/typescript', 'plugin:@wso2/react', 'plugin:@wso2/strict', 'plugin:@wso2/internal', 'plugin:@wso2/jest', 'plugin:mdx/recommended'],
+  extends: [
+    'plugin:@wso2/typescript',
+    'plugin:@wso2/react',
+    'plugin:@wso2/strict',
+    'plugin:@wso2/internal',
+    'plugin:@wso2/jest',
+    'plugin:@wso2/prettier',
+    'plugin:mdx/recommended',
+  ],
   parserOptions: {
     project: [
       path.resolve(__dirname, 'tsconfig.lib.json'),
@@ -32,6 +40,9 @@ module.exports = {
     {
       files: '*.mdx',
       parser: 'eslint-mdx',
+      rules: {
+        'header/header': 'off',
+      },
     },
   ],
 };

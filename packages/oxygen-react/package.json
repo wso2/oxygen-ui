@@ -28,7 +28,7 @@
   "scripts": {
     "build": "rollup -c",
     "build-storybook": "build-storybook --no-manager-cache",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --resolve-plugins-relative-to .",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "storybook": "start-storybook -p 6006"
   },
   "dependencies": {
