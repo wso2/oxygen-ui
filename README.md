@@ -24,8 +24,8 @@ This repository contains the source code of the key components that works togeth
 
 ## Packages
 
-- [`@oxygen/primitives`](./packages/oxygen-primitives) - Low level building blocks of the Oxygen Design System
-- [`@oxygen/react`](./packages/oxygen-react) - The React implementation of the Oxygen Design System
+- [`@oxygen-ui/primitives`](./packages/oxygen-primitives) - Low level building blocks of the Oxygen Design System
+- [`@oxygen-ui/react`](./packages/oxygen-react) - The React implementation of the Oxygen Design System
 
 ## Examples
 

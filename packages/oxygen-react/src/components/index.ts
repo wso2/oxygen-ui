@@ -1,8 +1,20 @@
-// Named exports enable users to import the modules
-// like `import { Button } from '@oxygen/react';`
-// other than `import Button from '@oxygen/react/Button';`
-// TODO: Need to add a module `package.json` for the above `@oxygen/react/Button` syntax to work.
-// https://github.com/mui/material-ui/blob/master/scripts/copyFiles.mjs#L28
+/**
+ * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 
 export {default as Button} from './Button';
 export * from './Button';

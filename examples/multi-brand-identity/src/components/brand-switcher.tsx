@@ -1,5 +1,5 @@
 import React, {useState, MouseEvent} from 'react';
-import {ToggleButtonGroup, ToggleButton, Paper, Tooltip} from '@oxygen/react';
+import {ToggleButtonGroup, ToggleButton, Paper, Tooltip} from '@oxygen-ui/react';
 
 const BRANDS = [
   {

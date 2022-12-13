@@ -53,7 +53,7 @@ export default function Home() {
               />
               Primitives
             </h2>
-            <code>@oxygen/primitives</code>
+            <code>@oxygen-ui/primitives</code>
             <p className={spaceGrotesk.className}>
               Low level building blocks of Oxygen Design System.
             </p>
@@ -73,7 +73,7 @@ export default function Home() {
               />
               React Components
             </h2>
-            <code>@oxygen/react</code>
+            <code>@oxygen-ui/react</code>
             <p className={spaceGrotesk.className}>
               The React implementation of Oxygen Design System.
             </p>
@@ -94,7 +94,7 @@ export default function Home() {
               />
               Figma
             </h2>
-            <code>@oxygen/figma</code>
+            <code>@oxygen-ui/figma</code>
             <p className={spaceGrotesk.className}>
               The origin of Oxygen Design System in Figma
             </p>

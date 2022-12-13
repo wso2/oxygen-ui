@@ -1,5 +1,5 @@
 {
-  "name": "@oxygen/react",
+  "name": "@oxygen-ui/react",
   "version": "0.1.0",
   "description": "The React implementation of the Oxygen Design System",
   "keywords": [

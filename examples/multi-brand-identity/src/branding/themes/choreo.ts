@@ -1,5 +1,5 @@
 /* eslint-disable sort-keys */
-import {extendTheme} from '@oxygen/react';
+import {extendTheme} from '@oxygen-ui/react';
 
 export const choreoTheme = extendTheme({
   components: {

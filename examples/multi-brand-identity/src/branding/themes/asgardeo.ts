@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import {extendTheme} from '@oxygen/react';
+import {extendTheme} from '@oxygen-ui/react';
 
 export const asgardeoTheme = extendTheme({
   colorSchemes: {

@@ -1,4 +1,4 @@
-import {Grid, SignIn, useTheme, useColorScheme} from '@oxygen/react';
+import {Grid, SignIn, useTheme, useColorScheme} from '@oxygen-ui/react';
 import React, {ReactElement} from 'react';
 
 const LoginPage = (): ReactElement => {

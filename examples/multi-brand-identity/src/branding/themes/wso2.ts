@@ -1,4 +1,4 @@
-import {extendTheme} from '@oxygen/react';
+import {extendTheme} from '@oxygen-ui/react';
 
 export const wso2Theme = extendTheme({
   colorSchemes: {

@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@oxygen/workspace",
+  "name": "@oxygen-ui/workspace",
   "version": "0.1.0",
   "description": "WSO2 Design System",
   "author": "WSO2",

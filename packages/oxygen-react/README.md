@@ -1,5 +1,5 @@
 <p align="center" style="color: #343a40">
-  <h1 align="center">@oxygen/react</h1>
+  <h1 align="center">@oxygen-ui/react</h1>
 </p>
 <p align="center" style="font-size: 1.2rem;">The React implementation of the Oxygen Design System.</p>
 
@@ -11,13 +11,13 @@
 
 ```bash
 # With npm
-npm install @oxygen/react
+npm install @oxygen-ui/react
 
 # With pnpm
-pnpm add @oxygen/react
+pnpm add @oxygen-ui/react
 
 # With yarn
-yarn add @oxygen/react
+yarn add @oxygen-ui/react
 ```
 
 ## Develop
