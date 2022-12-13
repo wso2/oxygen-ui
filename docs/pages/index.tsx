@@ -78,26 +78,7 @@ export default function Home() {
               The React implementation of Oxygen Design System.
             </p>
           </a>
-          <a
-            href="https://github.com/brionmario/oxygen/tree/main/packages/oxygen-styles"
-            className={styles.card}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <h2>
-              <Image
-                src="/assets/images/oxygen/styles-logo.svg"
-                alt="Styles Logo"
-                width={20}
-                height={20}
-              />
-              Styles
-            </h2>
-            <code>@oxygen/styles</code>
-            <p className={spaceGrotesk.className}>
-              SASS based styling system of Oxygen Design System
-            </p>
-          </a>
+
           <a
             href="https://www.figma.com/file/78epPbkczGFO5RM1sPyNtN/Oxygen?node-id=0%3A1&t=gsdIXRlJ1VChBa37-0"
             className={styles.card}

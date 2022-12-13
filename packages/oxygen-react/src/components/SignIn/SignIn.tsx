@@ -6,7 +6,6 @@ import TextField from '../TextField';
 import Button from '../Button';
 import {composeComponentDisplayName} from '../../utils';
 import {MuiWrapperProps} from '../../models';
-import '@oxygen/styles/dist/sass/sign-in/index.scss';
 
 export interface SignInProps extends BoxProps {
   /**

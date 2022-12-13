@@ -21,7 +21,7 @@ import clsx from 'clsx';
 import MuiButton, {LoadingButtonProps as MuiButtonProps} from '@mui/lab/LoadingButton';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
-import '@oxygen/styles/dist/sass/button/index.scss';
+
 
 export interface ButtonProps extends MuiButtonProps {}
 

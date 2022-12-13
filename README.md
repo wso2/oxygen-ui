@@ -1,6 +1,6 @@
 <p align="center" style="color: #343a40">
-  <img src="https://user-images.githubusercontent.com/25959096/205347271-e5655526-a279-4ee9-9f55-52bad04942ea.svg" alt="Emotion logo" height="150" width="150">
-  <h1 align="center">Oxygen</h1>
+  <img src="https://user-images.githubusercontent.com/25959096/207448982-bd1e5371-9062-4955-897c-7f2839b46c3c.svg" alt="WSO2 Oxygen UI logo" height="150" width="150">
+  <h1 align="center">Oxygen UI</h1>
 </p>
 <p align="center" style="font-size: 1.2rem;">The
 <span style="color: #47EBD8">Design System</span>
@@ -26,7 +26,6 @@ This repository contains the source code of the key components that works togeth
 
 - [`@oxygen/primitives`](./packages/oxygen-primitives) - Low level building blocks of the Oxygen Design System
 - [`@oxygen/react`](./packages/oxygen-react) - The React implementation of the Oxygen Design System
-- [`@oxygen/styles`](./packages/oxygen-styles) - SASS based styling system of the Oxygen Design System
 
 ## Examples
 

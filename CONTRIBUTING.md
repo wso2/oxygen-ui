@@ -171,7 +171,6 @@ The following is the list of supported scopes:
 
 * `examples` - Changes to any of the `examples`.
 * `primitives` - Changes to the `@oxygen/primitives` package.
-* `styles` - Changes to the `@oxygen/styles` package.
 * `react` - Changes to the `@oxygen/react` package.
 
 There are currently a few exceptions to the "use package name" rule:
