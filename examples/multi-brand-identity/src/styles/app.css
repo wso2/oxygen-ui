@@ -32,6 +32,9 @@ code {
 }
 
 .brand-switcher {
+  flex-wrap: wrap;
+  border: 1px solid var(--oxygen-palette-divider);
+  display: flex;
   border: 0;
 }
 

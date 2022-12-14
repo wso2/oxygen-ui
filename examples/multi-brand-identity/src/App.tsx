@@ -15,19 +15,20 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import {AppBar, ColorModeToggle, Toolbar, ThemeProvider, IconButton} from '@oxygen-ui/react';
+
+import {AppBar, ColorModeToggle, Toolbar, ThemeProvider, IconButton, Theme} from '@oxygen-ui/react';
 import React, {ReactElement, useReducer, useState} from 'react';
 import {BrandingActions, brandingReducer, defaultTheme} from './branding';
 import {BrandSwitcher, BuildingIcon, OrganizationSelectionDialog} from './components';
-import LoginPage from './pages/login-page';
+import {LoginPage} from './pages';
 
 const App = (): ReactElement => {
   const [theme, dispatch] = useReducer(brandingReducer, defaultTheme as never);
 
   const [isOrganizationSelectionOpen, setIsOrganizationSelectionOpen] = useState<boolean>(false);
-  const [selectedOrganization, setSelectedOrganization] = useState<string>('');
+  const [selectedOrganization, setSelectedOrganization] = useState<string | undefined>('');
 
-  const handleBrandChange = (brand: string) => {
+  const handleBrandChange = (brand: string): void => {
     dispatch({
       brand,
       type: BrandingActions.ChangeTheme,
@@ -42,7 +43,7 @@ const App = (): ReactElement => {
             <IconButton
               sx={{height: 40, width: 40}}
               color="inherit"
-              onClick={() => {
+              onClick={(): void => {
                 if (!isOrganizationSelectionOpen) {
                   setIsOrganizationSelectionOpen(true);
                 }
@@ -59,8 +60,8 @@ const App = (): ReactElement => {
       <LoginPage />
       <OrganizationSelectionDialog
         open={isOrganizationSelectionOpen}
-        onClose={() => setIsOrganizationSelectionOpen(false)}
-        onOrganizationConnect={(payload: any) => {
+        onClose={(): void => setIsOrganizationSelectionOpen(false)}
+        onOrganizationConnect={(payload: {brand: string | undefined; theme: Theme; type: BrandingActions}): void => {
           setSelectedOrganization(payload.brand);
           dispatch(payload);
         }}

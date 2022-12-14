@@ -1,5 +1,5 @@
 {
-  "name": "@oxygen-examples/multi-brand-identity",
+  "name": "@oxygen-ui-examples/multi-brand-identity",
   "version": "0.1.0",
   "description": "Sample app to showcase Oxygen Design System multi-branding capabilities.",
   "author": "WSO2",
@@ -20,6 +20,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -41,8 +42,8 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?469be034ae32b987e4a187d88cf086f27a96678c",
-    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?469be034ae32b987e4a187d88cf086f27a96678c",
+    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?f3bfe50d1be35763beeeb2d5f8116cf0f37954ea",
+    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?f3bfe50d1be35763beeeb2d5f8116cf0f37954ea",
     "eslint": "8.25.0",
     "prettier": "^2.8.0"
   },

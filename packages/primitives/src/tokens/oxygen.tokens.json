@@ -816,7 +816,7 @@
     }
   },
   "logo": {
-    "value": "https://raw.githubusercontent.com/brionmario/oxygen/main/examples/multi-brand-identity/public/assets/brands/oxygen/images/oxygen-logo-inverted.svg",
+    "value": "https://raw.githubusercontent.com/brionmario/oxygen-ui/main/examples/multi-brand-identity/public/assets/brands/oxygen/images/oxygen-logo-inverted.svg",
     "type": "asset"
   },
   "dropShadow": {

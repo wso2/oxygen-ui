@@ -15,6 +15,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 import {
   Button,
   Dialog,
@@ -53,14 +54,14 @@ export const OrganizationSelectionDialog: FC<OrganizationSelectionDialogProps> =
     fetch(
       `https://api.asgardeo.io/t/${connectedOrganization}/api/server/v1/branding-preference?locale=en-US&name=${connectedOrganization}&type=ORG`,
     )
-      .then(response => response.json())
-      .then(response => {
+      .then((response: Response) => response.json())
+      .then((response: Record<string, any>) => {
         // document.documentElement.style.setProperty(
         //   '--oxygen-palette-primary-main',
         //   response?.preference?.theme?.LIGHT?.colors?.primary,
         // );
 
-        const theme = extendTheme({
+        const theme: Theme = extendTheme({
           colorSchemes: {
             dark: {
               brand: {

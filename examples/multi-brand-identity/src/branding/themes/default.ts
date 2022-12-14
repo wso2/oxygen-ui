@@ -1,18 +1,46 @@
-import {extendTheme} from '@oxygen-ui/react';
+/**
+ * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 
-export const defaultTheme = extendTheme({
+import {extendTheme, Theme} from '@oxygen-ui/react';
+
+export const defaultTheme: Theme = extendTheme({
   colorSchemes: {
     dark: {
       brand: {
         logo: {
-          main: `${process.env.PUBLIC_URL}/assets/brands/oxygen/images/oxygen-logo.svg`,
+          main: `${process.env.PUBLIC_URL}/assets/brands/wso2/images/wso2-logo-inverted.svg`,
+        },
+      },
+      palette: {
+        primary: {
+          main: '#ff5000',
         },
       },
     },
     light: {
       brand: {
         logo: {
-          main: `${process.env.PUBLIC_URL}/assets/brands/oxygen/images/oxygen-logo-inverted.svg`,
+          main: `${process.env.PUBLIC_URL}/assets/brands/wso2/images/wso2-logo.svg`,
+        },
+      },
+      palette: {
+        primary: {
+          main: '#ff5000',
         },
       },
     },
@@ -148,5 +176,15 @@ export const defaultTheme = extendTheme({
         }
       `,
     },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        input: {
+          padding: '0.67857143em 1em',
+        },
+      },
+    },
+  },
+  shape: {
+    borderRadius: 4,
   },
 });
