@@ -1,12 +1,38 @@
-import React, {useState, MouseEvent} from 'react';
-import {ToggleButtonGroup, ToggleButton, Paper, Tooltip} from '@oxygen/react';
+/**
+ * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 
-const BRANDS = [
+import React, {useState, MouseEvent, ReactElement} from 'react';
+import {ToggleButtonGroup, ToggleButton, Paper, Tooltip} from '@oxygen-ui/react';
+
+interface Brand {
+  name: string;
+  switcher: {
+    logo: string;
+    tooltip: string;
+  };
+}
+
+const BRANDS: Brand[] = [
   {
-    name: 'Oxygen',
+    name: 'WSO2',
     switcher: {
-      logo: `${process.env.PUBLIC_URL}/assets/brands/oxygen/images/oxygen-mini-logo.svg`,
-      tooltip: 'Oxygen (Default',
+      logo: `${process.env.PUBLIC_URL}/assets/brands/wso2/images/wso2-mini-logo.svg`,
+      tooltip: 'WSO2 (Default Oxygen Brand)',
     },
   },
   {
@@ -23,25 +49,18 @@ const BRANDS = [
       tooltip: 'Choreo',
     },
   },
-  {
-    name: 'WSO2',
-    switcher: {
-      logo: `${process.env.PUBLIC_URL}/assets/brands/wso2/images/wso2-mini-logo.svg`,
-      tooltip: 'WSO2',
-    },
-  },
 ];
 
 export interface BrandSwitcherProps {
   onBrandChange?: (brand: string) => void;
 }
 
-export const BrandSwitcher = (props: BrandSwitcherProps) => {
+export const BrandSwitcher = (props: BrandSwitcherProps): ReactElement => {
   const {onBrandChange} = props;
 
   const [activeBrand, setActiveBrand] = useState<string>(BRANDS[0].name);
 
-  const handleBrandChange = (event: MouseEvent<HTMLElement>, brand: string) => {
+  const handleBrandChange = (event: MouseEvent<HTMLElement>, brand: string): void => {
     if (!brand) {
       return;
     }
@@ -54,15 +73,7 @@ export const BrandSwitcher = (props: BrandSwitcherProps) => {
   };
 
   return (
-    <Paper
-      className="brand-switcher"
-      elevation={0}
-      sx={{
-        border: theme => `1px solid ${theme.palette.divider}`,
-        display: 'flex',
-        flexWrap: 'wrap',
-      }}
-    >
+    <Paper className="brand-switcher" elevation={0}>
       <ToggleButtonGroup
         exclusive
         className="brand-switcher-group"
@@ -70,7 +81,7 @@ export const BrandSwitcher = (props: BrandSwitcherProps) => {
         size="small"
         onChange={handleBrandChange}
       >
-        {BRANDS.map(brand => (
+        {BRANDS.map((brand: Brand) => (
           <ToggleButton
             key={brand.name}
             className={`brand-switcher-switch ${brand.name.toLowerCase()}`}

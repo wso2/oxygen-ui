@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import {extendTheme} from '@oxygen/react';
+import {extendTheme, Theme} from '@oxygen-ui/react';
 
-export const asgardeoTheme = extendTheme({
+export const asgardeoTheme: Theme = extendTheme({
   colorSchemes: {
     dark: {
       brand: {
@@ -43,7 +43,7 @@ export const asgardeoTheme = extendTheme({
           main: '#ff7300',
         },
       },
-    }
+    },
   },
   components: {
     MuiCssBaseline: {

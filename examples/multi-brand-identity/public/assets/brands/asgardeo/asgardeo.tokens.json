@@ -816,7 +816,7 @@
     }
   },
   "logo": {
-    "value": "https://raw.githubusercontent.com/brionmario/oxygen/0b66e7a/examples/multi-brand-identity/public/assets/brands/asgardeo/images/asgardeo-logo.svg",
+    "value": "https://raw.githubusercontent.com/brionmario/oxygen-ui/0b66e7a/examples/multi-brand-identity/public/assets/brands/asgardeo/images/asgardeo-logo.svg",
     "type": "asset"
   },
   "dropShadow": {

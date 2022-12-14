@@ -1,3 +1,21 @@
+/**
+ * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
 import {
   Button,
   Dialog,
@@ -8,7 +26,7 @@ import {
   TextField,
   extendTheme,
   Theme,
-} from '@oxygen/react';
+} from '@oxygen-ui/react';
 import React, {ChangeEvent, FC, ReactElement, useState} from 'react';
 import {BrandingActions} from '../branding';
 
@@ -36,14 +54,14 @@ export const OrganizationSelectionDialog: FC<OrganizationSelectionDialogProps> =
     fetch(
       `https://api.asgardeo.io/t/${connectedOrganization}/api/server/v1/branding-preference?locale=en-US&name=${connectedOrganization}&type=ORG`,
     )
-      .then(response => response.json())
-      .then(response => {
+      .then((response: Response) => response.json())
+      .then((response: Record<string, any>) => {
         // document.documentElement.style.setProperty(
         //   '--oxygen-palette-primary-main',
         //   response?.preference?.theme?.LIGHT?.colors?.primary,
         // );
 
-        const theme = extendTheme({
+        const theme: Theme = extendTheme({
           colorSchemes: {
             dark: {
               brand: {
