@@ -131,3 +131,4 @@ dist
 
 # Storybook
 storybook-static
+.vercel
