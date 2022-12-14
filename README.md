@@ -30,7 +30,7 @@ This repository contains the source code of the key components that works togeth
 
 ## Examples
 
-* [💅 Multi Brand Identity Demo](https://git-scm.com/downloads)
+* [💅 Multi Brand Identity Demo](https://oxygen-multi-brand-example.vercel.app/)
 
     Sample app to showcase Oxygen Design System' multi-branding capabilities.
 
