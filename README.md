@@ -1,7 +1,8 @@
-<p align="center" style="color: #343a40">
-  <img src="https://user-images.githubusercontent.com/25959096/207448982-bd1e5371-9062-4955-897c-7f2839b46c3c.svg" alt="WSO2 Oxygen UI logo" height="150" width="150">
-  <h1 align="center">Oxygen UI</h1>
-</p>
+<h1 align="center" style="color: #343a40">
+  <img src="https://user-images.githubusercontent.com/25959096/207556831-df3104cd-f5bb-4e74-9cbe-226ebab20bac.svg#gh-light-mode-only" alt="WSO2 Oxygen UI ligt mode logo">
+    <img src="https://user-images.githubusercontent.com/25959096/207556846-0e513a7c-2e59-413a-84ef-d11f1de81247.svg#gh-dark-mode-only" alt="WSO2 Oxygen UI dark mode logo">
+</h1>
+
 <p align="center" style="font-size: 1.2rem;">The
 <span style="color: #47EBD8">Design System</span>
 powering <a href="https://wso2.com">WSO2</a>'s core products.</p>
