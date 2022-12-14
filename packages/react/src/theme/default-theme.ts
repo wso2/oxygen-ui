@@ -24,7 +24,7 @@ const defaultTheme: Theme = extendTheme({
     dark: {
       palette: {
         primary: {
-          main: '#47EBD8',
+          main: '#FF7300',
         },
       },
     },
@@ -32,7 +32,7 @@ const defaultTheme: Theme = extendTheme({
       palette: {
         primary: {
           contrastText: '#fff',
-          main: '#47EBD8',
+          main: '#FF7300',
         },
         secondary: {
           contrastText: '#40404B',

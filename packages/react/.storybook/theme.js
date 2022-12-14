@@ -19,9 +19,9 @@
 import {themes as defaultThemes} from '@storybook/theming';
 
 const commons = {
-  brandUrl: 'https://asgardeo.io',
-  colorSecondary: '#47EBD8',
-  brandTitle: 'Oxygen Design System',
+  brandUrl: 'https://wso2.io',
+  colorSecondary: '#FF7300',
+  brandTitle: 'Oxygen UI | React',
   brandTarget: '_blank',
 };
 
@@ -34,19 +34,19 @@ export const themes = {
     ...defaultThemes.dark,
     appBg: '#2f2f2f',
     appContentBg: '#333333',
-    brandImage: './assets/images/design-system-logo.svg',
-    barSelectedColor: '#47EBD8',
+    brandImage: './assets/images/oxygen-ui-react-logo.svg',
+    barSelectedColor: '#FF7300',
     ...commons,
   },
   light: {
     ...defaultThemes.light,
-    brandImage: './assets/images/design-system-logo-inverted.svg',
+    brandImage: './assets/images/oxygen-ui-react-logo-inverted.svg',
     appBg: '#f1f1f1',
     ...commons,
   },
   normal: {
     ...defaultThemes.normal,
-    brandImage: './assets/images/design-system-logo-inverted.svg',
+    brandImage: './assets/images/oxygen-ui-react-inverted.svg',
     appBg: '#f1f1f1',
     ...commons,
   },

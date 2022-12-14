@@ -18,5 +18,5 @@
     "./content/*.stories.*",
     "../src/*.stories.*",
     "preview.tsx"
-  ]
+, "models"  ]
 }

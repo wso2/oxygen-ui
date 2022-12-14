@@ -29,6 +29,7 @@
     "build": "rollup -c",
     "build-storybook": "build-storybook --no-manager-cache",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "start": "pnpm storybook",
     "storybook": "start-storybook -p 6006"
   },
   "dependencies": {
