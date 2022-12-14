@@ -74,6 +74,7 @@
 
 .emphasis_text {
   background: linear-gradient(122.25deg, #ff4c88 12.16%, #ff8a63 70.98%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

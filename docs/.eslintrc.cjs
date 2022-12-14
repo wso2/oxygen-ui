@@ -16,12 +16,21 @@
  * under the License.
  */
 
-const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-  // TODO: Added to bypass `Error: @next/font/google failed to run or is incorrectly configured.`
-  // Possible fix https://larsmagnus.co/blog/how-to-optimize-custom-fonts-with-next-font.
-  optimizeFonts: false,
-};
+const path = require('path');
 
-module.exports = nextConfig;
+module.exports = {
+  plugins: ['@wso2'],
+  extends: [
+    'plugin:@wso2/typescript',
+    'plugin:@wso2/react',
+    'plugin:@wso2/strict',
+    'plugin:@wso2/internal',
+    'plugin:@wso2/jest',
+    'plugin:@wso2/prettier',
+    'plugin:@wso2/next',
+    'plugin:react/jsx-runtime',
+  ],
+  parserOptions: {
+    project: [path.resolve(__dirname, 'tsconfig.json')],
+  },
+};
