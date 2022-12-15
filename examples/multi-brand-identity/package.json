@@ -59,5 +59,8 @@
       "last 1 safari version"
     ]
   },
-  "private": true
+  "private": true,
+  "nx": {
+    "implicitDependencies": ["@oxygen-ui/react"]
+  }
 }
