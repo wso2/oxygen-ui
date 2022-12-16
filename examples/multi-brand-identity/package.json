@@ -42,6 +42,7 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "@types/testing-library__jest-dom": "^5.14.5",
     "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?f3bfe50d1be35763beeeb2d5f8116cf0f37954ea",
     "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?f3bfe50d1be35763beeeb2d5f8116cf0f37954ea",
     "eslint": "8.25.0",
