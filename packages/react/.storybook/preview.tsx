@@ -59,7 +59,7 @@ addParameters({
       return <DocsContainer context={context}>{children}</DocsContainer>;
     },
     page: DocsPage,
-    theme: themes.light,
+    theme: themes.dark,
   },
   viewMode: 'docs',
   previewTabs: {

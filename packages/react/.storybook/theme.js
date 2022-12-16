@@ -32,8 +32,8 @@ const commons = {
 export const themes = {
   dark: {
     ...defaultThemes.dark,
-    appBg: '#2f2f2f',
-    appContentBg: '#333333',
+    appBg: '#121212',
+    appContentBg: '#121212',
     brandImage: './assets/images/oxygen-ui-react-logo.svg',
     barSelectedColor: '#FF7300',
     ...commons,

@@ -18,7 +18,7 @@
 
 import {extendTheme, Theme} from '@oxygen-ui/react';
 
-export const asgardeoTheme: Theme = extendTheme({
+export const AsgardeoTheme: Theme = extendTheme({
   colorSchemes: {
     dark: {
       brand: {

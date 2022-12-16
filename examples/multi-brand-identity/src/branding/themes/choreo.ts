@@ -19,7 +19,7 @@
 /* eslint-disable sort-keys */
 import {extendTheme, Theme} from '@oxygen-ui/react';
 
-export const choreoTheme: Theme = extendTheme({
+export const ChoreoTheme: Theme = extendTheme({
   components: {
     MuiTooltip: {
       styleOverrides: {

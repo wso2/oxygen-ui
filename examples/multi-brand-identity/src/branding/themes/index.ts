@@ -17,5 +17,6 @@
  */
 
 export * from './asgardeo';
+export * from './ballerina';
 export * from './choreo';
 export * from './default';
