@@ -16,14 +16,14 @@
  * under the License.
  */
 
-import {AppBar, ColorModeToggle, Toolbar, ThemeProvider, IconButton, Theme} from '@oxygen-ui/react';
+import {AppBar, ColorModeToggle, Toolbar, ThemeProvider, IconButton, Theme, Tooltip} from '@oxygen-ui/react';
 import React, {ReactElement, useReducer, useState} from 'react';
-import {BrandingActions, brandingReducer, defaultTheme} from './branding';
+import {BrandingActions, brandingReducer, DefaultTheme} from './branding';
 import {BrandSwitcher, BuildingIcon, OrganizationSelectionDialog} from './components';
 import {LoginPage} from './pages';
 
 const App = (): ReactElement => {
-  const [theme, dispatch] = useReducer(brandingReducer, defaultTheme as never);
+  const [theme, dispatch] = useReducer(brandingReducer, DefaultTheme as never);
 
   const [isOrganizationSelectionOpen, setIsOrganizationSelectionOpen] = useState<boolean>(false);
   const [selectedOrganization, setSelectedOrganization] = useState<string | undefined>('');
@@ -40,17 +40,19 @@ const App = (): ReactElement => {
       <AppBar className="app-header" elevation={0} color="transparent" variant="outlined">
         <Toolbar className="app-header-toolbar">
           <div>
-            <IconButton
-              sx={{height: 40, width: 40}}
-              color="inherit"
-              onClick={(): void => {
-                if (!isOrganizationSelectionOpen) {
-                  setIsOrganizationSelectionOpen(true);
-                }
-              }}
-            >
-              <BuildingIcon theme={theme} />
-            </IconButton>
+            <Tooltip title="Connect with Asgardeo Branding">
+              <IconButton
+                sx={{height: 40, width: 40}}
+                color="inherit"
+                onClick={(): void => {
+                  if (!isOrganizationSelectionOpen) {
+                    setIsOrganizationSelectionOpen(true);
+                  }
+                }}
+              >
+                <BuildingIcon theme={theme} />
+              </IconButton>
+            </Tooltip>
             <div className="selected-organization">{selectedOrganization}</div>
           </div>
           <BrandSwitcher onBrandChange={handleBrandChange} />

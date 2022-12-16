@@ -17,7 +17,7 @@
  */
 
 import {Theme} from '@oxygen-ui/react';
-import {asgardeoTheme, choreoTheme, defaultTheme} from '../themes';
+import {AsgardeoTheme, BallerinaTheme, ChoreoTheme, DefaultTheme} from '../themes';
 
 export enum BrandingActions {
   ChangeTheme = 'ChangeTheme',
@@ -26,14 +26,17 @@ export enum BrandingActions {
 export const brandingReducer = (theme: Theme, action: any): Theme => {
   switch (action.type) {
     case BrandingActions.ChangeTheme: {
-      if (action.brand === 'Oxygen') {
-        return defaultTheme;
+      if (action.brand === 'WSO2') {
+        return DefaultTheme;
       }
       if (action.brand === 'Choreo') {
-        return choreoTheme;
+        return ChoreoTheme;
       }
       if (action.brand === 'Asgardeo') {
-        return asgardeoTheme;
+        return AsgardeoTheme;
+      }
+      if (action.brand === 'Ballerina') {
+        return BallerinaTheme;
       }
 
       if (action.theme) {

@@ -40,7 +40,7 @@
 }
 
 .title a {
-  color: #0070f3;
+  color: var(--oxygen-palette-primary-main);
   text-decoration: none;
 }
 
@@ -130,8 +130,7 @@
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+  border-color: var(--oxygen-palette-primary-main);
 }
 
 .card h2 {
@@ -163,35 +162,13 @@
   margin-left: 0.5rem;
 }
 
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
+.card,
+.footer {
+  border-color: #222;
 }
-
-@media (prefers-color-scheme: dark) {
-  .card,
-  .footer {
-    border-color: #222;
-  }
-  .code {
-    background: #111;
-  }
-  .logo img {
-    filter: invert(0);
-  }
+.code {
+  background: #111;
 }
-
-@media (prefers-color-scheme: light) {
-  .card,
-  .footer {
-    border-color: #222;
-  }
-  .code {
-    background: #111;
-  }
-  .logo img {
-    filter: invert(1);
-  }
+.logo img {
+  filter: invert(0);
 }

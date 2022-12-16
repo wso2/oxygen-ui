@@ -18,29 +18,29 @@
 
 import {extendTheme, Theme} from '@oxygen-ui/react';
 
-export const DefaultTheme: Theme = extendTheme({
+export const BallerinaTheme: Theme = extendTheme({
   colorSchemes: {
     dark: {
       brand: {
         logo: {
-          main: `${process.env.PUBLIC_URL}/assets/brands/wso2/images/wso2-logo-inverted.svg`,
+          main: `${process.env.PUBLIC_URL}/assets/brands/ballerina/images/ballerina-logo.svg`,
         },
       },
       palette: {
         primary: {
-          main: '#FF7300',
+          main: '#20b6b0',
         },
       },
     },
     light: {
       brand: {
         logo: {
-          main: `${process.env.PUBLIC_URL}/assets/brands/wso2/images/wso2-logo.svg`,
+          main: `${process.env.PUBLIC_URL}/assets/brands/ballerina/images/ballerina-logo-inverted.svg`,
         },
       },
       palette: {
         primary: {
-          main: '#FF7300',
+          main: '#20b6b0',
         },
       },
     },
@@ -92,13 +92,20 @@ export const DefaultTheme: Theme = extendTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         input: {
-          padding: '0.67857143em 1em',
+          padding: '5px 10px',
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
         },
       },
     },
   },
   shape: {
-    borderRadius: 4,
+    borderRadius: 0,
   },
   typography: {
     fontFamily: [
@@ -113,5 +120,8 @@ export const DefaultTheme: Theme = extendTheme({
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
     ].join(','),
+    h1: {
+      fontWeight: 700,
+    },
   },
 });

@@ -49,6 +49,13 @@ const BRANDS: Brand[] = [
       tooltip: 'Choreo',
     },
   },
+  {
+    name: 'Ballerina',
+    switcher: {
+      logo: `${process.env.PUBLIC_URL}/assets/brands/ballerina/images/ballerina-mini-logo.svg`,
+      tooltip: 'Ballerina',
+    },
+  },
 ];
 
 export interface BrandSwitcherProps {

@@ -64,7 +64,7 @@ const Index = (): ReactElement => (
             Primitives
           </h2>
           <code>@oxygen-ui/primitives</code>
-          <p className={spaceGrotesk.className}>Low level building blocks of Oxygen Design System.</p>
+          <p className={spaceGrotesk.className}>Low level building blocks of the Design System.</p>
         </a>
         <a
           href="https://oxygen-react.vercel.app/?path=/docs/welcome--page"
@@ -77,7 +77,7 @@ const Index = (): ReactElement => (
             React Components
           </h2>
           <code>@oxygen-ui/react</code>
-          <p className={spaceGrotesk.className}>The React implementation of Oxygen Design System.</p>
+          <p className={spaceGrotesk.className}>The React implementation of the Design System.</p>
         </a>
 
         <a
@@ -91,7 +91,7 @@ const Index = (): ReactElement => (
             Figma
           </h2>
           <code>@oxygen-ui/figma</code>
-          <p className={spaceGrotesk.className}>The origin of Oxygen Design System in Figma</p>
+          <p className={spaceGrotesk.className}>The place where the designing and brainstorming happens.</p>
         </a>
       </div>
       <div className={styles.divider} />
@@ -106,7 +106,7 @@ const Index = (): ReactElement => (
           <h2>Multi Brand Identity Example</h2>
           <code>@oxygen-ui-examples/multi-brand-identity</code>
           <p className={spaceGrotesk.className}>
-            Sample app to showcase Oxygen Design System&apos; multi-branding capabilities
+            Sample app to showcase the Design System&apos; multi-branding capabilities
           </p>
         </a>
       </div>
