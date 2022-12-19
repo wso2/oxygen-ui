@@ -1,0 +1,10 @@
+{
+  "root": true,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@oxygen/primitives": ["packages/primitives/src"],
+      "@oxygen/react": ["packages/react/src/index.ts"]
+    }
+  }
+}

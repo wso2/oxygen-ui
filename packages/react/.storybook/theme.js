@@ -33,7 +33,7 @@ export const themes = {
   dark: {
     ...defaultThemes.dark,
     appBg: '#121212',
-    appContentBg: '#121212',
+    appContentBg: '#2a2a2a',
     brandImage: './assets/images/oxygen-ui-react-logo.svg',
     barSelectedColor: '#FF7300',
     ...commons,
