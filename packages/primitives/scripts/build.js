@@ -22,7 +22,7 @@ const babelParser = require('@babel/parser');
 const Config = require('../sd.config');
 
 StyleDictionary.registerParser({
-  parse: ({ contents, filePath }) => {
+  parse: ({ contents }) => {
     const js = babelParser.parse(contents, {
       // parse in strict mode and allow module declarations
       plugins: [

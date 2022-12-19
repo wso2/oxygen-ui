@@ -130,12 +130,15 @@ export const OrganizationSelectionDialog: FC<OrganizationSelectionDialogProps> =
         <DialogContentText className="organization-selection-dialog-description">
           Integrate with the Asgardeo Branding to easily configure the theme tokens on the Asgardeo Console.
         </DialogContentText>
-        <Alert className="organization-selection-dialog-alert" severity="warning">For this feature to work properly, you need to allow {window.location.origin} as an `allowed origin` on your Asgardeo organization.</Alert>
+        <Alert className="organization-selection-dialog-alert" severity="warning">
+          For this feature to work properly, you need to allow {window.location.origin} as an `allowed origin` on your
+          Asgardeo organization.
+        </Alert>
         <Alert className="organization-selection-dialog-alert" severity="info">
           For testing purposes, you can use the following organizations.
           <ul>
+            <li>drogo</li>
             <li>kfone</li>
-            <li>brionmario</li>
           </ul>
         </Alert>
         <TextField
