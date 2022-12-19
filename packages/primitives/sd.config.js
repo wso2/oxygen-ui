@@ -15,6 +15,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 module.exports = {
   platforms: {
     css: {
@@ -31,12 +32,12 @@ module.exports = {
     },
     js: {
       buildPath: 'dist/js/',
-      transforms: ['name/js/es6'],
       // map the array of token file paths to style dictionary output files
       files: [{
-        format: 'javascript/es6',
         destination: 'var.js',
+        format: 'javascript/es6',
       }],
+      transforms: ['name/js/es6'],
     },
     scss: {
       buildPath: 'dist/scss/',

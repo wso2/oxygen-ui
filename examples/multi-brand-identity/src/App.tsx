@@ -29,6 +29,7 @@ const App = (): ReactElement => {
   const [selectedOrganization, setSelectedOrganization] = useState<string | undefined>('');
 
   const handleBrandChange = (brand: string): void => {
+    setSelectedOrganization('');
     dispatch({
       brand,
       type: BrandingActions.ChangeTheme,
