@@ -55,6 +55,20 @@ const Index = (): ReactElement => (
       <div className={styles.grid}>
         <a
           href="https://github.com/brionmario/oxygen-ui/tree/main/packages/primitives"
+          className={clsx(styles.card, styles.disabled)}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <h2>
+            <Image src="/assets/images/oxygen-ui/guidelines-logo.svg" alt="Guidelines Logo" width={20} height={20} />
+            Guidelines
+            <div className={styles['coming-soon-label']}>Coming Soon</div>
+          </h2>
+          <code>@oxygen-ui/guidelines</code>
+          <p className={spaceGrotesk.className}>A collection of principles, standards, and usage guidelines.</p>
+        </a>
+        <a
+          href="https://github.com/brionmario/oxygen-ui/tree/main/packages/primitives"
           className={styles.card}
           target="_blank"
           rel="noreferrer"
@@ -96,19 +110,21 @@ const Index = (): ReactElement => (
       </div>
       <div className={styles.divider} />
       <h2>Showcase</h2>
-      <div className={styles.examples}>
-        <a
-          href="https://oxygen-multi-brand-example.vercel.app"
-          className={styles.card}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <h2>Multi Brand Identity Example</h2>
-          <code>@oxygen-ui-examples/multi-brand-identity</code>
-          <p className={spaceGrotesk.className}>
-            Sample app to showcase the Design System&apos; multi-branding capabilities
-          </p>
-        </a>
+      <div className={styles.grid}>
+        <div className={styles.examples}>
+          <a
+            href="https://oxygen-multi-brand-example.vercel.app"
+            className={styles.card}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <h2>Multi Brand Identity Example</h2>
+            <code>@oxygen-ui-examples/multi-brand-identity</code>
+            <p className={spaceGrotesk.className}>
+              Sample app to showcase the Design System&apos; multi-branding capabilities
+            </p>
+          </a>
+        </div>
       </div>
     </main>
 

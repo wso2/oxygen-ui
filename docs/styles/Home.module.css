@@ -65,6 +65,7 @@
   margin: 2rem 0 4rem 0;
   font-size: 1.5rem;
   display: flex;
+  align-items: center;
   gap: 8px;
   flex-direction: row;
   flex-wrap: wrap;
@@ -81,6 +82,7 @@
 
 .divider {
   background: linear-gradient(90deg, var(--oxygen-palette-primary-main), var(--oxygen-palette-primary-dark));
+  filter: grayscale(1);
   width: 50%;
   height: 1px;
   margin: 2rem;
@@ -112,7 +114,7 @@
 }
 
 .examples .card {
-  max-width: 400px;
+  width: 100%;
 }
 
 .card {
@@ -125,6 +127,37 @@
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
   max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  min-height: 0;
+  position: relative;
+  transition: box-shadow .1s ease,transform .1s ease;
+  width: 290px;
+  z-index: "";
+}
+
+.disabled {
+  filter: grayscale(1);
+  pointer-events: none;
+}
+
+.coming-soon-label {
+  align-content: center;
+  align-items: center;
+  background: linear-gradient(270deg,#ff9d4d,#ff7300);
+  clip-path: polygon(4% 0,0 100%,100% 100%,100% 0,100% 0);
+  -webkit-clip-path: polygon(4% 0,0 100%,100% 100%,100% 0,100% 0);
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  font-size: .6rem;
+  font-weight: 500;
+  height: 24px;
+  justify-content: space-around;
+  min-width: 80px;
+  position: absolute;
+  right: 0;
 }
 
 .card:hover,
