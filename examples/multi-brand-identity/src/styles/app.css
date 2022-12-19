@@ -125,3 +125,7 @@ code {
   padding: 0;
   margin-top: 16px;
 }
+
+.organization-selection-dialog .organization-selection-dialog-alert {
+  margin-bottom: 16px;
+}

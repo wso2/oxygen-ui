@@ -19,6 +19,8 @@
 export * from './components';
 export * from './theme';
 export {
+  Alert,
+  AlertTitle,
   AppBar,
   Toolbar,
   Paper,
