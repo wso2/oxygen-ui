@@ -62,7 +62,7 @@ const Index = (): ReactElement => (
           <h2>
             <Image src="/assets/images/oxygen-ui/guidelines-logo.svg" alt="Guidelines Logo" width={20} height={20} />
             Guidelines
-            <div className={styles['coming-soon-label']}>Coming Soon</div>
+            <div className={clsx(styles['coming-soon-label'], spaceGrotesk.className)}>Coming Soon</div>
           </h2>
           <code>@oxygen-ui/guidelines</code>
           <p className={spaceGrotesk.className}>A collection of principles, standards, and usage guidelines.</p>
