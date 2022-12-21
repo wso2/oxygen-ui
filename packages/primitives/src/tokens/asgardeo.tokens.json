@@ -1,26 +1,26 @@
 {
   "oxygen": {
-    "tokenset": "oxygen-set",
+    "tokenset": "asgardeo-set",
     "colors": {
       "primary": {
         "lighter": {
-          "value": "#ff9666",
+          "value": "#ffab66",
           "type": "color"
         },
         "light": {
-          "value": "#ff7433",
+          "value": "#ff8f33",
           "type": "color"
         },
         "default": {
-          "value": "#ff5100",
+          "value": "#ff7300",
           "type": "color"
         },
         "dark": {
-          "value": "#cc4100",
+          "value": "#cc5c00",
           "type": "color"
         },
         "darker": {
-          "value": "#993000",
+          "value": "#994500",
           "type": "color"
         }
       },
@@ -64,7 +64,7 @@
           "type": "color"
         },
         "primary": {
-          "value": "#cc4100",
+          "value": "#cc5c00",
           "type": "color"
         }
       },
@@ -90,7 +90,7 @@
           "type": "color"
         },
         "primary": {
-          "value": "#ff5100",
+          "value": "#ff7300",
           "type": "color"
         },
         "gray": {
@@ -104,11 +104,7 @@
           "type": "color"
         },
         "primary": {
-          "value": "#ff7433",
-          "type": "color"
-        },
-        "white": {
-          "value": "#ffffff",
+          "value": "#ff8f33",
           "type": "color"
         }
       },
@@ -226,6 +222,10 @@
       }
     },
     "borderRadius": {
+      "12": {
+        "value": 12,
+        "type": "borderRadius"
+      },
       "sm": {
         "value": 2,
         "type": "borderRadius"
@@ -295,7 +295,7 @@
     },
     "fontFamilies": {
       "heading": {
-        "value": "Inter",
+        "value": "Montserrat",
         "type": "fontFamilies"
       },
       "body": {
@@ -412,10 +412,10 @@
     }
   },
   "fontFamilies": {
-    "tokenset": "oxygen-set",
+    "tokenset": "asgardeo-set",
     "heading": {
       "default": {
-        "value": "Inter",
+        "value": "Montserrat",
         "type": "fontFamilies"
       }
     },
@@ -427,7 +427,7 @@
     }
   },
   "typography": {
-    "tokenset": "oxygen-set",
+    "tokenset": "asgardeo-set",
     "heading": {
       "default": {
         "value": "semi bold",
@@ -435,7 +435,7 @@
       },
       "h1": {
         "value": {
-          "fontFamily": "Inter",
+          "fontFamily": "Montserrat",
           "fontWeight": "semi bold",
           "lineHeight": "150%",
           "fontSize": 48
@@ -444,7 +444,7 @@
       },
       "h2": {
         "value": {
-          "fontFamily": "Inter",
+          "fontFamily": "Montserrat",
           "fontWeight": "semi bold",
           "lineHeight": "150%",
           "fontSize": 40
@@ -453,7 +453,7 @@
       },
       "h3": {
         "value": {
-          "fontFamily": "Inter",
+          "fontFamily": "Montserrat",
           "fontWeight": "semi bold",
           "lineHeight": "150%",
           "fontSize": 32
@@ -462,7 +462,7 @@
       },
       "h4": {
         "value": {
-          "fontFamily": "Inter",
+          "fontFamily": "Montserrat",
           "fontWeight": "semi bold",
           "lineHeight": "150%",
           "fontSize": 24
@@ -471,7 +471,7 @@
       },
       "h5": {
         "value": {
-          "fontFamily": "Inter",
+          "fontFamily": "Montserrat",
           "fontWeight": "semi bold",
           "lineHeight": "150%",
           "fontSize": 20
@@ -480,7 +480,7 @@
       },
       "h6": {
         "value": {
-          "fontFamily": "Inter",
+          "fontFamily": "Montserrat",
           "fontWeight": "semi bold",
           "lineHeight": "150%",
           "fontSize": 16
@@ -581,7 +581,7 @@
     }
   },
   "lineHeights": {
-    "tokenset": "oxygen-set",
+    "tokenset": "asgardeo-set",
     "heading": {
       "default": {
         "value": "150%",
@@ -596,7 +596,7 @@
     }
   },
   "fontSizes": {
-    "tokenset": "oxygen-set",
+    "tokenset": "asgardeo-set",
     "heading": {
       "h1": {
         "default": {
@@ -657,30 +657,14 @@
     }
   },
   "color": {
-    "tokenset": "oxygen-set",
+    "tokenset": "asgardeo-set",
     "action": {
       "cta": {
         "button": {
           "background": {
             "primary": {
               "default": {
-                "value": "#ff5100",
-                "type": "color"
-              },
-              "hover": {
-                "value": "#cc4100",
-                "type": "color"
-              },
-              "active": {
-                "value": "#ff5100",
-                "type": "color"
-              },
-              "focus": {
-                "value": "#ff5100",
-                "type": "color"
-              },
-              "disable": {
-                "value": "#ff5100",
+                "value": "#ff7300",
                 "type": "color"
               }
             },
@@ -694,47 +678,7 @@
           "text": {
             "primary": {
               "default": {
-                "value": "#ffffff",
-                "type": "color"
-              },
-              "hover": {
-                "value": "#ffffff",
-                "type": "color"
-              },
-              "active": {
-                "value": "#ffffff",
-                "type": "color"
-              },
-              "focus": {
-                "value": "#ffffff",
-                "type": "color"
-              },
-              "disable": {
-                "value": "#ffffff",
-                "type": "color"
-              }
-            }
-          },
-          "outline": {
-            "primary": {
-              "default": {
-                "value": "#ffffff",
-                "type": "color"
-              },
-              "hover": {
-                "value": "#ffffff",
-                "type": "color"
-              },
-              "active": {
-                "value": "#ffffff",
-                "type": "color"
-              },
-              "focus": {
-                "value": "#ffffff",
-                "type": "color"
-              },
-              "disable": {
-                "value": "#ffffff",
+                "value": "#000000",
                 "type": "color"
               }
             }
@@ -744,7 +688,7 @@
           "text": {
             "primary": {
               "default": {
-                "value": "#cc4100",
+                "value": "#cc5c00",
                 "type": "color"
               }
             }
@@ -781,7 +725,7 @@
               "type": "color"
             },
             "active": {
-              "value": "#ff7433",
+              "value": "#ff8f33",
               "type": "color"
             }
           }
@@ -876,7 +820,7 @@
     }
   },
   "borderRadius": {
-    "tokenset": "oxygen-set",
+    "tokenset": "asgardeo-set",
     "action": {
       "cta": {
         "button": {
@@ -886,7 +830,7 @@
               "type": "borderRadius"
             },
             "regular": {
-              "value": 0,
+              "value": 2,
               "type": "borderRadius"
             },
             "small": {
@@ -903,7 +847,7 @@
             "type": "borderRadius"
           },
           "regular": {
-            "value": 0,
+            "value": 2,
             "type": "borderRadius"
           },
           "small": {
@@ -919,7 +863,7 @@
             "type": "borderRadius"
           },
           "md": {
-            "value": 4,
+            "value": 12,
             "type": "borderRadius"
           },
           "lg": {
@@ -931,7 +875,7 @@
     }
   },
   "spacing": {
-    "tokenset": "oxygen-set",
+    "tokenset": "asgardeo-set",
     "action": {
       "cta": {
         "button": {
@@ -951,14 +895,6 @@
               },
               "bottom": {
                 "value": 8,
-                "type": "spacing"
-              },
-              "gap": {
-                "value": 4,
-                "type": "spacing"
-              },
-              "square": {
-                "value": 12,
                 "type": "spacing"
               }
             },
@@ -1010,12 +946,12 @@
     }
   },
   "logo": {
-    "tokenset": "oxygen-set",
-    "value": "https://pbs.twimg.com/profile_images/1293800404615155712/c24g2bOv_400x400.png",
+    "tokenset": "asgardeo-set",
+    "value": "https://pbs.twimg.com/profile_images/1444722601708769282/nxy72-Kn_400x400.jpg",
     "type": "asset"
   },
   "dropShadow": {
-    "tokenset": "oxygen-set",
+    "tokenset": "asgardeo-set",
     "action": {
       "cta": {
         "button": {

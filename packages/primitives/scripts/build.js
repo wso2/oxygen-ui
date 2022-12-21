@@ -17,6 +17,7 @@
  * under the License.
  */
 
+const { transform } = require('@divriots/style-dictionary-to-figma');
 const StyleDictionary = require('style-dictionary');
 const babelParser = require('@babel/parser');
 const Config = require('../sd.config');
@@ -45,6 +46,14 @@ StyleDictionary.registerTransform({
   name: 'name/js/es6',
   transformer: pathToPascalCase,
   type: 'name',
+});
+
+StyleDictionary.registerFormat({
+  formatter: ({ dictionary }) => {
+    const transformedTokens = transform(dictionary.tokens);
+    return JSON.stringify(transformedTokens, null, 2);
+  },
+  name: 'figmaTokensPlugin',
 });
 
 const styleDictionary = StyleDictionary.extend(Config);

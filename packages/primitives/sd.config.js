@@ -39,6 +39,16 @@ module.exports = {
       }],
       transforms: ['name/js/es6'],
     },
+    json: {
+      buildPath: 'figma/',
+      files: [
+        {
+          destination: 'tokens-output.json',
+          format: 'figmaTokensPlugin',
+        },
+      ],
+      transformGroup: 'js',
+    },
     scss: {
       buildPath: 'dist/scss/',
       files: [

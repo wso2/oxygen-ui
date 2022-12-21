@@ -1,0 +1,333 @@
+{
+  "oxygen": {
+    "tokenset": "oxygen-dark-set",
+    "colors": {
+      "primary": {
+        "lighter": {
+          "value": "#14b8a5",
+          "type": "color"
+        },
+        "light": {
+          "value": "#19e6ce",
+          "type": "color"
+        },
+        "default": {
+          "value": "#47ebd8",
+          "type": "color"
+        },
+        "dark": {
+          "value": "#75f0e1",
+          "type": "color"
+        },
+        "darker": {
+          "value": "#a3f5eb",
+          "type": "color"
+        }
+      },
+      "secondary": {
+        "lighter": {
+          "value": "#ffab66",
+          "type": "color"
+        },
+        "light": {
+          "value": "#ff8f33",
+          "type": "color"
+        },
+        "default": {
+          "value": "#ff7300",
+          "type": "color"
+        },
+        "dark": {
+          "value": "#cc5c00",
+          "type": "color"
+        },
+        "darker": {
+          "value": "#994500",
+          "type": "color"
+        }
+      },
+      "text": {
+        "darker": {
+          "value": "#ffffff",
+          "type": "color"
+        },
+        "dark": {
+          "value": "#333333",
+          "type": "color"
+        },
+        "light": {
+          "value": "#999999",
+          "type": "color"
+        },
+        "lighter": {
+          "value": "#000000",
+          "type": "color"
+        },
+        "primary": {
+          "value": "#75f0e1",
+          "type": "color"
+        }
+      },
+      "background": {
+        "default": {
+          "value": "#000000",
+          "type": "color"
+        },
+        "success": {
+          "value": "#d8f3e6",
+          "type": "color"
+        },
+        "warning": {
+          "value": "#ffeecc",
+          "type": "color"
+        },
+        "info": {
+          "value": "#cceaff",
+          "type": "color"
+        },
+        "danger": {
+          "value": "#ffd5cc",
+          "type": "color"
+        },
+        "primary": {
+          "value": "#47ebd8",
+          "type": "color"
+        },
+        "gray": {
+          "value": "#1a1a1a",
+          "type": "color"
+        }
+      },
+      "border": {
+        "default": {
+          "value": "#b3b3b3",
+          "type": "color"
+        },
+        "primary": {
+          "value": "#19e6ce",
+          "type": "color"
+        }
+      },
+      "icon": {
+        "default": {
+          "value": "#000000",
+          "type": "color"
+        },
+        "success": {
+          "value": "#3bc480",
+          "type": "color"
+        },
+        "warning": {
+          "value": "#ffaa00",
+          "type": "color"
+        },
+        "info": {
+          "value": "#0095ff",
+          "type": "color"
+        },
+        "danger": {
+          "value": "#ff2f00",
+          "type": "color"
+        }
+      },
+      "extended": {
+        "warning": {
+          "lightest": {
+            "value": "#ffeecc",
+            "type": "color"
+          },
+          "lighter": {
+            "value": "#ffcc66",
+            "type": "color"
+          },
+          "light": {
+            "value": "#ffbb33",
+            "type": "color"
+          },
+          "default": {
+            "value": "#ffaa00",
+            "type": "color"
+          },
+          "dark": {
+            "value": "#cc8800",
+            "type": "color"
+          }
+        },
+        "success": {
+          "lightest": {
+            "value": "#d8f3e6",
+            "type": "color"
+          },
+          "lighter": {
+            "value": "#89dcb3",
+            "type": "color"
+          },
+          "light": {
+            "value": "#62d099",
+            "type": "color"
+          },
+          "default": {
+            "value": "#3bc480",
+            "type": "color"
+          },
+          "dark": {
+            "value": "#2f9d66",
+            "type": "color"
+          }
+        },
+        "danger": {
+          "lightest": {
+            "value": "#ffd5cc",
+            "type": "color"
+          },
+          "lighter": {
+            "value": "#ff8266",
+            "type": "color"
+          },
+          "light": {
+            "value": "#ff5833",
+            "type": "color"
+          },
+          "default": {
+            "value": "#ff2f00",
+            "type": "color"
+          },
+          "dark": {
+            "value": "#cc2500",
+            "type": "color"
+          }
+        },
+        "info": {
+          "lightest": {
+            "value": "#cceaff",
+            "type": "color"
+          },
+          "lighter": {
+            "value": "#66bfff",
+            "type": "color"
+          },
+          "light": {
+            "value": "#33aaff",
+            "type": "color"
+          },
+          "default": {
+            "value": "#0095ff",
+            "type": "color"
+          },
+          "dark": {
+            "value": "#0077cc",
+            "type": "color"
+          }
+        }
+      }
+    }
+  },
+  "color": {
+    "tokenset": "oxygen-dark-set",
+    "action": {
+      "cta": {
+        "button": {
+          "background": {
+            "primary": {
+              "default": {
+                "value": "#47ebd8",
+                "type": "color"
+              }
+            },
+            "secondary": {
+              "default": {
+                "value": "#000000",
+                "type": "color"
+              }
+            }
+          },
+          "text": {
+            "primary": {
+              "default": {
+                "value": "#000000",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "link": {
+          "text": {
+            "primary": {
+              "default": {
+                "value": "#75f0e1",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "input": {
+        "text-field": {
+          "background": {
+            "default": {
+              "value": "#000000",
+              "type": "color"
+            },
+            "active": {
+              "value": "#000000",
+              "type": "color"
+            }
+          },
+          "placeholder": {
+            "default": {
+              "value": "#999999",
+              "type": "color"
+            }
+          },
+          "label": {
+            "default": {
+              "value": "#333333",
+              "type": "color"
+            }
+          },
+          "border": {
+            "default": {
+              "value": "#b3b3b3",
+              "type": "color"
+            },
+            "active": {
+              "value": "#19e6ce",
+              "type": "color"
+            }
+          }
+        }
+      }
+    },
+    "feedback": {
+      "registration": {
+        "login": {
+          "background": {
+            "default": {
+              "value": "#000000",
+              "type": "color"
+            }
+          },
+          "border": {
+            "default": {
+              "value": "#b3b3b3",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "page": {
+        "background": {
+          "default": {
+            "value": "#000000",
+            "type": "color"
+          }
+        }
+      }
+    }
+  },
+  "logo": {
+    "tokenset": "oxygen-dark-set",
+    "value": "https://raw.githubusercontent.com/brionmario/oxygen/main/examples/multi-brand-identity/public/assets/brands/oxygen/images/oxygen-logo-inverted.svg",
+    "type": "asset"
+  }
+}
