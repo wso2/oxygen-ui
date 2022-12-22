@@ -21,11 +21,9 @@ const path = require('path');
 const { execSync } = require('child_process');
 const tokens = require('../figma/tokens.json');
 
-const KEYS_TO_SKIP = ['$themes', '$metadata', 'global'];
+const KEYS_TO_SKIP = ['$themes', '$metadata'];
 const INPUT = path.join(__dirname, '..', 'figma', 'tokens.json');
 const OUTPUT_DIR = path.join(__dirname, '..', 'src', 'tokens');
-
-execSync(`pnpm token-transformer ${INPUT} ${path.join(OUTPUT_DIR, 'global.tokens.json')} global --resolveReferences true`);
 
 const transformTokensToStyleDictionary = () => {
   Object.keys(tokens).forEach((key) => {
@@ -33,9 +31,13 @@ const transformTokensToStyleDictionary = () => {
       return;
     }
 
+    if (!fs.existsSync(OUTPUT_DIR)) {
+      fs.mkdirSync(OUTPUT_DIR);
+    }
+
     const outputPath = `${path.join(OUTPUT_DIR, key.replace('-', '.'))}.tokens.json`;
 
-    execSync(`pnpm token-transformer ${INPUT} ${outputPath}  global,${key} global --resolveReferences true`);
+    execSync(`pnpm token-transformer ${INPUT} ${outputPath} --resolveReferences false`);
 
     const transformerRawOutput = fs.readJsonSync(outputPath);
 

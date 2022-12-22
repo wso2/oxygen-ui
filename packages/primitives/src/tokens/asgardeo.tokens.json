@@ -4,218 +4,222 @@
     "colors": {
       "primary": {
         "lighter": {
-          "value": "#ffab66",
+          "value": "{colors.indigo.200}",
           "type": "color"
         },
         "light": {
-          "value": "#ff8f33",
+          "value": "{colors.indigo.300}",
           "type": "color"
         },
         "default": {
-          "value": "#ff7300",
+          "value": "{colors.indigo.400}",
           "type": "color"
         },
         "dark": {
-          "value": "#cc5c00",
+          "value": "{colors.indigo.500}",
           "type": "color"
         },
         "darker": {
-          "value": "#994500",
+          "value": "{colors.indigo.600}",
           "type": "color"
         }
       },
       "secondary": {
         "lighter": {
-          "value": "#ffab66",
+          "value": "{colors.orange.300}",
           "type": "color"
         },
         "light": {
-          "value": "#ff8f33",
+          "value": "{colors.orange.400}",
           "type": "color"
         },
         "default": {
-          "value": "#ff7300",
+          "value": "{colors.orange.500}",
           "type": "color"
         },
         "dark": {
-          "value": "#cc5c00",
+          "value": "{colors.orange.600}",
           "type": "color"
         },
         "darker": {
-          "value": "#994500",
+          "value": "{colors.orange.700}",
           "type": "color"
         }
       },
       "text": {
         "darker": {
-          "value": "#000000",
+          "value": "{colors.neutrals.black}",
           "type": "color"
         },
         "dark": {
-          "value": "#333333",
+          "value": "{colors.gray.800}",
           "type": "color"
         },
         "light": {
-          "value": "#999999",
+          "value": "{colors.gray.400}",
           "type": "color"
         },
         "lighter": {
-          "value": "#ffffff",
+          "value": "{colors.neutrals.white}",
           "type": "color"
         },
         "primary": {
-          "value": "#cc5c00",
+          "value": "{oxygen.colors.primary.default}",
           "type": "color"
         }
       },
       "background": {
         "default": {
-          "value": "#ffffff",
+          "value": "{colors.neutrals.white}",
           "type": "color"
         },
         "success": {
-          "value": "#d8f3e6",
+          "value": "{oxygen.colors.extended.success.lightest}",
           "type": "color"
         },
         "warning": {
-          "value": "#ffeecc",
+          "value": "{oxygen.colors.extended.warning.lightest}",
           "type": "color"
         },
         "info": {
-          "value": "#cceaff",
+          "value": "{oxygen.colors.extended.info.lightest}",
           "type": "color"
         },
         "danger": {
-          "value": "#ffd5cc",
+          "value": "{oxygen.colors.extended.danger.lightest}",
           "type": "color"
         },
         "primary": {
-          "value": "#ff7300",
+          "value": "{oxygen.colors.primary.default}",
           "type": "color"
         },
         "gray": {
-          "value": "#1a1a1a",
+          "value": "{colors.gray.900}",
           "type": "color"
         }
       },
       "border": {
         "default": {
-          "value": "#cccccc",
+          "value": "{colors.gray.200}",
           "type": "color"
         },
         "primary": {
-          "value": "#ff8f33",
+          "value": "{oxygen.colors.primary.light}",
+          "type": "color"
+        },
+        "white": {
+          "value": "{colors.neutrals.white}",
           "type": "color"
         }
       },
       "icon": {
         "default": {
-          "value": "#000000",
+          "value": "{colors.neutrals.black}",
           "type": "color"
         },
         "success": {
-          "value": "#3bc480",
+          "value": "{oxygen.colors.extended.success.default}",
           "type": "color"
         },
         "warning": {
-          "value": "#ffaa00",
+          "value": "{oxygen.colors.extended.warning.default}",
           "type": "color"
         },
         "info": {
-          "value": "#0095ff",
+          "value": "{oxygen.colors.extended.info.default}",
           "type": "color"
         },
         "danger": {
-          "value": "#ff2f00",
+          "value": "{oxygen.colors.extended.danger.default}",
           "type": "color"
         }
       },
       "extended": {
         "warning": {
           "lightest": {
-            "value": "#ffeecc",
+            "value": "{colors.yellow.100}",
             "type": "color"
           },
           "lighter": {
-            "value": "#ffcc66",
+            "value": "{colors.yellow.300}",
             "type": "color"
           },
           "light": {
-            "value": "#ffbb33",
+            "value": "{colors.yellow.400}",
             "type": "color"
           },
           "default": {
-            "value": "#ffaa00",
+            "value": "{colors.yellow.500}",
             "type": "color"
           },
           "dark": {
-            "value": "#cc8800",
+            "value": "{colors.yellow.600}",
             "type": "color"
           }
         },
         "success": {
           "lightest": {
-            "value": "#d8f3e6",
+            "value": "{colors.green.100}",
             "type": "color"
           },
           "lighter": {
-            "value": "#89dcb3",
+            "value": "{colors.green.300}",
             "type": "color"
           },
           "light": {
-            "value": "#62d099",
+            "value": "{colors.green.400}",
             "type": "color"
           },
           "default": {
-            "value": "#3bc480",
+            "value": "{colors.green.500}",
             "type": "color"
           },
           "dark": {
-            "value": "#2f9d66",
+            "value": "{colors.green.600}",
             "type": "color"
           }
         },
         "danger": {
           "lightest": {
-            "value": "#ffd5cc",
+            "value": "{colors.red.100}",
             "type": "color"
           },
           "lighter": {
-            "value": "#ff8266",
+            "value": "{colors.red.300}",
             "type": "color"
           },
           "light": {
-            "value": "#ff5833",
+            "value": "{colors.red.400}",
             "type": "color"
           },
           "default": {
-            "value": "#ff2f00",
+            "value": "{colors.red.500}",
             "type": "color"
           },
           "dark": {
-            "value": "#cc2500",
+            "value": "{colors.red.600}",
             "type": "color"
           }
         },
         "info": {
           "lightest": {
-            "value": "#cceaff",
+            "value": "{colors.blue.100}",
             "type": "color"
           },
           "lighter": {
-            "value": "#66bfff",
+            "value": "{colors.blue.300}",
             "type": "color"
           },
           "light": {
-            "value": "#33aaff",
+            "value": "{colors.blue.400}",
             "type": "color"
           },
           "default": {
-            "value": "#0095ff",
+            "value": "{colors.blue.500}",
             "type": "color"
           },
           "dark": {
-            "value": "#0077cc",
+            "value": "{colors.blue.600}",
             "type": "color"
           }
         }
@@ -227,172 +231,172 @@
         "type": "borderRadius"
       },
       "sm": {
-        "value": 2,
+        "value": "{borderRadius.sm}",
         "type": "borderRadius"
       },
       "md": {
-        "value": 4,
+        "value": "{borderRadius.md}",
         "type": "borderRadius"
       },
       "none": {
-        "value": 0,
+        "value": "{borderRadius.none}",
         "type": "borderRadius"
       },
       "lg": {
-        "value": 8,
+        "value": "{borderRadius.lg}",
         "type": "borderRadius"
       }
     },
     "spacing": {
       "1": {
-        "value": 1,
+        "value": "{spacing.1}",
         "type": "spacing"
       },
       "2": {
-        "value": 2,
+        "value": "{spacing.2}",
         "type": "spacing"
       },
       "4": {
-        "value": 4,
+        "value": "{spacing.4}",
         "type": "spacing"
       },
       "6": {
-        "value": 6,
+        "value": "{spacing.6}",
         "type": "spacing"
       },
       "8": {
-        "value": 8,
+        "value": "{spacing.8}",
         "type": "spacing"
       },
       "10": {
-        "value": 10,
+        "value": "{spacing.10}",
         "type": "spacing"
       },
       "12": {
-        "value": 12,
+        "value": "{spacing.12}",
         "type": "spacing"
       },
       "14": {
-        "value": 14,
+        "value": "{spacing.14}",
         "type": "spacing"
       },
       "16": {
-        "value": 16,
+        "value": "{spacing.16}",
         "type": "spacing"
       },
       "32": {
-        "value": 32,
+        "value": "{spacing.32}",
         "type": "spacing"
       },
       "64": {
-        "value": 64,
+        "value": "{spacing.64}",
         "type": "spacing"
       },
       "none": {
-        "value": 0,
+        "value": "{spacing.0}",
         "type": "spacing"
       }
     },
     "fontFamilies": {
       "heading": {
-        "value": "Montserrat",
+        "value": "{fontFamilies.inter}",
         "type": "fontFamilies"
       },
       "body": {
-        "value": "Roboto",
+        "value": "{fontFamilies.roboto}",
         "type": "fontFamilies"
       }
     },
     "fontWeights": {
       "regular": {
-        "value": "Regular",
+        "value": "{fontWeights.regular}",
         "type": "fontWeights"
       },
       "semibold": {
-        "value": "semi bold",
+        "value": "{fontWeights.semi-bold}",
         "type": "fontWeights"
       },
       "bold": {
-        "value": "Bold",
+        "value": "{fontWeights.bold}",
         "type": "fontWeights"
       }
     },
     "lineHeights": {
       "heading": {
-        "value": "150%",
+        "value": "{lineHeights.150}",
         "type": "lineHeights"
       },
       "body": {
-        "value": "130%",
+        "value": "{lineHeights.130}",
         "type": "lineHeights"
       }
     },
     "fontSizes": {
       "heading": {
         "h1": {
-          "value": 48,
+          "value": "{fontSizes.48}",
           "type": "fontSizes"
         },
         "h2": {
-          "value": 40,
+          "value": "{fontSizes.40}",
           "type": "fontSizes"
         },
         "h3": {
-          "value": 32,
+          "value": "{fontSizes.32}",
           "type": "fontSizes"
         },
         "h4": {
-          "value": 24,
+          "value": "{fontSizes.24}",
           "type": "fontSizes"
         },
         "h5": {
-          "value": 20,
+          "value": "{fontSizes.20}",
           "type": "fontSizes"
         },
         "h6": {
-          "value": 16,
+          "value": "{fontSizes.16}",
           "type": "fontSizes"
         }
       },
       "body": {
         "bodyRegular": {
-          "value": 16,
+          "value": "{fontSizes.16}",
           "type": "fontSizes"
         },
         "bodySmall": {
-          "value": 14,
+          "value": "{fontSizes.14}",
           "type": "fontSizes"
         },
         "bodyExtraSmall": {
-          "value": 12,
+          "value": "{fontSizes.12}",
           "type": "fontSizes"
         }
       },
       "button": {
         "large": {
-          "value": 16,
+          "value": "{fontSizes.16}",
           "type": "fontSizes"
         },
         "regular": {
-          "value": 16,
+          "value": "{fontSizes.16}",
           "type": "fontSizes"
         },
         "small": {
-          "value": 16,
+          "value": "{fontSizes.16}",
           "type": "fontSizes"
         }
       },
       "link": {
         "large": {
-          "value": 16,
+          "value": "{fontSizes.16}",
           "type": "fontSizes"
         },
         "regular": {
-          "value": 14,
+          "value": "{fontSizes.14}",
           "type": "fontSizes"
         },
         "small": {
-          "value": 12,
+          "value": "{fontSizes.12}",
           "type": "fontSizes"
         }
       }
@@ -401,10 +405,10 @@
       "default": {
         "value": {
           "x": 0,
-          "y": 0,
-          "blur": 0,
+          "y": 1,
+          "blur": 4,
           "spread": 0,
-          "color": "#00000033",
+          "color": "rgba(0,0,0,0.2)",
           "type": "dropShadow"
         },
         "type": "boxShadow"
@@ -415,108 +419,120 @@
     "tokenset": "asgardeo-set",
     "heading": {
       "default": {
-        "value": "Montserrat",
+        "value": "{oxygen.fontFamilies.heading}",
         "type": "fontFamilies"
       }
     },
     "body": {
       "default": {
-        "value": "Roboto",
+        "value": "{oxygen.fontFamilies.body}",
         "type": "fontFamilies"
       }
+    },
+    "inter": {
+      "value": "Inter",
+      "type": "fontFamilies"
+    },
+    "roboto": {
+      "value": "Roboto",
+      "type": "fontFamilies"
+    },
+    "montserrat": {
+      "value": "Montserrat",
+      "type": "fontFamilies"
     }
   },
   "typography": {
     "tokenset": "asgardeo-set",
     "heading": {
       "default": {
-        "value": "semi bold",
+        "value": "{oxygen.fontWeights.semibold}",
         "type": "fontWeights"
       },
       "h1": {
         "value": {
-          "fontFamily": "Montserrat",
-          "fontWeight": "semi bold",
-          "lineHeight": "150%",
-          "fontSize": 48
+          "fontFamily": "{fontFamilies.heading.default}",
+          "fontWeight": "{oxygen.fontWeights.semibold}",
+          "lineHeight": "{oxygen.lineHeights.heading}",
+          "fontSize": "{oxygen.fontSizes.heading.h1}"
         },
         "type": "typography"
       },
       "h2": {
         "value": {
-          "fontFamily": "Montserrat",
-          "fontWeight": "semi bold",
-          "lineHeight": "150%",
-          "fontSize": 40
+          "fontFamily": "{oxygen.fontFamilies.heading}",
+          "fontWeight": "{oxygen.fontWeights.semibold}",
+          "lineHeight": "{oxygen.lineHeights.heading}",
+          "fontSize": "{oxygen.fontSizes.heading.h2}"
         },
         "type": "typography"
       },
       "h3": {
         "value": {
-          "fontFamily": "Montserrat",
-          "fontWeight": "semi bold",
-          "lineHeight": "150%",
-          "fontSize": 32
+          "fontFamily": "{oxygen.fontFamilies.heading}",
+          "fontWeight": "{oxygen.fontWeights.semibold}",
+          "lineHeight": "{oxygen.lineHeights.heading}",
+          "fontSize": "{oxygen.fontSizes.heading.h3}"
         },
         "type": "typography"
       },
       "h4": {
         "value": {
-          "fontFamily": "Montserrat",
-          "fontWeight": "semi bold",
-          "lineHeight": "150%",
-          "fontSize": 24
+          "fontFamily": "{oxygen.fontFamilies.heading}",
+          "fontWeight": "{oxygen.fontWeights.semibold}",
+          "lineHeight": "{oxygen.lineHeights.heading}",
+          "fontSize": "{oxygen.fontSizes.heading.h4}"
         },
         "type": "typography"
       },
       "h5": {
         "value": {
-          "fontFamily": "Montserrat",
-          "fontWeight": "semi bold",
-          "lineHeight": "150%",
-          "fontSize": 20
+          "fontFamily": "{oxygen.fontFamilies.heading}",
+          "fontWeight": "{typography.heading.default}",
+          "lineHeight": "{oxygen.lineHeights.heading}",
+          "fontSize": "{oxygen.fontSizes.heading.h5}"
         },
         "type": "typography"
       },
       "h6": {
         "value": {
-          "fontFamily": "Montserrat",
-          "fontWeight": "semi bold",
-          "lineHeight": "150%",
-          "fontSize": 16
+          "fontFamily": "{oxygen.fontFamilies.heading}",
+          "fontWeight": "{oxygen.fontWeights.semibold}",
+          "lineHeight": "{oxygen.lineHeights.heading}",
+          "fontSize": "{oxygen.fontSizes.heading.h6}"
         },
         "type": "typography"
       }
     },
     "body": {
       "default": {
-        "value": "Regular",
+        "value": "{oxygen.fontWeights.regular}",
         "type": "fontWeights"
       },
       "paragraph-1": {
         "value": {
-          "fontFamily": "Roboto",
-          "fontWeight": "Regular",
-          "lineHeight": "130%",
-          "fontSize": 16
+          "fontFamily": "{oxygen.fontFamilies.body}",
+          "fontWeight": "{fontWeights.regular}",
+          "lineHeight": "{oxygen.lineHeights.body}",
+          "fontSize": "{oxygen.fontSizes.body.bodyRegular}"
         },
         "type": "typography"
       },
       "paragraph-2": {
         "value": {
-          "fontFamily": "Roboto",
-          "fontWeight": "Regular",
-          "lineHeight": "130%",
-          "fontSize": 14
+          "fontFamily": "{oxygen.fontFamilies.body}",
+          "fontWeight": "{fontWeights.regular}",
+          "lineHeight": "{oxygen.lineHeights.body}",
+          "fontSize": "{oxygen.fontSizes.body.bodySmall}"
         },
         "type": "typography"
       },
       "paragraph-3": {
         "value": {
-          "fontFamily": "Roboto",
-          "fontWeight": "Regular",
-          "lineHeight": "130%",
-          "fontSize": 12
+          "fontFamily": "{oxygen.fontFamilies.body}",
+          "fontWeight": "{fontWeights.regular}",
+          "lineHeight": "{oxygen.lineHeights.body}",
+          "fontSize": "{oxygen.fontSizes.body.bodyExtraSmall}"
         },
         "type": "typography"
       }
@@ -524,28 +540,28 @@
     "button": {
       "large": {
         "value": {
-          "fontFamily": "Inter",
-          "fontWeight": "semi bold",
+          "fontFamily": "{fontFamilies.inter}",
+          "fontWeight": "{oxygen.fontWeights.semibold}",
           "lineHeight": "130%",
-          "fontSize": 16
+          "fontSize": "{oxygen.fontSizes.button.large}"
         },
         "type": "typography"
       },
       "regular": {
         "value": {
-          "fontFamily": "Inter",
-          "fontWeight": "semi bold",
+          "fontFamily": "{fontFamilies.inter}",
+          "fontWeight": "{oxygen.fontWeights.semibold}",
           "lineHeight": "150%",
-          "fontSize": 16
+          "fontSize": "{oxygen.fontSizes.button.regular}"
         },
         "type": "typography"
       },
       "small": {
         "value": {
-          "fontFamily": "Inter",
-          "fontWeight": "semi bold",
+          "fontFamily": "{fontFamilies.inter}",
+          "fontWeight": "{oxygen.fontWeights.semibold}",
           "lineHeight": "100%",
-          "fontSize": 16
+          "fontSize": "{oxygen.fontSizes.button.small}"
         },
         "type": "typography"
       }
@@ -553,84 +569,220 @@
     "link": {
       "large": {
         "value": {
-          "fontFamily": "Inter",
-          "fontWeight": "semi bold",
-          "lineHeight": "130%",
-          "fontSize": 16
+          "fontFamily": "{fontFamilies.inter}",
+          "fontWeight": "{fontWeights.semi-bold}",
+          "lineHeight": "{oxygen.lineHeights.body}",
+          "fontSize": "{oxygen.fontSizes.link.large}"
         },
         "type": "typography"
       },
       "regular": {
         "value": {
-          "fontFamily": "Inter",
-          "fontWeight": "semi bold",
-          "lineHeight": "130%",
-          "fontSize": 14
+          "fontFamily": "{fontFamilies.inter}",
+          "fontWeight": "{fontWeights.semi-bold}",
+          "lineHeight": "{oxygen.lineHeights.body}",
+          "fontSize": "{oxygen.fontSizes.link.regular}"
         },
         "type": "typography"
       },
       "small": {
         "value": {
-          "fontFamily": "Inter",
-          "fontWeight": "semi bold",
-          "lineHeight": "130%",
-          "fontSize": 12
+          "fontFamily": "{fontFamilies.inter}",
+          "fontWeight": "{fontWeights.semi-bold}",
+          "lineHeight": "{oxygen.lineHeights.body}",
+          "fontSize": "{oxygen.fontSizes.link.small}"
         },
         "type": "typography"
       }
     }
   },
   "lineHeights": {
+    "100": {
+      "value": "100%",
+      "type": "lineHeights"
+    },
+    "120": {
+      "value": "120%",
+      "type": "lineHeights"
+    },
+    "130": {
+      "value": "130%",
+      "type": "lineHeights"
+    },
+    "140": {
+      "value": "140%",
+      "type": "lineHeights"
+    },
+    "150": {
+      "value": "150%",
+      "type": "lineHeights"
+    },
+    "160": {
+      "value": "160%",
+      "type": "lineHeights"
+    },
+    "170": {
+      "value": "170%",
+      "type": "lineHeights"
+    },
+    "180": {
+      "value": "180%",
+      "type": "lineHeights"
+    },
+    "190": {
+      "value": "190%",
+      "type": "lineHeights"
+    },
+    "200": {
+      "value": "200%",
+      "type": "lineHeights"
+    },
     "tokenset": "asgardeo-set",
     "heading": {
       "default": {
-        "value": "150%",
+        "value": "{oxygen.lineHeights.heading}",
         "type": "lineHeights"
       }
     },
     "body": {
       "default": {
-        "value": "130%",
+        "value": "{oxygen.lineHeights.body}",
         "type": "lineHeights"
       }
     }
   },
   "fontSizes": {
+    "8": {
+      "value": 8,
+      "type": "fontSizes"
+    },
+    "10": {
+      "value": 10,
+      "type": "fontSizes"
+    },
+    "12": {
+      "value": 12,
+      "type": "fontSizes"
+    },
+    "14": {
+      "value": 14,
+      "type": "fontSizes"
+    },
+    "16": {
+      "value": 16,
+      "type": "fontSizes"
+    },
+    "18": {
+      "value": 18,
+      "type": "fontSizes"
+    },
+    "20": {
+      "value": 20,
+      "type": "fontSizes"
+    },
+    "22": {
+      "value": 22,
+      "type": "fontSizes"
+    },
+    "24": {
+      "value": 24,
+      "type": "fontSizes"
+    },
+    "26": {
+      "value": 26,
+      "type": "fontSizes"
+    },
+    "28": {
+      "value": 28,
+      "type": "fontSizes"
+    },
+    "30": {
+      "value": 30,
+      "type": "fontSizes"
+    },
+    "32": {
+      "value": 32,
+      "type": "fontSizes"
+    },
+    "34": {
+      "value": 34,
+      "type": "fontSizes"
+    },
+    "36": {
+      "value": 36,
+      "type": "fontSizes"
+    },
+    "38": {
+      "value": 38,
+      "type": "fontSizes"
+    },
+    "40": {
+      "value": 40,
+      "type": "fontSizes"
+    },
+    "42": {
+      "value": 42,
+      "type": "fontSizes"
+    },
+    "44": {
+      "value": 44,
+      "type": "fontSizes"
+    },
+    "46": {
+      "value": 46,
+      "type": "fontSizes"
+    },
+    "48": {
+      "value": 48,
+      "type": "fontSizes"
+    },
+    "50": {
+      "value": 50,
+      "type": "fontSizes"
+    },
+    "52": {
+      "value": 52,
+      "type": "fontSizes"
+    },
+    "54": {
+      "value": 54,
+      "type": "fontSizes"
+    },
     "tokenset": "asgardeo-set",
     "heading": {
       "h1": {
         "default": {
-          "value": 48,
+          "value": "{oxygen.fontSizes.heading.h1}",
           "type": "fontSizes"
         }
       },
       "h2": {
         "default": {
-          "value": 40,
+          "value": "{oxygen.fontSizes.heading.h2}",
           "type": "fontSizes"
         }
       },
       "h3": {
         "default": {
-          "value": 32,
+          "value": "{oxygen.fontSizes.heading.h3}",
           "type": "fontSizes"
         }
       },
       "h4": {
         "default": {
-          "value": 24,
+          "value": "{oxygen.fontSizes.heading.h4}",
           "type": "fontSizes"
         }
       },
       "h5": {
         "default": {
-          "value": 20,
+          "value": "{oxygen.fontSizes.heading.h5}",
           "type": "fontSizes"
         }
       },
       "h6": {
         "default": {
-          "value": 16,
+          "value": "{oxygen.fontSizes.heading.h6}",
           "type": "fontSizes"
         }
       }
@@ -638,22 +790,34 @@
     "body": {
       "regular": {
         "default": {
-          "value": 16,
+          "value": "{oxygen.fontSizes.body.bodyRegular}",
           "type": "fontSizes"
         }
       },
       "small": {
         "default": {
-          "value": 14,
+          "value": "{oxygen.fontSizes.body.bodySmall}",
           "type": "fontSizes"
         }
       },
       "extraSmall": {
         "default": {
-          "value": 12,
+          "value": "{oxygen.fontSizes.body.bodyExtraSmall}",
           "type": "fontSizes"
         }
       }
+    },
+    "_base": {
+      "value": 16,
+      "type": "fontSizes"
+    },
+    "_scale": {
+      "value": "$scale.majorThird",
+      "type": "fontSizes"
+    },
+    "bodyRegular": {
+      "value": "$fontSizes._base",
+      "type": "fontSizes"
     }
   },
   "color": {
@@ -664,13 +828,29 @@
           "background": {
             "primary": {
               "default": {
-                "value": "#ff7300",
+                "value": "{oxygen.colors.background.primary}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{oxygen.colors.primary.dark}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{oxygen.colors.background.primary}",
+                "type": "color"
+              },
+              "focus": {
+                "value": "{oxygen.colors.background.primary}",
+                "type": "color"
+              },
+              "disable": {
+                "value": "{oxygen.colors.background.primary}",
                 "type": "color"
               }
             },
             "secondary": {
               "default": {
-                "value": "#ffffff",
+                "value": "{oxygen.colors.background.default}",
                 "type": "color"
               }
             }
@@ -678,7 +858,47 @@
           "text": {
             "primary": {
               "default": {
-                "value": "#000000",
+                "value": "{oxygen.colors.text.lighter}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{oxygen.colors.text.lighter}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{oxygen.colors.text.lighter}",
+                "type": "color"
+              },
+              "focus": {
+                "value": "{oxygen.colors.text.lighter}",
+                "type": "color"
+              },
+              "disable": {
+                "value": "{oxygen.colors.text.lighter}",
+                "type": "color"
+              }
+            }
+          },
+          "outline": {
+            "primary": {
+              "default": {
+                "value": "{oxygen.colors.border.white}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{oxygen.colors.border.white}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{oxygen.colors.border.white}",
+                "type": "color"
+              },
+              "focus": {
+                "value": "{oxygen.colors.border.white}",
+                "type": "color"
+              },
+              "disable": {
+                "value": "{oxygen.colors.border.white}",
                 "type": "color"
               }
             }
@@ -688,7 +908,7 @@
           "text": {
             "primary": {
               "default": {
-                "value": "#cc5c00",
+                "value": "{oxygen.colors.text.primary}",
                 "type": "color"
               }
             }
@@ -699,33 +919,33 @@
         "text-field": {
           "background": {
             "default": {
-              "value": "#ffffff",
+              "value": "{oxygen.colors.background.default}",
               "type": "color"
             },
             "active": {
-              "value": "#ffffff",
+              "value": "{oxygen.colors.background.default}",
               "type": "color"
             }
           },
           "placeholder": {
             "default": {
-              "value": "#999999",
+              "value": "{oxygen.colors.text.light}",
               "type": "color"
             }
           },
           "label": {
             "default": {
-              "value": "#333333",
+              "value": "{oxygen.colors.text.dark}",
               "type": "color"
             }
           },
           "border": {
             "default": {
-              "value": "#cccccc",
+              "value": "{oxygen.colors.border.default}",
               "type": "color"
             },
             "active": {
-              "value": "#ff8f33",
+              "value": "{oxygen.colors.border.primary}",
               "type": "color"
             }
           }
@@ -737,13 +957,13 @@
         "login": {
           "background": {
             "default": {
-              "value": "#ffffff",
+              "value": "{oxygen.colors.background.default}",
               "type": "color"
             }
           },
           "border": {
             "default": {
-              "value": "#cccccc",
+              "value": "{oxygen.colors.border.default}",
               "type": "color"
             }
           }
@@ -752,7 +972,7 @@
       "page": {
         "background": {
           "default": {
-            "value": "#ffffff",
+            "value": "{oxygen.colors.background.default}",
             "type": "color"
           }
         }
@@ -762,37 +982,37 @@
       "heading": {
         "h1": {
           "default": {
-            "value": "#000000",
+            "value": "{oxygen.colors.text.darker}",
             "type": "color"
           }
         },
         "h2": {
           "default": {
-            "value": "#000000",
+            "value": "{oxygen.colors.text.darker}",
             "type": "color"
           }
         },
         "h3": {
           "default": {
-            "value": "#000000",
+            "value": "{oxygen.colors.text.darker}",
             "type": "color"
           }
         },
         "h4": {
           "default": {
-            "value": "#000000",
+            "value": "{oxygen.colors.text.darker}",
             "type": "color"
           }
         },
         "h5": {
           "default": {
-            "value": "#000000",
+            "value": "{oxygen.colors.text.darker}",
             "type": "color"
           }
         },
         "h6": {
           "default": {
-            "value": "#000000",
+            "value": "{oxygen.colors.text.darker}",
             "type": "color"
           }
         }
@@ -800,19 +1020,19 @@
       "body": {
         "paragraph-1": {
           "default": {
-            "value": "#000000",
+            "value": "{oxygen.colors.text.darker}",
             "type": "color"
           }
         },
         "paragraph-2": {
           "default": {
-            "value": "#000000",
+            "value": "{oxygen.colors.text.darker}",
             "type": "color"
           }
         },
         "paragraph-3": {
           "default": {
-            "value": "#000000",
+            "value": "{oxygen.colors.text.darker}",
             "type": "color"
           }
         }
@@ -826,15 +1046,15 @@
         "button": {
           "primary": {
             "large": {
-              "value": 2,
+              "value": "{oxygen.borderRadius.sm}",
               "type": "borderRadius"
             },
             "regular": {
-              "value": 2,
+              "value": "{oxygen.borderRadius.md}",
               "type": "borderRadius"
             },
             "small": {
-              "value": 2,
+              "value": "{oxygen.borderRadius.sm}",
               "type": "borderRadius"
             }
           }
@@ -843,15 +1063,15 @@
       "input": {
         "text-field": {
           "large": {
-            "value": 2,
+            "value": "{oxygen.borderRadius.sm}",
             "type": "borderRadius"
           },
           "regular": {
-            "value": 2,
+            "value": "{oxygen.borderRadius.sm}",
             "type": "borderRadius"
           },
           "small": {
-            "value": 2,
+            "value": "{oxygen.borderRadius.sm}",
             "type": "borderRadius"
           }
         }
@@ -859,22 +1079,190 @@
       "registration": {
         "login": {
           "sm": {
-            "value": 2,
+            "value": "{oxygen.borderRadius.sm}",
             "type": "borderRadius"
           },
           "md": {
-            "value": 12,
+            "value": "{oxygen.borderRadius.lg}",
             "type": "borderRadius"
           },
           "lg": {
-            "value": 8,
+            "value": "{oxygen.borderRadius.lg}",
             "type": "borderRadius"
           }
         }
       }
+    },
+    "_scale": {
+      "value": 2,
+      "type": "borderRadius"
+    },
+    "xs": {
+      "value": 1,
+      "type": "borderRadius"
+    },
+    "sm": {
+      "value": "$borderRadius.xs * $borderRadius._scale",
+      "type": "borderRadius"
+    },
+    "md": {
+      "value": "$borderRadius.sm * $borderRadius._scale",
+      "type": "borderRadius"
+    },
+    "lg": {
+      "value": "$borderRadius.md * $borderRadius._scale",
+      "type": "borderRadius"
+    },
+    "xl": {
+      "value": "$borderRadius.lg * $borderRadius._scale",
+      "type": "borderRadius"
+    },
+    "xxl": {
+      "value": "$borderRadius.xl * $borderRadius._scale",
+      "type": "borderRadius"
+    },
+    "none": {
+      "value": 0,
+      "type": "borderRadius"
     }
   },
   "spacing": {
+    "0": {
+      "value": 0,
+      "type": "spacing"
+    },
+    "1": {
+      "value": 1,
+      "type": "spacing"
+    },
+    "2": {
+      "value": 2,
+      "type": "spacing"
+    },
+    "4": {
+      "value": 4,
+      "type": "spacing"
+    },
+    "6": {
+      "value": 6,
+      "type": "spacing"
+    },
+    "8": {
+      "value": 8,
+      "type": "spacing"
+    },
+    "10": {
+      "value": 10,
+      "type": "spacing"
+    },
+    "12": {
+      "value": 12,
+      "type": "spacing"
+    },
+    "14": {
+      "value": 14,
+      "type": "spacing"
+    },
+    "16": {
+      "value": 16,
+      "type": "spacing"
+    },
+    "18": {
+      "value": 18,
+      "type": "spacing"
+    },
+    "20": {
+      "value": 20,
+      "type": "spacing"
+    },
+    "22": {
+      "value": 22,
+      "type": "spacing"
+    },
+    "24": {
+      "value": 24,
+      "type": "spacing"
+    },
+    "26": {
+      "value": 26,
+      "type": "spacing"
+    },
+    "28": {
+      "value": 28,
+      "type": "spacing"
+    },
+    "30": {
+      "value": 30,
+      "type": "spacing"
+    },
+    "32": {
+      "value": 32,
+      "type": "spacing"
+    },
+    "34": {
+      "value": 34,
+      "type": "spacing"
+    },
+    "36": {
+      "value": 36,
+      "type": "spacing"
+    },
+    "38": {
+      "value": 38,
+      "type": "spacing"
+    },
+    "40": {
+      "value": 40,
+      "type": "spacing"
+    },
+    "42": {
+      "value": 42,
+      "type": "spacing"
+    },
+    "44": {
+      "value": 44,
+      "type": "spacing"
+    },
+    "46": {
+      "value": 46,
+      "type": "spacing"
+    },
+    "48": {
+      "value": 48,
+      "type": "spacing"
+    },
+    "50": {
+      "value": 50,
+      "type": "spacing"
+    },
+    "52": {
+      "value": 52,
+      "type": "spacing"
+    },
+    "54": {
+      "value": 54,
+      "type": "spacing"
+    },
+    "56": {
+      "value": 56,
+      "type": "spacing"
+    },
+    "58": {
+      "value": 58,
+      "type": "spacing"
+    },
+    "60": {
+      "value": 60,
+      "type": "spacing"
+    },
+    "62": {
+      "value": 62,
+      "type": "spacing"
+    },
+    "64": {
+      "value": 64,
+      "type": "spacing"
+    },
     "tokenset": "asgardeo-set",
     "action": {
       "cta": {
@@ -882,37 +1270,45 @@
           "primary": {
             "large": {
               "right": {
-                "value": 16,
+                "value": "{oxygen.spacing.16}",
                 "type": "spacing"
               },
               "left": {
-                "value": 16,
+                "value": "{oxygen.spacing.16}",
                 "type": "spacing"
               },
               "top": {
-                "value": 8,
+                "value": "{oxygen.spacing.8}",
                 "type": "spacing"
               },
               "bottom": {
-                "value": 8,
+                "value": "{oxygen.spacing.8}",
+                "type": "spacing"
+              },
+              "gap": {
+                "value": "{oxygen.spacing.4}",
+                "type": "spacing"
+              },
+              "square": {
+                "value": "{oxygen.spacing.12}",
                 "type": "spacing"
               }
             },
             "regular": {
               "right": {
-                "value": 16,
+                "value": "{oxygen.spacing.16}",
                 "type": "spacing"
               },
               "left": {
-                "value": 16,
+                "value": "{oxygen.spacing.16}",
                 "type": "spacing"
               },
               "top": {
-                "value": 8,
+                "value": "{oxygen.spacing.8}",
                 "type": "spacing"
               },
               "bottom": {
-                "value": 8,
+                "value": "{oxygen.spacing.8}",
                 "type": "spacing"
               }
             }
@@ -922,32 +1318,60 @@
       "registration": {
         "login": {
           "xs": {
-            "value": 4,
+            "value": "{oxygen.spacing.4}",
             "type": "spacing"
           },
           "sm": {
-            "value": 8,
+            "value": "{oxygen.spacing.8}",
             "type": "spacing"
           },
           "md": {
-            "value": 16,
+            "value": "{oxygen.spacing.32}",
             "type": "spacing"
           },
           "lg": {
-            "value": 32,
+            "value": "{oxygen.spacing.32}",
             "type": "spacing"
           },
           "xl": {
-            "value": 64,
+            "value": "{oxygen.spacing.64}",
             "type": "spacing"
           }
         }
       }
+    },
+    "_scale": {
+      "value": 2,
+      "type": "spacing"
+    },
+    "xs": {
+      "value": 4,
+      "type": "spacing"
+    },
+    "sm": {
+      "value": "$spacing.xs * $spacing._scale",
+      "type": "spacing"
+    },
+    "md": {
+      "value": "$spacing.sm * $spacing._scale",
+      "type": "spacing"
+    },
+    "lg": {
+      "value": "$spacing.md * $spacing._scale",
+      "type": "spacing"
+    },
+    "xl": {
+      "value": "$spacing.lg * $spacing._scale",
+      "type": "spacing"
+    },
+    "xxl": {
+      "value": "$spacing.xl * $spacing._scale",
+      "type": "spacing"
     }
   },
   "logo": {
     "tokenset": "asgardeo-set",
-    "value": "https://pbs.twimg.com/profile_images/1444722601708769282/nxy72-Kn_400x400.jpg",
+    "value": "https://pbs.twimg.com/profile_images/1401837804812857346/aTC9YutF_400x400.png",
     "type": "asset"
   },
   "dropShadow": {
@@ -959,8 +1383,8 @@
             "default": {
               "value": {
                 "x": 0,
-                "y": 0,
-                "blur": 0,
+                "y": 1,
+                "blur": 4,
                 "spread": 0,
                 "color": "#00000033",
                 "type": "dropShadow"
@@ -971,5 +1395,516 @@
         }
       }
     }
+  },
+  "colors": {
+    "tokenset": "asgardeo-set",
+    "neutrals": {
+      "black": {
+        "value": "#ffffff",
+        "type": "color"
+      },
+      "white": {
+        "value": "#000000",
+        "type": "color"
+      }
+    },
+    "gray": {
+      "100": {
+        "value": "hsl($colors.gray._hue, $colors.gray._sat, 10%)",
+        "type": "color"
+      },
+      "200": {
+        "value": "hsl($colors.gray._hue, $colors.gray._sat, 20%)",
+        "type": "color"
+      },
+      "300": {
+        "value": "hsl($colors.gray._hue, $colors.gray._sat, 30%)",
+        "type": "color"
+      },
+      "400": {
+        "value": "hsl($colors.gray._hue, $colors.gray._sat, 40%)",
+        "type": "color"
+      },
+      "500": {
+        "value": "hsl($colors.gray._hue, $colors.gray._sat, 50%)",
+        "type": "color"
+      },
+      "600": {
+        "value": "hsl($colors.gray._hue, $colors.gray._sat, 60%)",
+        "type": "color"
+      },
+      "700": {
+        "value": "hsl($colors.gray._hue, $colors.gray._sat, 70%)",
+        "type": "color"
+      },
+      "800": {
+        "value": "hsl($colors.gray._hue, $colors.gray._sat, 80%)",
+        "type": "color"
+      },
+      "900": {
+        "value": "hsl($colors.gray._hue, $colors.gray._sat, 90%)",
+        "type": "color"
+      },
+      "_hue": {
+        "value": 0,
+        "type": "color"
+      },
+      "_sat": {
+        "value": "0%",
+        "type": "color"
+      }
+    },
+    "red": {
+      "100": {
+        "value": "hsl($colors.red._hue, $colors.red._sat, 10%)",
+        "type": "color"
+      },
+      "200": {
+        "value": "hsl($colors.red._hue, $colors.red._sat, 20%)",
+        "type": "color"
+      },
+      "300": {
+        "value": "hsl($colors.red._hue, $colors.red._sat, 30%)",
+        "type": "color"
+      },
+      "400": {
+        "value": "hsl($colors.red._hue, $colors.red._sat, 40%)",
+        "type": "color"
+      },
+      "500": {
+        "value": "hsl($colors.red._hue, $colors.red._sat, 50%)",
+        "type": "color"
+      },
+      "600": {
+        "value": "hsl($colors.red._hue, $colors.red._sat, 60%)",
+        "type": "color"
+      },
+      "700": {
+        "value": "hsl($colors.red._hue, $colors.red._sat, 70%)",
+        "type": "color"
+      },
+      "800": {
+        "value": "hsl($colors.red._hue, $colors.red._sat, 80%)",
+        "type": "color"
+      },
+      "900": {
+        "value": "hsl($colors.red._hue, $colors.red._sat, 90%)",
+        "type": "color"
+      },
+      "_hue": {
+        "value": 11,
+        "type": "color"
+      },
+      "_sat": {
+        "value": "100%",
+        "type": "color"
+      }
+    },
+    "orange": {
+      "100": {
+        "value": "hsl($colors.orange._hue, $colors.orange._sat, 10%)",
+        "type": "color"
+      },
+      "200": {
+        "value": "hsl($colors.orange._hue, $colors.orange._sat, 20%)",
+        "type": "color"
+      },
+      "300": {
+        "value": "hsl($colors.orange._hue, $colors.orange._sat, 30%)",
+        "type": "color"
+      },
+      "400": {
+        "value": "hsl($colors.orange._hue, $colors.orange._sat, 40%)",
+        "type": "color"
+      },
+      "500": {
+        "value": "hsl($colors.orange._hue, $colors.orange._sat, 50%)",
+        "type": "color"
+      },
+      "600": {
+        "value": "hsl($colors.orange._hue, $colors.orange._sat, 60%)",
+        "type": "color"
+      },
+      "700": {
+        "value": "hsl($colors.orange._hue, $colors.orange._sat, 70%)",
+        "type": "color"
+      },
+      "800": {
+        "value": "hsl($colors.orange._hue, $colors.orange._sat, 80%)",
+        "type": "color"
+      },
+      "900": {
+        "value": "hsl($colors.orange._hue, $colors.orange._sat, 90%)",
+        "type": "color"
+      },
+      "_hue": {
+        "value": 27,
+        "type": "color"
+      },
+      "_sat": {
+        "value": "100%",
+        "type": "color"
+      }
+    },
+    "green": {
+      "100": {
+        "value": "hsl($colors.green._hue, $colors.green._sat, 10%)",
+        "type": "color"
+      },
+      "200": {
+        "value": "hsl($colors.green._hue, $colors.green._sat, 20%)",
+        "type": "color"
+      },
+      "300": {
+        "value": "hsl($colors.green._hue, $colors.green._sat, 30%)",
+        "type": "color"
+      },
+      "400": {
+        "value": "hsl($colors.green._hue, $colors.green._sat, 40%)",
+        "type": "color"
+      },
+      "500": {
+        "value": "hsl($colors.green._hue, $colors.green._sat, 50%)",
+        "type": "color"
+      },
+      "600": {
+        "value": "hsl($colors.green._hue, $colors.green._sat, 60%)",
+        "type": "color"
+      },
+      "700": {
+        "value": "hsl($colors.green._hue, $colors.green._sat, 70%)",
+        "type": "color"
+      },
+      "800": {
+        "value": "hsl($colors.green._hue, $colors.green._sat, 80%)",
+        "type": "color"
+      },
+      "900": {
+        "value": "hsl($colors.green._hue, $colors.green._sat, 90%)",
+        "type": "color"
+      },
+      "_hue": {
+        "value": 150,
+        "type": "color"
+      },
+      "_sat": {
+        "value": "54%",
+        "type": "color"
+      }
+    },
+    "indigo": {
+      "100": {
+        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 10%)",
+        "type": "color"
+      },
+      "200": {
+        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 20%)",
+        "type": "color"
+      },
+      "300": {
+        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 30%)",
+        "type": "color"
+      },
+      "400": {
+        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 40%)",
+        "type": "color"
+      },
+      "500": {
+        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 50%)",
+        "type": "color"
+      },
+      "600": {
+        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 60%)",
+        "type": "color"
+      },
+      "700": {
+        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 70%)",
+        "type": "color"
+      },
+      "800": {
+        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 80%)",
+        "type": "color"
+      },
+      "900": {
+        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 90%)",
+        "type": "color"
+      },
+      "_hue": {
+        "value": 232,
+        "type": "color"
+      },
+      "_sat": {
+        "value": "60%",
+        "type": "color"
+      }
+    },
+    "blue": {
+      "100": {
+        "value": "hsl($colors.blue._hue, $colors.blue._sat, 90%)",
+        "type": "color"
+      },
+      "200": {
+        "value": "hsl($colors.blue._hue, $colors.blue._sat, 80%)",
+        "type": "color"
+      },
+      "300": {
+        "value": "hsl($colors.blue._hue, $colors.blue._sat, 70%)",
+        "type": "color"
+      },
+      "400": {
+        "value": "hsl($colors.blue._hue, $colors.blue._sat, 60%)",
+        "type": "color"
+      },
+      "500": {
+        "value": "hsl($colors.blue._hue, $colors.blue._sat, 50%)",
+        "type": "color"
+      },
+      "600": {
+        "value": "hsl($colors.blue._hue, $colors.blue._sat, 40%)",
+        "type": "color"
+      },
+      "700": {
+        "value": "hsl($colors.blue._hue, $colors.blue._sat, 30%)",
+        "type": "color"
+      },
+      "800": {
+        "value": "hsl($colors.blue._hue, $colors.blue._sat, 20%)",
+        "type": "color"
+      },
+      "900": {
+        "value": "hsl($colors.blue._hue, $colors.blue._sat, 10%)",
+        "type": "color"
+      },
+      "_hue": {
+        "value": 205,
+        "type": "color"
+      },
+      "_sat": {
+        "value": "100%",
+        "type": "color"
+      }
+    },
+    "yellow": {
+      "100": {
+        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 10%)",
+        "type": "color"
+      },
+      "200": {
+        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 20%)",
+        "type": "color"
+      },
+      "300": {
+        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 30%)",
+        "type": "color"
+      },
+      "400": {
+        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 40%)",
+        "type": "color"
+      },
+      "500": {
+        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 50%)",
+        "type": "color"
+      },
+      "600": {
+        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 60%)",
+        "type": "color"
+      },
+      "700": {
+        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 70%)",
+        "type": "color"
+      },
+      "800": {
+        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 80%)",
+        "type": "color"
+      },
+      "900": {
+        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 90%)",
+        "type": "color"
+      },
+      "_hue": {
+        "value": 40,
+        "type": "color"
+      },
+      "_sat": {
+        "value": "100%",
+        "type": "color"
+      }
+    },
+    "teal": {
+      "100": {
+        "value": "hsl($colors.teal._hue, $colors.teal._sat, 90%)",
+        "type": "color"
+      },
+      "200": {
+        "value": "hsl($colors.teal._hue, $colors.teal._sat, 80%)",
+        "type": "color"
+      },
+      "300": {
+        "value": "hsl($colors.teal._hue, $colors.teal._sat, 70%)",
+        "type": "color"
+      },
+      "400": {
+        "value": "hsl($colors.teal._hue, $colors.teal._sat, 60%)",
+        "type": "color"
+      },
+      "500": {
+        "value": "hsl($colors.teal._hue, $colors.teal._sat, 50%)",
+        "type": "color"
+      },
+      "600": {
+        "value": "hsl($colors.teal._hue, $colors.teal._sat, 40%)",
+        "type": "color"
+      },
+      "700": {
+        "value": "hsl($colors.teal._hue, $colors.teal._sat, 30%)",
+        "type": "color"
+      },
+      "800": {
+        "value": "hsl($colors.teal._hue, $colors.teal._sat, 20%)",
+        "type": "color"
+      },
+      "900": {
+        "value": "hsl($colors.teal._hue, $colors.teal._sat, 10%)",
+        "type": "color"
+      },
+      "_hue": {
+        "value": 173,
+        "type": "color"
+      },
+      "_sat": {
+        "value": "80%",
+        "type": "color"
+      }
+    },
+    "orangeDark": {
+      "100": {
+        "value": "hsl($colors.orangeDark._hue, $colors.orange._sat, 90%)",
+        "type": "color"
+      },
+      "200": {
+        "value": "hsl($colors.orangeDark._hue, $colors.orange._sat, 80%)",
+        "type": "color"
+      },
+      "300": {
+        "value": "hsl($colors.orangeDark._hue, $colors.orange._sat, 70%)",
+        "type": "color"
+      },
+      "400": {
+        "value": "hsl($colors.orangeDark._hue, $colors.orange._sat, 60%)",
+        "type": "color"
+      },
+      "500": {
+        "value": "hsl($colors.orangeDark._hue, $colors.orange._sat, 50%)",
+        "type": "color"
+      },
+      "600": {
+        "value": "hsl($colors.orangeDark._hue, $colors.orange._sat, 40%)",
+        "type": "color"
+      },
+      "700": {
+        "value": "hsl($colors.orangeDark._hue, $colors.orange._sat, 30%)",
+        "type": "color"
+      },
+      "800": {
+        "value": "hsl($colors.orangeDark._hue, $colors.orange._sat, 20%)",
+        "type": "color"
+      },
+      "900": {
+        "value": "hsl($colors.orangeDark._hue, $colors.orange._sat, 10%)",
+        "type": "color"
+      },
+      "_hue": {
+        "value": 19,
+        "type": "color"
+      },
+      "_sat": {
+        "value": "100%",
+        "type": "color"
+      }
+    }
+  },
+  "fontWeights": {
+    "tokenset": "asgardeo-set",
+    "regular": {
+      "value": "Regular",
+      "type": "fontWeights"
+    },
+    "semi-bold": {
+      "value": "semi bold",
+      "type": "fontWeights"
+    },
+    "bold": {
+      "value": "Bold",
+      "type": "fontWeights"
+    }
+  },
+  "sizing": {
+    "tokenset": "asgardeo-set",
+    "_scale": {
+      "value": 2,
+      "type": "sizing"
+    },
+    "xs": {
+      "value": 2,
+      "type": "sizing"
+    },
+    "sm": {
+      "value": "{sizing.xs} * $sizing._scale",
+      "type": "sizing"
+    },
+    "md": {
+      "value": "{sizing.sm} * $sizing._scale",
+      "type": "sizing"
+    },
+    "lg": {
+      "value": "{sizing.md} * $sizing._scale",
+      "type": "sizing"
+    },
+    "xl": {
+      "value": "{sizing.lg} * $sizing._scale",
+      "type": "sizing"
+    },
+    "xxl": {
+      "value": "{sizing.xl} * $sizing._scale",
+      "type": "sizing"
+    }
+  },
+  "scale": {
+    "tokenset": "asgardeo-set",
+    "majorThird": {
+      "value": 1.25,
+      "type": "fontSizes"
+    },
+    "minorThird": {
+      "value": 1.2,
+      "type": "fontSizes"
+    }
+  },
+  "tokenSetOrder": {
+    "0": {
+      "value": "global",
+      "type": "other"
+    },
+    "1": {
+      "value": "global-dark",
+      "type": "other"
+    },
+    "2": {
+      "value": "oxygen",
+      "type": "other"
+    },
+    "3": {
+      "value": "oxygen-dark",
+      "type": "other"
+    },
+    "4": {
+      "value": "asgardeo",
+      "type": "other"
+    },
+    "5": {
+      "value": "choreo",
+      "type": "other"
+    },
+    "tokenset": "asgardeo-set"
   }
 }

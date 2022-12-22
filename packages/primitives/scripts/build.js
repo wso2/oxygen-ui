@@ -20,7 +20,7 @@
 const { transform } = require('@divriots/style-dictionary-to-figma');
 const StyleDictionary = require('style-dictionary');
 const babelParser = require('@babel/parser');
-const Config = require('../sd.config');
+const Config = require('../sd.config.cjs');
 
 StyleDictionary.registerParser({
   parse: ({ contents }) => {

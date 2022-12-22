@@ -1,0 +1,29 @@
+# This workflow will trigger the `Figma Tokens Updater` workflow when
+# the tokens file is updated via Figma on the `figma-tokens` branch.
+
+name: 🦸‍♂️ Figma Tokens Update Trigger
+
+on:
+  push:
+    branches:
+      - figma-tokens
+
+env:
+  GH_TOKEN: ${{ secrets.GH_PAT }}
+
+jobs:
+  pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout
+        id: checkout
+        uses: actions/checkout@v2
+
+      - name: 🐜 Create Pull Request
+        id: create-pr
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: 'main'
+          pr_title: 'chore(primitives): update figma tokens'
+          pr_body: '🍥 Design Tokens were updated in Figma! This PR was created to update the corresponding style dictionary tokens.'
+          github_token: ${{ env.GH_TOKEN }}

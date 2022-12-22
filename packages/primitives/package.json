@@ -23,7 +23,8 @@
   "scripts": {
     "build": "node ./scripts/build.js",
     "lint": "eslint .",
-    "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest",
+    "transform": "node ./scripts/transform.js"
   },
   "devDependencies": {
     "@babel/parser": "^7.20.5",
