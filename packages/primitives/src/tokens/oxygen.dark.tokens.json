@@ -1,6 +1,6 @@
 {
   "oxygen": {
-    "tokenset": "oxygen-set",
+    "tokenset": "oxygen-dark-set",
     "colors": {
       "primary": {
         "lighter": {
@@ -416,7 +416,7 @@
     }
   },
   "fontFamilies": {
-    "tokenset": "oxygen-set",
+    "tokenset": "oxygen-dark-set",
     "heading": {
       "default": {
         "value": "{oxygen.fontFamilies.heading}",
@@ -443,7 +443,7 @@
     }
   },
   "typography": {
-    "tokenset": "oxygen-set",
+    "tokenset": "oxygen-dark-set",
     "heading": {
       "default": {
         "value": "{oxygen.fontWeights.semibold}",
@@ -637,7 +637,7 @@
       "value": "200%",
       "type": "lineHeights"
     },
-    "tokenset": "oxygen-set",
+    "tokenset": "oxygen-dark-set",
     "heading": {
       "default": {
         "value": "{oxygen.lineHeights.heading}",
@@ -748,7 +748,7 @@
       "value": 54,
       "type": "fontSizes"
     },
-    "tokenset": "oxygen-set",
+    "tokenset": "oxygen-dark-set",
     "heading": {
       "h1": {
         "default": {
@@ -821,7 +821,7 @@
     }
   },
   "color": {
-    "tokenset": "oxygen-set",
+    "tokenset": "oxygen-dark-set",
     "action": {
       "cta": {
         "button": {
@@ -1040,7 +1040,7 @@
     }
   },
   "borderRadius": {
-    "tokenset": "oxygen-set",
+    "tokenset": "oxygen-dark-set",
     "action": {
       "cta": {
         "button": {
@@ -1263,7 +1263,7 @@
       "value": 64,
       "type": "spacing"
     },
-    "tokenset": "oxygen-set",
+    "tokenset": "oxygen-dark-set",
     "action": {
       "cta": {
         "button": {
@@ -1370,12 +1370,12 @@
     }
   },
   "logo": {
-    "tokenset": "oxygen-set",
+    "tokenset": "oxygen-dark-set",
     "value": "https://pbs.twimg.com/profile_images/1401837804812857346/aTC9YutF_400x400.png",
     "type": "asset"
   },
   "dropShadow": {
-    "tokenset": "oxygen-set",
+    "tokenset": "oxygen-dark-set",
     "action": {
       "cta": {
         "button": {
@@ -1397,7 +1397,7 @@
     }
   },
   "colors": {
-    "tokenset": "oxygen-set",
+    "tokenset": "oxygen-dark-set",
     "neutrals": {
       "black": {
         "value": "#ffffff",
@@ -1824,7 +1824,7 @@
     }
   },
   "fontWeights": {
-    "tokenset": "oxygen-set",
+    "tokenset": "oxygen-dark-set",
     "regular": {
       "value": "Regular",
       "type": "fontWeights"
@@ -1839,7 +1839,7 @@
     }
   },
   "sizing": {
-    "tokenset": "oxygen-set",
+    "tokenset": "oxygen-dark-set",
     "_scale": {
       "value": 2,
       "type": "sizing"
@@ -1870,7 +1870,7 @@
     }
   },
   "scale": {
-    "tokenset": "oxygen-set",
+    "tokenset": "oxygen-dark-set",
     "majorThird": {
       "value": 1.25,
       "type": "fontSizes"
@@ -1905,6 +1905,6 @@
       "value": "choreo",
       "type": "other"
     },
-    "tokenset": "oxygen-set"
+    "tokenset": "oxygen-dark-set"
   }
 }
