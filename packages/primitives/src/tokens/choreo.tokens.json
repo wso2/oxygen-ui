@@ -844,7 +844,7 @@
                 "type": "color"
               },
               "disable": {
-                "value": "{oxygen.colors.background.primary}",
+                "value": "{oxygen.colors.primary.lighter}",
                 "type": "color"
               }
             },
@@ -1308,6 +1308,14 @@
                 "type": "spacing"
               },
               "bottom": {
+                "value": "{oxygen.spacing.8}",
+                "type": "spacing"
+              },
+              "gap": {
+                "value": "{oxygen.spacing.6}",
+                "type": "spacing"
+              },
+              "square": {
                 "value": "{oxygen.spacing.8}",
                 "type": "spacing"
               }
@@ -1894,14 +1902,10 @@
       "type": "other"
     },
     "3": {
-      "value": "oxygen-dark",
-      "type": "other"
-    },
-    "4": {
       "value": "asgardeo",
       "type": "other"
     },
-    "5": {
+    "4": {
       "value": "choreo",
       "type": "other"
     },
