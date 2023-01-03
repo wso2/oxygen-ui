@@ -4,6 +4,9 @@ name: 👮‍♀️ Figma Tokens Updater
 
 on: pull_request
 
+env:
+  PRIMITIVES_SOURCE: ./packages/primitives
+
 jobs:
   run_if:
     if: ${{ github.head_ref == 'figma-tokens' }}
@@ -45,10 +48,12 @@ jobs:
 
       - name: 🤖 Run Token Transformer
         id: run-token-transformer
+        working-directory: ${{ env.PRIMITIVES_SOURCE }}
         run: pnpm transform
 
       - name: 🦎 Run Style Dictionary
         id: run-style-dictionary
+        working-directory: ${{ env.PRIMITIVES_SOURCE }}
         run: pnpm build
 
       - name: 🐤 Commit changes
