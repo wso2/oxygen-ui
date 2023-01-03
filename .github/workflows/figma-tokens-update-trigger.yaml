@@ -9,7 +9,7 @@ on:
       - figma-tokens
 
 env:
-  GH_TOKEN: ${{ secrets.GH_PAT }}
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
   pull-request:
