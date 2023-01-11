@@ -28,6 +28,7 @@
     "@fontsource/inter": "^4.5.14",
     "@fontsource/montserrat": "^4.5.13",
     "@oxygen-ui/react": "*",
+    "@oxygen-ui/primitives": "*",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
