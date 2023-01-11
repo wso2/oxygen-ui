@@ -12,39 +12,39 @@
     },
     "gray": {
       "100": {
-        "value": "hsl($colors.gray._hue, $colors.gray._sat, 10%)",
+        "value": "#1a1a1a",
         "type": "color"
       },
       "200": {
-        "value": "hsl($colors.gray._hue, $colors.gray._sat, 20%)",
+        "value": "#333333",
         "type": "color"
       },
       "300": {
-        "value": "hsl($colors.gray._hue, $colors.gray._sat, 30%)",
+        "value": "#4d4d4d",
         "type": "color"
       },
       "400": {
-        "value": "hsl($colors.gray._hue, $colors.gray._sat, 40%)",
+        "value": "#666666",
         "type": "color"
       },
       "500": {
-        "value": "hsl($colors.gray._hue, $colors.gray._sat, 50%)",
+        "value": "#808080",
         "type": "color"
       },
       "600": {
-        "value": "hsl($colors.gray._hue, $colors.gray._sat, 60%)",
+        "value": "#999999",
         "type": "color"
       },
       "700": {
-        "value": "hsl($colors.gray._hue, $colors.gray._sat, 70%)",
+        "value": "#b3b3b3",
         "type": "color"
       },
       "800": {
-        "value": "hsl($colors.gray._hue, $colors.gray._sat, 80%)",
+        "value": "#cccccc",
         "type": "color"
       },
       "900": {
-        "value": "hsl($colors.gray._hue, $colors.gray._sat, 90%)",
+        "value": "#e6e6e6",
         "type": "color"
       },
       "_hue": {
@@ -58,39 +58,39 @@
     },
     "red": {
       "100": {
-        "value": "hsl($colors.red._hue, $colors.red._sat, 10%)",
+        "value": "#330900",
         "type": "color"
       },
       "200": {
-        "value": "hsl($colors.red._hue, $colors.red._sat, 20%)",
+        "value": "#661300",
         "type": "color"
       },
       "300": {
-        "value": "hsl($colors.red._hue, $colors.red._sat, 30%)",
+        "value": "#991c00",
         "type": "color"
       },
       "400": {
-        "value": "hsl($colors.red._hue, $colors.red._sat, 40%)",
+        "value": "#cc2500",
         "type": "color"
       },
       "500": {
-        "value": "hsl($colors.red._hue, $colors.red._sat, 50%)",
+        "value": "#ff2f00",
         "type": "color"
       },
       "600": {
-        "value": "hsl($colors.red._hue, $colors.red._sat, 60%)",
+        "value": "#ff5833",
         "type": "color"
       },
       "700": {
-        "value": "hsl($colors.red._hue, $colors.red._sat, 70%)",
+        "value": "#ff8266",
         "type": "color"
       },
       "800": {
-        "value": "hsl($colors.red._hue, $colors.red._sat, 80%)",
+        "value": "#ffac99",
         "type": "color"
       },
       "900": {
-        "value": "hsl($colors.red._hue, $colors.red._sat, 90%)",
+        "value": "#ffd5cc",
         "type": "color"
       },
       "_hue": {
@@ -104,39 +104,39 @@
     },
     "orange": {
       "100": {
-        "value": "hsl($colors.orange._hue, $colors.orange._sat, 10%)",
+        "value": "#331700",
         "type": "color"
       },
       "200": {
-        "value": "hsl($colors.orange._hue, $colors.orange._sat, 20%)",
+        "value": "#662e00",
         "type": "color"
       },
       "300": {
-        "value": "hsl($colors.orange._hue, $colors.orange._sat, 30%)",
+        "value": "#994500",
         "type": "color"
       },
       "400": {
-        "value": "hsl($colors.orange._hue, $colors.orange._sat, 40%)",
+        "value": "#cc5c00",
         "type": "color"
       },
       "500": {
-        "value": "hsl($colors.orange._hue, $colors.orange._sat, 50%)",
+        "value": "#ff7300",
         "type": "color"
       },
       "600": {
-        "value": "hsl($colors.orange._hue, $colors.orange._sat, 60%)",
+        "value": "#ff8f33",
         "type": "color"
       },
       "700": {
-        "value": "hsl($colors.orange._hue, $colors.orange._sat, 70%)",
+        "value": "#ffab66",
         "type": "color"
       },
       "800": {
-        "value": "hsl($colors.orange._hue, $colors.orange._sat, 80%)",
+        "value": "#ffc799",
         "type": "color"
       },
       "900": {
-        "value": "hsl($colors.orange._hue, $colors.orange._sat, 90%)",
+        "value": "#ffe3cc",
         "type": "color"
       },
       "_hue": {
@@ -150,39 +150,39 @@
     },
     "green": {
       "100": {
-        "value": "hsl($colors.green._hue, $colors.green._sat, 10%)",
+        "value": "#0c271a",
         "type": "color"
       },
       "200": {
-        "value": "hsl($colors.green._hue, $colors.green._sat, 20%)",
+        "value": "#174f33",
         "type": "color"
       },
       "300": {
-        "value": "hsl($colors.green._hue, $colors.green._sat, 30%)",
+        "value": "#23764d",
         "type": "color"
       },
       "400": {
-        "value": "hsl($colors.green._hue, $colors.green._sat, 40%)",
+        "value": "#2f9d66",
         "type": "color"
       },
       "500": {
-        "value": "hsl($colors.green._hue, $colors.green._sat, 50%)",
+        "value": "#3bc480",
         "type": "color"
       },
       "600": {
-        "value": "hsl($colors.green._hue, $colors.green._sat, 60%)",
+        "value": "#62d099",
         "type": "color"
       },
       "700": {
-        "value": "hsl($colors.green._hue, $colors.green._sat, 70%)",
+        "value": "#89dcb3",
         "type": "color"
       },
       "800": {
-        "value": "hsl($colors.green._hue, $colors.green._sat, 80%)",
+        "value": "#b0e8cc",
         "type": "color"
       },
       "900": {
-        "value": "hsl($colors.green._hue, $colors.green._sat, 90%)",
+        "value": "#d8f3e6",
         "type": "color"
       },
       "_hue": {
@@ -196,39 +196,39 @@
     },
     "indigo": {
       "100": {
-        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 10%)",
+        "value": "#0a0e29",
         "type": "color"
       },
       "200": {
-        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 20%)",
+        "value": "#141d52",
         "type": "color"
       },
       "300": {
-        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 30%)",
+        "value": "#1f2b7a",
         "type": "color"
       },
       "400": {
-        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 40%)",
+        "value": "#2939a3",
         "type": "color"
       },
       "500": {
-        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 50%)",
+        "value": "#3347cc",
         "type": "color"
       },
       "600": {
-        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 60%)",
+        "value": "#5c6cd6",
         "type": "color"
       },
       "700": {
-        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 70%)",
+        "value": "#8591e0",
         "type": "color"
       },
       "800": {
-        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 80%)",
+        "value": "#adb6eb",
         "type": "color"
       },
       "900": {
-        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 90%)",
+        "value": "#d6daf5",
         "type": "color"
       },
       "_hue": {
@@ -242,39 +242,39 @@
     },
     "blue": {
       "100": {
-        "value": "hsl($colors.blue._hue, $colors.blue._sat, 90%)",
+        "value": "#cceaff",
         "type": "color"
       },
       "200": {
-        "value": "hsl($colors.blue._hue, $colors.blue._sat, 80%)",
+        "value": "#99d5ff",
         "type": "color"
       },
       "300": {
-        "value": "hsl($colors.blue._hue, $colors.blue._sat, 70%)",
+        "value": "#66bfff",
         "type": "color"
       },
       "400": {
-        "value": "hsl($colors.blue._hue, $colors.blue._sat, 60%)",
+        "value": "#33aaff",
         "type": "color"
       },
       "500": {
-        "value": "hsl($colors.blue._hue, $colors.blue._sat, 50%)",
+        "value": "#0095ff",
         "type": "color"
       },
       "600": {
-        "value": "hsl($colors.blue._hue, $colors.blue._sat, 40%)",
+        "value": "#0077cc",
         "type": "color"
       },
       "700": {
-        "value": "hsl($colors.blue._hue, $colors.blue._sat, 30%)",
+        "value": "#005999",
         "type": "color"
       },
       "800": {
-        "value": "hsl($colors.blue._hue, $colors.blue._sat, 20%)",
+        "value": "#003c66",
         "type": "color"
       },
       "900": {
-        "value": "hsl($colors.blue._hue, $colors.blue._sat, 10%)",
+        "value": "#001e33",
         "type": "color"
       },
       "_hue": {
@@ -288,39 +288,39 @@
     },
     "yellow": {
       "100": {
-        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 10%)",
+        "value": "#332200",
         "type": "color"
       },
       "200": {
-        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 20%)",
+        "value": "#664400",
         "type": "color"
       },
       "300": {
-        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 30%)",
+        "value": "#996600",
         "type": "color"
       },
       "400": {
-        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 40%)",
+        "value": "#cc8800",
         "type": "color"
       },
       "500": {
-        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 50%)",
+        "value": "#ffaa00",
         "type": "color"
       },
       "600": {
-        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 60%)",
+        "value": "#ffbb33",
         "type": "color"
       },
       "700": {
-        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 70%)",
+        "value": "#ffcc66",
         "type": "color"
       },
       "800": {
-        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 80%)",
+        "value": "#ffdd99",
         "type": "color"
       },
       "900": {
-        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 90%)",
+        "value": "#ffeecc",
         "type": "color"
       },
       "_hue": {
@@ -334,39 +334,39 @@
     },
     "teal": {
       "100": {
-        "value": "hsl($colors.teal._hue, $colors.teal._sat, 90%)",
+        "value": "#d1faf5",
         "type": "color"
       },
       "200": {
-        "value": "hsl($colors.teal._hue, $colors.teal._sat, 80%)",
+        "value": "#a3f5eb",
         "type": "color"
       },
       "300": {
-        "value": "hsl($colors.teal._hue, $colors.teal._sat, 70%)",
+        "value": "#75f0e1",
         "type": "color"
       },
       "400": {
-        "value": "hsl($colors.teal._hue, $colors.teal._sat, 60%)",
+        "value": "#47ebd8",
         "type": "color"
       },
       "500": {
-        "value": "hsl($colors.teal._hue, $colors.teal._sat, 50%)",
+        "value": "#19e6ce",
         "type": "color"
       },
       "600": {
-        "value": "hsl($colors.teal._hue, $colors.teal._sat, 40%)",
+        "value": "#14b8a5",
         "type": "color"
       },
       "700": {
-        "value": "hsl($colors.teal._hue, $colors.teal._sat, 30%)",
+        "value": "#0f8a7b",
         "type": "color"
       },
       "800": {
-        "value": "hsl($colors.teal._hue, $colors.teal._sat, 20%)",
+        "value": "#0a5c52",
         "type": "color"
       },
       "900": {
-        "value": "hsl($colors.teal._hue, $colors.teal._sat, 10%)",
+        "value": "#052e29",
         "type": "color"
       },
       "_hue": {
@@ -403,23 +403,23 @@
       "type": "borderRadius"
     },
     "sm": {
-      "value": "$borderRadius.xs * $borderRadius._scale",
+      "value": 2,
       "type": "borderRadius"
     },
     "md": {
-      "value": "$borderRadius.sm * $borderRadius._scale",
+      "value": 4,
       "type": "borderRadius"
     },
     "lg": {
-      "value": "$borderRadius.md * $borderRadius._scale",
+      "value": 8,
       "type": "borderRadius"
     },
     "xl": {
-      "value": "$borderRadius.lg * $borderRadius._scale",
+      "value": 16,
       "type": "borderRadius"
     },
     "xxl": {
-      "value": "$borderRadius.xl * $borderRadius._scale",
+      "value": 32,
       "type": "borderRadius"
     },
     "none": {
@@ -451,23 +451,23 @@
       "type": "sizing"
     },
     "sm": {
-      "value": "{sizing.xs} * $sizing._scale",
+      "value": 4,
       "type": "sizing"
     },
     "md": {
-      "value": "{sizing.sm} * $sizing._scale",
+      "value": 8,
       "type": "sizing"
     },
     "lg": {
-      "value": "{sizing.md} * $sizing._scale",
+      "value": 16,
       "type": "sizing"
     },
     "xl": {
-      "value": "{sizing.lg} * $sizing._scale",
+      "value": 32,
       "type": "sizing"
     },
     "xxl": {
-      "value": "{sizing.xl} * $sizing._scale",
+      "value": 64,
       "type": "sizing"
     }
   },
@@ -481,23 +481,23 @@
       "type": "spacing"
     },
     "sm": {
-      "value": "$spacing.xs * $spacing._scale",
+      "value": 8,
       "type": "spacing"
     },
     "md": {
-      "value": "$spacing.sm * $spacing._scale",
+      "value": 16,
       "type": "spacing"
     },
     "lg": {
-      "value": "$spacing.md * $spacing._scale",
+      "value": 32,
       "type": "spacing"
     },
     "xl": {
-      "value": "$spacing.lg * $spacing._scale",
+      "value": 64,
       "type": "spacing"
     },
     "xxl": {
-      "value": "$spacing.xl * $spacing._scale",
+      "value": 128,
       "type": "spacing"
     }
   },
@@ -613,11 +613,11 @@
       "type": "fontSizes"
     },
     "_scale": {
-      "value": "$scale.majorThird",
+      "value": 1.25,
       "type": "fontSizes"
     },
     "bodyRegular": {
-      "value": "$fontSizes._base",
+      "value": 16,
       "type": "fontSizes"
     }
   },

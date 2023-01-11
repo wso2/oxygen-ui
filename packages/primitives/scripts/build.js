@@ -20,10 +20,11 @@
 const fs = require('fs');
 const path = require('path');
 const StyleDictionary = require('style-dictionary');
+const { logger } = require('@oxygen-ui/logger');
 
 const PATHS = {
   source: {
-    tokens: path.resolve(path.join(__dirname, '..', 'src', 'tokens')),
+    tokens: path.resolve(path.join(__dirname, '..', 'src', 'design-tokens')),
   },
 };
 
@@ -44,74 +45,79 @@ StyleDictionary.registerTransformGroup({
   transforms: ['name/cti/kebab', 'time/seconds', 'size/px', 'color/css'],
 });
 
-console.log('Build started...');
+const getStyleDictionaryConfig = (brand, source) => {
+  const sourceFileName = path.basename(source);
 
-const getStyleDictionaryConfig = (brand, source) => ({
-  platforms: {
-    'web/css': {
-      buildPath: `dist/design-tokens/web/${brand}/css/`,
-      files: [
-        {
-          destination: 'tokens.css',
-          format: 'css/variables',
-          options: {
-            outputReferences: true,
+  return {
+    platforms: {
+      'web/css': {
+        buildPath: `dist/design-tokens/web/${brand}/css/`,
+        files: [
+          {
+            destination: sourceFileName.replace('.json', '.css'),
+            format: 'css/variables',
           },
-        },
-      ],
-      prefix: brand,
-      transformGroup: 'tokens-css',
+        ],
+        prefix: brand,
+        transformGroup: 'tokens-css',
+      },
+      'web/es': {
+        buildPath: `dist/design-tokens/web/${brand}/es/`,
+        files: [
+          {
+            destination: sourceFileName.replace('.json', '.d.ts'),
+            format: 'typescript/es6-declarations',
+          },
+          {
+            destination: sourceFileName.replace('.json', '.js'),
+            format: 'javascript/module-flat',
+          },
+          {
+            destination: sourceFileName.replace('.json', '.es6.js'),
+            format: 'javascript/es6',
+          },
+        ],
+        prefix: brand,
+        transformGroup: 'tokens-es',
+      },
+      'web/scss': {
+        buildPath: `dist/design-tokens/web/${brand}/scss/`,
+        files: [
+          {
+            destination: sourceFileName.replace('.json', '.scss'),
+            format: 'scss/variables',
+          },
+        ],
+        prefix: brand,
+        transformGroup: 'tokens-scss',
+      },
     },
-    'web/es': {
-      buildPath: `dist/design-tokens/web/${brand}/es/`,
-      files: [
-        {
-          destination: 'tokens.d.ts',
-          format: 'typescript/es6-declarations',
-        },
-        {
-          destination: 'tokens.js',
-          format: 'javascript/module-flat',
-        },
-        {
-          destination: 'tokens.es6.js',
-          format: 'javascript/es6',
-        },
-      ],
-      prefix: brand,
-      transformGroup: 'tokens-es',
-    },
-    'web/scss': {
-      buildPath: `dist/design-tokens/web/${brand}/scss/`,
-      files: [
-        {
-          destination: 'tokens.scss',
-          format: 'scss/variables',
-        },
-      ],
-      prefix: brand,
-      transformGroup: 'tokens-scss',
-    },
-  },
-  source: [source],
-});
+    source: [source],
+  };
+};
+
+/* ====================================================================================== */
+/* Execution starts from here                                                             */
+/* ====================================================================================== */
+
+logger.log('=======================  🧱 Started Building Primitives 🧱  =======================');
+logger.log();
+logger.log('                         💅  Building Style Dictionary  💅  =======================');
+logger.log();
 
 fs.readdirSync(PATHS.source.tokens)
-  .forEach((file) => {
-    const brand = file.split('.')[0];
-    const filePath = path.join(PATHS.source.tokens, file);
+  .forEach((brand) => {
+    logger.info(`Processing the Brand: [ ${brand} ]`);
 
-    console.log('\n==============================================');
-    console.log(`\nProcessing: [${brand}]`);
+    fs.readdirSync(path.join(PATHS.source.tokens, brand))
+      .forEach((tokenFile) => {
+        const filePath = path.join(PATHS.source.tokens, brand, tokenFile);
 
-    const StyleDictionaryExtended = StyleDictionary.extend(getStyleDictionaryConfig(brand, filePath));
+        const StyleDictionaryExtended = StyleDictionary
+          .extend(getStyleDictionaryConfig(brand, filePath));
 
-    StyleDictionaryExtended.buildPlatform('web/es');
-    StyleDictionaryExtended.buildPlatform('web/css');
-    StyleDictionaryExtended.buildPlatform('web/scss');
-
-    console.log('\nEnd processing');
+        StyleDictionaryExtended.buildPlatform('web/es');
+        StyleDictionaryExtended.buildPlatform('web/css');
+        StyleDictionaryExtended.buildPlatform('web/scss');
+      });
   });
-
-console.log('\n==============================================');
-console.log('\nBuild completed!');
