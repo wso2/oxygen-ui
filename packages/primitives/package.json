@@ -29,6 +29,7 @@
   "devDependencies": {
     "@babel/parser": "^7.20.5",
     "@divriots/style-dictionary-to-figma": "^0.4.0",
+    "@oxygen-ui/logger": "*",
     "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?f3bfe50d1be35763beeeb2d5f8116cf0f37954ea",
     "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?f3bfe50d1be35763beeeb2d5f8116cf0f37954ea",
     "eslint": "8.25.0",

@@ -1,26 +1,25 @@
 {
   "oxygen": {
-    "tokenset": "asgardeo-set",
     "colors": {
       "primary": {
         "lighter": {
-          "value": "{colors.indigo.200}",
+          "value": "{colors.orange.300}",
           "type": "color"
         },
         "light": {
-          "value": "{colors.indigo.300}",
+          "value": "{colors.orange.400}",
           "type": "color"
         },
         "default": {
-          "value": "{colors.indigo.400}",
+          "value": "{colors.orange.500}",
           "type": "color"
         },
         "dark": {
-          "value": "{colors.indigo.500}",
+          "value": "{colors.orange.600}",
           "type": "color"
         },
         "darker": {
-          "value": "{colors.indigo.600}",
+          "value": "{colors.orange.700}",
           "type": "color"
         }
       },
@@ -64,7 +63,7 @@
           "type": "color"
         },
         "primary": {
-          "value": "{oxygen.colors.primary.default}",
+          "value": "{oxygen.colors.primary.dark}",
           "type": "color"
         }
       },
@@ -105,10 +104,6 @@
         },
         "primary": {
           "value": "{oxygen.colors.primary.light}",
-          "type": "color"
-        },
-        "white": {
-          "value": "{colors.neutrals.white}",
           "type": "color"
         }
       },
@@ -299,7 +294,7 @@
     },
     "fontFamilies": {
       "heading": {
-        "value": "{fontFamilies.inter}",
+        "value": "{fontFamilies.montserrat}",
         "type": "fontFamilies"
       },
       "body": {
@@ -405,8 +400,8 @@
       "default": {
         "value": {
           "x": 0,
-          "y": 1,
-          "blur": 4,
+          "y": 0,
+          "blur": 0,
           "spread": 0,
           "color": "rgba(0,0,0,0.2)",
           "type": "dropShadow"
@@ -416,7 +411,6 @@
     }
   },
   "fontFamilies": {
-    "tokenset": "asgardeo-set",
     "heading": {
       "default": {
         "value": "{oxygen.fontFamilies.heading}",
@@ -428,22 +422,9 @@
         "value": "{oxygen.fontFamilies.body}",
         "type": "fontFamilies"
       }
-    },
-    "inter": {
-      "value": "Inter",
-      "type": "fontFamilies"
-    },
-    "roboto": {
-      "value": "Roboto",
-      "type": "fontFamilies"
-    },
-    "montserrat": {
-      "value": "Montserrat",
-      "type": "fontFamilies"
     }
   },
   "typography": {
-    "tokenset": "asgardeo-set",
     "heading": {
       "default": {
         "value": "{oxygen.fontWeights.semibold}",
@@ -597,47 +578,6 @@
     }
   },
   "lineHeights": {
-    "100": {
-      "value": "100%",
-      "type": "lineHeights"
-    },
-    "120": {
-      "value": "120%",
-      "type": "lineHeights"
-    },
-    "130": {
-      "value": "130%",
-      "type": "lineHeights"
-    },
-    "140": {
-      "value": "140%",
-      "type": "lineHeights"
-    },
-    "150": {
-      "value": "150%",
-      "type": "lineHeights"
-    },
-    "160": {
-      "value": "160%",
-      "type": "lineHeights"
-    },
-    "170": {
-      "value": "170%",
-      "type": "lineHeights"
-    },
-    "180": {
-      "value": "180%",
-      "type": "lineHeights"
-    },
-    "190": {
-      "value": "190%",
-      "type": "lineHeights"
-    },
-    "200": {
-      "value": "200%",
-      "type": "lineHeights"
-    },
-    "tokenset": "asgardeo-set",
     "heading": {
       "default": {
         "value": "{oxygen.lineHeights.heading}",
@@ -652,103 +592,6 @@
     }
   },
   "fontSizes": {
-    "8": {
-      "value": 8,
-      "type": "fontSizes"
-    },
-    "10": {
-      "value": 10,
-      "type": "fontSizes"
-    },
-    "12": {
-      "value": 12,
-      "type": "fontSizes"
-    },
-    "14": {
-      "value": 14,
-      "type": "fontSizes"
-    },
-    "16": {
-      "value": 16,
-      "type": "fontSizes"
-    },
-    "18": {
-      "value": 18,
-      "type": "fontSizes"
-    },
-    "20": {
-      "value": 20,
-      "type": "fontSizes"
-    },
-    "22": {
-      "value": 22,
-      "type": "fontSizes"
-    },
-    "24": {
-      "value": 24,
-      "type": "fontSizes"
-    },
-    "26": {
-      "value": 26,
-      "type": "fontSizes"
-    },
-    "28": {
-      "value": 28,
-      "type": "fontSizes"
-    },
-    "30": {
-      "value": 30,
-      "type": "fontSizes"
-    },
-    "32": {
-      "value": 32,
-      "type": "fontSizes"
-    },
-    "34": {
-      "value": 34,
-      "type": "fontSizes"
-    },
-    "36": {
-      "value": 36,
-      "type": "fontSizes"
-    },
-    "38": {
-      "value": 38,
-      "type": "fontSizes"
-    },
-    "40": {
-      "value": 40,
-      "type": "fontSizes"
-    },
-    "42": {
-      "value": 42,
-      "type": "fontSizes"
-    },
-    "44": {
-      "value": 44,
-      "type": "fontSizes"
-    },
-    "46": {
-      "value": 46,
-      "type": "fontSizes"
-    },
-    "48": {
-      "value": 48,
-      "type": "fontSizes"
-    },
-    "50": {
-      "value": 50,
-      "type": "fontSizes"
-    },
-    "52": {
-      "value": 52,
-      "type": "fontSizes"
-    },
-    "54": {
-      "value": 54,
-      "type": "fontSizes"
-    },
-    "tokenset": "asgardeo-set",
     "heading": {
       "h1": {
         "default": {
@@ -806,44 +649,15 @@
           "type": "fontSizes"
         }
       }
-    },
-    "_base": {
-      "value": 16,
-      "type": "fontSizes"
-    },
-    "_scale": {
-      "value": "$scale.majorThird",
-      "type": "fontSizes"
-    },
-    "bodyRegular": {
-      "value": "$fontSizes._base",
-      "type": "fontSizes"
     }
   },
   "color": {
-    "tokenset": "asgardeo-set",
     "action": {
       "cta": {
         "button": {
           "background": {
             "primary": {
               "default": {
-                "value": "{oxygen.colors.background.primary}",
-                "type": "color"
-              },
-              "hover": {
-                "value": "{oxygen.colors.primary.dark}",
-                "type": "color"
-              },
-              "active": {
-                "value": "{oxygen.colors.background.primary}",
-                "type": "color"
-              },
-              "focus": {
-                "value": "{oxygen.colors.background.primary}",
-                "type": "color"
-              },
-              "disable": {
                 "value": "{oxygen.colors.background.primary}",
                 "type": "color"
               }
@@ -858,47 +672,7 @@
           "text": {
             "primary": {
               "default": {
-                "value": "{oxygen.colors.text.lighter}",
-                "type": "color"
-              },
-              "hover": {
-                "value": "{oxygen.colors.text.lighter}",
-                "type": "color"
-              },
-              "active": {
-                "value": "{oxygen.colors.text.lighter}",
-                "type": "color"
-              },
-              "focus": {
-                "value": "{oxygen.colors.text.lighter}",
-                "type": "color"
-              },
-              "disable": {
-                "value": "{oxygen.colors.text.lighter}",
-                "type": "color"
-              }
-            }
-          },
-          "outline": {
-            "primary": {
-              "default": {
-                "value": "{oxygen.colors.border.white}",
-                "type": "color"
-              },
-              "hover": {
-                "value": "{oxygen.colors.border.white}",
-                "type": "color"
-              },
-              "active": {
-                "value": "{oxygen.colors.border.white}",
-                "type": "color"
-              },
-              "focus": {
-                "value": "{oxygen.colors.border.white}",
-                "type": "color"
-              },
-              "disable": {
-                "value": "{oxygen.colors.border.white}",
+                "value": "{oxygen.colors.text.darker}",
                 "type": "color"
               }
             }
@@ -1040,7 +814,6 @@
     }
   },
   "borderRadius": {
-    "tokenset": "asgardeo-set",
     "action": {
       "cta": {
         "button": {
@@ -1050,7 +823,7 @@
               "type": "borderRadius"
             },
             "regular": {
-              "value": "{oxygen.borderRadius.md}",
+              "value": "{oxygen.borderRadius.sm}",
               "type": "borderRadius"
             },
             "small": {
@@ -1083,7 +856,7 @@
             "type": "borderRadius"
           },
           "md": {
-            "value": "{oxygen.borderRadius.lg}",
+            "value": "{oxygen.borderRadius.12}",
             "type": "borderRadius"
           },
           "lg": {
@@ -1092,178 +865,9 @@
           }
         }
       }
-    },
-    "_scale": {
-      "value": 2,
-      "type": "borderRadius"
-    },
-    "xs": {
-      "value": 1,
-      "type": "borderRadius"
-    },
-    "sm": {
-      "value": "$borderRadius.xs * $borderRadius._scale",
-      "type": "borderRadius"
-    },
-    "md": {
-      "value": "$borderRadius.sm * $borderRadius._scale",
-      "type": "borderRadius"
-    },
-    "lg": {
-      "value": "$borderRadius.md * $borderRadius._scale",
-      "type": "borderRadius"
-    },
-    "xl": {
-      "value": "$borderRadius.lg * $borderRadius._scale",
-      "type": "borderRadius"
-    },
-    "xxl": {
-      "value": "$borderRadius.xl * $borderRadius._scale",
-      "type": "borderRadius"
-    },
-    "none": {
-      "value": 0,
-      "type": "borderRadius"
     }
   },
   "spacing": {
-    "0": {
-      "value": 0,
-      "type": "spacing"
-    },
-    "1": {
-      "value": 1,
-      "type": "spacing"
-    },
-    "2": {
-      "value": 2,
-      "type": "spacing"
-    },
-    "4": {
-      "value": 4,
-      "type": "spacing"
-    },
-    "6": {
-      "value": 6,
-      "type": "spacing"
-    },
-    "8": {
-      "value": 8,
-      "type": "spacing"
-    },
-    "10": {
-      "value": 10,
-      "type": "spacing"
-    },
-    "12": {
-      "value": 12,
-      "type": "spacing"
-    },
-    "14": {
-      "value": 14,
-      "type": "spacing"
-    },
-    "16": {
-      "value": 16,
-      "type": "spacing"
-    },
-    "18": {
-      "value": 18,
-      "type": "spacing"
-    },
-    "20": {
-      "value": 20,
-      "type": "spacing"
-    },
-    "22": {
-      "value": 22,
-      "type": "spacing"
-    },
-    "24": {
-      "value": 24,
-      "type": "spacing"
-    },
-    "26": {
-      "value": 26,
-      "type": "spacing"
-    },
-    "28": {
-      "value": 28,
-      "type": "spacing"
-    },
-    "30": {
-      "value": 30,
-      "type": "spacing"
-    },
-    "32": {
-      "value": 32,
-      "type": "spacing"
-    },
-    "34": {
-      "value": 34,
-      "type": "spacing"
-    },
-    "36": {
-      "value": 36,
-      "type": "spacing"
-    },
-    "38": {
-      "value": 38,
-      "type": "spacing"
-    },
-    "40": {
-      "value": 40,
-      "type": "spacing"
-    },
-    "42": {
-      "value": 42,
-      "type": "spacing"
-    },
-    "44": {
-      "value": 44,
-      "type": "spacing"
-    },
-    "46": {
-      "value": 46,
-      "type": "spacing"
-    },
-    "48": {
-      "value": 48,
-      "type": "spacing"
-    },
-    "50": {
-      "value": 50,
-      "type": "spacing"
-    },
-    "52": {
-      "value": 52,
-      "type": "spacing"
-    },
-    "54": {
-      "value": 54,
-      "type": "spacing"
-    },
-    "56": {
-      "value": 56,
-      "type": "spacing"
-    },
-    "58": {
-      "value": 58,
-      "type": "spacing"
-    },
-    "60": {
-      "value": 60,
-      "type": "spacing"
-    },
-    "62": {
-      "value": 62,
-      "type": "spacing"
-    },
-    "64": {
-      "value": 64,
-      "type": "spacing"
-    },
-    "tokenset": "asgardeo-set",
     "action": {
       "cta": {
         "button": {
@@ -1283,14 +887,6 @@
               },
               "bottom": {
                 "value": "{oxygen.spacing.8}",
-                "type": "spacing"
-              },
-              "gap": {
-                "value": "{oxygen.spacing.4}",
-                "type": "spacing"
-              },
-              "square": {
-                "value": "{oxygen.spacing.12}",
                 "type": "spacing"
               }
             },
@@ -1326,7 +922,7 @@
             "type": "spacing"
           },
           "md": {
-            "value": "{oxygen.spacing.32}",
+            "value": "{oxygen.spacing.16}",
             "type": "spacing"
           },
           "lg": {
@@ -1339,43 +935,13 @@
           }
         }
       }
-    },
-    "_scale": {
-      "value": 2,
-      "type": "spacing"
-    },
-    "xs": {
-      "value": 4,
-      "type": "spacing"
-    },
-    "sm": {
-      "value": "$spacing.xs * $spacing._scale",
-      "type": "spacing"
-    },
-    "md": {
-      "value": "$spacing.sm * $spacing._scale",
-      "type": "spacing"
-    },
-    "lg": {
-      "value": "$spacing.md * $spacing._scale",
-      "type": "spacing"
-    },
-    "xl": {
-      "value": "$spacing.lg * $spacing._scale",
-      "type": "spacing"
-    },
-    "xxl": {
-      "value": "$spacing.xl * $spacing._scale",
-      "type": "spacing"
     }
   },
   "logo": {
-    "tokenset": "asgardeo-set",
-    "value": "https://pbs.twimg.com/profile_images/1401837804812857346/aTC9YutF_400x400.png",
+    "value": "https://pbs.twimg.com/profile_images/1444722601708769282/nxy72-Kn_400x400.jpg",
     "type": "asset"
   },
   "dropShadow": {
-    "tokenset": "asgardeo-set",
     "action": {
       "cta": {
         "button": {
@@ -1383,8 +949,8 @@
             "default": {
               "value": {
                 "x": 0,
-                "y": 1,
-                "blur": 4,
+                "y": 0,
+                "blur": 0,
                 "spread": 0,
                 "color": "#00000033",
                 "type": "dropShadow"
@@ -1395,516 +961,5 @@
         }
       }
     }
-  },
-  "colors": {
-    "tokenset": "asgardeo-set",
-    "neutrals": {
-      "black": {
-        "value": "#ffffff",
-        "type": "color"
-      },
-      "white": {
-        "value": "#000000",
-        "type": "color"
-      }
-    },
-    "gray": {
-      "100": {
-        "value": "hsl($colors.gray._hue, $colors.gray._sat, 10%)",
-        "type": "color"
-      },
-      "200": {
-        "value": "hsl($colors.gray._hue, $colors.gray._sat, 20%)",
-        "type": "color"
-      },
-      "300": {
-        "value": "hsl($colors.gray._hue, $colors.gray._sat, 30%)",
-        "type": "color"
-      },
-      "400": {
-        "value": "hsl($colors.gray._hue, $colors.gray._sat, 40%)",
-        "type": "color"
-      },
-      "500": {
-        "value": "hsl($colors.gray._hue, $colors.gray._sat, 50%)",
-        "type": "color"
-      },
-      "600": {
-        "value": "hsl($colors.gray._hue, $colors.gray._sat, 60%)",
-        "type": "color"
-      },
-      "700": {
-        "value": "hsl($colors.gray._hue, $colors.gray._sat, 70%)",
-        "type": "color"
-      },
-      "800": {
-        "value": "hsl($colors.gray._hue, $colors.gray._sat, 80%)",
-        "type": "color"
-      },
-      "900": {
-        "value": "hsl($colors.gray._hue, $colors.gray._sat, 90%)",
-        "type": "color"
-      },
-      "_hue": {
-        "value": 0,
-        "type": "color"
-      },
-      "_sat": {
-        "value": "0%",
-        "type": "color"
-      }
-    },
-    "red": {
-      "100": {
-        "value": "hsl($colors.red._hue, $colors.red._sat, 10%)",
-        "type": "color"
-      },
-      "200": {
-        "value": "hsl($colors.red._hue, $colors.red._sat, 20%)",
-        "type": "color"
-      },
-      "300": {
-        "value": "hsl($colors.red._hue, $colors.red._sat, 30%)",
-        "type": "color"
-      },
-      "400": {
-        "value": "hsl($colors.red._hue, $colors.red._sat, 40%)",
-        "type": "color"
-      },
-      "500": {
-        "value": "hsl($colors.red._hue, $colors.red._sat, 50%)",
-        "type": "color"
-      },
-      "600": {
-        "value": "hsl($colors.red._hue, $colors.red._sat, 60%)",
-        "type": "color"
-      },
-      "700": {
-        "value": "hsl($colors.red._hue, $colors.red._sat, 70%)",
-        "type": "color"
-      },
-      "800": {
-        "value": "hsl($colors.red._hue, $colors.red._sat, 80%)",
-        "type": "color"
-      },
-      "900": {
-        "value": "hsl($colors.red._hue, $colors.red._sat, 90%)",
-        "type": "color"
-      },
-      "_hue": {
-        "value": 11,
-        "type": "color"
-      },
-      "_sat": {
-        "value": "100%",
-        "type": "color"
-      }
-    },
-    "orange": {
-      "100": {
-        "value": "hsl($colors.orange._hue, $colors.orange._sat, 10%)",
-        "type": "color"
-      },
-      "200": {
-        "value": "hsl($colors.orange._hue, $colors.orange._sat, 20%)",
-        "type": "color"
-      },
-      "300": {
-        "value": "hsl($colors.orange._hue, $colors.orange._sat, 30%)",
-        "type": "color"
-      },
-      "400": {
-        "value": "hsl($colors.orange._hue, $colors.orange._sat, 40%)",
-        "type": "color"
-      },
-      "500": {
-        "value": "hsl($colors.orange._hue, $colors.orange._sat, 50%)",
-        "type": "color"
-      },
-      "600": {
-        "value": "hsl($colors.orange._hue, $colors.orange._sat, 60%)",
-        "type": "color"
-      },
-      "700": {
-        "value": "hsl($colors.orange._hue, $colors.orange._sat, 70%)",
-        "type": "color"
-      },
-      "800": {
-        "value": "hsl($colors.orange._hue, $colors.orange._sat, 80%)",
-        "type": "color"
-      },
-      "900": {
-        "value": "hsl($colors.orange._hue, $colors.orange._sat, 90%)",
-        "type": "color"
-      },
-      "_hue": {
-        "value": 27,
-        "type": "color"
-      },
-      "_sat": {
-        "value": "100%",
-        "type": "color"
-      }
-    },
-    "green": {
-      "100": {
-        "value": "hsl($colors.green._hue, $colors.green._sat, 10%)",
-        "type": "color"
-      },
-      "200": {
-        "value": "hsl($colors.green._hue, $colors.green._sat, 20%)",
-        "type": "color"
-      },
-      "300": {
-        "value": "hsl($colors.green._hue, $colors.green._sat, 30%)",
-        "type": "color"
-      },
-      "400": {
-        "value": "hsl($colors.green._hue, $colors.green._sat, 40%)",
-        "type": "color"
-      },
-      "500": {
-        "value": "hsl($colors.green._hue, $colors.green._sat, 50%)",
-        "type": "color"
-      },
-      "600": {
-        "value": "hsl($colors.green._hue, $colors.green._sat, 60%)",
-        "type": "color"
-      },
-      "700": {
-        "value": "hsl($colors.green._hue, $colors.green._sat, 70%)",
-        "type": "color"
-      },
-      "800": {
-        "value": "hsl($colors.green._hue, $colors.green._sat, 80%)",
-        "type": "color"
-      },
-      "900": {
-        "value": "hsl($colors.green._hue, $colors.green._sat, 90%)",
-        "type": "color"
-      },
-      "_hue": {
-        "value": 150,
-        "type": "color"
-      },
-      "_sat": {
-        "value": "54%",
-        "type": "color"
-      }
-    },
-    "indigo": {
-      "100": {
-        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 10%)",
-        "type": "color"
-      },
-      "200": {
-        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 20%)",
-        "type": "color"
-      },
-      "300": {
-        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 30%)",
-        "type": "color"
-      },
-      "400": {
-        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 40%)",
-        "type": "color"
-      },
-      "500": {
-        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 50%)",
-        "type": "color"
-      },
-      "600": {
-        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 60%)",
-        "type": "color"
-      },
-      "700": {
-        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 70%)",
-        "type": "color"
-      },
-      "800": {
-        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 80%)",
-        "type": "color"
-      },
-      "900": {
-        "value": "hsl($colors.indigo._hue, $colors.indigo._sat, 90%)",
-        "type": "color"
-      },
-      "_hue": {
-        "value": 232,
-        "type": "color"
-      },
-      "_sat": {
-        "value": "60%",
-        "type": "color"
-      }
-    },
-    "blue": {
-      "100": {
-        "value": "hsl($colors.blue._hue, $colors.blue._sat, 90%)",
-        "type": "color"
-      },
-      "200": {
-        "value": "hsl($colors.blue._hue, $colors.blue._sat, 80%)",
-        "type": "color"
-      },
-      "300": {
-        "value": "hsl($colors.blue._hue, $colors.blue._sat, 70%)",
-        "type": "color"
-      },
-      "400": {
-        "value": "hsl($colors.blue._hue, $colors.blue._sat, 60%)",
-        "type": "color"
-      },
-      "500": {
-        "value": "hsl($colors.blue._hue, $colors.blue._sat, 50%)",
-        "type": "color"
-      },
-      "600": {
-        "value": "hsl($colors.blue._hue, $colors.blue._sat, 40%)",
-        "type": "color"
-      },
-      "700": {
-        "value": "hsl($colors.blue._hue, $colors.blue._sat, 30%)",
-        "type": "color"
-      },
-      "800": {
-        "value": "hsl($colors.blue._hue, $colors.blue._sat, 20%)",
-        "type": "color"
-      },
-      "900": {
-        "value": "hsl($colors.blue._hue, $colors.blue._sat, 10%)",
-        "type": "color"
-      },
-      "_hue": {
-        "value": 205,
-        "type": "color"
-      },
-      "_sat": {
-        "value": "100%",
-        "type": "color"
-      }
-    },
-    "yellow": {
-      "100": {
-        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 10%)",
-        "type": "color"
-      },
-      "200": {
-        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 20%)",
-        "type": "color"
-      },
-      "300": {
-        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 30%)",
-        "type": "color"
-      },
-      "400": {
-        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 40%)",
-        "type": "color"
-      },
-      "500": {
-        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 50%)",
-        "type": "color"
-      },
-      "600": {
-        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 60%)",
-        "type": "color"
-      },
-      "700": {
-        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 70%)",
-        "type": "color"
-      },
-      "800": {
-        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 80%)",
-        "type": "color"
-      },
-      "900": {
-        "value": "hsl($colors.yellow._hue, $colors.yellow._sat, 90%)",
-        "type": "color"
-      },
-      "_hue": {
-        "value": 40,
-        "type": "color"
-      },
-      "_sat": {
-        "value": "100%",
-        "type": "color"
-      }
-    },
-    "teal": {
-      "100": {
-        "value": "hsl($colors.teal._hue, $colors.teal._sat, 90%)",
-        "type": "color"
-      },
-      "200": {
-        "value": "hsl($colors.teal._hue, $colors.teal._sat, 80%)",
-        "type": "color"
-      },
-      "300": {
-        "value": "hsl($colors.teal._hue, $colors.teal._sat, 70%)",
-        "type": "color"
-      },
-      "400": {
-        "value": "hsl($colors.teal._hue, $colors.teal._sat, 60%)",
-        "type": "color"
-      },
-      "500": {
-        "value": "hsl($colors.teal._hue, $colors.teal._sat, 50%)",
-        "type": "color"
-      },
-      "600": {
-        "value": "hsl($colors.teal._hue, $colors.teal._sat, 40%)",
-        "type": "color"
-      },
-      "700": {
-        "value": "hsl($colors.teal._hue, $colors.teal._sat, 30%)",
-        "type": "color"
-      },
-      "800": {
-        "value": "hsl($colors.teal._hue, $colors.teal._sat, 20%)",
-        "type": "color"
-      },
-      "900": {
-        "value": "hsl($colors.teal._hue, $colors.teal._sat, 10%)",
-        "type": "color"
-      },
-      "_hue": {
-        "value": 173,
-        "type": "color"
-      },
-      "_sat": {
-        "value": "80%",
-        "type": "color"
-      }
-    },
-    "orangeDark": {
-      "100": {
-        "value": "hsl($colors.orangeDark._hue, $colors.orange._sat, 90%)",
-        "type": "color"
-      },
-      "200": {
-        "value": "hsl($colors.orangeDark._hue, $colors.orange._sat, 80%)",
-        "type": "color"
-      },
-      "300": {
-        "value": "hsl($colors.orangeDark._hue, $colors.orange._sat, 70%)",
-        "type": "color"
-      },
-      "400": {
-        "value": "hsl($colors.orangeDark._hue, $colors.orange._sat, 60%)",
-        "type": "color"
-      },
-      "500": {
-        "value": "hsl($colors.orangeDark._hue, $colors.orange._sat, 50%)",
-        "type": "color"
-      },
-      "600": {
-        "value": "hsl($colors.orangeDark._hue, $colors.orange._sat, 40%)",
-        "type": "color"
-      },
-      "700": {
-        "value": "hsl($colors.orangeDark._hue, $colors.orange._sat, 30%)",
-        "type": "color"
-      },
-      "800": {
-        "value": "hsl($colors.orangeDark._hue, $colors.orange._sat, 20%)",
-        "type": "color"
-      },
-      "900": {
-        "value": "hsl($colors.orangeDark._hue, $colors.orange._sat, 10%)",
-        "type": "color"
-      },
-      "_hue": {
-        "value": 19,
-        "type": "color"
-      },
-      "_sat": {
-        "value": "100%",
-        "type": "color"
-      }
-    }
-  },
-  "fontWeights": {
-    "tokenset": "asgardeo-set",
-    "regular": {
-      "value": "Regular",
-      "type": "fontWeights"
-    },
-    "semi-bold": {
-      "value": "semi bold",
-      "type": "fontWeights"
-    },
-    "bold": {
-      "value": "Bold",
-      "type": "fontWeights"
-    }
-  },
-  "sizing": {
-    "tokenset": "asgardeo-set",
-    "_scale": {
-      "value": 2,
-      "type": "sizing"
-    },
-    "xs": {
-      "value": 2,
-      "type": "sizing"
-    },
-    "sm": {
-      "value": "{sizing.xs} * $sizing._scale",
-      "type": "sizing"
-    },
-    "md": {
-      "value": "{sizing.sm} * $sizing._scale",
-      "type": "sizing"
-    },
-    "lg": {
-      "value": "{sizing.md} * $sizing._scale",
-      "type": "sizing"
-    },
-    "xl": {
-      "value": "{sizing.lg} * $sizing._scale",
-      "type": "sizing"
-    },
-    "xxl": {
-      "value": "{sizing.xl} * $sizing._scale",
-      "type": "sizing"
-    }
-  },
-  "scale": {
-    "tokenset": "asgardeo-set",
-    "majorThird": {
-      "value": 1.25,
-      "type": "fontSizes"
-    },
-    "minorThird": {
-      "value": 1.2,
-      "type": "fontSizes"
-    }
-  },
-  "tokenSetOrder": {
-    "0": {
-      "value": "global",
-      "type": "other"
-    },
-    "1": {
-      "value": "global-dark",
-      "type": "other"
-    },
-    "2": {
-      "value": "oxygen",
-      "type": "other"
-    },
-    "3": {
-      "value": "oxygen-dark",
-      "type": "other"
-    },
-    "4": {
-      "value": "asgardeo",
-      "type": "other"
-    },
-    "5": {
-      "value": "choreo",
-      "type": "other"
-    },
-    "tokenset": "asgardeo-set"
   }
 }

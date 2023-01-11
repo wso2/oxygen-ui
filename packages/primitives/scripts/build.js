@@ -17,44 +17,101 @@
  * under the License.
  */
 
-const { transform } = require('@divriots/style-dictionary-to-figma');
+const fs = require('fs');
+const path = require('path');
 const StyleDictionary = require('style-dictionary');
-const babelParser = require('@babel/parser');
-const Config = require('../sd.config.cjs');
 
-StyleDictionary.registerParser({
-  parse: ({ contents }) => {
-    const js = babelParser.parse(contents, {
-      // parse in strict mode and allow module declarations
-      plugins: [
-        // enable jsx and flow syntax
-        'jsx',
-        'flow',
+const PATHS = {
+  source: {
+    tokens: path.resolve(path.join(__dirname, '..', 'src', 'tokens')),
+  },
+};
+
+StyleDictionary.registerTransformGroup({
+  name: 'tokens-es',
+  transforms: ['name/cti/pascal', 'size/px', 'color/hex'],
+});
+
+StyleDictionary.registerTransformGroup({
+  name: 'tokens-scss',
+  // to see the pre-defined "scss" transformation use: console.log(StyleDictionary.transformGroup['scss']);
+  transforms: ['name/cti/kebab', 'time/seconds', 'size/px', 'color/css'],
+});
+
+StyleDictionary.registerTransformGroup({
+  name: 'tokens-css',
+  // to see the pre-defined "scss" transformation use: console.log(StyleDictionary.transformGroup['scss']);
+  transforms: ['name/cti/kebab', 'time/seconds', 'size/px', 'color/css'],
+});
+
+console.log('Build started...');
+
+const getStyleDictionaryConfig = (brand, source) => ({
+  platforms: {
+    'web/css': {
+      buildPath: `dist/design-tokens/web/${brand}/css/`,
+      files: [
+        {
+          destination: 'tokens.css',
+          format: 'css/variables',
+          options: {
+            outputReferences: true,
+          },
+        },
       ],
-      sourceType: 'module',
-    });
-
-    return js;
+      prefix: brand,
+      transformGroup: 'tokens-css',
+    },
+    'web/es': {
+      buildPath: `dist/design-tokens/web/${brand}/es/`,
+      files: [
+        {
+          destination: 'tokens.d.ts',
+          format: 'typescript/es6-declarations',
+        },
+        {
+          destination: 'tokens.js',
+          format: 'javascript/module-flat',
+        },
+        {
+          destination: 'tokens.es6.js',
+          format: 'javascript/es6',
+        },
+      ],
+      prefix: brand,
+      transformGroup: 'tokens-es',
+    },
+    'web/scss': {
+      buildPath: `dist/design-tokens/web/${brand}/scss/`,
+      files: [
+        {
+          destination: 'tokens.scss',
+          format: 'scss/variables',
+        },
+      ],
+      prefix: brand,
+      transformGroup: 'tokens-scss',
+    },
   },
-  pattern: /.ts$/,
+  source: [source],
 });
 
-const capitalize = (string) => string[0].toUpperCase() + string.slice(1);
-const pathToPascalCase = (token) => token.path.map((tokenPathItems) => capitalize(tokenPathItems)).join('');
+fs.readdirSync(PATHS.source.tokens)
+  .forEach((file) => {
+    const brand = file.split('.')[0];
+    const filePath = path.join(PATHS.source.tokens, file);
 
-StyleDictionary.registerTransform({
-  name: 'name/js/es6',
-  transformer: pathToPascalCase,
-  type: 'name',
-});
+    console.log('\n==============================================');
+    console.log(`\nProcessing: [${brand}]`);
 
-StyleDictionary.registerFormat({
-  formatter: ({ dictionary }) => {
-    const transformedTokens = transform(dictionary.tokens);
-    return JSON.stringify(transformedTokens, null, 2);
-  },
-  name: 'figmaTokensPlugin',
-});
+    const StyleDictionaryExtended = StyleDictionary.extend(getStyleDictionaryConfig(brand, filePath));
 
-const styleDictionary = StyleDictionary.extend(Config);
-styleDictionary.buildAllPlatforms();
+    StyleDictionaryExtended.buildPlatform('web/es');
+    StyleDictionaryExtended.buildPlatform('web/css');
+    StyleDictionaryExtended.buildPlatform('web/scss');
+
+    console.log('\nEnd processing');
+  });
+
+console.log('\n==============================================');
+console.log('\nBuild completed!');
