@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,20 +16,16 @@
  * under the License.
  */
 
-const path = require('path');
+import util from 'util';
 
-module.exports = {
-  extends: [
-    'plugin:@wso2/react',
-    'plugin:@wso2/strict',
-    'plugin:@wso2/internal',
-    'plugin:@wso2/jest',
-    'plugin:@wso2/prettier',
-    'plugin:mdx/recommended',
-  ],
-  parserOptions: {
-    project: [path.resolve(__dirname, 'tsconfig.json')],
-    "sourceType": "module"
-  },
-  plugins: ['@wso2'],
+export const format = (args: Array<any>, defaultPrefix: string, customPrefix?: string): string => {
+  const fullPrefix: string = `${defaultPrefix}${customPrefix === undefined ? '' : ` ${customPrefix}`}`;
+
+  return (
+    fullPrefix +
+    util
+      .format('', ...args)
+      .split('\n')
+      .join(`\n${fullPrefix} `)
+  );
 };

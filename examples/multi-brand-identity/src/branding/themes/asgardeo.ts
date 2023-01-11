@@ -17,6 +17,7 @@
  */
 
 import {extendTheme, Theme} from '@oxygen-ui/react';
+import tokens from '@oxygen-ui/primitives/dist/design-tokens/web/asgardeo/es/tokens';
 
 export const AsgardeoTheme: Theme = extendTheme({
   colorSchemes: {
@@ -40,7 +41,7 @@ export const AsgardeoTheme: Theme = extendTheme({
       },
       palette: {
         primary: {
-          main: '#ff7300',
+          main: tokens.AsgardeoOxygenColorsPrimaryDefault,
         },
       },
     },

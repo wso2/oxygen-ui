@@ -17,44 +17,107 @@
  * under the License.
  */
 
-const { transform } = require('@divriots/style-dictionary-to-figma');
+const fs = require('fs');
+const path = require('path');
 const StyleDictionary = require('style-dictionary');
-const babelParser = require('@babel/parser');
-const Config = require('../sd.config.cjs');
+const { logger } = require('@oxygen-ui/logger');
 
-StyleDictionary.registerParser({
-  parse: ({ contents }) => {
-    const js = babelParser.parse(contents, {
-      // parse in strict mode and allow module declarations
-      plugins: [
-        // enable jsx and flow syntax
-        'jsx',
-        'flow',
-      ],
-      sourceType: 'module',
-    });
-
-    return js;
+const PATHS = {
+  source: {
+    tokens: path.resolve(path.join(__dirname, '..', 'src', 'design-tokens')),
   },
-  pattern: /.ts$/,
+};
+
+StyleDictionary.registerTransformGroup({
+  name: 'tokens-es',
+  transforms: ['name/cti/pascal', 'size/px', 'color/hex'],
 });
 
-const capitalize = (string) => string[0].toUpperCase() + string.slice(1);
-const pathToPascalCase = (token) => token.path.map((tokenPathItems) => capitalize(tokenPathItems)).join('');
-
-StyleDictionary.registerTransform({
-  name: 'name/js/es6',
-  transformer: pathToPascalCase,
-  type: 'name',
+StyleDictionary.registerTransformGroup({
+  name: 'tokens-scss',
+  // to see the pre-defined "scss" transformation use: console.log(StyleDictionary.transformGroup['scss']);
+  transforms: ['name/cti/kebab', 'time/seconds', 'size/px', 'color/css'],
 });
 
-StyleDictionary.registerFormat({
-  formatter: ({ dictionary }) => {
-    const transformedTokens = transform(dictionary.tokens);
-    return JSON.stringify(transformedTokens, null, 2);
-  },
-  name: 'figmaTokensPlugin',
+StyleDictionary.registerTransformGroup({
+  name: 'tokens-css',
+  // to see the pre-defined "scss" transformation use: console.log(StyleDictionary.transformGroup['scss']);
+  transforms: ['name/cti/kebab', 'time/seconds', 'size/px', 'color/css'],
 });
 
-const styleDictionary = StyleDictionary.extend(Config);
-styleDictionary.buildAllPlatforms();
+const getStyleDictionaryConfig = (brand, source) => {
+  const sourceFileName = path.basename(source);
+
+  return {
+    platforms: {
+      'web/css': {
+        buildPath: `dist/design-tokens/web/${brand}/css/`,
+        files: [
+          {
+            destination: sourceFileName.replace('.json', '.css'),
+            format: 'css/variables',
+          },
+        ],
+        prefix: brand,
+        transformGroup: 'tokens-css',
+      },
+      'web/es': {
+        buildPath: `dist/design-tokens/web/${brand}/es/`,
+        files: [
+          {
+            destination: sourceFileName.replace('.json', '.d.ts'),
+            format: 'typescript/es6-declarations',
+          },
+          {
+            destination: sourceFileName.replace('.json', '.js'),
+            format: 'javascript/module-flat',
+          },
+          {
+            destination: sourceFileName.replace('.json', '.es6.js'),
+            format: 'javascript/es6',
+          },
+        ],
+        prefix: brand,
+        transformGroup: 'tokens-es',
+      },
+      'web/scss': {
+        buildPath: `dist/design-tokens/web/${brand}/scss/`,
+        files: [
+          {
+            destination: sourceFileName.replace('.json', '.scss'),
+            format: 'scss/variables',
+          },
+        ],
+        prefix: brand,
+        transformGroup: 'tokens-scss',
+      },
+    },
+    source: [source],
+  };
+};
+
+/* ====================================================================================== */
+/* Execution starts from here                                                             */
+/* ====================================================================================== */
+
+logger.log('=======================  🧱 Started Building Primitives 🧱  =======================');
+logger.log();
+logger.log('                         💅  Building Style Dictionary  💅  =======================');
+logger.log();
+
+fs.readdirSync(PATHS.source.tokens)
+  .forEach((brand) => {
+    logger.info(`Processing the Brand: [ ${brand} ]`);
+
+    fs.readdirSync(path.join(PATHS.source.tokens, brand))
+      .forEach((tokenFile) => {
+        const filePath = path.join(PATHS.source.tokens, brand, tokenFile);
+
+        const StyleDictionaryExtended = StyleDictionary
+          .extend(getStyleDictionaryConfig(brand, filePath));
+
+        StyleDictionaryExtended.buildPlatform('web/es');
+        StyleDictionaryExtended.buildPlatform('web/css');
+        StyleDictionaryExtended.buildPlatform('web/scss');
+      });
+  });

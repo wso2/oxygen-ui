@@ -18,6 +18,7 @@
 
 /* eslint-disable sort-keys */
 import {extendTheme, Theme} from '@oxygen-ui/react';
+import tokens from '@oxygen-ui/primitives/dist/design-tokens/web/choreo/es/tokens';
 
 export const ChoreoTheme: Theme = extendTheme({
   components: {
@@ -327,9 +328,9 @@ export const ChoreoTheme: Theme = extendTheme({
           white: '#ffffff',
         },
         primary: {
-          light: '#a6B3ff',
-          main: '#5567d5',
-          dark: '#4d5ec0',
+          light: tokens.ChoreoOxygenColorsPrimaryLight,
+          main: tokens.ChoreoOxygenColorsPrimaryDefault,
+          dark: tokens.ChoreoOxygenColorsPrimaryDark,
         },
         secondary: {
           light: '#f7f8fb',

@@ -28,6 +28,7 @@
     "@fontsource/inter": "^4.5.14",
     "@fontsource/montserrat": "^4.5.13",
     "@oxygen-ui/react": "*",
+    "@oxygen-ui/primitives": "*",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -43,8 +44,8 @@
   },
   "devDependencies": {
     "@types/testing-library__jest-dom": "^5.14.5",
-    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?f3bfe50d1be35763beeeb2d5f8116cf0f37954ea",
-    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?f3bfe50d1be35763beeeb2d5f8116cf0f37954ea",
+    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?d84dd6df97ba9812d30b17d482ecaec5d35d3e54",
+    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?d84dd6df97ba9812d30b17d482ecaec5d35d3e54",
     "eslint": "8.25.0",
     "prettier": "^2.8.0"
   },
