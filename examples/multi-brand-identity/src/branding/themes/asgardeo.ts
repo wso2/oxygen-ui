@@ -41,7 +41,7 @@ export const AsgardeoTheme: Theme = extendTheme({
       },
       palette: {
         primary: {
-          main: tokens.AsgardeoBorderRadiusActionCtaButtonPrimaryLarge,
+          main: tokens.AsgardeoOxygenColorsPrimaryDefault,
         },
       },
     },

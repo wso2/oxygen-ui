@@ -17,6 +17,8 @@
  */
 
 import {extendTheme, Theme} from '@oxygen-ui/react';
+import lightTokens from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/tokens';
+import darkTokens from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/dark.tokens';
 
 export const DefaultTheme: Theme = extendTheme({
   colorSchemes: {
@@ -28,7 +30,7 @@ export const DefaultTheme: Theme = extendTheme({
       },
       palette: {
         primary: {
-          main: '#FF7300',
+          main: darkTokens.OxygenOxygenColorsPrimaryDefault,
         },
       },
     },
@@ -40,7 +42,7 @@ export const DefaultTheme: Theme = extendTheme({
       },
       palette: {
         primary: {
-          main: '#FF7300',
+          main: lightTokens.OxygenOxygenColorsPrimaryDefault,
         },
       },
     },
