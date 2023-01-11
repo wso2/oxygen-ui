@@ -172,6 +172,7 @@ The following is the list of supported scopes:
 * `examples` - Changes to any of the `examples`.
 * `primitives` - Changes to the `@oxygen-ui/primitives` package.
 * `react` - Changes to the `@oxygen-ui/react` package.
+* `logger` - Changes to the `@oxygen-ui/logger` package.
 
 There are currently a few exceptions to the "use package name" rule:
 
