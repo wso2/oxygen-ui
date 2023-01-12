@@ -46,6 +46,10 @@ jobs:
         id: install-dependencies
         run: pnpm install
 
+      - name: 👷 Build
+        id: build
+        run: pnpm build
+
       - name: 🤖 Run Token Transformer
         id: run-token-transformer
         working-directory: ${{ env.PRIMITIVES_SOURCE }}
