@@ -16,26 +16,13 @@
  * under the License.
  */
 
-export {default as AppBar} from './AppBar';
-export * from './AppBar';
+import React from 'react';
+import {render} from '@testing-library/react';
+import AppBar from './AppBar';
 
-export {default as Button} from './Button';
-export * from './Button';
-
-export {default as ColorModeToggle} from './ColorModeToggle';
-export * from './ColorModeToggle';
-
-export {default as Grid} from './Grid';
-export * from './Grid';
-
-export {default as Link} from './Link';
-export * from './Link';
-
-export {default as SignIn} from './SignIn';
-export * from './SignIn';
-
-export {default as TextField} from './TextField';
-export * from './TextField';
-
-export {default as Tooltip} from './Tooltip';
-export * from './Tooltip';
+describe('AppBar', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(<AppBar />);
+    expect(baseElement).toBeTruthy();
+  });
+});
