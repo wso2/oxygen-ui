@@ -1,5 +1,5 @@
 <h1 align="center" style="color: #343a40;margin: 20px 0">
-  <img src="https://user-images.githubusercontent.com/25959096/207556831-df3104cd-f5bb-4e74-9cbe-226ebab20bac.svg#gh-light-mode-only" alt="WSO2 Oxygen UI ligt mode logo">
+  <img src="https://user-images.githubusercontent.com/25959096/207556831-df3104cd-f5bb-4e74-9cbe-226ebab20bac.svg#gh-light-mode-only" alt="WSO2 Oxygen UI light mode logo">
     <img src="https://user-images.githubusercontent.com/25959096/207556846-0e513a7c-2e59-413a-84ef-d11f1de81247.svg#gh-dark-mode-only" alt="WSO2 Oxygen UI dark mode logo">
 </h1>
 
@@ -11,10 +11,6 @@ powering <a href="https://wso2.com">WSO2</a>'s core products.</p>
   <a href="https://stackoverflow.com/questions/tagged/wso2is"><img src="https://img.shields.io/badge/Ask%20for%20help%20on-Stackoverflow-orange" alt="Stackoverflow"></a>
   <a href="https://discord.gg/wso2"><img src="https://img.shields.io/badge/Join%20us%20on-Discord-%23e01563.svg" alt="Discord"></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
-
-  <br>
-  <br>
-  🚧 This is still a conceptual project. Please do not use this in production 🚧
 </div>
 
 <br>

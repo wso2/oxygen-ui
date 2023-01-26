@@ -22,7 +22,6 @@ import MuiButton, {LoadingButtonProps as MuiButtonProps} from '@mui/lab/LoadingB
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 
-
 export interface ButtonProps extends MuiButtonProps {}
 
 const COMPONENT_NAME: string = 'Button';
