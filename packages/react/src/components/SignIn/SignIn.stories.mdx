@@ -1,0 +1,59 @@
+import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import StoryConfig from '../../../.storybook/story-config.ts';
+import SignIn from './SignIn.tsx';
+
+export const meta = {
+  component: SignIn,
+  title: StoryConfig.SignIn.hierarchy,
+};
+
+<Meta title={meta.title} component={meta.component} />
+
+export const Template = args => <SignIn {...args} />;
+
+# Sign In
+
+- [Overview](#overview)
+- [Props](#props)
+- [Usage](#usage)
+- [Variants](#variants)
+
+## Overview
+
+Full-featured component to sign in users into your application.
+
+<Canvas>
+  <Story name="Overview" args={{logoUrl: '/assets/images/oxygen-ui-logo-mini.svg'}}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Overview" />
+
+## Usage
+
+Import and use the `SignIn` component in your components as follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`
+import TextField from '@oxygen-ui/react/SignIn';\n
+function Demo() {
+  return <SignIn logoUrl="https://mycompany.com/logo.png"/>;
+}`}
+/>
+
+## Variants
+
+### Basic
+
+A basic login box with username and password inputs.
+
+<Canvas>
+  <Story name="Basic" args={{logoUrl: '/assets/images/oxygen-ui-logo-mini.svg'}} />
+</Canvas>

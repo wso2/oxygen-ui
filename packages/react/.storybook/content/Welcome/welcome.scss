@@ -1,0 +1,68 @@
+.sbdocs.sbdocs-wrapper {
+}
+
+.storybook-welcome-header {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  .storybook-welcome-header-logo {
+    display: flex;
+
+    .react-logo-container {
+      margin-left: -30px;
+
+      .react {
+        -webkit-animation:spin 4s linear infinite;
+        -moz-animation:spin 4s linear infinite;
+        animation:spin 4s linear infinite;
+      }
+    }
+  }
+
+  .storybook-welcome-header-version {
+    display: flex;
+    margin-bottom: 20px;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    color: #919191;
+    cursor: pointer;
+
+    a {
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      align-items: center;
+      text-decoration: none;
+      color: #919191;
+      font-size: 0.8rem;
+
+      svg {
+        margin-right: 10px;
+      }
+      svg, svg path {
+        fill: #919191;
+      }
+
+      &:hover {
+        color: #ffffff;
+
+        svg, svg path {
+          fill: #ffffff;
+        }
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
