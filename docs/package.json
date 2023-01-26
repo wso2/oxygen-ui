@@ -1,0 +1,43 @@
+{
+  "name": "@oxygen-ui/docs",
+  "version": "0.1.0",
+  "description": "Documentation of WSO2 Oxygen Design System.",
+  "author": "WSO2",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/wso2/oxygen/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wso2/oxygen",
+    "directory": "docs"
+  },
+  "keywords": [
+    "oxygen-ui-docs",
+    "nextjs"
+  ],
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@next/font": "^13.0.6",
+    "@types/node": "18.11.10",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.9",
+    "clsx": "^1.2.1",
+    "eslint": "8.25.0",
+    "next": "13.0.6",
+    "prettier": "^2.8.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "4.9.3"
+  },
+  "devDependencies": {
+    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?d84dd6df97ba9812d30b17d482ecaec5d35d3e54",
+    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?d84dd6df97ba9812d30b17d482ecaec5d35d3e54"
+  },
+  "private": true
+}

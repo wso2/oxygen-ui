@@ -1,0 +1,74 @@
+import {Meta, ColorPalette, ColorItem} from '@storybook/addon-docs';
+import StoryConfig from '../../story-config.ts';
+import defaultTheme from '../../../src/theme/default-theme';
+import './colors.scss';
+
+export const meta = {
+  title: StoryConfig.Colors.hierarchy,
+};
+
+<Meta title={meta.title} />
+
+# Colors
+
+- [Overview](#overview)
+- [Colors](#colors)
+- [Color Palettes](#color-palettes)
+
+## Overview
+
+Bright and contrast palettes are designed to provide ease of use of the product in both modes as visual and text. All
+color has gradation from light to dark regarding requirements of using digital soft.
+
+## Color Palettes
+
+The collection of color schemes and their respective values used in the design system.
+
+<div>
+  {Object.keys(defaultTheme.colorSchemes).map(scheme => {
+    const FILTER = {
+      primary: 'Primary',
+      secondary: 'Secondary',
+      success: 'Success',
+      warning: 'Warning',
+      error: 'Danger',
+      info: 'Info',
+      text: 'Text Colors',
+    };
+    return (
+      <div className="color-scheme-block">
+        <h3 id={scheme} className="color-scheme-name">
+          {scheme}
+        </h3>
+        <ColorPalette>
+          {Object.entries(defaultTheme.colorSchemes[scheme].palette).map(([k, v]) => {
+            if (!(k in FILTER)) {
+              return;
+            }
+            if (typeof v === 'string' && (!v.match(/^var/), v.match(/^#/) || v.match(/^rgb/) || k.match(/color/i))) {
+              return <ColorItem key={k} title={FILTER[k]} colors={{[k]: v}} />;
+            } else if (typeof v === 'object') {
+              if (Object.keys(v).includes('main')) {
+                return <ColorItem key={k} title={FILTER[k]} colors={{[k]: v.main}} />;
+              }
+              return (
+                <ColorItem
+                  key={k}
+                  title={FILTER[k]}
+                  colors={Object.entries(v).reduce(
+                    (acc, [key, value]) =>
+                      typeof value === 'string' &&
+                      (!value.match(/^var/) || value.match(/^#/) || value.match(/^rgb/) || key.match(/color/i))
+                        ? {...acc, [key]: value}
+                        : acc,
+                    {},
+                  )}
+                />
+              );
+            }
+          })}
+        </ColorPalette>
+      </div>
+    );
+  })}
+</div>

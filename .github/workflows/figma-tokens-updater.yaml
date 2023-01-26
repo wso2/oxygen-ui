@@ -1,0 +1,69 @@
+# This workflow will raise a PR to the main branch when an update is done to the figma tokens.
+
+name: 👮‍♀️ Figma Tokens Updater
+
+on: pull_request
+
+env:
+  PRIMITIVES_SOURCE: ./packages/primitives
+
+jobs:
+  run_if:
+    if: ${{ github.head_ref == 'figma-tokens' }}
+    name: Process Figma Tokens
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: ⬇️ Checkout
+        id: checkout
+        uses: actions/checkout@master
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: 🥡 Setup pnpm
+        id: setup-pnpm
+        uses: pnpm/action-setup@v2.1.0
+        with:
+          version: latest
+          run_install: false
+
+      - name: 🎈 Get pnpm store directory
+        id: get-pnpm-cache-dir
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - name: 🔆 Cache pnpm modules
+        uses: actions/cache@v3
+        id: pnpm-cache
+        with:
+          path: ${{ steps.get-pnpm-cache-dir.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: 🧩 Install Dependencies
+        id: install-dependencies
+        run: pnpm install
+
+      - name: 👷 Build
+        id: build
+        run: pnpm build
+
+      - name: 🤖 Run Token Transformer
+        id: run-token-transformer
+        working-directory: ${{ env.PRIMITIVES_SOURCE }}
+        run: pnpm transform
+
+      - name: 🦎 Run Style Dictionary
+        id: run-style-dictionary
+        working-directory: ${{ env.PRIMITIVES_SOURCE }}
+        run: pnpm build
+
+      - name: 🐤 Commit changes
+        id: commit
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          message: 'chore(primitives): generate transformed tokens'
+          add: '.'
