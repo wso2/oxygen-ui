@@ -16,7 +16,7 @@ Follow this guide to set up the source code, development tools & other software.
 
 ### Mandatory Software & Tools
 
-To build and write code, make sure you have the following set of tools on your local environment.
+To build and write code, make sure you have the following set of tools in your local environment.
 
 
 #### [Git](https://git-scm.com/downloads)

@@ -15,13 +15,13 @@ powering <a href="https://wso2.com">WSO2</a>'s core products.</p>
 
 <br>
 
-Oxygen UI is the underline design system that powers WSO2's core products like Asgardeo, Choreo, WSO2 Identity Server, etc.
+Oxygen UI is the underlying design system that powers WSO2's core products like Asgardeo, Choreo, WSO2 Identity Server, etc.
 
 This repository contains the source code of the key components that works together for building resilient UIs.
 
 ## Packages
 
-- [`@oxygen-ui/primitives`](./packages/primitives) - Low level building blocks of Oxygen UI.
+- [`@oxygen-ui/primitives`](./packages/primitives) - Low level building blocks of Oxygen UI (e.g. icons, fonts) 
 - [`@oxygen-ui/react`](./packages/react) - The React implementation of Oxygen UI.
 - [`@oxygen-ui/logger`](./packages/logger) - Logger for the Oxygen UI packages
 
@@ -29,7 +29,7 @@ This repository contains the source code of the key components that works togeth
 
 * [💅 Multi Brand Identity Demo](https://oxygen-multi-brand-example.vercel.app/)
 
-    Sample app to showcase Oxygen Design System' multi-branding capabilities.
+    Sample app to showcase Oxygen Design System's multi-branding capabilities.
 
     ✨ Features
     
