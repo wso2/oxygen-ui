@@ -41,27 +41,6 @@ const defaultTheme: Theme = extendTheme({
       },
     },
   },
-  components: {
-    MuiButton: {
-      variants: [
-        {
-          props: {
-            color: 'primary',
-            variant: 'contained',
-          },
-          style: {
-            textTransform: 'none',
-          },
-        },
-        {
-          props: {color: 'secondary', variant: 'secondary'},
-          style: {
-            textTransform: 'none',
-          },
-        },
-      ],
-    },
-  },
   cssVarPrefix: 'oxygen',
   shape: {
     borderRadius: 8,

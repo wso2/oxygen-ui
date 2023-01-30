@@ -16,5 +16,13 @@
  * under the License.
  */
 
-export {default} from './Grid';
-export type {GridProps} from './Grid';
+import React from 'react';
+import {render} from '@unit-testing';
+import Grid from './Grid';
+
+describe('Grid', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(<Grid />);
+    expect(baseElement).toBeTruthy();
+  });
+});

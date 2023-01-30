@@ -51,7 +51,7 @@ const SignIn: FC<SignInProps> & MuiWrapperProps = (props: SignInProps): ReactEle
         <Typography className="oxygen-sign-in-header" variant="h5">
           Sign in
         </Typography>
-        <Box className="oxygen-sign-in-form" component="form" onSubmit={() => null} noValidate sx={{mt: 1}}>
+        <Box className="oxygen-sign-in-form" component="form" onSubmit={(): void => null} noValidate sx={{mt: 1}}>
           <TextField
             required
             fullWidth
@@ -71,7 +71,17 @@ const SignIn: FC<SignInProps> & MuiWrapperProps = (props: SignInProps): ReactEle
             placeholder="Enter your password"
             autoComplete="current-password"
           />
-          <Button variant="primary" className="oxygen-sign-in-cta" type="submit" fullWidth sx={{mt: 3, mb: 2}}>
+          <Button
+            color="primary"
+            variant="contained"
+            className="oxygen-sign-in-cta"
+            type="submit"
+            fullWidth
+            sx={{
+              mb: 2,
+              mt: 3,
+            }}
+          >
             Sign In
           </Button>
           <Grid container className="oxygen-sign-in-sign-up-link">

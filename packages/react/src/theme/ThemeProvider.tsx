@@ -27,7 +27,7 @@ export type ThemeProviderProps = Partial<CssVarsProviderConfig<SupportedColorSch
    * The node used to attach the color-scheme attribute
    * @default document
    */
-  colorSchemeNode?: Document | HTMLElement | null;
+  colorSchemeNode?: Element | null | undefined;
   /**
    * The CSS selector for attaching the generated custom properties
    * @default ':root'

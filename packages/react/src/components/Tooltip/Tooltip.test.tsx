@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -17,12 +17,16 @@
  */
 
 import React from 'react';
-import {render} from '@testing-library/react';
-import Button from './Button';
+import {render} from '@unit-testing';
+import Tooltip from './Tooltip';
 
-describe('Button', () => {
+describe('Tooltip', () => {
   it('should render successfully', () => {
-    const {baseElement} = render(<Button />);
+    const {baseElement} = render(
+      <Tooltip title="This is a tooltip">
+        <div>Tooltip Trigger</div>
+      </Tooltip>,
+    );
     expect(baseElement).toBeTruthy();
   });
 });

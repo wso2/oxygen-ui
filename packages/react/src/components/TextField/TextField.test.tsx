@@ -16,5 +16,13 @@
  * under the License.
  */
 
-export {default} from './Grid';
-export type {GridProps} from './Grid';
+import React from 'react';
+import {render} from '@unit-testing';
+import TextField from './TextField';
+
+describe('TextField', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(<TextField />);
+    expect(baseElement).toBeTruthy();
+  });
+});

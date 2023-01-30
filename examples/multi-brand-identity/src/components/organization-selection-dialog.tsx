@@ -157,7 +157,8 @@ export const OrganizationSelectionDialog: FC<OrganizationSelectionDialogProps> =
         <Button
           fullWidth
           loading={isOrganizationBrandingFetchRequestLoading}
-          variant="primary"
+          color="primary"
+          variant="contained"
           onClick={handleOrganizationConnect}
         >
           Connect

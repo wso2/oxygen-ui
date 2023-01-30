@@ -24,7 +24,8 @@
     "clean:node-modules": "pnpm rimraf -G **/**/node_modules && pnpm rimraf -G node_modules",
     "build": "nx run-many --target=build --parallel",
     "build:docs": "pnpm --filter @oxygen-ui/react build-storybook && pnpm --filter @oxygen-ui/docs build",
-    "lint": "nx run-many --target=lint --parallel"
+    "lint": "nx run-many --target=lint --parallel",
+    "test": "nx run-many --target=test --parallel"
   },
   "devDependencies": {
     "nx": "15.2.1",

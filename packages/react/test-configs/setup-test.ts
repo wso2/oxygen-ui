@@ -16,5 +16,5 @@
  * under the License.
  */
 
-export {default} from './Grid';
-export type {GridProps} from './Grid';
+import '@testing-library/jest-dom/extend-expect';
+import './__mocks__/match-media-mock';
