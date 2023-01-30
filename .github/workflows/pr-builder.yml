@@ -64,6 +64,10 @@ jobs:
         id: install-dependencies
         run: pnpm install
 
+      - name: 🏗️ Build
+        id: build
+        run:  pnpm build
+
       - name: ⏳ Lint All Files
         id: lint-with-eslint
         run: pnpm nx affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --target=lint --parallel=3
@@ -117,6 +121,10 @@ jobs:
         id: install-dependencies
         run: pnpm install
 
+      - name: 🏗️ Build
+        id: build
+        run:  pnpm build
+
       - name: ☄️ Check Type Errors
         run: pnpm nx affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --target=typecheck --parallel=3
 
@@ -163,6 +171,10 @@ jobs:
       - name: 🧩 Install Dependencies
         id: install-dependencies
         run: pnpm install
+
+      - name: 🏗️ Build
+        id: build
+        run:  pnpm build
 
       - name: 🃏 Run Unit Tests
         id: run-tests
