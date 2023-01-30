@@ -117,10 +117,6 @@ jobs:
         id: install-dependencies
         run: pnpm install
 
-      - name: 👷 Build Re-usable Modules
-        id: build-reusable-modules
-        run: pnpm build:modules
-
       - name: ☄️ Check Type Errors
         run: pnpm nx affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --plain --target=typecheck --parallel=3
 
