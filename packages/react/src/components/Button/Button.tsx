@@ -26,43 +26,12 @@ export interface ButtonProps extends MuiButtonProps {}
 
 const COMPONENT_NAME: string = 'Button';
 
-declare module '@mui/material/Button' {
-  interface ButtonPropsVariantOverrides {
-    /**
-     * Provides extra visual weight to identify the primary action from a set of buttons.
-     */
-    primary: true;
-    /**
-     * Any actions that are less important.
-     */
-    secondary: true;
-  }
-}
-
 const Button: FC<ButtonProps> & WithWrapperProps = (props: ButtonProps): ReactElement => {
   const {className, ...rest} = props;
 
   const classes: string = clsx('oxygen-button', className);
 
-  const getResolvedProps = (): Partial<ButtonProps> => {
-    let {color, variant} = {...rest};
-
-    if (variant === 'primary') {
-      color = 'primary';
-      variant = 'contained';
-    } else if (variant === 'secondary') {
-      color = 'secondary';
-      variant = 'contained';
-    }
-
-    return {
-      ...rest,
-      color,
-      variant,
-    };
-  };
-
-  return <MuiButton className={classes} {...getResolvedProps()} />;
+  return <MuiButton className={classes} {...rest} />;
 };
 
 Button.displayName = composeComponentDisplayName(COMPONENT_NAME);
