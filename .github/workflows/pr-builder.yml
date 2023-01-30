@@ -91,7 +91,7 @@ jobs:
         id: set-shas
         uses: nrwl/nx-set-shas@v3
         with:
-          main-branch-name: "master"
+          main-branch-name: "main"
 
       - name: 🥡 Setup pnpm
         uses: pnpm/action-setup@v2.1.0
