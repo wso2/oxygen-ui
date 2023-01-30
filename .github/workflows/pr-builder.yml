@@ -1,6 +1,6 @@
 # This workflow will build PRs submitted to the main branch.
 
-name: PR Builder
+name: 👷‍♂️ PR Builder
 
 on:
   pull_request:
@@ -129,7 +129,7 @@ jobs:
         run: pnpm nx affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --target=typecheck --parallel=3
 
   test:
-    name: 👾 Unit Test (TESTING)
+    name: 👾 Unit Tests
     needs: [ lint, typecheck ]
     runs-on: ubuntu-latest
     strategy:
