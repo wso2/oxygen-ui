@@ -29,7 +29,8 @@
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint .",
-    "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest --passWithNoTests"
+    "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest --passWithNoTests",
+    "typecheck": "tsc --noemit -p tsconfig.json"
   },
   "dependencies": {
     "chalk": "^5.2.0"

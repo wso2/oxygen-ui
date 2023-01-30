@@ -31,7 +31,8 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "start": "pnpm storybook",
     "storybook": "start-storybook -p 6006",
-    "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest --passWithNoTests"
+    "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest --passWithNoTests",
+    "typecheck": "tsc --noemit -p tsconfig.json"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",

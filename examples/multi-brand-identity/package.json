@@ -22,7 +22,8 @@
     "build": "react-scripts build",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "typecheck": "tsc --noemit -p tsconfig.json"
   },
   "dependencies": {
     "@fontsource/inter": "^4.5.14",
