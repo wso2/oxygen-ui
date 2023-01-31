@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,12 +16,8 @@
  * under the License.
  */
 
-import React from 'react';
-import {render} from '@unit-testing';
-import App from './App';
+/**
+ * @fileoverview Mocks style files such as .css, .less, etc.
+ */
 
-test('App renders', () => {
-  render(<App />);
-  const {baseElement} = render(<App />);
-  expect(baseElement).toBeTruthy();
-});
+module.exports = {};

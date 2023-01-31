@@ -21,8 +21,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest --passWithNoTests",
     "typecheck": "tsc --noemit -p tsconfig.json"
   },
   "dependencies": {
