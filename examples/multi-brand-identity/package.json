@@ -17,6 +17,28 @@
     "multi-brand",
     "branding"
   ],
+  "jest": {
+    "displayName":"form",
+    "globals": {},
+    "moduleDirectories": ["node_modules", "test-configs"],
+    "moduleFileExtensions": ["js","jsx","ts","tsx","json","node"],
+    "moduleNameMapper": {
+     "\\.(css|less|sass|scss)$": "<rootDir>/test-configs/__mocks__/style-mock.ts",
+     "^@unit-testing(.*)$": "<rootDir>/test-configs/utils"
+    },
+    "modulePaths": ["<rootDir>"],
+    "roots": ["src"],
+    "setupFilesAfterEnv": ["<rootDir>/test-configs/setup-test.ts"],
+    "testEnvironment":"jest-environment-jsdom",
+    "testMatch": ["<rootDir>/**/?(*.)test.{ts,tsx}"],
+    "testPathIgnorePatterns": ["<rootDir>/(dist|node_modules)/"],
+    "transform": {
+     "^.+\\.(js|jsx)?$": "babel-jest",
+     "^.+\\.(ts|tsx)?$": "ts-jest"
+    },
+    "transformIgnorePatterns": ["/node_modules/?(?!@wso2)"],
+    "verbose": true
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -47,9 +69,10 @@
     "eslint": "8.25.0",
     "jest": "29.0.3",
     "jest-environment-jsdom": "^29.4.1",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.9.3",
     "prettier": "^2.8.0",
+    "react-scripts": "5.0.1",
+    "ts-jest": "^29.0.3",
+    "typescript": "^4.9.3",
     "web-vitals": "^2.1.4"
   },
   "browserslist": {
