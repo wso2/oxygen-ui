@@ -35,13 +35,11 @@ StyleDictionary.registerTransformGroup({
 
 StyleDictionary.registerTransformGroup({
   name: 'tokens-scss',
-  // to see the pre-defined "scss" transformation use: console.log(StyleDictionary.transformGroup['scss']);
   transforms: ['name/cti/kebab', 'time/seconds', 'size/px', 'color/css'],
 });
 
 StyleDictionary.registerTransformGroup({
   name: 'tokens-css',
-  // to see the pre-defined "scss" transformation use: console.log(StyleDictionary.transformGroup['scss']);
   transforms: ['name/cti/kebab', 'time/seconds', 'size/px', 'color/css'],
 });
 

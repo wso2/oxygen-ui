@@ -21,7 +21,11 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@unit-testing": ["./test-configs/utils.tsx"]
+    }
   },
   "exclude": ["node_modules", "tmp"],
   "files": [],

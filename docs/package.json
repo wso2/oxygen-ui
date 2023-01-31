@@ -20,7 +20,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noemit -p tsconfig.json"
   },
   "dependencies": {
     "@next/font": "^13.0.6",
@@ -36,8 +37,8 @@
     "typescript": "4.9.3"
   },
   "devDependencies": {
-    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?d84dd6df97ba9812d30b17d482ecaec5d35d3e54",
-    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?d84dd6df97ba9812d30b17d482ecaec5d35d3e54"
+    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e",
+    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e"
   },
   "private": true
 }

@@ -16,5 +16,8 @@
  * under the License.
  */
 
-export {default} from './Grid';
-export type {GridProps} from './Grid';
+/**
+ * @fileoverview Mocks style files such as .css, .less, etc.
+ */
+
+module.exports = {};

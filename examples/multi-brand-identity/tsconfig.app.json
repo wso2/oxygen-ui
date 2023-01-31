@@ -4,8 +4,7 @@
     "declaration": true,
     "outDir": "dist",
     "declarationDir": "types",
-    "types": ["node"],
-    "emitDeclarationOnly": true
+    "types": ["node"]
   },
   "files": [],
   "exclude": [
@@ -20,5 +19,5 @@
     "**/*.spec.jsx",
     "**/*.test.jsx"
   ],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "rollup.config.cjs"]
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
 }

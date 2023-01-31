@@ -57,7 +57,7 @@ function Demo() {
 Variation that provides an extra visual weight to identify the primary action from a set of buttons.
 
 <Canvas>
-  <Story name="Primary" args={{children: 'Button', variant: 'primary'}}     parameters={withDesign("Button", "Primary", {})} />
+  <Story name="Primary" args={{color: 'primary', children: 'Button', variant: 'contained'}} parameters={withDesign("Button", "Primary", {})} />
 </Canvas>
 
 ### Secondary
@@ -65,7 +65,7 @@ Variation that provides an extra visual weight to identify the primary action fr
 Any actions that are less important than the primary action.
 
 <Canvas>
-  <Story name="Secondary" args={{children: 'Button', variant: 'secondary'}} />
+  <Story name="Secondary" args={{color: 'secondary', children: 'Button', variant: 'contained'}} />
 </Canvas>
 
 ### Outline

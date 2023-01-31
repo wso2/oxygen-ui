@@ -16,5 +16,16 @@
  * under the License.
  */
 
-export {default} from './Grid';
-export type {GridProps} from './Grid';
+Object.defineProperty(window, 'matchMedia', {
+  value: jest.fn().mockImplementation((query: any) => ({
+    addEventListener: jest.fn(),
+    addListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+    matches: false,
+    media: query,
+    onchange: null,
+    removeEventListener: jest.fn(),
+    removeListener: jest.fn(),
+  })),
+  writable: true,
+});

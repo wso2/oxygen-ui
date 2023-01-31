@@ -17,11 +17,11 @@
  */
 
 import React from 'react';
-import {render, screen} from '@testing-library/react';
+import {render} from '@unit-testing';
 import App from './App';
 
-test('renders learn react link', () => {
+test('App renders', () => {
   render(<App />);
-  const linkElement: HTMLLinkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const {baseElement} = render(<App />);
+  expect(baseElement).toBeTruthy();
 });
