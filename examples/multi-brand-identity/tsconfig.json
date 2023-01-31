@@ -26,7 +26,15 @@
       "@unit-testing": ["./test-configs/utils.tsx"]
     }
   },
-  "include": [
-    "src"
+  "exclude": ["node_modules", "tmp"],
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
   ]
 }

@@ -28,7 +28,10 @@ module.exports = {
     'plugin:mdx/recommended',
   ],
   parserOptions: {
-    project: [path.resolve(__dirname, 'tsconfig.json')],
+    project: [
+      path.resolve(__dirname, 'tsconfig.app.json'),
+      path.resolve(__dirname, 'tsconfig.spec.json'),
+    ],
     "sourceType": "module"
   },
   plugins: ['@wso2'],

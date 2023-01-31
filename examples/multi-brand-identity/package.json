@@ -17,28 +17,6 @@
     "multi-brand",
     "branding"
   ],
-  "jest": {
-    "displayName":"form",
-    "globals": {},
-    "moduleDirectories": ["node_modules", "test-configs"],
-    "moduleFileExtensions": ["js","jsx","ts","tsx","json","node"],
-    "moduleNameMapper": {
-     "\\.(css|less|sass|scss)$": "<rootDir>/test-configs/__mocks__/style-mock.ts",
-     "^@unit-testing(.*)$": "<rootDir>/test-configs/utils"
-    },
-    "modulePaths": ["<rootDir>"],
-    "roots": ["src"],
-    "setupFilesAfterEnv": ["<rootDir>/test-configs/setup-test.ts"],
-    "testEnvironment":"jest-environment-jsdom",
-    "testMatch": ["<rootDir>/**/?(*.)test.{ts,tsx}"],
-    "testPathIgnorePatterns": ["<rootDir>/(dist|node_modules)/"],
-    "transform": {
-     "^.+\\.(js|jsx)?$": "babel-jest",
-     "^.+\\.(ts|tsx)?$": "ts-jest"
-    },
-    "transformIgnorePatterns": ["/node_modules/?(?!@wso2)"],
-    "verbose": true
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
