@@ -239,7 +239,7 @@ const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactEl
                   {(themes || defaultThemes)?.map((theme: ThemeListInterface) => {
                     const labelId: string = `theme-label-${theme.name}`;
                     return (
-                      <ListItem className="theme-list-item">
+                      <ListItem className="theme-list-item" key={theme.name}>
                         <ListItemIcon>{theme.icon}</ListItemIcon>
                         <ListItemText primary={theme.name} />
                         <Radio
