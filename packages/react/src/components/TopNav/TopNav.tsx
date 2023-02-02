@@ -20,26 +20,9 @@ import React, {FC, ReactElement, useState} from 'react';
 import clsx from 'clsx';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
-import {
-  Box,
-  Container,
-  Divider,
-  IconButton,
-  Link,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemIcon,
-  ListItemText,
-  ListSubheader,
-  Radio,
-  Toolbar,
-  Typography,
-  useMediaQuery,
-} from '@mui/material';
+import {Box, Container, IconButton, Link, Toolbar, Typography, useMediaQuery} from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MenuIcon from '@mui/icons-material/Menu';
-import Logout from '@mui/icons-material/Logout';
 import DisabledByDefaultOutlinedIcon from '@mui/icons-material/DisabledByDefaultOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import ContrastOutlinedIcon from '@mui/icons-material/ContrastOutlined';
@@ -48,16 +31,12 @@ import {composeComponentDisplayName} from '../../utils';
 import './top-nav.scss';
 import Avatar from '../Avatar';
 import Image from '../Image';
-import Menu from '../Menu';
 import Button from '../Button';
+import UserDropdownMenu from '../UserDropdownMenu';
 
 export interface TopNavProps extends MuiAppBarProps {
   /**
-   * URL for user avatar.
-   */
-  avatarUrl?: string;
-  /**
-   * Handle left navigation menu on button toggle.
+   * Handle left navigation bar button toggle.
    */
   handleLeftNav?: () => void;
   /**
@@ -73,21 +52,21 @@ export interface TopNavProps extends MuiAppBarProps {
    */
   isLeftNavActive?: boolean;
   /**
-   * URL for the App Nav logo.
+   * File path or URL for the logo in the top navigation bar.
    */
-  logoUrl?: string;
+  logo?: string;
   /**
-   * URL for the App Nav logo in mobile screens.
+   * File path or URL for the logo in the top navigation bar for mobile screens.
    */
-  mobileLogoUrl?: string;
+  mobileLogo?: string;
+  /**
+   * Settings available on the top navigation bar.
+   */
+  navSettings?: NavSettingsInterface[];
   /**
    * Application portal name.
    */
   portalName?: string;
-  /**
-   * URL for the App Nav logo.
-   */
-  settings?: MenuSettingsInterface[];
   /**
    * List of themes.
    */
@@ -97,12 +76,16 @@ export interface TopNavProps extends MuiAppBarProps {
    */
   userEmail?: string;
   /**
+   * File path or URL for user's profile image.
+   */
+  userImage?: string;
+  /**
    * Username of the logged user.
    */
   userName?: string;
 }
 
-export interface MenuSettingsInterface {
+export interface NavSettingsInterface {
   icon?: string | ReactElement;
   name: string;
   path: string;
@@ -119,11 +102,11 @@ const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactEl
   const {
     className,
     isLeftNavActive,
-    logoUrl,
-    avatarUrl,
-    settings,
+    logo,
+    userImage,
+    navSettings,
     themes,
-    mobileLogoUrl,
+    mobileLogo,
     portalName,
     userName,
     userEmail,
@@ -155,7 +138,7 @@ const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactEl
     {icon: <ContrastOutlinedIcon />, name: 'High Contrast'},
   ];
 
-  const onThemeChange = (theme: string) => () => {
+  const onThemeChange = (theme: string): void => {
     setSelectedTheme(theme);
   };
 
@@ -178,21 +161,16 @@ const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactEl
             underline="none"
             aria-label="Home Page"
           >
-            {(logoUrl || mobileLogoUrl) && (
-              <Image
-                className="logo"
-                src={isMobile && mobileLogoUrl ? mobileLogoUrl : logoUrl}
-                alt="Logo"
-                width="auto"
-              />
+            {(logo || mobileLogo) && (
+              <Image className="logo" src={isMobile && mobileLogo ? mobileLogo : logo} alt="Logo" width="auto" />
             )}
             <Typography variant="h6" className="portal-name">
               {portalName}
             </Typography>
           </Box>
 
-          <Box className="settings">
-            {settings?.map((setting: MenuSettingsInterface) => (
+          <Box className="nav-settings">
+            {navSettings?.map((setting: NavSettingsInterface) => (
               <Button
                 color="inherit"
                 href={setting.path}
@@ -212,58 +190,32 @@ const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactEl
 
           <Box className="user-dropdown-menu">
             <Button
-              className="test"
               color="inherit"
               aria-controls={open ? 'user-menu' : undefined}
               aria-owns={open ? 'user-menu' : null}
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
               onClick={handleOpenUserMenu}
-              startIcon={<Avatar className="user-icon" alt="User Icon" src={avatarUrl} />}
+              startIcon={<Avatar className="user-icon" alt="User Icon" src={userImage} />}
               endIcon={<KeyboardArrowDownIcon />}
             >
               {userName}
             </Button>
-            <Menu id="user-menu" anchorEl={anchorElUser} open={Boolean(anchorElUser)} onClose={handleCloseUserMenu}>
-              <List disablePadding>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar src={avatarUrl} alt="User" />
-                  </ListItemAvatar>
-                  <ListItemText primary={userName} secondary={userEmail} />
-                </ListItem>
-                <Box>
-                  <Divider />
-                </Box>
-                <List subheader={<ListSubheader>Theme</ListSubheader>}>
-                  {(themes || defaultThemes)?.map((theme: ThemeListInterface) => {
-                    const labelId: string = `theme-label-${theme.name}`;
-                    return (
-                      <ListItem className="theme-list-item" key={theme.name}>
-                        <ListItemIcon>{theme.icon}</ListItemIcon>
-                        <ListItemText primary={theme.name} />
-                        <Radio
-                          checked={selectedTheme === theme.name}
-                          onChange={onThemeChange(theme.name)}
-                          value={theme.name}
-                          name="radio-buttons"
-                          inputProps={{'aria-label': labelId}}
-                        />
-                      </ListItem>
-                    );
-                  })}
-                </List>
-                <Box>
-                  <Divider />
-                </Box>
-                <ListItem className="logout-list-item" onClick={handleLogOut}>
-                  <ListItemIcon>
-                    <Logout />
-                  </ListItemIcon>
-                  <ListItemText primary="Log Out" />
-                </ListItem>
-              </List>
-            </Menu>
+            <UserDropdownMenu
+              menuID="user-menu"
+              userImage={userImage}
+              anchorEl={anchorElUser}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+              userDisplayName={userName}
+              userEmail={userEmail}
+              themesHeading="Theme"
+              themes={defaultThemes}
+              handleLogOut={handleLogOut}
+              logOutText="Log Out"
+              selectedTheme={selectedTheme}
+              onThemeChange={onThemeChange}
+            />
           </Box>
         </Toolbar>
       </Container>

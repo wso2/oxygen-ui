@@ -16,5 +16,5 @@
  * under the License.
  */
 
-export {default} from './AppBar';
-export type {AppBarProps} from './AppBar';
+export {default} from './UserDropdownMenu';
+export {UserDropdownMenuProps} from './UserDropdownMenu';

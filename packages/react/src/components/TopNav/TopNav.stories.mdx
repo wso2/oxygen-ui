@@ -31,13 +31,15 @@ titles, navigation, and actions.
     name="Overview"
     parameters={withDesign('TopNav', 'Overview', {})}
     args={{
-      logoUrl: '/assets/images/asgardeo-logo.svg',
-      mobileLogoUrl: '/assets/images/asgardeo-logo-responsive.svg',
-      avatarUrl: '/assets/images/avatar-menu.svg',
+      portalName: 'OxygenUI',
+      logo: '/assets/images/oxygen-ui-logo-mini.svg',
+      mobileLogo: '/assets/images/oxygen-ui-logo-mini.svg',
+      userImage: '/assets/images/avatar-menu.svg',
       userName: 'Matthew',
       userEmail: 'matthew@wso2.com',
       handleLogOut: () => {console.log("user logged out")},
-      settings: [
+      homePath: 'https://mui.com/material-ui/react-app-bar/',
+      navSettings: [
         {
           name: 'Console',
           icon: (

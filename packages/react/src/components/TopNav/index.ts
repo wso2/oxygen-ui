@@ -16,5 +16,5 @@
  * under the License.
  */
 
-export {default} from './AppBar';
-export type {AppBarProps} from './AppBar';
+export {default} from './TopNav';
+export type {TopNavProps} from './TopNav';

@@ -17,6 +17,5 @@
  */
 
 export {default} from './Menu';
-export {MenuProps} from './Menu';
-export {MenuItem} from './MenuItem';
-export {MenuItemProps} from './MenuItem';
+export type {MenuProps} from './Menu';
+export * from './MenuItem';

@@ -1,0 +1,24 @@
+.oxygen-user-dropdown-menu {
+    .MuiList-root {
+        padding: 0 0;
+
+        .theme-list-item,
+        .logout-list-item {
+            padding: 0.2rem 1.5rem;
+
+            .MuiListItemIcon-root {
+                min-width: 2.5rem;
+            }
+
+            .MuiListItemText-root {
+                min-width: 8rem;
+            }
+        }
+
+        .logout-list-item {
+            padding-top: 0.7rem;
+            padding-bottom: 0.7rem;
+            cursor: pointer;
+        }
+    }
+}

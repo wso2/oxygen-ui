@@ -46,6 +46,10 @@ const defaultTheme: Theme = extendTheme({
     borderRadius: 8,
   },
   typography: {
+    body1: {
+      fontSize: 14,
+      fontWeight: 'normal',
+    },
     button: {
       textTransform: 'none',
     },
