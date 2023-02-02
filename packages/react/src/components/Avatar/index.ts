@@ -16,5 +16,5 @@
  * under the License.
  */
 
-export {default} from './TopNav';
-export type {TopNavProps} from './TopNav';
+export {default} from './Avatar';
+export type {AvatarProps} from './Avatar';

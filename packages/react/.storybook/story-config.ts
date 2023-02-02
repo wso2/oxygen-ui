@@ -29,7 +29,7 @@ enum StorybookCategories {
   Surfaces = 'Surfaces'
 }
 
-export type Stories = 'AppBar' | 'Button' | 'ColorModeToggle' | 'Colors' | 'Grid' | 'Link' | 'SignIn' | 'TextField' | 'Tooltip' | 'Typography' | 'Welcome';
+export type Stories = 'TopNav' | 'Avatar' | 'Image' | 'Button' | 'ColorModeToggle' | 'Colors' | 'Grid' | 'Link' | 'Menu' | 'SignIn' | 'TextField' | 'Tooltip' | 'Typography' | 'Welcome';
 export type StorybookConfig = Record<Stories, {
   hierarchy: string;
   design?: {
@@ -47,7 +47,7 @@ export type StorybookConfig = Record<Stories, {
 }>;
 
 const StoryConfig: StorybookConfig = {
-  AppBar: {
+  TopNav: {
     story: {
       Overview: {
         design: {
@@ -56,8 +56,11 @@ const StoryConfig: StorybookConfig = {
         },
       }
     },
-    hierarchy: `${StorybookCategories.Surfaces}/AppBar`,
+    hierarchy: `${StorybookCategories.Surfaces}/TopNav`,
   },
+  Avatar: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Avatar`,
+  }, 
   Button: {
     hierarchy: `${StorybookCategories.Inputs}/Button`,
   },
@@ -70,8 +73,14 @@ const StoryConfig: StorybookConfig = {
   Grid: {
     hierarchy: `${StorybookCategories.Layout}/Grid`,
   },
+  Image: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Image`,
+  },
   Link: {
     hierarchy: `${StorybookCategories.Navigation}/Link`,
+  },
+  Menu: {
+    hierarchy: `${StorybookCategories.Navigation}/Menu`,
   },
   SignIn: {
     hierarchy: `${StorybookCategories.Patterns}/Sign In`,

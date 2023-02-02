@@ -1,0 +1,60 @@
+$breakpoint-phone: 768px;
+$border: 2px solid rgba(200,200,200,0.37);
+
+.oxygen-top-nav {
+  border-bottom: $border;
+  box-shadow: none;
+  .menu-icon-button {
+    @media (max-width: $breakpoint-phone) {
+      margin-right: 0.5rem;
+    }
+    margin-right: 1rem;
+  }
+  .logo {
+    margin-right: 0.2rem;
+  }
+  .logo-box {
+    display: flex;
+    align-items: center;
+    &.with-link {
+      cursor: pointer;
+    }
+  }
+  .portal-name {
+    padding-top: 0.2em;
+  }
+  .settings {
+    @media (max-width: $breakpoint-phone) {
+      display: none;
+    }
+    display: flex;
+    flex-grow: 1;
+    justify-content: end;
+    margin-right: 1rem;
+  }
+  .user-dropdown-menu {
+    @media (max-width: $breakpoint-phone) {
+      display: none;
+    }
+    .user-icon {
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+  }
+}
+
+.theme-list-item, .logout-list-item {
+  padding: 0.2rem 1.5rem;
+  .MuiListItemIcon-root {
+    min-width: 2.5rem;
+  }
+  .MuiListItemText-root {
+    min-width: 8rem;
+  }
+}
+
+.logout-list-item {
+  cursor: pointer;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}

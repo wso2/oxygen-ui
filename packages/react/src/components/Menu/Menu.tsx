@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,26 +16,22 @@
  * under the License.
  */
 
+import MuiMenu, {MenuProps as MuiMenuprops} from '@mui/material/Menu';
 import React, {FC, ReactElement} from 'react';
-import clsx from 'clsx';
-import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
-import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
+import {WithWrapperProps} from '../../models';
 
-export interface AppBarProps extends MuiAppBarProps {}
+export interface MenuProps extends MuiMenuprops {}
 
-const COMPONENT_NAME: string = 'AppBar';
+const COMPONENT_NAME: string = 'Menu';
 
-const AppBar: FC<AppBarProps> & WithWrapperProps = (props: AppBarProps): ReactElement => {
+const Menu: FC<MenuProps> & WithWrapperProps = (props: MenuProps): ReactElement => {
   const {className, ...rest} = props;
 
-  const classes: string = clsx('oxygen-app-bar', className);
-
-  return <MuiAppBar className={classes} {...rest} />;
+  return <MuiMenu className={className} {...rest} />;
 };
 
-AppBar.displayName = composeComponentDisplayName(COMPONENT_NAME);
-AppBar.muiName = COMPONENT_NAME;
-AppBar.defaultProps = {};
+Menu.displayName = composeComponentDisplayName(COMPONENT_NAME);
+Menu.muiName = COMPONENT_NAME;
 
-export default AppBar;
+export default Menu;
