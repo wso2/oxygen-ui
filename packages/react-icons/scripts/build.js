@@ -22,135 +22,29 @@ const {default: generate} = require('@babel/generator');
 const t = require('@babel/types');
 const fse = require('fs-extra');
 const path = require('path');
+const {logger} = require('@oxygen-ui/logger');
 
-const srcDir = path.resolve(__dirname, '../src/__generated__');
-const iconsFile = path.join(srcDir, 'icons.js');
-const typesFile = path.join(srcDir, 'icons.d.ts');
+const PATHS = {
+  get generated() {
+    return path.join(this.src, '__generated__');
+  },
+  get iconTypesSrc() {
+    return path.join(this.generated, 'icons.d.ts');
+  },
+  get iconsSrc() {
+    return path.join(this.generated, 'icons.js');
+  },
+  src: path.resolve(__dirname, '..', 'src'),
+};
 
 const GENERATED_HEADER = '/* THIS FILE IS GENERATED. DO NOT EDIT IT. */';
 
-function pascalCase(str) {
-  return str.replace(/(^|-)([a-z])/g, (_, __, c) => c.toUpperCase());
-}
-
-const icons = Object.entries(oxygenIcons)
-  .map(([key, icon]) => {
-    const name = `${pascalCase(key)}Icon`;
-    // Build an object with the following structure:
-    //
-    // type SVGData = {
-    //   [key in string]: {
-    //     width: number,
-    //     path: React.JSXElement
-    //   },
-    // }
-    //
-    const svgData = t.objectExpression(
-      Object.entries(icon.heights).map(([height, icon]) =>
-        t.objectProperty(
-          t.stringLiteral(height),
-          t.objectExpression([
-            t.objectProperty(t.stringLiteral('width'), t.numericLiteral(icon.width)),
-            t.objectProperty(t.stringLiteral('path'), svgToJSX(icon.ast)),
-          ]),
-        ),
-      ),
-    );
-    // Define the icon by using the `createIconComponent` helper and the svgData
-    // defined above. This generates the following:
-    //
-    // const IconName = /*#__PURE__*/ createIconComponent('name', 'default-class-name', () => ({
-    //   /* svgData */
-    // }));
-    //
-    const {code} = generate(
-      t.variableDeclaration('const', [
-        t.variableDeclarator(
-          t.identifier(name),
-          t.addComment(
-            t.callExpression(t.identifier('createIconComponent'), [
-              // The name of the generated icon
-              t.stringLiteral(name),
-              // The className used on the underlying <svg> element
-              t.stringLiteral(`OxygenIcon OxygenIcon-${key}`),
-              t.arrowFunctionExpression([], t.blockStatement([t.returnStatement(svgData)])),
-            ]),
-            'leading',
-            '#__PURE__',
-          ),
-        ),
-      ]),
-    );
-
-    return {
-      code,
-      key,
-      name,
-      octicon: icon,
-    };
-  })
-  .sort((a, b) => a.key.localeCompare(b.key));
-
-function writeIcons(file) {
-  const count = icons.length;
-  const code = `${GENERATED_HEADER}
-import React from 'react'
-import { createIconComponent } from '../createIconComponent'
-
-${icons.map(({code}) => code).join('\n')}
-
-export {
-  ${icons.map(({name}) => name).join(',\n  ')}
-}`;
-  return fse.writeFile(file, code, 'utf8').then(() => {
-    console.warn('wrote %s with %d exports', file, count);
-    return icons;
-  });
-}
-
-function writeTypes(file) {
-  const count = icons.length;
-  const code = `${GENERATED_HEADER}
-import * as React from 'react'
-
-type Size = 'small' | 'medium' | 'large'
-
-interface IconProps {
-  'aria-label'?: string
-  className?: string
-  fill?: string
-  size?: number | Size
-  verticalAlign?: 'middle' | 'text-bottom' | 'text-top' | 'top' | 'unset'
-}
-
-type Icon = React.FC<IconProps>
-
-${icons.map(({name}) => `declare const ${name}: Icon`).join('\n')}
-
-export {
-  Icon,
-  IconProps,
-  ${icons.map(({name}) => name).join(',\n  ')}
-}`;
-  return fse.writeFile(file, code, 'utf8').then(() => {
-    console.warn('wrote %s with %d exports', file, count);
-    return icons;
-  });
-}
-
-fse
-  .mkdirs(srcDir)
-  .then(() => writeIcons(iconsFile))
-  .then(() => writeTypes(typesFile))
-  .catch(error => {
-    console.error(error);
-    process.exit(1);
-  });
+const pascalCase = str => str.replace(/(^|-)([a-z])/g, (_, __, c) => c.toUpperCase());
 
 /**
  * Convert a given node from an svg AST into a JS AST of JSX Elements
  */
-function svgToJSX(node) {
+const svgToJSX = node => {
   if (node.type === 'element') {
     const children = node.children.map(svgToJSX);
 
@@ -183,4 +77,103 @@ function svgToJSX(node) {
   }
 
   throw new Error(`Unknown type: ${node.type}`);
+};
+
+const icons = Object.entries(oxygenIcons)
+  .map(([key, icon]) => {
+    const name = `${pascalCase(key)}Icon`;
+
+    const svgData = t.objectExpression(
+      Object.entries(icon.heights).map(([svgHeight, svgIcon]) =>
+        t.objectProperty(
+          t.stringLiteral(svgHeight),
+          t.objectExpression([
+            t.objectProperty(t.stringLiteral('width'), t.numericLiteral(svgIcon.width)),
+            t.objectProperty(t.stringLiteral('path'), svgToJSX(svgIcon.ast)),
+          ]),
+        ),
+      ),
+    );
+    const {code} = generate(
+      t.variableDeclaration('const', [
+        t.variableDeclarator(
+          t.identifier(name),
+          t.addComment(
+            t.callExpression(t.identifier('createIconComponent'), [
+              // The name of the generated icon
+              t.stringLiteral(name),
+              // The className used on the underlying <svg> element
+              t.stringLiteral(`OxygenIcon OxygenIcon-${key}`),
+              t.arrowFunctionExpression([], t.blockStatement([t.returnStatement(svgData)])),
+            ]),
+            'leading',
+            '#__PURE__',
+          ),
+        ),
+      ]),
+    );
+
+    return {
+      code,
+      key,
+      name,
+    };
+  })
+  .sort((a, b) => a.key.localeCompare(b.key));
+
+const writeIcons = file => {
+  const count = icons.length;
+  const svgCode = `${GENERATED_HEADER}
+import React from 'react'
+import { createIconComponent } from '../createIconComponent'
+
+${icons.map(({code}) => code).join('\n')}
+
+export {
+  ${icons.map(({name}) => name).join(',\n  ')}
+}`;
+
+  return fse.writeFile(file, svgCode, 'utf8').then(() => {
+    logger.warn(`wrote ${file} with ${count} exports`);
+    return icons;
+  });
+};
+
+const writeTypes = file => {
+  const count = icons.length;
+  const code = `${GENERATED_HEADER}
+import * as React from 'react'
+
+type Size = 'small' | 'medium' | 'large'
+
+interface IconProps {
+  'aria-label'?: string
+  className?: string
+  fill?: string
+  size?: number | Size
+  verticalAlign?: 'middle' | 'text-bottom' | 'text-top' | 'top' | 'unset'
 }
+
+type Icon = React.FC<IconProps>
+
+${icons.map(({name}) => `declare const ${name}: Icon`).join('\n')}
+
+export {
+  Icon,
+  IconProps,
+  ${icons.map(({name}) => name).join(',\n  ')}
+}`;
+  return fse.writeFile(file, code, 'utf8').then(() => {
+    logger.warn(`wrote ${file} with ${count} exports`);
+    return icons;
+  });
+};
+
+fse
+  .mkdirs(PATHS.generated)
+  .then(() => writeIcons(PATHS.iconsSrc))
+  .then(() => writeTypes(PATHS.iconTypesSrc))
+  .catch(error => {
+    logger.error(error);
+    process.exit(1);
+  });

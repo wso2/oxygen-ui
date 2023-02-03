@@ -19,26 +19,42 @@
 
 const fse = require('fs-extra');
 const path = require('path');
+const {logger} = require('@oxygen-ui/logger');
 
-const srcDir = path.resolve(__dirname, '../src/__generated__');
-const iconsSrc = path.join(srcDir, 'icons.d.ts');
-const indexSrc = path.join(srcDir, '../index.d.ts');
+const PATHS = {
+  dist: path.resolve(__dirname, '..', 'dist'),
+  get generated() {
+    return path.join(this.src, '__generated__');
+  },
+  get iconTypesSrc() {
+    return path.join(this.generated, 'icons.d.ts');
+  },
+  get iconsDist() {
+    return path.join(this.dist, 'icons.d.ts');
+  },
+  get iconsSrc() {
+    return path.join(this.generated, 'icons.js');
+  },
+  get indexDist() {
+    return path.join(this.dist, 'index.d.ts');
+  },
+  get indexSrc() {
+    return path.join(this.generated, '..', 'index.d.ts');
+  },
+  src: path.resolve(__dirname, '..', 'src'),
+};
 
-const destDir = path.resolve(__dirname, '../dist');
-const iconsDest = path.join(destDir, 'icons.d.ts');
-const indexDest = path.join(destDir, 'index.d.ts');
+const die = err => {
+  logger.error(err.stack);
+  process.exitCode = 1;
+};
 
 fse
-  .copy(iconsSrc, iconsDest)
+  .copy(PATHS.iconsSrc, PATHS.iconsDist)
   .then(() =>
     fse
-      .readFile(indexSrc, 'utf8')
+      .readFile(PATHS.indexSrc, 'utf8')
       .then(content => content.replace(/.\/__generated__\//g, './'))
-      .then(content => fse.writeFile(indexDest, content, 'utf8')),
+      .then(content => fse.writeFile(PATHS.indexDist, content, 'utf8')),
   )
   .catch(die);
-
-function die(err) {
-  console.error(err.stack);
-  process.exitCode = 1;
-}
