@@ -99,7 +99,7 @@ const icons = Object.entries(oxygenIcons)
         t.variableDeclarator(
           t.identifier(name),
           t.addComment(
-            t.callExpression(t.identifier('createIconComponent'), [
+            t.callExpression(t.identifier('CreateIconComponent'), [
               // The name of the generated icon
               t.stringLiteral(name),
               // The className used on the underlying <svg> element
@@ -125,7 +125,7 @@ const writeIcons = file => {
   const count = icons.length;
   const svgCode = `${GENERATED_HEADER}
 import React from 'react'
-import { createIconComponent } from '../createIconComponent'
+import { CreateIconComponent } from '../create-icon-component.jsx'
 
 ${icons.map(({code}) => code).join('\n')}
 

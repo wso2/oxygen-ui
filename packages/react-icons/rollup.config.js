@@ -23,7 +23,7 @@ const formats = ['esm', 'umd'];
 
 export default {
   input: 'src/index.js',
-  output: formats.map((format) => ({
+  output: formats.map(format => ({
     file: `dist/index.${format}.js`,
     format,
     name: 'oxygen-icons-react',
