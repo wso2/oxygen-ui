@@ -17,12 +17,7 @@
  */
 
 import React, {SVGProps} from 'react';
-
-export type IconSizes = 'large' | 'medium' | 'small';
-
-export type GeneratedIcon = {
-  [key: number]: SVGProps;
-};
+import {GeneratedIcon, IconSizes} from './models';
 
 const sizeMap: IconSizes = {
   large: 64,
@@ -30,12 +25,27 @@ const sizeMap: IconSizes = {
   small: 16,
 };
 
-const closestNaturalHeight: number = (naturalHeights: number[], height: number): number =>
+/**
+ * Calculates the closes height from a list of provided heights.
+ *
+ * @param naturalHeights - Set of natural heights.
+ * @param height - Height to check.
+ * @returns Closest natural height.
+ */
+const getClosestNaturalHeight: number = (naturalHeights: number[], height: number): number =>
   naturalHeights
     .map((naturalHeight: number) => parseInt(naturalHeight, 10))
     .reduce((acc: number, naturalHeight: number) => (naturalHeight <= height ? naturalHeight : acc), naturalHeights[0]);
 
-export const CreateIconComponent = (
+/**
+ * Creates a React component from a `SVG`.
+ *
+ * @param name - Name for the Component.
+ * @param defaultClassName - Default CSS class name.
+ * @param getSVGData - Function to get the SVG data.
+ * @returns A React component created from an SVG.
+ */
+export const createIconComponent = (
   name: string,
   defaultClassName: string,
   getSVGData: () => GeneratedIcon,
@@ -52,7 +62,7 @@ export const CreateIconComponent = (
     verticalAlign = 'text-bottom',
   }: SVGProps): JSX.Element => {
     const height: number = sizeMap[size] || size;
-    const naturalHeight: number = closestNaturalHeight(heights, height);
+    const naturalHeight: number = getClosestNaturalHeight(heights, height);
     const naturalWidth: number = svgDataByHeight[naturalHeight].width;
     const width: number = height * (naturalWidth / naturalHeight);
     const {path} = svgDataByHeight[naturalHeight];
