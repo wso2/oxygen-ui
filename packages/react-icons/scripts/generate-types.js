@@ -17,6 +17,10 @@
  * under the License.
  */
 
+/**
+ * @fileoverview Script to generate the typings for the icons.
+ */
+
 const fs = require('fs-extra');
 const path = require('path');
 const {logger} = require('@oxygen-ui/logger');
@@ -45,14 +49,6 @@ const die = err => {
   logger.error(err.stack);
   process.exitCode = 1;
 };
-
-/* ====================================================================================== */
-/* Execution starts from here                                                             */
-/* ====================================================================================== */
-
-logger.log();
-logger.log('                         🎲     Generating the Types     🎲                         ');
-logger.log();
 
 fs.copy(PATHS.generatedIconTypes, PATHS.iconsDist)
   .then(() =>

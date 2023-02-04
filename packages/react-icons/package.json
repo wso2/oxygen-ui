@@ -32,7 +32,7 @@
     "directory": "packages/react-icons"
   },
   "scripts": {
-    "build": "scripts/build.js && scripts/types.js && rollup -c",
+    "build": "scripts/build.js && rollup -c",
     "clean": "rimraf dist src/__generated__",
     "lint": "eslint .",
     "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest",
