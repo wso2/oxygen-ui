@@ -17,7 +17,7 @@
  * under the License.
  */
 
-const fse = require('fs-extra');
+const fs = require('fs-extra');
 const path = require('path');
 const {logger} = require('@oxygen-ui/logger');
 
@@ -26,20 +26,17 @@ const PATHS = {
   get generated() {
     return path.join(this.src, '__generated__');
   },
-  get iconTypesSrc() {
+  get generatedIconTypes() {
     return path.join(this.generated, 'icons.d.ts');
   },
   get iconsDist() {
     return path.join(this.dist, 'icons.d.ts');
   },
-  get iconsSrc() {
-    return path.join(this.generated, 'icons.js');
-  },
   get indexDist() {
     return path.join(this.dist, 'index.d.ts');
   },
   get indexSrc() {
-    return path.join(this.generated, '..', 'index.d.ts');
+    return path.join(this.src, 'index.ts');
   },
   src: path.resolve(__dirname, '..', 'src'),
 };
@@ -49,12 +46,19 @@ const die = err => {
   process.exitCode = 1;
 };
 
-fse
-  .copy(PATHS.iconsSrc, PATHS.iconsDist)
+/* ====================================================================================== */
+/* Execution starts from here                                                             */
+/* ====================================================================================== */
+
+logger.log();
+logger.log('                         🎲     Generating the Types     🎲                         ');
+logger.log();
+
+fs.copy(PATHS.generatedIconTypes, PATHS.iconsDist)
   .then(() =>
-    fse
+    fs
       .readFile(PATHS.indexSrc, 'utf8')
       .then(content => content.replace(/.\/__generated__\//g, './'))
-      .then(content => fse.writeFile(PATHS.indexDist, content, 'utf8')),
+      .then(content => fs.writeFile(PATHS.indexDist, content, 'utf8')),
   )
   .catch(die);

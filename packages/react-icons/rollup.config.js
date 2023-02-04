@@ -22,7 +22,7 @@ import commonjs from '@rollup/plugin-commonjs';
 const formats = ['esm', 'umd'];
 
 export default {
-  input: 'src/index.js',
+  input: 'src/index.ts',
   output: formats.map(format => ({
     file: `dist/index.${format}.js`,
     format,
@@ -32,6 +32,7 @@ export default {
     babel({
       babelHelpers: 'bundled',
       babelrc: false,
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
       presets: [
         [
           '@babel/preset-env',
