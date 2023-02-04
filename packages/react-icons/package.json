@@ -35,7 +35,7 @@
     "build": "scripts/build.js && rollup -c",
     "clean": "rimraf dist src/__generated__",
     "lint": "eslint .",
-    "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest --passWithNoTests",
     "typecheck": "tsc --noemit -p tsconfig.json"
   },
   "devDependencies": {
