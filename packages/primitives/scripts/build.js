@@ -17,17 +17,9 @@
  * under the License.
  */
 
-const fs = require('fs');
 const path = require('path');
-const StyleDictionary = require('style-dictionary');
 const { logger } = require('@oxygen-ui/logger');
 const cp = require('child_process');
-
-// const PATHS = {
-//   source: {
-//     tokens: path.resolve(path.join(__dirname, '..', 'src', 'design-tokens')),
-//   },
-// };
 
 /* ====================================================================================== */
 /* Execution starts from here                                                             */
@@ -38,7 +30,7 @@ logger.log();
 logger.log('                         💅  Building Style Dictionary  💅                         ');
 logger.log();
 
-// cp.fork(path.resolve(__dirname, 'build-sd.js'));
+cp.fork(path.resolve(__dirname, 'build-sd.js'));
 
 logger.log();
 logger.log('                          💅  Building the SVG Icons  💅                           ');
