@@ -18,8 +18,6 @@
 
 module.exports = {
   testEnvironment: 'node',
-  testPathIgnorePatterns: [
-    '/node_modules/',
-  ],
+  testPathIgnorePatterns: ['/node_modules/'],
   transform: {},
 };

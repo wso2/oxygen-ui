@@ -16,32 +16,33 @@
  * under the License.
  */
 
-import babel from '@rollup/plugin-babel';
-import commonjs from '@rollup/plugin-commonjs';
+const {babel} = require('@rollup/plugin-babel');
+const commonjs = require('@rollup/plugin-commonjs');
 
-const formats = ['esm', 'umd'];
-
-export default {
+module.exports = {
+  external: ['react'],
   input: 'src/index.ts',
-  output: formats.map(format => ({
-    file: `dist/index.${format}.js`,
-    format,
-    name: 'oxygen-icons-react',
-  })),
+  output: [
+    {
+      file: `dist/index.esm.js`,
+      format: 'esm',
+      name: 'oxygen-icons-react',
+    },
+    {
+      file: `dist/index.umd.js`,
+      format: 'umd',
+      globals: {
+        react: 'React',
+      },
+      name: 'oxygen-icons-react',
+    },
+  ],
   plugins: [
     babel({
       babelHelpers: 'bundled',
       babelrc: false,
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      presets: [
-        [
-          '@babel/preset-env',
-          {
-            modules: false,
-          },
-        ],
-        '@babel/preset-react',
-      ],
+
     }),
     commonjs(),
   ],

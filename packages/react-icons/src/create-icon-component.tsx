@@ -18,20 +18,30 @@
 
 import React, {SVGProps} from 'react';
 
-const sizeMap = {
+export type IconSizes = 'large' | 'medium' | 'small';
+
+export type GeneratedIcon = {
+  [key: number]: SVGProps;
+};
+
+const sizeMap: IconSizes = {
   large: 64,
   medium: 32,
   small: 16,
 };
 
-const closestNaturalHeight = (naturalHeights, height) =>
+const closestNaturalHeight: number = (naturalHeights: number[], height: number): number =>
   naturalHeights
-    .map(naturalHeight => parseInt(naturalHeight, 10))
-    .reduce((acc, naturalHeight) => (naturalHeight <= height ? naturalHeight : acc), naturalHeights[0]);
+    .map((naturalHeight: number) => parseInt(naturalHeight, 10))
+    .reduce((acc: number, naturalHeight: number) => (naturalHeight <= height ? naturalHeight : acc), naturalHeights[0]);
 
-export const CreateIconComponent = (name, defaultClassName, getSVGData) => {
-  const svgDataByHeight = getSVGData();
-  const heights = Object.keys(svgDataByHeight);
+export const CreateIconComponent = (
+  name: string,
+  defaultClassName: string,
+  getSVGData: () => GeneratedIcon,
+): JSX.Element => {
+  const svgDataByHeight: GeneratedIcon = getSVGData();
+  const heights: number[] = Object.keys(svgDataByHeight);
 
   const Icon = ({
     'aria-label': ariaLabel,
@@ -40,11 +50,11 @@ export const CreateIconComponent = (name, defaultClassName, getSVGData) => {
     fill = 'currentColor',
     size = 16,
     verticalAlign = 'text-bottom',
-  }) => {
-    const height = sizeMap[size] || size;
-    const naturalHeight = closestNaturalHeight(heights, height);
-    const naturalWidth = svgDataByHeight[naturalHeight].width;
-    const width = height * (naturalWidth / naturalHeight);
+  }: SVGProps): JSX.Element => {
+    const height: number = sizeMap[size] || size;
+    const naturalHeight: number = closestNaturalHeight(heights, height);
+    const naturalWidth: number = svgDataByHeight[naturalHeight].width;
+    const width: number = height * (naturalWidth / naturalHeight);
     const {path} = svgDataByHeight[naturalHeight];
 
     return (
