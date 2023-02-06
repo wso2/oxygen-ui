@@ -11,6 +11,13 @@
 }
 
 @font-face {
+  font-family: 'Gilmer';
+  src: url('assets/fonts/gilmer/gilmer-light.otf');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
     font-family: 'Gilmer';
     src: url('assets/fonts/gilmer/gilmer-medium.eot');
     src:
@@ -24,14 +31,30 @@
 
 @font-face {
     font-family: 'Gilmer';
-    src: url('assets/fonts/glimer/gilmer-bold.eot');
+    src: url('assets/fonts/gilmer/gilmer-bold.eot');
     src:
-        url('assets/fonts/glimer/gilmer-bold.eot?#iefix') format('embedded-opentype'),
-        url('assets/fonts/glimer/gilmer-bold.woff2') format('woff2'),
-        url('assets/fonts/glimer/gilmer-bold.woff') format('woff'),
-        url('assets/fonts/glimer/gilmer-bold.ttf') format('truetype');
+        url('assets/fonts/gilmer/gilmer-bold.eot?#iefix') format('embedded-opentype'),
+        url('assets/fonts/gilmer/gilmer-bold.woff2') format('woff2'),
+        url('assets/fonts/gilmer/gilmer-bold.woff') format('woff'),
+        url('assets/fonts/gilmer/gilmer-bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gilmer';
+  src: url('assets/fonts/gilmer/gilmer-heavy.otf');
+  font-weight: 900;
+  font-style: normal;
+}
+
+:root {
+  --oxygen-font-family: 'Gilmer';
+  --oxygen-palette-divider: rgba(255, 255, 255, 0.12);
+}
+
+body {
+  font-family: var(--oxygen-font-family) !important;
 }
 
 .container .sidebar-container {

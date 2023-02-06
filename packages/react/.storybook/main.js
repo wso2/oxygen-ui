@@ -39,13 +39,6 @@ module.exports = {
         "storybook-dark-mode",
         '@storybook/preset-scss'
     ],
-    "previewHead": (head) => (`
-        ${head}
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet"  type="text/css" href="storybook.css" />
-    `),
     staticDirs: [ path.resolve(__dirname, STATIC_DIRECTORY_NAME) ],
     webpackFinal: async (config) => {
         config.resolve.plugins = [

@@ -1,0 +1,5 @@
+@import url(./storybook-common.overrides.css);
+
+* {
+  font-family: var(--oxygen-font-family) !important;
+}

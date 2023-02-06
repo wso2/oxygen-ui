@@ -1,0 +1,5 @@
+@import url(./storybook-common.overrides.css);
+
+.container .sidebar-container {
+  border-right: 1px solid var(--oxygen-palette-divider);
+}
