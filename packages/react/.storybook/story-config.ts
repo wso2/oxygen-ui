@@ -20,6 +20,7 @@
 enum StorybookCategories {
   DataDisplay = 'Data Display',
   Foundations = 'Foundations',
+  Icons = 'Icons',
   Inputs = 'Inputs',
   Layout = 'Layout',
   Navigation = 'Navigation',
@@ -29,7 +30,7 @@ enum StorybookCategories {
   Surfaces = 'Surfaces'
 }
 
-export type Stories = 'AppBar' | 'TopNav' | 'Avatar' | 'Image' | 'Button' | 'ColorModeToggle' | 'Colors' | 'Grid' | 'Link' | 'Menu' | 'SignIn' | 'TextField' | 'Tooltip' | 'Typography' | 'Welcome';
+export type Stories = 'AppBar' | 'TopNav' | 'Avatar' | 'Image' | 'Button' | 'ColorModeToggle' | 'Colors' | 'Grid' | 'Icons' | 'Link' | 'Menu' | 'SignIn' | 'TextField' | 'Tooltip' | 'Typography' | 'Welcome';
 export type StorybookConfig = Record<Stories, {
   hierarchy: string;
   design?: {
@@ -78,6 +79,9 @@ const StoryConfig: StorybookConfig = {
   },
   Image: {
     hierarchy: `${StorybookCategories.DataDisplay}/Image`,
+  },
+  Icons: {
+    hierarchy: `${StorybookCategories.Icons}/Icons`,
   },
   Link: {
     hierarchy: `${StorybookCategories.Navigation}/Link`,
