@@ -1,10 +1,37 @@
-:root {
-  --oxygen-font-family: 'Roboto', sans-serif;
-  --oxygen-palette-divider: rgba(255, 255, 255, 0.12);
+@font-face {
+  font-family: 'Gilmer';
+  src: url('assets/fonts/gilmer');
+  src:
+      url('assets/fonts/gilmer?#iefix') format('embedded-opentype'),
+      url('assets/fonts/gilmer/gilmer-regular.woff2') format('woff2'),
+      url('assets/fonts/gilmer/gilmer-regular.woff') format('woff'),
+      url('assets/fonts/gilmer/gilmer-regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-body {
-  font-family: var(--oxygen-font-family);
+@font-face {
+    font-family: 'Gilmer';
+    src: url('assets/fonts/gilmer/gilmer-medium.eot');
+    src:
+        url('assets/fonts/gilmer/gilmer-medium.eot?#iefix') format('embedded-opentype'),
+        url('assets/fonts/gilmer/gilmer-medium.woff2') format('woff2'),
+        url('assets/fonts/gilmer/gilmer-medium.woff') format('woff'),
+        url('assets/fonts/gilmer/gilmer-medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilmer';
+    src: url('assets/fonts/glimer/gilmer-bold.eot');
+    src:
+        url('assets/fonts/glimer/gilmer-bold.eot?#iefix') format('embedded-opentype'),
+        url('assets/fonts/glimer/gilmer-bold.woff2') format('woff2'),
+        url('assets/fonts/glimer/gilmer-bold.woff') format('woff'),
+        url('assets/fonts/glimer/gilmer-bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
 }
 
 .container .sidebar-container {
