@@ -1,0 +1,48 @@
+import {Meta, ColorPalette, ColorItem, IconGallery, IconItem, Source} from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import StoryConfig from '../../story-config.ts';
+import defaultTheme from '../../../src/theme/default-theme';
+import * as OxygenIcons from '@oxygen-ui/react-icons';
+
+export const meta = {
+  title: StoryConfig.Icons.hierarchy,
+};
+
+<Meta title={meta.title} />
+
+# Icons
+
+- [Overview](#overview)
+- [All Icons](#colors)
+
+## Overview
+
+The SVG icons from `@oxygen-ui/primitives` exported as React components.
+
+## Usage
+
+Import and use the icons in your components as follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`
+import {LockIcon} from '@oxygen-ui/react-icons';\n
+function Demo() {
+  return <LockIcon size="small" />;
+}`}
+/>
+
+## All Icons
+
+<IconGallery>
+  {Object.keys(OxygenIcons).map(key => {
+    const Icon = OxygenIcons[key];
+    return (
+      <IconItem name={Icon.displayName}>
+        <Icon />
+      </IconItem>
+    );
+  })}
+</IconGallery>

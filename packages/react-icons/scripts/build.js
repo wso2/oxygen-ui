@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -18,22 +18,29 @@
  */
 
 const path = require('path');
-const { logger } = require('@oxygen-ui/logger');
+const {logger} = require('@oxygen-ui/logger');
 const cp = require('child_process');
 
 /* ====================================================================================== */
 /* Execution starts from here                                                             */
 /* ====================================================================================== */
 
-logger.log('=======================  🧱 Started Building Primitives 🧱  =======================');
+logger.log(`=======================  🎠 Started Building React Icons 🎠  =======================`);
 logger.log();
-logger.log('                         💅  Building Style Dictionary  💅                         ');
-logger.log();
-
-cp.fork(path.resolve(__dirname, 'build-sd.js'));
-
-logger.log();
-logger.log('                          💅  Building the SVG Icons  💅                           ');
+logger.log('                         🧩     Generating the Icons     🧩                         ');
 logger.log();
 
-cp.fork(path.resolve(__dirname, 'build-icons.js'));
+const buildProcess = cp.fork(path.resolve(__dirname, 'build-icons.js'));
+
+buildProcess.on('close', status => {
+  // Only generate types if the build succeeds (status code 0).
+  if (status === 0) {
+    logger.log();
+    logger.log('                         🎲     Generating the Types     🎲                         ');
+    logger.log();
+
+    cp.fork(path.resolve(__dirname, 'generate-types.js'));
+  } else {
+    logger.error('Failed to build the icons. Hence, typing generation was aborted. Please try again!');
+  }
+});
