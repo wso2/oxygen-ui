@@ -21,6 +21,7 @@ import {addParameters, Story, StoryContext} from '@storybook/react';
 import {DocsContainer, DocsContainerProps, DocsPage} from '@storybook/addon-docs';
 import {themes} from './theme';
 import ThemeProvider from '../src/theme/ThemeProvider';
+import {extendTheme} from '../src/theme';
 
 /**
  * Wrapper for all the required providers.
@@ -31,7 +32,13 @@ import ThemeProvider from '../src/theme/ThemeProvider';
  */
 const withProviders = (Story: Story, context: StoryContext) => {
   return (
-    <ThemeProvider>
+    <ThemeProvider
+      theme={extendTheme({
+        typography: {
+          fontFamily: 'Gilmer',
+        },
+      })}
+    >
       <Story {...context} />
     </ThemeProvider>
   );

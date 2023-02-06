@@ -16,6 +16,10 @@
  * under the License.
  */
 
-export * from './common';
-export * from './component';
-export * from './theme';
+export type RecursivePartial<T> = {
+  [P in keyof T]?: T[P] extends (infer U)[]
+    ? RecursivePartial<U>[]
+    : T[P] extends object
+    ? RecursivePartial<T[P]>
+    : T[P];
+};

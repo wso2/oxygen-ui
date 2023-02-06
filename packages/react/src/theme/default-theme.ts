@@ -17,14 +17,16 @@
  */
 
 import {experimental_extendTheme as extendTheme} from '@mui/material/styles';
-import {Theme} from '../models';
+import lightTokens from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/tokens';
+import darkTokens from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/dark.tokens';
+import {RecursivePartial, Theme} from '../models';
 
-const defaultTheme: Theme = extendTheme({
+export const DEFAULT_THEME_OPTIONS: RecursivePartial<Theme> = {
   colorSchemes: {
     dark: {
       palette: {
         primary: {
-          main: '#FF7300',
+          main: darkTokens.OxygenOxygenColorsPrimaryDefault,
         },
       },
     },
@@ -32,25 +34,30 @@ const defaultTheme: Theme = extendTheme({
       palette: {
         primary: {
           contrastText: '#fff',
-          main: '#FF7300',
+          main: lightTokens.OxygenOxygenColorsPrimaryDefault,
         },
         secondary: {
-          contrastText: '#40404B',
-          main: '#F7F8FB',
+          // TODO: Need a dedicated variable for secondary button text.
+          contrastText: lightTokens.OxygenOxygenColorsTextLight,
+          main: lightTokens.OxygenOxygenColorsSecondaryDefault,
         },
       },
     },
   },
   cssVarPrefix: 'oxygen',
   shape: {
-    borderRadius: 8,
+    // TODO: Is `Lg` the default?
+    borderRadius: lightTokens.OxygenOxygenBorderRadiusLg,
   },
   typography: {
     button: {
       textTransform: 'none',
     },
-    fontFamily: ['Inter', 'sans-serif'].join(','),
+    // TODO: Need a token for this.
+    fontFamily: 'Gilmer',
   },
-});
+};
+
+const defaultTheme: Theme = extendTheme(DEFAULT_THEME_OPTIONS as Theme);
 
 export default defaultTheme;
