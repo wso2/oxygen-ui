@@ -17,9 +17,9 @@
  */
 
 import {experimental_extendTheme as extendTheme} from '@mui/material/styles';
-import {Theme} from '../models';
+import {RecursivePartial, Theme} from '../models';
 
-const defaultTheme: Theme = extendTheme({
+export const DEFAULT_THEME_OPTIONS: RecursivePartial<Theme> = {
   colorSchemes: {
     dark: {
       palette: {
@@ -51,6 +51,8 @@ const defaultTheme: Theme = extendTheme({
     },
     fontFamily: ['Inter', 'sans-serif'].join(','),
   },
-});
+};
+
+const defaultTheme: Theme = extendTheme(DEFAULT_THEME_OPTIONS as Theme);
 
 export default defaultTheme;
