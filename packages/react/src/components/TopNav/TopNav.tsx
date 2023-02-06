@@ -18,14 +18,17 @@
 
 import React, {FC, ReactElement, useState} from 'react';
 import clsx from 'clsx';
-import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
 import {Box, Container, IconButton, Link, Toolbar, Typography, useMediaQuery} from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import MenuIcon from '@mui/icons-material/Menu';
-import DisabledByDefaultOutlinedIcon from '@mui/icons-material/DisabledByDefaultOutlined';
-import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
-import ContrastOutlinedIcon from '@mui/icons-material/ContrastOutlined';
+import {
+  ChevronDownIcon,
+  EclipseIcon,
+  SunIcon,
+  HalfStripedSunIcon,
+  MoonWithRaysIcon,
+  HamburgerIcon,
+} from '@oxygen-ui/react-icons';
+import {useTheme, Theme} from '@mui/material/styles';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './top-nav.scss';
@@ -119,7 +122,15 @@ const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactEl
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const [selectedTheme, setSelectedTheme] = useState('System Default');
 
-  const classes: string = clsx('oxygen-top-nav', className);
+  const theme: Theme = useTheme();
+  const isMobile: boolean = useMediaQuery(theme.breakpoints.down('sm'));
+  const classes: string = clsx(
+    'oxygen-top-nav',
+    {
+      mobile: isMobile,
+    },
+    className,
+  );
 
   const open: boolean = Boolean(anchorElUser);
 
@@ -132,34 +143,34 @@ const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactEl
   };
 
   const defaultThemes: ThemeListInterface[] = [
-    {icon: <DisabledByDefaultOutlinedIcon />, name: 'System Default'},
-    {icon: <LightModeOutlinedIcon />, name: 'Light'},
-    {icon: <DarkModeOutlinedIcon />, name: 'Dark'},
-    {icon: <ContrastOutlinedIcon />, name: 'High Contrast'},
+    {icon: <EclipseIcon />, name: 'System Default'},
+    {icon: <SunIcon />, name: 'Light'},
+    {icon: <MoonWithRaysIcon />, name: 'Dark'},
+    {icon: <HalfStripedSunIcon />, name: 'High Contrast'},
   ];
 
-  const onThemeChange = (theme: string): void => {
-    setSelectedTheme(theme);
+  const onThemeChange = (mode: string): void => {
+    setSelectedTheme(mode);
   };
 
-  const isMobile: boolean = useMediaQuery('(max-width:768px)');
-
   return (
-    <MuiAppBar color="default" position="static" className={classes} {...rest}>
+    <MuiAppBar position="static" color="inherit" variant="outlined" elevation={0} className={classes} {...rest}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {isLeftNavActive && (
             <IconButton aria-label="Menu Icon" onClick={handleLeftNav} className="menu-icon-button">
-              <MenuIcon />
+              <HamburgerIcon />
             </IconButton>
           )}
           <Box
             component={homePath ? Link : Box}
-            className={homePath ? 'logo-box with-link' : 'logo-box'}
+            className={clsx('logo-box', {
+              'with-link': Boolean(homePath),
+            })}
             href={homePath}
-            color="inherit"
             underline="none"
             aria-label="Home Page"
+            color="inherit"
           >
             {(logo || mobileLogo) && (
               <Image className="logo" src={isMobile && mobileLogo ? mobileLogo : logo} alt="Logo" width="auto" />
@@ -172,7 +183,7 @@ const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactEl
           <Box className="nav-settings">
             {navSettings?.map((setting: NavSettingsInterface) => (
               <Button
-                color="inherit"
+                className="setting"
                 href={setting.path}
                 key={setting.name}
                 startIcon={
@@ -182,6 +193,7 @@ const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactEl
                     setting.icon
                   )
                 }
+                color="inherit"
               >
                 {setting.name}
               </Button>
@@ -190,14 +202,14 @@ const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactEl
 
           <Box className="user-dropdown-menu">
             <Button
-              color="inherit"
               aria-controls={open ? 'user-menu' : undefined}
               aria-owns={open ? 'user-menu' : null}
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
               onClick={handleOpenUserMenu}
               startIcon={<Avatar className="user-icon" alt="User Icon" src={userImage} />}
-              endIcon={<KeyboardArrowDownIcon />}
+              endIcon={<ChevronDownIcon />}
+              color="inherit"
             >
               {userName}
             </Button>

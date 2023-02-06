@@ -1,15 +1,9 @@
-$breakpoint-phone: 768px;
-$border: 2px solid rgba(200, 200, 200, 0.37);
-
 .oxygen-top-nav {
-  border-bottom: $border;
-  box-shadow: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
 
   .menu-icon-button {
-    @media (max-width: $breakpoint-phone) {
-      margin-right: 0.5rem;
-    }
-
     margin-right: 1rem;
   }
 
@@ -28,24 +22,33 @@ $border: 2px solid rgba(200, 200, 200, 0.37);
   }
 
   .nav-settings {
-    @media (max-width: $breakpoint-phone) {
-      display: none;
-    }
-
     display: flex;
     flex-grow: 1;
     justify-content: end;
     margin-right: 1rem;
+
+    .setting {
+      margin-right: 1rem;
+    }
   }
 
   .user-dropdown-menu {
-    @media (max-width: $breakpoint-phone) {
-      display: none;
-    }
 
     .user-icon {
       width: 2.2rem;
       height: 2.2rem;
     }
+  }
+
+  &.mobile {
+    .menu-icon-button {
+      margin-right: 0.5rem;
+    }
+
+    .nav-settings,
+    .user-dropdown-menu {
+      display: none;
+    }
+
   }
 }

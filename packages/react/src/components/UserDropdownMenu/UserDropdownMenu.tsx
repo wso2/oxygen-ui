@@ -30,8 +30,8 @@ import {
   ListSubheader,
   Radio,
 } from '@mui/material';
-import LogoutIcon from '@mui/icons-material/Logout';
 import clsx from 'clsx';
+import {PowerIcon} from '@oxygen-ui/react-icons';
 import {composeComponentDisplayName} from '../../utils';
 import Menu, {MenuProps} from '../Menu';
 import './user-dropdown-menu.scss';
@@ -143,7 +143,7 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (props: U
         </Box>
         <ListItem className="logout-list-item" onClick={handleLogOut}>
           <ListItemIcon>
-            <LogoutIcon />
+            <PowerIcon />
           </ListItemIcon>
           <ListItemText primary={logOutText} />
         </ListItem>
