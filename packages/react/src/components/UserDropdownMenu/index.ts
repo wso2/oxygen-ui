@@ -18,3 +18,4 @@
 
 export {default} from './UserDropdownMenu';
 export {UserDropdownMenuProps} from './UserDropdownMenu';
+export {ThemeListInterface} from './UserDropdownMenu';

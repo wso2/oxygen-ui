@@ -19,7 +19,7 @@
 import React, {FC, ReactElement, useState} from 'react';
 import clsx from 'clsx';
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
-import {Box, Container, IconButton, Link, Toolbar, Typography, useMediaQuery} from '@mui/material';
+import {Box, Container, IconButton, Toolbar, Typography, useMediaQuery} from '@mui/material';
 import {
   ChevronDownIcon,
   EclipseIcon,
@@ -33,9 +33,9 @@ import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './top-nav.scss';
 import Avatar from '../Avatar';
-import Image from '../Image';
 import Button from '../Button';
-import UserDropdownMenu from '../UserDropdownMenu';
+import Link from '../Link';
+import UserDropdownMenu, {ThemeListInterface} from '../UserDropdownMenu';
 
 export interface TopNavProps extends MuiAppBarProps {
   /**
@@ -89,14 +89,9 @@ export interface TopNavProps extends MuiAppBarProps {
 }
 
 export interface NavSettingsInterface {
-  icon?: string | ReactElement;
+  icon?: ReactElement;
   name: string;
   path: string;
-}
-
-export interface ThemeListInterface {
-  icon?: string | ReactElement;
-  name: string;
 }
 
 const COMPONENT_NAME: string = 'TopNav';
@@ -172,9 +167,7 @@ const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactEl
             aria-label="Home Page"
             color="inherit"
           >
-            {(logo || mobileLogo) && (
-              <Image className="logo" src={isMobile && mobileLogo ? mobileLogo : logo} alt="Logo" width="auto" />
-            )}
+            <Box className="logo">{isMobile ? mobileLogo ?? logo : logo}</Box>
             <Typography variant="h6" className="portal-name">
               {portalName}
             </Typography>
@@ -186,13 +179,7 @@ const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactEl
                 className="setting"
                 href={setting.path}
                 key={setting.name}
-                startIcon={
-                  typeof setting.icon === 'string' ? (
-                    <Image src={String(setting.icon)} alt={`${setting.name} icon`} />
-                  ) : (
-                    setting.icon
-                  )
-                }
+                startIcon={setting.icon}
                 color="inherit"
               >
                 {setting.name}
@@ -207,7 +194,7 @@ const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactEl
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
               onClick={handleOpenUserMenu}
-              startIcon={<Avatar className="user-icon" alt="User Icon" src={userImage} />}
+              startIcon={<Avatar className="user-image" alt="User Image" src={userImage} />}
               endIcon={<ChevronDownIcon />}
               color="inherit"
             >
@@ -237,9 +224,5 @@ const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactEl
 
 TopNav.displayName = composeComponentDisplayName(COMPONENT_NAME);
 TopNav.muiName = COMPONENT_NAME;
-TopNav.defaultProps = {
-  isLeftNavActive: true,
-  portalName: 'Account',
-};
 
 export default TopNav;

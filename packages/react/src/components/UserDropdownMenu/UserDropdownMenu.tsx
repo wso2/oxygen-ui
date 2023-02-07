@@ -19,7 +19,6 @@
 import React, {FC, ReactElement} from 'react';
 import {WithWrapperProps} from 'src/models';
 import {
-  Avatar,
   Box,
   Divider,
   List,
@@ -35,6 +34,7 @@ import {PowerIcon} from '@oxygen-ui/react-icons';
 import {composeComponentDisplayName} from '../../utils';
 import Menu, {MenuProps} from '../Menu';
 import './user-dropdown-menu.scss';
+import Avatar from '../Avatar';
 
 export interface UserDropdownMenuProps extends MenuProps {
   /**

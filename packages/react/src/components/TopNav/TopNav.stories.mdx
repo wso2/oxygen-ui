@@ -31,9 +31,10 @@ titles, navigation, and actions.
     name="Overview"
     parameters={withDesign('TopNav', 'Overview', {})}
     args={{
+      isLeftNavActive: true,
       portalName: 'OxygenUI',
-      logo: '/assets/images/oxygen-ui-logo-mini.svg',
-      mobileLogo: '/assets/images/oxygen-ui-logo-mini.svg',
+      logo: <img src='/assets/images/oxygen-ui-logo-mini.svg' alt='logo' />,
+      mobileLogo: <img src='/assets/images/oxygen-ui-logo-mini.svg' alt='logo' />,
       userImage: '/assets/images/avatar-menu.svg',
       userName: 'Matthew',
       userEmail: 'matthew@wso2.com',
