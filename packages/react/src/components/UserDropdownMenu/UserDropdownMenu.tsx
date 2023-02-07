@@ -36,11 +36,10 @@ import Menu, {MenuProps} from '../Menu';
 import './user-dropdown-menu.scss';
 import Avatar from '../Avatar';
 
+/**
+ * Interface for the User Dropdown Menu component props.
+ */
 export interface UserDropdownMenuProps extends MenuProps {
-  /**
-   * Function on user logging out.
-   */
-  handleLogOut?: () => void;
   /**
    * Log out button text.
    */
@@ -49,6 +48,10 @@ export interface UserDropdownMenuProps extends MenuProps {
    * The id attribute of Menu component.
    */
   menuID?: string;
+  /**
+   * Function on user logging out.
+   */
+  onLogOut?: () => void;
   /**
    * Function on theme change.
    */
@@ -66,41 +69,36 @@ export interface UserDropdownMenuProps extends MenuProps {
    */
   themesHeading?: string;
   /**
-   * Display name of logged user.
+   * Logged user information.
    */
-  userDisplayName?: string;
-  /**
-   * Email of logged user.
-   */
-  userEmail?: string;
-  /**
-   * Profile image of logged user.
-   */
-  userImage?: string;
+  user?: UserTemplate;
 }
 
+/**
+ * Interface for the themes list.
+ */
 export interface ThemeListInterface {
   icon?: string | ReactElement;
   name: string;
 }
 
+/**
+ * Interface for the logged user template.
+ */
+export interface UserTemplate {
+  email?: string;
+  image?: string;
+  name?: string;
+}
+
 const COMPONENT_NAME: string = 'UserDropdownMenu';
 
+/**
+ * User Dropdown Menu component.
+ */
 const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (props: UserDropdownMenuProps) => {
-  const {
-    className,
-    userImage,
-    userDisplayName,
-    userEmail,
-    themes,
-    selectedTheme,
-    themesHeading,
-    logOutText,
-    onThemeChange,
-    handleLogOut,
-    menuID,
-    ...rest
-  } = props;
+  const {className, user, themes, selectedTheme, themesHeading, logOutText, onThemeChange, onLogOut, menuID, ...rest} =
+    props;
 
   const classes: string = clsx('oxygen-user-dropdown-menu', className);
 
@@ -113,9 +111,9 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (props: U
       <List disablePadding>
         <ListItem>
           <ListItemAvatar>
-            <Avatar src={userImage} alt="User" />
+            <Avatar src={user?.image} alt="User" />
           </ListItemAvatar>
-          <ListItemText primary={userDisplayName} secondary={userEmail} />
+          <ListItemText primary={user?.name} secondary={user?.email} />
         </ListItem>
         <Box>
           <Divider />
@@ -141,7 +139,7 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (props: U
         <Box>
           <Divider />
         </Box>
-        <ListItem className="logout-list-item" onClick={handleLogOut}>
+        <ListItem className="logout-list-item" onClick={onLogOut}>
           <ListItemIcon>
             <PowerIcon />
           </ListItemIcon>

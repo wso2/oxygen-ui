@@ -22,7 +22,7 @@ import MuiLink, {LinkProps as MuiLinkProps} from '@mui/material/Link';
 import {composeComponentDisplayName} from '../../utils';
 import {WithWrapperProps} from '../../models';
 
-export interface LinkProps extends MuiLinkProps {}
+export type LinkProps = MuiLinkProps;
 
 const COMPONENT_NAME: string = 'Link';
 

@@ -22,7 +22,7 @@ import MuiTooltip, {TooltipProps as MuiTooltipProps} from '@mui/material/Tooltip
 import {composeComponentDisplayName} from '../../utils';
 import {WithWrapperProps} from '../../models';
 
-export interface TooltipProps extends MuiTooltipProps {}
+export type TooltipProps = MuiTooltipProps;
 
 const COMPONENT_NAME: string = 'Tooltip';
 

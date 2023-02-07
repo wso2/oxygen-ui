@@ -22,7 +22,7 @@ import MuiGrid, {Grid2Props as MuiGridProps} from '@mui/material/Unstable_Grid2'
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 
-export interface GridProps extends MuiGridProps {}
+export type GridProps = MuiGridProps;
 
 const COMPONENT_NAME: string = 'Grid';
 

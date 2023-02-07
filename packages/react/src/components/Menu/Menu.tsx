@@ -16,12 +16,12 @@
  * under the License.
  */
 
-import MuiMenu, {MenuProps as MuiMenuprops} from '@mui/material/Menu';
+import MuiMenu, {MenuProps as MuiMenuProps} from '@mui/material/Menu';
 import React, {FC, ReactElement} from 'react';
 import {composeComponentDisplayName} from '../../utils';
 import {WithWrapperProps} from '../../models';
 
-export interface MenuProps extends MuiMenuprops {}
+export type MenuProps = MuiMenuProps;
 
 const COMPONENT_NAME: string = 'Menu';
 

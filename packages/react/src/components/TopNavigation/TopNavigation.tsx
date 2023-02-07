@@ -31,88 +31,75 @@ import {
 import {useTheme, Theme} from '@mui/material/styles';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
-import './top-nav.scss';
+import './top-navigation.scss';
 import Avatar from '../Avatar';
-import Button from '../Button';
+import Button, {ButtonProps} from '../Button';
 import Link from '../Link';
 import UserDropdownMenu, {ThemeListInterface} from '../UserDropdownMenu';
 
-export interface TopNavProps extends MuiAppBarProps {
+/**
+ * Interface for the Top Navigation component props.
+ */
+export interface TopNavigationProps extends MuiAppBarProps {
   /**
-   * Handle left navigation bar button toggle.
+   * Brand information.
    */
-  handleLeftNav?: () => void;
-  /**
-   * Log out function.
-   */
-  handleLogOut?: () => void;
-  /**
-   * Path to navigate to the Home/Landing page.
-   */
-  homePath?: string;
+  brand?: BrandTemplate;
   /**
    * Is the left navigation bar activated.
    */
-  isLeftNavActive?: boolean;
-  /**
-   * File path or URL for the logo in the top navigation bar.
-   */
-  logo?: string;
-  /**
-   * File path or URL for the logo in the top navigation bar for mobile screens.
-   */
-  mobileLogo?: string;
+  isLeftNavigationActive?: boolean;
   /**
    * Settings available on the top navigation bar.
    */
-  navSettings?: NavSettingsInterface[];
+  links?: ButtonProps[];
   /**
-   * Application portal name.
+   * Handle left navigation bar button toggle.
    */
-  portalName?: string;
+  onLeftNavigationTrigger?: () => void;
+  /**
+   * Log out function.
+   */
+  onLogOut?: () => void;
   /**
    * List of themes.
    */
   themes?: ThemeListInterface[];
   /**
-   * Email of the logged user.
+   * Logged user information.
    */
-  userEmail?: string;
-  /**
-   * File path or URL for user's profile image.
-   */
-  userImage?: string;
-  /**
-   * Username of the logged user.
-   */
-  userName?: string;
+  user?: UserTemplate;
 }
 
-export interface NavSettingsInterface {
-  icon?: ReactElement;
-  name: string;
-  path: string;
+/**
+ * Interface for the brand template.
+ */
+export interface BrandTemplate {
+  logo?: {
+    desktop?: React.ReactNode;
+    mobile?: React.ReactNode;
+  };
+  onClick?: () => void;
+  title?: React.ReactNode;
+}
+
+/**
+ * Interface for the logged user template.
+ */
+export interface UserTemplate {
+  email?: string;
+  image?: string;
+  name?: string;
 }
 
 const COMPONENT_NAME: string = 'TopNav';
 
-const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactElement => {
-  const {
-    className,
-    isLeftNavActive,
-    logo,
-    userImage,
-    navSettings,
-    themes,
-    mobileLogo,
-    portalName,
-    userName,
-    userEmail,
-    homePath,
-    handleLogOut,
-    handleLeftNav,
-    ...rest
-  } = props;
+/**
+ * Top Navigation component.
+ */
+const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavigationProps): ReactElement => {
+  const {className, isLeftNavigationActive, brand, user, links, themes, onLogOut, onLeftNavigationTrigger, ...rest} =
+    props;
 
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const [selectedTheme, setSelectedTheme] = useState('System Default');
@@ -152,37 +139,31 @@ const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactEl
     <MuiAppBar position="static" color="inherit" variant="outlined" elevation={0} className={classes} {...rest}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {isLeftNavActive && (
-            <IconButton aria-label="Menu Icon" onClick={handleLeftNav} className="menu-icon-button">
+          {isLeftNavigationActive && (
+            <IconButton aria-label="Menu Icon" onClick={onLeftNavigationTrigger} className="menu-icon-button">
               <HamburgerIcon />
             </IconButton>
           )}
           <Box
-            component={homePath ? Link : Box}
+            component={brand.onClick ? Link : Box}
             className={clsx('logo-box', {
-              'with-link': Boolean(homePath),
+              'with-link': Boolean(brand.onClick),
             })}
-            href={homePath}
+            onClick={brand.onClick}
             underline="none"
             aria-label="Home Page"
             color="inherit"
           >
-            <Box className="logo">{isMobile ? mobileLogo ?? logo : logo}</Box>
+            <Box className="logo">{isMobile ? brand.logo.mobile ?? brand.logo.desktop : brand.logo.desktop}</Box>
             <Typography variant="h6" className="portal-name">
-              {portalName}
+              {brand.title}
             </Typography>
           </Box>
 
           <Box className="nav-settings">
-            {navSettings?.map((setting: NavSettingsInterface) => (
-              <Button
-                className="setting"
-                href={setting.path}
-                key={setting.name}
-                startIcon={setting.icon}
-                color="inherit"
-              >
-                {setting.name}
+            {links?.map((link: ButtonProps) => (
+              <Button className="setting" href={link.href} startIcon={link.startIcon} color="inherit">
+                {link.children}
               </Button>
             ))}
           </Box>
@@ -194,23 +175,25 @@ const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactEl
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
               onClick={handleOpenUserMenu}
-              startIcon={<Avatar className="user-image" alt="User Image" src={userImage} />}
+              startIcon={
+                <Avatar className="user-image" alt="User Image" src={user?.image}>
+                  {user?.name?.split('')[0]}
+                </Avatar>
+              }
               endIcon={<ChevronDownIcon />}
               color="inherit"
             >
-              {userName}
+              {user?.name}
             </Button>
             <UserDropdownMenu
               menuID="user-menu"
-              userImage={userImage}
+              user={user}
               anchorEl={anchorElUser}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
-              userDisplayName={userName}
-              userEmail={userEmail}
               themesHeading="Theme"
               themes={defaultThemes}
-              handleLogOut={handleLogOut}
+              onLogOut={onLogOut}
               logOutText="Log Out"
               selectedTheme={selectedTheme}
               onThemeChange={onThemeChange}
@@ -222,7 +205,7 @@ const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactEl
   );
 };
 
-TopNav.displayName = composeComponentDisplayName(COMPONENT_NAME);
-TopNav.muiName = COMPONENT_NAME;
+TopNavigation.displayName = composeComponentDisplayName(COMPONENT_NAME);
+TopNavigation.muiName = COMPONENT_NAME;
 
-export default TopNav;
+export default TopNavigation;

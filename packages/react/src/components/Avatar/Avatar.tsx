@@ -22,7 +22,7 @@ import React, {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 
-export interface AvatarProps extends MuiAvatarProps {}
+export type AvatarProps = MuiAvatarProps;
 
 const COMPONENT_NAME: string = 'Avatar';
 

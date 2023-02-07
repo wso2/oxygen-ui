@@ -23,7 +23,7 @@ import IconButton, {IconButtonProps} from '@mui/material/IconButton';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 
-export interface ColorModeToggleProps extends IconButtonProps {}
+export type ColorModeToggleProps = IconButtonProps;
 
 const COMPONENT_NAME: string = 'ColorModeToggle';
 
