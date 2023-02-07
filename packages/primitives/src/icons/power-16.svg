@@ -1,11 +1,29 @@
+<!--
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+-->
+
 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
   <g clip-path="url(#clip0_1480_555)">
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M8.6678 0.666667C8.6678 0.298476 8.36932 0 8.00113 0C7.63294 0 7.33446 0.298476 7.33446 0.666667V6.16683C7.33446 6.53501 7.63294 6.83349 8.00113 6.83349C8.36932 6.83349 8.6678 6.53501 8.6678 6.16683V0.666667ZM3.28602 12.7142C0.682438 10.1106 0.682438 5.88938 3.28602 3.2858C3.54636 3.02545 3.54636 2.60334 3.28602 2.34299C3.02567 2.08264 2.60356 2.08264 2.34321 2.34299C-0.781069 5.46727 -0.781069 10.5327 2.34321 13.657C5.46748 16.7812 10.533 16.7812 13.6572 13.657C16.7815 10.5327 16.7815 5.46726 13.6572 2.34299C13.3969 2.08264 12.9748 2.08264 12.7144 2.34299C12.454 2.60334 12.454 3.02545 12.7144 3.2858C15.318 5.88938 15.318 10.1106 12.7144 12.7142C10.1108 15.3178 5.8896 15.3178 3.28602 12.7142Z" fill="#CBCEDB"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.6678 0.666667C8.6678 0.298476 8.36932 0 8.00113 0C7.63294 0 7.33446 0.298476 7.33446 0.666667V6.16683C7.33446 6.53501 7.63294 6.83349 8.00113 6.83349C8.36932 6.83349 8.6678 6.53501 8.6678 6.16683V0.666667ZM3.28602 12.7142C0.682438 10.1106 0.682438 5.88938 3.28602 3.2858C3.54636 3.02545 3.54636 2.60334 3.28602 2.34299C3.02567 2.08264 2.60356 2.08264 2.34321 2.34299C-0.781069 5.46727 -0.781069 10.5327 2.34321 13.657C5.46748 16.7812 10.533 16.7812 13.6572 13.657C16.7815 10.5327 16.7815 5.46726 13.6572 2.34299C13.3969 2.08264 12.9748 2.08264 12.7144 2.34299C12.454 2.60334 12.454 3.02545 12.7144 3.2858C15.318 5.88938 15.318 10.1106 12.7144 12.7142C10.1108 15.3178 5.8896 15.3178 3.28602 12.7142Z" fill="#CBCEDB"/>
   </g>
   <defs>
-  <clipPath id="clip0_1480_555">
-  <rect width="16" height="16" fill="white"/>
-  </clipPath>
+    <clipPath id="clip0_1480_555">
+      <rect width="16" height="16" fill="white"/>
+    </clipPath>
   </defs>
-  </svg>
+</svg>
   

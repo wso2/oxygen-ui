@@ -24,8 +24,8 @@ import {
   ChevronDownIcon,
   EclipseIcon,
   SunIcon,
-  HalfStripedSunIcon,
-  MoonWithRaysIcon,
+  SunContrastIcon,
+  CresentBrightIcon,
   HamburgerIcon,
 } from '@oxygen-ui/react-icons';
 import {useTheme, Theme} from '@mui/material/styles';
@@ -140,8 +140,8 @@ const TopNav: FC<TopNavProps> & WithWrapperProps = (props: TopNavProps): ReactEl
   const defaultThemes: ThemeListInterface[] = [
     {icon: <EclipseIcon />, name: 'System Default'},
     {icon: <SunIcon />, name: 'Light'},
-    {icon: <MoonWithRaysIcon />, name: 'Dark'},
-    {icon: <HalfStripedSunIcon />, name: 'High Contrast'},
+    {icon: <CresentBrightIcon />, name: 'Dark'},
+    {icon: <SunContrastIcon />, name: 'High Contrast'},
   ];
 
   const onThemeChange = (mode: string): void => {
