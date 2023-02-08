@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import React, {FC, ReactElement, useState} from 'react';
+import React, {FC, MouseEvent, ReactElement, ReactNode, useState} from 'react';
 import clsx from 'clsx';
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
 import {Box, Container, IconButton, Toolbar, Typography, useMediaQuery} from '@mui/material';
@@ -50,9 +50,9 @@ export interface TopNavigationProps extends MuiAppBarProps {
    */
   isLeftNavigationActive?: boolean;
   /**
-   * Settings available on the top navigation bar.
+   * Links available on the top navigation bar.
    */
-  links?: ButtonProps[];
+  links: Omit<ButtonProps, 'color'>[];
   /**
    * Handle left navigation bar button toggle.
    */
@@ -76,11 +76,11 @@ export interface TopNavigationProps extends MuiAppBarProps {
  */
 export interface BrandTemplate {
   logo?: {
-    desktop?: React.ReactNode;
-    mobile?: React.ReactNode;
+    desktop?: ReactNode;
+    mobile?: ReactNode;
   };
   onClick?: () => void;
-  title?: React.ReactNode;
+  title?: ReactNode;
 }
 
 /**
@@ -98,10 +98,20 @@ const COMPONENT_NAME: string = 'TopNavigation';
  * Top Navigation component.
  */
 const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavigationProps): ReactElement => {
-  const {className, isLeftNavigationActive, brand, user, links, themes, onLogOut, onLeftNavigationTrigger, ...rest} =
-    props;
+  const {
+    className,
+    children,
+    isLeftNavigationActive,
+    brand,
+    user,
+    links,
+    themes,
+    onLogOut,
+    onLeftNavigationTrigger,
+    ...rest
+  } = props;
 
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [selectedTheme, setSelectedTheme] = useState('System Default');
 
   const theme: Theme = useTheme();
@@ -116,7 +126,7 @@ const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavi
 
   const open: boolean = Boolean(anchorElUser);
 
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>): void => {
+  const handleOpenUserMenu = (event: MouseEvent<HTMLElement>): void => {
     setAnchorElUser(event.currentTarget);
   };
 
@@ -144,30 +154,39 @@ const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavi
               <HamburgerIcon />
             </IconButton>
           )}
-          <Box
-            component={brand.onClick ? Link : Box}
-            className={clsx('logo-box', {
-              'with-link': Boolean(brand.onClick),
-            })}
-            onClick={brand.onClick}
-            underline="none"
-            aria-label="Home Page"
-            color="inherit"
-          >
-            <Box className="logo">{isMobile ? brand.logo.mobile ?? brand.logo.desktop : brand.logo.desktop}</Box>
-            <Typography variant="h6" className="portal-name">
-              {brand.title}
-            </Typography>
+          {brand && (
+            <Box
+              component={brand.onClick ? Link : Box}
+              className={clsx('logo-box', {
+                'with-link': Boolean(brand.onClick),
+              })}
+              onClick={brand.onClick}
+              underline="none"
+              color="inherit"
+            >
+              <Box className="logo">{isMobile ? brand.logo.mobile ?? brand.logo.desktop : brand.logo.desktop}</Box>
+              <Typography variant="h6" className="portal-name">
+                {brand.title}
+              </Typography>
+            </Box>
+          )}
+          <Box className="nav-links-section">
+            <>
+              {children}
+              {links?.length > 0 && (
+                <Box className="nav-links">
+                  {links?.map((link: ButtonProps) => {
+                    const {children: linkChildren, href, startIcon, ...linkProps} = link;
+                    return (
+                      <Button className="link" href={href} startIcon={startIcon} color="inherit" {...linkProps}>
+                        {linkChildren}
+                      </Button>
+                    );
+                  })}
+                </Box>
+              )}
+            </>
           </Box>
-
-          <Box className="nav-settings">
-            {links?.map((link: ButtonProps) => (
-              <Button className="setting" href={link.href} startIcon={link.startIcon} color="inherit">
-                {link.children}
-              </Button>
-            ))}
-          </Box>
-
           <Box className="user-dropdown-menu">
             <Button
               aria-controls={open ? 'user-menu' : undefined}

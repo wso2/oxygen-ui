@@ -22,13 +22,16 @@
     }
   }
 
-  .nav-settings {
+  .nav-links-section {
+    flex: 1;
+  }
+
+  .nav-links {
     display: flex;
-    flex-grow: 1;
     justify-content: end;
     margin-right: 1rem;
 
-    .setting {
+    .link {
       margin-right: 1rem;
     }
   }
@@ -46,7 +49,7 @@
       margin-right: 0.5rem;
     }
 
-    .nav-settings,
+    .nav-links,
     .user-dropdown-menu {
       display: none;
     }

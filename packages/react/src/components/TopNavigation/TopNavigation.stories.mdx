@@ -36,7 +36,7 @@ titles, navigation, and actions.
         logo: {
           desktop: <img src='/assets/images/oxygen-ui-logo-mini.svg' alt='logo' />,
           mobile: <img src='/assets/images/oxygen-ui-logo-mini.svg' alt='logo' />,
-        },
+          },
         onClick: () => null,
         title: 'OxygenUI',
       },
@@ -48,8 +48,16 @@ titles, navigation, and actions.
       //TODO: Add Storybook action.
       onLogOut: () => null,
       links: [
-        {children: 'Console', startIcon: <LogsIcon />, href: '/'},
-        {children: 'Language', startIcon: <LanguagesIcon />, href: '/'},
+        {
+          children: 'Console', 
+          startIcon: <LogsIcon />, 
+          href: '/'
+          },
+        {
+          children: 'Language', 
+          startIcon: <LanguagesIcon />, 
+          href: '/'
+          },
       ],
     }}
   >
