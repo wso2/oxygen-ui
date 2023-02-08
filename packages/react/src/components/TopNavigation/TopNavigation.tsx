@@ -92,7 +92,7 @@ export interface UserTemplate {
   name?: string;
 }
 
-const COMPONENT_NAME: string = 'TopNav';
+const COMPONENT_NAME: string = 'TopNavigation';
 
 /**
  * Top Navigation component.
