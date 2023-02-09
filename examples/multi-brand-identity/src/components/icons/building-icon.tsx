@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import React, {ReactElement} from 'react';
 import {Theme, useColorScheme} from '@oxygen-ui/react';
+import React, {ReactElement} from 'react';
 
 export const BuildingIcon = ({theme}: {theme: Theme}): ReactElement => {
   const {mode} = useColorScheme();

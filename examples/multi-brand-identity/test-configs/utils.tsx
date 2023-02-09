@@ -16,9 +16,9 @@
  * under the License.
  */
 
+import {ThemeProvider} from '@oxygen-ui/react';
 import {RenderResult, render as rtlRender, RenderOptions} from '@testing-library/react';
 import React, {ComponentType, PropsWithChildren, ReactElement} from 'react';
-import {ThemeProvider} from '@oxygen-ui/react';
 
 /**
  * Custom render method to includes things like global context providers, data stores, etc.

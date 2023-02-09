@@ -16,11 +16,11 @@
  * under the License.
  */
 
-import React, {FC, ReactElement} from 'react';
-import clsx from 'clsx';
 import MuiLink, {LinkProps as MuiLinkProps} from '@mui/material/Link';
-import {composeComponentDisplayName} from '../../utils';
+import clsx from 'clsx';
+import React, {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
+import {composeComponentDisplayName} from '../../utils';
 
 export interface LinkProps extends MuiLinkProps {}
 

@@ -17,9 +17,9 @@
  * under the License.
  */
 
+const cp = require('child_process');
 const path = require('path');
 const { logger } = require('@oxygen-ui/logger');
-const cp = require('child_process');
 
 /* ====================================================================================== */
 /* Execution starts from here                                                             */

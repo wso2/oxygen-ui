@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import React, {MouseEventHandler} from 'react';
 import {fireEvent, render, screen} from '@unit-testing';
+import React, {MouseEventHandler} from 'react';
 import Button from '../Button';
 
 describe('Button', () => {

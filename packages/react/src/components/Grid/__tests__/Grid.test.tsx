@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import React from 'react';
 import {render} from '@unit-testing';
+import React from 'react';
 import Grid from '../Grid';
 
 describe('Grid', () => {

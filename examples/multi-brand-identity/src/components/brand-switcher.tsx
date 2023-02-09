@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import React, {useState, MouseEvent, ReactElement} from 'react';
 import {ToggleButtonGroup, ToggleButton, Paper, Tooltip} from '@oxygen-ui/react';
+import React, {useState, MouseEvent, ReactElement} from 'react';
 
 interface Brand {
   name: string;
