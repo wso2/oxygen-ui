@@ -35,8 +35,6 @@
     "typecheck": "tsc --noemit -p tsconfig.json"
   },
   "dependencies": {
-    "@oxygen-ui/react-icons": "*",
-    "@oxygen-ui/primitives": "*",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.10.16",
@@ -44,6 +42,8 @@
     "@mui/material": "^5.10.16",
     "@mui/system": "^5.10.16",
     "@mui/utils": "^5.10.16",
+    "@oxygen-ui/primitives": "*",
+    "@oxygen-ui/react-icons": "*",
     "clsx": "^1.2.1"
   },
   "devDependencies": {
@@ -71,6 +71,7 @@
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
+    "@types/testing-library__jest-dom": "^5.14.5",
     "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e",
     "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e",
     "babel-jest": "^29.3.1",

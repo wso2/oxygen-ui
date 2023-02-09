@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import React from 'react';
-import {render} from '@unit-testing';
+import React, {MouseEventHandler} from 'react';
+import {fireEvent, render, screen} from '@unit-testing';
 import Button from '../Button';
 
 describe('Button', () => {
@@ -29,5 +29,19 @@ describe('Button', () => {
   it('should match the snapshot', () => {
     const {baseElement} = render(<Button />);
     expect(baseElement).toMatchSnapshot();
+  });
+
+  it('should render text correctly', () => {
+    render(<Button>Oxygen UI Button</Button>);
+    const element: HTMLButtonElement = screen.getByText('Oxygen UI Button');
+    expect(element).toHaveTextContent('Oxygen UI Button');
+  });
+
+  it('should should handle onClick event', () => {
+    const onClick: MouseEventHandler<HTMLButtonElement> = jest.fn();
+    render(<Button onClick={onClick}>Oxygen UI Button</Button>);
+    const element: HTMLButtonElement = screen.getByText('Oxygen UI Button');
+    fireEvent.click(element);
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 });
