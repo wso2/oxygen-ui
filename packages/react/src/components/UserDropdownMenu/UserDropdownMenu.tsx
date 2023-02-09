@@ -118,24 +118,26 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (props: U
         <Box>
           <Divider />
         </Box>
-        <List subheader={<ListSubheader>{themesHeading}</ListSubheader>}>
-          {themes?.map((theme: ThemeListInterface) => {
-            const labelId: string = `theme-label-${theme.name}`;
-            return (
-              <ListItem className="theme-list-item" key={theme.name}>
-                <ListItemIcon>{theme.icon}</ListItemIcon>
-                <ListItemText primary={theme.name} />
-                <Radio
-                  checked={selectedTheme === theme.name}
-                  onChange={(): void => handleThemeChange(theme.name)}
-                  value={theme.name}
-                  name="radio-buttons"
-                  inputProps={{'aria-label': labelId}}
-                />
-              </ListItem>
-            );
-          })}
-        </List>
+        {themes?.length > 0 && (
+          <List subheader={<ListSubheader>{themesHeading}</ListSubheader>}>
+            {themes?.map((theme: ThemeListInterface) => {
+              const {name, icon} = theme;
+              return (
+                <ListItem className="theme-list-item" key={name}>
+                  <ListItemIcon>{icon}</ListItemIcon>
+                  <ListItemText primary={name} />
+                  <Radio
+                    checked={selectedTheme === name}
+                    onChange={(): void => handleThemeChange(name)}
+                    value={name}
+                    name="radio-buttons"
+                    inputProps={{'aria-label': `theme-label-${name}`}}
+                  />
+                </ListItem>
+              );
+            })}
+          </List>
+        )}
         <Box>
           <Divider />
         </Box>

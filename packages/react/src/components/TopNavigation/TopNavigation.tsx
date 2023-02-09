@@ -52,7 +52,7 @@ export interface TopNavigationProps extends MuiAppBarProps {
   /**
    * Links available on the top navigation bar.
    */
-  links: Omit<ButtonProps, 'color'>[];
+  links?: Omit<ButtonProps, 'color'>[];
   /**
    * Handle left navigation bar button toggle.
    */
@@ -134,6 +134,7 @@ const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavi
     setAnchorElUser(null);
   };
 
+  // TODO: take default themes from `Theme`.
   const defaultThemes: ThemeListInterface[] = [
     {icon: <EclipseIcon />, name: 'System Default'},
     {icon: <SunIcon />, name: 'Light'},
@@ -211,7 +212,7 @@ const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavi
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
               themesHeading="Theme"
-              themes={defaultThemes}
+              themes={themes ?? defaultThemes}
               onLogOut={onLogOut}
               logOutText="Log Out"
               selectedTheme={selectedTheme}
