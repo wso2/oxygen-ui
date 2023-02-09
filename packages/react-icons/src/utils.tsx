@@ -16,10 +16,14 @@
  * under the License.
  */
 
-import {SVGProps} from 'react';
+// React needs to be in the scope for the icons to work.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, {CSSProperties, SVGProps} from 'react';
 import {GeneratedIcon, IconSizes} from './models';
 
-const sizeMap: IconSizes = {
+const sizeMap: {
+  [key in IconSizes]: number;
+} = {
   large: 64,
   medium: 32,
   small: 16,
@@ -32,10 +36,11 @@ const sizeMap: IconSizes = {
  * @param height - Height to check.
  * @returns Closest natural height.
  */
-const getClosestNaturalHeight: number = (naturalHeights: number[], height: number): number =>
-  naturalHeights
-    .map((naturalHeight: number) => parseInt(naturalHeight, 10))
-    .reduce((acc: number, naturalHeight: number) => (naturalHeight <= height ? naturalHeight : acc), naturalHeights[0]);
+const getClosestNaturalHeight = (naturalHeights: number[], height: number): number =>
+  naturalHeights.reduce(
+    (acc: number, naturalHeight: number) => (naturalHeight <= height ? naturalHeight : acc),
+    naturalHeights[0],
+  );
 
 /**
  * Creates a React component from a `SVG`.
@@ -49,9 +54,9 @@ export const createIconComponent = (
   name: string,
   defaultClassName: string,
   getSVGData: () => GeneratedIcon,
-): JSX.Element => {
+): Function => {
   const svgDataByHeight: GeneratedIcon = getSVGData();
-  const heights: number[] = Object.keys(svgDataByHeight);
+  const heights: number[] = Object.keys(svgDataByHeight).map((height: string) => parseInt(height, 10));
 
   const Icon = ({
     'aria-label': ariaLabel,
@@ -60,10 +65,13 @@ export const createIconComponent = (
     fill = 'currentColor',
     size = 16,
     verticalAlign = 'text-bottom',
-  }: SVGProps): JSX.Element => {
+  }: SVGProps<SVGSVGElement> & {
+    size: number;
+    verticalAlign: CSSProperties['verticalAlign'];
+  }): SVGProps<SVGSVGElement> => {
     const height: number = sizeMap[size] || size;
     const naturalHeight: number = getClosestNaturalHeight(heights, height);
-    const naturalWidth: number = svgDataByHeight[naturalHeight].width;
+    const naturalWidth: number = svgDataByHeight[naturalHeight].width as number;
     const width: number = height * (naturalWidth / naturalHeight);
     const {path} = svgDataByHeight[naturalHeight];
 
@@ -71,7 +79,7 @@ export const createIconComponent = (
       <svg
         aria-hidden={ariaLabel ? 'false' : 'true'}
         tabIndex={tabIndex}
-        focusable={tabIndex >= 0 ? 'true' : 'false'}
+        focusable={tabIndex !== undefined && tabIndex >= 0 ? 'true' : 'false'}
         aria-label={ariaLabel}
         role="img"
         className={className}

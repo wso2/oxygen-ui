@@ -111,7 +111,7 @@ const icons = Object.entries(oxygenIcons)
               // The name of the generated icon
               t.stringLiteral(name),
               // The className used on the underlying <svg> element
-              t.stringLiteral(`OxygenIcon OxygenIcon-${key}`),
+              t.stringLiteral(`oxygen-icon oxygen-icon-${key}`),
               t.arrowFunctionExpression([], t.blockStatement([t.returnStatement(svgData)])),
             ]),
             'leading',
