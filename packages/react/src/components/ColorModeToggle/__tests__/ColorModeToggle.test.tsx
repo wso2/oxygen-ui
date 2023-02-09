@@ -17,7 +17,6 @@
  */
 
 import {render} from '@unit-testing';
-import React from 'react';
 import ColorModeToggle from '../ColorModeToggle';
 
 describe('ColorModeToggle', () => {

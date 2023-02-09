@@ -19,7 +19,7 @@
 import {InputLabel} from '@mui/material';
 import MuiTextField, {TextFieldProps as MuiTextFieldProps} from '@mui/material/TextField';
 import clsx from 'clsx';
-import React, {FC, ReactElement} from 'react';
+import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 

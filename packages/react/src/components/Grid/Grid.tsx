@@ -18,7 +18,7 @@
 
 import MuiGrid, {Grid2Props as MuiGridProps} from '@mui/material/Unstable_Grid2';
 import clsx from 'clsx';
-import React, {FC, ReactElement} from 'react';
+import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 

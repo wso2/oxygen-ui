@@ -18,7 +18,7 @@
 
 import MuiButton, {LoadingButtonProps as MuiButtonProps} from '@mui/lab/LoadingButton';
 import clsx from 'clsx';
-import React, {FC, ReactElement} from 'react';
+import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 

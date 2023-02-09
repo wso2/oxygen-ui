@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import React, {SVGProps} from 'react';
+import {SVGProps} from 'react';
 import {GeneratedIcon, IconSizes} from './models';
 
 const sizeMap: IconSizes = {

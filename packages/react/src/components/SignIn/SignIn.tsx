@@ -18,7 +18,7 @@
 
 import {Box, Typography, Grid, BoxProps, Paper} from '@mui/material';
 import clsx from 'clsx';
-import React, {FC, ReactElement} from 'react';
+import {FC, ReactElement} from 'react';
 import {MuiWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import Button from '../Button';

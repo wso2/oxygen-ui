@@ -19,7 +19,7 @@
 import IconButton, {IconButtonProps} from '@mui/material/IconButton';
 import {useColorScheme} from '@mui/material/styles';
 import clsx from 'clsx';
-import React, {FC, PropsWithChildren, ReactElement, SVGProps} from 'react';
+import {FC, PropsWithChildren, ReactElement, SVGProps} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 

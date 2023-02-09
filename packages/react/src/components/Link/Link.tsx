@@ -18,7 +18,7 @@
 
 import MuiLink, {LinkProps as MuiLinkProps} from '@mui/material/Link';
 import clsx from 'clsx';
-import React, {FC, ReactElement} from 'react';
+import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 

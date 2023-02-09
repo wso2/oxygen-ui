@@ -17,7 +17,7 @@
  */
 
 import {fireEvent, render, screen} from '@unit-testing';
-import React, {MouseEventHandler} from 'react';
+import {MouseEventHandler} from 'react';
 import Button from '../Button';
 
 describe('Button', () => {
