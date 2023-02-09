@@ -201,6 +201,7 @@ importers:
       '@mui/material': ^5.10.16
       '@mui/system': ^5.10.16
       '@mui/utils': ^5.10.16
+      '@oxygen-ui/primitives': '*'
       '@oxygen-ui/react-icons': '*'
       '@rollup/plugin-commonjs': ^23.0.3
       '@rollup/plugin-image': ^3.0.1
@@ -260,6 +261,7 @@ importers:
       '@mui/material': 5.11.0_lskpmcsdi7ipu6qpuapyu56ihm
       '@mui/system': 5.11.0_ogriz7mfahdh34qnfautfro5yu
       '@mui/utils': 5.11.0_react@18.2.0
+      '@oxygen-ui/primitives': link:../primitives
       '@oxygen-ui/react-icons': link:../react-icons
       clsx: 1.2.1
     devDependencies:
@@ -9818,7 +9820,7 @@ packages:
       '@typescript-eslint/eslint-plugin': 5.46.1_wqh5rj4gay6mpzzdobd4tmdy4i
       '@typescript-eslint/utils': 5.46.1_grqhnqpocakf5dew66i47isfme
       eslint: 8.25.0
-      jest: 29.0.3_@types+node@16.18.9
+      jest: 29.0.3_zfha7dvnw4nti6zkbsmhmn6xo4
     transitivePeerDependencies:
       - supports-color
       - typescript
