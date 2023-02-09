@@ -16,13 +16,13 @@
  * under the License.
  */
 
-import React from 'react';
 import {render} from '@unit-testing';
-import Button from './Button';
+import React from 'react';
+import AppBar from '../AppBar';
 
-describe('Button', () => {
+describe('AppBar', () => {
   it('should render successfully', () => {
-    const {baseElement} = render(<Button />);
+    const {baseElement} = render(<AppBar />);
     expect(baseElement).toBeTruthy();
   });
 });

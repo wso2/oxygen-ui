@@ -18,11 +18,11 @@
 
 import React from 'react';
 import {render} from '@unit-testing';
-import TextField from './TextField';
+import Link from '../Link';
 
-describe('TextField', () => {
+describe('Link', () => {
   it('should render successfully', () => {
-    const {baseElement} = render(<TextField />);
+    const {baseElement} = render(<Link href="https://test.com" />);
     expect(baseElement).toBeTruthy();
   });
 });

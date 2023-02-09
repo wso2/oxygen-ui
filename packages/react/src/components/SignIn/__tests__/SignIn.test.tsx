@@ -18,7 +18,7 @@
 
 import React from 'react';
 import {render} from '@unit-testing';
-import SignIn from './SignIn';
+import SignIn from '../SignIn';
 
 describe('SignIn', () => {
   it('should render successfully', () => {

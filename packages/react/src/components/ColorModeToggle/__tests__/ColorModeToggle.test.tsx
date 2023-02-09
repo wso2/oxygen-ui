@@ -18,11 +18,11 @@
 
 import React from 'react';
 import {render} from '@unit-testing';
-import Grid from './Grid';
+import ColorModeToggle from '../ColorModeToggle';
 
-describe('Grid', () => {
+describe('ColorModeToggle', () => {
   it('should render successfully', () => {
-    const {baseElement} = render(<Grid />);
+    const {baseElement} = render(<ColorModeToggle />);
     expect(baseElement).toBeTruthy();
   });
 });

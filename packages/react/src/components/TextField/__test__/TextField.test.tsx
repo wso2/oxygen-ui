@@ -18,15 +18,11 @@
 
 import React from 'react';
 import {render} from '@unit-testing';
-import Tooltip from './Tooltip';
+import TextField from '../TextField';
 
-describe('Tooltip', () => {
+describe('TextField', () => {
   it('should render successfully', () => {
-    const {baseElement} = render(
-      <Tooltip title="This is a tooltip">
-        <div>Tooltip Trigger</div>
-      </Tooltip>,
-    );
+    const {baseElement} = render(<TextField />);
     expect(baseElement).toBeTruthy();
   });
 });

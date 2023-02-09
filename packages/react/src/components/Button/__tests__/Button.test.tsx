@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -18,11 +18,11 @@
 
 import React from 'react';
 import {render} from '@unit-testing';
-import Link from './Link';
+import Button from '../Button';
 
-describe('Link', () => {
+describe('Button', () => {
   it('should render successfully', () => {
-    const {baseElement} = render(<Link href="https://test.com" />);
+    const {baseElement} = render(<Button />);
     expect(baseElement).toBeTruthy();
   });
 });
