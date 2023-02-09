@@ -19,11 +19,11 @@
 import React, {FC, ReactElement} from 'react';
 import {WithWrapperProps} from 'src/models';
 import {
-  Box,
   Divider,
   List,
   ListItem,
   ListItemAvatar,
+  ListItemButton,
   ListItemIcon,
   ListItemText,
   ListSubheader,
@@ -49,25 +49,25 @@ export interface UserDropdownMenuProps extends MenuProps {
    */
   menuID?: string;
   /**
-   * Function on user logging out.
+   * Current mode.
+   */
+  mode?: string;
+  /**
+   * Array list of modes
+   */
+  modes?: ModeListInterface[];
+  /**
+   * Heading of the modes list.
+   */
+  modesHeading?: string;
+  /**
+   * Callback function on user logging out.
    */
   onLogOut?: () => void;
   /**
-   * Function on theme change.
+   * Callback function on mode change.
    */
-  onThemeChange?: (theme: string) => void;
-  /**
-   * Current theme.
-   */
-  selectedTheme?: string;
-  /**
-   * Array list of themes
-   */
-  themes?: ThemeListInterface[];
-  /**
-   * Heading of the themes list.
-   */
-  themesHeading?: string;
+  onModeChange?: (mode: string) => void;
   /**
    * Logged user information.
    */
@@ -75,9 +75,9 @@ export interface UserDropdownMenuProps extends MenuProps {
 }
 
 /**
- * Interface for the themes list.
+ * Interface for the modes list.
  */
-export interface ThemeListInterface {
+export interface ModeListInterface {
   icon?: string | ReactElement;
   name: string;
 }
@@ -97,55 +97,60 @@ const COMPONENT_NAME: string = 'UserDropdownMenu';
  * User Dropdown Menu component.
  */
 const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (props: UserDropdownMenuProps) => {
-  const {className, user, themes, selectedTheme, themesHeading, logOutText, onThemeChange, onLogOut, menuID, ...rest} =
-    props;
+  const {className, user, modes, mode, modesHeading, logOutText, onModeChange, onLogOut, menuID, ...rest} = props;
 
   const classes: string = clsx('oxygen-user-dropdown-menu', className);
 
-  const handleThemeChange = (theme: string): void => {
-    onThemeChange(theme);
+  const handleModeChange = (selectedMode: string): void => {
+    onModeChange(selectedMode);
   };
 
   return (
     <Menu className={classes} id={menuID} {...rest}>
-      <List disablePadding>
+      <List className="list" disablePadding>
         <ListItem>
           <ListItemAvatar>
             <Avatar src={user?.image} alt="User" />
           </ListItemAvatar>
           <ListItemText primary={user?.name} secondary={user?.email} />
         </ListItem>
-        <Box>
-          <Divider />
-        </Box>
-        {themes?.length > 0 && (
-          <List subheader={<ListSubheader>{themesHeading}</ListSubheader>}>
-            {themes?.map((theme: ThemeListInterface) => {
+        <Divider />
+        {modes?.length > 0 && (
+          <List subheader={<ListSubheader>{modesHeading}</ListSubheader>}>
+            {modes?.map((theme: ModeListInterface) => {
               const {name, icon} = theme;
               return (
-                <ListItem className="theme-list-item" key={name}>
-                  <ListItemIcon>{icon}</ListItemIcon>
-                  <ListItemText primary={name} />
-                  <Radio
-                    checked={selectedTheme === name}
-                    onChange={(): void => handleThemeChange(name)}
-                    value={name}
-                    name="radio-buttons"
-                    inputProps={{'aria-label': `theme-label-${name}`}}
-                  />
+                <ListItem
+                  disablePadding
+                  key={name}
+                  secondaryAction={
+                    <Radio
+                      edge="end"
+                      checked={mode === name}
+                      onChange={(): void => handleModeChange(name)}
+                      value={name}
+                      name="radio-buttons"
+                      inputProps={{'aria-label': `mode-label-${name}`}}
+                    />
+                  }
+                >
+                  <ListItemButton onClick={(): void => handleModeChange(name)}>
+                    <ListItemIcon>{icon}</ListItemIcon>
+                    <ListItemText primary={name} />
+                  </ListItemButton>
                 </ListItem>
               );
             })}
           </List>
         )}
-        <Box>
-          <Divider />
-        </Box>
-        <ListItem className="logout-list-item" onClick={onLogOut}>
-          <ListItemIcon>
-            <PowerIcon />
-          </ListItemIcon>
-          <ListItemText primary={logOutText} />
+        <Divider />
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <PowerIcon />
+            </ListItemIcon>
+            <ListItemText primary={logOutText} />
+          </ListItemButton>
         </ListItem>
       </List>
     </Menu>
@@ -154,9 +159,5 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (props: U
 
 UserDropdownMenu.displayName = composeComponentDisplayName(COMPONENT_NAME);
 UserDropdownMenu.muiName = COMPONENT_NAME;
-UserDropdownMenu.defaultProps = {
-  logOutText: 'Log Out',
-  themesHeading: 'Theme',
-};
 
 export default UserDropdownMenu;

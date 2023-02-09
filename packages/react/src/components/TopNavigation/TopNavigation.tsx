@@ -18,29 +18,23 @@
 
 import React, {FC, MouseEvent, ReactElement, ReactNode, useState} from 'react';
 import clsx from 'clsx';
-import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
 import {Box, Container, IconButton, Toolbar, Typography, useMediaQuery} from '@mui/material';
-import {
-  ChevronDownIcon,
-  EclipseIcon,
-  SunIcon,
-  SunContrastIcon,
-  CresentBrightIcon,
-  HamburgerIcon,
-} from '@oxygen-ui/react-icons';
-import {useTheme, Theme} from '@mui/material/styles';
+import {useColorScheme, useTheme, Theme} from '@mui/material/styles';
+import {ChevronDownIcon, HamburgerIcon} from '@oxygen-ui/react-icons';
+import {Mode} from '@mui/system/cssVars/useCurrentColorScheme';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './top-navigation.scss';
 import Avatar from '../Avatar';
 import Button, {ButtonProps} from '../Button';
 import Link from '../Link';
-import UserDropdownMenu, {ThemeListInterface} from '../UserDropdownMenu';
+import UserDropdownMenu, {ModeListInterface} from '../UserDropdownMenu';
+import AppBar, {AppBarProps} from '../AppBar';
 
 /**
  * Interface for the Top Navigation component props.
  */
-export interface TopNavigationProps extends MuiAppBarProps {
+export interface TopNavigationProps extends AppBarProps {
   /**
    * Brand information.
    */
@@ -54,17 +48,17 @@ export interface TopNavigationProps extends MuiAppBarProps {
    */
   links?: Omit<ButtonProps, 'color'>[];
   /**
-   * Handle left navigation bar button toggle.
+   * List of modes.
+   */
+  modes?: ModeListInterface[];
+  /**
+   * Function to handle left navigation bar button toggle.
    */
   onLeftNavigationTrigger?: () => void;
   /**
-   * Log out function.
+   * Function on user logging out.
    */
   onLogOut?: () => void;
-  /**
-   * List of themes.
-   */
-  themes?: ThemeListInterface[];
   /**
    * Logged user information.
    */
@@ -105,17 +99,17 @@ const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavi
     brand,
     user,
     links,
-    themes,
+    modes,
     onLogOut,
     onLeftNavigationTrigger,
     ...rest
   } = props;
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const [selectedTheme, setSelectedTheme] = useState('System Default');
-
   const theme: Theme = useTheme();
+  const {mode, setMode} = useColorScheme();
   const isMobile: boolean = useMediaQuery(theme.breakpoints.down('sm'));
+
   const classes: string = clsx(
     'oxygen-top-nav',
     {
@@ -134,20 +128,12 @@ const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavi
     setAnchorElUser(null);
   };
 
-  // TODO: take default themes from `Theme`.
-  const defaultThemes: ThemeListInterface[] = [
-    {icon: <EclipseIcon />, name: 'System Default'},
-    {icon: <SunIcon />, name: 'Light'},
-    {icon: <CresentBrightIcon />, name: 'Dark'},
-    {icon: <SunContrastIcon />, name: 'High Contrast'},
-  ];
-
-  const onThemeChange = (mode: string): void => {
-    setSelectedTheme(mode);
+  const onModeChange = (selectedMode: Mode): void => {
+    setMode(selectedMode);
   };
 
   return (
-    <MuiAppBar position="static" color="inherit" variant="outlined" elevation={0} className={classes} {...rest}>
+    <AppBar position="static" color="inherit" variant="outlined" elevation={0} className={classes} {...rest}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {isLeftNavigationActive && (
@@ -179,7 +165,14 @@ const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavi
                   {links?.map((link: ButtonProps) => {
                     const {children: linkChildren, href, startIcon, ...linkProps} = link;
                     return (
-                      <Button className="link" href={href} startIcon={startIcon} color="inherit" {...linkProps}>
+                      <Button
+                        key={links.indexOf(link)}
+                        className="link"
+                        href={href}
+                        startIcon={startIcon}
+                        color="inherit"
+                        {...linkProps}
+                      >
                         {linkChildren}
                       </Button>
                     );
@@ -188,7 +181,7 @@ const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavi
               )}
             </>
           </Box>
-          <Box className="user-dropdown-menu">
+          <Box className="dropdown-menu">
             <Button
               aria-controls={open ? 'user-menu' : undefined}
               aria-owns={open ? 'user-menu' : null}
@@ -196,7 +189,7 @@ const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavi
               aria-expanded={open ? 'true' : undefined}
               onClick={handleOpenUserMenu}
               startIcon={
-                <Avatar className="user-image" alt="User Image" src={user?.image}>
+                <Avatar className="image" alt="User Image" src={user?.image}>
                   {user?.name?.split('')[0]}
                 </Avatar>
               }
@@ -211,17 +204,17 @@ const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavi
               anchorEl={anchorElUser}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
-              themesHeading="Theme"
-              themes={themes ?? defaultThemes}
+              modesHeading="Theme"
+              modes={modes}
               onLogOut={onLogOut}
               logOutText="Log Out"
-              selectedTheme={selectedTheme}
-              onThemeChange={onThemeChange}
+              mode={mode}
+              onModeChange={onModeChange}
             />
           </Box>
         </Toolbar>
       </Container>
-    </MuiAppBar>
+    </AppBar>
   );
 };
 

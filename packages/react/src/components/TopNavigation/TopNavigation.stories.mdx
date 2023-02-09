@@ -3,7 +3,7 @@ import dedent from 'ts-dedent';
 import StoryConfig from '../../../.storybook/story-config.ts';
 import {withDesign} from '../../../.storybook/utils.ts';
 import TopNavigation from './TopNavigation.tsx';
-import {LanguagesIcon, LogsIcon} from '@oxygen-ui/react-icons';
+import {LanguagesIcon, LogsIcon, SunIcon, CresentBrightIcon} from '@oxygen-ui/react-icons';
 
 export const meta = {
   component: TopNavigation,
@@ -45,6 +45,16 @@ titles, navigation, and actions.
         name: 'Matthew',
         email: 'matthew@wso2.com',
       },
+      modes: [
+        {
+          name: 'light',
+          icon: <SunIcon />
+        },
+        {
+          name: 'dark',
+          icon: <CresentBrightIcon />
+        }
+      ],
       //TODO: Add Storybook action.
       onLogOut: () => null,
       links: [
@@ -52,12 +62,12 @@ titles, navigation, and actions.
           children: 'Console', 
           startIcon: <LogsIcon />, 
           href: '/'
-          },
+        },
         {
           children: 'Language', 
           startIcon: <LanguagesIcon />, 
           href: '/'
-          },
+        },
       ],
     }}
   >
