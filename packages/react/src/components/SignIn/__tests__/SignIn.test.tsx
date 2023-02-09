@@ -25,4 +25,9 @@ describe('SignIn', () => {
     const {baseElement} = render(<SignIn signUpUrl="#" logoUrl="#" />);
     expect(baseElement).toBeTruthy();
   });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<SignIn signUpUrl="#" logoUrl="#" />);
+    expect(baseElement).toMatchSnapshot();
+  });
 });

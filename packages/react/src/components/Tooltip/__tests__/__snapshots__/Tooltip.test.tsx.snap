@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tooltip should match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      aria-label="This is a tooltip"
+      class="oxygen-tooltip"
+      data-mui-internal-clone-element="true"
+    >
+      Tooltip Trigger
+    </div>
+  </div>
+</body>
+`;

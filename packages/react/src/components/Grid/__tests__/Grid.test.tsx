@@ -25,4 +25,9 @@ describe('Grid', () => {
     const {baseElement} = render(<Grid />);
     expect(baseElement).toBeTruthy();
   });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<Grid />);
+    expect(baseElement).toMatchSnapshot();
+  });
 });

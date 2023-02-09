@@ -25,4 +25,9 @@ describe('Button', () => {
     const {baseElement} = render(<Button />);
     expect(baseElement).toBeTruthy();
   });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<Button />);
+    expect(baseElement).toMatchSnapshot();
+  });
 });

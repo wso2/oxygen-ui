@@ -25,4 +25,9 @@ describe('AppBar', () => {
     const {baseElement} = render(<AppBar />);
     expect(baseElement).toBeTruthy();
   });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<AppBar />);
+    expect(baseElement).toMatchSnapshot();
+  });
 });

@@ -25,4 +25,9 @@ describe('TextField', () => {
     const {baseElement} = render(<TextField />);
     expect(baseElement).toBeTruthy();
   });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<TextField />);
+    expect(baseElement).toMatchSnapshot();
+  });
 });

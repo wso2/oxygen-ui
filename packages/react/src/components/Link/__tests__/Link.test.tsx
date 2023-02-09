@@ -25,4 +25,9 @@ describe('Link', () => {
     const {baseElement} = render(<Link href="https://test.com" />);
     expect(baseElement).toBeTruthy();
   });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<Link href="https://test.com" />);
+    expect(baseElement).toMatchSnapshot();
+  });
 });

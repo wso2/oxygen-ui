@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignIn should match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="oxygen-sign-in MuiBox-root css-0"
+    >
+      <img
+        class="oxygen-sign-in-logo MuiBox-root css-0"
+        src="#"
+      />
+      <div
+        class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded oxygen-sign-in-box css-1fbvlaf-MuiPaper-root"
+      >
+        <h5
+          class="MuiTypography-root MuiTypography-h5 oxygen-sign-in-header css-b9o9n7-MuiTypography-root"
+        >
+          Sign in
+        </h5>
+        <form
+          class="oxygen-sign-in-form MuiBox-root css-164r41r"
+          novalidate=""
+        >
+          <div
+            class="oxygen-text-field"
+          >
+            <label
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink oxygen-text-field__label css-pytyk4-MuiFormLabel-root-MuiInputLabel-root"
+              data-shrink="true"
+              for="id"
+            >
+              Username
+            </label>
+            <div
+              class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root oxygen-text-field__input css-wb57ya-MuiFormControl-root-MuiTextField-root"
+            >
+              <div
+                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth Mui-focused MuiInputBase-formControl css-14ld83m-MuiInputBase-root-MuiOutlinedInput-root"
+              >
+                <input
+                  aria-invalid="false"
+                  class="MuiInputBase-input MuiOutlinedInput-input css-d9o7zs-MuiInputBase-input-MuiOutlinedInput-input"
+                  id="name"
+                  name="text"
+                  placeholder="Enter your username"
+                  required=""
+                  type="text"
+                  value=""
+                />
+                <fieldset
+                  aria-hidden="true"
+                  class="MuiOutlinedInput-notchedOutline css-116asjz-MuiOutlinedInput-notchedOutline"
+                >
+                  <legend
+                    class="css-ihdtdm"
+                  >
+                    <span
+                      class="notranslate"
+                    >
+                      ​
+                    </span>
+                  </legend>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+          <div
+            class="oxygen-text-field"
+          >
+            <label
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink oxygen-text-field__label css-pytyk4-MuiFormLabel-root-MuiInputLabel-root"
+              data-shrink="true"
+              for="id"
+            >
+              Password
+            </label>
+            <div
+              class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root oxygen-text-field__input css-wb57ya-MuiFormControl-root-MuiTextField-root"
+            >
+              <div
+                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-14ld83m-MuiInputBase-root-MuiOutlinedInput-root"
+              >
+                <input
+                  aria-invalid="false"
+                  autocomplete="current-password"
+                  class="MuiInputBase-input MuiOutlinedInput-input css-d9o7zs-MuiInputBase-input-MuiOutlinedInput-input"
+                  id="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  required=""
+                  type="password"
+                  value=""
+                />
+                <fieldset
+                  aria-hidden="true"
+                  class="MuiOutlinedInput-notchedOutline css-116asjz-MuiOutlinedInput-notchedOutline"
+                >
+                  <legend
+                    class="css-ihdtdm"
+                  >
+                    <span
+                      class="notranslate"
+                    >
+                      ​
+                    </span>
+                  </legend>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation MuiButton-fullWidth MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation MuiButton-fullWidth oxygen-button oxygen-sign-in-cta css-q4mdss-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
+            id=":r5:"
+            tabindex="0"
+            type="submit"
+          >
+            Sign In
+          </button>
+          <div
+            class="MuiGrid-root MuiGrid-container oxygen-sign-in-sign-up-link css-11lq3yg-MuiGrid-root"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+            >
+              Don't have an account?
+            </div>
+            <div
+              class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+            >
+              <a
+                class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineHover oxygen-link oxygen-sign-in-sign-up-link-action css-1kwgxwv-MuiTypography-root-MuiLink-root"
+                href="#"
+              >
+                Sign up
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+`;

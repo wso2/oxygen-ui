@@ -25,4 +25,9 @@ describe('ColorModeToggle', () => {
     const {baseElement} = render(<ColorModeToggle />);
     expect(baseElement).toBeTruthy();
   });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<ColorModeToggle />);
+    expect(baseElement).toMatchSnapshot();
+  });
 });
