@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import React, {FC, ReactElement} from 'react';
-import clsx from 'clsx';
 import MuiButton, {LoadingButtonProps as MuiButtonProps} from '@mui/lab/LoadingButton';
+import clsx from 'clsx';
+import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 

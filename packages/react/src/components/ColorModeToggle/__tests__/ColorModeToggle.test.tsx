@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -17,12 +17,16 @@
  */
 
 import {render} from '@unit-testing';
-import React from 'react';
-import AppBar from './AppBar';
+import ColorModeToggle from '../ColorModeToggle';
 
-describe('AppBar', () => {
+describe('ColorModeToggle', () => {
   it('should render successfully', () => {
-    const {baseElement} = render(<AppBar />);
+    const {baseElement} = render(<ColorModeToggle />);
     expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<ColorModeToggle />);
+    expect(baseElement).toMatchSnapshot();
   });
 });

@@ -16,8 +16,8 @@ importers:
       '@types/node': 18.11.10
       '@types/react': 18.0.25
       '@types/react-dom': 18.0.9
-      '@wso2/eslint-plugin': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e
-      '@wso2/prettier-config': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e
+      '@wso2/eslint-plugin': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?27de3d37a97801704a42e407342eca01dfd00ff6
+      '@wso2/prettier-config': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?27de3d37a97801704a42e407342eca01dfd00ff6
       clsx: ^1.2.1
       eslint: 8.25.0
       next: 13.0.6
@@ -38,8 +38,8 @@ importers:
       react-dom: 18.2.0_react@18.2.0
       typescript: 4.9.3
     devDependencies:
-      '@wso2/eslint-plugin': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e_5ldjemcacbssrrv7slgrertrym'
-      '@wso2/prettier-config': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e_dwcmg7j3s65kdkfd55lzy6diba'
+      '@wso2/eslint-plugin': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?27de3d37a97801704a42e407342eca01dfd00ff6_5ldjemcacbssrrv7slgrertrym'
+      '@wso2/prettier-config': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?27de3d37a97801704a42e407342eca01dfd00ff6_dwcmg7j3s65kdkfd55lzy6diba'
 
   examples/multi-brand-identity:
     specifiers:
@@ -55,8 +55,8 @@ importers:
       '@types/react': ^18.0.25
       '@types/react-dom': ^18.0.9
       '@types/testing-library__jest-dom': ^5.14.5
-      '@wso2/eslint-plugin': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e
-      '@wso2/prettier-config': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e
+      '@wso2/eslint-plugin': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?27de3d37a97801704a42e407342eca01dfd00ff6
+      '@wso2/prettier-config': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?27de3d37a97801704a42e407342eca01dfd00ff6
       eslint: 8.25.0
       jest: 29.0.3
       jest-environment-jsdom: ^29.4.1
@@ -83,8 +83,8 @@ importers:
       '@types/react': 18.0.26
       '@types/react-dom': 18.0.9
       '@types/testing-library__jest-dom': 5.14.5
-      '@wso2/eslint-plugin': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e_o7md7g7vewlpn7zk2pfnybp6ie'
-      '@wso2/prettier-config': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e_2gbcgqmzq2pxiocqw2qs7hdeqe'
+      '@wso2/eslint-plugin': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?27de3d37a97801704a42e407342eca01dfd00ff6_o7md7g7vewlpn7zk2pfnybp6ie'
+      '@wso2/prettier-config': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?27de3d37a97801704a42e407342eca01dfd00ff6_2gbcgqmzq2pxiocqw2qs7hdeqe'
       eslint: 8.25.0
       jest: 29.0.3_@types+node@16.18.9
       jest-environment-jsdom: 29.4.1
@@ -106,8 +106,8 @@ importers:
       '@types/chalk': ^2.2.0
       '@types/jest': ^29.2.3
       '@types/node': ^18.11.18
-      '@wso2/eslint-plugin': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e
-      '@wso2/prettier-config': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e
+      '@wso2/eslint-plugin': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?27de3d37a97801704a42e407342eca01dfd00ff6
+      '@wso2/prettier-config': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?27de3d37a97801704a42e407342eca01dfd00ff6
       babel-jest: ^29.3.1
       chalk: ^5.2.0
       eslint: 8.25.0
@@ -134,8 +134,8 @@ importers:
       '@types/chalk': 2.2.0
       '@types/jest': 29.2.5
       '@types/node': 18.11.18
-      '@wso2/eslint-plugin': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e_o7md7g7vewlpn7zk2pfnybp6ie'
-      '@wso2/prettier-config': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e_2gbcgqmzq2pxiocqw2qs7hdeqe'
+      '@wso2/eslint-plugin': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?27de3d37a97801704a42e407342eca01dfd00ff6_o7md7g7vewlpn7zk2pfnybp6ie'
+      '@wso2/prettier-config': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?27de3d37a97801704a42e407342eca01dfd00ff6_2gbcgqmzq2pxiocqw2qs7hdeqe'
       babel-jest: 29.3.1_@babel+core@7.20.5
       eslint: 8.25.0
       jest: 29.0.3_zfha7dvnw4nti6zkbsmhmn6xo4
@@ -156,8 +156,8 @@ importers:
       '@oxygen-ui/logger': '*'
       '@types/jest': ^29.2.3
       '@types/node': ^18.11.18
-      '@wso2/eslint-plugin': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e
-      '@wso2/prettier-config': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e
+      '@wso2/eslint-plugin': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?27de3d37a97801704a42e407342eca01dfd00ff6
+      '@wso2/prettier-config': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?27de3d37a97801704a42e407342eca01dfd00ff6
       cheerio: 1.0.0-rc.12
       eslint: 8.25.0
       fs-extra: ^11.1.0
@@ -176,8 +176,8 @@ importers:
       '@oxygen-ui/logger': link:../logger
       '@types/jest': 29.2.5
       '@types/node': 18.11.18
-      '@wso2/eslint-plugin': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e_o7md7g7vewlpn7zk2pfnybp6ie'
-      '@wso2/prettier-config': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e_2gbcgqmzq2pxiocqw2qs7hdeqe'
+      '@wso2/eslint-plugin': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?27de3d37a97801704a42e407342eca01dfd00ff6_o7md7g7vewlpn7zk2pfnybp6ie'
+      '@wso2/prettier-config': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?27de3d37a97801704a42e407342eca01dfd00ff6_2gbcgqmzq2pxiocqw2qs7hdeqe'
       cheerio: 1.0.0-rc.12
       eslint: 8.25.0
       fs-extra: 11.1.0
@@ -226,8 +226,9 @@ importers:
       '@types/node': ^18.11.18
       '@types/react': ^18.0.25
       '@types/react-dom': ^18.0.9
-      '@wso2/eslint-plugin': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e
-      '@wso2/prettier-config': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e
+      '@types/testing-library__jest-dom': ^5.14.5
+      '@wso2/eslint-plugin': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?27de3d37a97801704a42e407342eca01dfd00ff6
+      '@wso2/prettier-config': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?27de3d37a97801704a42e407342eca01dfd00ff6
       babel-jest: ^29.3.1
       babel-loader: ^8.3.0
       clsx: ^1.2.1
@@ -289,8 +290,9 @@ importers:
       '@types/node': 18.11.18
       '@types/react': 18.0.26
       '@types/react-dom': 18.0.9
-      '@wso2/eslint-plugin': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e_o7md7g7vewlpn7zk2pfnybp6ie'
-      '@wso2/prettier-config': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e_2gbcgqmzq2pxiocqw2qs7hdeqe'
+      '@types/testing-library__jest-dom': 5.14.5
+      '@wso2/eslint-plugin': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?27de3d37a97801704a42e407342eca01dfd00ff6_o7md7g7vewlpn7zk2pfnybp6ie'
+      '@wso2/prettier-config': '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?27de3d37a97801704a42e407342eca01dfd00ff6_2gbcgqmzq2pxiocqw2qs7hdeqe'
       babel-jest: 29.3.1_@babel+core@7.20.5
       babel-loader: 8.3.0_@babel+core@7.20.5
       eslint: 8.25.0
@@ -5701,7 +5703,7 @@ packages:
     resolution: {integrity: sha512-H2cSxkKgVmqNHXP7TC2L/WUorrZu8ZigyRywfVzv6EyBlxj39n4C00hjXYQWsbwqgElaj/CiAeSRmk5GoaKTgw==}
     dependencies:
       expect: 29.3.1
-      pretty-format: 29.3.1
+      pretty-format: 29.4.1
     dev: true
 
   /@types/jsdom/20.0.1:
@@ -9820,7 +9822,7 @@ packages:
       '@typescript-eslint/eslint-plugin': 5.46.1_wqh5rj4gay6mpzzdobd4tmdy4i
       '@typescript-eslint/utils': 5.46.1_grqhnqpocakf5dew66i47isfme
       eslint: 8.25.0
-      jest: 29.0.3_zfha7dvnw4nti6zkbsmhmn6xo4
+      jest: 29.0.3_@types+node@16.18.9
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -21135,9 +21137,9 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: true
 
-  '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e_5ldjemcacbssrrv7slgrertrym':
-    resolution: {tarball: https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e}
-    id: '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e'
+  '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?27de3d37a97801704a42e407342eca01dfd00ff6_5ldjemcacbssrrv7slgrertrym':
+    resolution: {tarball: https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?27de3d37a97801704a42e407342eca01dfd00ff6}
+    id: '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?27de3d37a97801704a42e407342eca01dfd00ff6'
     name: '@wso2/eslint-plugin'
     version: 0.1.0
     engines: {node: ^14.17.0 || ^16.0.0 || >= 18.0.0}
@@ -21180,9 +21182,9 @@ packages:
       - supports-color
     dev: true
 
-  '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e_o7md7g7vewlpn7zk2pfnybp6ie':
-    resolution: {tarball: https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e}
-    id: '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e'
+  '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?27de3d37a97801704a42e407342eca01dfd00ff6_o7md7g7vewlpn7zk2pfnybp6ie':
+    resolution: {tarball: https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?27de3d37a97801704a42e407342eca01dfd00ff6}
+    id: '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?27de3d37a97801704a42e407342eca01dfd00ff6'
     name: '@wso2/eslint-plugin'
     version: 0.1.0
     engines: {node: ^14.17.0 || ^16.0.0 || >= 18.0.0}
@@ -21270,9 +21272,9 @@ packages:
       - supports-color
     dev: true
 
-  '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e_2gbcgqmzq2pxiocqw2qs7hdeqe':
-    resolution: {tarball: https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e}
-    id: '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e'
+  '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?27de3d37a97801704a42e407342eca01dfd00ff6_2gbcgqmzq2pxiocqw2qs7hdeqe':
+    resolution: {tarball: https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?27de3d37a97801704a42e407342eca01dfd00ff6}
+    id: '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?27de3d37a97801704a42e407342eca01dfd00ff6'
     name: '@wso2/prettier-config'
     version: 0.1.0
     engines: {node: '>=14.0.0'}
@@ -21287,9 +21289,9 @@ packages:
       typescript: 4.9.4
     dev: true
 
-  '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e_dwcmg7j3s65kdkfd55lzy6diba':
-    resolution: {tarball: https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e}
-    id: '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b46eeeeaa9365277e46aa3b3b6dee339a78f4b3e'
+  '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?27de3d37a97801704a42e407342eca01dfd00ff6_dwcmg7j3s65kdkfd55lzy6diba':
+    resolution: {tarball: https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?27de3d37a97801704a42e407342eca01dfd00ff6}
+    id: '@gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?27de3d37a97801704a42e407342eca01dfd00ff6'
     name: '@wso2/prettier-config'
     version: 0.1.0
     engines: {node: '>=14.0.0'}

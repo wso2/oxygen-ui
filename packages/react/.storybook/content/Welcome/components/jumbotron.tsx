@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import React, {FC, ReactElement} from 'react';
+import {FC, ReactElement} from 'react';
 import pkg from '../../../../package.json';
 import meta from '../../../meta.json';
 

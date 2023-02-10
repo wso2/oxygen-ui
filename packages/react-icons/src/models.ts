@@ -16,8 +16,10 @@
  * under the License.
  */
 
+import {SVGProps} from 'react';
+
 export type IconSizes = 'large' | 'medium' | 'small';
 
 export type GeneratedIcon = {
-  [key: number]: SVGProps;
+  [key: string]: SVGProps<SVGSVGElement>;
 };

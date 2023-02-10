@@ -16,10 +16,10 @@
  * under the License.
  */
 
-import React, {PropsWithChildren, ReactElement} from 'react';
-import {Experimental_CssVarsProvider as CssVarsProvider, SupportedColorScheme} from '@mui/material/styles';
 import {CssBaseline, StyledEngineProvider} from '@mui/material';
+import {Experimental_CssVarsProvider as CssVarsProvider, SupportedColorScheme} from '@mui/material/styles';
 import {CssVarsProviderConfig} from '@mui/system';
+import {PropsWithChildren, ReactElement} from 'react';
 import defaultTheme from './default-theme';
 
 export type ThemeProviderProps = Partial<CssVarsProviderConfig<SupportedColorScheme>> & {

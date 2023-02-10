@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import React, {PropsWithChildren, ReactNode} from 'react';
+import {PropsWithChildren, ReactNode} from 'react';
 import {addParameters, Story, StoryContext} from '@storybook/react';
 import {DocsContainer, DocsContainerProps, DocsPage} from '@storybook/addon-docs';
 import {themes} from './theme';

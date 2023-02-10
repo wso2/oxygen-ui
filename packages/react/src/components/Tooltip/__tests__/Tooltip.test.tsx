@@ -16,9 +16,8 @@
  * under the License.
  */
 
-import React from 'react';
 import {render} from '@unit-testing';
-import Tooltip from './Tooltip';
+import Tooltip from '../Tooltip';
 
 describe('Tooltip', () => {
   it('should render successfully', () => {
@@ -28,5 +27,14 @@ describe('Tooltip', () => {
       </Tooltip>,
     );
     expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(
+      <Tooltip title="This is a tooltip">
+        <div>Tooltip Trigger</div>
+      </Tooltip>,
+    );
+    expect(baseElement).toMatchSnapshot();
   });
 });

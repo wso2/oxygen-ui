@@ -17,7 +17,7 @@
  */
 
 import {Grid, SignIn, useTheme, useColorScheme, Theme} from '@oxygen-ui/react';
-import React, {ReactElement} from 'react';
+import {ReactElement} from 'react';
 
 export const LoginPage = (): ReactElement => {
   const theme: Theme = useTheme();

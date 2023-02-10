@@ -16,13 +16,17 @@
  * under the License.
  */
 
-import React from 'react';
 import {render} from '@unit-testing';
-import ColorModeToggle from './ColorModeToggle';
+import TextField from '../TextField';
 
-describe('ColorModeToggle', () => {
+describe('TextField', () => {
   it('should render successfully', () => {
-    const {baseElement} = render(<ColorModeToggle />);
+    const {baseElement} = render(<TextField />);
     expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<TextField />);
+    expect(baseElement).toMatchSnapshot();
   });
 });

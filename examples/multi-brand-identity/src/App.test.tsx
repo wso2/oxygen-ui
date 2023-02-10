@@ -16,7 +16,6 @@
  * under the License.
  */
 
-import React from 'react';
 import {render} from '@unit-testing';
 import App from './App';
 

@@ -28,7 +28,7 @@ import {
   Theme,
   Alert,
 } from '@oxygen-ui/react';
-import React, {ChangeEvent, FC, ReactElement, useState} from 'react';
+import {ChangeEvent, FC, ReactElement, useState} from 'react';
 import {BrandingActions} from '../branding';
 
 interface OrganizationSelectionDialogProps {

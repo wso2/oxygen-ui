@@ -16,13 +16,17 @@
  * under the License.
  */
 
-import React from 'react';
 import {render} from '@unit-testing';
-import SignIn from './SignIn';
+import Grid from '../Grid';
 
-describe('SignIn', () => {
+describe('Grid', () => {
   it('should render successfully', () => {
-    const {baseElement} = render(<SignIn signUpUrl="#" logoUrl="#" />);
+    const {baseElement} = render(<Grid />);
     expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<Grid />);
+    expect(baseElement).toMatchSnapshot();
   });
 });
