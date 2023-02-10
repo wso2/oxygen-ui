@@ -113,7 +113,6 @@ addParameters({
 
         window.location.reload();
       } catch (e) {
-        debugger
         // Silently, leave the manager theme as it is.
       }
     },
