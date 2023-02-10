@@ -17,6 +17,7 @@
  */
 
 import {themes as defaultThemes} from '@storybook/theming';
+import defaultTheme from '../src/theme/default-theme';
 
 const commons = {
   brandUrl: 'https://wso2.io',
@@ -50,4 +51,36 @@ export const themes = {
     appBg: '#f1f1f1',
     ...commons,
   },
+};
+
+/**
+ * Get theme available storybook manager themes in the runtime.
+ */
+export function getManagerThemesRuntime() {
+  return JSON.parse(window.localStorage.getItem('sb-addon-themes-3'));
+};
+
+/**
+ * Get the currently active theme available storybook manager in the runtime.
+ */
+export const getActiveManagerThemeRuntime = () => {
+  return getManagerThemesRuntime().current;
+};
+
+/**
+ * Get the active Oxygen UI theme in the runtime.
+ */
+export const getOxygenThemeRuntime = () => {
+  const activeTheme = localStorage.getItem('oxygen-mode');
+  return {
+    name: activeTheme,
+    theme: defaultTheme.colorSchemes[activeTheme],
+  };
+};
+
+/**
+ * Get the set of Oxygen UI themes defined in the default theme.
+ */
+export const getOxygenThemes = () => {
+  return defaultTheme.colorSchemes;
 };

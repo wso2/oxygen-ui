@@ -201,6 +201,7 @@ importers:
       '@mui/material': ^5.10.16
       '@mui/system': ^5.10.16
       '@mui/utils': ^5.10.16
+      '@oxygen-ui/logger': '*'
       '@oxygen-ui/primitives': '*'
       '@oxygen-ui/react-icons': '*'
       '@rollup/plugin-commonjs': ^23.0.3
@@ -248,6 +249,7 @@ importers:
       sass: ^1.56.1
       sass-loader: ^13.2.0
       storybook-addon-designs: ^6.3.1
+      storybook-addon-themes: ^6.1.0
       storybook-dark-mode: ^1.1.2
       ts-dedent: ^2.2.0
       ts-jest: ^29.0.3
@@ -267,6 +269,7 @@ importers:
       clsx: 1.2.1
     devDependencies:
       '@babel/core': 7.20.5
+      '@oxygen-ui/logger': link:../logger
       '@rollup/plugin-commonjs': 23.0.5_rollup@3.7.4
       '@rollup/plugin-image': 3.0.1_rollup@3.7.4
       '@rollup/plugin-node-resolve': 15.0.1_rollup@3.7.4
@@ -311,6 +314,7 @@ importers:
       sass: 1.56.2
       sass-loader: 13.2.0_sass@1.56.2
       storybook-addon-designs: 6.3.1_react@18.2.0
+      storybook-addon-themes: 6.1.0_biqbaboplfbrettd7655fr4n2y
       storybook-dark-mode: 1.1.2_biqbaboplfbrettd7655fr4n2y
       ts-dedent: 2.2.0
       ts-jest: 29.0.3_blsuvx2mhhy4e2qp5lqfs7wpui
@@ -18806,6 +18810,33 @@ packages:
       '@figspec/react': 1.0.3_react@18.2.0
     transitivePeerDependencies:
       - react
+    dev: true
+
+  /storybook-addon-themes/6.1.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-ZT8aNgrwFVNEOmOPBLNS0WBacjvMFo/bZ83P8MmsJ3Ewqt0AbmPioghTZccARUn/EQ+LrDxyh2D0QgmLaKo07Q==}
+    peerDependencies:
+      react: '*'
+      svelte: '*'
+      vue: '*'
+    peerDependenciesMeta:
+      react:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      '@storybook/addons': 6.5.14_biqbaboplfbrettd7655fr4n2y
+      '@storybook/api': 6.5.14_biqbaboplfbrettd7655fr4n2y
+      '@storybook/components': 6.5.14_biqbaboplfbrettd7655fr4n2y
+      '@storybook/core-events': 6.5.14
+      '@storybook/theming': 6.5.14_biqbaboplfbrettd7655fr4n2y
+      core-js: 3.26.1
+      global: 4.4.0
+      memoizerific: 1.11.3
+      react: 18.2.0
+    transitivePeerDependencies:
+      - react-dom
     dev: true
 
   /storybook-dark-mode/1.1.2_biqbaboplfbrettd7655fr4n2y:
