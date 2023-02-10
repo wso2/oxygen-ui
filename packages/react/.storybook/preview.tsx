@@ -109,8 +109,8 @@ addParameters({
         }
 
         localStorage.setItem('sb-addon-themes-3', JSON.stringify(managerThemes));
-
         localStorage.setItem('oxygen-mode', activatedTheme);
+
         window.location.reload();
       } catch (e) {
         debugger
