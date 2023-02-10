@@ -17,7 +17,7 @@
  */
 
 import {RenderResult, render as rtlRender, RenderOptions} from '@testing-library/react';
-import React, {ComponentType, PropsWithChildren, ReactElement} from 'react';
+import {ComponentType, PropsWithChildren, ReactElement} from 'react';
 import ThemeProvider from '../src/theme/ThemeProvider';
 
 /**

@@ -14,6 +14,7 @@
       "sourceMap": true,
       "suppressImplicitAnyIndexErrors": true,
       "target": "es2015",
+      "jsx": "react-jsx",
       "forceConsistentCasingInFileNames": true,
       "strict": true,
       "noImplicitOverride": true,

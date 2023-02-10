@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,13 +16,17 @@
  * under the License.
  */
 
-import React from 'react';
 import {render} from '@unit-testing';
-import Grid from './Grid';
+import AppBar from '../AppBar';
 
-describe('Grid', () => {
+describe('AppBar', () => {
   it('should render successfully', () => {
-    const {baseElement} = render(<Grid />);
+    const {baseElement} = render(<AppBar />);
     expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<AppBar />);
+    expect(baseElement).toMatchSnapshot();
   });
 });

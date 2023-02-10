@@ -16,10 +16,10 @@
  * under the License.
  */
 
-import React, {FC, PropsWithChildren, ReactElement, SVGProps} from 'react';
-import clsx from 'clsx';
-import {useColorScheme} from '@mui/material/styles';
 import IconButton, {IconButtonProps} from '@mui/material/IconButton';
+import {useColorScheme} from '@mui/material/styles';
+import clsx from 'clsx';
+import {FC, PropsWithChildren, ReactElement, SVGProps} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 

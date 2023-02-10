@@ -25,6 +25,7 @@ module.exports = {
     'plugin:@wso2/internal',
     'plugin:@wso2/jest',
     'plugin:@wso2/prettier',
+    'plugin:react/jsx-runtime'
   ],
   parserOptions: {
     project: [

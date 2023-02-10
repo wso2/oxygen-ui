@@ -16,9 +16,9 @@
  * under the License.
  */
 
+import clsx from 'clsx';
 import Head from 'next/head';
 import Image from 'next/image';
-import clsx from 'clsx';
 import {ReactElement} from 'react';
 import {spaceGrotesk} from '../styles/fonts';
 import styles from '../styles/Home.module.css';

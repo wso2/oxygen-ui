@@ -21,14 +21,14 @@
  * @fileoverview Build script to generate a JSON file that contains information about input SVGs.
  */
 
-const fs = require('fs-extra');
 const path = require('path');
-const globby = require('globby');
+const { logger } = require('@oxygen-ui/logger');
 const cheerio = require('cheerio');
+const fs = require('fs-extra');
+const globby = require('globby');
+const merge = require('lodash.merge');
 const { parseSync } = require('svgson');
 const trimNewlines = require('trim-newlines');
-const merge = require('lodash.merge');
-const { logger } = require('@oxygen-ui/logger');
 
 const PATHS = {
   output: path.resolve(path.join(__dirname, '..', 'dist', 'icons', 'data.json')),

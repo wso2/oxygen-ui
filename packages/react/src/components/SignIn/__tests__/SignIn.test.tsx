@@ -16,13 +16,17 @@
  * under the License.
  */
 
-import React from 'react';
 import {render} from '@unit-testing';
-import TextField from './TextField';
+import SignIn from '../SignIn';
 
-describe('TextField', () => {
+describe('SignIn', () => {
   it('should render successfully', () => {
-    const {baseElement} = render(<TextField />);
+    const {baseElement} = render(<SignIn signUpUrl="#" logoUrl="#" />);
     expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<SignIn signUpUrl="#" logoUrl="#" />);
+    expect(baseElement).toMatchSnapshot();
   });
 });

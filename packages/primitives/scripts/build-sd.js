@@ -23,8 +23,8 @@
 
 const fs = require('fs');
 const path = require('path');
-const StyleDictionary = require('style-dictionary');
 const { logger } = require('@oxygen-ui/logger');
+const StyleDictionary = require('style-dictionary');
 
 const PATHS = {
   source: {

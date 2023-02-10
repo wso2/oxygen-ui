@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import React, {FC, ReactElement} from 'react';
-import clsx from 'clsx';
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
+import clsx from 'clsx';
+import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 

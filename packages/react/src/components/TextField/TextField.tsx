@@ -16,10 +16,10 @@
  * under the License.
  */
 
-import React, {FC, ReactElement} from 'react';
-import clsx from 'clsx';
-import MuiTextField, {TextFieldProps as MuiTextFieldProps} from '@mui/material/TextField';
 import {InputLabel} from '@mui/material';
+import MuiTextField, {TextFieldProps as MuiTextFieldProps} from '@mui/material/TextField';
+import clsx from 'clsx';
+import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 
