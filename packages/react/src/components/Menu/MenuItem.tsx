@@ -21,7 +21,7 @@ import {FC, ReactElement} from 'react';
 import {composeComponentDisplayName} from '../../utils';
 import {WithWrapperProps} from '../../models';
 
-export interface MenuItemProps extends MuiMenuItemProps {}
+export type MenuItemProps = MuiMenuItemProps;
 
 const COMPONENT_NAME: string = 'MenuItem';
 
