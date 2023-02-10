@@ -37,7 +37,8 @@ module.exports = {
         "@storybook/addon-links",
         "storybook-addon-designs",
         "storybook-dark-mode",
-        '@storybook/preset-scss'
+        '@storybook/preset-scss',
+        'storybook-addon-themes'
     ],
     staticDirs: [ path.resolve(__dirname, STATIC_DIRECTORY_NAME) ],
     webpackFinal: async (config) => {
