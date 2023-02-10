@@ -1,7 +1,11 @@
 .oxygen-user-dropdown-menu {
-    .list {
-        .MuiListItemIcon-root {
-            min-width: 45px;
+    .list-item {
+        &.clickable {
+            cursor: pointer;
         }
+    }
+
+    .menu-item {
+        min-height: 50px;
     }
 }

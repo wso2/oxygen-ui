@@ -17,7 +17,7 @@
  */
 
 import MuiMenuItem, {MenuItemProps as MuiMenuItemProps} from '@mui/material/MenuItem';
-import React, {FC, ReactElement} from 'react';
+import {FC, ReactElement} from 'react';
 import {composeComponentDisplayName} from '../../utils';
 import {WithWrapperProps} from '../../models';
 

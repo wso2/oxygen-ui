@@ -16,34 +16,34 @@
  * under the License.
  */
 
-import React, {FC, ReactElement} from 'react';
-import {WithWrapperProps} from 'src/models';
+import {PowerIcon} from '@oxygen-ui/react-icons';
+import {capitalize} from '@mui/material/utils';
 import {
   Divider,
-  List,
-  ListItem,
   ListItemAvatar,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
   ListSubheader,
+  MenuItem,
   Radio,
+  ListItem,
 } from '@mui/material';
 import clsx from 'clsx';
-import {PowerIcon} from '@oxygen-ui/react-icons';
+import {FC, ReactElement} from 'react';
+import {WithWrapperProps} from 'src/models';
+import Avatar from '../Avatar';
 import {composeComponentDisplayName} from '../../utils';
 import Menu, {MenuProps} from '../Menu';
 import './user-dropdown-menu.scss';
-import Avatar from '../Avatar';
 
 /**
  * Interface for the User Dropdown Menu component props.
  */
 export interface UserDropdownMenuProps extends MenuProps {
   /**
-   * Log out button text.
+   * List item button text.
    */
-  logOutText?: string;
+  actionText?: string;
   /**
    * The id attribute of Menu component.
    */
@@ -61,13 +61,17 @@ export interface UserDropdownMenuProps extends MenuProps {
    */
   modesHeading?: string;
   /**
-   * Callback function on user logging out.
+   * Callback function on list item action trigger.
    */
-  onLogOut?: () => void;
+  onActionTrigger?: () => void;
   /**
    * Callback function on mode change.
    */
   onModeChange?: (mode: string) => void;
+  /**
+   * Callback function on navigation to logged user's profile.
+   */
+  onUserProfileNavigation?: () => void;
   /**
    * Logged user information.
    */
@@ -96,8 +100,22 @@ const COMPONENT_NAME: string = 'UserDropdownMenu';
 /**
  * User Dropdown Menu component.
  */
-const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (props: UserDropdownMenuProps) => {
-  const {className, user, modes, mode, modesHeading, logOutText, onModeChange, onLogOut, menuID, ...rest} = props;
+const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
+  props: UserDropdownMenuProps & WithWrapperProps,
+) => {
+  const {
+    className,
+    user,
+    modes,
+    mode,
+    onUserProfileNavigation,
+    modesHeading,
+    actionText,
+    onModeChange,
+    onActionTrigger,
+    menuID,
+    ...rest
+  } = props;
 
   const classes: string = clsx('oxygen-user-dropdown-menu', className);
 
@@ -105,54 +123,53 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (props: U
     onModeChange(selectedMode);
   };
 
+  const handleUserProfileNavigation = (): void => {
+    onUserProfileNavigation();
+  };
+
   return (
     <Menu className={classes} id={menuID} {...rest}>
-      <List className="list" disablePadding>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar src={user?.image} alt="User" />
-          </ListItemAvatar>
-          <ListItemText primary={user?.name} secondary={user?.email} />
-        </ListItem>
-        <Divider />
-        {modes?.length > 0 && (
-          <List subheader={<ListSubheader>{modesHeading}</ListSubheader>}>
-            {modes?.map((theme: ModeListInterface) => {
-              const {name, icon} = theme;
-              return (
-                <ListItem
-                  disablePadding
-                  key={name}
-                  secondaryAction={
-                    <Radio
-                      edge="end"
-                      checked={mode === name}
-                      onChange={(): void => handleModeChange(name)}
-                      value={name}
-                      name="radio-buttons"
-                      inputProps={{'aria-label': `mode-label-${name}`}}
-                    />
-                  }
-                >
-                  <ListItemButton onClick={(): void => handleModeChange(name)}>
-                    <ListItemIcon>{icon}</ListItemIcon>
-                    <ListItemText primary={name} />
-                  </ListItemButton>
-                </ListItem>
-              );
-            })}
-          </List>
-        )}
-        <Divider />
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <PowerIcon />
-            </ListItemIcon>
-            <ListItemText primary={logOutText} />
-          </ListItemButton>
-        </ListItem>
-      </List>
+      <ListItem
+        className={clsx('list-item', {
+          clickable: Boolean(onUserProfileNavigation),
+        })}
+        onClick={(): void => handleUserProfileNavigation()}
+      >
+        <ListItemAvatar>
+          <Avatar src={user?.image} alt="User" />
+        </ListItemAvatar>
+        <ListItemText primary={user?.name} secondary={user?.email} />
+      </ListItem>
+      <Divider />
+      {modes?.length > 0 && (
+        <>
+          <ListSubheader>{modesHeading}</ListSubheader>
+          {modes?.map((theme: ModeListInterface) => {
+            const {name, icon} = theme;
+            return (
+              <MenuItem className="menu-item" key={name} onClick={(): void => handleModeChange(name)}>
+                <ListItemIcon>{icon}</ListItemIcon>
+                <ListItemText primary={capitalize(name)} />
+                <Radio
+                  edge="end"
+                  checked={mode === name}
+                  onChange={(): void => handleModeChange(name)}
+                  value={name}
+                  name="radio-buttons"
+                  inputProps={{'aria-label': `mode-label-${name}`}}
+                />
+              </MenuItem>
+            );
+          })}
+        </>
+      )}
+      <Divider />
+      <MenuItem className="menu-item" onClick={onActionTrigger}>
+        <ListItemIcon>
+          <PowerIcon />
+        </ListItemIcon>
+        <ListItemText primary={actionText} />
+      </MenuItem>
     </Menu>
   );
 };

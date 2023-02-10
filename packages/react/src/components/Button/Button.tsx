@@ -36,9 +36,5 @@ const Button: FC<ButtonProps> & WithWrapperProps = (props: ButtonProps): ReactEl
 
 Button.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Button.muiName = COMPONENT_NAME;
-Button.defaultProps = {
-  disableElevation: true,
-  disableRipple: true,
-};
 
 export default Button;

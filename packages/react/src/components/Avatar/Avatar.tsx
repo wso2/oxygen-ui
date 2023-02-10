@@ -18,7 +18,7 @@
 
 import MuiAvatar, {AvatarProps as MuiAvatarProps} from '@mui/material/Avatar';
 import clsx from 'clsx';
-import React, {FC, ReactElement} from 'react';
+import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 

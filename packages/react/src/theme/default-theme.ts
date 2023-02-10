@@ -51,7 +51,7 @@ export const DEFAULT_THEME_OPTIONS: RecursivePartial<Theme> = {
   },
   typography: {
     body1: {
-      fontSize: 14,
+      fontSize: '0.875rem',
       fontWeight: 'normal',
     },
     button: {

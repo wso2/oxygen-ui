@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import React, {FC, ReactElement} from 'react';
+import {FC, ReactElement} from 'react';
 import clsx from 'clsx';
 import {Box, BoxProps} from '@mui/material';
 import {composeComponentDisplayName} from '../../utils';

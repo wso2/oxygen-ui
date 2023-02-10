@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import React, {FC, MouseEvent, ReactElement, ReactNode, useState} from 'react';
+import {FC, MouseEvent, ReactElement, ReactNode, useState} from 'react';
 import clsx from 'clsx';
-import {Box, Container, IconButton, Toolbar, Typography, useMediaQuery} from '@mui/material';
+import {Box, IconButton, Toolbar, Tooltip, Typography, useMediaQuery} from '@mui/material';
 import {useColorScheme, useTheme, Theme} from '@mui/material/styles';
 import {ChevronDownIcon, HamburgerIcon} from '@oxygen-ui/react-icons';
 import {Mode} from '@mui/system/cssVars/useCurrentColorScheme';
@@ -56,10 +56,6 @@ export interface TopNavigationProps extends AppBarProps {
    */
   onLeftNavigationTrigger?: () => void;
   /**
-   * Function on user logging out.
-   */
-  onLogOut?: () => void;
-  /**
    * Logged user information.
    */
   user?: UserTemplate;
@@ -92,18 +88,8 @@ const COMPONENT_NAME: string = 'TopNavigation';
  * Top Navigation component.
  */
 const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavigationProps): ReactElement => {
-  const {
-    className,
-    children,
-    isLeftNavigationActive,
-    brand,
-    user,
-    links,
-    modes,
-    onLogOut,
-    onLeftNavigationTrigger,
-    ...rest
-  } = props;
+  const {className, children, isLeftNavigationActive, brand, user, links, modes, onLeftNavigationTrigger, ...rest} =
+    props;
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const theme: Theme = useTheme();
@@ -133,55 +119,64 @@ const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavi
   };
 
   return (
-    <AppBar position="static" color="inherit" variant="outlined" elevation={0} className={classes} {...rest}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          {isLeftNavigationActive && (
-            <IconButton aria-label="Menu Icon" onClick={onLeftNavigationTrigger} className="menu-icon-button">
-              <HamburgerIcon />
-            </IconButton>
-          )}
-          {brand && (
-            <Box
-              component={brand.onClick ? Link : Box}
-              className={clsx('logo-box', {
-                'with-link': Boolean(brand.onClick),
-              })}
-              onClick={brand.onClick}
-              underline="none"
-              color="inherit"
-            >
-              <Box className="logo">{isMobile ? brand.logo.mobile ?? brand.logo.desktop : brand.logo.desktop}</Box>
-              <Typography variant="h6" className="portal-name">
-                {brand.title}
-              </Typography>
-            </Box>
-          )}
-          <Box className="nav-links-section">
-            <>
-              {children}
-              {links?.length > 0 && (
-                <Box className="nav-links">
-                  {links?.map((link: ButtonProps) => {
-                    const {children: linkChildren, href, startIcon, ...linkProps} = link;
-                    return (
-                      <Button
-                        key={links.indexOf(link)}
-                        className="link"
-                        href={href}
-                        startIcon={startIcon}
-                        color="inherit"
-                        {...linkProps}
-                      >
-                        {linkChildren}
-                      </Button>
-                    );
-                  })}
-                </Box>
-              )}
-            </>
+    <AppBar
+      position="static"
+      color="inherit"
+      variant="outlined"
+      elevation={0}
+      className={classes}
+      role="navigation"
+      {...rest}
+    >
+      <Toolbar>
+        {isLeftNavigationActive && (
+          <IconButton aria-label="Menu Icon" onClick={onLeftNavigationTrigger} className="menu-icon-button">
+            <HamburgerIcon />
+          </IconButton>
+        )}
+        {brand && (
+          <Box
+            tabIndex={0}
+            component={brand.onClick ? Link : Box}
+            className={clsx('logo-box', {
+              'with-link': Boolean(brand.onClick),
+            })}
+            onClick={brand.onClick}
+            underline="none"
+            color="inherit"
+          >
+            <Box className="logo">{isMobile ? brand.logo.mobile ?? brand.logo.desktop : brand.logo.desktop}</Box>
+            <Typography variant="h6" component="h1" className="portal-name">
+              {brand.title}
+            </Typography>
           </Box>
-          <Box className="dropdown-menu">
+        )}
+        <Box className="nav-links-section">
+          <>
+            {children}
+            {links?.length > 0 && (
+              <Box className="nav-links">
+                {links?.map((link: ButtonProps) => {
+                  const {children: linkChildren, href, startIcon, ...linkProps} = link;
+                  return (
+                    <Button
+                      key={links.indexOf(link)}
+                      className="link"
+                      href={href}
+                      startIcon={startIcon}
+                      color="inherit"
+                      {...linkProps}
+                    >
+                      {linkChildren}
+                    </Button>
+                  );
+                })}
+              </Box>
+            )}
+          </>
+        </Box>
+        <Box className="dropdown-menu">
+          <Tooltip title="Open settings">
             <Button
               aria-controls={open ? 'user-menu' : undefined}
               aria-owns={open ? 'user-menu' : null}
@@ -198,22 +193,22 @@ const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavi
             >
               {user?.name}
             </Button>
-            <UserDropdownMenu
-              menuID="user-menu"
-              user={user}
-              anchorEl={anchorElUser}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-              modesHeading="Theme"
-              modes={modes}
-              onLogOut={onLogOut}
-              logOutText="Log Out"
-              mode={mode}
-              onModeChange={onModeChange}
-            />
-          </Box>
-        </Toolbar>
-      </Container>
+          </Tooltip>
+          <UserDropdownMenu
+            menuID="user-menu"
+            user={user}
+            anchorEl={anchorElUser}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+            modesHeading="Theme"
+            modes={modes}
+            onActionTrigger={(): void => null}
+            actionText="Log Out"
+            mode={mode}
+            onModeChange={onModeChange}
+          />
+        </Box>
+      </Toolbar>
     </AppBar>
   );
 };
