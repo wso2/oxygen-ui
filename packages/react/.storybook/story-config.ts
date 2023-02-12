@@ -46,6 +46,7 @@ export type Stories =
   | 'SignIn'
   | 'TextField'
   | 'Tooltip'
+  | 'Typeset'
   | 'Typography'
   | 'Welcome';
 export type StorybookConfig = Record<
@@ -121,8 +122,11 @@ const StoryConfig: StorybookConfig = {
   Tooltip: {
     hierarchy: `${StorybookCategories.DataDisplay}/Tooltip`,
   },
+  Typeset: {
+    hierarchy: `${StorybookCategories.Foundations}/Typeset`,
+  },
   Typography: {
-    hierarchy: `${StorybookCategories.Foundations}/Typography`,
+    hierarchy: `${StorybookCategories.DataDisplay}/Typography`,
   },
   Welcome: {
     hierarchy: 'Welcome',
