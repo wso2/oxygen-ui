@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListItemIcon should match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="MuiListItemIcon-root oxygen-list-item-icon css-1djcs2d-MuiListItemIcon-root"
+    />
+  </div>
+</body>
+`;
