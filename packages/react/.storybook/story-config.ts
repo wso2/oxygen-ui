@@ -32,6 +32,7 @@ enum StorybookCategories {
 
 export type Stories =
   | 'AppBar'
+  | 'Box'
   | 'Button'
   | 'ColorModeToggle'
   | 'Colors'
@@ -78,6 +79,9 @@ const StoryConfig: StorybookConfig = {
       },
     },
     hierarchy: `${StorybookCategories.Surfaces}/AppBar`,
+  },
+  Box: {
+    hierarchy: `${StorybookCategories.Layout}/Box`,
   },
   Button: {
     hierarchy: `${StorybookCategories.Inputs}/Button`,
