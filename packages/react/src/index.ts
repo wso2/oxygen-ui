@@ -26,7 +26,6 @@ export {
   ToggleButton,
   ToggleButtonGroup,
   IconButton,
-  Box,
   Dialog,
   DialogTitle,
   DialogContent,

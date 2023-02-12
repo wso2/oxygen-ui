@@ -17,4 +17,4 @@
  */
 
 export {default} from './ListItemIcon';
-export type {ListItemButtonProps} from './ListItemIcon';
+export type {ListItemIconProps} from './ListItemIcon';
