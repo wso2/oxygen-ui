@@ -16,5 +16,17 @@
  * under the License.
  */
 
-export {default} from './ListItemIcon';
-export type {ListItemIconProps} from './ListItemIcon';
+import {render} from '@unit-testing';
+import Typography from '../Typography';
+
+describe('Typography', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(<Typography>Sample Text</Typography>);
+    expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<Typography>Sample Text</Typography>);
+    expect(baseElement).toMatchSnapshot();
+  });
+});
