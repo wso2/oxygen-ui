@@ -16,16 +16,15 @@
  * under the License.
  */
 
-import {FC, MouseEvent, ReactElement, ReactNode, useState} from 'react';
+import {FC, ReactElement, ReactNode} from 'react';
 import clsx from 'clsx';
 import {Box, IconButton, Toolbar, Tooltip, Typography, useMediaQuery} from '@mui/material';
 import {useColorScheme, useTheme, Theme} from '@mui/material/styles';
-import {ChevronDownIcon, HamburgerIcon} from '@oxygen-ui/react-icons';
+import {HamburgerIcon} from '@oxygen-ui/react-icons';
 import {Mode} from '@mui/system/cssVars/useCurrentColorScheme';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './top-navigation.scss';
-import Avatar from '../Avatar';
 import Button, {ButtonProps} from '../Button';
 import Link from '../Link';
 import UserDropdownMenu, {ModeListInterface} from '../UserDropdownMenu';
@@ -91,7 +90,6 @@ const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavi
   const {className, children, isLeftNavigationActive, brand, user, links, modes, onLeftNavigationTrigger, ...rest} =
     props;
 
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const theme: Theme = useTheme();
   const {mode, setMode} = useColorScheme();
   const isMobile: boolean = useMediaQuery(theme.breakpoints.down('sm'));
@@ -103,16 +101,6 @@ const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavi
     },
     className,
   );
-
-  const open: boolean = Boolean(anchorElUser);
-
-  const handleOpenUserMenu = (event: MouseEvent<HTMLElement>): void => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = (): void => {
-    setAnchorElUser(null);
-  };
 
   const onModeChange = (selectedMode: Mode): void => {
     setMode(selectedMode);
@@ -175,39 +163,19 @@ const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavi
             )}
           </>
         </Box>
-        <Box className="dropdown-menu">
-          <Tooltip title="Open settings">
-            <Button
-              aria-controls={open ? 'user-menu' : undefined}
-              aria-owns={open ? 'user-menu' : null}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-              onClick={handleOpenUserMenu}
-              startIcon={
-                <Avatar className="image" alt="User Image" src={user?.image}>
-                  {user?.name?.split('')[0]}
-                </Avatar>
-              }
-              endIcon={<ChevronDownIcon />}
-              color="inherit"
-            >
-              {user?.name}
-            </Button>
-          </Tooltip>
-          <UserDropdownMenu
-            menuID="user-menu"
-            user={user}
-            anchorEl={anchorElUser}
-            open={Boolean(anchorElUser)}
-            onClose={handleCloseUserMenu}
-            modesHeading="Theme"
-            modes={modes}
-            onActionTrigger={(): void => null}
-            actionText="Log Out"
-            mode={mode}
-            onModeChange={onModeChange}
-          />
-        </Box>
+        <Tooltip title="Open settings">
+          <Box className="dropdown-menu">
+            <UserDropdownMenu
+              user={user}
+              modesHeading="Theme"
+              modes={modes}
+              onActionTrigger={(): void => null}
+              actionText="Log Out"
+              mode={mode}
+              onModeChange={onModeChange}
+            />
+          </Box>
+        </Tooltip>
       </Toolbar>
     </AppBar>
   );

@@ -21,7 +21,7 @@ import UserDropdownMenu from './UserDropdownMenu';
 
 describe('UserDropdownMenu', () => {
   it('should render successfully', () => {
-    const {baseElement} = render(<UserDropdownMenu open />);
+    const {baseElement} = render(<UserDropdownMenu />);
     expect(baseElement).toBeTruthy();
   });
 });

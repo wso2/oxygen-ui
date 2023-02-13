@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import {PowerIcon} from '@oxygen-ui/react-icons';
+import {PowerIcon, ChevronDownIcon} from '@oxygen-ui/react-icons';
 import {capitalize} from '@mui/material/utils';
 import {
   Divider,
@@ -29,25 +29,22 @@ import {
   ListItem,
 } from '@mui/material';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {FC, KeyboardEvent, MouseEvent, ReactElement, useState} from 'react';
 import {WithWrapperProps} from 'src/models';
 import Avatar from '../Avatar';
 import {composeComponentDisplayName} from '../../utils';
 import Menu, {MenuProps} from '../Menu';
 import './user-dropdown-menu.scss';
+import Button from '../Button';
 
 /**
  * Interface for the User Dropdown Menu component props.
  */
-export interface UserDropdownMenuProps extends MenuProps {
+export interface UserDropdownMenuProps extends Omit<MenuProps, 'open'> {
   /**
    * List item button text.
    */
   actionText?: string;
-  /**
-   * The id attribute of Menu component.
-   */
-  menuID?: string;
   /**
    * Current mode.
    */
@@ -113,64 +110,110 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
     actionText,
     onModeChange,
     onActionTrigger,
-    menuID,
     ...rest
   } = props;
 
   const classes: string = clsx('oxygen-user-dropdown-menu', className);
 
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
   const handleModeChange = (selectedMode: string): void => {
     onModeChange(selectedMode);
   };
 
+  const onCloseUserMenu = (): void => {
+    setAnchorElUser(null);
+  };
+
   const handleUserProfileNavigation = (): void => {
+    onCloseUserMenu();
     onUserProfileNavigation();
   };
 
+  const handleActionTrigger = (): void => {
+    onCloseUserMenu();
+    onActionTrigger();
+  };
+
+  const openMenu: boolean = Boolean(anchorElUser);
+
+  const handleOpenUserMenu = (event: MouseEvent<HTMLElement>): void => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleMenuKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
+    if (event.key === 'Tab') {
+      setAnchorElUser(null);
+    }
+  };
+
   return (
-    <Menu className={classes} id={menuID} {...rest}>
-      <ListItem
-        className={clsx('list-item', {
-          clickable: Boolean(onUserProfileNavigation),
-        })}
-        onClick={(): void => handleUserProfileNavigation()}
+    <div>
+      <Button
+        aria-controls="user-menu"
+        aria-haspopup="true"
+        onClick={handleOpenUserMenu}
+        startIcon={
+          <Avatar className="image" alt="User Image" src={user?.image}>
+            {user?.name?.split('')[0]}
+          </Avatar>
+        }
+        endIcon={<ChevronDownIcon />}
+        color="inherit"
       >
-        <ListItemAvatar>
-          <Avatar src={user?.image} alt="User" />
-        </ListItemAvatar>
-        <ListItemText primary={user?.name} secondary={user?.email} />
-      </ListItem>
-      <Divider />
-      {modes?.length > 0 && (
-        <>
-          <ListSubheader>{modesHeading}</ListSubheader>
-          {modes?.map((theme: ModeListInterface) => {
-            const {name, icon} = theme;
-            return (
-              <MenuItem className="menu-item" key={name} onClick={(): void => handleModeChange(name)}>
-                <ListItemIcon>{icon}</ListItemIcon>
-                <ListItemText primary={capitalize(name)} />
-                <Radio
-                  edge="end"
-                  checked={mode === name}
-                  onChange={(): void => handleModeChange(name)}
-                  value={name}
-                  name="radio-buttons"
-                  inputProps={{'aria-label': `mode-label-${name}`}}
-                />
-              </MenuItem>
-            );
+        {user?.name}
+      </Button>
+      <Menu
+        open={openMenu}
+        anchorEl={anchorElUser}
+        className={classes}
+        id="user-menu"
+        onKeyDown={handleMenuKeyDown}
+        {...rest}
+      >
+        <ListItem
+          className={clsx('list-item', {
+            clickable: Boolean(onUserProfileNavigation),
           })}
-        </>
-      )}
-      <Divider />
-      <MenuItem className="menu-item" onClick={onActionTrigger}>
-        <ListItemIcon>
-          <PowerIcon />
-        </ListItemIcon>
-        <ListItemText primary={actionText} />
-      </MenuItem>
-    </Menu>
+          onClick={(): void => handleUserProfileNavigation()}
+        >
+          <ListItemAvatar>
+            <Avatar src={user?.image} alt="User" />
+          </ListItemAvatar>
+          <ListItemText primary={user?.name} secondary={user?.email} />
+        </ListItem>
+        <Divider />
+        {modes?.length > 0 && (
+          <>
+            <ListSubheader>{modesHeading}</ListSubheader>
+            {modes?.map((theme: ModeListInterface) => {
+              const {name, icon} = theme;
+              return (
+                <MenuItem className="menu-item" key={name} onClick={(): void => handleModeChange(name)}>
+                  <ListItemIcon>{icon}</ListItemIcon>
+                  <ListItemText primary={capitalize(name)} />
+                  <Radio
+                    edge="end"
+                    checked={mode === name}
+                    onChange={(): void => handleModeChange(name)}
+                    value={name}
+                    name="radio-buttons"
+                    inputProps={{'aria-label': `mode-label-${name}`}}
+                  />
+                </MenuItem>
+              );
+            })}
+          </>
+        )}
+        <Divider />
+        <MenuItem className="menu-item" onClick={(): void => handleActionTrigger()}>
+          <ListItemIcon>
+            <PowerIcon />
+          </ListItemIcon>
+          <ListItemText primary={actionText} />
+        </MenuItem>
+      </Menu>
+    </div>
   );
 };
 
