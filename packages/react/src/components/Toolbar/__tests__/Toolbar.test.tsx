@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,21 +16,17 @@
  * under the License.
  */
 
-export * from './components';
-export * from './theme';
-export {
-  Alert,
-  AlertTitle,
-  Paper,
-  ToggleButton,
-  ToggleButtonGroup,
-  IconButton,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-} from '@mui/material';
-export {useColorScheme} from '@mui/material/styles';
+import {render} from '@unit-testing';
+import Toolbar from '../Toolbar';
 
-export {Theme} from './models';
+describe('Toolbar', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(<Toolbar />);
+    expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<Toolbar />);
+    expect(baseElement).toMatchSnapshot();
+  });
+});

@@ -53,6 +53,7 @@ export type Stories =
   | 'MenuItem'
   | 'SignIn'
   | 'TextField'
+  | 'Toolbar'
   | 'Tooltip'
   | 'Typeset'
   | 'Typography'
@@ -150,6 +151,9 @@ const StoryConfig: StorybookConfig = {
   },
   TextField: {
     hierarchy: `${StorybookCategories.Inputs}/Text Field`,
+  },
+  Toolbar: {
+    hierarchy: `${StorybookCategories.Surfaces}/Toolbar`,
   },
   Tooltip: {
     hierarchy: `${StorybookCategories.DataDisplay}/Tooltip`,
