@@ -21,7 +21,7 @@ import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
-import './app-bar.scss';
+import './avatar.scss';
 
 export type AvatarProps = MuiAvatarProps;
 
