@@ -22,7 +22,8 @@
   ],
   "scripts": {
     "build": "node ./scripts/build.js",
-    "lint": "eslint .",
+    "lint": "pnpm lint:es",
+    "lint:es": "eslint .",
     "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest --passWithNoTests",
     "transform": "node ./scripts/transform.js",
     "typecheck": "tsc --noemit -p tsconfig.json"
@@ -33,8 +34,8 @@
     "@oxygen-ui/logger": "*",
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.18",
-    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?27de3d37a97801704a42e407342eca01dfd00ff6",
-    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?27de3d37a97801704a42e407342eca01dfd00ff6",
+    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b63a99b1c18bac2d9fc856a73b30a8ecaed6b8f3",
+    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b63a99b1c18bac2d9fc856a73b30a8ecaed6b8f3",
     "cheerio": "1.0.0-rc.12",
     "eslint": "8.25.0",
     "fs-extra": "^11.1.0",

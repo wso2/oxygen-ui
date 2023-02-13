@@ -1,6 +1,6 @@
 :root {
   --oxygen-palette-primary-main: #ff7300;
-  --oxygen-palette-primary-dark: rgb(178, 80, 0);
+  --oxygen-palette-primary-dark: rgb(178 80 0);
   --oxygen-palette-background-default: #121212;
 }
 
@@ -8,8 +8,18 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif;
   color: white;
   background: var(--oxygen-palette-background-default);
 }

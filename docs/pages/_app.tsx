@@ -16,7 +16,8 @@
  * under the License.
  */
 
-import '../styles/globals.css';
+import '../styles/globals.scss';
+import '../styles/app.scss';
 import type {AppProps} from 'next/app';
 import {ReactElement} from 'react';
 

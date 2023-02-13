@@ -16,7 +16,17 @@
  * under the License.
  */
 
-import {NextFont} from '@next/font/dist/types';
-import {Space_Grotesk} from '@next/font/google';
+import {render} from '@unit-testing';
+import AppShell from '../AppShell';
 
-export const spaceGrotesk: NextFont = Space_Grotesk({subsets: ['latin']});
+describe('AppShell', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(<AppShell />);
+    expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<AppShell />);
+    expect(baseElement).toMatchSnapshot();
+  });
+});
