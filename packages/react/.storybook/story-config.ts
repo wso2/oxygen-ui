@@ -39,6 +39,7 @@ export type Stories =
   | 'Button'
   | 'ColorModeToggle'
   | 'Colors'
+  | 'Divider'
   | 'Drawer'
   | 'Grid'
   | 'IconButton'
@@ -92,10 +93,10 @@ const StoryConfig: StorybookConfig = {
   },
   AppBar: {
     hierarchy: `${StorybookCategories.Surfaces}/App Bar`,
-  }, 
+  },
   Avatar: {
     hierarchy: `${StorybookCategories.DataDisplay}/Avatar`,
-  }, 
+  },
   Box: {
     hierarchy: `${StorybookCategories.Layout}/Box`,
   },
@@ -110,6 +111,9 @@ const StoryConfig: StorybookConfig = {
   },
   Colors: {
     hierarchy: `${StorybookCategories.Foundations}/Colors`,
+  },
+  Divider: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Divider`,
   },
   Drawer: {
     hierarchy: `${StorybookCategories.Navigation}/Drawer`,

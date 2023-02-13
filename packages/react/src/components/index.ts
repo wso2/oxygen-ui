@@ -28,6 +28,9 @@ export * from './Button';
 export {default as ColorModeToggle} from './ColorModeToggle';
 export * from './ColorModeToggle';
 
+export {default as Divider} from './Divider';
+export * from './Divider';
+
 export {default as Drawer} from './Drawer';
 export * from './Drawer';
 
