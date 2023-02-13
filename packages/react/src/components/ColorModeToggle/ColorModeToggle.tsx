@@ -22,6 +22,7 @@ import clsx from 'clsx';
 import {FC, PropsWithChildren, ReactElement, SVGProps} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
+import './color-mode-toggle.scss';
 
 export type ColorModeToggleProps = IconButtonProps;
 
