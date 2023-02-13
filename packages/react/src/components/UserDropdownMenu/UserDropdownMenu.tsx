@@ -16,8 +16,6 @@
  * under the License.
  */
 
-import {PowerIcon, ChevronDownIcon} from '@oxygen-ui/react-icons';
-import {capitalize} from '@mui/material/utils';
 import {
   Divider,
   ListItemAvatar,
@@ -28,14 +26,16 @@ import {
   Radio,
   ListItem,
 } from '@mui/material';
+import {capitalize} from '@mui/material/utils';
+import {PowerIcon, ChevronDownIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
-import {FC, KeyboardEvent, MouseEvent, ReactElement, useState} from 'react';
+import {FC, MouseEvent, ReactElement, useState} from 'react';
 import {WithWrapperProps} from 'src/models';
-import Avatar from '../Avatar';
 import {composeComponentDisplayName} from '../../utils';
+import Avatar from '../Avatar';
+import Button from '../Button';
 import Menu, {MenuProps} from '../Menu';
 import './user-dropdown-menu.scss';
-import Button from '../Button';
 
 /**
  * Interface for the User Dropdown Menu component props.
@@ -141,12 +141,6 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleMenuKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
-    if (event.key === 'Tab') {
-      setAnchorElUser(null);
-    }
-  };
-
   return (
     <div>
       <Button
@@ -168,7 +162,7 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
         anchorEl={anchorElUser}
         className={classes}
         id="user-menu"
-        onKeyDown={handleMenuKeyDown}
+        onClose={onCloseUserMenu}
         {...rest}
       >
         <ListItem

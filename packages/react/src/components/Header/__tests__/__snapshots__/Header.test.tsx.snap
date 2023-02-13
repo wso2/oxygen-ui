@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header should match the snapshot 1`] = `
+<body>
+  <div>
+    <header
+      class="MuiPaper-root MuiPaper-outlined MuiAppBar-root MuiAppBar-colorInherit MuiAppBar-positionStatic oxygen-app-bar oxygen-header css-163objg-MuiPaper-root-MuiAppBar-root"
+      role="navigation"
+    >
+      <div
+        class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-hyum1k-MuiToolbar-root"
+      >
+        <div
+          class="nav-links-section MuiBox-root css-0"
+        />
+        <div
+          aria-label="Open settings"
+          class="dropdown-menu MuiBox-root css-0"
+          data-mui-internal-clone-element="true"
+        >
+          <div>
+            <button
+              aria-controls="user-menu"
+              aria-haspopup="true"
+              class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit oxygen-button css-11g7nlj-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
+              id=":r3:"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="MuiButton-startIcon MuiButton-iconSizeMedium css-1d6wzja-MuiButton-startIcon"
+              >
+                <div
+                  class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault oxygen-ui-avatar image css-woe6xp-MuiAvatar-root"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback css-10mi8st-MuiSvgIcon-root-MuiAvatar-fallback"
+                    data-testid="PersonIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                    />
+                  </svg>
+                </div>
+              </span>
+              <span
+                class="MuiButton-endIcon MuiButton-iconSizeMedium css-9tj150-MuiButton-endIcon"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="oxygen-icon oxygen-icon-chevron-down"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  role="img"
+                  style="display: inline-block; overflow: visible; user-select: none; vertical-align: text-bottom;"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <path
+                    d="M4.5 6.5L8 10L11.5 6.5"
+                    stroke="#40404B"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+</body>
+`;

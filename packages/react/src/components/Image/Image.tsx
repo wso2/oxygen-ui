@@ -16,11 +16,11 @@
  * under the License.
  */
 
-import {FC, ReactElement} from 'react';
-import clsx from 'clsx';
 import {Box, BoxProps} from '@mui/material';
-import {composeComponentDisplayName} from '../../utils';
+import clsx from 'clsx';
+import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
+import {composeComponentDisplayName} from '../../utils';
 
 export interface ImageProps extends BoxProps {
   /**

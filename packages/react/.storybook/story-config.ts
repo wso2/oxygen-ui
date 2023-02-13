@@ -33,7 +33,7 @@ enum StorybookCategories {
 export type Stories =
   | 'AppBar'
   | 'Avatar'
-  | 'TopNavigation'
+  | 'Header'
   | 'Button'
   | 'ColorModeToggle'
   | 'Colors'
@@ -72,7 +72,7 @@ export type StorybookConfig = Record<
 >;
 
 const StoryConfig: StorybookConfig = {
-  TopNavigation: {
+  Header: {
     story: {
       Overview: {
         design: {
@@ -81,7 +81,7 @@ const StoryConfig: StorybookConfig = {
         },
       },
     },
-    hierarchy: `${StorybookCategories.Navigation}/Top Navigation`,
+    hierarchy: `${StorybookCategories.Navigation}/Header`,
   },
   AppBar: {
     hierarchy: `${StorybookCategories.Surfaces}/App Bar`,
@@ -112,6 +112,7 @@ const StoryConfig: StorybookConfig = {
   },
   Menu: {
     hierarchy: `${StorybookCategories.Navigation}/Menu`,
+  },
   List: {
     hierarchy: `${StorybookCategories.DataDisplay}/List`,
   },

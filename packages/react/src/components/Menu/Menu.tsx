@@ -18,8 +18,8 @@
 
 import MuiMenu, {MenuProps as MuiMenuProps} from '@mui/material/Menu';
 import {FC, ReactElement} from 'react';
-import {composeComponentDisplayName} from '../../utils';
 import {WithWrapperProps} from '../../models';
+import {composeComponentDisplayName} from '../../utils';
 
 export type MenuProps = MuiMenuProps;
 

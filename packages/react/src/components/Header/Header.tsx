@@ -16,24 +16,24 @@
  * under the License.
  */
 
-import {FC, ReactElement, ReactNode} from 'react';
-import clsx from 'clsx';
 import {Box, IconButton, Toolbar, Tooltip, Typography, useMediaQuery} from '@mui/material';
 import {useColorScheme, useTheme, Theme} from '@mui/material/styles';
-import {HamburgerIcon} from '@oxygen-ui/react-icons';
 import {Mode} from '@mui/system/cssVars/useCurrentColorScheme';
+import {HamburgerIcon} from '@oxygen-ui/react-icons';
+import clsx from 'clsx';
+import {FC, ReactElement, ReactNode} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
-import './top-navigation.scss';
+import './header.scss';
+import AppBar, {AppBarProps} from '../AppBar';
 import Button, {ButtonProps} from '../Button';
 import Link from '../Link';
 import UserDropdownMenu, {ModeListInterface} from '../UserDropdownMenu';
-import AppBar, {AppBarProps} from '../AppBar';
 
 /**
- * Interface for the Top Navigation component props.
+ * Interface for the Header component props.
  */
-export interface TopNavigationProps extends AppBarProps {
+export interface HeaderProps extends AppBarProps {
   /**
    * Brand information.
    */
@@ -43,7 +43,7 @@ export interface TopNavigationProps extends AppBarProps {
    */
   isLeftNavigationActive?: boolean;
   /**
-   * Links available on the top navigation bar.
+   * Links available on the header.
    */
   links?: Omit<ButtonProps, 'color'>[];
   /**
@@ -81,21 +81,21 @@ export interface UserTemplate {
   name?: string;
 }
 
-const COMPONENT_NAME: string = 'TopNavigation';
+const COMPONENT_NAME: string = 'Header';
 
 /**
- * Top Navigation component.
+ * Header component.
  */
-const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavigationProps): ReactElement => {
+const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactElement => {
   const {className, children, isLeftNavigationActive, brand, user, links, modes, onLeftNavigationTrigger, ...rest} =
     props;
 
   const theme: Theme = useTheme();
   const {mode, setMode} = useColorScheme();
-  const isMobile: boolean = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile: boolean = useMediaQuery(theme.breakpoints.down(theme.breakpoints.values.sm));
 
   const classes: string = clsx(
-    'oxygen-top-nav',
+    'oxygen-header',
     {
       mobile: isMobile,
     },
@@ -181,7 +181,7 @@ const TopNavigation: FC<TopNavigationProps> & WithWrapperProps = (props: TopNavi
   );
 };
 
-TopNavigation.displayName = composeComponentDisplayName(COMPONENT_NAME);
-TopNavigation.muiName = COMPONENT_NAME;
+Header.displayName = composeComponentDisplayName(COMPONENT_NAME);
+Header.muiName = COMPONENT_NAME;
 
-export default TopNavigation;
+export default Header;

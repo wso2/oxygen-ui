@@ -16,7 +16,17 @@
  * under the License.
  */
 
-export {default} from './TopNavigation';
-export type {TopNavigationProps} from './TopNavigation';
-export type {BrandTemplate} from './TopNavigation';
-export type {UserTemplate} from './TopNavigation';
+import {render} from '@unit-testing';
+import Header from '../Header';
+
+describe('Header', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(<Header />);
+    expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<Header />);
+    expect(baseElement).toMatchSnapshot();
+  });
+});
