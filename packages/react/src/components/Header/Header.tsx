@@ -114,7 +114,7 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
       variant="outlined"
       elevation={0}
       className={classes}
-      role="navigation"
+      role="banner"
       {...rest}
     >
       <Toolbar>

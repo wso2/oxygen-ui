@@ -98,7 +98,7 @@ export interface UserTemplate {
   name?: string;
 }
 
-const COMPONENT_NAME: string = 'UserDropdownMenu';
+const COMPONENT_NAME: string = 'ButtonDropdownMenu';
 
 /**
  * Button Dropdown Menu component.
@@ -148,7 +148,12 @@ const ButtonDropdownMenu: FC<ButtonDropdownMenuProps> & WithWrapperProps = (
 
   return (
     <div>
-      <Button aria-controls="oxygen-button-menu" aria-haspopup="true" onClick={handleOpenUserMenu} {...buttonProps} />
+      <Button
+        aria-controls={openMenu ? 'oxygen-button-menu' : undefined}
+        aria-haspopup="true"
+        onClick={handleOpenUserMenu}
+        {...buttonProps}
+      />
       <Menu
         open={openMenu}
         anchorEl={anchorEl}

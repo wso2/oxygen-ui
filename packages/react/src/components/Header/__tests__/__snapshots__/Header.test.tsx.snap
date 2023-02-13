@@ -5,7 +5,7 @@ exports[`Header should match the snapshot 1`] = `
   <div>
     <header
       class="MuiPaper-root MuiPaper-outlined MuiAppBar-root MuiAppBar-colorInherit MuiAppBar-positionStatic oxygen-app-bar oxygen-header css-163objg-MuiPaper-root-MuiAppBar-root"
-      role="navigation"
+      role="banner"
     >
       <div
         class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-hyum1k-MuiToolbar-root"
@@ -18,7 +18,6 @@ exports[`Header should match the snapshot 1`] = `
         >
           <div>
             <button
-              aria-controls="oxygen-button-menu"
               aria-haspopup="true"
               class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit oxygen-button css-11g7nlj-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
               id=":r1:"
