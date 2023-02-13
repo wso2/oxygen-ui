@@ -59,6 +59,14 @@ These developer tools will help you to have a better developer experience since 
     * [Download for Webstorm](https://www.jetbrains.com/help/webstorm/eslint.html)
     * [Download for VS Code](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
+#### Stylelint
+
+* Type 🧰 : IDE Extension
+* Description 🗒️ : Static code analysis tool for Stylesheets. 
+* Download Links 🔗
+    * [Setup for Webstorm](https://www.jetbrains.com/help/webstorm/using-stylelint-code-quality-tool.html)
+    * [Download for VS Code](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint)
+
 #### ShellCheck
 
 * Type 🧰 : IDE Extension
