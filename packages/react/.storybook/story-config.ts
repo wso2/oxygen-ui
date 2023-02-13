@@ -39,6 +39,7 @@ export type Stories =
   | 'ColorModeToggle'
   | 'Colors'
   | 'Grid'
+  | 'IconButton'
   | 'Icons'
   | 'Image'
   | 'Link'
@@ -108,6 +109,9 @@ const StoryConfig: StorybookConfig = {
   },
   Image: {
     hierarchy: `${StorybookCategories.DataDisplay}/Image`,
+  },
+  IconButton: {
+    hierarchy: `${StorybookCategories.Inputs}/Icon Button`,
   },
   Icons: {
     hierarchy: `${StorybookCategories.Icons}/Icons`,
