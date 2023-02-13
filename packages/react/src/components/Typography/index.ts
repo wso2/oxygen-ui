@@ -16,5 +16,5 @@
  * under the License.
  */
 
-export {default} from './ListItemIcon';
-export type {ListItemIconProps} from './ListItemIcon';
+export {default} from './Typography';
+export type {TypographyProps} from './Typography';

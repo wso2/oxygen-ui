@@ -34,6 +34,7 @@ export type Stories =
   | 'AppBar'
   | 'Avatar'
   | 'TopNavigation'
+  | 'Box'
   | 'Button'
   | 'ColorModeToggle'
   | 'Colors'
@@ -50,6 +51,7 @@ export type Stories =
   | 'SignIn'
   | 'TextField'
   | 'Tooltip'
+  | 'Typeset'
   | 'Typography'
   | 'Welcome';
 export type StorybookConfig = Record<
@@ -89,6 +91,9 @@ const StoryConfig: StorybookConfig = {
   Avatar: {
     hierarchy: `${StorybookCategories.DataDisplay}/Avatar`,
   }, 
+  Box: {
+    hierarchy: `${StorybookCategories.Layout}/Box`,
+  },
   Button: {
     hierarchy: `${StorybookCategories.Inputs}/Button`,
   },
@@ -136,8 +141,11 @@ const StoryConfig: StorybookConfig = {
   Tooltip: {
     hierarchy: `${StorybookCategories.DataDisplay}/Tooltip`,
   },
+  Typeset: {
+    hierarchy: `${StorybookCategories.Foundations}/Typeset`,
+  },
   Typography: {
-    hierarchy: `${StorybookCategories.Foundations}/Typography`,
+    hierarchy: `${StorybookCategories.DataDisplay}/Typography`,
   },
   Welcome: {
     hierarchy: 'Welcome',

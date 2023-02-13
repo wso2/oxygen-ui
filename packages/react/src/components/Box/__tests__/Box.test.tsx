@@ -16,5 +16,17 @@
  * under the License.
  */
 
-export {default} from './ListItemIcon';
-export type {ListItemIconProps} from './ListItemIcon';
+import {render} from '@unit-testing';
+import Box from '../Box';
+
+describe('Box', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(<Box />);
+    expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<Box />);
+    expect(baseElement).toMatchSnapshot();
+  });
+});
