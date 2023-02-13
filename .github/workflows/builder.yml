@@ -53,6 +53,10 @@ jobs:
         id: install-dependencies
         run: pnpm install
 
+      - name: ⏳ Lint All Files
+        id: lint
+        run: pnpm lint
+
       - name: 🏗️ Build
         id: build
         run:  pnpm build

@@ -25,6 +25,8 @@
     "build": "nx run-many --target=build --parallel",
     "build:docs": "pnpm --filter @oxygen-ui/react build-storybook && pnpm --filter @oxygen-ui/docs build",
     "lint": "nx run-many --target=lint --parallel",
+    "lint:es": "nx run-many --target=lint:es --parallel",
+    "lint:styles": "nx run-many --target=lint:styles --parallel",
     "test": "nx run-many --target=test --parallel",
     "typecheck": "nx run-many --target=typecheck --parallel"
   },

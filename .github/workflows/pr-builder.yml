@@ -68,9 +68,13 @@ jobs:
         id: build
         run:  pnpm build
 
-      - name: ⏳ Lint All Files
+      - name: 🌳 Lint ES Files
         id: lint-with-eslint
-        run: pnpm nx affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --target=lint --parallel=3
+        run: pnpm nx affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --target=lint:es --parallel=3
+
+      - name: 💅 Lint Styles
+        id: lint-with-stylelint
+        run: pnpm nx affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --target=lint:styles --parallel=3
 
   typecheck:
     name: ʦ Typecheck (STATIC ANALYSIS)

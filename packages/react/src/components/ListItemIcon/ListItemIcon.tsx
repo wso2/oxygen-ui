@@ -21,6 +21,7 @@ import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
+import './list-item-icon.scss';
 
 export type ListItemIconProps = MuiListItemIconProps;
 

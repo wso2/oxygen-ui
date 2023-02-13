@@ -21,6 +21,7 @@ import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
+import './link.scss';
 
 export type LinkProps = MuiLinkProps;
 

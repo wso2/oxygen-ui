@@ -21,6 +21,7 @@ import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
+import './app-bar.scss';
 
 export type AvatarProps = MuiAvatarProps;
 
@@ -28,6 +29,7 @@ const COMPONENT_NAME: string = 'Avatar';
 
 const Avatar: FC<AvatarProps> & WithWrapperProps = (props: AvatarProps): ReactElement => {
   const {className, ...rest} = props;
+
   const classes: string = clsx('oxygen-ui-avatar', className);
 
   return <MuiAvatar className={classes} {...rest} />;

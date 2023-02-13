@@ -16,6 +16,7 @@
  * under the License.
  */
 
+import {NextFont} from '@next/font/dist/types';
 import {Space_Grotesk} from '@next/font/google';
 
-export const spaceGrotesk = Space_Grotesk({subsets: ['latin']});
+export const spaceGrotesk: NextFont = Space_Grotesk({subsets: ['latin']});

@@ -21,10 +21,9 @@ import Head from 'next/head';
 import Image from 'next/image';
 import {ReactElement} from 'react';
 import {spaceGrotesk} from '../styles/fonts';
-import styles from '../styles/Home.module.css';
 
 const Index = (): ReactElement => (
-  <div className={styles.container}>
+  <div className="container">
     <Head>
       <title>Oxygen UI | by WSO2</title>
       <meta name="description" content="The Design System powering WSO2's core products." />
@@ -32,44 +31,40 @@ const Index = (): ReactElement => (
       <link rel="icon" type="image/png" href="/favicon.png" />
     </Head>
 
-    <main className={styles.main}>
-      <Image
-        className={styles.hero_logo}
-        src="/assets/images/oxygen-ui/oxygen-ui-logo.svg"
-        alt="Oxygen UI Logo"
-        width={400}
-        height={100}
-      />
-      <p className={clsx(styles.description, spaceGrotesk.className)}>
-        The <span className={styles.emphasis_text}>Design System</span> powering{' '}
+    <main className="main">
+      <div className="hero">
         <Image
-          className={styles.wso2_logo}
-          src="/assets/images/logos/white/wso2.svg"
-          alt="wso2"
-          width={50}
-          height={20}
+          className="hero-logo"
+          src="/assets/images/oxygen-ui/oxygen-ui-logo.svg"
+          alt="Oxygen UI Logo"
+          width={400}
+          height={100}
         />
-        &apos;s core products.
-      </p>
+        <p className={clsx('hero-description', spaceGrotesk.className)}>
+          The <span className="hero-emphasis-text">Design System</span> powering{' '}
+          <Image className="wso2-logo" src="/assets/images/logos/white/wso2.svg" alt="wso2" width={50} height={20} />
+          &apos;s core products.
+        </p>
+      </div>
 
-      <div className={styles.grid}>
+      <div className="grid">
         <a
           href="https://github.com/brionmario/oxygen-ui/tree/main/packages/primitives"
-          className={clsx(styles.card, styles.disabled)}
+          className={clsx('card', 'disabled')}
           target="_blank"
           rel="noreferrer"
         >
           <h2>
             <Image src="/assets/images/oxygen-ui/guidelines-logo.svg" alt="Guidelines Logo" width={20} height={20} />
             Guidelines
-            <div className={clsx(styles['coming-soon-label'], spaceGrotesk.className)}>Coming Soon</div>
+            <div className={clsx('coming-soon-label', spaceGrotesk.className)}>Coming Soon</div>
           </h2>
           <code>@oxygen-ui/guidelines</code>
           <p className={spaceGrotesk.className}>A collection of principles, standards, and usage guidelines.</p>
         </a>
         <a
           href="https://github.com/brionmario/oxygen-ui/tree/main/packages/primitives"
-          className={styles.card}
+          className="card"
           target="_blank"
           rel="noreferrer"
         >
@@ -82,7 +77,7 @@ const Index = (): ReactElement => (
         </a>
         <a
           href="https://oxygen-react.vercel.app/?path=/docs/welcome--page"
-          className={styles.card}
+          className="card"
           target="_blank"
           rel="noreferrer"
         >
@@ -96,7 +91,7 @@ const Index = (): ReactElement => (
 
         <a
           href="https://www.figma.com/file/78epPbkczGFO5RM1sPyNtN/Oxygen?node-id=0%3A1&t=gsdIXRlJ1VChBa37-0"
-          className={styles.card}
+          className="card"
           target="_blank"
           rel="noreferrer"
         >
@@ -108,16 +103,11 @@ const Index = (): ReactElement => (
           <p className={spaceGrotesk.className}>The place where the designing and brainstorming happens.</p>
         </a>
       </div>
-      <div className={styles.divider} />
+      <div className="divider" />
       <h2>Showcase</h2>
-      <div className={styles.grid}>
-        <div className={styles.examples}>
-          <a
-            href="https://oxygen-multi-brand-example.vercel.app"
-            className={styles.card}
-            target="_blank"
-            rel="noreferrer"
-          >
+      <div className="grid">
+        <div className="examples">
+          <a href="https://oxygen-multi-brand-example.vercel.app" className="card" target="_blank" rel="noreferrer">
             <h2>Multi Brand Identity Example</h2>
             <code>@oxygen-ui-examples/multi-brand-identity</code>
             <p className={spaceGrotesk.className}>
@@ -128,7 +118,7 @@ const Index = (): ReactElement => (
       </div>
     </main>
 
-    <footer className={styles.footer}>
+    <footer className="footer">
       <a href="https://wso2.com/" target="_blank" rel="noopener noreferrer">
         Built with ❤️ by
         <Image src="/assets/images/logos/white/wso2.svg" alt="WSO2" width={40} height={16} />
