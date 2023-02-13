@@ -32,6 +32,9 @@ enum StorybookCategories {
 
 export type Stories =
   | 'AppBar'
+  | 'Avatar'
+  | 'ButtonDropdownMenu'
+  | 'Header'
   | 'Box'
   | 'Button'
   | 'ColorModeToggle'
@@ -39,12 +42,15 @@ export type Stories =
   | 'Grid'
   | 'IconButton'
   | 'Icons'
+  | 'Image'
   | 'Link'
   | 'List'
   | 'ListItem'
   | 'ListItemButton'
   | 'ListItemIcon'
   | 'ListItemText'
+  | 'Menu'
+  | 'MenuItem'
   | 'SignIn'
   | 'TextField'
   | 'Tooltip'
@@ -71,7 +77,7 @@ export type StorybookConfig = Record<
 >;
 
 const StoryConfig: StorybookConfig = {
-  AppBar: {
+  Header: {
     story: {
       Overview: {
         design: {
@@ -80,13 +86,22 @@ const StoryConfig: StorybookConfig = {
         },
       },
     },
-    hierarchy: `${StorybookCategories.Surfaces}/AppBar`,
+    hierarchy: `${StorybookCategories.Navigation}/Header`,
   },
+  AppBar: {
+    hierarchy: `${StorybookCategories.Surfaces}/App Bar`,
+  }, 
+  Avatar: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Avatar`,
+  }, 
   Box: {
     hierarchy: `${StorybookCategories.Layout}/Box`,
   },
   Button: {
     hierarchy: `${StorybookCategories.Inputs}/Button`,
+  },
+  ButtonDropdownMenu: {
+    hierarchy: `${StorybookCategories.Navigation}/Button Dropdown Menu`,
   },
   ColorModeToggle: {
     hierarchy: `${StorybookCategories.Theme}/Color Mode Toggle`,
@@ -97,6 +112,9 @@ const StoryConfig: StorybookConfig = {
   Grid: {
     hierarchy: `${StorybookCategories.Layout}/Grid`,
   },
+  Image: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Image`,
+  },
   IconButton: {
     hierarchy: `${StorybookCategories.Inputs}/Icon Button`,
   },
@@ -105,6 +123,12 @@ const StoryConfig: StorybookConfig = {
   },
   Link: {
     hierarchy: `${StorybookCategories.Navigation}/Link`,
+  },
+  Menu: {
+    hierarchy: `${StorybookCategories.Navigation}/Menu`,
+  },
+  MenuItem: {
+    hierarchy: `${StorybookCategories.Navigation}/Menu Item`,
   },
   List: {
     hierarchy: `${StorybookCategories.DataDisplay}/List`,

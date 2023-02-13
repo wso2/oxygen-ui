@@ -22,7 +22,7 @@ import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 
-export interface GridProps extends MuiGridProps {}
+export type GridProps = MuiGridProps;
 
 const COMPONENT_NAME: string = 'Grid';
 

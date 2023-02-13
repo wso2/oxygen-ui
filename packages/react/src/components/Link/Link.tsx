@@ -22,7 +22,7 @@ import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 
-export interface LinkProps extends MuiLinkProps {}
+export type LinkProps = MuiLinkProps;
 
 const COMPONENT_NAME: string = 'Link';
 

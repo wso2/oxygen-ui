@@ -22,7 +22,7 @@ import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 
-export interface TooltipProps extends MuiTooltipProps {}
+export type TooltipProps = MuiTooltipProps;
 
 const COMPONENT_NAME: string = 'Tooltip';
 

@@ -50,6 +50,10 @@ export const DEFAULT_THEME_OPTIONS: RecursivePartial<Theme> = {
     borderRadius: lightTokens.OxygenOxygenBorderRadiusLg,
   },
   typography: {
+    body1: {
+      fontSize: '0.875rem',
+      fontWeight: 'normal',
+    },
     button: {
       textTransform: 'none',
     },

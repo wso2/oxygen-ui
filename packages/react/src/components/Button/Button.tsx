@@ -22,7 +22,7 @@ import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 
-export interface ButtonProps extends MuiButtonProps {}
+export type ButtonProps = MuiButtonProps;
 
 const COMPONENT_NAME: string = 'Button';
 
@@ -36,9 +36,5 @@ const Button: FC<ButtonProps> & WithWrapperProps = (props: ButtonProps): ReactEl
 
 Button.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Button.muiName = COMPONENT_NAME;
-Button.defaultProps = {
-  disableElevation: true,
-  disableRipple: true,
-};
 
 export default Button;

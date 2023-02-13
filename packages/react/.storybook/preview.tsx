@@ -58,7 +58,7 @@ addParameters({
     light: themes.light,
     normal: themes.normal,
   },
-  layout: 'centered',
+  layout: 'fullscreen',
   controls: {
     expanded: true,
     sort: 'requiredFirst',

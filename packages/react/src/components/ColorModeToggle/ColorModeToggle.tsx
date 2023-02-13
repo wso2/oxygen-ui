@@ -23,7 +23,7 @@ import {FC, PropsWithChildren, ReactElement, SVGProps} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 
-export interface ColorModeToggleProps extends IconButtonProps {}
+export type ColorModeToggleProps = IconButtonProps;
 
 const COMPONENT_NAME: string = 'ColorModeToggle';
 

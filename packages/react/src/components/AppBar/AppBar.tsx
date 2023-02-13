@@ -22,7 +22,7 @@ import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 
-export interface AppBarProps extends MuiAppBarProps {}
+export type AppBarProps = MuiAppBarProps;
 
 const COMPONENT_NAME: string = 'AppBar';
 
