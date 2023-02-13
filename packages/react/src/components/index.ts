@@ -28,6 +28,9 @@ export * from './Button';
 export {default as ColorModeToggle} from './ColorModeToggle';
 export * from './ColorModeToggle';
 
+export {default as Drawer} from './Drawer';
+export * from './Drawer';
+
 export {default as Grid} from './Grid';
 export * from './Grid';
 
