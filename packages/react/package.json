@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
+    "@oxygen-ui/logger": "*",
     "@rollup/plugin-commonjs": "^23.0.3",
     "@rollup/plugin-image": "^3.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
@@ -92,6 +93,7 @@
     "sass": "^1.56.1",
     "sass-loader": "^13.2.0",
     "storybook-addon-designs": "^6.3.1",
+    "storybook-addon-themes": "^6.1.0",
     "storybook-dark-mode": "^1.1.2",
     "ts-dedent": "^2.2.0",
     "ts-jest": "^29.0.3",

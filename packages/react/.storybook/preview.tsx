@@ -16,10 +16,15 @@
  * under the License.
  */
 
-import {PropsWithChildren, ReactNode} from 'react';
+import {PropsWithChildren} from 'react';
 import {addParameters, Story, StoryContext} from '@storybook/react';
 import {DocsContainer, DocsContainerProps, DocsPage} from '@storybook/addon-docs';
-import {themes} from './theme';
+import {
+  getActiveManagerThemeRuntime,
+  getOxygenThemeRuntime,
+  getOxygenThemes,
+  themes,
+} from './theme';
 import ThemeProvider from '../src/theme/ThemeProvider';
 import {extendTheme} from '../src/theme';
 
@@ -66,7 +71,7 @@ addParameters({
       return <DocsContainer context={context}>{children}</DocsContainer>;
     },
     page: DocsPage,
-    theme: themes.dark,
+    theme: themes[getActiveManagerThemeRuntime()],
   },
   viewMode: 'docs',
   previewTabs: {
@@ -90,6 +95,33 @@ addParameters({
         '*',
       ],
     },
+  },
+  themes: {
+    default: getOxygenThemeRuntime().name,
+    onChange: (theme) => {
+      const activatedTheme: string = theme?.name;
+
+      try {
+        const managerThemes = JSON.parse(localStorage.getItem('sb-addon-themes-3'));
+
+        if (managerThemes.hasOwnProperty(activatedTheme)) {
+          managerThemes.current = activatedTheme;
+        }
+
+        localStorage.setItem('sb-addon-themes-3', JSON.stringify(managerThemes));
+        localStorage.setItem('oxygen-mode', activatedTheme);
+
+        window.location.reload();
+      } catch (e) {
+        // Silently, leave the manager theme as it is.
+      }
+    },
+    list: Object.entries(getOxygenThemes()).map(([key, value]) => {
+      return {
+        name: key,
+        color: value.palette.primary.main,
+      };
+    }),
   },
 });
 

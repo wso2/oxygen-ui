@@ -27,25 +27,49 @@ enum StorybookCategories {
   Patterns = 'Patterns',
   Theme = 'Theme',
   Typography = 'Typography',
-  Surfaces = 'Surfaces'
+  Surfaces = 'Surfaces',
 }
 
-export type Stories = 'AppBar' | 'TopNavigation' | 'Avatar' | 'Image' | 'Button' | 'ColorModeToggle' | 'Colors' | 'Grid' | 'Icons' | 'Link' | 'Menu' | 'SignIn' | 'TextField' | 'Tooltip' | 'Typography' | 'Welcome';
-export type StorybookConfig = Record<Stories, {
-  hierarchy: string;
-  design?: {
-    type: 'figma';
-    url: string;
-  };
-  story?: {
-    [key: string]: {
-      design?: {
-        type: 'figma';
-        url: string;
+export type Stories =
+  | 'AppBar'
+  | 'Avatar'
+  | 'TopNavigation'
+  | 'Button'
+  | 'ColorModeToggle'
+  | 'Colors'
+  | 'Grid'
+  | 'Icons'
+  | 'Image'
+  | 'Link'
+  | 'List'
+  | 'ListItem'
+  | 'ListItemButton'
+  | 'ListItemIcon'
+  | 'ListItemText'
+  | 'Menu'
+  | 'SignIn'
+  | 'TextField'
+  | 'Tooltip'
+  | 'Typography'
+  | 'Welcome';
+export type StorybookConfig = Record<
+  Stories,
+  {
+    hierarchy: string;
+    design?: {
+      type: 'figma';
+      url: string;
+    };
+    story?: {
+      [key: string]: {
+        design?: {
+          type: 'figma';
+          url: string;
+        };
       };
-    }
+    };
   }
-}>;
+>;
 
 const StoryConfig: StorybookConfig = {
   TopNavigation: {
@@ -53,9 +77,9 @@ const StoryConfig: StorybookConfig = {
       Overview: {
         design: {
           type: 'figma',
-          url: 'https://www.figma.com/file/HyEVOfDBGyXsvPSbNdgquW/Navigation%2FHeader?node-id=120%3A1437&t=NT0uoPAY3qLFlkmN-0'
+          url: 'https://www.figma.com/file/HyEVOfDBGyXsvPSbNdgquW/Navigation%2FHeader?node-id=120%3A1437&t=NT0uoPAY3qLFlkmN-0',
         },
-      }
+      },
     },
     hierarchy: `${StorybookCategories.Navigation}/Top Navigation`,
   },
@@ -88,6 +112,20 @@ const StoryConfig: StorybookConfig = {
   },
   Menu: {
     hierarchy: `${StorybookCategories.Navigation}/Menu`,
+  List: {
+    hierarchy: `${StorybookCategories.DataDisplay}/List`,
+  },
+  ListItem: {
+    hierarchy: `${StorybookCategories.DataDisplay}/List Item`,
+  },
+  ListItemButton: {
+    hierarchy: `${StorybookCategories.DataDisplay}/List Item Button`,
+  },
+  ListItemIcon: {
+    hierarchy: `${StorybookCategories.DataDisplay}/List Item Icon`,
+  },
+  ListItemText: {
+    hierarchy: `${StorybookCategories.DataDisplay}/List Item Text`,
   },
   SignIn: {
     hierarchy: `${StorybookCategories.Patterns}/Sign In`,
