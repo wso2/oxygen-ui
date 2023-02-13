@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import {Box, IconButton, Toolbar, Typography, useMediaQuery} from '@mui/material';
+import {useMediaQuery} from '@mui/material';
 import {useColorScheme, useTheme, Theme} from '@mui/material/styles';
 import {Mode} from '@mui/system/cssVars/useCurrentColorScheme';
 import {ChevronDownIcon, HamburgerIcon, PowerIcon} from '@oxygen-ui/react-icons';
@@ -27,13 +27,14 @@ import {composeComponentDisplayName} from '../../utils';
 import './header.scss';
 import AppBar, {AppBarProps} from '../AppBar';
 import Avatar from '../Avatar';
+import Box from '../Box';
 import Button, {ButtonProps} from '../Button';
-import ButtonDropdownMenu, {ModeListInterface} from '../ButtonDropdownMenu';
+import IconButton from '../IconButton';
 import Link from '../Link';
+import Toolbar from '../Toolbar';
+import Typography from '../Typography';
+import UserDropdownMenu, {ModeListInterface, UserTemplate} from '../UserDropdownMenu';
 
-/**
- * Interface for the Header component props.
- */
 export interface HeaderProps extends AppBarProps {
   /**
    * Brand information.
@@ -61,32 +62,32 @@ export interface HeaderProps extends AppBarProps {
   user?: UserTemplate;
 }
 
-/**
- * Interface for the brand template.
- */
 export interface BrandTemplate {
+  /**
+   * Logo for the brand template.
+   */
   logo?: {
+    /**
+     * Desktop logo for the brand template.
+     */
     desktop?: ReactNode;
+    /**
+     * Mobile logo for the brand template.
+     */
     mobile?: ReactNode;
   };
+  /**
+   * Function on clicking on the brand logo and name.
+   */
   onClick?: () => void;
+  /**
+   * Title of the brand, portal name or company.
+   */
   title?: ReactNode;
-}
-
-/**
- * Interface for the logged user template.
- */
-export interface UserTemplate {
-  email?: string;
-  image?: string;
-  name?: string;
 }
 
 const COMPONENT_NAME: string = 'Header';
 
-/**
- * Header component.
- */
 const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactElement => {
   const {className, children, isLeftNavigationActive, brand, user, links, modes, onLeftNavigationTrigger, ...rest} =
     props;
@@ -126,16 +127,15 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
         {brand && (
           <Box
             tabIndex={0}
-            component={brand.onClick ? Link : Box}
+            component={Boolean(brand.onClick) && Link}
             className={clsx('logo-box', {
               'with-link': Boolean(brand.onClick),
             })}
             onClick={brand.onClick}
-            underline="none"
             color="inherit"
           >
             <Box className="logo">{isMobile ? brand.logo.mobile ?? brand.logo.desktop : brand.logo.desktop}</Box>
-            <Typography variant="h6" component="h1" className="portal-name">
+            <Typography variant="h1" className="portal-name">
               {brand.title}
             </Typography>
           </Box>
@@ -165,9 +165,9 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
           </>
         </Box>
         <Box className="dropdown-menu">
-          <ButtonDropdownMenu
+          <UserDropdownMenu
             user={user}
-            buttonProps={{
+            triggerOptions={{
               children: user?.name,
               color: 'inherit',
               endIcon: <ChevronDownIcon />,

@@ -29,12 +29,12 @@ import ListItemIcon from '../ListItemIcon';
 import ListItemText from '../ListItemText';
 import Menu, {MenuProps} from '../Menu';
 import MenuItem from '../MenuItem';
-import './button-dropdown-menu.scss';
+import './user-dropdown-menu.scss';
 
 /**
  * Interface for the Button Dropdown Menu component props.
  */
-export interface ButtonDropdownMenuProps {
+export interface UserDropdownMenuProps extends Omit<MenuProps, 'open' | 'anchorEl'> {
   /**
    * List item icon.
    */
@@ -43,14 +43,6 @@ export interface ButtonDropdownMenuProps {
    * List item button text.
    */
   actionText?: string;
-  /**
-   * Props sent to the Button component;
-   */
-  buttonProps?: Omit<ButtonProps, 'onClick'>;
-  /**
-   * Props sent to the Menu component;
-   */
-  menuProps?: Omit<MenuProps, 'open' | 'anchorEl'>;
   /**
    * Current mode.
    */
@@ -76,38 +68,50 @@ export interface ButtonDropdownMenuProps {
    */
   onUserProfileNavigation?: () => void;
   /**
+   * Props sent to the menu trigger or Button component;
+   */
+  triggerOptions?: Omit<ButtonProps, 'onClick'>;
+  /**
    * Logged user information.
    */
   user?: UserTemplate;
 }
 
-/**
- * Interface for the modes list.
- */
 export interface ModeListInterface {
+  /**
+   * Icon of the mode.
+   */
   icon?: string | ReactElement;
+  /**
+   * Display name of the mode.
+   */
   name: string;
 }
 
-/**
- * Interface for the logged user template.
- */
 export interface UserTemplate {
+  /**
+   * Email of logged user.
+   */
   email?: string;
+  /**
+   * Image link of logged user.
+   */
   image?: string;
+  /**
+   * Display name of logged user.
+   */
   name?: string;
 }
 
-const COMPONENT_NAME: string = 'ButtonDropdownMenu';
+const COMPONENT_NAME: string = 'UserDropdownMenu';
 
-/**
- * Button Dropdown Menu component.
- */
-const ButtonDropdownMenu: FC<ButtonDropdownMenuProps> & WithWrapperProps = (
-  props: ButtonDropdownMenuProps & WithWrapperProps,
+const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
+  props: UserDropdownMenuProps & WithWrapperProps,
 ) => {
   const {
-    buttonProps,
+    className,
+    children,
+    triggerOptions,
     user,
     modes,
     mode,
@@ -117,10 +121,14 @@ const ButtonDropdownMenu: FC<ButtonDropdownMenuProps> & WithWrapperProps = (
     actionIcon,
     onModeChange,
     onActionTrigger,
-    menuProps,
+    ...rest
   } = props;
 
+  const classes: string = clsx('oxygen-user-dropdown-menu', className);
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const openMenu: boolean = Boolean(anchorEl);
 
   const handleModeChange = (selectedMode: string): void => {
     onModeChange(selectedMode);
@@ -132,41 +140,43 @@ const ButtonDropdownMenu: FC<ButtonDropdownMenuProps> & WithWrapperProps = (
 
   const handleUserProfileNavigation = (): void => {
     onCloseMenu();
-    onUserProfileNavigation();
+    if (onUserProfileNavigation) {
+      onUserProfileNavigation();
+    }
   };
 
   const handleActionTrigger = (): void => {
     onCloseMenu();
-    onActionTrigger();
+    if (onActionTrigger) {
+      onActionTrigger();
+    }
   };
-
-  const openMenu: boolean = Boolean(anchorEl);
 
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>): void => {
     setAnchorEl(event.currentTarget);
   };
 
   return (
-    <div>
+    <>
       <Button
         aria-controls={openMenu ? 'oxygen-button-menu' : undefined}
         aria-haspopup="true"
         onClick={handleOpenUserMenu}
-        {...buttonProps}
+        {...triggerOptions}
       />
       <Menu
         open={openMenu}
         anchorEl={anchorEl}
-        className="oxygen-button-dropdown-menu"
+        className={classes}
         id="oxygen-button-menu"
         onClose={onCloseMenu}
-        {...menuProps}
+        {...rest}
       >
-        {menuProps?.children}
+        {children}
         {user && (
           <ListItem
             className={clsx('dropdown-list-item', {
-              clickable: Boolean(onUserProfileNavigation),
+              clickable: onUserProfileNavigation,
             })}
             onClick={(): void => handleUserProfileNavigation()}
           >
@@ -209,11 +219,11 @@ const ButtonDropdownMenu: FC<ButtonDropdownMenuProps> & WithWrapperProps = (
           </>
         )}
       </Menu>
-    </div>
+    </>
   );
 };
 
-ButtonDropdownMenu.displayName = composeComponentDisplayName(COMPONENT_NAME);
-ButtonDropdownMenu.muiName = COMPONENT_NAME;
+UserDropdownMenu.displayName = composeComponentDisplayName(COMPONENT_NAME);
+UserDropdownMenu.muiName = COMPONENT_NAME;
 
-export default ButtonDropdownMenu;
+export default UserDropdownMenu;

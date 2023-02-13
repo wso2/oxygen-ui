@@ -16,6 +16,7 @@
  * under the License.
  */
 
-export {default} from './Header';
-export type {HeaderProps} from './Header';
-export type {BrandTemplate} from './Header';
+export {default} from './UserDropdownMenu';
+export {UserDropdownMenuProps} from './UserDropdownMenu';
+export {ModeListInterface} from './UserDropdownMenu';
+export {UserTemplate} from './UserDropdownMenu';

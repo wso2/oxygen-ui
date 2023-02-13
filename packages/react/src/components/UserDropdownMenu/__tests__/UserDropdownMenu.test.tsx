@@ -17,16 +17,16 @@
  */
 
 import {render} from '@unit-testing';
-import ButtonDropdownMenu from '../ButtonDropdownMenu';
+import UserDropdownMenu from '../UserDropdownMenu';
 
-describe('ButtonDropdownMenu', () => {
+describe('UserDropdownMenu', () => {
   it('should render successfully', () => {
-    const {baseElement} = render(<ButtonDropdownMenu />);
+    const {baseElement} = render(<UserDropdownMenu />);
     expect(baseElement).toBeTruthy();
   });
 
   it('should match the snapshot', () => {
-    const {baseElement} = render(<ButtonDropdownMenu />);
+    const {baseElement} = render(<UserDropdownMenu />);
     expect(baseElement).toMatchSnapshot();
   });
 });

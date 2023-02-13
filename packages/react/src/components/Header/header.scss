@@ -25,6 +25,12 @@
     margin-right: 1rem;
   }
 
+  .portal-name {
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 1.6;
+  }
+
   .logo-box {
     display: flex;
     align-items: center;
@@ -37,6 +43,7 @@
 
     &.with-link {
       cursor: pointer;
+      text-decoration: none;
     }
   }
 
