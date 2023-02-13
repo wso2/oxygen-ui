@@ -16,41 +16,5 @@
  * under the License.
  */
 
-.oxygen-sign-in {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  text-align: left;
-
-  .oxygen-sign-in-box {
-    padding: 32px;
-    min-width: 350px;
-    max-width: 500px;
-  }
-
-  .oxygen-sign-in-logo {
-    max-height: 50px;
-    margin-bottom: 30px;
-  }
-
-  .oxygen-sign-in-header {
-    margin-bottom: 32px;
-  }
-
-  .oxygen-sign-in-form {
-    .oxygen-text-field {
-      margin-bottom: 20px;
-    }
-
-    .oxygen-sign-in-sign-up-link {
-      font-size: 14px;
-    }
-
-    .oxygen-sign-in-sign-up-link-action {
-      margin-left: 5px;
-    }
-  }
-}
+export {default} from './MenuItem';
+export type {MenuItemProps} from './MenuItem';

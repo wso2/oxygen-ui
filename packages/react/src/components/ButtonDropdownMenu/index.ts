@@ -16,6 +16,6 @@
  * under the License.
  */
 
-export {default} from './UserDropdownMenu';
-export {UserDropdownMenuProps} from './UserDropdownMenu';
-export {ModeListInterface} from './UserDropdownMenu';
+export {default} from './ButtonDropdownMenu';
+export {ButtonDropdownMenuProps} from './ButtonDropdownMenu';
+export {ModeListInterface} from './ButtonDropdownMenu';

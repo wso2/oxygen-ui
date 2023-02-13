@@ -3,7 +3,7 @@ import dedent from 'ts-dedent';
 import StoryConfig from '../../../.storybook/story-config.ts';
 import {withDesign} from '../../../.storybook/utils.ts';
 import Menu from './Menu.tsx';
-import MenuItem from './MenuItem.tsx';
+import MenuItem from '../MenuItem';
 
 export const meta = {
   component: Menu,
@@ -18,6 +18,7 @@ export const Template = args => <Menu {...args} />;
 
 - [Overview](#overview)
 - [Props](#props)
+- [Usage](#usage)
 
 ## Overview
 
@@ -35,3 +36,22 @@ Menu.
 ## Props
 
 <ArgsTable story="Overview" />
+
+## Usage
+
+Import and use the `Menu` component in your components as follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`
+import Menu from '@oxygen-ui/react/Menu';\n
+function Demo() {
+  return (
+    <Menu>
+      <MenuItem>Menu Item 1</MenuItem> <MenuItem>Menu Item 2</MenuItem>
+    </Menu>
+  );
+}`}
+/>

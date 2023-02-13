@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ButtonDropdownMenu should match the snapshot 1`] = `
+<body>
+  <div>
+    <div>
+      <button
+        aria-controls="oxygen-button-menu"
+        aria-haspopup="true"
+        class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium oxygen-button css-1800qii-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
+        id=":r1:"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </button>
+    </div>
+  </div>
+</body>
+`;

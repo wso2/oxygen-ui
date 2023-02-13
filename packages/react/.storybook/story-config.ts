@@ -33,6 +33,7 @@ enum StorybookCategories {
 export type Stories =
   | 'AppBar'
   | 'Avatar'
+  | 'ButtonDropdownMenu'
   | 'Header'
   | 'Box'
   | 'Button'
@@ -49,6 +50,7 @@ export type Stories =
   | 'ListItemIcon'
   | 'ListItemText'
   | 'Menu'
+  | 'MenuItem'
   | 'SignIn'
   | 'TextField'
   | 'Tooltip'
@@ -98,6 +100,9 @@ const StoryConfig: StorybookConfig = {
   Button: {
     hierarchy: `${StorybookCategories.Inputs}/Button`,
   },
+  ButtonDropdownMenu: {
+    hierarchy: `${StorybookCategories.Navigation}/Button Dropdown Menu`,
+  },
   ColorModeToggle: {
     hierarchy: `${StorybookCategories.Theme}/Color Mode Toggle`,
   },
@@ -121,6 +126,9 @@ const StoryConfig: StorybookConfig = {
   },
   Menu: {
     hierarchy: `${StorybookCategories.Navigation}/Menu`,
+  },
+  MenuItem: {
+    hierarchy: `${StorybookCategories.Navigation}/Menu Item`,
   },
   List: {
     hierarchy: `${StorybookCategories.DataDisplay}/List`,

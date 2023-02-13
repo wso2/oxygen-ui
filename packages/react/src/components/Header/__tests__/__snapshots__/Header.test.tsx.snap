@@ -14,16 +14,14 @@ exports[`Header should match the snapshot 1`] = `
           class="nav-links-section MuiBox-root css-0"
         />
         <div
-          aria-label="Open settings"
           class="dropdown-menu MuiBox-root css-0"
-          data-mui-internal-clone-element="true"
         >
           <div>
             <button
-              aria-controls="user-menu"
+              aria-controls="oxygen-button-menu"
               aria-haspopup="true"
               class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit oxygen-button css-11g7nlj-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
-              id=":r3:"
+              id=":r1:"
               tabindex="0"
               type="button"
             >

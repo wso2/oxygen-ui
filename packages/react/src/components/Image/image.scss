@@ -16,21 +16,4 @@
  * under the License.
  */
 
-import MuiMenuItem, {MenuItemProps as MuiMenuItemProps} from '@mui/material/MenuItem';
-import {FC, ReactElement} from 'react';
-import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
-
-export type MenuItemProps = MuiMenuItemProps;
-
-const COMPONENT_NAME: string = 'MenuItem';
-
-const MenuItem: FC<MenuItemProps> & WithWrapperProps = (props: MenuItemProps): ReactElement => {
-  const {className, children, ...rest} = props;
-  return <MuiMenuItem {...rest}>{children}</MuiMenuItem>;
-};
-
-MenuItem.displayName = composeComponentDisplayName(COMPONENT_NAME);
-MenuItem.muiName = COMPONENT_NAME;
-
-export default MenuItem;
+ .oxygen-image {}

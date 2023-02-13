@@ -16,19 +16,20 @@
  * under the License.
  */
 
-import {Box, IconButton, Toolbar, Tooltip, Typography, useMediaQuery} from '@mui/material';
+import {Box, IconButton, Toolbar, Typography, useMediaQuery} from '@mui/material';
 import {useColorScheme, useTheme, Theme} from '@mui/material/styles';
 import {Mode} from '@mui/system/cssVars/useCurrentColorScheme';
-import {HamburgerIcon} from '@oxygen-ui/react-icons';
+import {ChevronDownIcon, HamburgerIcon, PowerIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {FC, ReactElement, ReactNode} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './header.scss';
 import AppBar, {AppBarProps} from '../AppBar';
+import Avatar from '../Avatar';
 import Button, {ButtonProps} from '../Button';
+import ButtonDropdownMenu, {ModeListInterface} from '../ButtonDropdownMenu';
 import Link from '../Link';
-import UserDropdownMenu, {ModeListInterface} from '../UserDropdownMenu';
 
 /**
  * Interface for the Header component props.
@@ -163,19 +164,28 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
             )}
           </>
         </Box>
-        <Tooltip title="Open settings">
-          <Box className="dropdown-menu">
-            <UserDropdownMenu
-              user={user}
-              modesHeading="Theme"
-              modes={modes}
-              onActionTrigger={(): void => null}
-              actionText="Log Out"
-              mode={mode}
-              onModeChange={onModeChange}
-            />
-          </Box>
-        </Tooltip>
+        <Box className="dropdown-menu">
+          <ButtonDropdownMenu
+            user={user}
+            buttonProps={{
+              children: user?.name,
+              color: 'inherit',
+              endIcon: <ChevronDownIcon />,
+              startIcon: (
+                <Avatar className="image" alt="User Image" src={user?.image}>
+                  {user?.name?.split('')[0]}
+                </Avatar>
+              ),
+            }}
+            modesHeading="Theme"
+            modes={modes}
+            onActionTrigger={(): void => null}
+            actionText="Log Out"
+            actionIcon={<PowerIcon />}
+            mode={mode}
+            onModeChange={onModeChange}
+          />
+        </Box>
       </Toolbar>
     </AppBar>
   );

@@ -16,35 +16,41 @@
  * under the License.
  */
 
-import {
-  Divider,
-  ListItemAvatar,
-  ListItemIcon,
-  ListItemText,
-  ListSubheader,
-  MenuItem,
-  Radio,
-  ListItem,
-} from '@mui/material';
+import {Divider, ListItemAvatar, ListSubheader, Radio} from '@mui/material';
 import {capitalize} from '@mui/material/utils';
-import {PowerIcon, ChevronDownIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
-import {FC, MouseEvent, ReactElement, useState} from 'react';
+import {FC, MouseEvent, ReactElement, ReactNode, useState} from 'react';
 import {WithWrapperProps} from 'src/models';
 import {composeComponentDisplayName} from '../../utils';
 import Avatar from '../Avatar';
-import Button from '../Button';
+import Button, {ButtonProps} from '../Button';
+import ListItem from '../ListItem';
+import ListItemIcon from '../ListItemIcon';
+import ListItemText from '../ListItemText';
 import Menu, {MenuProps} from '../Menu';
-import './user-dropdown-menu.scss';
+import MenuItem from '../MenuItem';
+import './button-dropdown-menu.scss';
 
 /**
- * Interface for the User Dropdown Menu component props.
+ * Interface for the Button Dropdown Menu component props.
  */
-export interface UserDropdownMenuProps extends Omit<MenuProps, 'open'> {
+export interface ButtonDropdownMenuProps {
+  /**
+   * List item icon.
+   */
+  actionIcon?: ReactNode;
   /**
    * List item button text.
    */
   actionText?: string;
+  /**
+   * Props sent to the Button component;
+   */
+  buttonProps?: Omit<ButtonProps, 'onClick'>;
+  /**
+   * Props sent to the Menu component;
+   */
+  menuProps?: Omit<MenuProps, 'open' | 'anchorEl'>;
   /**
    * Current mode.
    */
@@ -95,95 +101,84 @@ export interface UserTemplate {
 const COMPONENT_NAME: string = 'UserDropdownMenu';
 
 /**
- * User Dropdown Menu component.
+ * Button Dropdown Menu component.
  */
-const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
-  props: UserDropdownMenuProps & WithWrapperProps,
+const ButtonDropdownMenu: FC<ButtonDropdownMenuProps> & WithWrapperProps = (
+  props: ButtonDropdownMenuProps & WithWrapperProps,
 ) => {
   const {
-    className,
+    buttonProps,
     user,
     modes,
     mode,
     onUserProfileNavigation,
     modesHeading,
     actionText,
+    actionIcon,
     onModeChange,
     onActionTrigger,
-    ...rest
+    menuProps,
   } = props;
 
-  const classes: string = clsx('oxygen-user-dropdown-menu', className);
-
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleModeChange = (selectedMode: string): void => {
     onModeChange(selectedMode);
   };
 
-  const onCloseUserMenu = (): void => {
-    setAnchorElUser(null);
+  const onCloseMenu = (): void => {
+    setAnchorEl(null);
   };
 
   const handleUserProfileNavigation = (): void => {
-    onCloseUserMenu();
+    onCloseMenu();
     onUserProfileNavigation();
   };
 
   const handleActionTrigger = (): void => {
-    onCloseUserMenu();
+    onCloseMenu();
     onActionTrigger();
   };
 
-  const openMenu: boolean = Boolean(anchorElUser);
+  const openMenu: boolean = Boolean(anchorEl);
 
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>): void => {
-    setAnchorElUser(event.currentTarget);
+    setAnchorEl(event.currentTarget);
   };
 
   return (
     <div>
-      <Button
-        aria-controls="user-menu"
-        aria-haspopup="true"
-        onClick={handleOpenUserMenu}
-        startIcon={
-          <Avatar className="image" alt="User Image" src={user?.image}>
-            {user?.name?.split('')[0]}
-          </Avatar>
-        }
-        endIcon={<ChevronDownIcon />}
-        color="inherit"
-      >
-        {user?.name}
-      </Button>
+      <Button aria-controls="oxygen-button-menu" aria-haspopup="true" onClick={handleOpenUserMenu} {...buttonProps} />
       <Menu
         open={openMenu}
-        anchorEl={anchorElUser}
-        className={classes}
-        id="user-menu"
-        onClose={onCloseUserMenu}
-        {...rest}
+        anchorEl={anchorEl}
+        className="oxygen-button-dropdown-menu"
+        id="oxygen-button-menu"
+        onClose={onCloseMenu}
+        {...menuProps}
       >
-        <ListItem
-          className={clsx('list-item', {
-            clickable: Boolean(onUserProfileNavigation),
-          })}
-          onClick={(): void => handleUserProfileNavigation()}
-        >
-          <ListItemAvatar>
-            <Avatar src={user?.image} alt="User" />
-          </ListItemAvatar>
-          <ListItemText primary={user?.name} secondary={user?.email} />
-        </ListItem>
-        <Divider />
+        {menuProps?.children}
+        {user && (
+          <ListItem
+            className={clsx('dropdown-list-item', {
+              clickable: Boolean(onUserProfileNavigation),
+            })}
+            onClick={(): void => handleUserProfileNavigation()}
+          >
+            <ListItemAvatar>
+              <Avatar src={user?.image} alt="User" />
+            </ListItemAvatar>
+            <ListItemText primary={user?.name} secondary={user?.email} />
+          </ListItem>
+        )}
         {modes?.length > 0 && (
           <>
+            <Divider />
             <ListSubheader>{modesHeading}</ListSubheader>
             {modes?.map((theme: ModeListInterface) => {
               const {name, icon} = theme;
               return (
-                <MenuItem className="menu-item" key={name} onClick={(): void => handleModeChange(name)}>
+                <MenuItem className="dropdown-menu-item" key={name} onClick={(): void => handleModeChange(name)}>
                   <ListItemIcon>{icon}</ListItemIcon>
                   <ListItemText primary={capitalize(name)} />
                   <Radio
@@ -199,19 +194,21 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
             })}
           </>
         )}
-        <Divider />
-        <MenuItem className="menu-item" onClick={(): void => handleActionTrigger()}>
-          <ListItemIcon>
-            <PowerIcon />
-          </ListItemIcon>
-          <ListItemText primary={actionText} />
-        </MenuItem>
+        {actionText && (
+          <>
+            <Divider />
+            <MenuItem className="dropdown-menu-item" onClick={(): void => handleActionTrigger()}>
+              <ListItemIcon>{actionIcon}</ListItemIcon>
+              <ListItemText primary={actionText} />
+            </MenuItem>
+          </>
+        )}
       </Menu>
     </div>
   );
 };
 
-UserDropdownMenu.displayName = composeComponentDisplayName(COMPONENT_NAME);
-UserDropdownMenu.muiName = COMPONENT_NAME;
+ButtonDropdownMenu.displayName = composeComponentDisplayName(COMPONENT_NAME);
+ButtonDropdownMenu.muiName = COMPONENT_NAME;
 
-export default UserDropdownMenu;
+export default ButtonDropdownMenu;

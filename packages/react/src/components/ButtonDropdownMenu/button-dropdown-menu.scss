@@ -16,12 +16,14 @@
  * under the License.
  */
 
-import {render} from '@unit-testing';
-import UserDropdownMenu from './UserDropdownMenu';
+.oxygen-button-dropdown-menu {
+    .dropdown-list-item {
+        &.clickable {
+            cursor: pointer;
+        }
+    }
 
-describe('UserDropdownMenu', () => {
-  it('should render successfully', () => {
-    const {baseElement} = render(<UserDropdownMenu />);
-    expect(baseElement).toBeTruthy();
-  });
-});
+    .dropdown-menu-item {
+        min-height: 50px;
+    }
+}

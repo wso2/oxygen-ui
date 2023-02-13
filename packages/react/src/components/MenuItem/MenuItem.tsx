@@ -16,25 +16,25 @@
  * under the License.
  */
 
-import MuiMenu, {MenuProps as MuiMenuProps} from '@mui/material/Menu';
+import MuiMenuItem, {MenuItemProps as MuiMenuItemProps} from '@mui/material/MenuItem';
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 
-export type MenuProps = MuiMenuProps;
+export type MenuItemProps = MuiMenuItemProps;
 
-const COMPONENT_NAME: string = 'Menu';
+const COMPONENT_NAME: string = 'MenuItem';
 
-const Menu: FC<MenuProps> & WithWrapperProps = (props: MenuProps): ReactElement => {
+const MenuItem: FC<MenuItemProps> & WithWrapperProps = (props: MenuItemProps): ReactElement => {
   const {className, ...rest} = props;
 
-  const classes: string = clsx('oxygen-menu', className);
+  const classes: string = clsx('oxygen-menu-item', className);
 
-  return <MuiMenu className={classes} {...rest} />;
+  return <MuiMenuItem className={classes} {...rest} />;
 };
 
-Menu.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Menu.muiName = COMPONENT_NAME;
+MenuItem.displayName = composeComponentDisplayName(COMPONENT_NAME);
+MenuItem.muiName = COMPONENT_NAME;
 
-export default Menu;
+export default MenuItem;
