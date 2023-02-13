@@ -21,7 +21,6 @@ export * from './theme';
 export {
   Alert,
   AlertTitle,
-  Toolbar,
   Paper,
   ToggleButton,
   ToggleButtonGroup,
