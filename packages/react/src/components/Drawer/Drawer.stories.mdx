@@ -1,0 +1,84 @@
+import {Fragment} from 'react';
+import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
+import {useArgs} from '@storybook/client-api';
+import dedent from 'ts-dedent';
+import StoryConfig from '../../../.storybook/story-config.ts';
+import Drawer from './Drawer.tsx';
+import Button from '../Button/Button.tsx';
+import List from '../List/List.tsx';
+import ListItem from '../ListItem/ListItem.tsx';
+import ListItemText from '../ListItemText/ListItemText.tsx';
+
+export const meta = {
+  component: Drawer,
+  title: StoryConfig.Drawer.hierarchy,
+};
+
+<Meta title={meta.title} component={meta.component} />
+
+export const Template = args => {
+  const [{open, anchor}, updateArgs] = useArgs();
+  return (
+    <div>
+      {(['left', 'right', 'top', 'bottom']).map((anchor) => (
+        <Fragment key={anchor}>
+          <Button onClick={() => updateArgs({ open: !open, anchor: anchor })}>{anchor}</Button>
+          <Drawer
+            anchor={anchor}
+            open={open}
+            onClose={() => updateArgs({ open: !open, anchor: anchor })}
+            {...args}
+          >
+            <List>
+              <ListItem><ListItemText>Drawer Item 01</ListItemText></ListItem>
+              <ListItem><ListItemText>Drawer Item 02</ListItemText></ListItem>
+              <ListItem><ListItemText>Drawer Item 03</ListItemText></ListItem>
+            </List>
+          </Drawer>
+        </Fragment>
+      ))}
+    </div>
+  );
+};
+
+# Drawer
+
+- [Overview](#overview)
+- [Props](#props)
+- [Usage](#usage)
+
+## Overview
+
+Navigation drawers provide access to destinations in your app. Side sheets are surfaces containing supplementary content
+that are anchored to the left or right edge of the screen.
+
+<Canvas>
+  <Story name="Overview">{Template.bind({})}</Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Overview" />
+
+## Usage
+
+Import and use the `Drawer` component in your components as follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`
+import Drawer from '@oxygen-ui/react/Drawer';\n
+function Demo() {
+  return (
+    <Drawer
+      anchor={anchor}
+      open={state[anchor]}
+      onClose={toggleDrawer(anchor, false)}
+    >
+      {/* List */}
+    </Drawer>
+  );
+}`}
+/>
