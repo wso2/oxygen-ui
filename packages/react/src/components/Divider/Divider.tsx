@@ -16,27 +16,27 @@
  * under the License.
  */
 
-import MuiAvatar, {AvatarProps as MuiAvatarProps} from '@mui/material/Avatar';
+import MuiDivider, {DividerProps as MuiDividerProps} from '@mui/material/Divider';
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
-import './avatar.scss';
+import './divider.scss';
 
-export type AvatarProps = MuiAvatarProps;
+export type DividerProps = MuiDividerProps;
 
-const COMPONENT_NAME: string = 'Avatar';
+const COMPONENT_NAME: string = 'Divider';
 
-const Avatar: FC<AvatarProps> & WithWrapperProps = (props: AvatarProps): ReactElement => {
+const Divider: FC<DividerProps> & WithWrapperProps = (props: DividerProps): ReactElement => {
   const {className, ...rest} = props;
 
-  const classes: string = clsx('oxygen-ui-avatar', className);
+  const classes: string = clsx('oxygen-divider', className);
 
-  return <MuiAvatar className={classes} {...rest} />;
+  return <MuiDivider className={classes} {...rest} />;
 };
 
-Avatar.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Avatar.muiName = COMPONENT_NAME;
-Avatar.defaultProps = {};
+Divider.displayName = composeComponentDisplayName(COMPONENT_NAME);
+Divider.muiName = COMPONENT_NAME;
+Divider.defaultProps = {};
 
-export default Avatar;
+export default Divider;
