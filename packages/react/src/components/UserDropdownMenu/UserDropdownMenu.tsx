@@ -51,7 +51,7 @@ export interface UserDropdownMenuProps extends Omit<MenuProps, 'open' | 'anchorE
   /**
    * Array list of modes
    */
-  modes?: ModeListInterface[];
+  modes?: ModeList[];
   /**
    * Heading of the modes list.
    */
@@ -78,7 +78,7 @@ export interface UserDropdownMenuProps extends Omit<MenuProps, 'open' | 'anchorE
   user?: UserTemplate;
 }
 
-export interface ModeListInterface {
+export interface ModeList {
   /**
    * Icon of the mode.
    */
@@ -191,7 +191,7 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
           <>
             <Divider />
             <ListSubheader>{modesHeading}</ListSubheader>
-            {modes?.map((theme: ModeListInterface) => {
+            {modes?.map((theme: ModeList) => {
               const {name, icon} = theme;
               return (
                 <MenuItem className="dropdown-menu-item" key={name} onClick={(): void => handleModeChange(name)}>

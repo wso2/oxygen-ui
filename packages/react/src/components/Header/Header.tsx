@@ -33,7 +33,7 @@ import IconButton from '../IconButton';
 import Link from '../Link';
 import Toolbar from '../Toolbar';
 import Typography from '../Typography';
-import UserDropdownMenu, {ModeListInterface, UserTemplate} from '../UserDropdownMenu';
+import UserDropdownMenu, {ModeList, UserTemplate} from '../UserDropdownMenu';
 
 export interface HeaderProps extends AppBarProps {
   /**
@@ -51,7 +51,7 @@ export interface HeaderProps extends AppBarProps {
   /**
    * List of modes.
    */
-  modes?: ModeListInterface[];
+  modes?: ModeList[];
   /**
    * Function to handle left navigation bar button toggle.
    */
