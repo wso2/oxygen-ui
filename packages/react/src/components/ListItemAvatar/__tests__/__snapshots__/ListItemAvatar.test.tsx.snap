@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListItemAvatar should match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="MuiListItemAvatar-root oxygen-list-item-avatar css-1e9lk82-MuiListItemAvatar-root"
+    >
+      <div
+        class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault oxygen-ui-avatar css-woe6xp-MuiAvatar-root"
+      >
+        U
+      </div>
+    </div>
+  </div>
+</body>
+`;
