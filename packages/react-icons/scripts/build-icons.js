@@ -47,7 +47,7 @@ const pascalCase = str => str.replace(/(^|-)([a-z])/g, (_, __, c) => c.toUpperCa
 
 /**
  * Convert a given node from an svg AST into a JS AST of JSX Elements.
- * @param nodeClone - Element.
+ * @param node - Element.
  */
 const svgToJSX = node => {
   const nodeClone = {...node};
