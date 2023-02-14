@@ -18,15 +18,17 @@
 
 import MuiBox, {BoxProps as MuiBoxProps} from '@mui/material/Box';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {ElementType, FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 
-export type BoxProps = MuiBoxProps;
+export type BoxProps<C extends ElementType = ElementType> = {
+  component?: C;
+} & Omit<MuiBoxProps<C>, 'component'>;
 
 const COMPONENT_NAME: string = 'Box';
 
-const Box: FC<BoxProps> & WithWrapperProps = (props: BoxProps): ReactElement => {
+const Box: FC<BoxProps> & WithWrapperProps = <C extends ElementType>(props: BoxProps<C>): ReactElement => {
   const {className, ...rest} = props;
 
   const classes: string = clsx('oxygen-box', className);
