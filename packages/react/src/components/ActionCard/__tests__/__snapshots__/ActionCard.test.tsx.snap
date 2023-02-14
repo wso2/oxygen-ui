@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActionCard should match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1ico3yg-MuiPaper-root-MuiCard-root"
+    >
+      <div
+        class="MuiCardContent-root css-46bh2p-MuiCardContent-root"
+      >
+        <img
+          alt="action card"
+          src="/assets/images/action-card-image.svg"
+        />
+        <h6
+          class="MuiTypography-root MuiTypography-subtitle2 oxygen-typography css-n98czh-MuiTypography-root"
+        >
+          Secure your account by adding an extra layer of security
+        </h6>
+        <p
+          class="MuiTypography-root MuiTypography-body1 oxygen-typography css-167a66v-MuiTypography-root"
+        >
+          Configure additional authentications to sign in easily or to add an extra layer of security to your account.
+        </p>
+      </div>
+      <div
+        class="MuiCardActions-root MuiCardActions-spacing css-1t6e9jv-MuiCardActions-root"
+      >
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium oxygen-button css-1e4ccqm-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
+          id=":r1:"
+          tabindex="0"
+          type="button"
+        >
+          Setup MFA
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+`;

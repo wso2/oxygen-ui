@@ -1,0 +1,61 @@
+import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
+import ActionCard from './ActionCard.tsx';
+import dedent from 'ts-dedent';
+import StoryConfig from '../../../.storybook/story-config.ts';
+
+export const meta = {
+  component: ActionCard,
+  title: StoryConfig.ActionCard.hierarchy
+};
+
+<Meta title={meta.title} component={meta.component} />
+
+export const Template = args => <ActionCard {...args} />;
+
+# ActionCard
+
+- [Overview](#overview)
+- [Props](#props)
+- [Usage](#usage)
+
+## Overview
+
+Action cards can be used in overview pages or dashboards.
+
+<Canvas>
+  <Story name="Overview" args={{
+    title: "Secure your account by adding an extra layer of security",
+    description: "Configure additional authentications to sign in easily or to add an extra layer of security to your account.",
+    actionText: "Setup MFA",
+    onActionClick:() => {alert("Action clicked")},
+    image: <img src="/assets/images/action-card-image.svg" alt="action card" />
+  }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Props
+<ArgsTable story="Overview" />
+
+## Usage
+
+Import and use the `ActionCard` component in your components as follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`
+import ActionCard from '@oxygen-ui/react/ActionCard';\n
+function Demo() {
+  return (
+    <ActionCard
+      title="Secure your account by adding an extra layer of security"
+      description="Configure additional authentications to sign in easily or to add an extra layer of security to your account."
+      actionText="Setup MFA"
+      onActionClick={() => {alert("Action clicked")}}
+      image={<img src="/assets/images/action-card-image.svg" alt="action card" />}
+    />
+  );
+}`}
+/>

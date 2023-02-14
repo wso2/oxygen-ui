@@ -16,6 +16,9 @@
  * under the License.
  */
 
+export {default as ActionCard} from './ActionCard';
+export * from './ActionCard';
+
 export {default as AppBar} from './AppBar';
 export * from './AppBar';
 
