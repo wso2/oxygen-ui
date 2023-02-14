@@ -1,0 +1,73 @@
+//TODO: Remove unnecessary styles.
+//TODO: Remove mixins.
+
+@mixin sideMenuBox {
+  display: flex;
+  justify-content: left;
+  padding: 1em 1.5em;
+  align-items: center;
+
+  .list-header {
+    font-size: 1rem;
+    padding: 0 0;
+  }
+
+  .list-item, .list-item-button {
+    @include listItem;
+
+    .list-item-icon {
+      min-width: 45px ;
+      color: #a9a9a9;
+    }
+  }
+}
+
+.oxygen-ui-drawer {
+    hr {
+        width: 80%;
+    }
+    .MuiBackdrop-root {
+        opacity: 0 !important;
+    }
+    .MuiPaper-root {
+    .sideMenu-profile-box{
+        @include sideMenuBox;
+        .sideMenu-profile-text {
+            font-size: 1rem;
+            padding: 1em 1em;
+        }
+    }
+
+    .sideMenu-settings-box {
+        @include sideMenuBox;
+    }
+
+    .sideMenu-apps-box {
+        @include sideMenuBox;
+        color: #ff7300;
+        svg {
+            color: #ff7300;
+        }
+    }
+
+    .sideMenu-theme-box {
+        @include sideMenuBox;
+        .radio-items-list{
+            cursor: pointer;
+            .list-item-text {
+                min-width: 10rem;
+                flex: none;
+            }
+        }
+    }
+
+    .sideMenu-LogOut-box {
+        @include sideMenuBox;  
+    }
+
+}
+}
+
+
+
+
