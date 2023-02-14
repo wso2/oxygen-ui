@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import {Divider, ListItemAvatar, ListSubheader, Radio} from '@mui/material';
+import {ListItemAvatar, ListSubheader, Radio} from '@mui/material';
 import {capitalize} from '@mui/material/utils';
 import clsx from 'clsx';
 import {FC, MouseEvent, ReactElement, ReactNode, useState} from 'react';
@@ -24,17 +24,18 @@ import {WithWrapperProps} from 'src/models';
 import {composeComponentDisplayName} from '../../utils';
 import Avatar from '../Avatar';
 import Button, {ButtonProps} from '../Button';
+import Divider from '../Divider';
 import ListItem from '../ListItem';
 import ListItemIcon from '../ListItemIcon';
 import ListItemText from '../ListItemText';
 import Menu, {MenuProps} from '../Menu';
 import MenuItem from '../MenuItem';
-import './button-dropdown-menu.scss';
+import './user-dropdown-menu.scss';
 
 /**
  * Interface for the Button Dropdown Menu component props.
  */
-export interface ButtonDropdownMenuProps {
+export interface UserDropdownMenuProps extends Omit<MenuProps, 'open' | 'anchorEl'> {
   /**
    * List item icon.
    */
@@ -44,21 +45,13 @@ export interface ButtonDropdownMenuProps {
    */
   actionText?: string;
   /**
-   * Props sent to the Button component;
-   */
-  buttonProps?: Omit<ButtonProps, 'onClick'>;
-  /**
-   * Props sent to the Menu component;
-   */
-  menuProps?: Omit<MenuProps, 'open' | 'anchorEl'>;
-  /**
    * Current mode.
    */
   mode?: string;
   /**
    * Array list of modes
    */
-  modes?: ModeListInterface[];
+  modes?: ModeList[];
   /**
    * Heading of the modes list.
    */
@@ -76,38 +69,50 @@ export interface ButtonDropdownMenuProps {
    */
   onUserProfileNavigation?: () => void;
   /**
+   * Props sent to the menu trigger or Button component;
+   */
+  triggerOptions?: Omit<ButtonProps, 'onClick'>;
+  /**
    * Logged user information.
    */
   user?: UserTemplate;
 }
 
-/**
- * Interface for the modes list.
- */
-export interface ModeListInterface {
+export interface ModeList {
+  /**
+   * Icon of the mode.
+   */
   icon?: string | ReactElement;
+  /**
+   * Display name of the mode.
+   */
   name: string;
 }
 
-/**
- * Interface for the logged user template.
- */
 export interface UserTemplate {
+  /**
+   * Email of logged user.
+   */
   email?: string;
+  /**
+   * Image link of logged user.
+   */
   image?: string;
+  /**
+   * Display name of logged user.
+   */
   name?: string;
 }
 
 const COMPONENT_NAME: string = 'UserDropdownMenu';
 
-/**
- * Button Dropdown Menu component.
- */
-const ButtonDropdownMenu: FC<ButtonDropdownMenuProps> & WithWrapperProps = (
-  props: ButtonDropdownMenuProps & WithWrapperProps,
+const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
+  props: UserDropdownMenuProps & WithWrapperProps,
 ) => {
   const {
-    buttonProps,
+    className,
+    children,
+    triggerOptions,
     user,
     modes,
     mode,
@@ -117,10 +122,14 @@ const ButtonDropdownMenu: FC<ButtonDropdownMenuProps> & WithWrapperProps = (
     actionIcon,
     onModeChange,
     onActionTrigger,
-    menuProps,
+    ...rest
   } = props;
 
+  const classes: string = clsx('oxygen-user-dropdown-menu', className);
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const openMenu: boolean = Boolean(anchorEl);
 
   const handleModeChange = (selectedMode: string): void => {
     onModeChange(selectedMode);
@@ -132,36 +141,43 @@ const ButtonDropdownMenu: FC<ButtonDropdownMenuProps> & WithWrapperProps = (
 
   const handleUserProfileNavigation = (): void => {
     onCloseMenu();
-    onUserProfileNavigation();
+    if (onUserProfileNavigation) {
+      onUserProfileNavigation();
+    }
   };
 
   const handleActionTrigger = (): void => {
     onCloseMenu();
-    onActionTrigger();
+    if (onActionTrigger) {
+      onActionTrigger();
+    }
   };
-
-  const openMenu: boolean = Boolean(anchorEl);
 
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>): void => {
     setAnchorEl(event.currentTarget);
   };
 
   return (
-    <div>
-      <Button aria-controls="oxygen-button-menu" aria-haspopup="true" onClick={handleOpenUserMenu} {...buttonProps} />
+    <>
+      <Button
+        aria-controls={openMenu ? 'oxygen-button-menu' : undefined}
+        aria-haspopup="true"
+        onClick={handleOpenUserMenu}
+        {...triggerOptions}
+      />
       <Menu
         open={openMenu}
         anchorEl={anchorEl}
-        className="oxygen-button-dropdown-menu"
+        className={classes}
         id="oxygen-button-menu"
         onClose={onCloseMenu}
-        {...menuProps}
+        {...rest}
       >
-        {menuProps?.children}
+        {children}
         {user && (
           <ListItem
             className={clsx('dropdown-list-item', {
-              clickable: Boolean(onUserProfileNavigation),
+              clickable: onUserProfileNavigation,
             })}
             onClick={(): void => handleUserProfileNavigation()}
           >
@@ -175,7 +191,7 @@ const ButtonDropdownMenu: FC<ButtonDropdownMenuProps> & WithWrapperProps = (
           <>
             <Divider />
             <ListSubheader>{modesHeading}</ListSubheader>
-            {modes?.map((theme: ModeListInterface) => {
+            {modes?.map((theme: ModeList) => {
               const {name, icon} = theme;
               return (
                 <MenuItem className="dropdown-menu-item" key={name} onClick={(): void => handleModeChange(name)}>
@@ -204,11 +220,11 @@ const ButtonDropdownMenu: FC<ButtonDropdownMenuProps> & WithWrapperProps = (
           </>
         )}
       </Menu>
-    </div>
+    </>
   );
 };
 
-ButtonDropdownMenu.displayName = composeComponentDisplayName(COMPONENT_NAME);
-ButtonDropdownMenu.muiName = COMPONENT_NAME;
+UserDropdownMenu.displayName = composeComponentDisplayName(COMPONENT_NAME);
+UserDropdownMenu.muiName = COMPONENT_NAME;
 
-export default ButtonDropdownMenu;
+export default UserDropdownMenu;

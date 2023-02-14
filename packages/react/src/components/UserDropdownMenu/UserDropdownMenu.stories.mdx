@@ -1,0 +1,45 @@
+import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import StoryConfig from '../../../.storybook/story-config.ts';
+import UserDropdownMenu from './UserDropdownMenu.tsx';
+import MenuItem from '../MenuItem';
+
+export const meta = {
+  component: UserDropdownMenu,
+  title: StoryConfig.UserDropdownMenu.hierarchy,
+};
+
+<Meta title={meta.title} component={meta.component} />
+
+export const Template = args => <UserDropdownMenu {...args} />;
+
+# User Dropdown Menu
+
+- [Overview](#overview)
+- [Props](#props)
+- [Usage](#usage)
+
+## Overview
+
+Use User Dropdown Menu to create a button with a dropdown menu for navigation, actions and to display information.
+
+<Canvas>
+  <Story name="Overview" args={{triggerOptions: {children: 'User Dropdown Menu'}, children: <MenuItem>Sample Menu Item</MenuItem>}}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Overview" />
+
+## Usage
+
+Import and use the `UserDropdownMenu` component in your components as follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`import UserDropdownMenu from '@oxygen-ui/react/UserDropdownMenu';\n`}
+/>

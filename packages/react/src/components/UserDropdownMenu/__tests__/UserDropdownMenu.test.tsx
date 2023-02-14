@@ -16,6 +16,17 @@
  * under the License.
  */
 
-export {default} from './ButtonDropdownMenu';
-export {ButtonDropdownMenuProps} from './ButtonDropdownMenu';
-export {ModeListInterface} from './ButtonDropdownMenu';
+import {render} from '@unit-testing';
+import UserDropdownMenu from '../UserDropdownMenu';
+
+describe('UserDropdownMenu', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(<UserDropdownMenu />);
+    expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<UserDropdownMenu />);
+    expect(baseElement).toMatchSnapshot();
+  });
+});
