@@ -16,14 +16,17 @@
  * under the License.
  */
 
-.oxygen-button-dropdown-menu {
-  .dropdown-list-item {
-    &.clickable {
-      cursor: pointer;
-    }
-  }
+import {render} from '@unit-testing';
+import Avatar from '../Avatar';
 
-  .dropdown-menu-item {
-    min-height: 50px;
-  }
-}
+describe('Avatar', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(<Avatar />);
+    expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<Avatar />);
+    expect(baseElement).toMatchSnapshot();
+  });
+});

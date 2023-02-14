@@ -33,7 +33,7 @@ enum StorybookCategories {
 export type Stories =
   | 'AppBar'
   | 'Avatar'
-  | 'ButtonDropdownMenu'
+  | 'UserDropdownMenu'
   | 'Header'
   | 'Box'
   | 'Button'
@@ -104,8 +104,8 @@ const StoryConfig: StorybookConfig = {
   Button: {
     hierarchy: `${StorybookCategories.Inputs}/Button`,
   },
-  ButtonDropdownMenu: {
-    hierarchy: `${StorybookCategories.Navigation}/Button Dropdown Menu`,
+  UserDropdownMenu: {
+    hierarchy: `${StorybookCategories.Navigation}/User Dropdown Menu`,
   },
   ColorModeToggle: {
     hierarchy: `${StorybookCategories.Theme}/Color Mode Toggle`,
