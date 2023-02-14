@@ -122,6 +122,12 @@
           );
       }
 
+      .oxygen-navbar-collapsible-hamburger {
+        svg {
+          fill: var(--oxygen-palette-common-white);
+        }
+      }
+
       .oxygen-navbar-list-item {
         .oxygen-navbar-list-item-button {
           color: var(--oxygen-palette-common-white);
