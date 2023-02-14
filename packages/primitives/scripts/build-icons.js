@@ -25,7 +25,6 @@ const path = require('path');
 const { logger } = require('@oxygen-ui/logger');
 const cheerio = require('cheerio');
 const fs = require('fs-extra');
-const globby = require('globby');
 const merge = require('lodash.merge');
 const { parseSync } = require('svgson');
 const trimNewlines = require('trim-newlines');
@@ -37,8 +36,10 @@ const PATHS = {
   },
 };
 
-const filepaths = globby.sync(PATHS.source.icons);
-const svgFilepaths = filepaths.filter((filepath) => path.parse(filepath).ext === '.svg');
+const iconFiles = fs.readdirSync(PATHS.source.icons);
+
+const svgFilepaths = iconFiles.reduce((iconFilePaths, iconFile) => path.parse(iconFile).ext === '.svg' ? 
+  (iconFilePaths.push(path.resolve(path.join(PATHS.source.icons, iconFile))), iconFilePaths) : iconFilePaths, []);
 
 if (svgFilepaths.length === 0) {
   logger.error('No input SVG file(s) found');
