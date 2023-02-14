@@ -17,7 +17,6 @@
  */
 
 import {experimental_extendTheme as extendTheme} from '@mui/material/styles';
-import darkTokens from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/dark.tokens';
 import lightTokens from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/tokens';
 import {RecursivePartial, Theme} from '../models';
 
@@ -25,13 +24,36 @@ export const DEFAULT_THEME_OPTIONS: RecursivePartial<Theme> = {
   colorSchemes: {
     dark: {
       palette: {
+        customComponents: {
+          Navbar: {
+            background: '#262626',
+          },
+        },
+        gradients: {
+          primary: {
+            stop1: '#FE8655',
+            stop2: '#FF6258',
+          },
+        },
         primary: {
-          main: darkTokens.OxygenOxygenColorsPrimaryDefault,
+          // TODO: Take this from `darkTokens.OxygenOxygenColorsPrimaryDefault`. ATM, colors are wrong.
+          main: '#ff5100',
         },
       },
     },
     light: {
       palette: {
+        customComponents: {
+          Navbar: {
+            background: '#fbfbfb',
+          },
+        },
+        gradients: {
+          primary: {
+            stop1: '#FE8655',
+            stop2: '#FF6258',
+          },
+        },
         primary: {
           contrastText: '#fff',
           main: lightTokens.OxygenOxygenColorsPrimaryDefault,
@@ -45,6 +67,15 @@ export const DEFAULT_THEME_OPTIONS: RecursivePartial<Theme> = {
     },
   },
   cssVarPrefix: 'oxygen',
+  customComponents: {
+    Navbar: {
+      properties: {
+        'min-height': '64px',
+        'mini-variant-width': '72px',
+        width: '240px',
+      },
+    },
+  },
   shape: {
     // TODO: Is `Lg` the default?
     borderRadius: lightTokens.OxygenOxygenBorderRadiusLg,
