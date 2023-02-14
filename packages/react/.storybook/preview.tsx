@@ -64,7 +64,7 @@ addParameters({
     sort: 'requiredFirst',
   },
   docs: {
-    inlineStories: true,
+    inlineStories: false,
     container: (props: PropsWithChildren<DocsContainerProps>): any => {
       const {context, children} = props;
 
