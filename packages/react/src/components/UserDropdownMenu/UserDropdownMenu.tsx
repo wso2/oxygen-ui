@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import {Divider, ListItemAvatar, ListSubheader, Radio} from '@mui/material';
+import {ListItemAvatar, ListSubheader, Radio} from '@mui/material';
 import {capitalize} from '@mui/material/utils';
 import clsx from 'clsx';
 import {FC, MouseEvent, ReactElement, ReactNode, useState} from 'react';
@@ -24,6 +24,7 @@ import {WithWrapperProps} from 'src/models';
 import {composeComponentDisplayName} from '../../utils';
 import Avatar from '../Avatar';
 import Button, {ButtonProps} from '../Button';
+import Divider from '../Divider';
 import ListItem from '../ListItem';
 import ListItemIcon from '../ListItemIcon';
 import ListItemText from '../ListItemText';
