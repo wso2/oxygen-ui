@@ -17,13 +17,13 @@
  */
 
 .oxygen-user-dropdown-menu {
-    .dropdown-list-item {
-        &.clickable {
-            cursor: pointer;
-        }
+  .dropdown-list-item {
+    &.clickable {
+      cursor: pointer;
     }
+  }
 
-    .dropdown-menu-item {
-        min-height: 50px;
-    }
+  .dropdown-menu-item {
+    min-height: 50px;
+  }
 }
