@@ -48,6 +48,7 @@ export type Stories =
   | 'Link'
   | 'List'
   | 'ListItem'
+  | 'ListItemAvatar'
   | 'ListItemButton'
   | 'ListItemIcon'
   | 'ListItemText'
@@ -144,6 +145,9 @@ const StoryConfig: StorybookConfig = {
   },
   ListItem: {
     hierarchy: `${StorybookCategories.DataDisplay}/List Item`,
+  },
+  ListItemAvatar: {
+    hierarchy: `${StorybookCategories.DataDisplay}/List Item Avatar`,
   },
   ListItemButton: {
     hierarchy: `${StorybookCategories.DataDisplay}/List Item Button`,
