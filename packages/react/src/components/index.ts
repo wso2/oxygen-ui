@@ -58,6 +58,9 @@ export * from './ListItemIcon';
 export {default as ListItemText} from './ListItemText';
 export * from './ListItemText';
 
+export {default as Navbar} from './Navbar';
+export * from './Navbar';
+
 export {default as SignIn} from './SignIn';
 export * from './SignIn';
 

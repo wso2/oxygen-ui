@@ -1,0 +1,101 @@
+import {ConsoleUserThickIcon, HomeFilledIcon, LockIcon, PreferencesIcon, LanguagesIcon} from '@oxygen-ui/react-icons';
+import {useArgs} from '@storybook/client-api';
+import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import StoryConfig from '../../../.storybook/story-config.ts';
+import Navbar from './Navbar.tsx';
+
+export const meta = {
+  component: Navbar,
+  title: StoryConfig.Navbar.hierarchy,
+};
+
+<Meta title={meta.title} component={meta.component} />
+
+export const navbarItems = [
+  [
+    {
+      icon: <HomeFilledIcon />,
+      name: 'Overview',
+      selected: true,
+    },
+    {
+      icon: <ConsoleUserThickIcon />,
+      name: 'Profile Info',
+    },
+    {
+      icon: <LockIcon />,
+      name: 'Security',
+    },
+  ],
+  [
+    {
+      icon: <LanguagesIcon />,
+      name: 'Language',
+    },
+    {
+      icon: <PreferencesIcon />,
+      name: 'Preferences',
+    },
+  ],
+];
+
+export const Template = args => {
+  const [runtimeArgs, updateArgs] = useArgs();
+  return (
+    <Navbar
+      items={navbarItems}
+      onClose={() => updateArgs({...runtimeArgs, open: false})}
+      onOpen={() => updateArgs({...runtimeArgs, open: true})}
+      {...args}
+    />
+  );
+};
+
+# Navbar
+
+- [Overview](#overview)
+- [Props](#props)
+- [Usage](#usage)
+- [Variants](#variants)
+
+## Overview
+
+Use typography to present your design and content as clearly and efficiently as possible.
+
+<Canvas>
+  <Story name="Overview">{Template.bind({})}</Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Overview" />
+
+## Usage
+
+Import and use the `Navbar` component in your components as follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`
+import Navbar from '@oxygen-ui/react/Navbar';\n
+function Demo() {
+  return (
+    <Navbar items={navbarItems} />
+  );
+}`}
+/>
+
+## Variants
+
+### Gradient
+
+Navbar with a gradient as the background color.
+
+<Canvas>
+  <Story name="Gradient" args={{fill: 'gradient'}}>
+    {Template.bind({})}
+  </Story>
+</Canvas>

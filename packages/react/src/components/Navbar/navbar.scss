@@ -1,0 +1,157 @@
+/**
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+@mixin open {
+  width: var(--oxygen-customComponents-Navbar-properties-width);
+  transition: width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+  overflow-x: hidden;
+}
+
+@mixin close {
+  width: calc(var(--oxygen-customComponents-Navbar-properties-mini-variant-width) + 1px);
+  transition: width 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+  overflow-x: hidden;
+}
+
+.oxygen-navbar {
+  width: var(--oxygen-customComponents-Navbar-properties-width);
+  flex-shrink: 0;
+  white-space: nowrap;
+  box-sizing: border-box;
+
+  .MuiDrawer-paper {
+    background: var(--oxygen-palette-customComponents-Navbar-background);
+  }
+
+  &:not(.open) {
+    @include close;
+
+    .MuiDrawer-paper {
+      @include close;
+    }
+  }
+
+  .oxygen-navbar-collapsible-hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 12px;
+    min-height: var(--oxygen-customComponents-Navbar-properties-min-height);
+
+    .oxygen-icon-button {
+      height: 48px;
+      width: 48px;
+    }
+  }
+
+  .oxygen-navbar-list-item {
+    display: block;
+    margin-top: 8px;
+    margin-bottom: 8px;
+
+    .oxygen-navbar-list-item-button {
+      height: 56px;
+      justify-content: center;
+      padding-left: 20px;
+      padding-right: 20px;
+      margin-left: 8px;
+      margin-right: 8px;
+      border-radius: var(--oxygen-shape-borderRadius);
+
+      .oxygen-navbar-list-item-icon {
+        min-width: 0;
+        margin-right: auto;
+        justify-content: center;
+      }
+
+      .oxygen-navbar-list-item-text {
+        opacity: 0;
+      }
+
+      &.selected {
+        background: var(--oxygen-palette-action-selected);
+      }
+    }
+  }
+
+  &.open {
+    @include open;
+
+    .MuiDrawer-paper {
+      @include open;
+    }
+
+    .oxygen-navbar-list-item {
+      .oxygen-navbar-list-item-button {
+        justify-content: initial;
+
+        .oxygen-navbar-list-item-icon {
+          margin-right: 24px;
+        }
+
+        .oxygen-navbar-list-item-text {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &.fill {
+    &.gradient {
+      .MuiDrawer-paper {
+        background:
+          linear-gradient(
+            90deg,
+            var(--oxygen-palette-gradients-primary-stop1) 0%,
+            var(--oxygen-palette-gradients-primary-stop2) 100%
+          );
+      }
+
+      .oxygen-navbar-collapsible-hamburger {
+        svg {
+          fill: var(--oxygen-palette-common-white);
+        }
+      }
+
+      .oxygen-navbar-list-item {
+        .oxygen-navbar-list-item-button {
+          color: var(--oxygen-palette-common-white);
+
+          svg {
+            fill: var(--oxygen-palette-common-white);
+          }
+        }
+
+        &.selected {
+          .oxygen-navbar-list-item-button {
+            background: var(--oxygen-palette-common-white);
+            color: var(--oxygen-palette-primary-main);
+
+            svg {
+              fill: var(--oxygen-palette-primary-main);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .oxygen-navbar-list-item-divider {
+    margin: 10px;
+  }
+}
