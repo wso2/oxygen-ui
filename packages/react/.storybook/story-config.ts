@@ -38,6 +38,7 @@ export type Stories =
   | 'Header'
   | 'Box'
   | 'Button'
+  | 'Chip'
   | 'ColorModeToggle'
   | 'Colors'
   | 'Divider'
@@ -111,6 +112,9 @@ const StoryConfig: StorybookConfig = {
   },
   UserDropdownMenu: {
     hierarchy: `${StorybookCategories.Navigation}/User Dropdown Menu`,
+  },
+  Chip: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Chip`,
   },
   ColorModeToggle: {
     hierarchy: `${StorybookCategories.Theme}/Color Mode Toggle`,

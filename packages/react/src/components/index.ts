@@ -28,6 +28,9 @@ export * from './Box';
 export {default as Button} from './Button';
 export * from './Button';
 
+export {default as Chip} from './Chip';
+export * from './Chip';
+
 export {default as ColorModeToggle} from './ColorModeToggle';
 export * from './ColorModeToggle';
 
