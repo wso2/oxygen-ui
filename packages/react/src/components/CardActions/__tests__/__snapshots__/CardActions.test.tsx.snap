@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardActions should match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="MuiCardActions-root MuiCardActions-spacing oxygen-card-actions css-1t6e9jv-MuiCardActions-root"
+    />
+  </div>
+</body>
+`;

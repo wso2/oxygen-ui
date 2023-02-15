@@ -37,6 +37,7 @@ export type Stories =
   | 'Box'
   | 'Button'
   | 'Card'
+  | 'CardActions'
   | 'CardContent'
   | 'CardHeader'
   | 'CircularProgressAvatar'
@@ -107,6 +108,9 @@ const StoryConfig: StorybookConfig = {
   Card: {
     hierarchy: `${StorybookCategories.Surfaces}/Card`,
   },
+  CardActions: {
+    hierarchy: `${StorybookCategories.Surfaces}/CardActions`,
+  },
   CardContent: {
     hierarchy: `${StorybookCategories.Surfaces}/CardContent`,
   },
@@ -115,9 +119,6 @@ const StoryConfig: StorybookConfig = {
   },
   CircularProgressAvatar: {
     hierarchy: `${StorybookCategories.DataDisplay}/Circular Progress Avatar`,
-  },
-  UserDropdownMenu: {
-    hierarchy: `${StorybookCategories.Navigation}/User Dropdown Menu`,
   },
   Chip: {
     hierarchy: `${StorybookCategories.DataDisplay}/Chip`,
