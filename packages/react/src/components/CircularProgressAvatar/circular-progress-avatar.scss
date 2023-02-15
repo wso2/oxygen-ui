@@ -1,0 +1,48 @@
+/**
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+.oxygen-circular-progress-avatar {
+  padding: 1rem;
+
+  .oxygen-circular-progress {
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    z-index: 1;
+    transform: scaleY(-1) rotate(90deg) !important;
+
+    &.frame {
+      color: lightgrey;
+      z-index: 0;
+    }
+  }
+
+  .oxygen-avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .oxygen-badge {
+    .MuiBadge-badge {
+      left: 50%;
+      border-radius: 3px;
+      padding: 0.5rem 1rem;
+      top: 70px;
+    }
+  }
+}
