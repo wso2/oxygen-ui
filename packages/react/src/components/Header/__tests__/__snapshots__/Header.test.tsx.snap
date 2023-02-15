@@ -8,13 +8,13 @@ exports[`Header should match the snapshot 1`] = `
       role="banner"
     >
       <div
-        class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular oxygen-toolbar css-hyum1k-MuiToolbar-root"
+        class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular oxygen-toolbar oxygen-header-toolbar css-hyum1k-MuiToolbar-root"
       >
         <div
-          class="oxygen-box nav-links-section MuiBox-root css-0"
+          class="oxygen-box oxygen-header-mid-section MuiBox-root css-0"
         />
         <div
-          class="oxygen-box dropdown-menu MuiBox-root css-0"
+          class="oxygen-box oxygen-header-user-dropdown-menu MuiBox-root css-0"
         >
           <button
             aria-haspopup="true"
