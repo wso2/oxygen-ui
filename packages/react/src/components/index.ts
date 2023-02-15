@@ -31,6 +31,9 @@ export * from './Button';
 export {default as ColorModeToggle} from './ColorModeToggle';
 export * from './ColorModeToggle';
 
+export {default as Container} from './Container';
+export * from './Container';
+
 export {default as Divider} from './Divider';
 export * from './Divider';
 

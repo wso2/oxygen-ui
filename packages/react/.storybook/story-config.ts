@@ -40,6 +40,7 @@ export type Stories =
   | 'Button'
   | 'ColorModeToggle'
   | 'Colors'
+  | 'Container'
   | 'Divider'
   | 'Drawer'
   | 'Grid'
@@ -117,6 +118,9 @@ const StoryConfig: StorybookConfig = {
   },
   Colors: {
     hierarchy: `${StorybookCategories.Foundations}/Colors`,
+  },
+  Container: {
+    hierarchy: `${StorybookCategories.Layout}/Container`,
   },
   Divider: {
     hierarchy: `${StorybookCategories.DataDisplay}/Divider`,
