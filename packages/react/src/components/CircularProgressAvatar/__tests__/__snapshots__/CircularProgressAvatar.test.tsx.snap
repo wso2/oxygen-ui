@@ -11,7 +11,7 @@ exports[`CircularProgressAvatar should match the snapshot 1`] = `
         class="MuiBadge-root oxygen-badge MuiBadge-root css-1c32n2y-MuiBadge-root"
       >
         <div
-          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault oxygen-avatar css-woe6xp-MuiAvatar-root"
+          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault oxygen-ui-avatar css-woe6xp-MuiAvatar-root"
         >
           <svg
             aria-hidden="true"
