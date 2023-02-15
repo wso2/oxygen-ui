@@ -38,8 +38,9 @@ const PATHS = {
 
 const iconFiles = fs.readdirSync(PATHS.source.icons);
 
-const svgFilepaths = iconFiles.reduce((iconFilePaths, iconFile) => path.parse(iconFile).ext === '.svg' ? 
-  (iconFilePaths.push(path.resolve(path.join(PATHS.source.icons, iconFile))), iconFilePaths) : iconFilePaths, []);
+const svgFilepaths = iconFiles.reduce((iconFilePaths, iconFile) => (path.parse(iconFile).ext === '.svg'
+  ? (iconFilePaths.push(path.resolve(path.join(PATHS.source.icons, iconFile))), iconFilePaths)
+  : iconFilePaths), []);
 
 if (svgFilepaths.length === 0) {
   logger.error('No input SVG file(s) found');

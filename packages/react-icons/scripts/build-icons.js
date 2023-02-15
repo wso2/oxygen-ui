@@ -50,10 +50,12 @@ const pascalCase = str => str.replace(/(^|-)([a-z])/g, (_, __, c) => c.toUpperCa
  * @param node - Element.
  */
 const svgToJSX = node => {
-  if (node.type === 'element') {
-    const children = node.children.map(svgToJSX);
+  const nodeClone = {...node};
 
-    if (node.name === 'svg') {
+  if (nodeClone.type === 'element') {
+    const children = nodeClone.children.map(svgToJSX);
+
+    if (nodeClone.name === 'svg') {
       if (children.length === 0) {
         throw new Error(`No children available for icon`);
       }
@@ -65,14 +67,19 @@ const svgToJSX = node => {
       return children[0];
     }
 
-    const attrs = Object.entries(node.attributes).map(([key, value]) => {
+    // Remove `fill` from paths so that the SVGs could be colored dynamically.
+    if (nodeClone.name === 'path') {
+      nodeClone.attributes.fill = '';
+    }
+
+    const attrs = Object.entries(nodeClone.attributes).map(([key, value]) => {
       if (typeof value !== 'string') {
         throw new Error(`Unknown value type: ${value}`);
       }
       return t.jsxAttribute(t.jsxIdentifier(key), t.stringLiteral(value));
     });
-    const openingElement = t.jsxOpeningElement(t.jsxIdentifier(node.name), attrs, children.length === 0);
-    const closingElement = t.jsxClosingElement(t.jsxIdentifier(node.name));
+    const openingElement = t.jsxOpeningElement(t.jsxIdentifier(nodeClone.name), attrs, children.length === 0);
+    const closingElement = t.jsxClosingElement(t.jsxIdentifier(nodeClone.name));
 
     if (children.length > 0) {
       return t.jsxElement(openingElement, closingElement, children, false);
@@ -81,7 +88,7 @@ const svgToJSX = node => {
     return t.jsxElement(openingElement, closingElement, [], true);
   }
 
-  throw new Error(`Unknown type: ${node.type}`);
+  throw new Error(`Unknown type: ${nodeClone.type}`);
 };
 
 /**

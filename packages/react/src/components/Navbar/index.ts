@@ -16,28 +16,5 @@
  * under the License.
  */
 
-.oxygen-action-card {
-  border-radius: 8px;
-  box-shadow: 0 2px 20px 0 #1d20281a;
-  padding: 24px 40px 24px 24px;
-
-  &:hover {
-    border: 1px solid #ff7300;
-  }
-
-  .title {
-    color: #222228;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-  }
-
-  .description {
-    color: "#8D91A3";
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 20px;
-  }
-}
+export {default} from './Navbar';
+export type {NavbarProps} from './Navbar';

@@ -18,4 +18,47 @@
 
 import {CssVarsTheme, Theme as MuiTheme} from '@mui/material/styles';
 
-export type Theme = Omit<MuiTheme, 'palette'> & CssVarsTheme;
+/**
+ * Augment the Theme interface with the custom properties for the existing keys.
+ */
+declare module '@mui/material/styles' {
+  interface PaletteOptions {
+    customComponents: {
+      Navbar: {
+        background: string;
+      };
+    };
+    gradients: {
+      primary: {
+        stop1: string;
+        stop2: string;
+      };
+    };
+  }
+  interface Palette {
+    customComponents: {
+      Navbar: {
+        background: string;
+      };
+    };
+    gradients: {
+      primary: {
+        stop1: string;
+        stop2: string;
+      };
+    };
+  }
+}
+
+/**
+ * Custom property augmentations.
+ */
+interface CustomTheme {
+  customComponents?: {
+    Navbar?: {
+      properties?: Record<string, string>;
+    };
+  };
+}
+
+export type Theme = Omit<MuiTheme, 'palette'> & CssVarsTheme & CustomTheme;
