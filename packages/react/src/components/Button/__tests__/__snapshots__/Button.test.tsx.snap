@@ -4,7 +4,7 @@ exports[`Button should match the snapshot 1`] = `
 <body>
   <div>
     <button
-      class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium oxygen-button css-1800qii-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
+      class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium oxygen-button css-1ngzaqh-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
       id=":r1:"
       tabindex="0"
       type="button"

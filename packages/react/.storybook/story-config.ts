@@ -56,6 +56,7 @@ export type Stories =
   | 'Menu'
   | 'MenuItem'
   | 'UserDropdownMenu'
+  | 'Navbar'
   | 'SignIn'
   | 'TextField'
   | 'Toolbar'
@@ -147,6 +148,9 @@ const StoryConfig: StorybookConfig = {
   },
   MenuItem: {
     hierarchy: `${StorybookCategories.Navigation}/Menu Item`,
+  },
+  Navbar: {
+    hierarchy: `${StorybookCategories.Navigation}/Navbar`,
   },
   List: {
     hierarchy: `${StorybookCategories.DataDisplay}/List`,

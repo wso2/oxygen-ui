@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar should match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="MuiDrawer-root MuiDrawer-docked oxygen-drawer oxygen-navbar collapsible css-7ik032-MuiDrawer-docked"
+    >
+      <div
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation0 MuiDrawer-paper MuiDrawer-paperAnchorLeft MuiDrawer-paperAnchorDockedLeft css-1ldhiwi-MuiPaper-root-MuiDrawer-paper"
+      >
+        <div
+          class="oxygen-navbar-collapsible-hamburger"
+        >
+          <button
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium oxygen-icon-button css-lku9zg-MuiButtonBase-root-MuiIconButton-root"
+            tabindex="0"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="oxygen-icon oxygen-icon-hamburger"
+              fill="currentColor"
+              focusable="false"
+              height="16"
+              role="img"
+              style="display: inline-block; overflow: visible; user-select: none; vertical-align: text-bottom;"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M2 2.44444C2 2.19899 2.19899 2 2.44444 2H13.5556C13.801 2 14 2.19899 14 2.44444V2.55556C14 2.80101 13.801 3 13.5556 3H2.44444C2.19899 3 2 2.80101 2 2.55556V2.44444ZM2 7.94444C2 7.69899 2.19899 7.5 2.44444 7.5H13.5556C13.801 7.5 14 7.69899 14 7.94444V8.05556C14 8.30101 13.801 8.5 13.5556 8.5H2.44444C2.19899 8.5 2 8.30101 2 8.05556V7.94444ZM2.44444 13C2.19899 13 2 13.199 2 13.4444V13.5556C2 13.801 2.19899 14 2.44444 14H8.01709C8.26255 14 8.46154 13.801 8.46154 13.5556V13.4444C8.46154 13.199 8.26255 13 8.01709 13H2.44444Z"
+                fill=""
+                fill-rule="evenodd"
+              />
+            </svg>
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+        <hr
+          class="MuiDivider-root MuiDivider-fullWidth oxygen-divider css-f1a6nn-MuiDivider-root"
+        />
+      </div>
+    </div>
+  </div>
+</body>
+`;

@@ -17,7 +17,6 @@
  */
 
 import {experimental_extendTheme as extendTheme} from '@mui/material/styles';
-import darkTokens from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/dark.tokens';
 import lightTokens from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/tokens';
 import {RecursivePartial, Theme} from '../models';
 
@@ -25,13 +24,36 @@ export const DEFAULT_THEME_OPTIONS: RecursivePartial<Theme> = {
   colorSchemes: {
     dark: {
       palette: {
+        customComponents: {
+          Navbar: {
+            background: '#262626',
+          },
+        },
+        gradients: {
+          primary: {
+            stop1: '#FE8655',
+            stop2: '#FF6258',
+          },
+        },
         primary: {
-          main: darkTokens.OxygenOxygenColorsPrimaryDefault,
+          // TODO: Take this from `darkTokens.OxygenOxygenColorsPrimaryDefault`. ATM, colors are wrong.
+          main: '#ff5100',
         },
       },
     },
     light: {
       palette: {
+        customComponents: {
+          Navbar: {
+            background: '#fbfbfb',
+          },
+        },
+        gradients: {
+          primary: {
+            stop1: '#FE8655',
+            stop2: '#FF6258',
+          },
+        },
         primary: {
           contrastText: '#fff',
           main: lightTokens.OxygenOxygenColorsPrimaryDefault,
@@ -44,7 +66,41 @@ export const DEFAULT_THEME_OPTIONS: RecursivePartial<Theme> = {
       },
     },
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        containedPrimary: {
+          background: `linear-gradient(270deg, var(--oxygen-palette-primary-gradient-stop2),
+            var(--oxygen-palette-primary-gradient-stop1))`,
+          boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.15)',
+        },
+        containedSecondary: {
+          '&:hover': {
+            background: '#f7f8fb',
+          },
+          background: '#f7f8fb',
+          border: '1px solid #e0e2e9',
+          boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)',
+          color: '#40404b',
+        },
+        root: {
+          borderRadius: '22px',
+          fontSize: '1rem',
+          padding: '8px 16px',
+        },
+      },
+    },
+  },
   cssVarPrefix: 'oxygen',
+  customComponents: {
+    Navbar: {
+      properties: {
+        'min-height': '64px',
+        'mini-variant-width': '72px',
+        width: '240px',
+      },
+    },
+  },
   shape: {
     // TODO: Is `Lg` the default?
     borderRadius: lightTokens.OxygenOxygenBorderRadiusLg,

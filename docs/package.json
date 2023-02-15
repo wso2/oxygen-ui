@@ -39,9 +39,9 @@
     "typescript": "4.9.3"
   },
   "devDependencies": {
-    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b63a99b1c18bac2d9fc856a73b30a8ecaed6b8f3",
-    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b63a99b1c18bac2d9fc856a73b30a8ecaed6b8f3",
-    "@wso2/stylelint-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/stylelint-config?b63a99b1c18bac2d9fc856a73b30a8ecaed6b8f3",
+    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b03ad37027ac05bc5791f168962d8a6d66439ddf",
+    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b03ad37027ac05bc5791f168962d8a6d66439ddf",
+    "@wso2/stylelint-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/stylelint-config?b03ad37027ac05bc5791f168962d8a6d66439ddf",
     "stylelint": "^15.1.0"
   },
   "private": true

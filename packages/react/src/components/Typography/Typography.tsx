@@ -18,16 +18,20 @@
 
 import MuiTypography, {TypographyProps as MuiTypographyProps} from '@mui/material/Typography';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {ElementType, FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './typography.scss';
 
-export type TypographyProps = MuiTypographyProps;
+export type TypographyProps<C extends ElementType = ElementType> = {
+  component?: C;
+} & Omit<MuiTypographyProps<C>, 'component'>;
 
 const COMPONENT_NAME: string = 'Typography';
 
-const Typography: FC<TypographyProps> & WithWrapperProps = (props: TypographyProps): ReactElement => {
+const Typography: FC<TypographyProps> & WithWrapperProps = <C extends ElementType>(
+  props: TypographyProps<C>,
+): ReactElement => {
   const {className, ...rest} = props;
 
   const classes: string = clsx('oxygen-typography', className);
