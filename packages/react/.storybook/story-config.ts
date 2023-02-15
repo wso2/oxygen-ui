@@ -20,6 +20,7 @@
 enum StorybookCategories {
   DataDisplay = 'Data Display',
   Foundations = 'Foundations',
+  Feedback = 'Feedback',
   Icons = 'Icons',
   Inputs = 'Inputs',
   Layout = 'Layout',
@@ -36,6 +37,7 @@ export type Stories =
   | 'Avatar'
   | 'Box'
   | 'Button'
+  | 'CircularProgress'
   | 'CircularProgressAvatar'
   | 'Chip'
   | 'ColorModeToggle'
@@ -111,6 +113,9 @@ const StoryConfig: StorybookConfig = {
   },
   Button: {
     hierarchy: `${StorybookCategories.Inputs}/Button`,
+  },
+  CircularProgress: {
+    hierarchy: `${StorybookCategories.Feedback}/Circular Progress`,
   },
   CircularProgressAvatar: {
     hierarchy: `${StorybookCategories.DataDisplay}/Circular Progress Avatar`,
