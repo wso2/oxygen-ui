@@ -34,13 +34,12 @@ export type Stories =
   | 'ActionCard'
   | 'AppBar'
   | 'Avatar'
-  | 'UserDropdownMenu'
-  | 'Header'
   | 'Box'
   | 'Button'
   | 'Card'
   | 'CardContent'
   | 'CardHeader'
+  | 'CircularProgressAvatar'
   | 'Chip'
   | 'ColorModeToggle'
   | 'Colors'
@@ -48,6 +47,7 @@ export type Stories =
   | 'Divider'
   | 'Drawer'
   | 'Grid'
+  | 'Header'
   | 'IconButton'
   | 'Icons'
   | 'Image'
@@ -60,6 +60,7 @@ export type Stories =
   | 'ListItemText'
   | 'Menu'
   | 'MenuItem'
+  | 'UserDropdownMenu'
   | 'Navbar'
   | 'SignIn'
   | 'TextField'
@@ -111,6 +112,12 @@ const StoryConfig: StorybookConfig = {
   },
   CardHeader: {
     hierarchy: `${StorybookCategories.Surfaces}/CardHeader`,
+  },
+  CircularProgressAvatar: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Circular Progress Avatar`,
+  },
+  UserDropdownMenu: {
+    hierarchy: `${StorybookCategories.Navigation}/User Dropdown Menu`,
   },
   Chip: {
     hierarchy: `${StorybookCategories.DataDisplay}/Chip`,
