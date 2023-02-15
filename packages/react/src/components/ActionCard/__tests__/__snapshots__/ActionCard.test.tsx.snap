@@ -28,7 +28,7 @@ exports[`ActionCard should match the snapshot 1`] = `
         class="MuiCardActions-root MuiCardActions-spacing css-1t6e9jv-MuiCardActions-root"
       >
         <button
-          class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium oxygen-button css-1e4ccqm-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
+          class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium oxygen-button css-p3g1a0-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
           id=":r1:"
           tabindex="0"
           type="button"

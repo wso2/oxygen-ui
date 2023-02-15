@@ -66,6 +66,31 @@ export const DEFAULT_THEME_OPTIONS: RecursivePartial<Theme> = {
       },
     },
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        containedPrimary: {
+          background: `linear-gradient(270deg, var(--oxygen-palette-primary-gradient-stop2),
+            var(--oxygen-palette-primary-gradient-stop1))`,
+          boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.15)',
+        },
+        containedSecondary: {
+          '&:hover': {
+            background: '#f7f8fb',
+          },
+          background: '#f7f8fb',
+          border: '1px solid #e0e2e9',
+          boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)',
+          color: '#40404b',
+        },
+        root: {
+          borderRadius: '22px',
+          fontSize: '1rem',
+          padding: '8px 16px',
+        },
+      },
+    },
+  },
   cssVarPrefix: 'oxygen',
   customComponents: {
     Navbar: {
