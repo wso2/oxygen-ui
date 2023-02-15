@@ -39,6 +39,7 @@ export type Stories =
   | 'Box'
   | 'Button'
   | 'Card'
+  | 'CardContent'
   | 'CardHeader'
   | 'Chip'
   | 'ColorModeToggle'
@@ -104,6 +105,9 @@ const StoryConfig: StorybookConfig = {
   },
   Card: {
     hierarchy: `${StorybookCategories.Surfaces}/Card`,
+  },
+  CardContent: {
+    hierarchy: `${StorybookCategories.Surfaces}/CardContent`,
   },
   CardHeader: {
     hierarchy: `${StorybookCategories.Surfaces}/CardHeader`,
