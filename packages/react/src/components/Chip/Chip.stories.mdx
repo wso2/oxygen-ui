@@ -1,0 +1,52 @@
+import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import StoryConfig from '../../../.storybook/story-config.ts';
+import Chip from './Chip.tsx';
+
+export const meta = {
+  component: Chip,
+  title: StoryConfig.Chip.hierarchy,
+};
+
+<Meta title={meta.title} component={meta.component} />
+
+export const Template = args => <Chip {...args} />;
+
+# Chip
+
+- [Overview](#overview)
+- [Props](#props)
+- [Usage](#usage)
+
+## Overview
+
+Chips allow users to enter information, make selections, filter content, or trigger actions.
+
+While included here as a standalone component, the most common use will be in some form of input, so some of the behavior demonstrated here is not shown in context.
+
+<Canvas>
+  <Story name="Overview" args={{label: 'Chip Filled'}}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Overview" />
+
+## Usage
+
+Import and use the `Chip` component in your components as follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`
+import Chip from '@oxygen-ui/react/Chip';\n
+function Demo() {
+  return (
+    <Chip label="Chip Filled" />
+  );
+}`}
+/>
