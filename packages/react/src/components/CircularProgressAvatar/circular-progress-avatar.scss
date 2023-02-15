@@ -19,24 +19,25 @@
 .oxygen-circular-progress-avatar {
   padding: 1rem;
 
-  .circularProfileProgress {
+  .oxygen-circular-progress {
     position: absolute;
     top: -6px;
     left: -6px;
     z-index: 1;
-
+    transform: scaleY(-1) rotate(90deg) !important;
+    
     &.frame {
       color: lightgrey;
       z-index: 0;
     }
   }
 
-  .avatar {
+  .oxygen-avatar {
     width: 80px;
     height: 80px;
   }
 
-  .badge {
+  .oxygen-badge {
     .MuiBadge-badge {
       left: 50%;
       border-radius: 3px;

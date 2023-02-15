@@ -25,11 +25,13 @@ The Avatar with circular progress and badge.
 <Canvas>
   <Story
     name="Overview"
-    args={{src: '/assets/images/avatar-john.svg', 
-    alt:'avatar', 
-    progress: 70, 
+    args={{color: 'warning',
+    progress: 70,
     badgeOptions: {color: 'primary', badgeContent: '70%'}, 
-    circularProgressOptions: {color: 'warning'}
+    avatarOptions: {
+      src: '/assets/images/avatar-john.svg', 
+      alt:'avatar', 
+      }
     }}
   >
     {Template.bind({})}

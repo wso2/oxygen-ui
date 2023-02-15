@@ -25,9 +25,18 @@ import Avatar, {AvatarProps} from '../Avatar';
 import Box from '../Box';
 import './circular-progress-avatar.scss';
 
-export interface CircularProgressAvatarProps extends AvatarProps {
+export interface CircularProgressAvatarProps extends Omit<CircularProgressProps, 'value'> {
+  /**
+   * Props sent to the Avatar component.
+   */
+  avatarOptions?: Omit<AvatarProps, 'variant'>;
+  /**
+   * Props sent to the Badge component.
+   */
   badgeOptions?: Omit<BadgeProps, 'overlap' | 'anchorOrigin' | 'showZero'>;
-  circularProgressOptions?: Omit<CircularProgressProps, 'variant'>;
+  /**
+   * Value prop sent to CircularProgress component.
+   */
   progress?: number;
 }
 
@@ -36,38 +45,38 @@ const COMPONENT_NAME: string = 'CircularProgressAvatar';
 const CircularProgressAvatar: FC<CircularProgressAvatarProps> & WithWrapperProps = (
   props: CircularProgressAvatarProps,
 ): ReactElement => {
-  const {className, progress, badgeOptions, circularProgressOptions, ...rest} = props;
+  const {className, progress, badgeOptions, avatarOptions, ...rest} = props;
 
   const classes: string = clsx('oxygen-circular-progress-avatar', className);
 
   return (
     <Box className={classes} role="presentation">
       <Badge
-        className="badge"
+        showZero
+        className="oxygen-badge"
         overlap="circular"
         anchorOrigin={{
           horizontal: 'left',
           vertical: 'bottom',
         }}
-        showZero
         {...badgeOptions}
       >
-        <Avatar className="avatar" {...rest} />
+        <Avatar {...avatarOptions} />
         <CircularProgress
           aria-label="progress"
           size={90}
-          className="circularProfileProgress"
+          className="oxygen-circular-progress"
           variant="determinate"
           value={progress}
-          {...circularProgressOptions}
+          {...rest}
         />
         <CircularProgress
           aria-label="progress"
           size={90}
-          className="circularProfileProgress frame"
+          className="oxygen-circular-progress frame"
           variant="determinate"
           value={100}
-          {...circularProgressOptions}
+          {...rest}
         />
       </Badge>
     </Box>
