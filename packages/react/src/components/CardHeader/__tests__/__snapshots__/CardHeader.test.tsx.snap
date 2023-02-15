@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardHeader should match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="MuiCardHeader-root oxygen-card-header css-185gdzj-MuiCardHeader-root"
+    >
+      <div
+        class="MuiCardHeader-content css-1qbkelo-MuiCardHeader-content"
+      />
+    </div>
+  </div>
+</body>
+`;
