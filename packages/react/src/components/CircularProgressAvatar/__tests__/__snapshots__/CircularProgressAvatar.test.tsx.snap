@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CircularProgressAvatar should match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="oxygen-box oxygen-circular-progress-avatar MuiBox-root css-0"
+      role="presentation"
+    >
+      <span
+        class="MuiBadge-root badge MuiBadge-root css-1c32n2y-MuiBadge-root"
+      >
+        <div
+          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault oxygen-ui-avatar avatar css-woe6xp-MuiAvatar-root"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback css-10mi8st-MuiSvgIcon-root-MuiAvatar-fallback"
+            data-testid="PersonIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+            />
+          </svg>
+        </div>
+        <span
+          aria-label="progress"
+          aria-valuenow="0"
+          class="MuiCircularProgress-root MuiCircularProgress-determinate MuiCircularProgress-colorPrimary circularProfileProgress css-iq1hel-MuiCircularProgress-root"
+          role="progressbar"
+          style="width: 90px; height: 90px; transform: rotate(-90deg);"
+        >
+          <svg
+            class="MuiCircularProgress-svg css-1idz92c-MuiCircularProgress-svg"
+            viewBox="22 22 44 44"
+          >
+            <circle
+              class="MuiCircularProgress-circle MuiCircularProgress-circleDeterminate css-oxts8u-MuiCircularProgress-circle"
+              cx="44"
+              cy="44"
+              fill="none"
+              r="20.2"
+              stroke-width="3.6"
+              style="stroke-dasharray: 126.920; stroke-dashoffset: 126.920px;"
+            />
+          </svg>
+        </span>
+        <span
+          aria-label="progress"
+          aria-valuenow="100"
+          class="MuiCircularProgress-root MuiCircularProgress-determinate MuiCircularProgress-colorPrimary circularProfileProgress frame css-iq1hel-MuiCircularProgress-root"
+          role="progressbar"
+          style="width: 90px; height: 90px; transform: rotate(-90deg);"
+        >
+          <svg
+            class="MuiCircularProgress-svg css-1idz92c-MuiCircularProgress-svg"
+            viewBox="22 22 44 44"
+          >
+            <circle
+              class="MuiCircularProgress-circle MuiCircularProgress-circleDeterminate css-oxts8u-MuiCircularProgress-circle"
+              cx="44"
+              cy="44"
+              fill="none"
+              r="20.2"
+              stroke-width="3.6"
+              style="stroke-dasharray: 126.920; stroke-dashoffset: 0.000px;"
+            />
+          </svg>
+        </span>
+        <span
+          class="MuiBadge-badge MuiBadge-standard MuiBadge-invisible MuiBadge-anchorOriginBottomLeft MuiBadge-anchorOriginBottomLeftCircular MuiBadge-overlapCircular MuiBadge-badge css-1mktq6a-MuiBadge-badge"
+        />
+      </span>
+    </div>
+  </div>
+</body>
+`;

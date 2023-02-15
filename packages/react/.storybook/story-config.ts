@@ -34,6 +34,7 @@ export type Stories =
   | 'ActionCard'
   | 'AppBar'
   | 'Avatar'
+  | 'CircularProgressAvatar'
   | 'UserDropdownMenu'
   | 'Header'
   | 'Box'
@@ -107,6 +108,9 @@ const StoryConfig: StorybookConfig = {
   },
   Button: {
     hierarchy: `${StorybookCategories.Inputs}/Button`,
+  },
+  CircularProgressAvatar: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Circular Progress Avatar`,
   },
   UserDropdownMenu: {
     hierarchy: `${StorybookCategories.Navigation}/User Dropdown Menu`,
