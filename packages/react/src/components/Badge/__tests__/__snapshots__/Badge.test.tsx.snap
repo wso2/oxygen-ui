@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Badge should match the snapshot 1`] = `
+<body>
+  <div>
+    <span
+      class="MuiBadge-root oxygen-badge MuiBadge-root css-1c32n2y-MuiBadge-root"
+    >
+      <span
+        class="MuiBadge-badge MuiBadge-standard MuiBadge-invisible MuiBadge-anchorOriginTopRight MuiBadge-anchorOriginTopRightRectangular MuiBadge-overlapRectangular MuiBadge-badge css-uh1ep6-MuiBadge-badge"
+      />
+    </span>
+  </div>
+</body>
+`;

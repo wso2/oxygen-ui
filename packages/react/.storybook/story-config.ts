@@ -34,6 +34,7 @@ export type Stories =
   | 'ActionCard'
   | 'AppBar'
   | 'Avatar'
+  | 'Badge'
   | 'Box'
   | 'Button'
   | 'CircularProgressAvatar'
@@ -105,6 +106,9 @@ const StoryConfig: StorybookConfig = {
   },
   Avatar: {
     hierarchy: `${StorybookCategories.DataDisplay}/Avatar`,
+  },
+  Badge: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Badge`,
   },
   Box: {
     hierarchy: `${StorybookCategories.Layout}/Box`,
