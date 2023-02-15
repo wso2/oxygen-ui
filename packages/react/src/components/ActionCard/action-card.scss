@@ -18,7 +18,7 @@
 
 .oxygen-action-card {
   border-radius: 8px;
-  box-shadow: 0px 2px 20px 0px #1d20281a;
+  box-shadow: 0 2px 20px 0 #1d20281a;
   padding: 24px 40px 24px 24px;
 
   &:hover {
@@ -34,7 +34,7 @@
   }
 
   .description {
-    color: #8D91A3;
+    color: "#8D91A3";
     font-size: 13px;
     font-style: normal;
     font-weight: 400;
