@@ -61,8 +61,16 @@ declare module '@mui/material/styles' {
  */
 interface CustomTheme {
   customComponents?: {
+    Header?: {
+      properties?: {
+        'min-height'?: string;
+      };
+    };
     Navbar?: {
-      properties?: Record<string, string>;
+      properties?: {
+        'mini-variant-width'?: string;
+        width?: string;
+      };
     };
   };
 }

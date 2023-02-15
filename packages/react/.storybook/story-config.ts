@@ -33,6 +33,7 @@ enum StorybookCategories {
 export type Stories =
   | 'ActionCard'
   | 'AppBar'
+  | 'AppShell'
   | 'Avatar'
   | 'Badge'
   | 'Box'
@@ -98,6 +99,9 @@ const StoryConfig: StorybookConfig = {
   },
   AppBar: {
     hierarchy: `${StorybookCategories.Surfaces}/App Bar`,
+  },
+  AppShell: {
+    hierarchy: `${StorybookCategories.Layout}/App Shell`,
   },
   Avatar: {
     hierarchy: `${StorybookCategories.DataDisplay}/Avatar`,
