@@ -37,8 +37,10 @@ export type Stories =
   | 'Box'
   | 'Button'
   | 'CircularProgressAvatar'
+  | 'Chip'
   | 'ColorModeToggle'
   | 'Colors'
+  | 'Container'
   | 'Divider'
   | 'Drawer'
   | 'Grid'
@@ -116,11 +118,17 @@ const StoryConfig: StorybookConfig = {
   UserDropdownMenu: {
     hierarchy: `${StorybookCategories.Navigation}/User Dropdown Menu`,
   },
+  Chip: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Chip`,
+  },
   ColorModeToggle: {
     hierarchy: `${StorybookCategories.Theme}/Color Mode Toggle`,
   },
   Colors: {
     hierarchy: `${StorybookCategories.Foundations}/Colors`,
+  },
+  Container: {
+    hierarchy: `${StorybookCategories.Layout}/Container`,
   },
   Divider: {
     hierarchy: `${StorybookCategories.DataDisplay}/Divider`,

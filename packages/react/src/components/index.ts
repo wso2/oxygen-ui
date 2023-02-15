@@ -28,8 +28,14 @@ export * from './Box';
 export {default as Button} from './Button';
 export * from './Button';
 
+export {default as Chip} from './Chip';
+export * from './Chip';
+
 export {default as ColorModeToggle} from './ColorModeToggle';
 export * from './ColorModeToggle';
+
+export {default as Container} from './Container';
+export * from './Container';
 
 export {default as Divider} from './Divider';
 export * from './Divider';
