@@ -38,6 +38,7 @@ export type Stories =
   | 'Header'
   | 'Box'
   | 'Button'
+  | 'Card'
   | 'Chip'
   | 'ColorModeToggle'
   | 'Colors'
@@ -85,17 +86,6 @@ export type StorybookConfig = Record<
 >;
 
 const StoryConfig: StorybookConfig = {
-  Header: {
-    story: {
-      Overview: {
-        design: {
-          type: 'figma',
-          url: 'https://www.figma.com/file/HyEVOfDBGyXsvPSbNdgquW/Navigation%2FHeader?node-id=120%3A1437&t=NT0uoPAY3qLFlkmN-0',
-        },
-      },
-    },
-    hierarchy: `${StorybookCategories.Navigation}/Header`,
-  },
   ActionCard: {
     hierarchy: `${StorybookCategories.Surfaces}/Action Card`,
   },
@@ -111,8 +101,8 @@ const StoryConfig: StorybookConfig = {
   Button: {
     hierarchy: `${StorybookCategories.Inputs}/Button`,
   },
-  UserDropdownMenu: {
-    hierarchy: `${StorybookCategories.Navigation}/User Dropdown Menu`,
+  Card: {
+    hierarchy: `${StorybookCategories.Surfaces}/Card`,
   },
   Chip: {
     hierarchy: `${StorybookCategories.DataDisplay}/Chip`,
@@ -134,6 +124,17 @@ const StoryConfig: StorybookConfig = {
   },
   Grid: {
     hierarchy: `${StorybookCategories.Layout}/Grid`,
+  },
+  Header: {
+    story: {
+      Overview: {
+        design: {
+          type: 'figma',
+          url: 'https://www.figma.com/file/HyEVOfDBGyXsvPSbNdgquW/Navigation%2FHeader?node-id=120%3A1437&t=NT0uoPAY3qLFlkmN-0',
+        },
+      },
+    },
+    hierarchy: `${StorybookCategories.Navigation}/Header`,
   },
   Image: {
     hierarchy: `${StorybookCategories.DataDisplay}/Image`,
@@ -191,6 +192,9 @@ const StoryConfig: StorybookConfig = {
   },
   Typography: {
     hierarchy: `${StorybookCategories.DataDisplay}/Typography`,
+  },
+  UserDropdownMenu: {
+    hierarchy: `${StorybookCategories.Navigation}/User Dropdown Menu`,
   },
   Welcome: {
     hierarchy: 'Welcome',
