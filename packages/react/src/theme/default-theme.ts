@@ -113,6 +113,11 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
   },
   cssVarPrefix: 'oxygen',
   customComponents: {
+    AppShell: {
+      properties: {
+        padding: baseTheme.spacing(3),
+      },
+    },
     Header: {
       properties: {
         'min-height': '64px',

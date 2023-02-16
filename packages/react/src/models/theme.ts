@@ -17,6 +17,7 @@
  */
 
 import {CssVarsTheme, Theme as MuiTheme} from '@mui/material/styles';
+import {CSSProperties} from 'react';
 
 /**
  * Augment the Theme interface with the custom properties for the existing keys.
@@ -61,6 +62,11 @@ declare module '@mui/material/styles' {
  */
 interface CustomTheme {
   customComponents?: {
+    AppShell: {
+      properties: {
+        padding: CSSProperties['padding'];
+      };
+    };
     Header?: {
       properties?: {
         'min-height'?: string;

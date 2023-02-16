@@ -41,7 +41,7 @@
 
       .oxygen-app-shell-main {
         flex-grow: 1;
-        padding: 24px;
+        padding: var(--oxygen-customComponents-AppShell-properties-padding);
         margin-top: var(--oxygen-customComponents-Header-properties-min-height);
       }
     }
