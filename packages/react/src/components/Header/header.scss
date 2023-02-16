@@ -20,22 +20,25 @@
   border-left: none;
   border-right: none;
   border-top: none;
+  background-color: var(--oxygen-palette-background-paper);
 
-  .menu-icon-button {
-    margin-right: 1rem;
+  .oxygen-header-collapsible-hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 12px;
+
+    .oxygen-icon-button {
+      height: 48px;
+      width: 48px;
+    }
   }
 
-  .portal-name {
-    font-weight: 500;
-    font-size: 1.25rem;
-    line-height: 1.6;
-  }
-
-  .logo-box {
+  .oxygen-brand {
     display: flex;
     align-items: center;
 
-    .logo {
+    .oxygen-brand-logo {
       height: 40px;
       display: flex;
       margin-right: 0.5rem;
@@ -43,25 +46,34 @@
 
     &.with-link {
       cursor: pointer;
-      text-decoration: none;
     }
   }
 
-  .nav-links-section {
+  &.with-hamburger {
+    .oxygen-header-toolbar {
+      padding-left: 0;
+
+      .oxygen-brand {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .oxygen-header-mid-section {
     flex: 1;
   }
 
-  .nav-links {
+  .oxygen-header-links {
     display: flex;
     justify-content: end;
     margin-right: 1rem;
 
-    .link {
+    .oxygen-header-link {
       margin-right: 1rem;
     }
   }
 
-  .dropdown-menu {
+  .oxygen-header-user-dropdown-menu {
     .image {
       width: 2.2rem;
       height: 2.2rem;
@@ -73,8 +85,8 @@
       margin-right: 0.5rem;
     }
 
-    .nav-links,
-    .dropdown-menu {
+    .oxygen-header-links,
+    .oxygen-header-user-dropdown-menu {
       display: none;
     }
   }

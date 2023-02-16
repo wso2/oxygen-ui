@@ -26,26 +26,28 @@ export const Template = args => {
 
 Footers display a set of links and a copyright at the bottom of the application.
 
+export const basicFooterVariationOptions = {
+  copyright: <>&copy;&nbsp;{new Date().getFullYear()}, <span>WSO2 LLC.</span></>,
+  links: [
+    {
+      children: 'Terms of Use',
+      href: '/terms',
+    },
+    {
+      children: 'Privacy Policy',
+      href: '/privacy',
+    },
+    {
+      children: 'Support',
+      href: '/support',
+    },
+  ],
+};
+
 <Canvas>
   <Story
     name="Overview"
-    args={{
-      copyright: <>&copy;&nbsp;{new Date().getFullYear()}, <span>WSO2 LLC.</span></>,
-      links: [
-        {
-          children: 'Terms of Use',
-          href: '/terms',
-        },
-        {
-          children: 'Privacy Policy',
-          href: '/privacy',
-        },
-        {
-          children: 'Support',
-          href: '/support',
-        },
-      ],
-    }}
+    args={basicFooterVariationOptions}
   >
     {Template.bind({})}
   </Story>

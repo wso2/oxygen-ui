@@ -22,50 +22,53 @@ export const Template = args => <Header {...args} />;
 
 ## Overview
 
-The Header provides content and actions related to the current screen. It's used for branding, screen titles, navigation, and actions.
+The Header provides content and actions related to the current screen. It's used for branding, screen titles,
+navigation, and actions.
+
+export const basicHeaderVariationOptions = {
+  isLeftNavigationActive: true,
+  brand: {
+    logo: {
+      desktop: <img src="/assets/images/oxygen-ui-logo-mini.svg" alt="logo" />,
+      mobile: <img src="/assets/images/oxygen-ui-logo-mini.svg" alt="logo" />,
+    },
+    onClick: () => null,
+    title: 'OxygenUI',
+  },
+  user: {
+    image: '/assets/images/avatar-john.svg',
+    name: 'Matthew',
+    email: 'matthew@wso2.com',
+  },
+  modes: [
+    {
+      name: 'light',
+      icon: <SunIcon />,
+    },
+    {
+      name: 'dark',
+      icon: <CresentBrightIcon />,
+    },
+  ],
+  links: [
+    {
+      children: 'Console',
+      startIcon: <LogsIcon />,
+      href: '/',
+    },
+    {
+      children: 'Language',
+      startIcon: <LanguagesIcon />,
+      href: '/',
+    },
+  ],
+};
 
 <Canvas>
   <Story
     name="Overview"
     parameters={withDesign('Header', 'Overview', {})}
-    args={{
-      isLeftNavigationActive: true,
-      brand: {
-        logo: {
-          desktop: <img src='/assets/images/oxygen-ui-logo-mini.svg' alt='logo' />,
-          mobile: <img src='/assets/images/oxygen-ui-logo-mini.svg' alt='logo' />,
-          },
-        onClick: () => null,
-        title: 'OxygenUI',
-      },
-      user: {
-        image: '/assets/images/avatar-john.svg',
-        name: 'Matthew',
-        email: 'matthew@wso2.com',
-      },
-      modes: [
-        {
-          name: 'light',
-          icon: <SunIcon />
-        },
-        {
-          name: 'dark',
-          icon: <CresentBrightIcon />
-        }
-      ],
-      links: [
-        {
-          children: 'Console', 
-          startIcon: <LogsIcon />, 
-          href: '/'
-        },
-        {
-          children: 'Language', 
-          startIcon: <LanguagesIcon />, 
-          href: '/'
-        },
-      ],
-    }}
+    args={basicHeaderVariationOptions}
   >
     {Template.bind({})}
   </Story>

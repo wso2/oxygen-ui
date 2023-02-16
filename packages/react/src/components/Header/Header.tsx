@@ -41,10 +41,6 @@ export interface HeaderProps extends AppBarProps {
    */
   brand?: BrandTemplate;
   /**
-   * Is the left navigation bar activated.
-   */
-  isLeftNavigationActive?: boolean;
-  /**
    * Links available on the header.
    */
   links?: Omit<ButtonProps, 'color'>[];
@@ -53,9 +49,13 @@ export interface HeaderProps extends AppBarProps {
    */
   modes?: ModeList[];
   /**
-   * Function to handle left navigation bar button toggle.
+   * Function to handle the collapsible hamburger click.
    */
-  onLeftNavigationTrigger?: () => void;
+  onCollapsibleHamburgerClick?: () => void;
+  /**
+   * Should show the collapsible hamburger icon?
+   */
+  showCollapsibleHamburger?: boolean;
   /**
    * Logged user information.
    */
@@ -89,8 +89,17 @@ export interface BrandTemplate {
 const COMPONENT_NAME: string = 'Header';
 
 const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactElement => {
-  const {className, children, isLeftNavigationActive, brand, user, links, modes, onLeftNavigationTrigger, ...rest} =
-    props;
+  const {
+    className,
+    children,
+    showCollapsibleHamburger,
+    brand,
+    user,
+    links,
+    modes,
+    onCollapsibleHamburgerClick,
+    ...rest
+  } = props;
 
   const theme: Theme = useTheme();
   const {mode, setMode} = useColorScheme();
@@ -100,6 +109,7 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
     'oxygen-header',
     {
       mobile: isMobile,
+      'with-hamburger': showCollapsibleHamburger,
     },
     className,
   );
@@ -118,39 +128,44 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
       role="banner"
       {...rest}
     >
-      <Toolbar>
-        {isLeftNavigationActive && (
-          <IconButton aria-label="Menu Icon" onClick={onLeftNavigationTrigger} className="menu-icon-button">
-            <HamburgerIcon />
-          </IconButton>
+      <Toolbar className="oxygen-header-toolbar">
+        {showCollapsibleHamburger && (
+          <div className="oxygen-header-collapsible-hamburger">
+            <IconButton aria-label="Menu Icon" onClick={onCollapsibleHamburgerClick}>
+              <HamburgerIcon />
+            </IconButton>
+          </div>
         )}
         {brand && (
           <Box
             tabIndex={0}
-            component={Boolean(brand.onClick) && Link}
-            className={clsx('logo-box', {
+            component={brand.onClick ? Link : Box}
+            className={clsx('oxygen-brand', {
               'with-link': Boolean(brand.onClick),
             })}
             onClick={brand.onClick}
+            underline="none"
             color="inherit"
           >
-            <Box className="logo">{isMobile ? brand.logo.mobile ?? brand.logo.desktop : brand.logo.desktop}</Box>
-            <Typography variant="h1" className="portal-name">
+            <Box className="oxygen-brand-logo">
+              {isMobile ? brand.logo.mobile ?? brand.logo.desktop : brand.logo.desktop}
+            </Box>
+            <Typography variant="h6" component="h1" className="oxygen-brand-portal-name">
               {brand.title}
             </Typography>
           </Box>
         )}
-        <Box className="nav-links-section">
+        <Box className="oxygen-header-mid-section">
           <>
             {children}
             {links?.length > 0 && (
-              <Box className="nav-links">
+              <Box className="oxygen-header-links">
                 {links?.map((link: ButtonProps) => {
                   const {children: linkChildren, href, startIcon, ...linkProps} = link;
                   return (
                     <Button
                       key={links.indexOf(link)}
-                      className="link"
+                      className="oxygen-header-link"
                       href={href}
                       startIcon={startIcon}
                       color="inherit"
@@ -164,7 +179,7 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
             )}
           </>
         </Box>
-        <Box className="dropdown-menu">
+        <Box className="oxygen-header-user-dropdown-menu">
           <UserDropdownMenu
             user={user}
             triggerOptions={{

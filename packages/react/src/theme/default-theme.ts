@@ -113,9 +113,18 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
   },
   cssVarPrefix: 'oxygen',
   customComponents: {
-    Navbar: {
+    AppShell: {
+      properties: {
+        padding: baseTheme.spacing(3),
+      },
+    },
+    Header: {
       properties: {
         'min-height': '64px',
+      },
+    },
+    Navbar: {
+      properties: {
         'mini-variant-width': '72px',
         width: '240px',
       },
