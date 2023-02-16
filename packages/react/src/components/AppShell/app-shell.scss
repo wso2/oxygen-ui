@@ -17,15 +17,33 @@
  */
 
 .oxygen-app-shell {
+  width: 100%;
   display: flex;
+  overflow: hidden;
+  flex-grow: 1;
+  flex-direction: column;
 
   .oxygen-header {
     z-index: 1201;
   }
 
-  .oxygen-app-shell-main {
+  .oxygen-app-shell-content {
+    display: flex;
+    overflow: auto;
     flex-grow: 1;
-    padding: 24px;
-    margin-top: var(--oxygen-customComponents-Header-properties-min-height);
+    transition: all 0.5s;
+
+    .oxygen-app-shell-main-wrapper {
+      display: flex;
+      overflow: auto;
+      flex-grow: 1;
+      flex-direction: column;
+
+      .oxygen-app-shell-main {
+        flex-grow: 1;
+        padding: 24px;
+        margin-top: var(--oxygen-customComponents-Header-properties-min-height);
+      }
+    }
   }
 }

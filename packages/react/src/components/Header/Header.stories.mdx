@@ -25,7 +25,7 @@ export const Template = args => <Header {...args} />;
 The Header provides content and actions related to the current screen. It's used for branding, screen titles,
 navigation, and actions.
 
-export const basicVariationOptions = {
+export const basicHeaderVariationOptions = {
   isLeftNavigationActive: true,
   brand: {
     logo: {
@@ -68,7 +68,7 @@ export const basicVariationOptions = {
   <Story
     name="Overview"
     parameters={withDesign('Header', 'Overview', {})}
-    args={basicVariationOptions}
+    args={basicHeaderVariationOptions}
   >
     {Template.bind({})}
   </Story>
