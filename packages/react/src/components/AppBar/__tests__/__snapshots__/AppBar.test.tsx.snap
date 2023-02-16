@@ -4,7 +4,7 @@ exports[`AppBar should match the snapshot 1`] = `
 <body>
   <div>
     <header
-      class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed oxygen-app-bar mui-fixed css-vfrfmn-MuiPaper-root-MuiAppBar-root"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed oxygen-app-bar mui-fixed css-ifmgpx-MuiPaper-root-MuiAppBar-root"
     />
   </div>
 </body>
