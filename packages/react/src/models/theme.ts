@@ -24,6 +24,9 @@ import {CssVarsTheme, Theme as MuiTheme} from '@mui/material/styles';
 declare module '@mui/material/styles' {
   interface PaletteOptions {
     customComponents: {
+      Footer: {
+        background: string;
+      };
       Navbar: {
         background: string;
       };
@@ -37,6 +40,9 @@ declare module '@mui/material/styles' {
   }
   interface Palette {
     customComponents: {
+      Footer: {
+        background: string;
+      };
       Navbar: {
         background: string;
       };

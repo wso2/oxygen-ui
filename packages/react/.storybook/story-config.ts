@@ -48,6 +48,7 @@ export type Stories =
   | 'Container'
   | 'Divider'
   | 'Drawer'
+  | 'Footer'
   | 'Grid'
   | 'Header'
   | 'IconButton'
@@ -70,6 +71,7 @@ export type Stories =
   | 'Tooltip'
   | 'Typeset'
   | 'Typography'
+  | 'UserDropdownMenu'
   | 'Welcome';
 export type StorybookConfig = Record<
   Stories,
@@ -141,6 +143,9 @@ const StoryConfig: StorybookConfig = {
   },
   Drawer: {
     hierarchy: `${StorybookCategories.Navigation}/Drawer`,
+  },
+  Footer: {
+    hierarchy: `${StorybookCategories.Navigation}/Footer`,
   },
   Grid: {
     hierarchy: `${StorybookCategories.Layout}/Grid`,

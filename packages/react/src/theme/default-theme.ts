@@ -25,6 +25,9 @@ export const DEFAULT_THEME_OPTIONS: RecursivePartial<Theme> = {
     dark: {
       palette: {
         customComponents: {
+          Footer: {
+            background: '#000000',
+          },
           Navbar: {
             background: '#262626',
           },
@@ -44,6 +47,9 @@ export const DEFAULT_THEME_OPTIONS: RecursivePartial<Theme> = {
     light: {
       palette: {
         customComponents: {
+          Footer: {
+            background: '#f7f8fb',
+          },
           Navbar: {
             background: '#fbfbfb',
           },
