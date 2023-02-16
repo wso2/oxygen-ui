@@ -20,6 +20,7 @@
 enum StorybookCategories {
   DataDisplay = 'Data Display',
   Foundations = 'Foundations',
+  Feedback = 'Feedback',
   Icons = 'Icons',
   Inputs = 'Inputs',
   Layout = 'Layout',
@@ -37,6 +38,7 @@ export type Stories =
   | 'Badge'
   | 'Box'
   | 'Button'
+  | 'CircularProgress'
   | 'Card'
   | 'CardActions'
   | 'CardContent'
@@ -110,6 +112,9 @@ const StoryConfig: StorybookConfig = {
   },
   Button: {
     hierarchy: `${StorybookCategories.Inputs}/Button`,
+  },
+  CircularProgress: {
+    hierarchy: `${StorybookCategories.Feedback}/Circular Progress`,
   },
   Card: {
     hierarchy: `${StorybookCategories.Surfaces}/Card`,
