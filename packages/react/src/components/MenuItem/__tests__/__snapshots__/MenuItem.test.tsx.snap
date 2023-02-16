@@ -4,7 +4,7 @@ exports[`MenuItem should match the snapshot 1`] = `
 <body>
   <div>
     <li
-      class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters oxygen-menu-item css-1ka9525-MuiButtonBase-root-MuiMenuItem-root"
+      class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters oxygen-menu-item css-6uo8rv-MuiButtonBase-root-MuiMenuItem-root"
       role="menuitem"
       tabindex="-1"
     >
