@@ -20,11 +20,14 @@ import {experimental_extendTheme as extendTheme} from '@mui/material/styles';
 import lightTokens from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/tokens';
 import {RecursivePartial, Theme} from '../models';
 
-export const DEFAULT_THEME_OPTIONS: RecursivePartial<Theme> = {
+export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<Theme> => ({
   colorSchemes: {
     dark: {
       palette: {
         customComponents: {
+          Footer: {
+            background: '#000000',
+          },
           Navbar: {
             background: '#262626',
           },
@@ -44,6 +47,9 @@ export const DEFAULT_THEME_OPTIONS: RecursivePartial<Theme> = {
     light: {
       palette: {
         customComponents: {
+          Footer: {
+            background: '#f7f8fb',
+          },
           Navbar: {
             background: '#fbfbfb',
           },
@@ -90,6 +96,20 @@ export const DEFAULT_THEME_OPTIONS: RecursivePartial<Theme> = {
         },
       },
     },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          padding: '24px 40px 24px 24px',
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        elevation1: {
+          boxShadow: 'var(--oxygen-shadows-0)',
+        },
+      },
+    },
   },
   cssVarPrefix: 'oxygen',
   customComponents: {
@@ -101,23 +121,33 @@ export const DEFAULT_THEME_OPTIONS: RecursivePartial<Theme> = {
       },
     },
   },
+  shadows: ['0px 2px 20px 0px #1d20281a', ...baseTheme.shadows],
   shape: {
     // TODO: Is `Lg` the default?
     borderRadius: lightTokens.OxygenOxygenBorderRadiusLg,
   },
   typography: {
     body1: {
-      fontSize: '0.875rem',
-      fontWeight: 'normal',
+      color: '#8D91A3',
+      fontSize: '13px',
+      fontStyle: 'normal',
+      fontWeight: 400,
+      lineHeight: '20px',
     },
     button: {
       textTransform: 'none',
     },
     // TODO: Need a token for this.
     fontFamily: 'Gilmer',
+    subtitle2: {
+      color: '#222228',
+      fontSize: '0.875rem',
+      fontWeight: 'normal',
+    },
   },
-};
+});
 
-const defaultTheme: Theme = extendTheme(DEFAULT_THEME_OPTIONS as Theme);
+export const baseTheme: Theme = extendTheme();
+const defaultTheme: Theme = extendTheme(generateDefaultThemeOptions(baseTheme) as Theme);
 
 export default defaultTheme;

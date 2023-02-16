@@ -16,8 +16,5 @@
  * under the License.
  */
 
-.oxygen-action-card {
-  &:hover {
-    border: 1px solid var(--oxygen-palette-primary-main);
-  }
-}
+export {default} from './Footer';
+export type {NavbarProps} from './Footer';

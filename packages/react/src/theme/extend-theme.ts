@@ -18,8 +18,8 @@
 
 import {CssVarsTheme, experimental_extendTheme as mui_extendTheme, Theme} from '@mui/material/styles';
 import {deepmerge} from '@mui/utils';
-import {DEFAULT_THEME_OPTIONS} from './default-theme';
+import {generateDefaultThemeOptions, baseTheme} from './default-theme';
 
 export default function extendTheme(options: any, ...args: any): Omit<Theme, 'palette'> & CssVarsTheme {
-  return mui_extendTheme(deepmerge(DEFAULT_THEME_OPTIONS as Theme, options), ...args);
+  return mui_extendTheme(deepmerge(generateDefaultThemeOptions(baseTheme) as Theme, options), ...args);
 }

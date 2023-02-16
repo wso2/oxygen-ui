@@ -19,8 +19,8 @@
 import Card, {CardProps} from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import {FC, ReactElement, ReactNode} from 'react';
 import clsx from 'clsx';
+import {FC, ReactElement, ReactNode} from 'react';
 import Button from '../Button';
 import Typography from '../Typography';
 import {WithWrapperProps} from '../../models';
@@ -57,15 +57,11 @@ const ActionCard: FC<ActionCardProps> & WithWrapperProps = (props: ActionCardPro
   const classes: string = clsx('oxygen-action-card', className);
 
   return (
-    <Card className={classes} {...rest}>
+    <Card className={classes} {...rest} elevation={1}>
       <CardContent>
         {image}
-        <Typography variant="subtitle2" className="title">
-          {title}
-        </Typography>
-        <Typography variant="body1" color="secondary.main" className="description">
-          {description}
-        </Typography>
+        <Typography variant="subtitle2">{title}</Typography>
+        <Typography variant="body1">{description}</Typography>
       </CardContent>
       <CardActions>
         <Button onClick={onActionClick} variant="contained">

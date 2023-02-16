@@ -1,0 +1,89 @@
+import {useArgs} from '@storybook/client-api';
+import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import StoryConfig from '../../../.storybook/story-config.ts';
+import Footer from './Footer.tsx';
+
+export const meta = {
+  component: Footer,
+  title: StoryConfig.Footer.hierarchy,
+};
+
+<Meta title={meta.title} component={meta.component} />
+
+export const Template = args => {
+  const [runtimeArgs, updateArgs] = useArgs();
+  return <Footer {...args} />;
+};
+
+# Navbar
+
+- [Overview](#overview)
+- [Props](#props)
+- [Usage](#usage)
+
+## Overview
+
+Footers display a set of links and a copyright at the bottom of the application.
+
+<Canvas>
+  <Story
+    name="Overview"
+    args={{
+      copyright: <>&copy;&nbsp;{new Date().getFullYear()}, <span>WSO2 LLC.</span></>,
+      links: [
+        {
+          children: 'Terms of Use',
+          href: '/terms',
+        },
+        {
+          children: 'Privacy Policy',
+          href: '/privacy',
+        },
+        {
+          children: 'Support',
+          href: '/support',
+        },
+      ],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Overview" />
+
+## Usage
+
+Import and use the `Footer` component in your components as follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`
+import Footer from '@oxygen-ui/react/Footer';\n
+function Demo() {
+  return (
+    <Footer
+      copyright: <span>2023 WSO2 LLC.</span>,
+      links: [
+        {
+          children: 'Terms of Use',
+          href: '/terms',
+        },
+        {
+          children: 'Privacy Policy',
+          href: '/privacy',
+        },
+        {
+          children: 'Support',
+          href: '/support',
+        },
+      ],
+    />
+  );
+}`}
+/>

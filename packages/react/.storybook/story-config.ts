@@ -35,9 +35,14 @@ export type Stories =
   | 'ActionCard'
   | 'AppBar'
   | 'Avatar'
+  | 'Badge'
   | 'Box'
   | 'Button'
   | 'CircularProgress'
+  | 'Card'
+  | 'CardActions'
+  | 'CardContent'
+  | 'CardHeader'
   | 'CircularProgressAvatar'
   | 'Chip'
   | 'ColorModeToggle'
@@ -45,6 +50,7 @@ export type Stories =
   | 'Container'
   | 'Divider'
   | 'Drawer'
+  | 'Footer'
   | 'Grid'
   | 'Header'
   | 'IconButton'
@@ -67,6 +73,7 @@ export type Stories =
   | 'Tooltip'
   | 'Typeset'
   | 'Typography'
+  | 'UserDropdownMenu'
   | 'Welcome';
 export type StorybookConfig = Record<
   Stories,
@@ -88,17 +95,6 @@ export type StorybookConfig = Record<
 >;
 
 const StoryConfig: StorybookConfig = {
-  Header: {
-    story: {
-      Overview: {
-        design: {
-          type: 'figma',
-          url: 'https://www.figma.com/file/HyEVOfDBGyXsvPSbNdgquW/Navigation%2FHeader?node-id=120%3A1437&t=NT0uoPAY3qLFlkmN-0',
-        },
-      },
-    },
-    hierarchy: `${StorybookCategories.Navigation}/Header`,
-  },
   ActionCard: {
     hierarchy: `${StorybookCategories.Surfaces}/Action Card`,
   },
@@ -107,6 +103,9 @@ const StoryConfig: StorybookConfig = {
   },
   Avatar: {
     hierarchy: `${StorybookCategories.DataDisplay}/Avatar`,
+  },
+  Badge: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Badge`,
   },
   Box: {
     hierarchy: `${StorybookCategories.Layout}/Box`,
@@ -117,11 +116,20 @@ const StoryConfig: StorybookConfig = {
   CircularProgress: {
     hierarchy: `${StorybookCategories.Feedback}/Circular Progress`,
   },
+  Card: {
+    hierarchy: `${StorybookCategories.Surfaces}/Card`,
+  },
+  CardActions: {
+    hierarchy: `${StorybookCategories.Surfaces}/CardActions`,
+  },
+  CardContent: {
+    hierarchy: `${StorybookCategories.Surfaces}/CardContent`,
+  },
+  CardHeader: {
+    hierarchy: `${StorybookCategories.Surfaces}/CardHeader`,
+  },
   CircularProgressAvatar: {
     hierarchy: `${StorybookCategories.DataDisplay}/Circular Progress Avatar`,
-  },
-  UserDropdownMenu: {
-    hierarchy: `${StorybookCategories.Navigation}/User Dropdown Menu`,
   },
   Chip: {
     hierarchy: `${StorybookCategories.DataDisplay}/Chip`,
@@ -141,8 +149,22 @@ const StoryConfig: StorybookConfig = {
   Drawer: {
     hierarchy: `${StorybookCategories.Navigation}/Drawer`,
   },
+  Footer: {
+    hierarchy: `${StorybookCategories.Navigation}/Footer`,
+  },
   Grid: {
     hierarchy: `${StorybookCategories.Layout}/Grid`,
+  },
+  Header: {
+    story: {
+      Overview: {
+        design: {
+          type: 'figma',
+          url: 'https://www.figma.com/file/HyEVOfDBGyXsvPSbNdgquW/Navigation%2FHeader?node-id=120%3A1437&t=NT0uoPAY3qLFlkmN-0',
+        },
+      },
+    },
+    hierarchy: `${StorybookCategories.Navigation}/Header`,
   },
   Image: {
     hierarchy: `${StorybookCategories.DataDisplay}/Image`,
@@ -200,6 +222,9 @@ const StoryConfig: StorybookConfig = {
   },
   Typography: {
     hierarchy: `${StorybookCategories.DataDisplay}/Typography`,
+  },
+  UserDropdownMenu: {
+    hierarchy: `${StorybookCategories.Navigation}/User Dropdown Menu`,
   },
   Welcome: {
     hierarchy: 'Welcome',

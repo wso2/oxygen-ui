@@ -1,0 +1,46 @@
+import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import StoryConfig from '../../../.storybook/story-config.ts';
+import {withDesign} from '../../../.storybook/utils.ts';
+import Card from './Card.tsx';
+
+export const meta = {
+  component: Card,
+  title: StoryConfig.Card.hierarchy,
+};
+
+<Meta title={meta.title} component={meta.component} />
+
+export const Template = args => <Card {...args} />;
+
+# Card
+
+- [Overview](#overview)
+- [Props](#props)
+- [Usage](#usage)
+
+## Overview
+
+Use the Card component to display content and actions about a single subject.
+
+<Canvas>
+  <Story name="Overview" args={{children: 'Sample Card'}}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Overview" />
+
+## Usage
+
+Import and use the `Card` component in your components as follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`
+import Card from '@oxygen-ui/react/Card';\n`}
+/>

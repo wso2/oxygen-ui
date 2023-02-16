@@ -16,8 +16,17 @@
  * under the License.
  */
 
-.oxygen-action-card {
-  &:hover {
-    border: 1px solid var(--oxygen-palette-primary-main);
-  }
-}
+import {render} from '@unit-testing';
+import Footer from '../Footer';
+
+describe('Footer', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(<Footer />);
+    expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<Footer />);
+    expect(baseElement).toMatchSnapshot();
+  });
+});

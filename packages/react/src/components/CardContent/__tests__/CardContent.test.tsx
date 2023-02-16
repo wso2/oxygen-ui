@@ -16,8 +16,17 @@
  * under the License.
  */
 
-.oxygen-action-card {
-  &:hover {
-    border: 1px solid var(--oxygen-palette-primary-main);
-  }
-}
+import {render} from '@unit-testing';
+import CardContent from '../CardContent';
+
+describe('CardContent', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(<CardContent />);
+    expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<CardContent />);
+    expect(baseElement).toMatchSnapshot();
+  });
+});
