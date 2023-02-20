@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input should match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary oxygen-input css-d1sj6r-MuiInputBase-root-MuiInput-root"
+    >
+      <input
+        class="MuiInputBase-input MuiInput-input css-1tuv0hg-MuiInputBase-input-MuiInput-input"
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</body>
+`;
