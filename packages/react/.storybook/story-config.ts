@@ -57,6 +57,7 @@ export type Stories =
   | 'IconButton'
   | 'Icons'
   | 'Image'
+  | 'InputLabel'
   | 'Link'
   | 'List'
   | 'ListItem'
@@ -172,6 +173,9 @@ const StoryConfig: StorybookConfig = {
   },
   Image: {
     hierarchy: `${StorybookCategories.DataDisplay}/Image`,
+  },
+  InputLabel: {
+    hierarchy: `${StorybookCategories.Inputs}/Input Label`,
   },
   IconButton: {
     hierarchy: `${StorybookCategories.Inputs}/Icon Button`,
