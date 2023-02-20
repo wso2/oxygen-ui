@@ -52,6 +52,7 @@ export type Stories =
   | 'Divider'
   | 'Drawer'
   | 'Footer'
+  | 'FormHelperText'
   | 'Grid'
   | 'Header'
   | 'IconButton'
@@ -158,6 +159,9 @@ const StoryConfig: StorybookConfig = {
   },
   Footer: {
     hierarchy: `${StorybookCategories.Navigation}/Footer`,
+  },
+  FormHelperText: {
+    hierarchy: `${StorybookCategories.Inputs}/Form Helper Text`,
   },
   Grid: {
     hierarchy: `${StorybookCategories.Layout}/Grid`,
