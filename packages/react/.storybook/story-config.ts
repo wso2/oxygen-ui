@@ -70,6 +70,7 @@ export type Stories =
   | 'MenuItem'
   | 'UserDropdownMenu'
   | 'Navbar'
+  | 'OutlinedInput'
   | 'SignIn'
   | 'TextField'
   | 'Toolbar'
@@ -198,6 +199,9 @@ const StoryConfig: StorybookConfig = {
   },
   Navbar: {
     hierarchy: `${StorybookCategories.Navigation}/Navbar`,
+  },
+  OutlinedInput: {
+    hierarchy: `${StorybookCategories.Inputs}/Outlined Input`,
   },
   List: {
     hierarchy: `${StorybookCategories.DataDisplay}/List`,
