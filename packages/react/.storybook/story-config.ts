@@ -72,7 +72,6 @@ export type Stories =
   | 'TextField'
   | 'Toolbar'
   | 'Tooltip'
-  | 'Typeset'
   | 'Typography'
   | 'UserDropdownMenu'
   | 'Welcome';
@@ -220,9 +219,6 @@ const StoryConfig: StorybookConfig = {
   },
   Tooltip: {
     hierarchy: `${StorybookCategories.DataDisplay}/Tooltip`,
-  },
-  Typeset: {
-    hierarchy: `${StorybookCategories.Foundations}/Typeset`,
   },
   Typography: {
     hierarchy: `${StorybookCategories.DataDisplay}/Typography`,
