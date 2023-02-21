@@ -78,6 +78,9 @@ interface CustomTheme {
         width?: string;
       };
     };
+    Stepper?: {
+      properties?: Record<string, string>;
+    };
   };
 }
 
