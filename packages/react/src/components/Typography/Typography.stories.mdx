@@ -66,18 +66,23 @@ export const SampleText = 'Lorem ipsum.';
 
 <Canvas>
   <Story name="Variants">
-    {Object.entries(defaultTheme.typography).map(([key, value]) => {
-      const isVariant = key !== 'button' && (value.hasOwnProperty('fontSize') || value.hasOwnProperty('fontWeight'));
-      if (!isVariant) {
-        return null;
-      }
-      return (
-        <Box sx={{p: 2, border: '1px dashed #eee'}}>
-          <Typography variant={key}>
-            {key} . {SampleText}
-          </Typography>
-        </Box>
-      );
-    })}
+    {Object.entries(defaultTheme.typography)
+      .sort((a, b) => {
+        return b[1].fontSize?.split('rem')[0] - a[1].fontSize?.split('rem')[0];
+      })
+      .map(([key, value]) => {
+        const isVariant = key !== 'button' && (value.hasOwnProperty('fontSize') || value.hasOwnProperty('fontWeight'));
+        if (!isVariant) {
+          return null;
+        }
+        console.log(JSON.stringify(defaultTheme.typography));
+        return (
+          <Box sx={{p: 2, border: '1px dashed #eee'}}>
+            <Typography variant={key}>
+              {key} . {SampleText}
+            </Typography>
+          </Box>
+        );
+      })}
   </Story>
 </Canvas>
