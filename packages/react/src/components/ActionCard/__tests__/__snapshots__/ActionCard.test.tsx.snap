@@ -14,12 +14,12 @@ exports[`ActionCard should match the snapshot 1`] = `
           src="/assets/images/action-card-image.svg"
         />
         <h6
-          class="MuiTypography-root MuiTypography-subtitle2 oxygen-typography css-no3yss-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-subtitle1 oxygen-typography css-n2qzog-MuiTypography-root"
         >
           Secure your account by adding an extra layer of security
         </h6>
         <p
-          class="MuiTypography-root MuiTypography-body1 oxygen-typography css-1myvrax-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-body2 oxygen-typography css-xq9ne1-MuiTypography-root"
         >
           Configure additional authentications to sign in easily or to add an extra layer of security to your account.
         </p>
