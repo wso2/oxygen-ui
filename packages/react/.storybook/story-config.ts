@@ -75,7 +75,8 @@ export type Stories =
   | 'Tooltip'
   | 'Typography'
   | 'UserDropdownMenu'
-  | 'Welcome';
+  | 'Welcome'
+  | 'Wizard';
 export type StorybookConfig = Record<
   Stories,
   {
@@ -233,6 +234,9 @@ const StoryConfig: StorybookConfig = {
   Welcome: {
     hierarchy: 'Welcome',
   },
+  Wizard: {
+    hierarchy: `${StorybookCategories.Patterns}/Wizard`,
+  }
 };
 
 export default StoryConfig;
