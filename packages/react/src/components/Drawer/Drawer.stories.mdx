@@ -20,19 +20,20 @@ export const Template = args => {
   const [{open, anchor}, updateArgs] = useArgs();
   return (
     <div>
-      {(['left', 'right', 'top', 'bottom']).map((anchor) => (
+      {['left', 'right', 'top', 'bottom'].map(anchor => (
         <Fragment key={anchor}>
-          <Button onClick={() => updateArgs({ open: !open, anchor: anchor })}>{anchor}</Button>
-          <Drawer
-            anchor={anchor}
-            open={open}
-            onClose={() => updateArgs({ open: !open, anchor: anchor })}
-            {...args}
-          >
+          <Button onClick={() => updateArgs({open: !open, anchor: anchor})}>{anchor}</Button>
+          <Drawer anchor={anchor} open={open} onClose={() => updateArgs({open: !open, anchor: anchor})} {...args}>
             <List>
-              <ListItem><ListItemText>Drawer Item 01</ListItemText></ListItem>
-              <ListItem><ListItemText>Drawer Item 02</ListItemText></ListItem>
-              <ListItem><ListItemText>Drawer Item 03</ListItemText></ListItem>
+              <ListItem>
+                <ListItemText>Drawer Item 01</ListItemText>
+              </ListItem>
+              <ListItem>
+                <ListItemText>Drawer Item 02</ListItemText>
+              </ListItem>
+              <ListItem>
+                <ListItemText>Drawer Item 03</ListItemText>
+              </ListItem>
             </List>
           </Drawer>
         </Fragment>
@@ -53,7 +54,14 @@ Navigation drawers provide access to destinations in your app. Side sheets are s
 that are anchored to the left or right edge of the screen.
 
 <Canvas>
-  <Story name="Overview">{Template.bind({})}</Story>
+  <Story
+    name="Overview"
+    parameters={{
+      docs: {inlineStories: false, iframeHeight: 476},
+    }}
+  >
+    {Template.bind({})}
+  </Story>
 </Canvas>
 
 ## Props

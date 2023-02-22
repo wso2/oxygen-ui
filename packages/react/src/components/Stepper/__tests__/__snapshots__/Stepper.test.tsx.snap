@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Typography should match the snapshot 1`] = `
+exports[`Stepper should match the snapshot 1`] = `
 <body>
   <div>
     <p
       class="MuiTypography-root MuiTypography-body1 oxygen-typography css-1qp7oek-MuiTypography-root"
     >
-      Sample Text
+      Step 1
     </p>
   </div>
 </body>

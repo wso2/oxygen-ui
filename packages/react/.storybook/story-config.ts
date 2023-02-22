@@ -74,13 +74,14 @@ export type Stories =
   | 'Navbar'
   | 'OutlinedInput'
   | 'SignIn'
+  | 'Stepper'
   | 'TextField'
   | 'Toolbar'
   | 'Tooltip'
-  | 'Typeset'
   | 'Typography'
   | 'UserDropdownMenu'
-  | 'Welcome';
+  | 'Welcome'
+  | 'Wizard';
 export type StorybookConfig = Record<
   Stories,
   {
@@ -232,6 +233,9 @@ const StoryConfig: StorybookConfig = {
   SignIn: {
     hierarchy: `${StorybookCategories.Patterns}/Sign In`,
   },
+  Stepper: {
+    hierarchy: `${StorybookCategories.Surfaces}/Stepper`,
+  },
   TextField: {
     hierarchy: `${StorybookCategories.Inputs}/Text Field`,
   },
@@ -240,9 +244,6 @@ const StoryConfig: StorybookConfig = {
   },
   Tooltip: {
     hierarchy: `${StorybookCategories.DataDisplay}/Tooltip`,
-  },
-  Typeset: {
-    hierarchy: `${StorybookCategories.Foundations}/Typeset`,
   },
   Typography: {
     hierarchy: `${StorybookCategories.DataDisplay}/Typography`,
@@ -253,6 +254,9 @@ const StoryConfig: StorybookConfig = {
   Welcome: {
     hierarchy: 'Welcome',
   },
+  Wizard: {
+    hierarchy: `${StorybookCategories.Patterns}/Wizard`,
+  }
 };
 
 export default StoryConfig;

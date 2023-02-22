@@ -64,7 +64,14 @@ export const Template = args => {
 Use typography to present your design and content as clearly and efficiently as possible.
 
 <Canvas>
-  <Story name="Overview">{Template.bind({})}</Story>
+  <Story
+    name="Overview"
+    parameters={{
+      docs: {inlineStories: false, iframeHeight: 476},
+    }}
+  >
+    {Template.bind({})}
+  </Story>
 </Canvas>
 
 ## Props
@@ -95,7 +102,13 @@ function Demo() {
 Navbar with a gradient as the background color.
 
 <Canvas>
-  <Story name="Gradient" args={{fill: 'gradient'}}>
+  <Story
+    name="Gradient"
+    args={{fill: 'gradient'}}
+    parameters={{
+      docs: {inlineStories: false, iframeHeight: 476},
+    }}
+  >
     {Template.bind({})}
   </Story>
 </Canvas>
