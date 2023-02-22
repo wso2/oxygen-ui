@@ -76,8 +76,8 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
     MuiButton: {
       styleOverrides: {
         containedPrimary: {
-          background: `linear-gradient(270deg, var(--oxygen-palette-primary-gradient-stop2),
-            var(--oxygen-palette-primary-gradient-stop1))`,
+          background: `linear-gradient(270deg, var(--oxygen-palette-gradients-primary-stop2),
+            var(--oxygen-palette-gradients-primary-stop1))`,
           boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.15)',
         },
         containedSecondary: {
@@ -93,6 +93,12 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
           borderRadius: '22px',
           fontSize: '1rem',
           padding: '8px 16px',
+        },
+        textSecondary: {
+          '&:hover': {
+            background: '#f7f8fb',
+          },
+          color: '#40404b',
         },
       },
     },
