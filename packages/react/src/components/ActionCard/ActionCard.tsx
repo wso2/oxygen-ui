@@ -21,9 +21,9 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import clsx from 'clsx';
 import {FC, ReactElement, ReactNode} from 'react';
+import {WithWrapperProps} from '../../models';
 import Button from '../Button';
 import Typography from '../Typography';
-import {WithWrapperProps} from '../../models';
 import './action-card.scss';
 
 export interface ActionCardProps extends CardProps {
@@ -60,8 +60,8 @@ const ActionCard: FC<ActionCardProps> & WithWrapperProps = (props: ActionCardPro
     <Card className={classes} {...rest} elevation={1}>
       <CardContent>
         {image}
-        <Typography variant="subtitle2">{title}</Typography>
-        <Typography variant="body1">{description}</Typography>
+        <Typography variant="subtitle1">{title}</Typography>
+        <Typography variant="body2">{description}</Typography>
       </CardContent>
       <CardActions>
         <Button onClick={onActionClick} variant="contained">
