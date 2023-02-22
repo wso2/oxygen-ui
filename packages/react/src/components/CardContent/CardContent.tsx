@@ -18,7 +18,7 @@
 
 import MuiCardContent, {CardContentProps as MuiCardContentProps} from '@mui/material/CardContent';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './card-content.scss';
@@ -27,13 +27,15 @@ export type CardContentProps = MuiCardContentProps;
 
 const COMPONENT_NAME: string = 'CardContent';
 
-const CardContent: FC<CardContentProps> & WithWrapperProps = (props: CardContentProps): ReactElement => {
-  const {className, ...rest} = props;
+const CardContent: ForwardRefExoticComponent<CardContentProps> & WithWrapperProps = forwardRef(
+  (props: CardContentProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+    const {className, ...rest} = props;
 
-  const classes: string = clsx('oxygen-card-content', className);
+    const classes: string = clsx('oxygen-card-content', className);
 
-  return <MuiCardContent className={classes} {...rest} />;
-};
+    return <MuiCardContent ref={ref} className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<CardContentProps> & WithWrapperProps;
 
 CardContent.displayName = composeComponentDisplayName(COMPONENT_NAME);
 CardContent.muiName = COMPONENT_NAME;
