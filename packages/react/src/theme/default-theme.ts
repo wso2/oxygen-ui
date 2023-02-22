@@ -99,7 +99,7 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
     MuiCard: {
       styleOverrides: {
         root: {
-          padding: '24px 40px 24px 24px',
+          padding: baseTheme.spacing(3),
         },
       },
     },
@@ -138,6 +138,13 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
       properties: {
         'mini-variant-width': '72px',
         width: '240px',
+      },
+    },
+    Stepper: {
+      properties: {
+        'action-margin-bottom': baseTheme.spacing(4),
+        'progress-gap': baseTheme.spacing(1),
+        'right-button-gap': baseTheme.spacing(1),
       },
     },
   },

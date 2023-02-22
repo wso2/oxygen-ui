@@ -69,6 +69,7 @@ export type Stories =
   | 'UserDropdownMenu'
   | 'Navbar'
   | 'SignIn'
+  | 'Stepper'
   | 'TextField'
   | 'Toolbar'
   | 'Tooltip'
@@ -210,6 +211,9 @@ const StoryConfig: StorybookConfig = {
   },
   SignIn: {
     hierarchy: `${StorybookCategories.Patterns}/Sign In`,
+  },
+  Stepper: {
+    hierarchy: `${StorybookCategories.Surfaces}/Stepper`,
   },
   TextField: {
     hierarchy: `${StorybookCategories.Inputs}/Text Field`,
