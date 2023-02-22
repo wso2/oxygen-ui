@@ -57,6 +57,7 @@ export type Stories =
   | 'IconButton'
   | 'Icons'
   | 'Image'
+  | 'LinearProgress'
   | 'Link'
   | 'List'
   | 'ListItem'
@@ -179,6 +180,9 @@ const StoryConfig: StorybookConfig = {
   },
   Icons: {
     hierarchy: `${StorybookCategories.Icons}/Icons`,
+  },
+  LinearProgress: {
+    hierarchy: `${ StorybookCategories.Feedback}/Linear Progress`,
   },
   Link: {
     hierarchy: `${StorybookCategories.Navigation}/Link`,
