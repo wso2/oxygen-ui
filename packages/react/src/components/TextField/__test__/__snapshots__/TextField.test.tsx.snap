@@ -7,12 +7,11 @@ exports[`TextField should match the snapshot 1`] = `
       class="oxygen-text-field"
     >
       <label
-        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink oxygen-text-field__label css-1lym8jl-MuiFormLabel-root-MuiInputLabel-root"
-        data-shrink="true"
-        for="id"
+        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label css-1w93pcl-MuiFormLabel-root-MuiInputLabel-root"
       />
       <div
-        class="MuiFormControl-root MuiTextField-root oxygen-text-field__input css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+        class="MuiFormControl-root MuiTextField-root oxygen-tooltip css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+        data-mui-internal-clone-element="true"
       >
         <div
           class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-kfyxoi-MuiInputBase-root-MuiOutlinedInput-root"
@@ -20,8 +19,7 @@ exports[`TextField should match the snapshot 1`] = `
           <input
             aria-invalid="false"
             class="MuiInputBase-input MuiOutlinedInput-input css-d9o7zs-MuiInputBase-input-MuiOutlinedInput-input"
-            id=":r1:"
-            type="text"
+            id=":r3:"
             value=""
           />
           <fieldset

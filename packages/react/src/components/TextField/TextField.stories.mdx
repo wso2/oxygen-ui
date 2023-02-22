@@ -57,3 +57,20 @@ A component that wraps an input filed and an input label.
 <Canvas>
   <Story name="Basic" args={{label: 'Username', placeholder: 'Enter your username'}} />
 </Canvas>
+
+### Password
+
+<Canvas>
+  <Story name="Password" args={{
+    label: 'Password', 
+    placeholder: 'Enter your password', 
+    type: 'password', 
+    id: 'password', 
+    criteria: [
+      'More than 8 characters', 
+      'Atleast one uppercase and lowercase letter', 
+      'Atleast one number', 
+      'Atleast one of the symbols #@!$%'
+    ]
+    }} />
+</Canvas>
