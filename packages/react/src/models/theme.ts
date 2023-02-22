@@ -62,6 +62,7 @@ declare module '@mui/material/styles' {
     display1: CSSProperties;
     display2: CSSProperties;
   }
+
   interface TypographyVariantsOptions {
     body3?: CSSProperties;
     body4?: CSSProperties;
