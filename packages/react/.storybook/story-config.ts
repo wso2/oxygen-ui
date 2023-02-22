@@ -44,6 +44,7 @@ export type Stories =
   | 'CardActions'
   | 'CardContent'
   | 'CardHeader'
+  | 'Carousel'
   | 'CircularProgressAvatar'
   | 'Chip'
   | 'ColorModeToggle'
@@ -132,6 +133,9 @@ const StoryConfig: StorybookConfig = {
   },
   CardHeader: {
     hierarchy: `${StorybookCategories.Surfaces}/CardHeader`,
+  },
+  Carousel: {
+    hierarchy: `${StorybookCategories.Patterns}/Carousel`,
   },
   CircularProgressAvatar: {
     hierarchy: `${StorybookCategories.DataDisplay}/Circular Progress Avatar`,

@@ -99,6 +99,7 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
     MuiCard: {
       styleOverrides: {
         root: {
+          borderColor: '#d7d9e3',
           padding: baseTheme.spacing(3),
         },
       },
