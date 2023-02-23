@@ -37,6 +37,7 @@ export type Stories =
   | 'AppShell'
   | 'Avatar'
   | 'Badge'
+  | 'Breadcrumbs'
   | 'Box'
   | 'Button'
   | 'CircularProgress'
@@ -116,6 +117,9 @@ const StoryConfig: StorybookConfig = {
   },
   Box: {
     hierarchy: `${StorybookCategories.Layout}/Box`,
+  },
+  Breadcrumbs: {
+    hierarchy: `${StorybookCategories.Navigation}/Breadcrumbs`,
   },
   Button: {
     hierarchy: `${StorybookCategories.Inputs}/Button`,
