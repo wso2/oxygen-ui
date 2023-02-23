@@ -16,13 +16,13 @@
  * under the License.
  */
 
-import Card, {CardProps} from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import clsx from 'clsx';
 import {FC, ReactElement, ReactNode} from 'react';
 import {WithWrapperProps} from '../../models';
 import Button from '../Button';
+import Card, {CardProps} from '../Card';
+import CardActions from '../CardActions';
+import CardContent from '../CardContent';
 import Typography from '../Typography';
 import './action-card.scss';
 
