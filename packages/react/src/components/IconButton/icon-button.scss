@@ -17,5 +17,8 @@
  */
 
 .oxygen-icon-button {
-  /* Add Styles */
+  &.oxygen-icon-button-contained {
+    background-color: var(--oxygen-palette-grey-300);
+    opacity: 0.44;
+  }
 }

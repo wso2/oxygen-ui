@@ -23,20 +23,31 @@ import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './icon-button.scss';
 
-export type IconButtonProps = MuiIconButtonProps;
+export enum IconButtonVariants {
+  CONTAINED = 'contained',
+  TEXT = 'text',
+}
+
+export interface IconButtonProps extends MuiIconButtonProps {
+  variant?: IconButtonVariants;
+}
 
 const COMPONENT_NAME: string = 'IconButton';
 
 const IconButton: FC<IconButtonProps> & WithWrapperProps = (props: IconButtonProps): ReactElement => {
-  const {className, ...rest} = props;
+  const {className, variant, ...rest} = props;
 
-  const classes: string = clsx('oxygen-icon-button', className);
+  const classes: string = clsx('oxygen-icon-button', className, {
+    'oxygen-icon-button-contained': variant === IconButtonVariants.CONTAINED,
+  });
 
   return <MuiIconButton className={classes} {...rest} />;
 };
 
 IconButton.displayName = composeComponentDisplayName(COMPONENT_NAME);
 IconButton.muiName = COMPONENT_NAME;
-IconButton.defaultProps = {};
+IconButton.defaultProps = {
+  variant: IconButtonVariants.TEXT,
+};
 
 export default IconButton;
