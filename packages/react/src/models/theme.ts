@@ -55,6 +55,34 @@ declare module '@mui/material/styles' {
       };
     };
   }
+  interface TypographyVariants {
+    body3: CSSProperties;
+    body4: CSSProperties;
+    body5: CSSProperties;
+    display1: CSSProperties;
+    display2: CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    body3?: CSSProperties;
+    body4?: CSSProperties;
+    body5?: CSSProperties;
+    display1?: CSSProperties;
+    display2?: CSSProperties;
+  }
+}
+
+/**
+ * Augment the Typography to add the custom variants.
+ */
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    body3: true;
+    body4: true;
+    body5: true;
+    display1: true;
+    display2: true;
+  }
 }
 
 /**
@@ -77,6 +105,9 @@ interface CustomTheme {
         'mini-variant-width'?: string;
         width?: string;
       };
+    };
+    Stepper?: {
+      properties?: Record<string, string>;
     };
   };
 }

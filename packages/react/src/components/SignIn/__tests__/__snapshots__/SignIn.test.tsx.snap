@@ -14,7 +14,7 @@ exports[`SignIn should match the snapshot 1`] = `
         class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded oxygen-sign-in-box css-l7nmq7-MuiPaper-root"
       >
         <h5
-          class="MuiTypography-root MuiTypography-h5 oxygen-sign-in-header css-b9o9n7-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-h5 oxygen-sign-in-header css-ngjtbp-MuiTypography-root"
         >
           Sign in
         </h5>
@@ -26,9 +26,15 @@ exports[`SignIn should match the snapshot 1`] = `
             class="oxygen-text-field"
           >
             <label
+<<<<<<< HEAD
               aria-describedby="name"
               class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label css-1w93pcl-MuiFormLabel-root-MuiInputLabel-root"
               for="name"
+=======
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink oxygen-text-field__label css-vr0rfv-MuiFormLabel-root-MuiInputLabel-root"
+              data-shrink="true"
+              for="id"
+>>>>>>> 6a2b1d42514712a63c7a263eac1eed5bfc3725be
             >
               Username
             </label>
@@ -36,7 +42,7 @@ exports[`SignIn should match the snapshot 1`] = `
               class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
             >
               <div
-                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth Mui-focused MuiInputBase-formControl css-l6ws16-MuiInputBase-root-MuiOutlinedInput-root"
+                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth Mui-focused MuiInputBase-formControl css-e1xd3c-MuiInputBase-root-MuiOutlinedInput-root"
               >
                 <input
                   aria-invalid="false"
@@ -69,9 +75,15 @@ exports[`SignIn should match the snapshot 1`] = `
             class="oxygen-text-field"
           >
             <label
+<<<<<<< HEAD
               aria-describedby="password"
               class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label css-1w93pcl-MuiFormLabel-root-MuiInputLabel-root"
               for="password"
+=======
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink oxygen-text-field__label css-vr0rfv-MuiFormLabel-root-MuiInputLabel-root"
+              data-shrink="true"
+              for="id"
+>>>>>>> 6a2b1d42514712a63c7a263eac1eed5bfc3725be
             >
               Password
             </label>
@@ -79,7 +91,11 @@ exports[`SignIn should match the snapshot 1`] = `
               class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
             >
               <div
+<<<<<<< HEAD
                 class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd css-1kso3qa-MuiInputBase-root-MuiOutlinedInput-root"
+=======
+                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-e1xd3c-MuiInputBase-root-MuiOutlinedInput-root"
+>>>>>>> 6a2b1d42514712a63c7a263eac1eed5bfc3725be
               >
                 <input
                   aria-invalid="false"

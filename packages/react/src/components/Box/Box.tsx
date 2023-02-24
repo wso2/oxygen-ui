@@ -18,7 +18,7 @@
 
 import MuiBox, {BoxProps as MuiBoxProps} from '@mui/material/Box';
 import clsx from 'clsx';
-import {ElementType, FC, ReactElement} from 'react';
+import {ElementType, forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 
@@ -28,13 +28,15 @@ export type BoxProps<C extends ElementType = ElementType> = {
 
 const COMPONENT_NAME: string = 'Box';
 
-const Box: FC<BoxProps> & WithWrapperProps = <C extends ElementType>(props: BoxProps<C>): ReactElement => {
-  const {className, ...rest} = props;
+const Box: ForwardRefExoticComponent<BoxProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType>(props: BoxProps<C>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+    const {className, ...rest} = props;
 
-  const classes: string = clsx('oxygen-box', className);
+    const classes: string = clsx('oxygen-box', className);
 
-  return <MuiBox className={classes} {...rest} />;
-};
+    return <MuiBox className={classes} ref={ref} {...rest} />;
+  },
+) as ForwardRefExoticComponent<BoxProps> & WithWrapperProps;
 
 Box.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Box.muiName = COMPONENT_NAME;

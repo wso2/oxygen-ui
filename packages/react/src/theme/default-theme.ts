@@ -99,7 +99,7 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
     MuiCard: {
       styleOverrides: {
         root: {
-          padding: '24px 40px 24px 24px',
+          padding: baseTheme.spacing(3),
         },
       },
     },
@@ -107,6 +107,17 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
       styleOverrides: {
         elevation1: {
           boxShadow: 'var(--oxygen-shadows-0)',
+        },
+      },
+    },
+    MuiTypography: {
+      defaultProps: {
+        variantMapping: {
+          body3: 'span',
+          body4: 'span',
+          body5: 'span',
+          display1: 'h1',
+          display2: 'h1',
         },
       },
     },
@@ -129,6 +140,13 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
         width: '240px',
       },
     },
+    Stepper: {
+      properties: {
+        'action-margin-bottom': baseTheme.spacing(4),
+        'progress-gap': baseTheme.spacing(1),
+        'right-button-gap': baseTheme.spacing(1),
+      },
+    },
   },
   shadows: ['0px 2px 20px 0px #1d20281a', ...baseTheme.shadows],
   shape: {
@@ -137,17 +155,92 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
   },
   typography: {
     body1: {
-      color: '#8D91A3',
-      fontSize: '13px',
-      fontStyle: 'normal',
+      fontSize: '1rem',
       fontWeight: 400,
-      lineHeight: '20px',
+      letterSpacing: 'normal',
+      lineHeight: '1.5',
+    },
+    body2: {
+      color: '#5A5A72', // --joy-palette-neutral-600
+      fontSize: '0.875rem',
+      fontWeight: 400,
+      letterSpacing: 'normal',
+      lineHeight: '1.5',
+    },
+    body3: {
+      color: '#73738C', // --joy-palette-neutral-500
+      fontSize: '0.75rem',
+      fontWeight: 400,
+      letterSpacing: 'normal',
+      lineHeight: '1.5',
+    },
+    body4: {
+      color: '#73738C', // --joy-palette-neutral-500
+      fontSize: '0.625rem',
+      fontWeight: 400,
+      letterSpacing: 'normal',
+      lineHeight: '1.5',
+    },
+    body5: {
+      color: '#73738C', // --joy-palette-neutral-500
+      fontSize: '0.5rem',
+      fontWeight: 400,
+      letterSpacing: 'normal',
+      lineHeight: '1.5',
     },
     button: {
       textTransform: 'none',
     },
+    display1: {
+      fontSize: '4.5rem',
+      fontWeight: 700,
+      letterSpacing: '-0.01em',
+      lineHeight: '1.25',
+    },
+    display2: {
+      fontSize: '3.75rem',
+      fontWeight: 700,
+      letterSpacing: '-0.01em',
+      lineHeight: '1.25',
+    },
     // TODO: Need a token for this.
     fontFamily: 'Gilmer',
+    h1: {
+      fontSize: '3rem',
+      fontWeight: 600,
+      letterSpacing: '-0.01em',
+      lineHeight: '1.25',
+    },
+    h2: {
+      fontSize: '2.25rem',
+      fontWeight: 600,
+      letterSpacing: '-0.01em',
+      lineHeight: '1.25',
+    },
+    h3: {
+      fontSize: '1.875rem',
+      fontWeight: 500,
+      letterSpacing: 'normal',
+      lineHeight: '1.25',
+    },
+    h4: {
+      fontSize: '1.5rem',
+      fontWeight: 500,
+      letterSpacing: 'normal',
+      lineHeight: '1.5',
+    },
+    h5: {
+      fontSize: '1.25rem',
+      fontWeight: 500,
+      letterSpacing: 'normal',
+      lineHeight: '1.25',
+    },
+    h6: {
+      fontSize: '1.125rem',
+      fontWeight: 500,
+      letterSpacing: 'normal',
+      lineHeight: '1.25',
+    },
     subtitle2: {
       color: '#222228',
       fontSize: '0.875rem',
