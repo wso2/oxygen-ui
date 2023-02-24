@@ -16,6 +16,7 @@
  * under the License.
  */
 
-export {default} from './TextField';
-export type {TextFieldProps} from './TextField';
-export {TextFieldInputTypes} from './constants';
+export enum TextFieldInputTypes {
+  INPUT_PASSWORD = 'password',
+  INPUT_TEXT = 'text',
+}

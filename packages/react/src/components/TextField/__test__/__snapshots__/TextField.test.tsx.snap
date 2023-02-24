@@ -10,8 +10,7 @@ exports[`TextField should match the snapshot 1`] = `
         class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label css-1w93pcl-MuiFormLabel-root-MuiInputLabel-root"
       />
       <div
-        class="MuiFormControl-root MuiTextField-root oxygen-tooltip css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
-        data-mui-internal-clone-element="true"
+        class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
       >
         <div
           class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-kfyxoi-MuiInputBase-root-MuiOutlinedInput-root"
@@ -19,7 +18,8 @@ exports[`TextField should match the snapshot 1`] = `
           <input
             aria-invalid="false"
             class="MuiInputBase-input MuiOutlinedInput-input css-d9o7zs-MuiInputBase-input-MuiOutlinedInput-input"
-            id=":r3:"
+            id=":r1:"
+            type="text"
             value=""
           />
           <fieldset
