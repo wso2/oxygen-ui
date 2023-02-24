@@ -16,7 +16,6 @@
  * under the License.
  */
 
-import LinearProgress from '@mui/material/LinearProgress';
 import clsx from 'clsx';
 import {FC, HTMLAttributes, ReactElement, useCallback, useMemo, useState} from 'react';
 import {WithWrapperProps} from '../../models';
@@ -27,6 +26,7 @@ import Card from '../Card';
 import CardActions from '../CardActions';
 import CardContent from '../CardContent';
 import CardHeader from '../CardHeader';
+import {LinearProgress} from '../LinearProgress';
 import {Stepper} from '../Stepper';
 import Typography from '../Typography';
 import './wizard.scss';

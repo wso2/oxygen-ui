@@ -37,6 +37,7 @@ export type Stories =
   | 'AppShell'
   | 'Avatar'
   | 'Badge'
+  | 'Breadcrumbs'
   | 'Box'
   | 'Button'
   | 'CircularProgress'
@@ -44,6 +45,7 @@ export type Stories =
   | 'CardActions'
   | 'CardContent'
   | 'CardHeader'
+  | 'Carousel'
   | 'CircularProgressAvatar'
   | 'Chip'
   | 'ColorModeToggle'
@@ -61,6 +63,7 @@ export type Stories =
   | 'Image'
   | 'Input'
   | 'InputLabel'
+  | 'LinearProgress'
   | 'Link'
   | 'List'
   | 'ListItem'
@@ -120,6 +123,9 @@ const StoryConfig: StorybookConfig = {
   Box: {
     hierarchy: `${StorybookCategories.Layout}/Box`,
   },
+  Breadcrumbs: {
+    hierarchy: `${StorybookCategories.Navigation}/Breadcrumbs`,
+  },
   Button: {
     hierarchy: `${StorybookCategories.Inputs}/Button`,
   },
@@ -137,6 +143,9 @@ const StoryConfig: StorybookConfig = {
   },
   CardHeader: {
     hierarchy: `${StorybookCategories.Surfaces}/CardHeader`,
+  },
+  Carousel: {
+    hierarchy: `${StorybookCategories.Patterns}/Carousel`,
   },
   CircularProgressAvatar: {
     hierarchy: `${StorybookCategories.DataDisplay}/Circular Progress Avatar`,
@@ -196,6 +205,9 @@ const StoryConfig: StorybookConfig = {
   },
   Icons: {
     hierarchy: `${StorybookCategories.Icons}/Icons`,
+  },
+  LinearProgress: {
+    hierarchy: `${ StorybookCategories.Feedback}/Linear Progress`,
   },
   Link: {
     hierarchy: `${StorybookCategories.Navigation}/Link`,
