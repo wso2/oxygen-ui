@@ -54,11 +54,15 @@ export type Stories =
   | 'Divider'
   | 'Drawer'
   | 'Footer'
+  | 'FormHelperText'
+  | 'FormControl'
   | 'Grid'
   | 'Header'
   | 'IconButton'
   | 'Icons'
   | 'Image'
+  | 'Input'
+  | 'InputLabel'
   | 'LinearProgress'
   | 'Link'
   | 'List'
@@ -71,6 +75,7 @@ export type Stories =
   | 'MenuItem'
   | 'UserDropdownMenu'
   | 'Navbar'
+  | 'OutlinedInput'
   | 'SignIn'
   | 'Stepper'
   | 'TextField'
@@ -166,6 +171,12 @@ const StoryConfig: StorybookConfig = {
   Footer: {
     hierarchy: `${StorybookCategories.Navigation}/Footer`,
   },
+  FormHelperText: {
+    hierarchy: `${StorybookCategories.Inputs}/Form Helper Text`,
+  },
+  FormControl: {
+    hierarchy: `${StorybookCategories.Inputs}/Form Control`,
+  },
   Grid: {
     hierarchy: `${StorybookCategories.Layout}/Grid`,
   },
@@ -182,6 +193,12 @@ const StoryConfig: StorybookConfig = {
   },
   Image: {
     hierarchy: `${StorybookCategories.DataDisplay}/Image`,
+  },
+  Input: {
+    hierarchy: `${StorybookCategories.Inputs}/Input`,
+  },
+  InputLabel: {
+    hierarchy: `${StorybookCategories.Inputs}/Input Label`,
   },
   IconButton: {
     hierarchy: `${StorybookCategories.Inputs}/Icon Button`,
@@ -203,6 +220,9 @@ const StoryConfig: StorybookConfig = {
   },
   Navbar: {
     hierarchy: `${StorybookCategories.Navigation}/Navbar`,
+  },
+  OutlinedInput: {
+    hierarchy: `${StorybookCategories.Inputs}/Outlined Input`,
   },
   List: {
     hierarchy: `${StorybookCategories.DataDisplay}/List`,

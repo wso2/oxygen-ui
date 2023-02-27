@@ -16,24 +16,17 @@
  * under the License.
  */
 
-.oxygen-text-field {
-  /* Add Styles */
-}
+import {render} from '@unit-testing';
+import FormControl from '../FormControl';
 
-.oxygen-text-field-tooltip {
-  background-color: var(--oxygen-palette-grey-200);
-  max-width: none;
-  padding: 0.5rem 0.7rem;
+describe('FormControl', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(<FormControl />);
+    expect(baseElement).toBeTruthy();
+  });
 
-  .oxygen-text-field-tooltip-arrow {
-    color: var(--oxygen-palette-grey-200);
-  }
-
-  .oxygen-list {
-    padding: 0;
-
-    .oxygen-list-item-icon {
-      min-width: 2rem;
-    }
-  }
-}
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<FormControl />);
+    expect(baseElement).toMatchSnapshot();
+  });
+});

@@ -7,12 +7,10 @@ exports[`TextField should match the snapshot 1`] = `
       class="oxygen-text-field"
     >
       <label
-        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink oxygen-text-field__label css-vr0rfv-MuiFormLabel-root-MuiInputLabel-root"
-        data-shrink="true"
-        for="id"
+        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label css-f3834g-MuiFormLabel-root-MuiInputLabel-root"
       />
       <div
-        class="MuiFormControl-root MuiTextField-root oxygen-text-field__input css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+        class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
       >
         <div
           class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9s98je-MuiInputBase-root-MuiOutlinedInput-root"

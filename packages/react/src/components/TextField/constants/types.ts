@@ -16,24 +16,7 @@
  * under the License.
  */
 
-.oxygen-text-field {
-  /* Add Styles */
-}
-
-.oxygen-text-field-tooltip {
-  background-color: var(--oxygen-palette-grey-200);
-  max-width: none;
-  padding: 0.5rem 0.7rem;
-
-  .oxygen-text-field-tooltip-arrow {
-    color: var(--oxygen-palette-grey-200);
-  }
-
-  .oxygen-list {
-    padding: 0;
-
-    .oxygen-list-item-icon {
-      min-width: 2rem;
-    }
-  }
+export enum TextFieldInputTypes {
+  INPUT_PASSWORD = 'password',
+  INPUT_TEXT = 'text',
 }
