@@ -50,7 +50,7 @@ export type TextFieldProps = {
 
 const COMPONENT_NAME: string = 'TextField';
 
-const PasswordTextField: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
+const PasswordField: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
   (props: TextFieldProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const {type, ...rest} = props;
 
@@ -116,7 +116,7 @@ const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> = for
     );
 
     if (!criteria) {
-      return <PasswordTextField {...rest} />;
+      return <PasswordField {...rest} />;
     }
 
     return (
@@ -129,7 +129,7 @@ const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> = for
         classes={{arrow: 'oxygen-text-field-tooltip-arrow', tooltip: 'oxygen-text-field-tooltip'}}
         ref={ref}
       >
-        <PasswordTextField
+        <PasswordField
           ref={ref}
           id={id}
           type={type}
