@@ -53,7 +53,7 @@ jobs:
         id: install-dependencies
         run: pnpm install
 
-      - name: 🏗️ Build
+      - name: 🏗️ Build Project
         id: build
         run:  pnpm build
 
