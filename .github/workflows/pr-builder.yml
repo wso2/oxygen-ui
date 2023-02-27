@@ -15,7 +15,7 @@ env:
 
 jobs:
   lint:
-    name: ⬣ ESLint (STATIC ANALYSIS)
+    name: 🌳 ESLint (STATIC ANALYSIS)
     runs-on: ubuntu-latest
     strategy:
       matrix:
