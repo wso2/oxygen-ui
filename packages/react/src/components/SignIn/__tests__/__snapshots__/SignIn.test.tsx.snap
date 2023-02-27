@@ -26,15 +26,9 @@ exports[`SignIn should match the snapshot 1`] = `
             class="oxygen-text-field"
           >
             <label
-<<<<<<< HEAD
               aria-describedby="name"
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label css-1w93pcl-MuiFormLabel-root-MuiInputLabel-root"
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label css-f3834g-MuiFormLabel-root-MuiInputLabel-root"
               for="name"
-=======
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink oxygen-text-field__label css-vr0rfv-MuiFormLabel-root-MuiInputLabel-root"
-              data-shrink="true"
-              for="id"
->>>>>>> 6a2b1d42514712a63c7a263eac1eed5bfc3725be
             >
               Username
             </label>
@@ -75,15 +69,9 @@ exports[`SignIn should match the snapshot 1`] = `
             class="oxygen-text-field"
           >
             <label
-<<<<<<< HEAD
               aria-describedby="password"
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label css-1w93pcl-MuiFormLabel-root-MuiInputLabel-root"
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label css-f3834g-MuiFormLabel-root-MuiInputLabel-root"
               for="password"
-=======
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink oxygen-text-field__label css-vr0rfv-MuiFormLabel-root-MuiInputLabel-root"
-              data-shrink="true"
-              for="id"
->>>>>>> 6a2b1d42514712a63c7a263eac1eed5bfc3725be
             >
               Password
             </label>
@@ -91,11 +79,7 @@ exports[`SignIn should match the snapshot 1`] = `
               class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
             >
               <div
-<<<<<<< HEAD
-                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd css-1kso3qa-MuiInputBase-root-MuiOutlinedInput-root"
-=======
-                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-e1xd3c-MuiInputBase-root-MuiOutlinedInput-root"
->>>>>>> 6a2b1d42514712a63c7a263eac1eed5bfc3725be
+                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd css-115mmlx-MuiInputBase-root-MuiOutlinedInput-root"
               >
                 <input
                   aria-invalid="false"

@@ -21,7 +21,6 @@ import MuiTextField, {TextFieldProps as MuiTextFieldProps} from '@mui/material/T
 import {DoubleCircleIcon, VisibilityIcon, VisibilityOffIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {
-  FC,
   forwardRef,
   ForwardRefExoticComponent,
   MouseEvent,
@@ -87,23 +86,23 @@ const PasswordTextField: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
   },
 ) as ForwardRefExoticComponent<TextFieldProps>;
 
-const TooltipPasswordTextField: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
+const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
   (props: TextFieldProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const {criteria, id, type, ...rest} = props;
 
-    const [open, setOpen] = useState<boolean>(false);
+    const [openPasswordCriteriaTooltip, setOpenPasswordCriteriaTooltip] = useState<boolean>(false);
 
     const handleClick = (): void => {
-      setOpen(true);
+      setOpenPasswordCriteriaTooltip(true);
     };
 
-    const handleClose = (): void => {
-      if (open) {
-        setOpen(false);
+    const handleBlurCapture = (): void => {
+      if (openPasswordCriteriaTooltip) {
+        setOpenPasswordCriteriaTooltip(false);
       }
     };
 
-    const tooltipContent = (): ReactNode => (
+    const renderCriteriaTooltipContent = (): ReactNode => (
       <List>
         {criteria?.map((criterion: string) => (
           <ListItem disablePadding key={criteria.indexOf(criterion)}>
@@ -125,8 +124,8 @@ const TooltipPasswordTextField: ForwardRefExoticComponent<TextFieldProps> = forw
         arrow
         placement="right-end"
         describeChild
-        open={open}
-        title={tooltipContent()}
+        open={openPasswordCriteriaTooltip}
+        title={renderCriteriaTooltipContent()}
         classes={{arrow: 'oxygen-text-field-tooltip-arrow', tooltip: 'oxygen-text-field-tooltip'}}
         ref={ref}
       >
@@ -135,7 +134,7 @@ const TooltipPasswordTextField: ForwardRefExoticComponent<TextFieldProps> = forw
           id={id}
           type={type}
           onClick={handleClick}
-          onBlurCapture={handleClose}
+          onBlurCapture={handleBlurCapture}
           onFocus={handleClick}
           {...rest}
         />
@@ -144,24 +143,26 @@ const TooltipPasswordTextField: ForwardRefExoticComponent<TextFieldProps> = forw
   },
 ) as ForwardRefExoticComponent<TextFieldProps>;
 
-const TextField: FC<TextFieldProps> & WithWrapperProps = (props: TextFieldProps): ReactElement => {
-  const {className, id, label, type, InputLabelProps, ...rest} = props;
+const TextField: ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps = forwardRef(
+  (props: TextFieldProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+    const {className, id, label, type, InputLabelProps, ...rest} = props;
 
-  const classes: string = clsx('oxygen-text-field', className);
+    const classes: string = clsx('oxygen-text-field', className);
 
-  return (
-    <div className={classes}>
-      <InputLabel htmlFor={id} aria-describedby={id} {...InputLabelProps}>
-        {label}
-      </InputLabel>
-      {type === TextFieldInputTypes.INPUT_PASSWORD ? (
-        <TooltipPasswordTextField id={id} type={type} {...rest} />
-      ) : (
-        <MuiTextField id={id} type={type} {...rest} />
-      )}
-    </div>
-  );
-};
+    return (
+      <div className={classes}>
+        <InputLabel htmlFor={id} aria-describedby={id} {...InputLabelProps}>
+          {label}
+        </InputLabel>
+        {type === TextFieldInputTypes.INPUT_PASSWORD ? (
+          <PasswordFieldWithCriteria id={id} type={type} {...rest} ref={ref} />
+        ) : (
+          <MuiTextField id={id} type={type} {...rest} ref={ref} />
+        )}
+      </div>
+    );
+  },
+) as ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps;
 
 TextField.displayName = composeComponentDisplayName(COMPONENT_NAME);
 TextField.muiName = COMPONENT_NAME;
