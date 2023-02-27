@@ -19,7 +19,6 @@
 import clsx from 'clsx';
 import {FC, HTMLAttributes, MutableRefObject, ReactElement, useCallback, useEffect, useRef, useState} from 'react';
 import {WithWrapperProps} from '../../models';
-import {baseTheme} from '../../theme/default-theme';
 import {composeComponentDisplayName} from '../../utils';
 import Box from '../Box';
 import './stepper.scss';
@@ -60,7 +59,7 @@ const Stepper: FC<StepperProps> & WithWrapperProps = (props: StepperProps): Reac
       const slideBy: number = position;
       setSlideLeftPosition(slideBy * -1 * currentStep);
     },
-    [currentStep, baseTheme, animateOnSlide],
+    [currentStep, animateOnSlide],
   );
 
   useEffect(() => {
@@ -81,7 +80,7 @@ const Stepper: FC<StepperProps> & WithWrapperProps = (props: StepperProps): Reac
     return (): void => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [slideContainerRef.current, slideContainer]);
+  }, [animateOnSlide, slideContainer]);
 
   useEffect(() => {
     slideContainer(slideContainerWidth);
