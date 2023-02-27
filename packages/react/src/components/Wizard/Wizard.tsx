@@ -133,7 +133,7 @@ const Wizard: FC<WizardProps> & WithWrapperProps = (props: WizardProps): ReactEl
     }
 
     setCurrentStep((step: number) => step + 1);
-  }, [isLastStep]);
+  }, [isLastStep, onFinishButtonClick, onNextButtonClick]);
 
   const handlePreviousButtonClick: () => Promise<void> = useCallback(async (): Promise<void> => {
     if (isFirstStep) {
@@ -144,7 +144,7 @@ const Wizard: FC<WizardProps> & WithWrapperProps = (props: WizardProps): ReactEl
       await onPreviousButtonClick();
     }
     setCurrentStep((step: number) => step - 1);
-  }, [isFirstStep]);
+  }, [isFirstStep, onPreviousButtonClick]);
 
   return (
     <Box className={classes}>
