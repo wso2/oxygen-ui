@@ -16,11 +16,10 @@
  * under the License.
  */
 
-import {useMediaQuery} from '@mui/material';
 import clsx from 'clsx';
 import {FC, ReactElement, ReactNode} from 'react';
-import {Theme, WithWrapperProps} from '../../models';
-import {useTheme} from '../../theme/use-theme';
+import {useIsMobile} from '../../hooks';
+import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import Box, {BoxProps} from '../Box';
 import Container, {ContainerProps} from '../Container';
@@ -48,8 +47,7 @@ const COMPONENT_NAME: string = 'Footer';
 const Footer: FC<FooterProps> & WithWrapperProps = (props: FooterProps): ReactElement => {
   const {className, copyright, links, maxWidth, ...rest} = props;
 
-  const theme: Theme = useTheme();
-  const isMobile: boolean = useMediaQuery(theme.breakpoints.down(theme.breakpoints.values.sm));
+  const isMobile: boolean = useIsMobile();
 
   const classes: string = clsx('oxygen-footer', {mobile: isMobile}, className);
 
