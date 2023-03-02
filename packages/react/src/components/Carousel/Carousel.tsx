@@ -16,15 +16,18 @@
  * under the License.
  */
 
+import {useMediaQuery} from '@mui/material';
 import {ChevronLeftIcon, ChevronRightIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {FC, HTMLAttributes, ReactElement, useEffect, useMemo, useState} from 'react';
-import {WithWrapperProps} from '../../models';
+import {Theme, WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import Box from '../Box';
 import Button from '../Button';
 import Card from '../Card';
 import CardContent from '../CardContent';
+import IconButton from '../IconButton';
+import {IconButtonVariants} from '../IconButton/IconButton';
 import {Stepper} from '../Stepper';
 import Typography from '../Typography';
 import './carousel.scss';
@@ -87,8 +90,9 @@ const Carousel: FC<CarouselProps> & WithWrapperProps = (props: CarouselProps): R
 
   const isLastStep: boolean = useMemo(() => currentStep === steps.length - 1, [steps, currentStep]);
   const isFirstStep: boolean = useMemo(() => currentStep === 0, [currentStep]);
+  const isMobile: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
-  const classes: string = clsx('oxygen-carousel', className);
+  const classes: string = clsx('oxygen-carousel', {mobile: isMobile}, className);
 
   useEffect(() => {
     if (!autoPlay) {
@@ -148,26 +152,47 @@ const Carousel: FC<CarouselProps> & WithWrapperProps = (props: CarouselProps): R
     <Box className={classes} {...rest}>
       <Box className="oxygen-carousel-top-bar">
         <Box className="oxygen-carousel-title">{title && <Typography variant="body1">{title}</Typography>}</Box>
-        <Box className="oxygen-carousel-button-group">
-          <Button
-            variant="text"
-            color="secondary"
-            disabled={isFirstStep}
-            onClick={handlePreviousButtonClick}
-            startIcon={<ChevronLeftIcon />}
-          >
-            {previousButtonText}
-          </Button>
-          <Button
-            variant="text"
-            color="secondary"
-            disabled={isLastStep}
-            onClick={handleNextButtonClick}
-            endIcon={<ChevronRightIcon />}
-          >
-            {nextButtonText}
-          </Button>
-        </Box>
+        {isMobile ? (
+          <Box className="oxygen-carousel-mobile-buttons">
+            <IconButton
+              variant={IconButtonVariants.CONTAINED}
+              color="secondary"
+              disabled={isFirstStep}
+              onClick={handlePreviousButtonClick}
+            >
+              <ChevronLeftIcon />
+            </IconButton>
+            <IconButton
+              variant={IconButtonVariants.CONTAINED}
+              color="secondary"
+              disabled={isLastStep}
+              onClick={handleNextButtonClick}
+            >
+              <ChevronRightIcon />
+            </IconButton>
+          </Box>
+        ) : (
+          <Box className="oxygen-carousel-button-group">
+            <Button
+              variant="text"
+              color="secondary"
+              disabled={isFirstStep}
+              onClick={handlePreviousButtonClick}
+              startIcon={<ChevronLeftIcon />}
+            >
+              {previousButtonText}
+            </Button>
+            <Button
+              variant="text"
+              color="secondary"
+              disabled={isLastStep}
+              onClick={handleNextButtonClick}
+              endIcon={<ChevronRightIcon />}
+            >
+              {nextButtonText}
+            </Button>
+          </Box>
+        )}
       </Box>
       <Box>
         <Stepper animateOnSlide steps={generateCarouselSteps()} currentStep={currentStep} />

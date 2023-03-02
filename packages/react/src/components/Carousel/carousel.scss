@@ -17,6 +17,8 @@
  */
 
 .oxygen-carousel {
+  position: relative;
+
   .oxygen-carousel-top-bar {
     display: flex;
     justify-content: space-between;
@@ -49,5 +51,14 @@
     display: flex;
     justify-content: flex-end;
     padding-top: 1em;
+  }
+
+  .oxygen-carousel-mobile-buttons {
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    bottom: calc(42px + 1em);
   }
 }
