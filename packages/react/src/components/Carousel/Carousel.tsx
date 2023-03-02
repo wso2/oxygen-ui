@@ -86,7 +86,7 @@ const COMPONENT_NAME: string = 'Carousel';
 
 const Carousel: FC<CarouselProps> & WithWrapperProps = (props: CarouselProps): ReactElement => {
   const {autoPlay, autoPlayInterval, className, nextButtonText, previousButtonText, steps, title, ...rest} = props;
-  const [currentStep, setCurrentStep] = useState<number>(1);
+  const [currentStep, setCurrentStep] = useState<number>(0);
 
   const isLastStep: boolean = useMemo(() => currentStep === steps.length - 1, [steps, currentStep]);
   const isFirstStep: boolean = useMemo(() => currentStep === 0, [currentStep]);
