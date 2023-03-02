@@ -16,12 +16,12 @@
  * under the License.
  */
 
-import {useMediaQuery} from '@mui/material';
-import {useColorScheme, useTheme, Theme} from '@mui/material/styles';
+import {useColorScheme} from '@mui/material/styles';
 import {Mode} from '@mui/system/cssVars/useCurrentColorScheme';
 import {ChevronDownIcon, HamburgerIcon, PowerIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {FC, ReactElement, ReactNode} from 'react';
+import {useIsMobile} from '../../hooks/use-is-mobile';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './header.scss';
@@ -101,9 +101,8 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
     ...rest
   } = props;
 
-  const theme: Theme = useTheme();
   const {mode, setMode} = useColorScheme();
-  const isMobile: boolean = useMediaQuery(theme.breakpoints.down(theme.breakpoints.values.sm));
+  const isMobile: boolean = useIsMobile();
 
   const classes: string = clsx(
     'oxygen-header',

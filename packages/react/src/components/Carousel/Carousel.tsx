@@ -16,11 +16,11 @@
  * under the License.
  */
 
-import {useMediaQuery} from '@mui/material';
 import {ChevronLeftIcon, ChevronRightIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {FC, HTMLAttributes, ReactElement, useEffect, useMemo, useState} from 'react';
-import {Theme, WithWrapperProps} from '../../models';
+import {useIsMobile} from '../../hooks';
+import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import Box from '../Box';
 import Button from '../Button';
@@ -90,7 +90,7 @@ const Carousel: FC<CarouselProps> & WithWrapperProps = (props: CarouselProps): R
 
   const isLastStep: boolean = useMemo(() => currentStep === steps.length - 1, [steps, currentStep]);
   const isFirstStep: boolean = useMemo(() => currentStep === 0, [currentStep]);
-  const isMobile: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+  const isMobile: boolean = useIsMobile();
 
   const classes: string = clsx('oxygen-carousel', {mobile: isMobile}, className);
 
