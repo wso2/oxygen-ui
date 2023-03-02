@@ -126,7 +126,7 @@ const Carousel: FC<CarouselProps> & WithWrapperProps = (props: CarouselProps): R
 
   const generateCarouselSteps = (): ReactElement[] =>
     steps.map((step: CarouselStep) => (
-      <Box key={`${JSON.stringify(step)}`}>
+      <Box key={`${step?.title}-${step.description}`}>
         <Card variant="outlined" className="oxygen-carousel-step-card">
           <CardContent className="oxygen-carousel-step-card-content">
             <Box>{step.illustration}</Box>

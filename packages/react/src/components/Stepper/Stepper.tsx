@@ -91,7 +91,9 @@ const Stepper: FC<StepperProps> & WithWrapperProps = (props: StepperProps): Reac
       <Box className={classes} ref={slideContainerRef}>
         <Box className="oxygen-stepper-container" sx={{left: `${slideLeftPosition}px`}}>
           {steps.map((step: ReactElement) => (
-            <Box sx={{width: slideContainerWidth}}>{step}</Box>
+            <Box key={step.key} sx={{width: slideContainerWidth}}>
+              {step}
+            </Box>
           ))}
         </Box>
       </Box>
