@@ -18,7 +18,7 @@
 
 import {ChevronLeftIcon, ChevronRightIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
-import {FC, HTMLAttributes, ReactElement, useEffect, useMemo, useState} from 'react';
+import {FC, HTMLAttributes, ReactElement, ReactNode, useEffect, useMemo, useState} from 'react';
 import {useIsMobile} from '../../hooks';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
@@ -28,34 +28,36 @@ import Card from '../Card';
 import CardContent from '../CardContent';
 import IconButton from '../IconButton';
 import {IconButtonVariants} from '../IconButton/IconButton';
+import ListItem from '../ListItem';
+import ListItemIcon from '../ListItemIcon';
+import ListItemText from '../ListItemText';
 import {Stepper} from '../Stepper';
-import Typography from '../Typography';
 import './carousel.scss';
 
-interface CarouselStep {
+export interface CarouselStep {
   /**
-   * The text to be displayed in the button.
+   * Action to be performed on the step.
+   * @example <Button onClick={() => {}}>Action Button</Button>
    */
-  buttonText: string;
+  action?: ReactNode;
   /**
    * The description of the step.
+   * @example <span>description</span>
    */
-  description: string;
+  description?: ReactNode;
   /**
    * The illustration to be displayed in the step.
+   * @example <img src="https://example.com/image.png" alt="icon" />
    */
-  illustration: ReactElement;
-  /**
-   * Callback method to be called when the button is clicked.
-   */
-  onButtonClick: () => void;
+  illustration?: ReactElement;
   /**
    * The title of the step.
+   * @example <span>title</span>
    */
-  title: string;
+  title: ReactNode;
 }
 
-export interface CarouselProps extends HTMLAttributes<HTMLDivElement> {
+export interface CarouselProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   /**
    * Specifies whether to auto play the carousel.
    */
@@ -78,8 +80,9 @@ export interface CarouselProps extends HTMLAttributes<HTMLDivElement> {
   steps: CarouselStep[];
   /**
    * The title of the carousel.
+   * @example <span>title</span>
    */
-  title?: string;
+  title?: ReactNode;
 }
 
 const COMPONENT_NAME: string = 'Carousel';
@@ -125,36 +128,29 @@ const Carousel: FC<CarouselProps> & WithWrapperProps = (props: CarouselProps): R
   };
 
   const generateCarouselSteps = (): ReactElement[] =>
-    steps.map((step: CarouselStep) => (
-      <Box key={`${step?.title}-${step.description}`}>
-        <Card variant="outlined" className="oxygen-carousel-step-card">
-          <CardContent className="oxygen-carousel-step-card-content">
-            <Box>{step.illustration}</Box>
-            <Box>
-              <Box>
-                <Typography variant="subtitle2">{step.title}</Typography>
-              </Box>
-              <Box>
-                <Typography variant="body2">{step.description}</Typography>
-              </Box>
-            </Box>
-          </CardContent>
-        </Card>
-        <Box className="oxygen-carousel-step-button-bar">
-          <Button variant="outlined" color="primary" onClick={step.onButtonClick}>
-            {step.buttonText}
-          </Button>
+    steps?.map((step: CarouselStep) => {
+      const {title: stepTitle, description, illustration, action} = step;
+      return (
+        <Box key={`${stepTitle}-${description}`} className="oxygen-carousel-step">
+          <Card elevation={0} variant="outlined" className="oxygen-carousel-step-card">
+            <ListItem component={CardContent}>
+              {illustration && <ListItemIcon>{illustration}</ListItemIcon>}
+              <ListItemText primary={stepTitle} secondary={description ?? null} />
+            </ListItem>
+          </Card>
+          {action && <Box className="oxygen-carousel-step-button-bar">{action}</Box>}
         </Box>
-      </Box>
-    ));
+      );
+    });
 
   return (
     <Box className={classes} {...rest}>
       <Box className="oxygen-carousel-top-bar">
-        <Box className="oxygen-carousel-title">{title && <Typography variant="body1">{title}</Typography>}</Box>
+        <Box className="oxygen-carousel-title">{title}</Box>
         {isMobile ? (
           <Box className="oxygen-carousel-mobile-buttons">
             <IconButton
+              className="oxygen-carousel-mobile-button-left"
               variant={IconButtonVariants.CONTAINED}
               color="secondary"
               disabled={isFirstStep}
@@ -163,6 +159,7 @@ const Carousel: FC<CarouselProps> & WithWrapperProps = (props: CarouselProps): R
               <ChevronLeftIcon />
             </IconButton>
             <IconButton
+              className="oxygen-carousel-mobile-button-right"
               variant={IconButtonVariants.CONTAINED}
               color="secondary"
               disabled={isLastStep}

@@ -52,7 +52,6 @@ const CircularProgressAvatar: FC<CircularProgressAvatarProps> & WithWrapperProps
   return (
     <Box className={classes} role="presentation">
       <Badge
-        showZero
         className="oxygen-badge"
         overlap="circular"
         anchorOrigin={{

@@ -32,6 +32,7 @@ enum StorybookCategories {
 }
 
 export type Stories =
+  | 'AccountOverview'
   | 'ActionCard'
   | 'AppBar'
   | 'AppShell'
@@ -105,6 +106,9 @@ export type StorybookConfig = Record<
 >;
 
 const StoryConfig: StorybookConfig = {
+  AccountOverview: {
+    hierarchy: `${StorybookCategories.Patterns}/Account Overview`,
+  },
   ActionCard: {
     hierarchy: `${StorybookCategories.Surfaces}/Action Card`,
   },
