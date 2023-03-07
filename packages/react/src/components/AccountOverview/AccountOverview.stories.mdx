@@ -6,7 +6,6 @@ import StoryConfig from '../../../.storybook/story-config.ts';
 import {withDesign} from '../../../.storybook/utils.ts';
 import Typography from '../Typography';
 
-
 export const meta = {
   component: AccountOverview,
   title: StoryConfig.AccountOverview.hierarchy,
@@ -16,7 +15,7 @@ export const meta = {
 
 export const Template = args => <AccountOverview {...args} />;
 
-# Menu
+# AccountOverview
 
 - [Overview](#overview)
 - [Props](#props)
@@ -27,7 +26,7 @@ export const Template = args => <AccountOverview {...args} />;
 
 ## Overview
 
-Menu.
+This component is used to display the user's account overview. It includes the user's profile picture, name, email, account progress and account completion steps.
 
 <Canvas>
   <Story
@@ -81,7 +80,7 @@ Import and use the `Button` component in your components as follows.
   dark
   format
   code={dedent`
-import Button from '@oxygen-ui/react/AccountOverview';\n
+import AccountOverview from '@oxygen-ui/react/AccountOverview';\n
 function Demo() {
   return <AccountOverview
             user={{
@@ -157,4 +156,5 @@ function Demo() {
     }}
   >
     {Template.bind({})}
-  </Story></Canvas>
+  </Story>
+</Canvas>
