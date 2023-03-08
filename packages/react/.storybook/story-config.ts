@@ -76,6 +76,7 @@ export type Stories =
   | 'UserDropdownMenu'
   | 'Navbar'
   | 'OutlinedInput'
+  | 'Select'
   | 'SignIn'
   | 'Stepper'
   | 'TextField'
@@ -241,6 +242,9 @@ const StoryConfig: StorybookConfig = {
   },
   ListItemText: {
     hierarchy: `${StorybookCategories.DataDisplay}/List Item Text`,
+  },
+  Select: {
+    hierarchy: `${StorybookCategories.Inputs}/Select`,
   },
   SignIn: {
     hierarchy: `${StorybookCategories.Patterns}/Sign In`,
