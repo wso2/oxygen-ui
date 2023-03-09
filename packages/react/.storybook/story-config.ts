@@ -78,6 +78,7 @@ export type Stories =
   | 'OutlinedInput'
   | 'SignIn'
   | 'Stepper'
+  | 'Tab'
   | 'TextField'
   | 'Toolbar'
   | 'Tooltip'
@@ -247,6 +248,9 @@ const StoryConfig: StorybookConfig = {
   },
   Stepper: {
     hierarchy: `${StorybookCategories.Surfaces}/Stepper`,
+  },
+  Tab: {
+    hierarchy: `${StorybookCategories.Navigation}/Tab`,
   },
   TextField: {
     hierarchy: `${StorybookCategories.Inputs}/Text Field`,
