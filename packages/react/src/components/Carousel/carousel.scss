@@ -22,6 +22,7 @@
   .oxygen-carousel-top-bar {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     .oxygen-carousel-title {
       flex-grow: 1;
@@ -55,20 +56,17 @@
   }
 
   .oxygen-carousel-mobile-buttons {
-    display: flex;
-    justify-content: space-between;
-    z-index: 1;
-    position: absolute;
-    width: 100%;
-    // TODO: Review this.
-    top: 50%;
+    display: none;
+  }
 
-    .oxygen-carousel-mobile-button-left {
-      right: 15px;
+  &.mobile {
+    .oxygen-carousel-button-group {
+      display: none;
     }
 
-    .oxygen-carousel-mobile-button-right {
-      left: 15px;
+    .oxygen-carousel-mobile-buttons {
+      display: flex;
+      gap: 1rem;
     }
   }
 }

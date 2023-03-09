@@ -147,49 +147,44 @@ const Carousel: FC<CarouselProps> & WithWrapperProps = (props: CarouselProps): R
     <Box className={classes} {...rest}>
       <Box className="oxygen-carousel-top-bar">
         <Box className="oxygen-carousel-title">{title}</Box>
-        {isMobile ? (
-          <Box className="oxygen-carousel-mobile-buttons">
-            <IconButton
-              className="oxygen-carousel-mobile-button-left"
-              variant={IconButtonVariants.CONTAINED}
-              color="secondary"
-              disabled={isFirstStep}
-              onClick={handlePreviousButtonClick}
-            >
-              <ChevronLeftIcon />
-            </IconButton>
-            <IconButton
-              className="oxygen-carousel-mobile-button-right"
-              variant={IconButtonVariants.CONTAINED}
-              color="secondary"
-              disabled={isLastStep}
-              onClick={handleNextButtonClick}
-            >
-              <ChevronRightIcon />
-            </IconButton>
-          </Box>
-        ) : (
-          <Box className="oxygen-carousel-button-group">
-            <Button
-              variant="text"
-              color="secondary"
-              disabled={isFirstStep}
-              onClick={handlePreviousButtonClick}
-              startIcon={<ChevronLeftIcon />}
-            >
-              {previousButtonText}
-            </Button>
-            <Button
-              variant="text"
-              color="secondary"
-              disabled={isLastStep}
-              onClick={handleNextButtonClick}
-              endIcon={<ChevronRightIcon />}
-            >
-              {nextButtonText}
-            </Button>
-          </Box>
-        )}
+        <Box className="oxygen-carousel-mobile-buttons">
+          <IconButton
+            variant={IconButtonVariants.CONTAINED}
+            color="secondary"
+            disabled={isFirstStep}
+            onClick={handlePreviousButtonClick}
+          >
+            <ChevronLeftIcon />
+          </IconButton>
+          <IconButton
+            variant={IconButtonVariants.CONTAINED}
+            color="secondary"
+            disabled={isLastStep}
+            onClick={handleNextButtonClick}
+          >
+            <ChevronRightIcon />
+          </IconButton>
+        </Box>
+        <Box className="oxygen-carousel-button-group">
+          <Button
+            variant="text"
+            color="secondary"
+            disabled={isFirstStep}
+            onClick={handlePreviousButtonClick}
+            startIcon={<ChevronLeftIcon />}
+          >
+            {previousButtonText}
+          </Button>
+          <Button
+            variant="text"
+            color="secondary"
+            disabled={isLastStep}
+            onClick={handleNextButtonClick}
+            endIcon={<ChevronRightIcon />}
+          >
+            {nextButtonText}
+          </Button>
+        </Box>
       </Box>
       <Box>
         <Stepper animateOnSlide steps={generateCarouselSteps()} currentStep={currentStep} />
