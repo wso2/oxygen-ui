@@ -26,11 +26,11 @@ import './tab-panel.scss';
 
 export interface TabPanelProps extends MuiBoxProps {
   /*
-   * The value of the `TabPanel`.
+   * The index of the corresponding `TabPanel`.
    */
   index: number;
   /*
-   * The value of the currently selected `TabPanel`.
+   * The value of the selected `TabPanel`.
    */
   value: number;
 }
