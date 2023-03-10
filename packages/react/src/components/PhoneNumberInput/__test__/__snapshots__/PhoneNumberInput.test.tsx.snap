@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextField should match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="oxygen-box oxygen-phone-number-input MuiBox-root css-0"
+    >
+      <label
+        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label css-f3834g-MuiFormLabel-root-MuiInputLabel-root"
+        for="phone-number-input"
+        id="phone-number-label"
+      />
+      <div
+        class="oxygen-box oxygen-select-input MuiBox-root css-0"
+      >
+        <div
+          class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary oxygen-select css-saqlya-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+        >
+          <div
+            aria-expanded="false"
+            aria-haspopup="listbox"
+            aria-labelledby="phone-number-label phone-number-select"
+            class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input oxygen-select-input-root css-1d3lhbp-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+            id="phone-number-select"
+            role="button"
+            tabindex="0"
+          >
+            <div
+              class="MuiListItemIcon-root oxygen-list-item-icon css-1djcs2d-MuiListItemIcon-root"
+            >
+              <img
+                alt="Afghanistan"
+                class="oxygen-image"
+                loading="lazy"
+                src="https://flagcdn.com/af.svg"
+                srcset="https://flagcdn.com/af.svg 2x"
+              />
+            </div>
+            +93
+          </div>
+          <input
+            aria-hidden="true"
+            class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
+            tabindex="-1"
+            value="+93"
+          />
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-j9wse9-MuiSvgIcon-root-MuiSelect-icon"
+            data-testid="ArrowDropDownIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M7 10l5 5 5-5z"
+            />
+          </svg>
+          <fieldset
+            aria-hidden="true"
+            class="MuiOutlinedInput-notchedOutline css-116asjz-MuiOutlinedInput-notchedOutline"
+          >
+            <legend
+              class="css-ihdtdm"
+            >
+              <span
+                class="notranslate"
+              >
+                ​
+              </span>
+            </legend>
+          </fieldset>
+        </div>
+        <div
+          class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary oxygen-outlined-input css-9s98je-MuiInputBase-root-MuiOutlinedInput-root"
+        >
+          <input
+            class="MuiInputBase-input MuiOutlinedInput-input css-d9o7zs-MuiInputBase-input-MuiOutlinedInput-input"
+            id="phone-number-input"
+            type="tel"
+            value=""
+          />
+          <fieldset
+            aria-hidden="true"
+            class="MuiOutlinedInput-notchedOutline css-116asjz-MuiOutlinedInput-notchedOutline"
+          >
+            <legend
+              class="css-ihdtdm"
+            >
+              <span
+                class="notranslate"
+              >
+                ​
+              </span>
+            </legend>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
