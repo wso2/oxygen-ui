@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TabPanel should match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="oxygen-box oxygen-tab-panel MuiBox-root css-0"
+      role="tabpanel"
+    >
+      <div
+        class="oxygen-box MuiBox-root css-0"
+      />
+    </div>
+  </div>
+</body>
+`;
