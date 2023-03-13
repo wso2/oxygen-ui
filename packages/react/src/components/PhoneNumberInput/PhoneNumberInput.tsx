@@ -19,15 +19,7 @@
 import {FlagOutlined} from '@mui/icons-material';
 import Select, {SelectChangeEvent, SelectProps as MuiSelectProps} from '@mui/material/Select';
 import clsx from 'clsx';
-import {
-  ChangeEvent,
-  forwardRef,
-  ForwardRefExoticComponent,
-  MutableRefObject,
-  ReactElement,
-  useEffect,
-  useState,
-} from 'react';
+import {ChangeEvent, forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement, useState} from 'react';
 import Flag from 'react-world-flags';
 import {countries, Country} from './constants';
 import {WithWrapperProps} from '../../models';
@@ -41,10 +33,31 @@ import OutlinedInput, {OutlinedInputProps as MuiOutlinedInputProps} from '../Out
 import Typography from '../Typography';
 
 export interface PhoneNumberInputProps extends BoxProps {
+  /**
+   * Props sent to the OutlinedInput component.
+   *
+   * Refer props: {@link https://mui.com/material-ui/api/outlined-input/}
+   */
   OutlinedInputProps?: Omit<MuiOutlinedInputProps, 'id' | 'label' | 'placeholder' | 'value' | 'type'>;
+  /**
+   * Props sent to the Select component.
+   *
+   * Refer props: {@link https://mui.com/material-ui/api/select/}
+   */
   SelectProps?: Omit<MuiSelectProps, 'labelId' | 'id' | 'value' | 'onChange' | 'placeholder'>;
+  /**
+   * Default country selected for the dialCode.
+   *
+   * @example {code: 'US', dialCode: '+1', name: 'United States'}
+   */
   defaultCountry?: Country;
-  onChange?: (phoneNumber: string) => void;
+  /**
+   * Callback function to be called when the dialCode or phoneNumber changes.
+   */
+  onChange?: (dialCode: string, phoneNumber: string) => void;
+  /**
+   * Placeholder text for the phone number input.
+   */
   placeholder?: string;
 }
 
@@ -69,18 +82,14 @@ const PhoneNumberInput: ForwardRefExoticComponent<PhoneNumberInputProps> & WithW
     const [country, setCountry] = useState<Country>(defaultCountry ?? countries[0]);
     const [phoneNumber, setPhoneNumber] = useState<string>('');
 
-    useEffect(() => {
-      if (onChange) {
-        onChange(`${country.dialCode}${phoneNumber}`);
-      }
-    }, [country, phoneNumber, onChange]);
-
-    const handleCountryCodeChange = (event: SelectChangeEvent): void => {
+    const handleDialCodeChange = (event: SelectChangeEvent): void => {
       setCountry(countries.find((item: Country) => item.dialCode === event.target.value));
+      onChange?.(event.target.value, phoneNumber);
     };
 
     const handlePhoneNumberChange = (event: ChangeEvent<HTMLInputElement>): void => {
       setPhoneNumber(event.target.value);
+      onChange?.(country.dialCode, event.target.value);
     };
 
     return (
@@ -94,7 +103,7 @@ const PhoneNumberInput: ForwardRefExoticComponent<PhoneNumberInputProps> & WithW
             labelId="phone-number-label"
             id="phone-number-select"
             value={country.dialCode}
-            onChange={handleCountryCodeChange}
+            onChange={handleDialCodeChange}
             renderValue={(value: string): ReactElement => (
               <>
                 <ListItemIcon>

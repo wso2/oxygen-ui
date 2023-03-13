@@ -17,8 +17,20 @@
  */
 
 export interface Country {
+  /**
+   * Country code.
+   * @example "AF"
+   * @see {@link https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2}
+   */
   code: string;
+  /**
+   * Country dial code.
+   * @example "+93"
+   */
   dialCode: string;
+  /**
+   * Country name.
+   */
   name: string;
 }
 
