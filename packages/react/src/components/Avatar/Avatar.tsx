@@ -30,7 +30,7 @@ const COMPONENT_NAME: string = 'Avatar';
 const Avatar: FC<AvatarProps> & WithWrapperProps = (props: AvatarProps): ReactElement => {
   const {className, ...rest} = props;
 
-  const classes: string = clsx('oxygen-ui-avatar', className);
+  const classes: string = clsx('oxygen-avatar', className);
 
   return <MuiAvatar className={classes} {...rest} />;
 };

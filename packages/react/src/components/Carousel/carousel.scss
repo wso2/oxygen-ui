@@ -18,16 +18,17 @@
 
 .oxygen-carousel {
   position: relative;
-  width: 100%;
 
   .oxygen-carousel-top-bar {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     .oxygen-carousel-title {
       flex-grow: 1;
       align-items: center;
       display: flex;
+      padding: 1rem 0;
     }
 
     .oxygen-carousel-button-group {
@@ -38,28 +39,34 @@
     }
   }
 
-  .oxygen-carousel-step-card {
-    padding: 0;
-  }
+  .oxygen-carousel-step {
+    .oxygen-card {
+      padding: 0.5rem 1rem;
 
-  .oxygen-carousel-step-card-content {
-    display: flex;
-    justify-content: flex-start;
-    gap: 1.5em;
-  }
+      .oxygen-list-item {
+        gap: 1rem;
+      }
+    }
 
-  .oxygen-carousel-step-button-bar {
-    display: flex;
-    justify-content: flex-end;
-    padding-top: 1em;
+    .oxygen-carousel-step-button-bar {
+      padding-top: 1rem;
+      display: flex;
+      justify-content: flex-end;
+    }
   }
 
   .oxygen-carousel-mobile-buttons {
-    display: flex;
-    justify-content: space-between;
-    z-index: 1;
-    position: absolute;
-    width: 100%;
-    bottom: calc(42px + 1em);
+    display: none;
+  }
+
+  &.mobile {
+    .oxygen-carousel-button-group {
+      display: none;
+    }
+
+    .oxygen-carousel-mobile-buttons {
+      display: flex;
+      gap: 1rem;
+    }
   }
 }

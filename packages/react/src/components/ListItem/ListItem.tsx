@@ -18,22 +18,26 @@
 
 import MuiListItem, {ListItemProps as MuiListItemProps} from '@mui/material/ListItem';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {ElementType, forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './list-item.scss';
 
-export type ListItemProps = MuiListItemProps;
+export type ListItemProps<C extends ElementType = ElementType> = {
+  component?: C;
+} & Omit<MuiListItemProps<C>, 'component'>;
 
 const COMPONENT_NAME: string = 'ListItem';
 
-const ListItem: FC<ListItemProps> & WithWrapperProps = (props: ListItemProps): ReactElement => {
-  const {className, ...rest} = props;
+const ListItem: ForwardRefExoticComponent<ListItemProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType>(props: ListItemProps<C>, ref: MutableRefObject<HTMLLIElement>): ReactElement => {
+    const {className, ...rest} = props;
 
-  const classes: string = clsx('oxygen-list-item', className);
+    const classes: string = clsx('oxygen-list-item', className);
 
-  return <MuiListItem className={classes} {...rest} />;
-};
+    return <MuiListItem className={classes} ref={ref} {...rest} />;
+  },
+) as ForwardRefExoticComponent<ListItemProps> & WithWrapperProps;
 
 ListItem.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ListItem.muiName = COMPONENT_NAME;
