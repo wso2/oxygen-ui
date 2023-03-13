@@ -4,6 +4,7 @@ import dedent from 'ts-dedent';
 import StoryConfig from '../../../.storybook/story-config.ts';
 import Tabs from './Tabs.tsx';
 import Tab from '../Tab';
+import TabPanel from '../TabPanel';
 
 export const meta = {
   component: Tabs,
@@ -13,18 +14,27 @@ export const meta = {
 <Meta title={meta.title} component={meta.component} />
 
 export const Template = args => {
-  const [{value}, updateArgs] = useArgs();
+  const [{value = 0}, updateArgs] = useArgs();
   const handleChange = (event, newValue) => {
     updateArgs({value: newValue});
   };
   return (
-    <Tabs value={value} onChange={handleChange} {...args}>
-      <Tab label="Tab One" />
-      <Tab label="Tab Two" />
-      <Tab label="Tab Three" />
-      <Tab label="Tab Four" />
-      <Tab label="Tab Five" />
-    </Tabs>
+    <Box>
+      <Tabs value={value} onChange={handleChange} {...args}>
+        <Tab label="Tab One" id="tab-0" aria-controls="tabpanel-0" />
+        <Tab label="Tab Two" id="tab-1" aria-controls="tabpanel-1" />
+        <Tab label="Tab Three" id="tab-2" aria-controls="tabpanel-2" />
+      </Tabs>
+      <TabPanel value={value} index={0} id="tabpanel-0" aria-labelledby="tab-0">
+        Item One
+      </TabPanel>
+      <TabPanel value={value} index={1} id="tabpanel-1" aria-labelledby="tab-1">
+        Item Two
+      </TabPanel>
+      <TabPanel value={value} index={2} id="tabpanel-2" aria-labelledby="tab-2">
+        Item Three
+      </TabPanel>
+    </Box>
   );
 };
 
@@ -40,9 +50,7 @@ export const Template = args => {
 Tabs component can be used to implement navigation between different views or sections at the same level of hierarchy.
 
 <Canvas>
-  <Story name="Overview">
-    {Template.bind({})}
-  </Story>
+  <Story name="Overview">{Template.bind({})}</Story>
 </Canvas>
 
 ## Props
@@ -59,16 +67,26 @@ Import and use the `Tabs` component in your components as follows.
   format
   code={dedent`
 import Tab from '@oxygen-ui/react/Tab';
+import TabPanel from '@oxygen-ui/react/TabPanel';
 import Tabs from '@oxygen-ui/react/Tabs';\n
 function Demo() {
   return (
-    <Tabs value={value} onChange={handleChange}>
-      <Tab label="Tab One" />
-      <Tab label="Tab Two" />
-      <Tab label="Tab Three" />
-      <Tab label="Tab Four" />
-      <Tab label="Tab Five" />
-    </Tabs>
+    <Box>
+      <Tabs value={value} onChange={handleChange}>
+        <Tab label="Tab One" id="tab-0" aria-controls="tabpanel-0" />
+        <Tab label="Tab Two" id="tab-1" aria-controls="tabpanel-1" />
+        <Tab label="Tab Three" id="tab-2" aria-controls="tabpanel-2" />
+      </Tabs>
+      <TabPanel value={value} index={0} id="tabpanel-0" aria-labelledby="tab-0">
+        Item One
+      </TabPanel>
+      <TabPanel value={value} index={1} id="tabpanel-1" aria-labelledby="tab-1">
+        Item Two
+      </TabPanel>
+      <TabPanel value={value} index={2} id="tabpanel-2" aria-labelledby="tab-2">
+        Item Three
+      </TabPanel>
+    </Box>
   );
 }`}
 />
