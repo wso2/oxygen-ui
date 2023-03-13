@@ -44,7 +44,7 @@ export interface PhoneNumberInputProps extends BoxProps {
   OutlinedInputProps?: Omit<MuiOutlinedInputProps, 'id' | 'label' | 'placeholder' | 'value' | 'type'>;
   SelectProps?: Omit<MuiSelectProps, 'labelId' | 'id' | 'value' | 'onChange' | 'placeholder'>;
   defaultCountry?: Country;
-  onChange?: (value: string) => void;
+  onChange?: (phoneNumber: string) => void;
   placeholder?: string;
 }
 
