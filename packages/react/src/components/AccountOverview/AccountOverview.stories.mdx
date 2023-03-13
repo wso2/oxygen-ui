@@ -1,0 +1,160 @@
+import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
+import AccountOverview from './AccountOverview.tsx';
+import Button from '../Button';
+import dedent from 'ts-dedent';
+import StoryConfig from '../../../.storybook/story-config.ts';
+import {withDesign} from '../../../.storybook/utils.ts';
+import Typography from '../Typography';
+
+export const meta = {
+  component: AccountOverview,
+  title: StoryConfig.AccountOverview.hierarchy,
+};
+
+<Meta title={meta.title} component={meta.component} />
+
+export const Template = args => <AccountOverview {...args} />;
+
+# AccountOverview
+
+- [Overview](#overview)
+- [Props](#props)
+- [Usage](#usage)
+- [Variants](#variants)
+  - [Incomplete](#incomplete)
+  - [Complete](#complete)
+
+## Overview
+
+This component is used to display the user's account overview. It includes the user's profile picture, name, email, account progress and account completion steps.
+
+<Canvas>
+  <Story
+    name="Overview"
+    args={{
+      title: <Typography variant="h5">Welcome Mathew</Typography>,
+      subheader: <Typography variant="body2">Manage your personal information, account security and privacy settings.</Typography>, 
+      user:{
+        image: '/assets/images/avatar-john.svg',
+        name: 'Matthew',
+        email: 'matthew@wso2.com'
+      },
+      accountProgress: 60,
+      accountCompletionStepsTitle: "Complete your Profile. It's at 60%",
+      accountCompletionSteps: [
+        {
+          title: 'Add your email address',
+          description: 'You can add your email address to your profile to receive notifications and updates from us.',
+          illustration: <img src="/assets/images/carousel-illustration.svg" alt="carousel illustration" />,
+          action: <Button variant="outlined">Add Email</Button>
+        },
+        {
+          title: 'Add your phone number',
+          description: 'You can add your phone number to your profile to receive notifications and updates from us.',
+          illustration: <img src="/assets/images/carousel-illustration.svg" alt="carousel illustration" />,
+          action: <Button variant="outlined">Add Phone</Button>
+        },
+        {
+          title: 'Add your address',
+          description: 'You can add your address to your profile to receive notifications and updates from us.',
+          illustration: <img src="/assets/images/carousel-illustration.svg" alt="carousel illustration" />,
+          action: <Button variant="outlined">Add Address</Button>
+        }
+      ],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Overview" />
+
+## Usage
+
+Import and use the `AccountOverview` component in your components as follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`
+import AccountOverview from '@oxygen-ui/react/AccountOverview';\n
+function Demo() {
+  return <AccountOverview
+            user={{
+              image: '/assets/images/avatar-john.svg',
+              name: 'Matthew',
+              email: 'matthew@wso2.com',
+            }}
+            title={<Typography variant="h5">Welcome Mathew</Typography>}
+            accountProgress={60}
+          />
+}`}
+/>
+
+## Variants
+
+### Incomplete
+
+<Canvas>
+  <Story
+    name="Incomplete"
+    args={{
+      title: <Typography variant="h5">Welcome Mathew</Typography>,
+      subheader: <Typography variant="body2">Manage your personal information, account security and privacy settings.</Typography>, 
+      user:{
+        image: '/assets/images/avatar-john.svg',
+        name: 'Matthew',
+        email: 'matthew@wso2.com'
+      },
+      accountProgress: 60,
+      accountCompletionStepsTitle: "Complete your Profile. It's at 60%",
+      accountCompletionSteps: [
+        {
+          title: 'Add your email address',
+          description: 'You can add your email address to your profile to receive notifications and updates from us.',
+          illustration: <img src="/assets/images/carousel-illustration.svg" alt="carousel illustration" />,
+          action: <Button variant="outlined">Add Email</Button>
+        },
+        {
+          title: 'Add your phone number',
+          description: 'You can add your phone number to your profile to receive notifications and updates from us.',
+          illustration: <img src="/assets/images/carousel-illustration.svg" alt="carousel illustration" />,
+          action: <Button variant="outlined">Add Phone</Button>
+        },
+        {
+          title: 'Add your address',
+          description: 'You can add your address to your profile to receive notifications and updates from us.',
+          illustration: <img src="/assets/images/carousel-illustration.svg" alt="carousel illustration" />,
+          action: <Button variant="outlined">Add Address</Button>
+        }
+      ],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  </Canvas>
+
+### Complete
+
+<Canvas>
+  <Story
+    name="Complete"
+    args={{
+      title: <Typography variant="h5">Welcome Mathew</Typography>,
+      subheader: <Typography variant="body2">Manage your personal information, account security and privacy settings.</Typography>, 
+      user:{
+        image: '/assets/images/avatar-john.svg',
+        name: 'Matthew',
+        email: 'matthew@wso2.com'
+      },
+      accountCompletionStepsTitle: "Complete your Profile. It's at 60%",
+      accountProgress: 100, 
+      illustration: <img src="/assets/images/action-card-image.svg" alt="image" /> 
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

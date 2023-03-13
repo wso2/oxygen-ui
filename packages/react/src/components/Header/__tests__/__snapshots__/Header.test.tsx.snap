@@ -27,7 +27,7 @@ exports[`Header should match the snapshot 1`] = `
               class="MuiButton-startIcon MuiButton-iconSizeMedium css-gcc2o7-MuiButton-startIcon"
             >
               <div
-                class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault oxygen-ui-avatar image css-woe6xp-MuiAvatar-root"
+                class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault oxygen-avatar image css-woe6xp-MuiAvatar-root"
               >
                 <svg
                   aria-hidden="true"

@@ -16,6 +16,17 @@
  * under the License.
  */
 
-export {default as Carousel} from './Carousel';
-export type {CarouselProps} from './Carousel';
-export type {CarouselStep} from './Carousel';
+import {render} from '@unit-testing';
+import TabPanel from '../TabPanel';
+
+describe('TabPanel', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(<TabPanel index={0} value={0} />);
+    expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<TabPanel index={0} value={0} />);
+    expect(baseElement).toMatchSnapshot();
+  });
+});

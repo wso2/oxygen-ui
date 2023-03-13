@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tabs should match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="oxygen-box oxygen-tabs MuiBox-root css-0"
+    >
+      <div
+        class="MuiTabs-root css-1ujnqem-MuiTabs-root"
+      >
+        <div
+          class="MuiTabs-scroller MuiTabs-fixed css-jpln7h-MuiTabs-scroller"
+          style="overflow: hidden; margin-bottom: 0px;"
+        >
+          <div
+            class="MuiTabs-flexContainer css-heg063-MuiTabs-flexContainer"
+            role="tablist"
+          />
+          <span
+            class="MuiTabs-indicator css-e656d-MuiTabs-indicator"
+            style="left: 0px; width: 0px;"
+          />
+        </div>
+      </div>
+      <hr
+        class="MuiDivider-root MuiDivider-fullWidth oxygen-divider css-f1a6nn-MuiDivider-root"
+      />
+    </div>
+  </div>
+</body>
+`;

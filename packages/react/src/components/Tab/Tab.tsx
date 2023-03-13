@@ -16,27 +16,28 @@
  * under the License.
  */
 
-import MuiAvatar, {AvatarProps as MuiAvatarProps} from '@mui/material/Avatar';
+import MuiTab, {TabProps as MuiTabProps} from '@mui/material/Tab';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
-import './avatar.scss';
+import './tab.scss';
 
-export type AvatarProps = MuiAvatarProps;
+export type TabProps = MuiTabProps;
 
-const COMPONENT_NAME: string = 'Avatar';
+const COMPONENT_NAME: string = 'Tab';
 
-const Avatar: FC<AvatarProps> & WithWrapperProps = (props: AvatarProps): ReactElement => {
-  const {className, ...rest} = props;
+const Tab: ForwardRefExoticComponent<TabProps> & WithWrapperProps = forwardRef(
+  (props: TabProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+    const {className, ...rest} = props;
 
-  const classes: string = clsx('oxygen-avatar', className);
+    const classes: string = clsx('oxygen-tab', className);
 
-  return <MuiAvatar className={classes} {...rest} />;
-};
+    return <MuiTab className={classes} ref={ref} {...rest} />;
+  },
+) as ForwardRefExoticComponent<TabProps> & WithWrapperProps;
 
-Avatar.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Avatar.muiName = COMPONENT_NAME;
-Avatar.defaultProps = {};
+Tab.displayName = composeComponentDisplayName(COMPONENT_NAME);
+Tab.muiName = COMPONENT_NAME;
 
-export default Avatar;
+export default Tab;

@@ -16,6 +16,5 @@
  * under the License.
  */
 
-export {default as Carousel} from './Carousel';
-export type {CarouselProps} from './Carousel';
-export type {CarouselStep} from './Carousel';
+export {default} from './Select';
+export type {SelectProps} from './Select';
