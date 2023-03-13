@@ -1,0 +1,55 @@
+import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
+import Tabs from '@mui/material/Tabs';
+import dedent from 'ts-dedent';
+import StoryConfig from '../../../.storybook/story-config.ts';
+import Tab from './Tab.tsx';
+
+export const meta = {
+  component: Tab,
+  title: StoryConfig.Tab.hierarchy,
+};
+
+<Meta title={meta.title} component={meta.component} />
+
+export const Template = (args) => {
+  return (
+    <Tabs>
+      <Tab {...args} />
+    </Tabs>
+  )
+};
+
+# Tab
+
+- [Overview](#overview)
+- [Props](#props)
+- [Usage](#usage)
+
+## Overview
+
+Tab component can be used with Tabs component to implement navigation between different views or sections.
+
+<Canvas>
+  <Story name="Overview" args={{label: "Sample Tab"}}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Overview" />
+
+## Usage
+
+Import and use the `Tab` component in your components as follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`
+import Tab from '@oxygen-ui/react/Tab';\n
+function Demo() {
+  return <Tab label="Sample Tab" />;
+}`}
+/>

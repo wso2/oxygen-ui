@@ -16,31 +16,37 @@
  * under the License.
  */
 
-import MuiListItem, {ListItemProps as MuiListItemProps} from '@mui/material/ListItem';
+import MuiTabs, {TabsProps as MuiTabsProps} from '@mui/material/Tabs';
 import clsx from 'clsx';
 import {ElementType, forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
-import './list-item.scss';
+import Box from '../Box';
+import Divider from '../Divider';
+import './tabs.scss';
 
-export type ListItemProps<C extends ElementType = ElementType> = {
+export type TabsProps<C extends ElementType = ElementType> = {
   component?: C;
-} & Omit<MuiListItemProps<C>, 'component'>;
+} & Omit<MuiTabsProps<C>, 'component'>;
 
-const COMPONENT_NAME: string = 'ListItem';
+const COMPONENT_NAME: string = 'Tabs';
 
-const ListItem: ForwardRefExoticComponent<ListItemProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(props: ListItemProps<C>, ref: MutableRefObject<HTMLLIElement>): ReactElement => {
+const Tabs: ForwardRefExoticComponent<TabsProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType>(props: TabsProps<C>, ref: MutableRefObject<HTMLButtonElement>): ReactElement => {
     const {className, ...rest} = props;
 
-    const classes: string = clsx('oxygen-list-item', className);
+    const classes: string = clsx('oxygen-tabs', className);
 
-    return <MuiListItem className={classes} ref={ref} {...rest} />;
+    return (
+      <Box className={classes}>
+        <MuiTabs ref={ref} {...rest} />
+        <Divider />
+      </Box>
+    );
   },
-) as ForwardRefExoticComponent<ListItemProps> & WithWrapperProps;
+) as ForwardRefExoticComponent<TabsProps> & WithWrapperProps;
 
-ListItem.displayName = composeComponentDisplayName(COMPONENT_NAME);
-ListItem.muiName = COMPONENT_NAME;
-ListItem.defaultProps = {};
+Tabs.displayName = composeComponentDisplayName(COMPONENT_NAME);
+Tabs.muiName = COMPONENT_NAME;
 
-export default ListItem;
+export default Tabs;

@@ -16,6 +16,15 @@
  * under the License.
  */
 
-export {default as Carousel} from './Carousel';
-export type {CarouselProps} from './Carousel';
-export type {CarouselStep} from './Carousel';
+.oxygen-account-overview {
+  padding: 0.8rem 1rem;
+
+  .oxygen-card-header {
+    padding: 1rem 0;
+    padding-bottom: 1.5rem;
+  }
+
+  .oxygen-account-completion-steps-box {
+    padding: 0.5rem;
+  }
+}

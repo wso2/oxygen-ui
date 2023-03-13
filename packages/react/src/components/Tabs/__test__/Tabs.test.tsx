@@ -16,6 +16,17 @@
  * under the License.
  */
 
-export {default as Carousel} from './Carousel';
-export type {CarouselProps} from './Carousel';
-export type {CarouselStep} from './Carousel';
+import {render} from '@unit-testing';
+import Tabs from '../Tabs';
+
+describe('Tabs', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(<Tabs />);
+    expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<Tabs />);
+    expect(baseElement).toMatchSnapshot();
+  });
+});

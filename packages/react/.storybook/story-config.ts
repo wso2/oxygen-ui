@@ -32,6 +32,7 @@ enum StorybookCategories {
 }
 
 export type Stories =
+  | 'AccountOverview'
   | 'ActionCard'
   | 'AppBar'
   | 'AppShell'
@@ -77,8 +78,12 @@ export type Stories =
   | 'Navbar'
   | 'OutlinedInput'
   | 'PhoneNumberInput'
+  | 'Select'
   | 'SignIn'
   | 'Stepper'
+  | 'Tab'
+  | 'TabPanel'
+  | 'Tabs'
   | 'TextField'
   | 'Toolbar'
   | 'Tooltip'
@@ -106,6 +111,9 @@ export type StorybookConfig = Record<
 >;
 
 const StoryConfig: StorybookConfig = {
+  AccountOverview: {
+    hierarchy: `${StorybookCategories.Patterns}/Account Overview`,
+  },
   ActionCard: {
     hierarchy: `${StorybookCategories.Surfaces}/Action Card`,
   },
@@ -246,11 +254,23 @@ const StoryConfig: StorybookConfig = {
   PhoneNumberInput: {
     hierarchy: `${StorybookCategories.Inputs}/Phone Number Input`,
   },
+  Select: {
+    hierarchy: `${StorybookCategories.Inputs}/Select`,
+  },
   SignIn: {
     hierarchy: `${StorybookCategories.Patterns}/Sign In`,
   },
   Stepper: {
     hierarchy: `${StorybookCategories.Surfaces}/Stepper`,
+  },
+  Tab: {
+    hierarchy: `${StorybookCategories.Navigation}/Tab`,
+  },
+  TabPanel: {
+    hierarchy: `${StorybookCategories.Navigation}/Tab Panel`,
+  },
+  Tabs: {
+    hierarchy: `${StorybookCategories.Navigation}/Tabs`,
   },
   TextField: {
     hierarchy: `${StorybookCategories.Inputs}/Text Field`,
