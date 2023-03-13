@@ -16,24 +16,34 @@
  * under the License.
  */
 
+import {FlagOutlined} from '@mui/icons-material';
 import Select, {SelectChangeEvent, SelectProps as MuiSelectProps} from '@mui/material/Select';
 import clsx from 'clsx';
-import {ChangeEvent, forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement, useState} from 'react';
+import {
+  ChangeEvent,
+  forwardRef,
+  ForwardRefExoticComponent,
+  MutableRefObject,
+  ReactElement,
+  useEffect,
+  useState,
+} from 'react';
+import Flag from 'react-world-flags';
 import {countries, Country} from './constants';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import Box, {BoxProps} from '../Box';
-import Image from '../Image';
 import InputLabel from '../InputLabel';
 import ListItemIcon from '../ListItemIcon';
 import MenuItem from '../MenuItem';
 import './phone-number-input.scss';
 import OutlinedInput, {OutlinedInputProps as MuiOutlinedInputProps} from '../OutlinedInput';
+import Typography from '../Typography';
 
 export interface PhoneNumberInputProps extends BoxProps {
-  OutlinedInputProps?: Omit<MuiOutlinedInputProps, 'id' | 'label' | 'placeholder' | 'type'>;
+  OutlinedInputProps?: Omit<MuiOutlinedInputProps, 'id' | 'label' | 'placeholder' | 'value' | 'type'>;
   SelectProps?: Omit<MuiSelectProps, 'labelId' | 'id' | 'value' | 'onChange' | 'placeholder'>;
-  defaultCountryCode?: string;
+  defaultCountry?: Country;
   onChange?: (value: string) => void;
   placeholder?: string;
 }
@@ -44,7 +54,7 @@ const PhoneNumberInput: ForwardRefExoticComponent<PhoneNumberInputProps> & WithW
   (props: PhoneNumberInputProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const {
       className,
-      defaultCountryCode,
+      defaultCountry,
       label,
       InputLabelProps,
       OutlinedInputProps,
@@ -56,54 +66,65 @@ const PhoneNumberInput: ForwardRefExoticComponent<PhoneNumberInputProps> & WithW
 
     const classes: string = clsx('oxygen-phone-number-input', className);
 
-    const [countryCode, setCountryCode] = useState<string>(defaultCountryCode ?? countries[0].dial_code);
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [country, setCountry] = useState<Country>(defaultCountry ?? countries[0]);
+    const [phoneNumber, setPhoneNumber] = useState<string>('');
+
+    useEffect(() => {
+      if (onChange) {
+        onChange(`${country.dialCode}${phoneNumber}`);
+      }
+    }, [country, phoneNumber, onChange]);
 
     const handleCountryCodeChange = (event: SelectChangeEvent): void => {
-      setCountryCode(event.target.value);
-      onChange(`${event.target.value}${phoneNumber}`);
+      setCountry(countries.find((item: Country) => item.dialCode === event.target.value));
     };
 
     const handlePhoneNumberChange = (event: ChangeEvent<HTMLInputElement>): void => {
       setPhoneNumber(event.target.value);
-      onChange(`${countryCode}${event.target.value}`);
     };
 
     return (
-      <Box className={classes} {...rest} ref={ref}>
+      <Box className={classes} ref={ref} {...rest}>
         <InputLabel htmlFor="phone-number-input" id="phone-number-label">
           {label}
         </InputLabel>
         <Box className="oxygen-select-input">
           <Select
+            className="oxygen-select"
             labelId="phone-number-label"
             id="phone-number-select"
-            value={countryCode}
+            value={country.dialCode}
             onChange={handleCountryCodeChange}
-            className="oxygen-select"
+            renderValue={(value: string): ReactElement => (
+              <>
+                <ListItemIcon>
+                  <Flag className="oxygen-image" alt={country.name} code={country.code} fallback={<FlagOutlined />} />
+                </ListItemIcon>
+                {value}
+              </>
+            )}
             inputProps={{
               className: 'oxygen-select-input-root',
             }}
             {...SelectProps}
           >
-            {countries?.map((country: Country) => (
-              <MenuItem value={country.dial_code} className="oxygen-dial-code-menu-item">
-                <ListItemIcon>
-                  <Image
-                    loading="lazy"
-                    src={`https://flagcdn.com/${country.code.toLowerCase()}.svg`}
-                    srcSet={`https://flagcdn.com/${country.code.toLowerCase()}.svg 2x`}
-                    alt={country.name}
-                  />
-                </ListItemIcon>
-                {country.dial_code}
-              </MenuItem>
-            ))}
+            {countries?.map((countryItem: Country) => {
+              const {dialCode, code, name} = countryItem;
+              return (
+                <MenuItem value={dialCode} key={code} className="oxygen-dial-code-menu-item">
+                  <ListItemIcon>
+                    <Flag className="oxygen-image" alt={country.name} code={code} fallback={<FlagOutlined />} />
+                  </ListItemIcon>
+                  <Typography>{name}</Typography>&nbsp;
+                  <Typography variant="body2">{dialCode}</Typography>
+                </MenuItem>
+              );
+            })}
           </Select>
           <OutlinedInput
             id="phone-number-input"
-            placeholder={placeholder}
             type="tel"
+            placeholder={placeholder}
             value={phoneNumber}
             onChange={handlePhoneNumberChange}
             {...OutlinedInputProps}

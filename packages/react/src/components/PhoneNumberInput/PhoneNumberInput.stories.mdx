@@ -23,7 +23,7 @@ export const Template = args => <PhoneNumberInput {...args} />;
 Use the `PhoneNumberInput` component to collect phone numbers from users including the country dial code.
 
 <Canvas>
-  <Story name="Overview" args={{label: "Mobile", placeholder: "Enter your Mobile"}}>
+  <Story name="Overview" argTypes={{ onChange: { action: 'Phone Number' } }} args={{label: "Mobile", placeholder: "Enter your Mobile"}}>
     {Template.bind({})}
   </Story>
 </Canvas>
