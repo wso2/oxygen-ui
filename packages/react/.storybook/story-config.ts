@@ -77,6 +77,7 @@ export type Stories =
   | 'UserDropdownMenu'
   | 'Navbar'
   | 'OutlinedInput'
+  | 'PhoneNumberInput'
   | 'Select'
   | 'SignIn'
   | 'Stepper'
@@ -249,6 +250,9 @@ const StoryConfig: StorybookConfig = {
   },
   ListItemText: {
     hierarchy: `${StorybookCategories.DataDisplay}/List Item Text`,
+  },
+  PhoneNumberInput: {
+    hierarchy: `${StorybookCategories.Inputs}/Phone Number Input`,
   },
   Select: {
     hierarchy: `${StorybookCategories.Inputs}/Select`,
