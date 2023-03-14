@@ -25,6 +25,10 @@ export type ImageProps = ImgHTMLAttributes<HTMLImageElement>;
 
 const COMPONENT_NAME: string = 'Image';
 
+/**
+ * TODO: Refer improvement issue if this Image component is required.
+ * @see {@link https://github.com/wso2/oxygen-ui/issues/65}
+ */
 const Image: FC<ImageProps> & WithWrapperProps = (props: ImageProps): ReactElement => {
   const {className, alt, ...rest} = props;
 

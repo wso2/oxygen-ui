@@ -43,6 +43,18 @@ Import and use the `PhoneNumberInput` component in your components as follows.
   code={dedent`
 import PhoneNumberInput from '@oxygen-ui/react/PhoneNumberInput';\n
 function Demo() {
-  return <PhoneNumberInput onChange={handlePhoneNumberInputChange} />;
+  const [dialCode, setDialCode] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');\n
+  const handlePhoneNumberInputChange = (dialCode, phoneNumber) => {
+    setDialCode(dialCode);
+    setPhoneNumber(phoneNumber);
+  };\n
+  return (
+    <PhoneNumberInput
+      dialCodeValue={dialCode}
+      phoneNumberValue={phoneNumber}
+      onChange={handlePhoneNumberInputChange}
+    />
+  );
 }`}
 />

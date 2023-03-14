@@ -46,15 +46,21 @@ export interface PhoneNumberInputProps extends BoxProps {
    */
   SelectProps?: Omit<MuiSelectProps, 'labelId' | 'id' | 'value' | 'onChange' | 'placeholder'>;
   /**
-   * Default country selected for the dialCode.
+   * Dial code state value.
    *
-   * @example {code: 'US', dialCode: '+1', name: 'United States'}
+   * @example '+94'
    */
-  defaultCountry?: Country;
+  dialCodeValue?: string;
   /**
    * Callback function to be called when the dialCode or phoneNumber changes.
    */
   onChange?: (dialCode: string, phoneNumber: string) => void;
+  /**
+   * Phone number state value.
+   *
+   * @example '787878787'
+   */
+  phoneNumberValue?: string;
   /**
    * Placeholder text for the phone number input.
    */
@@ -67,11 +73,12 @@ const PhoneNumberInput: ForwardRefExoticComponent<PhoneNumberInputProps> & WithW
   (props: PhoneNumberInputProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const {
       className,
-      defaultCountry,
+      dialCodeValue,
       label,
       InputLabelProps,
       OutlinedInputProps,
       onChange,
+      phoneNumberValue,
       placeholder,
       SelectProps,
       ...rest
@@ -79,17 +86,36 @@ const PhoneNumberInput: ForwardRefExoticComponent<PhoneNumberInputProps> & WithW
 
     const classes: string = clsx('oxygen-phone-number-input', className);
 
-    const [country, setCountry] = useState<Country>(defaultCountry ?? countries[0]);
-    const [phoneNumber, setPhoneNumber] = useState<string>('');
+    const [dialCode, setDialCode] = useState<string>(dialCodeValue ?? countries[0].dialCode);
+
+    const [phoneNumber, setPhoneNumber] = useState<string>(phoneNumberValue ?? '');
 
     const handleDialCodeChange = (event: SelectChangeEvent): void => {
-      setCountry(countries.find((item: Country) => item.dialCode === event.target.value));
+      setDialCode(event.target.value);
       onChange?.(event.target.value, phoneNumber);
     };
 
     const handlePhoneNumberChange = (event: ChangeEvent<HTMLInputElement>): void => {
       setPhoneNumber(event.target.value);
-      onChange?.(country.dialCode, event.target.value);
+      onChange?.(dialCode, event.target.value);
+    };
+
+    const renderValue = (value: string): ReactElement => {
+      const selectedCountry: Country = countries.find((item: Country) => item.dialCode === dialCode);
+
+      return (
+        <>
+          <ListItemIcon>
+            <Flag
+              className="oxygen-image"
+              alt={selectedCountry.name}
+              code={selectedCountry.code}
+              fallback={<FlagOutlined />}
+            />
+          </ListItemIcon>
+          {value}
+        </>
+      );
     };
 
     return (
@@ -102,30 +128,23 @@ const PhoneNumberInput: ForwardRefExoticComponent<PhoneNumberInputProps> & WithW
             className="oxygen-select"
             labelId="phone-number-label"
             id="phone-number-select"
-            value={country.dialCode}
+            value={dialCode}
             onChange={handleDialCodeChange}
-            renderValue={(value: string): ReactElement => (
-              <>
-                <ListItemIcon>
-                  <Flag className="oxygen-image" alt={country.name} code={country.code} fallback={<FlagOutlined />} />
-                </ListItemIcon>
-                {value}
-              </>
-            )}
+            renderValue={renderValue}
             inputProps={{
               className: 'oxygen-select-input-root',
             }}
             {...SelectProps}
           >
             {countries?.map((countryItem: Country) => {
-              const {dialCode, code, name} = countryItem;
+              const {dialCode: phoneCode, code, name} = countryItem;
               return (
-                <MenuItem value={dialCode} key={code} className="oxygen-dial-code-menu-item">
+                <MenuItem value={phoneCode} key={code} className="oxygen-dial-code-menu-item">
                   <ListItemIcon>
-                    <Flag className="oxygen-image" alt={country.name} code={code} fallback={<FlagOutlined />} />
+                    <Flag className="oxygen-image" alt={name} code={code} fallback={<FlagOutlined />} />
                   </ListItemIcon>
                   <Typography>{name}</Typography>&nbsp;
-                  <Typography variant="body2">{dialCode}</Typography>
+                  <Typography variant="body2">{phoneCode}</Typography>
                 </MenuItem>
               );
             })}
