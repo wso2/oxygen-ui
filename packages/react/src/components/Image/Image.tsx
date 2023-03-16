@@ -16,31 +16,25 @@
  * under the License.
  */
 
-import {Box, BoxProps} from '@mui/material';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {FC, ImgHTMLAttributes, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 
-export interface ImageProps extends BoxProps {
-  /**
-   * Alternative text for the image.
-   */
-  alt: string;
-  /**
-   * Source of the image.
-   */
-  src: string;
-}
+export type ImageProps = ImgHTMLAttributes<HTMLImageElement>;
 
 const COMPONENT_NAME: string = 'Image';
 
-const Image: FC<ImageProps> & WithWrapperProps = (props: BoxProps): ReactElement => {
-  const {className, ...rest} = props;
+/**
+ * TODO: Refer improvement issue if this Image component is required.
+ * @see {@link https://github.com/wso2/oxygen-ui/issues/65}
+ */
+const Image: FC<ImageProps> & WithWrapperProps = (props: ImageProps): ReactElement => {
+  const {className, alt, ...rest} = props;
 
   const classes: string = clsx('oxygen-image', className);
 
-  return <Box className={classes} component="img" {...rest} />;
+  return <img className={classes} alt={alt} {...rest} />;
 };
 
 Image.displayName = composeComponentDisplayName(COMPONENT_NAME);
