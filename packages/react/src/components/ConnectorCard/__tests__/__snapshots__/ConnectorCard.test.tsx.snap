@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConnectorCard should match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded MuiCard-root oxygen-card oxygen-connector-card css-1iqo0uq-MuiPaper-root-MuiCard-root"
+    >
+      <div
+        class="MuiCardHeader-root oxygen-card-header css-185gdzj-MuiCardHeader-root"
+      >
+        <div
+          class="MuiCardHeader-avatar oxygen-connector-card-image css-1ssile9-MuiCardHeader-avatar"
+        >
+          <img
+            alt="connector card"
+            src="/assets/images/google-logo.svg"
+          />
+        </div>
+        <div
+          class="MuiCardHeader-content css-1qbkelo-MuiCardHeader-content"
+        >
+          <span
+            class="MuiTypography-root MuiTypography-body2 MuiCardHeader-title css-1gigcpc-MuiTypography-root"
+          >
+            Google
+          </span>
+          <span
+            class="MuiTypography-root MuiTypography-body2 MuiCardHeader-subheader css-vfyquo-MuiTypography-root"
+          >
+            <div
+              class="oxygen-box MuiBox-root css-0"
+            >
+              <div
+                class="oxygen-box oxygen-connector-card-description MuiBox-root css-0"
+              >
+                Connected
+              </div>
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium oxygen-button oxygen-connector-button connected css-1ngzaqh-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
+                id=":r1:"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiButton-startIcon MuiButton-iconSizeMedium css-gcc2o7-MuiButton-startIcon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="oxygen-icon oxygen-icon-link"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    role="img"
+                    style="display: inline-block; overflow: visible; user-select: none; vertical-align: text-bottom;"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <g
+                      clip-path="url(#clip0_1_3243)"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M3.2962 6.19085C3.49603 5.99102 3.82003 5.99102 4.01986 6.19085C4.19749 6.36848 4.21722 6.64421 4.07907 6.84364L4.01986 6.91451L2.57254 8.36183C1.1737 9.76067 1.1737 12.0286 2.57254 13.4275C3.92474 14.7797 6.0891 14.8247 7.49545 13.5627L7.63816 13.4275L9.08548 11.9801C9.28532 11.7803 9.60931 11.7803 9.80914 11.9801C9.98677 12.1578 10.0065 12.4335 9.86835 12.6329L9.80914 12.7038L8.36182 14.1511C6.56332 15.9496 3.64738 15.9496 1.84888 14.1511C0.101761 12.404 0.0518429 9.60239 1.69912 7.79501L1.84888 7.63817L3.2962 6.19085ZM7.63817 1.84888C9.43667 0.0503749 12.3526 0.0503749 14.1511 1.84888C15.8982 3.59599 15.9482 6.39761 14.3009 8.20498L14.1511 8.36182L12.7038 9.80914C12.504 10.009 12.18 10.009 11.9801 9.80914C11.8025 9.63151 11.7828 9.35578 11.9209 9.15635L11.9801 9.08548L13.4275 7.63816C14.8263 6.23933 14.8263 3.97137 13.4275 2.57254C12.0753 1.22033 9.9109 1.17526 8.50455 2.43732L8.36183 2.57254L6.91451 4.01986C6.71468 4.21969 6.39068 4.21969 6.19085 4.01986C6.01322 3.84223 5.99348 3.5665 6.13164 3.36707L6.19085 3.2962L7.63817 1.84888ZM11.4322 4.56808C11.2324 4.36817 10.9084 4.36805 10.7085 4.5678L4.56343 10.7083L4.50419 10.7791C4.36596 10.9785 4.38559 11.2542 4.56316 11.4319C4.76292 11.6318 5.08691 11.632 5.28682 11.4322L11.4319 5.29174L11.4911 5.22089C11.6294 5.02151 11.6097 4.74577 11.4322 4.56808Z"
+                        fill=""
+                        fill-rule="evenodd"
+                      />
+                    </g>
+                    <defs>
+                      <clippath
+                        id="clip0_1_3243"
+                      >
+                        <rect
+                          fill="white"
+                          height="16"
+                          width="16"
+                        />
+                      </clippath>
+                    </defs>
+                  </svg>
+                </span>
+                Disconnect
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+          </span>
+        </div>
+        <div
+          class="MuiCardHeader-action oxygen-connector-card-status-icon css-sgoict-MuiCardHeader-action"
+        >
+          <svg
+            aria-hidden="true"
+            class="oxygen-icon oxygen-icon-check-circle"
+            fill="currentColor"
+            focusable="false"
+            height="16"
+            role="img"
+            style="display: inline-block; overflow: visible; user-select: none; vertical-align: text-bottom;"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16ZM12.7105 6.70372C13.0991 6.31133 13.0961 5.67817 12.7037 5.28952C12.3113 4.90087 11.6782 4.9039 11.2895 5.29628L7.04762 9.57897L4.71048 7.21936C4.32183 6.82697 3.68867 6.82394 3.29628 7.21259C2.9039 7.60125 2.90087 8.2344 3.28952 8.62679L6.33714 11.7037L7.04762 12.421L7.7581 11.7037L12.7105 6.70372Z"
+              fill=""
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;

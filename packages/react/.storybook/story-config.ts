@@ -51,6 +51,7 @@ export type Stories =
   | 'Chip'
   | 'ColorModeToggle'
   | 'Colors'
+  | 'ConnectorCard'
   | 'Container'
   | 'Divider'
   | 'Drawer'
@@ -145,13 +146,13 @@ const StoryConfig: StorybookConfig = {
     hierarchy: `${StorybookCategories.Surfaces}/Card`,
   },
   CardActions: {
-    hierarchy: `${StorybookCategories.Surfaces}/CardActions`,
+    hierarchy: `${StorybookCategories.Surfaces}/Card Actions`,
   },
   CardContent: {
-    hierarchy: `${StorybookCategories.Surfaces}/CardContent`,
+    hierarchy: `${StorybookCategories.Surfaces}/Card Content`,
   },
   CardHeader: {
-    hierarchy: `${StorybookCategories.Surfaces}/CardHeader`,
+    hierarchy: `${StorybookCategories.Surfaces}/Card Header`,
   },
   Carousel: {
     hierarchy: `${StorybookCategories.Patterns}/Carousel`,
@@ -167,6 +168,9 @@ const StoryConfig: StorybookConfig = {
   },
   Colors: {
     hierarchy: `${StorybookCategories.Foundations}/Colors`,
+  },
+  ConnectorCard: {
+    hierarchy: `${StorybookCategories.Patterns}/Connector Card`,
   },
   Container: {
     hierarchy: `${StorybookCategories.Layout}/Container`,
