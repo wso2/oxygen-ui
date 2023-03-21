@@ -3,7 +3,9 @@
 name: 🚀 Release
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - ci-prepare-release-semantic
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
