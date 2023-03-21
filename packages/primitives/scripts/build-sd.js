@@ -23,7 +23,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { logger } = require('@oxygen-ui/logger');
+const { logger } = require('@oxygen-ui-experimental/logger');
 const StyleDictionary = require('style-dictionary');
 
 const PATHS = {

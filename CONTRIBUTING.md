@@ -178,9 +178,9 @@ The scope should be the name of the npm package affected (as perceived by the pe
 The following is the list of supported scopes:
 
 * `examples` - Changes to any of the `examples`.
-* `primitives` - Changes to the `@oxygen-ui/primitives` package.
-* `react` - Changes to the `@oxygen-ui/react` package.
-* `logger` - Changes to the `@oxygen-ui/logger` package.
+* `primitives` - Changes to the `@oxygen-ui-experimental/primitives` package.
+* `react` - Changes to the `@oxygen-ui-experimental/react` package.
+* `logger` - Changes to the `@oxygen-ui-experimental/logger` package.
 
 There are currently a few exceptions to the "use package name" rule:
 

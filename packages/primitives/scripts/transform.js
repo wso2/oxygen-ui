@@ -18,7 +18,7 @@
 
 const { execSync } = require('child_process');
 const path = require('path');
-const { logger } = require('@oxygen-ui/logger');
+const { logger } = require('@oxygen-ui-experimental/logger');
 const fs = require('fs-extra');
 const tokens = require('../figma/tokens.json');
 const pkg = require('../package.json');

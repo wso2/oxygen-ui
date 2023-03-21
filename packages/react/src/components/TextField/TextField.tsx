@@ -18,7 +18,7 @@
 
 import InputAdornment from '@mui/material/InputAdornment';
 import MuiTextField, {TextFieldProps as MuiTextFieldProps} from '@mui/material/TextField';
-import {DoubleCircleIcon, VisibilityIcon, VisibilityOffIcon} from '@oxygen-ui/react-icons';
+import {DoubleCircleIcon, VisibilityIcon, VisibilityOffIcon} from '@oxygen-ui-experimental/react-icons';
 import clsx from 'clsx';
 import {
   forwardRef,

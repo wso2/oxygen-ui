@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import {AppBar, ColorModeToggle, Toolbar, ThemeProvider, IconButton, Theme, Tooltip} from '@oxygen-ui/react';
+import {AppBar, ColorModeToggle, Toolbar, ThemeProvider, IconButton, Theme, Tooltip} from '@oxygen-ui-experimental/react';
 import {ReactElement, useReducer, useState} from 'react';
 import {BrandingActions, brandingReducer, DefaultTheme} from './branding';
 import {BrandSwitcher, BuildingIcon, OrganizationSelectionDialog} from './components';

@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import {PowerIcon} from '@oxygen-ui/react-icons';
+import {PowerIcon} from '@oxygen-ui-experimental/react-icons';
 import {render} from '@unit-testing';
 import IconButton from '../IconButton';
 

@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import {ChevronLeftIcon, ChevronRightIcon} from '@oxygen-ui/react-icons';
+import {ChevronLeftIcon, ChevronRightIcon} from '@oxygen-ui-experimental/react-icons';
 import clsx from 'clsx';
 import {FC, HTMLAttributes, ReactElement, ReactNode, useEffect, useMemo, useState} from 'react';
 import {useIsMobile} from '../../hooks';

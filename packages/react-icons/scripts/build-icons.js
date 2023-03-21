@@ -21,12 +21,12 @@
  * @fileoverview Build script to generate the React wrappers of SVGs.
  */
 
-const oxygenIcons = require('@oxygen-ui/primitives/dist/icons/data.json');
+const oxygenIcons = require('@oxygen-ui-experimental/primitives/dist/icons/data.json');
 const {default: generate} = require('@babel/generator');
 const t = require('@babel/types');
 const fs = require('fs-extra');
 const path = require('path');
-const {logger} = require('@oxygen-ui/logger');
+const {logger} = require('@oxygen-ui-experimental/logger');
 
 const PATHS = {
   get generated() {

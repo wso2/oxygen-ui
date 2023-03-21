@@ -19,7 +19,7 @@
 
 const cp = require('child_process');
 const path = require('path');
-const { logger } = require('@oxygen-ui/logger');
+const { logger } = require('@oxygen-ui-experimental/logger');
 
 /* ====================================================================================== */
 /* Execution starts from here                                                             */

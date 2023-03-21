@@ -23,9 +23,9 @@ This repository contains the source code of the key components that works togeth
 
 ## Packages
 
-- [`@oxygen-ui/primitives`](./packages/primitives) - Low level building blocks of Oxygen UI (e.g. icons, fonts) 
-- [`@oxygen-ui/react`](./packages/react) - The React implementation of Oxygen UI.
-- [`@oxygen-ui/logger`](./packages/logger) - Logger for the Oxygen UI packages
+- [`@oxygen-ui-experimental/primitives`](./packages/primitives) - Low level building blocks of Oxygen UI (e.g. icons, fonts) 
+- [`@oxygen-ui-experimental/react`](./packages/react) - The React implementation of Oxygen UI.
+- [`@oxygen-ui-experimental/logger`](./packages/logger) - Logger for the Oxygen UI packages
 
 ## Examples
 

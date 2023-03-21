@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import {Theme} from '@oxygen-ui/react';
+import {Theme} from '@oxygen-ui-experimental/react';
 import {AsgardeoTheme, BallerinaTheme, ChoreoTheme, DefaultTheme} from '../themes';
 
 export enum BrandingActions {

@@ -1,5 +1,5 @@
 {
-  "name": "@oxygen-ui/react-icons",
+  "name": "@oxygen-ui-experimental/react-icons",
   "version": "0.1.0",
   "description": "The SVG icons from primitives exported as React components.",
   "keywords": [
@@ -46,8 +46,8 @@
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
     "@babel/types": "^7.20.2",
-    "@oxygen-ui/logger": "*",
-    "@oxygen-ui/primitives": "*",
+    "@oxygen-ui-experimental/logger": "*",
+    "@oxygen-ui-experimental/primitives": "*",
     "@rollup/plugin-babel": "5.3.1",
     "@rollup/plugin-commonjs": "^23.0.3",
     "@rollup/plugin-node-resolve": "^15.0.1",

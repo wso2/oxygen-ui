@@ -1,5 +1,5 @@
 {
-  "name": "@oxygen-ui/react",
+  "name": "@oxygen-ui-experimental/react",
   "version": "0.1.0",
   "description": "The React implementation of the Oxygen Design System",
   "keywords": [
@@ -44,14 +44,14 @@
     "@mui/material": "^5.10.16",
     "@mui/system": "^5.10.16",
     "@mui/utils": "^5.10.16",
-    "@oxygen-ui/primitives": "*",
-    "@oxygen-ui/react-icons": "*",
+    "@oxygen-ui-experimental/primitives": "*",
+    "@oxygen-ui-experimental/react-icons": "*",
     "clsx": "^1.2.1",
     "react-world-flags": "^1.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
-    "@oxygen-ui/logger": "*",
+    "@oxygen-ui-experimental/logger": "*",
     "@rollup/plugin-commonjs": "^23.0.3",
     "@rollup/plugin-image": "^3.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",

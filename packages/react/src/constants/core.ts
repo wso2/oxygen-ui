@@ -16,5 +16,5 @@
  * under the License.
  */
 
-export const PACKAGE_NAME: string = '@oxygen-ui/react';
+export const PACKAGE_NAME: string = '@oxygen-ui-experimental/react';
 export const COMPONENT_BASE_CLASS_PREFIX: string = 'oxygen';

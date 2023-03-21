@@ -27,7 +27,7 @@ import {
   extendTheme,
   Theme,
   Alert,
-} from '@oxygen-ui/react';
+} from '@oxygen-ui-experimental/react';
 import {ChangeEvent, FC, ReactElement, useState} from 'react';
 import {BrandingActions} from '../branding';
 

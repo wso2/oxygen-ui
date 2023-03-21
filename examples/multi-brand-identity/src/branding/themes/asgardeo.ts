@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import tokens from '@oxygen-ui/primitives/dist/design-tokens/web/asgardeo/es/tokens';
-import {extendTheme, Theme} from '@oxygen-ui/react';
+import tokens from '@oxygen-ui-experimental/primitives/dist/design-tokens/web/asgardeo/es/tokens';
+import {extendTheme, Theme} from '@oxygen-ui-experimental/react';
 
 export const AsgardeoTheme: Theme = extendTheme({
   colorSchemes: {

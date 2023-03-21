@@ -22,7 +22,7 @@
  */
 
 const path = require('path');
-const { logger } = require('@oxygen-ui/logger');
+const { logger } = require('@oxygen-ui-experimental/logger');
 const cheerio = require('cheerio');
 const fs = require('fs-extra');
 const merge = require('lodash.merge');

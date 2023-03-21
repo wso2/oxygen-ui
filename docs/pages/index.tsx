@@ -59,7 +59,7 @@ const Index = (): ReactElement => (
             Guidelines
             <div className={clsx('coming-soon-label', spaceGrotesk.className)}>Coming Soon</div>
           </h2>
-          <code>@oxygen-ui/guidelines</code>
+          <code>@oxygen-ui-experimental/guidelines</code>
           <p className={spaceGrotesk.className}>A collection of principles, standards, and usage guidelines.</p>
         </a>
         <a
@@ -72,7 +72,7 @@ const Index = (): ReactElement => (
             <Image src="/assets/images/oxygen-ui/primitives-logo.svg" alt="Primitives Logo" width={20} height={20} />
             Primitives
           </h2>
-          <code>@oxygen-ui/primitives</code>
+          <code>@oxygen-ui-experimental/primitives</code>
           <p className={spaceGrotesk.className}>Low level building blocks of the Design System.</p>
         </a>
         <a
@@ -85,7 +85,7 @@ const Index = (): ReactElement => (
             <Image src="/assets/images/logos/color/react.svg" alt="react" width={20} height={20} />
             React Components
           </h2>
-          <code>@oxygen-ui/react</code>
+          <code>@oxygen-ui-experimental/react</code>
           <p className={spaceGrotesk.className}>The React implementation of the Design System.</p>
         </a>
 
@@ -99,7 +99,7 @@ const Index = (): ReactElement => (
             <Image src="/assets/images/logos/color/figma.svg" alt="Styles Logo" width={20} height={20} />
             Figma
           </h2>
-          <code>@oxygen-ui/figma</code>
+          <code>@oxygen-ui-experimental/figma</code>
           <p className={spaceGrotesk.className}>The place where the designing and brainstorming happens.</p>
         </a>
       </div>

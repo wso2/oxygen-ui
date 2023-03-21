@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import darkTokens from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/dark.tokens';
-import lightTokens from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/tokens';
-import {extendTheme, Theme} from '@oxygen-ui/react';
+import darkTokens from '@oxygen-ui-experimental/primitives/dist/design-tokens/web/oxygen/es/dark.tokens';
+import lightTokens from '@oxygen-ui-experimental/primitives/dist/design-tokens/web/oxygen/es/tokens';
+import {extendTheme, Theme} from '@oxygen-ui-experimental/react';
 
 export const DefaultTheme: Theme = extendTheme({
   colorSchemes: {

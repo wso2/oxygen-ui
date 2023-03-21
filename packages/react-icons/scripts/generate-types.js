@@ -23,7 +23,7 @@
 
 const fs = require('fs-extra');
 const path = require('path');
-const {logger} = require('@oxygen-ui/logger');
+const {logger} = require('@oxygen-ui-experimental/logger');
 
 const PATHS = {
   dist: path.resolve(__dirname, '..', 'dist'),

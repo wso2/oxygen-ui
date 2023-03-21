@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import {ThemeProvider} from '@oxygen-ui/react';
+import {ThemeProvider} from '@oxygen-ui-experimental/react';
 import {RenderResult, render as rtlRender, RenderOptions} from '@testing-library/react';
 import {ComponentType, PropsWithChildren, ReactElement} from 'react';
 

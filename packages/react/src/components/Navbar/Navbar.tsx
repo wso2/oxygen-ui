@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import {HamburgerIcon} from '@oxygen-ui/react-icons';
+import {HamburgerIcon} from '@oxygen-ui-experimental/react-icons';
 import clsx from 'clsx';
 import {FC, ReactElement, ReactNode, MouseEvent, Fragment} from 'react';
 import {WithWrapperProps, Theme} from '../../models';

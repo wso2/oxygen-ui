@@ -17,7 +17,7 @@ assignees: ''
 <!-- A clear and concise description of what you expected to happen. -->
 
 **Environment information** (_Please complete the following information; remove  any unnecessary fields_) **:**
- - Affected Package: [e.g., @oxygen-ui/react, @oxygen-ui/primitives]
+ - Affected Package: [e.g., @oxygen-ui-experimental/react, @oxygen-ui-experimental/primitives]
  - Library Version: [e.g., 1.10.0, 2.0.0-alpha]
  - OS: [e.g., Windows, Linux, Mac]
  - Browser: [e.g., Google Chrome Version 109.0.5414.119, Safari Version 15.3]

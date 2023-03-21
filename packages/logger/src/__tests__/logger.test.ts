@@ -20,7 +20,7 @@ import {logger} from '../logger';
 
 /* eslint-disable no-console */
 
-describe('@oxygen-ui/logger', () => {
+describe('@oxygen-ui-experimental/logger', () => {
   const logMessageOne: string = 'Message 1';
   const logMessageTwo: string = 'Message 2';
   const expectedLoggedRegex: RegExp = new RegExp(`(${logMessageOne})\\s(${logMessageTwo})`);

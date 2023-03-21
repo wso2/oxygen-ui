@@ -33,7 +33,7 @@ This component is used to display the user's account overview. It includes the u
     name="Overview"
     args={{
       title: <Typography variant="h5">Welcome Mathew</Typography>,
-      subheader: <Typography variant="body2">Manage your personal information, account security and privacy settings.</Typography>, 
+      subheader: <Typography variant="body2">Manage your personal information, account security and privacy settings.</Typography>,
       user:{
         image: '/assets/images/avatar-john.svg',
         name: 'Matthew',
@@ -80,7 +80,7 @@ Import and use the `AccountOverview` component in your components as follows.
   dark
   format
   code={dedent`
-import AccountOverview from '@oxygen-ui/react/AccountOverview';\n
+import AccountOverview from '@oxygen-ui-experimental/react/AccountOverview';\n
 function Demo() {
   return <AccountOverview
             user={{
@@ -103,7 +103,7 @@ function Demo() {
     name="Incomplete"
     args={{
       title: <Typography variant="h5">Welcome Mathew</Typography>,
-      subheader: <Typography variant="body2">Manage your personal information, account security and privacy settings.</Typography>, 
+      subheader: <Typography variant="body2">Manage your personal information, account security and privacy settings.</Typography>,
       user:{
         image: '/assets/images/avatar-john.svg',
         name: 'Matthew',
@@ -144,15 +144,15 @@ function Demo() {
     name="Complete"
     args={{
       title: <Typography variant="h5">Welcome Mathew</Typography>,
-      subheader: <Typography variant="body2">Manage your personal information, account security and privacy settings.</Typography>, 
+      subheader: <Typography variant="body2">Manage your personal information, account security and privacy settings.</Typography>,
       user:{
         image: '/assets/images/avatar-john.svg',
         name: 'Matthew',
         email: 'matthew@wso2.com'
       },
       accountCompletionStepsTitle: "Complete your Profile. It's at 60%",
-      accountProgress: 100, 
-      illustration: <img src="/assets/images/action-card-image.svg" alt="image" /> 
+      accountProgress: 100,
+      illustration: <img src="/assets/images/action-card-image.svg" alt="image" />
     }}
   >
     {Template.bind({})}

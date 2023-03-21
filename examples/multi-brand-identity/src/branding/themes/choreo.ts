@@ -17,8 +17,8 @@
  */
 
 /* eslint-disable sort-keys */
-import tokens from '@oxygen-ui/primitives/dist/design-tokens/web/choreo/es/tokens';
-import {extendTheme, Theme} from '@oxygen-ui/react';
+import tokens from '@oxygen-ui-experimental/primitives/dist/design-tokens/web/choreo/es/tokens';
+import {extendTheme, Theme} from '@oxygen-ui-experimental/react';
 
 export const ChoreoTheme: Theme = extendTheme({
   components: {

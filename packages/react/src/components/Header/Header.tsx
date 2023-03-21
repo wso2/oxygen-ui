@@ -18,7 +18,7 @@
 
 import {useColorScheme} from '@mui/material/styles';
 import {Mode} from '@mui/system/cssVars/useCurrentColorScheme';
-import {ChevronDownIcon, HamburgerIcon, PowerIcon} from '@oxygen-ui/react-icons';
+import {ChevronDownIcon, HamburgerIcon, PowerIcon} from '@oxygen-ui-experimental/react-icons';
 import clsx from 'clsx';
 import {FC, ReactElement, ReactNode} from 'react';
 import {useIsMobile} from '../../hooks/use-is-mobile';
