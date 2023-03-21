@@ -27,11 +27,14 @@
     "lint": "nx run-many --target=lint --parallel",
     "lint:es": "nx run-many --target=lint:es --parallel",
     "lint:styles": "nx run-many --target=lint:styles --parallel",
+    "semantic-release": "semantic-release",
     "test": "nx run-many --target=test --parallel",
     "typecheck": "nx run-many --target=typecheck --parallel"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.2",
     "nx": "15.2.1",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "semantic-release": "^20.1.3"
   }
 }
