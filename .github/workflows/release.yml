@@ -5,7 +5,7 @@ name: 🚀 Release
 on:
   push:
     branches:
-      - ci-prepare-release-semantic
+      - main
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 

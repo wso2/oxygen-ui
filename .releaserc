@@ -1,5 +1,5 @@
 {
-  "branches": [ "ci-prepare-release-semantic" ],
+  "branches": [ "main" ],
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
