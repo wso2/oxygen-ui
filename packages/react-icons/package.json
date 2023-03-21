@@ -1,6 +1,6 @@
 {
   "name": "@oxygen-ui-experimental/react-icons",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "The SVG icons from primitives exported as React components.",
   "keywords": [
     "icons",

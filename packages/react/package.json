@@ -1,6 +1,6 @@
 {
   "name": "@oxygen-ui-experimental/react",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "The React implementation of the Oxygen Design System",
   "keywords": [
     "react",
