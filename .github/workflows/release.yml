@@ -75,14 +75,31 @@ jobs:
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
           if [ "${{ github.event.inputs.version }}" = "Major" ]; then
-            npm run release -- major --preRelease=${github.event.inputs.preRelease} --ci
+            if [ -n "${{ github.event.inputs.preRelease }}" ]; then
+              npm run release -- major --preRelease="${{ github.event.inputs.preRelease }}" --ci
+            else
+              npm run release -- major --ci
+            fi
           elif [ "${{ github.event.inputs.version }}" = "Minor" ]; then
-            npm run release -- minor --preRelease=${github.event.inputs.preRelease} --ci
+            if [ -n "${{ github.event.inputs.preRelease }}" ]; then
+              npm run release -- minor --preRelease="${{ github.event.inputs.preRelease }}" --ci
+            else
+              npm run release -- minor --ci
+            fi
           elif [ "${{ github.event.inputs.version }}" = "Patch" ]; then
-            npm run release -- patch --preRelease=${github.event.inputs.preRelease} --ci
+            if [ -n "${{ github.event.inputs.preRelease }}" ]; then
+              npm run release -- patch --preRelease="${{ github.event.inputs.preRelease }}" --ci
+            else
+              npm run release -- patch --ci
+            fi
           else
-          npm run release -- --preRelease=${github.event.inputs.preRelease} --ci
+            if [ -n "${{ github.event.inputs.preRelease }}" ]; then
+              npm run release -- --preRelease="${{ github.event.inputs.preRelease }}" --ci
+            else
+              npm run release -- --ci
+            fi
           fi
+
         env:
           INPUT_VERSION: ${{ github.event.inputs.version }}
           INPUT_PRERELEASE: ${{ github.event.inputs.preRelease }}
