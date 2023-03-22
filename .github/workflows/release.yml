@@ -99,9 +99,6 @@ jobs:
               npm run release -- --ci
             fi
           fi
-
         env:
-          INPUT_VERSION: ${{ github.event.inputs.version }}
-          INPUT_PRERELEASE: ${{ github.event.inputs.preRelease }}
           NPM_TOKEN: ${{ env.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ env.GH_TOKEN }}
