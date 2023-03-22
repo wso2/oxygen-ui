@@ -1,0 +1,90 @@
+# This workflow will release the packages.
+
+name: 🚀 Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        type: choice
+        description: Choose which version to bump before release
+        default: 'Auto'
+        options:
+        - Auto
+        - Major
+        - Minor
+        - Patch
+      preRelease:
+        description: |
+          The pre-release identifier for the version.
+          For example, if the version is "1.2.3-beta.1", the pre-release identifier is "beta.1".
+        default: ""
+        type: string
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+env:
+  GH_TOKEN: ${{ secrets.UI_BOT_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+jobs:
+  release:
+    name: 📦 Release
+    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [lts/*]
+    steps:
+      - name: ⬇️ Checkout
+        id: checkout
+        uses: actions/checkout@v2.3.3
+        with:
+          fetch-depth: 0
+
+      - name: 🟢 Setup node
+        id: setup-node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: 🥡 Setup pnpm
+        id: setup-pnpm
+        uses: pnpm/action-setup@v2.1.0
+        with:
+          version: latest
+          run_install: false
+
+      - name: 🎈 Get pnpm store directory
+        id: get-pnpm-cache-dir
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+      - name: 🧩 Install Dependencies
+        id: install-dependencies
+        run: pnpm install
+
+      - name: 🏗️ Build
+        id: build
+        run: pnpm build
+
+      - name: 📢 Release & Publish
+        id: release-and-publish
+        run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
+          if [ "${{ github.event.inputs.version }}" = "Major" ]; then
+            npm run release -- major --preRelease=${github.event.inputs.preRelease} --ci
+          elif [ "${{ github.event.inputs.version }}" = "Minor" ]; then
+            npm run release -- minor --preRelease=${github.event.inputs.preRelease} --ci
+          elif [ "${{ github.event.inputs.version }}" = "Patch" ]; then
+            npm run release -- patch --preRelease=${github.event.inputs.preRelease} --ci
+          else
+          npm run release -- --preRelease=${github.event.inputs.preRelease} --ci
+          fi
+        env:
+          INPUT_VERSION: ${{ github.event.inputs.version }}
+          INPUT_PRERELEASE: ${{ github.event.inputs.preRelease }}
+          NPM_TOKEN: ${{ env.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ env.GH_TOKEN }}
