@@ -22,21 +22,43 @@ const typescript = require('@rollup/plugin-typescript');
 const dts = require('rollup-plugin-dts');
 const postcss = require('rollup-plugin-postcss');
 const {terser} = require('rollup-plugin-terser');
-const peerDepsExternal = require('rollup-plugin-peer-deps-external');
 const image = require('@rollup/plugin-image');
 
 const pkg = require('./package.json');
+
+/**
+ * This method returns a method hat takes the id of a module as an argument and returns true if it should not be
+ * included in the final bundle and returns false if it should be.
+ *
+ * @param {boolean} includeMaterialDeps - True if Material dependencies should be
+ * included in the bundle; False otherwise.
+ * @returns A method that takes the id of the module as an argument
+ */
+const shouldExclude = (includeMaterialDeps = false) => {
+  const peerDeps = includeMaterialDeps
+    ? Object.keys(pkg.peerDependencies || {}).filter(id => {
+        return (
+          !id.startsWith('@emotion/react') &&
+          !id.startsWith('@emotion/styled') &&
+          !id.startsWith('@mui/icons-material') &&
+          !id.startsWith('@mui/lab') &&
+          !id.startsWith('@mui/material') &&
+          !id.startsWith('@mui/system') &&
+          !id.startsWith('@mui/utils')
+        );
+      })
+    : Object.keys(pkg.peerDependencies || {});
+
+  const regExps = peerDeps.map(dep => new RegExp(`^${dep}(\\/\.+)*$`));
+  return id => regExps.some(regExp => regExp.test(id));
+};
 
 module.exports = [
   {
     cache: false,
     input: 'src/index.ts',
+    external: shouldExclude(),
     output: [
-      {
-        file: pkg.main,
-        format: 'cjs',
-        sourcemap: true,
-      },
       {
         file: pkg.module,
         format: 'esm',
@@ -44,10 +66,29 @@ module.exports = [
       },
     ],
     plugins: [
-      peerDepsExternal(),
       resolve(),
       commonjs(),
       typescript({tsconfig: './tsconfig.lib.json'}),
+      postcss(),
+      terser(),
+      image(),
+    ],
+  },
+  {
+    cache: false,
+    input: 'src/index.ts',
+    external: shouldExclude(true),
+    output: [
+      {
+        file: pkg.main,
+        format: 'cjs',
+        sourcemap: true,
+      },
+    ],
+    plugins: [
+      resolve(),
+      commonjs(),
+      typescript({ tsconfig: './tsconfig.lib.json' }),
       postcss(),
       terser(),
       image(),

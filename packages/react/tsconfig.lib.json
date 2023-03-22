@@ -18,7 +18,9 @@
     "**/*.spec.js",
     "**/*.test.js",
     "**/*.spec.jsx",
-    "**/*.test.jsx"
+    "**/*.test.jsx",
+    "scripts",
+    "dist"
   ],
   "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "rollup.config.cjs"]
 }

@@ -182,7 +182,7 @@ exports[`SignIn should match the snapshot 1`] = `
               class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
             >
               <a
-                class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineHover oxygen-link oxygen-sign-in-sign-up-link-action css-1kwgxwv-MuiTypography-root-MuiLink-root"
+                class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineHover oxygen-link oxygen-sign-in-sign-up-link-action css-c2ph3r-MuiTypography-root-MuiLink-root"
                 href="#"
               >
                 Sign up
