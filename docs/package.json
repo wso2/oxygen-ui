@@ -1,9 +1,11 @@
 {
+  "private": true,
   "name": "@oxygen-ui/docs",
   "version": "0.1.0",
   "description": "Documentation of WSO2 Oxygen Design System.",
   "author": "WSO2",
   "license": "Apache-2.0",
+  "homepage": "https://github.com/wso2/oxygen-ui/tree/main/docs#readme",
   "bugs": {
     "url": "https://github.com/wso2/oxygen/issues"
   },
@@ -13,6 +15,7 @@
     "directory": "docs"
   },
   "keywords": [
+    "oxygen-ui",
     "oxygen-ui-docs",
     "nextjs"
   ],
@@ -43,6 +46,5 @@
     "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f",
     "@wso2/stylelint-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/stylelint-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f",
     "stylelint": "^15.1.0"
-  },
-  "private": true
+  }
 }
