@@ -15,7 +15,7 @@
     "directory": "examples/multi-brand-identity"
   },
   "keywords": [
-    "oxygen-ui".
+    "oxygen-ui",
     "oxygen-ui-samples",
     "multi-brand",
     "branding"
@@ -71,5 +71,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "publishConfig": {
+    "access": "restricted"
   }
 }

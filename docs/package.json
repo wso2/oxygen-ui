@@ -46,5 +46,8 @@
     "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f",
     "@wso2/stylelint-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/stylelint-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f",
     "stylelint": "^15.1.0"
+  },
+  "publishConfig": {
+    "access": "restricted"
   }
 }
