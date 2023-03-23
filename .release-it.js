@@ -59,7 +59,9 @@ module.exports = {
         commitsSort: ['type', 'shortDesc'],
       },
     },
-    '@release-it-plugins/workspaces': true
+    '@release-it-plugins/workspaces': {
+      skipChecks: true
+    }
   },
   npm: {
     pnpm: true,
