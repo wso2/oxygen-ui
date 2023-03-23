@@ -28,7 +28,7 @@
   ],
   "scripts": {
     "build": "rollup -c",
-    "build-storybook": "build-storybook --no-manager-cache",
+    "build:storybook": "build-storybook --no-manager-cache",
     "prebuild": "rimraf dist",
     "postbuild": "node scripts/build-components.js",
     "lint": "pnpm lint:es && pnpm lint:styles",

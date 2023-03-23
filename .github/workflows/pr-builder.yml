@@ -232,7 +232,7 @@ jobs:
       - name: 💅 Build Storybook
         id: build-storybook
         working-directory: packages/react
-        run:  pnpm build-storybook
+        run:  pnpm build:storybook
 
   build:
     name: 🚧 Build
