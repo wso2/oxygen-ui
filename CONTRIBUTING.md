@@ -284,7 +284,7 @@ By following these steps, designers can ensure that their design changes are pro
 
 Following diagram illustrates the design tokens workflow.
 
-![Design Tokens Workflow](./docs/public/assets/images/architecture/oxygen-ui-tokens-process.png | width=600)
+<img src="./docs/public/assets/images/architecture/oxygen-ui-tokens-process.png" width="600" />
 
 ## Versioning
 
