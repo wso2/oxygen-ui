@@ -251,6 +251,41 @@ The content of the commit message body should contain:
 - information about the SHA of the commit being reverted in the following format: `This reverts commit <SHA>`,
 - a clear description of the reason for reverting the commit message.
 
+## Designing
+
+Designers working on the Oxygen UI Design System should use Figma as the source of truth for design assets and utilize Figma Tokens for creating design components. [Figma Tokens](https://tokens.studio/) is a tool that allows designers to create a set of standardized design variables (e.g., colors, typography, spacing) that can be reused across various design projects.
+
+To contribute design changes to Oxygen UI, designers should follow these steps:
+
+1. Create or modify design components using Figma and ensure that they utilize Figma Tokens.
+2. Use the Figma Tokens plugin to push the tokens directly from Figma to the Oxygen UI repository.
+3. Commit and push the token changes to GitHub, using the following commit message:
+
+  ```bash
+  chore(figma): sync figma tokens with github
+  ```
+
+  Above will commit directly to the [`figma-tokens`](https://github.com/wso2/oxygen-ui/tree/figma-tokens) branch.
+
+4. A GitHub workflows will automatically be triggered to process the committed design tokens and convert them to a [style dictionary](https://github.com/amzn/style-dictionary) compatible design-token variation.
+
+5. Once the workflow finishes, a PR will be created against the `main` branch with the following format.
+
+  ```bash
+  # PR Title
+  chore(primitives): update figma tokens
+
+  # PR Lables
+  `automated pr`, `package:primitives`
+  ```
+6. Review the PR and merge it to the `main` branch.
+
+By following these steps, designers can ensure that their design changes are properly integrated into Oxygen UI and available for use by other contributors.
+
+Following diagram illustrates the design tokens workflow.
+
+<img src="./docs/public/assets/images/architecture/oxygen-ui-tokens-process.png" width="800" />
+
 ## Versioning
 
 For details on the project's versioning policy, please refer to the [VERSIONING_POLICY.md](VERSIONING_POLICY.md) document. It is recommended to read this document before carrying out any versioning-related tasks.

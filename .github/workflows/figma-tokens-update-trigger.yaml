@@ -9,7 +9,7 @@ on:
       - figma-tokens
 
 env:
-  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  GH_TOKEN: ${{ secrets.UI_BOT_TOKEN }}
 
 jobs:
   pull-request:
@@ -25,5 +25,16 @@ jobs:
         with:
           destination_branch: 'main'
           pr_title: 'chore(primitives): update figma tokens'
-          pr_body: '🍥 Design Tokens were updated in Figma! This PR was created to update the corresponding style dictionary tokens.'
+          pr_body: |                                        # Full markdown support, requires pr_title to be set
+            :crown: *An automated PR*
+
+            Design Tokens were updated in Figma!
+
+            This PR was created to update the corresponding style dictionary tokens.
+
+            ## Process
+
+            - Figma tokens will be updated in primitives. Click [here →](https://github.com/wso2/oxygen-ui/tree/main/packages/primitives/figma) to inspect the existing tokens.
+            - The tokens will be separated out based on the context and will be updated [here →](https://github.com/wso2/oxygen-ui/tree/main/packages/primitives/src/design-tokens).
+          pr_label: "automated pr,package:primitives"
           github_token: ${{ secrets.GH_PAT }}
