@@ -34,7 +34,7 @@ jobs:
 
             ## Process
 
-            - Figma tokens will be updated in primitives. Click [here →](https://github.com/wso2/oxygen-ui/tree/main/packages/primitives/figma) to inspect the exiting tokens.
+            - Figma tokens will be updated in primitives. Click [here →](https://github.com/wso2/oxygen-ui/tree/main/packages/primitives/figma) to inspect the existing tokens.
             - The tokens will be separated out based on the context and will be updated [here →](https://github.com/wso2/oxygen-ui/tree/main/packages/primitives/src/design-tokens).
           pr_label: "automated pr,package:primitives"
           github_token: ${{ secrets.GH_PAT }}

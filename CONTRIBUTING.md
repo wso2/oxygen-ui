@@ -267,9 +267,9 @@ To contribute design changes to Oxygen UI, designers should follow these steps:
 
   Above will commit directly to the [`figma-tokens`](https://github.com/wso2/oxygen-ui/tree/figma-tokens) branch.
 
-4. A GitHub workflows will automatically be triggered to process the commited design tokens and convert them to a [style dictionary](https://github.com/amzn/style-dictionary) compatible design-token variation.
+4. A GitHub workflows will automatically be triggered to process the committed design tokens and convert them to a [style dictionary](https://github.com/amzn/style-dictionary) compatible design-token variation.
 
-4. Once the workflow finishes, a PR will be created against the `main` branch with the following format.
+5. Once the workflow finishes, a PR will be created against the `main` branch with the following format.
 
   ```bash
   # PR Title
@@ -278,7 +278,7 @@ To contribute design changes to Oxygen UI, designers should follow these steps:
   # PR Lables
   `automated pr`, `package:primitives`
   ```
-5. Review the PR and merge it to the `main` branch.
+6. Review the PR and merge it to the `main` branch.
 
 By following these steps, designers can ensure that their design changes are properly integrated into Oxygen UI and available for use by other contributors.
 
