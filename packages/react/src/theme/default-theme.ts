@@ -92,6 +92,7 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
         root: {
           borderRadius: '22px',
           fontSize: '1rem',
+          fontWeight: 400,
           padding: '8px 16px',
         },
         textSecondary: {
