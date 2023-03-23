@@ -250,3 +250,7 @@ The content of the commit message body should contain:
 
 - information about the SHA of the commit being reverted in the following format: `This reverts commit <SHA>`,
 - a clear description of the reason for reverting the commit message.
+
+## Versioning
+
+For details on the project's versioning policy, please refer to the [VERSIONING_POLICY.md](VERSIONING_POLICY.md) document. It is recommended to read this document before carrying out any versioning-related tasks.

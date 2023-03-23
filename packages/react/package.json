@@ -2,29 +2,30 @@
   "name": "@oxygen-ui/react",
   "version": "0.1.0",
   "description": "The React implementation of the Oxygen Design System",
-  "keywords": [
-    "react",
-    "react-library",
-    "design-system",
-    "oxygen-react"
-  ],
-  "homepage": "https://github.com/wso2/oxygen-ui#readme",
-  "bugs": {
-    "url": "https://github.com/wso2/oxygen-ui/issues"
-  },
-  "license": "Apache-2.0",
   "author": "WSO2",
+  "license": "Apache-2.0",
   "files": [
     "dist"
   ],
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
+  "homepage": "https://github.com/wso2/oxygen-ui/tree/main/packages/react#readme",
+  "bugs": {
+    "url": "https://github.com/wso2/oxygen-ui/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/wso2/oxygen-ui",
     "directory": "packages/react"
   },
+  "keywords": [
+    "react",
+    "react-library",
+    "design-system",
+    "oxygen-ui",
+    "oxygen-ui-react"
+  ],
   "scripts": {
     "build": "rollup -c",
     "build-storybook": "build-storybook --no-manager-cache",
@@ -117,7 +118,7 @@
       "optional": true
     }
   },
-  "engines": {
-    "node": ">=14.0.0"
+  "publishConfig": {
+    "access": "public"
   }
 }

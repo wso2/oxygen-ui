@@ -5,6 +5,7 @@
   "description": "The Design System powering WSO2 products.",
   "author": "WSO2",
   "license": "Apache-2.0",
+  "homepage": "https://github.com/wso2/oxygen-ui#readme",
   "bugs": {
     "url": "https://github.com/wso2/oxygen-ui/issues"
   },
@@ -27,11 +28,18 @@
     "lint": "nx run-many --target=lint --parallel",
     "lint:es": "nx run-many --target=lint:es --parallel",
     "lint:styles": "nx run-many --target=lint:styles --parallel",
+    "release": "release-it",
     "test": "nx run-many --target=test --parallel",
     "typecheck": "nx run-many --target=typecheck --parallel"
   },
   "devDependencies": {
+    "@release-it-plugins/workspaces": "^3.2.0",
+    "@release-it/conventional-changelog": "^5.1.1",
     "nx": "15.2.1",
+    "release-it": "^15.9.1",
     "rimraf": "^3.0.2"
+  },
+  "publishConfig": {
+    "access": "restricted"
   }
 }

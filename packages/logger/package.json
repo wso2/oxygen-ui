@@ -4,27 +4,26 @@
   "description": "Logger for Oxygen UI projects",
   "author": "WSO2",
   "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/wso2/oxygen-ui/issues"
-  },
-  "files": [
-    "dist",
-    "package.json"
-  ],
+  "type": "commonjs",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/wso2/oxygen-ui/tree/main/packages/logger#readme",
+  "bugs": {
+    "url": "https://github.com/wso2/oxygen-ui/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/wso2/oxygen-ui",
     "directory": "packages/logger"
   },
-  "homepage": "https://github.com/wso2/oxygen-ui#readme",
-  "type": "commonjs",
   "keywords": [
     "logger",
     "oxygen-ui",
-    "design-tokens"
+    "oxygen-ui-logger"
   ],
   "scripts": {
     "build": "rollup -c",
@@ -61,5 +60,8 @@
     "ts-node": "^10.9.1",
     "tslib": "^2.4.1",
     "typescript": "^4.9.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

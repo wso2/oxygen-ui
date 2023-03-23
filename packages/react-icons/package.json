@@ -2,35 +2,35 @@
   "name": "@oxygen-ui/react-icons",
   "version": "0.1.0",
   "description": "The SVG icons from primitives exported as React components.",
-  "keywords": [
-    "icons",
-    "react-icons",
-    "design-system",
-    "oxygen-ui"
-  ],
-  "homepage": "https://github.com/wso2/oxygen-ui#readme",
-  "bugs": {
-    "url": "https://github.com/wso2/oxygen-ui/issues"
-  },
-  "license": "Apache-2.0",
   "author": "WSO2",
+  "license": "Apache-2.0",
+  "sideEffects": false,
   "files": [
-    "build",
     "dist"
   ],
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "exports": {
     "import": "./dist/index.esm.js",
     "require": "./dist/index.umd.js"
   },
-  "sideEffects": false,
-  "types": "dist/index.d.ts",
+  "homepage": "https://github.com/wso2/oxygen-ui/tree/main/packages/react-icons#readme",
+  "bugs": {
+    "url": "https://github.com/wso2/oxygen-ui/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/wso2/oxygen-ui",
     "directory": "packages/react-icons"
   },
+  "keywords": [
+    "icons",
+    "react-icons",
+    "design-system",
+    "oxygen-ui",
+    "oxygen-ui-react-icons"
+  ],
   "scripts": {
     "build": "node scripts/build.js && rollup -c",
     "clean": "rimraf dist src/__generated__",
@@ -80,7 +80,7 @@
       "optional": true
     }
   },
-  "engines": {
-    "node": ">=14.0.0"
+  "publishConfig": {
+    "access": "public"
   }
 }
