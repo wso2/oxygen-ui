@@ -43,7 +43,7 @@ This repository contains the source code of the key components that works togeth
 
 ## Documentation
 
-For more information on how to use Oxygen UI, check out the documentation website.
+For more information on how to use Oxygen UI, check out the [documentation](https://oxygen-ui.vercel.app) website.
 
 ## Contributing
 
