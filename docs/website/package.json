@@ -5,7 +5,7 @@
   "description": "Documentation of WSO2 Oxygen Design System.",
   "author": "WSO2",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/wso2/oxygen-ui/tree/main/docs#readme",
+  "homepage": "https://github.com/wso2/oxygen-ui/tree/main/docs/website#readme",
   "bugs": {
     "url": "https://github.com/wso2/oxygen/issues"
   },

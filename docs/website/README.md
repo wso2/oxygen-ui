@@ -9,7 +9,7 @@ To get started, simply clone this repository and install the necessary dependenc
 
 ```bash
 git clone https://github.com/wso2/oxygen-ui.git
-cd oxygen-ui/docs
+cd oxygen-ui/docs/website
 npm install
 ```
 
