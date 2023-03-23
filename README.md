@@ -25,6 +25,7 @@ This repository contains the source code of the key components that works togeth
 
 - [`@oxygen-ui/primitives`](./packages/primitives) - Low level building blocks of Oxygen UI (e.g. icons, fonts) 
 - [`@oxygen-ui/react`](./packages/react) - The React implementation of Oxygen UI.
+- [`@oxygen-ui/react-icons`](./packages/react) - React components for Oxygen UI icons.
 - [`@oxygen-ui/logger`](./packages/logger) - Logger for the Oxygen UI packages
 
 ## Examples
@@ -39,6 +40,10 @@ This repository contains the source code of the key components that works togeth
     * Ability to integrate with [Asgardeo Branding](https://wso2.com/asgardeo/docs/guides/branding/configure-ui-branding/) feature.
 
     Click [here →](./examples/multi-brand-identity/) for the source code 🧑‍💻
+
+## Documentation
+
+For more information on how to use Oxygen UI, check out the documentation website.
 
 ## Contributing
 
