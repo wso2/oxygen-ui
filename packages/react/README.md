@@ -4,7 +4,10 @@
 <p align="center" style="font-size: 1.2rem;">The React implementation of the Oxygen Design System.</p>
 
 <div align="center">
+  <img alt="npm (scoped)" src="https://img.shields.io/npm/v/@oxygen-ui/react">
+  <img alt="npm" src="https://img.shields.io/npm/dw/@oxygen-ui/react">
   <a href="https://github.com/storybooks/storybook" target="_blank"><img src="https://raw.githubusercontent.com/storybooks/brand/master/badge/badge-storybook.svg"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
 </div>
 
 ## Installation
@@ -45,3 +48,73 @@ Follow the [official addon documentation](https://pocka.github.io/storybook-addo
 ```bash
 pnpm storybook
 ```
+
+## Usage
+
+### ThemeProvider
+
+The `ThemeProvider` component is a wrapper around the Material UI's [CSSVarProvider](https://mui.com/material-ui/experimental-api/css-theme-variables/usage/#getting-started) and should be used at the root level of your application to provide a theme to all Oxygen UI components.
+
+```jsx
+import React from 'react';
+import { ThemeProvider, extendTheme } from '@oxygen-ui/react';
+
+const MyThemeProvider = ({ children }) => {
+  const theme = extendTheme({
+    colorSchemes: {
+      light: {
+        palette: {
+          primary: {
+            main: '#FF5499',
+          },
+        },
+      },
+      dark: {
+        palette: {
+          primary: {
+            main: '#FF5456',
+          },
+        },
+      },
+    },
+  });
+
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+};
+
+export default MyThemeProvider;
+```
+
+### Components: `Button`
+
+Here's an example of how to use the `Button` component:
+
+```jsx
+import React from 'react';
+import { Button } from '@oxygen-ui/react';
+
+const MyButton = () => {
+  return (
+    <Button
+      fullWidth
+      color="primary"
+      variant="contained"
+      onClick={() => console.log('Button clicked!')}
+    >
+      Connect
+    </Button>
+  );
+};
+
+export default MyButton;
+```
+
+## Contributing
+
+Want to report a bug, contribute some code, or improve the documentation?
+
+Excellent! Read up on our [guidelines for contributing](../../CONTRIBUTING.md) to get started.
+
+## License
+
+Licenses this source under the Apache License, Version 2.0 [LICENSE](../../LICENSE), You may not use this file except in compliance with the License.
