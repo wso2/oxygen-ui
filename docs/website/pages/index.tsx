@@ -22,6 +22,22 @@ import Image from 'next/image';
 import {ReactElement} from 'react';
 import {spaceGrotesk} from '../styles/fonts';
 
+const LINKS: {
+  examples: {
+    multiBrandIdentity: string;
+  };
+  figma: string;
+  primitives: string;
+  reactComponents: string;
+} = {
+  examples: {
+    multiBrandIdentity: '/examples/multi-brand-identity',
+  },
+  figma: 'https://www.figma.com/file/78epPbkczGFO5RM1sPyNtN/Oxygen?node-id=0%3A1&t=gsdIXRlJ1VChBa37-0',
+  primitives: 'https://github.com/brionmario/oxygen-ui/tree/main/packages/primitives',
+  reactComponents: '/react?path=/docs/welcome--page',
+};
+
 const Index = (): ReactElement => (
   <div className="container">
     <Head>
@@ -62,12 +78,7 @@ const Index = (): ReactElement => (
           <code>@oxygen-ui/guidelines</code>
           <p className={spaceGrotesk.className}>A collection of principles, standards, and usage guidelines.</p>
         </a>
-        <a
-          href="https://github.com/brionmario/oxygen-ui/tree/main/packages/primitives"
-          className="card"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a href={LINKS.primitives} className="card" target="_blank" rel="noreferrer">
           <h2>
             <Image src="/assets/images/oxygen-ui/primitives-logo.svg" alt="Primitives Logo" width={20} height={20} />
             Primitives
@@ -75,12 +86,7 @@ const Index = (): ReactElement => (
           <code>@oxygen-ui/primitives</code>
           <p className={spaceGrotesk.className}>Low level building blocks of the Design System.</p>
         </a>
-        <a
-          href="https://oxygen-react.vercel.app/?path=/docs/welcome--page"
-          className="card"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a href={LINKS.reactComponents} className="card" target="_blank" rel="noreferrer">
           <h2>
             <Image src="/assets/images/logos/color/react.svg" alt="react" width={20} height={20} />
             React Components
@@ -89,12 +95,7 @@ const Index = (): ReactElement => (
           <p className={spaceGrotesk.className}>The React implementation of the Design System.</p>
         </a>
 
-        <a
-          href="https://www.figma.com/file/78epPbkczGFO5RM1sPyNtN/Oxygen?node-id=0%3A1&t=gsdIXRlJ1VChBa37-0"
-          className="card"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a href={LINKS.figma} className="card" target="_blank" rel="noreferrer">
           <h2>
             <Image src="/assets/images/logos/color/figma.svg" alt="Styles Logo" width={20} height={20} />
             Figma
@@ -107,7 +108,7 @@ const Index = (): ReactElement => (
       <h2>Showcase</h2>
       <div className="grid">
         <div className="examples">
-          <a href="https://oxygen-multi-brand-example.vercel.app" className="card" target="_blank" rel="noreferrer">
+          <a href={LINKS.examples.multiBrandIdentity} className="card" target="_blank" rel="noreferrer">
             <h2>Multi Brand Identity Example</h2>
             <code>@oxygen-ui-examples/multi-brand-identity</code>
             <p className={spaceGrotesk.className}>
