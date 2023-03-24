@@ -70,8 +70,8 @@ jobs:
       - name: 📢 Release & Publish
         id: release-and-publish
         run: |
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git config user.name "wso2-ui-bot"
+          git config user.email "wso2-ui-bot@wso2.com"
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
           if [ "${{ github.event.inputs.version }}" = "Major" ]; then
