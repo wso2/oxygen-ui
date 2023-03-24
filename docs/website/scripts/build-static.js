@@ -30,9 +30,14 @@ require('dotenv').config({ path: path.resolve(path.join(__dirname, '..', '.env.l
 const PATHS = {
   docs: {
     root: path.resolve(path.join(__dirname, '..')),
+    output: {
+      examples: path.resolve(path.join(__dirname, '..', 'out', 'examples')),
+      react: path.resolve(path.join(__dirname, '..', 'out', 'react'))
+    }
   },
   react: {
     root: path.resolve(path.join(__dirname, '..', '..', '..', 'packages', 'react')),
+    storybookStatic: path.resolve(path.join(__dirname, '..', '..', '..', 'packages', 'react', 'storybook-static')),
   },
   examples: {
     root: path.resolve(path.join(__dirname, '..', '..', '..', 'examples')),
@@ -60,7 +65,7 @@ const ENV = {
       }
     }
   },
-  storybook: {
+  react: {
     '.env.local': {
       context: {
         resolveAbsoluteFilePath: (file) => path.join(PATHS.react.root, file),
@@ -71,6 +76,8 @@ const ENV = {
     }
   }
 }
+
+const ENV_SAMPLE_FILE_NAME = '.env.example';
 
 /**
  * Updates the environment variable in the given `.env` file.
@@ -85,17 +92,17 @@ const updateEnv = (varName, varValue, filePath) => {
   if (!fs.existsSync(filePath)) {
     logger.warn(`The provided environment file doesn't exist: ${filePath}`);
 
-    if (!fs.existsSync(path.join(path.dirname(filePath), '.env.example'))) {
-      logger.warn(`Couldn't find a sample environment file: ${path.join(path.dirname(filePath), '.env.example')}`);
+    if (!fs.existsSync(path.join(path.dirname(filePath), ENV_SAMPLE_FILE_NAME))) {
+      logger.warn(`Couldn't find a sample environment file: ${path.join(path.dirname(filePath), ENV_SAMPLE_FILE_NAME)}`);
       logger.info(`Creating a new environment file: ${filePath}`);
       fs.writeFileSync(filePath, `${varName}=${varValue}`, 'utf8');
 
       return;
     }
 
-    logger.info(`Found a sample environment file: ${path.join(path.dirname(filePath), '.env.example')}`);
+    logger.info(`Found a sample environment file: ${path.join(path.dirname(filePath), ENV_SAMPLE_FILE_NAME)}`);
     logger.info(`Copying the sample environment file to: ${filePath}`);
-    fs.copyFileSync(path.join(path.dirname(filePath), '.env.example'), filePath);
+    fs.copyFileSync(path.join(path.dirname(filePath), ENV_SAMPLE_FILE_NAME), filePath);
   }
 
   logger.info(`Found environment file: ${filePath}`);
@@ -157,14 +164,14 @@ logger.log();
 logger.log('                            🎨  Building Storybook  🎨                            ');
 logger.log();
 
-Object.entries(ENV.storybook).forEach(([file, config]) => {
+Object.entries(ENV.react).forEach(([file, config]) => {
   Object.entries(config.vars).forEach(([varName, varValue]) => {
     updateEnv(varName, varValue, config.context.resolveAbsoluteFilePath(file));
   });
 });
 
 cp.execSync(`cd ${PATHS.react.root} && pnpm build:storybook`, { stdio: 'inherit' });
-fs.copySync(path.resolve(path.join(PATHS.react.root, 'storybook-static')), path.resolve(path.join(__dirname, '..', 'out', 'react')));
+fs.copySync(path.resolve(PATHS.react.storybookStatic), path.resolve(PATHS.docs.output.react));
 
 logger.log();
 logger.log('                            🦋  Building Examples  🦋                            ');
@@ -186,7 +193,7 @@ for (const directory of directories) {
     });
 
     cp.execSync(`pnpm build`, { cwd: projectPath, stdio: 'inherit' });
-    fs.copySync(path.join(projectPath, 'build'), path.resolve(path.join(__dirname, '..', 'out', 'examples', directory)))
+    fs.copySync(path.join(projectPath, 'build'), path.resolve(path.join(PATHS.docs.output.examples, directory)))
   } catch (err) {
     logger.error(`Error building project ${directory}: ${err.message}`);
   }
