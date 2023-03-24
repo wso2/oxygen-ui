@@ -16,12 +16,27 @@
  * under the License.
  */
 
-const nextConfig = {
+let nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   // TODO: Added to bypass `Error: @next/font/google failed to run or is incorrectly configured.`
   // Possible fix https://larsmagnus.co/blog/how-to-optimize-custom-fonts-with-next-font.
   optimizeFonts: false,
 };
+
+/**
+ * If the build mode is static, we need to set the output to export and disable image optimization.
+ * @see {@link https://nextjs.org/docs/advanced-features/static-html-export}
+ */
+if (process.env.BUILD_MODE === 'static') {
+  nextConfig = {
+    ...nextConfig,
+    images: {
+      ...nextConfig.images,
+      unoptimized: true
+    },
+    output: 'export'
+  }
+}
 
 module.exports = nextConfig;
