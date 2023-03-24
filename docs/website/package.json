@@ -22,7 +22,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:static": "node scripts/build-static.js",
     "start": "next start",
+    "start:static": "serve out",
     "lint": "pnpm lint:es && pnpm lint:styles",
     "lint:es": "next lint",
     "lint:styles": "stylelint 'styles/**/*.{css,scss,sass}' --config stylelint.config.cjs --allow-empty-input",
@@ -42,9 +44,13 @@
     "typescript": "4.9.3"
   },
   "devDependencies": {
+    "@oxygen-ui/logger": "*",
     "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f",
     "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f",
     "@wso2/stylelint-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/stylelint-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f",
+    "dotenv": "^16.0.3",
+    "fs-extra": "^11.1.0",
+    "serve": "^14.2.0",
     "stylelint": "^15.1.0"
   },
   "publishConfig": {
