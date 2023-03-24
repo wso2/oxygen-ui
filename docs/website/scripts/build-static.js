@@ -61,7 +61,7 @@ const ENV = {
         resolveAbsoluteFilePath: (file) => path.join(PATHS.examples.root, file),
       },
       vars: {
-        'PUBLIC_URL': '<RESOLVED_DYNAMICALLY>'
+        'PUBLIC_URL': `${process.env.NEXT_PUBLIC_BASE_PATH}/examples/:path`
       }
     }
   },
@@ -71,7 +71,7 @@ const ENV = {
         resolveAbsoluteFilePath: (file) => path.join(PATHS.react.root, file),
       },
       vars: {
-        'STORYBOOK_BASE_URL': '/react/',
+        'STORYBOOK_BASE_URL': `${process.env.NEXT_PUBLIC_BASE_PATH}/react/`,
       }
     }
   }
@@ -187,8 +187,8 @@ for (const directory of directories) {
 
   try {
     Object.entries(ENV.examples).forEach(([file, config]) => {
-      Object.entries(config.vars).forEach(([varName, _]) => {
-        updateEnv(varName, `/examples/${directory}/`, config.context.resolveAbsoluteFilePath(path.join(directory, file)));
+      Object.entries(config.vars).forEach(([varName, varValue]) => {
+        updateEnv(varName, varValue.replace(':path', directory), config.context.resolveAbsoluteFilePath(path.join(directory, file)));
       });
     });
 
