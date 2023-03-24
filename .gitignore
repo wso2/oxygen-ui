@@ -43,3 +43,7 @@ Thumbs.db
 
 # Deployment Artifacts
 .vercel
+
+# env files
+.env*
+!.env.example
