@@ -66,6 +66,7 @@ jobs:
         run: |
           cd docs/website
           echo "NEXT_PUBLIC_BASE_PATH=/oxygen-ui" >> .env.local
+          cd ../..
           pnpm build:docs
 
       - name: ⚙️ Setup Pages
