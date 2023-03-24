@@ -27,7 +27,7 @@ const outputDir = path.resolve(__dirname, '..', 'dist', 'transpiled');
 
 logger.log('💅 Transpiling components...');
 execSync(
-  `npx tsc --project tsconfig.lib.json --declarationDir ${outputDir} --emitDeclarationOnly false --outDir ${outputDir}`,
+  `npx tsc --project ${path.resolve(path.join(__dirname, '..', 'tsconfig.lib.json'))} --declarationDir ${outputDir} --emitDeclarationOnly false --outDir ${outputDir}`,
 );
 logger.log('💅 Components transpiled! 🎉🎉🎉');
 
