@@ -20,6 +20,7 @@
     "**/*.spec.jsx",
     "**/*.test.jsx",
     "scripts",
+    "storybook-static",
     "dist"
   ],
   "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "rollup.config.cjs"]
