@@ -55,8 +55,8 @@ importers:
     specifiers:
       '@fontsource/inter': ^4.5.14
       '@fontsource/montserrat': ^4.5.13
-      '@oxygen-ui/primitives': 0.1.1
-      '@oxygen-ui/react': 0.1.1
+      '@oxygen-ui/primitives': 0.1.2
+      '@oxygen-ui/react': 0.1.2
       '@testing-library/jest-dom': ^5.16.5
       '@testing-library/react': ^13.4.0
       '@testing-library/user-event': ^13.5.0
@@ -167,7 +167,7 @@ importers:
     specifiers:
       '@babel/parser': ^7.20.5
       '@divriots/style-dictionary-to-figma': ^0.4.0
-      '@oxygen-ui/logger': 0.1.1
+      '@oxygen-ui/logger': 0.1.2
       '@types/jest': ^29.2.3
       '@types/node': ^18.11.18
       '@wso2/eslint-plugin': https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f
@@ -213,9 +213,9 @@ importers:
       '@mui/material': ^5.10.16
       '@mui/system': ^5.10.16
       '@mui/utils': ^5.10.16
-      '@oxygen-ui/logger': 0.1.1
-      '@oxygen-ui/primitives': 0.1.1
-      '@oxygen-ui/react-icons': 0.1.1
+      '@oxygen-ui/logger': 0.1.2
+      '@oxygen-ui/primitives': 0.1.2
+      '@oxygen-ui/react-icons': 0.1.2
       '@rollup/plugin-commonjs': ^23.0.3
       '@rollup/plugin-image': ^3.0.1
       '@rollup/plugin-node-resolve': ^15.0.1
@@ -352,8 +352,8 @@ importers:
       '@babel/preset-react': ^7.18.6
       '@babel/preset-typescript': ^7.18.6
       '@babel/types': ^7.20.2
-      '@oxygen-ui/logger': 0.1.1
-      '@oxygen-ui/primitives': 0.1.1
+      '@oxygen-ui/logger': 0.1.2
+      '@oxygen-ui/primitives': 0.1.2
       '@rollup/plugin-babel': 5.3.1
       '@rollup/plugin-commonjs': ^23.0.3
       '@rollup/plugin-node-resolve': ^15.0.1
@@ -10800,8 +10800,8 @@ packages:
       eslint: ^7.32.0 || ^8.2.0
       eslint-plugin-import: ^2.25.3
     dependencies:
-      '@typescript-eslint/eslint-plugin': 5.46.1_wqh5rj4gay6mpzzdobd4tmdy4i
-      '@typescript-eslint/parser': 5.46.1_grqhnqpocakf5dew66i47isfme
+      '@typescript-eslint/eslint-plugin': 5.46.1_est534hxm5svmojdh7vhpcxb64
+      '@typescript-eslint/parser': 5.46.1_5ldjemcacbssrrv7slgrertrym
       eslint: 8.25.0
       eslint-config-airbnb-base: 15.0.0_fyln4uq2tv75svthy6prqvt6lm
       eslint-plugin-import: 2.26.0_jn5v4vtldezgezlg7abxxe34qm
@@ -10926,7 +10926,7 @@ packages:
       eslint-import-resolver-webpack:
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.46.1_grqhnqpocakf5dew66i47isfme
+      '@typescript-eslint/parser': 5.46.1_5ldjemcacbssrrv7slgrertrym
       debug: 3.2.7
       eslint: 8.25.0
       eslint-import-resolver-node: 0.3.6
@@ -10987,7 +10987,7 @@ packages:
       '@typescript-eslint/parser':
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.46.1_grqhnqpocakf5dew66i47isfme
+      '@typescript-eslint/parser': 5.46.1_5ldjemcacbssrrv7slgrertrym
       array-includes: 3.1.6
       array.prototype.flat: 1.3.1
       debug: 2.6.9
