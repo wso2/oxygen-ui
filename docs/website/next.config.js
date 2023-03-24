@@ -17,8 +17,8 @@
  */
 
 let nextConfig = {
-  assetPrefix: `${process.env.NEXT_PUBLIC_BASE_PATH}/`,
-  basePath: process.env.NEXT_PUBLIC_BASE_PATH,
+  assetPrefix: `${process.env.NEXT_PUBLIC_BASE_PATH}/` || '/',
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
   reactStrictMode: true,
   swcMinify: true,
   // TODO: Added to bypass `Error: @next/font/google failed to run or is incorrectly configured.`
