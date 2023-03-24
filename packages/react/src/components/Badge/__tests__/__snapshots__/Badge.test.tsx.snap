@@ -4,10 +4,10 @@ exports[`Badge should match the snapshot 1`] = `
 <body>
   <div>
     <span
-      class="MuiBadge-root oxygen-badge MuiBadge-root css-1c32n2y-MuiBadge-root"
+      class="MuiBadge-root oxygen-badge css-1c32n2y-MuiBadge-root"
     >
       <span
-        class="MuiBadge-badge MuiBadge-standard MuiBadge-invisible MuiBadge-anchorOriginTopRight MuiBadge-anchorOriginTopRightRectangular MuiBadge-overlapRectangular MuiBadge-badge css-uh1ep6-MuiBadge-badge"
+        class="MuiBadge-badge MuiBadge-standard MuiBadge-invisible MuiBadge-anchorOriginTopRight MuiBadge-anchorOriginTopRightRectangular MuiBadge-overlapRectangular css-1cgiqj2-MuiBadge-badge"
       />
     </span>
   </div>
