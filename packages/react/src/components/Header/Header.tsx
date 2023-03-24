@@ -28,7 +28,6 @@ import './header.scss';
 import AppBar, {AppBarProps} from '../AppBar';
 import Avatar from '../Avatar';
 import Box from '../Box';
-import Button, {ButtonProps} from '../Button';
 import IconButton from '../IconButton';
 import Link from '../Link';
 import Toolbar from '../Toolbar';
@@ -41,9 +40,9 @@ export interface HeaderProps extends AppBarProps {
    */
   brand?: BrandTemplate;
   /**
-   * Links available on the header.
+   * Buttons available on the header.
    */
-  links?: Omit<ButtonProps, 'color'>[];
+  buttons?: ReactNode[];
   /**
    * List of modes.
    */
@@ -60,6 +59,25 @@ export interface HeaderProps extends AppBarProps {
    * Logged user information.
    */
   user?: UserTemplate;
+  /**
+   * Props to modify the action menu item in the user dropdown menu.
+   */
+  userDropdownMenu?: UserDropdownMenuHeaderProps;
+}
+
+export interface UserDropdownMenuHeaderProps {
+  /**
+   * Action icon for the user dropdown menu.
+   */
+  actionIcon?: ReactNode;
+  /**
+   * Action text for the user dropdown menu.
+   */
+  actionText?: string;
+  /**
+   * Callback to be called on clicking on the action button.
+   */
+  onActionClick?: () => void;
 }
 
 export interface BrandTemplate {
@@ -86,6 +104,12 @@ export interface BrandTemplate {
   title?: ReactNode;
 }
 
+const userDropdownMenuDefaultProps: UserDropdownMenuHeaderProps = {
+  actionIcon: <PowerIcon />,
+  actionText: 'Log Out',
+  onActionClick: (): void => null,
+};
+
 const COMPONENT_NAME: string = 'Header';
 
 const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactElement => {
@@ -95,11 +119,14 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
     showCollapsibleHamburger,
     brand,
     user,
-    links,
+    buttons,
     modes,
     onCollapsibleHamburgerClick,
+    userDropdownMenu,
     ...rest
   } = props;
+
+  const userDropdownMenuProps: UserDropdownMenuHeaderProps = {...userDropdownMenuDefaultProps, ...userDropdownMenu};
 
   const {mode, setMode} = useColorScheme();
   const isMobile: boolean = useIsMobile();
@@ -130,7 +157,7 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
       <Toolbar className="oxygen-header-toolbar">
         {showCollapsibleHamburger && (
           <div className="oxygen-header-collapsible-hamburger">
-            <IconButton aria-label="Menu Icon" onClick={onCollapsibleHamburgerClick}>
+            <IconButton aria-label="Menu Icon" onClick={onCollapsibleHamburgerClick || ((): void => null)}>
               <HamburgerIcon />
             </IconButton>
           </div>
@@ -157,25 +184,7 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
         <Box className="oxygen-header-mid-section">
           <>
             {children}
-            {links?.length > 0 && (
-              <Box className="oxygen-header-links">
-                {links?.map((link: ButtonProps) => {
-                  const {children: linkChildren, href, startIcon, ...linkProps} = link;
-                  return (
-                    <Button
-                      key={links.indexOf(link)}
-                      className="oxygen-header-link"
-                      href={href}
-                      startIcon={startIcon}
-                      color="inherit"
-                      {...linkProps}
-                    >
-                      {linkChildren}
-                    </Button>
-                  );
-                })}
-              </Box>
-            )}
+            {buttons?.length > 0 && <Box className="oxygen-header-links">{buttons} </Box>}
           </>
         </Box>
         <Box className="oxygen-header-user-dropdown-menu">
@@ -193,9 +202,9 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
             }}
             modesHeading="Theme"
             modes={modes}
-            onActionTrigger={(): void => null}
-            actionText="Log Out"
-            actionIcon={<PowerIcon />}
+            onActionTrigger={userDropdownMenuProps.onActionClick}
+            actionText={userDropdownMenuProps.actionText}
+            actionIcon={userDropdownMenuProps.actionIcon}
             mode={mode}
             onModeChange={onModeChange}
           />
@@ -207,5 +216,8 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
 
 Header.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Header.muiName = COMPONENT_NAME;
+Header.defaultProps = {
+  userDropdownMenu: userDropdownMenuDefaultProps,
+};
 
 export default Header;

@@ -68,7 +68,7 @@
     justify-content: end;
     margin-right: 1rem;
 
-    .oxygen-header-link {
+    & > * {
       margin-right: 1rem;
     }
   }

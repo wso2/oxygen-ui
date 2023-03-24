@@ -17,7 +17,7 @@
  */
 
 import clsx from 'clsx';
-import {FC, ReactElement, ReactNode} from 'react';
+import {FC, PropsWithChildren, ReactElement, ReactNode} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import Box, {BoxProps} from '../Box';
@@ -40,7 +40,9 @@ export interface AppShellProps extends BoxProps {
 
 const COMPONENT_NAME: string = 'AppShell';
 
-const AppShell: FC<AppShellProps> & WithWrapperProps = (props: AppShellProps): ReactElement => {
+const AppShell: FC<PropsWithChildren<AppShellProps>> & WithWrapperProps = (
+  props: PropsWithChildren<AppShellProps>,
+): ReactElement => {
   const {className, children, footer, header, navigation, ...rest} = props;
 
   const classes: string = clsx('oxygen-app-shell', className);

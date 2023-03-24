@@ -16,5 +16,5 @@
  * under the License.
  */
 
-export {default as LinearProgress} from './LinearProgress';
+export {default} from './LinearProgress';
 export type {LinearProgressProps} from './LinearProgress';

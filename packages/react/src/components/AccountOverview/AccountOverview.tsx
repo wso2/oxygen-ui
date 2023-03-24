@@ -23,7 +23,7 @@ import {composeComponentDisplayName} from '../../utils';
 import Box from '../Box';
 import Card, {CardProps} from '../Card';
 import CardHeader, {CardHeaderProps} from '../CardHeader';
-import {Carousel, CarouselStep} from '../Carousel';
+import Carousel, {CarouselStep} from '../Carousel';
 import CircularProgressAvatar from '../CircularProgressAvatar';
 import Divider from '../Divider';
 import {UserTemplate} from '../UserDropdownMenu';

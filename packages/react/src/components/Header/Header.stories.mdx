@@ -4,6 +4,7 @@ import StoryConfig from '../../../.storybook/story-config.ts';
 import {withDesign} from '../../../.storybook/utils.ts';
 import Header from './Header.tsx';
 import {LanguagesIcon, LogsIcon, SunIcon, CresentBrightIcon} from '@oxygen-ui/react-icons';
+import Button from "../Button";
 
 export const meta = {
   component: Header,
@@ -50,17 +51,9 @@ export const basicHeaderVariationOptions = {
       icon: <CresentBrightIcon />,
     },
   ],
-  links: [
-    {
-      children: 'Console',
-      startIcon: <LogsIcon />,
-      href: '/',
-    },
-    {
-      children: 'Language',
-      startIcon: <LanguagesIcon />,
-      href: '/',
-    },
+  buttons: [
+    <Button color="inherit" startIcon={<LogsIcon />} href="/">Console</Button>,
+    <Button color="inherit" startIcon={<LanguagesIcon />} href="/">Language</Button>
   ],
 };
 
