@@ -4,6 +4,13 @@ name: ☄️ Deploy Documentation
 
 on:
   workflow_dispatch:
+    inputs:
+      basePath:
+        description: |
+          The base path to deploy the docs to. Default is "oxygen-ui" (https://wso2.github.io/oxygen-ui/).
+          Note: Do not include a leading or trailing slash.
+        default: "oxygen-ui"
+        type: string
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -26,6 +33,9 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [lts/*]
     steps:
       - name: ⬇️ Checkout
         id: checkout
@@ -65,7 +75,7 @@ jobs:
         id: build-docs
         run: |
           cd docs/website
-          echo "NEXT_PUBLIC_BASE_PATH=/oxygen-ui" >> .env.local
+          echo "NEXT_PUBLIC_BASE_PATH=/${{ github.event.inputs.basePath }}" >> .env.local
           cd ../..
           pnpm build:docs
 
