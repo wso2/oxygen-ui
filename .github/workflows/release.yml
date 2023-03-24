@@ -73,7 +73,7 @@ jobs:
         run: |
           git config user.name "wso2-ui-bot"
           git config user.email "wso2-ui-bot@wso2.com"
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${{ env.NPM_TOKEN }}" >> ~/.npmrc
 
           if [ "${{ github.event.inputs.version }}" = "Major" ]; then
             if [ -n "${{ github.event.inputs.preRelease }}" ]; then
