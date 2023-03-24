@@ -22,7 +22,7 @@ import WorldFlag from 'react-world-flags';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 
-export interface FlagsProps extends React.HTMLAttributes<HTMLElement & SVGElement> {
+export interface CountryFlagsProps extends React.HTMLAttributes<HTMLElement & SVGElement> {
   /**
    * The two-letter/three-letter/three-digit country code of the flag.
    */
@@ -35,16 +35,16 @@ export interface FlagsProps extends React.HTMLAttributes<HTMLElement & SVGElemen
 
 const COMPONENT_NAME: string = 'Flag';
 
-const Flag: FC<FlagsProps> & WithWrapperProps = (props: FlagsProps): ReactElement => {
+const CountryFlag: FC<CountryFlagsProps> & WithWrapperProps = (props: CountryFlagsProps): ReactElement => {
   const {countryCode, height, ...rest} = props;
 
   return <WorldFlag code={countryCode} height={height} fallback={<Typography>{countryCode}</Typography>} {...rest} />;
 };
 
-Flag.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Flag.muiName = COMPONENT_NAME;
-Flag.defaultProps = {
+CountryFlag.displayName = composeComponentDisplayName(COMPONENT_NAME);
+CountryFlag.muiName = COMPONENT_NAME;
+CountryFlag.defaultProps = {
   height: '16',
 };
 
-export default Flag;
+export default CountryFlag;

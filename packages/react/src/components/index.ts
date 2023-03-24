@@ -73,6 +73,9 @@ export * from './ColorModeToggle';
 export {default as Container} from './Container';
 export * from './Container';
 
+export {default as CountryFlag} from './CountryFlag';
+export * from './CountryFlag';
+
 export {default as Divider} from './Divider';
 export * from './Divider';
 
