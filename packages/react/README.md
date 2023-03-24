@@ -38,7 +38,7 @@ If you create a personal access token and configure the setup, you could get a b
 Create a `.env.local` file under the root of `packages/react`, and add the following environment variable.
 
 ```bash
-STORYBOOK_FIGMA_ACCESS_TOKEN="<YOUR_FIGMA_ACCESS_TOKEN>"
+STORYBOOK_DESIGN_ADDON_FIGMA_ACCESS_TOKEN="<YOUR_FIGMA_ACCESS_TOKEN>"
 ```
 
 Follow the [official addon documentation](https://pocka.github.io/storybook-addon-designs/?path=/story/docs-figma-figspec-readme--page) for more info.

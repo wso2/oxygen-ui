@@ -26,7 +26,7 @@ export const withDesign = (storyName: string, storyVariation: string, parameters
     ...parameters,
     design: designUrl && {
       ...parameters?.design,
-      type: process.env.STORYBOOK_FIGMA_ACCESS_TOKEN && process.env.STORYBOOK_FIGMA_ACCESS_TOKEN !== '<YOUR_FIGMA_ACCESS_TOKEN>'
+      type: process.env.STORYBOOK_DESIGN_ADDON_FIGMA_ACCESS_TOKEN && process.env.STORYBOOK_DESIGN_ADDON_FIGMA_ACCESS_TOKEN !== '<YOUR_FIGMA_ACCESS_TOKEN>'
         ? 'figspec'
         : 'figma',
       url: designUrl,
