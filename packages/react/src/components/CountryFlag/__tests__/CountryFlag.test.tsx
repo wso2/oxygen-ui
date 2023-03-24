@@ -17,9 +17,9 @@
  */
 
 import {render} from '@unit-testing';
-import Flag from '../Flag';
+import Flag from '../CountryFlag';
 
-describe('Flag', () => {
+describe('CountryFlag', () => {
   it('should render successfully', () => {
     const {baseElement} = render(<Flag countryCode="LK" />);
     expect(baseElement).toBeTruthy();

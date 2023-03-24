@@ -54,7 +54,7 @@ export type Stories =
   | 'Container'
   | 'Divider'
   | 'Drawer'
-  | 'Flag'
+  | 'CountryFlag'
   | 'Footer'
   | 'FormHelperText'
   | 'FormControl'
@@ -178,8 +178,8 @@ const StoryConfig: StorybookConfig = {
   Drawer: {
     hierarchy: `${StorybookCategories.Navigation}/Drawer`,
   },
-  Flag: {
-    hierarchy: `${StorybookCategories.Icons}/Flag`,
+  CountryFlag: {
+    hierarchy: `${StorybookCategories.Icons}/CountryFlag`,
   },
   Footer: {
     hierarchy: `${StorybookCategories.Navigation}/Footer`,

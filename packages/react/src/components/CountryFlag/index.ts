@@ -16,5 +16,5 @@
  * under the License.
  */
 
-export {default} from './Flag';
-export type {FlagsProps} from './Flag';
+export {default} from './CountryFlag';
+export type {CountryFlagsProps} from './CountryFlag';
