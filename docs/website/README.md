@@ -5,15 +5,40 @@
 
 ## 🚀 Getting Started
 
-To get started, simply clone this repository and install the necessary dependencies:
+1. Clone the repository.
 
 ```bash
 git clone https://github.com/wso2/oxygen-ui.git
+```
+
+2. Navigate to the documentation website directory.
+
+```bash
 cd oxygen-ui/docs/website
-npm install
+```
+
+3. Install the dependencies.
+
+```bash
+pnpm install
+```
+
+4. Create a `.env.local` file based on the `.env.example` file.
+
+```bash
+cp .env.example .env.local
+```
+
+5. Update the values in the `.env.local` file based on your requirements.
+
+```bash
+# Port to run the server.
+PORT=3000
 ```
 
 Once the dependencies are installed, you can start the local development server with:
+
+5. Start the development server.
 
 ```bash
 npm run dev
