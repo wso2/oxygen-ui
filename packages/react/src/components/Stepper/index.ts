@@ -16,5 +16,5 @@
  * under the License.
  */
 
-export {default as Stepper} from './Stepper';
+export {default} from './Stepper';
 export type {StepperProps} from './Stepper';

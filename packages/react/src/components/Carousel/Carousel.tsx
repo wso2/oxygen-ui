@@ -31,7 +31,7 @@ import {IconButtonVariants} from '../IconButton/IconButton';
 import ListItem from '../ListItem';
 import ListItemIcon from '../ListItemIcon';
 import ListItemText from '../ListItemText';
-import {Stepper} from '../Stepper';
+import Stepper from '../Stepper';
 import './carousel.scss';
 
 export interface CarouselStep {

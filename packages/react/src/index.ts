@@ -24,7 +24,6 @@ export {
   Paper,
   ToggleButton,
   ToggleButtonGroup,
-  IconButton,
   Dialog,
   DialogTitle,
   DialogContent,

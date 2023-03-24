@@ -19,6 +19,7 @@
 import clsx from 'clsx';
 import {FC, ReactElement, ReactNode} from 'react';
 import {WithWrapperProps} from '../../models';
+import {composeComponentDisplayName} from '../../utils';
 import Button from '../Button';
 import Card, {CardProps} from '../Card';
 import CardActions from '../CardActions';
@@ -72,7 +73,7 @@ const ActionCard: FC<ActionCardProps> & WithWrapperProps = (props: ActionCardPro
   );
 };
 
-ActionCard.displayName = COMPONENT_NAME;
+ActionCard.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ActionCard.muiName = COMPONENT_NAME;
 ActionCard.defaultProps = {};
 

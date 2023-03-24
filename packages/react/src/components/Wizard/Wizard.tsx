@@ -26,8 +26,8 @@ import Card from '../Card';
 import CardActions from '../CardActions';
 import CardContent from '../CardContent';
 import CardHeader from '../CardHeader';
-import {LinearProgress} from '../LinearProgress';
-import {Stepper} from '../Stepper';
+import LinearProgress from '../LinearProgress';
+import Stepper from '../Stepper';
 import Typography from '../Typography';
 import './wizard.scss';
 

@@ -16,5 +16,5 @@
  * under the License.
  */
 
-export {default as Wizard} from './Wizard';
+export {default} from './Wizard';
 export type {WizardProps} from './Wizard';

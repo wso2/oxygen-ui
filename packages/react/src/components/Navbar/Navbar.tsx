@@ -18,7 +18,7 @@
 
 import {HamburgerIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
-import {FC, ReactElement, ReactNode, MouseEvent, Fragment} from 'react';
+import {FC, ReactElement, ReactNode, MouseEvent, Fragment, MouseEventHandler} from 'react';
 import {WithWrapperProps, Theme} from '../../models';
 import {useTheme} from '../../theme';
 import {composeComponentDisplayName} from '../../utils';
@@ -67,6 +67,10 @@ export interface NavbarItem extends ListItemProps {
    */
   name: ReactNode;
   /**
+   * Callback to be called when the item is clicked.
+   */
+  onClick?: MouseEventHandler;
+  /**
    * Is the item selected?
    * @example true | false.
    */
@@ -76,7 +80,7 @@ export interface NavbarItem extends ListItemProps {
 const COMPONENT_NAME: string = 'Navbar';
 
 const Navbar: FC<NavbarProps> & WithWrapperProps = (props: NavbarProps): ReactElement => {
-  const {className, open, fill, onClose, items, collapsible, onOpen, ...rest} = props;
+  const {className, fill, onClose, items, collapsible, open, onOpen, ...rest} = props;
 
   const theme: Theme = useTheme();
   const classes: string = clsx(
@@ -91,12 +95,14 @@ const Navbar: FC<NavbarProps> & WithWrapperProps = (props: NavbarProps): ReactEl
   );
 
   const handleCollapsibleHamburgerClick = (e: MouseEvent<HTMLButtonElement>): void => {
-    if (open) {
+    if (open && onClose && typeof onClose === 'function') {
       onClose(e, null);
       return;
     }
 
-    onOpen();
+    if (onOpen && typeof onOpen === 'function') {
+      onOpen();
+    }
   };
 
   return (
@@ -116,9 +122,13 @@ const Navbar: FC<NavbarProps> & WithWrapperProps = (props: NavbarProps): ReactEl
           {items.map((itemSet: NavbarItem[], itemSetIndex: number) => (
             // eslint-disable-next-line react/no-array-index-key
             <Fragment key={itemSetIndex}>
-              {itemSet.map(({icon, id, selected, name}: NavbarItem) => (
+              {itemSet.map(({icon, id, selected, name, onClick}: NavbarItem) => (
                 <ListItem key={id} className={clsx('oxygen-navbar-list-item', {mini: !open, selected})} disablePadding>
-                  <ListItemButton selected={selected} className={clsx('oxygen-navbar-list-item-button', {selected})}>
+                  <ListItemButton
+                    selected={selected}
+                    className={clsx('oxygen-navbar-list-item-button', {selected})}
+                    onClick={onClick}
+                  >
                     <ListItemIcon className="oxygen-navbar-list-item-icon">{icon}</ListItemIcon>
                     <ListItemText color="white" className="oxygen-navbar-list-item-text" primary={name} />
                   </ListItemButton>
