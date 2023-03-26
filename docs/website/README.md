@@ -31,27 +31,61 @@ cp .env.example .env.local
 
 5. Update the values in the `.env.local` file based on your requirements.
 
-```bash
-# Port to run the server.
-PORT=3000
-
-# The build mode to use during the build process.
-# Possible values: "static", "server"
-# - "static": build the app in static mode, which generates static HTML files that can be served from a static file server.
-# - "server": build the app in server mode, which runs the app on a Node.js server that can dynamically generate HTML on the server.
-BUILD_MODE=server
-
-# The base path of the app.
-NEXT_PUBLIC_BASE_PATH=/
-```
-
-5. Start the development server.
+6. Start the development server.
 
 ```bash
 pnpm dev
 ```
 
 This will start the app on [http://localhost:3000](http://localhost:3000).
+
+## Production
+
+### Server Build
+
+To build the documentation in server mode for production, follow these steps:
+
+1. Run the following command to build the app:
+
+```bash
+pnpm build
+```
+
+This will generate a production-ready version of the app in the `.next` directory.
+
+2. Run the following command to start the server:
+
+```bash
+pnpm start
+```
+
+This will start the app on the port specified in the `PORT` environment variable (default is 3000).
+
+### Static Build
+
+To build the documentation in static mode for production, follow these steps:
+
+1. Update the `.env.local` file to set `BUILD_MODE` to `static`.
+
+```bash
+# The build mode to use during the build process.
+# Possible values: "static", "server"
+# - "static": build the app in static mode, which generates static HTML files that can be served from a static file server.
+# - "server": build the app in server mode, which runs the app on a Node.js server that can dynamically generate HTML on the server.
+BUILD_MODE=static
+```
+
+2. Run the following command to build the app:
+
+```bash
+pnpm build:static
+```
+
+This will generate a production-ready version of the app in the `out` directory.
+
+3. You can now serve the app using any static file server.
+
+💡The official documentation for the Oxygen UI Design System is built and deployed this way and hosted on GitHub Pages [here →](https://wso2.github.io/oxygen-ui/).
 
 ## Contributing
 
