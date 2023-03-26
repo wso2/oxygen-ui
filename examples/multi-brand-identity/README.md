@@ -29,18 +29,38 @@ cd oxygen-ui/examples/multi-brand-identity
 3. Install the dependencies.
 
 ```bash
-npm install
+pnpm install
 ```
 
-2. Configure the .env.local file if necessary.
-
-3. Start the development server.
+4. Create a `.env.local` file based on the `.env.example` file.
 
 ```bash
-npm start
+cp .env.example .env.local
 ```
 
-Open the app at [http://localhost:3001](http://localhost:3001) in your web browser.
+5. Update the values in the `.env.local` file based on your requirements.
+
+```bash
+# The port number that the server will listen to.
+# Change this to the desired port number that the server should listen to.
+PORT=3001
+
+# Disables the "@typescript-eslint" plugin to prevent conflicts with "@wso2/eslint-plugin"
+# and avoid breaking the build.
+DISABLE_ESLINT_PLUGIN=true
+
+# The subpath of the application as hosted on the web server.
+# By default, it's configured to serve the app from the root of a domain.
+PUBLIC_URL=/
+```
+
+5. Start the development server.
+
+```bash
+pnpm start
+```
+
+This will start the app on [http://localhost:3001](http://localhost:3001).
 
 ## Contributing
 

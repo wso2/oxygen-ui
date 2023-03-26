@@ -34,14 +34,21 @@ cp .env.example .env.local
 ```bash
 # Port to run the server.
 PORT=3000
-```
 
-Once the dependencies are installed, you can start the local development server with:
+# The build mode to use during the build process.
+# Possible values: "static", "server"
+# - "static": build the app in static mode, which generates static HTML files that can be served from a static file server.
+# - "server": build the app in server mode, which runs the app on a Node.js server that can dynamically generate HTML on the server.
+BUILD_MODE=server
+
+# The base path of the app.
+NEXT_PUBLIC_BASE_PATH=/
+```
 
 5. Start the development server.
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 This will start the app on [http://localhost:3000](http://localhost:3000).

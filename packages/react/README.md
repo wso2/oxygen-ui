@@ -23,32 +23,6 @@ pnpm add @oxygen-ui/react
 yarn add @oxygen-ui/react
 ```
 
-## Develop
-
-To contribute to the package, follow the guide to set-up the project.
-
-### Setup the Environment
-
-#### Use [`Figspec`](https://github.com/pocka/figspec) in [`Design Addon`](https://storybook.js.org/addons/storybook-addon-designs)
-
-By default, the `Design` addon does not provide any capabilities to inspect the Figma design.
-
-If you create a personal access token and configure the setup, you could get a bit more richer preview.
-
-Create a `.env.local` file under the root of `packages/react`, and add the following environment variable.
-
-```bash
-STORYBOOK_DESIGN_ADDON_FIGMA_ACCESS_TOKEN="<YOUR_FIGMA_ACCESS_TOKEN>"
-```
-
-Follow the [official addon documentation](https://pocka.github.io/storybook-addon-designs/?path=/story/docs-figma-figspec-readme--page) for more info.
-
-### Run Storybook
-
-```bash
-pnpm storybook
-```
-
 ## Usage
 
 ### ThemeProvider
@@ -107,6 +81,43 @@ const MyButton = () => {
 };
 
 export default MyButton;
+```
+
+## Develop
+
+To contribute to the package, follow the guide to set-up the project.
+
+### Setup the Environment
+
+1. Create a `.env.local` file based on the `.env.example` file.
+
+```bash
+cp .env.example .env.local
+```
+
+2. Update the values in the `.env.local` file based on your requirements.
+
+```bash
+# The subpath of the Storybook static deployment. Leave empty to serve from the root of the domain.
+STORYBOOK_BASE_URL=
+
+# The Figma personal access token (PAT) for the Storybook Design Plugin's Figspec integration.
+# If this is not defined, the plugin will use the public API to fetch Figma files.
+# Leave the placeholder value (<YOUR_FIGMA_ACCESS_TOKEN>) as it is to disable the integration.
+# For more information, visit https://storybook.js.org/addons/storybook-addon-designs.
+STORYBOOK_DESIGN_ADDON_FIGMA_ACCESS_TOKEN=<YOUR_FIGMA_ACCESS_TOKEN>
+```
+
+> **Note**
+> By default, the `Design` addon does not provide any capabilities to inspect the Figma design.
+> If you create a Figma personal access token and configure the setup, you could get a bit more richer preview
+> with the help of [`Figspec`](https://github.com/pocka/figspec) in [`Design Addon`](https://storybook.js.org/addons/storybook-addon-designs).
+> Follow the [official addon documentation](https://pocka.github.io/storybook-addon-designs/?path=/story/docs-figma-figspec-readme--page) for more info.
+
+### Run Storybook
+
+```bash
+pnpm start
 ```
 
 ## Contributing
