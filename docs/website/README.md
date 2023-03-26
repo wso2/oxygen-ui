@@ -31,6 +31,21 @@ cp .env.example .env.local
 
 5. Update the values in the `.env.local` file based on your requirements.
 
+```bash
+# The port number that the server will listen to.
+# Change this to the desired port number that the server should listen to.
+PORT=3000
+
+# The build mode to use during the build process.
+# Possible values: "static", "server"
+# - "static": build the app in static mode, which generates static HTML files that can be served from a static file server.
+# - "server": build the app in server mode, which runs the app on a Node.js server that can dynamically generate HTML on the server.
+BUILD_MODE=server
+
+# The base path of the app.
+NEXT_PUBLIC_BASE_PATH=/
+```
+
 6. Start the development server.
 
 ```bash
@@ -68,10 +83,6 @@ To build the documentation in static mode for production, follow these steps:
 1. Update the `.env.local` file to set `BUILD_MODE` to `static`.
 
 ```bash
-# The build mode to use during the build process.
-# Possible values: "static", "server"
-# - "static": build the app in static mode, which generates static HTML files that can be served from a static file server.
-# - "server": build the app in server mode, which runs the app on a Node.js server that can dynamically generate HTML on the server.
 BUILD_MODE=static
 ```
 
