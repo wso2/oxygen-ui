@@ -40,6 +40,16 @@ module.exports = {
         '@storybook/preset-scss',
         'storybook-addon-themes'
     ],
+    managerHead: (head, { configType }) => {
+      return (`
+        ${head}
+        <base href="${process.env.STORYBOOK_BASE_URL}">
+        <title>Oxygen UI React | by WSO2</title>
+        <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+        <link rel="icon" type="image/png" href="favicon.png" />
+        <link rel="stylesheet"  type="text/css" href="storybook-manager.overrides.css" />
+      `);
+    },
     staticDirs: [ path.resolve(__dirname, STATIC_DIRECTORY_NAME) ],
     webpackFinal: async (config) => {
         config.resolve.plugins = [

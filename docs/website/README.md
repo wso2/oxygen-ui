@@ -5,21 +5,98 @@
 
 ## 🚀 Getting Started
 
-To get started, simply clone this repository and install the necessary dependencies:
+1. Clone the repository.
 
 ```bash
 git clone https://github.com/wso2/oxygen-ui.git
-cd oxygen-ui/docs/website
-npm install
 ```
 
-Once the dependencies are installed, you can start the local development server with:
+2. Navigate to the documentation website directory.
 
 ```bash
-npm run dev
+cd oxygen-ui/docs/website
+```
+
+3. Install the dependencies.
+
+```bash
+pnpm install
+```
+
+4. Create a `.env.local` file based on the `.env.example` file.
+
+```bash
+cp .env.example .env.local
+```
+
+5. Update the values in the `.env.local` file based on your requirements.
+
+```bash
+# The port number that the server will listen to.
+# Change this to the desired port number that the server should listen to.
+PORT=3000
+
+# The build mode to use during the build process.
+# Possible values: "static", "server"
+# - "static": build the app in static mode, which generates static HTML files that can be served from a static file server.
+# - "server": build the app in server mode, which runs the app on a Node.js server that can dynamically generate HTML on the server.
+BUILD_MODE=server
+
+# The base path of the app.
+NEXT_PUBLIC_BASE_PATH=/
+```
+
+6. Start the development server.
+
+```bash
+pnpm dev
 ```
 
 This will start the app on [http://localhost:3000](http://localhost:3000).
+
+## Production
+
+### Server Build
+
+To build the documentation in server mode for production, follow these steps:
+
+1. Run the following command to build the app:
+
+```bash
+pnpm build
+```
+
+This will generate a production-ready version of the app in the `.next` directory.
+
+2. Run the following command to start the server:
+
+```bash
+pnpm start
+```
+
+This will start the app on the port specified in the `PORT` environment variable (default is 3000).
+
+### Static Build
+
+To build the documentation in static mode for production, follow these steps:
+
+1. Update the `.env.local` file to set `BUILD_MODE` to `static`.
+
+```bash
+BUILD_MODE=static
+```
+
+2. Run the following command to build the app:
+
+```bash
+pnpm build:static
+```
+
+This will generate a production-ready version of the app in the `out` directory.
+
+3. You can now serve the app using any static file server.
+
+💡The official documentation for the Oxygen UI Design System is built and deployed this way and hosted on GitHub Pages [here →](https://wso2.github.io/oxygen-ui/).
 
 ## Contributing
 

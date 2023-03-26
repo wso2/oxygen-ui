@@ -21,8 +21,8 @@
     "branding"
   ],
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "DISABLE_ESLINT_PLUGIN=true react-scripts start",
+    "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "lint": "pnpm lint:es && pnpm lint:styles",
     "lint:es": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:styles": "stylelint 'src/**/*.{css,scss,sass}' --config stylelint.config.cjs --allow-empty-input",
