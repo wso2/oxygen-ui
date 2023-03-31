@@ -24,10 +24,12 @@ This repository contains the source code of the key components that works togeth
 
 ## Packages
 
-- [`@oxygen-ui/primitives`](./packages/primitives) - Low level building blocks of Oxygen UI (e.g. icons, fonts) 
-- [`@oxygen-ui/react`](./packages/react) - The React implementation of Oxygen UI.
-- [`@oxygen-ui/react-icons`](./packages/react) - React components for Oxygen UI icons.
-- [`@oxygen-ui/logger`](./packages/logger) - Logger for the Oxygen UI packages
+| Package | Description | Version |
+| --- | --- | --- |
+| [`@oxygen-ui/primitives`](./packages/primitives) | Low level building blocks of Oxygen UI (e.g. icons, fonts)  | ![npm](https://img.shields.io/npm/v/@oxygen-ui/primitives?color=blue) |
+| [`@oxygen-ui/react`](./packages/react) | The React implementation of Oxygen UI. | ![npm](https://img.shields.io/npm/v/@oxygen-ui/react?color=green) |
+| [`@oxygen-ui/react-icons`](./packages/react-icons) | React components for Oxygen UI icons. | ![npm](https://img.shields.io/npm/v/@oxygen-ui/react-icons?color=yellow) |
+| [`@oxygen-ui/logger`](./packages/logger) | Logger for the Oxygen UI packages | ![npm](https://img.shields.io/npm/v/@oxygen-ui/logger?color=orange) |
 
 ## Examples
 
