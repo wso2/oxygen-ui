@@ -1,33 +1,20 @@
-.sbdocs.sbdocs-wrapper {
-}
-
 .storybook-welcome-header {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: space-between;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
-  .storybook-welcome-header-logo {
-    display: flex;
-
-    .react-logo-container {
-      margin-left: -30px;
-
-      .react {
-        -webkit-animation:spin 4s linear infinite;
-        -moz-animation:spin 4s linear infinite;
-        animation:spin 4s linear infinite;
-      }
+  &-description {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: #232323;
+    
+    .dark {
+      color: #ffffff;
     }
   }
 
-  .storybook-welcome-header-version {
-    display: flex;
-    margin-bottom: 20px;
-    flex-wrap: nowrap;
-    flex-direction: row;
-    align-items: center;
+  &-version {
     color: #919191;
     cursor: pointer;
 
@@ -43,26 +30,11 @@
       svg {
         margin-right: 10px;
       }
+
       svg, svg path {
         fill: #919191;
-      }
-
-      &:hover {
-        color: #ffffff;
-
-        svg, svg path {
-          fill: #ffffff;
-        }
       }
     }
   }
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
