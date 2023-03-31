@@ -21,3 +21,8 @@
 .container .sidebar-container {
   border-right: 1px solid var(--oxygen-palette-divider);
 }
+
+button[title="Change theme to dark mode"],
+button[title="Change theme to light mode"] {
+  display: none;
+}
