@@ -8,6 +8,7 @@
 powering <a href="https://wso2.com">WSO2</a>'s core products.</p>
 
 <div align="center">
+  <a href="https://github.com/wso2/oxygen-ui/actions/workflows/release.yml"><img src="https://github.com/wso2/oxygen-ui/actions/workflows/release.yml/badge.svg" alt="🚀 Release"></a>
   <a href="https://github.com/wso2/oxygen-ui/actions/workflows/test-runner.yml"><img src="https://img.shields.io/github/actions/workflow/status/wso2/oxygen-ui/test-runner.yml?label=%F0%9F%8C%B3%20Unit%20Tests" alt="🌳 Unit Tests"></a>
   <a href="https://github.com/wso2/oxygen-ui/actions/workflows/builder.yml"><img src="https://img.shields.io/github/actions/workflow/status/wso2/oxygen-ui/builder.yml?color=red&label=%F0%9F%A7%B1%20Builder" alt="🧱 Builder"></a>
   <a href="https://stackoverflow.com/questions/tagged/wso2is"><img src="https://img.shields.io/badge/Ask%20for%20help%20on-Stackoverflow-orange" alt="Stackoverflow"></a>
@@ -23,10 +24,12 @@ This repository contains the source code of the key components that works togeth
 
 ## Packages
 
-- [`@oxygen-ui/primitives`](./packages/primitives) - Low level building blocks of Oxygen UI (e.g. icons, fonts) 
-- [`@oxygen-ui/react`](./packages/react) - The React implementation of Oxygen UI.
-- [`@oxygen-ui/react-icons`](./packages/react) - React components for Oxygen UI icons.
-- [`@oxygen-ui/logger`](./packages/logger) - Logger for the Oxygen UI packages
+| Package | Description | Version |
+| --- | --- | --- |
+| [`@oxygen-ui/primitives`](./packages/primitives) | Low level building blocks of Oxygen UI (e.g. icons, fonts)  | ![npm](https://img.shields.io/npm/v/@oxygen-ui/primitives?color=blue) |
+| [`@oxygen-ui/react`](./packages/react) | The React implementation of Oxygen UI. | ![npm](https://img.shields.io/npm/v/@oxygen-ui/react?color=green) |
+| [`@oxygen-ui/react-icons`](./packages/react-icons) | React components for Oxygen UI icons. | ![npm](https://img.shields.io/npm/v/@oxygen-ui/react-icons?color=yellow) |
+| [`@oxygen-ui/logger`](./packages/logger) | Logger for the Oxygen UI packages | ![npm](https://img.shields.io/npm/v/@oxygen-ui/logger?color=orange) |
 
 ## Examples
 
@@ -44,6 +47,10 @@ This repository contains the source code of the key components that works togeth
 ## Documentation
 
 For more information on how to use Oxygen UI, check out the [documentation](https://oxygen-ui.vercel.app) website.
+
+## Changelog
+
+You can find the latest changes and updates for Oxygen-UI in the [Changelog](./CHANGELOG.md) section. This includes information on new features, bug fixes, and improvements made to the project with each release. It's recommended to review the changelog before upgrading to a new version of Oxygen-UI.
 
 ## Contributing
 
