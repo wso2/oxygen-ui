@@ -48,6 +48,10 @@ This repository contains the source code of the key components that works togeth
 
 For more information on how to use Oxygen UI, check out the [documentation](https://oxygen-ui.vercel.app) website.
 
+## Changelog
+
+You can find the latest changes and updates for Oxygen-UI in the [Changelog](./CHANGELOG.md) section. This includes information on new features, bug fixes, and improvements made to the project with each release. It's recommended to review the changelog before upgrading to a new version of Oxygen-UI.
+
 ## Contributing
 
 Want to report a bug, contribute some code, or improve the documentation?
