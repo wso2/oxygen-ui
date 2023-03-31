@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.1.3](https://github.com/wso2/oxygen-ui/compare/v0.1.2...v0.1.3)
+<br> Released on: 2023-03-31
+
+## What's Changed
+
+### `@oxygen-ui/docs`
+* **docs:** remove `assetPrefix` ([2654909](https://github.com/wso2/oxygen-ui/commit/265490973f151a76bbb28e170af535f932ffed2d))
+* **docs:** add default base path values ([7c6e836](https://github.com/wso2/oxygen-ui/commit/7c6e8369522e810cbdbd0822306ab1efc00f9485))
+* **docs:** fix image loading issues ([0304e50](https://github.com/wso2/oxygen-ui/commit/0304e5003ead878b5a6b8931570b7cc8e919878b))
+
+
+### `@oxygen-ui/react`
+* **react:** fix tsconfig path issue ([d6345a1](https://github.com/wso2/oxygen-ui/commit/d6345a121a0f5323a6979d53e584898356522e02))
+* **react:** ignore `storybook-static` from transpilation ([5df7a6a](https://github.com/wso2/oxygen-ui/commit/5df7a6a66b40a358a1898bd7945666ae3d2ec61e))
+* **react:** fix issues in Header, NavBar & AppShell  components ([e7d8495](https://github.com/wso2/oxygen-ui/commit/e7d8495cb98947e333e7131b07e21f0bac9b5967))
+
 ## [0.1.2](https://github.com/wso2/oxygen-ui/compare/v0.1.1...v0.1.2)
 <br> Released on: 2023-03-24
 
