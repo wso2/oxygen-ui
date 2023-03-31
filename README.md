@@ -50,7 +50,9 @@ For more information on how to use Oxygen UI, check out the [documentation](http
 
 ## Changelog
 
-You can find the latest changes and updates for Oxygen-UI in the [Changelog](./CHANGELOG.md) section. This includes information on new features, bug fixes, and improvements made to the project with each release. It's recommended to review the changelog before upgrading to a new version of Oxygen-UI.
+You can find the latest changes and updates for Oxygen-UI in the [Changelog](./CHANGELOG.md) section. This includes information on new features, bug fixes, and improvements made to the project with each release.
+
+💡 It's recommended to review the changelog before upgrading to a new version of Oxygen-UI.
 
 ## Contributing
 
