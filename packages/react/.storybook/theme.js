@@ -20,10 +20,9 @@ import {themes as defaultThemes} from '@storybook/theming';
 import defaultTheme from '../src/theme/default-theme';
 
 const commons = {
-  brandUrl: 'https://wso2.io',
   colorSecondary: '#FF7300',
   brandTitle: 'Oxygen UI | React',
-  brandTarget: '_blank',
+  brandTarget: '_self',
 };
 
 /**
