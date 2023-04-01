@@ -1,6 +1,6 @@
 {
   "name": "@oxygen-ui/react-icons",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "description": "The SVG icons from primitives exported as React components.",
   "author": "WSO2",
   "license": "Apache-2.0",
@@ -46,8 +46,8 @@
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
     "@babel/types": "^7.20.2",
-    "@oxygen-ui/logger": "0.1.3",
-    "@oxygen-ui/primitives": "0.1.3",
+    "@oxygen-ui/logger": "1.0.0",
+    "@oxygen-ui/primitives": "1.0.0",
     "@rollup/plugin-babel": "5.3.1",
     "@rollup/plugin-commonjs": "^23.0.3",
     "@rollup/plugin-node-resolve": "^15.0.1",

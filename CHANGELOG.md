@@ -1,5 +1,22 @@
 # Changelog
 
+# [1.0.0](https://github.com/wso2/oxygen-ui/compare/v0.1.3...v1.0.0)
+<br> Released on: 2023-04-01
+
+## What's Changed
+
+### `@oxygen-ui/examples`
+* **examples:** fix button theming issues ([bd6cd07](https://github.com/wso2/oxygen-ui/commit/bd6cd07d7081a844d9b65775144be9ac98155b9c))
+* **examples:** fix navigation ([0c1c51d](https://github.com/wso2/oxygen-ui/commit/0c1c51dc328df0247533f9a634a368e3aea75d69))
+
+
+### `@oxygen-ui/docs`
+* **docs:** fix absolute paths ([7e79351](https://github.com/wso2/oxygen-ui/commit/7e7935136d322ed4127cab47e1be0c32a76aade2))
+
+
+### `@oxygen-ui/react`
+* **react:** stay in the storybook when brand URL is clicked ([5539513](https://github.com/wso2/oxygen-ui/commit/5539513dd2422a44ba28ff80f3278845e1d00918))
+
 ## [0.1.3](https://github.com/wso2/oxygen-ui/compare/v0.1.2...v0.1.3)
 <br> Released on: 2023-03-31
 
