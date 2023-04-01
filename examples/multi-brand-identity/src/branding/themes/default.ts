@@ -29,6 +29,12 @@ export const DefaultTheme: Theme = extendTheme({
         },
       },
       palette: {
+        gradients: {
+          primary: {
+            stop1: darkTokens.OxygenOxygenColorsPrimaryDefault,
+            stop2: darkTokens.OxygenOxygenColorsPrimaryDefault,
+          },
+        },
         primary: {
           main: darkTokens.OxygenOxygenColorsPrimaryDefault,
         },
@@ -41,6 +47,12 @@ export const DefaultTheme: Theme = extendTheme({
         },
       },
       palette: {
+        gradients: {
+          primary: {
+            stop1: lightTokens.OxygenOxygenColorsPrimaryDefault,
+            stop2: lightTokens.OxygenOxygenColorsPrimaryDefault,
+          },
+        },
         primary: {
           main: lightTokens.OxygenOxygenColorsPrimaryDefault,
         },
@@ -48,6 +60,13 @@ export const DefaultTheme: Theme = extendTheme({
     },
   },
   components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 'var(--oxygen-shape-borderRadius)',
+        },
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: `
       /* roboto-300 - latin */

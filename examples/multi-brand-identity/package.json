@@ -5,7 +5,6 @@
   "description": "Sample app to showcase Oxygen Design System multi-branding capabilities.",
   "author": "WSO2",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/wso2/oxygen-ui/tree/main/examples/multi-brand-identity#readme",
   "bugs": {
     "url": "https://github.com/wso2/oxygen/issues"
   },

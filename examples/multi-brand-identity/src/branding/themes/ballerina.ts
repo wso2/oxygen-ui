@@ -27,6 +27,12 @@ export const BallerinaTheme: Theme = extendTheme({
         },
       },
       palette: {
+        gradients: {
+          primary: {
+            stop1: '#20b6b0',
+            stop2: '#20b6b0',
+          },
+        },
         primary: {
           main: '#20b6b0',
         },
@@ -39,6 +45,12 @@ export const BallerinaTheme: Theme = extendTheme({
         },
       },
       palette: {
+        gradients: {
+          primary: {
+            stop1: '#20b6b0',
+            stop2: '#20b6b0',
+          },
+        },
         primary: {
           main: '#20b6b0',
         },
@@ -46,6 +58,13 @@ export const BallerinaTheme: Theme = extendTheme({
     },
   },
   components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 'var(--oxygen-shape-borderRadius)',
+        },
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: `
       /* roboto-300 - latin */

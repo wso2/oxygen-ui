@@ -93,7 +93,7 @@ const Index = (): ReactElement => {
             <code>@oxygen-ui/guidelines</code>
             <p className={spaceGrotesk.className}>A collection of principles, standards, and usage guidelines.</p>
           </a>
-          <a href={`${basePath}/${LINKS.primitives}`} className="card" target="_blank" rel="noreferrer">
+          <a href={LINKS.primitives} className="card" target="_blank" rel="noreferrer">
             <h2>
               <Image
                 src={`${basePath}/assets/images/oxygen-ui/primitives-logo.svg`}
@@ -115,7 +115,7 @@ const Index = (): ReactElement => {
             <p className={spaceGrotesk.className}>The React implementation of the Design System.</p>
           </a>
 
-          <a href={`${basePath}/${LINKS.figma}`} className="card" target="_blank" rel="noreferrer">
+          <a href={LINKS.figma} className="card" target="_blank" rel="noreferrer">
             <h2>
               <Image src={`${basePath}/assets/images/logos/color/figma.svg`} alt="Styles Logo" width={20} height={20} />
               Figma

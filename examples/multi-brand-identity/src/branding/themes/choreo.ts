@@ -55,6 +55,7 @@ export const ChoreoTheme: Theme = extendTheme({
     MuiButton: {
       styleOverrides: {
         root: {
+          borderRadius: 'var(--oxygen-shape-borderRadius)',
           textTransform: 'none',
         },
       },
@@ -327,6 +328,12 @@ export const ChoreoTheme: Theme = extendTheme({
           black: '#1d2028',
           white: '#ffffff',
         },
+        gradients: {
+          primary: {
+            stop1: tokens.ChoreoOxygenColorsPrimaryDefault,
+            stop2: tokens.ChoreoOxygenColorsPrimaryDefault,
+          },
+        },
         primary: {
           light: tokens.ChoreoOxygenColorsPrimaryLight,
           main: tokens.ChoreoOxygenColorsPrimaryDefault,
@@ -368,6 +375,12 @@ export const ChoreoTheme: Theme = extendTheme({
         common: {
           black: '#000000',
           white: '#FFFFFF',
+        },
+        gradients: {
+          primary: {
+            stop1: '#404c9a',
+            stop2: '#404c9a',
+          },
         },
         primary: {
           light: '#AEBAFE',
