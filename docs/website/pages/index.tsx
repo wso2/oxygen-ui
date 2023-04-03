@@ -35,7 +35,7 @@ const LINKS: {
     multiBrandIdentity: '/examples/multi-brand-identity',
   },
   figma: 'https://www.figma.com/file/78epPbkczGFO5RM1sPyNtN/Oxygen?node-id=0%3A1&t=gsdIXRlJ1VChBa37-0',
-  primitives: 'https://github.com/brionmario/oxygen-ui/tree/main/packages/primitives',
+  primitives: 'https://github.com/wso2/oxygen-ui/tree/main/packages/primitives',
   reactComponents: '/react?path=/docs/welcome--page',
 };
 
