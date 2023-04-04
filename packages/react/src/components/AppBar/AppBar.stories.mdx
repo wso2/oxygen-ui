@@ -3,6 +3,11 @@ import dedent from 'ts-dedent';
 import StoryConfig from '../../../.storybook/story-config.ts';
 import {withDesign} from '../../../.storybook/utils.ts';
 import AppBar from './AppBar.tsx';
+import Toolbar from '../Toolbar';
+import IconButton from '../IconButton';
+import Typography from '../Typography';
+import Button from '../Button';
+import MenuIcon from '@mui/icons-material/Menu';
 
 export const meta = {
   component: AppBar,
@@ -11,7 +16,21 @@ export const meta = {
 
 <Meta title={meta.title} component={meta.component} />
 
-export const Template = args => <AppBar {...args} />;
+export const Template = args => {
+  return (
+    <AppBar {...args}>
+      <Toolbar>
+        <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{mr: 2}}>
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+          AppBar
+        </Typography>
+        <Button color="inherit">Login</Button>
+      </Toolbar>
+    </AppBar>
+  );
+};
 
 # App Bar
 
@@ -21,11 +40,15 @@ export const Template = args => <AppBar {...args} />;
 
 ## Overview
 
-The top App bar provides content and actions related to the current screen. It's used for branding, screen titles, navigation, and actions.
+The top App bar provides content and actions related to the current screen. It's used for branding, screen titles,
+navigation, and actions.
 
 <Canvas>
   <Story
     name="Overview"
+    parameters={{
+      docs: {inlineStories: false, iframeHeight: 100},
+    }}
   >
     {Template.bind({})}
   </Story>
