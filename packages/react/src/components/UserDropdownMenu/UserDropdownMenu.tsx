@@ -171,12 +171,13 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
         className={classes}
         id="oxygen-button-menu"
         onClose={onCloseMenu}
+        PaperProps={{className: 'oxygen-user-dropdown-menu-paper'}}
         {...rest}
       >
         {children}
         {user && (
           <ListItem
-            className={clsx('dropdown-list-item', {
+            className={clsx('oxygen-user-dropdown-menu-list-item', {
               clickable: onUserProfileNavigation,
             })}
             onClick={(): void => handleUserProfileNavigation()}
@@ -194,11 +195,15 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
             {modes?.map((theme: ModeList) => {
               const {name, icon} = theme;
               return (
-                <MenuItem className="dropdown-menu-item" key={name} onClick={(): void => handleModeChange(name)}>
+                <MenuItem
+                  className="oxygen-user-dropdown-menu-item"
+                  key={name}
+                  onClick={(): void => handleModeChange(name)}
+                >
                   <ListItemIcon>{icon}</ListItemIcon>
                   <ListItemText primary={capitalize(name)} />
                   <Radio
-                    edge="end"
+                    className="oxygen-user-dropdown-menu-item-radio"
                     checked={mode === name}
                     onChange={(): void => handleModeChange(name)}
                     value={name}

@@ -17,13 +17,19 @@
  */
 
 .oxygen-user-dropdown-menu {
-  .dropdown-list-item {
+  &-paper {
+    min-width: 230px;
+  }
+
+  &-list-item {
     &.clickable {
       cursor: pointer;
     }
   }
 
-  .dropdown-menu-item {
-    min-height: 50px;
+  &-item {
+    &-radio {
+      padding: 5px;
+    }
   }
 }
