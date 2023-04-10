@@ -22,16 +22,11 @@
   border-top: none;
   background-color: var(--oxygen-palette-background-paper);
 
-  .oxygen-header-collapsible-hamburger {
+  &-collapsible-hamburger {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     padding: 0 12px;
-
-    .oxygen-icon-button {
-      height: 48px;
-      width: 48px;
-    }
   }
 
   .oxygen-brand {
@@ -49,6 +44,10 @@
     }
   }
 
+  &-toolbar {
+    min-height: 56px;
+  }
+
   &.with-hamburger {
     .oxygen-header-toolbar {
       padding-left: 0;
@@ -59,11 +58,11 @@
     }
   }
 
-  .oxygen-header-mid-section {
+  &-mid-section {
     flex: 1;
   }
 
-  .oxygen-header-links {
+  &-links {
     display: flex;
     justify-content: end;
     margin-right: 1rem;
@@ -73,7 +72,7 @@
     }
   }
 
-  .oxygen-header-user-dropdown-menu {
+  &-user-dropdown-menu {
     .image {
       width: 2.2rem;
       height: 2.2rem;

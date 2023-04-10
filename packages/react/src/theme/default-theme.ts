@@ -169,28 +169,28 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
       lineHeight: '1.5',
     },
     body2: {
-      color: '#5A5A72', // --joy-palette-neutral-600
+      color: '#5A5A72',
       fontSize: '0.875rem',
       fontWeight: 400,
       letterSpacing: 'normal',
       lineHeight: '1.5',
     },
     body3: {
-      color: '#73738C', // --joy-palette-neutral-500
+      color: '#73738C',
       fontSize: '0.75rem',
       fontWeight: 400,
       letterSpacing: 'normal',
       lineHeight: '1.5',
     },
     body4: {
-      color: '#73738C', // --joy-palette-neutral-500
+      color: '#73738C',
       fontSize: '0.625rem',
       fontWeight: 400,
       letterSpacing: 'normal',
       lineHeight: '1.5',
     },
     body5: {
-      color: '#73738C', // --joy-palette-neutral-500
+      color: '#73738C',
       fontSize: '0.5rem',
       fontWeight: 400,
       letterSpacing: 'normal',
