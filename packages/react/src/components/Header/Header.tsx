@@ -44,6 +44,11 @@ export interface HeaderProps extends AppBarProps {
    */
   buttons?: ReactNode[];
   /**
+   * Left aligned elements to be rendered.
+   * @remarks This will be rendered on the left side of the header following the brand section.
+   */
+  leftAlignedElements?: ReactNode;
+  /**
    * List of modes.
    */
   modes?: ModeList[];
@@ -114,14 +119,15 @@ const COMPONENT_NAME: string = 'Header';
 
 const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactElement => {
   const {
+    brand,
+    buttons,
     className,
     children,
-    showCollapsibleHamburger,
-    brand,
-    user,
-    buttons,
     modes,
+    showCollapsibleHamburger,
+    leftAlignedElements,
     onCollapsibleHamburgerClick,
+    user,
     userDropdownMenu,
     ...rest
   } = props;
@@ -181,7 +187,8 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
             </Typography>
           </Box>
         )}
-        <Box className="oxygen-header-mid-section">
+        {leftAlignedElements}
+        <Box className="oxygen-header-links-section">
           <>
             {children}
             {buttons?.length > 0 && <Box className="oxygen-header-links">{buttons} </Box>}

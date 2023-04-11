@@ -20,6 +20,7 @@ export const Template = args => <Header {...args} />;
 - [Overview](#overview)
 - [Props](#props)
 - [Usage](#usage)
+- [Variants](#variants)
 
 ## Overview
 
@@ -51,10 +52,19 @@ export const basicHeaderVariationOptions = {
       icon: <CrescentBrightIcon />,
     },
   ],
+};
+
+export const linksVariationOptions = {
+  ...basicHeaderVariationOptions,
   buttons: [
     <Button color="inherit" startIcon={<LogsIcon />} href="/">Console</Button>,
     <Button color="inherit" startIcon={<LanguagesIcon />} href="/">Language</Button>
   ],
+}
+
+export const leftAlignedElementsVariationOptions = {
+  ...basicHeaderVariationOptions,
+  leftAlignedElements: <div style={{padding: '0rem 1rem'}}>Left aligned header elements</div>
 };
 
 <Canvas>
@@ -81,3 +91,31 @@ Import and use the `Header` component in your components as follows.
   format
   code={dedent`import Header from '@oxygen-ui/react/Header';\n`}
 />
+
+## Variants
+
+### Header Links
+
+Add links to the header by passing an array of link buttons or similar components to the `buttons` prop.
+
+<Canvas>
+  <Story
+    name="Header Links"
+    args={linksVariationOptions}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Left Aligned Elements
+
+Add left aligned elements to the header by passing a `ReactNode` to the `leftAlignedElements` prop.
+
+<Canvas>
+  <Story
+    name="Left Aligned Elements"
+    args={leftAlignedElementsVariationOptions}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
