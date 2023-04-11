@@ -64,22 +64,22 @@
     margin-top: 8px;
     margin-bottom: 8px;
 
-    .oxygen-navbar-list-item-button {
-      height: 48px;
+    &-button {
+      height: 38px;
       justify-content: center;
-      padding-left: 20px;
-      padding-right: 20px;
+      padding-left: 15px;
+      padding-right: 15px;
       margin-left: 8px;
       margin-right: 8px;
       border-radius: var(--oxygen-shape-borderRadius);
 
-      .oxygen-navbar-list-item-icon {
+      &-icon {
         min-width: 0;
         margin-right: auto;
         justify-content: center;
       }
 
-      .oxygen-navbar-list-item-text {
+      &-text {
         opacity: 0;
       }
 
@@ -97,14 +97,14 @@
     }
 
     .oxygen-navbar-list-item {
-      .oxygen-navbar-list-item-button {
+      &-button {
         justify-content: initial;
 
-        .oxygen-navbar-list-item-icon {
+        &-icon {
           margin-right: 24px;
         }
 
-        .oxygen-navbar-list-item-text {
+        &-text {
           opacity: 1;
         }
       }
@@ -129,7 +129,7 @@
       }
 
       .oxygen-navbar-list-item {
-        .oxygen-navbar-list-item-button {
+        &-button {
           color: var(--oxygen-palette-common-white);
 
           svg {

@@ -129,8 +129,8 @@ const Navbar: FC<NavbarProps> & WithWrapperProps = (props: NavbarProps): ReactEl
                     className={clsx('oxygen-navbar-list-item-button', {selected})}
                     onClick={onClick}
                   >
-                    <ListItemIcon className="oxygen-navbar-list-item-icon">{icon}</ListItemIcon>
-                    <ListItemText color="white" className="oxygen-navbar-list-item-text" primary={name} />
+                    <ListItemIcon className="oxygen-navbar-list-item-button-icon">{icon}</ListItemIcon>
+                    <ListItemText color="white" className="oxygen-navbar-list-item-button-text" primary={name} />
                   </ListItemButton>
                 </ListItem>
               ))}
