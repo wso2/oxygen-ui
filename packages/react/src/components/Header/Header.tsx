@@ -75,6 +75,10 @@ export interface UserDropdownMenuHeaderProps {
    */
   actionText?: string;
   /**
+   * Menu items to be added to the user dropdown menu.
+   */
+  menuItems?: ReactNode[];
+  /**
    * Callback to be called on clicking on the action button.
    */
   onActionClick?: () => void;
@@ -207,6 +211,7 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
             actionIcon={userDropdownMenuProps.actionIcon}
             mode={mode}
             onModeChange={onModeChange}
+            menuItems={userDropdownMenuProps.menuItems}
           />
         </Box>
       </Toolbar>
