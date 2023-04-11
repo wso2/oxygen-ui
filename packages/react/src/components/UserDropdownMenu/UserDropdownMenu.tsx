@@ -45,6 +45,10 @@ export interface UserDropdownMenuProps extends Omit<MenuProps, 'open' | 'anchorE
    */
   actionText?: string;
   /**
+   * Menu items to be added to teh dropdown menu.
+   */
+  menuItems?: ReactNode[];
+  /**
    * Current mode.
    */
   mode?: string;
@@ -122,6 +126,7 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
     actionIcon,
     onModeChange,
     onActionTrigger,
+    menuItems,
     ...rest
   } = props;
 
@@ -188,6 +193,12 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
             <ListItemText primary={user?.name} secondary={user?.email} />
           </ListItem>
         )}
+        {menuItems?.length > 0 ? (
+          <>
+            <Divider />
+            {menuItems}
+          </>
+        ) : null}
         {modes?.length > 0 && (
           <>
             <Divider />
