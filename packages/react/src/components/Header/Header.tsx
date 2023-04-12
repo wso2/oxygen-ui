@@ -40,9 +40,10 @@ export interface HeaderProps extends AppBarProps {
    */
   brand?: BrandTemplate;
   /**
-   * Buttons available on the header.
+   * Left aligned elements to be rendered.
+   * @remarks This will be rendered on the left side of the header following the brand section.
    */
-  buttons?: ReactNode[];
+  leftAlignedElements?: ReactNode[];
   /**
    * List of modes.
    */
@@ -51,6 +52,11 @@ export interface HeaderProps extends AppBarProps {
    * Function to handle the collapsible hamburger click.
    */
   onCollapsibleHamburgerClick?: () => void;
+  /**
+   * Right aligned elements to be rendered.
+   * @remarks This will be rendered on the right side of the header preceding the user dropdown section.
+   */
+  rightAlignedElements?: ReactNode[];
   /**
    * Should show the collapsible hamburger icon?
    */
@@ -118,14 +124,14 @@ const COMPONENT_NAME: string = 'Header';
 
 const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactElement => {
   const {
-    className,
-    children,
-    showCollapsibleHamburger,
     brand,
-    user,
-    buttons,
+    className,
     modes,
+    showCollapsibleHamburger,
+    leftAlignedElements,
     onCollapsibleHamburgerClick,
+    rightAlignedElements,
+    user,
     userDropdownMenu,
     ...rest
   } = props;
@@ -185,12 +191,16 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
             </Typography>
           </Box>
         )}
-        <Box className="oxygen-header-mid-section">
-          <>
-            {children}
-            {buttons?.length > 0 && <Box className="oxygen-header-links">{buttons} </Box>}
-          </>
-        </Box>
+        {(leftAlignedElements || rightAlignedElements) && (
+          <Box className="oxygen-header-elements">
+            {leftAlignedElements?.length > 0 && (
+              <Box className="oxygen-header-elements-left">{leftAlignedElements}</Box>
+            )}
+            {rightAlignedElements?.length > 0 && (
+              <Box className="oxygen-header-elements-right">{rightAlignedElements}</Box>
+            )}
+          </Box>
+        )}
         <Box className="oxygen-header-user-dropdown-menu">
           <UserDropdownMenu
             user={user}

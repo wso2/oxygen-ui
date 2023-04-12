@@ -11,9 +11,6 @@ exports[`Header should match the snapshot 1`] = `
         class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular oxygen-toolbar oxygen-header-toolbar css-hyum1k-MuiToolbar-root"
       >
         <div
-          class="oxygen-box oxygen-header-mid-section MuiBox-root css-0"
-        />
-        <div
           class="oxygen-box oxygen-header-user-dropdown-menu MuiBox-root css-0"
         >
           <button
