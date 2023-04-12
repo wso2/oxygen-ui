@@ -3,7 +3,7 @@ import dedent from 'ts-dedent';
 import StoryConfig from '../../../.storybook/story-config.ts';
 import {withDesign} from '../../../.storybook/utils.ts';
 import Header from './Header.tsx';
-import {LanguagesIcon, LogsIcon, SunIcon, CrescentBrightIcon} from '@oxygen-ui/react-icons';
+import {LanguagesIcon, LogsIcon, SunIcon, CrescentBrightIcon, CommentIcon, MagnifyingGlassIcon} from '@oxygen-ui/react-icons';
 import Button from "../Button";
 
 export const meta = {
@@ -54,18 +54,20 @@ export const basicHeaderVariationOptions = {
   ],
 };
 
-export const linksVariationOptions = {
+export const leftAlignedElementsVariationOptions = {
   ...basicHeaderVariationOptions,
-  buttons: [
+  leftAlignedElements: [
+    <Button color="inherit" startIcon={<MagnifyingGlassIcon />} href="/">Search</Button>, 
+    <Button color="inherit" startIcon={<CommentIcon />} href="/">Info</Button>]
+};
+
+export const rightAlignedElementsVariationOptions = {
+  ...basicHeaderVariationOptions,
+  rightAlignedElements: [
     <Button color="inherit" startIcon={<LogsIcon />} href="/">Console</Button>,
     <Button color="inherit" startIcon={<LanguagesIcon />} href="/">Language</Button>
   ],
 }
-
-export const leftAlignedElementsVariationOptions = {
-  ...basicHeaderVariationOptions,
-  leftAlignedElements: <div style={{padding: '0rem 1rem'}}>Left aligned header elements</div>
-};
 
 <Canvas>
   <Story
@@ -94,27 +96,27 @@ Import and use the `Header` component in your components as follows.
 
 ## Variants
 
-### Header Links
-
-Add links to the header by passing an array of link buttons or similar components to the `buttons` prop.
-
-<Canvas>
-  <Story
-    name="Header Links"
-    args={linksVariationOptions}
-  >
-    {Template.bind({})}
-  </Story>
-</Canvas>
-
 ### Left Aligned Elements
 
-Add left aligned elements to the header by passing a `ReactNode` to the `leftAlignedElements` prop.
+Add left aligned elements to the header by passing an array of `ReactNode`s to the `leftAlignedElements` prop.
 
 <Canvas>
   <Story
     name="Left Aligned Elements"
     args={leftAlignedElementsVariationOptions}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Right Aligned Elements
+
+Add right aligned elements to the header by passing an array of `ReactNode`s to the `rightAlignedElements` prop.
+
+<Canvas>
+  <Story
+    name="Right Aligned Elements"
+    args={rightAlignedElementsVariationOptions}
   >
     {Template.bind({})}
   </Story>
