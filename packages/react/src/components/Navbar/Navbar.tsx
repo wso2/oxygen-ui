@@ -31,6 +31,8 @@ import ListItemButton from '../ListItemButton';
 import ListItemIcon from '../ListItemIcon';
 import ListItemText from '../ListItemText';
 import './navbar.scss';
+import Tooltip from '../Tooltip/Tooltip';
+import Typography from '../Typography/Typography';
 
 export interface NavbarProps extends DrawerProps {
   /**
@@ -44,7 +46,7 @@ export interface NavbarProps extends DrawerProps {
   /**
    * Set of Navbar Items.
    */
-  items?: NavbarItem[][];
+  items?: NavbarItem[];
   /**
    * Callback to be called when the hamburger is clicked.
    */
@@ -52,29 +54,32 @@ export interface NavbarProps extends DrawerProps {
 }
 
 export interface NavbarItem extends ListItemProps {
-  /**
-   * Icon for the Navbar item.
-   * @example <HomeIcon />
-   */
-  icon?: ReactNode;
-  /**
-   * Unique id for the item.
-   */
-  id?: string;
-  /**
-   * Name to display on the UI.
-   * @example Overview.
-   */
-  name: ReactNode;
-  /**
-   * Callback to be called when the item is clicked.
-   */
-  onClick?: MouseEventHandler;
-  /**
-   * Is the item selected?
-   * @example true | false.
-   */
-  selected?: boolean;
+  heading?: string;
+  items: {
+    /**
+     * Icon for the Navbar item.
+     * @example <HomeIcon />
+     */
+    icon?: ReactNode;
+    /**
+     * Unique id for the item.
+     */
+    id?: string;
+    /**
+     * Name to display on the UI.
+     * @example Overview.
+     */
+    name: ReactNode;
+    /**
+     * Callback to be called when the item is clicked.
+     */
+    onClick?: MouseEventHandler;
+    /**
+     * Is the item selected?
+     * @example true | false.
+     */
+    selected?: boolean;
+  }[];
 }
 
 const COMPONENT_NAME: string = 'Navbar';
@@ -105,42 +110,66 @@ const Navbar: FC<NavbarProps> & WithWrapperProps = (props: NavbarProps): ReactEl
     }
   };
 
+  const renderDivider = (itemSetIndex: number, heading: string): ReactElement => {
+    if (itemSetIndex !== 0 && !heading) {
+      return <Divider className="oxygen-navbar-list-item-divider" />;
+    }
+    if (heading) {
+      return (
+        <Divider
+          className="oxygen-navbar-list-item-divider"
+          classes={{wrapper: 'oxygen-navbar-list-item-divider-wrapper'}}
+          textAlign="left"
+        >
+          <Typography variant="overline">{heading}</Typography>
+        </Divider>
+      );
+    }
+    return null;
+  };
+
   return (
     <Drawer className={classes} variant="permanent" open={open} onClose={onClose} {...rest}>
       {collapsible && (
         <>
           <div className="oxygen-navbar-collapsible-hamburger">
-            <IconButton onClick={handleCollapsibleHamburgerClick}>
+            <IconButton onClick={handleCollapsibleHamburgerClick} aria-label="nav item icon">
               {theme.direction === 'rtl' ? <HamburgerIcon /> : <HamburgerIcon />}
             </IconButton>
           </div>
-          <Divider />
+          <Divider className="oxygen-navbar-collapsible-divider" />
         </>
       )}
-      {items !== undefined && Array.isArray(items) && (
-        <List>
-          {items.map((itemSet: NavbarItem[], itemSetIndex: number) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <Fragment key={itemSetIndex}>
-              {itemSet.map(({icon, id, selected, name, onClick}: NavbarItem) => (
-                <ListItem key={id} className={clsx('oxygen-navbar-list-item', {mini: !open, selected})} disablePadding>
-                  <ListItemButton
-                    selected={selected}
-                    className={clsx('oxygen-navbar-list-item-button', {selected})}
-                    onClick={onClick}
-                  >
-                    <ListItemIcon className="oxygen-navbar-list-item-button-icon">{icon}</ListItemIcon>
-                    <ListItemText color="white" className="oxygen-navbar-list-item-button-text" primary={name} />
-                  </ListItemButton>
-                </ListItem>
+      {items !== undefined &&
+        Array.isArray(items) &&
+        items.map((itemSet: NavbarItem, itemSetIndex: number) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Fragment key={itemSetIndex}>
+            <div>{renderDivider(itemSetIndex, itemSet.heading)}</div>
+            <List>
+              {itemSet.items.map(({icon, id, selected, name, onClick}: NavbarItem['item']) => (
+                <Tooltip
+                  className="oxygen-navbar-list-item-tooltip"
+                  key={id}
+                  title={!open && name}
+                  placement="right"
+                  arrow
+                >
+                  <ListItem className={clsx('oxygen-navbar-list-item', {mini: !open, selected})} disablePadding>
+                    <ListItemButton
+                      selected={selected}
+                      className={clsx('oxygen-navbar-list-item-button', {selected})}
+                      onClick={onClick}
+                    >
+                      <ListItemIcon className="oxygen-navbar-list-item-button-icon">{icon}</ListItemIcon>
+                      <ListItemText color="white" className="oxygen-navbar-list-item-button-text" primary={name} />
+                    </ListItemButton>
+                  </ListItem>
+                </Tooltip>
               ))}
-              {items.length > 1 && itemSetIndex !== items.length - 1 && (
-                <Divider className="oxygen-navbar-list-item-divider" />
-              )}
-            </Fragment>
-          ))}
-        </List>
-      )}
+            </List>
+          </Fragment>
+        ))}
     </Drawer>
   );
 };

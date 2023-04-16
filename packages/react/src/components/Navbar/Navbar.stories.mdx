@@ -1,4 +1,4 @@
-import {ConsoleUserThickIcon, HomeFilledIcon, LockIcon, PreferencesIcon, LanguagesIcon} from '@oxygen-ui/react-icons';
+import {ConsoleUserThickIcon, HomeFilledIcon, LockIcon, PreferencesIcon, LanguagesIcon, SunIcon} from '@oxygen-ui/react-icons';
 import {useArgs} from '@storybook/client-api';
 import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
 import dedent from 'ts-dedent';
@@ -13,8 +13,8 @@ export const meta = {
 <Meta title={meta.title} component={meta.component} />
 
 export const navbarItems = [
-  [
-    {
+  {
+    items: [{
       icon: <HomeFilledIcon />,
       name: 'Overview',
       selected: true,
@@ -26,25 +26,62 @@ export const navbarItems = [
     {
       icon: <LockIcon />,
       name: 'Security',
-    },
-  ],
-  [
-    {
+    }],
+  },
+  {
+    items: [{
       icon: <LanguagesIcon />,
       name: 'Language',
     },
     {
       icon: <PreferencesIcon />,
       name: 'Preferences',
+    }],
+  },
+];
+
+export const navbarItemsHeading = [
+  {
+    heading: 'Account',
+    items: [{
+      icon: <HomeFilledIcon />,
+      name: 'Overview',
+      selected: true,
     },
-  ],
+    {
+      icon: <ConsoleUserThickIcon />,
+      name: 'Profile Info',
+    },
+    {
+      icon: <LockIcon />,
+      name: 'Security',
+    }],
+  },
+  {
+    heading: 'Settings',
+    items: [{
+      icon: <LanguagesIcon />,
+      name: 'Language',
+    },
+    {
+      icon: <PreferencesIcon />,
+      name: 'Preferences',
+    }],
+  },
+    {
+    heading: 'Theming',
+    items: [{
+      icon: <SunIcon />,
+      name: 'Customize',
+    },
+    ],
+  },
 ];
 
 export const Template = args => {
   const [runtimeArgs, updateArgs] = useArgs();
   return (
     <Navbar
-      items={navbarItems}
       onClose={() => updateArgs({...runtimeArgs, open: false})}
       onOpen={() => updateArgs({...runtimeArgs, open: true})}
       {...args}
@@ -69,6 +106,7 @@ Use the `Navbar` component to display a list of items in a sidebar.
     parameters={{
       docs: {inlineStories: false, iframeHeight: 476},
     }}
+    args={{items: navbarItems}}
   >
     {Template.bind({})}
   </Story>
@@ -97,6 +135,22 @@ function Demo() {
 
 ## Variants
 
+### Headings
+
+Navbar with headings.
+
+<Canvas>
+  <Story
+    name="Headings"
+    args={{items: navbarItemsHeading, open: true}}
+    parameters={{
+      docs: {inlineStories: false, iframeHeight: 476},
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
 ### Gradient
 
 Navbar with a gradient as the background color.
@@ -104,7 +158,7 @@ Navbar with a gradient as the background color.
 <Canvas>
   <Story
     name="Gradient"
-    args={{fill: 'gradient'}}
+    args={{fill: 'gradient', items: navbarItems}}
     parameters={{
       docs: {inlineStories: false, iframeHeight: 476},
     }}
