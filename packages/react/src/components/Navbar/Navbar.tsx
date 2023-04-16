@@ -148,13 +148,7 @@ const Navbar: FC<NavbarProps> & WithWrapperProps = (props: NavbarProps): ReactEl
             <div>{renderDivider(itemSetIndex, itemSet.heading)}</div>
             <List>
               {itemSet.items.map(({icon, id, selected, name, onClick}: NavbarItem['item']) => (
-                <Tooltip
-                  className="oxygen-navbar-list-item-tooltip"
-                  key={id}
-                  title={!open && name}
-                  placement="right"
-                  arrow
-                >
+                <Tooltip className="oxygen-navbar-list-item-tooltip" key={id} title={!open && name} placement="right">
                   <ListItem className={clsx('oxygen-navbar-list-item', {mini: !open, selected})} disablePadding>
                     <ListItemButton
                       selected={selected}
