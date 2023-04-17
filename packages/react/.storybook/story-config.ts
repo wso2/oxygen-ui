@@ -35,6 +35,8 @@ export type Stories =
   | 'Accordion'
   | 'AccountOverview'
   | 'ActionCard'
+  | 'Alert'
+  | 'AlertTitle'
   | 'AppBar'
   | 'AppShell'
   | 'Avatar'
@@ -125,6 +127,12 @@ const StoryConfig: StorybookConfig = {
   },
   AppBar: {
     hierarchy: `${StorybookCategories.Surfaces}/App Bar`,
+  },
+  Alert: {
+    hierarchy: `${ StorybookCategories.Feedback }/Alert`,
+  },
+  AlertTitle: {
+    hierarchy: `${ StorybookCategories.Feedback }/Alert Title`,
   },
   AppShell: {
     hierarchy: `${StorybookCategories.Layout}/App Shell`,
