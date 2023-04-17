@@ -18,7 +18,7 @@
 
 import MuiSnackbar, {SnackbarProps as MuiSnackbarProps} from '@mui/material/Snackbar';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef, ForwardRefExoticComponent, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './snackbar.scss';
@@ -27,13 +27,15 @@ export type SnackbarProps = MuiSnackbarProps;
 
 const COMPONENT_NAME: string = 'Snackbar';
 
-const Snackbar: FC<SnackbarProps> & WithWrapperProps = (props: SnackbarProps): ReactElement => {
-  const {className, ...rest} = props;
+const Snackbar: ForwardRefExoticComponent<SnackbarProps> & WithWrapperProps = forwardRef(
+  (props: SnackbarProps): ReactElement => {
+    const {className, ...rest} = props;
 
-  const classes: string = clsx('oxygen-snackbar', className);
+    const classes: string = clsx('oxygen-snackbar', className);
 
-  return <MuiSnackbar className={classes} {...rest} />;
-};
+    return <MuiSnackbar className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<SnackbarProps> & WithWrapperProps;
 
 Snackbar.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Snackbar.muiName = COMPONENT_NAME;
