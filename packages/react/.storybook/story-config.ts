@@ -82,6 +82,7 @@ export type Stories =
   | 'PhoneNumberInput'
   | 'Select'
   | 'SignIn'
+  | 'Snackbar'
   | 'Stepper'
   | 'Tab'
   | 'TabPanel'
@@ -267,6 +268,9 @@ const StoryConfig: StorybookConfig = {
   },
   SignIn: {
     hierarchy: `${StorybookCategories.Patterns}/Sign In`,
+  },
+  Snackbar: {
+    hierarchy: `${StorybookCategories.Feedback}/Snackbar`,
   },
   Stepper: {
     hierarchy: `${StorybookCategories.Surfaces}/Stepper`,
