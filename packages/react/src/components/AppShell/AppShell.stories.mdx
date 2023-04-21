@@ -18,32 +18,36 @@ export const meta = {
 
 <Meta title={meta.title} component={meta.component} />
 
-export const NavbarItems = [
-  [
-    {
-      icon: <HomeFilledIcon />,
-      name: 'Overview',
-      selected: true,
-    },
-    {
-      icon: <ConsoleUserThickIcon />,
-      name: 'Profile Info',
-    },
-    {
-      icon: <LockIcon />,
-      name: 'Security',
-    },
-  ],
-  [
-    {
-      icon: <LanguagesIcon />,
-      name: 'Language',
-    },
-    {
-      icon: <PreferencesIcon />,
-      name: 'Preferences',
-    },
-  ],
+export const navbarItems = [
+  {
+    items: [
+      {
+        icon: <HomeFilledIcon />,
+        name: 'Overview',
+        selected: true,
+      },
+      {
+        icon: <ConsoleUserThickIcon />,
+        name: 'Profile Info',
+      },
+      {
+        icon: <LockIcon />,
+        name: 'Security',
+      },
+    ],
+  },
+  {
+    items: [
+      {
+        icon: <LanguagesIcon />,
+        name: 'Language',
+      },
+      {
+        icon: <PreferencesIcon />,
+        name: 'Preferences',
+      },
+    ],
+  },
 ];
 
 export const Template = ({fill, ...rest}) => {
@@ -61,7 +65,7 @@ export const Template = ({fill, ...rest}) => {
           onCollapsibleHamburgerClick={() => updateArgs({...runtimeArgs, open: !open})}
         />
       }
-      navigation={<Navbar fill={fill} open={open} items={NavbarItems} />}
+      navigation={<Navbar fill={fill} open={open} items={navbarItems} />}
       {...rest}
     >
       <Typography paragraph>

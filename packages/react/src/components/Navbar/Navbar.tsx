@@ -142,12 +142,12 @@ const Navbar: FC<NavbarProps> & WithWrapperProps = (props: NavbarProps): ReactEl
       )}
       {items !== undefined &&
         Array.isArray(items) &&
-        items.map((itemSet: NavbarItem, itemSetIndex: number) => (
+        items?.map((itemSet: NavbarItem, itemSetIndex: number) => (
           // eslint-disable-next-line react/no-array-index-key
           <Fragment key={itemSetIndex}>
             <div>{renderDivider(itemSetIndex, itemSet.heading)}</div>
             <List>
-              {itemSet.items.map(({icon, id, selected, name, onClick}: NavbarItem['item']) => (
+              {itemSet.items?.map(({icon, id, selected, name, onClick}: NavbarItem['item']) => (
                 <Tooltip className="oxygen-navbar-list-item-tooltip" key={id} title={!open && name} placement="right">
                   <ListItem className={clsx('oxygen-navbar-list-item', {mini: !open, selected})} disablePadding>
                     <ListItemButton

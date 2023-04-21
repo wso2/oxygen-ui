@@ -139,7 +139,7 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
     },
     Header: {
       properties: {
-        'min-height': '64px',
+        'min-height': '56px',
       },
     },
     Navbar: {

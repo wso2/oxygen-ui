@@ -46,7 +46,7 @@
   }
 
   &-toolbar {
-    min-height: 56px;
+    min-height: var(--oxygen-customComponents-Header-properties-min-height);
   }
 
   &.with-hamburger {
