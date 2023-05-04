@@ -142,28 +142,32 @@ const Navbar: FC<NavbarProps> & WithWrapperProps = (props: NavbarProps): ReactEl
       )}
       {items !== undefined &&
         Array.isArray(items) &&
-        items?.map((itemSet: NavbarItem, itemSetIndex: number) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <Fragment key={itemSetIndex}>
-            <div>{renderDivider(itemSetIndex, itemSet.heading)}</div>
-            <List>
-              {itemSet.items?.map(({icon, id, selected, name, onClick}: NavbarItem['item']) => (
-                <Tooltip className="oxygen-navbar-list-item-tooltip" key={id} title={!open && name} placement="right">
-                  <ListItem className={clsx('oxygen-navbar-list-item', {mini: !open, selected})} disablePadding>
-                    <ListItemButton
-                      selected={selected}
-                      className={clsx('oxygen-navbar-list-item-button', {selected})}
-                      onClick={onClick}
-                    >
-                      <ListItemIcon className="oxygen-navbar-list-item-button-icon">{icon}</ListItemIcon>
-                      <ListItemText color="white" className="oxygen-navbar-list-item-button-text" primary={name} />
-                    </ListItemButton>
-                  </ListItem>
-                </Tooltip>
-              ))}
-            </List>
-          </Fragment>
-        ))}
+        items.map((itemSet: NavbarItem, itemSetIndex: number) => {
+          const navBarListClass: string = clsx('oxygen-navbar-list', {'no-heading': !itemSet.heading});
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={itemSetIndex}>
+              {itemSet.heading ? <div>{renderDivider(itemSetIndex, itemSet.heading)}</div> : null}
+              <List className={navBarListClass}>
+                {itemSet?.items?.map(({icon, id, selected, name, onClick, ...otherItemProps}: NavbarItem['item']) => (
+                  <Tooltip className="oxygen-navbar-list-item-tooltip" key={id} title={!open && name} placement="right">
+                    <ListItem className={clsx('oxygen-navbar-list-item', {mini: !open, selected})} disablePadding>
+                      <ListItemButton
+                        selected={selected}
+                        className={clsx('oxygen-navbar-list-item-button', {selected})}
+                        onClick={onClick}
+                        {...otherItemProps}
+                      >
+                        <ListItemIcon className="oxygen-navbar-list-item-button-icon">{icon}</ListItemIcon>
+                        <ListItemText color="white" className="oxygen-navbar-list-item-button-text" primary={name} />
+                      </ListItemButton>
+                    </ListItem>
+                  </Tooltip>
+                ))}
+              </List>
+            </Fragment>
+          );
+        })}
     </Drawer>
   );
 };
