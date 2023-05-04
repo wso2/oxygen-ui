@@ -114,7 +114,7 @@ module.exports = fixFiles = () => {
       return file;
     }
 
-    file += `${codeToInjectCSSIntoHeadTag}\naddCSS(\'${JSON.stringify(css)}\');`;
+    file += `${codeToInjectCSSIntoHeadTag}\naddCSS(${JSON.stringify(css)});`;
 
     return file;
   };
