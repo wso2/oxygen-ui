@@ -59,7 +59,6 @@ export const Template = ({fill, ...rest}) => {
       header={
         <Header
           {...basicHeaderVariationOptions}
-          showCollapsibleHamburger
           position="fixed"
           open={open}
           onCollapsibleHamburgerClick={() => updateArgs({...runtimeArgs, open: !open})}

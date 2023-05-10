@@ -25,6 +25,14 @@ import {CSSProperties} from 'react';
 declare module '@mui/material/styles' {
   interface PaletteOptions {
     customComponents: {
+      AppShell: {
+        Main: {
+          background: string;
+        };
+        MainWrapper: {
+          background: string;
+        };
+      };
       Footer: {
         background: string;
       };
@@ -41,6 +49,14 @@ declare module '@mui/material/styles' {
   }
   interface Palette {
     customComponents: {
+      AppShell: {
+        Main: {
+          background: string;
+        };
+        MainWrapper: {
+          background: string;
+        };
+      };
       Footer: {
         background: string;
       };
@@ -92,6 +108,8 @@ interface CustomTheme {
   customComponents?: {
     AppShell: {
       properties: {
+        mainBorderTopLeftRadius: string;
+        navBarTopPosition: string;
         padding: CSSProperties['padding'];
       };
     };

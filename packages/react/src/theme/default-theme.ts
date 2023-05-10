@@ -25,6 +25,14 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
     dark: {
       palette: {
         customComponents: {
+          AppShell: {
+            Main: {
+              background: 'var(--oxygen-palette-background-paper)',
+            },
+            MainWrapper: {
+              background: 'var(--oxygen-palette-background-paper)',
+            },
+          },
           Footer: {
             background: '#000000',
           },
@@ -47,6 +55,14 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
     light: {
       palette: {
         customComponents: {
+          AppShell: {
+            Main: {
+              background: 'var(--oxygen-palette-background-paper)',
+            },
+            MainWrapper: {
+              background: 'var(--oxygen-palette-background-paper)',
+            },
+          },
           Footer: {
             background: '#f7f8fb',
           },
@@ -73,6 +89,13 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
     },
   },
   components: {
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          background: 'var(--oxygen-palette-background-paper)',
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         containedPrimary: {
@@ -134,6 +157,8 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
   customComponents: {
     AppShell: {
       properties: {
+        mainBorderTopLeftRadius: '0px',
+        navBarTopPosition: '56px',
         padding: baseTheme.spacing(3),
       },
     },

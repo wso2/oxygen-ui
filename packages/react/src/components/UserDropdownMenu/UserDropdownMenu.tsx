@@ -45,7 +45,7 @@ export interface UserDropdownMenuProps extends Omit<MenuProps, 'open' | 'anchorE
    */
   actionText?: string;
   /**
-   * Menu items to be added to teh dropdown menu.
+   * Menu items to be added to the dropdown menu.
    */
   menuItems?: ReactNode[];
   /**

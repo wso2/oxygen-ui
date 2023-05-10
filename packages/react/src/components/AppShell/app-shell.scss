@@ -22,6 +22,7 @@
   overflow: hidden;
   flex-grow: 1;
   flex-direction: column;
+  min-height: 100vh;
 
   .oxygen-header {
     z-index: 1201;
@@ -33,16 +34,29 @@
     flex-grow: 1;
     transition: all 0.5s;
 
+    .oxygen-app-shell-navigation-wrapper {
+      background: var(--oxygen-palette-customComponents-Navbar-background);
+
+      .MuiDrawer-paper {
+        top: var(--oxygen-customComponents-AppShell-properties-navBarTopPosition);
+        bottom: 0;
+        height: auto;
+      }
+    }
+
     .oxygen-app-shell-main-wrapper {
       display: flex;
       overflow: auto;
       flex-grow: 1;
       flex-direction: column;
+      background: var(--oxygen-palette-customComponents-AppShell-MainWrapper-background);
 
       .oxygen-app-shell-main {
         flex-grow: 1;
         padding: var(--oxygen-customComponents-AppShell-properties-padding);
         margin-top: var(--oxygen-customComponents-Header-properties-min-height);
+        background: var(--oxygen-palette-customComponents-AppShell-Main-background);
+        border-top-left-radius: var(--oxygen-customComponents-AppShell-properties-mainBorderTopLeftRadius);
       }
     }
   }

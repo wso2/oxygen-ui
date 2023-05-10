@@ -157,7 +157,7 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
   return (
     <AppBar
       position="static"
-      color="inherit"
+      color="default"
       variant="outlined"
       elevation={0}
       className={classes}

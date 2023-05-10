@@ -51,7 +51,7 @@ const AppShell: FC<PropsWithChildren<AppShellProps>> & WithWrapperProps = (
     <Box className={classes} {...rest}>
       {header}
       <Box className="oxygen-app-shell-content">
-        {navigation}
+        <Box className="oxygen-app-shell-navigation-wrapper">{navigation}</Box>
         <Box className="oxygen-app-shell-main-wrapper">
           <Box component="main" className="oxygen-app-shell-main">
             {children}
