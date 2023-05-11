@@ -1,6 +1,6 @@
 {
   "name": "@oxygen-ui/react",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "The React implementation of the Oxygen Design System",
   "author": "WSO2",
   "license": "Apache-2.0",
@@ -40,8 +40,8 @@
     "typecheck": "tsc --noemit -p tsconfig.json"
   },
   "dependencies": {
-    "@oxygen-ui/primitives": "1.0.0",
-    "@oxygen-ui/react-icons": "1.0.0",
+    "@oxygen-ui/primitives": "1.1.0",
+    "@oxygen-ui/react-icons": "1.1.0",
     "clsx": "^1.2.1",
     "react-world-flags": "^1.5.1"
   },
@@ -54,7 +54,7 @@
     "@mui/material": "^5.10.16",
     "@mui/system": "^5.10.16",
     "@mui/utils": "^5.10.16",
-    "@oxygen-ui/logger": "1.0.0",
+    "@oxygen-ui/logger": "1.1.0",
     "@rollup/plugin-commonjs": "^23.0.3",
     "@rollup/plugin-image": "^3.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",

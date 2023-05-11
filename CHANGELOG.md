@@ -1,5 +1,15 @@
 # Changelog
 
+# [1.1.0](https://github.com/wso2/oxygen-ui/compare/v1.0.0...v1.1.0)
+<br> Released on: 2023-05-11
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** add Alert component ([8003836](https://github.com/wso2/oxygen-ui/commit/800383651ac8e3d24b3720c4b4f9ba29537c162a))
+* **react:** add Snackbar component ([02724a3](https://github.com/wso2/oxygen-ui/commit/02724a39b589c9cd4c2e41b00199d6741f2021ef))
+* **react:** add `Accordion` component ([9e19211](https://github.com/wso2/oxygen-ui/commit/9e192116354c9e272593f742922d867796def365))
+
 # [1.0.0](https://github.com/wso2/oxygen-ui/compare/v0.1.3...v1.0.0)
 <br> Released on: 2023-04-01
 
