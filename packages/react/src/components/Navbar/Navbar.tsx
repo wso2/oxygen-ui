@@ -55,6 +55,7 @@ export interface NavbarProps extends DrawerProps {
 
 export interface NavbarItem extends ListItemProps {
   heading?: string;
+  id?: string;
   items: {
     /**
      * Icon for the Navbar item.
@@ -145,8 +146,7 @@ const Navbar: FC<NavbarProps> & WithWrapperProps = (props: NavbarProps): ReactEl
         items.map((itemSet: NavbarItem, itemSetIndex: number) => {
           const navBarListClass: string = clsx('oxygen-navbar-list', {'no-heading': !itemSet.heading});
           return (
-            // eslint-disable-next-line react/no-array-index-key
-            <Fragment key={itemSetIndex}>
+            <Fragment key={itemSet.id}>
               {itemSet.heading ? <div>{renderDivider(itemSetIndex, itemSet.heading)}</div> : null}
               <List className={navBarListClass}>
                 {itemSet?.items?.map(({icon, id, selected, name, onClick, ...otherItemProps}: NavbarItem['item']) => (

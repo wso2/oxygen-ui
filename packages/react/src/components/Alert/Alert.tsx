@@ -18,11 +18,10 @@
 
 import MuiAlert, {AlertProps as MuiAlertProps} from '@mui/material/Alert';
 import clsx from 'clsx';
-import {forwardRef, ForwardRefExoticComponent, ReactElement} from 'react';
+import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './alert.scss';
-import {MutableRefObject} from 'react';
 
 export type AlertProps = MuiAlertProps;
 

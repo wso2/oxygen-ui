@@ -28,7 +28,6 @@ The `Header` provides content and actions related to the current screen. It's us
 navigation, and actions.
 
 export const basicHeaderVariationOptions = {
-  isLeftNavigationActive: true,
   brand: {
     logo: {
       desktop: <img src="/assets/images/oxygen-ui-logo-mini.svg" alt="logo" height="40" />,
@@ -57,15 +56,15 @@ export const basicHeaderVariationOptions = {
 export const leftAlignedElementsVariationOptions = {
   ...basicHeaderVariationOptions,
   leftAlignedElements: [
-    <Button color="inherit" startIcon={<MagnifyingGlassIcon />} href="/">Search</Button>, 
-    <Button color="inherit" startIcon={<CommentIcon />} href="/">Info</Button>]
+    <Button color="inherit" startIcon={<MagnifyingGlassIcon />} href="/" id='search'>Search</Button>,
+    <Button color="inherit" startIcon={<CommentIcon />} href="/" id='info'>Info</Button>]
 };
 
 export const rightAlignedElementsVariationOptions = {
   ...basicHeaderVariationOptions,
   rightAlignedElements: [
-    <Button color="inherit" startIcon={<LogsIcon />} href="/">Console</Button>,
-    <Button color="inherit" startIcon={<LanguagesIcon />} href="/">Language</Button>
+    <Button color="inherit" startIcon={<LogsIcon />} href="/" id='console'>Console</Button>,
+    <Button color="inherit" startIcon={<LanguagesIcon />} href="/" id='language'>Language</Button>
   ],
 }
 

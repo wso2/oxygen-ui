@@ -194,13 +194,13 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
           </ListItem>
         )}
         {menuItems?.length > 0 ? (
-          <>
+          <div>
             <Divider />
             {menuItems}
-          </>
+          </div>
         ) : null}
         {modes?.length > 0 && (
-          <>
+          <div>
             <Divider />
             <ListSubheader>{modesHeading}</ListSubheader>
             {modes?.map((theme: ModeList) => {
@@ -224,16 +224,16 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
                 </MenuItem>
               );
             })}
-          </>
+          </div>
         )}
         {actionText && (
-          <>
+          <div>
             <Divider />
             <MenuItem className="dropdown-menu-item" onClick={(): void => handleActionTrigger()}>
               <ListItemIcon>{actionIcon}</ListItemIcon>
               <ListItemText primary={actionText} />
             </MenuItem>
-          </>
+          </div>
         )}
       </Menu>
     </>
