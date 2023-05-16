@@ -22,18 +22,19 @@ import {forwardRef, ForwardRefExoticComponent, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './snackbar.scss';
+import { MutableRefObject } from 'react';
 
 export type SnackbarProps = MuiSnackbarProps;
 
 const COMPONENT_NAME: string = 'Snackbar';
 
 const Snackbar: ForwardRefExoticComponent<SnackbarProps> & WithWrapperProps = forwardRef(
-  (props: SnackbarProps): ReactElement => {
+  (props: SnackbarProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const {className, ...rest} = props;
 
     const classes: string = clsx('oxygen-snackbar', className);
 
-    return <MuiSnackbar className={classes} {...rest} />;
+    return <MuiSnackbar className={classes} {...rest} ref={ref} />;
   },
 ) as ForwardRefExoticComponent<SnackbarProps> & WithWrapperProps;
 

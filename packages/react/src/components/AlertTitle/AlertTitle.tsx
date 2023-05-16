@@ -22,18 +22,19 @@ import {forwardRef, ForwardRefExoticComponent, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './alert-title.scss';
+import {MutableRefObject} from 'react';
 
 export type AlertProps = MuiAlertProps;
 
 const COMPONENT_NAME: string = 'AlertTitle';
 
 const AlertTitle: ForwardRefExoticComponent<AlertProps> & WithWrapperProps = forwardRef(
-  (props: AlertProps): ReactElement => {
+  (props: AlertProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const {className, ...rest} = props;
 
     const classes: string = clsx('oxygen-alert-title', className);
 
-    return <MuiAlertTitle className={classes} {...rest} />;
+    return <MuiAlertTitle className={classes} {...rest} ref={ref} />;
   },
 ) as ForwardRefExoticComponent<AlertProps> & WithWrapperProps;
 
