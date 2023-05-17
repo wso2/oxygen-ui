@@ -18,7 +18,7 @@
 
 import MuiAlert, {AlertProps as MuiAlertProps} from '@mui/material/Alert';
 import clsx from 'clsx';
-import {forwardRef, ForwardRefExoticComponent, ReactElement} from 'react';
+import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './alert.scss';
@@ -28,12 +28,12 @@ export type AlertProps = MuiAlertProps;
 const COMPONENT_NAME: string = 'Alert';
 
 const Alert: ForwardRefExoticComponent<AlertProps> & WithWrapperProps = forwardRef(
-  (props: AlertProps): ReactElement => {
+  (props: AlertProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const {className, ...rest} = props;
 
     const classes: string = clsx('oxygen-alert', className);
 
-    return <MuiAlert className={classes} {...rest} />;
+    return <MuiAlert className={classes} {...rest} ref={ref} />;
   },
 ) as ForwardRefExoticComponent<AlertProps> & WithWrapperProps;
 

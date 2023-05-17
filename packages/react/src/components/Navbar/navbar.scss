@@ -83,7 +83,7 @@
     margin-bottom: 2px;
 
     &-button {
-      height: 45px;
+      height: 38px;
       justify-content: center;
       padding-left: 15px;
       padding-right: 15px;
@@ -103,6 +103,16 @@
 
       &.selected {
         background: var(--oxygen-palette-action-selected);
+
+        &::before {
+          content: "";
+          height: 80%;
+          width: 5px;
+          background-color: var(--oxygen-palette-primary-main);
+          position: absolute;
+          left: -10px;
+          border-radius: 5px;
+        }
 
         &:hover {
           background: var(--oxygen-palette-action-selected);
@@ -154,6 +164,10 @@
       .oxygen-navbar-list-item {
         &-button {
           color: var(--oxygen-palette-common-white);
+
+          &::before {
+            background-color: var(--oxygen-palette-common-white);
+          }
 
           svg {
             fill: var(--oxygen-palette-common-white);
