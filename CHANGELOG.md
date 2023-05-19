@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/wso2/oxygen-ui/compare/v1.1.0...v1.1.1)
+<br> Released on: 2023-05-19
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** fix errors thrown in the browser console ([a9e0210](https://github.com/wso2/oxygen-ui/commit/a9e02105e06e5054e76bb5f74f97ce148e52c757))
+
 # [1.1.0](https://github.com/wso2/oxygen-ui/compare/v1.0.0...v1.1.0)
 <br> Released on: 2023-05-11
 
