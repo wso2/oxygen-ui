@@ -45,6 +45,10 @@ export interface UserDropdownMenuProps extends Omit<MenuProps, 'open' | 'anchorE
    */
   actionText?: string;
   /**
+   * Footer content.
+   */
+  footerContent?: ReactNode[];
+  /**
    * Menu items to be added to the dropdown menu.
    */
   menuItems?: ReactNode[];
@@ -116,6 +120,7 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
   const {
     className,
     children,
+    footerContent,
     triggerOptions,
     user,
     modes,
@@ -193,15 +198,9 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
             <ListItemText primary={user?.name} secondary={user?.email} />
           </ListItem>
         )}
-        {menuItems?.length > 0 ? (
-          <div>
-            <Divider />
-            {menuItems}
-          </div>
-        ) : null}
+        {menuItems?.length > 0 ? menuItems : null}
         {modes?.length > 0 && (
           <div>
-            <Divider />
             <ListSubheader>{modesHeading}</ListSubheader>
             {modes?.map((theme: ModeList) => {
               const {name, icon} = theme;
@@ -227,13 +226,16 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
           </div>
         )}
         {actionText && (
-          <div>
-            <Divider />
-            <MenuItem className="dropdown-menu-item" onClick={(): void => handleActionTrigger()}>
-              <ListItemIcon>{actionIcon}</ListItemIcon>
-              <ListItemText primary={actionText} />
-            </MenuItem>
-          </div>
+          <MenuItem className="dropdown-menu-item" onClick={(): void => handleActionTrigger()}>
+            <ListItemIcon>{actionIcon}</ListItemIcon>
+            <ListItemText primary={actionText} />
+          </MenuItem>
+        )}
+        {footerContent && (
+          <>
+            <Divider variant="middle" />
+            <div className="oxygen-user-dropdown-menu-footer">{footerContent}</div>
+          </>
         )}
       </Menu>
     </>

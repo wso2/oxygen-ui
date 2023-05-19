@@ -18,7 +18,8 @@
 
 .oxygen-user-dropdown-menu {
   &-paper {
-    min-width: 230px;
+    min-width: 250px;
+    border-radius: 16px;
   }
 
   &-list-item {
@@ -29,12 +30,26 @@
 
   &-item {
     &-radio {
-      padding: 5px;
+      padding: 0;
     }
+  }
+
+  &-footer {
+    padding: 8px 16px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .oxygen-menu-item {
+    margin: 0.2rem 0.5rem;
+  }
+
+  .oxygen-menu-item:hover {
+    border-radius: 8px;
   }
 
   .oxygen-divider {
     margin-top: 0.5em;
-    margin-bottom: 0.5em;
+    margin-bottom: 0;
   }
 }
