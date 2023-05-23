@@ -28,6 +28,7 @@ import './header.scss';
 import AppBar, {AppBarProps} from '../AppBar';
 import Avatar from '../Avatar';
 import Box from '../Box';
+import {ButtonProps} from '../Button';
 import IconButton from '../IconButton';
 import Link from '../Link';
 import Toolbar from '../Toolbar';
@@ -88,6 +89,7 @@ export interface UserDropdownMenuHeaderProps {
    * Callback to be called on clicking on the action button.
    */
   onActionClick?: () => void;
+  triggerOptions?: Omit<ButtonProps, 'onClick'>;
 }
 
 export interface BrandTemplate {
@@ -213,6 +215,7 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
                   {user?.name?.split('')[0]}
                 </Avatar>
               ),
+              ...userDropdownMenuProps.triggerOptions,
             }}
             modesHeading="Theme"
             modes={modes}
