@@ -125,7 +125,7 @@ export interface BrandTemplate {
 
 const userDropdownMenuDefaultProps: UserDropdownMenuHeaderProps = {
   actionIcon: <PowerIcon />,
-  actionText: 'Log Out',
+  actionText: 'Logout',
   footerContent: [
     <Link variant="body3" href="/">
       Privacy Policy &nbsp;&nbsp;
