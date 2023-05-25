@@ -57,7 +57,7 @@ importers:
         version: 4.9.3
     devDependencies:
       '@oxygen-ui/logger':
-        specifier: 1.1.2
+        specifier: 1.1.3
         version: link:../../packages/logger
       '@wso2/eslint-plugin':
         specifier: https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f
@@ -90,10 +90,10 @@ importers:
         specifier: ^4.5.13
         version: 4.5.13
       '@oxygen-ui/primitives':
-        specifier: 1.1.2
+        specifier: 1.1.3
         version: link:../../packages/primitives
       '@oxygen-ui/react':
-        specifier: 1.1.2
+        specifier: 1.1.3
         version: link:../../packages/react
       react:
         specifier: ^18.2.0
@@ -251,7 +251,7 @@ importers:
         specifier: ^0.4.0
         version: 0.4.0
       '@oxygen-ui/logger':
-        specifier: 1.1.2
+        specifier: 1.1.3
         version: link:../logger
       '@types/jest':
         specifier: ^29.2.3
@@ -302,10 +302,10 @@ importers:
   packages/react:
     dependencies:
       '@oxygen-ui/primitives':
-        specifier: 1.1.2
+        specifier: 1.1.3
         version: link:../primitives
       '@oxygen-ui/react-icons':
-        specifier: 1.1.2
+        specifier: 1.1.3
         version: link:../react-icons
       clsx:
         specifier: ^1.2.1
@@ -339,7 +339,7 @@ importers:
         specifier: ^5.10.16
         version: 5.11.13(react@18.2.0)
       '@oxygen-ui/logger':
-        specifier: 1.1.2
+        specifier: 1.1.3
         version: link:../logger
       '@rollup/plugin-commonjs':
         specifier: ^23.0.3
@@ -528,10 +528,10 @@ importers:
         specifier: ^7.20.2
         version: 7.20.5
       '@oxygen-ui/logger':
-        specifier: 1.1.2
+        specifier: 1.1.3
         version: link:../logger
       '@oxygen-ui/primitives':
-        specifier: 1.1.2
+        specifier: 1.1.3
         version: link:../primitives
       '@rollup/plugin-babel':
         specifier: 5.3.1

@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.3](https://github.com/wso2/oxygen-ui/compare/v1.1.2...v1.1.3)
+<br> Released on: 2023-05-25
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** fix typo in logout default text ([8912f6d](https://github.com/wso2/oxygen-ui/commit/8912f6df0beed67b5d09f4f549dcd4fbac796294))
+
 ## [1.1.2](https://github.com/wso2/oxygen-ui/compare/v1.1.1...v1.1.2)
 <br> Released on: 2023-05-23
 
