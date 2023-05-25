@@ -147,7 +147,7 @@ const Navbar: FC<NavbarProps> & WithWrapperProps = (props: NavbarProps): ReactEl
           const navBarListClass: string = clsx('oxygen-navbar-list', {'no-heading': !itemSet.heading});
           return (
             <Fragment key={itemSet.id}>
-              {itemSet.heading ? <div>{renderDivider(itemSetIndex, itemSet.heading)}</div> : null}
+              <div>{renderDivider(itemSetIndex, itemSet.heading)}</div>
               <List className={navBarListClass}>
                 {itemSet?.items?.map(({icon, id, selected, name, onClick, ...otherItemProps}: NavbarItem['item']) => (
                   <Tooltip className="oxygen-navbar-list-item-tooltip" key={id} title={!open && name} placement="right">
