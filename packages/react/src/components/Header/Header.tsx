@@ -96,7 +96,7 @@ export interface UserDropdownMenuHeaderProps {
    * Callback to be called on clicking on the action button.
    */
   onActionClick?: () => void;
-  triggerOptions?: Omit<ButtonProps, 'onClick'>;
+  triggerOptions?: Omit<ButtonProps, 'onClick'> & Record<string, any>;
 }
 
 export interface BrandTemplate {
@@ -125,7 +125,7 @@ export interface BrandTemplate {
 
 const userDropdownMenuDefaultProps: UserDropdownMenuHeaderProps = {
   actionIcon: <PowerIcon />,
-  actionText: 'Log Out',
+  actionText: 'Logout',
   footerContent: [
     <Link variant="body3" href="/">
       Privacy Policy &nbsp;&nbsp;
