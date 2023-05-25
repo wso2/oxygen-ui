@@ -120,6 +120,8 @@ interface CustomTheme {
     };
     Navbar?: {
       properties?: {
+        'chip-background-color'?: string;
+        'chip-color'?: string;
         'mini-variant-width'?: string;
         width?: string;
       };

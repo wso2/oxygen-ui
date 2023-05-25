@@ -169,6 +169,8 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
     },
     Navbar: {
       properties: {
+        'chip-background-color': 'var(--oxygen-palette-primary-main)',
+        'chip-color': 'var(--oxygen-palette-primary-contrastText)',
         'mini-variant-width': '64px',
         width: '300px',
       },
