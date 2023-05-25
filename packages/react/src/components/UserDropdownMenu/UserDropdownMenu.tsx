@@ -77,7 +77,7 @@ export interface UserDropdownMenuProps extends Omit<MenuProps, 'open' | 'anchorE
    */
   onUserProfileNavigation?: () => void;
   /**
-   * Props sent to the menu trigger Button component;
+   * Props sent to the menu trigger Button component.
    */
   triggerOptions?: Omit<ButtonProps, 'onClick'> & Record<string, any>;
   /**
