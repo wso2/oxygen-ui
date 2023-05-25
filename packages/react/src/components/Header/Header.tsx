@@ -18,7 +18,7 @@
 
 import {useColorScheme} from '@mui/material/styles';
 import {Mode} from '@mui/system/cssVars/useCurrentColorScheme';
-import {ChevronDownIcon, HamburgerIcon, PowerIcon, SunIcon} from '@oxygen-ui/react-icons';
+import {ChevronDownIcon, HamburgerIcon, PowerIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {FC, ReactElement, ReactNode} from 'react';
 import {useIsMobile} from '../../hooks/use-is-mobile';
@@ -31,9 +31,6 @@ import Box from '../Box';
 import {ButtonProps} from '../Button';
 import IconButton from '../IconButton';
 import Link from '../Link';
-import ListItemIcon from '../ListItemIcon/ListItemIcon';
-import ListItemText from '../ListItemText/ListItemText';
-import MenuItem from '../MenuItem/MenuItem';
 import Toolbar from '../Toolbar';
 import Typography from '../Typography';
 import UserDropdownMenu, {ModeList, UserTemplate} from '../UserDropdownMenu';
@@ -126,28 +123,6 @@ export interface BrandTemplate {
 const userDropdownMenuDefaultProps: UserDropdownMenuHeaderProps = {
   actionIcon: <PowerIcon />,
   actionText: 'Logout',
-  footerContent: [
-    <Link variant="body3" href="/">
-      Privacy Policy &nbsp;&nbsp;
-    </Link>,
-    <Link variant="body3" href="/">
-      Terms of Service
-    </Link>,
-  ],
-  menuItems: [
-    <MenuItem color="inherit">
-      <ListItemIcon>
-        <SunIcon />
-      </ListItemIcon>
-      <ListItemText>My Account</ListItemText>
-    </MenuItem>,
-    <MenuItem color="inherit">
-      <ListItemIcon>
-        <SunIcon />
-      </ListItemIcon>
-      <ListItemText>Billing Portal</ListItemText>
-    </MenuItem>,
-  ],
   onActionClick: (): void => null,
 };
 

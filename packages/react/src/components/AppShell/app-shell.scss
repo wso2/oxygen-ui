@@ -57,6 +57,7 @@
         margin-top: var(--oxygen-customComponents-Header-properties-min-height);
         background: var(--oxygen-palette-customComponents-AppShell-Main-background);
         border-top-left-radius: var(--oxygen-customComponents-AppShell-properties-mainBorderTopLeftRadius);
+        position: relative;
       }
     }
   }
