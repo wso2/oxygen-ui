@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.5](https://github.com/wso2/oxygen-ui/compare/v1.1.4...v1.1.5)
+<br> Released on: 2023-05-26
+
+## What's Changed
+
+### `@oxygen-ui/primitives`
+* **primitives:** add event, cache and improve email-provider icons ([4bd9af1](https://github.com/wso2/oxygen-ui/commit/4bd9af1b318c13ccb6a9396b20c8187a96ee4813))
+
 ## [1.1.4](https://github.com/wso2/oxygen-ui/compare/v1.1.3...v1.1.4)
 <br> Released on: 2023-05-26
 
