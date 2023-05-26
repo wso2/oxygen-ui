@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.4](https://github.com/wso2/oxygen-ui/compare/v1.1.3...v1.1.4)
+<br> Released on: 2023-05-26
+
+## What's Changed
+
+### `@oxygen-ui/primitives`
+* **primitives:** add change, email, sub-organization, email-provider & add icons  ([8d5c591](https://github.com/wso2/oxygen-ui/commit/8d5c59169cfa43af6e2759905aca54fe44d36385))
+
 ## [1.1.3](https://github.com/wso2/oxygen-ui/compare/v1.1.2...v1.1.3)
 <br> Released on: 2023-05-25
 
