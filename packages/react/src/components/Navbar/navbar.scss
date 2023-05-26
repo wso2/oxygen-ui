@@ -119,6 +119,13 @@
         }
       }
     }
+
+    &-chip {
+      font-size: 0.6125rem;
+      height: 20px;
+      background-color: var(--oxygen-customComponents-Navbar-properties-chip-background-color);
+      color: var(--oxygen-customComponents-Navbar-properties-chip-color);
+    }
   }
 
   &.open {

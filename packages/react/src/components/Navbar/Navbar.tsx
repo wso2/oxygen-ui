@@ -22,6 +22,7 @@ import {FC, ReactElement, ReactNode, MouseEvent, Fragment, MouseEventHandler} fr
 import {WithWrapperProps, Theme} from '../../models';
 import {useTheme} from '../../theme';
 import {composeComponentDisplayName} from '../../utils';
+import Chip from '../Chip';
 import Divider from '../Divider';
 import Drawer, {DrawerProps} from '../Drawer';
 import IconButton from '../IconButton';
@@ -80,6 +81,8 @@ export interface NavbarItem extends ListItemProps {
      * @example true | false.
      */
     selected?: boolean;
+    tag?: string;
+    tagClassName?: string;
   }[];
 }
 
@@ -149,21 +152,40 @@ const Navbar: FC<NavbarProps> & WithWrapperProps = (props: NavbarProps): ReactEl
             <Fragment key={itemSet.id}>
               <div>{renderDivider(itemSetIndex, itemSet.heading)}</div>
               <List className={navBarListClass}>
-                {itemSet?.items?.map(({icon, id, selected, name, onClick, ...otherItemProps}: NavbarItem['item']) => (
-                  <Tooltip className="oxygen-navbar-list-item-tooltip" key={id} title={!open && name} placement="right">
-                    <ListItem className={clsx('oxygen-navbar-list-item', {mini: !open, selected})} disablePadding>
-                      <ListItemButton
-                        selected={selected}
-                        className={clsx('oxygen-navbar-list-item-button', {selected})}
-                        onClick={onClick}
-                        {...otherItemProps}
-                      >
-                        <ListItemIcon className="oxygen-navbar-list-item-button-icon">{icon}</ListItemIcon>
-                        <ListItemText color="white" className="oxygen-navbar-list-item-button-text" primary={name} />
-                      </ListItemButton>
-                    </ListItem>
-                  </Tooltip>
-                ))}
+                {itemSet?.items?.map(
+                  ({
+                    icon,
+                    id,
+                    selected,
+                    name,
+                    onClick,
+                    tag,
+                    tagClassName,
+                    ...otherItemProps
+                  }: NavbarItem['items'][0]) => (
+                    <Tooltip
+                      className="oxygen-navbar-list-item-tooltip"
+                      key={id}
+                      title={!open && name}
+                      placement="right"
+                    >
+                      <ListItem className={clsx('oxygen-navbar-list-item', {mini: !open, selected})} disablePadding>
+                        <ListItemButton
+                          selected={selected}
+                          className={clsx('oxygen-navbar-list-item-button', {selected})}
+                          onClick={onClick}
+                          {...otherItemProps}
+                        >
+                          <ListItemIcon className="oxygen-navbar-list-item-button-icon">{icon}</ListItemIcon>
+                          <ListItemText color="white" className="oxygen-navbar-list-item-button-text" primary={name} />
+                          {open && tag ? (
+                            <Chip label={tag} className={clsx('oxygen-navbar-list-item-chip', tagClassName)} />
+                          ) : null}
+                        </ListItemButton>
+                      </ListItem>
+                    </Tooltip>
+                  ),
+                )}
               </List>
             </Fragment>
           );
