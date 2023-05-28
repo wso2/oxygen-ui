@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.6](https://github.com/wso2/oxygen-ui/compare/v1.1.5...v1.1.6)
+<br> Released on: 2023-05-28
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** Add status colors to Chip component ([334dc63](https://github.com/wso2/oxygen-ui/commit/334dc63b5bb10b949a7722fe1bde2109added67b))
+
 ## [1.1.5](https://github.com/wso2/oxygen-ui/compare/v1.1.4...v1.1.5)
 <br> Released on: 2023-05-26
 
