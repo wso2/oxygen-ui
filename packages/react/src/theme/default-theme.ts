@@ -162,6 +162,21 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
         padding: baseTheme.spacing(3),
       },
     },
+    Chip: {
+      // TODO: Move these to color palette.
+      properties: {
+        'beta-background': '#57725D',
+        'beta-text-color': 'var(--oxygen-palette-primary-contrastText)',
+        'default-background': 'var(--oxygen-palette-primary-main)',
+        'default-text-color': 'var(--oxygen-palette-primary-contrastText)',
+        'experimental-background': '#474747',
+        'experimental-text-color': 'var(--oxygen-palette-primary-contrastText)',
+        'new-background': '#a333c8',
+        'new-text-color': 'var(--oxygen-palette-primary-contrastText)',
+        'premium-background': 'linear-gradient(270deg, #ff9d4d, #ff7300)',
+        'premium-text-color': 'var(--oxygen-palette-primary-contrastText)',
+      },
+    },
     Header: {
       properties: {
         'min-height': '56px',
@@ -169,8 +184,6 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
     },
     Navbar: {
       properties: {
-        'chip-background-color': 'var(--oxygen-palette-primary-main)',
-        'chip-color': 'var(--oxygen-palette-primary-contrastText)',
         'mini-variant-width': '64px',
         width: '300px',
       },

@@ -179,7 +179,13 @@ const Navbar: FC<NavbarProps> & WithWrapperProps = (props: NavbarProps): ReactEl
                           <ListItemIcon className="oxygen-navbar-list-item-button-icon">{icon}</ListItemIcon>
                           <ListItemText color="white" className="oxygen-navbar-list-item-button-text" primary={name} />
                           {open && tag ? (
-                            <Chip label={tag} className={clsx('oxygen-navbar-list-item-chip', tagClassName)} />
+                            <Chip
+                              label={tag}
+                              className={clsx(
+                                `oxygen-navbar-list-item-chip oxygen-chip-${tag.toLowerCase()}`,
+                                tagClassName,
+                              )}
+                            />
                           ) : null}
                         </ListItemButton>
                       </ListItem>
