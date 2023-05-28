@@ -16,6 +16,10 @@
  * under the License.
  */
 
+.oxygen-user-dropdown-button {
+  min-height: 45px;
+}
+
 .oxygen-user-dropdown-menu {
   &-paper {
     min-width: 250px;
@@ -42,9 +46,6 @@
 
   .oxygen-menu-item {
     margin: 0.2rem 0.5rem;
-  }
-
-  .oxygen-menu-item:hover {
     border-radius: 8px;
   }
 

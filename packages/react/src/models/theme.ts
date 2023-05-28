@@ -113,6 +113,20 @@ interface CustomTheme {
         padding: CSSProperties['padding'];
       };
     };
+    Chip?: {
+      properties?: {
+        'beta-background'?: string;
+        'beta-text-color'?: string;
+        'default-background'?: string;
+        'default-text-color'?: string;
+        'experimental-background'?: string;
+        'experimental-text-color'?: string;
+        'new-background'?: string;
+        'new-text-color'?: string;
+        'premium-background'?: string;
+        'premium-text-color'?: string;
+      };
+    };
     Header?: {
       properties?: {
         'min-height'?: string;
@@ -120,8 +134,6 @@ interface CustomTheme {
     };
     Navbar?: {
       properties?: {
-        'chip-background-color'?: string;
-        'chip-color'?: string;
         'mini-variant-width'?: string;
         width?: string;
       };
