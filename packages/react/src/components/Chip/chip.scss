@@ -21,14 +21,17 @@
     background: var(--oxygen-customComponents-Chip-properties-premium-background);
     color: var(--oxygen-customComponents-Chip-properties-premium-text-color);
   }
+
   &-new {
     background: var(--oxygen-customComponents-Chip-properties-new-background);
     color: var(--oxygen-customComponents-Chip-properties-new-text-color);
   }
+
   &-beta {
     background: var(--oxygen-customComponents-Chip-properties-beta-background);
     color: var(--oxygen-customComponents-Chip-properties-beta-text-color);
   }
+
   &-experimental {
     background: var(--oxygen-customComponents-Chip-properties-experimental-background);
     color: var(--oxygen-customComponents-Chip-properties-experimental-text-color);
