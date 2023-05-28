@@ -21,7 +21,8 @@
 }
 
 .oxygen-user-dropdown-menu {
-  &-paper {
+  // TODO: Move this to theme overrides.
+  & .MuiMenu-paper {
     min-width: 250px;
     border-radius: 16px;
   }
