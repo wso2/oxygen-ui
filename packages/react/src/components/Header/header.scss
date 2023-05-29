@@ -32,6 +32,8 @@
     display: flex;
     align-items: center;
     width: calc(var(--oxygen-customComponents-Navbar-properties-width) - 77px);
+    text-decoration: none;
+    color: inherit;
 
     &-logo {
       height: 40px;
