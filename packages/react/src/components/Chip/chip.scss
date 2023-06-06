@@ -17,6 +17,8 @@
  */
 
 .oxygen-chip {
+  text-transform: uppercase;
+
   &-premium {
     background: var(--oxygen-customComponents-Chip-properties-premium-background);
     color: var(--oxygen-customComponents-Chip-properties-premium-text-color);
