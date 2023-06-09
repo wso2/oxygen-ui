@@ -60,7 +60,11 @@ module.exports = {
       },
     },
     './release/scripts/workspaces.mjs': {
-      skipChecks: true
+      skipChecks: true,
+      additionalManifests: {
+        versionUpdates: ['packages/*/dist/package.json'],
+        dependencyUpdates: ['packages/*/dist/package.json' ]
+      },
     }
   },
   npm: {

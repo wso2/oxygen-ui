@@ -78,3 +78,7 @@ logger.log('💅 Root package.json file created! 🎉🎉🎉');
 logger.log('💅 Fixing the imports in the components and injecting CSS...');
 fixFiles();
 logger.log('💅 Imports fixed and CSS injected into components! 🎉🎉🎉');
+
+logger.log('📝 Copying the README.md file...');
+fs.copySync(path.resolve(__dirname, '..', 'README.md'), path.resolve(__dirname, '..', 'dist', 'README.md'));
+logger.log('📝 README.md file copied! 🎉🎉🎉');
