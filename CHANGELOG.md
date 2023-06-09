@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.9](https://github.com/wso2/oxygen-ui/compare/v1.1.8...v1.1.9)
+<br> Released on: 2023-06-09
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** fix dist folder not being published ([8c4dfc1](https://github.com/wso2/oxygen-ui/commit/8c4dfc1289a15ab97c6ea960ef2cdfb192bd78b1))
+
 ## [1.1.8](https://github.com/wso2/oxygen-ui/compare/v1.1.7...v1.1.8)
 <br> Released on: 2023-06-09
 
