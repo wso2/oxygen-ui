@@ -165,15 +165,15 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
     Chip: {
       // TODO: Move these to color palette.
       properties: {
-        'beta-background': '#57725D',
+        'beta-background': '#2ab1da',
         'beta-text-color': 'var(--oxygen-palette-primary-contrastText)',
         'default-background': 'var(--oxygen-palette-primary-main)',
         'default-text-color': 'var(--oxygen-palette-primary-contrastText)',
-        'experimental-background': '#474747',
+        'experimental-background': '#a73fe3',
         'experimental-text-color': 'var(--oxygen-palette-primary-contrastText)',
-        'new-background': '#a333c8',
+        'new-background': '#3fb81f',
         'new-text-color': 'var(--oxygen-palette-primary-contrastText)',
-        'premium-background': 'linear-gradient(270deg, #ff9d4d, #ff7300)',
+        'premium-background': '#d2a600',
         'premium-text-color': 'var(--oxygen-palette-primary-contrastText)',
       },
     },
