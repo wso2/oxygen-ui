@@ -59,7 +59,7 @@ module.exports = {
         commitsSort: ['type', 'shortDesc'],
       },
     },
-    '@release-it-plugins/workspaces': {
+    './release/scripts/workspaces.mjs': {
       skipChecks: true
     }
   },
