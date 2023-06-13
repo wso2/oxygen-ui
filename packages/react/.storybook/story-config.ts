@@ -192,7 +192,7 @@ const StoryConfig: StorybookConfig = {
     hierarchy: `${StorybookCategories.Navigation}/Drawer`,
   },
   CountryFlag: {
-    hierarchy: `${StorybookCategories.Icons}/CountryFlag`,
+    hierarchy: `${StorybookCategories.Icons}/Country Flags`,
   },
   Footer: {
     hierarchy: `${StorybookCategories.Navigation}/Footer`,
@@ -230,7 +230,7 @@ const StoryConfig: StorybookConfig = {
     hierarchy: `${StorybookCategories.Inputs}/Icon Button`,
   },
   Icons: {
-    hierarchy: `${StorybookCategories.Icons}/Icons`,
+    hierarchy: `${StorybookCategories.Icons}/Icons 🧪`
   },
   LinearProgress: {
     hierarchy: `${ StorybookCategories.Feedback}/Linear Progress`,

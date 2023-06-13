@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import {PowerIcon} from '@oxygen-ui/react-icons';
+import {HomeIcon} from '@oxygen-ui/react-icons';
 import {render} from '@unit-testing';
 import IconButton from '../IconButton';
 
@@ -24,7 +24,7 @@ describe('IconButton', () => {
   it('should render successfully', () => {
     const {baseElement} = render(
       <IconButton>
-        <PowerIcon />
+        <HomeIcon />
       </IconButton>,
     );
     expect(baseElement).toBeTruthy();
@@ -33,7 +33,7 @@ describe('IconButton', () => {
   it('should match the snapshot', () => {
     const {baseElement} = render(
       <IconButton>
-        <PowerIcon />
+        <HomeIcon />
       </IconButton>,
     );
     expect(baseElement).toMatchSnapshot();

@@ -18,7 +18,7 @@
 
 import {useColorScheme} from '@mui/material/styles';
 import {Mode} from '@mui/system/cssVars/useCurrentColorScheme';
-import {ChevronDownIcon, HamburgerIcon, PowerIcon} from '@oxygen-ui/react-icons';
+import {ChevronDownIcon, HamburgerIcon, LogoutIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {FC, ReactElement, ReactNode} from 'react';
 import {useIsMobile} from '../../hooks/use-is-mobile';
@@ -121,7 +121,7 @@ export interface BrandTemplate {
 }
 
 const userDropdownMenuDefaultProps: UserDropdownMenuHeaderProps = {
-  actionIcon: <PowerIcon />,
+  actionIcon: <LogoutIcon />,
   actionText: 'Logout',
   onActionClick: (): void => null,
 };

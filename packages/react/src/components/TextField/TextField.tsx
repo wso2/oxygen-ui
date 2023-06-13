@@ -18,7 +18,7 @@
 
 import InputAdornment from '@mui/material/InputAdornment';
 import MuiTextField, {TextFieldProps as MuiTextFieldProps} from '@mui/material/TextField';
-import {DoubleCircleIcon, VisibilityIcon, VisibilityOffIcon} from '@oxygen-ui/react-icons';
+import {DoubleCircleIcon, ShowIcon, HideIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {
   forwardRef,
@@ -75,7 +75,7 @@ const PasswordField: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
                 onMouseDown={handleMouseDownPassword}
                 edge="end"
               >
-                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                {showPassword ? <HideIcon /> : <ShowIcon />}
               </IconButton>
             </InputAdornment>
           ),
