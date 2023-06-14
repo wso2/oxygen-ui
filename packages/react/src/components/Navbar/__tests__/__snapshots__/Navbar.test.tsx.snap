@@ -20,7 +20,7 @@ exports[`Navbar should match the snapshot 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="oxygen-icon oxygen-icon-hamburger"
+              class="oxygen-icon oxygen-icon-bars"
               fill="currentColor"
               focusable="false"
               height="16"

@@ -17,8 +17,5 @@
 -->
 
 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M4.75 3L0.75 8L4.75 13" stroke="#40404B" stroke-linecap="round"/>
-    <path d="M6.5 6.5H9.5" stroke="#40404B" stroke-linecap="round"/>
-    <path d="M6.5 9.5H9.5" stroke="#40404B" stroke-linecap="round"/>
-    <path d="M11.25 13L15.25 8L11.25 3" stroke="#40404B" stroke-linecap="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.75005 7.25223L12.456 7.2523L7.25105 13.3053L7.25194 9.74367H3.41205L8.75005 2.90338V7.25223ZM9.75005 6.25576L14.6303 6.25611L6.25261 16L6.25205 10.7402H1.36938L9.75005 0V6.25576Z" fill="black"/>
 </svg>

@@ -163,7 +163,7 @@ The `footer` is optional. The [Commit Message Footer](#commit-footer) format des
   │       │
   │       └─⫸ Commit Scope: primitives|scss|react
   │
-  └─⫸ Commit Type: build|ci|docs|feat|fix|perf|refactor|test
+  └─⫸ Commit Type: build|ci|docs|feat|fix|perf|refactor|chore|test
 ```
 
 The `<type>` and `<summary>` fields are mandatory, the `(<scope>)` field is optional.
@@ -180,6 +180,7 @@ Must be one of the following:
 * **fix**: A bug fix
 * **perf**: A code change that improves performance
 * **refactor**: A code change that neither fixes a bug nor adds a feature
+* **chore**: Housekeeping tasks that doesn't require to be highlighted in the changelog
 * **test**: Adding missing tests or correcting existing tests
 
 
@@ -210,9 +211,9 @@ There are currently a few exceptions to the "use package name" rule:
 
 Use the summary field to provide a succinct description of the change:
 
-* use the imperative, present tense: "change" not "changed" nor "changes"
-* don't capitalize the first letter
-* no dot (.) at the end
+* Use the imperative, present tense: "change" not "changed" nor "changes".
+* Don't capitalize the first letter.
+* No dot (.) at the end.
 
 
 #### <a name="commit-body"></a>Commit Message Body
@@ -259,8 +260,8 @@ If the commit reverts a previous commit, it should begin with `revert: `, follow
 
 The content of the commit message body should contain:
 
-- information about the SHA of the commit being reverted in the following format: `This reverts commit <SHA>`,
-- a clear description of the reason for reverting the commit message.
+- Information about the SHA of the commit being reverted in the following format: `This reverts commit <SHA>`.
+- A clear description of the reason for reverting the commit message.
 
 ## Designing
 
@@ -296,6 +297,28 @@ By following these steps, designers can ensure that their design changes are pro
 Following diagram illustrates the design tokens workflow.
 
 <img src="./docs/resources/images/architecture/oxygen-ui-tokens-process.png" width="800" />
+
+### Designing Icons
+
+When designing SVG icons for the `Primitives` package, follow these guidelines:
+
+- Use general names for icons, do not use scenario specific names.
+
+    ✅ Do
+
+    _envelop-outlined-16.svg_
+    
+    ❌ Don't
+
+    _email-input-icon.svg_
+- Use fill rather than stroke.
+- Use consistent colors.
+- Use consistent line widths.
+- Name the files in the following format.
+
+    _<icon_name>-<icon_variation>-<size>.svg_
+
+    _example: home-filled-16.svg_
 
 ## Versioning
 
