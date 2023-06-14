@@ -5,6 +5,8 @@ As a contributor, here are the guidelines we would like you to follow:
 
  - [Setting Up Development Environment](#setting-up-development-environment)
  - [Commit Message Guidelines](#commit-message-guidelines)
+ - [Designing](#designing)
+ - [Versioning](#versioning)
 
 ## Setting Up Development Environment
 

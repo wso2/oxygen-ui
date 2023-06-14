@@ -10,6 +10,20 @@
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
 </div>
 
+## Table of Contents
+
+ - [Installation](#installation)
+ - [Usage](#usage)
+   - [ThemeProvider](#themeprovider)
+   - [Components](#components)
+     - [Button](#button)
+  - [Develop](#develop)
+    - [Setup the Environment](#setup-the-environment)
+    - [Run Storybook](#run-storybook)
+    - [Locally Linking the Package](#locally-linking-the-package)
+  - [Contributing](#contributing)
+  - [License](#license)
+
 ## Installation
 
 ```bash
@@ -119,6 +133,46 @@ STORYBOOK_DESIGN_ADDON_FIGMA_ACCESS_TOKEN=<YOUR_FIGMA_ACCESS_TOKEN>
 ```bash
 pnpm start
 ```
+
+### Locally Linking the Package
+
+When working with the `@oxygen-ui/react` package in a project, you can locally link the package to test your changes. Locally linking allows you to make modifications to the package code and see the results in your project without publishing the package or relying on a remote package registry. Here's how you can locally link the package:
+
+1. Open a terminal or command prompt and navigate to the root directory of the `@oxygen-ui/react` package.
+
+2. Build the package in **watch mode** by running the following command:
+
+```bash
+pnpm build:watch
+```
+
+This command compiles the package source code and generates the necessary build artifacts.
+
+3. Create a symbolic link for the package using the following command:
+
+> **Warning**
+> This command has to be run from inside the dist directory. Else, import like `import Button from '@oxygen-ui/react/Button';` will not work.
+
+```bash
+cd dist
+pnpm link --global
+```
+
+This creates a symbolic link for the package in the global package registry.
+
+4. Navigate to the project directory where you want to use the locally linked package.
+
+5. In the project directory, run the following command to link the package:
+
+```bash
+pnpm link @oxygen-ui/react
+```
+
+This creates a symbolic link from the project's node_modules directory to the locally linked `@oxygen-ui/react` package.
+
+Now, you should be able to import and use the @oxygen-ui/react package in your project as if it were installed from a remote package registry. Any changes you make to the package source code will be reflected in your project immediately since it's using the locally linked version.
+
+Remember to revert back to using the published package from the remote registry once you are done testing and ready to distribute your changes to other users.
 
 ## Contributing
 

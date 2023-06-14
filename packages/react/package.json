@@ -25,6 +25,7 @@
   ],
   "scripts": {
     "build": "rollup -c",
+    "build:watch": "nodemon --watch src --ext js,ts,jsx,tsx,mjs,json --exec \"rollup -c && pnpm run postbuild\"",
     "build:storybook": "build-storybook --no-manager-cache",
     "prebuild": "rimraf dist",
     "postbuild": "node scripts/build-components.js",
@@ -88,6 +89,7 @@
     "jest": "29.0.3",
     "jest-environment-jsdom": "^29.4.1",
     "node-sass": "^8.0.0",
+    "nodemon": "^2.0.22",
     "postcss": "8.4.16",
     "prettier": "^2.8.0",
     "react": "^18.2.0",
