@@ -10,6 +10,20 @@
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
 </div>
 
+## Table of Contents
+
+ - [Installation](#installation)
+ - [Usage](#usage)
+   - [ThemeProvider](#themeprovider)
+   - [Components](#components)
+     - [Button](#button)
+  - [Develop](#develop)
+    - [Setup the Environment](#setup-the-environment)
+    - [Run Storybook](#run-storybook)
+    - [Locally Linking the Package](#locally-linking-the-package)
+  - [Contributing](#contributing)
+  - [License](#license)
+
 ## Installation
 
 ```bash
