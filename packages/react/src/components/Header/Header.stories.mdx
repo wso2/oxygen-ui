@@ -3,7 +3,7 @@ import dedent from 'ts-dedent';
 import StoryConfig from '../../../.storybook/story-config.ts';
 import {withDesign} from '../../../.storybook/utils.ts';
 import Header from './Header.tsx';
-import {LanguagesIcon, SettingsIcon, SunIcon, CrescentBrightIcon, CommentIcon, SearchIcon} from '@oxygen-ui/react-icons';
+import {LanguageIcon, GearIcon, SunIcon, CrescentBrightIcon, CommentLinesIcon, MagnifyingGlassIcon} from '@oxygen-ui/react-icons';
 import Button from "../Button";
 
 export const meta = {
@@ -56,15 +56,15 @@ export const basicHeaderVariationOptions = {
 export const leftAlignedElementsVariationOptions = {
   ...basicHeaderVariationOptions,
   leftAlignedElements: [
-    <Button color="inherit" startIcon={<SearchIcon />} href="/" id='search'>Search</Button>,
-    <Button color="inherit" startIcon={<CommentIcon />} href="/" id='info'>Info</Button>]
+    <Button color="inherit" startIcon={<MagnifyingGlassIcon />} href="/" id='search'>Search</Button>,
+    <Button color="inherit" startIcon={<CommentLinesIcon />} href="/" id='info'>Info</Button>]
 };
 
 export const rightAlignedElementsVariationOptions = {
   ...basicHeaderVariationOptions,
   rightAlignedElements: [
-    <Button color="inherit" startIcon={<SettingsIcon />} href="/" id='console'>Console</Button>,
-    <Button color="inherit" startIcon={<LanguagesIcon />} href="/" id='language'>Language</Button>
+    <Button color="inherit" startIcon={<GearIcon />} href="/" id='console'>Console</Button>,
+    <Button color="inherit" startIcon={<LanguageIcon />} href="/" id='language'>Language</Button>
   ],
 }
 

@@ -18,7 +18,7 @@
 
 import InputAdornment from '@mui/material/InputAdornment';
 import MuiTextField, {TextFieldProps as MuiTextFieldProps} from '@mui/material/TextField';
-import {DoubleCircleIcon, ShowIcon, HideIcon} from '@oxygen-ui/react-icons';
+import {CircleDotIcon, EyeIcon, EyeSlashIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {
   forwardRef,
@@ -75,7 +75,7 @@ const PasswordField: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
                 onMouseDown={handleMouseDownPassword}
                 edge="end"
               >
-                {showPassword ? <HideIcon /> : <ShowIcon />}
+                {showPassword ? <EyeSlashIcon /> : <EyeIcon />}
               </IconButton>
             </InputAdornment>
           ),
@@ -107,7 +107,7 @@ const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> = for
         {criteria?.map((criterion: string) => (
           <ListItem disablePadding key={criteria.indexOf(criterion)}>
             <ListItemIcon>
-              <DoubleCircleIcon />
+              <CircleDotIcon />
             </ListItemIcon>
             <ListItemText primary={criterion} />
           </ListItem>

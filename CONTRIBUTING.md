@@ -300,7 +300,15 @@ Following diagram illustrates the design tokens workflow.
 
 When designing SVG icons for the `Primitives` package, follow these guidelines:
 
-- Use general names for icons, do not use product specific names.
+- Use general names for icons, do not use scenario specific names.
+
+    ✅ Do
+
+    _envelop-outlined-16.svg_
+    
+    ❌ Don't
+
+    _email-input-icon.svg_
 - Use fill rather than stroke.
 - Use consistent colors.
 - Use consistent line widths.

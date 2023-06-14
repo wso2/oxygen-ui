@@ -18,7 +18,7 @@
 
 import {useColorScheme} from '@mui/material/styles';
 import {Mode} from '@mui/system/cssVars/useCurrentColorScheme';
-import {ChevronDownIcon, HamburgerIcon, LogoutIcon} from '@oxygen-ui/react-icons';
+import {ChevronDownIcon, BarsIcon, ArrowRightToBracketIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {FC, ReactElement, ReactNode} from 'react';
 import {useIsMobile} from '../../hooks/use-is-mobile';
@@ -121,7 +121,7 @@ export interface BrandTemplate {
 }
 
 const userDropdownMenuDefaultProps: UserDropdownMenuHeaderProps = {
-  actionIcon: <LogoutIcon />,
+  actionIcon: <ArrowRightToBracketIcon />,
   actionText: 'Logout',
   onActionClick: (): void => null,
 };
@@ -174,7 +174,7 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
         {showCollapsibleHamburger && (
           <div className="oxygen-header-collapsible-hamburger">
             <IconButton aria-label="Menu Icon" onClick={onCollapsibleHamburgerClick || ((): void => null)}>
-              <HamburgerIcon />
+              <BarsIcon />
             </IconButton>
           </div>
         )}

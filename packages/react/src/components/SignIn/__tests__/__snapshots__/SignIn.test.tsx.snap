@@ -103,7 +103,7 @@ exports[`SignIn should match the snapshot 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      class="oxygen-icon oxygen-icon-show"
+                      class="oxygen-icon oxygen-icon-eye"
                       fill="currentColor"
                       focusable="false"
                       height="16"

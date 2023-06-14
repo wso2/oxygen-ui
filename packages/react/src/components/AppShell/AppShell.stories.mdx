@@ -9,7 +9,7 @@ import Navbar from '../Navbar/Navbar.tsx';
 import Typography from '../Typography/Typography.tsx';
 import {basicFooterVariationOptions} from '../Footer/Footer.stories.mdx';
 import {basicHeaderVariationOptions} from '../Header/Header.stories.mdx';
-import {ConsoleUserThickIcon, HomeFilledIcon, LockIcon, SettingsIcon, LanguagesIcon} from '@oxygen-ui/react-icons';
+import {UserDocumentIcon, HomeFilledIcon, LockIcon, GearIcon, LanguageIcon} from '@oxygen-ui/react-icons';
 
 export const meta = {
   component: AppShell,
@@ -28,7 +28,7 @@ export const navbarItems = [
         id: 'overview'
       },
       {
-        icon: <ConsoleUserThickIcon />,
+        icon: <UserDocumentIcon />,
         name: 'Profile Info',
         id: 'profile info'
       },
@@ -43,12 +43,12 @@ export const navbarItems = [
   {
     items: [
       {
-        icon: <LanguagesIcon />,
+        icon: <LanguageIcon />,
         name: 'Language',
         id: 'language'
       },
       {
-        icon: <SettingsIcon />,
+        icon: <GearIcon />,
         name: 'Preferences',
         id: 'preferences'
       },

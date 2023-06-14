@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import {HamburgerIcon} from '@oxygen-ui/react-icons';
+import {BarsIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {FC, ReactElement, ReactNode, MouseEvent, Fragment, MouseEventHandler} from 'react';
 import {WithWrapperProps, Theme} from '../../models';
@@ -138,7 +138,7 @@ const Navbar: FC<NavbarProps> & WithWrapperProps = (props: NavbarProps): ReactEl
         <>
           <div className="oxygen-navbar-collapsible-hamburger">
             <IconButton onClick={handleCollapsibleHamburgerClick} aria-label="nav item icon">
-              {theme.direction === 'rtl' ? <HamburgerIcon /> : <HamburgerIcon />}
+              {theme.direction === 'rtl' ? <BarsIcon /> : <BarsIcon />}
             </IconButton>
           </div>
           <Divider className="oxygen-navbar-collapsible-divider" />

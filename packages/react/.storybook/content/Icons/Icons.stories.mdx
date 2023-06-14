@@ -3,6 +3,7 @@ import dedent from 'ts-dedent';
 import StoryConfig from '../../story-config.ts';
 import defaultTheme from '../../../src/theme/default-theme';
 import * as OxygenIcons from '@oxygen-ui/react-icons';
+import "./icons.scss";
 
 export const meta = {
   title: StoryConfig.Icons.hierarchy,
@@ -19,7 +20,7 @@ export const meta = {
 
 The SVG icons from `@oxygen-ui/primitives` exported as React components.
 
-_🧪 - `Icons` is still a work-in-progress._
+🚧 _- `Icons` is still a work-in-progress._
 
 ## Usage
 
@@ -42,7 +43,7 @@ function Demo() {
   {Object.keys(OxygenIcons).map(key => {
     const Icon = OxygenIcons[key];
     return (
-      <IconItem name={Icon.displayName}>
+      <IconItem name={Icon.displayName} style="min-width: 235px">
         <Icon />
       </IconItem>
     );

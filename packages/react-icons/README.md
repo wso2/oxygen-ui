@@ -25,10 +25,10 @@ yarn add @oxygen-ui/react-icons
 To use icons from `@oxygen-ui/react-icons`, simply import the desired icon as a React component and use it in your code:
 
 ```jsx
-import { HamburgerIcon } from '@oxygen-ui/react-icons';
+import { HomeIcon } from '@oxygen-ui/react-icons';
 
-function CustomHamburgerIcon() {
-  return <HamburgerIcon fill="#FFFFFF" size={16} />;
+function CustomHomeIcon() {
+  return <HomeIcon fill="#FFFFFF" size={16} />;
 }
 ```
 
@@ -38,7 +38,7 @@ function CustomHamburgerIcon() {
 
 The `@oxygen-ui/react-icons` package exports all the available icons as React components, which can be used in your app as shown in the example above. The available icons are:
 
-- `HamburgerIcon`
+- `HomeIcon`
 - `ChevronLeftIcon`
 - `ChevronRightIcon`
 - ... and more!
