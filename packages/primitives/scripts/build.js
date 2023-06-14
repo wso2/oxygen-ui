@@ -30,10 +30,10 @@ logger.log();
 logger.log('                         💅  Building Style Dictionary  💅                         ');
 logger.log();
 
-cp.fork(path.resolve(__dirname, 'build-sd.js'));
+cp.execSync(`node ${path.resolve(__dirname, 'build-sd.js')}`, { stdio: 'inherit' });
 
 logger.log();
 logger.log('                          💅  Building the SVG Icons  💅                           ');
 logger.log();
 
-cp.fork(path.resolve(__dirname, 'build-icons.js'));
+cp.execSync(`node ${path.resolve(__dirname, 'build-icons.js')}`, { stdio: 'inherit' });
