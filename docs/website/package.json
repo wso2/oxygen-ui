@@ -31,13 +31,13 @@
     "typecheck": "tsc --noemit -p tsconfig.json"
   },
   "dependencies": {
-    "@next/font": "^13.0.6",
+    "@next/font": "^13.4.5",
     "@types/node": "18.11.10",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "clsx": "^1.2.1",
     "eslint": "8.25.0",
-    "next": "13.0.6",
+    "next": "^13.4.5",
     "prettier": "^2.8.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
