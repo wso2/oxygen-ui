@@ -21,12 +21,12 @@ import Select from '../Select';
 
 describe('Select', () => {
   it('should render successfully', () => {
-    const {baseElement} = render(<Select />);
+    const {baseElement} = render(<Select value="" />);
     expect(baseElement).toBeTruthy();
   });
 
   it('should match the snapshot', () => {
-    const {baseElement} = render(<Select />);
+    const {baseElement} = render(<Select value="" />);
     expect(baseElement).toMatchSnapshot();
   });
 });
