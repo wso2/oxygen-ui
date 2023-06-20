@@ -40,6 +40,7 @@ export type Stories =
   | 'AppBar'
   | 'AppShell'
   | 'Avatar'
+  | 'Backdrop'
   | 'Badge'
   | 'Breadcrumbs'
   | 'Box'
@@ -139,6 +140,9 @@ const StoryConfig: StorybookConfig = {
   },
   Avatar: {
     hierarchy: `${StorybookCategories.DataDisplay}/Avatar`,
+  },
+  Backdrop: {
+    hierarchy: `${StorybookCategories.Feedback}/Backdrop`,
   },
   Badge: {
     hierarchy: `${StorybookCategories.DataDisplay}/Badge`,
