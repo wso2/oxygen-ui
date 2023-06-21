@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Backdrop should match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      aria-hidden="true"
+      class="MuiBackdrop-root oxygen-backdrop css-sox5kk-MuiBackdrop-root"
+      style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+    />
+  </div>
+</body>
+`;
