@@ -13,19 +13,19 @@ export const meta = {
 <Meta title={meta.title} component={meta.component} />
 
 export const Template = args => {
-    const [{open}, updateArgs] = useArgs();
-      return (
-        <>
-        <Button variant="outlined" onClick={() => updateArgs({open: !open})}>Show Backdrop</Button>
-            <Backdrop
-                sx={{ color: '#fff', zIndex: 9 }}
-                open={open}
-                onClick={() => updateArgs({open: !open})}
-                {...args}
-            >
-        </Backdrop>
-        </>
-    )
+  const [{open}, updateArgs] = useArgs();
+  return (
+    <>
+      <Button variant="outlined" onClick={() => updateArgs({open: !open})}>Show Backdrop</Button>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: 9 }}
+        open={open}
+        onClick={() => updateArgs({open: !open})}
+        {...args}
+      >
+      </Backdrop>
+    </>
+  )
 };
 
 # Backdrop
@@ -41,9 +41,7 @@ The `Backdrop` component is used to provide emphasis on a particular element or 
 <Canvas>
   <Story
     name="Overview"
-    args={{
-      open: false,
-    }}
+    args={{ open: false }}
   >
     {Template.bind({})}
   </Story>
@@ -62,4 +60,33 @@ Import and use the `Backdrop` component in your components as follows.
   dark
   format
   code={dedent`import Backdrop from '@oxygen-ui/react/Backdrop';\n`}
+/>
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`
+import Box from '@oxygen-ui/react/Box';\n
+function Demo() {
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };\n
+  return (
+    <div>
+      <Button onClick={handleOpen}>Show backdrop</Button>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    </div>
+  );
+}`}
 />
