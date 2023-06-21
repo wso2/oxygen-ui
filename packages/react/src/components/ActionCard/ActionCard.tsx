@@ -58,7 +58,7 @@ const ActionCard: FC<ActionCardProps> & WithWrapperProps = (props: ActionCardPro
   const classes: string = clsx('oxygen-action-card', className);
 
   return (
-    <Card className={classes} {...rest} elevation={1}>
+    <Card className={classes} {...rest}>
       <CardContent>
         {image}
         <Typography variant="subtitle1">{title}</Typography>

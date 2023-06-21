@@ -4,7 +4,7 @@ exports[`ActionCard should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root oxygen-card oxygen-action-card css-mzb5us-MuiPaper-root-MuiCard-root"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root oxygen-card oxygen-action-card css-1vzmcwq-MuiPaper-root-MuiCard-root"
     >
       <div
         class="MuiCardContent-root oxygen-card-content css-46bh2p-MuiCardContent-root"
