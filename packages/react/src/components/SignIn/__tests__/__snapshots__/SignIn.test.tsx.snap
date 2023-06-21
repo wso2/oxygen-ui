@@ -11,7 +11,7 @@ exports[`SignIn should match the snapshot 1`] = `
         src="#"
       />
       <div
-        class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded oxygen-sign-in-box css-l7nmq7-MuiPaper-root"
+        class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded oxygen-sign-in-box css-1fbvlaf-MuiPaper-root"
       >
         <h5
           class="MuiTypography-root MuiTypography-h5 oxygen-sign-in-header css-ngjtbp-MuiTypography-root"
