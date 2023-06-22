@@ -1,0 +1,25 @@
+<!--
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com).
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+-->
+
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1.33333 1H6.66667C6.85076 1 7 1.14924 7 1.33333V6.5C7.24431 6.22319 7.60177 6 8 6V1.33333C8 0.596954 7.40305 0 6.66667 0H1.33333C0.596954 0 0 0.596953 0 1.33333V16H7.5C7.14191 15.795 6.55057 15.4286 6.5 15H1V1.33333C1 1.14924 1.14924 1 1.33333 1Z" fill="black"/>
+<path d="M6 3.16667H2V2.16667H6V3.16667Z" fill="black"/>
+<path d="M2 5.83333H6V4.83333H2V5.83333Z" fill="black"/>
+<path d="M11 6C8.243 6 6 8.243 6 11C6 13.757 8.243 16 11 16C13.757 16 16 13.757 16 11C16 8.243 13.757 6 11 6ZM11 15C8.7945 15 7 13.2055 7 11C7 8.7945 8.7945 7 11 7C13.2055 7 15 8.7945 15 11C15 13.2055 13.2055 15 11 15Z" fill="black"/>
+<path d="M12.5905 9.13383C12.5859 9.13808 12.5816 9.1426 12.5777 9.14737L10.3507 11.8719L9.0087 10.5826C8.91754 10.501 8.79696 10.4566 8.67237 10.4587C8.54779 10.4608 8.42892 10.5093 8.34081 10.5939C8.25269 10.6785 8.20222 10.7927 8.20003 10.9123C8.19783 11.0319 8.24407 11.1477 8.32902 11.2353L10.0257 12.865C10.0714 12.9089 10.1258 12.9434 10.1857 12.9665C10.2456 12.9897 10.3097 13.0011 10.3743 12.9999C10.4389 12.9988 10.5025 12.9851 10.5615 12.9599C10.6205 12.9346 10.6735 12.8981 10.7175 12.8527L13.2772 9.78032C13.3644 9.69248 13.412 9.57523 13.4099 9.45391C13.4077 9.3326 13.3559 9.21698 13.2657 9.13204C13.1755 9.0471 13.0541 8.99967 12.9277 9C12.8014 9.00034 12.6802 9.04841 12.5905 9.13383Z" fill="black"/>
+</svg>

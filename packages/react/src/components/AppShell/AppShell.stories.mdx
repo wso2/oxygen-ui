@@ -9,7 +9,7 @@ import Navbar from '../Navbar/Navbar.tsx';
 import Typography from '../Typography/Typography.tsx';
 import {basicFooterVariationOptions} from '../Footer/Footer.stories.mdx';
 import {basicHeaderVariationOptions} from '../Header/Header.stories.mdx';
-import {UserDocumentIcon, HomeFilledIcon, LockIcon, GearIcon, LanguageIcon} from '@oxygen-ui/react-icons';
+import {UserDocumentIcon, HomeFilledIcon, ShieldCheckIcon, GearIcon, LanguageIcon} from '@oxygen-ui/react-icons';
 
 export const meta = {
   component: AppShell,
@@ -33,7 +33,7 @@ export const navbarItems = [
         id: 'profile info'
       },
       {
-        icon: <LockIcon />,
+        icon: <ShieldCheckIcon />,
         name: 'Security',
         id: 'security'
       },
