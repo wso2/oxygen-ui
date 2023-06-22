@@ -28,7 +28,8 @@ Action cards can be used in overview pages or dashboards.
     description: "Configure additional authentications to sign in easily or to add an extra layer of security to your account.",
     actionText: "Setup MFA",
     onActionClick:() => {alert("Action clicked")},
-    image: <img src="/assets/images/action-card-image.svg" alt="action card" />
+    image: <img src="/assets/images/action-card-image.svg" alt="action card" />,
+    variant: "outlined"
   }}>
     {Template.bind({})}
   </Story>
@@ -50,9 +51,9 @@ import ActionCard from '@oxygen-ui/react/ActionCard';\n
 function Demo() {
   return (
     <ActionCard
-      title="Secure your account by adding an extra layer of security"
-      description="Configure additional authentications to sign in easily or to add an extra layer of security to your account."
-      actionText="Setup MFA"
+      title="Action Card Title"
+      description="Action Card Description."
+      actionText="Action Card Action Text"
       onActionClick={() => {alert("Action clicked")}}
       image={<img src="/assets/images/action-card-image.svg" alt="action card" />}
     />

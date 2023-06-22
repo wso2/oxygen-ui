@@ -134,13 +134,6 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
         },
       },
     },
-    MuiPaper: {
-      styleOverrides: {
-        elevation1: {
-          boxShadow: 'var(--oxygen-shadows-0)',
-        },
-      },
-    },
     MuiTypography: {
       defaultProps: {
         variantMapping: {
