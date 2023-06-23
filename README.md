@@ -47,7 +47,7 @@ This repository contains the source code of the key components that works togeth
 
 ## Documentation
 
-For more information on how to use Oxygen UI, check out the [documentation](https://oxygen-ui.vercel.app) website.
+For more information on how to use Oxygen UI, check out the [documentation](https://wso2.github.io/oxygen-ui) website.
 
 ## Changelog
 
