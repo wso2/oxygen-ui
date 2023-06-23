@@ -1,5 +1,5 @@
 import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
-import {LockIcon} from '@oxygen-ui/react-icons';
+import {ShieldCheckIcon} from '@oxygen-ui/react-icons';
 import dedent from 'ts-dedent';
 import StoryConfig from '../../../.storybook/story-config.ts';
 import {withDesign} from '../../../.storybook/utils.ts';
@@ -25,7 +25,7 @@ export const Template = args => <ListItemIcon {...args} />;
 A simple wrapper to apply List styles to an Icon or SvgIcon .
 
 <Canvas>
-  <Story name="Overview" args={{children: <LockIcon />}}>
+  <Story name="Overview" args={{children: <ShieldCheckIcon />}}>
     {Template.bind({})}
   </Story>
 </Canvas>
