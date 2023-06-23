@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import {PropsWithChildren} from 'react';
+import {PropsWithChildren, useEffect} from 'react';
 import {addParameters, Story, StoryContext} from '@storybook/react';
 import {DocsContainer, DocsContainerProps, DocsPage} from '@storybook/addon-docs';
 import {
@@ -37,7 +37,9 @@ import {extendTheme} from '../src/theme';
  */
 const withProviders = (Story: Story, context: StoryContext) => {
   // Set 'oxygen-mode' to the Storybook theme
-  localStorage.setItem('oxygen-mode', JSON.parse(localStorage.getItem('sb-addon-themes-3'))?.current);
+  useEffect(() => {
+    localStorage.setItem('oxygen-mode', JSON.parse(localStorage.getItem('sb-addon-themes-3'))?.current);
+  }, []);
 
   return (
     <ThemeProvider
