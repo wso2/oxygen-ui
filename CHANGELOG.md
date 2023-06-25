@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.10](https://github.com/wso2/oxygen-ui/compare/v1.1.9...v1.1.10)
+<br> Released on: 2023-06-25
+
+## What's Changed
+
+### `@oxygen-ui/primitives`
+* **primitives:** add icons ([b21cf37](https://github.com/wso2/oxygen-ui/commit/b21cf374faa99791bd9ef50a32f62cd86d685ddd))
+* **primitives:** add icons ([5f5db7d](https://github.com/wso2/oxygen-ui/commit/5f5db7dab5e7817eb5201637d8fdb321e63d5320))
+* **primitives:** update and add icons ([6acfc56](https://github.com/wso2/oxygen-ui/commit/6acfc56b84f7a6e367615c330e3a17a80f0b33d0))
+
+
+### `@oxygen-ui/react`
+* **react:** add Backdrop component ([5ec4358](https://github.com/wso2/oxygen-ui/commit/5ec435815135acbecda3fcc957aac7124660b5b7))
+
 ## [1.1.9](https://github.com/wso2/oxygen-ui/compare/v1.1.8...v1.1.9)
 <br> Released on: 2023-06-09
 
