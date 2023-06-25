@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import {PropsWithChildren} from 'react';
+import {PropsWithChildren, useEffect} from 'react';
 import {addParameters, Story, StoryContext} from '@storybook/react';
 import {DocsContainer, DocsContainerProps, DocsPage} from '@storybook/addon-docs';
 import {
@@ -33,9 +33,14 @@ import {extendTheme} from '../src/theme';
  *
  * @param Story - Story component.
  * @param context - Story context.
- * @returns Stroy wrapped in providers.
+ * @returns Story wrapped in providers.
  */
 const withProviders = (Story: Story, context: StoryContext) => {
+  // Set 'oxygen-mode' to the Storybook theme
+  useEffect(() => {
+    localStorage.setItem('oxygen-mode', JSON.parse(localStorage.getItem('sb-addon-themes-3'))?.current);
+  }, []);
+
   return (
     <ThemeProvider
       theme={extendTheme({
