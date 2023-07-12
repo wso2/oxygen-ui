@@ -10,21 +10,14 @@
 
 ## Installation
 
-### With npm
-
 ```bash
+# With npm
 npm install @oxygen-ui/react-icons
-```
 
-### With pnpm
-
-```bash
+# With pnpm
 pnpm add @oxygen-ui/react-icons
-```
 
-### With yarn
-
-```bash
+# With yarn
 yarn add @oxygen-ui/react-icons
 ```
 
