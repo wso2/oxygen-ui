@@ -19,6 +19,7 @@ pnpm add @oxygen-ui/react-icons
 
 # With yarn
 yarn add @oxygen-ui/react-icons
+```
 
 ## Usage
 
@@ -42,6 +43,8 @@ The `@oxygen-ui/react-icons` package exports all the available icons as React co
 - `ChevronLeftIcon`
 - `ChevronRightIcon`
 - ... and more!
+
+> View all available icons at https://wso2.github.io/oxygen-ui/react/?path=/docs/icons-icons-%F0%9F%9A%A7--page.
 
 Each icon component accepts the following props:
 
