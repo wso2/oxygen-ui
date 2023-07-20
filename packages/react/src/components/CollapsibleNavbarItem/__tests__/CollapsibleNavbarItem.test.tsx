@@ -16,5 +16,22 @@
  * under the License.
  */
 
-export {default} from './Navbar';
-export type {NavbarItems} from './Navbar';
+import {render} from '@unit-testing';
+import {ReactElement} from 'react';
+import CollapsibleNavbarItem from '../CollapsibleNavbarItem';
+
+const CollapsibleNavbarItemTestComponent: ReactElement = (
+  <CollapsibleNavbarItem label="heading" items={[{label: 'sub item'}]} />
+);
+
+describe('CollapsibleNavbarItem', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(CollapsibleNavbarItemTestComponent);
+    expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(CollapsibleNavbarItemTestComponent);
+    expect(baseElement).toMatchSnapshot();
+  });
+});

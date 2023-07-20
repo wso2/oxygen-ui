@@ -16,5 +16,20 @@
  * under the License.
  */
 
-export {default} from './Navbar';
-export type {NavbarItems} from './Navbar';
+import {render} from '@unit-testing';
+import {ReactElement} from 'react';
+import NavbarItem from '../NavbarItem';
+
+const NavbarItemTestComponent: ReactElement = <NavbarItem label="heading" />;
+
+describe('NavbarItem', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(NavbarItemTestComponent);
+    expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(NavbarItemTestComponent);
+    expect(baseElement).toMatchSnapshot();
+  });
+});

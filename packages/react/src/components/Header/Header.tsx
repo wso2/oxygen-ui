@@ -50,6 +50,10 @@ export interface HeaderProps extends AppBarProps {
    */
   modes?: ModeList[];
   /**
+   * Navbar toggle icon.
+   */
+  navbarToggleIcon?: ReactNode;
+  /**
    * Function to handle the collapsible hamburger click.
    */
   onCollapsibleHamburgerClick?: () => void;
@@ -135,6 +139,7 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
     modes,
     showCollapsibleHamburger,
     leftAlignedElements,
+    navbarToggleIcon,
     onCollapsibleHamburgerClick,
     rightAlignedElements,
     user,
@@ -174,7 +179,7 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
         {showCollapsibleHamburger && (
           <div className="oxygen-header-collapsible-hamburger">
             <IconButton aria-label="Menu Icon" onClick={onCollapsibleHamburgerClick || ((): void => null)}>
-              <BarsIcon />
+              {navbarToggleIcon}
             </IconButton>
           </div>
         )}
@@ -240,6 +245,7 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
 Header.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Header.muiName = COMPONENT_NAME;
 Header.defaultProps = {
+  navbarToggleIcon: <BarsIcon />,
   userDropdownMenu: userDropdownMenuDefaultProps,
 };
 

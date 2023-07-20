@@ -4,7 +4,7 @@ exports[`Navbar should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="MuiDrawer-root MuiDrawer-docked oxygen-drawer oxygen-navbar collapsible css-7ik032-MuiDrawer-docked"
+      class="MuiDrawer-root MuiDrawer-docked oxygen-drawer oxygen-navbar collapsible open css-7ik032-MuiDrawer-docked"
     >
       <div
         class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation0 MuiDrawer-paper MuiDrawer-paperAnchorLeft MuiDrawer-paperAnchorDockedLeft css-1ldhiwi-MuiPaper-root-MuiDrawer-paper"
@@ -43,6 +43,9 @@ exports[`Navbar should match the snapshot 1`] = `
         </div>
         <hr
           class="MuiDivider-root MuiDivider-fullWidth oxygen-divider oxygen-navbar-collapsible-divider css-f1a6nn-MuiDivider-root"
+        />
+        <div
+          class="oxygen-box oxygen-navbar-list-box MuiBox-root css-0"
         />
       </div>
     </div>
