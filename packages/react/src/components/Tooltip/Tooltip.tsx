@@ -18,7 +18,7 @@
 
 import MuiTooltip, {TooltipProps as MuiTooltipProps} from '@mui/material/Tooltip';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {ForwardRefExoticComponent, MutableRefObject, ReactElement, forwardRef} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './tooltip.scss';
@@ -27,13 +27,15 @@ export type TooltipProps = MuiTooltipProps;
 
 const COMPONENT_NAME: string = 'Tooltip';
 
-const Tooltip: FC<TooltipProps> & WithWrapperProps = (props: TooltipProps): ReactElement => {
-  const {className, ...rest} = props;
+const Tooltip: ForwardRefExoticComponent<TooltipProps> & WithWrapperProps = forwardRef(
+  (props: TooltipProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+    const {className, ...rest} = props;
 
-  const classes: string = clsx('oxygen-tooltip', className);
+    const classes: string = clsx('oxygen-tooltip', className);
 
-  return <MuiTooltip className={classes} {...rest} />;
-};
+    return <MuiTooltip className={classes} ref={ref} {...rest} />;
+  },
+) as ForwardRefExoticComponent<TooltipProps> & WithWrapperProps;
 
 Tooltip.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Tooltip.muiName = COMPONENT_NAME;

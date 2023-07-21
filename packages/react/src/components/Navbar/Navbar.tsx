@@ -18,22 +18,19 @@
 
 import {BarsIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
-import {FC, ReactElement, ReactNode, MouseEvent, Fragment, MouseEventHandler} from 'react';
-import {WithWrapperProps, Theme} from '../../models';
-import {useTheme} from '../../theme';
+import {FC, ReactElement, MouseEvent, Fragment, ReactNode} from 'react';
+import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
-import Chip from '../Chip';
+import Box from '../Box';
+import CollapsibleNavbarItem from '../CollapsibleNavbarItem';
 import Divider from '../Divider';
 import Drawer, {DrawerProps} from '../Drawer';
 import IconButton from '../IconButton';
 import List from '../List';
-import ListItem, {ListItemProps} from '../ListItem';
-import ListItemButton from '../ListItemButton';
-import ListItemIcon from '../ListItemIcon';
-import ListItemText from '../ListItemText';
+import NavbarItem from '../NavbarItem';
+import type {NavbarItemProps} from '../NavbarItem';
+import Typography from '../Typography';
 import './navbar.scss';
-import Tooltip from '../Tooltip/Tooltip';
-import Typography from '../Typography/Typography';
 
 export interface NavbarProps extends DrawerProps {
   /**
@@ -47,51 +44,38 @@ export interface NavbarProps extends DrawerProps {
   /**
    * Set of Navbar Items.
    */
-  items?: NavbarItem[];
+  items?: NavbarItems[];
   /**
    * Callback to be called when the hamburger is clicked.
    */
   onOpen?: () => void;
+  /**
+   * Navbar toggle icon.
+   * @default <BarsIcon />
+   */
+  toggleIcon?: ReactNode;
 }
 
-export interface NavbarItem extends ListItemProps {
-  heading?: string;
+export type NavbarItems = {
+  /**
+   * Icon for the item set.
+   */
   id?: string;
-  items: {
-    /**
-     * Icon for the Navbar item.
-     * @example <HomeIcon />
-     */
-    icon?: ReactNode;
-    /**
-     * Unique id for the item.
-     */
-    id?: string;
-    /**
-     * Name to display on the UI.
-     * @example Overview.
-     */
-    name: ReactNode;
-    /**
-     * Callback to be called when the item is clicked.
-     */
-    onClick?: MouseEventHandler;
-    /**
-     * Is the item selected?
-     * @example true | false.
-     */
-    selected?: boolean;
-    tag?: string;
-    tagClassName?: string;
-  }[];
-}
+  /**
+   * Set of Navbar Items.
+   */
+  items: NavbarItemProps[];
+  /**
+   * label for the item set.
+   */
+  label?: string;
+};
 
 const COMPONENT_NAME: string = 'Navbar';
 
 const Navbar: FC<NavbarProps> & WithWrapperProps = (props: NavbarProps): ReactElement => {
-  const {className, fill, onClose, items, collapsible, open, onOpen, ...rest} = props;
+  const {className, fill, onClose, items, collapsible, open, onOpen, toggleIcon, ...rest} = props;
 
-  const theme: Theme = useTheme();
   const classes: string = clsx(
     'oxygen-navbar',
     {
@@ -133,69 +117,75 @@ const Navbar: FC<NavbarProps> & WithWrapperProps = (props: NavbarProps): ReactEl
   };
 
   return (
-    <Drawer className={classes} variant="permanent" open={open} onClose={onClose} {...rest}>
+    <Drawer variant="permanent" className={classes} onClose={onClose} open={open} {...rest}>
       {collapsible && (
         <>
           <div className="oxygen-navbar-collapsible-hamburger">
             <IconButton onClick={handleCollapsibleHamburgerClick} aria-label="nav item icon">
-              {theme.direction === 'rtl' ? <BarsIcon /> : <BarsIcon />}
+              {toggleIcon}
             </IconButton>
           </div>
           <Divider className="oxygen-navbar-collapsible-divider" />
         </>
       )}
-      {items !== undefined &&
-        Array.isArray(items) &&
-        items.map((itemSet: NavbarItem, itemSetIndex: number) => {
-          const navBarListClass: string = clsx('oxygen-navbar-list', {'no-heading': !itemSet.heading});
+      <Box className="oxygen-navbar-list-box">
+        {items?.map((navbarItems: NavbarItems, itemsIndex: number) => {
+          const navBarListClass: string = clsx('oxygen-navbar-list', {'no-heading': !navbarItems.label});
+
           return (
-            <Fragment key={itemSet.id}>
-              <div>{renderDivider(itemSetIndex, itemSet.heading)}</div>
+            <Fragment key={navbarItems.id}>
+              <div>{renderDivider(itemsIndex, navbarItems.label)}</div>
               <List className={navBarListClass}>
-                {itemSet?.items?.map(
+                {navbarItems?.items?.map(
                   ({
+                    expanded,
                     icon,
                     id,
                     selected,
-                    name,
+                    items: navbarSubItems,
+                    label,
                     onClick,
                     tag,
                     tagClassName,
-                    ...otherItemProps
-                  }: NavbarItem['items'][0]) => (
-                    <Tooltip
-                      className="oxygen-navbar-list-item-tooltip"
-                      key={id}
-                      title={!open && name}
-                      placement="right"
-                    >
-                      <ListItem className={clsx('oxygen-navbar-list-item', {mini: !open, selected})} disablePadding>
-                        <ListItemButton
-                          selected={selected}
-                          className={clsx('oxygen-navbar-list-item-button', {selected})}
-                          onClick={onClick}
-                          {...otherItemProps}
-                        >
-                          <ListItemIcon className="oxygen-navbar-list-item-button-icon">{icon}</ListItemIcon>
-                          <ListItemText color="white" className="oxygen-navbar-list-item-button-text" primary={name} />
-                          {open && tag ? (
-                            <Chip
-                              label={tag}
-                              className={clsx(
-                                `oxygen-navbar-list-item-chip oxygen-chip-${tag.toLowerCase()}`,
-                                tagClassName,
-                              )}
-                            />
-                          ) : null}
-                        </ListItemButton>
-                      </ListItem>
-                    </Tooltip>
-                  ),
+                    ...otherListItemProps
+                  }: NavbarItemProps) =>
+                    navbarSubItems ? (
+                      <CollapsibleNavbarItem
+                        component="li"
+                        expanded={expanded}
+                        icon={icon}
+                        id={id}
+                        selected={selected}
+                        items={navbarSubItems}
+                        label={label}
+                        onClick={onClick}
+                        tag={tag}
+                        tagClassName={tagClassName}
+                        fill={fill}
+                        open={open}
+                        {...otherListItemProps}
+                      />
+                    ) : (
+                      <NavbarItem
+                        component="li"
+                        icon={icon}
+                        id={id}
+                        selected={selected}
+                        label={label}
+                        onClick={onClick}
+                        tag={tag}
+                        tagClassName={tagClassName}
+                        fill={fill}
+                        open={open}
+                        {...otherListItemProps}
+                      />
+                    ),
                 )}
               </List>
             </Fragment>
           );
         })}
+      </Box>
     </Drawer>
   );
 };
@@ -204,6 +194,8 @@ Navbar.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Navbar.muiName = COMPONENT_NAME;
 Navbar.defaultProps = {
   collapsible: true,
+  open: true,
+  toggleIcon: <BarsIcon />,
 };
 
 export default Navbar;

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -18,13 +18,13 @@
 
 @mixin open {
   width: var(--oxygen-customComponents-Navbar-properties-width);
-  transition: width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+  transition: all 0.2s;
   overflow-x: hidden;
 }
 
 @mixin close {
-  width: calc(var(--oxygen-customComponents-Navbar-properties-mini-variant-width) + 1px);
-  transition: width 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+  width: calc(var(--oxygen-customComponents-Navbar-properties-mini-variant-width) + 5px);
+  transition: all 0.2s;
   overflow-x: hidden;
 
   .oxygen-navbar-list-item-divider {
@@ -40,11 +40,16 @@
   white-space: nowrap;
   box-sizing: border-box;
 
-  &-list {
-    padding: 5px 0;
+  &-list-box {
+    padding: 8px;
 
-    &.no-heading {
-      padding: 0;
+    .oxygen-navbar-list {
+      padding: 5px 0;
+      margin: 0 5px;
+
+      &.no-heading {
+        padding: 0;
+      }
     }
   }
 
@@ -63,8 +68,7 @@
   &-collapsible-hamburger {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    padding: 0 8px;
+    padding: 0 10px;
     min-height: var(--oxygen-customComponents-Header-properties-min-height);
 
     .oxygen-icon-button {
@@ -77,75 +81,11 @@
     margin-bottom: 1rem;
   }
 
-  &-list-item {
-    display: block;
-    margin-top: 2px;
-    margin-bottom: 2px;
-
-    &-button {
-      height: 38px;
-      justify-content: center;
-      padding-left: 15px;
-      padding-right: 15px;
-      margin-left: 16px;
-      margin-right: 16px;
-      border-radius: var(--oxygen-shape-borderRadius);
-
-      &-icon {
-        min-width: 0;
-        margin-right: auto;
-        justify-content: center;
-      }
-
-      &-text {
-        opacity: 0;
-      }
-
-      &.selected {
-        background: var(--oxygen-palette-action-selected);
-
-        &::before {
-          content: "";
-          height: 80%;
-          width: 5px;
-          background-color: var(--oxygen-palette-primary-main);
-          position: absolute;
-          left: -10px;
-          border-radius: 5px;
-        }
-
-        &:hover {
-          background: var(--oxygen-palette-action-selected);
-        }
-      }
-    }
-
-    &-chip {
-      font-size: 0.6125rem;
-      height: 20px;
-    }
-  }
-
   &.open {
     @include open;
 
     .MuiDrawer-paper {
       @include open;
-    }
-
-    .oxygen-navbar-list-item {
-      &-button {
-        justify-content: initial;
-        height: 38px;
-
-        &-icon {
-          margin-right: 10px;
-        }
-
-        &-text {
-          opacity: 1;
-        }
-      }
     }
   }
 
@@ -165,35 +105,10 @@
           fill: var(--oxygen-palette-common-white);
         }
       }
-
-      .oxygen-navbar-list-item {
-        &-button {
-          color: var(--oxygen-palette-common-white);
-
-          &::before {
-            background-color: var(--oxygen-palette-common-white);
-          }
-
-          svg {
-            fill: var(--oxygen-palette-common-white);
-          }
-        }
-
-        &.selected {
-          .oxygen-navbar-list-item-button {
-            background: var(--oxygen-palette-common-white);
-            color: var(--oxygen-palette-primary-main);
-
-            svg {
-              fill: var(--oxygen-palette-primary-main);
-            }
-          }
-        }
-      }
     }
   }
 
   &-list-item-divider {
-    margin: 2px 10px;
+    margin: 5px 8px;
   }
 }

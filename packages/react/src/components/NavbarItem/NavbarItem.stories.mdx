@@ -1,0 +1,50 @@
+import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import StoryConfig from '../../../.storybook/story-config.ts';
+import NavbarItem from './NavbarItem.tsx';
+
+export const meta = {
+  component: NavbarItem,
+  title: StoryConfig.NavbarItem.hierarchy,
+};
+
+<Meta title={meta.title} component={meta.component} />
+
+export const Template = args => <NavbarItem {...args} />;
+
+# NavbarItem
+
+- [Overview](#overview)
+- [Props](#props)
+- [Usage](#usage)
+
+## Overview
+
+`NavbarItem` is an item that represents a single element in the navigation bar, containing an icon, label, and optional tag.
+
+<Canvas>
+  <Story name="Overview" args={{label: 'Navbar Item'}}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Overview" />
+
+## Usage
+
+Import and use the `NavbarItem` component in your components as follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`
+import CollapsibleNavbarItem from '@oxygen-ui/react/CollapsibleNavbarItem';\n
+function Demo() {
+  return (
+    <NavbarItem label="Navbar Item Label"></NavbarItem>
+  );
+}`}
+/>

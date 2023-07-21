@@ -62,6 +62,7 @@ declare module '@mui/material/styles' {
       };
       Navbar: {
         background: string;
+        collapsibleItemBackground: string;
       };
     };
     gradients: {

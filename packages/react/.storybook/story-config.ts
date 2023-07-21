@@ -53,6 +53,7 @@ export type Stories =
   | 'Carousel'
   | 'CircularProgressAvatar'
   | 'Chip'
+  | 'CollapsibleNavbarItem'
   | 'ColorModeToggle'
   | 'Colors'
   | 'Container'
@@ -81,6 +82,7 @@ export type Stories =
   | 'MenuItem'
   | 'UserDropdownMenu'
   | 'Navbar'
+  | 'NavbarItem'
   | 'OutlinedInput'
   | 'PhoneNumberInput'
   | 'Select'
@@ -180,6 +182,9 @@ const StoryConfig: StorybookConfig = {
   Chip: {
     hierarchy: `${StorybookCategories.DataDisplay}/Chip`,
   },
+  CollapsibleNavbarItem: {
+    hierarchy: `${StorybookCategories.Navigation}/Collapsible Navbar Item`,
+  },
   ColorModeToggle: {
     hierarchy: `${StorybookCategories.Theme}/Color Mode Toggle`,
   },
@@ -250,6 +255,9 @@ const StoryConfig: StorybookConfig = {
   },
   Navbar: {
     hierarchy: `${StorybookCategories.Navigation}/Navbar`,
+  },
+  NavbarItem: {
+    hierarchy: `${StorybookCategories.Navigation}/Navbar Item`,
   },
   OutlinedInput: {
     hierarchy: `${StorybookCategories.Inputs}/Outlined Input`,

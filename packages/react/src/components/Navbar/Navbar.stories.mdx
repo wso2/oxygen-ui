@@ -1,8 +1,14 @@
 import {
+  CirclesOverlapIcon,
+  CircleInfoIcon,
+  GearIcon,
   UserDocumentIcon,
   HomeFilledIcon,
+  HomeIcon,
+  TilesIcon,
   ShieldCheckIcon,
-  GearIcon,
+  UserIcon,
+  UserGroupIcon,
   LanguageIcon,
   SunIcon,
 } from '@oxygen-ui/react-icons';
@@ -23,19 +29,19 @@ export const navbarItems = [
   {
     items: [
       {
-        icon: <HomeFilledIcon />,
-        name: 'Overview',
+        icon: <HomeIcon />,
+        label: 'Overview',
         selected: true,
-        id: 'overview'
+        id: 'overview',
       },
       {
         icon: <UserDocumentIcon />,
-        name: 'Profile Info',
-        id: 'profile info'
+        label: 'Profile Info',
+        id: 'profile info',
       },
       {
         icon: <ShieldCheckIcon />,
-        name: 'Security',
+        label: 'Security',
         id: 'security',
         tag: "BETA"
       },
@@ -46,12 +52,12 @@ export const navbarItems = [
     items: [
       {
         icon: <LanguageIcon />,
-        name: 'Language',
+        label: 'Language',
         id:'language'
       },
       {
         icon: <GearIcon />,
-        name: 'Preferences',
+        label: 'Preferences',
         id: 'preferences'
       },
     ],
@@ -59,25 +65,25 @@ export const navbarItems = [
   },
 ];
 
-export const navbarItemsHeading = [
+export const headingsVariation = [
   {
     heading: 'Account',
     id: 'account',
     items: [
       {
         icon: <HomeFilledIcon />,
-        name: 'Overview',
+        label: 'Overview',
         selected: true,
         id: 'overview'
       },
       {
         icon: <UserDocumentIcon />,
-        name: 'Profile Info',
+        label: 'Profile Info',
         id: 'profile info'
       },
       {
         icon: <ShieldCheckIcon />,
-        name: 'Security',
+        label: 'Security',
         id: 'security'
       },
     ],
@@ -88,12 +94,12 @@ export const navbarItemsHeading = [
     items: [
       {
         icon: <LanguageIcon />,
-        name: 'Language',
+        label: 'Language',
         id: 'language'
       },
       {
         icon: <GearIcon />,
-        name: 'Preferences',
+        label: 'Preferences',
         id: 'preferences'
       },
     ],
@@ -104,10 +110,86 @@ export const navbarItemsHeading = [
     items: [
       {
         icon: <SunIcon />,
-        name: 'Customize',
+        label: 'Customize',
         id: 'customize'
       },
     ],
+  },
+];
+
+export const subItemsVariation = [
+  {
+    items: [
+      {
+        icon: <HomeIcon />,
+        label: 'Overview',
+        id: 'overview',
+        items: [
+          {
+            icon: <CircleInfoIcon />,
+            label: 'About',
+            selected: true,
+            id: 'about'
+          },
+          {
+            icon: <TilesIcon />,
+            label: 'Applications',
+            id: 'applications',
+          },
+          {
+            icon: <CirclesOverlapIcon />,
+            label: 'Connect',
+            id: 'connect',
+            tag: "BETA"
+          },
+        ],
+      },
+      {
+        icon: <UserDocumentIcon />,
+        label: 'Profile Info',
+        id: 'profile info',
+        items: [
+          {
+            icon: <UserIcon />,
+            label: 'User',
+            id: 'user'
+          },
+          {
+            icon: <UserGroupIcon />,
+            label: 'User Group',
+            id: 'user-group',
+          },
+          {
+            icon: <CirclesOverlapIcon />,
+            label: 'Connect',
+            id: 'connect',
+            tag: "BETA"
+          },
+        ],
+      },
+      {
+        icon: <ShieldCheckIcon />,
+        label: 'Security',
+        id: 'security',
+        tag: "BETA"
+      },
+    ],
+    id: 0
+  },
+  {
+    items: [
+      {
+        icon: <LanguageIcon />,
+        label: 'Language',
+        id:'language'
+      },
+      {
+        icon: <GearIcon />,
+        label: 'Preferences',
+        id: 'preferences'
+      },
+    ],
+    id: 1
   },
 ];
 
@@ -168,6 +250,22 @@ function Demo() {
 
 ## Variants
 
+### Sub Items 
+
+Navbar with items containing sub items.
+
+<Canvas>
+  <Story
+    name="Sub Items"
+    args={{items: subItemsVariation}}
+    parameters={{
+      docs: {inlineStories: false, iframeHeight: 476},
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
 ### Headings
 
 Navbar with headings.
@@ -175,7 +273,7 @@ Navbar with headings.
 <Canvas>
   <Story
     name="Headings"
-    args={{items: navbarItemsHeading, open: true}}
+    args={{items: headingsVariation}}
     parameters={{
       docs: {inlineStories: false, iframeHeight: 476},
     }}
