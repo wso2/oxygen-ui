@@ -98,6 +98,7 @@ const CollapsibleNavbarItem: ForwardRefExoticComponent<CollapsibleNavbarItemProp
                 onClick: subItemOnClick,
                 tag: subItemTag,
                 tagClassName: subItemTagClassName,
+                ...otherSubItemProps
               }: NavbarItemProps) => (
                 <Tooltip placement="right" title={!open && subItemName}>
                   <ListItemButton
@@ -105,6 +106,7 @@ const CollapsibleNavbarItem: ForwardRefExoticComponent<CollapsibleNavbarItemProp
                     selected={subItemSelected}
                     className={clsx('oxygen-list-sub-item-button', {selected: subItemSelected})}
                     onClick={subItemOnClick}
+                    {...otherSubItemProps}
                   >
                     <ListItemIcon>{subItemIcon}</ListItemIcon>
                     <ListItemText secondary={subItemName} />
