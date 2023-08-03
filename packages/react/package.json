@@ -38,6 +38,7 @@
     "typecheck": "tsc --noemit -p tsconfig.json"
   },
   "dependencies": {
+    "@mui/x-data-grid": "^6.9.2",
     "@oxygen-ui/primitives": "1.1.11",
     "@oxygen-ui/react-icons": "1.1.11",
     "clsx": "^1.2.1",
