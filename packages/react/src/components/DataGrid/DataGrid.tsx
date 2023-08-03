@@ -17,7 +17,6 @@
  */
 
 import {DataGrid as MuiDataGrid, DataGridProps as MuiDataGridProps} from '@mui/x-data-grid';
-
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
