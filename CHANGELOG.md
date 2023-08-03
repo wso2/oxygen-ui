@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.11](https://github.com/wso2/oxygen-ui/compare/v1.1.10...v1.1.11)
+<br> Released on: 2023-07-28
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** add CollapsibleNavbarItem component ([ff5d5de](https://github.com/wso2/oxygen-ui/commit/ff5d5de3850fddce0f674fc7ab2fbee7c8044a26))
+
+
+### `@oxygen-ui/primitives`
+* **primitives:** add x mark icon ([7e7da16](https://github.com/wso2/oxygen-ui/commit/7e7da161ae3d3ef5e322c619cef60e193d70a1c8))
+* **primitives:** add icons ([b29cf00](https://github.com/wso2/oxygen-ui/commit/b29cf0003dfa53fb24b890b2a6d9da1f2aaab58f))
+
 ## [1.1.10](https://github.com/wso2/oxygen-ui/compare/v1.1.9...v1.1.10)
 <br> Released on: 2023-06-25
 

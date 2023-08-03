@@ -16,5 +16,5 @@
  * under the License.
  */
 
-export {default} from './Navbar';
-export type {NavbarItems} from './Navbar';
+export {default} from './NavbarItem';
+export type {NavbarItemProps} from './NavbarItem';

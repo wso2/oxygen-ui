@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CollapsibleNavbarItem should match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="oxygen-box oxygen-collapsible-navbar-item open MuiBox-root css-0"
+    >
+      <div
+        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters oxygen-list-item-button oxygen-tooltip css-1shd5sk-MuiButtonBase-root-MuiListItemButton-root"
+        data-mui-internal-clone-element="true"
+        role="button"
+        tabindex="0"
+      >
+        <div
+          class="MuiListItemIcon-root oxygen-list-item-icon css-1djcs2d-MuiListItemIcon-root"
+        />
+        <div
+          class="MuiListItemText-root oxygen-list-item-text css-tlelie-MuiListItemText-root"
+        >
+          <span
+            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-6dptn0-MuiTypography-root"
+          >
+            heading
+          </span>
+        </div>
+        <div
+          class="oxygen-box oxygen-collapsible-navbar-item-chevrons MuiBox-root css-0"
+        >
+           
+          <svg
+            aria-hidden="true"
+            class="oxygen-icon oxygen-icon-chevron-down"
+            fill="currentColor"
+            focusable="false"
+            height="16"
+            role="img"
+            style="display: inline-block; overflow: visible; user-select: none; vertical-align: text-bottom;"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M2.10987 5.58825C2.1099 5.58827 2.10985 5.58823 2.10987 5.58825C1.96343 5.4537 1.96335 5.23547 2.1098 5.10092C2.25624 4.96636 2.49368 4.96636 2.64013 5.10092C2.64003 5.10083 2.64022 5.101 2.64013 5.10092L7.99998 10.0255L13.3598 5.10092C13.5063 4.96636 13.7437 4.96636 13.8902 5.10092C14.0366 5.23547 14.0366 5.45362 13.8902 5.58818L7.99998 11L2.10987 5.58825Z"
+              fill=""
+              fill-rule="evenodd"
+            />
+          </svg>
+           
+        </div>
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </div>
+    </div>
+  </div>
+</body>
+`;

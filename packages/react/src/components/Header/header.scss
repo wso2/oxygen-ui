@@ -25,7 +25,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 0 12px 0 23px;
+    padding: 0 18px;
   }
 
   .oxygen-brand {
@@ -58,6 +58,7 @@
   &.with-hamburger {
     .oxygen-header-toolbar {
       padding-left: 0;
+      padding-right: 15px;
 
       .oxygen-brand {
         margin-left: 10px;
@@ -96,11 +97,6 @@
   &.mobile {
     .menu-icon-button {
       margin-right: 0.5rem;
-    }
-
-    .oxygen-header-links,
-    .oxygen-header-user-dropdown-menu {
-      display: none;
     }
   }
 }

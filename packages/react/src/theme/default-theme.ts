@@ -38,6 +38,7 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
           },
           Navbar: {
             background: '#262626',
+            collapsibleItemBackground: '#f2f2f21f',
           },
         },
         gradients: {
@@ -68,6 +69,7 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
           },
           Navbar: {
             background: '#fbfbfb',
+            collapsibleItemBackground: '#f2f2f2',
           },
         },
         gradients: {
