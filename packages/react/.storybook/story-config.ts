@@ -65,6 +65,7 @@ export type Stories =
   | 'CountryFlag'
   | 'Fab'
   | 'Footer'
+  | 'FormLabel'
   | 'FormHelperText'
   | 'FormControl'
   | 'Grid'
@@ -230,6 +231,9 @@ const StoryConfig: StorybookConfig = {
   },
   FormControl: {
     hierarchy: `${StorybookCategories.Inputs}/Form Control`,
+  },
+  FormLabel: {
+    hierarchy: `${StorybookCategories.ComponentAPI}/Form Label`,
   },
   Grid: {
     hierarchy: `${StorybookCategories.Layout}/Grid`,
