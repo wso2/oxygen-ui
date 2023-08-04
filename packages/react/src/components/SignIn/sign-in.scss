@@ -44,12 +44,38 @@
       margin-bottom: 20px;
     }
 
+    .oxygen-sign-in-cta {
+      margin: 16px 0;
+    }
+
     .oxygen-sign-in-sign-up-link {
       font-size: 14px;
     }
 
     .oxygen-sign-in-sign-up-link-action {
       margin-left: 5px;
+    }
+  }
+
+  .oxygen-sign-in-options {
+    margin-top: 16px;
+
+    .oxygen-button {
+      background: var(--oxygen-palette-common-white);
+      color: var(--oxygen-palette-common-black);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 1px 0 rgba(0, 0, 0, .12), 0 1px 1px 0 rgba(0, 0, 0, .24);
+
+      &:hover {
+        color: rgba(0,0,0,.8);
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 16px;
+      }
     }
   }
 }
