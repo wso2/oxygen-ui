@@ -67,6 +67,7 @@ export type Stories =
   | 'Fab'
   | 'Footer'
   | 'FormControlLabel'
+  | 'FormGroup'
   | 'FormLabel'
   | 'FormHelperText'
   | 'FormControl'
@@ -236,6 +237,9 @@ const StoryConfig: StorybookConfig = {
   },
   FormControlLabel: {
     hierarchy: `${StorybookCategories.ComponentAPI}/Form Control Label`,
+  },
+  FormGroup: {
+    hierarchy: `${StorybookCategories.ComponentAPI}/Form Group`,
   },
   FormLabel: {
     hierarchy: `${StorybookCategories.ComponentAPI}/Form Label`,
