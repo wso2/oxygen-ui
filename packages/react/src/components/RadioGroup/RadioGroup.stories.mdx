@@ -1,0 +1,63 @@
+import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import StoryConfig from '../../../.storybook/story-config.ts';
+import FormControl from '../FormControl/FormControl.tsx';
+import FormLabel from '../FormLabel/FormLabel.tsx';
+import FormControlLabel from '../FormControlLabel/FormControlLabel.tsx';
+import Radio from '../Radio/Radio.tsx';
+import RadioGroup from './RadioGroup.tsx';
+
+export const meta = {
+  component: RadioGroup,
+  title: StoryConfig.RadioGroup.hierarchy,
+};
+
+<Meta title={meta.title} component={meta.component} />
+
+export const Template = args => (
+  <FormControl>
+    <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+    <RadioGroup
+      aria-labelledby="demo-radio-buttons-group-label"
+      defaultValue="female"
+      name="radio-buttons-group"
+    >
+      <FormControlLabel value="female" control={<Radio />} label="Female" />
+      <FormControlLabel value="male" control={<Radio />} label="Male" />
+      <FormControlLabel value="other" control={<Radio />} label="Other" />
+    </RadioGroup>
+  </FormControl>
+);
+
+# RadioGroup
+
+- [Overview](#overview)
+- [Props](#props)
+- [Usage](#usage)
+
+## Overview
+
+The Radio Group allows the user to select one option from a set.
+
+<Canvas>
+  <Story
+    name="Overview"
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Overview" />
+
+## Usage
+
+Import and use the `RadioGroup` component in your components as follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`import RadioGroup from '@oxygen-ui/react/RadioGroup';\n`}
+/>

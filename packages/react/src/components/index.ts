@@ -163,6 +163,9 @@ export * from './PhoneNumberInput';
 export {default as Radio} from './Radio';
 export * from './Radio';
 
+export {default as RadioGroup} from './RadioGroup';
+export * from './RadioGroup';
+
 export {default as Select} from './Select';
 export * from './Select';
 

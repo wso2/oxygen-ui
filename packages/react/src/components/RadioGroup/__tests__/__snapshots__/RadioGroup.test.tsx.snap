@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RadioGroup should match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="MuiFormGroup-root oxygen-radio-group css-dmmspl-MuiFormGroup-root"
+      role="radiogroup"
+    />
+  </div>
+</body>
+`;
