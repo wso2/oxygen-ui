@@ -21,7 +21,6 @@ export * from './theme';
 export {
   Alert,
   AlertTitle,
-  Paper,
   ToggleButton,
   ToggleButtonGroup,
   Dialog,
