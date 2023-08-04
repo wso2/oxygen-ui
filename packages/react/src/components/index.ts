@@ -82,6 +82,9 @@ export * from './Divider';
 export {default as Drawer} from './Drawer';
 export * from './Drawer';
 
+export {default as Fab} from './Fab';
+export * from './Fab';
+
 export {default as Footer} from './Footer';
 export * from './Footer';
 
