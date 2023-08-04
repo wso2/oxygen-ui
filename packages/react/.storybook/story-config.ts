@@ -90,6 +90,7 @@ export type Stories =
   | 'OutlinedInput'
   | 'Paper'
   | 'PhoneNumberInput'
+  | 'Radio'
   | 'Select'
   | 'SignIn'
   | 'Snackbar'
@@ -302,6 +303,9 @@ const StoryConfig: StorybookConfig = {
   },
   PhoneNumberInput: {
     hierarchy: `${StorybookCategories.Inputs}/Phone Number Input`,
+  },
+  Radio: {
+    hierarchy: `${StorybookCategories.ComponentAPI}/Radio`,
   },
   Select: {
     hierarchy: `${StorybookCategories.Inputs}/Select`,

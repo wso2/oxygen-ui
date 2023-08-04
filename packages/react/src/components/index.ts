@@ -160,6 +160,9 @@ export * from './Paper';
 export {default as PhoneNumberInput} from './PhoneNumberInput';
 export * from './PhoneNumberInput';
 
+export {default as Radio} from './Radio';
+export * from './Radio';
+
 export {default as Select} from './Select';
 export * from './Select';
 
