@@ -30,6 +30,7 @@ enum StorybookCategories {
   Theme = 'Theme',
   Typography = 'Typography',
   Surfaces = 'Surfaces',
+  Utils = 'Utils'
 }
 
 export type Stories =
@@ -93,6 +94,7 @@ export type Stories =
   | 'NavbarItem'
   | 'OutlinedInput'
   | 'Paper'
+  | 'Popover'
   | 'PhoneNumberInput'
   | 'Radio'
   | 'RadioGroup'
@@ -317,6 +319,9 @@ const StoryConfig: StorybookConfig = {
   },
   PhoneNumberInput: {
     hierarchy: `${StorybookCategories.Inputs}/Phone Number Input`,
+  },
+  Popover: {
+    hierarchy: `${StorybookCategories.Utils}/Popover`,
   },
   Radio: {
     hierarchy: `${StorybookCategories.ComponentAPI}/Radio`,

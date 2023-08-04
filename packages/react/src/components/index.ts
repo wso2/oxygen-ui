@@ -169,6 +169,9 @@ export * from './Paper';
 export {default as PhoneNumberInput} from './PhoneNumberInput';
 export * from './PhoneNumberInput';
 
+export {default as Popover} from './Popover';
+export * from './Popover';
+
 export {default as Radio} from './Radio';
 export * from './Radio';
 
