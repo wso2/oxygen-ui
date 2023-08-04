@@ -70,6 +70,9 @@ export * from './CircularProgress';
 export {default as CircularProgressAvatar} from './CircularProgressAvatar';
 export * from './CircularProgressAvatar';
 
+export {default as Code} from './Code';
+export * from './Code';
+
 export {default as ColorModeToggle} from './ColorModeToggle';
 export * from './ColorModeToggle';
 
