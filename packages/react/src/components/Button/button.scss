@@ -17,5 +17,12 @@
  */
 
 .oxygen-button {
-  /** Add Styles */
+  &.MuiButton-containedPrimary {
+    &.Mui-disabled {
+      cursor: default;
+      opacity: 0.45;
+      box-shadow: none;
+      pointer-events: none;
+    }
+  }
 }
