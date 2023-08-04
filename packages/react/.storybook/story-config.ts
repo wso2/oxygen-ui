@@ -88,6 +88,7 @@ export type Stories =
   | 'Navbar'
   | 'NavbarItem'
   | 'OutlinedInput'
+  | 'Paper'
   | 'PhoneNumberInput'
   | 'Select'
   | 'SignIn'
@@ -295,6 +296,9 @@ const StoryConfig: StorybookConfig = {
   },
   ListItemText: {
     hierarchy: `${StorybookCategories.DataDisplay}/List Item Text`,
+  },
+  Paper: {
+    hierarchy: `${StorybookCategories.Surfaces}/Paper`,
   },
   PhoneNumberInput: {
     hierarchy: `${StorybookCategories.Inputs}/Phone Number Input`,

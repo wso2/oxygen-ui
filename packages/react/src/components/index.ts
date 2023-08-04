@@ -154,6 +154,9 @@ export * from './Navbar';
 export {default as OutlinedInput} from './OutlinedInput';
 export * from './OutlinedInput';
 
+export {default as Paper} from './Paper';
+export * from './Paper';
+
 export {default as PhoneNumberInput} from './PhoneNumberInput';
 export * from './PhoneNumberInput';
 
