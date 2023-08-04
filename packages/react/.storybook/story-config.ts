@@ -18,6 +18,7 @@
  */
 
 enum StorybookCategories {
+  ComponentAPI = 'Component API',
   DataDisplay = 'Data Display',
   Foundations = 'Foundations',
   Feedback = 'Feedback',
@@ -65,6 +66,7 @@ export type Stories =
   | 'CountryFlag'
   | 'Fab'
   | 'Footer'
+  | 'FormControlLabel'
   | 'FormLabel'
   | 'FormHelperText'
   | 'FormControl'
@@ -231,6 +233,9 @@ const StoryConfig: StorybookConfig = {
   },
   FormControl: {
     hierarchy: `${StorybookCategories.Inputs}/Form Control`,
+  },
+  FormControlLabel: {
+    hierarchy: `${StorybookCategories.ComponentAPI}/Form Control Label`,
   },
   FormLabel: {
     hierarchy: `${StorybookCategories.ComponentAPI}/Form Label`,

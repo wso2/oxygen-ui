@@ -103,6 +103,9 @@ export * from './FormHelperText';
 export {default as FormLabel} from './FormLabel';
 export * from './FormLabel';
 
+export {default as FormControlLabel} from './FormControlLabel';
+export * from './FormControlLabel';
+
 export {default as Grid} from './Grid';
 export * from './Grid';
 
