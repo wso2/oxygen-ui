@@ -99,6 +99,9 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
       },
     },
     MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
       styleOverrides: {
         containedPrimary: {
           background: `linear-gradient(270deg, var(--oxygen-palette-gradients-primary-stop2),
