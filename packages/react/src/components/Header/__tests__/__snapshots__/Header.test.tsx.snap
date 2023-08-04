@@ -15,7 +15,7 @@ exports[`Header should match the snapshot 1`] = `
         >
           <button
             aria-haspopup="true"
-            class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit oxygen-button css-f65jff-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
+            class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit MuiButton-disableElevation MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit MuiButton-disableElevation oxygen-button css-td69co-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
             id=":r1:"
             tabindex="0"
             type="button"
