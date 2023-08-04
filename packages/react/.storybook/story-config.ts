@@ -57,7 +57,6 @@ export type Stories =
   | 'ColorModeToggle'
   | 'Colors'
   | 'Container'
-  | 'DataGrid'
   | 'Divider'
   | 'Drawer'
   | 'CountryFlag'
@@ -194,9 +193,6 @@ const StoryConfig: StorybookConfig = {
   },
   Container: {
     hierarchy: `${StorybookCategories.Layout}/Container`,
-  },
-  DataGrid: {
-    hierarchy: `${StorybookCategories.DataDisplay}/DataGrid`,
   },
   Divider: {
     hierarchy: `${StorybookCategories.DataDisplay}/Divider`,
