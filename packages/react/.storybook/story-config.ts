@@ -51,6 +51,7 @@ export type Stories =
   | 'CardContent'
   | 'CardHeader'
   | 'Carousel'
+  | 'Checkbox'
   | 'CircularProgressAvatar'
   | 'Chip'
   | 'CollapsibleNavbarItem'
@@ -159,6 +160,9 @@ const StoryConfig: StorybookConfig = {
   },
   Button: {
     hierarchy: `${StorybookCategories.Inputs}/Button`,
+  },
+  Checkbox: {
+    hierarchy: `${StorybookCategories.Inputs}/Checkbox`,
   },
   CircularProgress: {
     hierarchy: `${StorybookCategories.Feedback}/Circular Progress`,

@@ -58,6 +58,9 @@ export * from './CardHeader';
 export {default as Carousel} from './Carousel';
 export * from './Carousel';
 
+export {default as Checkbox} from './Checkbox';
+export * from './Checkbox';
+
 export {default as Chip} from './Chip';
 export * from './Chip';
 
