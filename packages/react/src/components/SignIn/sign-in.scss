@@ -67,10 +67,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 1px 0 rgb(0 0 0 / 12%), 0 1px 1px 0 rgb(0 0 0 / 24%);
+      /* stylelint-disable-next-line color-function-notation */
+      box-shadow: 0 0 1px 0 rgba(0, 0, 0, 12%), 0 1px 1px 0 rgba(0, 0, 0, 24%);
 
       &:hover {
-        color: rgb(0 0 0 / 80%);
+        /* stylelint-disable-next-line color-function-notation */
+        color: rgba(0, 0, 0, 80%);
       }
 
       &:not(:last-child) {
