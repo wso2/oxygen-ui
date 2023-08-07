@@ -1,0 +1,62 @@
+import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import StoryConfig from '../../../.storybook/story-config.ts';
+import Fab from './Fab.tsx';
+
+export const meta = {
+  component: Fab,
+  title: StoryConfig.Fab.hierarchy,
+};
+
+<Meta title={meta.title} component={meta.component} />
+
+export const Template = args => <Fab {...args} />;
+
+# Fab
+
+- [Overview](#overview)
+- [Props](#props)
+- [Usage](#usage)
+
+## Overview
+
+A Floating Action Button (FAB) performs the primary, or most common, action on a screen.
+
+export const PlusIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clipPath="url(#clip0_1_11)">
+          <path fillRule="evenodd" clipRule="evenodd"
+              fill="#000" d="M7.5 0.5C7.5 0.223858 7.72387 0 8 0C8.27613 0 8.5 0.223857 8.5 0.5V7.5H15.5C15.7761 7.5 16 7.72387 16 8C16 8.27613 15.7761 8.5 15.5 8.5H8.5V15.5C8.5 15.7761 8.27613 16 8 16C7.72387 16 7.5 15.7761 7.5 15.5V8.5H0.5C0.223858 8.5 0 8.27613 0 8C0 7.72387 0.223857 7.5 0.5 7.5H7.5V0.5Z"
+          />
+      </g>
+      <defs>
+          <clipPath id="clip0_1_11">
+              <rect width="16" height="16" />
+          </clipPath>
+      </defs>
+  </svg>
+);
+
+<Canvas>
+  <Story
+    name="Overview"
+    args={{ children: <PlusIcon /> }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Overview" />
+
+## Usage
+
+Import and use the `Fab` component in your components as follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`import Fab from '@oxygen-ui/react/Fab';\n`}
+/>

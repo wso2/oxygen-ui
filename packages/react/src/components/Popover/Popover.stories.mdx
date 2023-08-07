@@ -1,0 +1,84 @@
+import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import StoryConfig from '../../../.storybook/story-config.ts';
+import Button from '../Button/Button.tsx';
+import Typography from '../Typography/Typography.tsx';
+import Popover from './Popover.tsx';
+import {useArgs} from '@storybook/client-api';
+
+export const meta = {
+  component: Popover,
+  title: StoryConfig.Popover.hierarchy,
+};
+
+<Meta title={meta.title} component={meta.component} />
+
+export const Template = args => {
+  const [runtimeArgs, updateArgs] = useArgs();
+  const id = 'simple-popover';
+  const handleClick = (event) => {
+    updateArgs({
+      open: !runtimeArgs.open,
+      anchorEl: event.currentTarget
+    });
+  };
+  const handleClose = () => {
+    updateArgs({
+      open: false,
+      anchorEl: null
+    })
+  };
+  return (
+    <div>
+      <Button aria-describedby={id} variant="contained" onClick={handleClick}>
+        Open Popover
+      </Button>
+      <Popover
+        id={id}
+        open={runtimeArgs.open}
+        anchorEl={runtimeArgs.anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        {...args}
+      >
+        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+      </Popover>
+    </div>
+  );
+};
+
+# Popover
+
+- [Overview](#overview)
+- [Props](#props)
+- [Usage](#usage)
+
+## Overview
+
+A Popover can be used to display some content on top of another.
+
+<Canvas>
+  <Story
+    name="Overview"
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Overview" />
+
+## Usage
+
+Import and use the `Popover` component in your components as follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`import Popover from '@oxygen-ui/react/Popover';\n`}
+/>

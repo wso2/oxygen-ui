@@ -58,6 +58,9 @@ export * from './CardHeader';
 export {default as Carousel} from './Carousel';
 export * from './Carousel';
 
+export {default as Checkbox} from './Checkbox';
+export * from './Checkbox';
+
 export {default as Chip} from './Chip';
 export * from './Chip';
 
@@ -66,6 +69,9 @@ export * from './CircularProgress';
 
 export {default as CircularProgressAvatar} from './CircularProgressAvatar';
 export * from './CircularProgressAvatar';
+
+export {default as Code} from './Code';
+export * from './Code';
 
 export {default as ColorModeToggle} from './ColorModeToggle';
 export * from './ColorModeToggle';
@@ -82,14 +88,26 @@ export * from './Divider';
 export {default as Drawer} from './Drawer';
 export * from './Drawer';
 
+export {default as Fab} from './Fab';
+export * from './Fab';
+
 export {default as Footer} from './Footer';
 export * from './Footer';
 
 export {default as FormControl} from './FormControl';
 export * from './FormControl';
 
+export {default as FormGroup} from './FormGroup';
+export * from './FormGroup';
+
 export {default as FormHelperText} from './FormHelperText';
 export * from './FormHelperText';
+
+export {default as FormLabel} from './FormLabel';
+export * from './FormLabel';
+
+export {default as FormControlLabel} from './FormControlLabel';
+export * from './FormControlLabel';
 
 export {default as Grid} from './Grid';
 export * from './Grid';
@@ -145,8 +163,20 @@ export * from './Navbar';
 export {default as OutlinedInput} from './OutlinedInput';
 export * from './OutlinedInput';
 
+export {default as Paper} from './Paper';
+export * from './Paper';
+
 export {default as PhoneNumberInput} from './PhoneNumberInput';
 export * from './PhoneNumberInput';
+
+export {default as Popover} from './Popover';
+export * from './Popover';
+
+export {default as Radio} from './Radio';
+export * from './Radio';
+
+export {default as RadioGroup} from './RadioGroup';
+export * from './RadioGroup';
 
 export {default as Select} from './Select';
 export * from './Select';

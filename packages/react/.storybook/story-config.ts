@@ -18,6 +18,7 @@
  */
 
 enum StorybookCategories {
+  ComponentAPI = 'Component API',
   DataDisplay = 'Data Display',
   Foundations = 'Foundations',
   Feedback = 'Feedback',
@@ -29,6 +30,7 @@ enum StorybookCategories {
   Theme = 'Theme',
   Typography = 'Typography',
   Surfaces = 'Surfaces',
+  Utils = 'Utils'
 }
 
 export type Stories =
@@ -51,8 +53,10 @@ export type Stories =
   | 'CardContent'
   | 'CardHeader'
   | 'Carousel'
+  | 'Checkbox'
   | 'CircularProgressAvatar'
   | 'Chip'
+  | 'Code'
   | 'CollapsibleNavbarItem'
   | 'ColorModeToggle'
   | 'Colors'
@@ -61,7 +65,11 @@ export type Stories =
   | 'Divider'
   | 'Drawer'
   | 'CountryFlag'
+  | 'Fab'
   | 'Footer'
+  | 'FormControlLabel'
+  | 'FormGroup'
+  | 'FormLabel'
   | 'FormHelperText'
   | 'FormControl'
   | 'Grid'
@@ -85,7 +93,11 @@ export type Stories =
   | 'Navbar'
   | 'NavbarItem'
   | 'OutlinedInput'
+  | 'Paper'
+  | 'Popover'
   | 'PhoneNumberInput'
+  | 'Radio'
+  | 'RadioGroup'
   | 'Select'
   | 'SignIn'
   | 'Snackbar'
@@ -159,6 +171,9 @@ const StoryConfig: StorybookConfig = {
   Button: {
     hierarchy: `${StorybookCategories.Inputs}/Button`,
   },
+  Checkbox: {
+    hierarchy: `${StorybookCategories.Inputs}/Checkbox`,
+  },
   CircularProgress: {
     hierarchy: `${StorybookCategories.Feedback}/Circular Progress`,
   },
@@ -182,6 +197,9 @@ const StoryConfig: StorybookConfig = {
   },
   Chip: {
     hierarchy: `${StorybookCategories.DataDisplay}/Chip`,
+  },
+  Code: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Code`,
   },
   CollapsibleNavbarItem: {
     hierarchy: `${StorybookCategories.Navigation}/Collapsible Navbar Item`,
@@ -207,6 +225,9 @@ const StoryConfig: StorybookConfig = {
   CountryFlag: {
     hierarchy: `${StorybookCategories.Icons}/Country Flags`,
   },
+  Fab: {
+    hierarchy: `${StorybookCategories.Inputs}/Fab`,
+  },
   Footer: {
     hierarchy: `${StorybookCategories.Navigation}/Footer`,
   },
@@ -215,6 +236,15 @@ const StoryConfig: StorybookConfig = {
   },
   FormControl: {
     hierarchy: `${StorybookCategories.Inputs}/Form Control`,
+  },
+  FormControlLabel: {
+    hierarchy: `${StorybookCategories.ComponentAPI}/Form Control Label`,
+  },
+  FormGroup: {
+    hierarchy: `${StorybookCategories.ComponentAPI}/Form Group`,
+  },
+  FormLabel: {
+    hierarchy: `${StorybookCategories.ComponentAPI}/Form Label`,
   },
   Grid: {
     hierarchy: `${StorybookCategories.Layout}/Grid`,
@@ -284,8 +314,20 @@ const StoryConfig: StorybookConfig = {
   ListItemText: {
     hierarchy: `${StorybookCategories.DataDisplay}/List Item Text`,
   },
+  Paper: {
+    hierarchy: `${StorybookCategories.Surfaces}/Paper`,
+  },
   PhoneNumberInput: {
     hierarchy: `${StorybookCategories.Inputs}/Phone Number Input`,
+  },
+  Popover: {
+    hierarchy: `${StorybookCategories.Utils}/Popover`,
+  },
+  Radio: {
+    hierarchy: `${StorybookCategories.ComponentAPI}/Radio`,
+  },
+  RadioGroup: {
+    hierarchy: `${StorybookCategories.Inputs}/Radio Group`,
   },
   Select: {
     hierarchy: `${StorybookCategories.Inputs}/Select`,
