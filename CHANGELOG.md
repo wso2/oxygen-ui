@@ -1,5 +1,31 @@
 # Changelog
 
+# [1.2.0](https://github.com/wso2/oxygen-ui/compare/v1.1.11...v1.2.0)
+<br> Released on: 2023-08-07
+
+## What's Changed
+
+### `@oxygen-ui/primitives`
+* **primitives:** add check 16 icon ([5b9e5ea](https://github.com/wso2/oxygen-ui/commit/5b9e5eab89f7bfdea3598b4c32aadebb32e77d5c))
+
+
+### `@oxygen-ui/react`
+* **react:** fix storybook global styles ([377765e](https://github.com/wso2/oxygen-ui/commit/377765e590d4cff5ebb68710f8b95c27d4ef88fe))
+* **react:** fix `Button` disabled state styles ([b4ddd9f](https://github.com/wso2/oxygen-ui/commit/b4ddd9f8668fe3170c939950ec1dacd6b261c319))
+* **react:** fix sign in styles ([0830aae](https://github.com/wso2/oxygen-ui/commit/0830aaec2afc8b996f339960ccf978b4eae57a47))
+* **react:** fix sign in styles ([ff61e55](https://github.com/wso2/oxygen-ui/commit/ff61e55501562b8febf755fdb4288c63945c3686))
+* **react:** add `Popover` component ([42125d2](https://github.com/wso2/oxygen-ui/commit/42125d2bd16cacea82f5ca1227a67045c8217610))
+* **react:** disable elevation for buttons ([573fce2](https://github.com/wso2/oxygen-ui/commit/573fce276ad49f1e8b34347c7d81670509ba4a2a))
+* **react:** add `FormGroup` component ([cb159db](https://github.com/wso2/oxygen-ui/commit/cb159dbb9217bf976ae64e8d6632907b04a39875))
+* **react:** add `FormControlLabel` component ([8171f62](https://github.com/wso2/oxygen-ui/commit/8171f6281a767b808ded70f08acfc2d618f4b5e6))
+* **react:** add `FormLabel` component ([092475c](https://github.com/wso2/oxygen-ui/commit/092475c09f57cfd6ba3cb11ba8aaaafc2b74102c))
+* **react:** add `RadioGroup` component ([5a02d8b](https://github.com/wso2/oxygen-ui/commit/5a02d8beecaf303ab4ad158a5a4b51ede348702c))
+* **react:** add `Radio` component ([f35d4a5](https://github.com/wso2/oxygen-ui/commit/f35d4a50529297831340918ab68fd20a4e99196b))
+* **react:** add `Paper` component ([493714b](https://github.com/wso2/oxygen-ui/commit/493714b88a2a09db1ed1d1c0d1758bb271697708))
+* **react:** add `Code` component ([086aa3f](https://github.com/wso2/oxygen-ui/commit/086aa3fb7e4d6a9065fb659384a129d28c56c47a))
+* **react:** add `Checkbox` component ([3cda060](https://github.com/wso2/oxygen-ui/commit/3cda0608b844ce84a3401ef169109941bf62ec8e))
+* **react:** add `Fab` component ([a4f6a2d](https://github.com/wso2/oxygen-ui/commit/a4f6a2d3f963aee5a9176a5b499ec709ef6a67a3))
+
 ## [1.1.11](https://github.com/wso2/oxygen-ui/compare/v1.1.10...v1.1.11)
 <br> Released on: 2023-07-28
 
