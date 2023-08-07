@@ -1,0 +1,30 @@
+<!--
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com).
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+-->
+
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g clip-path="url(#clip0_302_309)">
+    <path
+      d="M15.6643 3.2937C16.1107 3.68433 16.1107 4.3187 15.6643 4.70933L6.52142 12.7093C6.07499 13.1 5.34999 13.1 4.90356 12.7093L0.332136 8.70933C-0.114293 8.3187 -0.114293 7.68433 0.332136 7.2937C0.778564 6.90308 1.50356 6.90308 1.94999 7.2937L5.71428 10.5843L14.05 3.2937C14.4964 2.90308 15.2214 2.90308 15.6679 3.2937H15.6643Z"
+      fill="black" />
+  </g>
+  <defs>
+    <clipPath id="clip0_302_309">
+      <rect width="16" height="16" fill="white" />
+    </clipPath>
+  </defs>
+</svg>
