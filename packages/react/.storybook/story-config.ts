@@ -35,6 +35,8 @@ enum StorybookCategories {
 
 export type Stories =
   | 'Accordion'
+  | 'AccordionDetails'
+  | 'AccordionSummary'
   | 'AccountOverview'
   | 'ActionCard'
   | 'Alert'
@@ -134,6 +136,12 @@ export type StorybookConfig = Record<
 const StoryConfig: StorybookConfig = {
   Accordion: {
     hierarchy: `${StorybookCategories.Surfaces}/Accordion`,
+  },
+  AccordionDetails: {
+    hierarchy: `${StorybookCategories.ComponentAPI}/Accordion Details`,
+  },
+  AccordionSummary: {
+    hierarchy: `${StorybookCategories.ComponentAPI}/Accordion Summary`,
   },
   AccountOverview: {
     hierarchy: `${StorybookCategories.Patterns}/Account Overview`,

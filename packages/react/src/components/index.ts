@@ -19,6 +19,12 @@
 export {default as AccountOverview} from './AccountOverview';
 export * from './AccountOverview';
 
+export {default as AccordionDetails} from './AccordionDetails';
+export * from './AccordionDetails';
+
+export {default as AccordionSummary} from './AccordionSummary';
+export * from './AccordionSummary';
+
 export {default as ActionCard} from './ActionCard';
 export * from './ActionCard';
 
