@@ -1,5 +1,14 @@
 # Changelog
 
+# [1.3.0](https://github.com/wso2/oxygen-ui/compare/v1.2.0...v1.3.0)
+<br> Released on: 2023-08-08
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** add `AccordionDetails` component ([9068558](https://github.com/wso2/oxygen-ui/commit/9068558c1a39091d2030c16ea922c51faf8d21e3))
+* **react:** add `AccordionSummary` component ([32a9cb1](https://github.com/wso2/oxygen-ui/commit/32a9cb19b93fd4e82ac2c1760c38b78ff1de00f2))
+
 # [1.2.0](https://github.com/wso2/oxygen-ui/compare/v1.1.11...v1.2.0)
 <br> Released on: 2023-08-07
 
