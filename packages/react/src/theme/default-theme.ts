@@ -138,7 +138,8 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
             '& fieldset': {              
               borderColor: 'var(--oxygen-palette-divider)',            
             },            
-            '&:hover fieldset': {              
+            '&:hover fieldset': {  
+              // Temporary disable the hover state border color.            
               borderColor: 'var(--oxygen-palette-divider)',            
             },            
             '&.Mui-focused fieldset': {              
