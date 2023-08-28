@@ -131,6 +131,23 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
         },
       },
     },
+    MuiTextField: {      
+      styleOverrides: {        
+        root: {          
+          '& .MuiOutlinedInput-root': {            
+            '& fieldset': {              
+              borderColor: 'var(--oxygen-palette-divider)',            
+            },            
+            '&:hover fieldset': {              
+              borderColor: 'var(--oxygen-palette-divider)',            
+            },            
+            '&.Mui-focused fieldset': {              
+              borderColor: 'var(--oxygen-palette-primary)',            
+            },          
+          },        
+        },      
+      },    
+    },
     MuiCard: {
       styleOverrides: {
         root: {
