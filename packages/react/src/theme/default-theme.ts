@@ -144,12 +144,12 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
         root: {
           '& .MuiOutlinedInput-root': {
             '& fieldset': {
-              borderColor: 'rgba(var(--oxygen-palette-common-onBackgroundChannel) / 0.23)',            
+              borderColor: 'rgba(var(--oxygen-palette-common-onBackgroundChannel) / 0.23)',
             },
             '&.Mui-focused fieldset': {
               borderColor: '-var(--oxygen-palette-primary-main)',
             },
-            '&:hover fieldset': { 
+            '&:hover fieldset': {
               // Temporary disable the hover state border color.
               borderColor: 'rgba(var(--oxygen-palette-common-onBackgroundChannel) / 0.23)',
             },
