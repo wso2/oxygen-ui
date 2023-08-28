@@ -40,7 +40,6 @@ import ListItemIcon from '../ListItemIcon';
 import ListItemText from '../ListItemText';
 import Tooltip from '../Tooltip';
 import './text-field.scss';
-import OutlinedInput, { OutlinedInputProps } from '../OutlinedInput';
 
 export type TextFieldProps = {
   /**
@@ -144,28 +143,28 @@ const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> = for
   },
 ) as ForwardRefExoticComponent<TextFieldProps>;
 
-const TextField: ForwardRefExoticComponent<OutlinedInputProps> & TextFieldProps & WithWrapperProps = forwardRef(
-  (props: OutlinedInputProps & TextFieldProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, id, label, required, type, InputLabelProps, ...rest} = props;
+const TextField: ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps = forwardRef(
+  (props: TextFieldProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+    const {className, id, label, type, InputLabelProps, ...rest} = props;
 
     const classes: string = clsx('oxygen-text-field', className);
 
     return (
       <div className={classes}>
-        <InputLabel htmlFor={id} aria-describedby={id} required={required} {...InputLabelProps}>
+        <InputLabel htmlFor={id} aria-describedby={id} {...InputLabelProps}>
           {label}
         </InputLabel>
         {type === TextFieldInputTypes.INPUT_PASSWORD ? (
           <PasswordFieldWithCriteria id={id} type={type} {...rest} ref={ref} />
         ) : (
-          <OutlinedInput id={id} type={type} {...rest} ref={ref} />
+          <MuiTextField id={id} type={type} {...rest} ref={ref} />
         )}
       </div>
     );
   },
-) as ForwardRefExoticComponent<OutlinedInputProps> & TextFieldProps & WithWrapperProps;
+) as ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps;
 
-TextField.displayName = composeComponentDisplayName(COMPONENT_NAME) ;
+TextField.displayName = composeComponentDisplayName(COMPONENT_NAME);
 TextField.muiName = COMPONENT_NAME;
 TextField.defaultProps = {};
 
