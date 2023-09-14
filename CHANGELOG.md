@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.1](https://github.com/wso2/oxygen-ui/compare/v1.3.0...v1.3.1)
+<br> Released on: 2023-09-14
+
+## What's Changed
+
+### `@oxygen-ui/primitives`
+* **primitives:** add arrow loop right user icon ([9598836](https://github.com/wso2/oxygen-ui/commit/95988363b3989422a8de5ab52a0c741055d33538))
+
 # [1.3.0](https://github.com/wso2/oxygen-ui/compare/v1.2.0...v1.3.0)
 <br> Released on: 2023-08-08
 
