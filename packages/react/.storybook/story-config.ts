@@ -102,6 +102,7 @@ export type Stories =
   | 'RadioGroup'
   | 'Select'
   | 'SignIn'
+  | 'Skeleton'
   | 'Snackbar'
   | 'Stepper'
   | 'Tab'
@@ -342,6 +343,9 @@ const StoryConfig: StorybookConfig = {
   },
   SignIn: {
     hierarchy: `${StorybookCategories.Patterns}/Sign In`,
+  },
+  Skeleton: {
+    hierarchy: `${StorybookCategories.Feedback}/Skeleton`,
   },
   Snackbar: {
     hierarchy: `${StorybookCategories.Feedback}/Snackbar`,
