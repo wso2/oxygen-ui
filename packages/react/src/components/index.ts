@@ -34,6 +34,9 @@ export * from './AppBar';
 export {default as AppShell} from './AppShell';
 export * from './AppShell';
 
+export {default as Autocomplete} from './Autocomplete';
+export * from './Autocomplete';
+
 export {default as Avatar} from './Avatar';
 export * from './Avatar';
 

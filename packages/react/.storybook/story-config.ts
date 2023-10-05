@@ -43,6 +43,7 @@ export type Stories =
   | 'AlertTitle'
   | 'AppBar'
   | 'AppShell'
+  | 'Autocomplete'
   | 'Avatar'
   | 'Backdrop'
   | 'Badge'
@@ -160,6 +161,9 @@ const StoryConfig: StorybookConfig = {
   },
   AppShell: {
     hierarchy: `${StorybookCategories.Layout}/App Shell`,
+  },
+  Autocomplete: {
+    hierarchy: `${StorybookCategories.Inputs}/Autocomplete`,
   },
   Avatar: {
     hierarchy: `${StorybookCategories.DataDisplay}/Avatar`,
