@@ -22,7 +22,7 @@ import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} f
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 
-type AutocompleteProps<T> = MuiAutocompleteProps<T, boolean, boolean, boolean>;
+export type AutocompleteProps<T> = MuiAutocompleteProps<T, boolean, boolean, boolean>;
 
 const COMPONENT_NAME: string = 'Autocomplete';
 
