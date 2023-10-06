@@ -22,25 +22,20 @@ import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} f
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 
-export type AutocompleteProps<T> = MuiAutocompleteProps<
-  T,
-  boolean | undefined,
-  boolean | undefined,
-  boolean | undefined
->;
+type AutocompleteProps<T> = MuiAutocompleteProps<T, boolean, boolean, boolean>;
 
-const COMPONENT_NAME: string = 'AutoComplete';
-type T = object;
+const COMPONENT_NAME: string = 'Autocomplete';
 
-const Autocomplete: ForwardRefExoticComponent<AutocompleteProps<T>> & WithWrapperProps = forwardRef(
-  (props: AutocompleteProps<T>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
+const Autocomplete: ForwardRefExoticComponent<AutocompleteProps<Record<string, unknown>>> & WithWrapperProps =
+  forwardRef(
+    (props: AutocompleteProps<Record<string, unknown>>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+      const {className, ...rest} = props;
 
-    const classes: string = clsx('oxygen-autocomplete', className);
+      const classes: string = clsx('oxygen-autocomplete', className);
 
-    return <MuiAutocomplete className={classes} {...rest} ref={ref} />;
-  },
-) as ForwardRefExoticComponent<AutocompleteProps<T>> & WithWrapperProps;
+      return <MuiAutocomplete className={classes} {...rest} ref={ref} />;
+    },
+  ) as ForwardRefExoticComponent<AutocompleteProps<Record<string, unknown>>> & WithWrapperProps;
 
 Autocomplete.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Autocomplete.muiName = COMPONENT_NAME;
