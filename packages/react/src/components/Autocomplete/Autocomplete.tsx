@@ -21,6 +21,7 @@ import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
+import './autocomplete.scss';
 
 export type AutocompleteProps<T> = MuiAutocompleteProps<T, boolean, boolean, boolean>;
 
