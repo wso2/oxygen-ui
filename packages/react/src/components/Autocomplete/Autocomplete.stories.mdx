@@ -9,7 +9,7 @@ export const meta = {
   title: StoryConfig.Autocomplete.hierarchy,
 };
 
-<Meta title={meta.title} component={meta.component} />
+<Meta title="Inputs/Autocomplete" component={Autocomplete} />
 
 export const Template = args => <Autocomplete {...args} />;
 
@@ -26,6 +26,7 @@ Autocomplete is a conventional text input field that is improved with a panel di
 ### Combination box
 
 The textbox's value needs to be chosen from a predefined set of allowed values.
+
 <Canvas>
   <Story
     name="Combination box"
@@ -55,6 +56,7 @@ The textbox's value needs to be chosen from a predefined set of allowed values.
 ### Multiple values
 
 This is also known as tags, this allows the user to enter more than one value.
+
 <Canvas>
   <Story
     name="Multiple values"
