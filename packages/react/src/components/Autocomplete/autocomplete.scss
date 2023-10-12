@@ -17,6 +17,9 @@
  */
 
 .oxygen-autocomplete {
-  padding-top: 14px;
-  padding-bottom: 14px;
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+  .MuiButtonBase-root {
+    height: 32px !important;
+  }
 }
