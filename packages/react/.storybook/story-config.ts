@@ -80,6 +80,7 @@ export type Stories =
   | 'Icons'
   | 'Image'
   | 'Input'
+  | 'InputAdornment'
   | 'InputLabel'
   | 'LinearProgress'
   | 'Link'
@@ -274,6 +275,9 @@ const StoryConfig: StorybookConfig = {
   },
   Input: {
     hierarchy: `${StorybookCategories.Inputs}/Input`,
+  },
+  InputAdornment: {
+    hierarchy: `${StorybookCategories.ComponentAPI}/Input Adornment`,
   },
   InputLabel: {
     hierarchy: `${StorybookCategories.Inputs}/Input Label`,
