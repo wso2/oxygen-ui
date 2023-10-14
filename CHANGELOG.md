@@ -1,5 +1,14 @@
 # Changelog
 
+# [1.4.0](https://github.com/wso2/oxygen-ui/compare/v1.3.3...v1.4.0)
+<br> Released on: 2023-10-14
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** add `InputAdornment` component ([c336485](https://github.com/wso2/oxygen-ui/commit/c336485da4272f0c6e239d3a2e9f0bda39efa36f))
+* **react:** add `Skeleton` component ([f419b03](https://github.com/wso2/oxygen-ui/commit/f419b03028650ade2cc5ae129874c0e295c268f2))
+
 ## [1.3.3](https://github.com/wso2/oxygen-ui/compare/v1.3.2...v1.3.3)
 <br> Released on: 2023-10-03
 
