@@ -130,6 +130,9 @@ export * from './Image';
 export {default as Input} from './Input';
 export * from './Input';
 
+export {default as InputAdornment} from './InputAdornment';
+export * from './InputAdornment';
+
 export {default as InputLabel} from './InputLabel';
 export * from './InputLabel';
 
@@ -189,6 +192,9 @@ export * from './Select';
 
 export {default as SignIn} from './SignIn';
 export * from './SignIn';
+
+export {default as Skeleton} from './Skeleton';
+export * from './Skeleton';
 
 export {default as Stepper} from './Stepper';
 export * from './Stepper';

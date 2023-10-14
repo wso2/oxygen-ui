@@ -80,6 +80,7 @@ export type Stories =
   | 'Icons'
   | 'Image'
   | 'Input'
+  | 'InputAdornment'
   | 'InputLabel'
   | 'LinearProgress'
   | 'Link'
@@ -102,6 +103,7 @@ export type Stories =
   | 'RadioGroup'
   | 'Select'
   | 'SignIn'
+  | 'Skeleton'
   | 'Snackbar'
   | 'Stepper'
   | 'Tab'
@@ -274,6 +276,9 @@ const StoryConfig: StorybookConfig = {
   Input: {
     hierarchy: `${StorybookCategories.Inputs}/Input`,
   },
+  InputAdornment: {
+    hierarchy: `${StorybookCategories.ComponentAPI}/Input Adornment`,
+  },
   InputLabel: {
     hierarchy: `${StorybookCategories.Inputs}/Input Label`,
   },
@@ -342,6 +347,9 @@ const StoryConfig: StorybookConfig = {
   },
   SignIn: {
     hierarchy: `${StorybookCategories.Patterns}/Sign In`,
+  },
+  Skeleton: {
+    hierarchy: `${StorybookCategories.Feedback}/Skeleton`,
   },
   Snackbar: {
     hierarchy: `${StorybookCategories.Feedback}/Snackbar`,
