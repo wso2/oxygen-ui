@@ -4,7 +4,7 @@ exports[`Skeleton should match the snapshot 1`] = `
 <body>
   <div>
     <span
-      class="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-pulse oxygen-Skeleton css-abjlxe-MuiSkeleton-root"
+      class="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-pulse oxygen-skeleton css-abjlxe-MuiSkeleton-root"
     />
   </div>
 </body>

@@ -33,7 +33,7 @@ const Skeleton: FC<SkeletonProps> & WithWrapperProps = <C extends ElementType>(
 ): ReactElement => {
   const {className, ...rest} = props;
 
-  const classes: string = clsx('oxygen-Skeleton', className);
+  const classes: string = clsx('oxygen-skeleton', className);
 
   return <MuiSkeleton className={classes} {...rest} />;
 };
