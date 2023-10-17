@@ -1,5 +1,13 @@
 # Changelog
 
+# [1.5.0](https://github.com/wso2/oxygen-ui/compare/v1.4.0...v1.5.0)
+<br> Released on: 2023-10-17
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** add Autocomplete component ([e7d79de](https://github.com/wso2/oxygen-ui/commit/e7d79de87393d62f69720859427b12b42c4c8433))
+
 # [1.4.0](https://github.com/wso2/oxygen-ui/compare/v1.3.3...v1.4.0)
 <br> Released on: 2023-10-14
 
