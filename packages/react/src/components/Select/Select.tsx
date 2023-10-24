@@ -22,6 +22,7 @@ import {forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement} f
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import InputLabel, {InputLabelProps as MuiInputLabelProps} from '../InputLabel';
+import './select.scss';
 
 export interface SelectProps extends MuiSelectProps {
   /**
@@ -41,6 +42,7 @@ const Select: ForwardRefExoticComponent<SelectProps> & WithWrapperProps = forwar
     const labelProps: MuiInputLabelProps = {
       ...{
         disableAnimation: true,
+        focused: false,
         required,
         shrink: false,
       },
@@ -50,7 +52,12 @@ const Select: ForwardRefExoticComponent<SelectProps> & WithWrapperProps = forwar
     return (
       <>
         {label && (
-          <InputLabel id={name} htmlFor={name} {...labelProps}>
+          <InputLabel
+            id={name}
+            htmlFor={name}
+            {...labelProps}
+            className={clsx('oxygen-select-static-label', InputLabelProps?.className)}
+          >
             {label}
           </InputLabel>
         )}
@@ -65,6 +72,7 @@ Select.muiName = COMPONENT_NAME;
 Select.defaultProps = {
   InputLabelProps: {
     disableAnimation: true,
+    focused: false,
     shrink: false,
   },
 };

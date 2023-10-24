@@ -4,6 +4,7 @@ import dedent from 'ts-dedent';
 import StoryConfig from '../../../.storybook/story-config.ts';
 import Select from './Select.tsx';
 import MenuItem from '../MenuItem';
+import FormControl from '../FormControl/FormControl.tsx';
 
 export const meta = {
   component: Select,
@@ -15,13 +16,15 @@ export const meta = {
 export const Template = args => {
   const [{open, anchor, onChange, label}, updateArgs] = useArgs();
   return (
-    <Select label="Select WSO2 Product" defaultValue='Asgardeo' onChange={() => updateArgs({value: anchor})} {...args}>
-      {['Asgardeo', 'Identity Server', 'Choreo', 'APIM'].map(anchor => (
-        <MenuItem key={anchor} value={anchor}>
-          {anchor}
-        </MenuItem>
-      ))}
-    </Select>
+    <FormControl fullWidth margin="dense">
+      <Select label="Select WSO2 Product" defaultValue='Asgardeo' onChange={() => updateArgs({value: anchor})} {...args}>
+        {['Asgardeo', 'Identity Server', 'Choreo', 'APIM'].map(anchor => (
+          <MenuItem key={anchor} value={anchor}>
+            {anchor}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   )
 };
 
@@ -62,7 +65,7 @@ function Demo() {
     <Select>
       <MenuItem value={10}>Ten</MenuItem>
       <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem> 
+      <MenuItem value={30}>Thirty</MenuItem>
     </Select>
   );
 }`}
