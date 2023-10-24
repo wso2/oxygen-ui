@@ -27,16 +27,18 @@ export type AutocompleteProps<T> = MuiAutocompleteProps<T, boolean, boolean, boo
 
 const COMPONENT_NAME: string = 'Autocomplete';
 
-const Autocomplete: ForwardRefExoticComponent<AutocompleteProps<Record<string, unknown>>> & WithWrapperProps =
-  forwardRef(
-    (props: AutocompleteProps<Record<string, unknown>>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-      const {className, ...rest} = props;
+/**
+ * @remarks `any` is used as the generic type for the props because the generic type is not used in the component.
+ */
+const Autocomplete: ForwardRefExoticComponent<AutocompleteProps<any>> & WithWrapperProps = forwardRef(
+  (props: AutocompleteProps<any>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+    const {className, ...rest} = props;
 
-      const classes: string = clsx('oxygen-autocomplete', className);
+    const classes: string = clsx('oxygen-autocomplete', className);
 
-      return <MuiAutocomplete className={classes} {...rest} ref={ref} />;
-    },
-  ) as ForwardRefExoticComponent<AutocompleteProps<Record<string, unknown>>> & WithWrapperProps;
+    return <MuiAutocomplete className={classes} {...rest} ref={ref} />;
+  },
+) as ForwardRefExoticComponent<AutocompleteProps<any>> & WithWrapperProps;
 
 Autocomplete.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Autocomplete.muiName = COMPONENT_NAME;

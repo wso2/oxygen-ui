@@ -18,3 +18,4 @@
 
 export {default} from './Autocomplete';
 export type {AutocompleteProps} from './Autocomplete';
+export type {AutocompleteRenderGetTagProps, AutocompleteRenderInputParams} from '@mui/material/Autocomplete';
