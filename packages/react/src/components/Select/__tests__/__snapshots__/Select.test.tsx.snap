@@ -4,56 +4,52 @@ exports[`Select should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="oxygen-box oxygen-select MuiBox-root css-0"
+      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary oxygen-select css-saqlya-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
     >
       <div
-        class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary  css-saqlya-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+        aria-expanded="false"
+        aria-haspopup="listbox"
+        class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-1d3lhbp-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+        role="button"
+        tabindex="0"
       >
-        <div
-          aria-expanded="false"
-          aria-haspopup="listbox"
-          class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-1d3lhbp-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
-          role="button"
-          tabindex="0"
+        <span
+          class="notranslate"
+        >
+          ​
+        </span>
+      </div>
+      <input
+        aria-hidden="true"
+        class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
+        tabindex="-1"
+        value=""
+      />
+      <svg
+        aria-hidden="true"
+        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-j9wse9-MuiSvgIcon-root-MuiSelect-icon"
+        data-testid="ArrowDropDownIcon"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M7 10l5 5 5-5z"
+        />
+      </svg>
+      <fieldset
+        aria-hidden="true"
+        class="MuiOutlinedInput-notchedOutline css-116asjz-MuiOutlinedInput-notchedOutline"
+      >
+        <legend
+          class="css-ihdtdm"
         >
           <span
             class="notranslate"
           >
             ​
           </span>
-        </div>
-        <input
-          aria-hidden="true"
-          class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
-          tabindex="-1"
-          value=""
-        />
-        <svg
-          aria-hidden="true"
-          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-j9wse9-MuiSvgIcon-root-MuiSelect-icon"
-          data-testid="ArrowDropDownIcon"
-          focusable="false"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M7 10l5 5 5-5z"
-          />
-        </svg>
-        <fieldset
-          aria-hidden="true"
-          class="MuiOutlinedInput-notchedOutline css-116asjz-MuiOutlinedInput-notchedOutline"
-        >
-          <legend
-            class="css-ihdtdm"
-          >
-            <span
-              class="notranslate"
-            >
-              ​
-            </span>
-          </legend>
-        </fieldset>
-      </div>
+        </legend>
+      </fieldset>
     </div>
   </div>
 </body>
