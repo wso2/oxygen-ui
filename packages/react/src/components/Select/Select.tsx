@@ -21,11 +21,12 @@ import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
-import Box from '../Box';
 import InputLabel, {InputLabelProps as MuiInputLabelProps} from '../InputLabel';
-import './select.scss';
 
 export interface SelectProps extends MuiSelectProps {
+  /**
+   * Props for the `InputLabel` component.
+   */
   InputLabelProps?: MuiInputLabelProps;
 }
 
@@ -33,25 +34,39 @@ const COMPONENT_NAME: string = 'Select';
 
 const Select: ForwardRefExoticComponent<SelectProps> & WithWrapperProps = forwardRef(
   (props: SelectProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, InputLabelProps, label, id, ...rest} = props;
+    const {className, InputLabelProps, label, name, required, ...rest} = props;
 
     const classes: string = clsx('oxygen-select', className);
 
+    const labelProps: MuiInputLabelProps = {
+      ...{
+        disableAnimation: true,
+        required,
+        shrink: false,
+      },
+      ...InputLabelProps,
+    };
+
     return (
-      <Box className={classes}>
+      <>
         {label && (
-          <InputLabel id={id} {...InputLabelProps}>
+          <InputLabel id={name} htmlFor={name} {...labelProps}>
             {label}
           </InputLabel>
         )}
-        <MuiSelect ref={ref} labelId={id} {...rest} />
-      </Box>
+        <MuiSelect ref={ref} labelId={name} className={classes} {...rest} />
+      </>
     );
   },
 ) as ForwardRefExoticComponent<SelectProps> & WithWrapperProps;
 
 Select.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Select.muiName = COMPONENT_NAME;
-Select.defaultProps = {};
+Select.defaultProps = {
+  InputLabelProps: {
+    disableAnimation: true,
+    shrink: false,
+  },
+};
 
 export default Select;
