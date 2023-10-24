@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.1](https://github.com/wso2/oxygen-ui/compare/v1.5.0...v1.5.1)
+<br> Released on: 2023-10-24
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** avoid wrapping `Select` with `Box` ([1da8530](https://github.com/wso2/oxygen-ui/commit/1da8530b14757c7dfa488cb9ff77ba85885a18f6))
+
 # [1.5.0](https://github.com/wso2/oxygen-ui/compare/v1.4.0...v1.5.0)
 <br> Released on: 2023-10-17
 
