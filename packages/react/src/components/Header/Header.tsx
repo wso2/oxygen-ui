@@ -221,7 +221,7 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
               endIcon: <ChevronDownIcon />,
               startIcon: (
                 <Avatar className="image" alt="User Image" src={user?.image}>
-                  {user?.name?.split('')[0]}
+                  {user?.name?.split('')[0].toUpperCase()}
                 </Avatar>
               ),
               ...userDropdownMenuProps.triggerOptions,
