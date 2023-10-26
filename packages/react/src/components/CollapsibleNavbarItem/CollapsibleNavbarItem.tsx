@@ -109,7 +109,7 @@ const CollapsibleNavbarItem: ForwardRefExoticComponent<CollapsibleNavbarItemProp
                     {...otherSubItemProps}
                   >
                     <ListItemIcon>{subItemIcon}</ListItemIcon>
-                    <ListItemText secondary={subItemName} />
+                    <ListItemText primary={subItemName} />
                     {open && subItemTag ? (
                       <Chip
                         label={subItemTag}

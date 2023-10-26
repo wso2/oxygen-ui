@@ -99,7 +99,8 @@
   .oxygen-list-sub-item-button {
     border-radius: 0;
     transition: all 0.2s;
-    padding: 6px 14px;
+    padding: 6px 12px;
+    color: var(--oxygen-palette-secondary-contrastText);
 
     &:last-child {
       border-bottom-left-radius: var(--oxygen-shape-borderRadius);
@@ -109,10 +110,6 @@
     .oxygen-list-item-icon {
       min-width: 0;
       padding: 0 1px;
-
-      svg {
-        width: 12px;
-      }
     }
 
     .oxygen-list-item-text {
@@ -163,7 +160,7 @@
     .oxygen-list-sub-item-button {
       justify-content: initial;
       transition: all 0.2s;
-      padding-left: 30px;
+      padding-left: 40px;
 
       .oxygen-list-item-icon {
         margin-right: 10px;
