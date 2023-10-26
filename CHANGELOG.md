@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.4](https://github.com/wso2/oxygen-ui/compare/v1.5.3...v1.5.4)
+<br> Released on: 2023-10-26
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** make the `Avatar` letter uppercase by default ([fd22052](https://github.com/wso2/oxygen-ui/commit/fd2205238bf4a3f4c32610ddca7f474a2a1a9b28))
+
 ## [1.5.3](https://github.com/wso2/oxygen-ui/compare/v1.5.2...v1.5.3)
 <br> Released on: 2023-10-24
 
