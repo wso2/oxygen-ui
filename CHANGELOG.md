@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.1](https://github.com/wso2/oxygen-ui/compare/v1.6.0...v1.6.1)
+<br> Released on: 2023-10-27
+
+## What's Changed
+
+### `@oxygen-ui/primitives`
+* **primitives:** update building-pen icon ([3fa9aa5](https://github.com/wso2/oxygen-ui/commit/3fa9aa53edf4b4699298e8d507ad4b998b4407cf))
+
 # [1.6.0](https://github.com/wso2/oxygen-ui/compare/v1.5.6...v1.6.0)
 <br> Released on: 2023-10-26
 
