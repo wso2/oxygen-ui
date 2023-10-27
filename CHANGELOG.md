@@ -1,5 +1,13 @@
 # Changelog
 
+# [1.7.0](https://github.com/wso2/oxygen-ui/compare/v1.6.2...v1.7.0)
+<br> Released on: 2023-10-27
+
+## What's Changed
+
+### `@oxygen-ui/primitives`
+* **primitives:** add UserPencilIcon ([fb0c2a3](https://github.com/wso2/oxygen-ui/commit/fb0c2a3fb0948c1f3babb7ec576bb9c42046c403))
+
 ## [1.6.2](https://github.com/wso2/oxygen-ui/compare/v1.6.1...v1.6.2)
 <br> Released on: 2023-10-27
 
