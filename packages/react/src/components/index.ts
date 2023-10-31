@@ -202,6 +202,9 @@ export * from './Skeleton';
 export {default as Stepper} from './Stepper';
 export * from './Stepper';
 
+export {default as Switch} from './Switch';
+export * from './Switch';
+
 export {default as Tab} from './Tab';
 export * from './Tab';
 
