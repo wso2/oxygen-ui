@@ -107,6 +107,7 @@ export type Stories =
   | 'Skeleton'
   | 'Snackbar'
   | 'Stepper'
+  | 'Switch'
   | 'Tab'
   | 'TabPanel'
   | 'Tabs'
@@ -360,6 +361,9 @@ const StoryConfig: StorybookConfig = {
   },
   Stepper: {
     hierarchy: `${StorybookCategories.Surfaces}/Stepper`,
+  },
+  Switch: {
+    hierarchy:  `${StorybookCategories.Inputs}/Switch`,
   },
   Tab: {
     hierarchy: `${StorybookCategories.Navigation}/Tab`,

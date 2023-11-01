@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Alert should match the snapshot 1`] = `
+<body>
+  <div>
+    <span
+      class="MuiSwitch-root MuiSwitch-sizeMedium oxygen-switch css-julti5-MuiSwitch-root"
+    >
+      <span
+        class="MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary css-67kisp-MuiButtonBase-root-MuiSwitch-switchBase"
+      >
+        <input
+          class="PrivateSwitchBase-input MuiSwitch-input css-1m9pwf3"
+          type="checkbox"
+        />
+        <span
+          class="MuiSwitch-thumb css-1fn27bw-MuiSwitch-thumb"
+        />
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </span>
+      <span
+        class="MuiSwitch-track css-14pk2-MuiSwitch-track"
+      />
+    </span>
+  </div>
+</body>
+`;
