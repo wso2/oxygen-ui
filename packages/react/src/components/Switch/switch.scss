@@ -18,4 +18,13 @@
 
 .oxygen-switch {
   /* Add styles */
+  .MuiSwitch-thumb {
+    color: lightgray;
+  }
+
+  .Mui-checked {
+    .MuiSwitch-thumb {
+      color: var(--oxygen-palette-primary-main);
+    }
+  }
 }
