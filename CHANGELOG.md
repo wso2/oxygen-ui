@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.7.1](https://github.com/wso2/oxygen-ui/compare/v1.7.0...v1.7.1)
+<br> Released on: 2023-11-02
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** fix style issues in switch component ([d39ff32](https://github.com/wso2/oxygen-ui/commit/d39ff32ec63df69f78029f1c37e03d909b68f331))
+* **react:** add Switch component ([cea7ed2](https://github.com/wso2/oxygen-ui/commit/cea7ed28435d79a64f893417895ad291e86cbf4f))
+
 # [1.7.0](https://github.com/wso2/oxygen-ui/compare/v1.6.2...v1.7.0)
 <br> Released on: 2023-10-27
 
