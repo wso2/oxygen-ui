@@ -18,8 +18,15 @@
 
 .oxygen-code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: inherit;
   padding: 1px 3px;
-  background-color: var(--oxygen-palette-action-selected);
   border-radius: 5px;
-  border: 1px solid var(--oxygen-palette-divider);
+
+  &.filled {
+    background-color: var(--oxygen-palette-customComponents-Code-background);
+  }
+
+  &.outlined {
+    border: 1px solid var(--oxygen-palette-divider);
+  }
 }
