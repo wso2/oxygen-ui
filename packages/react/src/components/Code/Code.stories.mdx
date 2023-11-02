@@ -23,7 +23,7 @@ export const Template = args => <Code {...args} />;
 Use `Code` to present Inline or block code without syntax highlight.
 
 <Canvas>
-  <Story name="Overview" args={{children: 'React.createElement()'}}>
+  <Story name="Overview" args={{children: '@oxygen-ui/react'}}>
     {Template.bind({})}
   </Story>
 </Canvas>
@@ -50,3 +50,22 @@ function Demo() {
   );
 }`}
 />
+
+## Variants
+
+### Outlined
+
+`Code` component with a border.
+
+<Canvas>
+  <Story name="Outlined" args={{outlined: true, children: '@oxygen-ui/react'}} />
+</Canvas>
+
+
+### Transparent
+
+`Code` component without a fill.
+
+<Canvas>
+  <Story name="Transparent" args={{filled: false, children: '@oxygen-ui/react'}} />
+</Canvas>
