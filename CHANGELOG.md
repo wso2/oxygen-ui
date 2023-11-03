@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.7.2](https://github.com/wso2/oxygen-ui/compare/v1.7.1...v1.7.2)
+<br> Released on: 2023-11-03
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** improve the `Code` component ([fb4c091](https://github.com/wso2/oxygen-ui/commit/fb4c091f88af78dd26ec8decbbc31f1ed857b262))
+* **react:** add default styles for switch component ([aa54043](https://github.com/wso2/oxygen-ui/commit/aa54043b9f02479b0dad37c84c838e446e0fffb7))
+
 ## [1.7.1](https://github.com/wso2/oxygen-ui/compare/v1.7.0...v1.7.1)
 <br> Released on: 2023-11-02
 
