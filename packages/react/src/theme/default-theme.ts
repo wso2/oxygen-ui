@@ -33,6 +33,9 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
               background: 'var(--oxygen-palette-background-paper)',
             },
           },
+          Code: {
+            background: '#2c2e33',
+          },
           Footer: {
             background: '#000000',
           },
@@ -63,6 +66,9 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
             MainWrapper: {
               background: 'var(--oxygen-palette-background-paper)',
             },
+          },
+          Code: {
+            background: '#eef0f1',
           },
           Footer: {
             background: '#f7f8fb',

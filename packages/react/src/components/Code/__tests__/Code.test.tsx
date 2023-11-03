@@ -39,4 +39,14 @@ describe('Code', () => {
     const {container} = render(<Code>Code Block</Code>);
     expect(container.firstChild).toHaveTextContent('Code Block');
   });
+
+  it('applies the "filled" style when the "filled" prop is true', () => {
+    const {container} = render(<Code filled>Code Block</Code>);
+    expect(container.firstChild).toHaveClass('filled');
+  });
+
+  it('applies the "outlined" style when the "outlined" prop is true', () => {
+    const {container} = render(<Code outlined>Code Block</Code>);
+    expect(container.firstChild).toHaveClass('outlined');
+  });
 });

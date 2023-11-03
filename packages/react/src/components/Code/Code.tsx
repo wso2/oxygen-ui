@@ -24,15 +24,28 @@ import {composeComponentDisplayName} from '../../utils';
 import './code.scss';
 
 export type CodeProps<C extends ElementType = ElementType> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
   component?: C;
+  /**
+   * Shows the code block with a filled background.
+   * @default true
+   */
+  filled?: boolean;
+  /**
+   * Renders the code block with an outline.
+   * @default false
+   */
+  outlined?: boolean;
 } & Omit<MuiTypographyProps<C>, 'component'>;
 
 const COMPONENT_NAME: string = 'Code';
 
 const Code: FC<CodeProps> & WithWrapperProps = <C extends ElementType>(props: CodeProps<C>): ReactElement => {
-  const {className, children, ...rest} = props;
+  const {className, children, filled, outlined, ...rest} = props;
 
-  const classes: string = clsx('oxygen-code', className);
+  const classes: string = clsx('oxygen-code', {filled, outlined}, className);
 
   return (
     <MuiTypography component="code" className={classes} {...rest}>
@@ -43,6 +56,9 @@ const Code: FC<CodeProps> & WithWrapperProps = <C extends ElementType>(props: Co
 
 Code.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Code.muiName = COMPONENT_NAME;
-Code.defaultProps = {};
+Code.defaultProps = {
+  filled: true,
+  outlined: false,
+};
 
 export default Code;

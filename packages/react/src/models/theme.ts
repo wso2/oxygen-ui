@@ -57,6 +57,9 @@ declare module '@mui/material/styles' {
           background: string;
         };
       };
+      Code: {
+        background: string;
+      };
       Footer: {
         background: string;
       };
