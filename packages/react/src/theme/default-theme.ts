@@ -200,7 +200,6 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
       },
     },
   },
-  shadows: ['0px 2px 20px 0px #1d20281a', ...baseTheme.shadows],
   shape: {
     // TODO: Is `Lg` the default?
     borderRadius: lightTokens.OxygenOxygenBorderRadiusLg,
