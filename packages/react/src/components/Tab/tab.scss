@@ -17,5 +17,10 @@
  */
 
 .oxygen-tab {
-  /** Add Styles */
+  font-size: 1rem;
+  font-weight: 400;
+
+  &:not(.Mui-selected) {
+    color: var(--oxygen-palette-text-primary);
+  }
 }
