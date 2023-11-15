@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.7.3](https://github.com/wso2/oxygen-ui/compare/v1.7.2...v1.7.3)
+<br> Released on: 2023-11-15
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** remove important property from Autocomplete component ([367e576](https://github.com/wso2/oxygen-ui/commit/367e576f227ad6d37ae705f1ca5daeaf193062f6))
+* **react:** remove the default shadow ([c88cbf8](https://github.com/wso2/oxygen-ui/commit/c88cbf83a0edbc5d5e8f4d2da1fbb97b2d1c3a4c))
+
 ## [1.7.2](https://github.com/wso2/oxygen-ui/compare/v1.7.1...v1.7.2)
 <br> Released on: 2023-11-03
 
