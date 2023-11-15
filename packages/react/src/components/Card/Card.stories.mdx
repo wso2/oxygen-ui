@@ -3,6 +3,8 @@ import dedent from 'ts-dedent';
 import StoryConfig from '../../../.storybook/story-config.ts';
 import {withDesign} from '../../../.storybook/utils.ts';
 import Card from './Card.tsx';
+import CardContent from '../CardContent/CardContent.tsx';
+import Typography from '../Typography/Typography.tsx';
 
 export const meta = {
   component: Card,
@@ -11,7 +13,7 @@ export const meta = {
 
 <Meta title={meta.title} component={meta.component} />
 
-export const Template = args => <Card {...args} />;
+export const Template = args => <Card sx={ { maxWidth: 300 } } {...args} />;
 
 # Card
 
@@ -24,7 +26,22 @@ export const Template = args => <Card {...args} />;
 Use the Card component to display content and actions about a single subject.
 
 <Canvas>
-  <Story name="Overview" args={{children: 'Sample Card'}}>
+  <Story
+    name="Overview"
+    args={{
+      children: (
+         <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            Lizard
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Lizards are a widespread group of squamate reptiles, with over 6,000
+            species, ranging across all continents except Antarctica
+          </Typography>
+        </CardContent>
+      )
+    }}
+  >
     {Template.bind({})}
   </Story>
 </Canvas>
@@ -44,3 +61,31 @@ Import and use the `Card` component in your components as follows.
   code={dedent`
 import Card from '@oxygen-ui/react/Card';\n`}
 />
+
+## Variants
+
+### With Hover
+
+Variation that provides a hover if the card has a `onClick` handler.
+
+<Canvas>
+  <Story
+    name="With Hover"
+    args={{
+      children: (
+         <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            Lizard
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Lizards are a widespread group of squamate reptiles, with over 6,000
+            species, ranging across all continents except Antarctica
+          </Typography>
+        </CardContent>
+      ),
+      onClick: () => alert('Clicked')
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

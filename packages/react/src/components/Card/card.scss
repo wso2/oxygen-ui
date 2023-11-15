@@ -17,5 +17,10 @@
  */
 
 .oxygen-card {
-  /** Add Styles */
+  &.with-hover {
+    &:hover {
+      box-shadow: var(--oxygen-shadows-3);
+      cursor: pointer;
+    }
+  }
 }

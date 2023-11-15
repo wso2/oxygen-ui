@@ -18,24 +18,32 @@
 
 import MuiCard, {CardProps as MuiCardProps} from '@mui/material/Card';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {ElementType, forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './card.scss';
 
-export type CardProps = MuiCardProps;
+export type CardProps<C extends ElementType = ElementType> = {
+  component?: C;
+} & Omit<MuiCardProps<C>, 'component'>;
 
 const COMPONENT_NAME: string = 'Card';
 
-const Card: FC<CardProps> & WithWrapperProps = (props: CardProps): ReactElement => {
-  const {className, ...rest} = props;
+const Card: ForwardRefExoticComponent<CardProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType>(props: CardProps<C>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+    const {className, component, onClick, ...rest} = props;
 
-  const classes: string = clsx('oxygen-card', className);
+    const classes: string = clsx('oxygen-card', {'with-hover': onClick}, className);
 
-  return <MuiCard className={classes} {...rest} />;
-};
+    return <MuiCard className={classes} ref={ref} onClick={onClick} {...rest} />;
+  },
+) as ForwardRefExoticComponent<CardProps> & WithWrapperProps;
 
 Card.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Card.muiName = COMPONENT_NAME;
+Card.defaultProps = {
+  elevation: 0,
+  variant: 'outlined',
+};
 
 export default Card;
