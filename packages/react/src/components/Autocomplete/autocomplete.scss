@@ -17,10 +17,15 @@
  */
 
 .oxygen-autocomplete {
-  padding-top: 14px;
-  padding-bottom: 14px;
-
   .MuiButtonBase-root {
+    font-size: 0.8125rem;
+  }
+
+  .MuiChip-sizeSmall {
+    height: 24px;
+  }
+
+  .MuiChip-sizeMedium {
     height: 32px;
   }
 }
