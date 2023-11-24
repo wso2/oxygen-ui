@@ -16,15 +16,87 @@
  * under the License.
  */
 
+:root {
+  --oxygen-switch-width: 3.9rem;
+  --oxygen-switch-height: 2.5rem;
+  --oxygen-switch-track-height: 1rem;
+  --oxygen-switch-track-width: 2rem;
+  --oxygen-switch-thumb-height: 1.5rem;
+  --oxygen-switch-thumb-width: 1.5rem;
+  --oxygen-switch-small-width: 2.8rem;
+  --oxygen-switch-small-height: 1.8rem;
+  --oxygen-switch-small-track-height: 0.8rem;
+  --oxygen-switch-small-track-width: 1.5rem;
+  --oxygen-switch-small-thumb-height: 1.2rem;
+  --oxygen-switch-small-thumb-width: 1.2rem;
+}
+
 .oxygen-switch {
-  /* Add styles */
+  width: var(--oxygen-switch-width);
+  height: var(--oxygen-switch-height);
+
   .MuiSwitch-thumb {
-    color: lightgray;
+    background: var(--oxygen-palette-common-white);
+    transition-property: transform;
+    transition-duration: 200ms;
+    border-radius: inherit;
+    width: var(--oxygen-switch-thumb-width);
+    height: var(--oxygen-switch-thumb-width);
+    border-width: 0.125rem;
+    border-style: solid;
+    border-image: initial;
+    border-color: var(--oxygen-palette-divider);
+  }
+
+  .MuiSwitch-track {
+    height: var(--oxygen-switch-track-height);
+    width: var(--oxygen-switch-track-width);
+    opacity: 0.25;
+    margin-top: 1px;
   }
 
   .Mui-checked {
+    &.MuiSwitch-switchBase {
+      --transform-x-thumb-offset: calc(var(--oxygen-switch-thumb-width)/2);
+      --transform-x-offset: calc(var(--oxygen-switch-track-width) + var(--transform-x-thumb-offset));
+
+      transform: translateX(calc(var(--oxygen-switch-width) - var(--transform-x-offset)));
+    }
+
     .MuiSwitch-thumb {
-      color: var(--oxygen-palette-primary-main);
+      box-shadow: var(--oxygen-shadows-3);
+      background: var(--oxygen-palette-primary-main);
+      border-color: var(--oxygen-palette-common-white);
+    }
+  }
+
+  &.MuiSwitch-sizeSmall {
+    width: var(--oxygen-switch-small-width);
+    height: var(--oxygen-switch-small-height);
+
+    .MuiSwitch-thumb {
+      width: var(--oxygen-switch-small-thumb-width);
+      height: var(--oxygen-switch-small-thumb-height);
+    }
+
+    .MuiSwitch-track {
+      height: var(--oxygen-switch-small-track-height);
+      width: var(--oxygen-switch-small-track-width);
+    }
+
+    .Mui-checked {
+      &.MuiSwitch-switchBase {
+        --transform-x-thumb-offset: calc(var(--oxygen-switch-small-thumb-width)/2);
+        --transform-x-offset: calc(var(--oxygen-switch-small-track-width) + var(--transform-x-thumb-offset));
+
+        transform: translateX(calc(var(--oxygen-switch-small-width) - var(--transform-x-offset)));
+      }
+    }
+  }
+
+  :not(.Mui-checked) {
+    .MuiSwitch-track {
+      opacity: 0.08;
     }
   }
 }
