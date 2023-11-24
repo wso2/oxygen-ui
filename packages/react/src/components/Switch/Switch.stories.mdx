@@ -54,3 +54,14 @@ function Demo() {
   return <FormControlLabel control={<Switch />} label="Off" />;
 }`}
 />
+
+## Variants
+
+### Size
+
+Use the `size` prop to change the size of the switch.
+
+<Canvas>
+  <Story name="Small" args={{defaultChecked: true, size: 'small'}} />
+  <Story name="Medium" args={{defaultChecked: true, size: 'medium'}} />
+</Canvas>
