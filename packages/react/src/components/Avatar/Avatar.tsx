@@ -18,21 +18,23 @@
 
 import MuiAvatar, {AvatarProps as MuiAvatarProps} from '@mui/material/Avatar';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {ElementType, FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './avatar.scss';
 
-export type AvatarProps = MuiAvatarProps;
+export type AvatarProps<C extends ElementType = ElementType> = {
+  component?: C;
+} & Omit<MuiAvatarProps<C>, 'component'>;
 
 const COMPONENT_NAME: string = 'Avatar';
 
-const Avatar: FC<AvatarProps> & WithWrapperProps = (props: AvatarProps): ReactElement => {
-  const {className, ...rest} = props;
+const Avatar: FC<AvatarProps> & WithWrapperProps = <C extends ElementType>(props: AvatarProps<C>): ReactElement => {
+  const {className, component, ...rest} = props;
 
   const classes: string = clsx('oxygen-avatar', className);
 
-  return <MuiAvatar className={classes} {...rest} />;
+  return <MuiAvatar component={component} className={classes} {...rest} />;
 };
 
 Avatar.displayName = composeComponentDisplayName(COMPONENT_NAME);
