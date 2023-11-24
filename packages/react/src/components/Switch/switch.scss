@@ -37,9 +37,6 @@
 
   .MuiSwitch-thumb {
     background: var(--oxygen-palette-common-white);
-    transition-property: transform;
-    transition-duration: 200ms;
-    border-radius: inherit;
     width: var(--oxygen-switch-thumb-width);
     height: var(--oxygen-switch-thumb-width);
     border-width: 0.125rem;
