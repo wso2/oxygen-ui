@@ -29,6 +29,9 @@ const hues: {
 
 type GenerateColor = (display: string) => string;
 
+// Simple cache to store generated colors
+const colorCache: {[key: string]: string} = {};
+
 /**
  * Generate a pastel color based on the given text.
  *
@@ -40,6 +43,11 @@ type GenerateColor = (display: string) => string;
  * @returns Generated color.
  */
 const generatePastelColor: GenerateColor = (text: string) => {
+  // Check if the color is already in the cache
+  if (colorCache[text]) {
+    return colorCache[text];
+  }
+
   // Check if the text is a non-empty string
   if (typeof text !== 'string' || text.trim() === '') {
     // Return a default color or handle it based on your use case
@@ -55,7 +63,13 @@ const generatePastelColor: GenerateColor = (text: string) => {
   const saturation: number = Math.random() * (80 - 70) + 70;
   const divisor: number = Math.random() * (100 - 90) + 90;
 
-  return `hsl(${predefinedHue} 80% ${saturation}% / ${divisor}%)`;
+  // Generate the color
+  const color: string = `hsl(${predefinedHue} 80% ${saturation}% / ${divisor}%)`;
+
+  // Cache the color for future use
+  colorCache[text] = color;
+
+  return color;
 };
 
 export default generatePastelColor;
