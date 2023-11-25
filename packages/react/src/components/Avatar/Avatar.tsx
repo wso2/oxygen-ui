@@ -25,8 +25,17 @@ import {composeComponentDisplayName} from '../../utils';
 import './avatar.scss';
 
 export type AvatarProps<C extends ElementType = ElementType> = {
+  /**
+   * Text for the random background color generator.
+   */
   backgroundColorRandomizer?: string;
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
   component?: C;
+  /**
+   * If `true`, the background color will be randomly generated.
+   */
   randomBackgroundColor?: boolean;
 } & Omit<MuiAvatarProps<C>, 'component'>;
 
