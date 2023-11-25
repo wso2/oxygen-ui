@@ -18,23 +18,49 @@
 
 import MuiAvatar, {AvatarProps as MuiAvatarProps} from '@mui/material/Avatar';
 import clsx from 'clsx';
-import {ElementType, FC, ReactElement} from 'react';
+import {ElementType, FC, ReactElement, useMemo} from 'react';
+import usePastelColorGenerator from 'src/hooks/use-pastel-color-generator';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './avatar.scss';
 
 export type AvatarProps<C extends ElementType = ElementType> = {
+  backgroundColorRandomizer?: string;
   component?: C;
+  randomBackgroundColor?: boolean;
 } & Omit<MuiAvatarProps<C>, 'component'>;
 
 const COMPONENT_NAME: string = 'Avatar';
 
 const Avatar: FC<AvatarProps> & WithWrapperProps = <C extends ElementType>(props: AvatarProps<C>): ReactElement => {
-  const {className, component, ...rest} = props;
+  const {className, children, component, randomBackgroundColor, backgroundColorRandomizer, ...rest} = props;
+
+  const colorRandomizer: string = useMemo(() => {
+    if (backgroundColorRandomizer) {
+      return backgroundColorRandomizer;
+    }
+
+    if (typeof children === 'string') {
+      return children;
+    }
+
+    return '';
+  }, [children, backgroundColorRandomizer]);
+
+  const {color} = usePastelColorGenerator(colorRandomizer);
 
   const classes: string = clsx('oxygen-avatar', className);
 
-  return <MuiAvatar component={component} className={classes} {...rest} />;
+  return (
+    <MuiAvatar
+      component={component}
+      className={classes}
+      sx={{bgcolor: randomBackgroundColor ? color : undefined}}
+      {...rest}
+    >
+      {children}
+    </MuiAvatar>
+  );
 };
 
 Avatar.displayName = composeComponentDisplayName(COMPONENT_NAME);
