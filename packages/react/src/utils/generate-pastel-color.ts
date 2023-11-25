@@ -42,16 +42,15 @@ const colorCache: {[key: string]: string} = {};
  * @param text - Text to generate the color from.
  * @returns Generated color.
  */
-const generatePastelColor: GenerateColor = (text: string) => {
+const generatePastelColor: GenerateColor = (text: string): string | null => {
   // Check if the color is already in the cache
   if (colorCache[text]) {
     return colorCache[text];
   }
 
-  // Check if the text is a non-empty string
+  // Check if the text is a non-empty string and return `null` if it is.
   if (typeof text !== 'string' || text.trim() === '') {
-    // Return a default color or handle it based on your use case
-    return 'hsl(0 0% 80% / 50%)'; // Default to a light gray color
+    return null;
   }
 
   const hash: number = text.split('').reduce((acc: number, char: string) => acc + char.charCodeAt(0), 0);
