@@ -1,7 +1,9 @@
 import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
 import dedent from 'ts-dedent';
 import StoryConfig from '../../../.storybook/story-config.ts';
+import Stack from '@mui/material/Stack';
 import Avatar from './Avatar.tsx';
+import {BoltIcon, BriefcaseIcon, CameraIcon, CloudNodesIcon, DatabaseIcon, EclipseIcon} from "@oxygen-ui/react-icons";
 
 export const meta = {
   component: Avatar,
@@ -17,6 +19,9 @@ export const Template = args => <Avatar {...args} />;
 - [Overview](#overview)
 - [Props](#props)
 - [Usage](#usage)
+- [Variants](#variants)
+  - [Random Colors](#random-colors)
+  - [Random Colors with a supplied randomizer](#random-colors-with-a-supplied-randomizer)
 
 ## Overview
 
@@ -45,3 +50,63 @@ Import and use the `Avatar` component in your components as follows.
   format
   code={dedent`import Avatar from '@oxygen-ui/react/Avatar';\n`}
 />
+
+## Variants
+
+### Random Colors
+
+The Avatar component can be used with random colors as follows. Use the `randomBackgroundColor` prop to get a random color for the Avatar.
+
+<Canvas>
+  <Story name="Random">
+    <Stack direction="row" spacing={2}>
+      <Avatar randomBackgroundColor>XZ</Avatar>
+      <Avatar randomBackgroundColor>Q4</Avatar>
+      <Avatar randomBackgroundColor>H</Avatar>
+      <Avatar randomBackgroundColor>OT</Avatar>
+      <Avatar randomBackgroundColor>OT</Avatar>
+      <Avatar randomBackgroundColor>OT</Avatar>
+    </Stack>
+  </Story>
+</Canvas>
+
+### Random Colors with a supplied randomizer
+
+You can pass in a string to the `backgroundColorRandomizer` prop to get a consistent random color for the same string.
+
+<Canvas>
+  <Story name="Random Sections">
+    <Stack direction="column" spacing={2}>
+      <Typography>Icon Avatars</Typography>
+      <Stack direction="row" spacing={2}>
+        <Avatar randomBackgroundColor backgroundColorRandomizer="Icon Avatar">
+          <BoltIcon />
+        </Avatar>
+        <Avatar randomBackgroundColor backgroundColorRandomizer="Icon Avatar">
+          <BriefcaseIcon />
+        </Avatar>
+        <Avatar randomBackgroundColor backgroundColorRandomizer="Icon Avatar">
+          <CameraIcon />
+        </Avatar>
+        <Avatar randomBackgroundColor backgroundColorRandomizer="Icon Avatar">
+          <CloudNodesIcon />
+        </Avatar>
+        <Avatar randomBackgroundColor backgroundColorRandomizer="Icon Avatar">
+          <DatabaseIcon />
+        </Avatar>
+        <Avatar randomBackgroundColor backgroundColorRandomizer="Icon Avatar">
+          <EclipseIcon />
+        </Avatar>
+      </Stack>
+      <Typography>Text Avatars</Typography>
+      <Stack direction="row" spacing={2}>
+        <Avatar randomBackgroundColor backgroundColorRandomizer="Text Avatar">XZ</Avatar>
+        <Avatar randomBackgroundColor backgroundColorRandomizer="Text Avatar">Q4</Avatar>
+        <Avatar randomBackgroundColor backgroundColorRandomizer="Text Avatar">H</Avatar>
+        <Avatar randomBackgroundColor backgroundColorRandomizer="Text Avatar">OT</Avatar>
+        <Avatar randomBackgroundColor backgroundColorRandomizer="Text Avatar">OT</Avatar>
+        <Avatar randomBackgroundColor backgroundColorRandomizer="Text Avatar">OT</Avatar>
+      </Stack>
+    </Stack>
+  </Story>
+</Canvas>

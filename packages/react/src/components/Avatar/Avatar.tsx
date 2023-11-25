@@ -18,21 +18,58 @@
 
 import MuiAvatar, {AvatarProps as MuiAvatarProps} from '@mui/material/Avatar';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {ElementType, FC, ReactElement, useMemo} from 'react';
+import usePastelColorGenerator from 'src/hooks/use-pastel-color-generator';
 import {WithWrapperProps} from '../../models';
 import {composeComponentDisplayName} from '../../utils';
 import './avatar.scss';
 
-export type AvatarProps = MuiAvatarProps;
+export type AvatarProps<C extends ElementType = ElementType> = {
+  /**
+   * Text for the random background color generator.
+   */
+  backgroundColorRandomizer?: string;
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
+  component?: C;
+  /**
+   * If `true`, the background color will be randomly generated.
+   */
+  randomBackgroundColor?: boolean;
+} & Omit<MuiAvatarProps<C>, 'component'>;
 
 const COMPONENT_NAME: string = 'Avatar';
 
-const Avatar: FC<AvatarProps> & WithWrapperProps = (props: AvatarProps): ReactElement => {
-  const {className, ...rest} = props;
+const Avatar: FC<AvatarProps> & WithWrapperProps = <C extends ElementType>(props: AvatarProps<C>): ReactElement => {
+  const {className, children, component, randomBackgroundColor, backgroundColorRandomizer, ...rest} = props;
+
+  const colorRandomizer: string = useMemo(() => {
+    if (backgroundColorRandomizer) {
+      return backgroundColorRandomizer;
+    }
+
+    if (typeof children === 'string') {
+      return children;
+    }
+
+    return '';
+  }, [children, backgroundColorRandomizer]);
+
+  const {color} = usePastelColorGenerator(colorRandomizer);
 
   const classes: string = clsx('oxygen-avatar', className);
 
-  return <MuiAvatar className={classes} {...rest} />;
+  return (
+    <MuiAvatar
+      component={component}
+      className={classes}
+      sx={{bgcolor: randomBackgroundColor ? color : undefined}}
+      {...rest}
+    >
+      {children}
+    </MuiAvatar>
+  );
 };
 
 Avatar.displayName = composeComponentDisplayName(COMPONENT_NAME);
