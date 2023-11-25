@@ -1,5 +1,10 @@
 # Changelog
 
+# [1.8.0](https://github.com/wso2/oxygen-ui/compare/v1.7.4...v1.8.0)
+<br> Released on: 2023-11-25
+
+## What's Changed
+
 ## [1.7.4](https://github.com/wso2/oxygen-ui/compare/v1.7.3...v1.7.4)
 <br> Released on: 2023-11-24
 
