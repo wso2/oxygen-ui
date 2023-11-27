@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.1](https://github.com/wso2/oxygen-ui/compare/v1.8.0...v1.8.1)
+<br> Released on: 2023-11-27
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** refactor update path ([7d51975](https://github.com/wso2/oxygen-ui/commit/7d519751adea19d7dd2366464d70d9a005150908))
+
 # [1.8.0](https://github.com/wso2/oxygen-ui/compare/v1.7.4...v1.8.0)
 <br> Released on: 2023-11-25
 
