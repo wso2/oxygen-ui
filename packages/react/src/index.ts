@@ -19,7 +19,7 @@
 export * from './components';
 export * from './theme';
 export * from './hooks/use-pastel-color-generator';
-export { default } from './utils/generate-pastel-color';
+export {default} from './utils/generate-pastel-color';
 export {
   Alert,
   AlertTitle,
