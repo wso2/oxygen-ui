@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.2](https://github.com/wso2/oxygen-ui/compare/v1.8.1...v1.8.2)
+<br> Released on: 2023-12-08
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** remove hardcoded values in `chip` and `autocomplete`. ([08859ce](https://github.com/wso2/oxygen-ui/commit/08859ce50ca54508494f5b7343c2d190656caf60))
+
 ## [1.8.1](https://github.com/wso2/oxygen-ui/compare/v1.8.0...v1.8.1)
 <br> Released on: 2023-11-27
 
