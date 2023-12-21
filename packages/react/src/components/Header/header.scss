@@ -31,10 +31,10 @@
   .oxygen-brand {
     display: flex;
     align-items: center;
-    width: calc(var(--oxygen-customComponents-Navbar-properties-width) - 77px);
+    min-width: calc(var(--oxygen-customComponents-Navbar-properties-width) - 90px);
     text-decoration: none;
     color: inherit;
-    min-width: 230px;
+    margin-right: 18px;
 
     &-logo {
       height: 40px;

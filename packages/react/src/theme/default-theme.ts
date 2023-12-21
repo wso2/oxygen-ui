@@ -189,7 +189,7 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
     Navbar: {
       properties: {
         'mini-variant-width': '64px',
-        width: '300px',
+        width: '315px',
       },
     },
     Stepper: {
