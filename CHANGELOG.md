@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.4](https://github.com/wso2/oxygen-ui/compare/v1.8.3...v1.8.4)
+<br> Released on: 2023-12-21
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** add minimum width to brand element in header component ([588301e](https://github.com/wso2/oxygen-ui/commit/588301e94842132078f5cc1148028656c14a5356))
+
 ## [1.8.3](https://github.com/wso2/oxygen-ui/compare/v1.8.2...v1.8.3)
 <br> Released on: 2023-12-14
 
