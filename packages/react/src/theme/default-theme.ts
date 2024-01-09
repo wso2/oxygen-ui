@@ -145,6 +145,13 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
         },
       },
     },
+    MuiFormLabel: {
+      styleOverrides: {
+        asterisk: {
+          color: 'var(--oxygen-palette-error-main)',
+        },
+      },
+    },
     MuiTypography: {
       defaultProps: {
         variantMapping: {
