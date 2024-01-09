@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import MuiInputLabel, {inputLabelClasses, InputLabelProps as MuiInputLabelProps} from '@mui/material/InputLabel';
+import MuiInputLabel, {InputLabelProps as MuiInputLabelProps} from '@mui/material/InputLabel';
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
@@ -24,20 +24,15 @@ import {composeComponentDisplayName} from '../../utils';
 import './input-label.scss';
 
 export type InputLabelProps = MuiInputLabelProps;
-export type InputLabelClasses = typeof inputLabelClasses;
 
 const COMPONENT_NAME: string = 'InputLabel';
 
 const InputLabel: FC<InputLabelProps> & WithWrapperProps = (props: InputLabelProps): ReactElement => {
-  const {className, classes: labelClasses, ...rest} = props;
+  const {className, ...rest} = props;
 
   const classes: string = clsx('oxygen-input-label', className);
-  const mergedClasses: Partial<InputLabelClasses> = {
-    ...labelClasses,
-    asterisk: clsx(labelClasses?.asterisk, 'oxygen-input-label-asterisk'),
-  };
 
-  return <MuiInputLabel className={classes} classes={mergedClasses} {...rest} />;
+  return <MuiInputLabel className={classes} {...rest} />;
 };
 
 InputLabel.displayName = composeComponentDisplayName(COMPONENT_NAME);
