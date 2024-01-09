@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.5](https://github.com/wso2/oxygen-ui/compare/v1.8.4...v1.8.5)
+<br> Released on: 2024-01-09
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** update color of required input labels' asterisk ([27778b0](https://github.com/wso2/oxygen-ui/commit/27778b089f23b2751031b00300c6a38e5a2b01a7))
+
 ## [1.8.4](https://github.com/wso2/oxygen-ui/compare/v1.8.3...v1.8.4)
 <br> Released on: 2023-12-21
 
