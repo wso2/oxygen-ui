@@ -17,5 +17,7 @@
  */
 
 .oxygen-input-label {
-  /* Add Styles */
+  &-asterisk {
+    color: var(--oxygen-palette-error-main);
+  }
 }
