@@ -1,5 +1,13 @@
 # Changelog
 
+# [1.9.0](https://github.com/wso2/oxygen-ui/compare/v1.8.5...v1.9.0)
+<br> Released on: 2024-01-18
+
+## What's Changed
+
+### `@oxygen-ui/primitives`
+* **primitives:** add DocumentCheckIcon ([608e359](https://github.com/wso2/oxygen-ui/commit/608e359410df104749e200568d909d6c22ae53ec))
+
 ## [1.8.5](https://github.com/wso2/oxygen-ui/compare/v1.8.4...v1.8.5)
 <br> Released on: 2024-01-09
 
