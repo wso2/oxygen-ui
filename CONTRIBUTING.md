@@ -8,6 +8,8 @@ As a contributor, here are the guidelines we would like you to follow:
  - [Designing](#designing)
  - [Versioning](#versioning)
 
+You can contribute to the library by reviewing and providing comments on [pull requests](https://github.com/wso2/oxygen-ui/pulls) and [issues](https://github.com/wso2/oxygen-ui/issues), enhancing our [documentation](https://github.com/wso2/oxygen-ui/tree/main/docs/website), resolving bugs, or introducing new features through pull requests.
+
 ## Setting Up Development Environment
 
 Follow this guide to set up the source code, development tools & other software.
@@ -128,6 +130,14 @@ From the root of the project, execute the following command to build the project
 ```shell
 pnpm build
 ```
+
+## Creating an issue
+
+- Issues can be [created](https://github.com/wso2/oxygen-ui/issues/new/choose) for bugs, improvements and features.
+- The fields in the issue template must be filled in detail. Add N/A if not applicable.
+- Add necessary labels to facilitate filtering and grouping.
+
+[Example issue](https://github.com/wso2/oxygen-ui/issues/203)
 
 ## Commit Message Guidelines
 
@@ -262,6 +272,24 @@ The content of the commit message body should contain:
 
 - Information about the SHA of the commit being reverted in the following format: `This reverts commit <SHA>`.
 - A clear description of the reason for reverting the commit message.
+
+## Creating a PR
+
+Once you [set up the development environment](#setting-up-development-environment), 
+1. Create a new branch:
+
+```bash
+git checkout -b my-topic-branch
+```
+2. Make changes, commit, and push to your fork:
+
+```bash
+git push -u origin HEAD
+```
+3. Go to the [repository](https://github.com/wso2/oxygen-ui) and open a pull request.
+4. The fields in the PR description template must be filled in detail. Add N/A if not applicable.
+
+The team regularly reviews new pull requests, deciding to merge, request changes, or close with an explanation.
 
 ## Designing
 
