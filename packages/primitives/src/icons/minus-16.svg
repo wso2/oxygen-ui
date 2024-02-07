@@ -1,5 +1,5 @@
 <!--
- * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -17,5 +17,5 @@
 -->
 
 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M5.17162 4.46432C4.97635 4.26906 4.65977 4.26906 4.46451 4.46432C4.26925 4.65958 4.26925 4.97616 4.46451 5.17142L7.2926 7.99951L4.46383 10.8283C4.26857 11.0235 4.26857 11.3401 4.46383 11.5354C4.65909 11.7306 4.97567 11.7306 5.17094 11.5354L7.9997 8.70662L10.8285 11.5354C11.0237 11.7306 11.3403 11.7306 11.5356 11.5354C11.7308 11.3401 11.7308 11.0235 11.5356 10.8283L8.70681 7.99951L11.5349 5.17142C11.7302 4.97616 11.7302 4.65958 11.5349 4.46432C11.3396 4.26906 11.0231 4.26906 10.8278 4.46432L7.9997 7.2924L5.17162 4.46432Z" fill="black"/>
+    <path d="M2.5 8H13.5" stroke="black" stroke-linecap="round"/>
 </svg>
