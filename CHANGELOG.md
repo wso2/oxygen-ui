@@ -1,5 +1,13 @@
 # Changelog
 
+# [1.11.0](https://github.com/wso2/oxygen-ui/compare/v1.10.0...v1.11.0)
+<br> Released on: 2024-03-27
+
+## What's Changed
+
+### `@oxygen-ui/primitives`
+* **primitives:** add DownloadIcon ([9785c9b](https://github.com/wso2/oxygen-ui/commit/9785c9b0be3d8e4edeffed3385cc3d148728061c))
+
 # [1.10.0](https://github.com/wso2/oxygen-ui/compare/v1.9.0...v1.10.0)
 <br> Released on: 2024-02-07
 
