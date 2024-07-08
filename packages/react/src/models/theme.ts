@@ -119,16 +119,32 @@ interface CustomTheme {
     };
     Chip?: {
       properties?: {
+        '-moz-background-clip'?: string;
+        '-moz-text-fill-color'?: string;
+        '-webkit-background-clip'?: string;
+        '-webkit-text-fill-color'?: string;
         'beta-background'?: string;
+        'beta-border-color'?: string;
         'beta-text-color'?: string;
+        border?: string;
+        'border-radius'?: string;
         'default-background'?: string;
+        'default-border-color'?: string;
         'default-text-color'?: string;
         'experimental-background'?: string;
+        'experimental-border-color'?: string;
         'experimental-text-color'?: string;
+        'font-weight'?: string;
+        'line-height'?: string;
         'new-background'?: string;
+        'new-border-color'?: string;
         'new-text-color'?: string;
         'premium-background'?: string;
+        'premium-border-color'?: string;
+        'premium-text-background'?: string;
+        'premium-text-background-blend-mode'?: string;
         'premium-text-color'?: string;
+        'text-transform'?: string;
       };
     };
     Header?: {
