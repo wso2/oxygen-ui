@@ -139,7 +139,6 @@ interface CustomTheme {
         'new-text-color'?: string;
         'premium-background'?: string;
         'premium-border-color'?: string;
-        'premium-text-background'?: string;
         'premium-text-background-blend-mode'?: string;
         'premium-text-color'?: string;
         'text-fill-color'?: string;
