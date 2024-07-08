@@ -176,10 +176,7 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
     Chip: {
       // TODO: Move these to color palette.
       properties: {
-        '-moz-background-clip': 'text',
-        '-moz-text-fill-color': 'transparent',
-        '-webkit-background-clip': 'text',
-        '-webkit-text-fill-color': 'transparent',
+        'background-clip': 'text',
         'beta-background':
           'linear-gradient(132deg, rgba(143, 197, 246, 0.04) 28.46%, rgba(72, 141, 180, 0.04) 119.09%);',
         'beta-border-color': 'rgba(143, 197, 246, 0.9)',
@@ -194,6 +191,7 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
         'experimental-text-color': 'linear-gradient(132deg, rgba(233, 95, 255) 0%, rgba(140, 57, 153) 100%)',
         'font-weight': '700',
         'line-height': '20px',
+        'moz-text-fill-color': 'transparent',
         'new-background': 'linear-gradient(132deg, rgba(117, 237, 161, 0.04) 28.46%, rgba(52, 146, 86, 0.04) 119.09%)',
         'new-border-color': 'rgba(117, 237, 161, 0.9)',
         'new-text-color': 'linear-gradient(132deg, rgba(117, 237, 161) 28.46%, rgba(52, 146, 86) 119.09%)',
@@ -204,6 +202,7 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
           'radial-gradient(238.39% 44.19% at 96.59% 31.25%, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.00) 100%), radial-gradient(182.56% 55.34% at 5.68% 100%, rgba(246, 251, 34, 0.51) 0%, rgba(255, 158, 69, 0.00) 100%), radial-gradient(137.51% 118.3% at 32.95% 0%, rgba(255, 137, 137, 0.92) 21.25%, rgba(255, 169, 106, 0.57) 88.62%), radial-gradient(178.09% 220.16% at 94.89% -132.81%, #FF7A00 67.59%, rgba(255, 199, 0, 0.38) 100%)',
         'premium-text-background-blend-mode': 'darken',
         'premium-text-color': '#FFF500',
+        'text-fill-color': 'transparent',
         'text-transform': 'uppercase',
       },
     },

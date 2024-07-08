@@ -119,10 +119,7 @@ interface CustomTheme {
     };
     Chip?: {
       properties?: {
-        '-moz-background-clip'?: string;
-        '-moz-text-fill-color'?: string;
-        '-webkit-background-clip'?: string;
-        '-webkit-text-fill-color'?: string;
+        'background-clip'?: string;
         'beta-background'?: string;
         'beta-border-color'?: string;
         'beta-text-color'?: string;
@@ -136,6 +133,7 @@ interface CustomTheme {
         'experimental-text-color'?: string;
         'font-weight'?: string;
         'line-height'?: string;
+        'moz-text-fill-color'?: string;
         'new-background'?: string;
         'new-border-color'?: string;
         'new-text-color'?: string;
@@ -144,6 +142,7 @@ interface CustomTheme {
         'premium-text-background'?: string;
         'premium-text-background-blend-mode'?: string;
         'premium-text-color'?: string;
+        'text-fill-color'?: string;
         'text-transform'?: string;
       };
     };

@@ -20,15 +20,15 @@
   border-radius: var(--oxygen-customComponents-Chip-properties-border-radius);
   border: var(--oxygen-customComponents-Chip-properties-border);
   text-transform: var(--oxygen-customComponents-Chip-properties-text-transform);
-  font-weight:  var(--oxygen-customComponents-Chip-properties-font-weight);
+  font-weight: var(--oxygen-customComponents-Chip-properties-font-weight);
   line-height: var(--oxygen-customComponents-Chip-properties-line-height);
 
   &-premium {
-    background:  var(--oxygen-customComponents-Chip-properties-premium-background);
+    background: var(--oxygen-customComponents-Chip-properties-premium-background);
     border: var(--oxygen-customComponents-Chip-properties-border);
     border-radius: var(--oxygen-customComponents-Chip-properties-border-radius);
     border-color: var(--oxygen-customComponents-Chip-properties-premium-border-color);
-    font-weight:  var(--oxygen-customComponents-Chip-properties-font-weight);
+    font-weight: var(--oxygen-customComponents-Chip-properties-font-weight);
     line-height: var(--oxygen-customComponents-Chip-properties-line-height);
 
     .MuiChip-icon {
@@ -36,13 +36,10 @@
     }
 
     .MuiChip-label {
-      -moz-background-clip: var(--oxygen-customComponents-Chip-properties--moz-background-clip);
-      -moz-text-fill-color: var(--oxygen-customComponents-Chip-properties--moz-text-fill-color);
-      -webkit-background-clip: var(--oxygen-customComponents-Chip-properties--webkit-background-clip);
-      -webkit-text-fill-color: var(--oxygen-customComponents-Chip-properties--webkit-text-fill-color);
+      background-clip: var(--oxygen-customComponents-Chip-properties-background-clip);
       background-image: var(--oxygen-customComponents-Chip-properties-premium-text-background);
       background-blend-mode: var(--oxygen-customComponents-Chip-properties-premium-text-background-blend-mode);
-      color: var(--oxygen-customComponents-Chip-properties-premium-text-color);
+      color: var(--oxygen-customComponents-Chip-properties-text-fill-color);
       text-transform: var(--oxygen-customComponents-Chip-properties-text-transform);
     }
   }
@@ -60,10 +57,8 @@
     }
 
     .MuiChip-label {
-      -moz-background-clip: var(--oxygen-customComponents-Chip-properties--moz-background-clip);
-      -moz-text-fill-color: var(--oxygen-customComponents-Chip-properties--moz-text-fill-color);
-      -webkit-background-clip: var(--oxygen-customComponents-Chip-properties--webkit-background-clip);
-      -webkit-text-fill-color: var(--oxygen-customComponents-Chip-properties--webkit-text-fill-color);
+      background-clip: var(--oxygen-customComponents-Chip-properties-background-clip);
+      color: var(--oxygen-customComponents-Chip-properties-text-fill-color);
       background-image: var(--oxygen-customComponents-Chip-properties-new-text-color);
       text-transform: var(--oxygen-customComponents-Chip-properties-text-transform);
     }
@@ -82,10 +77,8 @@
     }
 
     .MuiChip-label {
-      -moz-background-clip: var(--oxygen-customComponents-Chip-properties--moz-background-clip);
-      -moz-text-fill-color: var(--oxygen-customComponents-Chip-properties--moz-text-fill-color);
-      -webkit-background-clip: var(--oxygen-customComponents-Chip-properties--webkit-background-clip);
-      -webkit-text-fill-color: var(--oxygen-customComponents-Chip-properties--webkit-text-fill-color);
+      background-clip: var(--oxygen-customComponents-Chip-properties-background-clip);
+      color: var(--oxygen-customComponents-Chip-properties-text-fill-color);
       background-image: var(--oxygen-customComponents-Chip-properties-beta-text-color);
       text-transform: var(--oxygen-customComponents-Chip-properties-text-transform);
     }
@@ -104,10 +97,8 @@
     }
 
     .MuiChip-label {
-      -moz-background-clip: var(--oxygen-customComponents-Chip-properties--moz-background-clip);
-      -moz-text-fill-color: var(--oxygen-customComponents-Chip-properties--moz-text-fill-color);
-      -webkit-background-clip: var(--oxygen-customComponents-Chip-properties--webkit-background-clip);
-      -webkit-text-fill-color: var(--oxygen-customComponents-Chip-properties--webkit-text-fill-color);
+      background-clip: var(--oxygen-customComponents-Chip-properties-background-clip);
+      color: var(--oxygen-customComponents-Chip-properties-text-fill-color);
       background-image: var(--oxygen-customComponents-Chip-properties-experimental-text-color);
       text-transform: var(--oxygen-customComponents-Chip-properties-text-transform);
     }
