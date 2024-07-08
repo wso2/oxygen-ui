@@ -176,16 +176,33 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
     Chip: {
       // TODO: Move these to color palette.
       properties: {
-        'beta-background': '#2ab1da',
-        'beta-text-color': 'var(--oxygen-palette-primary-contrastText)',
+        'background-clip': 'text',
+        'beta-background':
+          'linear-gradient(132deg, rgba(143, 197, 246, 0.04) 28.46%, rgba(72, 141, 180, 0.04) 119.09%);',
+        'beta-border-color': 'rgba(143, 197, 246, 0.9)',
+        'beta-text-color': 'linear-gradient(132deg, rgba(143, 197, 246) 28.46%, rgba(72, 141, 180) 119.09%);',
+        border: '1px solid',
+        'border-radius': '8px',
         'default-background': 'var(--oxygen-palette-primary-main)',
         'default-text-color': 'var(--oxygen-palette-primary-contrastText)',
-        'experimental-background': '#a73fe3',
-        'experimental-text-color': 'var(--oxygen-palette-primary-contrastText)',
-        'new-background': '#3fb81f',
-        'new-text-color': 'var(--oxygen-palette-primary-contrastText)',
-        'premium-background': '#d2a600',
-        'premium-text-color': 'var(--oxygen-palette-primary-contrastText)',
+        'experimental-background':
+          'linear-gradient(132deg, rgba(233, 95, 255, 0.04) 28.46%, rgba(140, 57, 153, 0.04) 119.09%)',
+        'experimental-border-color': 'rgba(233, 95, 255, 0.9)',
+        'experimental-text-color': 'linear-gradient(132deg, rgba(233, 95, 255) 0%, rgba(140, 57, 153) 100%)',
+        'font-weight': '700',
+        'line-height': '20px',
+        'moz-text-fill-color': 'transparent',
+        'new-background': 'linear-gradient(132deg, rgba(117, 237, 161, 0.04) 28.46%, rgba(52, 146, 86, 0.04) 119.09%)',
+        'new-border-color': 'rgba(117, 237, 161, 0.9)',
+        'new-text-color': 'linear-gradient(132deg, rgba(117, 237, 161) 28.46%, rgba(52, 146, 86) 119.09%)',
+        'premium-background':
+          'linear-gradient(88deg, rgba(236, 81, 97, 0.04) -3.25%, rgba(248, 118, 67, 0.04) 102.62%)',
+        'premium-border-color': 'rgba(255, 169, 106)',
+        'premium-text-background-blend-mode': 'darken',
+        'premium-text-color':
+          'radial-gradient(238.39% 44.19% at 96.59% 31.25%, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.00) 100%), radial-gradient(182.56% 55.34% at 5.68% 100%, rgba(246, 251, 34, 0.51) 0%, rgba(255, 158, 69, 0.00) 100%), radial-gradient(137.51% 118.3% at 32.95% 0%, rgba(255, 137, 137, 0.92) 21.25%, rgba(255, 169, 106, 0.57) 88.62%), radial-gradient(178.09% 220.16% at 94.89% -132.81%, #FF7A00 67.59%, rgba(255, 199, 0, 0.38) 100%)',
+        'text-fill-color': 'transparent',
+        'text-transform': 'uppercase',
       },
     },
     Header: {
