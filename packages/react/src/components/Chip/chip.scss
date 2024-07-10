@@ -103,4 +103,24 @@
       text-transform: var(--oxygen-customComponents-Chip-properties-text-transform);
     }
   }
+
+  &-coming-soon {
+    background: var(--oxygen-customComponents-Chip-properties-coming-soon-background);
+    border-radius: var(--oxygen-customComponents-Chip-properties-border-radius);
+    border: var(--oxygen-customComponents-Chip-properties-border);
+    border-color: var(--oxygen-customComponents-Chip-properties-coming-soon-border-color);
+    font-weight: var(--oxygen-customComponents-Chip-properties-font-weight);
+    line-height: var(--oxygen-customComponents-Chip-properties-line-height);
+
+    .MuiChip-icon {
+      fill: var(--oxygen-customComponents-Chip-properties-coming-soon-border-color);
+    }
+
+    .MuiChip-label {
+      background-clip: var(--oxygen-customComponents-Chip-properties-background-clip);
+      color: var(--oxygen-customComponents-Chip-properties-text-fill-color);
+      background-image: var(--oxygen-customComponents-Chip-properties-coming-soon-text-color);
+      text-transform: var(--oxygen-customComponents-Chip-properties-text-transform);
+    }
+  }
 }
