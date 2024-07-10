@@ -125,6 +125,9 @@ interface CustomTheme {
         'beta-text-color'?: string;
         border?: string;
         'border-radius'?: string;
+        'coming-soon-background'?: string;
+        'coming-soon-border-color'?: string;
+        'coming-soon-text-color'?: string;
         'default-background'?: string;
         'default-border-color'?: string;
         'default-text-color'?: string;

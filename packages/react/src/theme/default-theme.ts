@@ -178,11 +178,14 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
       properties: {
         'background-clip': 'text',
         'beta-background':
-          'linear-gradient(132deg, rgba(143, 197, 246, 0.04) 28.46%, rgba(72, 141, 180, 0.04) 119.09%);',
+          'linear-gradient(132deg, rgba(143, 197, 246, 0.04) 28.46%, rgba(72, 141, 180, 0.04) 119.09%)',
         'beta-border-color': 'rgba(143, 197, 246, 0.9)',
-        'beta-text-color': 'linear-gradient(132deg, rgba(143, 197, 246) 28.46%, rgba(72, 141, 180) 119.09%);',
+        'beta-text-color': 'linear-gradient(132deg, rgba(143, 197, 246) 28.46%, rgba(72, 141, 180) 119.09%)',
         border: '1px solid',
         'border-radius': '8px',
+        'coming-soon-background': 'linear-gradient(132deg, rgba(140, 140, 140, 0.04) 0%, rgba(64, 64, 64, 0.04) 100%)',
+        'coming-soon-border-color': 'rgba(140, 140, 140, 0.9)',
+        'coming-soon-text-color': 'linear-gradient(132deg, rgba(140, 140, 140) 0%, rgba(64, 64, 64) 100%)',
         'default-background': 'var(--oxygen-palette-primary-main)',
         'default-text-color': 'var(--oxygen-palette-primary-contrastText)',
         'experimental-background':
@@ -197,10 +200,10 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
         'new-text-color': 'linear-gradient(132deg, rgba(117, 237, 161) 28.46%, rgba(52, 146, 86) 119.09%)',
         'premium-background':
           'linear-gradient(88deg, rgba(236, 81, 97, 0.04) -3.25%, rgba(248, 118, 67, 0.04) 102.62%)',
-        'premium-border-color': 'rgba(255, 169, 106)',
+        'premium-border-color': 'rgba(255, 169, 106, 0.9)',
         'premium-text-background-blend-mode': 'darken',
         'premium-text-color':
-          'radial-gradient(238.39% 44.19% at 96.59% 31.25%, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.00) 100%), radial-gradient(182.56% 55.34% at 5.68% 100%, rgba(246, 251, 34, 0.51) 0%, rgba(255, 158, 69, 0.00) 100%), radial-gradient(137.51% 118.3% at 32.95% 0%, rgba(255, 137, 137, 0.92) 21.25%, rgba(255, 169, 106, 0.57) 88.62%), radial-gradient(178.09% 220.16% at 94.89% -132.81%, #FF7A00 67.59%, rgba(255, 199, 0, 0.38) 100%)',
+          'radial-gradient(238.39% 44.19% at 96.59% 31.25%, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.00) 100%), radial-gradient(182.56% 75.34% at 15.68% 100%, rgba(246, 251, 34, 0.51) 0%, rgba(255, 158, 69, 0.00) 100%), radial-gradient(137.51% 118.3% at 32.95% 0%, rgba(255, 137, 137, 0.92) 21.25%, rgba(255, 169, 106, 0.57) 88.62%), radial-gradient(178.09% 220.16% at 94.89% -132.81%, #FF7A00 67.59%, rgba(255, 199, 0, 0.38) 100%)',
         'text-fill-color': 'transparent',
         'text-transform': 'uppercase',
       },
