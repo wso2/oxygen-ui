@@ -35,7 +35,7 @@ module.exports = {
     }
   },
   hooks: {
-    'after:bump': 'pnpm install --lockfile-only'
+    'after:bump': 'pnpm install'
   },
   plugins: {
     '@release-it/conventional-changelog': {
