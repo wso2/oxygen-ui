@@ -76,7 +76,7 @@
     "@testing-library/react": "^13.4.0",
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.18",
-    "@types/react": "^18.0.25",
+    "@types/react": "18.0.25",
     "@types/react-dom": "^18.0.9",
     "@types/testing-library__jest-dom": "^5.14.5",
     "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f",
