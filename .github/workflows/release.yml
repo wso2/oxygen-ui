@@ -35,6 +35,7 @@ jobs:
     strategy:
       matrix:
         node-version: [lts/*]
+        pnpm-version: [8.15.7]
     steps:
       - name: ⬇️ Checkout
         id: checkout
@@ -53,7 +54,7 @@ jobs:
         id: setup-pnpm
         uses: pnpm/action-setup@v2.1.0
         with:
-          version: latest
+          version: ${{ matrix.pnpm-version }}
           run_install: false
 
       - name: 🎈 Get pnpm store directory
