@@ -1,5 +1,18 @@
 # Changelog
 
+# [1.12.0](https://github.com/wso2/oxygen-ui/compare/v1.11.0...v1.12.0)
+<br> Released on: 2024-07-12
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** add a new `coming-soon` chip design ([361213f](https://github.com/wso2/oxygen-ui/commit/361213f73843245f8ee061f397ae176a90439ea0))
+* **react:** update the design of the `Chip` component. ([4b76d98](https://github.com/wso2/oxygen-ui/commit/4b76d98367033586092b97fb34dc829c715cbd52))
+
+
+### `@oxygen-ui/primitives`
+* **primitives:** add Diamond icon ([b3355ac](https://github.com/wso2/oxygen-ui/commit/b3355ac0cbc24873690230ca90b2efbc53e81230))
+
 # [1.11.0](https://github.com/wso2/oxygen-ui/compare/v1.10.0...v1.11.0)
 <br> Released on: 2024-03-27
 
