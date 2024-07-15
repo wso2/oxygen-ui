@@ -135,6 +135,7 @@ interface CustomTheme {
         'experimental-border-color'?: string;
         'experimental-text-color'?: string;
         'font-weight'?: string;
+        'letter-spacing'?: string;
         'line-height'?: string;
         'new-background'?: string;
         'new-border-color'?: string;
