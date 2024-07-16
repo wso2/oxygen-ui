@@ -135,14 +135,13 @@ interface CustomTheme {
         'experimental-border-color'?: string;
         'experimental-text-color'?: string;
         'font-weight'?: string;
+        'letter-spacing'?: string;
         'line-height'?: string;
-        'moz-text-fill-color'?: string;
         'new-background'?: string;
         'new-border-color'?: string;
         'new-text-color'?: string;
         'premium-background'?: string;
         'premium-border-color'?: string;
-        'premium-text-background-blend-mode'?: string;
         'premium-text-color'?: string;
         'text-fill-color'?: string;
         'text-transform'?: string;
