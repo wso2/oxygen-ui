@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.12.2](https://github.com/wso2/oxygen-ui/compare/v1.12.1...v1.12.2)
+<br> Released on: 2024-07-16
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** change colours of the sub `Chips` components ([e676428](https://github.com/wso2/oxygen-ui/commit/e6764286a74b7fac33f9cc33f7edbc9ee45dac1f))
+
 ## [1.12.1](https://github.com/wso2/oxygen-ui/compare/v1.12.0...v1.12.1)
 <br> Released on: 2024-07-13
 
