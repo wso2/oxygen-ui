@@ -192,7 +192,6 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
         'experimental-border-color': '#8C3999',
         'experimental-text-color': 'linear-gradient(93deg, #8C3999 0%, #2F1333 100%)',
         'font-weight': '600',
-        'letter-spacing': '0.4px',
         'line-height': '20px',
         'new-background': 'linear-gradient(131deg, rgba(117, 237, 161, 0.30) 28.46%, rgba(52, 146, 86, 0.30) 119.09%)',
         'new-border-color': '#349256',
