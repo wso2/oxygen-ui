@@ -23,6 +23,15 @@
   font-weight: var(--oxygen-customComponents-Chip-properties-font-weight);
   line-height: var(--oxygen-customComponents-Chip-properties-line-height);
 
+  .MuiChip-icon {
+    fill: var(--oxygen-palette-text-primary);
+
+    path {
+      stroke: var(--oxygen-palette-text-primary);
+      stroke-width: var(--oxygen-customComponents-Chip-properties-icon-stroke-width);
+    }
+  }
+
   &-premium {
     background: var(--oxygen-customComponents-Chip-properties-premium-background);
     border: var(--oxygen-customComponents-Chip-properties-border);
