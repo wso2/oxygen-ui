@@ -23907,49 +23907,10 @@ packages:
       - supports-color
     dev: true
 
-  '@gitpkg.vercel.app/brionmario/wso2-ui-configs/packages/eslint-plugin?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f(eslint@8.25.0)(typescript@4.9.3)':
-    resolution: {tarball: https://gitpkg.vercel.app/brionmario/wso2-ui-configs/packages/eslint-plugin?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f}
-    id: '@gitpkg.vercel.app/brionmario/wso2-ui-configs/packages/eslint-plugin?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f'
-    name: '@wso2/eslint-plugin'
-    version: 0.1.0
-    engines: {node: ^14.17.0 || ^16.0.0 || >= 18.0.0}
-    peerDependencies:
-      eslint: '>=8.0.0'
-      typescript: '>=4.0.0'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@babel/core': 7.20.5
-      '@babel/eslint-parser': 7.19.1(@babel/core@7.20.5)(eslint@8.25.0)
-      '@next/eslint-plugin-next': 13.0.7
-      '@typescript-eslint/eslint-plugin': 5.46.1(@typescript-eslint/parser@5.46.1)(eslint@8.25.0)(typescript@4.9.3)
-      '@typescript-eslint/parser': 5.46.1(eslint@8.25.0)(typescript@4.9.3)
-      eslint: 8.25.0
-      eslint-config-airbnb: 19.0.4(eslint-plugin-import@2.26.0)(eslint-plugin-jsx-a11y@6.6.1)(eslint-plugin-react-hooks@4.6.0)(eslint-plugin-react@7.31.11)(eslint@8.25.0)
-      eslint-config-airbnb-base: 15.0.0(eslint-plugin-import@2.26.0)(eslint@8.25.0)
-      eslint-config-airbnb-typescript: 17.0.0(@typescript-eslint/eslint-plugin@5.46.1)(@typescript-eslint/parser@5.46.1)(eslint-plugin-import@2.26.0)(eslint@8.25.0)
-      eslint-config-prettier: 8.5.0(eslint@8.25.0)
-      eslint-plugin-eslint-plugin: 5.0.6(eslint@8.25.0)
-      eslint-plugin-header: 3.1.1(eslint@8.25.0)
-      eslint-plugin-import: 2.26.0(@typescript-eslint/parser@5.46.1)(eslint@8.25.0)
-      eslint-plugin-jest: 27.1.7(@typescript-eslint/eslint-plugin@5.46.1)(eslint@8.25.0)(typescript@4.9.3)
-      eslint-plugin-jsx-a11y: 6.6.1(eslint@8.25.0)
-      eslint-plugin-node: 11.1.0(eslint@8.25.0)
-      eslint-plugin-prettier: 4.2.1(eslint-config-prettier@8.5.0)(eslint@8.25.0)(prettier@2.8.1)
-      eslint-plugin-react: 7.31.11(eslint@8.25.0)
-      eslint-plugin-react-hooks: 4.6.0(eslint@8.25.0)
-      eslint-plugin-testing-library: 5.9.1(eslint@8.25.0)(typescript@4.9.3)
-      eslint-plugin-tsdoc: 0.2.17
-      eslint-plugin-typescript-sort-keys: 2.1.0(@typescript-eslint/parser@5.46.1)(eslint@8.25.0)(typescript@4.9.3)
-      prettier: 2.8.1
-      requireindex: 1.2.0
-      typescript: 4.9.3
-    transitivePeerDependencies:
-      - eslint-import-resolver-typescript
-      - eslint-import-resolver-webpack
-      - jest
-      - supports-color
+  '@gitpkg.vercel.app/brionmario/wso2-ui-configs/packages/eslint-plugin?d84dd6df97ba9812d30b17d482ecaec5d35d3e54':
+    resolution: {tarball: https://gitpkg.vercel.app/brionmario/wso2-ui-configs/packages/eslint-plugin?d84dd6df97ba9812d30b17d482ecaec5d35d3e54}
+    name: eslint-plugin?d84dd6df97ba9812d30b17d482ecaec5d35d3e54
+    version: 0.0.0
     dev: true
 
   '@gitpkg.vercel.app/brionmario/wso2-ui-configs/packages/prettier-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f(prettier@2.8.1)(typescript@4.9.3)':
@@ -24003,65 +23964,8 @@ packages:
       typescript: 4.9.4
     dev: true
 
-  '@gitpkg.vercel.app/brionmario/wso2-ui-configs/packages/stylelint-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f(postcss@8.4.16)(stylelint@15.1.0)(typescript@4.9.4)':
+  '@gitpkg.vercel.app/brionmario/wso2-ui-configs/packages/stylelint-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f':
     resolution: {tarball: https://gitpkg.vercel.app/brionmario/wso2-ui-configs/packages/stylelint-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f}
-    id: '@gitpkg.vercel.app/brionmario/wso2-ui-configs/packages/stylelint-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f'
-    name: '@wso2/stylelint-config'
-    version: 0.1.0
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      stylelint: '>=14.0.0'
-      typescript: '>=4.0.0'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      postcss-scss: 4.0.6(postcss@8.4.16)
-      stylelint: 15.1.0
-      stylelint-config-standard-scss: 6.1.0(postcss@8.4.16)(stylelint@15.1.0)
-      typescript: 4.9.4
-    transitivePeerDependencies:
-      - postcss
-    dev: true
-
-  '@gitpkg.vercel.app/brionmario/wso2-ui-configs/packages/stylelint-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f(postcss@8.4.21)(stylelint@15.1.0)(typescript@4.9.3)':
-    resolution: {tarball: https://gitpkg.vercel.app/brionmario/wso2-ui-configs/packages/stylelint-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f}
-    id: '@gitpkg.vercel.app/brionmario/wso2-ui-configs/packages/stylelint-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f'
-    name: '@wso2/stylelint-config'
-    version: 0.1.0
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      stylelint: '>=14.0.0'
-      typescript: '>=4.0.0'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      postcss-scss: 4.0.6(postcss@8.4.21)
-      stylelint: 15.1.0
-      stylelint-config-standard-scss: 6.1.0(postcss@8.4.21)(stylelint@15.1.0)
-      typescript: 4.9.3
-    transitivePeerDependencies:
-      - postcss
-    dev: true
-
-  '@gitpkg.vercel.app/brionmario/wso2-ui-configs/packages/stylelint-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f(postcss@8.4.21)(stylelint@15.1.0)(typescript@4.9.4)':
-    resolution: {tarball: https://gitpkg.vercel.app/brionmario/wso2-ui-configs/packages/stylelint-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f}
-    id: '@gitpkg.vercel.app/brionmario/wso2-ui-configs/packages/stylelint-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f'
-    name: '@wso2/stylelint-config'
-    version: 0.1.0
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      stylelint: '>=14.0.0'
-      typescript: '>=4.0.0'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      postcss-scss: 4.0.6(postcss@8.4.21)
-      stylelint: 15.1.0
-      stylelint-config-standard-scss: 6.1.0(postcss@8.4.21)(stylelint@15.1.0)
-      typescript: 4.9.4
-    transitivePeerDependencies:
-      - postcss
+    name: stylelint-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f
+    version: 0.0.0
     dev: true
