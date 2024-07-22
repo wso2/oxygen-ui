@@ -34,7 +34,7 @@ const Chip: FC<ChipProps> & WithWrapperProps = <C extends ElementType>(props: Ch
 
   const classes: string = clsx('oxygen-chip', className);
 
-  return <MuiChip className={classes} {...rest} variant="outlined" />;
+  return <MuiChip className={classes} {...rest} />;
 };
 
 Chip.displayName = composeComponentDisplayName(COMPONENT_NAME);
