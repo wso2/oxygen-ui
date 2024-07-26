@@ -176,7 +176,6 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
     Chip: {
       // TODO: Move these to color palette.
       properties: {
-        'background-clip': 'text',
         'beta-background': 'linear-gradient(131deg, rgba(143, 197, 246, 0.30) 0%, rgba(72, 141, 180, 0.30) 100%)',
         'beta-border-color': '#488DB4',
         'beta-text-color': 'linear-gradient(93deg, #488DB4 0%, #1F3D4E 100%)',
