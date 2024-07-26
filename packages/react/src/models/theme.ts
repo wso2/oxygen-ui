@@ -119,7 +119,6 @@ interface CustomTheme {
     };
     Chip?: {
       properties?: {
-        'background-clip'?: string;
         'beta-background'?: string;
         'beta-border-color'?: string;
         'beta-text-color'?: string;
