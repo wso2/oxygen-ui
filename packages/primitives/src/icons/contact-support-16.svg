@@ -1,0 +1,31 @@
+<!--
+ * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+-->
+
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_2668_26004" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="16" height="16">
+<path d="M16 0H0V16H16V0Z" fill="white"/>
+</mask>
+<g mask="url(#mask0_2668_26004)">
+<path d="M5.39124 14.5219H4.02543C2.97882 14.5219 2.13037 13.6734 2.13037 12.6268V8.6523C2.13037 6.49119 3.8823 4.73926 6.04341 4.73926C8.20452 4.73926 9.95646 6.49119 9.95646 8.6523V11.4648" stroke="black"/>
+<path d="M2.45652 11.261H1.80435C1.08398 11.261 0.5 10.6771 0.5 9.95669C0.5 9.2363 1.08398 8.65234 1.80435 8.65234H2.45652" stroke="black"/>
+<path d="M9.63037 8.65234H10.2825C11.0029 8.65234 11.5869 9.2363 11.5869 9.95669C11.5869 10.6771 11.0029 11.261 10.2825 11.261H9.63037" stroke="black"/>
+<path d="M7.34764 14.5217C7.34764 13.9815 6.90964 13.5435 6.36937 13.5435C5.82909 13.5435 5.39111 13.9815 5.39111 14.5217C5.39111 15.062 5.82909 15.5 6.36937 15.5C6.90964 15.5 7.34764 15.062 7.34764 14.5217Z" stroke="black"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.5868 2.78255C11.7669 2.78255 11.9129 2.63655 11.9129 2.45646C11.9129 2.27637 11.7669 2.13037 11.5868 2.13037C11.4068 2.13037 11.2607 2.27637 11.2607 2.45646C11.2607 2.63655 11.4068 2.78255 11.5868 2.78255ZM12.8912 2.78255C13.0712 2.78255 13.2173 2.63655 13.2173 2.45646C13.2173 2.27637 13.0712 2.13037 12.8912 2.13037C12.7111 2.13037 12.5651 2.27637 12.5651 2.45646C12.5651 2.63655 12.7111 2.78255 12.8912 2.78255Z" fill="black"/>
+<path d="M10.6086 4.41304H10.5317L10.4628 4.44747L9.63037 4.86368V4.73913V1.47826C9.63037 0.93798 10.0684 0.5 10.6086 0.5H14.5217C15.0619 0.5 15.4999 0.93798 15.4999 1.47826V3.43478C15.4999 3.97506 15.0619 4.41304 14.5217 4.41304H12.5652H10.6086Z" stroke="black"/>
+</g>
+</svg>
