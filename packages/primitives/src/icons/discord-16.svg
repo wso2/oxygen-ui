@@ -1,0 +1,24 @@
+<!--
+ * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ *
+ * All copyrights in the Discord icon in this file is
+ * licensed and owned by Discord (https://discord.com/).
+-->
+
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.5535 3.03729C12.5178 2.55271 11.4104 2.20053 10.2526 2C10.1104 2.25707 9.94429 2.60284 9.82976 2.8779C8.599 2.69281 7.37956 2.69281 6.17144 2.8779C6.05693 2.60284 5.88704 2.25707 5.74357 2C4.58454 2.20053 3.47584 2.554 2.44013 3.03985C0.351095 6.19666 -0.215207 9.27505 0.0679444 12.3097C1.4535 13.3444 2.79627 13.973 4.11638 14.3843C4.44233 13.9357 4.73302 13.4588 4.98345 12.9563C4.5065 12.775 4.04969 12.5514 3.61805 12.2917C3.73256 12.2069 3.84457 12.1182 3.95279 12.027C6.58546 13.2583 9.44593 13.2583 12.0472 12.027C12.1566 12.1182 12.2686 12.2069 12.3819 12.2917C11.949 12.5527 11.4909 12.7763 11.014 12.9576C11.2644 13.4588 11.5538 13.937 11.881 14.3856C13.2024 13.9743 14.5464 13.3457 15.932 12.3097C16.2642 8.79176 15.3644 5.74164 13.5535 3.03729ZM5.34212 10.4434C4.55181 10.4434 3.9037 9.70563 3.9037 8.80718C3.9037 7.90873 4.53797 7.16966 5.34212 7.16966C6.14628 7.16966 6.79437 7.90743 6.78053 8.80718C6.78178 9.70563 6.14628 10.4434 5.34212 10.4434ZM10.6578 10.4434C9.86752 10.4434 9.21941 9.70563 9.21941 8.80718C9.21941 7.90873 9.85366 7.16966 10.6578 7.16966C11.462 7.16966 12.1101 7.90743 12.0962 8.80718C12.0962 9.70563 11.462 10.4434 10.6578 10.4434Z" fill="black"/>
+</svg>
