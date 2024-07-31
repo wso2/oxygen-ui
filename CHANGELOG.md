@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.13.4](https://github.com/wso2/oxygen-ui/compare/v1.13.3...v1.13.4)
+<br> Released on: 2024-07-31
+
+## What's Changed
+
+### `@oxygen-ui/primitives`
+* **primitives:** add ContactSupport, Discord and Stackoverflow icons ([c6e9238](https://github.com/wso2/oxygen-ui/commit/c6e9238dbee223962ceb0094ce27493bf667cfbe))
+
 ## [1.13.3](https://github.com/wso2/oxygen-ui/compare/v1.13.2...v1.13.3)
 <br> Released on: 2024-07-26
 
