@@ -1,0 +1,32 @@
+<!--
+ * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ *
+ * All copyrights in the Stack Overflow icon in this file are
+ * licensed and owned by Stack Overflow (https://stackoverflow.com/).
+-->
+
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_2681_41768)">
+<path d="M12.8724 14.5786V10.814H13.294V15.5002H1.5V10.814H1.92156V14.5786V15.0786H2.42156H12.3724H12.8724V14.5786Z" stroke="black"/>
+<path d="M11.3005 8.50889L11.1202 8.89588L5.55914 6.30591L5.73934 5.91894L11.3005 8.50889ZM12.3765 6.90867L12.1032 7.23677L7.38863 3.31079L7.66182 2.98277L12.3765 6.90867ZM13.7821 5.62229L13.4395 5.87706L9.77829 0.954438L10.1209 0.699608L13.7821 5.62229ZM4.65087 9.08703L10.654 10.3493L10.5663 10.7665L4.56308 9.50472L4.65087 9.08703ZM4.34326 12.2353H10.451V12.6569H4.34326V12.2353Z" stroke="black"/>
+</g>
+<defs>
+<clipPath id="clip0_2681_41768">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>
