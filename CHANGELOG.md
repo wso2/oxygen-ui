@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.13.5](https://github.com/wso2/oxygen-ui/compare/v1.13.4...v1.13.5)
+<br> Released on: 2024-08-01
+
+## What's Changed
+
 ## [1.13.4](https://github.com/wso2/oxygen-ui/compare/v1.13.3...v1.13.4)
 <br> Released on: 2024-07-31
 
