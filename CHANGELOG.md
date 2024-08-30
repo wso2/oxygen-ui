@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.13.8](https://github.com/wso2/oxygen-ui/compare/v1.13.7...v1.13.8)
+<br> Released on: 2024-08-30
+
+## What's Changed
+
+### `@oxygen-ui/primitives`
+* **primitives:** add ThreeBarsMiddle icons ([c374dd6](https://github.com/wso2/oxygen-ui/commit/c374dd696461d66bfe169fc0a77fb12a88e58bf8))
+
 ## [1.13.7](https://github.com/wso2/oxygen-ui/compare/v1.13.6...v1.13.7)
 <br> Released on: 2024-08-26
 
