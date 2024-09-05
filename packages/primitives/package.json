@@ -1,6 +1,6 @@
 {
   "name": "@oxygen-ui/primitives",
-  "version": "1.13.8",
+  "version": "1.13.9",
   "description": "Low level building blocks of the Oxygen Design System",
   "author": "WSO2",
   "license": "Apache-2.0",
@@ -36,7 +36,7 @@
   "devDependencies": {
     "@babel/parser": "^7.20.5",
     "@divriots/style-dictionary-to-figma": "^0.4.0",
-    "@oxygen-ui/logger": "1.13.8",
+    "@oxygen-ui/logger": "1.13.9",
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.18",
     "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f",

@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.13.9](https://github.com/wso2/oxygen-ui/compare/v1.13.8...v1.13.9)
+<br> Released on: 2024-09-05
+
+## What's Changed
+
+### `@oxygen-ui/primitives`
+* **primitives:** add Arrow icons ([9ef0886](https://github.com/wso2/oxygen-ui/commit/9ef08866e5ee6b8479b659b1dcc64abc80c3a26e))
+
 ## [1.13.8](https://github.com/wso2/oxygen-ui/compare/v1.13.7...v1.13.8)
 <br> Released on: 2024-08-30
 
