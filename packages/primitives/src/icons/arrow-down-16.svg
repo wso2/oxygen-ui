@@ -1,5 +1,5 @@
 <!--
- * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -17,7 +17,6 @@
 -->
 
 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M4 12.5L2.5 12.5C1.94772 12.5 1.5 12.0523 1.5 11.5L1.5 1.5C1.5 0.947714 1.94772 0.499999 2.5 0.499999L10 0.499999C10.5523 0.499999 11 0.947714 11 1.5L11 2.5" stroke="black" stroke-linecap="round"/>
-  <path d="M14.5 11.5858C14.5 11.851 14.3946 12.1054 14.2071 12.2929L11.2929 15.2071C11.1054 15.3946 10.851 15.5 10.5858 15.5L7 15.5C6.44772 15.5 6 15.0523 6 14.5L6 5.5C6 4.94771 6.44772 4.5 7 4.5L13.5 4.5C14.0523 4.5 14.5 4.94771 14.5 5.5L14.5 11.5858Z" stroke="black"/>
-  <path d="M11 15V12.2C11 12.0895 11.0895 12 11.2 12H14" stroke="black" stroke-linecap="round"/>
+  <path d="M3.5 10.5L8 15L12.5 10.5" stroke="black" stroke-linecap="round"/>
+  <path d="M8 15L8 1" stroke="black" stroke-linecap="round"/>
 </svg>
