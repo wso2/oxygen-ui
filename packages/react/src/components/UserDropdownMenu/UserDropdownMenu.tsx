@@ -193,7 +193,9 @@ const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
             onClick={(): void => handleUserProfileNavigation()}
           >
             <ListItemAvatar>
-              <Avatar src={user?.image} alt="User" />
+              <Avatar src={user?.image} alt="User">
+                {user?.name?.split('')[0]}
+              </Avatar>
             </ListItemAvatar>
             <ListItemText primary={user?.name} secondary={user?.email} />
           </ListItem>
