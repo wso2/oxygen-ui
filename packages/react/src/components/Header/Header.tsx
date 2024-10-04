@@ -220,7 +220,13 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
               color: 'inherit',
               endIcon: <ChevronDownIcon />,
               startIcon: (
-                <Avatar className="image" alt="User Image" src={user?.image}>
+                <Avatar
+                  className="image"
+                  alt="User Image"
+                  src={user?.image}
+                  randomBackgroundColor={!user?.image}
+                  backgroundColorRandomizer={user?.name}
+                >
                   {user?.name?.split('')[0]}
                 </Avatar>
               ),
