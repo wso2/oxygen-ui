@@ -58,6 +58,7 @@ const Footer: FC<FooterProps> & WithWrapperProps = (props: FooterProps): ReactEl
           <Box className="oxygen-footer-links" fontSize="body2.fontSize">
             {links.map((link: LinkProps) => (
               <Link
+                key={link.id}
                 className="oxygen-footer-link"
                 underline="none"
                 target="_blank"
