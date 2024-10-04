@@ -18,6 +18,7 @@
 
 export * from './components';
 export * from './theme';
+export {default as usePastelColorGenerator} from './hooks/use-pastel-color-generator';
 export * from './hooks/use-pastel-color-generator';
 export {default} from './utils/generate-pastel-color';
 export {
