@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.13.12](https://github.com/wso2/oxygen-ui/compare/v1.13.11...v1.13.12)
+<br> Released on: 2024-10-04
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** fix the `usePastelColorGenerator` hook public api exposing issue ([b7d74e3](https://github.com/wso2/oxygen-ui/commit/b7d74e30220b5aee7bd22bfef38c9f8bbf3627bb))
+* **react:** add pastel color as bg to Header Avatar where image is not provided ([f460f20](https://github.com/wso2/oxygen-ui/commit/f460f20f91504deb6b2a0d00caea7aecc14b723f))
+* **react:** fix footer warning when using links ([3821e1d](https://github.com/wso2/oxygen-ui/commit/3821e1dafb1c63b90eca65b985fa5fa6ad67a01d))
+
 ## [1.13.11](https://github.com/wso2/oxygen-ui/compare/v1.13.10...v1.13.11)
 <br> Released on: 2024-10-03
 
