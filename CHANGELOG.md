@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.13.13](https://github.com/wso2/oxygen-ui/compare/v1.13.12...v1.13.13)
+<br> Released on: 2024-10-05
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** add pastel color as bg to Header's Dropdown Avatar where image is not provided ([6110d7b](https://github.com/wso2/oxygen-ui/commit/6110d7be6e9dae907a15bad867198665401c62b2))
+
 ## [1.13.12](https://github.com/wso2/oxygen-ui/compare/v1.13.11...v1.13.12)
 <br> Released on: 2024-10-04
 
