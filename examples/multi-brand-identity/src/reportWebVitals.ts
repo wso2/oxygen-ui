@@ -16,10 +16,12 @@
  * under the License.
  */
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import {ReportHandler} from 'web-vitals';
 
 const reportWebVitals = (onPerfEntry?: ReportHandler): void => {
   if (onPerfEntry && onPerfEntry instanceof Function) {
+    // eslint-disable-next-line import/no-extraneous-dependencies
     import('web-vitals').then(
       ({
         getCLS,
