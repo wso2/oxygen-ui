@@ -30,7 +30,7 @@ import {
   useState,
 } from 'react';
 import {TextFieldInputTypes} from './constants';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import IconButton from '../IconButton';
 import InputLabel from '../InputLabel';

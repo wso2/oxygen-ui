@@ -19,7 +19,7 @@
 import {Box, FormGroup, FormControlLabel, Typography, Grid, BoxProps, Paper, Checkbox} from '@mui/material';
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
-import {MuiWrapperProps} from '../../models';
+import {MuiWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Button from '../Button';
 import Divider from '../Divider';

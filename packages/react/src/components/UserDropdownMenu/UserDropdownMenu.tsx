@@ -20,7 +20,7 @@ import {ListItemAvatar, ListSubheader, Radio} from '@mui/material';
 import {capitalize} from '@mui/material/utils';
 import clsx from 'clsx';
 import {FC, MouseEvent, ReactElement, ReactNode, useState} from 'react';
-import {WithWrapperProps} from 'src/models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Avatar from '../Avatar';
 import Button, {ButtonProps} from '../Button';

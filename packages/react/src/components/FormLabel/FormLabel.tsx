@@ -19,7 +19,7 @@
 import MuiFormLabel, {FormLabelProps as MuiFormLabelProps} from '@mui/material/FormLabel';
 import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type FormLabelProps<C extends ElementType = ElementType> = {

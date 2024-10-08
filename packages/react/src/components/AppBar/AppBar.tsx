@@ -19,7 +19,7 @@
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './app-bar.scss';
 

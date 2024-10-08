@@ -19,7 +19,7 @@
 import {Badge, BadgeProps, CircularProgress, CircularProgressProps} from '@mui/material';
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Avatar, {AvatarProps} from '../Avatar';
 import Box from '../Box';

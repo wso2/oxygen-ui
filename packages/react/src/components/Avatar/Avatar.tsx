@@ -20,7 +20,7 @@ import MuiAvatar, {AvatarProps as MuiAvatarProps} from '@mui/material/Avatar';
 import clsx from 'clsx';
 import {ElementType, FC, ReactElement, useMemo} from 'react';
 import usePastelColorGenerator from '../../hooks/use-pastel-color-generator';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './avatar.scss';
 

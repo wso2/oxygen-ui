@@ -19,7 +19,7 @@
 import {Typography} from '@mui/material';
 import {FC, ReactElement} from 'react';
 import WorldFlag from 'react-world-flags';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export interface CountryFlagsProps extends React.HTMLAttributes<HTMLElement & SVGElement> {

@@ -19,7 +19,7 @@
 import MuiCardContent, {CardContentProps as MuiCardContentProps} from '@mui/material/CardContent';
 import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './card-content.scss';
 

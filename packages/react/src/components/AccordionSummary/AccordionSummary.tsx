@@ -19,7 +19,7 @@
 import MuiAccordionSummary, {AccordionSummaryProps as MuiAccordionSummaryProps} from '@mui/material/AccordionSummary';
 import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type AccordionSummaryProps = MuiAccordionSummaryProps;

@@ -19,7 +19,7 @@
 import MuiLinearProgress, {LinearProgressProps as MuiLinearProgressProps} from '@mui/material/LinearProgress';
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type LinearProgressProps = MuiLinearProgressProps;

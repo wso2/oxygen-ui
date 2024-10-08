@@ -20,7 +20,7 @@ import MuiCollapse from '@mui/material/Collapse';
 import {ChevronDownIcon, ChevronUpIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement, useState} from 'react';
-import type {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import Chip from '../Chip';

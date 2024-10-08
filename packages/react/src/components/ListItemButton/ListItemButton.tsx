@@ -19,7 +19,7 @@
 import MuiListItemButton, {ListItemButtonProps as MuiListItemButtonProps} from '@mui/material/ListItemButton';
 import clsx from 'clsx';
 import {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement, forwardRef} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list-item-button.scss';
 

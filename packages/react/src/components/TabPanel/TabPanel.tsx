@@ -19,7 +19,7 @@
 import {BoxProps as MuiBoxProps} from '@mui/material';
 import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import './tab-panel.scss';

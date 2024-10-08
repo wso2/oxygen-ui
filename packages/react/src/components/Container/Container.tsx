@@ -19,7 +19,7 @@
 import MuiContainer, {ContainerProps as MuiContainerProps} from '@mui/material/Container';
 import clsx from 'clsx';
 import {ElementType, FC, ReactElement} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './container.scss';
 

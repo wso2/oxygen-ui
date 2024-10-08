@@ -19,7 +19,7 @@
 import MuiTooltip, {TooltipProps as MuiTooltipProps} from '@mui/material/Tooltip';
 import clsx from 'clsx';
 import {ForwardRefExoticComponent, MutableRefObject, ReactElement, forwardRef} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './tooltip.scss';
 

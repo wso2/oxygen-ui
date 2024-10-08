@@ -18,6 +18,6 @@
 
 import {useTheme as useSystemTheme} from '@mui/system';
 import defaultTheme from './default-theme';
-import {Theme} from '../models';
+import type {Theme} from '../models/theme';
 
 export const useTheme = <T = Theme>(): T => useSystemTheme<T>(defaultTheme as T);

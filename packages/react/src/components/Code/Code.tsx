@@ -19,7 +19,7 @@
 import MuiTypography, {TypographyProps as MuiTypographyProps} from '@mui/material/Typography';
 import clsx from 'clsx';
 import {ElementType, FC, ReactElement} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './code.scss';
 

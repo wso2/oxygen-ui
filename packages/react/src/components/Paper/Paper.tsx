@@ -19,7 +19,7 @@
 import MuiPaper, {PaperProps as MuiPaperProps} from '@mui/material/Paper';
 import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type PaperProps<C extends ElementType = ElementType> = {

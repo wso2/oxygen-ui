@@ -19,7 +19,7 @@
 import MuiIconButton, {IconButtonProps as MuiIconButtonProps} from '@mui/material/IconButton';
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './icon-button.scss';
 

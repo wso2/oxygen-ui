@@ -19,7 +19,7 @@
 import {BarsIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {FC, ReactElement, MouseEvent, Fragment, ReactNode} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import CollapsibleNavbarItem from '../CollapsibleNavbarItem';

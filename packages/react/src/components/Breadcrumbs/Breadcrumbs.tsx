@@ -19,7 +19,7 @@
 import MuiBreadcrumbs, {BreadcrumbsProps as MuiBreadcrumbsProps} from '@mui/material/Breadcrumbs';
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './breadcrumbs.scss';
 

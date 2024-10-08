@@ -19,7 +19,7 @@
 import MuiAlertTitle, {AlertTitleProps as MuiAlertProps} from '@mui/material/AlertTitle';
 import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './alert-title.scss';
 

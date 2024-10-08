@@ -18,7 +18,8 @@
 
 import {experimental_extendTheme as extendTheme} from '@mui/material/styles';
 import lightTokens from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/tokens';
-import {RecursivePartial, Theme} from '../models';
+import type {RecursivePartial} from '../models/common';
+import type {Theme} from '../models/theme';
 
 export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<Theme> => ({
   colorSchemes: {

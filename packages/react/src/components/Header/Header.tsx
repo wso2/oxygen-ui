@@ -22,7 +22,7 @@ import {ChevronDownIcon, BarsIcon, ArrowRightToBracketIcon} from '@oxygen-ui/rea
 import clsx from 'clsx';
 import {FC, ReactElement, ReactNode} from 'react';
 import {useIsMobile} from '../../hooks/use-is-mobile';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './header.scss';
 import AppBar, {AppBarProps} from '../AppBar';

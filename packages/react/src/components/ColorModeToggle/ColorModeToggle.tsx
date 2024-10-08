@@ -20,7 +20,7 @@ import IconButton, {IconButtonProps} from '@mui/material/IconButton';
 import {useColorScheme} from '@mui/material/styles';
 import clsx from 'clsx';
 import {FC, PropsWithChildren, ReactElement, SVGProps} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './color-mode-toggle.scss';
 

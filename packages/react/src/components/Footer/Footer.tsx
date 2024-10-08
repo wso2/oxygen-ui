@@ -19,7 +19,7 @@
 import clsx from 'clsx';
 import {FC, ReactElement, ReactNode} from 'react';
 import {useIsMobile} from '../../hooks';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box, {BoxProps} from '../Box';
 import Container, {ContainerProps} from '../Container';

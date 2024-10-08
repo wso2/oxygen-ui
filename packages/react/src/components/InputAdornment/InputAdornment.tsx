@@ -19,7 +19,7 @@
 import MuiInputAdornment, {InputAdornmentProps as MuiInputAdornmentProps} from '@mui/material/InputAdornment';
 import clsx from 'clsx';
 import {ElementType, FC, ReactElement} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type InputAdornmentProps<C extends ElementType = ElementType> = {

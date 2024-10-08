@@ -19,7 +19,7 @@
 import MuiSkeleton, {SkeletonProps as MuiSkeletonProps} from '@mui/material/Skeleton';
 import clsx from 'clsx';
 import {ElementType, FC, ReactElement} from 'react';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type SkeletonProps<C extends ElementType = ElementType> = {

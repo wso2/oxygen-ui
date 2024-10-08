@@ -34,4 +34,4 @@ export {
 } from '@mui/material';
 export {useColorScheme} from '@mui/material/styles';
 
-export {Theme} from './models';
+export type {Theme} from './models/theme';

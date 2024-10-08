@@ -22,7 +22,7 @@ import clsx from 'clsx';
 import {ChangeEvent, forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement, useState} from 'react';
 import Flag from 'react-world-flags';
 import {countries, Country} from './constants';
-import {WithWrapperProps} from '../../models';
+import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box, {BoxProps} from '../Box';
 import InputLabel from '../InputLabel';
