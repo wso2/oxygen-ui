@@ -1,0 +1,21 @@
+<!--
+ * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+-->
+
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M8 0C3.582 0 0 3.5815 0 8C0 12.4185 3.5815 16 8 16C12.4185 16 16 12.4185 16 8C16 3.5815 12.4185 0 8 0ZM1 8C1 6.246 1.65 4.6415 2.7205 3.4115L12.593 13.284C11.363 14.36 9.7565 15.0155 8 15.0155C4.14 15.0155 1 11.8595 1 7.9995V8ZM13.297 12.575L3.428 2.706C4.656 1.6445 6.2535 1 7.9995 1C11.8595 1 14.9995 4.14 14.9995 8C14.9995 9.7445 14.3565 11.3445 13.2965 12.5745L13.297 12.575Z" fill="black"/>
+</svg>
