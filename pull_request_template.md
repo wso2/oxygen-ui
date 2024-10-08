@@ -9,6 +9,7 @@
 - Related PR `#1` or (None)
 
 ### Checklist
+- [ ] Figma Board Updated. (Mandatory for Icon and Component PRs. If you don't have access, please ask the core team to update it.)
 - [ ] UX/UI review done on the final implementation.
 - [ ] Story provided. (Add screenshots)
 - [ ] Manual test round performed and verified.
@@ -17,5 +18,5 @@
 
 ### Security checks
 - [ ] Followed secure coding standards in http://wso2.com/technical-reports/wso2-secure-engineering-guidelines?
-- [ ] Ran FindSecurityBugs plugin and verified report?
+- [ ] Ran ESLint & Prettier plugins and verified?
 - [ ] Confirmed that this PR doesn't commit any keys, passwords, tokens, usernames, or other secrets?
