@@ -20,7 +20,7 @@ import MuiListItemText, {ListItemTextProps as MuiListItemTextProps} from '@mui/m
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list-item-text.scss';
 
 export type ListItemTextProps = MuiListItemTextProps;

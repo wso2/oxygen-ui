@@ -21,7 +21,7 @@ import clsx from 'clsx';
 import {ElementType, FC, ReactElement, useMemo} from 'react';
 import usePastelColorGenerator from '../../hooks/use-pastel-color-generator';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './avatar.scss';
 
 export type AvatarProps<C extends ElementType = ElementType> = {

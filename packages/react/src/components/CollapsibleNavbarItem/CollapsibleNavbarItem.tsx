@@ -21,7 +21,7 @@ import {ChevronDownIcon, ChevronUpIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement, useState} from 'react';
 import type {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import Chip from '../Chip';
 import List from '../List';

@@ -20,7 +20,7 @@ import {Box, FormGroup, FormControlLabel, Typography, Grid, BoxProps, Paper, Che
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {MuiWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Button from '../Button';
 import Divider from '../Divider';
 import Link from '../Link';

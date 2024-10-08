@@ -20,7 +20,7 @@ import MuiInputLabel, {InputLabelProps as MuiInputLabelProps} from '@mui/materia
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './input-label.scss';
 
 export type InputLabelProps = MuiInputLabelProps;

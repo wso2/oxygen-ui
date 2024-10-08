@@ -19,7 +19,7 @@
 import clsx from 'clsx';
 import {FC, HTMLAttributes, MutableRefObject, ReactElement, useCallback, useEffect, useRef, useState} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import './stepper.scss';
 

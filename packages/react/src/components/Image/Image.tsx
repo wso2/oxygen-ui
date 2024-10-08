@@ -19,7 +19,7 @@
 import clsx from 'clsx';
 import {FC, ImgHTMLAttributes, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type ImageProps = ImgHTMLAttributes<HTMLImageElement>;
 

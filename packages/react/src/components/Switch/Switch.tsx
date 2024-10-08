@@ -20,7 +20,7 @@ import MuiSwitch, {SwitchProps as MuiSwitchProps} from '@mui/material/Switch';
 import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './switch.scss';
 
 export type SwitchProps = MuiSwitchProps;

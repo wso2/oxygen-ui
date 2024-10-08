@@ -20,7 +20,7 @@ import MuiMenuItem, {MenuItemProps as MuiMenuItemProps} from '@mui/material/Menu
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './menu-item.scss';
 
 export type MenuItemProps = MuiMenuItemProps;

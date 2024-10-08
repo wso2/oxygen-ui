@@ -20,7 +20,7 @@ import MuiCardHeader, {CardHeaderProps as MuiCardHeaderProps} from '@mui/materia
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './card-header.scss';
 
 export type CardHeaderProps = MuiCardHeaderProps;

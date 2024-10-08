@@ -21,7 +21,7 @@ import {capitalize} from '@mui/material/utils';
 import clsx from 'clsx';
 import {FC, MouseEvent, ReactElement, ReactNode, useState} from 'react';
 import {WithWrapperProps} from 'src/models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Avatar from '../Avatar';
 import Button, {ButtonProps} from '../Button';
 import Divider from '../Divider';

@@ -20,7 +20,7 @@ import MuiSelect, {SelectProps as MuiSelectProps} from '@mui/material/Select';
 import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import InputLabel, {InputLabelProps as MuiInputLabelProps} from '../InputLabel';
 import './select.scss';
 

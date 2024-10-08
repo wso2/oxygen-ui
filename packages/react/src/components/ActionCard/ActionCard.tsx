@@ -19,7 +19,7 @@
 import clsx from 'clsx';
 import {FC, ReactElement, ReactNode} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Button from '../Button';
 import Card, {CardProps} from '../Card';
 import CardActions from '../CardActions';

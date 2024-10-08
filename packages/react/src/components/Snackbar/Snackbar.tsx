@@ -20,7 +20,7 @@ import MuiSnackbar, {SnackbarProps as MuiSnackbarProps} from '@mui/material/Snac
 import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './snackbar.scss';
 
 export type SnackbarProps = MuiSnackbarProps;

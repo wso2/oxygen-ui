@@ -20,7 +20,7 @@ import MuiListItemAvatar, {ListItemAvatarProps as MuiListItemAvatarProps} from '
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list-item-avatar.scss';
 
 export type ListItemAvatarProps = MuiListItemAvatarProps;

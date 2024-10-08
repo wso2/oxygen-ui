@@ -20,7 +20,7 @@ import MuiTab, {TabProps as MuiTabProps} from '@mui/material/Tab';
 import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './tab.scss';
 
 export type TabProps = MuiTabProps;

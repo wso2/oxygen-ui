@@ -20,7 +20,7 @@ import MuiFab, {FabProps as MuiFabProps} from '@mui/material/Fab';
 import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type FabProps<C extends ElementType = ElementType> = {
   component?: C;

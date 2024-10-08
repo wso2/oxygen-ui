@@ -21,7 +21,7 @@ import {useColorScheme} from '@mui/material/styles';
 import clsx from 'clsx';
 import {FC, PropsWithChildren, ReactElement, SVGProps} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './color-mode-toggle.scss';
 
 export type ColorModeToggleProps = IconButtonProps;

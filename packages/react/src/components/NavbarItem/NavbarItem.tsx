@@ -19,7 +19,7 @@
 import clsx from 'clsx';
 import {ForwardRefExoticComponent, MutableRefObject, ReactElement, ReactNode, forwardRef} from 'react';
 import type {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import Chip from '../Chip';
 import type {ListItemProps} from '../ListItem';

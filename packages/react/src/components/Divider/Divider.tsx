@@ -20,7 +20,7 @@ import MuiDivider, {DividerProps as MuiDividerProps} from '@mui/material/Divider
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './divider.scss';
 
 export type DividerProps = MuiDividerProps;

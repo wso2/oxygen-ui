@@ -20,7 +20,7 @@ import MuiListItem, {ListItemProps as MuiListItemProps} from '@mui/material/List
 import clsx from 'clsx';
 import {ElementType, forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list-item.scss';
 
 export type ListItemProps<C extends ElementType = ElementType> = {

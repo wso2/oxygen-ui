@@ -21,7 +21,7 @@ import clsx from 'clsx';
 import {FC, HTMLAttributes, ReactElement, ReactNode, useEffect, useMemo, useState} from 'react';
 import {useIsMobile} from '../../hooks';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import Button from '../Button';
 import Card from '../Card';

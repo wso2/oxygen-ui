@@ -19,7 +19,7 @@
 import clsx from 'clsx';
 import {FC, HTMLAttributes, ReactElement, useCallback, useMemo, useState} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import Button from '../Button';
 import Card from '../Card';

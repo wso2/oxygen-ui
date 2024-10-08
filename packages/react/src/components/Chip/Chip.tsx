@@ -20,7 +20,7 @@ import MuiChip, {ChipProps as MuiChipProps} from '@mui/material/Chip';
 import clsx from 'clsx';
 import {ElementType, FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './chip.scss';
 
 export type ChipProps<C extends ElementType = ElementType> = {

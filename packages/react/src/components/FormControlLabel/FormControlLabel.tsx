@@ -20,7 +20,7 @@ import MuiFormControlLabel, {FormControlLabelProps as MuiFormControlLabelProps} 
 import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type FormControlLabelProps = MuiFormControlLabelProps;
 

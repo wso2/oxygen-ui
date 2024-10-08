@@ -23,7 +23,7 @@ import {ChangeEvent, forwardRef, ForwardRefExoticComponent, MutableRefObject, Re
 import Flag from 'react-world-flags';
 import {countries, Country} from './constants';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box, {BoxProps} from '../Box';
 import InputLabel from '../InputLabel';
 import ListItemIcon from '../ListItemIcon';

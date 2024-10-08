@@ -20,7 +20,7 @@ import MuiLink, {LinkProps as MuiLinkProps} from '@mui/material/Link';
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './link.scss';
 
 export type LinkProps = MuiLinkProps;

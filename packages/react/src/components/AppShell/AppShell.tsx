@@ -19,7 +19,7 @@
 import clsx from 'clsx';
 import {FC, PropsWithChildren, ReactElement, ReactNode} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box, {BoxProps} from '../Box';
 import './app-shell.scss';
 

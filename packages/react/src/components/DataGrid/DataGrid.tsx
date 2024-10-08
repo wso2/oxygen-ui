@@ -20,7 +20,7 @@ import {DataGrid as MuiDataGrid, DataGridProps as MuiDataGridProps} from '@mui/x
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './data-grid.scss';
 
 export type DataGridProps = MuiDataGridProps;

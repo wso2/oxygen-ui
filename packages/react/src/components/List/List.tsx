@@ -20,7 +20,7 @@ import MuiList, {ListProps as MuiListProps} from '@mui/material/List';
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list.scss';
 
 export type ListProps = MuiListProps;

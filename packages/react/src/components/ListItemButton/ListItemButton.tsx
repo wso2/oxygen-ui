@@ -20,7 +20,7 @@ import MuiListItemButton, {ListItemButtonProps as MuiListItemButtonProps} from '
 import clsx from 'clsx';
 import {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement, forwardRef} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list-item-button.scss';
 
 export type ListItemButtonProps<C extends ElementType = ElementType> = {

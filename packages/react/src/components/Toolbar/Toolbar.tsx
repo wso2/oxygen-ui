@@ -20,7 +20,7 @@ import MuiToolbar, {ToolbarProps as MuiToolbarProps} from '@mui/material/Toolbar
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './toolbar.scss';
 
 export type ToolbarProps = MuiToolbarProps;

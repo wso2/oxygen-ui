@@ -20,7 +20,7 @@ import MuiPopover, {PopoverProps as MuiPopoverProps} from '@mui/material/Popover
 import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type PopoverProps = MuiPopoverProps;
 

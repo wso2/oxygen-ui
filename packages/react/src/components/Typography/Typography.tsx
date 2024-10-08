@@ -20,7 +20,7 @@ import MuiTypography, {TypographyProps as MuiTypographyProps} from '@mui/materia
 import clsx from 'clsx';
 import {ElementType, FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './typography.scss';
 
 export type TypographyProps<C extends ElementType = ElementType> = {

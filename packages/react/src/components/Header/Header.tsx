@@ -23,7 +23,7 @@ import clsx from 'clsx';
 import {FC, ReactElement, ReactNode} from 'react';
 import {useIsMobile} from '../../hooks/use-is-mobile';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './header.scss';
 import AppBar, {AppBarProps} from '../AppBar';
 import Avatar from '../Avatar';

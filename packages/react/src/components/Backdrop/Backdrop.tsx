@@ -20,7 +20,7 @@ import MuiBackdrop, {BackdropProps as MuiBackdropProps} from '@mui/material/Back
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './backdrop.scss';
 
 export type BackdropProps = MuiBackdropProps;
