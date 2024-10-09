@@ -25,15 +25,14 @@ import './typography.scss';
 
 export type TypographyProps<C extends ElementType = ElementType> = {
   component?: C;
-} & Omit<MuiTypographyProps<C>, 'component'>;
+} & Omit<MuiTypographyProps, 'component'>;
 
 const COMPONENT_NAME: string = 'Typography';
 
-const Typography: FC<TypographyProps> & WithWrapperProps = <C extends ElementType>(
-  props: TypographyProps<C>,
-): ReactElement => {
-  const {className, ...rest} = props;
-
+const Typography: FC<TypographyProps> & WithWrapperProps = <C extends ElementType>({
+  className,
+  ...rest
+}: TypographyProps<C>): ReactElement => {
   const classes: string = clsx('oxygen-typography', className);
 
   return <MuiTypography className={classes} {...rest} />;
@@ -41,6 +40,5 @@ const Typography: FC<TypographyProps> & WithWrapperProps = <C extends ElementTyp
 
 Typography.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Typography.muiName = COMPONENT_NAME;
-Typography.defaultProps = {};
 
 export default Typography;

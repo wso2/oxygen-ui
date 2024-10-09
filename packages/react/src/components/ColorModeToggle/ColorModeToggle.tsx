@@ -66,9 +66,10 @@ const CrescentIcon = (props: PropsWithChildren<SVGProps<SVGSVGElement>>): ReactE
   </svg>
 );
 
-const ColorModeToggle: FC<ColorModeToggleProps> & WithWrapperProps = (props: ColorModeToggleProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const ColorModeToggle: FC<ColorModeToggleProps> & WithWrapperProps = ({
+  className,
+  ...rest
+}: ColorModeToggleProps): ReactElement => {
   const {mode, setMode} = useColorScheme();
 
   const classes: string = clsx('oxygen-color-mode-toggle', className);
@@ -90,6 +91,5 @@ const ColorModeToggle: FC<ColorModeToggleProps> & WithWrapperProps = (props: Col
 
 ColorModeToggle.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ColorModeToggle.muiName = COMPONENT_NAME;
-ColorModeToggle.defaultProps = {};
 
 export default ColorModeToggle;

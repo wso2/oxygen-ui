@@ -66,19 +66,17 @@ export type AccountCompletionSteps = CarouselStep;
 
 const COMPONENT_NAME: string = 'AccountOverview';
 
-const AccountOverview: FC<AccountOverviewProps> & WithWrapperProps = (props: AccountOverviewProps): ReactElement => {
-  const {
-    className,
-    title,
-    subheader,
-    accountCompletionStepsTitle,
-    accountCompletionSteps,
-    accountProgress,
-    user,
-    cardHeaderProps,
-    ...rest
-  } = props;
-
+const AccountOverview: FC<AccountOverviewProps> & WithWrapperProps = ({
+  className,
+  title,
+  subheader,
+  accountCompletionStepsTitle,
+  accountCompletionSteps,
+  accountProgress,
+  user,
+  cardHeaderProps,
+  ...rest
+}: AccountOverviewProps): ReactElement => {
   const classes: string = clsx('oxygen-account-overview', className);
 
   return (

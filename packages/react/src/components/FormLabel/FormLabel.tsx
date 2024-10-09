@@ -24,14 +24,15 @@ import composeComponentDisplayName from '../../utils/compose-component-display-n
 
 export type FormLabelProps<C extends ElementType = ElementType> = {
   component?: C;
-} & Omit<MuiFormLabelProps<C>, 'component'>;
+} & Omit<MuiFormLabelProps, 'component'>;
 
 const COMPONENT_NAME: string = 'FormLabel';
 
 const FormLabel: ForwardRefExoticComponent<FormLabelProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(props: FormLabelProps<C>, ref: MutableRefObject<HTMLLabelElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  <C extends ElementType>(
+    {className, ...rest}: FormLabelProps<C>,
+    ref: MutableRefObject<HTMLLabelElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-form-label', className);
 
     return <MuiFormLabel className={classes} {...rest} ref={ref} />;
@@ -40,6 +41,5 @@ const FormLabel: ForwardRefExoticComponent<FormLabelProps> & WithWrapperProps = 
 
 FormLabel.displayName = composeComponentDisplayName(COMPONENT_NAME);
 FormLabel.muiName = COMPONENT_NAME;
-FormLabel.defaultProps = {};
 
 export default FormLabel;

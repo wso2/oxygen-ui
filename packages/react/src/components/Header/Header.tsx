@@ -132,21 +132,19 @@ const userDropdownMenuDefaultProps: UserDropdownMenuHeaderProps = {
 
 const COMPONENT_NAME: string = 'Header';
 
-const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactElement => {
-  const {
-    brand,
-    className,
-    modes,
-    showCollapsibleHamburger,
-    leftAlignedElements,
-    navbarToggleIcon,
-    onCollapsibleHamburgerClick,
-    rightAlignedElements,
-    user,
-    userDropdownMenu,
-    ...rest
-  } = props;
-
+const Header: FC<HeaderProps> & WithWrapperProps = ({
+  brand,
+  className,
+  modes,
+  showCollapsibleHamburger,
+  leftAlignedElements,
+  navbarToggleIcon = <BarsIcon />,
+  onCollapsibleHamburgerClick,
+  rightAlignedElements,
+  user,
+  userDropdownMenu = userDropdownMenuDefaultProps,
+  ...rest
+}: HeaderProps): ReactElement => {
   const userDropdownMenuProps: UserDropdownMenuHeaderProps = {...userDropdownMenuDefaultProps, ...userDropdownMenu};
 
   const {mode, setMode} = useColorScheme();
@@ -250,9 +248,5 @@ const Header: FC<HeaderProps> & WithWrapperProps = (props: HeaderProps): ReactEl
 
 Header.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Header.muiName = COMPONENT_NAME;
-Header.defaultProps = {
-  navbarToggleIcon: <BarsIcon />,
-  userDropdownMenu: userDropdownMenuDefaultProps,
-};
 
 export default Header;

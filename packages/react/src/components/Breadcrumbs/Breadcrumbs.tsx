@@ -27,9 +27,11 @@ export type BreadcrumbsProps = MuiBreadcrumbsProps;
 
 const COMPONENT_NAME: string = 'Breadcrumbs';
 
-const Breadcrumbs: FC<BreadcrumbsProps> & WithWrapperProps = (props: BreadcrumbsProps): ReactElement => {
-  const {className, children, ...rest} = props;
-
+const Breadcrumbs: FC<BreadcrumbsProps> & WithWrapperProps = ({
+  className,
+  children,
+  ...rest
+}: BreadcrumbsProps): ReactElement => {
   const classes: string = clsx('oxygen-breadcrumbs', className);
 
   return (
@@ -41,6 +43,5 @@ const Breadcrumbs: FC<BreadcrumbsProps> & WithWrapperProps = (props: Breadcrumbs
 
 Breadcrumbs.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Breadcrumbs.muiName = 'Breadcrumbs';
-Breadcrumbs.defaultProps = {};
 
 export default Breadcrumbs;

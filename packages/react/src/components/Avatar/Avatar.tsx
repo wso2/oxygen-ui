@@ -37,13 +37,18 @@ export type AvatarProps<C extends ElementType = ElementType> = {
    * If `true`, the background color will be randomly generated.
    */
   randomBackgroundColor?: boolean;
-} & Omit<MuiAvatarProps<C>, 'component'>;
+} & Omit<MuiAvatarProps, 'component'>;
 
 const COMPONENT_NAME: string = 'Avatar';
 
-const Avatar: FC<AvatarProps> & WithWrapperProps = <C extends ElementType>(props: AvatarProps<C>): ReactElement => {
-  const {className, children, component, randomBackgroundColor, backgroundColorRandomizer, ...rest} = props;
-
+const Avatar: FC<AvatarProps> & WithWrapperProps = <C extends ElementType>({
+  className,
+  children,
+  component,
+  randomBackgroundColor,
+  backgroundColorRandomizer,
+  ...rest
+}: AvatarProps<C>): ReactElement => {
   const colorRandomizer: string = useMemo(() => {
     if (backgroundColorRandomizer) {
       return backgroundColorRandomizer;
@@ -74,6 +79,5 @@ const Avatar: FC<AvatarProps> & WithWrapperProps = <C extends ElementType>(props
 
 Avatar.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Avatar.muiName = COMPONENT_NAME;
-Avatar.defaultProps = {};
 
 export default Avatar;

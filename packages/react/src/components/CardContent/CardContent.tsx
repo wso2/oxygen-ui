@@ -28,9 +28,7 @@ export type CardContentProps = MuiCardContentProps;
 const COMPONENT_NAME: string = 'CardContent';
 
 const CardContent: ForwardRefExoticComponent<CardContentProps> & WithWrapperProps = forwardRef(
-  (props: CardContentProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: CardContentProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-card-content', className);
 
     return <MuiCardContent ref={ref} className={classes} {...rest} />;

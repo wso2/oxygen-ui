@@ -27,9 +27,7 @@ export type ListProps = MuiListProps;
 
 const COMPONENT_NAME: string = 'List';
 
-const List: FC<ListProps> & WithWrapperProps = (props: ListProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const List: FC<ListProps> & WithWrapperProps = ({className, ...rest}: ListProps): ReactElement => {
   const classes: string = clsx('oxygen-list', className);
 
   return <MuiList className={classes} {...rest} />;
@@ -37,6 +35,5 @@ const List: FC<ListProps> & WithWrapperProps = (props: ListProps): ReactElement 
 
 List.displayName = composeComponentDisplayName(COMPONENT_NAME);
 List.muiName = COMPONENT_NAME;
-List.defaultProps = {};
 
 export default List;

@@ -27,9 +27,7 @@ export type AccordionDetailsProps = MuiAccordionDetailsProps;
 const COMPONENT_NAME: string = 'AccordionDetails';
 
 const AccordionDetails: ForwardRefExoticComponent<AccordionDetailsProps> & WithWrapperProps = forwardRef(
-  (props: AccordionDetailsProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: AccordionDetailsProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-accordion-details', className);
 
     return <MuiAccordionDetails className={classes} {...rest} ref={ref} />;
@@ -38,6 +36,5 @@ const AccordionDetails: ForwardRefExoticComponent<AccordionDetailsProps> & WithW
 
 AccordionDetails.displayName = composeComponentDisplayName(COMPONENT_NAME);
 AccordionDetails.muiName = COMPONENT_NAME;
-AccordionDetails.defaultProps = {};
 
 export default AccordionDetails;

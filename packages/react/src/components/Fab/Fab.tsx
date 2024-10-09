@@ -24,14 +24,15 @@ import composeComponentDisplayName from '../../utils/compose-component-display-n
 
 export type FabProps<C extends ElementType = ElementType> = {
   component?: C;
-} & Omit<MuiFabProps<C>, 'component'>;
+} & Omit<MuiFabProps, 'component'>;
 
 const COMPONENT_NAME: string = 'Fab';
 
 const Fab: ForwardRefExoticComponent<FabProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(props: FabProps<C>, ref: MutableRefObject<HTMLButtonElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  <C extends ElementType>(
+    {className, ...rest}: FabProps<C>,
+    ref: MutableRefObject<HTMLButtonElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-fab', className);
 
     return <MuiFab className={classes} {...rest} ref={ref} />;
@@ -40,6 +41,5 @@ const Fab: ForwardRefExoticComponent<FabProps> & WithWrapperProps = forwardRef(
 
 Fab.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Fab.muiName = COMPONENT_NAME;
-Fab.defaultProps = {};
 
 export default Fab;

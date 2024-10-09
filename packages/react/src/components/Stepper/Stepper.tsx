@@ -40,9 +40,12 @@ export interface StepperProps extends HTMLAttributes<HTMLDivElement> {
 
 const COMPONENT_NAME: string = 'Stepper';
 
-const Stepper: FC<StepperProps> & WithWrapperProps = (props: StepperProps): ReactElement => {
-  const {animateOnSlide, className, currentStep, steps} = props;
-
+const Stepper: FC<StepperProps> & WithWrapperProps = ({
+  animateOnSlide,
+  className,
+  currentStep = 0,
+  steps,
+}: StepperProps): ReactElement => {
   const [slideLeftPosition, setSlideLeftPosition] = useState<number>(0);
   const [slideContainerWidth, setSlideContainerWidth] = useState<number>(0);
 
@@ -105,8 +108,5 @@ const Stepper: FC<StepperProps> & WithWrapperProps = (props: StepperProps): Reac
 
 Stepper.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Stepper.muiName = COMPONENT_NAME;
-Stepper.defaultProps = {
-  currentStep: 0,
-};
 
 export default Stepper;

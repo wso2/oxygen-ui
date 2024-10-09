@@ -25,15 +25,14 @@ import './container.scss';
 
 export type ContainerProps<C extends ElementType = ElementType> = {
   component?: C;
-} & Omit<MuiContainerProps<C>, 'component'>;
+} & Omit<MuiContainerProps, 'component'>;
 
 const COMPONENT_NAME: string = 'Container';
 
-const Container: FC<ContainerProps> & WithWrapperProps = <C extends ElementType>(
-  props: ContainerProps<C>,
-): ReactElement => {
-  const {className, ...rest} = props;
-
+const Container: FC<ContainerProps> & WithWrapperProps = <C extends ElementType>({
+  className,
+  ...rest
+}: ContainerProps<C>): ReactElement => {
   const classes: string = clsx('oxygen-container', className);
 
   return <MuiContainer className={classes} {...rest} />;
@@ -41,6 +40,5 @@ const Container: FC<ContainerProps> & WithWrapperProps = <C extends ElementType>
 
 Container.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Container.muiName = COMPONENT_NAME;
-Container.defaultProps = {};
 
 export default Container;

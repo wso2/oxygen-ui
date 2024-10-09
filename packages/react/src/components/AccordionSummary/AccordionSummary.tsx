@@ -27,9 +27,7 @@ export type AccordionSummaryProps = MuiAccordionSummaryProps;
 const COMPONENT_NAME: string = 'AccordionSummary';
 
 const AccordionSummary: ForwardRefExoticComponent<AccordionSummaryProps> & WithWrapperProps = forwardRef(
-  (props: AccordionSummaryProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: AccordionSummaryProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-accordion-summary', className);
 
     return <MuiAccordionSummary className={classes} {...rest} ref={ref} />;
@@ -38,6 +36,5 @@ const AccordionSummary: ForwardRefExoticComponent<AccordionSummaryProps> & WithW
 
 AccordionSummary.displayName = composeComponentDisplayName(COMPONENT_NAME);
 AccordionSummary.muiName = COMPONENT_NAME;
-AccordionSummary.defaultProps = {};
 
 export default AccordionSummary;

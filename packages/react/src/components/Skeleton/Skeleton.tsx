@@ -24,15 +24,14 @@ import composeComponentDisplayName from '../../utils/compose-component-display-n
 
 export type SkeletonProps<C extends ElementType = ElementType> = {
   component?: C;
-} & Omit<MuiSkeletonProps<C>, 'component'>;
+} & Omit<MuiSkeletonProps, 'component'>;
 
 const COMPONENT_NAME: string = 'Skeleton';
 
-const Skeleton: FC<SkeletonProps> & WithWrapperProps = <C extends ElementType>(
-  props: SkeletonProps<C>,
-): ReactElement => {
-  const {className, ...rest} = props;
-
+const Skeleton: FC<SkeletonProps> & WithWrapperProps = <C extends ElementType>({
+  className,
+  ...rest
+}: SkeletonProps<C>): ReactElement => {
   const classes: string = clsx('oxygen-skeleton', className);
 
   return <MuiSkeleton className={classes} {...rest} />;
@@ -40,6 +39,5 @@ const Skeleton: FC<SkeletonProps> & WithWrapperProps = <C extends ElementType>(
 
 Skeleton.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Skeleton.muiName = COMPONENT_NAME;
-Skeleton.defaultProps = {};
 
 export default Skeleton;

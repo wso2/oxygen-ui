@@ -26,9 +26,10 @@ export type LinearProgressProps = MuiLinearProgressProps;
 
 const COMPONENT_NAME: string = 'LinearProgress';
 
-const LinearProgress: FC<LinearProgressProps> & WithWrapperProps = (props: LinearProgressProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const LinearProgress: FC<LinearProgressProps> & WithWrapperProps = ({
+  className,
+  ...rest
+}: LinearProgressProps): ReactElement => {
   const classes: string = clsx('oxygen-linear-progress', className);
 
   return <MuiLinearProgress aria-label="progress-bar" className={classes} {...rest} />;
@@ -36,6 +37,5 @@ const LinearProgress: FC<LinearProgressProps> & WithWrapperProps = (props: Linea
 
 LinearProgress.displayName = composeComponentDisplayName(COMPONENT_NAME);
 LinearProgress.muiName = COMPONENT_NAME;
-LinearProgress.defaultProps = {};
 
 export default LinearProgress;

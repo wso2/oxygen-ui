@@ -42,11 +42,13 @@ export interface CircularProgressAvatarProps extends Omit<CircularProgressProps,
 
 const COMPONENT_NAME: string = 'CircularProgressAvatar';
 
-const CircularProgressAvatar: FC<CircularProgressAvatarProps> & WithWrapperProps = (
-  props: CircularProgressAvatarProps,
-): ReactElement => {
-  const {className, progress, badgeOptions, avatarOptions, ...rest} = props;
-
+const CircularProgressAvatar: FC<CircularProgressAvatarProps> & WithWrapperProps = ({
+  className,
+  progress,
+  badgeOptions,
+  avatarOptions,
+  ...rest
+}: CircularProgressAvatarProps): ReactElement => {
   const classes: string = clsx('oxygen-circular-progress-avatar', className);
 
   return (
@@ -84,6 +86,5 @@ const CircularProgressAvatar: FC<CircularProgressAvatarProps> & WithWrapperProps
 
 CircularProgressAvatar.displayName = composeComponentDisplayName(COMPONENT_NAME);
 CircularProgressAvatar.muiName = COMPONENT_NAME;
-CircularProgressAvatar.defaultProps = {};
 
 export default CircularProgressAvatar;

@@ -27,9 +27,7 @@ export type ToolbarProps = MuiToolbarProps;
 
 const COMPONENT_NAME: string = 'Toolbar';
 
-const Toolbar: FC<ToolbarProps> & WithWrapperProps = (props: ToolbarProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const Toolbar: FC<ToolbarProps> & WithWrapperProps = ({className, ...rest}: ToolbarProps): ReactElement => {
   const classes: string = clsx('oxygen-toolbar', className);
 
   return <MuiToolbar className={classes} {...rest} />;
@@ -37,6 +35,5 @@ const Toolbar: FC<ToolbarProps> & WithWrapperProps = (props: ToolbarProps): Reac
 
 Toolbar.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Toolbar.muiName = COMPONENT_NAME;
-Toolbar.defaultProps = {};
 
 export default Toolbar;

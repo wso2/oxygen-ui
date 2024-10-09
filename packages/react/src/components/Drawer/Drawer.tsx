@@ -27,9 +27,7 @@ export type DrawerProps = MuiDrawerProps;
 
 const COMPONENT_NAME: string = 'Drawer';
 
-const Drawer: FC<DrawerProps> & WithWrapperProps = (props: DrawerProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const Drawer: FC<DrawerProps> & WithWrapperProps = ({className, ...rest}: DrawerProps): ReactElement => {
   const classes: string = clsx('oxygen-drawer', className);
 
   return <MuiDrawer className={classes} {...rest} />;
@@ -37,6 +35,5 @@ const Drawer: FC<DrawerProps> & WithWrapperProps = (props: DrawerProps): ReactEl
 
 Drawer.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Drawer.muiName = COMPONENT_NAME;
-Drawer.defaultProps = {};
 
 export default Drawer;

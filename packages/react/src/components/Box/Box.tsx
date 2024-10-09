@@ -24,14 +24,12 @@ import composeComponentDisplayName from '../../utils/compose-component-display-n
 
 export type BoxProps<C extends ElementType = ElementType> = {
   component?: C;
-} & Omit<MuiBoxProps<C>, 'component'>;
+} & Omit<MuiBoxProps, 'component'>;
 
 const COMPONENT_NAME: string = 'Box';
 
 const Box: ForwardRefExoticComponent<BoxProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(props: BoxProps<C>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  <C extends ElementType>({className, ...rest}: BoxProps<C>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-box', className);
 
     return <MuiBox className={classes} ref={ref} {...rest} />;
@@ -40,6 +38,5 @@ const Box: ForwardRefExoticComponent<BoxProps> & WithWrapperProps = forwardRef(
 
 Box.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Box.muiName = COMPONENT_NAME;
-Box.defaultProps = {};
 
 export default Box;

@@ -27,9 +27,7 @@ export type MenuItemProps = MuiMenuItemProps;
 
 const COMPONENT_NAME: string = 'MenuItem';
 
-const MenuItem: FC<MenuItemProps> & WithWrapperProps = (props: MenuItemProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const MenuItem: FC<MenuItemProps> & WithWrapperProps = ({className, ...rest}: MenuItemProps): ReactElement => {
   const classes: string = clsx('oxygen-menu-item', className);
 
   return <MuiMenuItem className={classes} {...rest} />;

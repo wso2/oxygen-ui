@@ -25,14 +25,15 @@ import './list-item.scss';
 
 export type ListItemProps<C extends ElementType = ElementType> = {
   component?: C;
-} & Omit<MuiListItemProps<C>, 'component'>;
+} & Omit<MuiListItemProps, 'component'>;
 
 const COMPONENT_NAME: string = 'ListItem';
 
 const ListItem: ForwardRefExoticComponent<ListItemProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(props: ListItemProps<C>, ref: MutableRefObject<HTMLLIElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  <C extends ElementType>(
+    {className, ...rest}: ListItemProps<C>,
+    ref: MutableRefObject<HTMLLIElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-list-item', className);
 
     return <MuiListItem className={classes} ref={ref} {...rest} />;
@@ -41,6 +42,5 @@ const ListItem: ForwardRefExoticComponent<ListItemProps> & WithWrapperProps = fo
 
 ListItem.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ListItem.muiName = COMPONENT_NAME;
-ListItem.defaultProps = {};
 
 export default ListItem;

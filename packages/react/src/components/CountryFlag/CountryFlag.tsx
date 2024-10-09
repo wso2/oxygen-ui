@@ -35,16 +35,15 @@ export interface CountryFlagsProps extends React.HTMLAttributes<HTMLElement & SV
 
 const COMPONENT_NAME: string = 'Flag';
 
-const CountryFlag: FC<CountryFlagsProps> & WithWrapperProps = (props: CountryFlagsProps): ReactElement => {
-  const {countryCode, height, ...rest} = props;
-
-  return <WorldFlag code={countryCode} height={height} fallback={<Typography>{countryCode}</Typography>} {...rest} />;
-};
+const CountryFlag: FC<CountryFlagsProps> & WithWrapperProps = ({
+  countryCode,
+  height = '16',
+  ...rest
+}: CountryFlagsProps): ReactElement => (
+  <WorldFlag code={countryCode} height={height} fallback={<Typography>{countryCode}</Typography>} {...rest} />
+);
 
 CountryFlag.displayName = composeComponentDisplayName(COMPONENT_NAME);
 CountryFlag.muiName = COMPONENT_NAME;
-CountryFlag.defaultProps = {
-  height: '16',
-};
 
 export default CountryFlag;

@@ -27,9 +27,10 @@ export type ListItemIconProps = MuiListItemIconProps;
 
 const COMPONENT_NAME: string = 'ListItemIcon';
 
-const ListItemIcon: FC<ListItemIconProps> & WithWrapperProps = (props: ListItemIconProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const ListItemIcon: FC<ListItemIconProps> & WithWrapperProps = ({
+  className,
+  ...rest
+}: ListItemIconProps): ReactElement => {
   const classes: string = clsx('oxygen-list-item-icon', className);
 
   return <MuiListItemIcon className={classes} {...rest} />;
@@ -37,6 +38,5 @@ const ListItemIcon: FC<ListItemIconProps> & WithWrapperProps = (props: ListItemI
 
 ListItemIcon.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ListItemIcon.muiName = COMPONENT_NAME;
-ListItemIcon.defaultProps = {};
 
 export default ListItemIcon;

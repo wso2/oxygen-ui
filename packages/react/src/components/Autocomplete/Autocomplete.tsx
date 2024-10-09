@@ -31,9 +31,7 @@ const COMPONENT_NAME: string = 'Autocomplete';
  * @remarks `any` is used as the generic type for the props because the generic type is not used in the component.
  */
 const Autocomplete: ForwardRefExoticComponent<AutocompleteProps<any>> & WithWrapperProps = forwardRef(
-  (props: AutocompleteProps<any>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: AutocompleteProps<any>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-autocomplete', className);
 
     return <MuiAutocomplete className={classes} {...rest} ref={ref} />;
@@ -42,6 +40,5 @@ const Autocomplete: ForwardRefExoticComponent<AutocompleteProps<any>> & WithWrap
 
 Autocomplete.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Autocomplete.muiName = COMPONENT_NAME;
-Autocomplete.defaultProps = {};
 
 export default Autocomplete;

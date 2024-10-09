@@ -34,9 +34,11 @@ export interface IconButtonProps extends MuiIconButtonProps {
 
 const COMPONENT_NAME: string = 'IconButton';
 
-const IconButton: FC<IconButtonProps> & WithWrapperProps = (props: IconButtonProps): ReactElement => {
-  const {className, variant, ...rest} = props;
-
+const IconButton: FC<IconButtonProps> & WithWrapperProps = ({
+  className,
+  variant = IconButtonVariants.TEXT,
+  ...rest
+}: IconButtonProps): ReactElement => {
   const classes: string = clsx('oxygen-icon-button', className, {
     'oxygen-icon-button-contained': variant === IconButtonVariants.CONTAINED,
   });
@@ -46,8 +48,5 @@ const IconButton: FC<IconButtonProps> & WithWrapperProps = (props: IconButtonPro
 
 IconButton.displayName = composeComponentDisplayName(COMPONENT_NAME);
 IconButton.muiName = COMPONENT_NAME;
-IconButton.defaultProps = {
-  variant: IconButtonVariants.TEXT,
-};
 
 export default IconButton;

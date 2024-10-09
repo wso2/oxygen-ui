@@ -38,13 +38,17 @@ export type CodeProps<C extends ElementType = ElementType> = {
    * @default false
    */
   outlined?: boolean;
-} & Omit<MuiTypographyProps<C>, 'component'>;
+} & Omit<MuiTypographyProps, 'component'>;
 
 const COMPONENT_NAME: string = 'Code';
 
-const Code: FC<CodeProps> & WithWrapperProps = <C extends ElementType>(props: CodeProps<C>): ReactElement => {
-  const {className, children, filled, outlined, ...rest} = props;
-
+const Code: FC<CodeProps> & WithWrapperProps = <C extends ElementType>({
+  className,
+  children,
+  filled = true,
+  outlined = false,
+  ...rest
+}: CodeProps<C>): ReactElement => {
   const classes: string = clsx('oxygen-code', {filled, outlined}, className);
 
   return (
@@ -56,9 +60,5 @@ const Code: FC<CodeProps> & WithWrapperProps = <C extends ElementType>(props: Co
 
 Code.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Code.muiName = COMPONENT_NAME;
-Code.defaultProps = {
-  filled: true,
-  outlined: false,
-};
 
 export default Code;

@@ -27,14 +27,15 @@ import './tabs.scss';
 
 export type TabsProps<C extends ElementType = ElementType> = {
   component?: C;
-} & Omit<MuiTabsProps<C>, 'component'>;
+} & Omit<MuiTabsProps, 'component'>;
 
 const COMPONENT_NAME: string = 'Tabs';
 
 const Tabs: ForwardRefExoticComponent<TabsProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(props: TabsProps<C>, ref: MutableRefObject<HTMLButtonElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  <C extends ElementType>(
+    {className, ...rest}: TabsProps<C>,
+    ref: MutableRefObject<HTMLButtonElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-tabs', className);
 
     return (

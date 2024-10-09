@@ -47,10 +47,24 @@ export interface CollapsibleNavbarItemProps extends NavbarItemProps, Pick<Navbar
 const COMPONENT_NAME: string = 'CollapsibleNavbarItem';
 
 const CollapsibleNavbarItem: ForwardRefExoticComponent<CollapsibleNavbarItemProps> & WithWrapperProps = forwardRef(
-  (props: CollapsibleNavbarItemProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, component, expanded, fill, icon, id, open, label, onClick, items, tag, tagClassName, ...rest} =
-      props;
-
+  (
+    {
+      className,
+      component,
+      expanded,
+      fill,
+      icon,
+      id,
+      open = true,
+      label,
+      onClick,
+      items,
+      tag,
+      tagClassName,
+      ...rest
+    }: CollapsibleNavbarItemProps,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
     const classes: string = clsx(
       'oxygen-collapsible-navbar-item',
       {
@@ -130,8 +144,5 @@ const CollapsibleNavbarItem: ForwardRefExoticComponent<CollapsibleNavbarItemProp
 
 CollapsibleNavbarItem.displayName = composeComponentDisplayName(COMPONENT_NAME);
 CollapsibleNavbarItem.muiName = COMPONENT_NAME;
-CollapsibleNavbarItem.defaultProps = {
-  open: true,
-};
 
 export default CollapsibleNavbarItem;

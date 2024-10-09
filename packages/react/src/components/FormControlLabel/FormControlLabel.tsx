@@ -27,9 +27,7 @@ export type FormControlLabelProps = MuiFormControlLabelProps;
 const COMPONENT_NAME: string = 'FormControlLabel';
 
 const FormControlLabel: ForwardRefExoticComponent<FormControlLabelProps> & WithWrapperProps = forwardRef(
-  (props: FormControlLabelProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: FormControlLabelProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-form-control-label', className);
 
     return <MuiFormControlLabel className={classes} {...rest} ref={ref} />;
@@ -38,6 +36,5 @@ const FormControlLabel: ForwardRefExoticComponent<FormControlLabelProps> & WithW
 
 FormControlLabel.displayName = composeComponentDisplayName(COMPONENT_NAME);
 FormControlLabel.muiName = COMPONENT_NAME;
-FormControlLabel.defaultProps = {};
 
 export default FormControlLabel;

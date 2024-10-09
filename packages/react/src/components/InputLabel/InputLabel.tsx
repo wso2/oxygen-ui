@@ -27,9 +27,7 @@ export type InputLabelProps = MuiInputLabelProps;
 
 const COMPONENT_NAME: string = 'InputLabel';
 
-const InputLabel: FC<InputLabelProps> & WithWrapperProps = (props: InputLabelProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const InputLabel: FC<InputLabelProps> & WithWrapperProps = ({className, ...rest}: InputLabelProps): ReactElement => {
   const classes: string = clsx('oxygen-input-label', className);
 
   return <MuiInputLabel className={classes} {...rest} />;
@@ -37,6 +35,5 @@ const InputLabel: FC<InputLabelProps> & WithWrapperProps = (props: InputLabelPro
 
 InputLabel.displayName = composeComponentDisplayName(COMPONENT_NAME);
 InputLabel.muiName = COMPONENT_NAME;
-InputLabel.defaultProps = {};
 
 export default InputLabel;

@@ -27,9 +27,7 @@ export type AppBarProps = MuiAppBarProps;
 
 const COMPONENT_NAME: string = 'AppBar';
 
-const AppBar: FC<AppBarProps> & WithWrapperProps = (props: AppBarProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const AppBar: FC<AppBarProps> & WithWrapperProps = ({className, ...rest}: AppBarProps): ReactElement => {
   const classes: string = clsx('oxygen-app-bar', className);
 
   return <MuiAppBar className={classes} {...rest} />;
@@ -37,6 +35,5 @@ const AppBar: FC<AppBarProps> & WithWrapperProps = (props: AppBarProps): ReactEl
 
 AppBar.displayName = composeComponentDisplayName(COMPONENT_NAME);
 AppBar.muiName = COMPONENT_NAME;
-AppBar.defaultProps = {};
 
 export default AppBar;

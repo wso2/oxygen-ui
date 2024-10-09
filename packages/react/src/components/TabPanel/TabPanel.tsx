@@ -38,9 +38,10 @@ export interface TabPanelProps extends MuiBoxProps {
 const COMPONENT_NAME: string = 'TabPanel';
 
 const TabPanel: ForwardRefExoticComponent<TabPanelProps> & WithWrapperProps = forwardRef(
-  (props: TabPanelProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, children, value, index, ...rest} = props;
-
+  (
+    {className, children, value, index, ...rest}: TabPanelProps,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-tab-panel', className);
 
     return (

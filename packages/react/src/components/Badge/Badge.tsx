@@ -27,9 +27,7 @@ export type BadgeProps = MuiBadgeProps;
 
 const COMPONENT_NAME: string = 'Badge';
 
-const Badge: FC<BadgeProps> & WithWrapperProps = (props: BadgeProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const Badge: FC<BadgeProps> & WithWrapperProps = ({className, ...rest}: BadgeProps): ReactElement => {
   const classes: string = clsx('oxygen-badge', className);
 
   return <MuiBadge className={classes} {...rest} />;

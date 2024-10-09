@@ -25,14 +25,12 @@ import './list-item-button.scss';
 
 export type ListItemButtonProps<C extends ElementType = ElementType> = {
   component?: C;
-} & Omit<MuiListItemButtonProps<C>, 'component'>;
+} & Omit<MuiListItemButtonProps, 'component'>;
 
 const COMPONENT_NAME: string = 'ListItemButton';
 
 const ListItemButton: ForwardRefExoticComponent<ListItemButtonProps> & WithWrapperProps = forwardRef(
-  (props: ListItemButtonProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: ListItemButtonProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-list-item-button', className);
 
     return <MuiListItemButton className={classes} ref={ref} {...rest} />;
@@ -41,6 +39,5 @@ const ListItemButton: ForwardRefExoticComponent<ListItemButtonProps> & WithWrapp
 
 ListItemButton.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ListItemButton.muiName = COMPONENT_NAME;
-ListItemButton.defaultProps = {};
 
 export default ListItemButton;

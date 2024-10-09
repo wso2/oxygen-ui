@@ -25,13 +25,14 @@ import './chip.scss';
 
 export type ChipProps<C extends ElementType = ElementType> = {
   component?: C;
-} & Omit<MuiChipProps<C>, 'component'>;
+} & Omit<MuiChipProps, 'component'>;
 
 const COMPONENT_NAME: string = 'Chip';
 
-const Chip: FC<ChipProps> & WithWrapperProps = <C extends ElementType>(props: ChipProps<C>): ReactElement => {
-  const {className, ...rest} = props;
-
+const Chip: FC<ChipProps> & WithWrapperProps = <C extends ElementType>({
+  className,
+  ...rest
+}: ChipProps<C>): ReactElement => {
   const classes: string = clsx('oxygen-chip', className);
 
   return <MuiChip className={classes} {...rest} />;
@@ -39,6 +40,5 @@ const Chip: FC<ChipProps> & WithWrapperProps = <C extends ElementType>(props: Ch
 
 Chip.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Chip.muiName = COMPONENT_NAME;
-Chip.defaultProps = {};
 
 export default Chip;

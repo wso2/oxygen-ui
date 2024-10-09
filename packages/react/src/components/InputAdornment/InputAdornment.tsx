@@ -24,15 +24,15 @@ import composeComponentDisplayName from '../../utils/compose-component-display-n
 
 export type InputAdornmentProps<C extends ElementType = ElementType> = {
   component?: C;
-} & Omit<MuiInputAdornmentProps<C>, 'component'>;
+} & Omit<MuiInputAdornmentProps, 'component'>;
 
 const COMPONENT_NAME: string = 'InputAdornment';
 
-const InputAdornment: FC<InputAdornmentProps> & WithWrapperProps = <C extends ElementType>(
-  props: InputAdornmentProps<C>,
-): ReactElement => {
-  const {className, position, ...rest} = props;
-
+const InputAdornment: FC<InputAdornmentProps> & WithWrapperProps = <C extends ElementType>({
+  className,
+  position,
+  ...rest
+}: InputAdornmentProps<C>): ReactElement => {
   const classes: string = clsx('oxygen-input-adornment', className);
 
   return <MuiInputAdornment position={position} className={classes} {...rest} />;
@@ -40,6 +40,5 @@ const InputAdornment: FC<InputAdornmentProps> & WithWrapperProps = <C extends El
 
 InputAdornment.displayName = composeComponentDisplayName(COMPONENT_NAME);
 InputAdornment.muiName = COMPONENT_NAME;
-InputAdornment.defaultProps = {};
 
 export default InputAdornment;

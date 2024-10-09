@@ -27,9 +27,7 @@ export type RadioProps = MuiRadioProps;
 const COMPONENT_NAME: string = 'Radio';
 
 const Radio: ForwardRefExoticComponent<RadioProps> & WithWrapperProps = forwardRef(
-  (props: RadioProps, ref: MutableRefObject<HTMLButtonElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: RadioProps, ref: MutableRefObject<HTMLButtonElement>): ReactElement => {
     const classes: string = clsx('oxygen-radio', className);
 
     return <MuiRadio className={classes} {...rest} ref={ref} />;
@@ -38,6 +36,5 @@ const Radio: ForwardRefExoticComponent<RadioProps> & WithWrapperProps = forwardR
 
 Radio.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Radio.muiName = COMPONENT_NAME;
-Radio.defaultProps = {};
 
 export default Radio;

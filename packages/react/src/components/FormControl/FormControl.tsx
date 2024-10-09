@@ -25,15 +25,14 @@ import './form-control.scss';
 
 export type FormControlProps<C extends ElementType = ElementType> = {
   component?: C;
-} & Omit<MuiFormControlProps<C>, 'component'>;
+} & Omit<MuiFormControlProps, 'component'>;
 
 const COMPONENT_NAME: string = 'FormControl';
 
-const FormControl: FC<FormControlProps> & WithWrapperProps = <C extends ElementType>(
-  props: FormControlProps<C>,
-): ReactElement => {
-  const {className, ...rest} = props;
-
+const FormControl: FC<FormControlProps> & WithWrapperProps = <C extends ElementType>({
+  className,
+  ...rest
+}: FormControlProps<C>): ReactElement => {
   const classes: string = clsx('oxygen-form-control', className);
 
   return <MuiFormControl className={classes} {...rest} />;
@@ -41,6 +40,5 @@ const FormControl: FC<FormControlProps> & WithWrapperProps = <C extends ElementT
 
 FormControl.displayName = composeComponentDisplayName(COMPONENT_NAME);
 FormControl.muiName = COMPONENT_NAME;
-FormControl.defaultProps = {};
 
 export default FormControl;

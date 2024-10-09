@@ -52,9 +52,15 @@ export interface ActionCardProps extends CardProps {
 
 const COMPONENT_NAME: string = 'ActionCard';
 
-const ActionCard: FC<ActionCardProps> & WithWrapperProps = (props: ActionCardProps): ReactElement => {
-  const {className, image, title, description, actionText, onActionClick, ...rest} = props;
-
+const ActionCard: FC<ActionCardProps> & WithWrapperProps = ({
+  className,
+  image,
+  title,
+  description,
+  actionText,
+  onActionClick,
+  ...rest
+}: ActionCardProps): ReactElement => {
   const classes: string = clsx('oxygen-action-card', className);
 
   return (
@@ -75,6 +81,5 @@ const ActionCard: FC<ActionCardProps> & WithWrapperProps = (props: ActionCardPro
 
 ActionCard.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ActionCard.muiName = COMPONENT_NAME;
-ActionCard.defaultProps = {};
 
 export default ActionCard;
