@@ -28,9 +28,7 @@ export type AlertProps = MuiAlertProps;
 const COMPONENT_NAME: string = 'Alert';
 
 const Alert: ForwardRefExoticComponent<AlertProps> & WithWrapperProps = forwardRef(
-  (props: AlertProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: AlertProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-alert', className);
 
     return <MuiAlert className={classes} {...rest} ref={ref} />;
@@ -39,6 +37,5 @@ const Alert: ForwardRefExoticComponent<AlertProps> & WithWrapperProps = forwardR
 
 Alert.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Alert.muiName = COMPONENT_NAME;
-Alert.defaultProps = {};
 
 export default Alert;

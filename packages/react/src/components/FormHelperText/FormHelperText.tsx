@@ -25,15 +25,14 @@ import './form-helper-text.scss';
 
 export type FormHelperTextProps<C extends ElementType = ElementType> = {
   component?: C;
-} & Omit<MuiFormHelperTextProps<C>, 'component'>;
+} & Omit<MuiFormHelperTextProps, 'component'>;
 
 const COMPONENT_NAME: string = 'FormHelperText';
 
-const FormHelperText: FC<FormHelperTextProps> & WithWrapperProps = <C extends ElementType>(
-  props: FormHelperTextProps<C>,
-): ReactElement => {
-  const {className, ...rest} = props;
-
+const FormHelperText: FC<FormHelperTextProps> & WithWrapperProps = <C extends ElementType>({
+  className,
+  ...rest
+}: FormHelperTextProps<C>): ReactElement => {
   const classes: string = clsx('oxygen-form-helper-text', className);
 
   return <MuiFormHelperText className={classes} {...rest} />;
@@ -41,6 +40,5 @@ const FormHelperText: FC<FormHelperTextProps> & WithWrapperProps = <C extends El
 
 FormHelperText.displayName = composeComponentDisplayName(COMPONENT_NAME);
 FormHelperText.muiName = COMPONENT_NAME;
-FormHelperText.defaultProps = {};
 
 export default FormHelperText;

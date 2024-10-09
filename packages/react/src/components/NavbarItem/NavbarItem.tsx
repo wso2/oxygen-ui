@@ -59,9 +59,25 @@ export interface NavbarItemProps extends ListItemProps, Pick<NavbarProps, 'fill'
 const COMPONENT_NAME: string = 'NavbarItem';
 
 const NavbarItem: ForwardRefExoticComponent<NavbarItemProps> & WithWrapperProps = forwardRef(
-  (props: NavbarItemProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, component, fill, icon, id, label, onClick, href, selected, tag, tagClassName, open, ...rest} =
-      props;
+  (
+    {
+      className,
+      collapsible = true,
+      component,
+      fill,
+      icon,
+      id,
+      label,
+      onClick,
+      href,
+      selected,
+      tag,
+      tagClassName,
+      open = true,
+      ...rest
+    }: NavbarItemProps,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
     const classes: string = clsx(
       'oxygen-navbar-item',
       {
@@ -75,7 +91,13 @@ const NavbarItem: ForwardRefExoticComponent<NavbarItemProps> & WithWrapperProps 
     return (
       <Box ref={ref} className={classes} component={component}>
         <Tooltip ref={ref} key={id} title={!open && label} placement="right">
-          <ListItemButton selected={selected} className={clsx({selected})} onClick={onClick} {...rest}>
+          <ListItemButton
+            selected={selected}
+            className={clsx({selected})}
+            onClick={onClick}
+            collapsible={collapsible}
+            {...rest}
+          >
             <ListItemIcon>{icon}</ListItemIcon>
             <ListItemText primary={label} />
             {open && tag ? (
@@ -94,9 +116,5 @@ const NavbarItem: ForwardRefExoticComponent<NavbarItemProps> & WithWrapperProps 
 
 NavbarItem.displayName = composeComponentDisplayName(COMPONENT_NAME);
 NavbarItem.muiName = COMPONENT_NAME;
-NavbarItem.defaultProps = {
-  collapsible: true,
-  open: true,
-};
 
 export default NavbarItem;

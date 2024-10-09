@@ -28,9 +28,7 @@ export type SnackbarProps = MuiSnackbarProps;
 const COMPONENT_NAME: string = 'Snackbar';
 
 const Snackbar: ForwardRefExoticComponent<SnackbarProps> & WithWrapperProps = forwardRef(
-  (props: SnackbarProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: SnackbarProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-snackbar', className);
 
     return <MuiSnackbar className={classes} {...rest} ref={ref} />;
@@ -39,6 +37,5 @@ const Snackbar: ForwardRefExoticComponent<SnackbarProps> & WithWrapperProps = fo
 
 Snackbar.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Snackbar.muiName = COMPONENT_NAME;
-Snackbar.defaultProps = {};
 
 export default Snackbar;

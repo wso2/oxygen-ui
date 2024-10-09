@@ -27,9 +27,10 @@ export type CircularProgressProps = MuiCircularProgressProps;
 
 const COMPONENT_NAME: string = 'CircularProgress';
 
-const CircularProgress: FC<CircularProgressProps> & WithWrapperProps = (props: CircularProgressProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const CircularProgress: FC<CircularProgressProps> & WithWrapperProps = ({
+  className,
+  ...rest
+}: CircularProgressProps): ReactElement => {
   const classes: string = clsx('oxygen-circular-progress', className);
 
   return <MuiCircularProgress aria-label="progress" className={classes} {...rest} />;
@@ -37,6 +38,5 @@ const CircularProgress: FC<CircularProgressProps> & WithWrapperProps = (props: C
 
 CircularProgress.displayName = composeComponentDisplayName(COMPONENT_NAME);
 CircularProgress.muiName = COMPONENT_NAME;
-CircularProgress.defaultProps = {};
 
 export default CircularProgress;

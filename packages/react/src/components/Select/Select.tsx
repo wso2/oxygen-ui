@@ -34,9 +34,21 @@ export interface SelectProps extends MuiSelectProps {
 const COMPONENT_NAME: string = 'Select';
 
 const Select: ForwardRefExoticComponent<SelectProps> & WithWrapperProps = forwardRef(
-  (props: SelectProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, InputLabelProps, label, name, required, ...rest} = props;
-
+  (
+    {
+      className,
+      InputLabelProps = {
+        disableAnimation: true,
+        focused: false,
+        shrink: false,
+      },
+      label,
+      name,
+      required,
+      ...rest
+    }: SelectProps,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-select', className);
 
     const labelProps: MuiInputLabelProps = {
@@ -69,12 +81,5 @@ const Select: ForwardRefExoticComponent<SelectProps> & WithWrapperProps = forwar
 
 Select.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Select.muiName = COMPONENT_NAME;
-Select.defaultProps = {
-  InputLabelProps: {
-    disableAnimation: true,
-    focused: false,
-    shrink: false,
-  },
-};
 
 export default Select;

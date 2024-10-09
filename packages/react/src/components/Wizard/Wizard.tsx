@@ -92,25 +92,23 @@ export interface WizardProps extends HTMLAttributes<HTMLDivElement> {
 
 const COMPONENT_NAME: string = 'Wizard';
 
-const Wizard: FC<WizardProps> & WithWrapperProps = (props: WizardProps): ReactElement => {
-  const {
-    allowBackwardNavigation,
-    allowCancel,
-    animateOnSlide,
-    className,
-    title,
-    subtitle,
-    nextButtonText,
-    previousButtonText,
-    cancelButtonText,
-    onCancelButtonClick,
-    onNextButtonClick,
-    onPreviousButtonClick,
-    onFinishButtonClick,
-    finishButtonText,
-    steps,
-  } = props;
-
+const Wizard: FC<WizardProps> & WithWrapperProps = ({
+  allowBackwardNavigation = true,
+  allowCancel = false,
+  animateOnSlide,
+  className,
+  title,
+  subtitle,
+  nextButtonText = 'Next',
+  previousButtonText = 'Previous',
+  cancelButtonText = 'Cancel',
+  onCancelButtonClick,
+  onNextButtonClick,
+  onPreviousButtonClick,
+  onFinishButtonClick,
+  finishButtonText = 'Finish',
+  steps,
+}: WizardProps): ReactElement => {
   const [currentStep, setCurrentStep] = useState<number>(0);
 
   const classes: string = clsx('oxygen-wizard', className);
@@ -190,13 +188,5 @@ const Wizard: FC<WizardProps> & WithWrapperProps = (props: WizardProps): ReactEl
 
 Wizard.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Wizard.muiName = COMPONENT_NAME;
-Wizard.defaultProps = {
-  allowBackwardNavigation: true,
-  allowCancel: false,
-  cancelButtonText: 'Cancel',
-  finishButtonText: 'Finish',
-  nextButtonText: 'Next',
-  previousButtonText: 'Previous',
-};
 
 export default Wizard;

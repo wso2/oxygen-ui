@@ -70,8 +70,8 @@ export interface PhoneNumberInputProps extends BoxProps {
 const COMPONENT_NAME: string = 'PhoneNumberInput';
 
 const PhoneNumberInput: ForwardRefExoticComponent<PhoneNumberInputProps> & WithWrapperProps = forwardRef(
-  (props: PhoneNumberInputProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {
+  (
+    {
       className,
       dialCodeValue,
       label,
@@ -82,8 +82,9 @@ const PhoneNumberInput: ForwardRefExoticComponent<PhoneNumberInputProps> & WithW
       placeholder,
       SelectProps,
       ...rest
-    } = props;
-
+    }: PhoneNumberInputProps,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-phone-number-input', className);
 
     const [dialCode, setDialCode] = useState<string>(dialCodeValue ?? countries[0].dialCode);
@@ -165,6 +166,5 @@ const PhoneNumberInput: ForwardRefExoticComponent<PhoneNumberInputProps> & WithW
 
 PhoneNumberInput.displayName = composeComponentDisplayName(COMPONENT_NAME);
 PhoneNumberInput.muiName = COMPONENT_NAME;
-PhoneNumberInput.defaultProps = {};
 
 export default PhoneNumberInput;

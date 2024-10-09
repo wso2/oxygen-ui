@@ -28,9 +28,7 @@ export type TabProps = MuiTabProps;
 const COMPONENT_NAME: string = 'Tab';
 
 const Tab: ForwardRefExoticComponent<TabProps> & WithWrapperProps = forwardRef(
-  (props: TabProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: TabProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-tab', className);
 
     return <MuiTab className={classes} ref={ref} {...rest} />;

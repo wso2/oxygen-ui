@@ -25,25 +25,24 @@ import './card.scss';
 
 export type CardProps<C extends ElementType = ElementType> = {
   component?: C;
-} & Omit<MuiCardProps<C>, 'component'>;
+} & Omit<MuiCardProps, 'component'>;
 
 const COMPONENT_NAME: string = 'Card';
 
 const Card: ForwardRefExoticComponent<CardProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(props: CardProps<C>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, component, onClick, ...rest} = props;
-
+  <C extends ElementType>(
+    {className, component, onClick, elevation = 0, variant = 'outlined', ...rest}: CardProps<C>,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-card', {'with-hover': onClick}, className);
 
-    return <MuiCard className={classes} ref={ref} onClick={onClick} {...rest} />;
+    return (
+      <MuiCard className={classes} ref={ref} onClick={onClick} elevation={elevation} variant={variant} {...rest} />
+    );
   },
 ) as ForwardRefExoticComponent<CardProps> & WithWrapperProps;
 
 Card.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Card.muiName = COMPONENT_NAME;
-Card.defaultProps = {
-  elevation: 0,
-  variant: 'outlined',
-};
 
 export default Card;

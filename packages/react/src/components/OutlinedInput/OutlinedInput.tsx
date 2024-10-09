@@ -27,9 +27,10 @@ export type OutlinedInputProps = MuiOutlinedInputProps;
 
 const COMPONENT_NAME: string = 'OutlinedInput';
 
-const OutlinedInput: FC<OutlinedInputProps> & WithWrapperProps = (props: OutlinedInputProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const OutlinedInput: FC<OutlinedInputProps> & WithWrapperProps = ({
+  className,
+  ...rest
+}: OutlinedInputProps): ReactElement => {
   const classes: string = clsx('oxygen-outlined-input', className);
 
   return <MuiOutlinedInput className={classes} {...rest} />;
@@ -37,6 +38,5 @@ const OutlinedInput: FC<OutlinedInputProps> & WithWrapperProps = (props: Outline
 
 OutlinedInput.displayName = composeComponentDisplayName(COMPONENT_NAME);
 OutlinedInput.muiName = COMPONENT_NAME;
-OutlinedInput.defaultProps = {};
 
 export default OutlinedInput;

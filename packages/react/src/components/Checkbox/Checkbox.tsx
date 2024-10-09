@@ -27,9 +27,7 @@ export type CheckboxProps = MuiCheckboxProps;
 const COMPONENT_NAME: string = 'Checkbox';
 
 const Checkbox: ForwardRefExoticComponent<CheckboxProps> & WithWrapperProps = forwardRef(
-  (props: CheckboxProps, ref: MutableRefObject<HTMLButtonElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: CheckboxProps, ref: MutableRefObject<HTMLButtonElement>): ReactElement => {
     const classes: string = clsx('oxygen-checkbox', className);
 
     return <MuiCheckbox className={classes} {...rest} ref={ref} />;
@@ -38,6 +36,5 @@ const Checkbox: ForwardRefExoticComponent<CheckboxProps> & WithWrapperProps = fo
 
 Checkbox.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Checkbox.muiName = COMPONENT_NAME;
-Checkbox.defaultProps = {};
 
 export default Checkbox;

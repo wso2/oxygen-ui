@@ -27,9 +27,7 @@ export type FormGroupProps = MuiFormGroupProps;
 const COMPONENT_NAME: string = 'FormGroup';
 
 const FormGroup: ForwardRefExoticComponent<FormGroupProps> & WithWrapperProps = forwardRef(
-  (props: FormGroupProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: FormGroupProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-form-group', className);
 
     return <MuiFormGroup className={classes} {...rest} ref={ref} />;
@@ -38,6 +36,5 @@ const FormGroup: ForwardRefExoticComponent<FormGroupProps> & WithWrapperProps = 
 
 FormGroup.displayName = composeComponentDisplayName(COMPONENT_NAME);
 FormGroup.muiName = COMPONENT_NAME;
-FormGroup.defaultProps = {};
 
 export default FormGroup;

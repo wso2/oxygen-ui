@@ -27,9 +27,7 @@ export type InputProps = MuiInputProps;
 
 const COMPONENT_NAME: string = 'Input';
 
-const Input: FC<InputProps> & WithWrapperProps = (props: InputProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const Input: FC<InputProps> & WithWrapperProps = ({className, ...rest}: InputProps): ReactElement => {
   const classes: string = clsx('oxygen-input', className);
 
   return <MuiInput className={classes} {...rest} />;
@@ -37,6 +35,5 @@ const Input: FC<InputProps> & WithWrapperProps = (props: InputProps): ReactEleme
 
 Input.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Input.muiName = COMPONENT_NAME;
-Input.defaultProps = {};
 
 export default Input;

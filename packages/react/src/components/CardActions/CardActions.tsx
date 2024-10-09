@@ -27,9 +27,7 @@ export type CardActionsProps = MuiCardActionsProps;
 
 const COMPONENT_NAME: string = 'CardActions';
 
-const CardActions: FC<CardActionsProps> & WithWrapperProps = (props: CardActionsProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const CardActions: FC<CardActionsProps> & WithWrapperProps = ({className, ...rest}: CardActionsProps): ReactElement => {
   const classes: string = clsx('oxygen-card-actions', className);
 
   return <MuiCardActions className={classes} {...rest} />;

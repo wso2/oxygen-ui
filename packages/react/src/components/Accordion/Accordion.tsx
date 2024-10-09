@@ -27,9 +27,7 @@ export type AccordionProps = MuiAccordionProps;
 
 const COMPONENT_NAME: string = 'Accordion';
 
-const Accordion: FC<AccordionProps> & WithWrapperProps = (props: AccordionProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const Accordion: FC<AccordionProps> & WithWrapperProps = ({className, ...rest}: AccordionProps): ReactElement => {
   const classes: string = clsx('oxygen-accordion', className);
 
   return <MuiAccordion className={classes} {...rest} />;

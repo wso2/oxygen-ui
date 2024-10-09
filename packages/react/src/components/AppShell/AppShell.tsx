@@ -40,11 +40,14 @@ export interface AppShellProps extends BoxProps {
 
 const COMPONENT_NAME: string = 'AppShell';
 
-const AppShell: FC<PropsWithChildren<AppShellProps>> & WithWrapperProps = (
-  props: PropsWithChildren<AppShellProps>,
-): ReactElement => {
-  const {className, children, footer, header, navigation, ...rest} = props;
-
+const AppShell: FC<PropsWithChildren<AppShellProps>> & WithWrapperProps = ({
+  className,
+  children,
+  footer,
+  header,
+  navigation,
+  ...rest
+}: PropsWithChildren<AppShellProps>): ReactElement => {
   const classes: string = clsx('oxygen-app-shell', className);
 
   return (
@@ -65,6 +68,5 @@ const AppShell: FC<PropsWithChildren<AppShellProps>> & WithWrapperProps = (
 
 AppShell.displayName = composeComponentDisplayName(COMPONENT_NAME);
 AppShell.muiName = COMPONENT_NAME;
-AppShell.defaultProps = {};
 
 export default AppShell;

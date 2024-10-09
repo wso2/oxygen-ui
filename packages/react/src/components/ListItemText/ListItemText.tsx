@@ -27,9 +27,10 @@ export type ListItemTextProps = MuiListItemTextProps;
 
 const COMPONENT_NAME: string = 'ListItemText';
 
-const ListItemText: FC<ListItemTextProps> & WithWrapperProps = (props: ListItemTextProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const ListItemText: FC<ListItemTextProps> & WithWrapperProps = ({
+  className,
+  ...rest
+}: ListItemTextProps): ReactElement => {
   const classes: string = clsx('oxygen-list-item-text', className);
 
   return <MuiListItemText className={classes} {...rest} />;
@@ -37,6 +38,5 @@ const ListItemText: FC<ListItemTextProps> & WithWrapperProps = (props: ListItemT
 
 ListItemText.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ListItemText.muiName = COMPONENT_NAME;
-ListItemText.defaultProps = {};
 
 export default ListItemText;

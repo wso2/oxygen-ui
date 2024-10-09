@@ -27,9 +27,7 @@ export type PopoverProps = MuiPopoverProps;
 const COMPONENT_NAME: string = 'Popover';
 
 const Popover: ForwardRefExoticComponent<PopoverProps> & WithWrapperProps = forwardRef(
-  (props: PopoverProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: PopoverProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-popover', className);
 
     return <MuiPopover className={classes} {...rest} ref={ref} />;
@@ -38,6 +36,5 @@ const Popover: ForwardRefExoticComponent<PopoverProps> & WithWrapperProps = forw
 
 Popover.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Popover.muiName = COMPONENT_NAME;
-Popover.defaultProps = {};
 
 export default Popover;

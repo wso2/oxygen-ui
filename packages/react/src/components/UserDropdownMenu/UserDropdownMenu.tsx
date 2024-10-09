@@ -114,27 +114,23 @@ export interface UserTemplate {
 
 const COMPONENT_NAME: string = 'UserDropdownMenu';
 
-const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = (
-  props: UserDropdownMenuProps & WithWrapperProps,
-) => {
-  const {
-    className,
-    children,
-    footerContent,
-    triggerOptions,
-    user,
-    modes,
-    mode,
-    onUserProfileNavigation,
-    modesHeading,
-    actionText,
-    actionIcon,
-    onModeChange,
-    onActionTrigger,
-    menuItems,
-    ...rest
-  } = props;
-
+const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = ({
+  className,
+  children,
+  footerContent,
+  triggerOptions,
+  user,
+  modes,
+  mode,
+  onUserProfileNavigation,
+  modesHeading,
+  actionText,
+  actionIcon,
+  onModeChange,
+  onActionTrigger,
+  menuItems,
+  ...rest
+}: UserDropdownMenuProps & WithWrapperProps) => {
   const classes: string = clsx('oxygen-user-dropdown-menu', className);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

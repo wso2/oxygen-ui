@@ -73,9 +73,17 @@ export type NavbarItems = {
 
 const COMPONENT_NAME: string = 'Navbar';
 
-const Navbar: FC<NavbarProps> & WithWrapperProps = (props: NavbarProps): ReactElement => {
-  const {className, fill, onClose, items, collapsible, open, onOpen, toggleIcon, ...rest} = props;
-
+const Navbar: FC<NavbarProps> & WithWrapperProps = ({
+  className,
+  fill,
+  onClose,
+  items,
+  collapsible = true,
+  open = true,
+  onOpen,
+  toggleIcon = <BarsIcon />,
+  ...rest
+}: NavbarProps): ReactElement => {
   const classes: string = clsx(
     'oxygen-navbar',
     {
@@ -192,10 +200,5 @@ const Navbar: FC<NavbarProps> & WithWrapperProps = (props: NavbarProps): ReactEl
 
 Navbar.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Navbar.muiName = COMPONENT_NAME;
-Navbar.defaultProps = {
-  collapsible: true,
-  open: true,
-  toggleIcon: <BarsIcon />,
-};
 
 export default Navbar;

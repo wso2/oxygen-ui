@@ -27,9 +27,7 @@ export type DividerProps = MuiDividerProps;
 
 const COMPONENT_NAME: string = 'Divider';
 
-const Divider: FC<DividerProps> & WithWrapperProps = (props: DividerProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const Divider: FC<DividerProps> & WithWrapperProps = ({className, ...rest}: DividerProps): ReactElement => {
   const classes: string = clsx('oxygen-divider', className);
 
   return <MuiDivider className={classes} {...rest} />;
@@ -37,6 +35,5 @@ const Divider: FC<DividerProps> & WithWrapperProps = (props: DividerProps): Reac
 
 Divider.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Divider.muiName = COMPONENT_NAME;
-Divider.defaultProps = {};
 
 export default Divider;

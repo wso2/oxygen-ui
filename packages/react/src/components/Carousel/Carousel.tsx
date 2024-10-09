@@ -87,8 +87,16 @@ export interface CarouselProps extends Omit<HTMLAttributes<HTMLDivElement>, 'tit
 
 const COMPONENT_NAME: string = 'Carousel';
 
-const Carousel: FC<CarouselProps> & WithWrapperProps = (props: CarouselProps): ReactElement => {
-  const {autoPlay, autoPlayInterval, className, nextButtonText, previousButtonText, steps, title, ...rest} = props;
+const Carousel: FC<CarouselProps> & WithWrapperProps = ({
+  autoPlay = false,
+  autoPlayInterval = 5000,
+  className,
+  nextButtonText = 'Next',
+  previousButtonText = 'Previous',
+  steps,
+  title,
+  ...rest
+}: CarouselProps): ReactElement => {
   const [currentStep, setCurrentStep] = useState<number>(0);
 
   const isLastStep: boolean = useMemo(() => currentStep === steps.length - 1, [steps, currentStep]);
@@ -195,11 +203,5 @@ const Carousel: FC<CarouselProps> & WithWrapperProps = (props: CarouselProps): R
 
 Carousel.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Carousel.muiName = COMPONENT_NAME;
-Carousel.defaultProps = {
-  autoPlay: false,
-  autoPlayInterval: 5000,
-  nextButtonText: 'Next',
-  previousButtonText: 'Previous',
-};
 
 export default Carousel;

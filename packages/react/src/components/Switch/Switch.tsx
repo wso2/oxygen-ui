@@ -31,9 +31,7 @@ const COMPONENT_NAME: string = 'Switch';
  * @remarks `any` is used as the generic type for the props because the generic type is not used in the component.
  */
 const Switch: ForwardRefExoticComponent<SwitchProps> & WithWrapperProps = forwardRef(
-  (props: SwitchProps, ref: MutableRefObject<HTMLButtonElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: SwitchProps, ref: MutableRefObject<HTMLButtonElement>): ReactElement => {
     const classes: string = clsx('oxygen-switch', className);
 
     return <MuiSwitch className={classes} {...rest} ref={ref} />;
@@ -42,6 +40,5 @@ const Switch: ForwardRefExoticComponent<SwitchProps> & WithWrapperProps = forwar
 
 Switch.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Switch.muiName = COMPONENT_NAME;
-Switch.defaultProps = {};
 
 export default Switch;

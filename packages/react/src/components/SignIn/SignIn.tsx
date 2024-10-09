@@ -44,9 +44,13 @@ export interface SignInProps extends BoxProps {
 
 const COMPONENT_NAME: string = 'SignIn';
 
-const SignIn: FC<SignInProps> & MuiWrapperProps = (props: SignInProps): ReactElement => {
-  const {className, signUpUrl, logoUrl, signInOptions, ...rest} = props;
-
+const SignIn: FC<SignInProps> & MuiWrapperProps = ({
+  className,
+  signUpUrl,
+  logoUrl,
+  signInOptions,
+  ...rest
+}: SignInProps): ReactElement => {
   const classes: string = clsx('oxygen-sign-in', className);
 
   return (
@@ -106,6 +110,5 @@ const SignIn: FC<SignInProps> & MuiWrapperProps = (props: SignInProps): ReactEle
 
 SignIn.displayName = composeComponentDisplayName(COMPONENT_NAME);
 SignIn.muiName = 'SignIn';
-SignIn.defaultProps = {};
 
 export default SignIn;

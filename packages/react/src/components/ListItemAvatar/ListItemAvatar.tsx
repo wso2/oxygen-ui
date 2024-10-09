@@ -27,9 +27,10 @@ export type ListItemAvatarProps = MuiListItemAvatarProps;
 
 const COMPONENT_NAME: string = 'ListItemAvatar';
 
-const ListItemAvatar: FC<ListItemAvatarProps> & WithWrapperProps = (props: ListItemAvatarProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const ListItemAvatar: FC<ListItemAvatarProps> & WithWrapperProps = ({
+  className,
+  ...rest
+}: ListItemAvatarProps): ReactElement => {
   const classes: string = clsx('oxygen-list-item-avatar', className);
 
   return <MuiListItemAvatar className={classes} {...rest} />;
@@ -37,6 +38,5 @@ const ListItemAvatar: FC<ListItemAvatarProps> & WithWrapperProps = (props: ListI
 
 ListItemAvatar.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ListItemAvatar.muiName = COMPONENT_NAME;
-ListItemAvatar.defaultProps = {};
 
 export default ListItemAvatar;

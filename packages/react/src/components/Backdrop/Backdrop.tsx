@@ -27,9 +27,7 @@ export type BackdropProps = MuiBackdropProps;
 
 const COMPONENT_NAME: string = 'Backdrop';
 
-const Backdrop: FC<BackdropProps> & WithWrapperProps = (props: BackdropProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const Backdrop: FC<BackdropProps> & WithWrapperProps = ({className, ...rest}: BackdropProps): ReactElement => {
   const classes: string = clsx('oxygen-backdrop', className);
 
   return <MuiBackdrop className={classes} {...rest} />;
@@ -37,6 +35,5 @@ const Backdrop: FC<BackdropProps> & WithWrapperProps = (props: BackdropProps): R
 
 Backdrop.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Backdrop.muiName = COMPONENT_NAME;
-Backdrop.defaultProps = {};
 
 export default Backdrop;

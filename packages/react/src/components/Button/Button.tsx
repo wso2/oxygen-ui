@@ -27,9 +27,7 @@ export type ButtonProps = MuiButtonProps;
 
 const COMPONENT_NAME: string = 'Button';
 
-const Button: FC<ButtonProps> & WithWrapperProps = (props: ButtonProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const Button: FC<ButtonProps> & WithWrapperProps = ({className, ...rest}: ButtonProps): ReactElement => {
   const classes: string = clsx('oxygen-button', className);
 
   return <MuiButton className={classes} {...rest} />;

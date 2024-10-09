@@ -27,9 +27,7 @@ export type LinkProps = MuiLinkProps;
 
 const COMPONENT_NAME: string = 'Link';
 
-const Link: FC<LinkProps> & WithWrapperProps = (props: LinkProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const Link: FC<LinkProps> & WithWrapperProps = ({className, ...rest}: LinkProps): ReactElement => {
   const classes: string = clsx('oxygen-link', className);
 
   return <MuiLink className={classes} underline="hover" {...rest} />;
@@ -37,6 +35,5 @@ const Link: FC<LinkProps> & WithWrapperProps = (props: LinkProps): ReactElement 
 
 Link.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Link.muiName = COMPONENT_NAME;
-Link.defaultProps = {};
 
 export default Link;

@@ -51,9 +51,7 @@ export type TextFieldProps = {
 const COMPONENT_NAME: string = 'TextField';
 
 const PasswordField: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
-  (props: TextFieldProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {type, ...rest} = props;
-
+  ({type, ...rest}: TextFieldProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleClickShowPassword = (): void => setShowPassword((show: boolean) => !show);
@@ -87,9 +85,7 @@ const PasswordField: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
 ) as ForwardRefExoticComponent<TextFieldProps>;
 
 const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
-  (props: TextFieldProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {criteria, id, type, ...rest} = props;
-
+  ({criteria, id, type, ...rest}: TextFieldProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const [openPasswordCriteriaTooltip, setOpenPasswordCriteriaTooltip] = useState<boolean>(false);
 
     const handleClick = (): void => {
@@ -144,9 +140,10 @@ const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> = for
 ) as ForwardRefExoticComponent<TextFieldProps>;
 
 const TextField: ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps = forwardRef(
-  (props: TextFieldProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, id, label, type, InputLabelProps, ...rest} = props;
-
+  (
+    {className, id, label, type, InputLabelProps, ...rest}: TextFieldProps,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-text-field', className);
 
     return (
@@ -166,6 +163,5 @@ const TextField: ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps = 
 
 TextField.displayName = composeComponentDisplayName(COMPONENT_NAME);
 TextField.muiName = COMPONENT_NAME;
-TextField.defaultProps = {};
 
 export default TextField;

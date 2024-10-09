@@ -27,9 +27,7 @@ export type CardHeaderProps = MuiCardHeaderProps;
 
 const COMPONENT_NAME: string = 'CardHeader';
 
-const CardHeader: FC<CardHeaderProps> & WithWrapperProps = (props: CardHeaderProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const CardHeader: FC<CardHeaderProps> & WithWrapperProps = ({className, ...rest}: CardHeaderProps): ReactElement => {
   const classes: string = clsx('oxygen-card-header', className);
 
   return <MuiCardHeader className={classes} {...rest} />;

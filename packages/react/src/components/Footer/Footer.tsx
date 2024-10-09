@@ -44,9 +44,13 @@ export interface FooterProps extends BoxProps {
 
 const COMPONENT_NAME: string = 'Footer';
 
-const Footer: FC<FooterProps> & WithWrapperProps = (props: FooterProps): ReactElement => {
-  const {className, copyright, links, maxWidth, ...rest} = props;
-
+const Footer: FC<FooterProps> & WithWrapperProps = ({
+  className,
+  copyright,
+  links,
+  maxWidth,
+  ...rest
+}: FooterProps): ReactElement => {
   const isMobile: boolean = useIsMobile();
 
   const classes: string = clsx('oxygen-footer', {mobile: isMobile}, className);
@@ -85,6 +89,5 @@ const Footer: FC<FooterProps> & WithWrapperProps = (props: FooterProps): ReactEl
 
 Footer.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Footer.muiName = COMPONENT_NAME;
-Footer.defaultProps = {};
 
 export default Footer;

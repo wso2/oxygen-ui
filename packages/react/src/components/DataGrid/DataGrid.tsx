@@ -27,9 +27,7 @@ export type DataGridProps = MuiDataGridProps;
 
 const COMPONENT_NAME: string = 'DataGrid';
 
-const DataGrid: FC<DataGridProps> & WithWrapperProps = (props: DataGridProps): ReactElement => {
-  const {className, ...rest} = props;
-
+const DataGrid: FC<DataGridProps> & WithWrapperProps = ({className, ...rest}: DataGridProps): ReactElement => {
   const classes: string = clsx('oxygen-data-grid', className);
 
   return <MuiDataGrid className={classes} {...rest} />;
@@ -37,6 +35,5 @@ const DataGrid: FC<DataGridProps> & WithWrapperProps = (props: DataGridProps): R
 
 DataGrid.displayName = composeComponentDisplayName(COMPONENT_NAME);
 DataGrid.muiName = COMPONENT_NAME;
-DataGrid.defaultProps = {};
 
 export default DataGrid;

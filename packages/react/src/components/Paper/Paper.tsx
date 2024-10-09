@@ -24,14 +24,12 @@ import {composeComponentDisplayName} from '../../utils';
 
 export type PaperProps<C extends ElementType = ElementType> = {
   component?: C;
-} & Omit<MuiPaperProps<C>, 'component'>;
+} & Omit<MuiPaperProps, 'component'>;
 
 const COMPONENT_NAME: string = 'Paper';
 
 const Paper: ForwardRefExoticComponent<PaperProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(props: PaperProps<C>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  <C extends ElementType>({className, ...rest}: PaperProps<C>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-paper', className);
 
     return <MuiPaper className={classes} {...rest} ref={ref} />;
@@ -40,6 +38,5 @@ const Paper: ForwardRefExoticComponent<PaperProps> & WithWrapperProps = forwardR
 
 Paper.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Paper.muiName = COMPONENT_NAME;
-Paper.defaultProps = {};
 
 export default Paper;

@@ -27,9 +27,7 @@ export type RadioGroupProps = MuiRadioGroupProps;
 const COMPONENT_NAME: string = 'RadioGroup';
 
 const RadioGroup: ForwardRefExoticComponent<RadioGroupProps> & WithWrapperProps = forwardRef(
-  (props: RadioGroupProps, ref: MutableRefObject<HTMLButtonElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: RadioGroupProps, ref: MutableRefObject<HTMLButtonElement>): ReactElement => {
     const classes: string = clsx('oxygen-radio-group', className);
 
     return <MuiRadioGroup className={classes} {...rest} ref={ref} />;
@@ -38,6 +36,5 @@ const RadioGroup: ForwardRefExoticComponent<RadioGroupProps> & WithWrapperProps 
 
 RadioGroup.displayName = composeComponentDisplayName(COMPONENT_NAME);
 RadioGroup.muiName = COMPONENT_NAME;
-RadioGroup.defaultProps = {};
 
 export default RadioGroup;
