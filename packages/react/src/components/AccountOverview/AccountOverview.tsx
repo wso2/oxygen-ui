@@ -18,8 +18,8 @@
 
 import clsx from 'clsx';
 import {FC, ReactElement, ReactNode} from 'react';
-import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import type {WithWrapperProps} from '../../models/component';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import Card, {CardProps} from '../Card';
 import CardHeader, {CardHeaderProps} from '../CardHeader';

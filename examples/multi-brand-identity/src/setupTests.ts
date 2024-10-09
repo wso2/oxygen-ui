@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -20,4 +20,5 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
+// eslint-disable-next-line import/no-extraneous-dependencies
 import '@testing-library/jest-dom';

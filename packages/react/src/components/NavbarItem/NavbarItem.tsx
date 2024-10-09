@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -18,8 +18,8 @@
 
 import clsx from 'clsx';
 import {ForwardRefExoticComponent, MutableRefObject, ReactElement, ReactNode, forwardRef} from 'react';
-import type {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import type {WithWrapperProps} from '../../models/component';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import Chip from '../Chip';
 import type {ListItemProps} from '../ListItem';

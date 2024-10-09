@@ -19,8 +19,8 @@
 import MuiFormGroup, {FormGroupProps as MuiFormGroupProps} from '@mui/material/FormGroup';
 import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
-import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import type {WithWrapperProps} from '../../models/component';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type FormGroupProps = MuiFormGroupProps;
 

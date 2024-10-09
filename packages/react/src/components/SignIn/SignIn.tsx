@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -19,8 +19,8 @@
 import {Box, FormGroup, FormControlLabel, Typography, Grid, BoxProps, Paper, Checkbox} from '@mui/material';
 import clsx from 'clsx';
 import {FC, ReactElement} from 'react';
-import {MuiWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import {MuiWrapperProps} from '../../models/component';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Button from '../Button';
 import Divider from '../Divider';
 import Link from '../Link';

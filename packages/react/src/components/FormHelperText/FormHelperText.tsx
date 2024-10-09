@@ -19,8 +19,8 @@
 import MuiFormHelperText, {FormHelperTextProps as MuiFormHelperTextProps} from '@mui/material/FormHelperText';
 import clsx from 'clsx';
 import {ElementType, FC, ReactElement} from 'react';
-import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import type {WithWrapperProps} from '../../models/component';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './form-helper-text.scss';
 
 export type FormHelperTextProps<C extends ElementType = ElementType> = {

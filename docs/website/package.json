@@ -45,9 +45,9 @@
   },
   "devDependencies": {
     "@oxygen-ui/logger": "1.13.13",
-    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f",
-    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f",
-    "@wso2/stylelint-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/stylelint-config?5bf60cabe9e9a2571e8b1dd16d0c3bdc76db2c4f",
+    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b21bbbd7379ab3b7315d7d9478dbd88c0bf11241",
+    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b21bbbd7379ab3b7315d7d9478dbd88c0bf11241",
+    "@wso2/stylelint-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/stylelint-config?b21bbbd7379ab3b7315d7d9478dbd88c0bf11241",
     "dotenv": "^16.0.3",
     "fs-extra": "^11.1.0",
     "serve": "^14.2.0",

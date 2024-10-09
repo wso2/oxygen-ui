@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -19,8 +19,8 @@
 import MuiSkeleton, {SkeletonProps as MuiSkeletonProps} from '@mui/material/Skeleton';
 import clsx from 'clsx';
 import {ElementType, FC, ReactElement} from 'react';
-import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import type {WithWrapperProps} from '../../models/component';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type SkeletonProps<C extends ElementType = ElementType> = {
   component?: C;

@@ -19,8 +19,8 @@
 import MuiFormControlLabel, {FormControlLabelProps as MuiFormControlLabelProps} from '@mui/material/FormControlLabel';
 import clsx from 'clsx';
 import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
-import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import type {WithWrapperProps} from '../../models/component';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type FormControlLabelProps = MuiFormControlLabelProps;
 

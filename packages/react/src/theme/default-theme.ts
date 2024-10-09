@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -18,7 +18,8 @@
 
 import {experimental_extendTheme as extendTheme} from '@mui/material/styles';
 import lightTokens from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/tokens';
-import {RecursivePartial, Theme} from '../models';
+import type {RecursivePartial} from '../models/common';
+import type {Theme} from '../models/theme';
 
 export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<Theme> => ({
   colorSchemes: {

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -22,8 +22,8 @@ import {ChevronDownIcon, BarsIcon, ArrowRightToBracketIcon} from '@oxygen-ui/rea
 import clsx from 'clsx';
 import {FC, ReactElement, ReactNode} from 'react';
 import {useIsMobile} from '../../hooks/use-is-mobile';
-import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import type {WithWrapperProps} from '../../models/component';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './header.scss';
 import AppBar, {AppBarProps} from '../AppBar';
 import Avatar from '../Avatar';

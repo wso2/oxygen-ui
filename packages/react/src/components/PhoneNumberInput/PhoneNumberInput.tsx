@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -22,8 +22,8 @@ import clsx from 'clsx';
 import {ChangeEvent, forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement, useState} from 'react';
 import Flag from 'react-world-flags';
 import {countries, Country} from './constants';
-import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import type {WithWrapperProps} from '../../models/component';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box, {BoxProps} from '../Box';
 import InputLabel from '../InputLabel';
 import ListItemIcon from '../ListItemIcon';

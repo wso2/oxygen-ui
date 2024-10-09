@@ -19,8 +19,8 @@
 import MuiFormControl, {FormControlProps as MuiFormControlProps} from '@mui/material/FormControl';
 import clsx from 'clsx';
 import {ElementType, FC, ReactElement} from 'react';
-import {WithWrapperProps} from '../../models';
-import {composeComponentDisplayName} from '../../utils';
+import type {WithWrapperProps} from '../../models/component';
+import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './form-control.scss';
 
 export type FormControlProps<C extends ElementType = ElementType> = {
