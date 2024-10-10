@@ -18,11 +18,13 @@
 
 import MuiAlert from '@mui/material/Alert';
 import type {AlertProps as MuiAlertProps} from '@mui/material/Alert';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
+import type {ReactElement, ElementType, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
+import {PaperTypeMap} from '../Paper';
 import './alert.scss';
 
 export type AlertProps<C extends ElementType = ElementType> = {
@@ -57,16 +59,16 @@ const COMPONENT_NAME: string = 'Alert';
  * @param ref - The ref to be forwarded to the MuiAlert component.
  * @returns The rendered Alert component.
  */
-const Alert: ForwardRefExoticComponent<AlertProps> & WithWrapperProps = forwardRef(
+const Alert: OverridableComponent<PaperTypeMap<AlertProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: AlertProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-alert', className);
 
     return <MuiAlert ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<AlertProps> & WithWrapperProps;
+) as OverridableComponent<PaperTypeMap<AlertProps>> & WithWrapperProps;
 
 Alert.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Alert.muiName = COMPONENT_NAME;

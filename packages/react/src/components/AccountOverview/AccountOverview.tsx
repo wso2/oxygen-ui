@@ -16,9 +16,10 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement, ReactNode} from 'react';
+import type {ElementType, ReactElement, ReactNode, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
@@ -97,7 +98,7 @@ const COMPONENT_NAME: string = 'AccountOverview';
  * @param ref - The ref to be forwarded to the Card component.
  * @returns The rendered AccountOverview component.
  */
-const AccountOverview: ForwardRefExoticComponent<AccountOverviewProps> & WithWrapperProps = forwardRef(
+const AccountOverview: OverridableComponent<CardTypeMap<AccountOverviewProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {
       className,
@@ -110,7 +111,7 @@ const AccountOverview: ForwardRefExoticComponent<AccountOverviewProps> & WithWra
       cardHeaderProps,
       ...rest
     }: AccountOverviewProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-account-overview', className);
 
@@ -138,7 +139,7 @@ const AccountOverview: ForwardRefExoticComponent<AccountOverviewProps> & WithWra
       </Card>
     );
   },
-) as ForwardRefExoticComponent<AccountOverviewProps> & WithWrapperProps;
+) as OverridableComponent<CardTypeMap<AccountOverviewProps>> & WithWrapperProps;
 
 AccountOverview.displayName = composeComponentDisplayName(COMPONENT_NAME);
 AccountOverview.muiName = COMPONENT_NAME;

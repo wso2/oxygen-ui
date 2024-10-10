@@ -18,9 +18,10 @@
 
 import MuiAvatar from '@mui/material/Avatar';
 import type {AvatarProps as MuiAvatarProps, AvatarTypeMap} from '@mui/material/Avatar';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef, useMemo} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import usePastelColorGenerator from '../../hooks/use-pastel-color-generator';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
@@ -69,10 +70,10 @@ const COMPONENT_NAME: string = 'Avatar';
  * @param ref - The ref to be forwarded to the MuiAvatar component.
  * @returns The rendered Avatar component.
  */
-const Avatar: ForwardRefExoticComponent<AvatarProps> & WithWrapperProps = forwardRef(
+const Avatar: OverridableComponent<AvatarTypeMap<AvatarProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, children, randomBackgroundColor, backgroundColorRandomizer, ...rest}: AvatarProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const colorRandomizer: string = useMemo(() => {
       if (backgroundColorRandomizer) {
@@ -96,7 +97,7 @@ const Avatar: ForwardRefExoticComponent<AvatarProps> & WithWrapperProps = forwar
       </MuiAvatar>
     );
   },
-) as ForwardRefExoticComponent<AvatarProps> & WithWrapperProps;
+) as OverridableComponent<AvatarTypeMap<AvatarProps>> & WithWrapperProps;
 
 Avatar.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Avatar.muiName = COMPONENT_NAME;

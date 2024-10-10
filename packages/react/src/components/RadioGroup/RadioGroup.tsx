@@ -20,7 +20,7 @@ import MuiRadioGroup from '@mui/material/RadioGroup';
 import type {RadioGroupProps as MuiRadioGroupProps} from '@mui/material/RadioGroup';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
+import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -51,7 +51,7 @@ const COMPONENT_NAME: string = 'RadioGroup';
  * @returns The rendered RadioGroup component.
  */
 const RadioGroup: ForwardRefExoticComponent<RadioGroupProps> & WithWrapperProps = forwardRef(
-  ({className, ...rest}: RadioGroupProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+  ({className, ...rest}: RadioGroupProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-radio-group', className);
 
     return <MuiRadioGroup className={classes} {...rest} ref={ref} />;

@@ -18,9 +18,10 @@
 
 import MuiInputLabel from '@mui/material/InputLabel';
 import type {InputLabelTypeMap, InputLabelProps as MuiInputLabelProps} from '@mui/material/InputLabel';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './input-label.scss';
@@ -61,16 +62,16 @@ const COMPONENT_NAME: string = 'InputLabel';
  * @param ref - The ref to be forwarded to the MuiInputLabel component.
  * @returns The rendered InputLabel component.
  */
-const InputLabel: ForwardRefExoticComponent<InputLabelProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const InputLabel: OverridableComponent<InputLabelTypeMap<InputLabelProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {className, ...rest}: InputLabelProps<C>,
-    ref: MutableRefObject<HTMLLabelElement>,
+    ref: Ref<HTMLLabelElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-input-label', className);
 
     return <MuiInputLabel ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<InputLabelProps> & WithWrapperProps;
+) as OverridableComponent<InputLabelTypeMap<InputLabelProps>> & WithWrapperProps;
 
 InputLabel.displayName = composeComponentDisplayName(COMPONENT_NAME);
 InputLabel.muiName = COMPONENT_NAME;

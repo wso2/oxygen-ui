@@ -18,16 +18,17 @@
 
 import MuiCardContent from '@mui/material/CardContent';
 import type {CardContentProps as MuiCardContentProps, CardContentTypeMap} from '@mui/material/CardContent';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './card-content.scss';
 
 export type CardContentProps<
   C extends ElementType = ElementType,
-  D extends React.ElementType = CardContentTypeMap['defaultComponent'],
+  D extends ElementType = CardContentTypeMap['defaultComponent'],
   P = {},
 > = {
   /**
@@ -60,13 +61,13 @@ const COMPONENT_NAME: string = 'CardContent';
  * @param ref - The ref to be forwarded to the MuiCardContent component.
  * @returns The rendered CardContent component.
  */
-const CardContent: ForwardRefExoticComponent<CardContentProps> & WithWrapperProps = forwardRef(
-  ({className, ...rest}: CardContentProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+const CardContent: OverridableComponent<CardContentTypeMap<CardContentProps>> & WithWrapperProps = forwardRef(
+  ({className, ...rest}: CardContentProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-card-content', className);
 
     return <MuiCardContent ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<CardContentProps> & WithWrapperProps;
+) as OverridableComponent<CardContentTypeMap<CardContentProps>> & WithWrapperProps;
 
 CardContent.displayName = composeComponentDisplayName(COMPONENT_NAME);
 CardContent.muiName = COMPONENT_NAME;

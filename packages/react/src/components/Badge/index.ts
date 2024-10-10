@@ -19,5 +19,4 @@
 export {default} from './Badge';
 export * from './Badge';
 
-export {BadgeRoot, BadgeMark} from '@mui/material/Badge';
 export type {BadgePropsVariantOverrides, BadgePropsColorOverrides, BadgeOrigin} from '@mui/material/Badge';

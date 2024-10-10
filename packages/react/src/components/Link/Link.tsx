@@ -18,9 +18,10 @@
 
 import MuiLink from '@mui/material/Link';
 import type {LinkTypeMap, LinkProps as MuiLinkProps} from '@mui/material/Link';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './link.scss';
@@ -63,16 +64,16 @@ const COMPONENT_NAME: string = 'Link';
  * @param ref - The ref to be forwarded to the MuiLink component.
  * @returns The rendered Link component.
  */
-const Link: ForwardRefExoticComponent<LinkProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const Link: OverridableComponent<LinkTypeMap<LinkProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {className, ...rest}: LinkProps<C>,
-    ref: MutableRefObject<HTMLAnchorElement>,
+    ref: Ref<HTMLAnchorElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-link', className);
 
     return <MuiLink ref={ref} className={classes} underline="hover" {...rest} />;
   },
-) as ForwardRefExoticComponent<LinkProps> & WithWrapperProps;
+) as OverridableComponent<LinkTypeMap<LinkProps>> & WithWrapperProps;
 
 Link.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Link.muiName = COMPONENT_NAME;

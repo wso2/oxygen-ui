@@ -16,11 +16,13 @@
  * under the License.
  */
 
+import {ButtonBaseTypeMap} from '@mui/material/ButtonBase';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import MuiRadio from '@mui/material/Radio';
 import type {RadioProps as MuiRadioProps} from '@mui/material/Radio';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
+import type {ReactElement, Ref, ElementType} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -56,16 +58,16 @@ const COMPONENT_NAME: string = 'Radio';
  * @param ref - The ref to be forwarded to the MuiRadio component.
  * @returns The rendered Radio component.
  */
-const Radio: ForwardRefExoticComponent<RadioProps> & WithWrapperProps = forwardRef(
+const Radio: OverridableComponent<ButtonBaseTypeMap<RadioProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: RadioProps<C>,
-    ref: MutableRefObject<HTMLButtonElement>,
+    ref: Ref<HTMLButtonElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-radio', className);
 
     return <MuiRadio className={classes} {...rest} ref={ref} />;
   },
-) as ForwardRefExoticComponent<RadioProps> & WithWrapperProps;
+) as OverridableComponent<ButtonBaseTypeMap<RadioProps>> & WithWrapperProps;
 
 Radio.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Radio.muiName = COMPONENT_NAME;

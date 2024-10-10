@@ -18,9 +18,10 @@
 
 import MuiFormLabel from '@mui/material/FormLabel';
 import type {FormLabelTypeMap, FormLabelProps as MuiFormLabelProps} from '@mui/material/FormLabel';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
+import type {ReactElement, Ref, ElementType} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -63,16 +64,16 @@ const COMPONENT_NAME: string = 'FormLabel';
  * @param ref - The ref to be forwarded to the MuiFab component.
  * @returns The rendered Fab component.
  */
-const FormLabel: ForwardRefExoticComponent<FormLabelProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const FormLabel: OverridableComponent<FormLabelTypeMap<FormLabelProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {className, ...rest}: FormLabelProps<C>,
-    ref: MutableRefObject<HTMLLabelElement>,
+    ref: Ref<HTMLLabelElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-form-label', className);
 
     return <MuiFormLabel ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<FormLabelProps> & WithWrapperProps;
+) as OverridableComponent<FormLabelTypeMap<FormLabelProps>> & WithWrapperProps;
 
 FormLabel.displayName = composeComponentDisplayName(COMPONENT_NAME);
 FormLabel.muiName = COMPONENT_NAME;

@@ -16,11 +16,13 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
+import {TypographyTypeMap} from '../Typography';
 import Typography, {TypographyProps} from '../Typography/Typography';
 import './code.scss';
 
@@ -61,10 +63,10 @@ const COMPONENT_NAME: string = 'Code';
  * @param ref - The ref to be forwarded to the Typography component.
  * @returns The rendered Code component.
  */
-const Code: ForwardRefExoticComponent<CodeProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const Code: OverridableComponent<TypographyTypeMap<CodeProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {className, children, filled = true, outlined = false, ...rest}: CodeProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-code', {filled, outlined}, className);
 
@@ -74,7 +76,7 @@ const Code: ForwardRefExoticComponent<CodeProps> & WithWrapperProps = forwardRef
       </Typography>
     );
   },
-) as ForwardRefExoticComponent<CodeProps> & WithWrapperProps;
+) as OverridableComponent<TypographyTypeMap<CodeProps>> & WithWrapperProps;
 
 Code.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Code.muiName = COMPONENT_NAME;

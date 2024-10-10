@@ -16,11 +16,13 @@
  * under the License.
  */
 
+import type {ButtonBaseTypeMap} from '@mui/material/ButtonBase';
 import MuiCheckbox from '@mui/material/Checkbox';
 import type {CheckboxProps as MuiCheckboxProps} from '@mui/material/Checkbox';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
+import type {ReactElement, Ref, ElementType} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -58,16 +60,16 @@ const COMPONENT_NAME: string = 'Checkbox';
  * @param ref - The ref to be forwarded to the MuiCheckbox component.
  * @returns The rendered Checkbox component.
  */
-const Checkbox: ForwardRefExoticComponent<CheckboxProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const Checkbox: OverridableComponent<ButtonBaseTypeMap<CheckboxProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {className, ...rest}: CheckboxProps<C>,
-    ref: MutableRefObject<HTMLButtonElement>,
+    ref: Ref<HTMLButtonElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-checkbox', className);
 
     return <MuiCheckbox ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<CheckboxProps> & WithWrapperProps;
+) as OverridableComponent<ButtonBaseTypeMap<CheckboxProps>> & WithWrapperProps;
 
 Checkbox.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Checkbox.muiName = COMPONENT_NAME;

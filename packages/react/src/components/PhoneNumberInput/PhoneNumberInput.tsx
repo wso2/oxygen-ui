@@ -17,17 +17,18 @@
  */
 
 import {FlagOutlined} from '@mui/icons-material';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 // TODO: Refactor to use the `Select` from local.
 import Select, {SelectChangeEvent, SelectProps as MuiSelectProps} from '@mui/material/Select';
 import clsx from 'clsx';
 import {forwardRef, useState} from 'react';
-import type {ChangeEvent, ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ChangeEvent, ElementType, Ref, ReactElement} from 'react';
 import Flag from 'react-world-flags';
 import {countries, Country} from './constants/countries';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
-import type {BoxProps} from '../Box';
+import type {BoxProps, BoxTypeMap} from '../Box';
 import InputLabel from '../InputLabel';
 import type {InputLabelProps} from '../InputLabel';
 import ListItemIcon from '../ListItemIcon';
@@ -106,8 +107,8 @@ const COMPONENT_NAME: string = 'PhoneNumberInput';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered PhoneNumberInput component.
  */
-const PhoneNumberInput: ForwardRefExoticComponent<PhoneNumberInputProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const PhoneNumberInput: OverridableComponent<BoxTypeMap<PhoneNumberInputProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {
       className,
       dialCodeValue,
@@ -120,7 +121,7 @@ const PhoneNumberInput: ForwardRefExoticComponent<PhoneNumberInputProps> & WithW
       SelectProps,
       ...rest
     }: PhoneNumberInputProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-phone-number-input', className);
 
@@ -199,7 +200,7 @@ const PhoneNumberInput: ForwardRefExoticComponent<PhoneNumberInputProps> & WithW
       </Box>
     );
   },
-) as ForwardRefExoticComponent<PhoneNumberInputProps> & WithWrapperProps;
+) as OverridableComponent<BoxTypeMap<PhoneNumberInputProps>> & WithWrapperProps;
 
 PhoneNumberInput.displayName = composeComponentDisplayName(COMPONENT_NAME);
 PhoneNumberInput.muiName = COMPONENT_NAME;

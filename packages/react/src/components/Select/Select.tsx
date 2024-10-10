@@ -20,7 +20,7 @@ import MuiSelect from '@mui/material/Select';
 import type {SelectProps as MuiSelectProps} from '@mui/material/Select';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import InputLabel from '../InputLabel';
@@ -72,7 +72,7 @@ const Select: ForwardRefExoticComponent<SelectProps> & WithWrapperProps = forwar
       required,
       ...rest
     }: SelectProps,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-select', className);
 

@@ -18,7 +18,7 @@
 
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, ImgHTMLAttributes, MutableRefObject, ReactElement} from 'react';
+import type {ForwardRefExoticComponent, ImgHTMLAttributes, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -39,7 +39,7 @@ const COMPONENT_NAME: string = 'Image';
  * @remarks
  * - ✨ This is a custom component that is not available in the Material-UI library.
  * - ✔️ Props of the native component are also available.
- * - ✅ `component` prop is supported.
+ * - ❌ `component` prop is not supported.
  * - ✅ The `ref` is forwarded to the root element.
  *
  * @param props - The props for the Image component.
@@ -47,7 +47,7 @@ const COMPONENT_NAME: string = 'Image';
  * @returns The rendered Image component.
  */
 const Image: ForwardRefExoticComponent<ImageProps> & WithWrapperProps = forwardRef(
-  ({className, alt, ...rest}: ImageProps, ref: MutableRefObject<HTMLImageElement>): ReactElement => {
+  ({className, alt, ...rest}: ImageProps, ref: Ref<HTMLImageElement>): ReactElement => {
     const classes: string = clsx('oxygen-image', className);
 
     return <img ref={ref} className={classes} alt={alt} {...rest} />;

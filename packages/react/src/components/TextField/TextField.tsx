@@ -16,19 +16,13 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import MuiTextField from '@mui/material/TextField';
 import type {TextFieldProps as MuiTextFieldProps} from '@mui/material/TextField';
 import {CircleDotIcon, EyeIcon, EyeSlashIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {forwardRef, useState} from 'react';
-import type {
-  ElementType,
-  ForwardRefExoticComponent,
-  MouseEvent,
-  MutableRefObject,
-  ReactElement,
-  ReactNode,
-} from 'react';
+import type {ElementType, ForwardRefExoticComponent, MouseEvent, Ref, ReactElement, ReactNode} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import IconButton from '../IconButton';
@@ -40,6 +34,7 @@ import ListItemIcon from '../ListItemIcon';
 import ListItemText from '../ListItemText';
 import Tooltip from '../Tooltip';
 import './text-field.scss';
+import {FormControlTypeMap} from '@mui/material/FormControl';
 
 export enum TextFieldInputTypes {
   INPUT_PASSWORD = 'password',
@@ -62,7 +57,7 @@ const COMPONENT_NAME: string = 'TextField';
 const PasswordField: ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {type, variant, ...rest}: TextFieldProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const [showPassword, setShowPassword] = useState(false);
 
@@ -100,7 +95,7 @@ const PasswordField: ForwardRefExoticComponent<TextFieldProps> & WithWrapperProp
 const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {criteria, id, type, ...rest}: TextFieldProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const [openPasswordCriteriaTooltip, setOpenPasswordCriteriaTooltip] = useState<boolean>(false);
 
@@ -179,10 +174,10 @@ const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> & Wit
  * @param ref - The ref to be forwarded to the MuiTextField component.
  * @returns The rendered TextField component.
  */
-const TextField: ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps = forwardRef(
+const TextField: OverridableComponent<FormControlTypeMap<TextFieldProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, id, label, type, InputLabelProps, variant, ...rest}: TextFieldProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-text-field', className);
 
@@ -199,7 +194,7 @@ const TextField: ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps = 
       </div>
     );
   },
-) as ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps;
+) as OverridableComponent<FormControlTypeMap<TextFieldProps>> & WithWrapperProps;
 
 TextField.displayName = composeComponentDisplayName(COMPONENT_NAME);
 TextField.muiName = COMPONENT_NAME;

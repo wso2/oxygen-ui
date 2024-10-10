@@ -16,14 +16,15 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement, ReactNode} from 'react';
+import type {ElementType, ReactElement, ReactNode, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Button from '../Button';
 import Card from '../Card';
-import type {CardProps} from '../Card';
+import type {CardProps, CardTypeMap} from '../Card';
 import CardActions from '../CardActions';
 import CardContent from '../CardContent';
 import Typography from '../Typography';
@@ -76,10 +77,10 @@ const COMPONENT_NAME: string = 'ActionCard';
  * @param ref - The ref to be forwarded to the Card component.
  * @returns The rendered ActionCard component.
  */
-const ActionCard: ForwardRefExoticComponent<ActionCardProps> & WithWrapperProps = forwardRef(
+const ActionCard: OverridableComponent<CardTypeMap<ActionCardProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, image, title, description, actionText, onActionClick, ...rest}: ActionCardProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-action-card', className);
 
@@ -98,7 +99,7 @@ const ActionCard: ForwardRefExoticComponent<ActionCardProps> & WithWrapperProps 
       </Card>
     );
   },
-) as ForwardRefExoticComponent<ActionCardProps> & WithWrapperProps;
+) as OverridableComponent<CardTypeMap<ActionCardProps>> & WithWrapperProps;
 
 ActionCard.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ActionCard.muiName = COMPONENT_NAME;

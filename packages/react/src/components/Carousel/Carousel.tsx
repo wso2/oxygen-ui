@@ -16,10 +16,11 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import {ChevronLeftIcon, ChevronRightIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {forwardRef, useEffect, useMemo, useState} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement, ReactNode} from 'react';
+import type {ElementType, Ref, ReactElement, ReactNode} from 'react';
 import {useIsMobile} from '../../hooks/use-is-mobile';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
@@ -114,7 +115,7 @@ const COMPONENT_NAME: string = 'Carousel';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered Carousel component.
  */
-const Carousel: ForwardRefExoticComponent<CarouselProps> & WithWrapperProps = forwardRef(
+const Carousel: OverridableComponent<BoxTypeMap<CarouselProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {
       autoPlay = false,
@@ -126,7 +127,7 @@ const Carousel: ForwardRefExoticComponent<CarouselProps> & WithWrapperProps = fo
       title,
       ...rest
     }: CarouselProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const [currentStep, setCurrentStep] = useState<number>(0);
 
@@ -231,7 +232,7 @@ const Carousel: ForwardRefExoticComponent<CarouselProps> & WithWrapperProps = fo
       </Box>
     );
   },
-) as ForwardRefExoticComponent<CarouselProps> & WithWrapperProps;
+) as OverridableComponent<BoxTypeMap<CarouselProps>> & WithWrapperProps;
 
 Carousel.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Carousel.muiName = COMPONENT_NAME;

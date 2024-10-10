@@ -18,6 +18,7 @@
 
 // TODO: Wrap this component.
 import ListSubheader from '@mui/material/ListSubheader';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import {capitalize} from '@mui/material/utils';
 import clsx from 'clsx';
 import {forwardRef, useState} from 'react';
@@ -43,6 +44,7 @@ import type {MenuProps} from '../Menu';
 import MenuItem from '../MenuItem';
 import Radio from '../Radio';
 import './user-dropdown-menu.scss';
+import { ModalTypeMap } from '@mui/material/Modal';
 
 export type UserDropdownMenuProps<C extends ElementType = ElementType> = Omit<MenuProps<C>, 'open' | 'anchorEl'> & {
   /**
@@ -144,7 +146,7 @@ const COMPONENT_NAME: string = 'UserDropdownMenu';
  * @param ref - The ref to be forwarded to the Menu component.
  * @returns The rendered UserDropdownMenu component.
  */
-const UserDropdownMenu: ForwardRefExoticComponent<UserDropdownMenuProps> & WithWrapperProps = forwardRef(
+const UserDropdownMenu: OverridableComponent<ModalTypeMap<ModalTypeMap['defaultComponent'], UserDropdownMenuProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {
       className,
@@ -279,7 +281,7 @@ const UserDropdownMenu: ForwardRefExoticComponent<UserDropdownMenuProps> & WithW
       </>
     );
   },
-) as ForwardRefExoticComponent<UserDropdownMenuProps> & WithWrapperProps;
+) as OverridableComponent<ModalTypeMap<ModalTypeMap['defaultComponent'], UserDropdownMenuProps>> & WithWrapperProps;
 
 UserDropdownMenu.displayName = composeComponentDisplayName(COMPONENT_NAME);
 UserDropdownMenu.muiName = COMPONENT_NAME;

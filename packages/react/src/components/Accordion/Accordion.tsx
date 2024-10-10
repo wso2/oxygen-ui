@@ -17,11 +17,13 @@
  */
 
 import MuiAccordion, {AccordionProps as MuiAccordionProps} from '@mui/material/Accordion';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
+import type {PaperTypeMap} from '../Paper';
 import './accordion.scss';
 
 export type AccordionProps<C extends ElementType = ElementType> = {
@@ -56,16 +58,16 @@ const COMPONENT_NAME: string = 'Accordion';
  * @param ref - The ref to be forwarded to the MuiAccordion component.
  * @returns The rendered Accordion component.
  */
-const Accordion: ForwardRefExoticComponent<AccordionProps> & WithWrapperProps = forwardRef(
+const Accordion: OverridableComponent<PaperTypeMap<AccordionProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: AccordionProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-accordion', className);
 
     return <MuiAccordion ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<AccordionProps> & WithWrapperProps;
+) as OverridableComponent<PaperTypeMap<AccordionProps>> & WithWrapperProps;
 
 Accordion.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Accordion.muiName = COMPONENT_NAME;

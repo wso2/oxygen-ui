@@ -16,11 +16,12 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import MuiGrid from '@mui/material/Unstable_Grid2';
 import type {Grid2TypeMap, Grid2Props as MuiGridProps} from '@mui/material/Unstable_Grid2';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './grid.scss';
@@ -62,13 +63,13 @@ const COMPONENT_NAME: string = 'Grid';
  * @param ref - The ref to be forwarded to the MuiFormControl component.
  * @returns The rendered FormControl component.
  */
-const Grid: ForwardRefExoticComponent<GridProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>({className, ...rest}: GridProps<C>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+const Grid: OverridableComponent<Grid2TypeMap<GridProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>({className, ...rest}: GridProps<C>, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-grid', className);
 
     return <MuiGrid ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<GridProps> & WithWrapperProps;
+) as OverridableComponent<Grid2TypeMap<GridProps>> & WithWrapperProps;
 
 Grid.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Grid.muiName = COMPONENT_NAME;

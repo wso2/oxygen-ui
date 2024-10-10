@@ -21,9 +21,10 @@ import type {
   AccordionSummaryProps as MuiAccordionSummaryProps,
   AccordionSummaryTypeMap,
 } from '@mui/material/AccordionSummary';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
+import type {ReactElement, ElementType, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -63,16 +64,17 @@ const COMPONENT_NAME: string = 'AccordionSummary';
  * @param ref - The ref to be forwarded to the MuiAccordionSummary component.
  * @returns The rendered AccordionSummary component.
  */
-const AccordionSummary: ForwardRefExoticComponent<AccordionSummaryProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType = ElementType>(
-    {className, ...rest}: AccordionSummaryProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-accordion-summary', className);
+const AccordionSummary: OverridableComponent<AccordionSummaryTypeMap<AccordionSummaryProps>> & WithWrapperProps =
+  forwardRef(
+    <C extends ElementType = ElementType>(
+      {className, ...rest}: AccordionSummaryProps<C>,
+      ref: Ref<HTMLDivElement>,
+    ): ReactElement => {
+      const classes: string = clsx('oxygen-accordion-summary', className);
 
-    return <MuiAccordionSummary ref={ref} className={classes} {...rest} />;
-  },
-) as ForwardRefExoticComponent<AccordionSummaryProps> & WithWrapperProps;
+      return <MuiAccordionSummary ref={ref} className={classes} {...rest} />;
+    },
+  ) as OverridableComponent<AccordionSummaryTypeMap<AccordionSummaryProps>> & WithWrapperProps;
 
 AccordionSummary.displayName = composeComponentDisplayName(COMPONENT_NAME);
 AccordionSummary.muiName = COMPONENT_NAME;

@@ -16,11 +16,13 @@
  * under the License.
  */
 
+import {ModalTypeMap} from '@mui/material/Modal';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import MuiPopover from '@mui/material/Popover';
 import type {PopoverProps as MuiPopoverProps} from '@mui/material/Popover';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
+import type {ReactElement, Ref, ElementType} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -58,16 +60,17 @@ const COMPONENT_NAME: string = 'Popover';
  * @param ref - The ref to be forwarded to the MuiPopover component.
  * @returns The rendered Popover component.
  */
-const Popover: ForwardRefExoticComponent<PopoverProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType = ElementType>(
-    {className, ...rest}: PopoverProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-popover', className);
+const Popover: OverridableComponent<ModalTypeMap<ModalTypeMap['defaultComponent'], PopoverProps>> & WithWrapperProps =
+  forwardRef(
+    <C extends ElementType = ElementType>(
+      {className, ...rest}: PopoverProps<C>,
+      ref: Ref<HTMLDivElement>,
+    ): ReactElement => {
+      const classes: string = clsx('oxygen-popover', className);
 
-    return <MuiPopover className={classes} {...rest} ref={ref} />;
-  },
-) as unknown as ForwardRefExoticComponent<PopoverProps> & WithWrapperProps;
+      return <MuiPopover className={classes} {...rest} ref={ref} />;
+    },
+  ) as OverridableComponent<ModalTypeMap<ModalTypeMap['defaultComponent'], PopoverProps>> & WithWrapperProps;
 
 Popover.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Popover.muiName = COMPONENT_NAME;

@@ -18,9 +18,10 @@
 
 import MuiFormControl from '@mui/material/FormControl';
 import type {FormControlProps as MuiFormControlProps, FormControlTypeMap} from '@mui/material/FormControl';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './form-control.scss';
@@ -66,16 +67,16 @@ const COMPONENT_NAME: string = 'FormControl';
  * @param ref - The ref to be forwarded to the MuiFormControl component.
  * @returns The rendered FormControl component.
  */
-const FormControl: ForwardRefExoticComponent<FormControlProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const FormControl: OverridableComponent<FormControlTypeMap<FormControlProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {className, ...rest}: FormControlProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-form-control', className);
 
     return <MuiFormControl ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<FormControlProps> & WithWrapperProps;
+) as OverridableComponent<FormControlTypeMap<FormControlProps>> & WithWrapperProps;
 
 FormControl.displayName = composeComponentDisplayName(COMPONENT_NAME);
 FormControl.muiName = COMPONENT_NAME;

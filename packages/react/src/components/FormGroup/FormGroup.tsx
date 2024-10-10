@@ -20,7 +20,7 @@ import MuiFormGroup from '@mui/material/FormGroup';
 import type {FormGroupProps as MuiFormGroupProps} from '@mui/material/FormGroup';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
+import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -51,7 +51,7 @@ const COMPONENT_NAME: string = 'FormGroup';
  * @returns The rendered FormGroup component.
  */
 const FormGroup: ForwardRefExoticComponent<FormGroupProps> & WithWrapperProps = forwardRef(
-  ({className, ...rest}: FormGroupProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+  ({className, ...rest}: FormGroupProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-form-group', className);
 
     return <MuiFormGroup ref={ref} className={classes} {...rest} />;

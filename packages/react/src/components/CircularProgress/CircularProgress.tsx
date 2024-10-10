@@ -20,17 +20,12 @@ import MuiCircularProgress from '@mui/material/CircularProgress';
 import type {CircularProgressProps as MuiCircularProgressProps} from '@mui/material/CircularProgress';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, ForwardRefExoticComponent, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './circular-progress.scss';
 
-export type CircularProgressProps<C extends ElementType = ElementType> = {
-  /**
-   * The component used for the root node. Either a string to use a HTML element or a component.
-   */
-  component?: C;
-} & Omit<MuiCircularProgressProps, 'component'>;
+export type CircularProgressProps = MuiCircularProgressProps;
 
 const COMPONENT_NAME: string = 'CircularProgress';
 
@@ -50,7 +45,7 @@ const COMPONENT_NAME: string = 'CircularProgress';
  *
  * @remarks
  * - ✔️ Props of the native component are also available.
- * - ✅ `component` prop is supported.
+ * - ❌ `component` prop is not supported.
  * - ✅ The `ref` is forwarded to the root element.
  *
  * @template C - The type of the component.
@@ -59,10 +54,7 @@ const COMPONENT_NAME: string = 'CircularProgress';
  * @returns The rendered CircularProgress component.
  */
 const CircularProgress: ForwardRefExoticComponent<CircularProgressProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
-    {className, ...rest}: CircularProgressProps<C>,
-    ref: MutableRefObject<HTMLSpanElement>,
-  ): ReactElement => {
+  <C extends ElementType>({className, ...rest}: CircularProgressProps, ref: Ref<HTMLSpanElement>): ReactElement => {
     const classes: string = clsx('oxygen-circular-progress', className);
 
     return <MuiCircularProgress ref={ref} aria-label="progress" className={classes} {...rest} />;

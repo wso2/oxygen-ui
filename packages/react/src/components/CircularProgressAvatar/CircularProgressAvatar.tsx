@@ -18,7 +18,7 @@
 
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Avatar from '../Avatar';
@@ -30,10 +30,7 @@ import type {CircularProgressProps} from '../CircularProgress';
 import CircularProgress from '../CircularProgress';
 import './circular-progress-avatar.scss';
 
-export type CircularProgressAvatarProps<C extends ElementType = ElementType> = Omit<
-  CircularProgressProps<C>,
-  'value'
-> & {
+export type CircularProgressAvatarProps = Omit<CircularProgressProps, 'value'> & {
   /**
    * Props sent to the Avatar component.
    */
@@ -65,7 +62,7 @@ const COMPONENT_NAME: string = 'CircularProgressAvatar';
  * @remarks
  * - ✨ This is a custom component that is not available in the Material-UI library.
  * - ✔️ Props of the native component are also available.
- * - ✅ `component` prop is supported.
+ * - ❌ `component` prop is not supported.
  * - ✅ The `ref` is forwarded to the root element.
  *
  * @template C - The type of the component.
@@ -74,9 +71,9 @@ const COMPONENT_NAME: string = 'CircularProgressAvatar';
  * @returns The rendered CircularProgressAvatar component.
  */
 const CircularProgressAvatar: ForwardRefExoticComponent<CircularProgressAvatarProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
-    {className, progress, badgeOptions, avatarOptions, ...rest}: CircularProgressAvatarProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+  (
+    {className, progress, badgeOptions, avatarOptions, ...rest}: CircularProgressAvatarProps,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-circular-progress-avatar', className);
 

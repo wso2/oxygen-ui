@@ -20,7 +20,7 @@ import MuiInput from '@mui/material/Input';
 import type {InputProps as MuiInputProps} from '@mui/material/Input';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './input.scss';
@@ -52,7 +52,7 @@ const COMPONENT_NAME: string = 'Input';
  * @returns The rendered Input component.
  */
 const Input: ForwardRefExoticComponent<InputProps> & WithWrapperProps = forwardRef(
-  ({className, ...rest}: InputProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+  ({className, ...rest}: InputProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-input', className);
 
     return <MuiInput ref={ref} className={classes} {...rest} />;

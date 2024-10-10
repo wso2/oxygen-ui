@@ -20,7 +20,7 @@ import MuiFormControlLabel from '@mui/material/FormControlLabel';
 import type {FormControlLabelProps as MuiFormControlLabelProps} from '@mui/material/FormControlLabel';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
+import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -54,7 +54,7 @@ const COMPONENT_NAME: string = 'FormControlLabel';
  * @returns The rendered FormControlLabel component.
  */
 const FormControlLabel: ForwardRefExoticComponent<FormControlLabelProps> & WithWrapperProps = forwardRef(
-  ({className, ...rest}: FormControlLabelProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+  ({className, ...rest}: FormControlLabelProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-form-control-label', className);
 
     return <MuiFormControlLabel className={classes} {...rest} ref={ref} />;

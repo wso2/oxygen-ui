@@ -16,11 +16,12 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import MuiTypography from '@mui/material/Typography';
 import type {TypographyProps as MuiTypographyProps, TypographyTypeMap} from '@mui/material/Typography';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './typography.scss';
@@ -62,16 +63,16 @@ const COMPONENT_NAME: string = 'Typography';
  * @param ref - The ref to be forwarded to the MuiTypography component.
  * @returns The rendered Typography component.
  */
-const Typography: ForwardRefExoticComponent<TypographyProps> & WithWrapperProps = forwardRef(
+const Typography: OverridableComponent<TypographyTypeMap<TypographyProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: TypographyProps<C>,
-    ref: MutableRefObject<HTMLSpanElement>,
+    ref: Ref<HTMLSpanElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-typography', className);
 
     return <MuiTypography ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<TypographyProps> & WithWrapperProps;
+) as OverridableComponent<TypographyTypeMap<TypographyProps>> & WithWrapperProps;
 
 Typography.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Typography.muiName = COMPONENT_NAME;

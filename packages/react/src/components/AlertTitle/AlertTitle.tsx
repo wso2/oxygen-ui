@@ -17,12 +17,14 @@
  */
 
 import MuiAlertTitle from '@mui/material/AlertTitle';
-import type {AlertTitleProps as MuiAlertTitleProps} from '@mui/material/AlertTitle';
+import type {AlertTitleProps, AlertTitleProps as MuiAlertTitleProps} from '@mui/material/AlertTitle';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
+import type {ReactElement, ElementType, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
+import {TypographyTypeMap} from '../Typography';
 import './alert-title.scss';
 
 export type AlertProps<C extends ElementType = ElementType> = {
@@ -57,16 +59,16 @@ const COMPONENT_NAME: string = 'AlertTitle';
  * @param ref - The ref to be forwarded to the MuiAlertTitle component.
  * @returns The rendered AlertTitle component.
  */
-const AlertTitle: ForwardRefExoticComponent<AlertProps> & WithWrapperProps = forwardRef(
+const AlertTitle: OverridableComponent<TypographyTypeMap<AlertTitleProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: AlertProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-alert-title', className);
 
     return <MuiAlertTitle ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<AlertProps> & WithWrapperProps;
+) as OverridableComponent<TypographyTypeMap<AlertTitleProps>> & WithWrapperProps;
 
 AlertTitle.displayName = composeComponentDisplayName(COMPONENT_NAME);
 AlertTitle.muiName = COMPONENT_NAME;

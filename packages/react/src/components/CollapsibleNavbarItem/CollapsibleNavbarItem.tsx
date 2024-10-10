@@ -17,16 +17,18 @@
  */
 
 import MuiCollapse from '@mui/material/Collapse';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import {ChevronDownIcon, ChevronUpIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {forwardRef, useState} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MouseEvent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, MouseEvent, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import Chip from '../Chip';
 import List from '../List';
 import ListItemButton from '../ListItemButton';
+import type {ListItemButtonTypeMap} from '../ListItemButton';
 import ListItemIcon from '../ListItemIcon';
 import ListItemText from '../ListItemText';
 import type {NavbarProps} from '../Navbar';
@@ -70,8 +72,9 @@ const COMPONENT_NAME: string = 'CollapsibleNavbarItem';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered CollapsibleNavbarItem component.
  */
-const CollapsibleNavbarItem: ForwardRefExoticComponent<CollapsibleNavbarItemProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const CollapsibleNavbarItem: OverridableComponent<ListItemButtonTypeMap<CollapsibleNavbarItemProps>> &
+  WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {
       className,
       expanded,
@@ -86,7 +89,7 @@ const CollapsibleNavbarItem: ForwardRefExoticComponent<CollapsibleNavbarItemProp
       tagClassName,
       ...rest
     }: CollapsibleNavbarItemProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx(
       'oxygen-collapsible-navbar-item',
@@ -164,7 +167,7 @@ const CollapsibleNavbarItem: ForwardRefExoticComponent<CollapsibleNavbarItemProp
       </Box>
     );
   },
-) as ForwardRefExoticComponent<CollapsibleNavbarItemProps> & WithWrapperProps;
+) as OverridableComponent<ListItemButtonTypeMap<CollapsibleNavbarItemProps>> & WithWrapperProps;
 
 CollapsibleNavbarItem.displayName = composeComponentDisplayName(COMPONENT_NAME);
 CollapsibleNavbarItem.muiName = COMPONENT_NAME;

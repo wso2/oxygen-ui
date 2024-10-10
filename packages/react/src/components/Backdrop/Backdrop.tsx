@@ -18,9 +18,10 @@
 
 import MuiBackdrop from '@mui/material/Backdrop';
 import type {BackdropProps as MuiBackdropProps, BackdropTypeMap} from '@mui/material/Backdrop';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './backdrop.scss';
@@ -61,16 +62,16 @@ const COMPONENT_NAME: string = 'Backdrop';
  * @param ref - The ref to be forwarded to the MuiBackdrop component.
  * @returns The rendered Backdrop component.
  */
-const Backdrop: ForwardRefExoticComponent<BackdropProps> & WithWrapperProps = forwardRef(
+const Backdrop: OverridableComponent<BackdropTypeMap<BackdropProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: BackdropProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-backdrop', className);
 
     return <MuiBackdrop ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<BackdropProps> & WithWrapperProps;
+) as OverridableComponent<BackdropTypeMap<BackdropProps>> & WithWrapperProps;
 
 Backdrop.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Backdrop.muiName = COMPONENT_NAME;

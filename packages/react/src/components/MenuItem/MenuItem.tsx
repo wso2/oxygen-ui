@@ -18,9 +18,10 @@
 
 import MuiMenuItem from '@mui/material/MenuItem';
 import type {MenuItemTypeMap, MenuItemProps as MuiMenuItemProps} from '@mui/material/MenuItem';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './menu-item.scss';
@@ -61,16 +62,16 @@ const COMPONENT_NAME: string = 'MenuItem';
  * @param ref - The ref to be forwarded to the MuiMenuItem component.
  * @returns The rendered MenuItem component.
  */
-const MenuItem: ForwardRefExoticComponent<MenuItemProps> & WithWrapperProps = forwardRef(
+const MenuItem: OverridableComponent<MenuItemTypeMap<MenuItemProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: MenuItemProps<C>,
-    ref: MutableRefObject<HTMLLIElement>,
+    ref: Ref<HTMLLIElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-menu-item', className);
 
     return <MuiMenuItem ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<MenuItemProps> & WithWrapperProps;
+) as OverridableComponent<MenuItemTypeMap<MenuItemProps>> & WithWrapperProps;
 
 MenuItem.displayName = composeComponentDisplayName(COMPONENT_NAME);
 MenuItem.muiName = COMPONENT_NAME;

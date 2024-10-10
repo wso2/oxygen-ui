@@ -17,16 +17,17 @@
  */
 
 import MuiFab from '@mui/material/Fab';
-import type {FabProps as MuiFabProps, FabTypeMap as MuiFabTypeMap} from '@mui/material/Fab';
+import type {FabProps as MuiFabProps, FabTypeMap} from '@mui/material/Fab';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
+import type {ReactElement, Ref, ElementType} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type FabProps<
   C extends ElementType = ElementType,
-  D extends ElementType = MuiFabTypeMap['defaultComponent'],
+  D extends ElementType = FabTypeMap['defaultComponent'],
   P = {},
 > = {
   /**
@@ -60,16 +61,16 @@ const COMPONENT_NAME: string = 'Fab';
  * @param ref - The ref to be forwarded to the MuiFab component.
  * @returns The rendered Fab component.
  */
-const Fab: ForwardRefExoticComponent<FabProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const Fab: OverridableComponent<FabTypeMap<FabProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {className, ...rest}: FabProps<C>,
-    ref: MutableRefObject<HTMLButtonElement>,
+    ref: Ref<HTMLButtonElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-fab', className);
 
     return <MuiFab ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<FabProps> & WithWrapperProps;
+) as OverridableComponent<FabTypeMap<FabProps>> & WithWrapperProps;
 
 Fab.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Fab.muiName = COMPONENT_NAME;

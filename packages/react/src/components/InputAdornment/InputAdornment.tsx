@@ -18,9 +18,10 @@
 
 import MuiInputAdornment from '@mui/material/InputAdornment';
 import type {InputAdornmentTypeMap, InputAdornmentProps as MuiInputAdornmentProps} from '@mui/material/InputAdornment';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -60,16 +61,16 @@ const COMPONENT_NAME: string = 'InputAdornment';
  * @param ref - The ref to be forwarded to the MuiInputAdornment component.
  * @returns The rendered InputAdornment component.
  */
-const InputAdornment: ForwardRefExoticComponent<InputAdornmentProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const InputAdornment: OverridableComponent<InputAdornmentTypeMap<InputAdornmentProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {className, position, ...rest}: InputAdornmentProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-input-adornment', className);
 
     return <MuiInputAdornment ref={ref} position={position} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<InputAdornmentProps> & WithWrapperProps;
+) as OverridableComponent<InputAdornmentTypeMap<InputAdornmentProps>> & WithWrapperProps;
 
 InputAdornment.displayName = composeComponentDisplayName(COMPONENT_NAME);
 InputAdornment.muiName = COMPONENT_NAME;

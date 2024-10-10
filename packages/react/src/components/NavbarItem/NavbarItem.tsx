@@ -16,15 +16,16 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement, ReactNode} from 'react';
+import type {ElementType, Ref, ReactElement, ReactNode} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import Chip from '../Chip';
-import type {ListItemButtonProps} from '../ListItemButton';
 import ListItemButton from '../ListItemButton';
+import type {ListItemButtonProps, ListItemButtonTypeMap} from '../ListItemButton';
 import ListItemIcon from '../ListItemIcon';
 import ListItemText from '../ListItemText';
 import type {NavbarProps} from '../Navbar';
@@ -82,24 +83,10 @@ const COMPONENT_NAME: string = 'NavbarItem';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered NavbarItem component.
  */
-const NavbarItem: ForwardRefExoticComponent<NavbarItemProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
-    {
-      className,
-      collapsible = true,
-      fill,
-      icon,
-      id,
-      label,
-      onClick,
-      href,
-      selected,
-      tag,
-      tagClassName,
-      open = true,
-      ...rest
-    }: NavbarItemProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+const NavbarItem: OverridableComponent<ListItemButtonTypeMap<NavbarItemProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {className, fill, icon, id, label, onClick, selected, tag, tagClassName, open = true, ...rest}: NavbarItemProps<C>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx(
       'oxygen-navbar-item',
@@ -114,13 +101,7 @@ const NavbarItem: ForwardRefExoticComponent<NavbarItemProps> & WithWrapperProps 
     return (
       <Box ref={ref} className={classes}>
         <Tooltip ref={ref} key={id} title={!open && label} placement="right">
-          <ListItemButton
-            selected={selected}
-            className={clsx({selected})}
-            onClick={onClick}
-            collapsible={collapsible}
-            {...rest}
-          >
+          <ListItemButton selected={selected} className={clsx({selected})} onClick={onClick} {...rest}>
             <ListItemIcon>{icon}</ListItemIcon>
             <ListItemText primary={label} />
             {open && tag ? (
@@ -135,7 +116,7 @@ const NavbarItem: ForwardRefExoticComponent<NavbarItemProps> & WithWrapperProps 
       </Box>
     );
   },
-) as ForwardRefExoticComponent<NavbarItemProps> & WithWrapperProps;
+) as OverridableComponent<ListItemButtonTypeMap<NavbarItemProps>> & WithWrapperProps;
 
 NavbarItem.displayName = composeComponentDisplayName(COMPONENT_NAME);
 NavbarItem.muiName = COMPONENT_NAME;

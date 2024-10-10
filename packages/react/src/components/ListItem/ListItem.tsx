@@ -17,10 +17,11 @@
  */
 
 import MuiListItem from '@mui/material/ListItem';
-import type {ListItemProps as MuiListItemProps} from '@mui/material/ListItem';
+import type {ListItemProps as MuiListItemProps, ListItemTypeMap} from '@mui/material/ListItem';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, MutableRefObject, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list-item.scss';
@@ -58,7 +59,7 @@ const COMPONENT_NAME: string = 'ListItem';
  * @param ref - The ref to be forwarded to the MuiListItem component.
  * @returns The rendered ListItem component.
  */
-const ListItem: ForwardRefExoticComponent<ListItemProps> & WithWrapperProps = forwardRef(
+const ListItem: OverridableComponent<ListItemTypeMap<ListItemProps, 'li'>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: ListItemProps<C>,
     ref: MutableRefObject<HTMLLIElement>,
@@ -67,7 +68,7 @@ const ListItem: ForwardRefExoticComponent<ListItemProps> & WithWrapperProps = fo
 
     return <MuiListItem ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<ListItemProps> & WithWrapperProps;
+) as OverridableComponent<ListItemTypeMap<ListItemProps, 'li'>> & WithWrapperProps;
 
 ListItem.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ListItem.muiName = COMPONENT_NAME;

@@ -18,9 +18,10 @@
 
 import MuiCardHeader from '@mui/material/CardHeader';
 import type {CardHeaderProps as MuiCardHeaderProps, CardHeaderTypeMap} from '@mui/material/CardHeader';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './card-header.scss';
@@ -62,16 +63,16 @@ const COMPONENT_NAME: string = 'CardHeader';
  * @param ref - The ref to be forwarded to the MuiCardHeader component.
  * @returns The rendered CardHeader component.
  */
-const CardHeader: ForwardRefExoticComponent<CardHeaderProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const CardHeader: OverridableComponent<CardHeaderTypeMap<CardHeaderProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {className, ...rest}: CardHeaderProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-card-header', className);
 
     return <MuiCardHeader ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<CardHeaderProps> & WithWrapperProps;
+) as OverridableComponent<CardHeaderTypeMap<CardHeaderProps>> & WithWrapperProps;
 
 CardHeader.displayName = composeComponentDisplayName(COMPONENT_NAME);
 CardHeader.muiName = COMPONENT_NAME;

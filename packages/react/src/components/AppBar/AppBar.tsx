@@ -18,9 +18,10 @@
 
 import MuiAppBar from '@mui/material/AppBar';
 import type {AppBarTypeMap, AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './app-bar.scss';
@@ -61,16 +62,16 @@ const COMPONENT_NAME: string = 'AppBar';
  * @param ref - The ref to be forwarded to the MuiAppBar component.
  * @returns The rendered AppBar component.
  */
-const AppBar: ForwardRefExoticComponent<AppBarProps> & WithWrapperProps = forwardRef(
+const AppBar: OverridableComponent<AppBarTypeMap<AppBarProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: AppBarProps<C>,
-    ref: MutableRefObject<HTMLHeadingElement>,
+    ref: Ref<HTMLHeadingElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-app-bar', className);
 
     return <MuiAppBar ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<AppBarProps> & WithWrapperProps;
+) as OverridableComponent<AppBarTypeMap<AppBarProps>> & WithWrapperProps;
 
 AppBar.displayName = composeComponentDisplayName(COMPONENT_NAME);
 AppBar.muiName = COMPONENT_NAME;

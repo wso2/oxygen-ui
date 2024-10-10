@@ -16,11 +16,12 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import MuiToolbar from '@mui/material/Toolbar';
 import type {ToolbarProps as MuiToolbarProps, ToolbarTypeMap} from '@mui/material/Toolbar';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './toolbar.scss';
@@ -60,16 +61,16 @@ const COMPONENT_NAME: string = 'Toolbar';
  * @param ref - The ref to be forwarded to the MuiSkeleton component.
  * @returns The rendered Skeleton component.
  */
-const Toolbar: ForwardRefExoticComponent<ToolbarProps> & WithWrapperProps = forwardRef(
+const Toolbar: OverridableComponent<ToolbarTypeMap<ToolbarProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: ToolbarProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-toolbar', className);
 
     return <MuiToolbar ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<ToolbarProps> & WithWrapperProps;
+) as OverridableComponent<ToolbarTypeMap<ToolbarProps>> & WithWrapperProps;
 
 Toolbar.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Toolbar.muiName = COMPONENT_NAME;

@@ -16,13 +16,14 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef, useCallback, useMemo, useState} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
-import type {BoxProps} from '../Box';
+import type {BoxProps, BoxTypeMap} from '../Box';
 import Button from '../Button';
 import Card from '../Card';
 import CardActions from '../CardActions';
@@ -116,8 +117,8 @@ const COMPONENT_NAME: string = 'Wizard';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered Wizard component.
  */
-const Wizard: ForwardRefExoticComponent<WizardProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const Wizard: OverridableComponent<BoxTypeMap<WizardProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {
       allowBackwardNavigation = true,
       allowCancel = false,
@@ -135,7 +136,7 @@ const Wizard: ForwardRefExoticComponent<WizardProps> & WithWrapperProps = forwar
       finishButtonText = 'Finish',
       steps,
     }: WizardProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const [currentStep, setCurrentStep] = useState<number>(0);
 
@@ -213,7 +214,7 @@ const Wizard: ForwardRefExoticComponent<WizardProps> & WithWrapperProps = forwar
       </Box>
     );
   },
-) as ForwardRefExoticComponent<WizardProps> & WithWrapperProps;
+) as OverridableComponent<BoxTypeMap<WizardProps>> & WithWrapperProps;
 
 Wizard.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Wizard.muiName = COMPONENT_NAME;

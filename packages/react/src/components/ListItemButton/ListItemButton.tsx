@@ -18,9 +18,10 @@
 
 import MuiListItemButton from '@mui/material/ListItemButton';
 import type {ListItemButtonProps as MuiListItemButtonProps, ListItemButtonTypeMap} from '@mui/material/ListItemButton';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list-item-button.scss';
@@ -61,16 +62,16 @@ const COMPONENT_NAME: string = 'ListItemButton';
  * @param ref - The ref to be forwarded to the MuiListItemButton component.
  * @returns The rendered ListItemButton component.
  */
-const ListItemButton: ForwardRefExoticComponent<ListItemButtonProps> & WithWrapperProps = forwardRef(
+const ListItemButton: OverridableComponent<ListItemButtonTypeMap<ListItemButtonProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: ListItemButtonProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-list-item-button', className);
 
     return <MuiListItemButton ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<ListItemButtonProps> & WithWrapperProps;
+) as OverridableComponent<ListItemButtonTypeMap<ListItemButtonProps>> & WithWrapperProps;
 
 ListItemButton.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ListItemButton.muiName = COMPONENT_NAME;

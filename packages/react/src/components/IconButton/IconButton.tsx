@@ -18,9 +18,10 @@
 
 import MuiIconButton from '@mui/material/IconButton';
 import type {IconButtonTypeMap, IconButtonProps as MuiIconButtonProps} from '@mui/material/IconButton';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './icon-button.scss';
@@ -70,10 +71,10 @@ const COMPONENT_NAME: string = 'IconButton';
  * @param ref - The ref to be forwarded to the MuiFormControl component.
  * @returns The rendered FormControl component.
  */
-const IconButton: ForwardRefExoticComponent<IconButtonProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const IconButton: OverridableComponent<IconButtonTypeMap<IconButtonProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {className, variant = IconButtonVariants.TEXT, ...rest}: IconButtonProps<C>,
-    ref: MutableRefObject<HTMLButtonElement>,
+    ref: Ref<HTMLButtonElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-icon-button', className, {
       'oxygen-icon-button-contained': variant === IconButtonVariants.CONTAINED,
@@ -81,7 +82,7 @@ const IconButton: ForwardRefExoticComponent<IconButtonProps> & WithWrapperProps 
 
     return <MuiIconButton ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<IconButtonProps> & WithWrapperProps;
+) as OverridableComponent<IconButtonTypeMap<IconButtonProps>> & WithWrapperProps;
 
 IconButton.displayName = composeComponentDisplayName(COMPONENT_NAME);
 IconButton.muiName = COMPONENT_NAME;

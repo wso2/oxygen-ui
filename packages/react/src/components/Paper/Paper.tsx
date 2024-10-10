@@ -16,11 +16,12 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import MuiPaper from '@mui/material/Paper';
 import type {PaperProps as MuiPaperProps, PaperTypeMap} from '@mui/material/Paper';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
+import type {ReactElement, Ref, ElementType} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -61,16 +62,16 @@ const COMPONENT_NAME: string = 'Paper';
  * @param ref - The ref to be forwarded to the MuiPaper component.
  * @returns The rendered Paper component.
  */
-const Paper: ForwardRefExoticComponent<PaperProps> & WithWrapperProps = forwardRef(
+const Paper: OverridableComponent<PaperTypeMap<PaperProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: PaperProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-paper', className);
 
     return <MuiPaper className={classes} {...rest} ref={ref} />;
   },
-) as ForwardRefExoticComponent<PaperProps> & WithWrapperProps;
+) as OverridableComponent<PaperTypeMap<PaperProps>> & WithWrapperProps;
 
 Paper.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Paper.muiName = COMPONENT_NAME;

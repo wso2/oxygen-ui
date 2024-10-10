@@ -17,25 +17,19 @@
  */
 
 import IconButton from '@mui/material/IconButton';
-import type {IconButtonProps, IconButtonTypeMap as MuiIconButtonTypeMap} from '@mui/material/IconButton';
+import type {IconButtonProps, IconButtonTypeMap} from '@mui/material/IconButton';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import {useColorScheme} from '@mui/material/styles';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {
-  ElementType,
-  ForwardRefExoticComponent,
-  MutableRefObject,
-  PropsWithChildren,
-  ReactElement,
-  SVGProps,
-} from 'react';
+import type {ElementType, Ref, PropsWithChildren, ReactElement, SVGProps} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './color-mode-toggle.scss';
 
 export type ColorModeToggleProps<
   C extends ElementType = ElementType,
-  D extends ElementType = MuiIconButtonTypeMap['defaultComponent'],
+  D extends ElementType = IconButtonTypeMap['defaultComponent'],
   P = {},
 > = {
   /**
@@ -106,10 +100,10 @@ const CrescentIcon = (props: PropsWithChildren<SVGProps<SVGSVGElement>>): ReactE
  * @param ref - The ref to be forwarded to the IconButton component.
  * @returns The rendered ColorModeToggle component.
  */
-const ColorModeToggle: ForwardRefExoticComponent<ColorModeToggleProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const ColorModeToggle: OverridableComponent<IconButtonTypeMap<IconButtonProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {className, ...rest}: ColorModeToggleProps<C>,
-    ref: MutableRefObject<HTMLButtonElement>,
+    ref: Ref<HTMLButtonElement>,
   ): ReactElement => {
     const {mode, setMode} = useColorScheme();
 
@@ -130,7 +124,7 @@ const ColorModeToggle: ForwardRefExoticComponent<ColorModeToggleProps> & WithWra
       </IconButton>
     );
   },
-) as ForwardRefExoticComponent<ColorModeToggleProps> & WithWrapperProps;
+) as OverridableComponent<IconButtonTypeMap<IconButtonProps>> & WithWrapperProps;
 
 ColorModeToggle.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ColorModeToggle.muiName = COMPONENT_NAME;

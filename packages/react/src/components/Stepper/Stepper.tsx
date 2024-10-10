@@ -16,13 +16,14 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef, useCallback, useEffect, useRef, useState} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
-import type {BoxProps} from '../Box';
+import type {BoxProps, BoxTypeMap} from '../Box';
 import './stepper.scss';
 
 export type StepperProps<C extends ElementType = ElementType> = BoxProps<C> & {
@@ -64,15 +65,15 @@ const COMPONENT_NAME: string = 'Stepper';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered Stepper component.
  */
-const Stepper: ForwardRefExoticComponent<StepperProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const Stepper: OverridableComponent<BoxTypeMap<StepperProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {animateOnSlide, className, currentStep = 0, steps}: StepperProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const [slideLeftPosition, setSlideLeftPosition] = useState<number>(0);
     const [slideContainerWidth, setSlideContainerWidth] = useState<number>(0);
 
-    const slideContainerRef: MutableRefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
+    const slideContainerRef: Ref<HTMLDivElement> = useRef<HTMLDivElement>(null);
 
     const classes: string = clsx('oxygen-stepper', className);
 
@@ -128,7 +129,7 @@ const Stepper: ForwardRefExoticComponent<StepperProps> & WithWrapperProps = forw
 
     return steps[currentStep];
   },
-) as ForwardRefExoticComponent<StepperProps> & WithWrapperProps;
+) as OverridableComponent<BoxTypeMap<StepperProps>> & WithWrapperProps;
 
 Stepper.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Stepper.muiName = COMPONENT_NAME;

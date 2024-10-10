@@ -16,12 +16,13 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
-import type {BoxProps} from '../Box';
+import type {BoxTypeMap, BoxProps} from '../Box';
 import Box from '../Box';
 import Button from '../Button';
 import Checkbox from '../Checkbox';
@@ -74,10 +75,10 @@ const COMPONENT_NAME: string = 'SignIn';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered SignIn component.
  */
-const SignIn: ForwardRefExoticComponent<SignInProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const SignIn: OverridableComponent<BoxTypeMap<SignInProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {className, signUpUrl, logoUrl, signInOptions, ...rest}: SignInProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-sign-in', className);
 
@@ -135,7 +136,7 @@ const SignIn: ForwardRefExoticComponent<SignInProps> & WithWrapperProps = forwar
       </Box>
     );
   },
-) as ForwardRefExoticComponent<SignInProps> & WithWrapperProps;
+) as OverridableComponent<BoxTypeMap<SignInProps>> & WithWrapperProps;
 
 SignIn.displayName = composeComponentDisplayName(COMPONENT_NAME);
 SignIn.muiName = 'SignIn';

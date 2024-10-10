@@ -20,7 +20,7 @@ import MuiAutocomplete from '@mui/material/Autocomplete';
 import type {AutocompleteProps as MuiAutocompleteProps} from '@mui/material/Autocomplete';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
+import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import type {ChipTypeMap} from '../Chip';
@@ -59,7 +59,7 @@ const COMPONENT_NAME: string = 'Autocomplete';
  * @returns The rendered Accordion component.
  */
 const Autocomplete: ForwardRefExoticComponent<AutocompleteProps<any>> & WithWrapperProps = forwardRef(
-  ({className, ...rest}: AutocompleteProps<any>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+  ({className, ...rest}: AutocompleteProps<any>, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-autocomplete', className);
 
     return <MuiAutocomplete className={classes} {...rest} ref={ref} />;

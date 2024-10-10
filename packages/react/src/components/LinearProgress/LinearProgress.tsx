@@ -20,7 +20,7 @@ import MuiLinearProgress from '@mui/material/LinearProgress';
 import type {LinearProgressProps as MuiLinearProgressProps} from '@mui/material/LinearProgress';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -51,7 +51,7 @@ const COMPONENT_NAME: string = 'LinearProgress';
  * @returns The rendered LinearProgress component.
  */
 const LinearProgress: ForwardRefExoticComponent<LinearProgressProps> & WithWrapperProps = forwardRef(
-  ({className, ...rest}: LinearProgressProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+  ({className, ...rest}: LinearProgressProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-linear-progress', className);
 
     return <MuiLinearProgress ref={ref} aria-label="progress-bar" className={classes} {...rest} />;

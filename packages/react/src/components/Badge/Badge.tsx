@@ -18,9 +18,10 @@
 
 import MuiBadge from '@mui/material/Badge';
 import type {BadgeProps as MuiBadgeProps, BadgeTypeMap} from '@mui/material/Badge';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './badge.scss';
@@ -62,16 +63,17 @@ const COMPONENT_NAME: string = 'Badge';
  * @param ref - The ref to be forwarded to the MuiBadge component.
  * @returns The rendered Badge component.
  */
-const Badge: ForwardRefExoticComponent<BadgeProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType = ElementType>(
-    {className, ...rest}: BadgeProps<C>,
-    ref: MutableRefObject<HTMLSpanElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-badge', className);
+const Badge: OverridableComponent<BadgeTypeMap<BadgeTypeMap['defaultComponent'], BadgeProps>> & WithWrapperProps =
+  forwardRef(
+    <C extends ElementType = ElementType>(
+      {className, ...rest}: BadgeProps<C>,
+      ref: Ref<HTMLSpanElement>,
+    ): ReactElement => {
+      const classes: string = clsx('oxygen-badge', className);
 
-    return <MuiBadge ref={ref} className={classes} {...rest} />;
-  },
-) as ForwardRefExoticComponent<BadgeProps> & WithWrapperProps;
+      return <MuiBadge ref={ref} className={classes} {...rest} />;
+    },
+  ) as OverridableComponent<BadgeTypeMap<BadgeTypeMap['defaultComponent'], BadgeProps>> & WithWrapperProps;
 
 Badge.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Badge.muiName = COMPONENT_NAME;

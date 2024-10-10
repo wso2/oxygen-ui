@@ -20,7 +20,7 @@ import MuiCardActions from '@mui/material/CardActions';
 import type {CardActionsProps as MuiCardActionsProps} from '@mui/material/CardActions';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './card-actions.scss';
@@ -52,7 +52,7 @@ const COMPONENT_NAME: string = 'CardActions';
  * @returns The rendered CardActions component.
  */
 const CardActions: ForwardRefExoticComponent<CardActionsProps> & WithWrapperProps = forwardRef(
-  ({className, ...rest}: CardActionsProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+  ({className, ...rest}: CardActionsProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-card-actions', className);
 
     return <MuiCardActions ref={ref} className={classes} {...rest} />;

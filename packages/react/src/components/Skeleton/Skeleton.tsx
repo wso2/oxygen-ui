@@ -16,11 +16,12 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import MuiSkeleton from '@mui/material/Skeleton';
 import type {SkeletonProps as MuiSkeletonProps, SkeletonTypeMap} from '@mui/material/Skeleton';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -59,16 +60,16 @@ const COMPONENT_NAME: string = 'Skeleton';
  * @param ref - The ref to be forwarded to the MuiSkeleton component.
  * @returns The rendered Skeleton component.
  */
-const Skeleton: ForwardRefExoticComponent<SkeletonProps> & WithWrapperProps = forwardRef(
+const Skeleton: OverridableComponent<SkeletonTypeMap<SkeletonProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: SkeletonProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-skeleton', className);
 
     return <MuiSkeleton ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<SkeletonProps> & WithWrapperProps;
+) as OverridableComponent<SkeletonTypeMap<SkeletonProps>> & WithWrapperProps;
 
 Skeleton.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Skeleton.muiName = COMPONENT_NAME;

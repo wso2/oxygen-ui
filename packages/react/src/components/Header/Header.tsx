@@ -16,17 +16,18 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import {useColorScheme} from '@mui/material/styles';
 import {Mode} from '@mui/system/cssVars/useCurrentColorScheme';
 import {ChevronDownIcon, BarsIcon, ArrowRightToBracketIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement, ReactNode} from 'react';
+import type {ElementType, Ref, ReactElement, ReactNode} from 'react';
 import {useIsMobile} from '../../hooks/use-is-mobile';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import AppBar from '../AppBar';
-import type {AppBarProps} from '../AppBar';
+import type {AppBarProps, AppBarTypeMap} from '../AppBar';
 import Avatar from '../Avatar';
 import Box from '../Box';
 import type {ButtonProps} from '../Button';
@@ -157,8 +158,8 @@ const COMPONENT_NAME: string = 'Header';
  * @param ref - The ref to be forwarded to the AppBar component.
  * @returns The rendered Header component.
  */
-const Header: ForwardRefExoticComponent<HeaderProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const Header: OverridableComponent<AppBarTypeMap<HeaderProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {
       brand,
       className,
@@ -172,7 +173,7 @@ const Header: ForwardRefExoticComponent<HeaderProps> & WithWrapperProps = forwar
       userDropdownMenu = userDropdownMenuDefaultProps,
       ...rest
     }: HeaderProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const userDropdownMenuProps: UserDropdownMenuHeaderProps = {...userDropdownMenuDefaultProps, ...userDropdownMenu};
 
@@ -275,7 +276,7 @@ const Header: ForwardRefExoticComponent<HeaderProps> & WithWrapperProps = forwar
       </AppBar>
     );
   },
-) as ForwardRefExoticComponent<HeaderProps> & WithWrapperProps;
+) as OverridableComponent<AppBarTypeMap<HeaderProps>> & WithWrapperProps;
 
 Header.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Header.muiName = COMPONENT_NAME;

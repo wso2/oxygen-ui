@@ -20,7 +20,7 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import type {AccordionDetailsProps as MuiAccordionDetailsProps} from '@mui/material/AccordionDetails';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
+import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -50,7 +50,7 @@ const COMPONENT_NAME: string = 'AccordionDetails';
  * @returns The rendered AccordionDetails component.
  */
 const AccordionDetails: ForwardRefExoticComponent<AccordionDetailsProps> & WithWrapperProps = forwardRef(
-  ({className, ...rest}: AccordionDetailsProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+  ({className, ...rest}: AccordionDetailsProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-accordion-details', className);
 
     return <MuiAccordionDetails ref={ref} className={classes} {...rest} />;

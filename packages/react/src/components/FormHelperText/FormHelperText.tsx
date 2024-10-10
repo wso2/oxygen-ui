@@ -18,9 +18,10 @@
 
 import MuiFormHelperText from '@mui/material/FormHelperText';
 import type {FormHelperTextProps as MuiFormHelperTextProps, FormHelperTextTypeMap} from '@mui/material/FormHelperText';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './form-helper-text.scss';
@@ -60,16 +61,16 @@ const COMPONENT_NAME: string = 'FormHelperText';
  * @param ref - The ref to be forwarded to the MuiFab component.
  * @returns The rendered Fab component.
  */
-const FormHelperText: ForwardRefExoticComponent<FormHelperTextProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const FormHelperText: OverridableComponent<FormHelperTextTypeMap<FormHelperTextProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {className, ...rest}: FormHelperTextProps<C>,
-    ref: MutableRefObject<HTMLParagraphElement>,
+    ref: Ref<HTMLParagraphElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-form-helper-text', className);
 
     return <MuiFormHelperText ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<FormHelperTextProps> & WithWrapperProps;
+) as OverridableComponent<FormHelperTextTypeMap<FormHelperTextProps>> & WithWrapperProps;
 
 FormHelperText.displayName = composeComponentDisplayName(COMPONENT_NAME);
 FormHelperText.muiName = COMPONENT_NAME;

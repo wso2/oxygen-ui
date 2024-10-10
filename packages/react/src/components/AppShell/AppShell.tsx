@@ -16,13 +16,14 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement, ReactNode} from 'react';
+import type {ElementType, Ref, ReactElement, ReactNode} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
-import type {BoxProps} from '../Box';
+import type {BoxProps, BoxTypeMap} from '../Box';
 import './app-shell.scss';
 
 export type AppShellProps<C extends ElementType = ElementType> = BoxProps<C> & {
@@ -64,10 +65,10 @@ const COMPONENT_NAME: string = 'AppShell';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered AppShell component.
  */
-const AppShell: ForwardRefExoticComponent<AppShellProps> & WithWrapperProps = forwardRef(
+const AppShell: OverridableComponent<BoxTypeMap<AppShellProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType>(
     {className, children, footer, header, navigation, ...rest}: AppShellProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-app-shell', className);
 
@@ -86,7 +87,7 @@ const AppShell: ForwardRefExoticComponent<AppShellProps> & WithWrapperProps = fo
       </Box>
     );
   },
-) as ForwardRefExoticComponent<AppShellProps> & WithWrapperProps;
+) as OverridableComponent<BoxTypeMap<AppShellProps>> & WithWrapperProps;
 
 AppShell.displayName = composeComponentDisplayName(COMPONENT_NAME);
 AppShell.muiName = COMPONENT_NAME;

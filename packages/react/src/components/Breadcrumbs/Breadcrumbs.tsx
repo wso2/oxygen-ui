@@ -18,9 +18,10 @@
 
 import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 import type {BreadcrumbsProps as MuiBreadcrumbsProps, BreadcrumbsTypeMap} from '@mui/material/Breadcrumbs';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './breadcrumbs.scss';
@@ -61,10 +62,10 @@ const COMPONENT_NAME: string = 'Breadcrumbs';
  * @param ref - The ref to be forwarded to the MuiBreadcrumbs component.
  * @returns The rendered Breadcrumbs component.
  */
-const Breadcrumbs: ForwardRefExoticComponent<BreadcrumbsProps> & WithWrapperProps = forwardRef(
+const Breadcrumbs: OverridableComponent<BreadcrumbsTypeMap<BreadcrumbsProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, children, ...rest}: BreadcrumbsProps<C>,
-    ref: MutableRefObject<HTMLSpanElement>,
+    ref: Ref<HTMLSpanElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-breadcrumbs', className);
 
@@ -74,7 +75,7 @@ const Breadcrumbs: ForwardRefExoticComponent<BreadcrumbsProps> & WithWrapperProp
       </MuiBreadcrumbs>
     );
   },
-) as ForwardRefExoticComponent<BreadcrumbsProps> & WithWrapperProps;
+) as OverridableComponent<BreadcrumbsTypeMap<BreadcrumbsProps>> & WithWrapperProps;
 
 Breadcrumbs.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Breadcrumbs.muiName = 'Breadcrumbs';

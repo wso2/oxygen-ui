@@ -17,7 +17,7 @@
  */
 
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, HTMLAttributes, MutableRefObject, ReactElement} from 'react';
+import type {ForwardRefExoticComponent, HTMLAttributes, Ref, ReactElement} from 'react';
 import WorldFlag from 'react-world-flags';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
@@ -54,7 +54,7 @@ const COMPONENT_NAME: string = 'CountryFlag';
  * @returns The rendered CountryFlag component.
  */
 const CountryFlag: ForwardRefExoticComponent<CountryFlagProps> & WithWrapperProps = forwardRef(
-  ({countryCode, height = '16', ...rest}: CountryFlagProps, ref: MutableRefObject<HTMLImageElement>): ReactElement => (
+  ({countryCode, height = '16', ...rest}: CountryFlagProps, ref: Ref<HTMLImageElement>): ReactElement => (
     <WorldFlag
       ref={ref}
       code={countryCode}

@@ -20,7 +20,7 @@ import MuiListItemAvatar from '@mui/material/ListItemAvatar';
 import type {ListItemAvatarProps as MuiListItemAvatarProps} from '@mui/material/ListItemAvatar';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list-item-avatar.scss';
@@ -51,7 +51,7 @@ const COMPONENT_NAME: string = 'ListItemAvatar';
  * @returns The rendered ListItemAvatar component.
  */
 const ListItemAvatar: ForwardRefExoticComponent<ListItemAvatarProps> & WithWrapperProps = forwardRef(
-  ({className, ...rest}: ListItemAvatarProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+  ({className, ...rest}: ListItemAvatarProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-list-item-avatar', className);
 
     return <MuiListItemAvatar ref={ref} className={classes} {...rest} />;

@@ -18,9 +18,10 @@
 
 import MuiList from '@mui/material/List';
 import type {ListTypeMap, ListProps as MuiListProps} from '@mui/material/List';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list.scss';
@@ -62,16 +63,13 @@ const COMPONENT_NAME: string = 'List';
  * @param ref - The ref to be forwarded to the MuiList component.
  * @returns The rendered List component.
  */
-const List: ForwardRefExoticComponent<ListProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
-    {className, ...rest}: ListProps<C>,
-    ref: MutableRefObject<HTMLUListElement>,
-  ): ReactElement => {
+const List: OverridableComponent<ListTypeMap<ListProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType>({className, ...rest}: ListProps<C>, ref: Ref<HTMLUListElement>): ReactElement => {
     const classes: string = clsx('oxygen-list', className);
 
     return <MuiList ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<ListProps> & WithWrapperProps;
+) as OverridableComponent<ListTypeMap<ListProps>> & WithWrapperProps;
 
 List.displayName = composeComponentDisplayName(COMPONENT_NAME);
 List.muiName = COMPONENT_NAME;

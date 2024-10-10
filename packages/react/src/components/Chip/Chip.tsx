@@ -18,9 +18,10 @@
 
 import MuiChip from '@mui/material/Chip';
 import type {ChipProps as MuiChipProps, ChipTypeMap} from '@mui/material/Chip';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './chip.scss';
@@ -60,13 +61,13 @@ const COMPONENT_NAME: string = 'Chip';
  * @param ref - The ref to be forwarded to the MuiChip component.
  * @returns The rendered Chip component.
  */
-const Chip: ForwardRefExoticComponent<ChipProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>({className, ...rest}: ChipProps<C>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+const Chip: OverridableComponent<ChipTypeMap<ChipProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>({className, ...rest}: ChipProps<C>, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-chip', className);
 
     return <MuiChip ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<ChipProps> & WithWrapperProps;
+) as OverridableComponent<ChipTypeMap<ChipProps>> & WithWrapperProps;
 
 Chip.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Chip.muiName = COMPONENT_NAME;

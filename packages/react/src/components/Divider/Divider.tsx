@@ -18,9 +18,10 @@
 
 import MuiDivider from '@mui/material/Divider';
 import type {DividerProps as MuiDividerProps, DividerTypeMap as MuiDividerTypeMap} from '@mui/material/Divider';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './divider.scss';
@@ -62,16 +63,16 @@ const COMPONENT_NAME: string = 'Divider';
  * @param ref - The ref to be forwarded to the MuiDivider component.
  * @returns The rendered Divider component.
  */
-const Divider: ForwardRefExoticComponent<DividerProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const Divider: OverridableComponent<MuiDividerTypeMap<DividerProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {className, ...rest}: DividerProps<C>,
-    ref: MutableRefObject<HTMLHRElement>,
+    ref: Ref<HTMLHRElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-divider', className);
 
     return <MuiDivider ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<DividerProps> & WithWrapperProps;
+) as OverridableComponent<MuiDividerTypeMap<DividerProps>> & WithWrapperProps;
 
 Divider.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Divider.muiName = COMPONENT_NAME;

@@ -16,11 +16,13 @@
  * under the License.
  */
 
+import type {ButtonBaseTypeMap} from '@mui/material/ButtonBase';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import MuiSwitch from '@mui/material/Switch';
 import type {SwitchProps as MuiSwitchProps} from '@mui/material/Switch';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
+import type {ReactElement, Ref, ElementType} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './switch.scss';
@@ -59,16 +61,16 @@ const COMPONENT_NAME: string = 'Switch';
  * @param ref - The ref to be forwarded to the MuiSwitch component.
  * @returns The rendered Switch component.
  */
-const Switch: ForwardRefExoticComponent<SwitchProps> & WithWrapperProps = forwardRef(
+const Switch: OverridableComponent<ButtonBaseTypeMap<SwitchProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: SwitchProps<C>,
-    ref: MutableRefObject<HTMLButtonElement>,
+    ref: Ref<HTMLButtonElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-switch', className);
 
     return <MuiSwitch ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<SwitchProps> & WithWrapperProps;
+) as OverridableComponent<ButtonBaseTypeMap<SwitchProps>> & WithWrapperProps;
 
 Switch.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Switch.muiName = COMPONENT_NAME;

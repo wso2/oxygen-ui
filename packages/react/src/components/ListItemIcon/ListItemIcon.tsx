@@ -20,7 +20,7 @@ import MuiListItemIcon from '@mui/material/ListItemIcon';
 import type {ListItemIconProps as MuiListItemIconProps} from '@mui/material/ListItemIcon';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list-item-icon.scss';
@@ -51,7 +51,7 @@ const COMPONENT_NAME: string = 'ListItemIcon';
  * @returns The rendered ListItemIcon component.
  */
 const ListItemIcon: ForwardRefExoticComponent<ListItemIconProps> & WithWrapperProps = forwardRef(
-  ({className, ...rest}: ListItemIconProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+  ({className, ...rest}: ListItemIconProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-list-item-icon', className);
 
     return <MuiListItemIcon ref={ref} className={classes} {...rest} />;

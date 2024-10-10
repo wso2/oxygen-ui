@@ -20,7 +20,7 @@ import MuiOutlinedInput from '@mui/material/OutlinedInput';
 import type {OutlinedInputProps as MuiOutlinedInputProps} from '@mui/material/OutlinedInput';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './outlined-input.scss';
@@ -52,7 +52,7 @@ const COMPONENT_NAME: string = 'OutlinedInput';
  * @returns The rendered OutlinedInput component.
  */
 const OutlinedInput: ForwardRefExoticComponent<OutlinedInputProps> & WithWrapperProps = forwardRef(
-  ({className, ...rest}: OutlinedInputProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+  ({className, ...rest}: OutlinedInputProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-outlined-input', className);
 
     return <MuiOutlinedInput ref={ref} className={classes} {...rest} />;

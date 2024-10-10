@@ -16,11 +16,12 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import MuiTabs from '@mui/material/Tabs';
 import type {TabsProps as MuiTabsProps, TabsTypeMap} from '@mui/material/Tabs';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
@@ -62,10 +63,10 @@ const COMPONENT_NAME: string = 'Tabs';
  * @param ref - The ref to be forwarded to the MuiSkeleton component.
  * @returns The rendered Skeleton component.
  */
-const Tabs: ForwardRefExoticComponent<TabsProps> & WithWrapperProps = forwardRef(
+const Tabs: OverridableComponent<TabsTypeMap<TabsProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: TabsProps<C>,
-    ref: MutableRefObject<HTMLButtonElement>,
+    ref: Ref<HTMLButtonElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-tabs', className);
 
@@ -78,7 +79,7 @@ const Tabs: ForwardRefExoticComponent<TabsProps> & WithWrapperProps = forwardRef
       </Box>
     );
   },
-) as ForwardRefExoticComponent<TabsProps> & WithWrapperProps;
+) as OverridableComponent<TabsTypeMap<TabsProps>> & WithWrapperProps;
 
 Tabs.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Tabs.muiName = COMPONENT_NAME;

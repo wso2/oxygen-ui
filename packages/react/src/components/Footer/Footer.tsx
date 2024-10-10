@@ -16,14 +16,15 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement, ReactNode} from 'react';
+import type {ElementType, Ref, ReactElement, ReactNode} from 'react';
 import {useIsMobile} from '../../hooks/use-is-mobile';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
-import type {BoxProps} from '../Box';
+import type {BoxProps, BoxTypeMap} from '../Box';
 import Container from '../Container';
 import type {ContainerProps} from '../Container';
 import Link from '../Link';
@@ -66,10 +67,10 @@ const COMPONENT_NAME: string = 'Footer';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered Footer component.
  */
-const Footer: ForwardRefExoticComponent<FooterProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const Footer: OverridableComponent<BoxTypeMap<FooterProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {className, copyright, component = 'footer' as C, links, maxWidth, ...rest}: FooterProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const isMobile: boolean = useIsMobile();
 
@@ -106,7 +107,7 @@ const Footer: ForwardRefExoticComponent<FooterProps> & WithWrapperProps = forwar
       </Box>
     );
   },
-) as ForwardRefExoticComponent<FooterProps> & WithWrapperProps;
+) as OverridableComponent<BoxTypeMap<FooterProps>> & WithWrapperProps;
 
 Footer.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Footer.muiName = COMPONENT_NAME;

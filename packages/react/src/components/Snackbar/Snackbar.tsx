@@ -20,7 +20,7 @@ import MuiSnackbar from '@mui/material/Snackbar';
 import type {SnackbarProps as MuiSnackbarProps} from '@mui/material/Snackbar';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
+import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './snackbar.scss';
@@ -51,7 +51,7 @@ const COMPONENT_NAME: string = 'Snackbar';
  * @returns The rendered Snackbar component.
  */
 const Snackbar: ForwardRefExoticComponent<SnackbarProps> & WithWrapperProps = forwardRef(
-  ({className, ...rest}: SnackbarProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+  ({className, ...rest}: SnackbarProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-snackbar', className);
 
     return <MuiSnackbar className={classes} {...rest} ref={ref} />;

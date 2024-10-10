@@ -18,9 +18,11 @@
 
 import MuiButton from '@mui/lab/LoadingButton';
 import type {LoadingButtonTypeMap, LoadingButtonProps as MuiButtonProps} from '@mui/lab/LoadingButton';
+import {ButtonTypeMap} from '@mui/material';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './button.scss';
@@ -61,16 +63,16 @@ const COMPONENT_NAME: string = 'Button';
  * @param ref - The ref to be forwarded to the MuiButton component.
  * @returns The rendered Button component.
  */
-const Button: ForwardRefExoticComponent<ButtonProps> & WithWrapperProps = forwardRef(
+const Button: OverridableComponent<ButtonTypeMap<ButtonProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(
-    {className, children, ...rest}: ButtonProps<C>,
-    ref: MutableRefObject<HTMLButtonElement>,
+    {className, ...rest}: ButtonProps<C>,
+    ref: Ref<HTMLButtonElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-button', className);
 
     return <MuiButton ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<ButtonProps> & WithWrapperProps;
+) as OverridableComponent<ButtonTypeMap<ButtonProps>> & WithWrapperProps;
 
 Button.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Button.muiName = COMPONENT_NAME;

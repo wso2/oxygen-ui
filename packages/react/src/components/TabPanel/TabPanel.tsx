@@ -16,13 +16,14 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
-import type {BoxProps} from '../Box';
 import Box from '../Box';
+import type {BoxProps, BoxTypeMap} from '../Box';
 import './tab-panel.scss';
 
 export type TabPanelProps<C extends ElementType = ElementType> = BoxProps<C> & {
@@ -60,10 +61,10 @@ const COMPONENT_NAME: string = 'TabPanel';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered TabPanel component.
  */
-const TabPanel: ForwardRefExoticComponent<TabPanelProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const TabPanel: OverridableComponent<BoxTypeMap<TabPanelProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {className, children, value, index, ...rest}: TabPanelProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-tab-panel', className);
 
@@ -73,7 +74,7 @@ const TabPanel: ForwardRefExoticComponent<TabPanelProps> & WithWrapperProps = fo
       </Box>
     );
   },
-) as ForwardRefExoticComponent<TabPanelProps> & WithWrapperProps;
+) as OverridableComponent<BoxTypeMap<TabPanelProps>> & WithWrapperProps;
 
 TabPanel.displayName = composeComponentDisplayName(COMPONENT_NAME);
 TabPanel.muiName = COMPONENT_NAME;
