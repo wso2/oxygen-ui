@@ -18,12 +18,9 @@
 
 import MuiDrawer from '@mui/material/Drawer';
 import type {DrawerProps as MuiDrawerProps} from '@mui/material/Drawer';
-// TODO: Wrap the `Modal` component. Tracker: https://github.com/wso2/oxygen-ui/issues/2
-import type {ModalTypeMap} from '@mui/material/Modal';
-import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, Ref, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement, ForwardRefExoticComponent} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './drawer.scss';
@@ -52,7 +49,7 @@ const COMPONENT_NAME: string = 'Drawer';
  *
  * @remarks
  * - ✔️ Props of the native component are also available.
- * - ✅ `component` prop is supported.
+ * - FIXME: ⚠️ `component` prop is temporarily not supported due to https://github.com/wso2/oxygen-ui/issues/283
  * - ✅ The `ref` is forwarded to the root element.
  *
  * @template C - The type of the component.
@@ -60,17 +57,16 @@ const COMPONENT_NAME: string = 'Drawer';
  * @param ref - The ref to be forwarded to the MuiDrawer component.
  * @returns The rendered Drawer component.
  */
-const Drawer: OverridableComponent<ModalTypeMap<ModalTypeMap['defaultComponent'], DrawerProps>> & WithWrapperProps =
-  forwardRef(
-    <C extends ElementType = ElementType>(
-      {className, ...rest}: DrawerProps<C>,
-      ref: Ref<HTMLDivElement>,
-    ): ReactElement => {
-      const classes: string = clsx('oxygen-drawer', className);
+const Drawer: ForwardRefExoticComponent<DrawerProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {className, ...rest}: DrawerProps<C>,
+    ref: Ref<HTMLDivElement>,
+  ): ReactElement => {
+    const classes: string = clsx('oxygen-drawer', className);
 
-      return <MuiDrawer ref={ref} className={classes} {...rest} />;
-    },
-  ) as OverridableComponent<ModalTypeMap<ModalTypeMap['defaultComponent'], DrawerProps>> & WithWrapperProps;
+    return <MuiDrawer ref={ref} className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<DrawerProps> & WithWrapperProps;
 
 Drawer.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Drawer.muiName = COMPONENT_NAME;

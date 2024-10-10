@@ -18,12 +18,9 @@
 
 import MuiMenu from '@mui/material/Menu';
 import type {MenuProps as MuiMenuProps} from '@mui/material/Menu';
-// TODO: Wrap the `Modal` component. Tracker: https://github.com/wso2/oxygen-ui/issues/2
-import type {ModalTypeMap} from '@mui/material/Modal';
-import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, Ref, ReactElement} from 'react';
+import type {ElementType, Ref, ReactElement, ForwardRefExoticComponent} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './menu.scss';
@@ -54,7 +51,7 @@ const COMPONENT_NAME: string = 'Menu';
  *
  * @remarks
  * - ✔️ Props of the native component are also available.
- * - ✅ `component` prop is supported.
+ * - FIXME: ⚠️ `component` prop is temporarily not supported due to https://github.com/wso2/oxygen-ui/issues/283
  * - ✅ The `ref` is forwarded to the root element.
  *
  * @template C - The type of the component.
@@ -62,17 +59,13 @@ const COMPONENT_NAME: string = 'Menu';
  * @param ref - The ref to be forwarded to the MuiList component.
  * @returns The rendered List component.
  */
-const Menu: OverridableComponent<ModalTypeMap<ModalTypeMap['defaultComponent'], MenuProps>> & WithWrapperProps =
-  forwardRef(
-    <C extends ElementType = ElementType>(
-      {className, ...rest}: MenuProps<C>,
-      ref: Ref<HTMLDivElement>,
-    ): ReactElement => {
-      const classes: string = clsx('oxygen-menu', className);
+const Menu: ForwardRefExoticComponent<MenuProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>({className, ...rest}: MenuProps<C>, ref: Ref<HTMLDivElement>): ReactElement => {
+    const classes: string = clsx('oxygen-menu', className);
 
-      return <MuiMenu ref={ref} className={classes} {...rest} />;
-    },
-  ) as OverridableComponent<ModalTypeMap<ModalTypeMap['defaultComponent'], MenuProps>> & WithWrapperProps;
+    return <MuiMenu ref={ref} className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<MenuProps> & WithWrapperProps;
 
 Menu.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Menu.muiName = COMPONENT_NAME;
