@@ -17,4 +17,4 @@
  */
 
 export {default} from './NavbarItem';
-export type {NavbarItemProps} from './NavbarItem';
+export * from './NavbarItem';

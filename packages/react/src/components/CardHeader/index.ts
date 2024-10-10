@@ -17,4 +17,6 @@
  */
 
 export {default} from './CardHeader';
-export type {CardHeaderProps} from './CardHeader';
+export * from './CardHeader';
+
+export type {CardHeaderTypeMap, OverridableCardHeader, CardHeaderPropsWithComponent} from '@mui/material/CardHeader';

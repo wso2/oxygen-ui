@@ -17,4 +17,6 @@
  */
 
 export {default} from './Toolbar';
-export type {ToolbarProps} from './Toolbar';
+export * from './Toolbar';
+
+export type {ToolbarPropsVariantOverrides, ToolbarTypeMap} from '@mui/material/Toolbar';

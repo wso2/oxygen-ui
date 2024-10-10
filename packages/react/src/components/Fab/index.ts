@@ -17,4 +17,11 @@
  */
 
 export {default} from './Fab';
-export type {FabProps} from './Fab';
+export * from './Fab';
+
+export type {
+  FabPropsVariantOverrides,
+  FabPropsSizeOverrides,
+  FabPropsColorOverrides,
+  FabTypeMap,
+} from '@mui/material/Fab';

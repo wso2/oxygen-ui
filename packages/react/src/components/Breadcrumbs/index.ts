@@ -17,4 +17,6 @@
  */
 
 export {default} from './Breadcrumbs';
-export type {BreadcrumbsProps} from './Breadcrumbs';
+export * from './Breadcrumbs';
+
+export {BreadcrumbsTypeMap} from '@mui/material/Breadcrumbs';

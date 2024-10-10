@@ -17,4 +17,6 @@
  */
 
 export {default} from './Paper';
-export type {PaperProps} from './Paper';
+export * from './Paper';
+
+export type {PaperPropsVariantOverrides, PaperTypeMap} from '@mui/material/Paper';

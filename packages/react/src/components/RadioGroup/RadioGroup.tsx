@@ -16,9 +16,11 @@
  * under the License.
  */
 
-import MuiRadioGroup, {RadioGroupProps as MuiRadioGroupProps} from '@mui/material/RadioGroup';
+import MuiRadioGroup from '@mui/material/RadioGroup';
+import type {RadioGroupProps as MuiRadioGroupProps} from '@mui/material/RadioGroup';
 import clsx from 'clsx';
-import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -26,10 +28,30 @@ export type RadioGroupProps = MuiRadioGroupProps;
 
 const COMPONENT_NAME: string = 'RadioGroup';
 
+/**
+ * The Radio Group allows the user to select one option from a set.
+ *
+ * Demos:
+ *
+ * - [Radio Group (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-radio-group)
+ * - [Radio Group (MUI)](https://mui.com/material-ui/react-radio-button/)
+ *
+ * API:
+ *
+ * - [RadioGroup API](https://mui.com/material-ui/api/radio-group/)
+ * - inherits [FormGroup API](https://mui.com/material-ui/api/form-group/)
+ *
+ * @remarks
+ * - ✔️ Props of the [FormGroup](https://mui.com/material-ui/api/form-group/) component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @param props - The props for the RadioGroup component.
+ * @param ref - The ref to be forwarded to the MuiRadioGroup component.
+ * @returns The rendered RadioGroup component.
+ */
 const RadioGroup: ForwardRefExoticComponent<RadioGroupProps> & WithWrapperProps = forwardRef(
-  (props: RadioGroupProps, ref: MutableRefObject<HTMLButtonElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: RadioGroupProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-radio-group', className);
 
     return <MuiRadioGroup className={classes} {...rest} ref={ref} />;
@@ -38,6 +60,5 @@ const RadioGroup: ForwardRefExoticComponent<RadioGroupProps> & WithWrapperProps 
 
 RadioGroup.displayName = composeComponentDisplayName(COMPONENT_NAME);
 RadioGroup.muiName = COMPONENT_NAME;
-RadioGroup.defaultProps = {};
 
 export default RadioGroup;

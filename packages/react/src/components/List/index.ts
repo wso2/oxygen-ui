@@ -17,4 +17,6 @@
  */
 
 export {default} from './List';
-export type {ListProps} from './List';
+export * from './List';
+
+export type {ListTypeMap, ExtendListTypeMap, ExtendList} from '@mui/material/List';

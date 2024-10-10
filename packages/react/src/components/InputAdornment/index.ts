@@ -17,4 +17,6 @@
  */
 
 export {default} from './InputAdornment';
-export type {InputAdornmentProps} from './InputAdornment';
+export * from './InputAdornment';
+
+export {InputAdornmentTypeMap} from '@mui/material/InputAdornment';

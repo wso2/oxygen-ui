@@ -17,4 +17,6 @@
  */
 
 export {default} from './Tab';
-export type {TabProps} from './Tab';
+export * from './Tab';
+
+export {TabTypeMap} from '@mui/material/Tab';

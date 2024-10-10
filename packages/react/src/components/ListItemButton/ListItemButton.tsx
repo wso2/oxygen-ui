@@ -16,31 +16,64 @@
  * under the License.
  */
 
-import MuiListItemButton, {ListItemButtonProps as MuiListItemButtonProps} from '@mui/material/ListItemButton';
+import MuiListItemButton from '@mui/material/ListItemButton';
+import type {ListItemButtonProps as MuiListItemButtonProps, ListItemButtonTypeMap} from '@mui/material/ListItemButton';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
-import {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement, forwardRef} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list-item-button.scss';
 
-export type ListItemButtonProps<C extends ElementType = ElementType> = {
+export type ListItemButtonProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = ListItemButtonTypeMap['defaultComponent'],
+  P = {},
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
   component?: C;
-} & Omit<MuiListItemButtonProps<C>, 'component'>;
+} & Omit<MuiListItemButtonProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'ListItemButton';
 
-const ListItemButton: ForwardRefExoticComponent<ListItemButtonProps> & WithWrapperProps = forwardRef(
-  (props: ListItemButtonProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+/**
+ * The List Item Button an action element to be used inside a list item.
+ *
+ * Demos:
+ *
+ * - [Lists (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-list)
+ * - [Lists (MUI)](https://mui.com/material-ui/react-list/)
+ *
+ * API:
+ *
+ * - [ListItemButton API](https://mui.com/material-ui/api/list-item-button/)
+ * - inherits [ButtonBase API](https://mui.com/material-ui/api/button-base/)
+ *
+ * @remarks
+ * - ✔️ Props of the [ButtonBase](https://mui.com/material-ui/api/button-base/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the ListItemButton component.
+ * @param ref - The ref to be forwarded to the MuiListItemButton component.
+ * @returns The rendered ListItemButton component.
+ */
+const ListItemButton: OverridableComponent<ListItemButtonTypeMap<ListItemButtonProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {className, ...rest}: ListItemButtonProps<C>,
+    ref: Ref<HTMLDivElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-list-item-button', className);
 
-    return <MuiListItemButton className={classes} ref={ref} {...rest} />;
+    return <MuiListItemButton ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<ListItemButtonProps> & WithWrapperProps;
+) as OverridableComponent<ListItemButtonTypeMap<ListItemButtonProps>> & WithWrapperProps;
 
 ListItemButton.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ListItemButton.muiName = COMPONENT_NAME;
-ListItemButton.defaultProps = {};
 
 export default ListItemButton;

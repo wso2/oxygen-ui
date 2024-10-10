@@ -17,4 +17,10 @@
  */
 
 export {default} from './IconButton';
-export type {IconButtonProps} from './IconButton';
+export * from './IconButton';
+
+export type {
+  IconButtonPropsColorOverrides,
+  IconButtonPropsSizeOverrides,
+  IconButtonTypeMap,
+} from '@mui/material/IconButton';

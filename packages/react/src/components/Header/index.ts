@@ -17,5 +17,4 @@
  */
 
 export {default} from './Header';
-export type {HeaderProps} from './Header';
-export type {BrandTemplate} from './Header';
+export * from './Header';

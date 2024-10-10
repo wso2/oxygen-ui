@@ -17,5 +17,13 @@
  */
 
 export {default} from './TextField';
-export type {TextFieldProps} from './TextField';
-export {TextFieldInputTypes} from './constants';
+export * from './TextField';
+
+export {
+  TextFieldPropsColorOverrides,
+  TextFieldPropsSizeOverrides,
+  BaseTextFieldProps,
+  StandardTextFieldProps,
+  FilledTextFieldProps,
+  OutlinedTextFieldProps,
+} from '@mui/material/TextField';

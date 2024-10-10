@@ -17,4 +17,4 @@
  */
 
 export {default} from './CountryFlag';
-export type {CountryFlagsProps} from './CountryFlag';
+export * from './CountryFlag';

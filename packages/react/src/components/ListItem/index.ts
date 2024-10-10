@@ -17,4 +17,6 @@
  */
 
 export {default} from './ListItem';
-export type {ListItemProps} from './ListItem';
+export * from './ListItem';
+
+export type {ListItemComponentsPropsOverrides, ListItemBaseProps, ListItemTypeMap} from '@mui/material/ListItem';

@@ -16,9 +16,11 @@
  * under the License.
  */
 
-import MuiFormGroup, {FormGroupProps as MuiFormGroupProps} from '@mui/material/FormGroup';
+import MuiFormGroup from '@mui/material/FormGroup';
+import type {FormGroupProps as MuiFormGroupProps} from '@mui/material/FormGroup';
 import clsx from 'clsx';
-import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -26,18 +28,37 @@ export type FormGroupProps = MuiFormGroupProps;
 
 const COMPONENT_NAME: string = 'FormGroup';
 
+/**
+ * The Form Group is a helpful wrapper used to group selection control components.
+ *
+ * Demos:
+ *
+ * - [Checkbox (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-checkbox)
+ * - [Checkbox (MUI)](https://mui.com/material-ui/react-checkbox/)
+ * - [Switch (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-switch)
+ * - [Switch (MUI)](https://mui.com/material-ui/react-switch/)
+ *
+ * API:
+ *
+ * - [FormGroup API](https://mui.com/material-ui/api/form-group/)
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @param props - The props for the FormGroup component.
+ * @param ref - The ref to be forwarded to the MuiFormGroup component.
+ * @returns The rendered FormGroup component.
+ */
 const FormGroup: ForwardRefExoticComponent<FormGroupProps> & WithWrapperProps = forwardRef(
-  (props: FormGroupProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: FormGroupProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-form-group', className);
 
-    return <MuiFormGroup className={classes} {...rest} ref={ref} />;
+    return <MuiFormGroup ref={ref} className={classes} {...rest} />;
   },
 ) as ForwardRefExoticComponent<FormGroupProps> & WithWrapperProps;
 
 FormGroup.displayName = composeComponentDisplayName(COMPONENT_NAME);
 FormGroup.muiName = COMPONENT_NAME;
-FormGroup.defaultProps = {};
 
 export default FormGroup;

@@ -17,4 +17,6 @@
  */
 
 export {default} from './MenuItem';
-export type {MenuItemProps} from './MenuItem';
+export * from './MenuItem';
+
+export {MenuItemTypeMap} from '@mui/material/MenuItem';

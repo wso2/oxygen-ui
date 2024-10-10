@@ -16,9 +16,11 @@
  * under the License.
  */
 
-import MuiListItemAvatar, {ListItemAvatarProps as MuiListItemAvatarProps} from '@mui/material/ListItemAvatar';
+import MuiListItemAvatar from '@mui/material/ListItemAvatar';
+import type {ListItemAvatarProps as MuiListItemAvatarProps} from '@mui/material/ListItemAvatar';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list-item-avatar.scss';
@@ -27,16 +29,36 @@ export type ListItemAvatarProps = MuiListItemAvatarProps;
 
 const COMPONENT_NAME: string = 'ListItemAvatar';
 
-const ListItemAvatar: FC<ListItemAvatarProps> & WithWrapperProps = (props: ListItemAvatarProps): ReactElement => {
-  const {className, ...rest} = props;
+/**
+ * The List Item Avatar component is used to display an avatar in a list item.
+ *
+ * Demos:
+ *
+ * - [Lists (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-list)
+ * - [Lists (MUI)](https://mui.com/material-ui/react-list/)
+ *
+ * API:
+ *
+ * - [ListItemAvatar API](https://mui.com/material-ui/api/list-item-avatar/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @param props - The props for the ListItemAvatar component.
+ * @param ref - The ref to be forwarded to the MuiListItemAvatar component.
+ * @returns The rendered ListItemAvatar component.
+ */
+const ListItemAvatar: ForwardRefExoticComponent<ListItemAvatarProps> & WithWrapperProps = forwardRef(
+  ({className, ...rest}: ListItemAvatarProps, ref: Ref<HTMLDivElement>): ReactElement => {
+    const classes: string = clsx('oxygen-list-item-avatar', className);
 
-  const classes: string = clsx('oxygen-list-item-avatar', className);
-
-  return <MuiListItemAvatar className={classes} {...rest} />;
-};
+    return <MuiListItemAvatar ref={ref} className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<ListItemAvatarProps> & WithWrapperProps;
 
 ListItemAvatar.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ListItemAvatar.muiName = COMPONENT_NAME;
-ListItemAvatar.defaultProps = {};
 
 export default ListItemAvatar;

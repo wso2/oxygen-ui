@@ -17,4 +17,6 @@
  */
 
 export {default} from './Switch';
-export type {SwitchProps} from './Switch';
+export * from './Switch';
+
+export type {SwitchPropsSizeOverrides, SwitchPropsColorOverrides} from '@mui/material/Switch';

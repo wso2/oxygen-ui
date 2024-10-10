@@ -17,4 +17,31 @@
  */
 
 export {default} from './DataGrid';
-export type {DataGridProps} from './DataGrid';
+export * from './DataGrid';
+
+export * from '@mui/x-data-grid/components';
+export * from '@mui/x-data-grid/constants';
+export * from '@mui/x-data-grid/hooks';
+export * from '@mui/x-data-grid/locales';
+export * from '@mui/x-data-grid/models';
+export * from '@mui/x-data-grid/context';
+export * from '@mui/x-data-grid/colDef';
+export * from '@mui/x-data-grid/utils';
+export {
+  useGridRootProps,
+  useGridApiRef,
+  useGridApiContext,
+  GridColumnHeaders,
+  GridColumnMenu,
+  GRID_COLUMN_MENU_SLOTS,
+  GRID_COLUMN_MENU_SLOT_PROPS,
+} from '@mui/x-data-grid';
+export type {
+  GridApi,
+  GridState,
+  GridInitialState,
+  GridExportFormat,
+  GridExportExtension,
+  GridToolbarExportProps,
+  GridExperimentalFeatures,
+} from '@mui/x-data-grid';

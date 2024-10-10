@@ -17,4 +17,6 @@
  */
 
 export {default} from './CircularProgress';
-export type {CircularProgressProps} from './CircularProgress';
+export * from './CircularProgress';
+
+export {CircularProgressPropsColorOverrides} from '@mui/material/CircularProgress';

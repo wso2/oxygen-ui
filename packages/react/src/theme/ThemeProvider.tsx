@@ -51,21 +51,18 @@ export type ThemeProviderProps = Partial<CssVarsProviderConfig<SupportedColorSch
     | undefined;
 };
 
-const ThemeProvider = (props: PropsWithChildren<ThemeProviderProps>): ReactElement => {
-  const {children, theme, ...rest} = props;
-  return (
-    <StyledEngineProvider injectFirst>
-      <CssVarsProvider
-        modeStorageKey="oxygen-mode"
-        colorSchemeStorageKey="oxygen-color-scheme"
-        theme={theme ?? defaultTheme}
-        {...rest}
-      >
-        <CssBaseline />
-        {children}
-      </CssVarsProvider>
-    </StyledEngineProvider>
-  );
-};
+const ThemeProvider = ({children, theme, ...rest}: PropsWithChildren<ThemeProviderProps>): ReactElement => (
+  <StyledEngineProvider injectFirst>
+    <CssVarsProvider
+      modeStorageKey="oxygen-mode"
+      colorSchemeStorageKey="oxygen-color-scheme"
+      theme={theme ?? defaultTheme}
+      {...rest}
+    >
+      <CssBaseline />
+      {children}
+    </CssVarsProvider>
+  </StyledEngineProvider>
+);
 
 export default ThemeProvider;

@@ -17,6 +17,4 @@
  */
 
 export {default} from './UserDropdownMenu';
-export type {UserDropdownMenuProps} from './UserDropdownMenu';
-export type {ModeList} from './UserDropdownMenu';
-export type {UserTemplate} from './UserDropdownMenu';
+export * from './UserDropdownMenu';

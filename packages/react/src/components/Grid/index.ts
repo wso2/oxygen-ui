@@ -17,4 +17,6 @@
  */
 
 export {default} from './Grid';
-export type {GridProps} from './Grid';
+export * from './Grid';
+
+export type {Grid2Slot, Grid2TypeMap} from '@mui/material/Unstable_Grid2';

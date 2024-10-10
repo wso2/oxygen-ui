@@ -17,4 +17,6 @@
  */
 
 export {default} from './AccordionSummary';
-export type {AccordionSummaryProps} from './AccordionSummary';
+export * from './AccordionSummary';
+
+export type {AccordionSummaryTypeMap} from '@mui/material/AccordionSummary';

@@ -17,4 +17,6 @@
  */
 
 export {default} from './InputLabel';
-export type {InputLabelProps} from './InputLabel';
+export * from './InputLabel';
+
+export type {InputLabelPropsSizeOverrides, InputLabelTypeMap} from '@mui/material/InputLabel';

@@ -17,4 +17,6 @@
  */
 
 export {default} from './FormHelperText';
-export type {FormHelperTextProps} from './FormHelperText';
+export * from './FormHelperText';
+
+export type {FormHelperTextPropsVariantOverrides, FormHelperTextTypeMap} from '@mui/material/FormHelperText';

@@ -17,4 +17,7 @@
  */
 
 export {default} from './Popover';
-export type {PopoverProps} from './Popover';
+export * from './Popover';
+
+export type {PopoverActions, PopoverReference, PopoverPosition, PopoverOrigin} from '@mui/material/Popover';
+export {getOffsetTop, getOffsetLeft} from '@mui/material/Popover';

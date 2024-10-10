@@ -17,4 +17,6 @@
  */
 
 export {default} from './Select';
-export type {SelectProps} from './Select';
+export * from './Select';
+
+export {SelectChangeEvent} from '@mui/material/Select';

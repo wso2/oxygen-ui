@@ -16,9 +16,11 @@
  * under the License.
  */
 
-import MuiListItemText, {ListItemTextProps as MuiListItemTextProps} from '@mui/material/ListItemText';
+import MuiListItemText from '@mui/material/ListItemText';
+import type {ListItemTextProps as MuiListItemTextProps} from '@mui/material/ListItemText';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list-item-text.scss';
@@ -27,16 +29,36 @@ export type ListItemTextProps = MuiListItemTextProps;
 
 const COMPONENT_NAME: string = 'ListItemText';
 
-const ListItemText: FC<ListItemTextProps> & WithWrapperProps = (props: ListItemTextProps): ReactElement => {
-  const {className, ...rest} = props;
+/**
+ * The List Item Text component is used to display text in a list item.
+ *
+ * Demos:
+ *
+ * - [Lists (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-list)
+ * - [Lists (MUI)](https://mui.com/material-ui/react-list/)
+ *
+ * API:
+ *
+ * - [ListItemText API](https://mui.com/material-ui/api/list-item-text/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @param props - The props for the ListItemText component.
+ * @param ref - The ref to be forwarded to the MuiListItemText component.
+ * @returns The rendered ListItemText component.
+ */
+const ListItemText: ForwardRefExoticComponent<ListItemTextProps> & WithWrapperProps = forwardRef(
+  ({className, ...rest}: ListItemTextProps, ref: Ref<HTMLDivElement>): ReactElement => {
+    const classes: string = clsx('oxygen-list-item-text', className);
 
-  const classes: string = clsx('oxygen-list-item-text', className);
-
-  return <MuiListItemText className={classes} {...rest} />;
-};
+    return <MuiListItemText ref={ref} className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<ListItemTextProps> & WithWrapperProps;
 
 ListItemText.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ListItemText.muiName = COMPONENT_NAME;
-ListItemText.defaultProps = {};
 
 export default ListItemText;

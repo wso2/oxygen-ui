@@ -17,4 +17,4 @@
  */
 
 export {default} from './CollapsibleNavbarItem';
-export type {CollapsibleNavbarItemProps} from './CollapsibleNavbarItem';
+export * from './CollapsibleNavbarItem';

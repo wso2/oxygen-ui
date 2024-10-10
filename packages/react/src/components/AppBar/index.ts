@@ -18,3 +18,5 @@
 
 export {default} from './AppBar';
 export type {AppBarProps} from './AppBar';
+
+export type {AppBarPropsColorOverrides, AppBarTypeMap} from '@mui/material/AppBar';

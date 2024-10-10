@@ -17,4 +17,6 @@
  */
 
 export {default} from './Tabs';
-export type {TabsProps} from './Tabs';
+export * from './Tabs';
+
+export type {TabsTypeMap, TabsActions, TabsPropsIndicatorColorOverrides} from '@mui/material/Tabs';

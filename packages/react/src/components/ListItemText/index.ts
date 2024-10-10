@@ -17,4 +17,4 @@
  */
 
 export {default} from './ListItemText';
-export type {ListItemTextProps} from './ListItemText';
+export * from './ListItemText';
