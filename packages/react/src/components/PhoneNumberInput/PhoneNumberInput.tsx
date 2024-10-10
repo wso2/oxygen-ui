@@ -18,7 +18,6 @@
 
 import {FlagOutlined} from '@mui/icons-material';
 import type {OverridableComponent} from '@mui/material/OverridableComponent';
-// TODO: Refactor to use the `Select` from local.
 import Select, {SelectChangeEvent, SelectProps as MuiSelectProps} from '@mui/material/Select';
 import clsx from 'clsx';
 import {forwardRef, useState} from 'react';

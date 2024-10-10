@@ -16,7 +16,6 @@
  * under the License.
  */
 
-// TODO: Wrap this component.
 import ListSubheader from '@mui/material/ListSubheader';
 import {capitalize} from '@mui/material/utils';
 import clsx from 'clsx';
