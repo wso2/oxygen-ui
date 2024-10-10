@@ -17,4 +17,4 @@
  */
 
 export {default} from './Code';
-export type {CodeProps} from './Code';
+export * from './Code';

@@ -16,22 +16,61 @@
  * under the License.
  */
 
-import MuiButton, {LoadingButtonProps as MuiButtonProps} from '@mui/lab/LoadingButton';
+import MuiButton from '@mui/lab/LoadingButton';
+import type {LoadingButtonTypeMap, LoadingButtonProps as MuiButtonProps} from '@mui/lab/LoadingButton';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './button.scss';
 
-export type ButtonProps = MuiButtonProps;
+export type ButtonProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = LoadingButtonTypeMap['defaultComponent'],
+  P = {},
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
+  component?: C;
+} & Omit<MuiButtonProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'Button';
 
-const Button: FC<ButtonProps> & WithWrapperProps = ({className, ...rest}: ButtonProps): ReactElement => {
-  const classes: string = clsx('oxygen-button', className);
+/**
+ * The Button component allow users to take actions, and make choices, with a single tap.
+ *
+ * Demos:
+ *
+ * - [Button (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-button)
+ * - [Button (MUI)](https://mui.com/material-ui/react-button/)
+ *
+ * API:
+ *
+ * - [LoadingButton API](https://mui.com/material-ui/api/loading-button/)
+ * - inherits [Button API](https://mui.com/material-ui/api/button/)
+ *
+ * @remarks
+ * - ✔️ Props of the [ButtonBase](https://mui.com/material-ui/api/button-base/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the Button component.
+ * @param ref - The ref to be forwarded to the MuiButton component.
+ * @returns The rendered Button component.
+ */
+const Button: ForwardRefExoticComponent<ButtonProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {className, children, ...rest}: ButtonProps<C>,
+    ref: MutableRefObject<HTMLButtonElement>,
+  ): ReactElement => {
+    const classes: string = clsx('oxygen-button', className);
 
-  return <MuiButton className={classes} {...rest} />;
-};
+    return <MuiButton ref={ref} className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<ButtonProps> & WithWrapperProps;
 
 Button.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Button.muiName = COMPONENT_NAME;

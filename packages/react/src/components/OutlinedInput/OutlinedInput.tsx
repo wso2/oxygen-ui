@@ -16,9 +16,11 @@
  * under the License.
  */
 
-import MuiOutlinedInput, {OutlinedInputProps as MuiOutlinedInputProps} from '@mui/material/OutlinedInput';
+import MuiOutlinedInput from '@mui/material/OutlinedInput';
+import type {OutlinedInputProps as MuiOutlinedInputProps} from '@mui/material/OutlinedInput';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './outlined-input.scss';
@@ -27,14 +29,35 @@ export type OutlinedInputProps = MuiOutlinedInputProps;
 
 const COMPONENT_NAME: string = 'OutlinedInput';
 
-const OutlinedInput: FC<OutlinedInputProps> & WithWrapperProps = ({
-  className,
-  ...rest
-}: OutlinedInputProps): ReactElement => {
-  const classes: string = clsx('oxygen-outlined-input', className);
+/**
+ * The Outlined Input component is used to render a text input field with an outlined border.
+ *
+ * Demos:
+ *
+ * - [Text Field (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-text-field)
+ * - [Text Field (MUI)](https://mui.com/material-ui/react-text-field/)
+ *
+ * API:
+ *
+ * - [OutlinedInput API](https://mui.com/material-ui/api/outlined-input/)
+ * - inherits [InputBase API](https://mui.com/material-ui/api/input-base/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @param props - The props for the OutlinedInput component.
+ * @param ref - The ref to be forwarded to the MuiOutlinedInput component.
+ * @returns The rendered OutlinedInput component.
+ */
+const OutlinedInput: ForwardRefExoticComponent<OutlinedInputProps> & WithWrapperProps = forwardRef(
+  ({className, ...rest}: OutlinedInputProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+    const classes: string = clsx('oxygen-outlined-input', className);
 
-  return <MuiOutlinedInput className={classes} {...rest} />;
-};
+    return <MuiOutlinedInput ref={ref} className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<OutlinedInputProps> & WithWrapperProps;
 
 OutlinedInput.displayName = composeComponentDisplayName(COMPONENT_NAME);
 OutlinedInput.muiName = COMPONENT_NAME;

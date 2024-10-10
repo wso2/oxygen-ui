@@ -17,28 +17,39 @@
  */
 
 import {FlagOutlined} from '@mui/icons-material';
+// TODO: Refactor to use the `Select` from local.
 import Select, {SelectChangeEvent, SelectProps as MuiSelectProps} from '@mui/material/Select';
 import clsx from 'clsx';
-import {ChangeEvent, forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement, useState} from 'react';
+import {forwardRef, useState} from 'react';
+import type {ChangeEvent, ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import Flag from 'react-world-flags';
-import {countries, Country} from './constants';
+import {countries, Country} from './constants/countries';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
-import Box, {BoxProps} from '../Box';
+import Box from '../Box';
+import type {BoxProps} from '../Box';
 import InputLabel from '../InputLabel';
+import type {InputLabelProps} from '../InputLabel';
 import ListItemIcon from '../ListItemIcon';
 import MenuItem from '../MenuItem';
-import './phone-number-input.scss';
-import OutlinedInput, {OutlinedInputProps as MuiOutlinedInputProps} from '../OutlinedInput';
+import OutlinedInput from '../OutlinedInput';
+import type {OutlinedInputProps} from '../OutlinedInput';
 import Typography from '../Typography';
+import './phone-number-input.scss';
 
-export interface PhoneNumberInputProps extends BoxProps {
+export type PhoneNumberInputProps<C extends ElementType = ElementType> = BoxProps<C> & {
+  /**
+   * Props sent to the InputLabel component.
+   *
+   * Refer props: {@link https://mui.com/material-ui/api/input-label/}
+   */
+  InputLabelProps?: InputLabelProps;
   /**
    * Props sent to the OutlinedInput component.
    *
    * Refer props: {@link https://mui.com/material-ui/api/outlined-input/}
    */
-  OutlinedInputProps?: Omit<MuiOutlinedInputProps, 'id' | 'label' | 'placeholder' | 'value' | 'type'>;
+  OutlinedInputProps?: Omit<OutlinedInputProps, 'id' | 'label' | 'placeholder' | 'value' | 'type'>;
   /**
    * Props sent to the Select component.
    *
@@ -51,6 +62,10 @@ export interface PhoneNumberInputProps extends BoxProps {
    * @example '+94'
    */
   dialCodeValue?: string;
+  /**
+   * Label for the phone number input.
+   */
+  label: string;
   /**
    * Callback function to be called when the dialCode or phoneNumber changes.
    */
@@ -65,12 +80,34 @@ export interface PhoneNumberInputProps extends BoxProps {
    * Placeholder text for the phone number input.
    */
   placeholder?: string;
-}
+};
 
 const COMPONENT_NAME: string = 'PhoneNumberInput';
 
+/**
+ * The Phone Number Input component is used to get the phone number input from the user.
+ *
+ * Demos:
+ *
+ * - [Phone Number Input (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-phone-number-input)
+ *
+ * API:
+ *
+ * - inherits [Box API](https://mui.com/material-ui/api/box/)
+ *
+ * @remarks
+ * - ✨ This is a custom component that is not available in the Material-UI library.
+ * - ✔️ Props of the [Box](https://mui.com/material-ui/api/box/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the PhoneNumberInput component.
+ * @param ref - The ref to be forwarded to the Box component.
+ * @returns The rendered PhoneNumberInput component.
+ */
 const PhoneNumberInput: ForwardRefExoticComponent<PhoneNumberInputProps> & WithWrapperProps = forwardRef(
-  (
+  <C extends ElementType>(
     {
       className,
       dialCodeValue,
@@ -82,7 +119,7 @@ const PhoneNumberInput: ForwardRefExoticComponent<PhoneNumberInputProps> & WithW
       placeholder,
       SelectProps,
       ...rest
-    }: PhoneNumberInputProps,
+    }: PhoneNumberInputProps<C>,
     ref: MutableRefObject<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-phone-number-input', className);

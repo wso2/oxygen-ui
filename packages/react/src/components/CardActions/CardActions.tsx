@@ -16,9 +16,11 @@
  * under the License.
  */
 
-import MuiCardActions, {CardActionsProps as MuiCardActionsProps} from '@mui/material/CardActions';
+import MuiCardActions from '@mui/material/CardActions';
+import type {CardActionsProps as MuiCardActionsProps} from '@mui/material/CardActions';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './card-actions.scss';
@@ -27,11 +29,35 @@ export type CardActionsProps = MuiCardActionsProps;
 
 const COMPONENT_NAME: string = 'CardActions';
 
-const CardActions: FC<CardActionsProps> & WithWrapperProps = ({className, ...rest}: CardActionsProps): ReactElement => {
-  const classes: string = clsx('oxygen-card-actions', className);
+/**
+ * The Card Actions component is an optional wrapper that groups a set of buttons.
+ *
+ * Demos:
+ *
+ * - [Card (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-card)
+ * - [Card (MUI)](https://mui.com/material-ui/react-card/)
+ *
+ * API:
+ *
+ * - [CardActions API](https://mui.com/material-ui/api/card-actions/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the CardActions component.
+ * @param ref - The ref to be forwarded to the MuiCardActions component.
+ * @returns The rendered CardActions component.
+ */
+const CardActions: ForwardRefExoticComponent<CardActionsProps> & WithWrapperProps = forwardRef(
+  ({className, ...rest}: CardActionsProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+    const classes: string = clsx('oxygen-card-actions', className);
 
-  return <MuiCardActions className={classes} {...rest} />;
-};
+    return <MuiCardActions ref={ref} className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<CardActionsProps> & WithWrapperProps;
 
 CardActions.displayName = composeComponentDisplayName(COMPONENT_NAME);
 CardActions.muiName = COMPONENT_NAME;

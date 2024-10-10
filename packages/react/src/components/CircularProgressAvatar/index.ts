@@ -17,4 +17,4 @@
  */
 
 export {default} from './CircularProgressAvatar';
-export type {CircularProgressAvatarProps} from './CircularProgressAvatar';
+export * from './CircularProgressAvatar';

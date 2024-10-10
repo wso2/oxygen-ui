@@ -16,9 +16,11 @@
  * under the License.
  */
 
-import MuiSnackbar, {SnackbarProps as MuiSnackbarProps} from '@mui/material/Snackbar';
+import MuiSnackbar from '@mui/material/Snackbar';
+import type {SnackbarProps as MuiSnackbarProps} from '@mui/material/Snackbar';
 import clsx from 'clsx';
-import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './snackbar.scss';
@@ -27,6 +29,27 @@ export type SnackbarProps = MuiSnackbarProps;
 
 const COMPONENT_NAME: string = 'Snackbar';
 
+/**
+ * The Snackbar (also known as toasts) is used for brief notifications of processes that have been or will be performed.
+ *
+ * Demos:
+ *
+ * - [Snackbar (Oxygen UI)]](https://wso2.github.io/oxygen-ui/react/?path=/docs/feedback-snackbar--overview)
+ * - [Snackbar (MUI)](https://mui.com/material-ui/react-snackbar/)
+ *
+ * API:
+ *
+ * - [Snackbar API](https://mui.com/material-ui/api/snackbar/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @param props - The props for the Snackbar component.
+ * @param ref - The ref to be forwarded to the MuiSnackbar component.
+ * @returns The rendered Snackbar component.
+ */
 const Snackbar: ForwardRefExoticComponent<SnackbarProps> & WithWrapperProps = forwardRef(
   ({className, ...rest}: SnackbarProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-snackbar', className);

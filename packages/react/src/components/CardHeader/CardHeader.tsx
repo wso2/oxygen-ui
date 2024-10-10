@@ -16,22 +16,62 @@
  * under the License.
  */
 
-import MuiCardHeader, {CardHeaderProps as MuiCardHeaderProps} from '@mui/material/CardHeader';
+import MuiCardHeader from '@mui/material/CardHeader';
+import type {CardHeaderProps as MuiCardHeaderProps, CardHeaderTypeMap} from '@mui/material/CardHeader';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './card-header.scss';
 
-export type CardHeaderProps = MuiCardHeaderProps;
+export type CardHeaderProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = CardHeaderTypeMap['defaultComponent'],
+  P = {},
+  T extends ElementType = 'span',
+  S extends ElementType = 'span',
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
+  component?: C;
+} & Omit<MuiCardHeaderProps<D, P, T, S>, 'component'>;
 
 const COMPONENT_NAME: string = 'CardHeader';
 
-const CardHeader: FC<CardHeaderProps> & WithWrapperProps = ({className, ...rest}: CardHeaderProps): ReactElement => {
-  const classes: string = clsx('oxygen-card-header', className);
+/**
+ * The Card Header component is an optional wrapper for the Card header.
+ *
+ * Demos:
+ *
+ * - [Card (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-card)
+ * - [Card (MUI)](https://mui.com/material-ui/react-card/)
+ *
+ * API:
+ *
+ * - [CardHeader API](https://mui.com/material-ui/api/card-header/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the CardHeader component.
+ * @param ref - The ref to be forwarded to the MuiCardHeader component.
+ * @returns The rendered CardHeader component.
+ */
+const CardHeader: ForwardRefExoticComponent<CardHeaderProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType>(
+    {className, ...rest}: CardHeaderProps<C>,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
+    const classes: string = clsx('oxygen-card-header', className);
 
-  return <MuiCardHeader className={classes} {...rest} />;
-};
+    return <MuiCardHeader ref={ref} className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<CardHeaderProps> & WithWrapperProps;
 
 CardHeader.displayName = composeComponentDisplayName(COMPONENT_NAME);
 CardHeader.muiName = COMPONENT_NAME;

@@ -16,26 +16,35 @@
  * under the License.
  */
 
-import {ListItemAvatar, ListSubheader, Radio} from '@mui/material';
+// TODO: Wrap this component.
+import ListSubheader from '@mui/material/ListSubheader';
 import {capitalize} from '@mui/material/utils';
 import clsx from 'clsx';
-import {FC, MouseEvent, ReactElement, ReactNode, useState} from 'react';
+import {forwardRef, useState} from 'react';
+import type {
+  ElementType,
+  ForwardRefExoticComponent,
+  MouseEvent,
+  MutableRefObject,
+  ReactElement,
+  ReactNode,
+} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Avatar from '../Avatar';
 import Button, {ButtonProps} from '../Button';
 import Divider from '../Divider';
 import ListItem from '../ListItem';
+import ListItemAvatar from '../ListItemAvatar';
 import ListItemIcon from '../ListItemIcon';
 import ListItemText from '../ListItemText';
-import Menu, {MenuProps} from '../Menu';
+import Menu from '../Menu';
+import type {MenuProps} from '../Menu';
 import MenuItem from '../MenuItem';
+import Radio from '../Radio';
 import './user-dropdown-menu.scss';
 
-/**
- * Interface for the Button Dropdown Menu component props.
- */
-export interface UserDropdownMenuProps extends Omit<MenuProps, 'open' | 'anchorEl'> {
+export type UserDropdownMenuProps<C extends ElementType = ElementType> = Omit<MenuProps<C>, 'open' | 'anchorEl'> & {
   /**
    * List item icon.
    */
@@ -84,9 +93,9 @@ export interface UserDropdownMenuProps extends Omit<MenuProps, 'open' | 'anchorE
    * Logged user information.
    */
   user?: UserTemplate;
-}
+};
 
-export interface ModeList {
+export type ModeList = {
   /**
    * Icon of the mode.
    */
@@ -95,9 +104,9 @@ export interface ModeList {
    * Display name of the mode.
    */
   name: string;
-}
+};
 
-export interface UserTemplate {
+export type UserTemplate = {
   /**
    * Email of logged user.
    */
@@ -110,140 +119,167 @@ export interface UserTemplate {
    * Display name of logged user.
    */
   name?: string;
-}
+};
 
 const COMPONENT_NAME: string = 'UserDropdownMenu';
 
-const UserDropdownMenu: FC<UserDropdownMenuProps> & WithWrapperProps = ({
-  className,
-  children,
-  footerContent,
-  triggerOptions,
-  user,
-  modes,
-  mode,
-  onUserProfileNavigation,
-  modesHeading,
-  actionText,
-  actionIcon,
-  onModeChange,
-  onActionTrigger,
-  menuItems,
-  ...rest
-}: UserDropdownMenuProps & WithWrapperProps) => {
-  const classes: string = clsx('oxygen-user-dropdown-menu', className);
+/**
+ * The User Dropdown Menu lets you display a dropdown menu with user information and actions.
+ *
+ * Demos:
+ *
+ * - [UserDropdownMenu (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-image)
+ *
+ * API:
+ *
+ * - inherits [Menu API](https://mui.com/material-ui/api/menu/)
+ *
+ * @remarks
+ * - ✨ This is a custom component that is not available in the Material-UI library.
+ * - ✔️ Props of the native component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @param props - The props for the UserDropdownMenu component.
+ * @param ref - The ref to be forwarded to the Menu component.
+ * @returns The rendered UserDropdownMenu component.
+ */
+const UserDropdownMenu: ForwardRefExoticComponent<UserDropdownMenuProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {
+      className,
+      children,
+      footerContent,
+      triggerOptions,
+      user,
+      modes,
+      mode,
+      onUserProfileNavigation,
+      modesHeading,
+      actionText,
+      actionIcon,
+      onModeChange,
+      onActionTrigger,
+      menuItems,
+      ...rest
+    }: UserDropdownMenuProps<C>,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
+    const classes: string = clsx('oxygen-user-dropdown-menu', className);
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const openMenu: boolean = Boolean(anchorEl);
+    const openMenu: boolean = Boolean(anchorEl);
 
-  const handleModeChange = (selectedMode: string): void => {
-    onModeChange(selectedMode);
-  };
+    const handleModeChange = (selectedMode: string): void => {
+      onModeChange(selectedMode);
+    };
 
-  const onCloseMenu = (): void => {
-    setAnchorEl(null);
-  };
+    const onCloseMenu = (): void => {
+      setAnchorEl(null);
+    };
 
-  const handleUserProfileNavigation = (): void => {
-    onCloseMenu();
-    if (onUserProfileNavigation) {
-      onUserProfileNavigation();
-    }
-  };
+    const handleUserProfileNavigation = (): void => {
+      onCloseMenu();
+      if (onUserProfileNavigation) {
+        onUserProfileNavigation();
+      }
+    };
 
-  const handleActionTrigger = (): void => {
-    onCloseMenu();
-    if (onActionTrigger) {
-      onActionTrigger();
-    }
-  };
+    const handleActionTrigger = (): void => {
+      onCloseMenu();
+      if (onActionTrigger) {
+        onActionTrigger();
+      }
+    };
 
-  const handleOpenUserMenu = (event: MouseEvent<HTMLElement>): void => {
-    setAnchorEl(event.currentTarget);
-  };
+    const handleOpenUserMenu = (event: MouseEvent<HTMLElement>): void => {
+      setAnchorEl(event.currentTarget);
+    };
 
-  return (
-    <>
-      <Button
-        aria-controls={openMenu ? 'oxygen-button-menu' : undefined}
-        aria-haspopup="true"
-        onClick={handleOpenUserMenu}
-        {...triggerOptions}
-      />
-      <Menu
-        open={openMenu}
-        anchorEl={anchorEl}
-        className={classes}
-        id="oxygen-button-menu"
-        onClose={onCloseMenu}
-        PaperProps={{className: 'oxygen-user-dropdown-menu-paper'}}
-        {...rest}
-      >
-        {children}
-        {user && (
-          <ListItem
-            className={clsx('oxygen-user-dropdown-menu-list-item', {
-              clickable: onUserProfileNavigation,
-            })}
-            onClick={(): void => handleUserProfileNavigation()}
-          >
-            <ListItemAvatar>
-              <Avatar
-                src={user?.image}
-                alt="User"
-                randomBackgroundColor={!user?.image}
-                backgroundColorRandomizer={user?.name}
-              >
-                {user?.name?.split('')[0]}
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={user?.name} secondary={user?.email} />
-          </ListItem>
-        )}
-        {menuItems?.length > 0 ? menuItems : null}
-        {modes?.length > 0 && (
-          <div>
-            <ListSubheader>{modesHeading}</ListSubheader>
-            {modes?.map((theme: ModeList) => {
-              const {name, icon} = theme;
-              return (
-                <MenuItem
-                  className="oxygen-user-dropdown-menu-item"
-                  key={name}
-                  onClick={(): void => handleModeChange(name)}
+    return (
+      <>
+        <Button
+          aria-controls={openMenu ? 'oxygen-button-menu' : undefined}
+          aria-haspopup="true"
+          onClick={handleOpenUserMenu}
+          {...triggerOptions}
+        />
+        <Menu
+          ref={ref}
+          open={openMenu}
+          anchorEl={anchorEl}
+          className={classes}
+          id="oxygen-button-menu"
+          onClose={onCloseMenu}
+          PaperProps={{className: 'oxygen-user-dropdown-menu-paper'}}
+          {...rest}
+        >
+          {children}
+          {user && (
+            <ListItem
+              className={clsx('oxygen-user-dropdown-menu-list-item', {
+                clickable: onUserProfileNavigation,
+              })}
+              onClick={(): void => handleUserProfileNavigation()}
+            >
+              <ListItemAvatar>
+                <Avatar
+                  src={user?.image}
+                  alt="User"
+                  randomBackgroundColor={!user?.image}
+                  backgroundColorRandomizer={user?.name}
                 >
-                  <ListItemIcon>{icon}</ListItemIcon>
-                  <ListItemText primary={capitalize(name)} />
-                  <Radio
-                    className="oxygen-user-dropdown-menu-item-radio"
-                    checked={mode === name}
-                    onChange={(): void => handleModeChange(name)}
-                    value={name}
-                    name="radio-buttons"
-                    inputProps={{'aria-label': `mode-label-${name}`}}
-                  />
-                </MenuItem>
-              );
-            })}
-          </div>
-        )}
-        {actionText && (
-          <MenuItem className="dropdown-menu-item" onClick={(): void => handleActionTrigger()}>
-            <ListItemIcon>{actionIcon}</ListItemIcon>
-            <ListItemText primary={actionText} />
-          </MenuItem>
-        )}
-        {footerContent && (
-          <>
-            <Divider variant="middle" />
-            <div className="oxygen-user-dropdown-menu-footer">{footerContent}</div>
-          </>
-        )}
-      </Menu>
-    </>
-  );
-};
+                  {user?.name?.split('')[0]}
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={user?.name} secondary={user?.email} />
+            </ListItem>
+          )}
+          {menuItems?.length > 0 ? menuItems : null}
+          {modes?.length > 0 && (
+            <div>
+              <ListSubheader>{modesHeading}</ListSubheader>
+              {modes?.map((theme: ModeList) => {
+                const {name, icon} = theme;
+                return (
+                  <MenuItem
+                    className="oxygen-user-dropdown-menu-item"
+                    key={name}
+                    onClick={(): void => handleModeChange(name)}
+                  >
+                    <ListItemIcon>{icon}</ListItemIcon>
+                    <ListItemText primary={capitalize(name)} />
+                    <Radio
+                      className="oxygen-user-dropdown-menu-item-radio"
+                      checked={mode === name}
+                      onChange={(): void => handleModeChange(name)}
+                      value={name}
+                      name="radio-buttons"
+                      inputProps={{'aria-label': `mode-label-${name}`}}
+                    />
+                  </MenuItem>
+                );
+              })}
+            </div>
+          )}
+          {actionText && (
+            <MenuItem className="dropdown-menu-item" onClick={(): void => handleActionTrigger()}>
+              <ListItemIcon>{actionIcon}</ListItemIcon>
+              <ListItemText primary={actionText} />
+            </MenuItem>
+          )}
+          {footerContent && (
+            <>
+              <Divider variant="middle" />
+              <div className="oxygen-user-dropdown-menu-footer">{footerContent}</div>
+            </>
+          )}
+        </Menu>
+      </>
+    );
+  },
+) as ForwardRefExoticComponent<UserDropdownMenuProps> & WithWrapperProps;
 
 UserDropdownMenu.displayName = composeComponentDisplayName(COMPONENT_NAME);
 UserDropdownMenu.muiName = COMPONENT_NAME;

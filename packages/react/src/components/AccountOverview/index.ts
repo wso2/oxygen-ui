@@ -17,4 +17,4 @@
  */
 
 export {default} from './AccountOverview';
-export type {AccountOverviewProps} from './AccountOverview';
+export * from './AccountOverview';

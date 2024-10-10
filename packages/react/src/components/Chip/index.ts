@@ -17,4 +17,11 @@
  */
 
 export {default} from './Chip';
-export type {ChipProps} from './Chip';
+export * from './Chip';
+
+export type {
+  ChipPropsVariantOverrides,
+  ChipPropsSizeOverrides,
+  ChipPropsColorOverrides,
+  ChipTypeMap,
+} from '@mui/material/Chip';

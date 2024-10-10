@@ -17,19 +17,27 @@
  */
 
 import clsx from 'clsx';
-import {FC, ReactElement, ReactNode} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement, ReactNode} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
-import Card, {CardProps} from '../Card';
-import CardHeader, {CardHeaderProps} from '../CardHeader';
-import Carousel, {CarouselStep} from '../Carousel';
+import Card from '../Card';
+import type {CardProps, CardTypeMap} from '../Card';
+import CardHeader from '../CardHeader';
+import type {CardHeaderProps} from '../CardHeader';
+import Carousel from '../Carousel';
+import type {CarouselStep} from '../Carousel';
 import CircularProgressAvatar from '../CircularProgressAvatar';
 import Divider from '../Divider';
-import {UserTemplate} from '../UserDropdownMenu';
+import type {UserTemplate} from '../UserDropdownMenu';
 import './account-overview.scss';
 
-export interface AccountOverviewProps extends Omit<CardProps, 'title'> {
+export type AccountOverviewProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = CardTypeMap['defaultComponent'],
+  P = {},
+> = Omit<CardProps<C, D, P>, 'title'> & {
   /**
    * Account completion steps.
    */
@@ -60,49 +68,77 @@ export interface AccountOverviewProps extends Omit<CardProps, 'title'> {
    * Logged user information.
    */
   user: UserTemplate;
-}
+};
 
 export type AccountCompletionSteps = CarouselStep;
 
 const COMPONENT_NAME: string = 'AccountOverview';
 
-const AccountOverview: FC<AccountOverviewProps> & WithWrapperProps = ({
-  className,
-  title,
-  subheader,
-  accountCompletionStepsTitle,
-  accountCompletionSteps,
-  accountProgress,
-  user,
-  cardHeaderProps,
-  ...rest
-}: AccountOverviewProps): ReactElement => {
-  const classes: string = clsx('oxygen-account-overview', className);
+/**
+ * The Account Overview component lets you display the progress of the user's account.
+ * It includes the user's profile picture, name, email, account progress and account completion steps.
+ *
+ * Demos:
+ *
+ * - [Account Overview (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/patterns-account-overview)
+ *
+ * API:
+ *
+ * - inherits [Card API](https://mui.com/material-ui/api/card/)
+ *
+ * @remarks
+ * - ✨ This is a custom component that is not available in the Material-UI library.
+ * - ✔️ Props of the [Paper](https://mui.com/material-ui/api/card/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the AccountOverview component.
+ * @param ref - The ref to be forwarded to the Card component.
+ * @returns The rendered AccountOverview component.
+ */
+const AccountOverview: ForwardRefExoticComponent<AccountOverviewProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {
+      className,
+      title,
+      subheader,
+      accountCompletionStepsTitle,
+      accountCompletionSteps,
+      accountProgress,
+      user,
+      cardHeaderProps,
+      ...rest
+    }: AccountOverviewProps<C>,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
+    const classes: string = clsx('oxygen-account-overview', className);
 
-  return (
-    <Card className={classes} elevation={0} variant="outlined" {...rest}>
-      <CardHeader
-        avatar={
-          <CircularProgressAvatar
-            color={accountProgress < 100 ? 'warning' : 'success'}
-            progress={accountProgress}
-            avatarOptions={{alt: "User's avatar", src: user?.image}}
-            badgeOptions={{badgeContent: `${accountProgress}%`, color: accountProgress < 100 ? 'warning' : 'success'}}
-          />
-        }
-        title={title}
-        subheader={subheader}
-        {...cardHeaderProps}
-      />
-      {accountCompletionSteps && (
-        <Box className="oxygen-account-completion-steps-box">
-          <Divider />
-          <Carousel title={accountCompletionStepsTitle} steps={accountCompletionSteps} />
-        </Box>
-      )}
-    </Card>
-  );
-};
+    return (
+      <Card ref={ref} className={classes} elevation={0} variant="outlined" {...rest}>
+        <CardHeader
+          avatar={
+            <CircularProgressAvatar
+              color={accountProgress < 100 ? 'warning' : 'success'}
+              progress={accountProgress}
+              avatarOptions={{alt: "User's avatar", src: user?.image}}
+              badgeOptions={{badgeContent: `${accountProgress}%`, color: accountProgress < 100 ? 'warning' : 'success'}}
+            />
+          }
+          title={title}
+          subheader={subheader}
+          {...cardHeaderProps}
+        />
+        {accountCompletionSteps && (
+          <Box className="oxygen-account-completion-steps-box">
+            <Divider />
+            <Carousel title={accountCompletionStepsTitle} steps={accountCompletionSteps} />
+          </Box>
+        )}
+      </Card>
+    );
+  },
+) as ForwardRefExoticComponent<AccountOverviewProps> & WithWrapperProps;
 
 AccountOverview.displayName = composeComponentDisplayName(COMPONENT_NAME);
 AccountOverview.muiName = COMPONENT_NAME;

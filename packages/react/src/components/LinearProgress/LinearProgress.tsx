@@ -16,9 +16,11 @@
  * under the License.
  */
 
-import MuiLinearProgress, {LinearProgressProps as MuiLinearProgressProps} from '@mui/material/LinearProgress';
+import MuiLinearProgress from '@mui/material/LinearProgress';
+import type {LinearProgressProps as MuiLinearProgressProps} from '@mui/material/LinearProgress';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -26,14 +28,35 @@ export type LinearProgressProps = MuiLinearProgressProps;
 
 const COMPONENT_NAME: string = 'LinearProgress';
 
-const LinearProgress: FC<LinearProgressProps> & WithWrapperProps = ({
-  className,
-  ...rest
-}: LinearProgressProps): ReactElement => {
-  const classes: string = clsx('oxygen-linear-progress', className);
+/**
+ * The Linear Progress component is used to show the progress of a task in a linear fashion.
+ *
+ * Demos:
+ *
+ * TODO: Merge two progress components into one.
+ * - [Progress (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/feedback-circular-progress)
+ * - [Progress (MUI)](https://mui.com/material-ui/react-progress/)
+ *
+ * API:
+ *
+ * - [LinearProgress API](https://mui.com/material-ui/api/linear-progress/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @param props - The props for the LinearProgress component.
+ * @param ref - The ref to be forwarded to the MuiLinearProgress component.
+ * @returns The rendered LinearProgress component.
+ */
+const LinearProgress: ForwardRefExoticComponent<LinearProgressProps> & WithWrapperProps = forwardRef(
+  ({className, ...rest}: LinearProgressProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+    const classes: string = clsx('oxygen-linear-progress', className);
 
-  return <MuiLinearProgress aria-label="progress-bar" className={classes} {...rest} />;
-};
+    return <MuiLinearProgress ref={ref} aria-label="progress-bar" className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<LinearProgressProps> & WithWrapperProps;
 
 LinearProgress.displayName = composeComponentDisplayName(COMPONENT_NAME);
 LinearProgress.muiName = COMPONENT_NAME;

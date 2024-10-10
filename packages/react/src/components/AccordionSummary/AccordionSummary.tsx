@@ -16,21 +16,61 @@
  * under the License.
  */
 
-import MuiAccordionSummary, {AccordionSummaryProps as MuiAccordionSummaryProps} from '@mui/material/AccordionSummary';
+import MuiAccordionSummary from '@mui/material/AccordionSummary';
+import type {
+  AccordionSummaryProps as MuiAccordionSummaryProps,
+  AccordionSummaryTypeMap,
+} from '@mui/material/AccordionSummary';
 import clsx from 'clsx';
-import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
-export type AccordionSummaryProps = MuiAccordionSummaryProps;
+export type AccordionSummaryProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = AccordionSummaryTypeMap['defaultComponent'],
+  P = {},
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
+  component?: C;
+} & Omit<MuiAccordionSummaryProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'AccordionSummary';
 
+/**
+ * The Accordion Summary component is the wrapper for the Accordion header, which expands or collapses the content when clicked.
+ *
+ * Demos:
+ *
+ * - [Accordion (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-accordion)
+ * - [Accordion (MUI)](https://mui.com/material-ui/react-accordion/)
+ *
+ * API:
+ *
+ * - [AccordionSummary API](https://mui.com/material-ui/api/accordion-summary/)
+ * - inherits [ButtonBase API](https://mui.com/material-ui/api/button-base/)
+ *
+ * @remarks
+ * - ✔️ Props of the [ButtonBase](https://mui.com/material-ui/api/button-base/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the AccordionSummary component.
+ * @param ref - The ref to be forwarded to the MuiAccordionSummary component.
+ * @returns The rendered AccordionSummary component.
+ */
 const AccordionSummary: ForwardRefExoticComponent<AccordionSummaryProps> & WithWrapperProps = forwardRef(
-  ({className, ...rest}: AccordionSummaryProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+  <C extends ElementType = ElementType>(
+    {className, ...rest}: AccordionSummaryProps<C>,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-accordion-summary', className);
 
-    return <MuiAccordionSummary className={classes} {...rest} ref={ref} />;
+    return <MuiAccordionSummary ref={ref} className={classes} {...rest} />;
   },
 ) as ForwardRefExoticComponent<AccordionSummaryProps> & WithWrapperProps;
 

@@ -16,23 +16,23 @@
  * under the License.
  */
 
-import InputAdornment from '@mui/material/InputAdornment';
-import MuiTextField, {TextFieldProps as MuiTextFieldProps} from '@mui/material/TextField';
+import MuiTextField from '@mui/material/TextField';
+import type {TextFieldProps as MuiTextFieldProps} from '@mui/material/TextField';
 import {CircleDotIcon, EyeIcon, EyeSlashIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
-import {
-  forwardRef,
+import {forwardRef, useState} from 'react';
+import type {
+  ElementType,
   ForwardRefExoticComponent,
   MouseEvent,
   MutableRefObject,
   ReactElement,
   ReactNode,
-  useState,
 } from 'react';
-import {TextFieldInputTypes} from './constants';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import IconButton from '../IconButton';
+import InputAdornment from '../InputAdornment';
 import InputLabel from '../InputLabel';
 import List from '../List';
 import ListItem from '../ListItem';
@@ -41,17 +41,29 @@ import ListItemText from '../ListItemText';
 import Tooltip from '../Tooltip';
 import './text-field.scss';
 
-export type TextFieldProps = {
+export enum TextFieldInputTypes {
+  INPUT_PASSWORD = 'password',
+  INPUT_TEXT = 'text',
+}
+
+export type TextFieldProps<C extends ElementType = ElementType> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
+  component?: C;
   /**
    * Criteria for user input.
    */
   criteria?: string[];
-} & MuiTextFieldProps;
+} & Omit<MuiTextFieldProps, 'component'>;
 
 const COMPONENT_NAME: string = 'TextField';
 
-const PasswordField: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
-  ({type, ...rest}: TextFieldProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+const PasswordField: ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {type, variant, ...rest}: TextFieldProps<C>,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleClickShowPassword = (): void => setShowPassword((show: boolean) => !show);
@@ -78,14 +90,18 @@ const PasswordField: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
             </InputAdornment>
           ),
         }}
+        variant={variant}
         {...rest}
       />
     );
   },
-) as ForwardRefExoticComponent<TextFieldProps>;
+) as ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps;
 
-const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
-  ({criteria, id, type, ...rest}: TextFieldProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {criteria, id, type, ...rest}: TextFieldProps<C>,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
     const [openPasswordCriteriaTooltip, setOpenPasswordCriteriaTooltip] = useState<boolean>(false);
 
     const handleClick = (): void => {
@@ -123,7 +139,6 @@ const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> = for
         open={openPasswordCriteriaTooltip}
         title={renderCriteriaTooltipContent()}
         classes={{arrow: 'oxygen-text-field-tooltip-arrow', tooltip: 'oxygen-text-field-tooltip'}}
-        ref={ref}
       >
         <PasswordField
           ref={ref}
@@ -137,11 +152,36 @@ const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> = for
       </Tooltip>
     );
   },
-) as ForwardRefExoticComponent<TextFieldProps>;
+) as ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps;
 
+/**
+ * The Text Fields let users enter and edit text..
+ *
+ * Demos:
+ *
+ * - [Autocomplete (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-autocomplete)
+ * - [Autocomplete (MUI)](https://mui.com/material-ui/react-autocomplete/)
+ * - [Text Field (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-text-field)
+ * - [Text Field (MUI)](https://mui.com/material-ui/react-text-field/)
+ *
+ * API:
+ *
+ * - [TextField API](https://mui.com/material-ui/api/text-field/)
+ * - inherits [FormControl API](https://mui.com/material-ui/api/form-control/)
+ *
+ * @remarks
+ * - ✔️ Props of the [FormControl](https://mui.com/material-ui/api/form-control/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the TextField component.
+ * @param ref - The ref to be forwarded to the MuiTextField component.
+ * @returns The rendered TextField component.
+ */
 const TextField: ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps = forwardRef(
-  (
-    {className, id, label, type, InputLabelProps, ...rest}: TextFieldProps,
+  <C extends ElementType = ElementType>(
+    {className, id, label, type, InputLabelProps, variant, ...rest}: TextFieldProps<C>,
     ref: MutableRefObject<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-text-field', className);
@@ -152,9 +192,9 @@ const TextField: ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps = 
           {label}
         </InputLabel>
         {type === TextFieldInputTypes.INPUT_PASSWORD ? (
-          <PasswordFieldWithCriteria id={id} type={type} {...rest} ref={ref} />
+          <PasswordFieldWithCriteria ref={ref} id={id} variant={variant} type={type} {...rest} />
         ) : (
-          <MuiTextField id={id} type={type} {...rest} ref={ref} />
+          <MuiTextField ref={ref} id={id} variant={variant} type={type} {...rest} />
         )}
       </div>
     );

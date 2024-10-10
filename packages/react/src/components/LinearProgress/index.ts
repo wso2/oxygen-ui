@@ -17,4 +17,6 @@
  */
 
 export {default} from './LinearProgress';
-export type {LinearProgressProps} from './LinearProgress';
+export * from './LinearProgress';
+
+export {LinearProgressPropsColorOverrides} from '@mui/material/LinearProgress';

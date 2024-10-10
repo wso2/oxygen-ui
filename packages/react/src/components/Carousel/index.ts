@@ -17,5 +17,4 @@
  */
 
 export {default} from './Carousel';
-export type {CarouselProps} from './Carousel';
-export type {CarouselStep} from './Carousel';
+export * from './Carousel';

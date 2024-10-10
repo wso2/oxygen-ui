@@ -16,16 +16,24 @@
  * under the License.
  */
 
-import {Badge, BadgeProps, CircularProgress, CircularProgressProps} from '@mui/material';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
-import Avatar, {AvatarProps} from '../Avatar';
+import Avatar from '../Avatar';
+import type {AvatarProps} from '../Avatar';
+import type {BadgeProps} from '../Badge';
+import Badge from '../Badge';
 import Box from '../Box';
+import type {CircularProgressProps} from '../CircularProgress';
+import CircularProgress from '../CircularProgress';
 import './circular-progress-avatar.scss';
 
-export interface CircularProgressAvatarProps extends Omit<CircularProgressProps, 'value'> {
+export type CircularProgressAvatarProps<C extends ElementType = ElementType> = Omit<
+  CircularProgressProps<C>,
+  'value'
+> & {
   /**
    * Props sent to the Avatar component.
    */
@@ -38,51 +46,73 @@ export interface CircularProgressAvatarProps extends Omit<CircularProgressProps,
    * Value prop sent to CircularProgress component.
    */
   progress?: number;
-}
+};
 
 const COMPONENT_NAME: string = 'CircularProgressAvatar';
 
-const CircularProgressAvatar: FC<CircularProgressAvatarProps> & WithWrapperProps = ({
-  className,
-  progress,
-  badgeOptions,
-  avatarOptions,
-  ...rest
-}: CircularProgressAvatarProps): ReactElement => {
-  const classes: string = clsx('oxygen-circular-progress-avatar', className);
+/**
+ * The Circular Progress Avatar is a Avatar variant with a circular progress and a badge.
+ *
+ * Demos:
+ *
+ * // TODO: Move this demo to the Progress demo.
+ * - [Circular Progress Avatar (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-circular-progress-avatar)
+ *
+ * API:
+ *
+ * - [CircularProgress API](https://mui.com/material-ui/api/circular-progress/)
+ *
+ * @remarks
+ * - ✨ This is a custom component that is not available in the Material-UI library.
+ * - ✔️ Props of the native component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the CircularProgressAvatar component.
+ * @param ref - The ref to be forwarded to the Box component.
+ * @returns The rendered CircularProgressAvatar component.
+ */
+const CircularProgressAvatar: ForwardRefExoticComponent<CircularProgressAvatarProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType>(
+    {className, progress, badgeOptions, avatarOptions, ...rest}: CircularProgressAvatarProps<C>,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
+    const classes: string = clsx('oxygen-circular-progress-avatar', className);
 
-  return (
-    <Box className={classes} role="presentation">
-      <Badge
-        className="oxygen-badge"
-        overlap="circular"
-        anchorOrigin={{
-          horizontal: 'left',
-          vertical: 'bottom',
-        }}
-        {...badgeOptions}
-      >
-        <Avatar {...avatarOptions} />
-        <CircularProgress
-          aria-label="progress"
-          size={90}
-          className="oxygen-circular-progress"
-          variant="determinate"
-          value={progress}
-          {...rest}
-        />
-        <CircularProgress
-          aria-label="progress"
-          size={90}
-          className="oxygen-circular-progress frame"
-          variant="determinate"
-          value={100}
-          {...rest}
-        />
-      </Badge>
-    </Box>
-  );
-};
+    return (
+      <Box ref={ref} className={classes} role="presentation">
+        <Badge
+          className="oxygen-badge"
+          overlap="circular"
+          anchorOrigin={{
+            horizontal: 'left',
+            vertical: 'bottom',
+          }}
+          {...badgeOptions}
+        >
+          <Avatar {...avatarOptions} />
+          <CircularProgress
+            aria-label="progress"
+            size={90}
+            className="oxygen-circular-progress"
+            variant="determinate"
+            value={progress}
+            {...rest}
+          />
+          <CircularProgress
+            aria-label="progress"
+            size={90}
+            className="oxygen-circular-progress frame"
+            variant="determinate"
+            value={100}
+            {...rest}
+          />
+        </Badge>
+      </Box>
+    );
+  },
+) as ForwardRefExoticComponent<CircularProgressAvatarProps> & WithWrapperProps;
 
 CircularProgressAvatar.displayName = composeComponentDisplayName(COMPONENT_NAME);
 CircularProgressAvatar.muiName = COMPONENT_NAME;

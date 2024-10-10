@@ -16,19 +16,47 @@
  * under the License.
  */
 
-import MuiAutocomplete, {AutocompleteProps as MuiAutocompleteProps} from '@mui/material/Autocomplete';
+import MuiAutocomplete from '@mui/material/Autocomplete';
+import type {AutocompleteProps as MuiAutocompleteProps} from '@mui/material/Autocomplete';
 import clsx from 'clsx';
-import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
+import type {ChipTypeMap} from '../Chip';
 import './autocomplete.scss';
 
-export type AutocompleteProps<T> = MuiAutocompleteProps<T, boolean, boolean, boolean>;
+export type AutocompleteProps<
+  T,
+  Multiple extends boolean | undefined = boolean | undefined,
+  DisableClearable extends boolean | undefined = boolean | undefined,
+  FreeSolo extends boolean | undefined = boolean | undefined,
+  ChipComponent extends React.ElementType = ChipTypeMap['defaultComponent'],
+> = MuiAutocompleteProps<T, Multiple, DisableClearable, FreeSolo, ChipComponent>;
 
 const COMPONENT_NAME: string = 'Autocomplete';
 
 /**
- * @remarks `any` is used as the generic type for the props because the generic type is not used in the component.
+ * The Autocomplete is a normal text input enhanced by a panel of suggested options.
+ *
+ * Demos:
+ *
+ * - [Autocomplete (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-autocomplete)
+ * - [Autocomplete (MUI)](https://mui.com/material-ui/react-autocomplete/)
+ *
+ * API:
+ *
+ * - [Autocomplete API](https://mui.com/material-ui/api/autocomplete/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ❌ The component cannot hold a `ref`.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the Accordion component.
+ * @param ref - The ref to be forwarded to the MuiAccordion component.
+ * @returns The rendered Accordion component.
  */
 const Autocomplete: ForwardRefExoticComponent<AutocompleteProps<any>> & WithWrapperProps = forwardRef(
   ({className, ...rest}: AutocompleteProps<any>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {

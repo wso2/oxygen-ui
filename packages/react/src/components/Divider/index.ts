@@ -17,4 +17,6 @@
  */
 
 export {default} from './Divider';
-export type {DividerProps} from './Divider';
+export * from './Divider';
+
+export type {DividerPropsVariantOverrides, DividerTypeMap} from '@mui/material/Divider';

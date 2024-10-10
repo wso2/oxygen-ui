@@ -16,22 +16,55 @@
  * under the License.
  */
 
-import MuiAlert, {AlertProps as MuiAlertProps} from '@mui/material/Alert';
+import MuiAlert from '@mui/material/Alert';
+import type {AlertProps as MuiAlertProps} from '@mui/material/Alert';
 import clsx from 'clsx';
-import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './alert.scss';
 
-export type AlertProps = MuiAlertProps;
+export type AlertProps<C extends ElementType = ElementType> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
+  component?: C;
+} & Omit<MuiAlertProps, 'component'>;
 
 const COMPONENT_NAME: string = 'Alert';
 
+/**
+ * The Alert component display brief messages for the user without interrupting their use of the app.
+ *
+ * Demos:
+ *
+ * - [Alert (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/feedback-alert)
+ * - [Alert (MUI)](https://mui.com/material-ui/react-alert/)
+ *
+ * API:
+ *
+ * - [Alert API](https://mui.com/material-ui/api/alert/)
+ * - inherits [Paper API](https://mui.com/material-ui/api/paper/)
+ *
+ * @remarks
+ * - ✔️ Props of the [Paper](https://mui.com/material-ui/api/paper/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the Alert component.
+ * @param ref - The ref to be forwarded to the MuiAlert component.
+ * @returns The rendered Alert component.
+ */
 const Alert: ForwardRefExoticComponent<AlertProps> & WithWrapperProps = forwardRef(
-  ({className, ...rest}: AlertProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+  <C extends ElementType = ElementType>(
+    {className, ...rest}: AlertProps<C>,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-alert', className);
 
-    return <MuiAlert className={classes} {...rest} ref={ref} />;
+    return <MuiAlert ref={ref} className={classes} {...rest} />;
   },
 ) as ForwardRefExoticComponent<AlertProps> & WithWrapperProps;
 

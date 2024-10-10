@@ -17,4 +17,6 @@
  */
 
 export {default} from './Avatar';
-export type {AvatarProps} from './Avatar';
+export * from './Avatar';
+
+export type {AvatarPropsVariantOverrides, AvatarTypeMap} from '@mui/material/Avatar';

@@ -20,22 +20,25 @@ import {useColorScheme} from '@mui/material/styles';
 import {Mode} from '@mui/system/cssVars/useCurrentColorScheme';
 import {ChevronDownIcon, BarsIcon, ArrowRightToBracketIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
-import {FC, ReactElement, ReactNode} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement, ReactNode} from 'react';
 import {useIsMobile} from '../../hooks/use-is-mobile';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
-import './header.scss';
-import AppBar, {AppBarProps} from '../AppBar';
+import AppBar from '../AppBar';
+import type {AppBarProps} from '../AppBar';
 import Avatar from '../Avatar';
 import Box from '../Box';
-import {ButtonProps} from '../Button';
+import type {ButtonProps} from '../Button';
 import IconButton from '../IconButton';
 import Link from '../Link';
 import Toolbar from '../Toolbar';
 import Typography from '../Typography';
-import UserDropdownMenu, {ModeList, UserTemplate} from '../UserDropdownMenu';
+import UserDropdownMenu from '../UserDropdownMenu';
+import type {ModeList, UserTemplate} from '../UserDropdownMenu';
+import './header.scss';
 
-export interface HeaderProps extends AppBarProps {
+export type HeaderProps<C extends ElementType = ElementType> = AppBarProps<C> & {
   /**
    * Brand information.
    */
@@ -74,9 +77,9 @@ export interface HeaderProps extends AppBarProps {
    * Props to modify the action menu item in the user dropdown menu.
    */
   userDropdownMenu?: UserDropdownMenuHeaderProps;
-}
+};
 
-export interface UserDropdownMenuHeaderProps {
+export type UserDropdownMenuHeaderProps = {
   /**
    * Action icon for the user dropdown menu.
    */
@@ -98,9 +101,9 @@ export interface UserDropdownMenuHeaderProps {
    */
   onActionClick?: () => void;
   triggerOptions?: Omit<ButtonProps, 'onClick'> & Record<string, any>;
-}
+};
 
-export interface BrandTemplate {
+export type BrandTemplate = {
   /**
    * Logo for the brand template.
    */
@@ -122,7 +125,7 @@ export interface BrandTemplate {
    * Title of the brand, portal name or company.
    */
   title?: ReactNode;
-}
+};
 
 const userDropdownMenuDefaultProps: UserDropdownMenuHeaderProps = {
   actionIcon: <ArrowRightToBracketIcon />,
@@ -132,119 +135,147 @@ const userDropdownMenuDefaultProps: UserDropdownMenuHeaderProps = {
 
 const COMPONENT_NAME: string = 'Header';
 
-const Header: FC<HeaderProps> & WithWrapperProps = ({
-  brand,
-  className,
-  modes,
-  showCollapsibleHamburger,
-  leftAlignedElements,
-  navbarToggleIcon = <BarsIcon />,
-  onCollapsibleHamburgerClick,
-  rightAlignedElements,
-  user,
-  userDropdownMenu = userDropdownMenuDefaultProps,
-  ...rest
-}: HeaderProps): ReactElement => {
-  const userDropdownMenuProps: UserDropdownMenuHeaderProps = {...userDropdownMenuDefaultProps, ...userDropdownMenu};
-
-  const {mode, setMode} = useColorScheme();
-  const isMobile: boolean = useIsMobile();
-
-  const classes: string = clsx(
-    'oxygen-header',
+/**
+ * The Header displays the brand, left aligned elements, right aligned elements, and the user dropdown menu.
+ *
+ * Demos:
+ *
+ * - [Header (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-header)
+ *
+ * API:
+ *
+ * - [AppBar API](https://mui.com/material-ui/api/app-bar/)
+ *
+ * @remarks
+ * - ✨ This is a custom component that is not available in the Material-UI library.
+ * - ✔️ Props of the [AppBar](https://mui.com/material-ui/api/app-bar//) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the Header component.
+ * @param ref - The ref to be forwarded to the AppBar component.
+ * @returns The rendered Header component.
+ */
+const Header: ForwardRefExoticComponent<HeaderProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType>(
     {
-      mobile: isMobile,
-      'with-hamburger': showCollapsibleHamburger,
-    },
-    className,
-  );
+      brand,
+      className,
+      modes,
+      showCollapsibleHamburger,
+      leftAlignedElements,
+      navbarToggleIcon = <BarsIcon />,
+      onCollapsibleHamburgerClick,
+      rightAlignedElements,
+      user,
+      userDropdownMenu = userDropdownMenuDefaultProps,
+      ...rest
+    }: HeaderProps<C>,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
+    const userDropdownMenuProps: UserDropdownMenuHeaderProps = {...userDropdownMenuDefaultProps, ...userDropdownMenu};
 
-  const onModeChange = (selectedMode: Mode): void => {
-    setMode(selectedMode);
-  };
+    const {mode, setMode} = useColorScheme();
+    const isMobile: boolean = useIsMobile();
 
-  return (
-    <AppBar
-      position="static"
-      color="default"
-      variant="outlined"
-      elevation={0}
-      className={classes}
-      role="banner"
-      {...rest}
-    >
-      <Toolbar className="oxygen-header-toolbar">
-        {showCollapsibleHamburger && (
-          <div className="oxygen-header-collapsible-hamburger">
-            <IconButton aria-label="Menu Icon" onClick={onCollapsibleHamburgerClick || ((): void => null)}>
-              {navbarToggleIcon}
-            </IconButton>
-          </div>
-        )}
-        {brand && (
-          <Box
-            tabIndex={0}
-            component={brand.onClick ? Link : Box}
-            className={clsx('oxygen-brand', {
-              'with-link': Boolean(brand.onClick),
-            })}
-            onClick={brand.onClick}
-            underline="none"
-            color="inherit"
-          >
-            <Box className="oxygen-brand-logo">
-              {isMobile ? brand.logo.mobile ?? brand.logo.desktop : brand.logo.desktop}
+    const classes: string = clsx(
+      'oxygen-header',
+      {
+        mobile: isMobile,
+        'with-hamburger': showCollapsibleHamburger,
+      },
+      className,
+    );
+
+    const onModeChange = (selectedMode: Mode): void => {
+      setMode(selectedMode);
+    };
+
+    return (
+      <AppBar
+        ref={ref}
+        position="static"
+        color="default"
+        variant="outlined"
+        elevation={0}
+        className={classes}
+        role="banner"
+        {...rest}
+      >
+        <Toolbar className="oxygen-header-toolbar">
+          {showCollapsibleHamburger && (
+            <div className="oxygen-header-collapsible-hamburger">
+              <IconButton aria-label="Menu Icon" onClick={onCollapsibleHamburgerClick || ((): void => null)}>
+                {navbarToggleIcon}
+              </IconButton>
+            </div>
+          )}
+          {brand && (
+            <Box
+              tabIndex={0}
+              component={brand.onClick ? Link : Box}
+              className={clsx('oxygen-brand', {
+                'with-link': Boolean(brand.onClick),
+              })}
+              onClick={brand.onClick}
+              color="inherit"
+              {...(brand.onClick ? {underline: 'none'} : {})}
+            >
+              <Box className="oxygen-brand-logo">
+                {isMobile ? brand.logo.mobile ?? brand.logo.desktop : brand.logo.desktop}
+              </Box>
+              <Typography variant="h6" component="h1" className="oxygen-brand-portal-name">
+                {brand.title}
+              </Typography>
             </Box>
-            <Typography variant="h6" component="h1" className="oxygen-brand-portal-name">
-              {brand.title}
-            </Typography>
+          )}
+          {(leftAlignedElements || rightAlignedElements) && (
+            <Box className="oxygen-header-elements">
+              {leftAlignedElements?.length > 0 && (
+                <Box className="oxygen-header-elements-left">{leftAlignedElements}</Box>
+              )}
+              {rightAlignedElements?.length > 0 && (
+                <Box className="oxygen-header-elements-right">{rightAlignedElements}</Box>
+              )}
+            </Box>
+          )}
+          <Box className="oxygen-header-user-dropdown-menu">
+            <UserDropdownMenu
+              user={user}
+              triggerOptions={{
+                children: user?.name,
+                color: 'inherit',
+                endIcon: <ChevronDownIcon />,
+                startIcon: (
+                  <Avatar
+                    className="image"
+                    alt="User Image"
+                    src={user?.image}
+                    randomBackgroundColor={!user?.image}
+                    backgroundColorRandomizer={user?.name}
+                  >
+                    {user?.name?.split('')[0]}
+                  </Avatar>
+                ),
+                ...userDropdownMenuProps.triggerOptions,
+              }}
+              modesHeading="Theme"
+              modes={modes}
+              onActionTrigger={userDropdownMenuProps.onActionClick}
+              actionText={userDropdownMenuProps.actionText}
+              actionIcon={userDropdownMenuProps.actionIcon}
+              mode={mode}
+              onModeChange={onModeChange}
+              menuItems={userDropdownMenuProps.menuItems}
+              footerContent={userDropdownMenu.footerContent}
+            />
           </Box>
-        )}
-        {(leftAlignedElements || rightAlignedElements) && (
-          <Box className="oxygen-header-elements">
-            {leftAlignedElements?.length > 0 && (
-              <Box className="oxygen-header-elements-left">{leftAlignedElements}</Box>
-            )}
-            {rightAlignedElements?.length > 0 && (
-              <Box className="oxygen-header-elements-right">{rightAlignedElements}</Box>
-            )}
-          </Box>
-        )}
-        <Box className="oxygen-header-user-dropdown-menu">
-          <UserDropdownMenu
-            user={user}
-            triggerOptions={{
-              children: user?.name,
-              color: 'inherit',
-              endIcon: <ChevronDownIcon />,
-              startIcon: (
-                <Avatar
-                  className="image"
-                  alt="User Image"
-                  src={user?.image}
-                  randomBackgroundColor={!user?.image}
-                  backgroundColorRandomizer={user?.name}
-                >
-                  {user?.name?.split('')[0]}
-                </Avatar>
-              ),
-              ...userDropdownMenuProps.triggerOptions,
-            }}
-            modesHeading="Theme"
-            modes={modes}
-            onActionTrigger={userDropdownMenuProps.onActionClick}
-            actionText={userDropdownMenuProps.actionText}
-            actionIcon={userDropdownMenuProps.actionIcon}
-            mode={mode}
-            onModeChange={onModeChange}
-            menuItems={userDropdownMenuProps.menuItems}
-            footerContent={userDropdownMenu.footerContent}
-          />
-        </Box>
-      </Toolbar>
-    </AppBar>
-  );
-};
+        </Toolbar>
+      </AppBar>
+    );
+  },
+) as ForwardRefExoticComponent<HeaderProps> & WithWrapperProps;
 
 Header.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Header.muiName = COMPONENT_NAME;

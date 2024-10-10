@@ -16,19 +16,51 @@
  * under the License.
  */
 
-import MuiCard, {CardProps as MuiCardProps} from '@mui/material/Card';
+import MuiCard from '@mui/material/Card';
+import type {CardProps as MuiCardProps, CardTypeMap} from '@mui/material/Card';
 import clsx from 'clsx';
-import {ElementType, forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './card.scss';
 
-export type CardProps<C extends ElementType = ElementType> = {
+export type CardProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = CardTypeMap['defaultComponent'],
+  P = {},
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
   component?: C;
-} & Omit<MuiCardProps, 'component'>;
+} & Omit<MuiCardProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'Card';
 
+/**
+ * The Card component contain content and actions about a single subject.
+ *
+ * Demos:
+ *
+ * - [Card (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-card)
+ * - [Card (MUI)](https://mui.com/material-ui/react-card/)
+ *
+ * API:
+ *
+ * - [Card API](https://mui.com/material-ui/api/card/)
+ * - inherits [Paper API](https://mui.com/material-ui/api/paper/)
+ *
+ * @remarks
+ * - ✔️ Props of the [Paper](https://mui.com/material-ui/api/paper/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the Card component.
+ * @param ref - The ref to be forwarded to the MuiCard component.
+ * @returns The rendered Card component.
+ */
 const Card: ForwardRefExoticComponent<CardProps> & WithWrapperProps = forwardRef(
   <C extends ElementType>(
     {className, component, onClick, elevation = 0, variant = 'outlined', ...rest}: CardProps<C>,

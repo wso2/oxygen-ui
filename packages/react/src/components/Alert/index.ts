@@ -17,4 +17,6 @@
  */
 
 export {default} from './Alert';
-export type {AlertProps} from './Alert';
+export * from './Alert';
+
+export type {AlertColor, AlertPropsVariantOverrides, AlertPropsColorOverrides} from '@mui/material/Alert';

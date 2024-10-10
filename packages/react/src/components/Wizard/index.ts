@@ -17,4 +17,4 @@
  */
 
 export {default} from './Wizard';
-export type {WizardProps} from './Wizard';
+export * from './Wizard';

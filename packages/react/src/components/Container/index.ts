@@ -17,4 +17,6 @@
  */
 
 export {default} from './Container';
-export type {ContainerProps} from './Container';
+export * from './Container';
+
+export {ContainerTypeMap} from '@mui/material/Container';

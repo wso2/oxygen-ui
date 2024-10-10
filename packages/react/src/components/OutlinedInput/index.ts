@@ -17,4 +17,4 @@
  */
 
 export {default} from './OutlinedInput';
-export type {OutlinedInputProps} from './OutlinedInput';
+export * from './OutlinedInput';

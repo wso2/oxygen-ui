@@ -16,22 +16,61 @@
  * under the License.
  */
 
-import MuiMenuItem, {MenuItemProps as MuiMenuItemProps} from '@mui/material/MenuItem';
+import MuiMenuItem from '@mui/material/MenuItem';
+import type {MenuItemTypeMap, MenuItemProps as MuiMenuItemProps} from '@mui/material/MenuItem';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './menu-item.scss';
 
-export type MenuItemProps = MuiMenuItemProps;
+export type MenuItemProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = MenuItemTypeMap['defaultComponent'],
+  P = {},
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
+  component?: C;
+} & Omit<MuiMenuItemProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'MenuItem';
 
-const MenuItem: FC<MenuItemProps> & WithWrapperProps = ({className, ...rest}: MenuItemProps): ReactElement => {
-  const classes: string = clsx('oxygen-menu-item', className);
+/**
+ * The Menu Item component is used to display a single item inside a menu.
+ *
+ * Demos:
+ *
+ * - [Menu (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-menu)
+ * - [Menu (MUI)](https://mui.com/material-ui/react-menu/)
+ *
+ * API:
+ *
+ * - [MenuItem API](https://mui.com/material-ui/api/menu-item/)
+ * - inherits [ButtonBase API](https://mui.com/material-ui/api/button-base/)
+ *
+ * @remarks
+ * - ✔️ Props of the [ButtonBase](https://mui.com/material-ui/api/button-base/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the MenuItem component.
+ * @param ref - The ref to be forwarded to the MuiMenuItem component.
+ * @returns The rendered MenuItem component.
+ */
+const MenuItem: ForwardRefExoticComponent<MenuItemProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {className, ...rest}: MenuItemProps<C>,
+    ref: MutableRefObject<HTMLLIElement>,
+  ): ReactElement => {
+    const classes: string = clsx('oxygen-menu-item', className);
 
-  return <MuiMenuItem className={classes} {...rest} />;
-};
+    return <MuiMenuItem ref={ref} className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<MenuItemProps> & WithWrapperProps;
 
 MenuItem.displayName = composeComponentDisplayName(COMPONENT_NAME);
 MenuItem.muiName = COMPONENT_NAME;

@@ -17,4 +17,6 @@
  */
 
 export {default} from './Typography';
-export type {TypographyProps} from './Typography';
+export * from './Typography';
+
+export {TypographyPropsVariantOverrides, TypographyTypeMap} from '@mui/material/Typography';

@@ -16,9 +16,11 @@
  * under the License.
  */
 
-import MuiTooltip, {TooltipProps as MuiTooltipProps} from '@mui/material/Tooltip';
+import MuiTooltip from '@mui/material/Tooltip';
+import type {TooltipProps as MuiTooltipProps} from '@mui/material/Tooltip';
 import clsx from 'clsx';
-import {ForwardRefExoticComponent, MutableRefObject, ReactElement, forwardRef} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './tooltip.scss';
@@ -27,11 +29,32 @@ export type TooltipProps = MuiTooltipProps;
 
 const COMPONENT_NAME: string = 'Tooltip';
 
+/**
+ * Tooltips display informative text when users hover over, focus on, or tap an element.
+ *
+ * Demos:
+ *
+ * - [Tooltip (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-tooltip)
+ * - [Tooltip (MUI)](https://mui.com/material-ui/react-tooltip/)
+ *
+ * API:
+ *
+ * - [Tooltip API](https://mui.com/material-ui/api/tooltip/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @param props - The props for the Tooltip component.
+ * @param ref - The ref to be forwarded to the MuiTooltip component.
+ * @returns The rendered Tooltip component.
+ */
 const Tooltip: ForwardRefExoticComponent<TooltipProps> & WithWrapperProps = forwardRef(
   ({className, ...rest}: TooltipProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-tooltip', className);
 
-    return <MuiTooltip className={classes} ref={ref} {...rest} />;
+    return <MuiTooltip ref={ref} className={classes} {...rest} />;
   },
 ) as ForwardRefExoticComponent<TooltipProps> & WithWrapperProps;
 

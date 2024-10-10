@@ -17,4 +17,6 @@
  */
 
 export {default} from './CardContent';
-export type {CardContentProps} from './CardContent';
+export * from './CardContent';
+
+export type {CardContentTypeMap} from '@mui/material/CardContent';

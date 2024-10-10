@@ -17,4 +17,6 @@
  */
 
 export {default} from './Snackbar';
-export type {SnackbarProps} from './Snackbar';
+export * from './Snackbar';
+
+export type {SnackbarCloseReason, SnackbarOrigin} from '@mui/material/Snackbar';

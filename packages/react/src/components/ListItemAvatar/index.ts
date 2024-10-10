@@ -17,4 +17,4 @@
  */
 
 export {default} from './ListItemAvatar';
-export type {ListItemAvatarProps} from './ListItemAvatar';
+export * from './ListItemAvatar';

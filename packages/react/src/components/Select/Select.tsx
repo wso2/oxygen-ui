@@ -16,23 +16,48 @@
  * under the License.
  */
 
-import MuiSelect, {SelectProps as MuiSelectProps} from '@mui/material/Select';
+import MuiSelect from '@mui/material/Select';
+import type {SelectProps as MuiSelectProps} from '@mui/material/Select';
 import clsx from 'clsx';
-import {forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
-import InputLabel, {InputLabelProps as MuiInputLabelProps} from '../InputLabel';
+import InputLabel from '../InputLabel';
+import type {InputLabelProps as MuiInputLabelProps} from '../InputLabel';
 import './select.scss';
 
-export interface SelectProps extends MuiSelectProps {
+export type SelectProps = MuiSelectProps & {
   /**
    * Props for the `InputLabel` component.
    */
   InputLabelProps?: MuiInputLabelProps;
-}
+};
 
 const COMPONENT_NAME: string = 'Select';
 
+/**
+ * The Select components are used for collecting user provided information from a list of options.
+ *
+ * Demos:
+ *
+ * - [Select (Oxygen UI)](https://mui.com/material-ui/react-select/)
+ * - [Select (MUI)](https://mui.com/material-ui/react-select/)
+ *
+ * API:
+ *
+ * - [Select API](https://mui.com/material-ui/api/select/)
+ * - inherits [OutlinedInput API](https://mui.com/material-ui/api/outlined-input/)
+ *
+ * @remarks
+ * - ✔️ Props of the [OutlinedInput](https://mui.com/material-ui/api/outlined-input/) component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @param props - The props for the Select component.
+ * @param ref - The ref to be forwarded to the MuiSelect component.
+ * @returns The rendered Select component.
+ */
 const Select: ForwardRefExoticComponent<SelectProps> & WithWrapperProps = forwardRef(
   (
     {

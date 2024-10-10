@@ -17,4 +17,11 @@
  */
 
 export {default} from './FormControl';
-export type {FormControlProps} from './FormControl';
+export * from './FormControl';
+
+export {useFormControl, FormControlState} from '@mui/material/FormControl';
+export type {
+  FormControlPropsSizeOverrides,
+  FormControlPropsColorOverrides,
+  FormControlTypeMap,
+} from '@mui/material/FormControl';

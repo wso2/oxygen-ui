@@ -16,9 +16,11 @@
  * under the License.
  */
 
-import MuiInput, {InputProps as MuiInputProps} from '@mui/material/Input';
+import MuiInput from '@mui/material/Input';
+import type {InputProps as MuiInputProps} from '@mui/material/Input';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './input.scss';
@@ -27,11 +29,35 @@ export type InputProps = MuiInputProps;
 
 const COMPONENT_NAME: string = 'Input';
 
-const Input: FC<InputProps> & WithWrapperProps = ({className, ...rest}: InputProps): ReactElement => {
-  const classes: string = clsx('oxygen-input', className);
+/**
+ * The Input component is used to render a text input field.
+ *
+ * Demos:
+ *
+ * - [Text Field (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-text-field)
+ * - [Text Field (MUI)](https://mui.com/material-ui/react-text-field/)
+ *
+ * API:
+ *
+ * - [Input API](https://mui.com/material-ui/api/input/)
+ * - inherits [InputBase API](https://mui.com/material-ui/api/input-base/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @param props - The props for the Input component.
+ * @param ref - The ref to be forwarded to the MuiInput component.
+ * @returns The rendered Input component.
+ */
+const Input: ForwardRefExoticComponent<InputProps> & WithWrapperProps = forwardRef(
+  ({className, ...rest}: InputProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+    const classes: string = clsx('oxygen-input', className);
 
-  return <MuiInput className={classes} {...rest} />;
-};
+    return <MuiInput ref={ref} className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<InputProps> & WithWrapperProps;
 
 Input.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Input.muiName = COMPONENT_NAME;

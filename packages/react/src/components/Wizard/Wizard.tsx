@@ -17,10 +17,12 @@
  */
 
 import clsx from 'clsx';
-import {FC, HTMLAttributes, ReactElement, useCallback, useMemo, useState} from 'react';
+import {forwardRef, useCallback, useMemo, useState} from 'react';
+import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
+import type {BoxProps} from '../Box';
 import Button from '../Button';
 import Card from '../Card';
 import CardActions from '../CardActions';
@@ -31,7 +33,7 @@ import Stepper from '../Stepper';
 import Typography from '../Typography';
 import './wizard.scss';
 
-export interface WizardProps extends HTMLAttributes<HTMLDivElement> {
+export type WizardProps<C extends ElementType = ElementType> = BoxProps<C> & {
   /**
    * Allow backward navigation. This will show a button allowing you to navigate backwards.
    */
@@ -88,103 +90,130 @@ export interface WizardProps extends HTMLAttributes<HTMLDivElement> {
    * Title of the wizard.
    */
   title: string;
-}
+};
 
 const COMPONENT_NAME: string = 'Wizard';
 
-const Wizard: FC<WizardProps> & WithWrapperProps = ({
-  allowBackwardNavigation = true,
-  allowCancel = false,
-  animateOnSlide,
-  className,
-  title,
-  subtitle,
-  nextButtonText = 'Next',
-  previousButtonText = 'Previous',
-  cancelButtonText = 'Cancel',
-  onCancelButtonClick,
-  onNextButtonClick,
-  onPreviousButtonClick,
-  onFinishButtonClick,
-  finishButtonText = 'Finish',
-  steps,
-}: WizardProps): ReactElement => {
-  const [currentStep, setCurrentStep] = useState<number>(0);
+/**
+ * The Wizard lets you create a step-by-step wizard with a progress bar.
+ *
+ * Demos:
+ *
+ * - [Wizard (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/patterns-wizard)
+ *
+ * API:
+ *
+ * - inherits [Box API](https://mui.com/material-ui/api/box/)
+ *
+ * @remarks
+ * - ✨ This is a custom component that is not available in the Material-UI library.
+ * - ✔️ Props of the [Box](https://mui.com/material-ui/api/box/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the Wizard component.
+ * @param ref - The ref to be forwarded to the Box component.
+ * @returns The rendered Wizard component.
+ */
+const Wizard: ForwardRefExoticComponent<WizardProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType>(
+    {
+      allowBackwardNavigation = true,
+      allowCancel = false,
+      animateOnSlide,
+      className,
+      title,
+      subtitle,
+      nextButtonText = 'Next',
+      previousButtonText = 'Previous',
+      cancelButtonText = 'Cancel',
+      onCancelButtonClick,
+      onNextButtonClick,
+      onPreviousButtonClick,
+      onFinishButtonClick,
+      finishButtonText = 'Finish',
+      steps,
+    }: WizardProps<C>,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
+    const [currentStep, setCurrentStep] = useState<number>(0);
 
-  const classes: string = clsx('oxygen-wizard', className);
+    const classes: string = clsx('oxygen-wizard', className);
 
-  const isLastStep: boolean = useMemo(() => currentStep === steps.length - 1, [steps, currentStep]);
-  const isFirstStep: boolean = useMemo(() => currentStep === 0, [currentStep]);
-  const displayCurrentStep: number = useMemo(() => currentStep + 1, [currentStep]);
+    const isLastStep: boolean = useMemo(() => currentStep === steps.length - 1, [steps, currentStep]);
+    const isFirstStep: boolean = useMemo(() => currentStep === 0, [currentStep]);
+    const displayCurrentStep: number = useMemo(() => currentStep + 1, [currentStep]);
 
-  const handleNextButtonClick: () => Promise<void> = useCallback(async (): Promise<void> => {
-    if (isLastStep) {
-      if (onFinishButtonClick && onFinishButtonClick instanceof Function) {
-        await onFinishButtonClick();
+    const handleNextButtonClick: () => Promise<void> = useCallback(async (): Promise<void> => {
+      if (isLastStep) {
+        if (onFinishButtonClick && onFinishButtonClick instanceof Function) {
+          await onFinishButtonClick();
+        }
+
+        return;
       }
 
-      return;
-    }
+      if (onNextButtonClick && onNextButtonClick instanceof Function) {
+        await onNextButtonClick();
+      }
 
-    if (onNextButtonClick && onNextButtonClick instanceof Function) {
-      await onNextButtonClick();
-    }
+      setCurrentStep((step: number) => step + 1);
+    }, [isLastStep, onFinishButtonClick, onNextButtonClick]);
 
-    setCurrentStep((step: number) => step + 1);
-  }, [isLastStep, onFinishButtonClick, onNextButtonClick]);
+    const handlePreviousButtonClick: () => Promise<void> = useCallback(async (): Promise<void> => {
+      if (isFirstStep) {
+        return;
+      }
 
-  const handlePreviousButtonClick: () => Promise<void> = useCallback(async (): Promise<void> => {
-    if (isFirstStep) {
-      return;
-    }
+      if (onPreviousButtonClick && onPreviousButtonClick instanceof Function) {
+        await onPreviousButtonClick();
+      }
+      setCurrentStep((step: number) => step - 1);
+    }, [isFirstStep, onPreviousButtonClick]);
 
-    if (onPreviousButtonClick && onPreviousButtonClick instanceof Function) {
-      await onPreviousButtonClick();
-    }
-    setCurrentStep((step: number) => step - 1);
-  }, [isFirstStep, onPreviousButtonClick]);
-
-  return (
-    <Box className={classes}>
-      <Card elevation={1} className="oxygen-wizard-card">
-        <CardHeader title={title} subheader={subtitle} />
-        <CardContent className="oxygen-wizard-card-content">
-          <Stepper animateOnSlide={animateOnSlide} currentStep={currentStep} steps={steps} />
-        </CardContent>
-        <CardActions className="oxygen-wizard-actions">
-          <Box>
-            {allowBackwardNavigation && !isFirstStep && (
-              <Button color="secondary" onClick={handlePreviousButtonClick}>
-                {previousButtonText}
+    return (
+      <Box ref={ref} className={classes}>
+        <Card elevation={1} className="oxygen-wizard-card">
+          <CardHeader title={title} subheader={subtitle} />
+          <CardContent className="oxygen-wizard-card-content">
+            <Stepper animateOnSlide={animateOnSlide} currentStep={currentStep} steps={steps} />
+          </CardContent>
+          <CardActions className="oxygen-wizard-actions">
+            <Box>
+              {allowBackwardNavigation && !isFirstStep && (
+                <Button color="secondary" onClick={handlePreviousButtonClick}>
+                  {previousButtonText}
+                </Button>
+              )}
+            </Box>
+            <Box className="oxygen-wizard-right-aligned-buttons">
+              {allowCancel && (
+                <Button variant="contained" color="secondary" onClick={onCancelButtonClick}>
+                  {cancelButtonText}
+                </Button>
+              )}
+              <Button variant="contained" color="primary" onClick={handleNextButtonClick}>
+                {isLastStep ? finishButtonText : nextButtonText}
               </Button>
-            )}
+            </Box>
+          </CardActions>
+        </Card>
+        <Box className="oxygen-wizard-progress-container">
+          <Typography>{`${displayCurrentStep}/${steps.length}`}</Typography>
+          <Box className="oxygen-wizard-progress-bar-container">
+            <LinearProgress
+              className="oxygen-wizard-progress-bar"
+              variant="determinate"
+              value={(displayCurrentStep / steps.length) * 100}
+              aria-label="Wizard Progress Bar"
+            />
           </Box>
-          <Box className="oxygen-wizard-right-aligned-buttons">
-            {allowCancel && (
-              <Button variant="contained" color="secondary" onClick={onCancelButtonClick}>
-                {cancelButtonText}
-              </Button>
-            )}
-            <Button variant="contained" color="primary" onClick={handleNextButtonClick}>
-              {isLastStep ? finishButtonText : nextButtonText}
-            </Button>
-          </Box>
-        </CardActions>
-      </Card>
-      <Box className="oxygen-wizard-progress-container">
-        <Typography>{`${displayCurrentStep}/${steps.length}`}</Typography>
-        <Box className="oxygen-wizard-progress-bar-container">
-          <LinearProgress
-            className="oxygen-wizard-progress-bar"
-            variant="determinate"
-            value={(displayCurrentStep / steps.length) * 100}
-            aria-label="Wizard Progress Bar"
-          />
         </Box>
       </Box>
-    </Box>
-  );
-};
+    );
+  },
+) as ForwardRefExoticComponent<WizardProps> & WithWrapperProps;
 
 Wizard.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Wizard.muiName = COMPONENT_NAME;

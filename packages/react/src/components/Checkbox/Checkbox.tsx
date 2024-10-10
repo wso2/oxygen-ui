@@ -16,21 +16,56 @@
  * under the License.
  */
 
-import MuiCheckbox, {CheckboxProps as MuiCheckboxProps} from '@mui/material/Checkbox';
+import MuiCheckbox from '@mui/material/Checkbox';
+import type {CheckboxProps as MuiCheckboxProps} from '@mui/material/Checkbox';
 import clsx from 'clsx';
-import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
-export type CheckboxProps = MuiCheckboxProps;
+export type CheckboxProps<C extends ElementType = ElementType> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
+  component?: C;
+} & Omit<MuiCheckboxProps, 'component'>;
 
 const COMPONENT_NAME: string = 'Checkbox';
 
+/**
+ * The Checkboxes allow the user to select one or more items from a set.
+ *
+ * Demos:
+ *
+ * - [Checkbox (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-checkbox)
+ * - [Checkbox (MUI)](https://mui.com/material-ui/react-checkbox/)
+ * - [Transfer List (Oxygen UI)](TODO: Add a link after implementing: Tracker: https://github.com/wso2/oxygen-ui/issues/2)
+ * - [Transfer List (MUI)](https://mui.com/material-ui/react-transfer-list/)
+ *
+ * API:
+ *
+ * - [Checkbox API](https://mui.com/material-ui/api/checkbox/)
+ * - inherits [ButtonBase API](https://mui.com/material-ui/api/button-base/)
+ *
+ * @remarks
+ * - ✔️ Props of the [ButtonBase](https://mui.com/material-ui/api/button-base/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the Checkbox component.
+ * @param ref - The ref to be forwarded to the MuiCheckbox component.
+ * @returns The rendered Checkbox component.
+ */
 const Checkbox: ForwardRefExoticComponent<CheckboxProps> & WithWrapperProps = forwardRef(
-  ({className, ...rest}: CheckboxProps, ref: MutableRefObject<HTMLButtonElement>): ReactElement => {
+  <C extends ElementType>(
+    {className, ...rest}: CheckboxProps<C>,
+    ref: MutableRefObject<HTMLButtonElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-checkbox', className);
 
-    return <MuiCheckbox className={classes} {...rest} ref={ref} />;
+    return <MuiCheckbox ref={ref} className={classes} {...rest} />;
   },
 ) as ForwardRefExoticComponent<CheckboxProps> & WithWrapperProps;
 

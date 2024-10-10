@@ -16,18 +16,15 @@
  * under the License.
  */
 
-import MuiTypography, {TypographyProps as MuiTypographyProps} from '@mui/material/Typography';
 import clsx from 'clsx';
-import {ElementType, FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
+import Typography, {TypographyProps} from '../Typography/Typography';
 import './code.scss';
 
-export type CodeProps<C extends ElementType = ElementType> = {
-  /**
-   * The component used for the root node. Either a string to use a HTML element or a component.
-   */
-  component?: C;
+export type CodeProps<C extends ElementType = ElementType> = TypographyProps<C> & {
   /**
    * Shows the code block with a filled background.
    * @default true
@@ -38,25 +35,46 @@ export type CodeProps<C extends ElementType = ElementType> = {
    * @default false
    */
   outlined?: boolean;
-} & Omit<MuiTypographyProps, 'component'>;
+};
 
 const COMPONENT_NAME: string = 'Code';
 
-const Code: FC<CodeProps> & WithWrapperProps = <C extends ElementType>({
-  className,
-  children,
-  filled = true,
-  outlined = false,
-  ...rest
-}: CodeProps<C>): ReactElement => {
-  const classes: string = clsx('oxygen-code', {filled, outlined}, className);
+/**
+ * The Code can represent an inline or block code without syntax highlight.
+ *
+ * Demos:
+ *
+ * - [Code (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-code)
+ *
+ * API:
+ *
+ * - inherits [Typography API](https://mui.com/material-ui/api/typography/)
+ *
+ * @remarks
+ * - ✨ This is a custom component that is not available in the Material-UI library.
+ * - ✔️ Props of the [Typography](https://mui.com/material-ui/api/typography/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the Code component.
+ * @param ref - The ref to be forwarded to the Typography component.
+ * @returns The rendered Code component.
+ */
+const Code: ForwardRefExoticComponent<CodeProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType>(
+    {className, children, filled = true, outlined = false, ...rest}: CodeProps<C>,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
+    const classes: string = clsx('oxygen-code', {filled, outlined}, className);
 
-  return (
-    <MuiTypography component="code" className={classes} {...rest}>
-      {children}
-    </MuiTypography>
-  );
-};
+    return (
+      <Typography ref={ref} component="code" className={classes} {...rest}>
+        {children}
+      </Typography>
+    );
+  },
+) as ForwardRefExoticComponent<CodeProps> & WithWrapperProps;
 
 Code.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Code.muiName = COMPONENT_NAME;

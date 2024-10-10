@@ -17,4 +17,6 @@
  */
 
 export {default} from './Skeleton';
-export type {SkeletonProps} from './Skeleton';
+export * from './Skeleton';
+
+export type {SkeletonPropsVariantOverrides, SkeletonTypeMap} from '@mui/material/Skeleton';

@@ -16,22 +16,59 @@
  * under the License.
  */
 
-import MuiGrid, {Grid2Props as MuiGridProps} from '@mui/material/Unstable_Grid2';
+import MuiGrid from '@mui/material/Unstable_Grid2';
+import type {Grid2TypeMap, Grid2Props as MuiGridProps} from '@mui/material/Unstable_Grid2';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './grid.scss';
 
-export type GridProps = MuiGridProps;
+export type GridProps<
+  C extends ElementType = ElementType,
+  D extends React.ElementType = Grid2TypeMap['defaultComponent'],
+  P = {
+    component?: React.ElementType;
+  },
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
+  component?: C;
+} & Omit<MuiGridProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'Grid';
 
-const Grid: FC<GridProps> & WithWrapperProps = ({className, ...rest}: GridProps): ReactElement => {
-  const classes: string = clsx('oxygen-grid', className);
+/**
+ * The Grid adapts to screen size and orientation, ensuring consistency across layouts.
+ *
+ * Demos:
+ *
+ * - [Grid (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/layout-grid)
+ * - [Grid (MUI)](https://mui.com/material-ui/react-grid2/)
+ *
+ * API:
+ *
+ * - [Grid API](https://mui.com/material-ui/api/grid-2/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the FormControl component.
+ * @param ref - The ref to be forwarded to the MuiFormControl component.
+ * @returns The rendered FormControl component.
+ */
+const Grid: ForwardRefExoticComponent<GridProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType>({className, ...rest}: GridProps<C>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+    const classes: string = clsx('oxygen-grid', className);
 
-  return <MuiGrid className={classes} {...rest} />;
-};
+    return <MuiGrid ref={ref} className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<GridProps> & WithWrapperProps;
 
 Grid.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Grid.muiName = COMPONENT_NAME;

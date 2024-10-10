@@ -16,20 +16,56 @@
  * under the License.
  */
 
-import MuiPaper, {PaperProps as MuiPaperProps} from '@mui/material/Paper';
+import MuiPaper from '@mui/material/Paper';
+import type {PaperProps as MuiPaperProps, PaperTypeMap} from '@mui/material/Paper';
 import clsx from 'clsx';
-import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
-export type PaperProps<C extends ElementType = ElementType> = {
+export type PaperProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = PaperTypeMap['defaultComponent'],
+  P = {},
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
   component?: C;
-} & Omit<MuiPaperProps, 'component'>;
+} & Omit<MuiPaperProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'Paper';
 
+/**
+ * The Paper component is a container for displaying content on an elevated surface.
+ *
+ * Demos:
+ *
+ * - [Card (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-card)
+ * - [Card (MUI)](https://mui.com/material-ui/react-card/)
+ * - [Paper (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-paper)
+ * - [Paper](https://mui.com/material-ui/react-paper/)
+ *
+ * API:
+ *
+ * - [Paper API](https://mui.com/material-ui/api/paper/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the Paper component.
+ * @param ref - The ref to be forwarded to the MuiPaper component.
+ * @returns The rendered Paper component.
+ */
 const Paper: ForwardRefExoticComponent<PaperProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>({className, ...rest}: PaperProps<C>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
+  <C extends ElementType = ElementType>(
+    {className, ...rest}: PaperProps<C>,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-paper', className);
 
     return <MuiPaper className={classes} {...rest} ref={ref} />;

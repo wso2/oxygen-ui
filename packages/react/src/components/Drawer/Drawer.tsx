@@ -16,22 +16,57 @@
  * under the License.
  */
 
-import MuiDrawer, {DrawerProps as MuiDrawerProps} from '@mui/material/Drawer';
+import MuiDrawer from '@mui/material/Drawer';
+import type {DrawerProps as MuiDrawerProps} from '@mui/material/Drawer';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './drawer.scss';
 
-export type DrawerProps = MuiDrawerProps;
+export type DrawerProps<C extends ElementType = ElementType> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
+  component?: C;
+} & Omit<MuiDrawerProps, 'component'>;
 
 const COMPONENT_NAME: string = 'Drawer';
 
-const Drawer: FC<DrawerProps> & WithWrapperProps = ({className, ...rest}: DrawerProps): ReactElement => {
-  const classes: string = clsx('oxygen-drawer', className);
+/**
+ * The navigation drawers (or "sidebars") provide ergonomic access to destinations in a site or
+ * app functionality such as switching accounts.
+ *
+ * Demos:
+ *
+ * - [Drawer (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-drawer)
+ * - [Drawer (MUI)](https://mui.com/material-ui/react-drawer/)
+ *
+ * API:
+ *
+ * - [Drawer API](https://mui.com/material-ui/api/drawer/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the Drawer component.
+ * @param ref - The ref to be forwarded to the MuiDrawer component.
+ * @returns The rendered Drawer component.
+ */
+const Drawer: ForwardRefExoticComponent<DrawerProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {className, ...rest}: DrawerProps<C>,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
+    const classes: string = clsx('oxygen-drawer', className);
 
-  return <MuiDrawer className={classes} {...rest} />;
-};
+    return <MuiDrawer ref={ref} className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<DrawerProps> & WithWrapperProps;
 
 Drawer.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Drawer.muiName = COMPONENT_NAME;

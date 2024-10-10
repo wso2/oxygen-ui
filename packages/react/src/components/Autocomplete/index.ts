@@ -17,5 +17,18 @@
  */
 
 export {default} from './Autocomplete';
-export type {AutocompleteProps} from './Autocomplete';
-export type {AutocompleteRenderGetTagProps, AutocompleteRenderInputParams} from '@mui/material/Autocomplete';
+export * from './Autocomplete';
+
+export {createFilterOptions} from '@mui/material/Autocomplete';
+export type {
+  AutocompleteChangeDetails,
+  AutocompleteChangeReason,
+  AutocompleteCloseReason,
+  AutocompleteInputChangeReason,
+  AutocompleteOwnerState,
+  AutocompleteRenderGetTagProps,
+  AutocompleteRenderOptionState,
+  AutocompleteRenderGroupParams,
+  AutocompleteRenderInputParams,
+  AutocompletePropsSizeOverrides,
+} from '@mui/material/Autocomplete';

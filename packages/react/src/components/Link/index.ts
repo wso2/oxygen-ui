@@ -18,3 +18,5 @@
 
 export {default} from './Link';
 export type {LinkProps} from './Link';
+
+export type {LinkTypeMap, LinkBaseProps} from '@mui/material/Link';

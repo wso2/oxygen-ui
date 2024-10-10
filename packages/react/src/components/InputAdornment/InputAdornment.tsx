@@ -16,27 +16,60 @@
  * under the License.
  */
 
-import MuiInputAdornment, {InputAdornmentProps as MuiInputAdornmentProps} from '@mui/material/InputAdornment';
+import MuiInputAdornment from '@mui/material/InputAdornment';
+import type {InputAdornmentTypeMap, InputAdornmentProps as MuiInputAdornmentProps} from '@mui/material/InputAdornment';
 import clsx from 'clsx';
-import {ElementType, FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
-export type InputAdornmentProps<C extends ElementType = ElementType> = {
+export type InputAdornmentProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = InputAdornmentTypeMap['defaultComponent'],
+  P = {},
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
   component?: C;
-} & Omit<MuiInputAdornmentProps, 'component'>;
+} & Omit<MuiInputAdornmentProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'InputAdornment';
 
-const InputAdornment: FC<InputAdornmentProps> & WithWrapperProps = <C extends ElementType>({
-  className,
-  position,
-  ...rest
-}: InputAdornmentProps<C>): ReactElement => {
-  const classes: string = clsx('oxygen-input-adornment', className);
+/**
+ * The Input Adornment can be used to add a prefix, a suffix, or an action to an input. For instance,
+ * you can use an icon button to hide or reveal the password.
+ *
+ * Demos:
+ *
+ * - [Text Field (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-text-field)
+ * - [Text Field (MUI)](https://mui.com/material-ui/react-text-field/)
+ *
+ * API:
+ *
+ * - [InputAdornment API](https://mui.com/material-ui/api/input-adornment/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the InputAdornment component.
+ * @param ref - The ref to be forwarded to the MuiInputAdornment component.
+ * @returns The rendered InputAdornment component.
+ */
+const InputAdornment: ForwardRefExoticComponent<InputAdornmentProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType>(
+    {className, position, ...rest}: InputAdornmentProps<C>,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
+    const classes: string = clsx('oxygen-input-adornment', className);
 
-  return <MuiInputAdornment position={position} className={classes} {...rest} />;
-};
+    return <MuiInputAdornment ref={ref} position={position} className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<InputAdornmentProps> & WithWrapperProps;
 
 InputAdornment.displayName = composeComponentDisplayName(COMPONENT_NAME);
 InputAdornment.muiName = COMPONENT_NAME;

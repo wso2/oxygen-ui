@@ -16,27 +16,66 @@
  * under the License.
  */
 
-import MuiFormControl, {FormControlProps as MuiFormControlProps} from '@mui/material/FormControl';
+import MuiFormControl from '@mui/material/FormControl';
+import type {FormControlProps as MuiFormControlProps, FormControlTypeMap} from '@mui/material/FormControl';
 import clsx from 'clsx';
-import {ElementType, FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './form-control.scss';
 
-export type FormControlProps<C extends ElementType = ElementType> = {
+export type FormControlProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = FormControlTypeMap['defaultComponent'],
+  P = {},
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
   component?: C;
-} & Omit<MuiFormControlProps, 'component'>;
+} & Omit<MuiFormControlProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'FormControl';
 
-const FormControl: FC<FormControlProps> & WithWrapperProps = <C extends ElementType>({
-  className,
-  ...rest
-}: FormControlProps<C>): ReactElement => {
-  const classes: string = clsx('oxygen-form-control', className);
+/**
+ * The Form Control apply a common state to form inputs; FormLabel, FormHelperText, Input, InputLabel.
+ *
+ * Demos:
+ *
+ * - [Checkbox (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-checkbox)
+ * - [Checkbox (MUI)](https://mui.com/material-ui/react-checkbox/)
+ * - [Radio Group (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-radio-group)
+ * - [Radio Group (MUI)](https://mui.com/material-ui/react-radio-button/)
+ * - [Switch (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-switch)
+ * - [Switch (MUI)](https://mui.com/material-ui/react-switch/)
+ * - [Text Field (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-text-field)
+ * - [Text Field (MUI)](https://mui.com/material-ui/react-text-field/)
+ *
+ * API:
+ *
+ * - [FormControl API](https://mui.com/material-ui/api/form-control/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the FormControl component.
+ * @param ref - The ref to be forwarded to the MuiFormControl component.
+ * @returns The rendered FormControl component.
+ */
+const FormControl: ForwardRefExoticComponent<FormControlProps> & WithWrapperProps = forwardRef(
+  <C extends ElementType>(
+    {className, ...rest}: FormControlProps<C>,
+    ref: MutableRefObject<HTMLDivElement>,
+  ): ReactElement => {
+    const classes: string = clsx('oxygen-form-control', className);
 
-  return <MuiFormControl className={classes} {...rest} />;
-};
+    return <MuiFormControl ref={ref} className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<FormControlProps> & WithWrapperProps;
 
 FormControl.displayName = composeComponentDisplayName(COMPONENT_NAME);
 FormControl.muiName = COMPONENT_NAME;
