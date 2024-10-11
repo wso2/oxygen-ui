@@ -34,6 +34,11 @@ export type CountryFlagProps = {
   height?: string;
 } & HTMLAttributes<HTMLImageElement>;
 
+/**
+ * @deprecated Use the {@link CountryFlagProps} instead.
+ */
+export type CountryFlagsProps = CountryFlagProps;
+
 const COMPONENT_NAME: string = 'CountryFlag';
 
 /**
