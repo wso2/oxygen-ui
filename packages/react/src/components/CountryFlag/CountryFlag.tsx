@@ -36,6 +36,7 @@ export type CountryFlagProps = {
 
 /**
  * @deprecated Use the {@link CountryFlagProps} instead.
+ * This will be removed in the next major release (v2.0.0).
  */
 export type CountryFlagsProps = CountryFlagProps;
 
