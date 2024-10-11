@@ -16,6 +16,7 @@
  * under the License.
  */
 
+import {FormControlTypeMap} from '@mui/material/FormControl';
 import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import MuiTextField from '@mui/material/TextField';
 import type {TextFieldProps as MuiTextFieldProps} from '@mui/material/TextField';
@@ -34,7 +35,6 @@ import ListItemIcon from '../ListItemIcon';
 import ListItemText from '../ListItemText';
 import Tooltip from '../Tooltip';
 import './text-field.scss';
-import {FormControlTypeMap} from '@mui/material/FormControl';
 
 export enum TextFieldInputTypes {
   INPUT_PASSWORD = 'password',

@@ -22,7 +22,7 @@ import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
-import {TypographyTypeMap} from '../Typography';
+import type {TypographyTypeMap} from '../Typography';
 import Typography, {TypographyProps} from '../Typography/Typography';
 import './code.scss';
 

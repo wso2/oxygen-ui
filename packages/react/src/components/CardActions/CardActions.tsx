@@ -46,7 +46,6 @@ const COMPONENT_NAME: string = 'CardActions';
  * - ❌ `component` prop is not supported.
  * - ✅ The `ref` is forwarded to the root element.
  *
- * @template C - The type of the component.
  * @param props - The props for the CardActions component.
  * @param ref - The ref to be forwarded to the MuiCardActions component.
  * @returns The rendered CardActions component.

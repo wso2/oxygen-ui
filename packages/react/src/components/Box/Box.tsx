@@ -19,7 +19,7 @@
 import MuiBox from '@mui/material/Box';
 import type {BoxProps as MuiBoxProps} from '@mui/material/Box';
 import type {OverridableComponent} from '@mui/material/OverridableComponent';
-import {BoxTypeMap} from '@mui/system';
+import type {BoxTypeMap} from '@mui/system/Box';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, ReactElement, Ref} from 'react';

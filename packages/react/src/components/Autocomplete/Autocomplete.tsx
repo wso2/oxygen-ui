@@ -53,7 +53,6 @@ const COMPONENT_NAME: string = 'Autocomplete';
  * - ❌ `component` prop is not supported.
  * - ❌ The component cannot hold a `ref`.
  *
- * @template C - The type of the component.
  * @param props - The props for the Accordion component.
  * @param ref - The ref to be forwarded to the MuiAccordion component.
  * @returns The rendered Accordion component.

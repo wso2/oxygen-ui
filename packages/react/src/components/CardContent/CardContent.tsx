@@ -62,7 +62,10 @@ const COMPONENT_NAME: string = 'CardContent';
  * @returns The rendered CardContent component.
  */
 const CardContent: OverridableComponent<CardContentTypeMap<CardContentProps>> & WithWrapperProps = forwardRef(
-  ({className, ...rest}: CardContentProps, ref: Ref<HTMLDivElement>): ReactElement => {
+  <C extends ElementType = ElementType>(
+    {className, ...rest}: CardContentProps<C>,
+    ref: Ref<HTMLDivElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-card-content', className);
 
     return <MuiCardContent ref={ref} className={classes} {...rest} />;

@@ -49,7 +49,7 @@ export type AvatarProps<
 const COMPONENT_NAME: string = 'Avatar';
 
 /**
- * The Alert component display brief messages for the user without interrupting their use of the app.
+ * Avatars are found throughout material design with uses in everything from tables to dialog menus.
  *
  * Demos:
  *

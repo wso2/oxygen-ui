@@ -24,7 +24,7 @@ import {forwardRef} from 'react';
 import type {ReactElement, ElementType, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
-import {TypographyTypeMap} from '../Typography';
+import type {TypographyTypeMap} from '../Typography';
 import './alert-title.scss';
 
 export type AlertProps<C extends ElementType = ElementType> = {

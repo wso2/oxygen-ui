@@ -65,7 +65,6 @@ const COMPONENT_NAME: string = 'CircularProgressAvatar';
  * - ❌ `component` prop is not supported.
  * - ✅ The `ref` is forwarded to the root element.
  *
- * @template C - The type of the component.
  * @param props - The props for the CircularProgressAvatar component.
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered CircularProgressAvatar component.

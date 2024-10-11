@@ -48,13 +48,12 @@ const COMPONENT_NAME: string = 'CircularProgress';
  * - ❌ `component` prop is not supported.
  * - ✅ The `ref` is forwarded to the root element.
  *
- * @template C - The type of the component.
  * @param props - The props for the CircularProgress component.
  * @param ref - The ref to be forwarded to the MuiCircularProgress component.
  * @returns The rendered CircularProgress component.
  */
 const CircularProgress: ForwardRefExoticComponent<CircularProgressProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>({className, ...rest}: CircularProgressProps, ref: Ref<HTMLSpanElement>): ReactElement => {
+  ({className, ...rest}: CircularProgressProps, ref: Ref<HTMLSpanElement>): ReactElement => {
     const classes: string = clsx('oxygen-circular-progress', className);
 
     return <MuiCircularProgress ref={ref} aria-label="progress" className={classes} {...rest} />;

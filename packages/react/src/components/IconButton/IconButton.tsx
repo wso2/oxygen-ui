@@ -67,9 +67,9 @@ const COMPONENT_NAME: string = 'IconButton';
  * - ✅ The `ref` is forwarded to the root element.
  *
  * @template C - The type of the component.
- * @param props - The props for the FormControl component.
- * @param ref - The ref to be forwarded to the MuiFormControl component.
- * @returns The rendered FormControl component.
+ * @param props - The props for the IconButton component.
+ * @param ref - The ref to be forwarded to the MuiIconButton component.
+ * @returns The rendered IconButton component.
  */
 const IconButton: OverridableComponent<IconButtonTypeMap<IconButtonProps>> & WithWrapperProps = forwardRef(
   <C extends ElementType = ElementType>(

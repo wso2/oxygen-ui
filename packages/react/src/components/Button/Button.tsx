@@ -18,7 +18,7 @@
 
 import MuiButton from '@mui/lab/LoadingButton';
 import type {LoadingButtonTypeMap, LoadingButtonProps as MuiButtonProps} from '@mui/lab/LoadingButton';
-import {ButtonTypeMap} from '@mui/material';
+import type {ButtonTypeMap} from '@mui/material';
 import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
