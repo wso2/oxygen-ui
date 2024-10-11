@@ -26,6 +26,10 @@ import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './icon-button.scss';
 
+/**
+ * @deprecated Use the string literal i.e. "contained" or "text" instead.
+ * This will be removed in the next major release (v2.0.0).
+ */
 export enum IconButtonVariants {
   CONTAINED = 'contained',
   TEXT = 'text',
@@ -43,7 +47,7 @@ export type IconButtonProps<
   /**
    * The variant of the icon button.
    */
-  variant?: IconButtonVariants;
+  variant?: IconButtonVariants | 'contained' | 'text';
 } & Omit<MuiIconButtonProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'IconButton';
