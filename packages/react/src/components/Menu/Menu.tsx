@@ -39,7 +39,7 @@ const COMPONENT_NAME: string = 'Menu';
  *
  * Demos:
  *
- * - [App Bar (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-app-bar)
+ * - [App Bar (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-app-bar)
  * - [App Bar (MUI)](https://mui.com/material-ui/react-app-bar/)
  * - [Menu (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-menu)
  * - [Menu (MUI)](https://mui.com/material-ui/react-menu/)

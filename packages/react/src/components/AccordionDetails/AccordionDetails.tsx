@@ -33,7 +33,7 @@ const COMPONENT_NAME: string = 'AccordionDetails';
  *
  * Demos:
  *
- * - [Accordion (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-accordion)
+ * - [Accordion (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-accordion)
  * - [Accordion (MUI)](https://mui.com/material-ui/react-accordion/)
  *
  * API:

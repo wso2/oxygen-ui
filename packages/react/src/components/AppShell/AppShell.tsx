@@ -48,7 +48,7 @@ const COMPONENT_NAME: string = 'AppShell';
  *
  * Demos:
  *
- * - [App Shell (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/layout-app-shell)
+ * - [App Shell (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/layout-app-shell)
  *
  * API:
  *

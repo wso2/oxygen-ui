@@ -66,7 +66,7 @@ const COMPONENT_NAME: string = 'NavbarItem';
  *
  * Demos:
  *
- * - [Navbar Item (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-navbar-item)
+ * - [Navbar Item (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-navbar-item)
  *
  * API:
  *

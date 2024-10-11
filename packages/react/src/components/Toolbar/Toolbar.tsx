@@ -44,7 +44,7 @@ const COMPONENT_NAME: string = 'Toolbar';
  *
  * Demos:
  *
- * - [App Bar (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-app-bar)
+ * - [App Bar (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-app-bar)
  * - [App Bar (MUI)](https://mui.com/material-ui/react-app-bar/)
  *
  * API:

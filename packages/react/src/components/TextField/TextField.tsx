@@ -154,7 +154,7 @@ const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> & Wit
  *
  * Demos:
  *
- * - [Autocomplete (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-autocomplete)
+ * - [Autocomplete (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-autocomplete)
  * - [Autocomplete (MUI)](https://mui.com/material-ui/react-autocomplete/)
  * - [Text Field (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-text-field)
  * - [Text Field (MUI)](https://mui.com/material-ui/react-text-field/)

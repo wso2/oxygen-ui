@@ -48,7 +48,7 @@ const COMPONENT_NAME: string = 'Stepper';
  *
  * Demos:
  *
- * - [Stepper (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-stepper--overview)
+ * - [Stepper (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-stepper--overview)
  *
  * API:
  *

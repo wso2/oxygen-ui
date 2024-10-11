@@ -41,7 +41,7 @@ const COMPONENT_NAME: string = 'AlertTitle';
  *
  * Demos:
  *
- * - [Alert (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/feedback-alert)
+ * - [Alert (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/feedback-alert)
  * - [Alert (MUI)](https://mui.com/material-ui/react-alert/)
  *
  * API:

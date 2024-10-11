@@ -141,7 +141,7 @@ const COMPONENT_NAME: string = 'Header';
  *
  * Demos:
  *
- * - [Header (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-header)
+ * - [Header (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-header)
  *
  * API:
  *

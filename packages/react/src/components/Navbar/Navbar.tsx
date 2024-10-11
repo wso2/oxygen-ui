@@ -87,7 +87,7 @@ const COMPONENT_NAME: string = 'Navbar';
  *
  * Demos:
  *
- * - [Navvar (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-navbar)
+ * - [Navvar (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-navbar)
  *
  * API:
  *

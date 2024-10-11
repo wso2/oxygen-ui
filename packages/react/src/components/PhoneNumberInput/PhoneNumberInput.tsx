@@ -89,7 +89,7 @@ const COMPONENT_NAME: string = 'PhoneNumberInput';
  *
  * Demos:
  *
- * - [Phone Number Input (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-phone-number-input)
+ * - [Phone Number Input (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-phone-number-input)
  *
  * API:
  *

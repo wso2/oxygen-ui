@@ -98,7 +98,7 @@ const COMPONENT_NAME: string = 'Carousel';
  *
  * Demos:
  *
- * - [Carousel(Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/patterns-carousel)
+ * - [Carousel(Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/patterns-carousel)
  *
  * API:
  *

@@ -34,7 +34,7 @@ const COMPONENT_NAME: string = 'Image';
  *
  * Demos:
  *
- * - [Image (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-image)
+ * - [Image (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-image)
  *
  * @remarks
  * - ✨ This is a custom component that is not available in the Material-UI library.

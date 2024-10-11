@@ -36,7 +36,7 @@ const COMPONENT_NAME: string = 'DataGrid';
  *
  * Demos:
  *
- * - [Data Grid (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-datagrid)
+ * - [Data Grid (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-datagrid)
  * - [Data Grid (MUI X)](https://mui.com/x/react-data-grid/)
  *
  * API:

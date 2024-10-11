@@ -127,7 +127,7 @@ const COMPONENT_NAME: string = 'UserDropdownMenu';
  *
  * Demos:
  *
- * - [UserDropdownMenu (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-image)
+ * - [UserDropdownMenu (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-image)
  *
  * API:
  *

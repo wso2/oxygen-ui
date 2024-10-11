@@ -37,11 +37,11 @@ export type AlertProps<C extends ElementType = ElementType> = {
 const COMPONENT_NAME: string = 'Alert';
 
 /**
- * The Alert component display brief messages for the user without interrupting their use of the app.
+ * The Alert component displays brief messages to the user without interrupting their use of the app.
  *
  * Demos:
  *
- * - [Alert (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/feedback-alert)
+ * - [Alert (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/feedback-alert)
  * - [Alert (MUI)](https://mui.com/material-ui/react-alert/)
  *
  * API:

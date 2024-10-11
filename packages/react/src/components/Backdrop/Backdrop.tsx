@@ -44,7 +44,7 @@ const COMPONENT_NAME: string = 'Backdrop';
  *
  * Demos:
  *
- * - [Backdrop (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/feedback-backdrop)
+ * - [Backdrop (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/feedback-backdrop)
  * - [Backdrop (MUI)](https://mui.com/material-ui/react-backdrop/)
  *
  * API:

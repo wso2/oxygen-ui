@@ -58,7 +58,7 @@ const COMPONENT_NAME: string = 'SignIn';
  *
  * Demos:
  *
- * - [Sign In (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/patterns-sign-in--overview)
+ * - [Sign In (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/patterns-sign-in--overview)
  *
  * API:
  *

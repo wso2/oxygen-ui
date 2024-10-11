@@ -40,7 +40,7 @@ const COMPONENT_NAME: string = 'Drawer';
  *
  * Demos:
  *
- * - [Drawer (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-drawer)
+ * - [Drawer (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-drawer)
  * - [Drawer (MUI)](https://mui.com/material-ui/react-drawer/)
  *
  * API:

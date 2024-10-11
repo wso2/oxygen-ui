@@ -55,7 +55,7 @@ const COMPONENT_NAME: string = 'CollapsibleNavbarItem';
  *
  * Demos:
  *
- * - [Collapsible Navbar Item (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-collapsible-navbar-item)
+ * - [Collapsible Navbar Item (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-collapsible-navbar-item)
  *
  * API:
  *

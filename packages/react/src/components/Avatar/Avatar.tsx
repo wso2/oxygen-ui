@@ -53,7 +53,7 @@ const COMPONENT_NAME: string = 'Avatar';
  *
  * Demos:
  *
- * - [Avatar (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-avatar)
+ * - [Avatar (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-avatar)
  * - [Avatar (MUI)](https://mui.com/material-ui/react-avatar/)
  *
  * API:

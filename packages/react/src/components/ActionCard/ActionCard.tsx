@@ -56,11 +56,11 @@ export type ActionCardProps<C extends ElementType = ElementType> = CardProps<C> 
 const COMPONENT_NAME: string = 'ActionCard';
 
 /**
- * The Action Card component is an extended version of the` Card` component with an action button.
+ * The Action Card component is an extended version of the `Card` component with an action button.
  *
  * Demos:
  *
- * - [Action Card (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-action-card)
+ * - [Action Card (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-action-card)
  *
  * API:
  *

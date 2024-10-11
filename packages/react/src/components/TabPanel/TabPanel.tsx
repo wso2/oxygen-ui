@@ -44,7 +44,7 @@ const COMPONENT_NAME: string = 'TabPanel';
  *
  * Demos:
  *
- * - [TabPanel (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-tab-panel--overview)
+ * - [TabPanel (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-tab-panel--overview)
  *
  * API:
  *

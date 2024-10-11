@@ -46,7 +46,7 @@ const COMPONENT_NAME: string = 'Code';
  *
  * Demos:
  *
- * - [Code (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-code)
+ * - [Code (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-code)
  *
  * API:
  *

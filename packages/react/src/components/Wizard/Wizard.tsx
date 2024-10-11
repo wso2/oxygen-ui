@@ -100,7 +100,7 @@ const COMPONENT_NAME: string = 'Wizard';
  *
  * Demos:
  *
- * - [Wizard (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/patterns-wizard)
+ * - [Wizard (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/patterns-wizard)
  *
  * API:
  *

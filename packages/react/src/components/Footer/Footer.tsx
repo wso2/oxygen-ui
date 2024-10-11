@@ -54,7 +54,7 @@ const COMPONENT_NAME: string = 'Footer';
  *
  * Demos:
  *
- * - [Footer (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-footer)
+ * - [Footer (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-footer)
  *
  * @remarks
  * - ✨ This is a custom component that is not available in the Material-UI library.

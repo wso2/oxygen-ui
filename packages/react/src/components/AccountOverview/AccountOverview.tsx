@@ -81,7 +81,7 @@ const COMPONENT_NAME: string = 'AccountOverview';
  *
  * Demos:
  *
- * - [Account Overview (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/patterns-account-overview)
+ * - [Account Overview (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/patterns-account-overview)
  *
  * API:
  *

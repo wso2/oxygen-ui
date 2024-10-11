@@ -53,7 +53,7 @@ const COMPONENT_NAME: string = 'CircularProgressAvatar';
  * Demos:
  *
  * // TODO: Move this demo to the Progress demo.
- * - [Circular Progress Avatar (Oxygen UI)] (https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-circular-progress-avatar)
+ * - [Circular Progress Avatar (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-circular-progress-avatar)
  *
  * API:
  *
