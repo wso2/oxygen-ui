@@ -36,6 +36,10 @@ import ListItemText from '../ListItemText';
 import Tooltip from '../Tooltip';
 import './text-field.scss';
 
+/**
+ * @deprecated Use the string literal i.e. "password" or "text" instead.
+ * This will be removed in the next major release (v2.0.0).
+ */
 export enum TextFieldInputTypes {
   INPUT_PASSWORD = 'password',
   INPUT_TEXT = 'text',
@@ -70,7 +74,7 @@ const PasswordField: ForwardRefExoticComponent<TextFieldProps> & WithWrapperProp
     return (
       <MuiTextField
         ref={ref}
-        type={showPassword ? TextFieldInputTypes.INPUT_TEXT : TextFieldInputTypes.INPUT_PASSWORD}
+        type={showPassword ? 'text' : 'password'}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
