@@ -4,22 +4,22 @@ exports[`SignIn should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="oxygen-sign-in MuiBox-root css-0"
+      class="oxygen-box oxygen-sign-in MuiBox-root css-0"
     >
       <img
-        class="oxygen-sign-in-logo MuiBox-root css-0"
+        class="oxygen-box oxygen-sign-in-logo MuiBox-root css-0"
         src="#"
       />
       <div
-        class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded oxygen-sign-in-box css-1fbvlaf-MuiPaper-root"
+        class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded oxygen-paper oxygen-sign-in-box css-1fbvlaf-MuiPaper-root"
       >
         <h5
-          class="MuiTypography-root MuiTypography-h5 MuiTypography-alignCenter oxygen-sign-in-header css-pezd7p-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-h5 MuiTypography-alignCenter oxygen-typography oxygen-sign-in-header css-pezd7p-MuiTypography-root"
         >
           Sign in
         </h5>
         <form
-          class="oxygen-sign-in-form MuiBox-root css-164r41r"
+          class="oxygen-box oxygen-sign-in-form MuiBox-root css-164r41r"
           novalidate=""
         >
           <div
@@ -93,7 +93,7 @@ exports[`SignIn should match the snapshot 1`] = `
                   value=""
                 />
                 <div
-                  class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-103jkr5-MuiInputAdornment-root"
+                  class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium oxygen-input-adornment css-103jkr5-MuiInputAdornment-root"
                 >
                   <button
                     aria-label="toggle password visibility"
@@ -142,13 +142,13 @@ exports[`SignIn should match the snapshot 1`] = `
             </div>
           </div>
           <div
-            class="MuiFormGroup-root css-dmmspl-MuiFormGroup-root"
+            class="MuiFormGroup-root oxygen-form-group css-dmmspl-MuiFormGroup-root"
           >
             <label
-              class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-tajcny-MuiFormControlLabel-root"
+              class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd oxygen-form-control-label css-tajcny-MuiFormControlLabel-root"
             >
               <span
-                class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary Mui-checked MuiCheckbox-root MuiCheckbox-colorPrimary css-hvaz3l-MuiButtonBase-root-MuiCheckbox-root"
+                class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary Mui-checked MuiCheckbox-root MuiCheckbox-colorPrimary oxygen-checkbox css-hvaz3l-MuiButtonBase-root-MuiCheckbox-root"
               >
                 <input
                   checked=""
@@ -190,15 +190,15 @@ exports[`SignIn should match the snapshot 1`] = `
             />
           </button>
           <div
-            class="MuiGrid-root MuiGrid-container oxygen-sign-in-sign-up-link css-11lq3yg-MuiGrid-root"
+            class="MuiGrid2-root MuiGrid2-container MuiGrid2-direction-xs-row oxygen-grid oxygen-sign-in-sign-up-link css-1pi8xg4-MuiGrid2-root"
           >
             <div
-              class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+              class="MuiGrid2-root MuiGrid2-direction-xs-row oxygen-grid css-27y2fm-MuiGrid2-root"
             >
               Don't have an account?
             </div>
             <div
-              class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+              class="MuiGrid2-root MuiGrid2-direction-xs-row oxygen-grid css-27y2fm-MuiGrid2-root"
             >
               <a
                 class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineHover oxygen-link oxygen-sign-in-sign-up-link-action css-c2ph3r-MuiTypography-root-MuiLink-root"
