@@ -20,7 +20,7 @@ import MuiCircularProgress from '@mui/material/CircularProgress';
 import type {CircularProgressProps as MuiCircularProgressProps} from '@mui/material/CircularProgress';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, ReactElement, Ref} from 'react';
+import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './circular-progress.scss';
