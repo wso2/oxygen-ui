@@ -16,31 +16,65 @@
  * under the License.
  */
 
-import MuiTypography, {TypographyProps as MuiTypographyProps} from '@mui/material/Typography';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
+import MuiTypography from '@mui/material/Typography';
+import type {TypographyProps as MuiTypographyProps, TypographyTypeMap} from '@mui/material/Typography';
 import clsx from 'clsx';
-import {ElementType, FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './typography.scss';
 
-export type TypographyProps<C extends ElementType = ElementType> = {
+export type TypographyProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = TypographyTypeMap['defaultComponent'],
+  P = {},
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
   component?: C;
-} & Omit<MuiTypographyProps<C>, 'component'>;
+} & Omit<MuiTypographyProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'Typography';
 
-const Typography: FC<TypographyProps> & WithWrapperProps = <C extends ElementType>(
-  props: TypographyProps<C>,
-): ReactElement => {
-  const {className, ...rest} = props;
+/**
+ * The Typography can present your design and content as clearly and efficiently as possible.
+ *
+ * Demos:
+ *
+ * - [Breadcrumbs (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-breadcrumbs)
+ * - [Breadcrumbs (MUI)](https://mui.com/material-ui/react-breadcrumbs/)
+ * - [Typography (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-typography)
+ * - [Typography (MUI)](https://mui.com/material-ui/react-typography/)
+ *
+ * API:
+ *
+ * - [Typography API](https://mui.com/material-ui/api/typography/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the Typography component.
+ * @param ref - The ref to be forwarded to the MuiTypography component.
+ * @returns The rendered Typography component.
+ */
+const Typography: OverridableComponent<TypographyTypeMap<TypographyProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {className, ...rest}: TypographyProps<C>,
+    ref: Ref<HTMLSpanElement>,
+  ): ReactElement => {
+    const classes: string = clsx('oxygen-typography', className);
 
-  const classes: string = clsx('oxygen-typography', className);
-
-  return <MuiTypography className={classes} {...rest} />;
-};
+    return <MuiTypography ref={ref} className={classes} {...rest} />;
+  },
+) as OverridableComponent<TypographyTypeMap<TypographyProps>> & WithWrapperProps;
 
 Typography.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Typography.muiName = COMPONENT_NAME;
-Typography.defaultProps = {};
 
 export default Typography;

@@ -16,29 +16,60 @@
  * under the License.
  */
 
-import MuiChip, {ChipProps as MuiChipProps} from '@mui/material/Chip';
+import MuiChip from '@mui/material/Chip';
+import type {ChipProps as MuiChipProps, ChipTypeMap} from '@mui/material/Chip';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
-import {ElementType, FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './chip.scss';
 
-export type ChipProps<C extends ElementType = ElementType> = {
+export type ChipProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = ChipTypeMap['defaultComponent'],
+  P = {},
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
   component?: C;
-} & Omit<MuiChipProps<C>, 'component'>;
+} & Omit<MuiChipProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'Chip';
 
-const Chip: FC<ChipProps> & WithWrapperProps = <C extends ElementType>(props: ChipProps<C>): ReactElement => {
-  const {className, ...rest} = props;
+/**
+ * The Chips are compact elements that represent an input, attribute, or action.
+ *
+ * Demos:
+ *
+ * - [Chip (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-chip)
+ * - [Chip (MUI)](https://mui.com/material-ui/react-chip/)
+ *
+ * API:
+ *
+ * - [Chip API](https://mui.com/material-ui/api/chip/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the Chip component.
+ * @param ref - The ref to be forwarded to the MuiChip component.
+ * @returns The rendered Chip component.
+ */
+const Chip: OverridableComponent<ChipTypeMap<ChipProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>({className, ...rest}: ChipProps<C>, ref: Ref<HTMLDivElement>): ReactElement => {
+    const classes: string = clsx('oxygen-chip', className);
 
-  const classes: string = clsx('oxygen-chip', className);
-
-  return <MuiChip className={classes} {...rest} />;
-};
+    return <MuiChip ref={ref} className={classes} {...rest} />;
+  },
+) as OverridableComponent<ChipTypeMap<ChipProps>> & WithWrapperProps;
 
 Chip.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Chip.muiName = COMPONENT_NAME;
-Chip.defaultProps = {};
 
 export default Chip;

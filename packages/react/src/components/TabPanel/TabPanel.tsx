@@ -16,15 +16,17 @@
  * under the License.
  */
 
-import {BoxProps as MuiBoxProps} from '@mui/material';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
-import {forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
+import type {BoxProps, BoxTypeMap} from '../Box';
 import './tab-panel.scss';
 
-export interface TabPanelProps extends MuiBoxProps {
+export type TabPanelProps<C extends ElementType = ElementType> = BoxProps<C> & {
   /*
    * The index of the corresponding `TabPanel`.
    */
@@ -33,23 +35,46 @@ export interface TabPanelProps extends MuiBoxProps {
    * The value of the selected `TabPanel`.
    */
   value: number;
-}
+};
 
 const COMPONENT_NAME: string = 'TabPanel';
 
-const TabPanel: ForwardRefExoticComponent<TabPanelProps> & WithWrapperProps = forwardRef(
-  (props: TabPanelProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, children, value, index, ...rest} = props;
-
+/**
+ * TabPanel component can be used with Tabs component to implement the content of the tab views.
+ *
+ * Demos:
+ *
+ * - [TabPanel (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-tab-panel--overview)
+ *
+ * API:
+ *
+ * - inherits [Card API](https://mui.com/material-ui/api/card/)
+ *
+ * @remarks
+ * - ✨ This is a custom component that is not available in the Material-UI library.
+ * - ✔️ Props of the [Box](https://mui.com/material-ui/api/box/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the TabPanel component.
+ * @param ref - The ref to be forwarded to the Box component.
+ * @returns The rendered TabPanel component.
+ */
+const TabPanel: OverridableComponent<BoxTypeMap<TabPanelProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {className, children, value, index, ...rest}: TabPanelProps<C>,
+    ref: Ref<HTMLDivElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-tab-panel', className);
 
     return (
-      <Box className={classes} ref={ref} role="tabpanel" hidden={value !== index} {...rest}>
+      <Box ref={ref} className={classes} role="tabpanel" hidden={value !== index} {...rest}>
         {value === index && <Box>{children}</Box>}
       </Box>
     );
   },
-) as ForwardRefExoticComponent<TabPanelProps> & WithWrapperProps;
+) as OverridableComponent<BoxTypeMap<TabPanelProps>> & WithWrapperProps;
 
 TabPanel.displayName = composeComponentDisplayName(COMPONENT_NAME);
 TabPanel.muiName = COMPONENT_NAME;

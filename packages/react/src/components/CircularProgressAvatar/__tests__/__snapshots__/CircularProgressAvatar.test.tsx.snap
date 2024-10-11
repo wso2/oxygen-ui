@@ -8,7 +8,7 @@ exports[`CircularProgressAvatar should match the snapshot 1`] = `
       role="presentation"
     >
       <span
-        class="MuiBadge-root oxygen-badge css-1c32n2y-MuiBadge-root"
+        class="MuiBadge-root oxygen-badge oxygen-badge css-1c32n2y-MuiBadge-root"
       >
         <div
           class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault oxygen-avatar css-woe6xp-MuiAvatar-root"
@@ -28,7 +28,7 @@ exports[`CircularProgressAvatar should match the snapshot 1`] = `
         <span
           aria-label="progress"
           aria-valuenow="0"
-          class="MuiCircularProgress-root MuiCircularProgress-determinate MuiCircularProgress-colorPrimary oxygen-circular-progress css-iq1hel-MuiCircularProgress-root"
+          class="MuiCircularProgress-root MuiCircularProgress-determinate MuiCircularProgress-colorPrimary oxygen-circular-progress oxygen-circular-progress css-iq1hel-MuiCircularProgress-root"
           role="progressbar"
           style="width: 90px; height: 90px; transform: rotate(-90deg);"
         >
@@ -50,7 +50,7 @@ exports[`CircularProgressAvatar should match the snapshot 1`] = `
         <span
           aria-label="progress"
           aria-valuenow="100"
-          class="MuiCircularProgress-root MuiCircularProgress-determinate MuiCircularProgress-colorPrimary oxygen-circular-progress frame css-iq1hel-MuiCircularProgress-root"
+          class="MuiCircularProgress-root MuiCircularProgress-determinate MuiCircularProgress-colorPrimary oxygen-circular-progress oxygen-circular-progress frame css-iq1hel-MuiCircularProgress-root"
           role="progressbar"
           style="width: 90px; height: 90px; transform: rotate(-90deg);"
         >

@@ -17,7 +17,8 @@
  */
 
 import clsx from 'clsx';
-import {FC, ImgHTMLAttributes, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, ImgHTMLAttributes, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -26,16 +27,32 @@ export type ImageProps = ImgHTMLAttributes<HTMLImageElement>;
 const COMPONENT_NAME: string = 'Image';
 
 /**
+ * The Footers display a set of links and a copyright at the bottom of the application.
+ *
  * TODO: Refer improvement issue if this Image component is required.
  * @see {@link https://github.com/wso2/oxygen-ui/issues/65}
+ *
+ * Demos:
+ *
+ * - [Image (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-image)
+ *
+ * @remarks
+ * - ✨ This is a custom component that is not available in the Material-UI library.
+ * - ✔️ Props of the native component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @param props - The props for the Image component.
+ * @param ref - The ref to be forwarded to the img component.
+ * @returns The rendered Image component.
  */
-const Image: FC<ImageProps> & WithWrapperProps = (props: ImageProps): ReactElement => {
-  const {className, alt, ...rest} = props;
+const Image: ForwardRefExoticComponent<ImageProps> & WithWrapperProps = forwardRef(
+  ({className, alt, ...rest}: ImageProps, ref: Ref<HTMLImageElement>): ReactElement => {
+    const classes: string = clsx('oxygen-image', className);
 
-  const classes: string = clsx('oxygen-image', className);
-
-  return <img className={classes} alt={alt} {...rest} />;
-};
+    return <img ref={ref} className={classes} alt={alt} {...rest} />;
+  },
+) as ForwardRefExoticComponent<ImageProps> & WithWrapperProps;
 
 Image.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Image.muiName = COMPONENT_NAME;

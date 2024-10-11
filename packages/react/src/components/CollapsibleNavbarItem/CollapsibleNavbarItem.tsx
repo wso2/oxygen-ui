@@ -17,40 +17,80 @@
  */
 
 import MuiCollapse from '@mui/material/Collapse';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import {ChevronDownIcon, ChevronUpIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
-import {forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement, useState} from 'react';
+import {forwardRef, useState} from 'react';
+import type {ElementType, Ref, MouseEvent, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import Chip from '../Chip';
 import List from '../List';
 import ListItemButton from '../ListItemButton';
+import type {ListItemButtonTypeMap} from '../ListItemButton';
 import ListItemIcon from '../ListItemIcon';
 import ListItemText from '../ListItemText';
-import type {NavbarProps} from '../Navbar/Navbar';
+import type {NavbarProps} from '../Navbar';
 import type {NavbarItemProps} from '../NavbarItem';
 import Tooltip from '../Tooltip';
 import './collapsible-navbar-item.scss';
 
-export interface CollapsibleNavbarItemProps extends NavbarItemProps, Pick<NavbarProps, 'fill' | 'open'> {
-  /**
-   * Is the item expanded.
-   */
-  expanded?: boolean;
-  /**
-   * Set of sub items.
-   */
-  items: NavbarItemProps[];
-}
+export type CollapsibleNavbarItemProps<C extends ElementType = ElementType> = NavbarItemProps<C> &
+  Pick<NavbarProps, 'fill' | 'open'> & {
+    /**
+     * Is the item expanded.
+     */
+    expanded?: boolean;
+    /**
+     * Set of sub items.
+     */
+    items: NavbarItemProps[];
+  };
 
 const COMPONENT_NAME: string = 'CollapsibleNavbarItem';
 
-const CollapsibleNavbarItem: ForwardRefExoticComponent<CollapsibleNavbarItemProps> & WithWrapperProps = forwardRef(
-  (props: CollapsibleNavbarItemProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, component, expanded, fill, icon, id, open, label, onClick, items, tag, tagClassName, ...rest} =
-      props;
-
+/**
+ * The Collapsible Navbar Item is a custom component that is used to render a collapsible item in the Navbar.
+ *
+ * Demos:
+ *
+ * - [Collapsible Navbar Item (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-collapsible-navbar-item)
+ *
+ * API:
+ *
+ * - inherits [ListItemButton API](https://mui.com/material-ui/api/list-item-button/)
+ *
+ * @remarks
+ * - ✨ This is a custom component that is not available in the Material-UI library.
+ * - ✔️ Props of the [ButtonBase](https://mui.com/material-ui/api/button-base/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the CollapsibleNavbarItem component.
+ * @param ref - The ref to be forwarded to the Box component.
+ * @returns The rendered CollapsibleNavbarItem component.
+ */
+const CollapsibleNavbarItem: OverridableComponent<ListItemButtonTypeMap<CollapsibleNavbarItemProps>> &
+  WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {
+      className,
+      expanded,
+      fill,
+      icon,
+      id,
+      open = true,
+      label,
+      onClick,
+      items,
+      tag,
+      tagClassName,
+      ...rest
+    }: CollapsibleNavbarItemProps<C>,
+    ref: Ref<HTMLDivElement>,
+  ): ReactElement => {
     const classes: string = clsx(
       'oxygen-collapsible-navbar-item',
       {
@@ -63,10 +103,11 @@ const CollapsibleNavbarItem: ForwardRefExoticComponent<CollapsibleNavbarItemProp
 
     const [itemExpanded, setItemExpanded] = useState<boolean>(expanded || false);
 
-    const handleItemClick = (): void => {
+    const handleItemClick = (e: MouseEvent<HTMLDivElement>): void => {
       if (onClick) {
-        onClick();
+        onClick(e);
       }
+
       setItemExpanded((prevState: boolean) => !prevState);
     };
 
@@ -75,7 +116,7 @@ const CollapsibleNavbarItem: ForwardRefExoticComponent<CollapsibleNavbarItemProp
     const renderChevron = (): ReactElement => (itemExpanded ? <ChevronUpIcon /> : <ChevronDownIcon />);
 
     return (
-      <Box component={component} className={clsx(classes, {expanded: itemExpanded})} ref={ref}>
+      <Box ref={ref} className={clsx(classes, {expanded: itemExpanded})}>
         <Tooltip placement="right" title={!open && label}>
           <ListItemButton
             selected={getIsItemSelected}
@@ -126,12 +167,9 @@ const CollapsibleNavbarItem: ForwardRefExoticComponent<CollapsibleNavbarItemProp
       </Box>
     );
   },
-) as ForwardRefExoticComponent<CollapsibleNavbarItemProps> & WithWrapperProps;
+) as OverridableComponent<ListItemButtonTypeMap<CollapsibleNavbarItemProps>> & WithWrapperProps;
 
 CollapsibleNavbarItem.displayName = composeComponentDisplayName(COMPONENT_NAME);
 CollapsibleNavbarItem.muiName = COMPONENT_NAME;
-CollapsibleNavbarItem.defaultProps = {
-  open: true,
-};
 
 export default CollapsibleNavbarItem;

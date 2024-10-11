@@ -16,14 +16,17 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
-import {FC, PropsWithChildren, ReactElement, ReactNode} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, Ref, ReactElement, ReactNode} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
-import Box, {BoxProps} from '../Box';
+import Box from '../Box';
+import type {BoxProps, BoxTypeMap} from '../Box';
 import './app-shell.scss';
 
-export interface AppShellProps extends BoxProps {
+export type AppShellProps<C extends ElementType = ElementType> = BoxProps<C> & {
   /**
    * Footer component.
    */
@@ -36,35 +39,57 @@ export interface AppShellProps extends BoxProps {
    * Navigation component.
    */
   navigation?: ReactNode;
-}
+};
 
 const COMPONENT_NAME: string = 'AppShell';
 
-const AppShell: FC<PropsWithChildren<AppShellProps>> & WithWrapperProps = (
-  props: PropsWithChildren<AppShellProps>,
-): ReactElement => {
-  const {className, children, footer, header, navigation, ...rest} = props;
+/**
+ * The App Shell component is a layout component that can be used to create a common Header - Navbar - Footer - Aside - Content layout pattern.
+ *
+ * Demos:
+ *
+ * - [App Shell (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/layout-app-shell)
+ *
+ * API:
+ *
+ * - inherits [Box API](https://mui.com/material-ui/api/box/)
+ *
+ * @remarks
+ * - ✨ This is a custom component that is not available in the Material-UI library.
+ * - ✔️ Props of the [Box](https://mui.com/material-ui/api/box/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the AppShell component.
+ * @param ref - The ref to be forwarded to the Box component.
+ * @returns The rendered AppShell component.
+ */
+const AppShell: OverridableComponent<BoxTypeMap<AppShellProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType>(
+    {className, children, footer, header, navigation, ...rest}: AppShellProps<C>,
+    ref: Ref<HTMLDivElement>,
+  ): ReactElement => {
+    const classes: string = clsx('oxygen-app-shell', className);
 
-  const classes: string = clsx('oxygen-app-shell', className);
-
-  return (
-    <Box className={classes} {...rest}>
-      {header}
-      <Box className="oxygen-app-shell-content">
-        <Box className="oxygen-app-shell-navigation-wrapper">{navigation}</Box>
-        <Box className="oxygen-app-shell-main-wrapper">
-          <Box component="main" className="oxygen-app-shell-main">
-            {children}
+    return (
+      <Box ref={ref} className={classes} {...rest}>
+        {header}
+        <Box className="oxygen-app-shell-content">
+          <Box className="oxygen-app-shell-navigation-wrapper">{navigation}</Box>
+          <Box className="oxygen-app-shell-main-wrapper">
+            <Box component="main" className="oxygen-app-shell-main">
+              {children}
+            </Box>
+            {footer}
           </Box>
-          {footer}
         </Box>
       </Box>
-    </Box>
-  );
-};
+    );
+  },
+) as OverridableComponent<BoxTypeMap<AppShellProps>> & WithWrapperProps;
 
 AppShell.displayName = composeComponentDisplayName(COMPONENT_NAME);
 AppShell.muiName = COMPONENT_NAME;
-AppShell.defaultProps = {};
 
 export default AppShell;

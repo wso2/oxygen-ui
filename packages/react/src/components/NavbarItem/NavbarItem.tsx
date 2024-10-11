@@ -16,52 +16,78 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
-import {ForwardRefExoticComponent, MutableRefObject, ReactElement, ReactNode, forwardRef} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, Ref, ReactElement, ReactNode} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import Chip from '../Chip';
-import type {ListItemProps} from '../ListItem';
 import ListItemButton from '../ListItemButton';
+import type {ListItemButtonProps, ListItemButtonTypeMap} from '../ListItemButton';
 import ListItemIcon from '../ListItemIcon';
 import ListItemText from '../ListItemText';
-import type {NavbarProps} from '../Navbar/Navbar';
+import type {NavbarProps} from '../Navbar';
 import Tooltip from '../Tooltip';
 import './navbar-item.scss';
 
-export interface NavbarItemProps extends ListItemProps, Pick<NavbarProps, 'fill' | 'open'> {
-  /**
-   * Icon for the Navbar item.
-   * @example <HomeIcon />
-   */
-  icon?: ReactNode;
-  /**
-   * Unique id for the item.
-   */
-  id?: string;
-  /**
-   * Label to display on the UI.
-   * @example Overview
-   */
-  label: ReactNode;
-  /**
-   * Tag to display on the UI.
-   * @example Beta
-   */
-  tag?: string;
-  /**
-   * Tag color variant.
-   */
-  tagClassName?: 'premium' | 'beta' | 'new' | 'experimental';
-}
+export type NavbarItemProps<C extends ElementType = ElementType> = ListItemButtonProps<C> &
+  Pick<NavbarProps, 'fill' | 'open'> & {
+    /**
+     * Icon for the Navbar item.
+     * @example <HomeIcon />
+     */
+    icon?: ReactNode;
+    /**
+     * Unique id for the item.
+     */
+    id?: string;
+    /**
+     * Label to display on the UI.
+     * @example Overview
+     */
+    label: ReactNode;
+    /**
+     * Tag to display on the UI.
+     * @example Beta
+     */
+    tag?: string;
+    /**
+     * Tag color variant.
+     */
+    tagClassName?: 'premium' | 'beta' | 'new' | 'experimental';
+  };
 
 const COMPONENT_NAME: string = 'NavbarItem';
 
-const NavbarItem: ForwardRefExoticComponent<NavbarItemProps> & WithWrapperProps = forwardRef(
-  (props: NavbarItemProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, component, fill, icon, id, label, onClick, href, selected, tag, tagClassName, open, ...rest} =
-      props;
+/**
+ * The Navbar Item component is used to represent an item in the Navbar.
+ *
+ * Demos:
+ *
+ * - [Navbar Item (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-navbar-item)
+ *
+ * API:
+ *
+ * - inherits [ListItemButton API](https://mui.com/material-ui/api/list-item-button/)
+ *
+ * @remarks
+ * - ✨ This is a custom component that is not available in the Material-UI library.
+ * - ✔️ Props of the [ListItemButton](https://mui.com/material-ui/api/list-item-button/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the NavbarItem component.
+ * @param ref - The ref to be forwarded to the Box component.
+ * @returns The rendered NavbarItem component.
+ */
+const NavbarItem: OverridableComponent<ListItemButtonTypeMap<NavbarItemProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {className, fill, icon, id, label, onClick, selected, tag, tagClassName, open = true, ...rest}: NavbarItemProps<C>,
+    ref: Ref<HTMLDivElement>,
+  ): ReactElement => {
     const classes: string = clsx(
       'oxygen-navbar-item',
       {
@@ -73,7 +99,7 @@ const NavbarItem: ForwardRefExoticComponent<NavbarItemProps> & WithWrapperProps 
     );
 
     return (
-      <Box ref={ref} className={classes} component={component}>
+      <Box ref={ref} className={classes}>
         <Tooltip ref={ref} key={id} title={!open && label} placement="right">
           <ListItemButton selected={selected} className={clsx({selected})} onClick={onClick} {...rest}>
             <ListItemIcon>{icon}</ListItemIcon>
@@ -90,13 +116,9 @@ const NavbarItem: ForwardRefExoticComponent<NavbarItemProps> & WithWrapperProps 
       </Box>
     );
   },
-) as ForwardRefExoticComponent<NavbarItemProps> & WithWrapperProps;
+) as OverridableComponent<ListItemButtonTypeMap<NavbarItemProps>> & WithWrapperProps;
 
 NavbarItem.displayName = composeComponentDisplayName(COMPONENT_NAME);
 NavbarItem.muiName = COMPONENT_NAME;
-NavbarItem.defaultProps = {
-  collapsible: true,
-  open: true,
-};
 
 export default NavbarItem;

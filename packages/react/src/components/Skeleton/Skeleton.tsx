@@ -16,30 +16,62 @@
  * under the License.
  */
 
-import MuiSkeleton, {SkeletonProps as MuiSkeletonProps} from '@mui/material/Skeleton';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
+import MuiSkeleton from '@mui/material/Skeleton';
+import type {SkeletonProps as MuiSkeletonProps, SkeletonTypeMap} from '@mui/material/Skeleton';
 import clsx from 'clsx';
-import {ElementType, FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
-export type SkeletonProps<C extends ElementType = ElementType> = {
+export type SkeletonProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = SkeletonTypeMap['defaultComponent'],
+  P = {},
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
   component?: C;
-} & Omit<MuiSkeletonProps<C>, 'component'>;
+} & Omit<MuiSkeletonProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'Skeleton';
 
-const Skeleton: FC<SkeletonProps> & WithWrapperProps = <C extends ElementType>(
-  props: SkeletonProps<C>,
-): ReactElement => {
-  const {className, ...rest} = props;
+/**
+ * The Skeleton displays a placeholder preview of your content before the data gets loaded to reduce load-time frustration.
+ *
+ * Demos:
+ *
+ * - [Skeleton (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/feedback-skeleton)
+ * - [Skeleton (MUI)](https://mui.com/material-ui/react-skeleton/)
+ *
+ * API:
+ *
+ * - [Skeleton API](https://mui.com/material-ui/api/skeleton/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the Skeleton component.
+ * @param ref - The ref to be forwarded to the MuiSkeleton component.
+ * @returns The rendered Skeleton component.
+ */
+const Skeleton: OverridableComponent<SkeletonTypeMap<SkeletonProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {className, ...rest}: SkeletonProps<C>,
+    ref: Ref<HTMLDivElement>,
+  ): ReactElement => {
+    const classes: string = clsx('oxygen-skeleton', className);
 
-  const classes: string = clsx('oxygen-skeleton', className);
-
-  return <MuiSkeleton className={classes} {...rest} />;
-};
+    return <MuiSkeleton ref={ref} className={classes} {...rest} />;
+  },
+) as OverridableComponent<SkeletonTypeMap<SkeletonProps>> & WithWrapperProps;
 
 Skeleton.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Skeleton.muiName = COMPONENT_NAME;
-Skeleton.defaultProps = {};
 
 export default Skeleton;

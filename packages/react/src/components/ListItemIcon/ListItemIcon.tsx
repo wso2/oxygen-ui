@@ -16,9 +16,11 @@
  * under the License.
  */
 
-import MuiListItemIcon, {ListItemIconProps as MuiListItemIconProps} from '@mui/material/ListItemIcon';
+import MuiListItemIcon from '@mui/material/ListItemIcon';
+import type {ListItemIconProps as MuiListItemIconProps} from '@mui/material/ListItemIcon';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list-item-icon.scss';
@@ -27,16 +29,36 @@ export type ListItemIconProps = MuiListItemIconProps;
 
 const COMPONENT_NAME: string = 'ListItemIcon';
 
-const ListItemIcon: FC<ListItemIconProps> & WithWrapperProps = (props: ListItemIconProps): ReactElement => {
-  const {className, ...rest} = props;
+/**
+ * The List Item Icon component is used to display an icon in a list item.
+ *
+ * Demos:
+ *
+ * - [Lists (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-list)
+ * - [Lists (MUI)](https://mui.com/material-ui/react-list/)
+ *
+ * API:
+ *
+ * - [ListItemIcon API](https://mui.com/material-ui/api/list-item-icon/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @param props - The props for the ListItemIcon component.
+ * @param ref - The ref to be forwarded to the MuiListItemIcon component.
+ * @returns The rendered ListItemIcon component.
+ */
+const ListItemIcon: ForwardRefExoticComponent<ListItemIconProps> & WithWrapperProps = forwardRef(
+  ({className, ...rest}: ListItemIconProps, ref: Ref<HTMLDivElement>): ReactElement => {
+    const classes: string = clsx('oxygen-list-item-icon', className);
 
-  const classes: string = clsx('oxygen-list-item-icon', className);
-
-  return <MuiListItemIcon className={classes} {...rest} />;
-};
+    return <MuiListItemIcon ref={ref} className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<ListItemIconProps> & WithWrapperProps;
 
 ListItemIcon.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ListItemIcon.muiName = COMPONENT_NAME;
-ListItemIcon.defaultProps = {};
 
 export default ListItemIcon;

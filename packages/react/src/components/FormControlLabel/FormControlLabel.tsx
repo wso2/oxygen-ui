@@ -16,9 +16,11 @@
  * under the License.
  */
 
-import MuiFormControlLabel, {FormControlLabelProps as MuiFormControlLabelProps} from '@mui/material/FormControlLabel';
+import MuiFormControlLabel from '@mui/material/FormControlLabel';
+import type {FormControlLabelProps as MuiFormControlLabelProps} from '@mui/material/FormControlLabel';
 import clsx from 'clsx';
-import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -26,10 +28,33 @@ export type FormControlLabelProps = MuiFormControlLabelProps;
 
 const COMPONENT_NAME: string = 'FormControlLabel';
 
+/**
+ * The Form Control Label can be used to display a label for a form control.
+ *
+ * Demos:
+ *
+ * - [Checkbox (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-checkbox)
+ * - [Checkbox (MUI)](https://mui.com/material-ui/react-checkbox/)
+ * - [Radio Group (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-radio-group)
+ * - [Radio Group (MUI)](https://mui.com/material-ui/react-radio-button/)
+ * - [Switch (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-switch)
+ * - [Switch (MUI)](https://mui.com/material-ui/react-switch/)
+ *
+ * API:
+ *
+ * - [FormControlLabel API](https://mui.com/material-ui/api/form-control-label/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @param props - The props for the FormControlLabel component.
+ * @param ref - The ref to be forwarded to the MuiFormControlLabel component.
+ * @returns The rendered FormControlLabel component.
+ */
 const FormControlLabel: ForwardRefExoticComponent<FormControlLabelProps> & WithWrapperProps = forwardRef(
-  (props: FormControlLabelProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: FormControlLabelProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-form-control-label', className);
 
     return <MuiFormControlLabel className={classes} {...rest} ref={ref} />;
@@ -38,6 +63,5 @@ const FormControlLabel: ForwardRefExoticComponent<FormControlLabelProps> & WithW
 
 FormControlLabel.displayName = composeComponentDisplayName(COMPONENT_NAME);
 FormControlLabel.muiName = COMPONENT_NAME;
-FormControlLabel.defaultProps = {};
 
 export default FormControlLabel;

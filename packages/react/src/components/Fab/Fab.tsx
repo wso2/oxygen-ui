@@ -16,30 +16,63 @@
  * under the License.
  */
 
-import MuiFab, {FabProps as MuiFabProps} from '@mui/material/Fab';
+import MuiFab from '@mui/material/Fab';
+import type {FabProps as MuiFabProps, FabTypeMap} from '@mui/material/Fab';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
-import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject, ElementType} from 'react';
+import {forwardRef} from 'react';
+import type {ReactElement, Ref, ElementType} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
-export type FabProps<C extends ElementType = ElementType> = {
+export type FabProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = FabTypeMap['defaultComponent'],
+  P = {},
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
   component?: C;
-} & Omit<MuiFabProps<C>, 'component'>;
+} & Omit<MuiFabProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'Fab';
 
-const Fab: ForwardRefExoticComponent<FabProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(props: FabProps<C>, ref: MutableRefObject<HTMLButtonElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+/**
+ * A Floating Action Button (FAB) performs the primary, or most common, action on a screen.
+ *
+ * Demos:
+ *
+ * - [Floating Action Button (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-fab)
+ * - [Floating Action Button (MUI)](https://mui.com/material-ui/react-floating-action-button/)
+ *
+ * API:
+ *
+ * - [Fab API](https://mui.com/material-ui/api/fab/)
+ * - inherits [ButtonBase API](https://mui.com/material-ui/api/button-base/)
+ *
+ * @remarks
+ * - ✔️ Props of the [ButtonBase](https://mui.com/material-ui/api/button-base/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the Fab component.
+ * @param ref - The ref to be forwarded to the MuiFab component.
+ * @returns The rendered Fab component.
+ */
+const Fab: OverridableComponent<FabTypeMap<FabProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {className, ...rest}: FabProps<C>,
+    ref: Ref<HTMLButtonElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-fab', className);
 
-    return <MuiFab className={classes} {...rest} ref={ref} />;
+    return <MuiFab ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<FabProps> & WithWrapperProps;
+) as OverridableComponent<FabTypeMap<FabProps>> & WithWrapperProps;
 
 Fab.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Fab.muiName = COMPONENT_NAME;
-Fab.defaultProps = {};
 
 export default Fab;

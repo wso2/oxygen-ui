@@ -16,30 +16,60 @@
  * under the License.
  */
 
-import MuiBox, {BoxProps as MuiBoxProps} from '@mui/material/Box';
+import MuiBox from '@mui/material/Box';
+import type {BoxProps as MuiBoxProps} from '@mui/material/Box';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
+import type {BoxTypeMap} from '@mui/system/Box';
 import clsx from 'clsx';
-import {ElementType, forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
-export type BoxProps<C extends ElementType = ElementType> = {
+export type BoxProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = BoxTypeMap['defaultComponent'],
+  P = {},
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
   component?: C;
-} & Omit<MuiBoxProps<C>, 'component'>;
+} & Omit<MuiBoxProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'Box';
 
-const Box: ForwardRefExoticComponent<BoxProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(props: BoxProps<C>, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+/**
+ * The Box component is a generic, theme-aware container with access to CSS utilities from MUI System.
+ *
+ * Demos:
+ *
+ * - [Box (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/layout-box)
+ * - [Box (MUI)](https://mui.com/material-ui/react-box/)
+ *
+ * API:
+ *
+ * - [Box API](https://mui.com/material-ui/api/box/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the Badge component.
+ * @param ref - The ref to be forwarded to the MuiBadge component.
+ * @returns The rendered Badge component.
+ */
+const Box: OverridableComponent<BoxTypeMap<BoxProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>({className, ...rest}: BoxProps<C>, ref: Ref<HTMLSpanElement>): ReactElement => {
     const classes: string = clsx('oxygen-box', className);
 
-    return <MuiBox className={classes} ref={ref} {...rest} />;
+    return <MuiBox ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<BoxProps> & WithWrapperProps;
+) as OverridableComponent<BoxTypeMap<BoxProps>> & WithWrapperProps;
 
 Box.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Box.muiName = COMPONENT_NAME;
-Box.defaultProps = {};
 
 export default Box;

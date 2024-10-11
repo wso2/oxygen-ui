@@ -16,9 +16,11 @@
  * under the License.
  */
 
-export type WithWrapperProps = MuiWrapperProps;
+import {NamedExoticComponent} from 'react';
 
-export interface MuiWrapperProps {
+export type WithWrapperProps = MuiWrapperProps & NamedExoticComponent;
+
+interface MuiWrapperProps {
   /**
    * Component name with `Mui` prefix.
    * To provide maximum flexibility and performance, MUI needs a way to know the nature

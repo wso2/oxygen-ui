@@ -16,27 +16,64 @@
  * under the License.
  */
 
-import MuiInputLabel, {InputLabelProps as MuiInputLabelProps} from '@mui/material/InputLabel';
+import MuiInputLabel from '@mui/material/InputLabel';
+import type {InputLabelTypeMap, InputLabelProps as MuiInputLabelProps} from '@mui/material/InputLabel';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './input-label.scss';
 
-export type InputLabelProps = MuiInputLabelProps;
+export type InputLabelProps<
+  C extends ElementType = ElementType,
+  D extends React.ElementType = InputLabelTypeMap['defaultComponent'],
+  P = {},
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
+  component?: C;
+} & Omit<MuiInputLabelProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'InputLabel';
 
-const InputLabel: FC<InputLabelProps> & WithWrapperProps = (props: InputLabelProps): ReactElement => {
-  const {className, ...rest} = props;
+/**
+ * The Form Label component is used to provide a label for the form inputs.
+ *
+ * Demos:
+ *
+ * - [Text Field (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-text-field)
+ * - [Text Field (MUI)](https://mui.com/material-ui/react-text-field/)
+ *
+ * API:
+ *
+ * - [InputLabel API](https://mui.com/material-ui/api/input-label/)
+ * - inherits [FormLabel API](https://mui.com/material-ui/api/form-label/)
+ *
+ * @remarks
+ * - ✔️ Props of the [FormLabel](https://mui.com/material-ui/api/form-label/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the InputLabel component.
+ * @param ref - The ref to be forwarded to the MuiInputLabel component.
+ * @returns The rendered InputLabel component.
+ */
+const InputLabel: OverridableComponent<InputLabelTypeMap<InputLabelProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {className, ...rest}: InputLabelProps<C>,
+    ref: Ref<HTMLLabelElement>,
+  ): ReactElement => {
+    const classes: string = clsx('oxygen-input-label', className);
 
-  const classes: string = clsx('oxygen-input-label', className);
-
-  return <MuiInputLabel className={classes} {...rest} />;
-};
+    return <MuiInputLabel ref={ref} className={classes} {...rest} />;
+  },
+) as OverridableComponent<InputLabelTypeMap<InputLabelProps>> & WithWrapperProps;
 
 InputLabel.displayName = composeComponentDisplayName(COMPONENT_NAME);
 InputLabel.muiName = COMPONENT_NAME;
-InputLabel.defaultProps = {};
 
 export default InputLabel;

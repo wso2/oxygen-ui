@@ -16,18 +16,21 @@
  * under the License.
  */
 
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
-import {FC, ReactElement, ReactNode} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, ReactElement, ReactNode, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Button from '../Button';
-import Card, {CardProps} from '../Card';
+import Card from '../Card';
+import type {CardProps, CardTypeMap} from '../Card';
 import CardActions from '../CardActions';
 import CardContent from '../CardContent';
 import Typography from '../Typography';
 import './action-card.scss';
 
-export interface ActionCardProps extends CardProps {
+export type ActionCardProps<C extends ElementType = ElementType> = CardProps<C> & {
   /**
    * The text to be displayed in the action button.
    */
@@ -48,33 +51,57 @@ export interface ActionCardProps extends CardProps {
    * The title of the card.
    */
   title: string;
-}
+};
 
 const COMPONENT_NAME: string = 'ActionCard';
 
-const ActionCard: FC<ActionCardProps> & WithWrapperProps = (props: ActionCardProps): ReactElement => {
-  const {className, image, title, description, actionText, onActionClick, ...rest} = props;
+/**
+ * The Action Card component is an extended version of the `Card` component with an action button.
+ *
+ * Demos:
+ *
+ * - [Action Card (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-action-card)
+ *
+ * API:
+ *
+ * - inherits [Card API](https://mui.com/material-ui/api/card/)
+ *
+ * @remarks
+ * - ✨ This is a custom component that is not available in the Material-UI library.
+ * - ✔️ Props of the [Paper](https://mui.com/material-ui/api/card/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the ActionCard component.
+ * @param ref - The ref to be forwarded to the Card component.
+ * @returns The rendered ActionCard component.
+ */
+const ActionCard: OverridableComponent<CardTypeMap<ActionCardProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {className, image, title, description, actionText, onActionClick, ...rest}: ActionCardProps<C>,
+    ref: Ref<HTMLDivElement>,
+  ): ReactElement => {
+    const classes: string = clsx('oxygen-action-card', className);
 
-  const classes: string = clsx('oxygen-action-card', className);
-
-  return (
-    <Card className={classes} {...rest}>
-      <CardContent>
-        {image}
-        <Typography variant="subtitle1">{title}</Typography>
-        <Typography variant="body2">{description}</Typography>
-      </CardContent>
-      <CardActions>
-        <Button onClick={onActionClick} variant="contained">
-          {actionText}
-        </Button>
-      </CardActions>
-    </Card>
-  );
-};
+    return (
+      <Card ref={ref} className={classes} {...rest}>
+        <CardContent>
+          {image}
+          <Typography variant="subtitle1">{title}</Typography>
+          <Typography variant="body2">{description}</Typography>
+        </CardContent>
+        <CardActions>
+          <Button onClick={onActionClick} variant="contained">
+            {actionText}
+          </Button>
+        </CardActions>
+      </Card>
+    );
+  },
+) as OverridableComponent<CardTypeMap<ActionCardProps>> & WithWrapperProps;
 
 ActionCard.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ActionCard.muiName = COMPONENT_NAME;
-ActionCard.defaultProps = {};
 
 export default ActionCard;

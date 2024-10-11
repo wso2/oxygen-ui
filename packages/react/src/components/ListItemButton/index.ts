@@ -18,3 +18,5 @@
 
 export {default} from './ListItemButton';
 export type {ListItemButtonProps} from './ListItemButton';
+
+export {ListItemButtonTypeMap, ListItemButtonBaseProps} from '@mui/material/ListItemButton';

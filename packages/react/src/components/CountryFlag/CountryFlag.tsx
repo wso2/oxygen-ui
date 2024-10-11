@@ -16,13 +16,14 @@
  * under the License.
  */
 
-import {Typography} from '@mui/material';
-import {FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, HTMLAttributes, Ref, ReactElement} from 'react';
 import WorldFlag from 'react-world-flags';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
+import Typography from '../Typography';
 
-export interface CountryFlagsProps extends React.HTMLAttributes<HTMLElement & SVGElement> {
+export type CountryFlagProps = {
   /**
    * The two-letter/three-letter/three-digit country code of the flag.
    */
@@ -31,20 +32,45 @@ export interface CountryFlagsProps extends React.HTMLAttributes<HTMLElement & SV
    * The height of the flag.
    */
   height?: string;
-}
+} & HTMLAttributes<HTMLImageElement>;
 
-const COMPONENT_NAME: string = 'Flag';
+/**
+ * @deprecated Use the {@link CountryFlagProps} instead.
+ */
+export type CountryFlagsProps = CountryFlagProps;
 
-const CountryFlag: FC<CountryFlagsProps> & WithWrapperProps = (props: CountryFlagsProps): ReactElement => {
-  const {countryCode, height, ...rest} = props;
+const COMPONENT_NAME: string = 'CountryFlag';
 
-  return <WorldFlag code={countryCode} height={height} fallback={<Typography>{countryCode}</Typography>} {...rest} />;
-};
+/**
+ * The Toggle to switch between the two palette modes: light (the default) and dark.
+ *
+ * Demos:
+ *
+ * - [Country Flag (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/icons-country-flags)
+ *
+ * @remarks
+ * - ✨ This is a custom component that is not available in the Material-UI library.
+ * - ✔️ Props of the native component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @param props - The props for the CountryFlag component.
+ * @param ref - The ref to be forwarded to the WorldFlag component.
+ * @returns The rendered CountryFlag component.
+ */
+const CountryFlag: ForwardRefExoticComponent<CountryFlagProps> & WithWrapperProps = forwardRef(
+  ({countryCode, height = '16', ...rest}: CountryFlagProps, ref: Ref<HTMLImageElement>): ReactElement => (
+    <WorldFlag
+      ref={ref}
+      code={countryCode}
+      height={height}
+      fallback={<Typography>{countryCode}</Typography>}
+      {...rest}
+    />
+  ),
+) as ForwardRefExoticComponent<CountryFlagProps> & WithWrapperProps;
 
 CountryFlag.displayName = composeComponentDisplayName(COMPONENT_NAME);
 CountryFlag.muiName = COMPONENT_NAME;
-CountryFlag.defaultProps = {
-  height: '16',
-};
 
 export default CountryFlag;

@@ -16,27 +16,51 @@
  * under the License.
  */
 
-import {DataGrid as MuiDataGrid, DataGridProps as MuiDataGridProps} from '@mui/x-data-grid';
+import {DataGrid as MuiXDataGrid} from '@mui/x-data-grid';
+import type {GridValidRowModel as MuiXGridValidRowModel, DataGridProps as MuiXDataGridProps} from '@mui/x-data-grid';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './data-grid.scss';
 
-export type DataGridProps = MuiDataGridProps;
+export type DataGridProps<R extends MuiXGridValidRowModel = any> = MuiXDataGridProps<R>;
 
 const COMPONENT_NAME: string = 'DataGrid';
 
-const DataGrid: FC<DataGridProps> & WithWrapperProps = (props: DataGridProps): ReactElement => {
-  const {className, ...rest} = props;
+/**
+ * The Data Grid component is built with React and TypeScript to provide a smooth UX for manipulating
+ * an unlimited set of data. It features an intuitive API for real-time updates as well as theming
+ * and custom templates—all with blazing-fast performance.
+ *
+ * Demos:
+ *
+ * - [Data Grid (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-datagrid)
+ * - [Data Grid (MUI X)](https://mui.com/x/react-data-grid/)
+ *
+ * API:
+ *
+ * - [DataGrid API](https://mui.com/x/api/data-grid/data-grid/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @param props - The props for the DataGrid component.
+ * @param ref - The ref to be forwarded to the MuiDataGrid component.
+ * @returns The rendered DataGrid component.
+ */
+const DataGrid: ForwardRefExoticComponent<DataGridProps> & WithWrapperProps = forwardRef(
+  ({className, ...rest}: DataGridProps, ref: Ref<HTMLDivElement>): ReactElement => {
+    const classes: string = clsx('oxygen-data-grid', className);
 
-  const classes: string = clsx('oxygen-data-grid', className);
-
-  return <MuiDataGrid className={classes} {...rest} />;
-};
+    return <MuiXDataGrid ref={ref} className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<DataGridProps> & WithWrapperProps;
 
 DataGrid.displayName = composeComponentDisplayName(COMPONENT_NAME);
 DataGrid.muiName = COMPONENT_NAME;
-DataGrid.defaultProps = {};
 
 export default DataGrid;

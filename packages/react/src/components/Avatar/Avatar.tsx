@@ -16,15 +16,22 @@
  * under the License.
  */
 
-import MuiAvatar, {AvatarProps as MuiAvatarProps} from '@mui/material/Avatar';
+import MuiAvatar from '@mui/material/Avatar';
+import type {AvatarProps as MuiAvatarProps, AvatarTypeMap} from '@mui/material/Avatar';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
-import {ElementType, FC, ReactElement, useMemo} from 'react';
+import {forwardRef, useMemo} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import usePastelColorGenerator from '../../hooks/use-pastel-color-generator';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './avatar.scss';
 
-export type AvatarProps<C extends ElementType = ElementType> = {
+export type AvatarProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = AvatarTypeMap['defaultComponent'],
+  P = {},
+> = {
   /**
    * Text for the random background color generator.
    */
@@ -37,43 +44,62 @@ export type AvatarProps<C extends ElementType = ElementType> = {
    * If `true`, the background color will be randomly generated.
    */
   randomBackgroundColor?: boolean;
-} & Omit<MuiAvatarProps<C>, 'component'>;
+} & Omit<MuiAvatarProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'Avatar';
 
-const Avatar: FC<AvatarProps> & WithWrapperProps = <C extends ElementType>(props: AvatarProps<C>): ReactElement => {
-  const {className, children, component, randomBackgroundColor, backgroundColorRandomizer, ...rest} = props;
+/**
+ * Avatars are found throughout material design with uses in everything from tables to dialog menus.
+ *
+ * Demos:
+ *
+ * - [Avatar (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-avatar)
+ * - [Avatar (MUI)](https://mui.com/material-ui/react-avatar/)
+ *
+ * API:
+ *
+ * - [Avatar API](https://mui.com/material-ui/api/avatar/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the Avatar component.
+ * @param ref - The ref to be forwarded to the MuiAvatar component.
+ * @returns The rendered Avatar component.
+ */
+const Avatar: OverridableComponent<AvatarTypeMap<AvatarProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {className, children, randomBackgroundColor, backgroundColorRandomizer, ...rest}: AvatarProps<C>,
+    ref: Ref<HTMLDivElement>,
+  ): ReactElement => {
+    const colorRandomizer: string = useMemo(() => {
+      if (backgroundColorRandomizer) {
+        return backgroundColorRandomizer;
+      }
 
-  const colorRandomizer: string = useMemo(() => {
-    if (backgroundColorRandomizer) {
-      return backgroundColorRandomizer;
-    }
+      if (typeof children === 'string') {
+        return children;
+      }
 
-    if (typeof children === 'string') {
-      return children;
-    }
+      return '';
+    }, [children, backgroundColorRandomizer]);
 
-    return '';
-  }, [children, backgroundColorRandomizer]);
+    const {color} = usePastelColorGenerator(colorRandomizer);
 
-  const {color} = usePastelColorGenerator(colorRandomizer);
+    const classes: string = clsx('oxygen-avatar', className);
 
-  const classes: string = clsx('oxygen-avatar', className);
-
-  return (
-    <MuiAvatar
-      component={component}
-      className={classes}
-      sx={{bgcolor: randomBackgroundColor ? color : undefined}}
-      {...rest}
-    >
-      {children}
-    </MuiAvatar>
-  );
-};
+    return (
+      <MuiAvatar ref={ref} className={classes} sx={{bgcolor: randomBackgroundColor ? color : undefined}} {...rest}>
+        {children}
+      </MuiAvatar>
+    );
+  },
+) as OverridableComponent<AvatarTypeMap<AvatarProps>> & WithWrapperProps;
 
 Avatar.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Avatar.muiName = COMPONENT_NAME;
-Avatar.defaultProps = {};
 
 export default Avatar;

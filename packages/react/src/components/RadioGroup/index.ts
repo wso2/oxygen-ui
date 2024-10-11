@@ -17,4 +17,6 @@
  */
 
 export {default} from './RadioGroup';
-export type {RadioGroupProps} from './RadioGroup';
+export * from './RadioGroup';
+
+export {RadioGroupClassKey} from '@mui/material/RadioGroup';

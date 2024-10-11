@@ -17,4 +17,6 @@
  */
 
 export {default} from './Box';
-export type {BoxProps} from './Box';
+export * from './Box';
+
+export {BoxTypeMap} from '@mui/system/Box';

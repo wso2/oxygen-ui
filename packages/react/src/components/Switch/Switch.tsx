@@ -16,32 +16,63 @@
  * under the License.
  */
 
-import MuiSwitch, {SwitchProps as MuiSwitchProps} from '@mui/material/Switch';
+import type {ButtonBaseTypeMap} from '@mui/material/ButtonBase';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
+import MuiSwitch from '@mui/material/Switch';
+import type {SwitchProps as MuiSwitchProps} from '@mui/material/Switch';
 import clsx from 'clsx';
-import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
+import {forwardRef} from 'react';
+import type {ReactElement, Ref, ElementType} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './switch.scss';
 
-export type SwitchProps = MuiSwitchProps;
+export type SwitchProps<C extends ElementType = ElementType> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
+  component?: C;
+} & Omit<MuiSwitchProps, 'component'>;
 
 const COMPONENT_NAME: string = 'Switch';
 
 /**
- * @remarks `any` is used as the generic type for the props because the generic type is not used in the component.
+ * The Switch toggles the state of a single setting on or off.
+ *
+ * Demos:
+ *
+ * - [Switch (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-switch)
+ * - [Switch (MUI)](https://mui.com/material-ui/react-switch/)
+ * - [Transfer List (Oxygen UI)](TODO: Add a link after implementing: Tracker: https://github.com/wso2/oxygen-ui/issues/2)
+ * - [Transfer List (MUI)](https://mui.com/material-ui/react-transfer-list/)
+ *
+ * API:
+ *
+ * - [Switch API](https://mui.com/material-ui/api/switch/)
+ * - inherits [IconButton API](https://mui.com/material-ui/api/icon-button/)
+ *
+ * @remarks
+ * - ✔️ Props of the [IconButton](https://mui.com/material-ui/api/icon-button/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the Switch component.
+ * @param ref - The ref to be forwarded to the MuiSwitch component.
+ * @returns The rendered Switch component.
  */
-const Switch: ForwardRefExoticComponent<SwitchProps> & WithWrapperProps = forwardRef(
-  (props: SwitchProps, ref: MutableRefObject<HTMLButtonElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+const Switch: OverridableComponent<ButtonBaseTypeMap<SwitchProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {className, ...rest}: SwitchProps<C>,
+    ref: Ref<HTMLButtonElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-switch', className);
 
-    return <MuiSwitch className={classes} {...rest} ref={ref} />;
+    return <MuiSwitch ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<SwitchProps> & WithWrapperProps;
+) as OverridableComponent<ButtonBaseTypeMap<SwitchProps>> & WithWrapperProps;
 
 Switch.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Switch.muiName = COMPONENT_NAME;
-Switch.defaultProps = {};
 
 export default Switch;

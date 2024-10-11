@@ -16,9 +16,11 @@
  * under the License.
  */
 
-import MuiAccordionDetails, {AccordionDetailsProps as MuiAccordionDetailsProps} from '@mui/material/AccordionDetails';
+import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import type {AccordionDetailsProps as MuiAccordionDetailsProps} from '@mui/material/AccordionDetails';
 import clsx from 'clsx';
-import {forwardRef, ForwardRefExoticComponent, ReactElement, MutableRefObject} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
@@ -26,18 +28,36 @@ export type AccordionDetailsProps = MuiAccordionDetailsProps;
 
 const COMPONENT_NAME: string = 'AccordionDetails';
 
+/**
+ * The Accordion Details component is the wrapper for the Accordion content.
+ *
+ * Demos:
+ *
+ * - [Accordion (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-accordion)
+ * - [Accordion (MUI)](https://mui.com/material-ui/react-accordion/)
+ *
+ * API:
+ *
+ * - [AccordionDetails API](https://mui.com/material-ui/api/accordion-details/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @param props - The props for the AccordionDetails component.
+ * @param ref - The ref to be forwarded to the MuiAccordionDetails component.
+ * @returns The rendered AccordionDetails component.
+ */
 const AccordionDetails: ForwardRefExoticComponent<AccordionDetailsProps> & WithWrapperProps = forwardRef(
-  (props: AccordionDetailsProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+  ({className, ...rest}: AccordionDetailsProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-accordion-details', className);
 
-    return <MuiAccordionDetails className={classes} {...rest} ref={ref} />;
+    return <MuiAccordionDetails ref={ref} className={classes} {...rest} />;
   },
 ) as ForwardRefExoticComponent<AccordionDetailsProps> & WithWrapperProps;
 
 AccordionDetails.displayName = composeComponentDisplayName(COMPONENT_NAME);
 AccordionDetails.muiName = COMPONENT_NAME;
-AccordionDetails.defaultProps = {};
 
 export default AccordionDetails;

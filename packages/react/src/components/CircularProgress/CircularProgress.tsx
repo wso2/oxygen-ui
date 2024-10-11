@@ -16,9 +16,11 @@
  * under the License.
  */
 
-import MuiCircularProgress, {CircularProgressProps as MuiCircularProgressProps} from '@mui/material/CircularProgress';
+import MuiCircularProgress from '@mui/material/CircularProgress';
+import type {CircularProgressProps as MuiCircularProgressProps} from '@mui/material/CircularProgress';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './circular-progress.scss';
@@ -27,16 +29,38 @@ export type CircularProgressProps = MuiCircularProgressProps;
 
 const COMPONENT_NAME: string = 'CircularProgress';
 
-const CircularProgress: FC<CircularProgressProps> & WithWrapperProps = (props: CircularProgressProps): ReactElement => {
-  const {className, ...rest} = props;
+/**
+ * The Circular Progress indicators commonly known as spinners, express an unspecified wait
+ * time or display the length of a process.
+ *
+ * Demos:
+ *
+ * TODO: Merge two progress components into one.
+ * - [Progress (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/feedback-circular-progress)
+ * - [Progress (MUI)](https://mui.com/material-ui/react-progress/)
+ *
+ * API:
+ *
+ * - [CircularProgress API](https://mui.com/material-ui/api/circular-progress/)
+ *
+ * @remarks
+ * - ✔️ Props of the native component are also available.
+ * - ❌ `component` prop is not supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @param props - The props for the CircularProgress component.
+ * @param ref - The ref to be forwarded to the MuiCircularProgress component.
+ * @returns The rendered CircularProgress component.
+ */
+const CircularProgress: ForwardRefExoticComponent<CircularProgressProps> & WithWrapperProps = forwardRef(
+  ({className, ...rest}: CircularProgressProps, ref: Ref<HTMLSpanElement>): ReactElement => {
+    const classes: string = clsx('oxygen-circular-progress', className);
 
-  const classes: string = clsx('oxygen-circular-progress', className);
-
-  return <MuiCircularProgress aria-label="progress" className={classes} {...rest} />;
-};
+    return <MuiCircularProgress ref={ref} aria-label="progress" className={classes} {...rest} />;
+  },
+) as ForwardRefExoticComponent<CircularProgressProps> & WithWrapperProps;
 
 CircularProgress.displayName = composeComponentDisplayName(COMPONENT_NAME);
 CircularProgress.muiName = COMPONENT_NAME;
-CircularProgress.defaultProps = {};
 
 export default CircularProgress;

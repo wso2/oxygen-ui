@@ -16,15 +16,27 @@
  * under the License.
  */
 
-import IconButton, {IconButtonProps} from '@mui/material/IconButton';
+import IconButton from '@mui/material/IconButton';
+import type {IconButtonProps, IconButtonTypeMap} from '@mui/material/IconButton';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import {useColorScheme} from '@mui/material/styles';
 import clsx from 'clsx';
-import {FC, PropsWithChildren, ReactElement, SVGProps} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, Ref, PropsWithChildren, ReactElement, SVGProps} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './color-mode-toggle.scss';
 
-export type ColorModeToggleProps = IconButtonProps;
+export type ColorModeToggleProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = IconButtonTypeMap['defaultComponent'],
+  P = {},
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
+  component?: C;
+} & Omit<IconButtonProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'ColorModeToggle';
 
@@ -66,30 +78,55 @@ const CrescentIcon = (props: PropsWithChildren<SVGProps<SVGSVGElement>>): ReactE
   </svg>
 );
 
-const ColorModeToggle: FC<ColorModeToggleProps> & WithWrapperProps = (props: ColorModeToggleProps): ReactElement => {
-  const {className, ...rest} = props;
+/**
+ * The Toggle to switch between the two palette modes: light (the default) and dark.
+ *
+ * Demos:
+ *
+ * - [Color Mode Toggle (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/theme-color-mode-toggle--overview)
+ *
+ * API:
+ *
+ * - [IconButton API](https://mui.com/material-ui/api/icon-button/)
+ *
+ * @remarks
+ * - ✨ This is a custom component that is not available in the Material-UI library.
+ * - ✔️ Props of the [ButtonBase](https://mui.com/material-ui/api/button-base/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the ColorModeToggle component.
+ * @param ref - The ref to be forwarded to the IconButton component.
+ * @returns The rendered ColorModeToggle component.
+ */
+const ColorModeToggle: OverridableComponent<IconButtonTypeMap<IconButtonProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {className, ...rest}: ColorModeToggleProps<C>,
+    ref: Ref<HTMLButtonElement>,
+  ): ReactElement => {
+    const {mode, setMode} = useColorScheme();
 
-  const {mode, setMode} = useColorScheme();
+    const classes: string = clsx('oxygen-color-mode-toggle', className);
 
-  const classes: string = clsx('oxygen-color-mode-toggle', className);
-
-  return (
-    <IconButton
-      sx={{ml: 1}}
-      onClick={(): void => {
-        setMode(mode === 'light' ? 'dark' : 'light');
-      }}
-      color="inherit"
-      className={classes}
-      {...rest}
-    >
-      {mode === 'light' ? <BrightnessIcon /> : <CrescentIcon />}
-    </IconButton>
-  );
-};
+    return (
+      <IconButton
+        ref={ref}
+        sx={{ml: 1}}
+        onClick={(): void => {
+          setMode(mode === 'light' ? 'dark' : 'light');
+        }}
+        color="inherit"
+        className={classes}
+        {...rest}
+      >
+        {mode === 'light' ? <BrightnessIcon /> : <CrescentIcon />}
+      </IconButton>
+    );
+  },
+) as OverridableComponent<IconButtonTypeMap<IconButtonProps>> & WithWrapperProps;
 
 ColorModeToggle.displayName = composeComponentDisplayName(COMPONENT_NAME);
 ColorModeToggle.muiName = COMPONENT_NAME;
-ColorModeToggle.defaultProps = {};
 
 export default ColorModeToggle;

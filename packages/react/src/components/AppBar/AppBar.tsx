@@ -16,27 +16,64 @@
  * under the License.
  */
 
-import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
+import MuiAppBar from '@mui/material/AppBar';
+import type {AppBarTypeMap, AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
-import {FC, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './app-bar.scss';
 
-export type AppBarProps = MuiAppBarProps;
+export type AppBarProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = AppBarTypeMap['defaultComponent'],
+  P = {},
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
+  component?: C;
+} & Omit<MuiAppBarProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'AppBar';
 
-const AppBar: FC<AppBarProps> & WithWrapperProps = (props: AppBarProps): ReactElement => {
-  const {className, ...rest} = props;
+/**
+ * The App Bar component displays information and actions relating to the current screen.
+ *
+ * Demos:
+ *
+ * - [App Bar (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/surfaces-app-bar)
+ * - [App Bar (MUI)](https://mui.com/material-ui/react-app-bar/)
+ *
+ * API:
+ *
+ * - [AppBar API](https://mui.com/material-ui/api/app-bar/)
+ * - inherits [Paper API](https://mui.com/material-ui/api/paper/)
+ *
+ * @remarks
+ * - ✔️ Props of the [Paper](https://mui.com/material-ui/api/paper/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the AppBar component.
+ * @param ref - The ref to be forwarded to the MuiAppBar component.
+ * @returns The rendered AppBar component.
+ */
+const AppBar: OverridableComponent<AppBarTypeMap<AppBarProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
+    {className, ...rest}: AppBarProps<C>,
+    ref: Ref<HTMLHeadingElement>,
+  ): ReactElement => {
+    const classes: string = clsx('oxygen-app-bar', className);
 
-  const classes: string = clsx('oxygen-app-bar', className);
-
-  return <MuiAppBar className={classes} {...rest} />;
-};
+    return <MuiAppBar ref={ref} className={classes} {...rest} />;
+  },
+) as OverridableComponent<AppBarTypeMap<AppBarProps>> & WithWrapperProps;
 
 AppBar.displayName = composeComponentDisplayName(COMPONENT_NAME);
 AppBar.muiName = COMPONENT_NAME;
-AppBar.defaultProps = {};
 
 export default AppBar;

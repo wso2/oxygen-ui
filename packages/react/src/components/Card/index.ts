@@ -17,4 +17,6 @@
  */
 
 export {default} from './Card';
-export type {CardProps} from './Card';
+export * from './Card';
+
+export type {CardPropsColorOverrides, CardTypeMap} from '@mui/material/Card';

@@ -17,4 +17,4 @@
  */
 
 export {default} from './AlertTitle';
-export type {AlertProps} from './AlertTitle';
+export * from './AlertTitle';

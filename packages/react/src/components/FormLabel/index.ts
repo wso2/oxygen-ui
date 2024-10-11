@@ -17,4 +17,12 @@
  */
 
 export {default} from './FormLabel';
-export type {FormLabelProps} from './FormLabel';
+export * from './FormLabel';
+
+export type {
+  FormLabelPropsColorOverrides,
+  FormLabelOwnProps,
+  FormLabelTypeMap,
+  FormLabelBaseProps,
+  ExtendFormLabelTypeMap,
+} from '@mui/material/FormLabel';

@@ -16,26 +16,59 @@
  * under the License.
  */
 
-import MuiTab, {TabProps as MuiTabProps} from '@mui/material/Tab';
+import type {OverridableComponent} from '@mui/material/OverridableComponent';
+import MuiTab from '@mui/material/Tab';
+import type {TabProps as MuiTabProps, TabTypeMap} from '@mui/material/Tab';
 import clsx from 'clsx';
-import {forwardRef, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import {forwardRef} from 'react';
+import type {ElementType, Ref, ReactElement} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './tab.scss';
 
-export type TabProps = MuiTabProps;
+export type TabProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = TabTypeMap['defaultComponent'],
+  P = {},
+> = {
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
+  component?: C;
+} & Omit<MuiTabProps<D, P>, 'component'>;
 
 const COMPONENT_NAME: string = 'Tab';
 
-const Tab: ForwardRefExoticComponent<TabProps> & WithWrapperProps = forwardRef(
-  (props: TabProps, ref: MutableRefObject<HTMLDivElement>): ReactElement => {
-    const {className, ...rest} = props;
-
+/**
+ * The Tab component is used to create a tab in a tab list.
+ *
+ * Demos:
+ *
+ * - [Tabs (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/navigation-tab)
+ * - [Tabs (MUI)](https://mui.com/material-ui/react-tabs/)
+ *
+ * API:
+ *
+ * - [Tab API](https://mui.com/material-ui/api/tab/)
+ * - inherits [ButtonBase API](https://mui.com/material-ui/api/button-base/)
+ *
+ * @remarks
+ * - ✔️ Props of the [ButtonBase](https://mui.com/material-ui/api/button-base/) component are also available.
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the Tab component.
+ * @param ref - The ref to be forwarded to the MuiTab component.
+ * @returns The rendered Tab component.
+ */
+const Tab: OverridableComponent<TabTypeMap<TabProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>({className, ...rest}: TabProps<C>, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-tab', className);
 
     return <MuiTab className={classes} ref={ref} {...rest} />;
   },
-) as ForwardRefExoticComponent<TabProps> & WithWrapperProps;
+) as OverridableComponent<TabTypeMap<TabProps>> & WithWrapperProps;
 
 Tab.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Tab.muiName = COMPONENT_NAME;
