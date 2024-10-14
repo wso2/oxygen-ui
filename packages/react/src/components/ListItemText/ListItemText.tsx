@@ -21,13 +21,9 @@ import type {ListItemTextProps as MuiListItemTextProps} from '@mui/material/List
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list-item-text.scss';
 
 export type ListItemTextProps = MuiListItemTextProps;
-
-const COMPONENT_NAME: string = 'ListItemText';
 
 /**
  * The List Item Text component is used to display text in a list item.
@@ -50,15 +46,12 @@ const COMPONENT_NAME: string = 'ListItemText';
  * @param ref - The ref to be forwarded to the MuiListItemText component.
  * @returns The rendered ListItemText component.
  */
-const ListItemText: ForwardRefExoticComponent<ListItemTextProps> & WithWrapperProps = forwardRef(
+const ListItemText: ForwardRefExoticComponent<ListItemTextProps> = forwardRef(
   ({className, ...rest}: ListItemTextProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-list-item-text', className);
 
     return <MuiListItemText ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<ListItemTextProps> & WithWrapperProps;
-
-ListItemText.displayName = composeComponentDisplayName(COMPONENT_NAME);
-ListItemText.muiName = COMPONENT_NAME;
+) as ForwardRefExoticComponent<ListItemTextProps>;
 
 export default ListItemText;

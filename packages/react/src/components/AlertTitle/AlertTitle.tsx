@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ReactElement, ElementType, Ref} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import type {TypographyTypeMap} from '../Typography';
 import './alert-title.scss';
 
@@ -33,8 +31,6 @@ export type AlertProps<C extends ElementType = ElementType> = {
    */
   component?: C;
 } & Omit<MuiAlertTitleProps, 'component'>;
-
-const COMPONENT_NAME: string = 'AlertTitle';
 
 /**
  * The Alert Title component can be used to display a title for the Alert component.
@@ -59,7 +55,7 @@ const COMPONENT_NAME: string = 'AlertTitle';
  * @param ref - The ref to be forwarded to the MuiAlertTitle component.
  * @returns The rendered AlertTitle component.
  */
-const AlertTitle: OverridableComponent<TypographyTypeMap<AlertTitleProps>> & WithWrapperProps = forwardRef(
+const AlertTitle: OverridableComponent<TypographyTypeMap<AlertTitleProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: AlertProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -68,9 +64,6 @@ const AlertTitle: OverridableComponent<TypographyTypeMap<AlertTitleProps>> & Wit
 
     return <MuiAlertTitle ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<TypographyTypeMap<AlertTitleProps>> & WithWrapperProps;
-
-AlertTitle.displayName = composeComponentDisplayName(COMPONENT_NAME);
-AlertTitle.muiName = COMPONENT_NAME;
+) as OverridableComponent<TypographyTypeMap<AlertTitleProps>>;
 
 export default AlertTitle;

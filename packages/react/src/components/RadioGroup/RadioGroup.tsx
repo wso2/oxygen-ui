@@ -21,12 +21,8 @@ import type {RadioGroupProps as MuiRadioGroupProps} from '@mui/material/RadioGro
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type RadioGroupProps = MuiRadioGroupProps;
-
-const COMPONENT_NAME: string = 'RadioGroup';
 
 /**
  * The Radio Group allows the user to select one option from a set.
@@ -50,15 +46,12 @@ const COMPONENT_NAME: string = 'RadioGroup';
  * @param ref - The ref to be forwarded to the MuiRadioGroup component.
  * @returns The rendered RadioGroup component.
  */
-const RadioGroup: ForwardRefExoticComponent<RadioGroupProps> & WithWrapperProps = forwardRef(
+const RadioGroup: ForwardRefExoticComponent<RadioGroupProps> = forwardRef(
   ({className, ...rest}: RadioGroupProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-radio-group', className);
 
     return <MuiRadioGroup className={classes} {...rest} ref={ref} />;
   },
-) as ForwardRefExoticComponent<RadioGroupProps> & WithWrapperProps;
-
-RadioGroup.displayName = composeComponentDisplayName(COMPONENT_NAME);
-RadioGroup.muiName = COMPONENT_NAME;
+) as ForwardRefExoticComponent<RadioGroupProps>;
 
 export default RadioGroup;

@@ -21,13 +21,9 @@ import type {CircularProgressProps as MuiCircularProgressProps} from '@mui/mater
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './circular-progress.scss';
 
 export type CircularProgressProps = MuiCircularProgressProps;
-
-const COMPONENT_NAME: string = 'CircularProgress';
 
 /**
  * The Circular Progress indicators commonly known as spinners, express an unspecified wait
@@ -52,15 +48,12 @@ const COMPONENT_NAME: string = 'CircularProgress';
  * @param ref - The ref to be forwarded to the MuiCircularProgress component.
  * @returns The rendered CircularProgress component.
  */
-const CircularProgress: ForwardRefExoticComponent<CircularProgressProps> & WithWrapperProps = forwardRef(
+const CircularProgress: ForwardRefExoticComponent<CircularProgressProps> = forwardRef(
   ({className, ...rest}: CircularProgressProps, ref: Ref<HTMLSpanElement>): ReactElement => {
     const classes: string = clsx('oxygen-circular-progress', className);
 
     return <MuiCircularProgress ref={ref} aria-label="progress" className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<CircularProgressProps> & WithWrapperProps;
-
-CircularProgress.displayName = composeComponentDisplayName(COMPONENT_NAME);
-CircularProgress.muiName = COMPONENT_NAME;
+) as ForwardRefExoticComponent<CircularProgressProps>;
 
 export default CircularProgress;

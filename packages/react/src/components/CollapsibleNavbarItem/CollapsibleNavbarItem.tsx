@@ -22,8 +22,6 @@ import {ChevronDownIcon, ChevronUpIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {forwardRef, useState} from 'react';
 import type {ElementType, Ref, MouseEvent, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import Chip from '../Chip';
 import List from '../List';
@@ -48,8 +46,6 @@ export type CollapsibleNavbarItemProps<C extends ElementType = ElementType> = Na
     items: NavbarItemProps[];
   };
 
-const COMPONENT_NAME: string = 'CollapsibleNavbarItem';
-
 /**
  * The Collapsible Navbar Item is a custom component that is used to render a collapsible item in the Navbar.
  *
@@ -72,8 +68,7 @@ const COMPONENT_NAME: string = 'CollapsibleNavbarItem';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered CollapsibleNavbarItem component.
  */
-const CollapsibleNavbarItem: OverridableComponent<ListItemButtonTypeMap<CollapsibleNavbarItemProps>> &
-  WithWrapperProps = forwardRef(
+const CollapsibleNavbarItem: OverridableComponent<ListItemButtonTypeMap<CollapsibleNavbarItemProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {
       className,
@@ -167,9 +162,6 @@ const CollapsibleNavbarItem: OverridableComponent<ListItemButtonTypeMap<Collapsi
       </Box>
     );
   },
-) as OverridableComponent<ListItemButtonTypeMap<CollapsibleNavbarItemProps>> & WithWrapperProps;
-
-CollapsibleNavbarItem.displayName = composeComponentDisplayName(COMPONENT_NAME);
-CollapsibleNavbarItem.muiName = COMPONENT_NAME;
+) as OverridableComponent<ListItemButtonTypeMap<CollapsibleNavbarItemProps>>;
 
 export default CollapsibleNavbarItem;

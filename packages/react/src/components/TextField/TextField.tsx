@@ -24,8 +24,6 @@ import {CircleDotIcon, EyeIcon, EyeSlashIcon} from '@oxygen-ui/react-icons';
 import clsx from 'clsx';
 import {forwardRef, useState} from 'react';
 import type {ElementType, ForwardRefExoticComponent, MouseEvent, Ref, ReactElement, ReactNode} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import IconButton from '../IconButton';
 import InputAdornment from '../InputAdornment';
 import InputLabel from '../InputLabel';
@@ -56,9 +54,7 @@ export type TextFieldProps<C extends ElementType = ElementType> = {
   criteria?: string[];
 } & Omit<MuiTextFieldProps, 'component'>;
 
-const COMPONENT_NAME: string = 'TextField';
-
-const PasswordField: ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps = forwardRef(
+const PasswordField: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
   <C extends ElementType = ElementType>(
     {type, variant, ...rest}: TextFieldProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -94,9 +90,9 @@ const PasswordField: ForwardRefExoticComponent<TextFieldProps> & WithWrapperProp
       />
     );
   },
-) as ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps;
+) as ForwardRefExoticComponent<TextFieldProps>;
 
-const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps = forwardRef(
+const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
   <C extends ElementType = ElementType>(
     {criteria, id, type, ...rest}: TextFieldProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -151,7 +147,7 @@ const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> & Wit
       </Tooltip>
     );
   },
-) as ForwardRefExoticComponent<TextFieldProps> & WithWrapperProps;
+) as ForwardRefExoticComponent<TextFieldProps>;
 
 /**
  * The Text Fields let users enter and edit text..
@@ -178,7 +174,7 @@ const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> & Wit
  * @param ref - The ref to be forwarded to the MuiTextField component.
  * @returns The rendered TextField component.
  */
-const TextField: OverridableComponent<FormControlTypeMap<TextFieldProps>> & WithWrapperProps = forwardRef(
+const TextField: OverridableComponent<FormControlTypeMap<TextFieldProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, id, label, type, InputLabelProps, variant, ...rest}: TextFieldProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -198,9 +194,6 @@ const TextField: OverridableComponent<FormControlTypeMap<TextFieldProps>> & With
       </div>
     );
   },
-) as OverridableComponent<FormControlTypeMap<TextFieldProps>> & WithWrapperProps;
-
-TextField.displayName = composeComponentDisplayName(COMPONENT_NAME);
-TextField.muiName = COMPONENT_NAME;
+) as OverridableComponent<FormControlTypeMap<TextFieldProps>>;
 
 export default TextField;

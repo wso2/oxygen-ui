@@ -22,8 +22,6 @@ import type {Grid2TypeMap, Grid2Props as MuiGridProps} from '@mui/material/Unsta
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './grid.scss';
 
 export type GridProps<
@@ -38,8 +36,6 @@ export type GridProps<
    */
   component?: C;
 } & Omit<MuiGridProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'Grid';
 
 /**
  * The Grid adapts to screen size and orientation, ensuring consistency across layouts.
@@ -63,15 +59,12 @@ const COMPONENT_NAME: string = 'Grid';
  * @param ref - The ref to be forwarded to the MuiFormControl component.
  * @returns The rendered FormControl component.
  */
-const Grid: OverridableComponent<Grid2TypeMap<GridProps>> & WithWrapperProps = forwardRef(
+const Grid: OverridableComponent<Grid2TypeMap<GridProps>> = forwardRef(
   <C extends ElementType = ElementType>({className, ...rest}: GridProps<C>, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-grid', className);
 
     return <MuiGrid ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<Grid2TypeMap<GridProps>> & WithWrapperProps;
-
-Grid.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Grid.muiName = COMPONENT_NAME;
+) as OverridableComponent<Grid2TypeMap<GridProps>>;
 
 export default Grid;

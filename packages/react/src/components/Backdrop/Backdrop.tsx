@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './backdrop.scss';
 
 export type BackdropProps<
@@ -36,8 +34,6 @@ export type BackdropProps<
    */
   component?: C;
 } & Omit<MuiBackdropProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'Backdrop';
 
 /**
  * The Backdrop component narrows the user's focus to a particular element on the screen.
@@ -62,7 +58,7 @@ const COMPONENT_NAME: string = 'Backdrop';
  * @param ref - The ref to be forwarded to the MuiBackdrop component.
  * @returns The rendered Backdrop component.
  */
-const Backdrop: OverridableComponent<BackdropTypeMap<BackdropProps>> & WithWrapperProps = forwardRef(
+const Backdrop: OverridableComponent<BackdropTypeMap<BackdropProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: BackdropProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -71,9 +67,6 @@ const Backdrop: OverridableComponent<BackdropTypeMap<BackdropProps>> & WithWrapp
 
     return <MuiBackdrop ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<BackdropTypeMap<BackdropProps>> & WithWrapperProps;
-
-Backdrop.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Backdrop.muiName = COMPONENT_NAME;
+) as OverridableComponent<BackdropTypeMap<BackdropProps>>;
 
 export default Backdrop;

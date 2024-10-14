@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './menu-item.scss';
 
 export type MenuItemProps<
@@ -36,8 +34,6 @@ export type MenuItemProps<
    */
   component?: C;
 } & Omit<MuiMenuItemProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'MenuItem';
 
 /**
  * The Menu Item component is used to display a single item inside a menu.
@@ -62,7 +58,7 @@ const COMPONENT_NAME: string = 'MenuItem';
  * @param ref - The ref to be forwarded to the MuiMenuItem component.
  * @returns The rendered MenuItem component.
  */
-const MenuItem: OverridableComponent<MenuItemTypeMap<MenuItemProps>> & WithWrapperProps = forwardRef(
+const MenuItem: OverridableComponent<MenuItemTypeMap<MenuItemProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: MenuItemProps<C>,
     ref: Ref<HTMLLIElement>,
@@ -71,9 +67,6 @@ const MenuItem: OverridableComponent<MenuItemTypeMap<MenuItemProps>> & WithWrapp
 
     return <MuiMenuItem ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<MenuItemTypeMap<MenuItemProps>> & WithWrapperProps;
-
-MenuItem.displayName = composeComponentDisplayName(COMPONENT_NAME);
-MenuItem.muiName = COMPONENT_NAME;
+) as OverridableComponent<MenuItemTypeMap<MenuItemProps>>;
 
 export default MenuItem;

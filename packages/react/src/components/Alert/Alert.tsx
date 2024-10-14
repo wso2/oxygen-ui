@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ReactElement, ElementType, Ref} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import type {PaperTypeMap} from '../Paper';
 import './alert.scss';
 
@@ -33,8 +31,6 @@ export type AlertProps<C extends ElementType = ElementType> = {
    */
   component?: C;
 } & Omit<MuiAlertProps, 'component'>;
-
-const COMPONENT_NAME: string = 'Alert';
 
 /**
  * The Alert component displays brief messages to the user without interrupting their use of the app.
@@ -59,7 +55,7 @@ const COMPONENT_NAME: string = 'Alert';
  * @param ref - The ref to be forwarded to the MuiAlert component.
  * @returns The rendered Alert component.
  */
-const Alert: OverridableComponent<PaperTypeMap<AlertProps>> & WithWrapperProps = forwardRef(
+const Alert: OverridableComponent<PaperTypeMap<AlertProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: AlertProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -68,9 +64,6 @@ const Alert: OverridableComponent<PaperTypeMap<AlertProps>> & WithWrapperProps =
 
     return <MuiAlert ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<PaperTypeMap<AlertProps>> & WithWrapperProps;
-
-Alert.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Alert.muiName = COMPONENT_NAME;
+) as OverridableComponent<PaperTypeMap<AlertProps>>;
 
 export default Alert;

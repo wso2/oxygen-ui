@@ -24,8 +24,6 @@ import {forwardRef, useState} from 'react';
 import type {ChangeEvent, ElementType, Ref, ReactElement} from 'react';
 import Flag from 'react-world-flags';
 import {countries, Country} from './constants/countries';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import type {BoxProps, BoxTypeMap} from '../Box';
 import InputLabel from '../InputLabel';
@@ -82,8 +80,6 @@ export type PhoneNumberInputProps<C extends ElementType = ElementType> = BoxProp
   placeholder?: string;
 };
 
-const COMPONENT_NAME: string = 'PhoneNumberInput';
-
 /**
  * The Phone Number Input component is used to get the phone number input from the user.
  *
@@ -106,7 +102,7 @@ const COMPONENT_NAME: string = 'PhoneNumberInput';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered PhoneNumberInput component.
  */
-const PhoneNumberInput: OverridableComponent<BoxTypeMap<PhoneNumberInputProps>> & WithWrapperProps = forwardRef(
+const PhoneNumberInput: OverridableComponent<BoxTypeMap<PhoneNumberInputProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {
       className,
@@ -199,9 +195,6 @@ const PhoneNumberInput: OverridableComponent<BoxTypeMap<PhoneNumberInputProps>> 
       </Box>
     );
   },
-) as OverridableComponent<BoxTypeMap<PhoneNumberInputProps>> & WithWrapperProps;
-
-PhoneNumberInput.displayName = composeComponentDisplayName(COMPONENT_NAME);
-PhoneNumberInput.muiName = COMPONENT_NAME;
+) as OverridableComponent<BoxTypeMap<PhoneNumberInputProps>>;
 
 export default PhoneNumberInput;

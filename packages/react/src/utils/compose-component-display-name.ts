@@ -18,6 +18,14 @@
 
 import {PACKAGE_NAME} from '../constants';
 
+/**
+ * [IMPORTANT] Temporarily disabled due to the following issues with regards to composition.
+ *  - https://github.com/wso2/oxygen-ui/issues/288
+ *  - https://github.com/mui/material-ui/issues/32420#issuecomment-2410430433
+ *
+ * TODO: Consider and bring back once a solution is sorted out.
+ * We may not even need this.
+ */
 const composeComponentDisplayName = (componentName: string): string => `${PACKAGE_NAME}/${componentName}`;
 
 export default composeComponentDisplayName;

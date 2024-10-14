@@ -22,8 +22,6 @@ import type {PaperProps as MuiPaperProps, PaperTypeMap} from '@mui/material/Pape
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ReactElement, Ref, ElementType} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type PaperProps<
   C extends ElementType = ElementType,
@@ -35,8 +33,6 @@ export type PaperProps<
    */
   component?: C;
 } & Omit<MuiPaperProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'Paper';
 
 /**
  * The Paper component is a container for displaying content on an elevated surface.
@@ -62,7 +58,7 @@ const COMPONENT_NAME: string = 'Paper';
  * @param ref - The ref to be forwarded to the MuiPaper component.
  * @returns The rendered Paper component.
  */
-const Paper: OverridableComponent<PaperTypeMap<PaperProps>> & WithWrapperProps = forwardRef(
+const Paper: OverridableComponent<PaperTypeMap<PaperProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: PaperProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -71,9 +67,6 @@ const Paper: OverridableComponent<PaperTypeMap<PaperProps>> & WithWrapperProps =
 
     return <MuiPaper className={classes} {...rest} ref={ref} />;
   },
-) as OverridableComponent<PaperTypeMap<PaperProps>> & WithWrapperProps;
-
-Paper.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Paper.muiName = COMPONENT_NAME;
+) as OverridableComponent<PaperTypeMap<PaperProps>>;
 
 export default Paper;

@@ -22,8 +22,6 @@ import type {TabProps as MuiTabProps, TabTypeMap} from '@mui/material/Tab';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './tab.scss';
 
 export type TabProps<
@@ -36,8 +34,6 @@ export type TabProps<
    */
   component?: C;
 } & Omit<MuiTabProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'Tab';
 
 /**
  * The Tab component is used to create a tab in a tab list.
@@ -62,15 +58,12 @@ const COMPONENT_NAME: string = 'Tab';
  * @param ref - The ref to be forwarded to the MuiTab component.
  * @returns The rendered Tab component.
  */
-const Tab: OverridableComponent<TabTypeMap<TabProps>> & WithWrapperProps = forwardRef(
+const Tab: OverridableComponent<TabTypeMap<TabProps>> = forwardRef(
   <C extends ElementType = ElementType>({className, ...rest}: TabProps<C>, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-tab', className);
 
     return <MuiTab className={classes} ref={ref} {...rest} />;
   },
-) as OverridableComponent<TabTypeMap<TabProps>> & WithWrapperProps;
-
-Tab.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Tab.muiName = COMPONENT_NAME;
+) as OverridableComponent<TabTypeMap<TabProps>>;
 
 export default Tab;

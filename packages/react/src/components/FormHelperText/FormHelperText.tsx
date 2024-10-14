@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './form-helper-text.scss';
 
 export type FormHelperTextProps<
@@ -36,8 +34,6 @@ export type FormHelperTextProps<
    */
   component?: C;
 } & Omit<MuiFormHelperTextProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'FormHelperText';
 
 /**
  * A Form Helper Text component is used to provide additional information about the form inputs.
@@ -61,7 +57,7 @@ const COMPONENT_NAME: string = 'FormHelperText';
  * @param ref - The ref to be forwarded to the MuiFab component.
  * @returns The rendered Fab component.
  */
-const FormHelperText: OverridableComponent<FormHelperTextTypeMap<FormHelperTextProps>> & WithWrapperProps = forwardRef(
+const FormHelperText: OverridableComponent<FormHelperTextTypeMap<FormHelperTextProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: FormHelperTextProps<C>,
     ref: Ref<HTMLParagraphElement>,
@@ -70,9 +66,6 @@ const FormHelperText: OverridableComponent<FormHelperTextTypeMap<FormHelperTextP
 
     return <MuiFormHelperText ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<FormHelperTextTypeMap<FormHelperTextProps>> & WithWrapperProps;
-
-FormHelperText.displayName = composeComponentDisplayName(COMPONENT_NAME);
-FormHelperText.muiName = COMPONENT_NAME;
+) as OverridableComponent<FormHelperTextTypeMap<FormHelperTextProps>>;
 
 export default FormHelperText;

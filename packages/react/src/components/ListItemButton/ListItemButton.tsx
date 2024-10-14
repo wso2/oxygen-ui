@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list-item-button.scss';
 
 export type ListItemButtonProps<
@@ -36,8 +34,6 @@ export type ListItemButtonProps<
    */
   component?: C;
 } & Omit<MuiListItemButtonProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'ListItemButton';
 
 /**
  * The List Item Button an action element to be used inside a list item.
@@ -62,7 +58,7 @@ const COMPONENT_NAME: string = 'ListItemButton';
  * @param ref - The ref to be forwarded to the MuiListItemButton component.
  * @returns The rendered ListItemButton component.
  */
-const ListItemButton: OverridableComponent<ListItemButtonTypeMap<ListItemButtonProps>> & WithWrapperProps = forwardRef(
+const ListItemButton: OverridableComponent<ListItemButtonTypeMap<ListItemButtonProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: ListItemButtonProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -71,9 +67,6 @@ const ListItemButton: OverridableComponent<ListItemButtonTypeMap<ListItemButtonP
 
     return <MuiListItemButton ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<ListItemButtonTypeMap<ListItemButtonProps>> & WithWrapperProps;
-
-ListItemButton.displayName = composeComponentDisplayName(COMPONENT_NAME);
-ListItemButton.muiName = COMPONENT_NAME;
+) as OverridableComponent<ListItemButtonTypeMap<ListItemButtonProps>>;
 
 export default ListItemButton;

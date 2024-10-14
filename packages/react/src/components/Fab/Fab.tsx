@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ReactElement, Ref, ElementType} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type FabProps<
   C extends ElementType = ElementType,
@@ -35,8 +33,6 @@ export type FabProps<
    */
   component?: C;
 } & Omit<MuiFabProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'Fab';
 
 /**
  * A Floating Action Button (FAB) performs the primary, or most common, action on a screen.
@@ -61,7 +57,7 @@ const COMPONENT_NAME: string = 'Fab';
  * @param ref - The ref to be forwarded to the MuiFab component.
  * @returns The rendered Fab component.
  */
-const Fab: OverridableComponent<FabTypeMap<FabProps>> & WithWrapperProps = forwardRef(
+const Fab: OverridableComponent<FabTypeMap<FabProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: FabProps<C>,
     ref: Ref<HTMLButtonElement>,
@@ -70,9 +66,6 @@ const Fab: OverridableComponent<FabTypeMap<FabProps>> & WithWrapperProps = forwa
 
     return <MuiFab ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<FabTypeMap<FabProps>> & WithWrapperProps;
-
-Fab.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Fab.muiName = COMPONENT_NAME;
+) as OverridableComponent<FabTypeMap<FabProps>>;
 
 export default Fab;

@@ -23,8 +23,6 @@ import type {SwitchProps as MuiSwitchProps} from '@mui/material/Switch';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ReactElement, Ref, ElementType} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './switch.scss';
 
 export type SwitchProps<C extends ElementType = ElementType> = {
@@ -33,8 +31,6 @@ export type SwitchProps<C extends ElementType = ElementType> = {
    */
   component?: C;
 } & Omit<MuiSwitchProps, 'component'>;
-
-const COMPONENT_NAME: string = 'Switch';
 
 /**
  * The Switch toggles the state of a single setting on or off.
@@ -61,7 +57,7 @@ const COMPONENT_NAME: string = 'Switch';
  * @param ref - The ref to be forwarded to the MuiSwitch component.
  * @returns The rendered Switch component.
  */
-const Switch: OverridableComponent<ButtonBaseTypeMap<SwitchProps>> & WithWrapperProps = forwardRef(
+const Switch: OverridableComponent<ButtonBaseTypeMap<SwitchProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: SwitchProps<C>,
     ref: Ref<HTMLButtonElement>,
@@ -70,9 +66,6 @@ const Switch: OverridableComponent<ButtonBaseTypeMap<SwitchProps>> & WithWrapper
 
     return <MuiSwitch ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<ButtonBaseTypeMap<SwitchProps>> & WithWrapperProps;
-
-Switch.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Switch.muiName = COMPONENT_NAME;
+) as OverridableComponent<ButtonBaseTypeMap<SwitchProps>>;
 
 export default Switch;

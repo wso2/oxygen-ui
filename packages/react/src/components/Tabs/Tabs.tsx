@@ -22,8 +22,6 @@ import type {TabsProps as MuiTabsProps, TabsTypeMap} from '@mui/material/Tabs';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import Divider from '../Divider';
 import './tabs.scss';
@@ -38,8 +36,6 @@ export type TabsProps<
    */
   component?: C;
 } & Omit<MuiTabsProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'Tabs';
 
 /**
  * The Skeleton displays a placeholder preview of your content before the data gets loaded to reduce load-time frustration.
@@ -63,7 +59,7 @@ const COMPONENT_NAME: string = 'Tabs';
  * @param ref - The ref to be forwarded to the MuiSkeleton component.
  * @returns The rendered Skeleton component.
  */
-const Tabs: OverridableComponent<TabsTypeMap<TabsProps>> & WithWrapperProps = forwardRef(
+const Tabs: OverridableComponent<TabsTypeMap<TabsProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: TabsProps<C>,
     ref: Ref<HTMLButtonElement>,
@@ -79,9 +75,6 @@ const Tabs: OverridableComponent<TabsTypeMap<TabsProps>> & WithWrapperProps = fo
       </Box>
     );
   },
-) as OverridableComponent<TabsTypeMap<TabsProps>> & WithWrapperProps;
-
-Tabs.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Tabs.muiName = COMPONENT_NAME;
+) as OverridableComponent<TabsTypeMap<TabsProps>>;
 
 export default Tabs;

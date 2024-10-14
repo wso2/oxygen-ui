@@ -20,8 +20,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef, useCallback, useMemo, useState} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import type {BoxProps, BoxTypeMap} from '../Box';
 import Button from '../Button';
@@ -93,8 +91,6 @@ export type WizardProps<C extends ElementType = ElementType> = BoxProps<C> & {
   title: string;
 };
 
-const COMPONENT_NAME: string = 'Wizard';
-
 /**
  * The Wizard lets you create a step-by-step wizard with a progress bar.
  *
@@ -117,7 +113,7 @@ const COMPONENT_NAME: string = 'Wizard';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered Wizard component.
  */
-const Wizard: OverridableComponent<BoxTypeMap<WizardProps>> & WithWrapperProps = forwardRef(
+const Wizard: OverridableComponent<BoxTypeMap<WizardProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {
       allowBackwardNavigation = true,
@@ -214,9 +210,6 @@ const Wizard: OverridableComponent<BoxTypeMap<WizardProps>> & WithWrapperProps =
       </Box>
     );
   },
-) as OverridableComponent<BoxTypeMap<WizardProps>> & WithWrapperProps;
-
-Wizard.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Wizard.muiName = COMPONENT_NAME;
+) as OverridableComponent<BoxTypeMap<WizardProps>>;
 
 export default Wizard;

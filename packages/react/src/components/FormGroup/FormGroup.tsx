@@ -21,12 +21,8 @@ import type {FormGroupProps as MuiFormGroupProps} from '@mui/material/FormGroup'
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type FormGroupProps = MuiFormGroupProps;
-
-const COMPONENT_NAME: string = 'FormGroup';
 
 /**
  * The Form Group is a helpful wrapper used to group selection control components.
@@ -50,15 +46,12 @@ const COMPONENT_NAME: string = 'FormGroup';
  * @param ref - The ref to be forwarded to the MuiFormGroup component.
  * @returns The rendered FormGroup component.
  */
-const FormGroup: ForwardRefExoticComponent<FormGroupProps> & WithWrapperProps = forwardRef(
+const FormGroup: ForwardRefExoticComponent<FormGroupProps> = forwardRef(
   ({className, ...rest}: FormGroupProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-form-group', className);
 
     return <MuiFormGroup ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<FormGroupProps> & WithWrapperProps;
-
-FormGroup.displayName = composeComponentDisplayName(COMPONENT_NAME);
-FormGroup.muiName = COMPONENT_NAME;
+) as ForwardRefExoticComponent<FormGroupProps>;
 
 export default FormGroup;

@@ -22,8 +22,6 @@ import type {SkeletonProps as MuiSkeletonProps, SkeletonTypeMap} from '@mui/mate
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type SkeletonProps<
   C extends ElementType = ElementType,
@@ -35,8 +33,6 @@ export type SkeletonProps<
    */
   component?: C;
 } & Omit<MuiSkeletonProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'Skeleton';
 
 /**
  * The Skeleton displays a placeholder preview of your content before the data gets loaded to reduce load-time frustration.
@@ -60,7 +56,7 @@ const COMPONENT_NAME: string = 'Skeleton';
  * @param ref - The ref to be forwarded to the MuiSkeleton component.
  * @returns The rendered Skeleton component.
  */
-const Skeleton: OverridableComponent<SkeletonTypeMap<SkeletonProps>> & WithWrapperProps = forwardRef(
+const Skeleton: OverridableComponent<SkeletonTypeMap<SkeletonProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: SkeletonProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -69,9 +65,6 @@ const Skeleton: OverridableComponent<SkeletonTypeMap<SkeletonProps>> & WithWrapp
 
     return <MuiSkeleton ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<SkeletonTypeMap<SkeletonProps>> & WithWrapperProps;
-
-Skeleton.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Skeleton.muiName = COMPONENT_NAME;
+) as OverridableComponent<SkeletonTypeMap<SkeletonProps>>;
 
 export default Skeleton;

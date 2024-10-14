@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './icon-button.scss';
 
 /**
@@ -50,8 +48,6 @@ export type IconButtonProps<
   variant?: IconButtonVariants | 'contained' | 'text';
 } & Omit<MuiIconButtonProps<D, P>, 'component'>;
 
-const COMPONENT_NAME: string = 'IconButton';
-
 /**
  * The Icon Button component is used to render a button with an icon.
  *
@@ -75,7 +71,7 @@ const COMPONENT_NAME: string = 'IconButton';
  * @param ref - The ref to be forwarded to the MuiIconButton component.
  * @returns The rendered IconButton component.
  */
-const IconButton: OverridableComponent<IconButtonTypeMap<IconButtonProps>> & WithWrapperProps = forwardRef(
+const IconButton: OverridableComponent<IconButtonTypeMap<IconButtonProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, variant = IconButtonVariants.TEXT, ...rest}: IconButtonProps<C>,
     ref: Ref<HTMLButtonElement>,
@@ -86,9 +82,6 @@ const IconButton: OverridableComponent<IconButtonTypeMap<IconButtonProps>> & Wit
 
     return <MuiIconButton ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<IconButtonTypeMap<IconButtonProps>> & WithWrapperProps;
-
-IconButton.displayName = composeComponentDisplayName(COMPONENT_NAME);
-IconButton.muiName = COMPONENT_NAME;
+) as OverridableComponent<IconButtonTypeMap<IconButtonProps>>;
 
 export default IconButton;

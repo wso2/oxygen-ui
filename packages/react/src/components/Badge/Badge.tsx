@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './badge.scss';
 
 export type BadgeProps<
@@ -36,8 +34,6 @@ export type BadgeProps<
    */
   component?: C;
 } & Omit<MuiBadgeProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'Badge';
 
 /**
  * The Badge component generates a small badge to the top-right of its child(ren).
@@ -63,19 +59,15 @@ const COMPONENT_NAME: string = 'Badge';
  * @param ref - The ref to be forwarded to the MuiBadge component.
  * @returns The rendered Badge component.
  */
-const Badge: OverridableComponent<BadgeTypeMap<BadgeTypeMap['defaultComponent'], BadgeProps>> & WithWrapperProps =
-  forwardRef(
-    <C extends ElementType = ElementType>(
-      {className, ...rest}: BadgeProps<C>,
-      ref: Ref<HTMLSpanElement>,
-    ): ReactElement => {
-      const classes: string = clsx('oxygen-badge', className);
+const Badge: OverridableComponent<BadgeTypeMap<BadgeTypeMap['defaultComponent'], BadgeProps>> = forwardRef(
+  <C extends ElementType = ElementType>(
+    {className, ...rest}: BadgeProps<C>,
+    ref: Ref<HTMLSpanElement>,
+  ): ReactElement => {
+    const classes: string = clsx('oxygen-badge', className);
 
-      return <MuiBadge ref={ref} className={classes} {...rest} />;
-    },
-  ) as OverridableComponent<BadgeTypeMap<BadgeTypeMap['defaultComponent'], BadgeProps>> & WithWrapperProps;
-
-Badge.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Badge.muiName = COMPONENT_NAME;
+    return <MuiBadge ref={ref} className={classes} {...rest} />;
+  },
+) as OverridableComponent<BadgeTypeMap<BadgeTypeMap['defaultComponent'], BadgeProps>>;
 
 export default Badge;

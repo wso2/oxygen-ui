@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ReactElement, Ref, ElementType} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type FormLabelProps<
   C extends ElementType = ElementType,
@@ -35,8 +33,6 @@ export type FormLabelProps<
    */
   component?: C;
 } & Omit<MuiFormLabelProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'FormLabel';
 
 /**
  * A Form Label component is used to provide a label for the form inputs.
@@ -64,7 +60,7 @@ const COMPONENT_NAME: string = 'FormLabel';
  * @param ref - The ref to be forwarded to the MuiFab component.
  * @returns The rendered Fab component.
  */
-const FormLabel: OverridableComponent<FormLabelTypeMap<FormLabelProps>> & WithWrapperProps = forwardRef(
+const FormLabel: OverridableComponent<FormLabelTypeMap<FormLabelProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: FormLabelProps<C>,
     ref: Ref<HTMLLabelElement>,
@@ -73,9 +69,6 @@ const FormLabel: OverridableComponent<FormLabelTypeMap<FormLabelProps>> & WithWr
 
     return <MuiFormLabel ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<FormLabelTypeMap<FormLabelProps>> & WithWrapperProps;
-
-FormLabel.displayName = composeComponentDisplayName(COMPONENT_NAME);
-FormLabel.muiName = COMPONENT_NAME;
+) as OverridableComponent<FormLabelTypeMap<FormLabelProps>>;
 
 export default FormLabel;

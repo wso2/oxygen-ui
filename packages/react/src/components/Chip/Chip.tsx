@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './chip.scss';
 
 export type ChipProps<
@@ -36,8 +34,6 @@ export type ChipProps<
    */
   component?: C;
 } & Omit<MuiChipProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'Chip';
 
 /**
  * The Chips are compact elements that represent an input, attribute, or action.
@@ -61,15 +57,12 @@ const COMPONENT_NAME: string = 'Chip';
  * @param ref - The ref to be forwarded to the MuiChip component.
  * @returns The rendered Chip component.
  */
-const Chip: OverridableComponent<ChipTypeMap<ChipProps>> & WithWrapperProps = forwardRef(
+const Chip: OverridableComponent<ChipTypeMap<ChipProps>> = forwardRef(
   <C extends ElementType = ElementType>({className, ...rest}: ChipProps<C>, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-chip', className);
 
     return <MuiChip ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<ChipTypeMap<ChipProps>> & WithWrapperProps;
-
-Chip.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Chip.muiName = COMPONENT_NAME;
+) as OverridableComponent<ChipTypeMap<ChipProps>>;
 
 export default Chip;

@@ -20,8 +20,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import type {BoxTypeMap, BoxProps} from '../Box';
 import Box from '../Box';
 import Button from '../Button';
@@ -51,8 +49,6 @@ export type SignInProps<C extends ElementType = ElementType> = BoxProps<C> & {
   signUpUrl?: string;
 };
 
-const COMPONENT_NAME: string = 'SignIn';
-
 /**
  * The Sign In component is a custom component that is used to render a sign-in form.
  *
@@ -75,7 +71,7 @@ const COMPONENT_NAME: string = 'SignIn';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered SignIn component.
  */
-const SignIn: OverridableComponent<BoxTypeMap<SignInProps>> & WithWrapperProps = forwardRef(
+const SignIn: OverridableComponent<BoxTypeMap<SignInProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, signUpUrl, logoUrl, signInOptions, ...rest}: SignInProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -136,9 +132,6 @@ const SignIn: OverridableComponent<BoxTypeMap<SignInProps>> & WithWrapperProps =
       </Box>
     );
   },
-) as OverridableComponent<BoxTypeMap<SignInProps>> & WithWrapperProps;
-
-SignIn.displayName = composeComponentDisplayName(COMPONENT_NAME);
-SignIn.muiName = 'SignIn';
+) as OverridableComponent<BoxTypeMap<SignInProps>>;
 
 export default SignIn;

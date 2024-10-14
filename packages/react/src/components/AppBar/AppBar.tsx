@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, ReactElement, Ref} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './app-bar.scss';
 
 export type AppBarProps<
@@ -36,8 +34,6 @@ export type AppBarProps<
    */
   component?: C;
 } & Omit<MuiAppBarProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'AppBar';
 
 /**
  * The App Bar component displays information and actions relating to the current screen.
@@ -62,7 +58,7 @@ const COMPONENT_NAME: string = 'AppBar';
  * @param ref - The ref to be forwarded to the MuiAppBar component.
  * @returns The rendered AppBar component.
  */
-const AppBar: OverridableComponent<AppBarTypeMap<AppBarProps>> & WithWrapperProps = forwardRef(
+const AppBar: OverridableComponent<AppBarTypeMap<AppBarProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: AppBarProps<C>,
     ref: Ref<HTMLHeadingElement>,
@@ -71,9 +67,6 @@ const AppBar: OverridableComponent<AppBarTypeMap<AppBarProps>> & WithWrapperProp
 
     return <MuiAppBar ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<AppBarTypeMap<AppBarProps>> & WithWrapperProps;
-
-AppBar.displayName = composeComponentDisplayName(COMPONENT_NAME);
-AppBar.muiName = COMPONENT_NAME;
+) as OverridableComponent<AppBarTypeMap<AppBarProps>>;
 
 export default AppBar;

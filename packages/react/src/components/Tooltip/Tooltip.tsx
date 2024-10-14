@@ -21,13 +21,9 @@ import type {TooltipProps as MuiTooltipProps} from '@mui/material/Tooltip';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './tooltip.scss';
 
 export type TooltipProps = MuiTooltipProps;
-
-const COMPONENT_NAME: string = 'Tooltip';
 
 /**
  * Tooltips display informative text when users hover over, focus on, or tap an element.
@@ -50,15 +46,12 @@ const COMPONENT_NAME: string = 'Tooltip';
  * @param ref - The ref to be forwarded to the MuiTooltip component.
  * @returns The rendered Tooltip component.
  */
-const Tooltip: ForwardRefExoticComponent<TooltipProps> & WithWrapperProps = forwardRef(
+const Tooltip: ForwardRefExoticComponent<TooltipProps> = forwardRef(
   ({className, ...rest}: TooltipProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-tooltip', className);
 
     return <MuiTooltip ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<TooltipProps> & WithWrapperProps;
-
-Tooltip.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Tooltip.muiName = COMPONENT_NAME;
+) as ForwardRefExoticComponent<TooltipProps>;
 
 export default Tooltip;

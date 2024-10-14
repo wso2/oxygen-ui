@@ -21,13 +21,9 @@ import type {GridValidRowModel as MuiXGridValidRowModel, DataGridProps as MuiXDa
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './data-grid.scss';
 
 export type DataGridProps<R extends MuiXGridValidRowModel = any> = MuiXDataGridProps<R>;
-
-const COMPONENT_NAME: string = 'DataGrid';
 
 /**
  * The Data Grid component is built with React and TypeScript to provide a smooth UX for manipulating
@@ -52,15 +48,12 @@ const COMPONENT_NAME: string = 'DataGrid';
  * @param ref - The ref to be forwarded to the MuiDataGrid component.
  * @returns The rendered DataGrid component.
  */
-const DataGrid: ForwardRefExoticComponent<DataGridProps> & WithWrapperProps = forwardRef(
+const DataGrid: ForwardRefExoticComponent<DataGridProps> = forwardRef(
   ({className, ...rest}: DataGridProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-data-grid', className);
 
     return <MuiXDataGrid ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<DataGridProps> & WithWrapperProps;
-
-DataGrid.displayName = composeComponentDisplayName(COMPONENT_NAME);
-DataGrid.muiName = COMPONENT_NAME;
+) as ForwardRefExoticComponent<DataGridProps>;
 
 export default DataGrid;

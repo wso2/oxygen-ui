@@ -24,8 +24,6 @@ import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement, ReactNode} from 'react';
 import {useIsMobile} from '../../hooks/use-is-mobile';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import AppBar from '../AppBar';
 import type {AppBarProps, AppBarTypeMap} from '../AppBar';
 import Avatar from '../Avatar';
@@ -134,8 +132,6 @@ const userDropdownMenuDefaultProps: UserDropdownMenuHeaderProps = {
   onActionClick: (): void => null,
 };
 
-const COMPONENT_NAME: string = 'Header';
-
 /**
  * The Header displays the brand, left aligned elements, right aligned elements, and the user dropdown menu.
  *
@@ -158,7 +154,7 @@ const COMPONENT_NAME: string = 'Header';
  * @param ref - The ref to be forwarded to the AppBar component.
  * @returns The rendered Header component.
  */
-const Header: OverridableComponent<AppBarTypeMap<HeaderProps>> & WithWrapperProps = forwardRef(
+const Header: OverridableComponent<AppBarTypeMap<HeaderProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {
       brand,
@@ -276,9 +272,6 @@ const Header: OverridableComponent<AppBarTypeMap<HeaderProps>> & WithWrapperProp
       </AppBar>
     );
   },
-) as OverridableComponent<AppBarTypeMap<HeaderProps>> & WithWrapperProps;
-
-Header.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Header.muiName = COMPONENT_NAME;
+) as OverridableComponent<AppBarTypeMap<HeaderProps>>;
 
 export default Header;

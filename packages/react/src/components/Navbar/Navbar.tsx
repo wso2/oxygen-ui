@@ -27,8 +27,6 @@ import type {
   ForwardRefExoticComponent,
   MutableRefObject,
 } from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import CollapsibleNavbarItem from '../CollapsibleNavbarItem';
 import type {CollapsibleNavbarItemProps} from '../CollapsibleNavbarItem';
@@ -80,8 +78,6 @@ export type NavbarItems = {
   label?: string;
 };
 
-const COMPONENT_NAME: string = 'Navbar';
-
 /**
  * The Navbar component is used to provide a navigation bar for the application.
  *
@@ -104,7 +100,7 @@ const COMPONENT_NAME: string = 'Navbar';
  * @param ref - The ref to be forwarded to the Drawer component.
  * @returns The rendered Navbar component.
  */
-const Navbar: ForwardRefExoticComponent<NavbarProps> & WithWrapperProps = forwardRef(
+const Navbar: ForwardRefExoticComponent<NavbarProps> = forwardRef(
   <C extends ElementType = ElementType>(
     {
       className,
@@ -232,9 +228,6 @@ const Navbar: ForwardRefExoticComponent<NavbarProps> & WithWrapperProps = forwar
       </Drawer>
     );
   },
-) as ForwardRefExoticComponent<NavbarProps> & WithWrapperProps;
-
-Navbar.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Navbar.muiName = COMPONENT_NAME;
+) as ForwardRefExoticComponent<NavbarProps>;
 
 export default Navbar;

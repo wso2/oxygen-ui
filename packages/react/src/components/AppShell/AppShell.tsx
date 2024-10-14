@@ -20,8 +20,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement, ReactNode} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import type {BoxProps, BoxTypeMap} from '../Box';
 import './app-shell.scss';
@@ -40,8 +38,6 @@ export type AppShellProps<C extends ElementType = ElementType> = BoxProps<C> & {
    */
   navigation?: ReactNode;
 };
-
-const COMPONENT_NAME: string = 'AppShell';
 
 /**
  * The App Shell component is a layout component that can be used to create a common Header - Navbar - Footer - Aside - Content layout pattern.
@@ -65,7 +61,7 @@ const COMPONENT_NAME: string = 'AppShell';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered AppShell component.
  */
-const AppShell: OverridableComponent<BoxTypeMap<AppShellProps>> & WithWrapperProps = forwardRef(
+const AppShell: OverridableComponent<BoxTypeMap<AppShellProps>> = forwardRef(
   <C extends ElementType>(
     {className, children, footer, header, navigation, ...rest}: AppShellProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -87,9 +83,6 @@ const AppShell: OverridableComponent<BoxTypeMap<AppShellProps>> & WithWrapperPro
       </Box>
     );
   },
-) as OverridableComponent<BoxTypeMap<AppShellProps>> & WithWrapperProps;
-
-AppShell.displayName = composeComponentDisplayName(COMPONENT_NAME);
-AppShell.muiName = COMPONENT_NAME;
+) as OverridableComponent<BoxTypeMap<AppShellProps>>;
 
 export default AppShell;

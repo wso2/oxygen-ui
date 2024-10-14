@@ -23,8 +23,6 @@ import {useColorScheme} from '@mui/material/styles';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, PropsWithChildren, ReactElement, SVGProps} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './color-mode-toggle.scss';
 
 export type ColorModeToggleProps<
@@ -37,8 +35,6 @@ export type ColorModeToggleProps<
    */
   component?: C;
 } & Omit<IconButtonProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'ColorModeToggle';
 
 const BrightnessIcon = (props: PropsWithChildren<SVGProps<SVGSVGElement>>): ReactElement => (
   <svg
@@ -100,7 +96,7 @@ const CrescentIcon = (props: PropsWithChildren<SVGProps<SVGSVGElement>>): ReactE
  * @param ref - The ref to be forwarded to the IconButton component.
  * @returns The rendered ColorModeToggle component.
  */
-const ColorModeToggle: OverridableComponent<IconButtonTypeMap<IconButtonProps>> & WithWrapperProps = forwardRef(
+const ColorModeToggle: OverridableComponent<IconButtonTypeMap<IconButtonProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: ColorModeToggleProps<C>,
     ref: Ref<HTMLButtonElement>,
@@ -124,9 +120,6 @@ const ColorModeToggle: OverridableComponent<IconButtonTypeMap<IconButtonProps>> 
       </IconButton>
     );
   },
-) as OverridableComponent<IconButtonTypeMap<IconButtonProps>> & WithWrapperProps;
-
-ColorModeToggle.displayName = composeComponentDisplayName(COMPONENT_NAME);
-ColorModeToggle.muiName = COMPONENT_NAME;
+) as OverridableComponent<IconButtonTypeMap<IconButtonProps>>;
 
 export default ColorModeToggle;

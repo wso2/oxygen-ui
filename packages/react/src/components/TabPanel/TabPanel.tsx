@@ -20,8 +20,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import type {BoxProps, BoxTypeMap} from '../Box';
 import './tab-panel.scss';
@@ -36,8 +34,6 @@ export type TabPanelProps<C extends ElementType = ElementType> = BoxProps<C> & {
    */
   value: number;
 };
-
-const COMPONENT_NAME: string = 'TabPanel';
 
 /**
  * TabPanel component can be used with Tabs component to implement the content of the tab views.
@@ -61,7 +57,7 @@ const COMPONENT_NAME: string = 'TabPanel';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered TabPanel component.
  */
-const TabPanel: OverridableComponent<BoxTypeMap<TabPanelProps>> & WithWrapperProps = forwardRef(
+const TabPanel: OverridableComponent<BoxTypeMap<TabPanelProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, children, value, index, ...rest}: TabPanelProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -74,9 +70,6 @@ const TabPanel: OverridableComponent<BoxTypeMap<TabPanelProps>> & WithWrapperPro
       </Box>
     );
   },
-) as OverridableComponent<BoxTypeMap<TabPanelProps>> & WithWrapperProps;
-
-TabPanel.displayName = composeComponentDisplayName(COMPONENT_NAME);
-TabPanel.muiName = COMPONENT_NAME;
+) as OverridableComponent<BoxTypeMap<TabPanelProps>>;
 
 export default TabPanel;

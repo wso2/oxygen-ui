@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './card-header.scss';
 
 export type CardHeaderProps<
@@ -38,8 +36,6 @@ export type CardHeaderProps<
    */
   component?: C;
 } & Omit<MuiCardHeaderProps<D, P, T, S>, 'component'>;
-
-const COMPONENT_NAME: string = 'CardHeader';
 
 /**
  * The Card Header component is an optional wrapper for the Card header.
@@ -63,7 +59,7 @@ const COMPONENT_NAME: string = 'CardHeader';
  * @param ref - The ref to be forwarded to the MuiCardHeader component.
  * @returns The rendered CardHeader component.
  */
-const CardHeader: OverridableComponent<CardHeaderTypeMap<CardHeaderProps>> & WithWrapperProps = forwardRef(
+const CardHeader: OverridableComponent<CardHeaderTypeMap<CardHeaderProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: CardHeaderProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -72,9 +68,6 @@ const CardHeader: OverridableComponent<CardHeaderTypeMap<CardHeaderProps>> & Wit
 
     return <MuiCardHeader ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<CardHeaderTypeMap<CardHeaderProps>> & WithWrapperProps;
-
-CardHeader.displayName = composeComponentDisplayName(COMPONENT_NAME);
-CardHeader.muiName = COMPONENT_NAME;
+) as OverridableComponent<CardHeaderTypeMap<CardHeaderProps>>;
 
 export default CardHeader;

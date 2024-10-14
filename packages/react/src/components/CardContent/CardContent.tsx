@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './card-content.scss';
 
 export type CardContentProps<
@@ -36,8 +34,6 @@ export type CardContentProps<
    */
   component?: C;
 } & Omit<MuiCardContentProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'CardContent';
 
 /**
  * The Card Content component is the wrapper for the Card content.
@@ -61,7 +57,7 @@ const COMPONENT_NAME: string = 'CardContent';
  * @param ref - The ref to be forwarded to the MuiCardContent component.
  * @returns The rendered CardContent component.
  */
-const CardContent: OverridableComponent<CardContentTypeMap<CardContentProps>> & WithWrapperProps = forwardRef(
+const CardContent: OverridableComponent<CardContentTypeMap<CardContentProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: CardContentProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -70,9 +66,6 @@ const CardContent: OverridableComponent<CardContentTypeMap<CardContentProps>> & 
 
     return <MuiCardContent ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<CardContentTypeMap<CardContentProps>> & WithWrapperProps;
-
-CardContent.displayName = composeComponentDisplayName(COMPONENT_NAME);
-CardContent.muiName = COMPONENT_NAME;
+) as OverridableComponent<CardContentTypeMap<CardContentProps>>;
 
 export default CardContent;

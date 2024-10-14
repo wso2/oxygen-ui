@@ -21,13 +21,9 @@ import type {SnackbarProps as MuiSnackbarProps} from '@mui/material/Snackbar';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './snackbar.scss';
 
 export type SnackbarProps = MuiSnackbarProps;
-
-const COMPONENT_NAME: string = 'Snackbar';
 
 /**
  * The Snackbar (also known as toasts) is used for brief notifications of processes that have been or will be performed.
@@ -50,15 +46,12 @@ const COMPONENT_NAME: string = 'Snackbar';
  * @param ref - The ref to be forwarded to the MuiSnackbar component.
  * @returns The rendered Snackbar component.
  */
-const Snackbar: ForwardRefExoticComponent<SnackbarProps> & WithWrapperProps = forwardRef(
+const Snackbar: ForwardRefExoticComponent<SnackbarProps> = forwardRef(
   ({className, ...rest}: SnackbarProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-snackbar', className);
 
     return <MuiSnackbar className={classes} {...rest} ref={ref} />;
   },
-) as ForwardRefExoticComponent<SnackbarProps> & WithWrapperProps;
-
-Snackbar.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Snackbar.muiName = COMPONENT_NAME;
+) as ForwardRefExoticComponent<SnackbarProps>;
 
 export default Snackbar;

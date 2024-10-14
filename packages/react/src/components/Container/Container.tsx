@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './container.scss';
 
 export type ContainerProps<
@@ -36,8 +34,6 @@ export type ContainerProps<
    */
   component?: C;
 } & Omit<MuiContainerProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'Container';
 
 /**
  * The container centers your content horizontally. It's the most basic layout element.
@@ -61,7 +57,7 @@ const COMPONENT_NAME: string = 'Container';
  * @param ref - The ref to be forwarded to the MuiContainer component.
  * @returns The rendered Container component.
  */
-const Container: OverridableComponent<ContainerTypeMap<ContainerProps>> & WithWrapperProps = forwardRef(
+const Container: OverridableComponent<ContainerTypeMap<ContainerProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: ContainerProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -70,9 +66,6 @@ const Container: OverridableComponent<ContainerTypeMap<ContainerProps>> & WithWr
 
     return <MuiContainer ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<ContainerTypeMap<ContainerProps>> & WithWrapperProps;
-
-Container.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Container.muiName = COMPONENT_NAME;
+) as OverridableComponent<ContainerTypeMap<ContainerProps>>;
 
 export default Container;

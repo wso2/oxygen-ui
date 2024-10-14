@@ -21,13 +21,9 @@ import type {ListItemIconProps as MuiListItemIconProps} from '@mui/material/List
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list-item-icon.scss';
 
 export type ListItemIconProps = MuiListItemIconProps;
-
-const COMPONENT_NAME: string = 'ListItemIcon';
 
 /**
  * The List Item Icon component is used to display an icon in a list item.
@@ -50,15 +46,12 @@ const COMPONENT_NAME: string = 'ListItemIcon';
  * @param ref - The ref to be forwarded to the MuiListItemIcon component.
  * @returns The rendered ListItemIcon component.
  */
-const ListItemIcon: ForwardRefExoticComponent<ListItemIconProps> & WithWrapperProps = forwardRef(
+const ListItemIcon: ForwardRefExoticComponent<ListItemIconProps> = forwardRef(
   ({className, ...rest}: ListItemIconProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-list-item-icon', className);
 
     return <MuiListItemIcon ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<ListItemIconProps> & WithWrapperProps;
-
-ListItemIcon.displayName = composeComponentDisplayName(COMPONENT_NAME);
-ListItemIcon.muiName = COMPONENT_NAME;
+) as ForwardRefExoticComponent<ListItemIconProps>;
 
 export default ListItemIcon;

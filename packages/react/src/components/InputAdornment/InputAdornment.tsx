@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type InputAdornmentProps<
   C extends ElementType = ElementType,
@@ -35,8 +33,6 @@ export type InputAdornmentProps<
    */
   component?: C;
 } & Omit<MuiInputAdornmentProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'InputAdornment';
 
 /**
  * The Input Adornment can be used to add a prefix, a suffix, or an action to an input. For instance,
@@ -61,7 +57,7 @@ const COMPONENT_NAME: string = 'InputAdornment';
  * @param ref - The ref to be forwarded to the MuiInputAdornment component.
  * @returns The rendered InputAdornment component.
  */
-const InputAdornment: OverridableComponent<InputAdornmentTypeMap<InputAdornmentProps>> & WithWrapperProps = forwardRef(
+const InputAdornment: OverridableComponent<InputAdornmentTypeMap<InputAdornmentProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, position, ...rest}: InputAdornmentProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -70,9 +66,6 @@ const InputAdornment: OverridableComponent<InputAdornmentTypeMap<InputAdornmentP
 
     return <MuiInputAdornment ref={ref} position={position} className={classes} {...rest} />;
   },
-) as OverridableComponent<InputAdornmentTypeMap<InputAdornmentProps>> & WithWrapperProps;
-
-InputAdornment.displayName = composeComponentDisplayName(COMPONENT_NAME);
-InputAdornment.muiName = COMPONENT_NAME;
+) as OverridableComponent<InputAdornmentTypeMap<InputAdornmentProps>>;
 
 export default InputAdornment;

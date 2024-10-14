@@ -22,8 +22,6 @@ import type {ToolbarProps as MuiToolbarProps, ToolbarTypeMap} from '@mui/materia
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './toolbar.scss';
 
 export type ToolbarProps<
@@ -36,8 +34,6 @@ export type ToolbarProps<
    */
   component?: C;
 } & Omit<MuiToolbarProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'Toolbar';
 
 /**
  * The Toolbar component is a container for grouping elements such as AppBar.
@@ -61,7 +57,7 @@ const COMPONENT_NAME: string = 'Toolbar';
  * @param ref - The ref to be forwarded to the MuiSkeleton component.
  * @returns The rendered Skeleton component.
  */
-const Toolbar: OverridableComponent<ToolbarTypeMap<ToolbarProps>> & WithWrapperProps = forwardRef(
+const Toolbar: OverridableComponent<ToolbarTypeMap<ToolbarProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: ToolbarProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -70,9 +66,6 @@ const Toolbar: OverridableComponent<ToolbarTypeMap<ToolbarProps>> & WithWrapperP
 
     return <MuiToolbar ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<ToolbarTypeMap<ToolbarProps>> & WithWrapperProps;
-
-Toolbar.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Toolbar.muiName = COMPONENT_NAME;
+) as OverridableComponent<ToolbarTypeMap<ToolbarProps>>;
 
 export default Toolbar;
