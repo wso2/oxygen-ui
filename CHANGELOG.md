@@ -1,5 +1,23 @@
 # Changelog
 
+# [1.14.0](https://github.com/wso2/oxygen-ui/compare/v1.13.13...v1.14.0)
+<br> Released on: 2024-10-14
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** deprecate troublesome enums ([a63a8c1](https://github.com/wso2/oxygen-ui/commit/a63a8c18729a0eb914b4485139554772ed933db1))
+* **react:** update composition pattern ([e432d25](https://github.com/wso2/oxygen-ui/commit/e432d254f6b3fb24b62222e9a0f37f519a57c9cb))
+* **react:** remove  `defaultProps` & moved prop destructuring inline ([54f776b](https://github.com/wso2/oxygen-ui/commit/54f776bfd587d0b2791a4a618fbf73d05c80154e))
+
+
+### `@oxygen-ui/primitives`
+* **primitives:** add `PenToSquareIcon` ([2615345](https://github.com/wso2/oxygen-ui/commit/2615345718862ec7d1b5a435e4a4dbd618585b29))
+* **primitives:** add `EllipsisVerticalIcon` ([5cfdd0c](https://github.com/wso2/oxygen-ui/commit/5cfdd0ccad6dc7ab6bc5c9ba7a7a9c9d1c134348))
+* **primitives:** add `EllipsisIcon` ([3d24988](https://github.com/wso2/oxygen-ui/commit/3d249882a04b325f8f756d0cca954ff6fd9da0db))
+* **primitives:** add `BuildingAltIcon` ([fd28598](https://github.com/wso2/oxygen-ui/commit/fd28598ba8c75dc6a81d3f905e2b01a1e026557d))
+* **primitives:** add `BanIcon` ([e63e848](https://github.com/wso2/oxygen-ui/commit/e63e848656be151e7976c0234d9c5485cbfe6bc5))
+
 ## [1.13.13](https://github.com/wso2/oxygen-ui/compare/v1.13.12...v1.13.13)
 <br> Released on: 2024-10-05
 
