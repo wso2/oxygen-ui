@@ -20,8 +20,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, ReactElement, ReactNode, Ref} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import Card from '../Card';
 import type {CardProps, CardTypeMap} from '../Card';
@@ -73,8 +71,6 @@ export type AccountOverviewProps<
 
 export type AccountCompletionSteps = CarouselStep;
 
-const COMPONENT_NAME: string = 'AccountOverview';
-
 /**
  * The Account Overview component lets you display the progress of the user's account.
  * It includes the user's profile picture, name, email, account progress and account completion steps.
@@ -98,7 +94,7 @@ const COMPONENT_NAME: string = 'AccountOverview';
  * @param ref - The ref to be forwarded to the Card component.
  * @returns The rendered AccountOverview component.
  */
-const AccountOverview: OverridableComponent<CardTypeMap<AccountOverviewProps>> & WithWrapperProps = forwardRef(
+const AccountOverview: OverridableComponent<CardTypeMap<AccountOverviewProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {
       className,
@@ -139,9 +135,6 @@ const AccountOverview: OverridableComponent<CardTypeMap<AccountOverviewProps>> &
       </Card>
     );
   },
-) as OverridableComponent<CardTypeMap<AccountOverviewProps>> & WithWrapperProps;
-
-AccountOverview.displayName = composeComponentDisplayName(COMPONENT_NAME);
-AccountOverview.muiName = COMPONENT_NAME;
+) as OverridableComponent<CardTypeMap<AccountOverviewProps>>;
 
 export default AccountOverview;

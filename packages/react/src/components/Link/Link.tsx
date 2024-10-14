@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './link.scss';
 
 export type LinkProps<
@@ -36,8 +34,6 @@ export type LinkProps<
    */
   component?: C;
 } & Omit<MuiLinkProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'Link';
 
 /**
  * A Link allows you to easily customize anchor elements with your theme colors and typography styles.
@@ -64,7 +60,7 @@ const COMPONENT_NAME: string = 'Link';
  * @param ref - The ref to be forwarded to the MuiLink component.
  * @returns The rendered Link component.
  */
-const Link: OverridableComponent<LinkTypeMap<LinkProps>> & WithWrapperProps = forwardRef(
+const Link: OverridableComponent<LinkTypeMap<LinkProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: LinkProps<C>,
     ref: Ref<HTMLAnchorElement>,
@@ -73,9 +69,6 @@ const Link: OverridableComponent<LinkTypeMap<LinkProps>> & WithWrapperProps = fo
 
     return <MuiLink ref={ref} className={classes} underline="hover" {...rest} />;
   },
-) as OverridableComponent<LinkTypeMap<LinkProps>> & WithWrapperProps;
-
-Link.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Link.muiName = COMPONENT_NAME;
+) as OverridableComponent<LinkTypeMap<LinkProps>>;
 
 export default Link;

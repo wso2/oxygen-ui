@@ -21,8 +21,6 @@ import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement, ReactNode} from 'react';
 import {useIsMobile} from '../../hooks/use-is-mobile';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import type {BoxProps, BoxTypeMap} from '../Box';
 import Container from '../Container';
@@ -47,8 +45,6 @@ export type FooterProps<C extends ElementType = ElementType> = BoxProps<C> & {
   maxWidth?: ContainerProps['maxWidth'];
 };
 
-const COMPONENT_NAME: string = 'Footer';
-
 /**
  * The Footers display a set of links and a copyright at the bottom of the application.
  *
@@ -67,7 +63,7 @@ const COMPONENT_NAME: string = 'Footer';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered Footer component.
  */
-const Footer: OverridableComponent<BoxTypeMap<FooterProps>> & WithWrapperProps = forwardRef(
+const Footer: OverridableComponent<BoxTypeMap<FooterProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, copyright, component = 'footer' as C, links, maxWidth, ...rest}: FooterProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -107,9 +103,6 @@ const Footer: OverridableComponent<BoxTypeMap<FooterProps>> & WithWrapperProps =
       </Box>
     );
   },
-) as OverridableComponent<BoxTypeMap<FooterProps>> & WithWrapperProps;
-
-Footer.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Footer.muiName = COMPONENT_NAME;
+) as OverridableComponent<BoxTypeMap<FooterProps>>;
 
 export default Footer;

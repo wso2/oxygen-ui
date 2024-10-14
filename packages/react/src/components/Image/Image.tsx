@@ -19,12 +19,8 @@
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, ImgHTMLAttributes, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type ImageProps = ImgHTMLAttributes<HTMLImageElement>;
-
-const COMPONENT_NAME: string = 'Image';
 
 /**
  * The Footers display a set of links and a copyright at the bottom of the application.
@@ -46,15 +42,12 @@ const COMPONENT_NAME: string = 'Image';
  * @param ref - The ref to be forwarded to the img component.
  * @returns The rendered Image component.
  */
-const Image: ForwardRefExoticComponent<ImageProps> & WithWrapperProps = forwardRef(
+const Image: ForwardRefExoticComponent<ImageProps> = forwardRef(
   ({className, alt, ...rest}: ImageProps, ref: Ref<HTMLImageElement>): ReactElement => {
     const classes: string = clsx('oxygen-image', className);
 
     return <img ref={ref} className={classes} alt={alt} {...rest} />;
   },
-) as ForwardRefExoticComponent<ImageProps> & WithWrapperProps;
-
-Image.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Image.muiName = COMPONENT_NAME;
+) as ForwardRefExoticComponent<ImageProps>;
 
 export default Image;

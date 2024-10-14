@@ -20,8 +20,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement, ReactNode} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import Chip from '../Chip';
 import ListItemButton from '../ListItemButton';
@@ -59,8 +57,6 @@ export type NavbarItemProps<C extends ElementType = ElementType> = ListItemButto
     tagClassName?: 'premium' | 'beta' | 'new' | 'experimental';
   };
 
-const COMPONENT_NAME: string = 'NavbarItem';
-
 /**
  * The Navbar Item component is used to represent an item in the Navbar.
  *
@@ -83,7 +79,7 @@ const COMPONENT_NAME: string = 'NavbarItem';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered NavbarItem component.
  */
-const NavbarItem: OverridableComponent<ListItemButtonTypeMap<NavbarItemProps>> & WithWrapperProps = forwardRef(
+const NavbarItem: OverridableComponent<ListItemButtonTypeMap<NavbarItemProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, fill, icon, id, label, onClick, selected, tag, tagClassName, open = true, ...rest}: NavbarItemProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -116,9 +112,6 @@ const NavbarItem: OverridableComponent<ListItemButtonTypeMap<NavbarItemProps>> &
       </Box>
     );
   },
-) as OverridableComponent<ListItemButtonTypeMap<NavbarItemProps>> & WithWrapperProps;
-
-NavbarItem.displayName = composeComponentDisplayName(COMPONENT_NAME);
-NavbarItem.muiName = COMPONENT_NAME;
+) as OverridableComponent<ListItemButtonTypeMap<NavbarItemProps>>;
 
 export default NavbarItem;

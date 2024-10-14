@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './breadcrumbs.scss';
 
 export type BreadcrumbsProps<
@@ -36,8 +34,6 @@ export type BreadcrumbsProps<
    */
   component?: C;
 } & Omit<MuiBreadcrumbsProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'Breadcrumbs';
 
 /**
  * The Breadcrumbs component is a list of links that help visualize a page's location within
@@ -62,7 +58,7 @@ const COMPONENT_NAME: string = 'Breadcrumbs';
  * @param ref - The ref to be forwarded to the MuiBreadcrumbs component.
  * @returns The rendered Breadcrumbs component.
  */
-const Breadcrumbs: OverridableComponent<BreadcrumbsTypeMap<BreadcrumbsProps>> & WithWrapperProps = forwardRef(
+const Breadcrumbs: OverridableComponent<BreadcrumbsTypeMap<BreadcrumbsProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, children, ...rest}: BreadcrumbsProps<C>,
     ref: Ref<HTMLSpanElement>,
@@ -75,9 +71,6 @@ const Breadcrumbs: OverridableComponent<BreadcrumbsTypeMap<BreadcrumbsProps>> & 
       </MuiBreadcrumbs>
     );
   },
-) as OverridableComponent<BreadcrumbsTypeMap<BreadcrumbsProps>> & WithWrapperProps;
-
-Breadcrumbs.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Breadcrumbs.muiName = 'Breadcrumbs';
+) as OverridableComponent<BreadcrumbsTypeMap<BreadcrumbsProps>>;
 
 export default Breadcrumbs;

@@ -28,8 +28,6 @@ import type {
   ReactElement,
   ReactNode,
 } from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Avatar from '../Avatar';
 import Button, {ButtonProps} from '../Button';
 import Divider from '../Divider';
@@ -120,8 +118,6 @@ export type UserTemplate = {
   name?: string;
 };
 
-const COMPONENT_NAME: string = 'UserDropdownMenu';
-
 /**
  * The User Dropdown Menu lets you display a dropdown menu with user information and actions.
  *
@@ -143,7 +139,7 @@ const COMPONENT_NAME: string = 'UserDropdownMenu';
  * @param ref - The ref to be forwarded to the Menu component.
  * @returns The rendered UserDropdownMenu component.
  */
-const UserDropdownMenu: ForwardRefExoticComponent<UserDropdownMenuProps> & WithWrapperProps = forwardRef(
+const UserDropdownMenu: ForwardRefExoticComponent<UserDropdownMenuProps> = forwardRef(
   <C extends ElementType = ElementType>(
     {
       className,
@@ -278,9 +274,6 @@ const UserDropdownMenu: ForwardRefExoticComponent<UserDropdownMenuProps> & WithW
       </>
     );
   },
-) as ForwardRefExoticComponent<UserDropdownMenuProps> & WithWrapperProps;
-
-UserDropdownMenu.displayName = composeComponentDisplayName(COMPONENT_NAME);
-UserDropdownMenu.muiName = COMPONENT_NAME;
+) as ForwardRefExoticComponent<UserDropdownMenuProps>;
 
 export default UserDropdownMenu;

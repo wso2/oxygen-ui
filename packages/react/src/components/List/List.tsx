@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './list.scss';
 
 export type ListProps<
@@ -36,8 +34,6 @@ export type ListProps<
    */
   component?: C;
 } & Omit<MuiListProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'List';
 
 /**
  * A Lists is a continuous, vertical index of text or images.
@@ -63,15 +59,12 @@ const COMPONENT_NAME: string = 'List';
  * @param ref - The ref to be forwarded to the MuiList component.
  * @returns The rendered List component.
  */
-const List: OverridableComponent<ListTypeMap<ListProps>> & WithWrapperProps = forwardRef(
+const List: OverridableComponent<ListTypeMap<ListProps>> = forwardRef(
   <C extends ElementType>({className, ...rest}: ListProps<C>, ref: Ref<HTMLUListElement>): ReactElement => {
     const classes: string = clsx('oxygen-list', className);
 
     return <MuiList ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<ListTypeMap<ListProps>> & WithWrapperProps;
-
-List.displayName = composeComponentDisplayName(COMPONENT_NAME);
-List.muiName = COMPONENT_NAME;
+) as OverridableComponent<ListTypeMap<ListProps>>;
 
 export default List;

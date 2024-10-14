@@ -19,8 +19,6 @@
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Avatar from '../Avatar';
 import type {AvatarProps} from '../Avatar';
 import type {BadgeProps} from '../Badge';
@@ -45,8 +43,6 @@ export type CircularProgressAvatarProps = Omit<CircularProgressProps, 'value'> &
   progress?: number;
 };
 
-const COMPONENT_NAME: string = 'CircularProgressAvatar';
-
 /**
  * The Circular Progress Avatar is a Avatar variant with a circular progress and a badge.
  *
@@ -69,7 +65,7 @@ const COMPONENT_NAME: string = 'CircularProgressAvatar';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered CircularProgressAvatar component.
  */
-const CircularProgressAvatar: ForwardRefExoticComponent<CircularProgressAvatarProps> & WithWrapperProps = forwardRef(
+const CircularProgressAvatar: ForwardRefExoticComponent<CircularProgressAvatarProps> = forwardRef(
   (
     {className, progress, badgeOptions, avatarOptions, ...rest}: CircularProgressAvatarProps,
     ref: Ref<HTMLDivElement>,
@@ -108,9 +104,6 @@ const CircularProgressAvatar: ForwardRefExoticComponent<CircularProgressAvatarPr
       </Box>
     );
   },
-) as ForwardRefExoticComponent<CircularProgressAvatarProps> & WithWrapperProps;
-
-CircularProgressAvatar.displayName = composeComponentDisplayName(COMPONENT_NAME);
-CircularProgressAvatar.muiName = COMPONENT_NAME;
+) as ForwardRefExoticComponent<CircularProgressAvatarProps>;
 
 export default CircularProgressAvatar;

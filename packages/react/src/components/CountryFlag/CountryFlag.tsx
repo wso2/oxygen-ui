@@ -19,8 +19,6 @@
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, HTMLAttributes, Ref, ReactElement} from 'react';
 import WorldFlag from 'react-world-flags';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Typography from '../Typography';
 
 export type CountryFlagProps = {
@@ -40,8 +38,6 @@ export type CountryFlagProps = {
  */
 export type CountryFlagsProps = CountryFlagProps;
 
-const COMPONENT_NAME: string = 'CountryFlag';
-
 /**
  * The Toggle to switch between the two palette modes: light (the default) and dark.
  *
@@ -59,7 +55,7 @@ const COMPONENT_NAME: string = 'CountryFlag';
  * @param ref - The ref to be forwarded to the WorldFlag component.
  * @returns The rendered CountryFlag component.
  */
-const CountryFlag: ForwardRefExoticComponent<CountryFlagProps> & WithWrapperProps = forwardRef(
+const CountryFlag: ForwardRefExoticComponent<CountryFlagProps> = forwardRef(
   ({countryCode, height = '16', ...rest}: CountryFlagProps, ref: Ref<HTMLImageElement>): ReactElement => (
     <WorldFlag
       ref={ref}
@@ -69,9 +65,6 @@ const CountryFlag: ForwardRefExoticComponent<CountryFlagProps> & WithWrapperProp
       {...rest}
     />
   ),
-) as ForwardRefExoticComponent<CountryFlagProps> & WithWrapperProps;
-
-CountryFlag.displayName = composeComponentDisplayName(COMPONENT_NAME);
-CountryFlag.muiName = COMPONENT_NAME;
+) as ForwardRefExoticComponent<CountryFlagProps>;
 
 export default CountryFlag;

@@ -21,8 +21,6 @@ import type {AutocompleteProps as MuiAutocompleteProps} from '@mui/material/Auto
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import type {ChipTypeMap} from '../Chip';
 import './autocomplete.scss';
 
@@ -33,8 +31,6 @@ export type AutocompleteProps<
   FreeSolo extends boolean | undefined = boolean | undefined,
   ChipComponent extends React.ElementType = ChipTypeMap['defaultComponent'],
 > = MuiAutocompleteProps<T, Multiple, DisableClearable, FreeSolo, ChipComponent>;
-
-const COMPONENT_NAME: string = 'Autocomplete';
 
 /**
  * The Autocomplete is a normal text input enhanced by a panel of suggested options.
@@ -57,15 +53,12 @@ const COMPONENT_NAME: string = 'Autocomplete';
  * @param ref - The ref to be forwarded to the MuiAccordion component.
  * @returns The rendered Accordion component.
  */
-const Autocomplete: ForwardRefExoticComponent<AutocompleteProps<any>> & WithWrapperProps = forwardRef(
+const Autocomplete: ForwardRefExoticComponent<AutocompleteProps<any>> = forwardRef(
   ({className, ...rest}: AutocompleteProps<any>, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-autocomplete', className);
 
     return <MuiAutocomplete className={classes} {...rest} ref={ref} />;
   },
-) as ForwardRefExoticComponent<AutocompleteProps<any>> & WithWrapperProps;
-
-Autocomplete.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Autocomplete.muiName = COMPONENT_NAME;
+) as ForwardRefExoticComponent<AutocompleteProps<any>>;
 
 export default Autocomplete;

@@ -23,8 +23,6 @@ import clsx from 'clsx';
 import {forwardRef, useMemo} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
 import usePastelColorGenerator from '../../hooks/use-pastel-color-generator';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './avatar.scss';
 
 export type AvatarProps<
@@ -45,8 +43,6 @@ export type AvatarProps<
    */
   randomBackgroundColor?: boolean;
 } & Omit<MuiAvatarProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'Avatar';
 
 /**
  * Avatars are found throughout material design with uses in everything from tables to dialog menus.
@@ -70,7 +66,7 @@ const COMPONENT_NAME: string = 'Avatar';
  * @param ref - The ref to be forwarded to the MuiAvatar component.
  * @returns The rendered Avatar component.
  */
-const Avatar: OverridableComponent<AvatarTypeMap<AvatarProps>> & WithWrapperProps = forwardRef(
+const Avatar: OverridableComponent<AvatarTypeMap<AvatarProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, children, randomBackgroundColor, backgroundColorRandomizer, ...rest}: AvatarProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -97,9 +93,6 @@ const Avatar: OverridableComponent<AvatarTypeMap<AvatarProps>> & WithWrapperProp
       </MuiAvatar>
     );
   },
-) as OverridableComponent<AvatarTypeMap<AvatarProps>> & WithWrapperProps;
-
-Avatar.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Avatar.muiName = COMPONENT_NAME;
+) as OverridableComponent<AvatarTypeMap<AvatarProps>>;
 
 export default Avatar;

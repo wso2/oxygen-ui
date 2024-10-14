@@ -20,8 +20,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, ReactElement, ReactNode, Ref} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Button from '../Button';
 import Card from '../Card';
 import type {CardProps, CardTypeMap} from '../Card';
@@ -53,8 +51,6 @@ export type ActionCardProps<C extends ElementType = ElementType> = CardProps<C> 
   title: string;
 };
 
-const COMPONENT_NAME: string = 'ActionCard';
-
 /**
  * The Action Card component is an extended version of the `Card` component with an action button.
  *
@@ -77,7 +73,7 @@ const COMPONENT_NAME: string = 'ActionCard';
  * @param ref - The ref to be forwarded to the Card component.
  * @returns The rendered ActionCard component.
  */
-const ActionCard: OverridableComponent<CardTypeMap<ActionCardProps>> & WithWrapperProps = forwardRef(
+const ActionCard: OverridableComponent<CardTypeMap<ActionCardProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, image, title, description, actionText, onActionClick, ...rest}: ActionCardProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -99,9 +95,6 @@ const ActionCard: OverridableComponent<CardTypeMap<ActionCardProps>> & WithWrapp
       </Card>
     );
   },
-) as OverridableComponent<CardTypeMap<ActionCardProps>> & WithWrapperProps;
-
-ActionCard.displayName = composeComponentDisplayName(COMPONENT_NAME);
-ActionCard.muiName = COMPONENT_NAME;
+) as OverridableComponent<CardTypeMap<ActionCardProps>>;
 
 export default ActionCard;

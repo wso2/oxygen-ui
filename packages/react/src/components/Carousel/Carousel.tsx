@@ -22,8 +22,6 @@ import clsx from 'clsx';
 import {forwardRef, useEffect, useMemo, useState} from 'react';
 import type {ElementType, Ref, ReactElement, ReactNode} from 'react';
 import {useIsMobile} from '../../hooks/use-is-mobile';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import type {BoxProps, BoxTypeMap} from '../Box';
 import Button from '../Button';
@@ -91,8 +89,6 @@ export type CarouselProps<
   title?: ReactNode;
 };
 
-const COMPONENT_NAME: string = 'Carousel';
-
 /**
  * The Carousel component can be used to slide through content.
  *
@@ -115,7 +111,7 @@ const COMPONENT_NAME: string = 'Carousel';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered Carousel component.
  */
-const Carousel: OverridableComponent<BoxTypeMap<CarouselProps>> & WithWrapperProps = forwardRef(
+const Carousel: OverridableComponent<BoxTypeMap<CarouselProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {
       autoPlay = false,
@@ -232,9 +228,6 @@ const Carousel: OverridableComponent<BoxTypeMap<CarouselProps>> & WithWrapperPro
       </Box>
     );
   },
-) as OverridableComponent<BoxTypeMap<CarouselProps>> & WithWrapperProps;
-
-Carousel.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Carousel.muiName = COMPONENT_NAME;
+) as OverridableComponent<BoxTypeMap<CarouselProps>>;
 
 export default Carousel;

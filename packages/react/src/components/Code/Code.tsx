@@ -20,8 +20,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import type {TypographyTypeMap} from '../Typography';
 import Typography, {TypographyProps} from '../Typography/Typography';
 import './code.scss';
@@ -38,8 +36,6 @@ export type CodeProps<C extends ElementType = ElementType> = TypographyProps<C> 
    */
   outlined?: boolean;
 };
-
-const COMPONENT_NAME: string = 'Code';
 
 /**
  * The Code can represent an inline or block code without syntax highlight.
@@ -63,7 +59,7 @@ const COMPONENT_NAME: string = 'Code';
  * @param ref - The ref to be forwarded to the Typography component.
  * @returns The rendered Code component.
  */
-const Code: OverridableComponent<TypographyTypeMap<CodeProps>> & WithWrapperProps = forwardRef(
+const Code: OverridableComponent<TypographyTypeMap<CodeProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, children, filled = true, outlined = false, ...rest}: CodeProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -76,9 +72,6 @@ const Code: OverridableComponent<TypographyTypeMap<CodeProps>> & WithWrapperProp
       </Typography>
     );
   },
-) as OverridableComponent<TypographyTypeMap<CodeProps>> & WithWrapperProps;
-
-Code.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Code.muiName = COMPONENT_NAME;
+) as OverridableComponent<TypographyTypeMap<CodeProps>>;
 
 export default Code;

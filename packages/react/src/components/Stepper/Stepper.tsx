@@ -20,8 +20,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef, useCallback, useEffect, useRef, useState} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import Box from '../Box';
 import type {BoxProps, BoxTypeMap} from '../Box';
 import './stepper.scss';
@@ -40,8 +38,6 @@ export type StepperProps<C extends ElementType = ElementType> = BoxProps<C> & {
    */
   steps: ReactElement[];
 };
-
-const COMPONENT_NAME: string = 'Stepper';
 
 /**
  * The Stepper can be used to compose wizards and carousels.
@@ -65,7 +61,7 @@ const COMPONENT_NAME: string = 'Stepper';
  * @param ref - The ref to be forwarded to the Box component.
  * @returns The rendered Stepper component.
  */
-const Stepper: OverridableComponent<BoxTypeMap<StepperProps>> & WithWrapperProps = forwardRef(
+const Stepper: OverridableComponent<BoxTypeMap<StepperProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {animateOnSlide, className, currentStep = 0, steps}: StepperProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -129,9 +125,6 @@ const Stepper: OverridableComponent<BoxTypeMap<StepperProps>> & WithWrapperProps
 
     return steps[currentStep];
   },
-) as OverridableComponent<BoxTypeMap<StepperProps>> & WithWrapperProps;
-
-Stepper.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Stepper.muiName = COMPONENT_NAME;
+) as OverridableComponent<BoxTypeMap<StepperProps>>;
 
 export default Stepper;

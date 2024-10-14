@@ -20,6 +20,13 @@ import {NamedExoticComponent} from 'react';
 
 export type WithWrapperProps = MuiWrapperProps & NamedExoticComponent;
 
+/**
+ * [IMPORTANT] Temporarily disabled due to the following issues with regards to composition.
+ *  - https://github.com/wso2/oxygen-ui/issues/288
+ *  - https://github.com/mui/material-ui/issues/32420#issuecomment-2410430433
+ *
+ * TODO: Bring back once a solution is sorted out.
+ */
 interface MuiWrapperProps {
   /**
    * Component name with `Mui` prefix.

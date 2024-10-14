@@ -21,8 +21,6 @@ import type {PopoverProps as MuiPopoverProps} from '@mui/material/Popover';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ReactElement, Ref, ElementType, ForwardRefExoticComponent} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type PopoverProps<C extends ElementType = ElementType> = {
   /**
@@ -30,8 +28,6 @@ export type PopoverProps<C extends ElementType = ElementType> = {
    */
   component?: C;
 } & Omit<MuiPopoverProps, 'component'>;
-
-const COMPONENT_NAME: string = 'Popover';
 
 /**
  * A Popover can be used to display some content on top of another.
@@ -58,7 +54,7 @@ const COMPONENT_NAME: string = 'Popover';
  * @param ref - The ref to be forwarded to the MuiPopover component.
  * @returns The rendered Popover component.
  */
-const Popover: ForwardRefExoticComponent<PopoverProps> & WithWrapperProps = forwardRef(
+const Popover: ForwardRefExoticComponent<PopoverProps> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: PopoverProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -67,9 +63,6 @@ const Popover: ForwardRefExoticComponent<PopoverProps> & WithWrapperProps = forw
 
     return <MuiPopover className={classes} {...rest} ref={ref} />;
   },
-) as ForwardRefExoticComponent<PopoverProps> & WithWrapperProps;
-
-Popover.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Popover.muiName = COMPONENT_NAME;
+) as ForwardRefExoticComponent<PopoverProps>;
 
 export default Popover;

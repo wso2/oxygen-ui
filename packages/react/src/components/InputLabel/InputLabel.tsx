@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './input-label.scss';
 
 export type InputLabelProps<
@@ -36,8 +34,6 @@ export type InputLabelProps<
    */
   component?: C;
 } & Omit<MuiInputLabelProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'InputLabel';
 
 /**
  * The Form Label component is used to provide a label for the form inputs.
@@ -62,7 +58,7 @@ const COMPONENT_NAME: string = 'InputLabel';
  * @param ref - The ref to be forwarded to the MuiInputLabel component.
  * @returns The rendered InputLabel component.
  */
-const InputLabel: OverridableComponent<InputLabelTypeMap<InputLabelProps>> & WithWrapperProps = forwardRef(
+const InputLabel: OverridableComponent<InputLabelTypeMap<InputLabelProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: InputLabelProps<C>,
     ref: Ref<HTMLLabelElement>,
@@ -71,9 +67,6 @@ const InputLabel: OverridableComponent<InputLabelTypeMap<InputLabelProps>> & Wit
 
     return <MuiInputLabel ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<InputLabelTypeMap<InputLabelProps>> & WithWrapperProps;
-
-InputLabel.displayName = composeComponentDisplayName(COMPONENT_NAME);
-InputLabel.muiName = COMPONENT_NAME;
+) as OverridableComponent<InputLabelTypeMap<InputLabelProps>>;
 
 export default InputLabel;

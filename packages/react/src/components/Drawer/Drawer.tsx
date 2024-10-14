@@ -21,8 +21,6 @@ import type {DrawerProps as MuiDrawerProps} from '@mui/material/Drawer';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement, ForwardRefExoticComponent} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './drawer.scss';
 
 export type DrawerProps<C extends ElementType = ElementType> = {
@@ -31,8 +29,6 @@ export type DrawerProps<C extends ElementType = ElementType> = {
    */
   component?: C;
 } & Omit<MuiDrawerProps, 'component'>;
-
-const COMPONENT_NAME: string = 'Drawer';
 
 /**
  * The navigation drawers (or "sidebars") provide ergonomic access to destinations in a site or
@@ -57,7 +53,7 @@ const COMPONENT_NAME: string = 'Drawer';
  * @param ref - The ref to be forwarded to the MuiDrawer component.
  * @returns The rendered Drawer component.
  */
-const Drawer: ForwardRefExoticComponent<DrawerProps> & WithWrapperProps = forwardRef(
+const Drawer: ForwardRefExoticComponent<DrawerProps> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: DrawerProps<C>,
     ref: Ref<HTMLDivElement>,
@@ -66,9 +62,6 @@ const Drawer: ForwardRefExoticComponent<DrawerProps> & WithWrapperProps = forwar
 
     return <MuiDrawer ref={ref} className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<DrawerProps> & WithWrapperProps;
-
-Drawer.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Drawer.muiName = COMPONENT_NAME;
+) as ForwardRefExoticComponent<DrawerProps>;
 
 export default Drawer;

@@ -22,8 +22,6 @@ import type {TypographyProps as MuiTypographyProps, TypographyTypeMap} from '@mu
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './typography.scss';
 
 export type TypographyProps<
@@ -36,8 +34,6 @@ export type TypographyProps<
    */
   component?: C;
 } & Omit<MuiTypographyProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'Typography';
 
 /**
  * The Typography can present your design and content as clearly and efficiently as possible.
@@ -63,7 +59,7 @@ const COMPONENT_NAME: string = 'Typography';
  * @param ref - The ref to be forwarded to the MuiTypography component.
  * @returns The rendered Typography component.
  */
-const Typography: OverridableComponent<TypographyTypeMap<TypographyProps>> & WithWrapperProps = forwardRef(
+const Typography: OverridableComponent<TypographyTypeMap<TypographyProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: TypographyProps<C>,
     ref: Ref<HTMLSpanElement>,
@@ -72,9 +68,6 @@ const Typography: OverridableComponent<TypographyTypeMap<TypographyProps>> & Wit
 
     return <MuiTypography ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<TypographyTypeMap<TypographyProps>> & WithWrapperProps;
-
-Typography.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Typography.muiName = COMPONENT_NAME;
+) as OverridableComponent<TypographyTypeMap<TypographyProps>>;
 
 export default Typography;

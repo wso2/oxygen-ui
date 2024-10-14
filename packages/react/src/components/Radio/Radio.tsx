@@ -23,8 +23,6 @@ import type {RadioProps as MuiRadioProps} from '@mui/material/Radio';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ReactElement, Ref, ElementType} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type RadioProps<C extends ElementType = ElementType> = {
   /**
@@ -32,8 +30,6 @@ export type RadioProps<C extends ElementType = ElementType> = {
    */
   component?: C;
 } & Omit<MuiRadioProps, 'component'>;
-
-const COMPONENT_NAME: string = 'Radio';
 
 /**
  * A Radio component is used to allow users to select a single option from a list of options.
@@ -58,7 +54,7 @@ const COMPONENT_NAME: string = 'Radio';
  * @param ref - The ref to be forwarded to the MuiRadio component.
  * @returns The rendered Radio component.
  */
-const Radio: OverridableComponent<ButtonBaseTypeMap<RadioProps>> & WithWrapperProps = forwardRef(
+const Radio: OverridableComponent<ButtonBaseTypeMap<RadioProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: RadioProps<C>,
     ref: Ref<HTMLButtonElement>,
@@ -67,9 +63,6 @@ const Radio: OverridableComponent<ButtonBaseTypeMap<RadioProps>> & WithWrapperPr
 
     return <MuiRadio className={classes} {...rest} ref={ref} />;
   },
-) as OverridableComponent<ButtonBaseTypeMap<RadioProps>> & WithWrapperProps;
-
-Radio.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Radio.muiName = COMPONENT_NAME;
+) as OverridableComponent<ButtonBaseTypeMap<RadioProps>>;
 
 export default Radio;

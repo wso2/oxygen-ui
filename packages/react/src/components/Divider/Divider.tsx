@@ -22,8 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './divider.scss';
 
 export type DividerProps<
@@ -36,8 +34,6 @@ export type DividerProps<
    */
   component?: C;
 } & Omit<MuiDividerProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'Divider';
 
 /**
  * The Divider provides a thin, unobtrusive line for grouping elements to reinforce visual hierarchy.
@@ -63,7 +59,7 @@ const COMPONENT_NAME: string = 'Divider';
  * @param ref - The ref to be forwarded to the MuiDivider component.
  * @returns The rendered Divider component.
  */
-const Divider: OverridableComponent<MuiDividerTypeMap<DividerProps>> & WithWrapperProps = forwardRef(
+const Divider: OverridableComponent<MuiDividerTypeMap<DividerProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: DividerProps<C>,
     ref: Ref<HTMLHRElement>,
@@ -72,9 +68,6 @@ const Divider: OverridableComponent<MuiDividerTypeMap<DividerProps>> & WithWrapp
 
     return <MuiDivider ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<MuiDividerTypeMap<DividerProps>> & WithWrapperProps;
-
-Divider.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Divider.muiName = COMPONENT_NAME;
+) as OverridableComponent<MuiDividerTypeMap<DividerProps>>;
 
 export default Divider;

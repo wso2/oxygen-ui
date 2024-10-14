@@ -21,12 +21,8 @@ import type {LinearProgressProps as MuiLinearProgressProps} from '@mui/material/
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 
 export type LinearProgressProps = MuiLinearProgressProps;
-
-const COMPONENT_NAME: string = 'LinearProgress';
 
 /**
  * The Linear Progress component is used to show the progress of a task in a linear fashion.
@@ -50,15 +46,12 @@ const COMPONENT_NAME: string = 'LinearProgress';
  * @param ref - The ref to be forwarded to the MuiLinearProgress component.
  * @returns The rendered LinearProgress component.
  */
-const LinearProgress: ForwardRefExoticComponent<LinearProgressProps> & WithWrapperProps = forwardRef(
+const LinearProgress: ForwardRefExoticComponent<LinearProgressProps> = forwardRef(
   ({className, ...rest}: LinearProgressProps, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-linear-progress', className);
 
     return <MuiLinearProgress ref={ref} aria-label="progress-bar" className={classes} {...rest} />;
   },
-) as ForwardRefExoticComponent<LinearProgressProps> & WithWrapperProps;
-
-LinearProgress.displayName = composeComponentDisplayName(COMPONENT_NAME);
-LinearProgress.muiName = COMPONENT_NAME;
+) as ForwardRefExoticComponent<LinearProgressProps>;
 
 export default LinearProgress;

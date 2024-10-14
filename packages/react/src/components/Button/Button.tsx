@@ -23,8 +23,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, ReactElement, Ref} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './button.scss';
 
 export type ButtonProps<
@@ -37,8 +35,6 @@ export type ButtonProps<
    */
   component?: C;
 } & Omit<MuiButtonProps<D, P>, 'component'>;
-
-const COMPONENT_NAME: string = 'Button';
 
 /**
  * The Button component allow users to take actions, and make choices, with a single tap.
@@ -63,7 +59,7 @@ const COMPONENT_NAME: string = 'Button';
  * @param ref - The ref to be forwarded to the MuiButton component.
  * @returns The rendered Button component.
  */
-const Button: OverridableComponent<ButtonTypeMap<ButtonProps>> & WithWrapperProps = forwardRef(
+const Button: OverridableComponent<ButtonTypeMap<ButtonProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: ButtonProps<C>,
     ref: Ref<HTMLButtonElement>,
@@ -72,9 +68,6 @@ const Button: OverridableComponent<ButtonTypeMap<ButtonProps>> & WithWrapperProp
 
     return <MuiButton ref={ref} className={classes} {...rest} />;
   },
-) as OverridableComponent<ButtonTypeMap<ButtonProps>> & WithWrapperProps;
-
-Button.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Button.muiName = COMPONENT_NAME;
+) as OverridableComponent<ButtonTypeMap<ButtonProps>>;
 
 export default Button;

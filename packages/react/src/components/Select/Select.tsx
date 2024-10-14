@@ -21,8 +21,6 @@ import type {SelectProps as MuiSelectProps} from '@mui/material/Select';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
-import type {WithWrapperProps} from '../../models/component';
-import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import InputLabel from '../InputLabel';
 import type {InputLabelProps as MuiInputLabelProps} from '../InputLabel';
 import './select.scss';
@@ -33,8 +31,6 @@ export type SelectProps = MuiSelectProps & {
    */
   InputLabelProps?: MuiInputLabelProps;
 };
-
-const COMPONENT_NAME: string = 'Select';
 
 /**
  * The Select components are used for collecting user provided information from a list of options.
@@ -58,7 +54,7 @@ const COMPONENT_NAME: string = 'Select';
  * @param ref - The ref to be forwarded to the MuiSelect component.
  * @returns The rendered Select component.
  */
-const Select: ForwardRefExoticComponent<SelectProps> & WithWrapperProps = forwardRef(
+const Select: ForwardRefExoticComponent<SelectProps> = forwardRef(
   (
     {
       className,
@@ -102,9 +98,6 @@ const Select: ForwardRefExoticComponent<SelectProps> & WithWrapperProps = forwar
       </>
     );
   },
-) as ForwardRefExoticComponent<SelectProps> & WithWrapperProps;
-
-Select.displayName = composeComponentDisplayName(COMPONENT_NAME);
-Select.muiName = COMPONENT_NAME;
+) as ForwardRefExoticComponent<SelectProps>;
 
 export default Select;
