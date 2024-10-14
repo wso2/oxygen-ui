@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.14.1](https://github.com/wso2/oxygen-ui/compare/v1.14.0...v1.14.1)
+<br> Released on: 2024-10-14
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** fix composition issues due to `MuiWrapperProps` ([1d85942](https://github.com/wso2/oxygen-ui/commit/1d85942b6dbba99c058bf43631162e964ae4b509))
+* **react:** fix `Card` composition issues ([03662cd](https://github.com/wso2/oxygen-ui/commit/03662cd980fffabe431870fa7d2726264de99de2))
+
 # [1.14.0](https://github.com/wso2/oxygen-ui/compare/v1.13.13...v1.14.0)
 <br> Released on: 2024-10-14
 
