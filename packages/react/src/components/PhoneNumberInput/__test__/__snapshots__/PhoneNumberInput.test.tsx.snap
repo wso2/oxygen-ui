@@ -10,7 +10,9 @@ exports[`TextField should match the snapshot 1`] = `
         class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label css-f3834g-MuiFormLabel-root-MuiInputLabel-root"
         for="phone-number-input"
         id="phone-number-label"
-      />
+      >
+        Mobile
+      </label>
       <div
         class="oxygen-box oxygen-select-input MuiBox-root css-0"
       >

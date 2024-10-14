@@ -21,12 +21,12 @@ import PhoneNumberInput from '../PhoneNumberInput';
 
 describe('TextField', () => {
   it('should render successfully', () => {
-    const {baseElement} = render(<PhoneNumberInput />);
+    const {baseElement} = render(<PhoneNumberInput label="Mobile" />);
     expect(baseElement).toBeTruthy();
   });
 
   it('should match the snapshot', () => {
-    const {baseElement} = render(<PhoneNumberInput />);
+    const {baseElement} = render(<PhoneNumberInput label="Mobile" />);
     expect(baseElement).toMatchSnapshot();
   });
 });
