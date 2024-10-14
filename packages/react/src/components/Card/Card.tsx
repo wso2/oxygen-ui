@@ -18,9 +18,10 @@
 
 import MuiCard from '@mui/material/Card';
 import type {CardProps as MuiCardProps, CardTypeMap} from '@mui/material/Card';
+import {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, ForwardRefExoticComponent, MutableRefObject, ReactElement} from 'react';
+import type {ElementType, ReactElement, Ref} from 'react';
 import type {WithWrapperProps} from '../../models/component';
 import composeComponentDisplayName from '../../utils/compose-component-display-name';
 import './card.scss';
@@ -61,18 +62,18 @@ const COMPONENT_NAME: string = 'Card';
  * @param ref - The ref to be forwarded to the MuiCard component.
  * @returns The rendered Card component.
  */
-const Card: ForwardRefExoticComponent<CardProps> & WithWrapperProps = forwardRef(
-  <C extends ElementType>(
+const Card: OverridableComponent<CardTypeMap<CardProps>> & WithWrapperProps = forwardRef(
+  <C extends ElementType = ElementType>(
     {className, component, onClick, elevation = 0, variant = 'outlined', ...rest}: CardProps<C>,
-    ref: MutableRefObject<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-card', {'with-hover': onClick}, className);
 
     return (
-      <MuiCard className={classes} ref={ref} onClick={onClick} elevation={elevation} variant={variant} {...rest} />
+      <MuiCard ref={ref} className={classes} onClick={onClick} elevation={elevation} variant={variant} {...rest} />
     );
   },
-) as ForwardRefExoticComponent<CardProps> & WithWrapperProps;
+) as OverridableComponent<CardTypeMap<CardProps>> & WithWrapperProps;
 
 Card.displayName = composeComponentDisplayName(COMPONENT_NAME);
 Card.muiName = COMPONENT_NAME;
