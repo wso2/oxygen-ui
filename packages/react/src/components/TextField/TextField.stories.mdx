@@ -1,7 +1,7 @@
 import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
 import dedent from 'ts-dedent';
-import StoryConfig from '../../../.storybook/story-config.ts';
 import TextField from './TextField.tsx';
+import StoryConfig from '../../../.storybook/story-config.ts';
 
 export const meta = {
   component: TextField,
@@ -58,21 +58,32 @@ A component that wraps an input filed and an input label.
   <Story name="Basic" args={{label: 'Username', placeholder: 'Enter your username'}} />
 </Canvas>
 
+### Readonly
+
+Readonly variation of the text field.
+
+<Canvas>
+  <Story name="Readonly" args={{InputProps: {readOnly: true}, defaultValue: 'johndoe', label: 'Username'}} />
+</Canvas>
+
 ### Password
 
 <Canvas>
-  <Story name="Password" args={{
-    label: 'Password', 
-    placeholder: 'Enter your password', 
-    type: 'password', 
-    id: 'password', 
-    criteria: [
-      'More than 8 characters', 
-      'Atleast one uppercase and lowercase letter', 
-      'Atleast one number', 
-      'Atleast one of the symbols #@!$%'
-    ]
-    }} />
+  <Story
+    name="Password"
+    args={{
+      criteria: [
+        'More than 8 characters',
+        'Atleast one uppercase and lowercase letter',
+        'Atleast one number',
+        'Atleast one of the symbols #@!$%',
+      ],
+      id: 'password',
+      label: 'Password',
+      placeholder: 'Enter your password',
+      type: 'password',
+    }}
+  />
 </Canvas>
 
 ## Usage

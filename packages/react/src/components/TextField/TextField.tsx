@@ -188,7 +188,7 @@ const TextField: OverridableComponent<FormControlTypeMap<TextFieldProps>> = forw
         {type === TextFieldInputTypes.INPUT_PASSWORD ? (
           <PasswordFieldWithCriteria ref={ref} id={id} variant={variant} type={type} {...rest} />
         ) : (
-          <MuiTextField ref={ref} id={id} variant={variant} type={type} {...rest} />
+          <MuiTextField ref={ref} id={id} variant={variant} className="OxygenTextField-root" type={type} {...rest} />
         )}
       </div>
     );
