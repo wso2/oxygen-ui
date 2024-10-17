@@ -94,7 +94,7 @@ const PasswordField: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
 
 const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
   <C extends ElementType = ElementType>(
-    {criteria, id, type, ...rest}: TextFieldProps<C>,
+    {criteria, id, ...rest}: TextFieldProps<C>,
     ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const [openPasswordCriteriaTooltip, setOpenPasswordCriteriaTooltip] = useState<boolean>(false);
@@ -138,7 +138,6 @@ const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> = for
         <PasswordField
           ref={ref}
           id={id}
-          type={type}
           onClick={handleClick}
           onBlurCapture={handleBlurCapture}
           onFocus={handleClick}
