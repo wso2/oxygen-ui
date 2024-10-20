@@ -199,6 +199,9 @@ export * from './SignIn';
 export {default as Skeleton} from './Skeleton';
 export * from './Skeleton';
 
+export {default as Stack} from './Stack';
+export * from './Stack';
+
 export {default as Stepper} from './Stepper';
 export * from './Stepper';
 

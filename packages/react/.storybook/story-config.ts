@@ -105,6 +105,7 @@ export type Stories =
   | 'SignIn'
   | 'Skeleton'
   | 'Snackbar'
+  | 'Stack'
   | 'Stepper'
   | 'Switch'
   | 'Tab'
@@ -357,6 +358,9 @@ const StoryConfig: StorybookConfig = {
   },
   Snackbar: {
     hierarchy: `${StorybookCategories.Feedback}/Snackbar`,
+  },
+  Stack: {
+    hierarchy: `${StorybookCategories.Layout}/Stack`,
   },
   Stepper: {
     hierarchy: `${StorybookCategories.Surfaces}/Stepper`,
