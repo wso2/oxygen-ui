@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.15.1](https://github.com/wso2/oxygen-ui/compare/v1.15.0...v1.15.1)
+<br> Released on: 2024-10-21
+
+## What's Changed
+
+### `@oxygen-ui/examples`
+* **examples:** use workspace protocol for internal packages ([34cff6a](https://github.com/wso2/oxygen-ui/commit/34cff6a363af1d44ef2055c78034bc4363f385d3))
+
+
+### `@oxygen-ui/react`
+* **react:** type issue in `Dialog` with `OverridableComponent` ([adc4fc4](https://github.com/wso2/oxygen-ui/commit/adc4fc4b8fe8416711bae20cd9310c72109bbe83))
+
 # [1.15.0](https://github.com/wso2/oxygen-ui/compare/v1.14.1...v1.15.0)
 <br> Released on: 2024-10-21
 
