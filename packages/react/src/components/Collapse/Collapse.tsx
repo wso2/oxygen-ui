@@ -40,7 +40,7 @@ export type CollapseProps<C extends ElementType = ElementType<TransitionProps>> 
  * - [Card (MUI)](https://mui.com/material-ui/react-card/)
  * - [Lists (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/data-display-list)
  * - [Lists (MUI)](https://mui.com/material-ui/react-list/)
- * - [Collapse (Oxygen UI)](https://mui.com/material-ui/transitions/)
+ * - [Collapse (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/utils-collapse)
  * - [Transitions (MUI)](https://mui.com/material-ui/transitions/)
  *
  * API:

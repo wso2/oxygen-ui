@@ -39,7 +39,7 @@ export type StackProps<
  *
  * Demos:
  *
- * - [Stack (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/feedback-Stack)
+ * - [Stack (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/layout-stack)
  * - [Stack (MUI)](https://mui.com/material-ui/react-stack/)
  *
  * API:
