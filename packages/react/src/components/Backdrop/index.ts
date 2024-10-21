@@ -19,5 +19,4 @@
 export {default} from './Backdrop';
 export * from './Backdrop';
 
-export {BackdropRoot} from '@mui/material/Backdrop';
 export type {BackdropComponentsPropsOverrides, BackdropTypeMap} from '@mui/material/Backdrop';
