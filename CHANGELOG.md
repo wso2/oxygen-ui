@@ -1,5 +1,24 @@
 # Changelog
 
+# [1.15.0](https://github.com/wso2/oxygen-ui/compare/v1.14.1...v1.15.0)
+<br> Released on: 2024-10-21
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** re-export proper props interface ([595f600](https://github.com/wso2/oxygen-ui/commit/595f6000e8761f23f03bf23c82631b6b4d81e889))
+* **react:** password eye icon not working without criteria ([531d101](https://github.com/wso2/oxygen-ui/commit/531d101d36e4ca5a92fd6f516cf55e3fa77089c8))
+* **react:** add `Dialog` components ([947b054](https://github.com/wso2/oxygen-ui/commit/947b054a923ae1e297a81f7ed958a4c17fc70ee4))
+* **react:** add `Collapse` component ([293e66d](https://github.com/wso2/oxygen-ui/commit/293e66dcbe4d81a1d0485ac3ec4191792d565ec7))
+* **react:** add `Stack` component ([ffac271](https://github.com/wso2/oxygen-ui/commit/ffac271478c446a47f10d50e35c3e2456f9570df))
+* **react:** override `MuiOutlinedInput` padding ([35f6e57](https://github.com/wso2/oxygen-ui/commit/35f6e570866e63012d7d0714431a9f83248afd73))
+* **react:** add `readonly` variant styles ([875aa8f](https://github.com/wso2/oxygen-ui/commit/875aa8f7c03d10f1d500eee7c857f8d087f5b4c0))
+
+
+### `@oxygen-ui/primitives`
+* **primitives:** add `GlobeIcon` ([58a74e3](https://github.com/wso2/oxygen-ui/commit/58a74e3b21ed58d690b973f6fe8e0da6c047a991))
+* **primitives:** add `CloneIcon` ([ffc4bcd](https://github.com/wso2/oxygen-ui/commit/ffc4bcd429d2f7f3e157819f7c06374d7d8e0780))
+
 ## [1.14.1](https://github.com/wso2/oxygen-ui/compare/v1.14.0...v1.14.1)
 <br> Released on: 2024-10-14
 
