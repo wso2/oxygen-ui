@@ -32,6 +32,7 @@ enum StorybookCategories {
   Utils = 'Utils'
 }
 
+// NOTE: Please keep the stories in alphabetical order.
 export type Stories =
   | 'Accordion'
   | 'AccordionDetails'
@@ -46,35 +47,36 @@ export type Stories =
   | 'Avatar'
   | 'Backdrop'
   | 'Badge'
-  | 'Breadcrumbs'
   | 'Box'
+  | 'Breadcrumbs'
   | 'Button'
-  | 'CircularProgress'
   | 'Card'
   | 'CardActions'
   | 'CardContent'
   | 'CardHeader'
   | 'Carousel'
   | 'Checkbox'
-  | 'CircularProgressAvatar'
   | 'Chip'
+  | 'CircularProgress'
+  | 'CircularProgressAvatar'
   | 'Code'
+  | 'Colors'
   | 'Collapse'
   | 'CollapsibleNavbarItem'
   | 'ColorModeToggle'
-  | 'Colors'
   | 'Container'
+  | 'CountryFlag'
   | 'DataGrid'
+  | 'Dialog'
   | 'Divider'
   | 'Drawer'
-  | 'CountryFlag'
   | 'Fab'
   | 'Footer'
+  | 'FormControl'
   | 'FormControlLabel'
   | 'FormGroup'
-  | 'FormLabel'
   | 'FormHelperText'
-  | 'FormControl'
+  | 'FormLabel'
   | 'Grid'
   | 'Header'
   | 'IconButton'
@@ -93,13 +95,12 @@ export type Stories =
   | 'ListItemText'
   | 'Menu'
   | 'MenuItem'
-  | 'UserDropdownMenu'
   | 'Navbar'
   | 'NavbarItem'
   | 'OutlinedInput'
   | 'Paper'
-  | 'Popover'
   | 'PhoneNumberInput'
+  | 'Popover'
   | 'Radio'
   | 'RadioGroup'
   | 'Select'
@@ -234,6 +235,9 @@ const StoryConfig: StorybookConfig = {
   },
   DataGrid: {
     hierarchy: `${StorybookCategories.DataDisplay}/DataGrid`,
+  },
+  Dialog: {
+    hierarchy: `${StorybookCategories.Feedback}/Dialog`,
   },
   Divider: {
     hierarchy: `${StorybookCategories.DataDisplay}/Divider`,

@@ -16,7 +16,7 @@ export const meta = {
 
 <Meta title={meta.title} component={meta.component} />
 
-export const Template = ({...props}) => {
+export const Template = ({...args}) => {
   const [runtimeArgs, updateArgs] = useArgs();
   const {in: checked} = runtimeArgs;
   return (
@@ -27,7 +27,7 @@ export const Template = ({...props}) => {
           label="Show"
         />
       </FormGroup>
-      <Collapse in={checked} {...props}>
+      <Collapse in={checked} {...args}>
         <Paper sx={{background: 'red', height: '200px', width: '200px'}} />
       </Collapse>
     </Box>
