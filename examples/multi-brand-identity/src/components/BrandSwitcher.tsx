@@ -16,7 +16,9 @@
  * under the License.
  */
 
-import {ToggleButtonGroup, ToggleButton, Paper, Tooltip} from '@oxygen-ui/react';
+import {ToggleButtonGroup, ToggleButton} from '@oxygen-ui/react';
+import Paper from '@oxygen-ui/react/Paper';
+import Tooltip from '@oxygen-ui/react/Tooltip';
 import {useState, MouseEvent, ReactElement} from 'react';
 
 interface Brand {
@@ -62,7 +64,7 @@ export interface BrandSwitcherProps {
   onBrandChange?: (brand: string) => void;
 }
 
-export const BrandSwitcher = (props: BrandSwitcherProps): ReactElement => {
+const BrandSwitcher = (props: BrandSwitcherProps): ReactElement => {
   const {onBrandChange} = props;
 
   const [activeBrand, setActiveBrand] = useState<string>(BRANDS[0].name);
@@ -103,3 +105,5 @@ export const BrandSwitcher = (props: BrandSwitcherProps): ReactElement => {
     </Paper>
   );
 };
+
+export default BrandSwitcher;

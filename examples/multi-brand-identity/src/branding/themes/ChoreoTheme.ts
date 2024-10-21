@@ -20,7 +20,7 @@
 import tokens from '@oxygen-ui/primitives/dist/design-tokens/web/choreo/es/tokens';
 import {extendTheme, Theme} from '@oxygen-ui/react';
 
-export const ChoreoTheme: Theme = extendTheme({
+const ChoreoTheme: Theme = extendTheme({
   components: {
     MuiTooltip: {
       styleOverrides: {
@@ -414,3 +414,5 @@ export const ChoreoTheme: Theme = extendTheme({
     },
   },
 });
+
+export default ChoreoTheme;

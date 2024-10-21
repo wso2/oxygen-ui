@@ -19,7 +19,7 @@
 import tokens from '@oxygen-ui/primitives/dist/design-tokens/web/asgardeo/es/tokens';
 import {extendTheme, Theme} from '@oxygen-ui/react';
 
-export const AsgardeoTheme: Theme = extendTheme({
+const AsgardeoTheme: Theme = extendTheme({
   colorSchemes: {
     dark: {
       brand: {
@@ -256,3 +256,5 @@ export const AsgardeoTheme: Theme = extendTheme({
     },
   },
 });
+
+export default AsgardeoTheme;

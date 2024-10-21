@@ -18,10 +18,8 @@
 
 import MuiDialog from '@mui/material/Dialog';
 import type {DialogProps as MuiDialogProps} from '@mui/material/Dialog';
-import type {ModalTypeMap} from '@mui/material/Modal';
-import {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
-import {forwardRef} from 'react';
+import {forwardRef, ForwardRefExoticComponent} from 'react';
 import type {ElementType, ReactElement, Ref} from 'react';
 
 export type DialogProps<C extends ElementType = ElementType> = {
@@ -46,7 +44,7 @@ export type DialogProps<C extends ElementType = ElementType> = {
  *
  * @remarks
  * - ✔️ Props of the [Modal](https://mui.com/material-ui/api/modal/) component are also available.
- * - ✅ `component` prop is supported.
+ * - FIXME: ⚠️ `component` prop is temporarily not supported due to https://github.com/wso2/oxygen-ui/issues/283
  * - ✅ The `ref` is forwarded to the root element.
  *
  * @template C - The type of the component.
@@ -54,11 +52,11 @@ export type DialogProps<C extends ElementType = ElementType> = {
  * @param ref - The ref to be forwarded to the MuiDialog component.
  * @returns The rendered Dialog component.
  */
-const Dialog: OverridableComponent<ModalTypeMap<ModalTypeMap['defaultComponent'], DialogProps>> = forwardRef(
+const Dialog: ForwardRefExoticComponent<DialogProps> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: DialogProps<C>,
     ref: Ref<HTMLDivElement>,
   ): ReactElement => <MuiDialog ref={ref} className={clsx('OxygenDialog-root')} {...rest} />,
-) as OverridableComponent<ModalTypeMap<ModalTypeMap['defaultComponent'], DialogProps>>;
+) as ForwardRefExoticComponent<DialogProps>;
 
 export default Dialog;

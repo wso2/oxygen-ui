@@ -22,6 +22,7 @@ module.exports = {
   moduleDirectories: ['node_modules', 'test-configs', __dirname],
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'node'],
   moduleNameMapper: {
+    '@oxygen-ui/react': '<rootDir>/node_modules/@oxygen-ui/react',
     '\\.(css|less|sass|scss)$': '<rootDir>/test-configs/__mocks__/style-mock.ts',
     '^@unit-testing(.*)$': '<rootDir>/test-configs/utils',
   },
@@ -35,6 +36,6 @@ module.exports = {
     '^.+\\.(js|jsx)?$': 'babel-jest',
     '^.+\\.(ts|tsx)?$': 'ts-jest',
   },
-  transformIgnorePatterns: ['/node_modules/?(?!@wso2)'],
+  transformIgnorePatterns: ['/node_modules/?(?!@wso2)', '/node_modules/(?!@oxygen-ui/react/)'],
   verbose: true,
 };

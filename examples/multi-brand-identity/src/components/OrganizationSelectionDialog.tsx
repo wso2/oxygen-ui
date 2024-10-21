@@ -16,28 +16,25 @@
  * under the License.
  */
 
-import {
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  TextField,
-  extendTheme,
-  Theme,
-  Alert,
-} from '@oxygen-ui/react';
+import {extendTheme, Theme} from '@oxygen-ui/react';
+import Alert from '@oxygen-ui/react/Alert';
+import Button from '@oxygen-ui/react/Button';
+import Dialog from '@oxygen-ui/react/Dialog';
+import DialogActions from '@oxygen-ui/react/DialogActions';
+import DialogContent from '@oxygen-ui/react/DialogContent';
+import DialogContentText from '@oxygen-ui/react/DialogContentText';
+import DialogTitle from '@oxygen-ui/react/DialogTitle';
+import TextField from '@oxygen-ui/react/TextField';
 import {ChangeEvent, FC, ReactElement, useState} from 'react';
-import {BrandingActions} from '../branding';
+import {BrandingActions} from '../branding/store/branding-reducer';
 
-interface OrganizationSelectionDialogProps {
+export interface OrganizationSelectionDialogProps {
   onClose: () => void;
   onOrganizationConnect: (action: {brand: string | undefined; theme: Theme; type: BrandingActions}) => void;
   open: boolean;
 }
 
-export const OrganizationSelectionDialog: FC<OrganizationSelectionDialogProps> = (
+const OrganizationSelectionDialog: FC<OrganizationSelectionDialogProps> = (
   props: OrganizationSelectionDialogProps,
 ): ReactElement => {
   const {open, onClose, onOrganizationConnect} = props;
@@ -167,3 +164,5 @@ export const OrganizationSelectionDialog: FC<OrganizationSelectionDialogProps> =
     </Dialog>
   );
 };
+
+export default OrganizationSelectionDialog;

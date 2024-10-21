@@ -18,7 +18,7 @@
 
 import {extendTheme, Theme} from '@oxygen-ui/react';
 
-export const BallerinaTheme: Theme = extendTheme({
+const BallerinaTheme: Theme = extendTheme({
   colorSchemes: {
     dark: {
       brand: {
@@ -144,3 +144,5 @@ export const BallerinaTheme: Theme = extendTheme({
     },
   },
 });
+
+export default BallerinaTheme;

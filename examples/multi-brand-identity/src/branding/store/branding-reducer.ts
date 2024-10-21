@@ -17,13 +17,16 @@
  */
 
 import {Theme} from '@oxygen-ui/react';
-import {AsgardeoTheme, BallerinaTheme, ChoreoTheme, DefaultTheme} from '../themes';
+import AsgardeoTheme from '../themes/AsgardeoTheme';
+import BallerinaTheme from '../themes/BallerinaTheme';
+import ChoreoTheme from '../themes/ChoreoTheme';
+import DefaultTheme from '../themes/DefaultTheme';
 
 export enum BrandingActions {
   ChangeTheme = 'ChangeTheme',
 }
 
-export const brandingReducer = (theme: Theme, action: any): Theme => {
+const brandingReducer = (theme: Theme, action: any): Theme => {
   switch (action.type) {
     case BrandingActions.ChangeTheme: {
       if (action.brand === 'WSO2') {
@@ -50,3 +53,5 @@ export const brandingReducer = (theme: Theme, action: any): Theme => {
     }
   }
 };
+
+export default brandingReducer;

@@ -3,10 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@oxygen/primitives": ["packages/primitives/src"],
-      "@oxygen/logger": ["packages/logger/src/index.ts"],
-      "@oxygen/react": ["packages/react/src/index.ts"],
-      "@oxygen/react-icons": ["packages/react-icons/src/index.ts"]
+      "@oxygen-ui/primitives": ["packages/primitives/src"],
+      "@oxygen-ui/logger": ["packages/logger/src/index.ts"],
+      "@oxygen-ui/react": ["packages/react/src/index.ts"],
+      "@oxygen-ui/react-icons": ["packages/react-icons/src/index.ts"]
     }
   }
 }
