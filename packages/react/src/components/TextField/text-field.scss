@@ -17,7 +17,11 @@
  */
 
 :root {
-  --oxygen-palette-ReadOnlyInput-bg: #e9ecef;
+  --oxygen-palette-ReadOnlyInput-bg: var(--oxygen-palette-grey-200);
+}
+
+:root[data-mui-color-scheme="dark"] {
+  --oxygen-palette-ReadOnlyInput-bg: var(--oxygen-palette-grey-900);
 }
 
 .OxygenTextField-root {
