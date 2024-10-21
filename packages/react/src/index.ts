@@ -21,15 +21,7 @@ export * from './theme';
 export {default as usePastelColorGenerator} from './hooks/use-pastel-color-generator';
 export * from './hooks/use-pastel-color-generator';
 export {default} from './utils/generate-pastel-color';
-export {
-  ToggleButton,
-  ToggleButtonGroup,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-} from '@mui/material';
+export {ToggleButton, ToggleButtonGroup} from '@mui/material';
 export {useColorScheme} from '@mui/material/styles';
 
 export type {Theme} from './models/theme';
