@@ -153,6 +153,13 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
         },
       },
     },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        input: {
+          padding: '0.67857143em 1em',
+        },
+      },
+    },
     MuiTypography: {
       defaultProps: {
         variantMapping: {

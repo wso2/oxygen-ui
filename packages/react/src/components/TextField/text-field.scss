@@ -16,8 +16,20 @@
  * under the License.
  */
 
-.oxygen-text-field {
-  /* Add Styles */
+:root {
+  --oxygen-palette-ReadOnlyInput-bg: var(--oxygen-palette-grey-200);
+}
+
+:root[data-mui-color-scheme="dark"] {
+  --oxygen-palette-ReadOnlyInput-bg: var(--oxygen-palette-grey-900);
+}
+
+.OxygenTextField-root {
+  .Mui-readOnly,
+  .MuiInputBase-readOnly {
+    cursor: default;
+    background: var(--oxygen-palette-ReadOnlyInput-bg);
+  }
 }
 
 .oxygen-text-field-tooltip {

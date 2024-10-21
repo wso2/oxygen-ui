@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DialogTitle should match the snapshot 1`] = `
+<body>
+  <div>
+    <h2
+      class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root OxygenDialogTitle-root css-6em1yz-MuiTypography-root-MuiDialogTitle-root"
+    >
+      Demo Title
+    </h2>
+  </div>
+</body>
+`;

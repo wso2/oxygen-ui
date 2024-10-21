@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,33 +16,35 @@
  * under the License.
  */
 
-import MuiAlertTitle from '@mui/material/AlertTitle';
-import type {AlertTitleProps as MuiAlertTitleProps} from '@mui/material/AlertTitle';
+import MuiDialogTitle from '@mui/material/DialogTitle';
+import type {DialogTitleTypeMap, DialogTitleProps as MuiDialogTitleProps} from '@mui/material/DialogTitle';
 import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ReactElement, ElementType, Ref} from 'react';
-import type {TypographyTypeMap} from '../Typography';
-import './alert-title.scss';
 
-export type AlertTitleProps<C extends ElementType = ElementType> = {
+export type DialogTitleProps<
+  C extends ElementType = ElementType,
+  D extends ElementType = DialogTitleTypeMap['defaultComponent'],
+  P = {},
+> = {
   /**
    * The component used for the root node. Either a string to use a HTML element or a component.
    */
   component?: C;
-} & Omit<MuiAlertTitleProps, 'component'>;
+} & Omit<MuiDialogTitleProps<D, P>, 'component'>;
 
 /**
- * The Alert Title component can be used to display a title for the Alert component.
+ * The Dialog Content Text is a wrapper used for the title of a Dialog.
  *
  * Demos:
  *
- * - [Alert (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/feedback-alert)
- * - [Alert (MUI)](https://mui.com/material-ui/react-alert/)
+ * - [Dialog (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/feedback-dialog)
+ * - [Dialog (MUI)](https://mui.com/material-ui/react-dialog/)
  *
  * API:
  *
- * - [AlertTitle API](https://mui.com/material-ui/api/alert-title/)
+ * - [DialogTitle API](https://mui.com/material-ui/api/dialog-title/)
  * - inherits [Typography API](https://mui.com/material-ui/api/typography/)
  *
  * @remarks
@@ -51,19 +53,15 @@ export type AlertTitleProps<C extends ElementType = ElementType> = {
  * - ✅ The `ref` is forwarded to the root element.
  *
  * @template C - The type of the component.
- * @param props - The props for the AlertTitle component.
- * @param ref - The ref to be forwarded to the MuiAlertTitle component.
- * @returns The rendered AlertTitle component.
+ * @param props - The props for the DialogTitle component.
+ * @param ref - The ref to be forwarded to the MuiDialogTitle component.
+ * @returns The rendered DialogTitle component.
  */
-const AlertTitle: OverridableComponent<TypographyTypeMap<AlertTitleProps>> = forwardRef(
+const DialogTitle: OverridableComponent<DialogTitleTypeMap<DialogTitleProps>> = forwardRef(
   <C extends ElementType = ElementType>(
-    {className, ...rest}: AlertTitleProps<C>,
-    ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-alert-title', className);
+    {className, ...rest}: DialogTitleProps<C>,
+    ref: Ref<HTMLSpanElement>,
+  ): ReactElement => <MuiDialogTitle ref={ref} className={clsx('OxygenDialogTitle-root', className)} {...rest} />,
+) as OverridableComponent<DialogTitleTypeMap<DialogTitleProps>>;
 
-    return <MuiAlertTitle ref={ref} className={classes} {...rest} />;
-  },
-) as OverridableComponent<TypographyTypeMap<AlertTitleProps>>;
-
-export default AlertTitle;
+export default DialogTitle;

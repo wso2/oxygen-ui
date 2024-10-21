@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,7 +16,25 @@
  * under the License.
  */
 
-export {default} from './Backdrop';
-export * from './Backdrop';
+import {render} from '@unit-testing';
+import Dialog from '../Dialog';
 
-export type {BackdropComponentsPropsOverrides, BackdropTypeMap} from '@mui/material/Backdrop';
+describe('Dialog', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(
+      <Dialog open>
+        <div />
+      </Dialog>,
+    );
+    expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(
+      <Dialog open>
+        <div />
+      </Dialog>,
+    );
+    expect(baseElement).toMatchSnapshot();
+  });
+});
