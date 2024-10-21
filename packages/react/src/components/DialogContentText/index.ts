@@ -19,4 +19,4 @@
 export {default} from './DialogContentText';
 export * from './DialogContentText';
 
-export type {DialogContentTextTypeMap} from './DialogContentText';
+export type {DialogContentTextTypeMap} from '@mui/material/DialogContentText';
