@@ -17,7 +17,7 @@
  */
 
 import MuiAlertTitle from '@mui/material/AlertTitle';
-import type {AlertTitleProps, AlertTitleProps as MuiAlertTitleProps} from '@mui/material/AlertTitle';
+import type {AlertTitleProps as MuiAlertTitleProps} from '@mui/material/AlertTitle';
 import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
@@ -25,7 +25,7 @@ import type {ReactElement, ElementType, Ref} from 'react';
 import type {TypographyTypeMap} from '../Typography';
 import './alert-title.scss';
 
-export type AlertProps<C extends ElementType = ElementType> = {
+export type AlertTitleProps<C extends ElementType = ElementType> = {
   /**
    * The component used for the root node. Either a string to use a HTML element or a component.
    */
@@ -57,7 +57,7 @@ export type AlertProps<C extends ElementType = ElementType> = {
  */
 const AlertTitle: OverridableComponent<TypographyTypeMap<AlertTitleProps>> = forwardRef(
   <C extends ElementType = ElementType>(
-    {className, ...rest}: AlertProps<C>,
+    {className, ...rest}: AlertTitleProps<C>,
     ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-alert-title', className);
