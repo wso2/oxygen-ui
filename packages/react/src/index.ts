@@ -22,8 +22,6 @@ export {default as usePastelColorGenerator} from './hooks/use-pastel-color-gener
 export * from './hooks/use-pastel-color-generator';
 export {default} from './utils/generate-pastel-color';
 export {
-  Alert,
-  AlertTitle,
   ToggleButton,
   ToggleButtonGroup,
   Dialog,
