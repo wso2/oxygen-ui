@@ -19,7 +19,7 @@
 import {Theme, useColorScheme} from '@oxygen-ui/react';
 import {ReactElement} from 'react';
 
-export const BuildingIcon = ({theme}: {theme: Theme}): ReactElement => {
+const BuildingIcon = ({theme}: {theme: Theme}): ReactElement => {
   const {mode} = useColorScheme();
 
   return (
@@ -37,3 +37,5 @@ export const BuildingIcon = ({theme}: {theme: Theme}): ReactElement => {
     </svg>
   );
 };
+
+export default BuildingIcon;

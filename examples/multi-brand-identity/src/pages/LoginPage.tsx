@@ -16,10 +16,12 @@
  * under the License.
  */
 
-import {Grid, SignIn, useTheme, useColorScheme, Theme} from '@oxygen-ui/react';
+import {useTheme, useColorScheme, Theme} from '@oxygen-ui/react';
+import Grid from '@oxygen-ui/react/Grid';
+import SignIn from '@oxygen-ui/react/SignIn';
 import {ReactElement} from 'react';
 
-export const LoginPage = (): ReactElement => {
+const LoginPage = (): ReactElement => {
   const theme: Theme = useTheme();
   const {mode} = useColorScheme();
 
@@ -43,3 +45,5 @@ export const LoginPage = (): ReactElement => {
     </Grid>
   );
 };
+
+export default LoginPage;

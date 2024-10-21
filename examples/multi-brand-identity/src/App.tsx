@@ -18,9 +18,12 @@
 
 import {AppBar, ColorModeToggle, Toolbar, ThemeProvider, IconButton, Theme, Tooltip} from '@oxygen-ui/react';
 import {ReactElement, useReducer, useState} from 'react';
-import {BrandingActions, brandingReducer, DefaultTheme} from './branding';
-import {BrandSwitcher, BuildingIcon, OrganizationSelectionDialog} from './components';
-import {LoginPage} from './pages';
+import brandingReducer, {BrandingActions} from './branding/store/branding-reducer';
+import DefaultTheme from './branding/themes/DefaultTheme';
+import BrandSwitcher from './components/BrandSwitcher';
+import BuildingIcon from './components/icons/BuildingIcon';
+import OrganizationSelectionDialog from './components/OrganizationSelectionDialog';
+import LoginPage from './pages/LoginPage';
 
 const App = (): ReactElement => {
   const [theme, dispatch] = useReducer(brandingReducer, DefaultTheme as never);

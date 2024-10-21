@@ -20,7 +20,7 @@ import darkTokens from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/d
 import lightTokens from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/tokens';
 import {extendTheme, Theme} from '@oxygen-ui/react';
 
-export const DefaultTheme: Theme = extendTheme({
+const DefaultTheme: Theme = extendTheme({
   colorSchemes: {
     dark: {
       brand: {
@@ -136,3 +136,5 @@ export const DefaultTheme: Theme = extendTheme({
     ].join(','),
   },
 });
+
+export default DefaultTheme;
