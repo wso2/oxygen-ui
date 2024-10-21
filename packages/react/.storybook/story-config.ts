@@ -59,6 +59,7 @@ export type Stories =
   | 'CircularProgressAvatar'
   | 'Chip'
   | 'Code'
+  | 'Collapse'
   | 'CollapsibleNavbarItem'
   | 'ColorModeToggle'
   | 'Colors'
@@ -215,6 +216,9 @@ const StoryConfig: StorybookConfig = {
   },
   Code: {
     hierarchy: `${StorybookCategories.DataDisplay}/Code`,
+  },
+  Collapse: {
+    hierarchy: `${StorybookCategories.Utils}/Collapse`,
   },
   CollapsibleNavbarItem: {
     hierarchy: `${StorybookCategories.Navigation}/Collapsible Navbar Item`,

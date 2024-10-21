@@ -82,6 +82,9 @@ export * from './CircularProgressAvatar';
 export {default as Code} from './Code';
 export * from './Code';
 
+export {default as Collapse} from './Collapse';
+export * from './Collapse';
+
 export {default as ColorModeToggle} from './ColorModeToggle';
 export * from './ColorModeToggle';
 
