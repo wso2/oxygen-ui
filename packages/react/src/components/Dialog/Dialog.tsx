@@ -56,7 +56,7 @@ const Dialog: ForwardRefExoticComponent<DialogProps> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: DialogProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => <MuiDialog ref={ref} className={clsx('OxygenDialog-root')} {...rest} />,
+  ): ReactElement => <MuiDialog ref={ref} className={clsx('OxygenDialog-root', className)} {...rest} />,
 ) as ForwardRefExoticComponent<DialogProps>;
 
 export default Dialog;
