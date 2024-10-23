@@ -17,13 +17,13 @@ exports[`TextField should match the snapshot 1`] = `
         class="oxygen-box oxygen-select-input MuiBox-root css-0"
       >
         <div
-          class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary oxygen-select css-z48p9p-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+          class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary oxygen-select css-saqlya-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
         >
           <div
             aria-expanded="false"
             aria-haspopup="listbox"
             aria-labelledby="phone-number-label phone-number-select"
-            class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input oxygen-select-input-root css-cu70ox-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+            class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input oxygen-select-input-root css-1d3lhbp-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
             id="phone-number-select"
             role="button"
             tabindex="0"
@@ -72,10 +72,10 @@ exports[`TextField should match the snapshot 1`] = `
           </fieldset>
         </div>
         <div
-          class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary oxygen-outlined-input css-sc35us-MuiInputBase-root-MuiOutlinedInput-root"
+          class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary oxygen-outlined-input css-9s98je-MuiInputBase-root-MuiOutlinedInput-root"
         >
           <input
-            class="MuiInputBase-input MuiOutlinedInput-input css-1gmaq6h-MuiInputBase-input-MuiOutlinedInput-input"
+            class="MuiInputBase-input MuiOutlinedInput-input css-d9o7zs-MuiInputBase-input-MuiOutlinedInput-input"
             id="phone-number-input"
             type="tel"
             value=""
