@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.15.2](https://github.com/wso2/oxygen-ui/compare/v1.15.1...v1.15.2)
+<br> Released on: 2024-10-23
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** remove `MuiOutlinedInput` unwanted padding override ([559796f](https://github.com/wso2/oxygen-ui/commit/559796f101df6266cd2d85000beb1ff3c72e52cb))
+* **react:** fix `Dialog` className composition issue ([bdf8804](https://github.com/wso2/oxygen-ui/commit/bdf8804a8b1923a461bd1f2cee68dc3079539dad))
+
 ## [1.15.1](https://github.com/wso2/oxygen-ui/compare/v1.15.0...v1.15.1)
 <br> Released on: 2024-10-21
 
