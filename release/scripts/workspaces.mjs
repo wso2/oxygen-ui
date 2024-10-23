@@ -336,6 +336,13 @@ export default class WorkspacesPlugin extends Plugin {
         for (let dependency in dependencies) {
           if (workspaces.find((w) => w.name === dependency)) {
             const existingVersion = dependencies[dependency];
+
+            // ignore workspace dependencies.
+            // Workaround for https://github.com/wso2/oxygen-ui/issues/297.
+            if (existingVersion.includes('workspace')) {
+              return;
+            }
+
             const replacementVersion = this._buildReplacementDepencencyVersion(
               existingVersion,
               newVersion
