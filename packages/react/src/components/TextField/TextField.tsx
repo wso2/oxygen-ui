@@ -175,7 +175,17 @@ const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> = for
  */
 const TextField: OverridableComponent<FormControlTypeMap<TextFieldProps>> = forwardRef(
   <C extends ElementType = ElementType>(
-    {className, id, label, type, InputLabelProps, variant, size = 'small', ...rest}: TextFieldProps<C>,
+    {
+      className,
+      id,
+      label,
+      type,
+      InputLabelProps,
+      variant,
+      size = 'small',
+      margin = 'dense',
+      ...rest
+    }: TextFieldProps<C>,
     ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-text-field', className);
@@ -186,7 +196,15 @@ const TextField: OverridableComponent<FormControlTypeMap<TextFieldProps>> = forw
           {label}
         </InputLabel>
         {type === TextFieldInputTypes.INPUT_PASSWORD ? (
-          <PasswordFieldWithCriteria ref={ref} id={id} variant={variant} type={type} size={size} {...rest} />
+          <PasswordFieldWithCriteria
+            ref={ref}
+            id={id}
+            variant={variant}
+            type={type}
+            size={size}
+            margin={margin}
+            {...rest}
+          />
         ) : (
           <MuiTextField
             ref={ref}
@@ -195,6 +213,7 @@ const TextField: OverridableComponent<FormControlTypeMap<TextFieldProps>> = forw
             className="OxygenTextField-root"
             type={type}
             size={size}
+            margin={margin}
             {...rest}
           />
         )}
