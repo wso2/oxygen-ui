@@ -3,23 +3,23 @@
     "colors": {
       "primary": {
         "lighter": {
-          "value": "#14b8a5",
+          "value": "#ff9666",
           "type": "color"
         },
         "light": {
-          "value": "#19e6ce",
+          "value": "#ff7433",
           "type": "color"
         },
         "default": {
-          "value": "#47ebd8",
+          "value": "#ff5100",
           "type": "color"
         },
         "dark": {
-          "value": "#75f0e1",
+          "value": "#cc4100",
           "type": "color"
         },
         "darker": {
-          "value": "#a3f5eb",
+          "value": "#993000",
           "type": "color"
         }
       },
@@ -63,7 +63,7 @@
           "type": "color"
         },
         "primary": {
-          "value": "#75f0e1",
+          "value": "#cc4100",
           "type": "color"
         }
       },
@@ -89,7 +89,7 @@
           "type": "color"
         },
         "primary": {
-          "value": "#47ebd8",
+          "value": "#ff5100",
           "type": "color"
         },
         "gray": {
@@ -228,7 +228,7 @@
           "background": {
             "primary": {
               "default": {
-                "value": "#47ebd8",
+                "value": "#ff5100",
                 "type": "color"
               }
             },
