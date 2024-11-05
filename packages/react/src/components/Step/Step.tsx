@@ -17,7 +17,7 @@
  */
 
 import MuiStep from '@mui/material/Step';
-import type {StepTypeMap, MuiStepLabelProps as MuiStepProps} from '@mui/material/Step';
+import type {StepTypeMap, StepProps as MuiStepProps} from '@mui/material/Step';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement, ForwardRefExoticComponent} from 'react';

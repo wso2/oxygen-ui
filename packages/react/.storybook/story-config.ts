@@ -116,6 +116,7 @@ export type Stories =
   | 'Tab'
   | 'TabPanel'
   | 'Tabs'
+  | 'TransitionStepper'
   | 'TextField'
   | 'Toolbar'
   | 'Tooltip'
@@ -396,6 +397,9 @@ const StoryConfig: StorybookConfig = {
   },
   Tabs: {
     hierarchy: `${StorybookCategories.Navigation}/Tabs`,
+  },
+  TransitionStepper: {
+    hierarchy: `${StorybookCategories.Navigation}/Transition Stepper`,
   },
   TextField: {
     hierarchy: `${StorybookCategories.Inputs}/Text Field`,
