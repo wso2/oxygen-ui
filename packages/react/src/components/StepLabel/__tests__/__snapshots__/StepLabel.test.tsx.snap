@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StepLabel should match the snapshot 1`] = `
+<body>
+  <div>
+    <span
+      class="MuiStepLabel-root oxygen-step-label css-ascpo7-MuiStepLabel-root"
+    >
+      <span
+        class="MuiStepLabel-labelContainer css-1c0m6we-MuiStepLabel-labelContainer"
+      >
+        <span
+          class="MuiStepLabel-label css-s5iety-MuiStepLabel-label"
+        >
+          Sample Step Label
+        </span>
+        <span
+          class="MuiTypography-root MuiTypography-caption oxygen-typography css-1f4niku-MuiTypography-root"
+        >
+          Last step
+        </span>
+      </span>
+    </span>
+  </div>
+</body>
+`;

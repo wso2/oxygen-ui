@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Step should match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="MuiStep-root oxygen-step-content css-8wcvy5-MuiStep-root"
+    >
+      <span
+        class="MuiStepLabel-root oxygen-step-label css-ascpo7-MuiStepLabel-root"
+      >
+        <span
+          class="MuiStepLabel-labelContainer css-1c0m6we-MuiStepLabel-labelContainer"
+        >
+          <span
+            class="MuiStepLabel-label Mui-active css-s5iety-MuiStepLabel-label"
+          >
+            Sample Step Label
+          </span>
+          <span
+            class="MuiTypography-root MuiTypography-caption oxygen-typography css-1f4niku-MuiTypography-root"
+          >
+            Sample Step Description
+          </span>
+        </span>
+      </span>
+      <div
+        class="MuiStepContent-root oxygen-step-content css-kdy6ax-MuiStepContent-root"
+      >
+        <div
+          class="MuiCollapse-root MuiCollapse-vertical MuiStepContent-transition MuiCollapse-entered css-1rw7nzj-MuiCollapse-root-MuiStepContent-transition"
+          style="min-height: 0px;"
+        >
+          <div
+            class="MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"
+          >
+            <div
+              class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1 oxygen-typography css-1qp7oek-MuiTypography-root"
+              >
+                Sample Step Content
+              </p>
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation oxygen-button css-htuxbw-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
+                id=":r1:"
+                tabindex="0"
+                type="button"
+              >
+                Next
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
