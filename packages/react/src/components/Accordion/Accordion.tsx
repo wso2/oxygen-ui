@@ -52,6 +52,7 @@ export type AccordionProps<C extends ElementType = ElementType> = {
  * @template C - The type of the component.
  * @param props - The props for the Accordion component.
  * @param ref - The ref to be forwarded to the MuiAccordion component.
+ * Some test comment here.
  * @returns The rendered Accordion component.
  */
 const Accordion: OverridableComponent<PaperTypeMap<AccordionProps>> = forwardRef(
