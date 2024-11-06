@@ -34,9 +34,9 @@ It includes the user's profile picture, name, email, account progress and accoun
     name="Overview"
     args={{
       title: <Typography variant="h5">Welcome Mathew</Typography>,
-      subheader: <Typography variant="body2">Manage your personal information, account security and privacy settings.</Typography>, 
+      subheader: <Typography variant="body2">Manage your personal information, account security and privacy settings.</Typography>,
       user:{
-        image: '/assets/images/avatar-john.svg',
+        image: 'assets/images/avatar-john.svg',
         name: 'Matthew',
         email: 'matthew@wso2.com'
       },
@@ -46,19 +46,19 @@ It includes the user's profile picture, name, email, account progress and accoun
         {
           title: 'Add your email address',
           description: 'You can add your email address to your profile to receive notifications and updates from us.',
-          illustration: <img src="/assets/images/carousel-illustration.svg" alt="carousel illustration" />,
+          illustration: <img src="assets/images/carousel-illustration.svg" alt="carousel illustration" />,
           action: <Button variant="outlined">Add Email</Button>
         },
         {
           title: 'Add your phone number',
           description: 'You can add your phone number to your profile to receive notifications and updates from us.',
-          illustration: <img src="/assets/images/carousel-illustration.svg" alt="carousel illustration" />,
+          illustration: <img src="assets/images/carousel-illustration.svg" alt="carousel illustration" />,
           action: <Button variant="outlined">Add Phone</Button>
         },
         {
           title: 'Add your address',
           description: 'You can add your address to your profile to receive notifications and updates from us.',
-          illustration: <img src="/assets/images/carousel-illustration.svg" alt="carousel illustration" />,
+          illustration: <img src="assets/images/carousel-illustration.svg" alt="carousel illustration" />,
           action: <Button variant="outlined">Add Address</Button>
         }
       ],
@@ -85,7 +85,7 @@ import AccountOverview from '@oxygen-ui/react/AccountOverview';\n
 function Demo() {
   return <AccountOverview
             user={{
-              image: '/assets/images/avatar-john.svg',
+              image: 'assets/images/avatar-john.svg',
               name: 'Matthew',
               email: 'matthew@wso2.com',
             }}
@@ -104,9 +104,9 @@ function Demo() {
     name="Incomplete"
     args={{
       title: <Typography variant="h5">Welcome Mathew</Typography>,
-      subheader: <Typography variant="body2">Manage your personal information, account security and privacy settings.</Typography>, 
+      subheader: <Typography variant="body2">Manage your personal information, account security and privacy settings.</Typography>,
       user:{
-        image: '/assets/images/avatar-john.svg',
+        image: 'assets/images/avatar-john.svg',
         name: 'Matthew',
         email: 'matthew@wso2.com'
       },
@@ -116,19 +116,19 @@ function Demo() {
         {
           title: 'Add your email address',
           description: 'You can add your email address to your profile to receive notifications and updates from us.',
-          illustration: <img src="/assets/images/carousel-illustration.svg" alt="carousel illustration" />,
+          illustration: <img src="assets/images/carousel-illustration.svg" alt="carousel illustration" />,
           action: <Button variant="outlined">Add Email</Button>
         },
         {
           title: 'Add your phone number',
           description: 'You can add your phone number to your profile to receive notifications and updates from us.',
-          illustration: <img src="/assets/images/carousel-illustration.svg" alt="carousel illustration" />,
+          illustration: <img src="assets/images/carousel-illustration.svg" alt="carousel illustration" />,
           action: <Button variant="outlined">Add Phone</Button>
         },
         {
           title: 'Add your address',
           description: 'You can add your address to your profile to receive notifications and updates from us.',
-          illustration: <img src="/assets/images/carousel-illustration.svg" alt="carousel illustration" />,
+          illustration: <img src="assets/images/carousel-illustration.svg" alt="carousel illustration" />,
           action: <Button variant="outlined">Add Address</Button>
         }
       ],
@@ -145,15 +145,15 @@ function Demo() {
     name="Complete"
     args={{
       title: <Typography variant="h5">Welcome Mathew</Typography>,
-      subheader: <Typography variant="body2">Manage your personal information, account security and privacy settings.</Typography>, 
+      subheader: <Typography variant="body2">Manage your personal information, account security and privacy settings.</Typography>,
       user:{
-        image: '/assets/images/avatar-john.svg',
+        image: 'assets/images/avatar-john.svg',
         name: 'Matthew',
         email: 'matthew@wso2.com'
       },
       accountCompletionStepsTitle: "Complete your Profile. It's at 60%",
-      accountProgress: 100, 
-      illustration: <img src="/assets/images/action-card-image.svg" alt="image" /> 
+      accountProgress: 100,
+      illustration: <img src="assets/images/action-card-image.svg" alt="image" />
     }}
   >
     {Template.bind({})}

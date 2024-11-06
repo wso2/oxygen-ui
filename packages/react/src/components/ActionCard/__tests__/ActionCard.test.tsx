@@ -31,7 +31,7 @@ const ActionCardTestComponent: ReactElement = (
     }
     actionText="Setup MFA"
     onActionClick={onActionClick}
-    image={<img src="/assets/images/action-card-image.svg" alt="action card" />}
+    image={<img src="assets/images/action-card-image.svg" alt="action card" />}
   />
 );
 
