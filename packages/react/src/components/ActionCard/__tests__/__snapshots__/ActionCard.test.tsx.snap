@@ -11,7 +11,7 @@ exports[`ActionCard should match the snapshot 1`] = `
       >
         <img
           alt="action card"
-          src="/assets/images/action-card-image.svg"
+          src="assets/images/action-card-image.svg"
         />
         <h6
           class="MuiTypography-root MuiTypography-subtitle1 oxygen-typography css-n2qzog-MuiTypography-root"
