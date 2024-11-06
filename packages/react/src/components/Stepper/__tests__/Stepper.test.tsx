@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2023-2024, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -17,25 +17,95 @@
  */
 
 import {render} from '@unit-testing';
-import {ReactElement} from 'react';
+import Button from '../../Button';
+import Step from '../../Step';
+import StepContent from '../../StepContent';
+import StepLabel from '../../StepLabel';
 import Typography from '../../Typography';
 import Stepper from '../Stepper';
 
-const steps: ReactElement[] = [
-  <Typography>Step 1</Typography>,
-  <Typography>Step 2</Typography>,
-  <Typography>Step 3</Typography>,
-  <Typography>Step 4</Typography>,
-];
-
 describe('Stepper', () => {
   it('should render successfully', () => {
-    const {baseElement} = render(<Stepper steps={steps} currentStep={0} />);
+    const {baseElement} = render(
+      <Stepper activeStep={0}>
+        <Step>
+          <StepLabel optional={<Typography variant="caption">Step One Description</Typography>}>
+            Step One Label
+          </StepLabel>
+          <StepContent>
+            <Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Typography>
+            <Typography>Aenean eleifend tortor lorem, at mollis mauris euismod in.</Typography>
+            <Button sx={{mr: 1, mt: 1}} variant="contained">
+              Next
+            </Button>
+          </StepContent>
+        </Step>
+        <Step>
+          <StepLabel optional={<Typography variant="caption">Step Two Description</Typography>}>
+            Step Two Label
+          </StepLabel>
+          <StepContent>
+            <Typography>Step Two Content</Typography>
+            <Button sx={{mr: 1, mt: 1}} variant="contained">
+              Next
+            </Button>
+          </StepContent>
+        </Step>
+        <Step>
+          <StepLabel optional={<Typography variant="caption">Step Three Description</Typography>}>
+            Step Three Label
+          </StepLabel>
+          <StepContent>
+            <Typography>Step Three Content</Typography>
+            <Button sx={{mr: 1, mt: 1}} variant="contained">
+              Done
+            </Button>
+          </StepContent>
+        </Step>
+      </Stepper>,
+    );
     expect(baseElement).toBeTruthy();
   });
 
   it('should match the snapshot', () => {
-    const {baseElement} = render(<Stepper steps={steps} currentStep={0} />);
+    const {baseElement} = render(
+      <Stepper activeStep={0}>
+        <Step>
+          <StepLabel optional={<Typography variant="caption">Step One Description</Typography>}>
+            Step One Label
+          </StepLabel>
+          <StepContent>
+            <Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Typography>
+            <Typography>Aenean eleifend tortor lorem, at mollis mauris euismod in.</Typography>
+            <Button sx={{mr: 1, mt: 1}} variant="contained">
+              Next
+            </Button>
+          </StepContent>
+        </Step>
+        <Step>
+          <StepLabel optional={<Typography variant="caption">Step Two Description</Typography>}>
+            Step Two Label
+          </StepLabel>
+          <StepContent>
+            <Typography>Step Two Content</Typography>
+            <Button sx={{mr: 1, mt: 1}} variant="contained">
+              Next
+            </Button>
+          </StepContent>
+        </Step>
+        <Step>
+          <StepLabel optional={<Typography variant="caption">Step Three Description</Typography>}>
+            Step Three Label
+          </StepLabel>
+          <StepContent>
+            <Typography>Step Three Content</Typography>
+            <Button sx={{mr: 1, mt: 1}} variant="contained">
+              Done
+            </Button>
+          </StepContent>
+        </Step>
+      </Stepper>,
+    );
     expect(baseElement).toMatchSnapshot();
   });
 });

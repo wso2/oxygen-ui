@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023-2024, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,6 +16,17 @@
  * under the License.
  */
 
-.oxygen-stepper {
-  /* Add Styles */
-}
+import {render} from '@unit-testing';
+import StepContent from '../StepContent';
+
+describe('StepContent', () => {
+  it('should render successfully', () => {
+    const {baseElement} = render(<StepContent>Sample Step Content</StepContent>);
+    expect(baseElement).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {baseElement} = render(<StepContent>Sample Step Content</StepContent>);
+    expect(baseElement).toMatchSnapshot();
+  });
+});

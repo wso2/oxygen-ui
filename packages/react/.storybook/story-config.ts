@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2022-2024, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -108,11 +108,15 @@ export type Stories =
   | 'Skeleton'
   | 'Snackbar'
   | 'Stack'
+  | 'Step'
+  | 'StepContent'
+  | 'StepLabel'
   | 'Stepper'
   | 'Switch'
   | 'Tab'
   | 'TabPanel'
   | 'Tabs'
+  | 'TransitionStepper'
   | 'TextField'
   | 'Toolbar'
   | 'Tooltip'
@@ -370,8 +374,17 @@ const StoryConfig: StorybookConfig = {
   Stack: {
     hierarchy: `${StorybookCategories.Layout}/Stack`,
   },
+  Step: {
+    hierarchy: `${StorybookCategories.Navigation}/Step`,
+  },
+  StepContent: {
+    hierarchy: `${StorybookCategories.Navigation}/Step Content`,
+  },
+  StepLabel: {
+    hierarchy: `${StorybookCategories.Navigation}/Step Label`,
+  },
   Stepper: {
-    hierarchy: `${StorybookCategories.Surfaces}/Stepper`,
+    hierarchy: `${StorybookCategories.Navigation}/Stepper`,
   },
   Switch: {
     hierarchy:  `${StorybookCategories.Inputs}/Switch`,
@@ -384,6 +397,9 @@ const StoryConfig: StorybookConfig = {
   },
   Tabs: {
     hierarchy: `${StorybookCategories.Navigation}/Tabs`,
+  },
+  TransitionStepper: {
+    hierarchy: `${StorybookCategories.Navigation}/Transition Stepper`,
   },
   TextField: {
     hierarchy: `${StorybookCategories.Inputs}/Text Field`,

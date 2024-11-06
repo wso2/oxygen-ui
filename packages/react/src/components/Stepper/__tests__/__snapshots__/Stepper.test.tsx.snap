@@ -3,11 +3,209 @@
 exports[`Stepper should match the snapshot 1`] = `
 <body>
   <div>
-    <p
-      class="MuiTypography-root MuiTypography-body1 oxygen-typography css-1qp7oek-MuiTypography-root"
+    <div
+      class="MuiStepper-root MuiStepper-horizontal oxygen-stepper css-m5vj9m-MuiStepper-root"
     >
-      Step 1
-    </p>
+      <div
+        class="MuiStep-root MuiStep-horizontal oxygen-step-content css-1bw0nnu-MuiStep-root"
+      >
+        <span
+          class="MuiStepLabel-root MuiStepLabel-horizontal oxygen-step-label css-ascpo7-MuiStepLabel-root"
+        >
+          <span
+            class="MuiStepLabel-iconContainer Mui-active css-vnkopk-MuiStepLabel-iconContainer"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiStepIcon-root Mui-active css-tx5jdg-MuiSvgIcon-root-MuiStepIcon-root"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="12"
+              />
+              <text
+                class="MuiStepIcon-text css-1b011nk-MuiStepIcon-text"
+                dominant-baseline="central"
+                text-anchor="middle"
+                x="12"
+                y="12"
+              >
+                1
+              </text>
+            </svg>
+          </span>
+          <span
+            class="MuiStepLabel-labelContainer css-1c0m6we-MuiStepLabel-labelContainer"
+          >
+            <span
+              class="MuiStepLabel-label Mui-active css-s5iety-MuiStepLabel-label"
+            >
+              Step One Label
+            </span>
+            <span
+              class="MuiTypography-root MuiTypography-caption oxygen-typography css-1f4niku-MuiTypography-root"
+            >
+              Step One Description
+            </span>
+          </span>
+        </span>
+        <div
+          class="MuiStepContent-root oxygen-step-content css-kdy6ax-MuiStepContent-root"
+        >
+          <div
+            class="MuiCollapse-root MuiCollapse-vertical MuiStepContent-transition MuiCollapse-entered css-1rw7nzj-MuiCollapse-root-MuiStepContent-transition"
+            style="min-height: 0px;"
+          >
+            <div
+              class="MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"
+            >
+              <div
+                class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
+              >
+                <p
+                  class="MuiTypography-root MuiTypography-body1 oxygen-typography css-1qp7oek-MuiTypography-root"
+                >
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </p>
+                <p
+                  class="MuiTypography-root MuiTypography-body1 oxygen-typography css-1qp7oek-MuiTypography-root"
+                >
+                  Aenean eleifend tortor lorem, at mollis mauris euismod in.
+                </p>
+                <button
+                  class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation oxygen-button css-1tzl05w-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
+                  id=":r1:"
+                  tabindex="0"
+                  type="button"
+                >
+                  Next
+                  <span
+                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiStepConnector-root MuiStepConnector-horizontal Mui-disabled css-j5w0w9-MuiStepConnector-root"
+      >
+        <span
+          class="MuiStepConnector-line MuiStepConnector-lineHorizontal css-196fyq8-MuiStepConnector-line"
+        />
+      </div>
+      <div
+        class="MuiStep-root MuiStep-horizontal oxygen-step-content css-1bw0nnu-MuiStep-root"
+      >
+        <span
+          class="MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled oxygen-step-label css-ascpo7-MuiStepLabel-root"
+        >
+          <span
+            class="MuiStepLabel-iconContainer Mui-disabled css-vnkopk-MuiStepLabel-iconContainer"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiStepIcon-root css-tx5jdg-MuiSvgIcon-root-MuiStepIcon-root"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="12"
+              />
+              <text
+                class="MuiStepIcon-text css-1b011nk-MuiStepIcon-text"
+                dominant-baseline="central"
+                text-anchor="middle"
+                x="12"
+                y="12"
+              >
+                2
+              </text>
+            </svg>
+          </span>
+          <span
+            class="MuiStepLabel-labelContainer css-1c0m6we-MuiStepLabel-labelContainer"
+          >
+            <span
+              class="MuiStepLabel-label Mui-disabled css-s5iety-MuiStepLabel-label"
+            >
+              Step Two Label
+            </span>
+            <span
+              class="MuiTypography-root MuiTypography-caption oxygen-typography css-1f4niku-MuiTypography-root"
+            >
+              Step Two Description
+            </span>
+          </span>
+        </span>
+        <div
+          class="MuiStepContent-root oxygen-step-content css-kdy6ax-MuiStepContent-root"
+        />
+      </div>
+      <div
+        class="MuiStepConnector-root MuiStepConnector-horizontal Mui-disabled css-j5w0w9-MuiStepConnector-root"
+      >
+        <span
+          class="MuiStepConnector-line MuiStepConnector-lineHorizontal css-196fyq8-MuiStepConnector-line"
+        />
+      </div>
+      <div
+        class="MuiStep-root MuiStep-horizontal oxygen-step-content css-1bw0nnu-MuiStep-root"
+      >
+        <span
+          class="MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled oxygen-step-label css-ascpo7-MuiStepLabel-root"
+        >
+          <span
+            class="MuiStepLabel-iconContainer Mui-disabled css-vnkopk-MuiStepLabel-iconContainer"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiStepIcon-root css-tx5jdg-MuiSvgIcon-root-MuiStepIcon-root"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="12"
+              />
+              <text
+                class="MuiStepIcon-text css-1b011nk-MuiStepIcon-text"
+                dominant-baseline="central"
+                text-anchor="middle"
+                x="12"
+                y="12"
+              >
+                3
+              </text>
+            </svg>
+          </span>
+          <span
+            class="MuiStepLabel-labelContainer css-1c0m6we-MuiStepLabel-labelContainer"
+          >
+            <span
+              class="MuiStepLabel-label Mui-disabled css-s5iety-MuiStepLabel-label"
+            >
+              Step Three Label
+            </span>
+            <span
+              class="MuiTypography-root MuiTypography-caption oxygen-typography css-1f4niku-MuiTypography-root"
+            >
+              Step Three Description
+            </span>
+          </span>
+        </span>
+        <div
+          class="MuiStepContent-root MuiStepContent-last oxygen-step-content css-1mz1l2x-MuiStepContent-root"
+        />
+      </div>
+    </div>
   </div>
 </body>
 `;

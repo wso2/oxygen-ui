@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2023-2024, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -28,7 +28,7 @@ import CardActions from '../CardActions';
 import CardContent from '../CardContent';
 import CardHeader from '../CardHeader';
 import LinearProgress from '../LinearProgress';
-import Stepper from '../Stepper';
+import TransitionStepper from '../TransitionStepper';
 import Typography from '../Typography';
 import './wizard.scss';
 
@@ -174,7 +174,7 @@ const Wizard: OverridableComponent<BoxTypeMap<WizardProps>> = forwardRef(
         <Card elevation={1} className="oxygen-wizard-card">
           <CardHeader title={title} subheader={subtitle} />
           <CardContent className="oxygen-wizard-card-content">
-            <Stepper animateOnSlide={animateOnSlide} currentStep={currentStep} steps={steps} />
+            <TransitionStepper animateOnSlide={animateOnSlide} currentStep={currentStep} steps={steps} />
           </CardContent>
           <CardActions className="oxygen-wizard-actions">
             <Box>

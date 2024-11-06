@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2023-2024, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -31,7 +31,7 @@ import IconButton, {IconButtonVariants} from '../IconButton';
 import ListItem from '../ListItem';
 import ListItemIcon from '../ListItemIcon';
 import ListItemText from '../ListItemText';
-import Stepper from '../Stepper';
+import TransitionStepper from '../TransitionStepper';
 import './carousel.scss';
 
 export type CarouselStep = {
@@ -223,7 +223,7 @@ const Carousel: OverridableComponent<BoxTypeMap<CarouselProps>> = forwardRef(
           </Box>
         </Box>
         <Box>
-          <Stepper animateOnSlide steps={generateCarouselSteps()} currentStep={currentStep} />
+          <TransitionStepper animateOnSlide steps={generateCarouselSteps()} currentStep={currentStep} />
         </Box>
       </Box>
     );
