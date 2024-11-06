@@ -1,5 +1,18 @@
 # Changelog
 
+# [2.0.0](https://github.com/wso2/oxygen-ui/compare/v1.15.2...v2.0.0)
+<br> Released on: 2024-11-06
+
+## What's Changed
+
+### `@oxygen-ui/primitives`
+* **primitives:** update invalid default dark primary color ([4130784](https://github.com/wso2/oxygen-ui/commit/413078488f198968286a4b9070737494494c7484))
+
+
+### `@oxygen-ui/react`
+* **react:** rename custom component `Stepper` to `TransitionStepper` ([a098c77](https://github.com/wso2/oxygen-ui/commit/a098c7796b71d0fe6716c3171a5dcecdcf83e3d2))
+* **react:** add `StepLabel`, `StepContent`, `Step` and `Stepper` components ([67c054f](https://github.com/wso2/oxygen-ui/commit/67c054fc08433640aefe659d49f7e5256c63acf7))
+
 ## [1.15.2](https://github.com/wso2/oxygen-ui/compare/v1.15.1...v1.15.2)
 <br> Released on: 2024-10-23
 
