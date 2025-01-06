@@ -1,5 +1,13 @@
 # Changelog
 
+# [2.1.0](https://github.com/wso2/oxygen-ui/compare/v2.0.0...v2.1.0)
+<br> Released on: 2025-01-06
+
+## What's Changed
+
+### `@oxygen-ui/primitives`
+* **primitives:** add  icon ([5771e4a](https://github.com/wso2/oxygen-ui/commit/5771e4a1c9b821f10fb7a9f2362e746b8820fa7b))
+
 # [2.0.0](https://github.com/wso2/oxygen-ui/compare/v1.15.2...v2.0.0)
 <br> Released on: 2024-11-06
 
