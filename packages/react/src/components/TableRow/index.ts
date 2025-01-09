@@ -18,3 +18,5 @@
 
 export {default} from './TableRow';
 export * from './TableRow';
+
+export {TableRowTypeMap} from '@mui/material/TableRow';

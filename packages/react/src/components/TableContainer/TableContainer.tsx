@@ -23,7 +23,6 @@ import MuiTableContainer, {
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, ForwardRefExoticComponent, ReactElement, Ref} from 'react';
-import './table-container.scss';
 
 export type TableContainerProps<
   C extends ElementType = ElementType,
@@ -39,10 +38,13 @@ export type TableContainerProps<
 /**
  * The TableContainer component lets display a container of the table
  *
+ * Demos:
+ *
+ * - [Table](https://mui.com/material-ui/react-table/)
  *
  * API:
- * - [TableContainer API](https://mui.com/material-ui/api/table-container/)
  *
+ * - [TableContainer API](https://mui.com/material-ui/api/table-container/)
  * @remarks
  * - ✅ `component` prop is supported.
  * - ✅ The `ref` is forwarded to the root element.

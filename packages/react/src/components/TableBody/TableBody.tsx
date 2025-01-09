@@ -20,7 +20,6 @@ import MuiTableBody, {TableBodyProps as MuiTableBodyProps, TableBodyTypeMap} fro
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, ForwardRefExoticComponent, ReactElement, Ref} from 'react';
-import './table-body.scss';
 
 export type TableBodyProps<
   C extends ElementType = ElementType,

@@ -18,3 +18,6 @@
 
 export {default} from './Table';
 export * from './Table';
+
+export {TablePropsSizeOverrides} from '@mui/material/Table';
+export {TableTypeMap} from '@mui/material/Table';

@@ -21,7 +21,6 @@ import MuiTableRow, {TableRowProps as MuiTableRowProps, TableRowTypeMap} from '@
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, ForwardRefExoticComponent, ReactElement, Ref} from 'react';
-import './table-row.scss';
 
 const TableRowWithoutBorder: typeof MuiTableRow = styled(MuiTableRow)(() => ({
   'td, th': {

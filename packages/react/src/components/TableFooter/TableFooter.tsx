@@ -20,7 +20,6 @@ import MuiTableFooter, {TableFooterProps as MuiTableFooterProps, TableFooterType
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, ForwardRefExoticComponent, ReactElement, Ref} from 'react';
-import './table-footer.scss';
 
 export type TableFooterProps<
   C extends ElementType = ElementType,

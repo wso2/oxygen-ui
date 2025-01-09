@@ -18,3 +18,5 @@
 
 export {default} from './TableFooter';
 export * from './TableFooter';
+
+export {TableFooterTypeMap} from '@mui/material/TableFooter';

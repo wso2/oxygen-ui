@@ -18,3 +18,5 @@
 
 export {default} from './TableHead';
 export * from './TableHead';
+
+export {TableHeadTypeMap} from '@mui/material/TableHead';

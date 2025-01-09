@@ -20,7 +20,6 @@ import MuiTable, {TableProps as MuiTableProps, TableTypeMap} from '@mui/material
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, ForwardRefExoticComponent, ReactElement, Ref} from 'react';
-import './table.scss';
 
 export type TableProps<
   C extends ElementType = ElementType,

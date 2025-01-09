@@ -18,3 +18,5 @@
 
 export {default} from './TableContainer';
 export * from './TableContainer';
+
+export {TableContainerTypeMap} from '@mui/material/TableContainer';

@@ -18,3 +18,7 @@
 
 export {default} from './TableCell';
 export * from './TableCell';
+
+export {TableCellPropsSizeOverrides} from '@mui/material/TableCell';
+export {TableCellPropsVariantOverrides} from '@mui/material/TableCell';
+export {SortDirection} from '@mui/material/TableCell';

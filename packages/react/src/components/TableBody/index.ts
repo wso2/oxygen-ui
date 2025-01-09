@@ -18,3 +18,5 @@
 
 export {default} from './TableBody';
 export * from './TableBody';
+
+export {TableBodyTypeMap} from '@mui/material/TableBody';
