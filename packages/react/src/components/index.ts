@@ -127,6 +127,8 @@ export * from './DialogContentText';
 export {default as DialogTitle} from './DialogTitle';
 export * from './DialogTitle';
 
+export * from './dnd';
+
 export {default as Divider} from './Divider';
 export * from './Divider';
 
