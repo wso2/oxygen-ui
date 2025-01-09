@@ -79,7 +79,7 @@
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "@types/testing-library__jest-dom": "^5.14.5",
-    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b21bbbd7379ab3b7315d7d9478dbd88c0bf11241",
+    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?21281faa4f8354491747075f40f58b497d0c4730",
     "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b21bbbd7379ab3b7315d7d9478dbd88c0bf11241",
     "@wso2/stylelint-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/stylelint-config?b21bbbd7379ab3b7315d7d9478dbd88c0bf11241",
     "babel-jest": "^29.3.1",
