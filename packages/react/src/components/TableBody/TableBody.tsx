@@ -35,7 +35,6 @@ export type TableBodyProps<
 /**
  * The TableBody component lets display a body of the Table
  *
- *
  * API:
  * - [TableBody API](https://mui.com/material-ui/api/table-head/)
  *
