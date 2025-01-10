@@ -114,6 +114,13 @@ export type Stories =
   | 'Stepper'
   | 'Switch'
   | 'Tab'
+  | 'Table'
+  | 'TableBody'
+  | 'TableCell'
+  | 'TableContainer'
+  | 'TableFooter'
+  | 'TableHead'
+  | 'TableRow'
   | 'TabPanel'
   | 'Tabs'
   | 'TransitionStepper'
@@ -391,6 +398,27 @@ const StoryConfig: StorybookConfig = {
   },
   Tab: {
     hierarchy: `${StorybookCategories.Navigation}/Tab`,
+  },
+  Table: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Table`,
+  },
+  TableBody: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Table Body`,
+  },
+  TableCell: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Table Cell`,
+  },
+  TableContainer: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Table Container`,
+  },
+  TableFooter: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Table Footer`,
+  },
+  TableHead: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Table Head`,
+  },
+  TableRow: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Table Row`,
   },
   TabPanel: {
     hierarchy: `${StorybookCategories.Navigation}/Tab Panel`,
