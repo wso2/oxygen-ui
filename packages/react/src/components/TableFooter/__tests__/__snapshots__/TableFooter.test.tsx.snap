@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableFooter should match the snapshot 1`] = `
+<body>
+  <div>
+    <tfoot
+      class="MuiTableFooter-root oxygen-table-footer css-9cgc89-MuiTableFooter-root"
+    >
+      <p>
+        test TableFooter
+      </p>
+    </tfoot>
+  </div>
+</body>
+`;
