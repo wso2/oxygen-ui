@@ -273,8 +273,8 @@ importers:
         specifier: ^0.4.0
         version: 0.4.0
       '@oxygen-ui/logger':
-        specifier: 2.1.0
-        version: 2.1.0
+        specifier: workspace:*
+        version: link:../logger
       '@types/jest':
         specifier: ^29.2.3
         version: 29.2.5
@@ -364,8 +364,8 @@ importers:
         specifier: ^5.10.16
         version: 5.11.13(react@18.2.0)
       '@oxygen-ui/logger':
-        specifier: 2.1.0
-        version: 2.1.0
+        specifier: workspace:*
+        version: link:../logger
       '@rollup/plugin-commonjs':
         specifier: ^23.0.3
         version: 23.0.5(rollup@3.7.4)
@@ -556,8 +556,8 @@ importers:
         specifier: ^7.20.2
         version: 7.20.5
       '@oxygen-ui/logger':
-        specifier: 2.1.0
-        version: 2.1.0
+        specifier: workspace:*
+        version: link:../logger
       '@oxygen-ui/primitives':
         specifier: 2.1.0
         version: 2.1.0
@@ -2128,9 +2128,6 @@ packages:
 
   '@octokit/types@9.0.0':
     resolution: {integrity: sha512-LUewfj94xCMH2rbD5YJ+6AQ4AVjFYTgpp6rboWM5T7N3IsIF65SBEOVcYMGAEzO/kKNiNaW4LoWtoThOhH06gw==}
-
-  '@oxygen-ui/logger@2.1.0':
-    resolution: {integrity: sha512-eTTyTJQqvt8fbLTQwDm45be2ivPebtD2pN8bH0oDBzzK5K7cbETbNHr7S0vp+/pWN1BvwtR9C+4L0LWEal9sEw==}
 
   '@oxygen-ui/primitives@2.1.0':
     resolution: {integrity: sha512-rh7lUY19PQpN7uRHdzNLQ19nkDZWpTxGGK6gDPiUoLQPPFTiut1NT22e0IB1ZrMTCKWGILLn4wNPfbsy8FzgWw==}
@@ -13671,10 +13668,6 @@ snapshots:
   '@octokit/types@9.0.0':
     dependencies:
       '@octokit/openapi-types': 16.0.0
-
-  '@oxygen-ui/logger@2.1.0':
-    dependencies:
-      chalk: 5.2.0
 
   '@oxygen-ui/primitives@2.1.0': {}
 
