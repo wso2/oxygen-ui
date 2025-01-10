@@ -35,7 +35,7 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
-        pnpm-version: [8.15.7]
+        pnpm-version: [latest]
     steps:
       - name: ⬇️ Checkout
         id: checkout
