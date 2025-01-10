@@ -1,5 +1,26 @@
 # Changelog
 
+# [2.2.0](https://github.com/wso2/oxygen-ui/compare/v2.1.0...v2.2.0)
+<br> Released on: 2025-01-10
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** remove whitespace ([d1d3ce8](https://github.com/wso2/oxygen-ui/commit/d1d3ce8680eef5bd7ac438bc69e6625e5620e28f))
+* **react:** address commit suggestions ([bd50b03](https://github.com/wso2/oxygen-ui/commit/bd50b0399fca298ee28eb3ed1d28e67de1e83052))
+* **react:** Fix build failure ([e542e68](https://github.com/wso2/oxygen-ui/commit/e542e688b05d9c64169c91f8365c9f60f80b9942))
+* **react:** Add Table, TableRow, TableHead, TableBody, TableCell and TableContainer components ([9a2b75e](https://github.com/wso2/oxygen-ui/commit/9a2b75e5b9ce5675e72bdb134efa4a0d272b5313))
+* **react:** Add `TableFooter` and `TableContainer` components ([867d700](https://github.com/wso2/oxygen-ui/commit/867d70091cb03d2481b0f3cec5ad88d9b36ab85f))
+* **react:** Add `Table` and associated components ([fa30668](https://github.com/wso2/oxygen-ui/commit/fa3066855540edf4c604b8f1068c9c2ea519540a))
+
+
+### `@oxygen-ui/website`
+* **website:** change `@oxygen-ui/logger` to get dependency from the workspace ([525c38a](https://github.com/wso2/oxygen-ui/commit/525c38aba3635a7ef4db5bf09e1908c11865700c))
+
+
+### `@oxygen-ui/ci`
+* **ci:** address commit suggestions ([3186497](https://github.com/wso2/oxygen-ui/commit/31864974f353e49624647150a220104751bc7824))
+
 # [2.1.0](https://github.com/wso2/oxygen-ui/compare/v2.0.0...v2.1.0)
 <br> Released on: 2025-01-06
 
