@@ -69,6 +69,7 @@ export type Stories =
   | 'DataGrid'
   | 'Dialog'
   | 'Divider'
+  | 'DnD'
   | 'Drawer'
   | 'Fab'
   | 'Footer'
@@ -252,6 +253,9 @@ const StoryConfig: StorybookConfig = {
   },
   Divider: {
     hierarchy: `${StorybookCategories.DataDisplay}/Divider`,
+  },
+  DnD: {
+    hierarchy: `${StorybookCategories.Utils}/Drag & Drop`,
   },
   Drawer: {
     hierarchy: `${StorybookCategories.Navigation}/Drawer`,
