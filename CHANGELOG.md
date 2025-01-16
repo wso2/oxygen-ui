@@ -1,5 +1,14 @@
 # Changelog
 
+# [2.3.0](https://github.com/wso2/oxygen-ui/compare/v2.2.0...v2.3.0)
+<br> Released on: 2025-01-16
+
+## What's Changed
+
+### `other`
+
+* add `dnd` components ([969d995](https://github.com/wso2/oxygen-ui/commit/969d9955a8115daabe844fafa130e8337065cc64))
+
 # [2.2.0](https://github.com/wso2/oxygen-ui/compare/v2.1.0...v2.2.0)
 <br> Released on: 2025-01-10
 
