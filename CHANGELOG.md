@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.1](https://github.com/wso2/oxygen-ui/compare/v2.3.0...v2.3.1)
+<br> Released on: 2025-01-17
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** fix the TS issue in `DroppableContainer` ([8889a8d](https://github.com/wso2/oxygen-ui/commit/8889a8ddd4dabda90e0e365a6498d6356a34829d))
+
 # [2.3.0](https://github.com/wso2/oxygen-ui/compare/v2.2.0...v2.3.0)
 <br> Released on: 2025-01-16
 
