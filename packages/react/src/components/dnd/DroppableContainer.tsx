@@ -36,6 +36,8 @@ type DroppableNode = any;
 
 /**
  * Props interface of {@link DroppableContainer}
+ * TODO: Extending `any` as a temp workaround to overcome the TS issue.
+ * Tracker: https://github.com/wso2/oxygen-ui/issues/326.
  */
 export type DroppableContainerProps<C extends ElementType = ElementType> = BoxProps<C> & {
   /**
@@ -59,7 +61,7 @@ export type DroppableContainerProps<C extends ElementType = ElementType> = BoxPr
    * @param newOrder - The new order of nodes.
    */
   onOrderChange?: (newOrder: DroppableNode[]) => void;
-};
+} & any;
 
 /**
  * Interface for the props of a draggable item.
