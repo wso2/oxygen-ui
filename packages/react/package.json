@@ -34,7 +34,7 @@
     "lint:styles": "stylelint 'src/**/*.{css,scss,sass}' --config stylelint.config.cjs --allow-empty-input",
     "start": "pnpm storybook",
     "storybook": "start-storybook -p 6006",
-    "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest --passWithNoTests",
+    "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest --passWithNoTests --coverage",
     "typecheck": "tsc --noemit -p tsconfig.json"
   },
   "dependencies": {
@@ -88,7 +88,7 @@
     "eslint-plugin-mdx": "^2.0.5",
     "fs-extra": "^11.1.0",
     "jest": "29.0.3",
-    "jest-environment-jsdom": "^29.4.1",
+    "jest-environment-jsdom": "^29.7.0",
     "node-sass": "^8.0.0",
     "nodemon": "^2.0.22",
     "postcss": "8.4.16",

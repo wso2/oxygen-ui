@@ -29,7 +29,7 @@
     "build": "rollup -c",
     "lint": "pnpm lint:es",
     "lint:es": "eslint .",
-    "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest --passWithNoTests",
+    "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest --passWithNoTests --coverage",
     "typecheck": "tsc --noemit -p tsconfig.json"
   },
   "dependencies": {

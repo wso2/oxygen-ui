@@ -36,7 +36,7 @@ const LINKS: {
   },
   figma: 'https://www.figma.com/file/78epPbkczGFO5RM1sPyNtN/Oxygen?node-id=0%3A1&t=gsdIXRlJ1VChBa37-0',
   primitives: 'https://github.com/wso2/oxygen-ui/tree/main/packages/primitives',
-  reactComponents: '/react?path=/docs/welcome--page',
+  reactComponents: 'react?path=/docs/welcome--page',
 };
 
 const Index = (): ReactElement => {
@@ -79,6 +79,7 @@ const Index = (): ReactElement => {
             className={clsx('card', 'disabled')}
             target="_blank"
             rel="noreferrer"
+            data-testid="guidelines-link"
           >
             <h2>
               <Image
@@ -93,7 +94,7 @@ const Index = (): ReactElement => {
             <code>@oxygen-ui/guidelines</code>
             <p className={spaceGrotesk.className}>A collection of principles, standards, and usage guidelines.</p>
           </a>
-          <a href={LINKS.primitives} className="card" target="_blank" rel="noreferrer">
+          <a href={LINKS.primitives} className="card" target="_blank" rel="noreferrer" data-testid="primitives-link">
             <h2>
               <Image
                 src={`${basePath}/assets/images/oxygen-ui/primitives-logo.svg`}
@@ -106,7 +107,13 @@ const Index = (): ReactElement => {
             <code>@oxygen-ui/primitives</code>
             <p className={spaceGrotesk.className}>Low level building blocks of the Design System.</p>
           </a>
-          <a href={`${basePath}/${LINKS.reactComponents}`} className="card" target="_blank" rel="noreferrer">
+          <a
+            href={`${basePath}/${LINKS.reactComponents}`}
+            className="card"
+            target="_blank"
+            rel="noreferrer"
+            data-testid="react-link"
+          >
             <h2>
               <Image src={`${basePath}/assets/images/logos/color/react.svg`} alt="react" width={20} height={20} />
               React Components
@@ -114,8 +121,7 @@ const Index = (): ReactElement => {
             <code>@oxygen-ui/react</code>
             <p className={spaceGrotesk.className}>The React implementation of the Design System.</p>
           </a>
-
-          <a href={LINKS.figma} className="card" target="_blank" rel="noreferrer">
+          <a href={LINKS.figma} className="card" target="_blank" rel="noreferrer" data-testid="figma-link">
             <h2>
               <Image src={`${basePath}/assets/images/logos/color/figma.svg`} alt="Styles Logo" width={20} height={20} />
               Figma

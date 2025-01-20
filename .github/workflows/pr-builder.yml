@@ -12,6 +12,7 @@ on:
 
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
 jobs:
   lint:
@@ -184,6 +185,41 @@ jobs:
         id: run-tests
         run: pnpm test
 
+      - name: Upload `@oxygen-ui/logger` coverage reports to Codecov
+        id: upload-oxygen-ui-logger-coverage
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ env.CODECOV_TOKEN }}
+          files: ./packages/logger/coverage/coverage-final.json
+          flags: '@oxygen-ui/logger'
+          verbose: true
+
+      - name: Upload `@oxygen-ui/primitives` coverage reports to Codecov
+        id: upload-oxygen-ui-primitives-coverage
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ env.CODECOV_TOKEN }}
+          files: ./packages/primitives/coverage/coverage-final.json
+          flags: '@oxygen-ui/primitives'
+          verbose: true
+
+      - name: Upload `@oxygen-ui/react` coverage reports to Codecov
+        id: upload-oxygen-ui-react-coverage
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ env.CODECOV_TOKEN }}
+          files: ./packages/react/coverage/coverage-final.json
+          flags: '@oxygen-ui/react'
+          verbose: true
+
+      - name: Upload `@oxygen-ui/react-icons` coverage reports to Codecov
+        id: upload-oxygen-ui-react-icons-coverage
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ env.CODECOV_TOKEN }}
+          files: ./packages/react-icons/coverage/coverage-final.json
+          flags: '@oxygen-ui/react-icons'
+          verbose: true
   storybook:
     name: 💅 Storybook
     runs-on: ubuntu-latest
