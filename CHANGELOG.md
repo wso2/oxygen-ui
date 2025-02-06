@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.2](https://github.com/wso2/oxygen-ui/compare/v2.3.1...v2.3.2)
+<br> Released on: 2025-02-06
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** expose `DraggableNode` ([f79cb11](https://github.com/wso2/oxygen-ui/commit/f79cb11137a6ddaad40ee12b91bc2b170699b0d0))
+
 ## [2.3.1](https://github.com/wso2/oxygen-ui/compare/v2.3.0...v2.3.1)
 <br> Released on: 2025-01-17
 
