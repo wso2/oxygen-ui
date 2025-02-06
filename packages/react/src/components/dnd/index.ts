@@ -22,6 +22,9 @@ export * from './DnDContext';
 export {default as DnDProvider} from './DnDProvider';
 export * from './DnDProvider';
 
+export {default as DraggableNode} from './DraggableNode';
+export * from './DraggableNode';
+
 export {default as DroppableContainer} from './DroppableContainer';
 export * from './DroppableContainer';
 
