@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.3.4](https://github.com/wso2/oxygen-ui/compare/v2.3.3...v2.3.4)
+<br> Released on: 2025-02-07
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** fix style inconsistency in Header component - address review comments ([cb18225](https://github.com/wso2/oxygen-ui/commit/cb182256ae6e9f5dc3a02f1f155a15648be8a811))
+* **react:** fix style inconsistency in Header component ([f81c938](https://github.com/wso2/oxygen-ui/commit/f81c938b7377066b5887ac406c2ac18040f3911d))
+
 ## [2.3.3](https://github.com/wso2/oxygen-ui/compare/v2.3.2...v2.3.3)
 <br> Released on: 2025-02-07
 
