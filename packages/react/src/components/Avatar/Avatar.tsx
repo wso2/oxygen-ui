@@ -85,10 +85,13 @@ const Avatar: OverridableComponent<AvatarTypeMap<AvatarProps>> = forwardRef(
 
     const {color} = usePastelColorGenerator(colorRandomizer);
 
-    const classes: string = clsx('oxygen-avatar', className);
-
     return (
-      <MuiAvatar ref={ref} className={classes} sx={{bgcolor: randomBackgroundColor ? color : undefined}} {...rest}>
+      <MuiAvatar
+        ref={ref}
+        className={clsx('oxygen-avatar', 'OxygenAvatar-root', className)}
+        sx={{bgcolor: randomBackgroundColor ? color : undefined}}
+        {...rest}
+      >
         {children}
       </MuiAvatar>
     );

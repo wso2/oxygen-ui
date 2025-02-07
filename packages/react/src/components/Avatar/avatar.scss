@@ -16,6 +16,14 @@
  * under the License.
  */
 
+/**
+ * This class is deprecated (https://github.com/wso2/oxygen-ui/issues/274).
+ * Use OxygenAvatar-root instead.
+ */
 .oxygen-avatar {
   /* Add Styles */
+}
+
+.OxygenAvatar-root {
+  text-transform: capitalize;
 }
