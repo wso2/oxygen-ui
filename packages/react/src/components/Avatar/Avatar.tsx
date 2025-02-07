@@ -88,7 +88,12 @@ const Avatar: OverridableComponent<AvatarTypeMap<AvatarProps>> = forwardRef(
     return (
       <MuiAvatar
         ref={ref}
-        className={clsx('oxygen-avatar', 'OxygenAvatar-root', className)}
+        className={clsx(
+          /* @deprecated Use `OxygenAvatar-root` instead. https://github.com/wso2/oxygen-ui/issues/274 */
+          'oxygen-avatar',
+          'OxygenAvatar-root',
+          className,
+        )}
         sx={{bgcolor: randomBackgroundColor ? color : undefined}}
         {...rest}
       >
