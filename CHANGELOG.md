@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.3](https://github.com/wso2/oxygen-ui/compare/v2.3.2...v2.3.3)
+<br> Released on: 2025-02-07
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** fix `TextField` component to set endAdornment conditionally ([72aba9d](https://github.com/wso2/oxygen-ui/commit/72aba9d523045c1c6d288146f5e2ab311e1037d4))
+
 ## [2.3.2](https://github.com/wso2/oxygen-ui/compare/v2.3.1...v2.3.2)
 <br> Released on: 2025-02-06
 
