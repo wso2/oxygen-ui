@@ -56,7 +56,7 @@ export type TextFieldProps<C extends ElementType = ElementType> = {
 
 const PasswordField: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
   <C extends ElementType = ElementType>(
-    {type, variant, ...rest}: TextFieldProps<C>,
+    {type, variant, InputProps, ...rest}: TextFieldProps<C>,
     ref: Ref<HTMLDivElement>,
   ): ReactElement => {
     const [showPassword, setShowPassword] = useState(false);
@@ -72,7 +72,8 @@ const PasswordField: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
         ref={ref}
         type={showPassword ? 'text' : 'password'}
         InputProps={{
-          endAdornment: (
+          ...(InputProps ?? {}),
+          endAdornment: InputProps?.endAdornment || (
             <InputAdornment position="end">
               <IconButton
                 aria-label="toggle password visibility"
