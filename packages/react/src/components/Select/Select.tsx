@@ -61,23 +61,23 @@ const Select: ForwardRefExoticComponent<SelectProps> = forwardRef(
       InputLabelProps = {
         disableAnimation: true,
         focused: false,
-        shrink: false,
+        shrink: true,
       },
       label,
       name,
       required,
+      size = 'small',
+      variant = 'outlined',
       ...rest
     }: SelectProps,
     ref: Ref<HTMLDivElement>,
   ): ReactElement => {
-    const classes: string = clsx('oxygen-select', className);
-
     const labelProps: MuiInputLabelProps = {
       ...{
         disableAnimation: true,
         focused: false,
         required,
-        shrink: false,
+        shrink: true,
       },
       ...InputLabelProps,
     };
@@ -89,12 +89,37 @@ const Select: ForwardRefExoticComponent<SelectProps> = forwardRef(
             id={name}
             htmlFor={name}
             {...labelProps}
-            className={clsx('oxygen-select-static-label', InputLabelProps?.className)}
+            className={clsx(
+              /**
+               * @deprecated Use the `OxygenSelectLabel-root` class instead.
+               * This will be removed in the next major release (v3.0.0).
+               * Tracker: https://github.com/wso2/oxygen-ui/issues/274
+               */
+              'oxygen-select-static-label',
+              'OxygenSelectLabel-root',
+              InputLabelProps?.className,
+            )}
           >
             {label}
           </InputLabel>
         )}
-        <MuiSelect ref={ref} labelId={name} className={classes} {...rest} />
+        <MuiSelect
+          ref={ref}
+          className={clsx(
+            /**
+             * @deprecated Use the `OxygenSelect-root` class instead.
+             * This will be removed in the next major release (v3.0.0).
+             * Tracker: https://github.com/wso2/oxygen-ui/issues/274
+             */
+            'oxygen-select',
+            'OxygenSelect-root',
+            className,
+          )}
+          labelId={name}
+          size={size}
+          variant={variant}
+          {...rest}
+        />
       </>
     );
   },
