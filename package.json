@@ -47,5 +47,8 @@
   },
   "publishConfig": {
     "access": "restricted"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }
