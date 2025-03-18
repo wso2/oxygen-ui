@@ -62,15 +62,21 @@ const Breadcrumbs: OverridableComponent<BreadcrumbsTypeMap<BreadcrumbsProps>> = 
   <C extends ElementType = ElementType>(
     {className, children, ...rest}: BreadcrumbsProps<C>,
     ref: Ref<HTMLSpanElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-breadcrumbs', className);
-
-    return (
-      <MuiBreadcrumbs ref={ref} aria-label="breadcrumbs" className={classes} {...rest}>
-        {children}
-      </MuiBreadcrumbs>
-    );
-  },
+  ): ReactElement => (
+    <MuiBreadcrumbs
+      ref={ref}
+      aria-label="breadcrumbs"
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-breadcrumbs',
+        'OxygenBreadcrumbs-root',
+        className,
+      )}
+      {...rest}
+    >
+      {children}
+    </MuiBreadcrumbs>
+  ),
 ) as OverridableComponent<BreadcrumbsTypeMap<BreadcrumbsProps>>;
 
 export default Breadcrumbs;

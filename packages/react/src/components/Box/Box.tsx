@@ -58,11 +58,18 @@ export type BoxProps<
  * @returns The rendered Badge component.
  */
 const Box: OverridableComponent<BoxTypeMap<BoxProps>> = forwardRef(
-  <C extends ElementType = ElementType>({className, ...rest}: BoxProps<C>, ref: Ref<HTMLSpanElement>): ReactElement => {
-    const classes: string = clsx('oxygen-box', className);
-
-    return <MuiBox ref={ref} className={classes} {...rest} />;
-  },
+  <C extends ElementType = ElementType>({className, ...rest}: BoxProps<C>, ref: Ref<HTMLSpanElement>): ReactElement => (
+    <MuiBox
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-box',
+        'OxygenBox-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<BoxTypeMap<BoxProps>>;
 
 export default Box;

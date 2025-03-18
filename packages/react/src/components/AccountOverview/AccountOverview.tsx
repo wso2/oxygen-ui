@@ -108,33 +108,46 @@ const AccountOverview: OverridableComponent<CardTypeMap<AccountOverviewProps>> =
       ...rest
     }: AccountOverviewProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-account-overview', className);
-
-    return (
-      <Card ref={ref} className={classes} elevation={0} variant="outlined" {...rest}>
-        <CardHeader
-          avatar={
-            <CircularProgressAvatar
-              color={accountProgress < 100 ? 'warning' : 'success'}
-              progress={accountProgress}
-              avatarOptions={{alt: "User's avatar", src: user?.image}}
-              badgeOptions={{badgeContent: `${accountProgress}%`, color: accountProgress < 100 ? 'warning' : 'success'}}
-            />
-          }
-          title={title}
-          subheader={subheader}
-          {...cardHeaderProps}
-        />
-        {accountCompletionSteps && (
-          <Box className="oxygen-account-completion-steps-box">
-            <Divider />
-            <Carousel title={accountCompletionStepsTitle} steps={accountCompletionSteps} />
-          </Box>
-        )}
-      </Card>
-    );
-  },
+  ): ReactElement => (
+    <Card
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-account-overview',
+        'OxygenAccountOverview-root',
+        className,
+      )}
+      elevation={0}
+      variant="outlined"
+      {...rest}
+    >
+      <CardHeader
+        avatar={
+          <CircularProgressAvatar
+            color={accountProgress < 100 ? 'warning' : 'success'}
+            progress={accountProgress}
+            avatarOptions={{alt: "User's avatar", src: user?.image}}
+            badgeOptions={{badgeContent: `${accountProgress}%`, color: accountProgress < 100 ? 'warning' : 'success'}}
+          />
+        }
+        title={title}
+        subheader={subheader}
+        {...cardHeaderProps}
+      />
+      {accountCompletionSteps && (
+        <Box
+          className={clsx(
+            /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+            'oxygen-account-completion-steps-box',
+            'OxygenAccountOverview-completionStepsBox',
+          )}
+        >
+          <Divider />
+          <Carousel title={accountCompletionStepsTitle} steps={accountCompletionSteps} />
+        </Box>
+      )}
+    </Card>
+  ),
 ) as OverridableComponent<CardTypeMap<AccountOverviewProps>>;
 
 export default AccountOverview;

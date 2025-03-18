@@ -62,11 +62,18 @@ const Backdrop: OverridableComponent<BackdropTypeMap<BackdropProps>> = forwardRe
   <C extends ElementType = ElementType>(
     {className, ...rest}: BackdropProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-backdrop', className);
-
-    return <MuiBackdrop ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiBackdrop
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-backdrop',
+        'OxygenBackdrop-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<BackdropTypeMap<BackdropProps>>;
 
 export default Backdrop;

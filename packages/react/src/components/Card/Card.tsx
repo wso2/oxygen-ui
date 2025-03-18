@@ -62,13 +62,23 @@ const Card: OverridableComponent<CardTypeMap<CardProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, component, onClick, elevation = 0, variant = 'outlined', ...rest}: CardProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-card', {'with-hover': onClick}, className);
-
-    return (
-      <MuiCard ref={ref} className={classes} onClick={onClick} elevation={elevation} variant={variant} {...rest} />
-    );
-  },
+  ): ReactElement => (
+    <MuiCard
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-card',
+        {'with-hover': onClick},
+        'OxygenCard-root',
+        {'OxygenCard-withHover': onClick},
+        className,
+      )}
+      onClick={onClick}
+      elevation={elevation}
+      variant={variant}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<CardTypeMap<CardProps>>;
 
 export default Card;

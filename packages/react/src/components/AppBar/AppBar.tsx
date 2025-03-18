@@ -62,11 +62,18 @@ const AppBar: OverridableComponent<AppBarTypeMap<AppBarProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: AppBarProps<C>,
     ref: Ref<HTMLHeadingElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-app-bar', className);
-
-    return <MuiAppBar ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiAppBar
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-app-bar',
+        'OxygenAppBar-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<AppBarTypeMap<AppBarProps>>;
 
 export default AppBar;

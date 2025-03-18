@@ -59,11 +59,18 @@ const AlertTitle: OverridableComponent<TypographyTypeMap<AlertTitleProps>> = for
   <C extends ElementType = ElementType>(
     {className, ...rest}: AlertTitleProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-alert-title', className);
-
-    return <MuiAlertTitle ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiAlertTitle
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-alert-title',
+        'OxygenAlertTitle-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<TypographyTypeMap<AlertTitleProps>>;
 
 export default AlertTitle;

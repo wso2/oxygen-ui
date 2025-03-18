@@ -63,15 +63,23 @@ const Code: OverridableComponent<TypographyTypeMap<CodeProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, children, filled = true, outlined = false, ...rest}: CodeProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-code', {filled, outlined}, className);
-
-    return (
-      <Typography ref={ref} component="code" className={classes} {...rest}>
-        {children}
-      </Typography>
-    );
-  },
+  ): ReactElement => (
+    <Typography
+      ref={ref}
+      component="code"
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-code',
+        {filled, outlined},
+        'OxygenCode-root',
+        {'OxygenCode-filled': filled, 'OxygenCode-outlined': outlined},
+        className,
+      )}
+      {...rest}
+    >
+      {children}
+    </Typography>
+  ),
 ) as OverridableComponent<TypographyTypeMap<CodeProps>>;
 
 export default Code;

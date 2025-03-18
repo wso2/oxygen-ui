@@ -64,11 +64,18 @@ const AccordionSummary: OverridableComponent<AccordionSummaryTypeMap<AccordionSu
   <C extends ElementType = ElementType>(
     {className, ...rest}: AccordionSummaryProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-accordion-summary', className);
-
-    return <MuiAccordionSummary ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiAccordionSummary
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-accordion-summary',
+        'OxygenAccordionSummary-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<AccordionSummaryTypeMap<AccordionSummaryProps>>;
 
 export default AccordionSummary;

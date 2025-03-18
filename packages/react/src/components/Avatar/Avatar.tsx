@@ -89,7 +89,7 @@ const Avatar: OverridableComponent<AvatarTypeMap<AvatarProps>> = forwardRef(
       <MuiAvatar
         ref={ref}
         className={clsx(
-          /* @deprecated Use `OxygenAvatar-root` instead. https://github.com/wso2/oxygen-ui/issues/274 */
+          /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
           'oxygen-avatar',
           'OxygenAvatar-root',
           className,

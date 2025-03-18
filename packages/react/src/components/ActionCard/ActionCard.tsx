@@ -77,24 +77,29 @@ const ActionCard: OverridableComponent<CardTypeMap<ActionCardProps>> = forwardRe
   <C extends ElementType = ElementType>(
     {className, image, title, description, actionText, onActionClick, ...rest}: ActionCardProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-action-card', className);
-
-    return (
-      <Card ref={ref} className={classes} {...rest}>
-        <CardContent>
-          {image}
-          <Typography variant="subtitle1">{title}</Typography>
-          <Typography variant="body2">{description}</Typography>
-        </CardContent>
-        <CardActions>
-          <Button onClick={onActionClick} variant="contained">
-            {actionText}
-          </Button>
-        </CardActions>
-      </Card>
-    );
-  },
+  ): ReactElement => (
+    <Card
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-action-card',
+        'OxygenActionCard-root',
+        className,
+      )}
+      {...rest}
+    >
+      <CardContent>
+        {image}
+        <Typography variant="subtitle1">{title}</Typography>
+        <Typography variant="body2">{description}</Typography>
+      </CardContent>
+      <CardActions>
+        <Button onClick={onActionClick} variant="contained">
+          {actionText}
+        </Button>
+      </CardActions>
+    </Card>
+  ),
 ) as OverridableComponent<CardTypeMap<ActionCardProps>>;
 
 export default ActionCard;
