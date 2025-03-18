@@ -34,8 +34,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x]
-        pnpm-version: [8.15.7]
+        node-version: [lts/*]
+        pnpm-version: [latest]
     steps:
       - name: ⬇️ Checkout
         id: checkout
