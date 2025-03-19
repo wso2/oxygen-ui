@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2022-2024, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -69,6 +69,7 @@ export type Stories =
   | 'DataGrid'
   | 'Dialog'
   | 'Divider'
+  | 'DnD'
   | 'Drawer'
   | 'Fab'
   | 'Footer'
@@ -108,11 +109,22 @@ export type Stories =
   | 'Skeleton'
   | 'Snackbar'
   | 'Stack'
+  | 'Step'
+  | 'StepContent'
+  | 'StepLabel'
   | 'Stepper'
   | 'Switch'
   | 'Tab'
+  | 'Table'
+  | 'TableBody'
+  | 'TableCell'
+  | 'TableContainer'
+  | 'TableFooter'
+  | 'TableHead'
+  | 'TableRow'
   | 'TabPanel'
   | 'Tabs'
+  | 'TransitionStepper'
   | 'TextField'
   | 'Toolbar'
   | 'Tooltip'
@@ -242,6 +254,9 @@ const StoryConfig: StorybookConfig = {
   Divider: {
     hierarchy: `${StorybookCategories.DataDisplay}/Divider`,
   },
+  DnD: {
+    hierarchy: `${StorybookCategories.Utils}/Drag & Drop`,
+  },
   Drawer: {
     hierarchy: `${StorybookCategories.Navigation}/Drawer`,
   },
@@ -370,8 +385,17 @@ const StoryConfig: StorybookConfig = {
   Stack: {
     hierarchy: `${StorybookCategories.Layout}/Stack`,
   },
+  Step: {
+    hierarchy: `${StorybookCategories.Navigation}/Step`,
+  },
+  StepContent: {
+    hierarchy: `${StorybookCategories.Navigation}/Step Content`,
+  },
+  StepLabel: {
+    hierarchy: `${StorybookCategories.Navigation}/Step Label`,
+  },
   Stepper: {
-    hierarchy: `${StorybookCategories.Surfaces}/Stepper`,
+    hierarchy: `${StorybookCategories.Navigation}/Stepper`,
   },
   Switch: {
     hierarchy:  `${StorybookCategories.Inputs}/Switch`,
@@ -379,11 +403,35 @@ const StoryConfig: StorybookConfig = {
   Tab: {
     hierarchy: `${StorybookCategories.Navigation}/Tab`,
   },
+  Table: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Table`,
+  },
+  TableBody: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Table Body`,
+  },
+  TableCell: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Table Cell`,
+  },
+  TableContainer: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Table Container`,
+  },
+  TableFooter: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Table Footer`,
+  },
+  TableHead: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Table Head`,
+  },
+  TableRow: {
+    hierarchy: `${StorybookCategories.DataDisplay}/Table Row`,
+  },
   TabPanel: {
     hierarchy: `${StorybookCategories.Navigation}/Tab Panel`,
   },
   Tabs: {
     hierarchy: `${StorybookCategories.Navigation}/Tabs`,
+  },
+  TransitionStepper: {
+    hierarchy: `${StorybookCategories.Navigation}/Transition Stepper`,
   },
   TextField: {
     hierarchy: `${StorybookCategories.Inputs}/Text Field`,

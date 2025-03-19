@@ -1,0 +1,53 @@
+import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import StepContent from './StepContent.tsx';
+import StoryConfig from '../../../.storybook/story-config.ts';
+import Typography from '../Typography/Typography.tsx';
+
+export const meta = {
+  component: StepContent,
+  title: StoryConfig.StepContent.hierarchy,
+};
+
+<Meta title={meta.title} component={meta.component} />
+
+export const Template = args => <StepContent {...args} />;
+
+# StepContent
+
+- [Overview](#overview)
+- [Props](#props)
+- [Usage](#usage)
+
+## Overview
+
+The StepContent component is used to display the content for each step in a stepper.
+
+<Canvas>
+  <Story name="Overview" args={{children: <Typography>Sample Step Description</Typography>}}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Overview" />
+
+## Usage
+
+Import and use the `StepContent` component in your components as follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`
+import StepContent from '@oxygen-ui/react/StepContent';\n
+function Demo() {
+  return (
+    <StepContent>
+      Sample Step Content
+    </StepContent>
+  );
+}`}
+/>

@@ -1,5 +1,98 @@
 # Changelog
 
+## [2.3.4](https://github.com/wso2/oxygen-ui/compare/v2.3.3...v2.3.4)
+<br> Released on: 2025-02-07
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** fix style inconsistency in Header component - address review comments ([cb18225](https://github.com/wso2/oxygen-ui/commit/cb182256ae6e9f5dc3a02f1f155a15648be8a811))
+* **react:** fix style inconsistency in Header component ([f81c938](https://github.com/wso2/oxygen-ui/commit/f81c938b7377066b5887ac406c2ac18040f3911d))
+
+## [2.3.3](https://github.com/wso2/oxygen-ui/compare/v2.3.2...v2.3.3)
+<br> Released on: 2025-02-07
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** fix `TextField` component to set endAdornment conditionally ([72aba9d](https://github.com/wso2/oxygen-ui/commit/72aba9d523045c1c6d288146f5e2ab311e1037d4))
+
+## [2.3.2](https://github.com/wso2/oxygen-ui/compare/v2.3.1...v2.3.2)
+<br> Released on: 2025-02-06
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** expose `DraggableNode` ([f79cb11](https://github.com/wso2/oxygen-ui/commit/f79cb11137a6ddaad40ee12b91bc2b170699b0d0))
+
+## [2.3.1](https://github.com/wso2/oxygen-ui/compare/v2.3.0...v2.3.1)
+<br> Released on: 2025-01-17
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** fix the TS issue in `DroppableContainer` ([8889a8d](https://github.com/wso2/oxygen-ui/commit/8889a8ddd4dabda90e0e365a6498d6356a34829d))
+
+# [2.3.0](https://github.com/wso2/oxygen-ui/compare/v2.2.0...v2.3.0)
+<br> Released on: 2025-01-16
+
+## What's Changed
+
+### `other`
+
+* add `dnd` components ([969d995](https://github.com/wso2/oxygen-ui/commit/969d9955a8115daabe844fafa130e8337065cc64))
+
+# [2.2.0](https://github.com/wso2/oxygen-ui/compare/v2.1.0...v2.2.0)
+<br> Released on: 2025-01-10
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** remove whitespace ([d1d3ce8](https://github.com/wso2/oxygen-ui/commit/d1d3ce8680eef5bd7ac438bc69e6625e5620e28f))
+* **react:** address commit suggestions ([bd50b03](https://github.com/wso2/oxygen-ui/commit/bd50b0399fca298ee28eb3ed1d28e67de1e83052))
+* **react:** Fix build failure ([e542e68](https://github.com/wso2/oxygen-ui/commit/e542e688b05d9c64169c91f8365c9f60f80b9942))
+* **react:** Add Table, TableRow, TableHead, TableBody, TableCell and TableContainer components ([9a2b75e](https://github.com/wso2/oxygen-ui/commit/9a2b75e5b9ce5675e72bdb134efa4a0d272b5313))
+* **react:** Add `TableFooter` and `TableContainer` components ([867d700](https://github.com/wso2/oxygen-ui/commit/867d70091cb03d2481b0f3cec5ad88d9b36ab85f))
+* **react:** Add `Table` and associated components ([fa30668](https://github.com/wso2/oxygen-ui/commit/fa3066855540edf4c604b8f1068c9c2ea519540a))
+
+
+### `@oxygen-ui/website`
+* **website:** change `@oxygen-ui/logger` to get dependency from the workspace ([525c38a](https://github.com/wso2/oxygen-ui/commit/525c38aba3635a7ef4db5bf09e1908c11865700c))
+
+
+### `@oxygen-ui/ci`
+* **ci:** address commit suggestions ([3186497](https://github.com/wso2/oxygen-ui/commit/31864974f353e49624647150a220104751bc7824))
+
+# [2.1.0](https://github.com/wso2/oxygen-ui/compare/v2.0.0...v2.1.0)
+<br> Released on: 2025-01-06
+
+## What's Changed
+
+### `@oxygen-ui/primitives`
+* **primitives:** add  icon ([5771e4a](https://github.com/wso2/oxygen-ui/commit/5771e4a1c9b821f10fb7a9f2362e746b8820fa7b))
+
+# [2.0.0](https://github.com/wso2/oxygen-ui/compare/v1.15.2...v2.0.0)
+<br> Released on: 2024-11-06
+
+## What's Changed
+
+### `@oxygen-ui/primitives`
+* **primitives:** update invalid default dark primary color ([4130784](https://github.com/wso2/oxygen-ui/commit/413078488f198968286a4b9070737494494c7484))
+
+
+### `@oxygen-ui/react`
+* **react:** rename custom component `Stepper` to `TransitionStepper` ([a098c77](https://github.com/wso2/oxygen-ui/commit/a098c7796b71d0fe6716c3171a5dcecdcf83e3d2))
+* **react:** add `StepLabel`, `StepContent`, `Step` and `Stepper` components ([67c054f](https://github.com/wso2/oxygen-ui/commit/67c054fc08433640aefe659d49f7e5256c63acf7))
+
+## [1.15.2](https://github.com/wso2/oxygen-ui/compare/v1.15.1...v1.15.2)
+<br> Released on: 2024-10-23
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** remove `MuiOutlinedInput` unwanted padding override ([559796f](https://github.com/wso2/oxygen-ui/commit/559796f101df6266cd2d85000beb1ff3c72e52cb))
+* **react:** fix `Dialog` className composition issue ([bdf8804](https://github.com/wso2/oxygen-ui/commit/bdf8804a8b1923a461bd1f2cee68dc3079539dad))
+
 ## [1.15.1](https://github.com/wso2/oxygen-ui/compare/v1.15.0...v1.15.1)
 <br> Released on: 2024-10-21
 

@@ -1,0 +1,282 @@
+import {ArgsTable, Source, Story, Canvas, Meta} from '@storybook/addon-docs';
+import {useArgs} from '@storybook/client-api';
+import dedent from 'ts-dedent';
+import DnDProvider from './DnDProvider.tsx';
+import DraggableNode from './DraggableNode.tsx';
+import DroppableContainer from './DroppableContainer.tsx';
+import StoryConfig from '../../../.storybook/story-config.ts';
+import Avatar from '../Avatar/Avatar.tsx';
+import Box from '../Box/Box.tsx';
+import Card from '../Card/Card.tsx';
+import Paper from '../Paper/Paper.tsx';
+import Stack from '../Stack/Stack.tsx';
+import Typography from '../Typography/Typography.tsx';
+
+export const meta = {
+  component: DnDProvider,
+  title: StoryConfig.DnD.hierarchy,
+};
+
+<Meta title={meta.title} component={meta.component} />
+
+export const Team1Initial = [
+  {
+    avatar: 'https://avatar.vercel.sh/johndoe',
+    designation: 'Engineering Manager',
+    id: '12349823nsd9234',
+    name: 'John Doe',
+    team: 'team1',
+  },
+  {
+    avatar: 'https://avatar.vercel.sh/janesmith',
+    designation: 'Technical Lead',
+    id: '12349823nsd9237',
+    name: 'Jane Smith',
+    team: 'team1',
+  },
+  {
+    avatar: 'https://avatar.vercel.sh/alicejohnson',
+    designation: 'Associate Software Engineer',
+    id: '12349823nsd9238',
+    name: 'Alice Johnson',
+    team: 'team1',
+  },
+  {
+    avatar: 'https://avatar.vercel.sh/bobbrown',
+    designation: 'Engineering Intern',
+    id: '12349823nsd9239',
+    name: 'Bob Brown',
+    team: 'team1',
+  },
+  {
+    avatar: 'https://avatar.vercel.sh/charliewhite',
+    designation: 'Project Manager',
+    id: '12349823nsd9240',
+    name: 'Charlie White',
+    team: 'team1',
+  },
+  {
+    avatar: 'https://avatar.vercel.sh/davidblack',
+    designation: 'Software Engineer',
+    id: '12349823nsd9241',
+    name: 'David Black',
+    team: 'team1',
+  },
+];
+
+export const Team2Initial = [
+  {
+    avatar: 'https://avatar.vercel.sh/evegreen',
+    designation: 'Senior Software Engineer',
+    id: '12349823nsd9242',
+    name: 'Eve Green',
+    team: 'team2',
+  },
+  {
+    avatar: 'https://avatar.vercel.sh/frankred',
+    designation: 'Technical Engineer',
+    id: '12349823nsd9243',
+    name: 'Frank Red',
+    team: 'team2',
+  },
+  {
+    avatar: 'https://avatar.vercel.sh/graceblue',
+    designation: 'DevOps Engineer',
+    id: '12349823nsd9244',
+    name: 'Grace Blue',
+    team: 'team2',
+  },
+];
+
+export const Team3Initial = [
+  {
+    avatar: 'https://avatar.vercel.sh/harryyellow',
+    designation: 'Software Engineer (Frontend)',
+    id: '12349823nsd9245',
+    name: 'Harry Yellow',
+    team: 'team3',
+  },
+  {
+    avatar: 'https://avatar.vercel.sh/ireneorange',
+    designation: 'Product Manager',
+    id: '12349823nsd9246',
+    name: 'Irene Orange',
+    team: 'team3',
+  },
+  {
+    avatar: 'https://avatar.vercel.sh/jackpurple',
+    designation: 'Senior Software Engineer',
+    id: '12349823nsd9247',
+    name: 'Jack Purple',
+    team: 'team3',
+  },
+];
+
+export const Lanes = [
+  {
+    id: 'team1',
+    label: 'Team 1',
+    nodes: Team1Initial,
+  },
+  {
+    id: 'team2',
+    label: 'Team 2',
+    nodes: Team2Initial,
+  },
+  {
+    id: 'team3',
+    label: 'Team 3',
+    nodes: Team3Initial,
+  },
+];
+
+export const Template = () => {
+  const [runtimeArgs, updateArgs] = useArgs();
+  const {lanes} = runtimeArgs;
+  const handleDragOver = e => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+  const handleDrop = (e, laneIndex, laneId) => {
+    e.preventDefault();
+    const droppedUser = JSON.parse(e.dataTransfer.getData('application/json'));
+    const updatedLanes = JSON.parse(JSON.stringify(lanes));
+    const droppedUserExistingTeamLaneIndex = updatedLanes.findIndex(lane => lane.id === droppedUser.team);
+    // Remove the user from their current team's nodes.
+    if (droppedUserExistingTeamLaneIndex !== -1) {
+      updatedLanes[droppedUserExistingTeamLaneIndex].nodes = updatedLanes[
+        droppedUserExistingTeamLaneIndex
+      ].nodes.filter(node => node.id !== droppedUser.id);
+    }
+    // Add the user to the new team's nodes.
+    updatedLanes[laneIndex].nodes = [...updatedLanes[laneIndex].nodes, {...droppedUser, team: laneId}];
+    updateArgs({...runtimeArgs, lanes: updatedLanes});
+  };
+  return (
+    <DnDProvider>
+      <Stack flexDirection="row" gap={3}>
+        {lanes &&
+          lanes.map((lane, laneIndex) => (
+            <Paper elevation={0} sx={{background: '#F7F8F9', border: '1px solid #eee', m: 1, p: 2, width: '100%'}}>
+              <Typography sx={{fontWeight: 'bold', mb: 1}}>{lane.label}</Typography>
+              <DroppableContainer
+                nodes={lane.nodes}
+                onOrderChange={() => null}
+                onDrop={e => handleDrop(e, laneIndex, lane.id)}
+                onDragOver={handleDragOver}
+                sx={{height: '100%'}}
+              >
+                {({nodes, getDragItemProps}) =>
+                  nodes.map((node, nodeIndex) => (
+                    <DraggableNode key={node.id} node={node}>
+                      <Card {...getDragItemProps(nodeIndex)} sx={{p: 1.5}}>
+                        <Box display="flex" flexDirection="row" alignItems="center" gap={2}>
+                          <Avatar src={node.avatar} />
+                          <Box>
+                            <Typography sx={{fontWeight: 500}}>{node.name}</Typography>
+                            <Typography variant="caption">{node.designation}</Typography>
+                          </Box>
+                        </Box>
+                      </Card>
+                    </DraggableNode>
+                  ))
+                }
+              </DroppableContainer>
+            </Paper>
+          ))}
+      </Stack>
+    </DnDProvider>
+  );
+};
+
+# Drag & Drop
+
+- [Overview](#overview)
+- [Props](#props)
+- [Usage](#usage)
+
+## Overview
+
+Use the `DnDProvider`, `DraggableNode`, and `DroppableContainer` components to create drag-and-drop interfaces.
+
+#### DnDProvider
+
+The `DnDProvider` component is a context provider that wraps the draggable and droppable components.
+
+#### DraggableNode
+
+The `DraggableNode` component wraps the draggable content.
+
+#### DroppableContainer
+
+The `DroppableContainer` component wraps the droppable content.
+
+<Canvas>
+  <Story
+    name="Overview"
+    args={{lanes: Lanes}}
+    parameters={{
+      docs: {iframeHeight: 476, inlineStories: false},
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Overview" />
+
+## Usage
+
+Wrap the `DnDProvider` component around the `DraggableNode` and `DroppableContainer` components in your components as
+follows.
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`
+import {DnDProvider, DroppableContainer, DraggableNode} from '@oxygen-ui/react/dnd';
+import Box from '@oxygen-ui/react/Box';\n
+const nodes = [
+  {id: '1', name: 'Node 1'},
+  {id: '2', name: 'Node 2'},
+  {id: '3', name: 'Node 3'},
+];\n
+function Demo() {
+  const handleOrderChange = orderedNodes => {
+    // Handle order change
+  };\n
+  const handleDrop = e => {
+    e.preventDefault();
+    const droppedData = JSON.parse(e.dataTransfer.getData('application/json'));
+    // Handle droppedData if needed.
+  };\n
+  const handleDragOver = () => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    // Anything else
+  };\n
+  return (
+    <DnDProvider>
+      <DroppableContainer
+        nodes={nodes}
+        onOrderChange={handleOrderChange}
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+      >
+        {({nodes, getDragItemProps}) =>
+          nodes.map((node, nodeIndex) => (
+            <DraggableNode key={node.id} node={node}>
+              <Box {...getDragItemProps(nodeIndex)}>
+                {/* Content */}
+              </Box>
+            </DraggableNode>
+          ))
+        }
+      </DroppableContainer>
+    </DnDProvider>
+  );
+}`}
+/>
