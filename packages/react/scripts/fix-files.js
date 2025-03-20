@@ -18,7 +18,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const saas = require('node-sass');
+const sass = require('sass');
 const {logger} = require('@oxygen-ui/logger');
 
 module.exports = fixFiles = () => {
@@ -105,7 +105,7 @@ module.exports = fixFiles = () => {
 
     file.match(/['|"].*\.scss["|']/g)?.forEach(match => {
       const sassFilePath = path.resolve(__dirname, '..', 'src', 'components', componentDir, match.replace(/['|"]/g, ''));
-      css += saas.renderSync({file: sassFilePath}).css.toString();
+      css += sass.compile(sassFilePath).css;
     });
 
     file = file.replace(/import.*['|"].*\.scss["|'].*/g, '');
