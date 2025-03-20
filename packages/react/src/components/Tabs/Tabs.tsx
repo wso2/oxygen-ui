@@ -19,7 +19,7 @@
 import MuiTabs from '@mui/material/Tabs';
 import type {TabsProps as MuiTabsProps, TabsTypeMap} from '@mui/material/Tabs';
 import clsx from 'clsx';
-import {forwardRef} from 'react';
+import {forwardRef, ForwardRefExoticComponent} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
 import Box from '../Box';
 import Divider from '../Divider';
