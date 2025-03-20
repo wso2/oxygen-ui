@@ -69,7 +69,7 @@ const Tabs: ForwardRefExoticComponent<TabsProps> = forwardRef(
     // Should directly return the MuiTabs component instead of wrapping it with Box and Divider.
     return (
       <Box className={classes}>
-        <MuiTabs ref={ref} {...rest} />
+        <MuiTabs ref={ref as Ref<HTMLButtonElement>} {...rest} />
         <Divider />
       </Box>
     );
