@@ -62,11 +62,14 @@ export type TabsProps<
  * @returns The rendered Skeleton component.
  */
 const Tabs: ForwardRefExoticComponent<TabsProps> = forwardRef(
-  <C extends ElementType = ElementType>({className, ...rest}: TabsProps<C>, ref: Ref<HTMLDivElement>): ReactElement => {
+  <C extends ElementType = ElementType>(
+    {className, ...rest}: TabsProps<C>,
+    ref: Ref<HTMLButtonElement>,
+  ): ReactElement => {
     const classes: string = clsx('oxygen-tabs', className);
     return (
       <Box className={classes}>
-        <MuiTabs ref={ref as unknown as Ref<HTMLButtonElement>} {...rest} />
+        <MuiTabs ref={ref} {...rest} />
         <Divider />
       </Box>
     );
