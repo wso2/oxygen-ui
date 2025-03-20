@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -21,12 +21,12 @@
  * @fileoverview Build script to generate the React wrappers of SVGs.
  */
 
-const oxygenIcons = require('@oxygen-ui/primitives/dist/icons/data.json');
+const path = require('path');
 const {default: generate} = require('@babel/generator');
 const t = require('@babel/types');
-const fs = require('fs-extra');
-const path = require('path');
 const {logger} = require('@oxygen-ui/logger');
+const oxygenIcons = require('@oxygen-ui/primitives/dist/icons/data.json');
+const fs = require('fs-extra');
 
 const PATHS = {
   get generated() {
