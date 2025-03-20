@@ -59,7 +59,7 @@ export type TabsProps<
  * @param ref - The ref to be forwarded to the MuiSkeleton component.
  * @returns The rendered Skeleton component.
  */
-const Tabs: OverridableComponent<TabsTypeMap<TabsProps>> = forwardRef(
+const Tabs: OverridableComponent<TabsTypeMap> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: TabsProps<C>,
     ref: Ref<HTMLButtonElement>,
@@ -75,6 +75,6 @@ const Tabs: OverridableComponent<TabsTypeMap<TabsProps>> = forwardRef(
       </Box>
     );
   },
-) as OverridableComponent<TabsTypeMap<TabsProps>>;
+) as OverridableComponent<TabsTypeMap>;
 
 export default Tabs;
