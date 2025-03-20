@@ -59,10 +59,7 @@ export type TabsProps<
  * @returns The rendered Skeleton component.
  */
 const Tabs: ForwardRefExoticComponent<TabsProps> = forwardRef(
-  <C extends ElementType = ElementType>(
-    {className, ...rest}: TabsProps<C>,
-    ref: Ref<HTMLButtonElement>,
-  ): ReactElement => {
+  <C extends ElementType = ElementType>({className, ...rest}: TabsProps<C>, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-tabs', className);
 
     // TODO: Need to evaluate this wrapper.
