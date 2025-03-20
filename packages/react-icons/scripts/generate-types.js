@@ -21,9 +21,9 @@
  * @fileoverview Script to generate the typings for the icons.
  */
 
-const fs = require('fs-extra');
 const path = require('path');
 const {logger} = require('@oxygen-ui/logger');
+const fs = require('fs-extra');
 
 const PATHS = {
   dist: path.resolve(__dirname, '..', 'dist'),
