@@ -61,7 +61,7 @@ export type TabsProps<
 const Tabs: ForwardRefExoticComponent<TabsProps> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: TabsProps<C>,
-    ref: Ref<HTMLButtonElement>,
+    ref: Ref<HTMLDivElement | HTMLButtonElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-tabs', className);
 
