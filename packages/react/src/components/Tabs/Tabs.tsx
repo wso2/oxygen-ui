@@ -16,7 +16,6 @@
  * under the License.
  */
 
-import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import MuiTabs from '@mui/material/Tabs';
 import type {TabsProps as MuiTabsProps, TabsTypeMap} from '@mui/material/Tabs';
 import clsx from 'clsx';
@@ -59,7 +58,7 @@ export type TabsProps<
  * @param ref - The ref to be forwarded to the MuiSkeleton component.
  * @returns The rendered Skeleton component.
  */
-const Tabs: OverridableComponent<TabsTypeMap> = forwardRef(
+const Tabs: ForwardRefExoticComponent<TabsProps> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: TabsProps<C>,
     ref: Ref<HTMLButtonElement>,
@@ -75,6 +74,6 @@ const Tabs: OverridableComponent<TabsTypeMap> = forwardRef(
       </Box>
     );
   },
-) as OverridableComponent<TabsTypeMap>;
+) as ForwardRefExoticComponent<TabsProps>;
 
 export default Tabs;
