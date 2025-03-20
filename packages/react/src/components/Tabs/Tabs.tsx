@@ -53,6 +53,9 @@ export type TabsProps<
  * - ✅ `component` prop is supported.
  * - ✅ The `ref` is forwarded to the root element.
  *
+ * @deprecated Use the `Tab` component directly from `@oxygen-ui/react/Tab` instead.
+ * Tracker: https://github.com/wso2/oxygen-ui/issues/340
+ *
  * @template C - The type of the component.
  * @param props - The props for the Skeleton component.
  * @param ref - The ref to be forwarded to the MuiSkeleton component.
@@ -61,19 +64,16 @@ export type TabsProps<
 const Tabs: ForwardRefExoticComponent<TabsProps> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: TabsProps<C>,
-    ref: Ref<HTMLDivElement | HTMLButtonElement>,
+    ref: Ref<HTMLButtonElement>,
   ): ReactElement => {
     const classes: string = clsx('oxygen-tabs', className);
-
-    // TODO: Need to evaluate this wrapper.
-    // Should directly return the MuiTabs component instead of wrapping it with Box and Divider.
     return (
       <Box className={classes}>
-        <MuiTabs ref={ref as Ref<HTMLButtonElement>} {...rest} />
+        <MuiTabs ref={ref} {...rest} />
         <Divider />
       </Box>
     );
   },
-) as ForwardRefExoticComponent<TabsProps>;
+) as unknown as ForwardRefExoticComponent<TabsProps>;
 
 export default Tabs;
