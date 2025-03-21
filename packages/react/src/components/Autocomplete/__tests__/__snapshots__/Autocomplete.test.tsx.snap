@@ -4,7 +4,7 @@ exports[`Alert should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="MuiAutocomplete-root MuiAutocomplete-hasPopupIcon oxygen-autocomplete css-l3ln04-MuiAutocomplete-root"
+      class="MuiAutocomplete-root MuiAutocomplete-hasPopupIcon oxygen-autocomplete css-ka7ti6-MuiAutocomplete-root"
     >
       <div
         class="oxygen-text-field"
@@ -37,7 +37,7 @@ exports[`Alert should match the snapshot 1`] = `
               value=""
             />
             <div
-              class="MuiAutocomplete-endAdornment css-1q60rmi-MuiAutocomplete-endAdornment"
+              class="MuiAutocomplete-endAdornment css-p1olib-MuiAutocomplete-endAdornment"
             >
               <button
                 aria-label="Open"

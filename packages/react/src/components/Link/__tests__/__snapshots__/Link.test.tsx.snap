@@ -4,7 +4,7 @@ exports[`Link should match the snapshot 1`] = `
 <body>
   <div>
     <a
-      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineHover oxygen-link css-c2ph3r-MuiTypography-root-MuiLink-root"
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineHover oxygen-link css-n1y106-MuiTypography-root-MuiLink-root"
       href="https://test.com"
     />
   </div>

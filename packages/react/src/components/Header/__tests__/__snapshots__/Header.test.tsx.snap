@@ -21,10 +21,10 @@ exports[`Header should match the snapshot 1`] = `
             type="button"
           >
             <span
-              class="MuiButton-startIcon MuiButton-iconSizeMedium css-gcc2o7-MuiButton-startIcon"
+              class="MuiButton-icon MuiButton-startIcon MuiButton-iconSizeMedium css-gcc2o7-MuiButton-startIcon"
             >
               <div
-                class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault oxygen-avatar image css-woe6xp-MuiAvatar-root"
+                class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault oxygen-avatar OxygenAvatar-root image css-pvylc3-MuiAvatar-root"
               >
                 <svg
                   aria-hidden="true"
@@ -40,7 +40,7 @@ exports[`Header should match the snapshot 1`] = `
               </div>
             </span>
             <span
-              class="MuiButton-endIcon MuiButton-iconSizeMedium css-1gnd1fd-MuiButton-endIcon"
+              class="MuiButton-icon MuiButton-endIcon MuiButton-iconSizeMedium css-1gnd1fd-MuiButton-endIcon"
             >
               <svg
                 aria-hidden="true"

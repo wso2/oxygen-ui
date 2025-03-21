@@ -43,7 +43,7 @@ exports[`Step should match the snapshot 1`] = `
                 Sample Step Content
               </p>
               <button
-                class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation oxygen-button css-htuxbw-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
+                class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-disableElevation MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-disableElevation oxygen-button css-htuxbw-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
                 id=":r1:"
                 tabindex="0"
                 type="button"

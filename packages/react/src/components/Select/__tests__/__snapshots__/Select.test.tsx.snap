@@ -7,10 +7,11 @@ exports[`Select should match the snapshot 1`] = `
       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary oxygen-select css-saqlya-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
     >
       <div
+        aria-controls=":r1:"
         aria-expanded="false"
         aria-haspopup="listbox"
         class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-1d3lhbp-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
-        role="button"
+        role="combobox"
         tabindex="0"
       >
         <span
@@ -21,6 +22,7 @@ exports[`Select should match the snapshot 1`] = `
       </div>
       <input
         aria-hidden="true"
+        aria-invalid="false"
         class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
         tabindex="-1"
         value=""

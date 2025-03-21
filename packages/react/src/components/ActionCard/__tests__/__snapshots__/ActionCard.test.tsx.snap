@@ -25,10 +25,10 @@ exports[`ActionCard should match the snapshot 1`] = `
         </p>
       </div>
       <div
-        class="MuiCardActions-root MuiCardActions-spacing oxygen-card-actions css-1t6e9jv-MuiCardActions-root"
+        class="MuiCardActions-root MuiCardActions-spacing oxygen-card-actions css-dnrpxu-MuiCardActions-root"
       >
         <button
-          class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation oxygen-button css-1w4rwqf-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
+          class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation oxygen-button css-1w4rwqf-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
           id=":r1:"
           tabindex="0"
           type="button"
