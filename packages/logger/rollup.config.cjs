@@ -31,7 +31,7 @@ module.exports = [
     input: 'src/index.ts',
     output: [
       {
-        file: pkg.main,
+        file: pkg.commonjs,
         format: 'cjs',
         sourcemap: true,
       },
