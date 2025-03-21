@@ -64,7 +64,11 @@ jobs:
 
       - name: 🧩 Install Dependencies
         id: install-dependencies
-        run: pnpm install --frozen-lockfile
+        run: |
+          tree -L 1
+          ls -l pnpm-lock.yaml
+          pnpm store prune
+          pnpm install --frozen-lockfile
 
       - name: 🏗️ Build Project
         id: build
