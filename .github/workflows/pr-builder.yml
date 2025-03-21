@@ -25,7 +25,7 @@ jobs:
     steps:
       - name: ⬇️ Checkout
         id: checkout
-        uses: actions/checkout@v2.3.3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -38,7 +38,7 @@ jobs:
 
       - name: 🟢 Setup node
         id: setup-node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
@@ -103,7 +103,7 @@ jobs:
     steps:
       - name: ⬇️ Checkout
         id: checkout
-        uses: actions/checkout@v2.3.3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -116,7 +116,7 @@ jobs:
 
       - name: 🟢 Setup node
         id: setup-node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
@@ -163,7 +163,7 @@ jobs:
     steps:
       - name: ⬇️ Checkout
         id: checkout
-        uses: actions/checkout@v2.3.3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -176,7 +176,7 @@ jobs:
 
       - name: 🟢 Setup node
         id: setup-node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
@@ -252,7 +252,7 @@ jobs:
     steps:
       - name: ⬇️ Checkout
         id: checkout
-        uses: actions/checkout@v2.3.3
+        uses: actions/checkout@v4
 
       - name: 🥡 Setup pnpm
         id: setup-pnpm
@@ -263,7 +263,7 @@ jobs:
 
       - name: 🟢 Setup node
         id: setup-node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
@@ -310,7 +310,7 @@ jobs:
     steps:
       - name: ⬇️ Checkout
         id: checkout
-        uses: actions/checkout@v2.3.3
+        uses: actions/checkout@v4
 
       - name: 🥡 Setup pnpm
         id: setup-pnpm
@@ -321,7 +321,7 @@ jobs:
 
       - name: 🟢 Setup node
         id: setup-node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
