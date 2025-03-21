@@ -71,7 +71,7 @@ jobs:
           tree -L 1
           ls -l pnpm-lock.yaml
           pnpm store prune
-          pnpm install --frozen-lockfile
+          pnpm install
 
       - name: 🏗️ Build Project
         id: build
@@ -84,13 +84,6 @@ jobs:
       - name: 💅 Lint Styles
         id: lint-with-stylelint
         run: |
-          # List the stylelint versions used
-          pnpm list stylelint -r
-          # Print the stylelint configuration
-          cd packages/react
-          pnpm stylelint 'packages/react/src/components/SignIn/sign-in.scss' --config stylelint.config.cjs --allow-empty-input --print-config
-          cd ../..
-          # Run the stylelint target
           pnpm nx affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --target=lint:styles --parallel=3
 
   typecheck:
@@ -143,7 +136,7 @@ jobs:
 
       - name: 🧩 Install Dependencies
         id: install-dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       - name: 🏗️ Build Project
         id: build
@@ -197,7 +190,7 @@ jobs:
 
       - name: 🧩 Install Dependencies
         id: install-dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       - name: 🏗️ Build Project
         id: build
@@ -288,7 +281,7 @@ jobs:
           tree -L 1
           ls -l pnpm-lock.yaml
           pnpm store prune
-          pnpm install --frozen-lockfile
+          pnpm install
 
       - name: 🏗️ Build Project Project
         id: build
@@ -342,7 +335,7 @@ jobs:
 
       - name: 🧩 Install Dependencies
         id: install-dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       - name: 🏗️ Build Project
         id: build
