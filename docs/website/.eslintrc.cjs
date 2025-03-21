@@ -29,7 +29,7 @@ module.exports = {
     'plugin:react/jsx-runtime',
   ],
   parserOptions: {
-    project: [path.resolve(__dirname, 'tsconfig.json')],
+    project: [path.resolve(__dirname, 'tsconfig.app.json'), path.resolve(__dirname, 'tsconfig.spec.json')],
   },
   plugins: ['@wso2'],
 };
