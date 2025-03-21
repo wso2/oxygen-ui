@@ -33,7 +33,7 @@ jobs:
         id: setup-pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: ${{ matrix.pnpm-version }}
           run_install: false
 
       - name: 🟢 Setup node
@@ -111,7 +111,7 @@ jobs:
         id: setup-pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: ${{ matrix.pnpm-version }}
           run_install: false
 
       - name: 🟢 Setup node
@@ -171,7 +171,7 @@ jobs:
         id: setup-pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: ${{ matrix.pnpm-version }}
           run_install: false
 
       - name: 🟢 Setup node
@@ -258,7 +258,7 @@ jobs:
         id: setup-pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: ${{ matrix.pnpm-version }}
           run_install: false
 
       - name: 🟢 Setup node
@@ -316,7 +316,7 @@ jobs:
         id: setup-pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: ${{ matrix.pnpm-version }}
           run_install: false
 
       - name: 🟢 Setup node
