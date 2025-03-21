@@ -6,7 +6,6 @@
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -14,15 +13,13 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "noEmit": true,
     "paths": {
       "@unit-testing": ["./test-configs/utils.tsx"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "files": [],
+  "include": [],
   "exclude": ["node_modules"],
-  "references": [
-    {
-      "path": "./tsconfig.spec.json"
-    }
-  ]
+  "references": [{"path": "./tsconfig.app.json"}, {"path": "./tsconfig.spec.json"}]
 }
