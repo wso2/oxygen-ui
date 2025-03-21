@@ -272,6 +272,7 @@ jobs:
       - name: 🧩 Install Dependencies
         id: install-dependencies
         run: |
+          tree -L 1
           ls -l pnpm-lock.yaml
           pnpm store prune
           pnpm install --frozen-lockfile
