@@ -65,6 +65,8 @@ jobs:
       - name: 🧩 Install Dependencies
         id: install-dependencies
         run: |
+          pwd
+          ls -l
           tree -L 1
           ls -l pnpm-lock.yaml
           pnpm store prune
