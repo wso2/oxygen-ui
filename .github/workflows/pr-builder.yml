@@ -80,7 +80,9 @@ jobs:
           # List the stylelint versions used
           pnpm list stylelint -r
           # Print the stylelint configuration
-          npx stylelint 'packages/react/src/components/SignIn/sign-in.scss' --config stylelint.config.cjs --allow-empty-input --print-config
+          cd packages/react
+          pnpm stylelint 'packages/react/src/components/SignIn/sign-in.scss' --config stylelint.config.cjs --allow-empty-input --print-config
+          cd ../..
           # Run the stylelint target
           pnpm nx affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --target=lint:styles --parallel=3
 
