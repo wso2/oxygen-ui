@@ -76,7 +76,13 @@ jobs:
 
       - name: 💅 Lint Styles
         id: lint-with-stylelint
-        run: pnpm nx affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --target=lint:styles --parallel=3
+        run: |
+          # List the stylelint versions used
+          pnpm list stylelint -r
+          # Print the stylelint configuration
+          pnpm nx affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --target=lint:styles --parallel=3 --print-config
+          # Run the stylelint target
+          pnpm nx affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --target=lint:styles --parallel=3
 
   typecheck:
     name: ʦ Typecheck (STATIC ANALYSIS)
