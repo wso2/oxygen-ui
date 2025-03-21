@@ -29,24 +29,25 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 🟢 Setup node
-        id: setup-node
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: 🐳 Set SHAs for Nx
-        id: set-shas
-        uses: nrwl/nx-set-shas@v3
-        with:
-          main-branch-name: "main"
-
       - name: 🥡 Setup pnpm
         id: setup-pnpm
         uses: pnpm/action-setup@v4
         with:
           version: ${{ matrix.pnpm-version }}
           run_install: false
+
+      - name: 🟢 Setup node
+        id: setup-node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: 🐳 Set SHAs for Nx
+        id: set-shas
+        uses: nrwl/nx-set-shas@v3
+        with:
+          main-branch-name: "main"
 
       - name: 🎈 Get pnpm store directory
         id: get-pnpm-cache-dir
@@ -106,23 +107,25 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: 🥡 Setup pnpm
+        id: setup-pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ matrix.pnpm-version }}
+          run_install: false
+
       - name: 🟢 Setup node
         id: setup-node
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
 
       - name: 🐳 Set SHAs for Nx
         id: set-shas
         uses: nrwl/nx-set-shas@v3
         with:
           main-branch-name: "main"
-
-      - name: 🥡 Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ matrix.pnpm-version }}
-          run_install: false
 
       - name: 🎈 Get pnpm store directory
         id: get-pnpm-cache-dir
@@ -164,17 +167,19 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: 🥡 Setup pnpm
+        id: setup-pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ matrix.pnpm-version }}
+          run_install: false
+
       - name: 🟢 Setup node
         id: setup-node
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: 🥡 Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ matrix.pnpm-version }}
-          run_install: false
+          cache: 'pnpm'
 
       - name: 🎈 Get pnpm store directory
         id: get-pnpm-cache-dir
@@ -249,17 +254,19 @@ jobs:
         id: checkout
         uses: actions/checkout@v2.3.3
 
+      - name: 🥡 Setup pnpm
+        id: setup-pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ matrix.pnpm-version }}
+          run_install: false
+
       - name: 🟢 Setup node
         id: setup-node
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: 🥡 Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ matrix.pnpm-version }}
-          run_install: false
+          cache: 'pnpm'
 
       - name: 🎈 Get pnpm store directory
         id: get-pnpm-cache-dir
@@ -305,17 +312,19 @@ jobs:
         id: checkout
         uses: actions/checkout@v2.3.3
 
+      - name: 🥡 Setup pnpm
+        id: setup-pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ matrix.pnpm-version }}
+          run_install: false
+
       - name: 🟢 Setup node
         id: setup-node
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: 🥡 Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ matrix.pnpm-version }}
-          run_install: false
+          cache: 'pnpm'
 
       - name: 🎈 Get pnpm store directory
         id: get-pnpm-cache-dir
