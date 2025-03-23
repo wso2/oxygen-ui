@@ -77,6 +77,10 @@ const getStyleDictionaryConfig = (brand, source) => {
             format: 'typescript/es6-declarations',
           },
           {
+            destination: sourceFileName.replace('.json', '.es6.d.ts'),
+            format: 'typescript/es6-declarations',
+          },
+          {
             destination: sourceFileName.replace('.json', '.js'),
             format: 'javascript/module-flat',
           },
