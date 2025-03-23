@@ -15,7 +15,7 @@
     "incremental": true,
     "noEmit": true,
     "paths": {
-      "@unit-testing": ["./test-configs/utils.tsx"]
+      "@unit-testing": ["./test-configs/index.ts"]
     }
   },
   "files": [],

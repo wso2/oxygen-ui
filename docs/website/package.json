@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@next/font": "^13.4.5",
+    "@oxygen-ui/react": "workspace:*",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "clsx": "^1.2.1",
@@ -46,12 +47,12 @@
   "devDependencies": {
     "@jest/types": "^29.6.3",
     "@oxygen-ui/logger": "workspace:*",
-    "@oxygen-ui/react": "workspace:*",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@types/jest": "^29.2.3",
     "@types/node": "18.11.10",
+    "@types/testing-library__jest-dom": "^5.14.5",
     "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?6ff7a7ae8c99fa48b190ac0a629df65d85455896",
     "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?6ff7a7ae8c99fa48b190ac0a629df65d85455896",
     "@wso2/stylelint-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/stylelint-config?6ff7a7ae8c99fa48b190ac0a629df65d85455896",

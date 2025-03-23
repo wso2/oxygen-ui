@@ -16,9 +16,8 @@
  * under the License.
  */
 
-import {ThemeProvider} from '@oxygen-ui/react';
 import {RenderResult, render as rtlRender, RenderOptions} from '@testing-library/react';
-import {ComponentType, PropsWithChildren, ReactElement} from 'react';
+import {PropsWithChildren, ReactElement, ReactNode} from 'react';
 
 /**
  * Custom render method to includes things like global context providers, data stores, etc.
@@ -30,13 +29,11 @@ import {ComponentType, PropsWithChildren, ReactElement} from 'react';
  * @return {RenderResult}
  */
 const render = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>): RenderResult => {
-  const Wrapper = (props: PropsWithChildren<ComponentType>): ReactElement => {
-    const {children} = props;
+  // Fix the Wrapper component props type
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  const Wrapper: React.FC<PropsWithChildren<{}>> = ({children}: {children?: ReactNode}) => <>{children}</>;
 
-    return <ThemeProvider>{children}</ThemeProvider>;
-  };
-
-  return rtlRender(ui, {wrapper: Wrapper as any, ...options});
+  return rtlRender(ui, {wrapper: Wrapper, ...options});
 };
 
 // re-export everything

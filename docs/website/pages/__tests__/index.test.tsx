@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,26 +16,18 @@
  * under the License.
  */
 
-import {NextRouter} from 'next/router';
+import {render, screen} from '@unit-testing';
+import Index from '../index';
 
-export const createMockRouter = (overrides: Partial<NextRouter>): NextRouter => ({
-  asPath: '/',
-  back: jest.fn(),
-  basePath: '',
-  beforePopState: jest.fn(),
-  events: {
-    emit: jest.fn(),
-    off: jest.fn(),
-    on: jest.fn(),
-  },
-  isFallback: false,
-  isReady: true,
-  pathname: '/',
-  prefetch: jest.fn().mockResolvedValue(undefined),
-  push: jest.fn(),
-  query: {},
-  reload: jest.fn(),
-  replace: jest.fn(),
-  route: '/',
-  ...overrides,
+describe('Index Page', () => {
+  it('renders something', () => {
+    render(<Index />);
+
+    // Debug the output
+    screen.debug();
+
+    // Check if anything renders
+    const container: HTMLElement = screen.getByRole('main', {hidden: true});
+    expect(container).toBeInTheDocument();
+  });
 });

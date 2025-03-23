@@ -36,7 +36,7 @@ const config: Config = {
   moduleNameMapper: {
     '@oxygen-ui/react': '<rootDir>/node_modules/@oxygen-ui/react',
     '\\.(css|less|sass|scss)$': '<rootDir>/test-configs/__mocks__/style-mock.ts',
-    '^@unit-testing(.*)$': '<rootDir>/test-configs/utils',
+    '^@unit-testing$': '<rootDir>/test-configs/index',
   },
   modulePaths: ['<rootDir>'],
   setupFilesAfterEnv: ['<rootDir>/test-configs/setup-test.ts'],

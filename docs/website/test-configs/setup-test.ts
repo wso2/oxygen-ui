@@ -17,4 +17,6 @@
  */
 
 import '@testing-library/jest-dom';
-import './__mocks__/match-media-mock';
+import '@testing-library/jest-dom/extend-expect';
+import '__mocks__/match-media-mock';
+import '__mocks__/next';
