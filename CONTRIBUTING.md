@@ -40,7 +40,7 @@ To build and write code, make sure you have the following set of tools in your l
 #### [pnpm](https://pnpm.io)
 
 * Description 🗒️ : Fast, disk space efficient package manager.
-* Version: Latest (**v8.x**)
+* Version: Latest (**v10.x**)
 
     > **Warning**
     > This project adopts [Lockfile v6](https://github.com/pnpm/pnpm/pull/5810). Hence, it'll not work with `pnpm v7` or lower.

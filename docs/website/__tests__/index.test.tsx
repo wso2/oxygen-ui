@@ -23,10 +23,8 @@ describe('Index Page', () => {
   it('renders something', () => {
     render(<Index />);
 
-    // Debug the output
     screen.debug();
 
-    // Check if anything renders
     const container: HTMLElement = screen.getByRole('main', {hidden: true});
     expect(container).toBeInTheDocument();
   });
