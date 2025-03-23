@@ -27,6 +27,10 @@ module.exports = {
     'plugin:@wso2/prettier',
   ],
   parserOptions: {
-    project: [path.resolve(__dirname, 'tsconfig.eslint.json')],
+    project: [
+      path.resolve(__dirname, 'tsconfig.lib.json'),
+      path.resolve(__dirname, 'tsconfig.spec.json'),
+      path.resolve(__dirname, 'tsconfig.eslint.json'),
+    ],
   },
 };

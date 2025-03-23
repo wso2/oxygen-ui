@@ -16,6 +16,8 @@
  * under the License.
  */
 
+const path = require('path');
+
 module.exports = {
   extends: [
     'plugin:@wso2/typescript',
@@ -25,6 +27,10 @@ module.exports = {
     'plugin:@wso2/prettier',
   ],
   parserOptions: {
-    project: './tsconfig.json',
+    project: [
+      path.resolve(__dirname, 'tsconfig.lib.json'),
+      path.resolve(__dirname, 'tsconfig.spec.json'),
+      path.resolve(__dirname, 'tsconfig.eslint.json'),
+    ],
   },
 };

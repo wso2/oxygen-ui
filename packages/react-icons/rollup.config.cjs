@@ -42,7 +42,6 @@ module.exports = {
       babelHelpers: 'bundled',
       babelrc: false,
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
-
     }),
     commonjs(),
   ],
