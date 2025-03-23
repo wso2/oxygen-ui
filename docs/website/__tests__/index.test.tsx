@@ -17,7 +17,7 @@
  */
 
 import {render, screen} from '@unit-testing';
-import Index from '../index';
+import Index from '../pages/index';
 
 describe('Index Page', () => {
   it('renders something', () => {
