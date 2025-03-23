@@ -17,10 +17,10 @@
  * under the License.
  */
 
-import { execSync } from 'child_process';
+import {execSync} from 'child_process';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import { logger } from '@oxygen-ui/logger';
+import {fileURLToPath} from 'url';
+import {logger} from '@oxygen-ui/logger';
 
 // eslint-disable-next-line no-underscore-dangle
 const __filename = fileURLToPath(import.meta.url);
@@ -36,10 +36,10 @@ logger.log();
 logger.log('                         💅  Building Style Dictionary  💅                         ');
 logger.log();
 
-execSync(`node ${path.resolve(__dirname, 'build-sd.js')}`, { stdio: 'inherit' });
+execSync(`node ${path.resolve(__dirname, 'build-sd.js')}`, {stdio: 'inherit'});
 
 logger.log();
 logger.log('                          💅  Building the SVG Icons  💅                           ');
 logger.log();
 
-execSync(`node ${path.resolve(__dirname, 'build-icons.js')}`, { stdio: 'inherit' });
+execSync(`node ${path.resolve(__dirname, 'build-icons.js')}`, {stdio: 'inherit'});

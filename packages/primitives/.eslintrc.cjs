@@ -17,7 +17,13 @@
  */
 
 module.exports = {
-  extends: ['plugin:@wso2/javascript', 'plugin:@wso2/internal', 'plugin:@wso2/jest'],
+  extends: [
+    'plugin:@wso2/typescript',
+    'plugin:@wso2/strict',
+    'plugin:@wso2/internal',
+    'plugin:@wso2/jest',
+    'plugin:@wso2/prettier',
+  ],
   parserOptions: {
     project: './tsconfig.json',
   },

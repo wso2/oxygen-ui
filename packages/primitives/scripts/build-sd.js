@@ -23,8 +23,8 @@
 
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import { logger } from '@oxygen-ui/logger';
+import {fileURLToPath} from 'url';
+import {logger} from '@oxygen-ui/logger';
 import StyleDictionary from 'style-dictionary';
 
 // eslint-disable-next-line no-underscore-dangle
@@ -107,15 +107,13 @@ const getStyleDictionaryConfig = (brand, source) => {
 const processDesignTokens = async () => {
   const brands = fs.readdirSync(PATHS.source.tokens);
 
-  brands.forEach(async (brand) => {
+  brands.forEach(async brand => {
     logger.info(`Processing the Brand: [ ${brand} ]`);
     const tokenFiles = fs.readdirSync(path.join(PATHS.source.tokens, brand));
 
-    tokenFiles.forEach(async (tokenFile) => {
+    tokenFiles.forEach(async tokenFile => {
       const filePath = path.join(PATHS.source.tokens, brand, tokenFile);
-      const StyleDictionaryExtended = StyleDictionary.extend(
-        getStyleDictionaryConfig(brand, filePath),
-      );
+      const StyleDictionaryExtended = StyleDictionary.extend(getStyleDictionaryConfig(brand, filePath));
 
       await Promise.all([
         StyleDictionaryExtended.buildPlatform('web/es'),
@@ -126,7 +124,7 @@ const processDesignTokens = async () => {
   });
 };
 
-processDesignTokens().catch((error) => {
+processDesignTokens().catch(error => {
   logger.error('Error processing design tokens:', error);
   process.exit(1);
 });

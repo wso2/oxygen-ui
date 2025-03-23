@@ -18,12 +18,12 @@
  */
 
 import path from 'path';
-import { fileURLToPath } from 'url';
-import { logger } from '@oxygen-ui/logger';
+import {fileURLToPath} from 'url';
+import {logger} from '@oxygen-ui/logger';
 import cheerio from 'cheerio';
 import fs from 'fs-extra';
 import merge from 'lodash.merge';
-import { parseSync } from 'svgson';
+import {parseSync} from 'svgson';
 import trimNewlines from 'trim-newlines';
 
 // eslint-disable-next-line no-underscore-dangle
@@ -40,11 +40,10 @@ const PATHS = {
 
 const getSvgFilePaths = async () => {
   const iconFiles = await fs.readdir(PATHS.source.icons);
-  return iconFiles.filter((file) => path.extname(file) === '.svg')
-    .map((file) => path.resolve(PATHS.source.icons, file));
+  return iconFiles.filter(file => path.extname(file) === '.svg').map(file => path.resolve(PATHS.source.icons, file));
 };
 
-const processSvgFile = async (filepath) => {
+const processSvgFile = async filepath => {
   try {
     const filename = path.basename(filepath);
     const filenamePattern = /(.+)-([0-9]+).svg$/;
@@ -61,7 +60,7 @@ const processSvgFile = async (filepath) => {
     const svgHeight = parseInt(svgElement.attr('height'), 10);
     const svgViewBox = svgElement.attr('viewBox');
     const svgPath = trimNewlines(svgElement.html()).trim();
-    const ast = parseSync(svg, { camelcase: true });
+    const ast = parseSync(svg, {camelcase: true});
 
     if (!svgWidth || !svgHeight || !svgViewBox) {
       throw new Error(`${filename}: Missing required SVG attributes (width, height, or viewBox).`);
@@ -79,7 +78,11 @@ const processSvgFile = async (filepath) => {
     }
 
     return {
-      ast, height: svgHeight, name, path: svgPath, width: svgWidth,
+      ast,
+      height: svgHeight,
+      name,
+      path: svgPath,
+      width: svgWidth,
     };
   } catch (error) {
     logger.error(error.message);
@@ -101,14 +104,18 @@ const main = async () => {
     process.exit(1);
   }
 
-  const iconsByName = icons.reduce((acc, icon) => merge(acc, {
-    [icon.name]: {
-      heights: {
-        [icon.height]: { ast: icon.ast, path: icon.path, width: icon.width },
-      },
-      name: icon.name,
-    },
-  }), {});
+  const iconsByName = icons.reduce(
+    (acc, icon) =>
+      merge(acc, {
+        [icon.name]: {
+          heights: {
+            [icon.height]: {ast: icon.ast, path: icon.path, width: icon.width},
+          },
+          name: icon.name,
+        },
+      }),
+    {},
+  );
 
   if (PATHS.output) {
     await fs.outputJson(PATHS.output, iconsByName);
@@ -117,7 +124,7 @@ const main = async () => {
   }
 };
 
-main().catch((error) => {
+main().catch(error => {
   logger.error('Unexpected error:', error);
   process.exit(1);
 });

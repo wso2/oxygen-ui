@@ -16,13 +16,13 @@
  * under the License.
  */
 
-import { execSync } from 'child_process';
+import {execSync} from 'child_process';
 import path from 'path';
+import {fileURLToPath} from 'url';
+import {logger} from '@oxygen-ui/logger';
 import fs from 'fs-extra';
-import { logger } from '@oxygen-ui/logger';
-import { fileURLToPath } from 'url';
-import tokens from '../figma/tokens.json' assert { type: 'json' };
-import pkg from '../package.json' assert { type: 'json' };
+import tokens from '../figma/tokens.json';
+import pkg from '../package.json';
 
 // eslint-disable-next-line no-underscore-dangle
 const __filename = fileURLToPath(import.meta.url);
@@ -36,11 +36,9 @@ const OUTPUT_DIR = path.join(__dirname, '..', 'src', 'design-tokens');
 const transformTokensToStyleDictionary = () => {
   const tokenSets = tokens.$metadata.tokenSetOrder;
   const getGlobalTokenSets = () =>
-    tokenSets.filter((tokenSet) =>
-      GLOBAL_TOKEN_SET_MATCHERS.some((matcher) => tokenSet.startsWith(matcher))
-    );
+    tokenSets.filter(tokenSet => GLOBAL_TOKEN_SET_MATCHERS.some(matcher => tokenSet.startsWith(matcher)));
 
-  tokenSets.forEach((tokenSet) => {
+  tokenSets.forEach(tokenSet => {
     if (!fs.existsSync(OUTPUT_DIR)) {
       fs.mkdirSync(OUTPUT_DIR);
     }
@@ -51,7 +49,7 @@ const transformTokensToStyleDictionary = () => {
       ? `${tokenSet.replace(`${tokenSetBase}-`, '')}.tokens.json`
       : 'tokens.json';
     const outputPath = path.join(OUTPUT_DIR, tokenSetBase, tokensFileName);
-    let exclude = getGlobalTokenSets().filter((set) => set !== tokenSet);
+    let exclude = getGlobalTokenSets().filter(set => set !== tokenSet);
 
     if (GLOBAL_TOKEN_SET_MATCHERS.includes(tokenSet)) {
       exclude = [];
@@ -64,7 +62,7 @@ const transformTokensToStyleDictionary = () => {
     logger.info(pkg.name, `    -> Excluding: [ ${exclude} ]`);
 
     execSync(
-      `pnpm token-transformer ${INPUT} ${outputPath} ${getTokenSetsToInclude()} ${exclude} --resolveReferences true`
+      `pnpm token-transformer ${INPUT} ${outputPath} ${getTokenSetsToInclude()} ${exclude} --resolveReferences true`,
     );
 
     const transformerRawOutput = fs.readJsonSync(outputPath);
