@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import darkTokens from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/dark.tokens';
-import lightTokens from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/tokens';
+import {OxygenOxygenColorsPrimaryDefault as OxygenOxygenColorsPrimaryDefaultDark} from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/dark.tokens.es6';
+import {OxygenOxygenColorsPrimaryDefault} from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/tokens.es6';
 import {extendTheme, Theme} from '@oxygen-ui/react';
 
 const DefaultTheme: Theme = extendTheme({
@@ -31,12 +31,12 @@ const DefaultTheme: Theme = extendTheme({
       palette: {
         gradients: {
           primary: {
-            stop1: darkTokens.OxygenOxygenColorsPrimaryDefault,
-            stop2: darkTokens.OxygenOxygenColorsPrimaryDefault,
+            stop1: OxygenOxygenColorsPrimaryDefaultDark,
+            stop2: OxygenOxygenColorsPrimaryDefaultDark,
           },
         },
         primary: {
-          main: darkTokens.OxygenOxygenColorsPrimaryDefault,
+          main: OxygenOxygenColorsPrimaryDefaultDark,
         },
       },
     },
@@ -49,12 +49,12 @@ const DefaultTheme: Theme = extendTheme({
       palette: {
         gradients: {
           primary: {
-            stop1: lightTokens.OxygenOxygenColorsPrimaryDefault,
-            stop2: lightTokens.OxygenOxygenColorsPrimaryDefault,
+            stop1: OxygenOxygenColorsPrimaryDefault,
+            stop2: OxygenOxygenColorsPrimaryDefault,
           },
         },
         primary: {
-          main: lightTokens.OxygenOxygenColorsPrimaryDefault,
+          main: OxygenOxygenColorsPrimaryDefault,
         },
       },
     },
