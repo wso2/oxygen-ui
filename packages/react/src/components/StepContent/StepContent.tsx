@@ -46,11 +46,18 @@ export type StepContentProps = MuiStepContentProps;
  * @returns The rendered StepContent component.
  */
 const StepContent: ForwardRefExoticComponent<StepContentProps> = forwardRef(
-  ({className, ...rest}: StepContentProps, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-step-content', className);
-
-    return <MuiStepContent ref={ref} className={classes} {...rest} />;
-  },
+  ({className, ...rest}: StepContentProps, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiStepContent
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-step-content',
+        'OxygenStepContent-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<StepContentProps>;
 
 export default StepContent;

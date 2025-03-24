@@ -49,11 +49,18 @@ export type DataGridProps<R extends MuiXGridValidRowModel = any> = MuiXDataGridP
  * @returns The rendered DataGrid component.
  */
 const DataGrid: ForwardRefExoticComponent<DataGridProps> = forwardRef(
-  ({className, ...rest}: DataGridProps, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-data-grid', className);
-
-    return <MuiXDataGrid ref={ref} className={classes} {...rest} />;
-  },
+  ({className, ...rest}: DataGridProps, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiXDataGrid
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-data-grid',
+        'OxygenDataGrid-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<DataGridProps>;
 
 export default DataGrid;

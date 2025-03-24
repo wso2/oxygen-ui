@@ -115,17 +115,6 @@ const Navbar: ForwardRefExoticComponent<NavbarProps> = forwardRef(
     }: NavbarProps<C>,
     ref: MutableRefObject<HTMLDivElement>,
   ): ReactElement => {
-    const classes: string = clsx(
-      'oxygen-navbar',
-      {
-        collapsible,
-        [`${fill}`]: fill,
-        fill,
-        open,
-      },
-      className,
-    );
-
     const handleCollapsibleHamburgerClick = (e: MouseEvent<HTMLButtonElement>): void => {
       if (open && onClose && typeof onClose === 'function') {
         onClose(e, null);
@@ -156,20 +145,45 @@ const Navbar: ForwardRefExoticComponent<NavbarProps> = forwardRef(
     };
 
     return (
-      <Drawer ref={ref} variant="permanent" className={classes} onClose={onClose} open={open} {...rest}>
+      <Drawer
+        ref={ref}
+        variant="permanent"
+        className={clsx(
+          /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+          'oxygen-navbar',
+          'OxygenNavbar-root',
+          {
+            'OxygenNavbar-collapsible': collapsible,
+            'OxygenNavbar-fill': fill,
+            'OxygenNavbar-open': open,
+            collapsible,
+            [`OxygenNavbar-${fill}`]: fill,
+            [`${fill}`]: fill,
+            fill,
+            open,
+          },
+          className,
+        )}
+        onClose={onClose}
+        open={open}
+        {...rest}
+      >
         {collapsible && (
           <>
-            <div className="oxygen-navbar-collapsible-hamburger">
+            <div className="OxygenNavbar-collapsibleHamburger oxygen-navbar-collapsible-hamburger">
               <IconButton onClick={handleCollapsibleHamburgerClick} aria-label="nav item icon">
                 {toggleIcon}
               </IconButton>
             </div>
-            <Divider className="oxygen-navbar-collapsible-divider" />
+            <Divider className="OxygenNavbar-collapsibleDivider oxygen-navbar-collapsible-divider" />
           </>
         )}
-        <Box className="oxygen-navbar-list-box">
+        <Box className="OxygenNavbar-listBox oxygen-navbar-list-box">
           {items?.map((navbarItems: NavbarItems, itemsIndex: number) => {
-            const navBarListClass: string = clsx('oxygen-navbar-list', {'no-heading': !navbarItems.label});
+            const navBarListClass: string = clsx('OxygenNavbar-list oxygen-navbar-list', {
+              'OxygenNavbar-listNoHeading': !navbarItems.label,
+              'no-heading': !navbarItems.label,
+            });
 
             return (
               <Fragment key={navbarItems.id}>

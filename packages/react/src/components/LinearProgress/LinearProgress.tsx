@@ -47,11 +47,19 @@ export type LinearProgressProps = MuiLinearProgressProps;
  * @returns The rendered LinearProgress component.
  */
 const LinearProgress: ForwardRefExoticComponent<LinearProgressProps> = forwardRef(
-  ({className, ...rest}: LinearProgressProps, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-linear-progress', className);
-
-    return <MuiLinearProgress ref={ref} aria-label="progress-bar" className={classes} {...rest} />;
-  },
+  ({className, ...rest}: LinearProgressProps, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiLinearProgress
+      ref={ref}
+      aria-label="progress-bar"
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-linear-progress',
+        'OxygenLinearProgress-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<LinearProgressProps>;
 
 export default LinearProgress;

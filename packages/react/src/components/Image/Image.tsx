@@ -43,11 +43,19 @@ export type ImageProps = ImgHTMLAttributes<HTMLImageElement>;
  * @returns The rendered Image component.
  */
 const Image: ForwardRefExoticComponent<ImageProps> = forwardRef(
-  ({className, alt, ...rest}: ImageProps, ref: Ref<HTMLImageElement>): ReactElement => {
-    const classes: string = clsx('oxygen-image', className);
-
-    return <img ref={ref} className={classes} alt={alt} {...rest} />;
-  },
+  ({className, alt, ...rest}: ImageProps, ref: Ref<HTMLImageElement>): ReactElement => (
+    <img
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-image',
+        'OxygenImage-root',
+        className,
+      )}
+      alt={alt}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<ImageProps>;
 
 export default Image;

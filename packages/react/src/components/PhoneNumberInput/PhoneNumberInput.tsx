@@ -118,8 +118,6 @@ const PhoneNumberInput: OverridableComponent<BoxTypeMap<PhoneNumberInputProps>> 
     }: PhoneNumberInputProps<C>,
     ref: Ref<HTMLDivElement>,
   ): ReactElement => {
-    const classes: string = clsx('oxygen-phone-number-input', className);
-
     const [dialCode, setDialCode] = useState<string>(dialCodeValue ?? countries[0].dialCode);
 
     const [phoneNumber, setPhoneNumber] = useState<string>(phoneNumberValue ?? '');
@@ -153,13 +151,22 @@ const PhoneNumberInput: OverridableComponent<BoxTypeMap<PhoneNumberInputProps>> 
     };
 
     return (
-      <Box className={classes} ref={ref} {...rest}>
+      <Box
+        className={clsx(
+          /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+          'oxygen-phone-number-input',
+          'OxygenPhoneNumberInput-root',
+          className,
+        )}
+        ref={ref}
+        {...rest}
+      >
         <InputLabel htmlFor="phone-number-input" id="phone-number-label">
           {label}
         </InputLabel>
-        <Box className="oxygen-select-input">
+        <Box className="OxygenPhoneNumberInput-selectWrapper oxygen-select-input">
           <Select
-            className="oxygen-select"
+            className="OxygenPhoneNumberInput-select oxygen-select"
             labelId="phone-number-label"
             id="phone-number-select"
             value={dialCode}
@@ -173,9 +180,18 @@ const PhoneNumberInput: OverridableComponent<BoxTypeMap<PhoneNumberInputProps>> 
             {countries?.map((countryItem: Country) => {
               const {dialCode: phoneCode, code, name} = countryItem;
               return (
-                <MenuItem value={phoneCode} key={code} className="oxygen-dial-code-menu-item">
+                <MenuItem
+                  value={phoneCode}
+                  key={code}
+                  className="OxygenPhoneNumberInput-dialCodeMenu oxygen-dial-code-menu-item"
+                >
                   <ListItemIcon>
-                    <Flag className="oxygen-image" alt={name} code={code} fallback={<FlagOutlined />} />
+                    <Flag
+                      className="OxygenPhoneNumberInput-dialCodeFlag oxygen-image"
+                      alt={name}
+                      code={code}
+                      fallback={<FlagOutlined />}
+                    />
                   </ListItemIcon>
                   <Typography>{name}</Typography>&nbsp;
                   <Typography variant="body2">{phoneCode}</Typography>

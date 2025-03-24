@@ -46,11 +46,18 @@ export type StepLabelProps = MuiStepLabelProps;
  * @returns The rendered StepLabel component.
  */
 const StepLabel: ForwardRefExoticComponent<StepLabelProps> = forwardRef(
-  ({className, ...rest}: StepLabelProps, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-step-label', className);
-
-    return <MuiStepLabel ref={ref} className={classes} {...rest} />;
-  },
+  ({className, ...rest}: StepLabelProps, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiStepLabel
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-step-label',
+        'OxygenStepLabel-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<StepLabelProps>;
 
 export default StepLabel;

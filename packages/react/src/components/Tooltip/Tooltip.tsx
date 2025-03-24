@@ -47,11 +47,18 @@ export type TooltipProps = MuiTooltipProps;
  * @returns The rendered Tooltip component.
  */
 const Tooltip: ForwardRefExoticComponent<TooltipProps> = forwardRef(
-  ({className, ...rest}: TooltipProps, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-tooltip', className);
-
-    return <MuiTooltip ref={ref} className={classes} {...rest} />;
-  },
+  ({className, ...rest}: TooltipProps, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiTooltip
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-tooltip',
+        'OxygenTooltip-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<TooltipProps>;
 
 export default Tooltip;

@@ -57,11 +57,18 @@ const Drawer: ForwardRefExoticComponent<DrawerProps> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: DrawerProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-drawer', className);
-
-    return <MuiDrawer ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiDrawer
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-drawer',
+        'OxygenDrawer-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<DrawerProps>;
 
 export default Drawer;

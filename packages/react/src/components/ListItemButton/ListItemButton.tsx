@@ -62,11 +62,18 @@ const ListItemButton: OverridableComponent<ListItemButtonTypeMap<ListItemButtonP
   <C extends ElementType = ElementType>(
     {className, ...rest}: ListItemButtonProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-list-item-button', className);
-
-    return <MuiListItemButton ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiListItemButton
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-list-item-button',
+        'OxygenListItemButton-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<ListItemButtonTypeMap<ListItemButtonProps>>;
 
 export default ListItemButton;

@@ -160,8 +160,6 @@ const UserDropdownMenu: ForwardRefExoticComponent<UserDropdownMenuProps> = forwa
     }: UserDropdownMenuProps<C>,
     ref: MutableRefObject<HTMLDivElement>,
   ): ReactElement => {
-    const classes: string = clsx('oxygen-user-dropdown-menu', className);
-
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const openMenu: boolean = Boolean(anchorEl);
@@ -204,49 +202,56 @@ const UserDropdownMenu: ForwardRefExoticComponent<UserDropdownMenuProps> = forwa
           ref={ref}
           open={openMenu}
           anchorEl={anchorEl}
-          className={classes}
+          className={clsx(
+            /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+            'oxygen-user-dropdown-menu',
+            'OxygenUserDropdownMenu-root',
+            className,
+          )}
           id="oxygen-button-menu"
           onClose={onCloseMenu}
-          PaperProps={{className: 'oxygen-user-dropdown-menu-paper'}}
+          PaperProps={{className: 'OxygenUserDropdownMenu-paper oxygen-user-dropdown-menu-paper'}}
           {...rest}
         >
           {children}
           {user && (
             <ListItem
-              className={clsx('oxygen-user-dropdown-menu-list-item', {
+              className={clsx('oxygen-user-dropdown-menu-list-item', 'OxygenUserDropdownMenu-user', {
+                'OxygenUserDropdownMenu-userClickable': onUserProfileNavigation,
                 clickable: onUserProfileNavigation,
               })}
               onClick={(): void => handleUserProfileNavigation()}
             >
-              <ListItemAvatar>
+              <ListItemAvatar className="OxygenUserDropdownMenu-userAvatarWrapper">
                 <Avatar
                   src={user?.image}
                   alt="User"
                   randomBackgroundColor={!user?.image}
                   backgroundColorRandomizer={user?.name}
+                  className="OxygenUserDropdownMenu-userAvatar"
                 >
                   {user?.name?.split('')[0]}
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={user?.name} secondary={user?.email} />
+              <ListItemText primary={user?.name} secondary={user?.email} className="OxygenUserDropdownMenu-userLabel" />
             </ListItem>
           )}
           {menuItems?.length > 0 ? menuItems : null}
           {modes?.length > 0 && (
             <div>
-              <ListSubheader>{modesHeading}</ListSubheader>
+              <ListSubheader className="OxygenUserDropdownMenu-themeToggleSubHeader">{modesHeading}</ListSubheader>
               {modes?.map((theme: ModeList) => {
                 const {name, icon} = theme;
                 return (
                   <MenuItem
-                    className="oxygen-user-dropdown-menu-item"
+                    className="OxygenUserDropdownMenu-themeToggle oxygen-user-dropdown-menu-item"
                     key={name}
                     onClick={(): void => handleModeChange(name)}
                   >
                     <ListItemIcon>{icon}</ListItemIcon>
                     <ListItemText primary={capitalize(name)} />
                     <Radio
-                      className="oxygen-user-dropdown-menu-item-radio"
+                      className="OxygenUserDropdownMenu-themeToggleRadio oxygen-user-dropdown-menu-item-radio"
                       checked={mode === name}
                       onChange={(): void => handleModeChange(name)}
                       value={name}
@@ -259,7 +264,10 @@ const UserDropdownMenu: ForwardRefExoticComponent<UserDropdownMenuProps> = forwa
             </div>
           )}
           {actionText && (
-            <MenuItem className="dropdown-menu-item" onClick={(): void => handleActionTrigger()}>
+            <MenuItem
+              className="OxygenUserDropdownMenu-actionItem dropdown-menu-item"
+              onClick={(): void => handleActionTrigger()}
+            >
               <ListItemIcon>{actionIcon}</ListItemIcon>
               <ListItemText primary={actionText} />
             </MenuItem>
@@ -267,7 +275,7 @@ const UserDropdownMenu: ForwardRefExoticComponent<UserDropdownMenuProps> = forwa
           {footerContent && (
             <>
               <Divider variant="middle" />
-              <div className="oxygen-user-dropdown-menu-footer">{footerContent}</div>
+              <div className="OxygenUserDropdownMenu-footer oxygen-user-dropdown-menu-footer">{footerContent}</div>
             </>
           )}
         </Menu>

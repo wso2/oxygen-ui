@@ -61,11 +61,18 @@ const Container: OverridableComponent<ContainerTypeMap<ContainerProps>> = forwar
   <C extends ElementType = ElementType>(
     {className, ...rest}: ContainerProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-container', className);
-
-    return <MuiContainer ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiContainer
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-container',
+        'OxygenContainer-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<ContainerTypeMap<ContainerProps>>;
 
 export default Container;

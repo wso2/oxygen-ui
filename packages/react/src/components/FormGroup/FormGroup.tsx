@@ -47,11 +47,18 @@ export type FormGroupProps = MuiFormGroupProps;
  * @returns The rendered FormGroup component.
  */
 const FormGroup: ForwardRefExoticComponent<FormGroupProps> = forwardRef(
-  ({className, ...rest}: FormGroupProps, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-form-group', className);
-
-    return <MuiFormGroup ref={ref} className={classes} {...rest} />;
-  },
+  ({className, ...rest}: FormGroupProps, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiFormGroup
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-form-group',
+        'OxygenFormGroup-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<FormGroupProps>;
 
 export default FormGroup;

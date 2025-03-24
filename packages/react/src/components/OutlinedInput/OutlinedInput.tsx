@@ -48,11 +48,18 @@ export type OutlinedInputProps = MuiOutlinedInputProps;
  * @returns The rendered OutlinedInput component.
  */
 const OutlinedInput: ForwardRefExoticComponent<OutlinedInputProps> = forwardRef(
-  ({className, ...rest}: OutlinedInputProps, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-outlined-input', className);
-
-    return <MuiOutlinedInput ref={ref} className={classes} {...rest} />;
-  },
+  ({className, ...rest}: OutlinedInputProps, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiOutlinedInput
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-outlined-input',
+        'OxygenOutlinedInput-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<OutlinedInputProps>;
 
 export default OutlinedInput;

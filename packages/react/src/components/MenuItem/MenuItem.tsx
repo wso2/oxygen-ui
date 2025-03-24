@@ -62,11 +62,18 @@ const MenuItem: OverridableComponent<MenuItemTypeMap<MenuItemProps>> = forwardRe
   <C extends ElementType = ElementType>(
     {className, ...rest}: MenuItemProps<C>,
     ref: Ref<HTMLLIElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-menu-item', className);
-
-    return <MuiMenuItem ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiMenuItem
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-menu-item',
+        'OxygenMenuItem-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<MenuItemTypeMap<MenuItemProps>>;
 
 export default MenuItem;

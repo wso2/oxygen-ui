@@ -61,11 +61,18 @@ const Toolbar: OverridableComponent<ToolbarTypeMap<ToolbarProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: ToolbarProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-toolbar', className);
-
-    return <MuiToolbar ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiToolbar
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-toolbar',
+        'OxygenToolbar-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<ToolbarTypeMap<ToolbarProps>>;
 
 export default Toolbar;

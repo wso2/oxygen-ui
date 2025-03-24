@@ -47,11 +47,18 @@ export type SnackbarProps = MuiSnackbarProps;
  * @returns The rendered Snackbar component.
  */
 const Snackbar: ForwardRefExoticComponent<SnackbarProps> = forwardRef(
-  ({className, ...rest}: SnackbarProps, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-snackbar', className);
-
-    return <MuiSnackbar className={classes} {...rest} ref={ref} />;
-  },
+  ({className, ...rest}: SnackbarProps, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiSnackbar
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-snackbar',
+        'OxygenSnackbar-root',
+        className,
+      )}
+      {...rest}
+      ref={ref}
+    />
+  ),
 ) as ForwardRefExoticComponent<SnackbarProps>;
 
 export default Snackbar;

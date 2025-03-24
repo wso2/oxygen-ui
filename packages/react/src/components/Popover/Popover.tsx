@@ -58,11 +58,18 @@ const Popover: ForwardRefExoticComponent<PopoverProps> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: PopoverProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-popover', className);
-
-    return <MuiPopover className={classes} {...rest} ref={ref} />;
-  },
+  ): ReactElement => (
+    <MuiPopover
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-popover',
+        'OxygenPopover-root',
+        className,
+      )}
+      {...rest}
+      ref={ref}
+    />
+  ),
 ) as ForwardRefExoticComponent<PopoverProps>;
 
 export default Popover;

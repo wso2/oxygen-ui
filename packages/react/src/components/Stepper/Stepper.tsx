@@ -61,11 +61,18 @@ const Stepper: OverridableComponent<StepperTypeMap<StepperProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: StepperProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-stepper', className);
-
-    return <MuiStepper className={classes} ref={ref} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiStepper
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-stepper',
+        'OxygenStepper-root',
+        className,
+      )}
+      ref={ref}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<StepperTypeMap<StepperProps>>;
 
 export default Stepper;

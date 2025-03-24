@@ -134,7 +134,10 @@ const PasswordFieldWithCriteria: ForwardRefExoticComponent<TextFieldProps> = for
         describeChild
         open={openPasswordCriteriaTooltip}
         title={renderCriteriaTooltipContent()}
-        classes={{arrow: 'oxygen-text-field-tooltip-arrow', tooltip: 'oxygen-text-field-tooltip'}}
+        classes={{
+          arrow: 'OxygenTextField-tooltipArrow oxygen-text-field-tooltip-arrow',
+          tooltip: 'OxygenTextField-tooltip oxygen-text-field-tooltip',
+        }}
       >
         <PasswordField
           ref={ref}
@@ -178,30 +181,33 @@ const TextField: OverridableComponent<FormControlTypeMap<TextFieldProps>> = forw
   <C extends ElementType = ElementType>(
     {className, id, label, type, InputLabelProps, variant, size = 'small', ...rest}: TextFieldProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-text-field', className);
-
-    return (
-      <div className={classes}>
-        <InputLabel htmlFor={id} aria-describedby={id} {...InputLabelProps}>
-          {label}
-        </InputLabel>
-        {type === TextFieldInputTypes.INPUT_PASSWORD ? (
-          <PasswordFieldWithCriteria ref={ref} id={id} variant={variant} type={type} size={size} {...rest} />
-        ) : (
-          <MuiTextField
-            ref={ref}
-            id={id}
-            variant={variant}
-            className="OxygenTextField-root"
-            type={type}
-            size={size}
-            {...rest}
-          />
-        )}
-      </div>
-    );
-  },
+  ): ReactElement => (
+    <div
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-text-field',
+        'OxygenTextField-wrapper',
+        className,
+      )}
+    >
+      <InputLabel htmlFor={id} aria-describedby={id} {...InputLabelProps}>
+        {label}
+      </InputLabel>
+      {type === TextFieldInputTypes.INPUT_PASSWORD ? (
+        <PasswordFieldWithCriteria ref={ref} id={id} variant={variant} type={type} size={size} {...rest} />
+      ) : (
+        <MuiTextField
+          ref={ref}
+          id={id}
+          variant={variant}
+          className="OxygenTextField-root"
+          type={type}
+          size={size}
+          {...rest}
+        />
+      )}
+    </div>
+  ),
 ) as OverridableComponent<FormControlTypeMap<TextFieldProps>>;
 
 export default TextField;

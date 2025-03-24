@@ -58,11 +58,18 @@ const TableContainer: ForwardRefExoticComponent<TableContainerProps> = forwardRe
   <C extends ElementType = ElementType>(
     {className, ...rest}: TableContainerProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-table-container', className);
-
-    return <MuiTableContainer ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiTableContainer
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-table-container',
+        'OxygenTableContainer-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<TableContainerProps>;
 
 export default TableContainer;

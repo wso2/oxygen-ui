@@ -52,11 +52,18 @@ const TableFooter: ForwardRefExoticComponent<TableFooterProps> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: TableFooterProps<C>,
     ref: Ref<HTMLTableSectionElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-table-footer', className);
-
-    return <MuiTableFooter ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiTableFooter
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-table-footer',
+        'OxygenTableFooter-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<TableFooterProps>;
 
 export default TableFooter;

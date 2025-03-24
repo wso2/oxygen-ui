@@ -47,11 +47,18 @@ export type ListItemTextProps = MuiListItemTextProps;
  * @returns The rendered ListItemText component.
  */
 const ListItemText: ForwardRefExoticComponent<ListItemTextProps> = forwardRef(
-  ({className, ...rest}: ListItemTextProps, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-list-item-text', className);
-
-    return <MuiListItemText ref={ref} className={classes} {...rest} />;
-  },
+  ({className, ...rest}: ListItemTextProps, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiListItemText
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-list-item-text',
+        'OxygenListItemText-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<ListItemTextProps>;
 
 export default ListItemText;

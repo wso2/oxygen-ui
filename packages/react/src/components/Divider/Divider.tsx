@@ -63,11 +63,18 @@ const Divider: OverridableComponent<MuiDividerTypeMap<DividerProps>> = forwardRe
   <C extends ElementType = ElementType>(
     {className, ...rest}: DividerProps<C>,
     ref: Ref<HTMLHRElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-divider', className);
-
-    return <MuiDivider ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiDivider
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-divider',
+        'OxygenDivider-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<MuiDividerTypeMap<DividerProps>>;
 
 export default Divider;

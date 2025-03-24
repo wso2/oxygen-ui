@@ -16,6 +16,7 @@
  * under the License.
  */
 
+import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, HTMLAttributes, Ref, ReactElement} from 'react';
 import WorldFlag from 'react-world-flags';
@@ -56,12 +57,13 @@ export type CountryFlagsProps = CountryFlagProps;
  * @returns The rendered CountryFlag component.
  */
 const CountryFlag: ForwardRefExoticComponent<CountryFlagProps> = forwardRef(
-  ({countryCode, height = '16', ...rest}: CountryFlagProps, ref: Ref<HTMLImageElement>): ReactElement => (
+  ({countryCode, height = '16', className, ...rest}: CountryFlagProps, ref: Ref<HTMLImageElement>): ReactElement => (
     <WorldFlag
       ref={ref}
       code={countryCode}
       height={height}
       fallback={<Typography>{countryCode}</Typography>}
+      className={clsx('OxygenCountryFlag-root', className)}
       {...rest}
     />
   ),

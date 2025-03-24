@@ -103,8 +103,6 @@ const ColorModeToggle: OverridableComponent<IconButtonTypeMap<IconButtonProps>> 
   ): ReactElement => {
     const {mode, setMode} = useColorScheme();
 
-    const classes: string = clsx('oxygen-color-mode-toggle', className);
-
     return (
       <IconButton
         ref={ref}
@@ -113,10 +111,19 @@ const ColorModeToggle: OverridableComponent<IconButtonTypeMap<IconButtonProps>> 
           setMode(mode === 'light' ? 'dark' : 'light');
         }}
         color="inherit"
-        className={classes}
+        className={clsx(
+          /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+          'oxygen-color-mode-toggle',
+          'OxygenColorModeToggle-root',
+          className,
+        )}
         {...rest}
       >
-        {mode === 'light' ? <BrightnessIcon /> : <CrescentIcon />}
+        {mode === 'light' ? (
+          <BrightnessIcon className="OxygenColorModeToggle-icon" />
+        ) : (
+          <CrescentIcon className="OxygenColorModeToggle-icon" />
+        )}
       </IconButton>
     );
   },

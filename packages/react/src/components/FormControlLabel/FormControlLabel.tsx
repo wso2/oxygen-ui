@@ -50,11 +50,18 @@ export type FormControlLabelProps = MuiFormControlLabelProps;
  * @returns The rendered FormControlLabel component.
  */
 const FormControlLabel: ForwardRefExoticComponent<FormControlLabelProps> = forwardRef(
-  ({className, ...rest}: FormControlLabelProps, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-form-control-label', className);
-
-    return <MuiFormControlLabel className={classes} {...rest} ref={ref} />;
-  },
+  ({className, ...rest}: FormControlLabelProps, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiFormControlLabel
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-form-control-label',
+        'OxygenFormControlLabel-root',
+        className,
+      )}
+      {...rest}
+      ref={ref}
+    />
+  ),
 ) as ForwardRefExoticComponent<FormControlLabelProps>;
 
 export default FormControlLabel;

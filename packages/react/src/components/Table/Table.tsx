@@ -57,11 +57,18 @@ const Table: ForwardRefExoticComponent<TableProps> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: TableProps<C>,
     ref: Ref<HTMLTableElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-table', className);
-
-    return <MuiTable ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiTable
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-table',
+        'OxygenTable-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<TableProps>;
 
 export default Table;

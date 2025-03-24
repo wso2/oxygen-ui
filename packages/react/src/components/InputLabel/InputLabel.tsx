@@ -62,11 +62,18 @@ const InputLabel: OverridableComponent<InputLabelTypeMap<InputLabelProps>> = for
   <C extends ElementType = ElementType>(
     {className, ...rest}: InputLabelProps<C>,
     ref: Ref<HTMLLabelElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-input-label', className);
-
-    return <MuiInputLabel ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiInputLabel
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-input-label',
+        'OxygenInputLabel-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<InputLabelTypeMap<InputLabelProps>>;
 
 export default InputLabel;
