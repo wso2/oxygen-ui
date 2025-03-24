@@ -17,92 +17,64 @@
  * under the License.
  */
 
-/**
- * @fileoverview Build script to generate a JSON file that contains information about input SVGs.
- */
+import path from 'path';
+import {fileURLToPath} from 'url';
+import {logger} from '@oxygen-ui/logger';
+import cheerio from 'cheerio';
+import fs from 'fs-extra';
+import merge from 'lodash.merge';
+import {parseSync} from 'svgson';
+import trimNewlines from 'trim-newlines';
 
-const path = require('path');
-const { logger } = require('@oxygen-ui/logger');
-const cheerio = require('cheerio');
-const fs = require('fs-extra');
-const merge = require('lodash.merge');
-const { parseSync } = require('svgson');
-const trimNewlines = require('trim-newlines');
+// eslint-disable-next-line no-underscore-dangle
+const __filename = fileURLToPath(import.meta.url);
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = path.dirname(__filename);
 
 const PATHS = {
-  output: path.resolve(path.join(__dirname, '..', 'dist', 'icons', 'data.json')),
+  output: path.resolve(__dirname, '..', 'dist', 'icons', 'data.json'),
   source: {
-    icons: path.resolve(path.join(__dirname, '..', 'src', 'icons')),
+    icons: path.resolve(__dirname, '..', 'src', 'icons'),
   },
 };
 
-const iconFiles = fs.readdirSync(PATHS.source.icons);
+const getSvgFilePaths = async () => {
+  const iconFiles = await fs.readdir(PATHS.source.icons);
+  return iconFiles.filter(file => path.extname(file) === '.svg').map(file => path.resolve(PATHS.source.icons, file));
+};
 
-const svgFilepaths = iconFiles.reduce((iconFilePaths, iconFile) => (path.parse(iconFile).ext === '.svg'
-  ? (iconFilePaths.push(path.resolve(path.join(PATHS.source.icons, iconFile))), iconFilePaths)
-  : iconFilePaths), []);
-
-if (svgFilepaths.length === 0) {
-  logger.error('No input SVG file(s) found');
-  process.exit(1);
-}
-
-let exitCode = 0;
-
-const icons = svgFilepaths.map((filepath) => {
+const processSvgFile = async filepath => {
   try {
-    const filename = path.parse(filepath).base;
+    const filename = path.basename(filepath);
     const filenamePattern = /(.+)-([0-9]+).svg$/;
 
     if (!filenamePattern.test(filename)) {
-      throw new Error(
-        `${filename}: Invalid filename. Please append the height of the SVG to the end of the filename (e.g. alert-16.svg).`,
-      );
+      throw new Error(`${filename}: Invalid filename. Please append the height to the filename (e.g., alert-16.svg).`);
     }
 
     const [, name, height] = filename.match(filenamePattern);
-    const svg = fs.readFileSync(path.resolve(filepath), 'utf8');
+    const svg = await fs.readFile(filepath, 'utf8');
     const svgElement = cheerio.load(svg)('svg');
+
     const svgWidth = parseInt(svgElement.attr('width'), 10);
     const svgHeight = parseInt(svgElement.attr('height'), 10);
     const svgViewBox = svgElement.attr('viewBox');
     const svgPath = trimNewlines(svgElement.html()).trim();
-    const ast = parseSync(svg, {
-      camelcase: true,
-    });
+    const ast = parseSync(svg, {camelcase: true});
 
-    if (!svgWidth) {
-      throw new Error(`${filename}: Missing width attribute.`);
+    if (!svgWidth || !svgHeight || !svgViewBox) {
+      throw new Error(`${filename}: Missing required SVG attributes (width, height, or viewBox).`);
     }
 
-    if (!svgHeight) {
-      throw new Error(`${filename}: Missing height attribute.`);
-    }
-
-    if (!svgViewBox) {
-      throw new Error(`${filename}: Missing viewBox attribute.`);
-    }
-
-    if (svgHeight !== parseInt(height, 10)) {
-      throw new Error(`${filename}: Height in filename does not match height attribute of SVG`);
+    if (parseInt(height, 10) !== svgHeight) {
+      throw new Error(`${filename}: Height in filename does not match height attribute of SVG.`);
     }
 
     const viewBoxPattern = /0 0 ([0-9]+) ([0-9]+)/;
+    const viewBoxMatch = svgViewBox.match(viewBoxPattern);
 
-    if (!viewBoxPattern.test(svgViewBox)) {
-      throw new Error(
-        `${filename}: Invalid viewBox attribute. The viewBox attribute should be in the following format: "0 0 <width> <height>"`,
-      );
-    }
-
-    const [, viewBoxWidth, viewBoxHeight] = svgViewBox.match(viewBoxPattern);
-
-    if (svgWidth !== parseInt(viewBoxWidth, 10)) {
-      throw new Error(`${filename}: width attribute and viewBox width do not match.`);
-    }
-
-    if (svgHeight !== parseInt(viewBoxHeight, 10)) {
-      throw new Error(`${filename}: height attribute and viewBox height do not match.`);
+    if (!viewBoxMatch || parseInt(viewBoxMatch[1], 10) !== svgWidth || parseInt(viewBoxMatch[2], 10) !== svgHeight) {
+      throw new Error(`${filename}: viewBox dimensions do not match width and height attributes.`);
     }
 
     return {
@@ -113,40 +85,46 @@ const icons = svgFilepaths.map((filepath) => {
       width: svgWidth,
     };
   } catch (error) {
-    logger.error(error);
-    // Instead of exiting immediately, we set exitCode to 1 and continue
-    // iterating through the rest of the SVGs. This allows us to identify all
-    // the SVGs that have errors, not just the first one. An exit code of 1
-    // indicates that an error occurred.
-    // Reference: https://nodejs.org/api/process.html#process_exit_codes
-    exitCode = 1;
+    logger.error(error.message);
     return null;
   }
-});
+};
 
-// Exit early if any errors occurred.
-if (exitCode !== 0) {
-  process.exit(exitCode);
-}
+const main = async () => {
+  const svgFilepaths = await getSvgFilePaths();
 
-const iconsByName = icons.reduce(
-  (acc, icon) => merge(acc, {
-    [icon.name]: {
-      heights: {
-        [icon.height]: {
-          ast: icon.ast,
-          path: icon.path,
-          width: icon.width,
+  if (svgFilepaths.length === 0) {
+    logger.error('No input SVG file(s) found');
+    process.exit(1);
+  }
+
+  const icons = (await Promise.all(svgFilepaths.map(processSvgFile))).filter(Boolean);
+
+  if (icons.length === 0) {
+    process.exit(1);
+  }
+
+  const iconsByName = icons.reduce(
+    (acc, icon) =>
+      merge(acc, {
+        [icon.name]: {
+          heights: {
+            [icon.height]: {ast: icon.ast, path: icon.path, width: icon.width},
+          },
+          name: icon.name,
         },
-      },
-      name: icon.name,
-    },
-  }),
-  {},
-);
+      }),
+    {},
+  );
 
-if (PATHS.output) {
-  fs.outputJsonSync(PATHS.output, iconsByName);
-} else {
-  process.stdout.write(JSON.stringify(iconsByName));
-}
+  if (PATHS.output) {
+    await fs.outputJson(PATHS.output, iconsByName);
+  } else {
+    process.stdout.write(JSON.stringify(iconsByName));
+  }
+};
+
+main().catch(error => {
+  logger.error('Unexpected error:', error);
+  process.exit(1);
+});

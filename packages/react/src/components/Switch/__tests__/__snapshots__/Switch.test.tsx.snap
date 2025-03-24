@@ -7,7 +7,7 @@ exports[`Alert should match the snapshot 1`] = `
       class="MuiSwitch-root MuiSwitch-sizeMedium oxygen-switch css-julti5-MuiSwitch-root"
     >
       <span
-        class="MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary css-67kisp-MuiButtonBase-root-MuiSwitch-switchBase"
+        class="MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary css-yohqqs-MuiButtonBase-root-MuiSwitch-switchBase"
       >
         <input
           class="PrivateSwitchBase-input MuiSwitch-input css-1m9pwf3"

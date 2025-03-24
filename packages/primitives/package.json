@@ -4,7 +4,7 @@
   "description": "Low level building blocks of the Oxygen Design System",
   "author": "WSO2",
   "license": "Apache-2.0",
-  "type": "commonjs",
+  "type": "module",
   "files": [
     "dist"
   ],
@@ -29,18 +29,20 @@
     "build": "node ./scripts/build.js",
     "lint": "pnpm lint:es",
     "lint:es": "eslint .",
-    "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest --passWithNoTests",
+    "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest --passWithNoTests --coverage",
     "transform": "node ./scripts/transform.js",
     "typecheck": "tsc --noemit -p tsconfig.json"
   },
   "devDependencies": {
     "@babel/parser": "^7.20.5",
     "@divriots/style-dictionary-to-figma": "^0.4.0",
+    "@jest/globals": "^29.3.1",
     "@oxygen-ui/logger": "2.3.4",
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.18",
-    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b21bbbd7379ab3b7315d7d9478dbd88c0bf11241",
-    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b21bbbd7379ab3b7315d7d9478dbd88c0bf11241",
+    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?4ee6f6be232d7631999d709a86b91612f1d34ce7",
+    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?4ee6f6be232d7631999d709a86b91612f1d34ce7",
+    "babel-jest": "^29.3.1",
     "cheerio": "1.0.0-rc.12",
     "eslint": "8.25.0",
     "fs-extra": "^11.1.0",
@@ -51,6 +53,7 @@
     "svgson": "^5.2.1",
     "token-transformer": "^0.0.28",
     "trim-newlines": "^3.0.1",
+    "ts-jest": "^29.0.3",
     "typescript": "^4.9.3"
   },
   "publishConfig": {

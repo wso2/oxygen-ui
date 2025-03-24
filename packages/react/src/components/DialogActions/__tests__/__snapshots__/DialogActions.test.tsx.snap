@@ -4,7 +4,7 @@ exports[`DialogActions should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="MuiDialogActions-root MuiDialogActions-spacing OxygenDialogActions-root css-hlj6pa-MuiDialogActions-root"
+      class="MuiDialogActions-root MuiDialogActions-spacing OxygenDialogActions-root css-knqc4i-MuiDialogActions-root"
     />
   </div>
 </body>

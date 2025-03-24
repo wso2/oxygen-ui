@@ -16,11 +16,10 @@
  * under the License.
  */
 
-import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import MuiTabs from '@mui/material/Tabs';
 import type {TabsProps as MuiTabsProps, TabsTypeMap} from '@mui/material/Tabs';
 import clsx from 'clsx';
-import {forwardRef} from 'react';
+import {forwardRef, ForwardRefExoticComponent} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
 import Box from '../Box';
 import Divider from '../Divider';
@@ -54,27 +53,25 @@ export type TabsProps<
  * - ✅ `component` prop is supported.
  * - ✅ The `ref` is forwarded to the root element.
  *
+ * @deprecated Use the `Tab` component directly from `@oxygen-ui/react/Tab` instead.
+ * Tracker: https://github.com/wso2/oxygen-ui/issues/340
+ *
  * @template C - The type of the component.
  * @param props - The props for the Skeleton component.
  * @param ref - The ref to be forwarded to the MuiSkeleton component.
  * @returns The rendered Skeleton component.
  */
-const Tabs: OverridableComponent<TabsTypeMap<TabsProps>> = forwardRef(
-  <C extends ElementType = ElementType>(
-    {className, ...rest}: TabsProps<C>,
-    ref: Ref<HTMLButtonElement>,
-  ): ReactElement => {
+const Tabs: ForwardRefExoticComponent<TabsProps> = forwardRef(
+  <C extends ElementType = ElementType>({className, ...rest}: TabsProps<C>, ref: Ref<HTMLDivElement>): ReactElement => {
     const classes: string = clsx('oxygen-tabs', className);
-
-    // TODO: Need to evaluate this wrapper.
-    // Should directly return the MuiTabs component instead of wrapping it with Box and Divider.
     return (
       <Box className={classes}>
+        {/* @ts-ignore */}
         <MuiTabs ref={ref} {...rest} />
         <Divider />
       </Box>
     );
   },
-) as OverridableComponent<TabsTypeMap<TabsProps>>;
+) as unknown as ForwardRefExoticComponent<TabsProps>;
 
 export default Tabs;

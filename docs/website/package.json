@@ -28,11 +28,12 @@
     "lint": "pnpm lint:es && pnpm lint:styles",
     "lint:es": "next lint",
     "lint:styles": "stylelint 'styles/**/*.{css,scss,sass}' --config stylelint.config.cjs --allow-empty-input",
+    "test": "NODE_OPTIONS=--experimental-vm-modules pnpm jest --passWithNoTests --coverage",
     "typecheck": "tsc --noemit -p tsconfig.json"
   },
   "dependencies": {
     "@next/font": "^13.4.5",
-    "@types/node": "18.11.10",
+    "@oxygen-ui/react": "workspace:*",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "clsx": "^1.2.1",
@@ -44,14 +45,24 @@
     "typescript": "4.9.3"
   },
   "devDependencies": {
-    "@oxygen-ui/logger": "2.3.4",
-    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?b21bbbd7379ab3b7315d7d9478dbd88c0bf11241",
-    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?b21bbbd7379ab3b7315d7d9478dbd88c0bf11241",
-    "@wso2/stylelint-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/stylelint-config?b21bbbd7379ab3b7315d7d9478dbd88c0bf11241",
+    "@jest/types": "^29.6.3",
+    "@oxygen-ui/logger": "workspace:*",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@types/jest": "^29.2.3",
+    "@types/node": "18.11.10",
+    "@types/testing-library__jest-dom": "^5.14.5",
+    "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?4ee6f6be232d7631999d709a86b91612f1d34ce7",
+    "@wso2/prettier-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/prettier-config?4ee6f6be232d7631999d709a86b91612f1d34ce7",
+    "@wso2/stylelint-config": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/stylelint-config?4ee6f6be232d7631999d709a86b91612f1d34ce7",
     "dotenv": "^16.0.3",
     "fs-extra": "^11.1.0",
+    "jest": "29.0.3",
+    "jest-environment-jsdom": "^29.7.0",
     "serve": "^14.2.0",
-    "stylelint": "^15.1.0"
+    "stylelint": "^15.1.0",
+    "ts-node": "^10.9.1"
   },
   "publishConfig": {
     "access": "restricted"

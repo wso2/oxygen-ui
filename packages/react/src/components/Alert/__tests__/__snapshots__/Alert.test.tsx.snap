@@ -4,7 +4,7 @@ exports[`Alert should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-standardSuccess MuiAlert-standard oxygen-alert css-pi3gqw-MuiPaper-root-MuiAlert-root"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-colorSuccess MuiAlert-standardSuccess MuiAlert-standard oxygen-alert css-av70d8-MuiPaper-root-MuiAlert-root"
       role="alert"
     >
       <div

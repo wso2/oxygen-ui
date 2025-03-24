@@ -24,23 +24,19 @@
 
   .oxygen-footer-container {
     display: flex;
-    justify-content: space-between;
-    align-content: center;
-    align-items: center;
+    place-content: center space-between;
     flex-flow: row wrap;
   }
 
   &.mobile {
     .oxygen-footer-container {
-      justify-content: center;
+      place-content: center;
     }
   }
 
   .oxygen-footer-links {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
+    place-content: center;
     flex-flow: row wrap;
 
     .oxygen-footer-link {

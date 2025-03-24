@@ -16,13 +16,13 @@
  * under the License.
  */
 
-const resolve = require('@rollup/plugin-node-resolve');
 const commonjs = require('@rollup/plugin-commonjs');
+const image = require('@rollup/plugin-image');
+const resolve = require('@rollup/plugin-node-resolve');
 const typescript = require('@rollup/plugin-typescript');
 const dts = require('rollup-plugin-dts');
 const postcss = require('rollup-plugin-postcss');
 const {terser} = require('rollup-plugin-terser');
-const image = require('@rollup/plugin-image');
 
 const pkg = require('./package.json');
 
@@ -36,17 +36,16 @@ const pkg = require('./package.json');
  */
 const shouldExclude = (includeMaterialDeps = false) => {
   const peerDeps = includeMaterialDeps
-    ? Object.keys(pkg.peerDependencies || {}).filter(id => {
-        return (
+    ? Object.keys(pkg.peerDependencies || {}).filter(
+        id =>
           !id.startsWith('@emotion/react') &&
           !id.startsWith('@emotion/styled') &&
           !id.startsWith('@mui/icons-material') &&
           !id.startsWith('@mui/lab') &&
           !id.startsWith('@mui/material') &&
           !id.startsWith('@mui/system') &&
-          !id.startsWith('@mui/utils')
-        );
-      })
+          !id.startsWith('@mui/utils'),
+      )
     : Object.keys(pkg.peerDependencies || {});
 
   const regExps = peerDeps.map(dep => new RegExp(`^${dep}(\\/\.+)*$`));
@@ -56,8 +55,8 @@ const shouldExclude = (includeMaterialDeps = false) => {
 module.exports = [
   {
     cache: false,
-    input: 'src/index.ts',
     external: shouldExclude(),
+    input: 'src/index.ts',
     output: [
       {
         file: pkg.module,
@@ -65,19 +64,12 @@ module.exports = [
         sourcemap: true,
       },
     ],
-    plugins: [
-      resolve(),
-      commonjs(),
-      typescript({tsconfig: './tsconfig.lib.json'}),
-      postcss(),
-      terser(),
-      image(),
-    ],
+    plugins: [resolve(), commonjs(), typescript({tsconfig: './tsconfig.lib.json'}), postcss(), terser(), image()],
   },
   {
     cache: false,
-    input: 'src/index.ts',
     external: shouldExclude(true),
+    input: 'src/index.ts',
     output: [
       {
         file: pkg.main,
@@ -85,14 +77,7 @@ module.exports = [
         sourcemap: true,
       },
     ],
-    plugins: [
-      resolve(),
-      commonjs(),
-      typescript({ tsconfig: './tsconfig.lib.json' }),
-      postcss(),
-      terser(),
-      image(),
-    ],
+    plugins: [resolve(), commonjs(), typescript({tsconfig: './tsconfig.lib.json'}), postcss(), terser(), image()],
   },
   {
     cache: false,

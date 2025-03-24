@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,26 +16,31 @@
  * under the License.
  */
 
-module.exports = {
-  displayName: '@oxygen-ui-examples/multi-brand-identity',
-  globals: {},
-  moduleDirectories: ['node_modules', 'test-configs', __dirname],
-  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'node'],
+import type {JestConfigWithTsJest} from 'ts-jest';
+
+const jestConfig: JestConfigWithTsJest = {
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
   moduleNameMapper: {
     '@oxygen-ui/react': '<rootDir>/node_modules/@oxygen-ui/react',
     '\\.(css|less|sass|scss)$': '<rootDir>/test-configs/__mocks__/style-mock.ts',
-    '^@unit-testing(.*)$': '<rootDir>/test-configs/utils',
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+    '^@oxygen-ui/primitives$': '<rootDir>/node_modules/@oxygen-ui/primitives',
+    '^@oxygen-ui/primitives/(.*)$': '<rootDir>/node_modules/@oxygen-ui/primitives/$1',
+    '^@unit-testing$': '<rootDir>/test-configs/index.ts',
   },
-  modulePaths: ['<rootDir>'],
-  roots: ['src'],
+  preset: 'ts-jest',
   setupFilesAfterEnv: ['<rootDir>/test-configs/setup-test.ts'],
-  testEnvironment: 'jest-environment-jsdom',
-  testMatch: ['<rootDir>/**/?(*.)test.{ts,tsx}'],
-  testPathIgnorePatterns: ['<rootDir>/(dist|node_modules)/'],
+  testEnvironment: 'jsdom',
+  testPathIgnorePatterns: ['/node_modules/'],
   transform: {
-    '^.+\\.(js|jsx)?$': 'babel-jest',
-    '^.+\\.(ts|tsx)?$': 'ts-jest',
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        useESM: true,
+      },
+    ],
   },
-  transformIgnorePatterns: ['/node_modules/?(?!@wso2)', '/node_modules/(?!@oxygen-ui/react/)'],
   verbose: true,
 };
+
+export default jestConfig;

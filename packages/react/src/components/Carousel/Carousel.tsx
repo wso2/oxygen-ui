@@ -138,7 +138,7 @@ const Carousel: OverridableComponent<BoxTypeMap<CarouselProps>> = forwardRef(
         return () => {};
       }
 
-      const interval: NodeJS.Timer = setInterval(() => {
+      const interval: NodeJS.Timeout = setInterval(() => {
         if (isLastStep) {
           setCurrentStep(0);
         } else {

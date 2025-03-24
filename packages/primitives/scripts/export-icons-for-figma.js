@@ -18,7 +18,7 @@
 
 import fs from 'fs/promises';
 import path from 'path';
-import { logger } from '@oxygen-ui/logger';
+import {logger} from '@oxygen-ui/logger';
 
 const packagePath = process.cwd();
 const srcPath = path.join(packagePath, 'src');
@@ -38,7 +38,7 @@ function convertIconName(fileName) {
   const nameParts = fileName.split('-');
   nameParts.pop();
 
-  const iconName = nameParts.map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join('');
+  const iconName = nameParts.map(part => part.charAt(0).toUpperCase() + part.slice(1)).join('');
 
   return `${iconName}Icon.svg`;
 }
@@ -48,15 +48,15 @@ function convertIconName(fileName) {
  */
 async function processIcons() {
   try {
-    await fs.mkdir(figmaIconsExportPath, { recursive: true });
+    await fs.mkdir(figmaIconsExportPath, {recursive: true});
 
     const files = await fs.readdir(srcIconsPath);
-    const svgFiles = files.filter((file) => file.endsWith('.svg'));
+    const svgFiles = files.filter(file => file.endsWith('.svg'));
 
     const iconManifest = [];
 
     await Promise.all(
-      svgFiles.map(async (fileName) => {
+      svgFiles.map(async fileName => {
         const newIconName = convertIconName(fileName);
         const srcIconPath = path.join(srcIconsPath, fileName);
         const destIconPath = path.join(figmaIconsExportPath, newIconName);
@@ -67,7 +67,7 @@ async function processIcons() {
       }),
     );
 
-    await fs.mkdir(manifestDir, { recursive: true });
+    await fs.mkdir(manifestDir, {recursive: true});
     await fs.writeFile(iconManifestPath, iconManifest.join('\n'), 'utf8');
 
     logger.info('Icons processed and exported successfully!');
@@ -82,7 +82,7 @@ async function run() {
 
     try {
       await fs.access(figmaExportPath);
-      await fs.rm(figmaExportPath, { recursive: true });
+      await fs.rm(figmaExportPath, {recursive: true});
 
       logger.info('`.export` directory exist. Removing the directory...');
     } catch (err) {

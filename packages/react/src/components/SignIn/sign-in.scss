@@ -18,10 +18,8 @@
 
 .oxygen-sign-in {
   display: flex;
+  place-content: center;
   flex-flow: column nowrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
   text-align: left;
 
   .oxygen-sign-in-box {

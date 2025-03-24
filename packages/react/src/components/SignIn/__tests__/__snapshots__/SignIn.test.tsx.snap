@@ -148,7 +148,7 @@ exports[`SignIn should match the snapshot 1`] = `
               class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd oxygen-form-control-label css-tajcny-MuiFormControlLabel-root"
             >
               <span
-                class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary Mui-checked MuiCheckbox-root MuiCheckbox-colorPrimary oxygen-checkbox css-hvaz3l-MuiButtonBase-root-MuiCheckbox-root"
+                class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium Mui-checked MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium oxygen-checkbox css-hvaz3l-MuiButtonBase-root-MuiCheckbox-root"
               >
                 <input
                   checked=""
@@ -179,7 +179,7 @@ exports[`SignIn should match the snapshot 1`] = `
             </label>
           </div>
           <button
-            class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation MuiButton-fullWidth MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation MuiButton-fullWidth oxygen-button oxygen-sign-in-cta css-1nncas0-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
+            class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation MuiButton-fullWidth MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation MuiButton-fullWidth oxygen-button oxygen-sign-in-cta css-1nncas0-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
             id=":r5:"
             tabindex="0"
             type="submit"
@@ -201,7 +201,7 @@ exports[`SignIn should match the snapshot 1`] = `
               class="MuiGrid2-root MuiGrid2-direction-xs-row oxygen-grid css-27y2fm-MuiGrid2-root"
             >
               <a
-                class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineHover oxygen-link oxygen-sign-in-sign-up-link-action css-c2ph3r-MuiTypography-root-MuiLink-root"
+                class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineHover oxygen-link oxygen-sign-in-sign-up-link-action css-n1y106-MuiTypography-root-MuiLink-root"
                 href="#"
               >
                 Sign up

@@ -11,7 +11,7 @@ exports[`CircularProgressAvatar should match the snapshot 1`] = `
         class="MuiBadge-root oxygen-badge oxygen-badge css-1c32n2y-MuiBadge-root"
       >
         <div
-          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault oxygen-avatar css-woe6xp-MuiAvatar-root"
+          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault oxygen-avatar OxygenAvatar-root css-pvylc3-MuiAvatar-root"
         >
           <svg
             aria-hidden="true"
@@ -70,7 +70,7 @@ exports[`CircularProgressAvatar should match the snapshot 1`] = `
           </svg>
         </span>
         <span
-          class="MuiBadge-badge MuiBadge-standard MuiBadge-invisible MuiBadge-anchorOriginBottomLeft MuiBadge-anchorOriginBottomLeftCircular MuiBadge-overlapCircular css-1wtd2qa-MuiBadge-badge"
+          class="MuiBadge-badge MuiBadge-standard MuiBadge-invisible MuiBadge-anchorOriginBottomLeft MuiBadge-anchorOriginBottomLeftCircular MuiBadge-overlapCircular css-x2j13g-MuiBadge-badge"
         />
       </span>
     </div>

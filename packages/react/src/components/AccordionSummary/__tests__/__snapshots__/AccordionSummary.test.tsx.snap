@@ -4,12 +4,12 @@ exports[`AccordionSummary should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="MuiButtonBase-root MuiAccordionSummary-root MuiAccordionSummary-gutters oxygen-accordion-summary css-b0toe7-MuiButtonBase-root-MuiAccordionSummary-root"
+      class="MuiButtonBase-root MuiAccordionSummary-root MuiAccordionSummary-gutters oxygen-accordion-summary css-n40v0g-MuiButtonBase-root-MuiAccordionSummary-root"
       role="button"
       tabindex="0"
     >
       <div
-        class="MuiAccordionSummary-content MuiAccordionSummary-contentGutters css-o4b71y-MuiAccordionSummary-content"
+        class="MuiAccordionSummary-content MuiAccordionSummary-contentGutters css-eqpfi5-MuiAccordionSummary-content"
       />
     </div>
   </div>

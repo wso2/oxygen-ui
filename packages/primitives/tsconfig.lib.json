@@ -2,9 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
-    "types": [
-      "node"
-    ]
+    "types": ["node"]
   },
   "files": [],
   "exclude": [
@@ -18,10 +16,5 @@
     "**/*.spec.jsx",
     "**/*.test.jsx"
   ],
-  "include": [
-    "**/*.js",
-    "**/*.jsx",
-    "**/*.ts",
-    "**/*.tsx"
-, "sd.config.cjs"  ]
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "sd.config.cjs"]
 }

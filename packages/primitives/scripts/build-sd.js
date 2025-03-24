@@ -21,10 +21,16 @@
  * @fileoverview Build script to generate the Style Dictionary output.
  */
 
-const fs = require('fs');
-const path = require('path');
-const { logger } = require('@oxygen-ui/logger');
-const StyleDictionary = require('style-dictionary');
+import fs from 'fs';
+import path from 'path';
+import {fileURLToPath} from 'url';
+import {logger} from '@oxygen-ui/logger';
+import StyleDictionary from 'style-dictionary';
+
+// eslint-disable-next-line no-underscore-dangle
+const __filename = fileURLToPath(import.meta.url);
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = path.dirname(__filename);
 
 const PATHS = {
   source: {
@@ -71,6 +77,10 @@ const getStyleDictionaryConfig = (brand, source) => {
             format: 'typescript/es6-declarations',
           },
           {
+            destination: sourceFileName.replace('.json', '.es6.d.ts'),
+            format: 'typescript/es6-declarations',
+          },
+          {
             destination: sourceFileName.replace('.json', '.js'),
             format: 'javascript/module-flat',
           },
@@ -98,19 +108,27 @@ const getStyleDictionaryConfig = (brand, source) => {
   };
 };
 
-fs.readdirSync(PATHS.source.tokens)
-  .forEach((brand) => {
+const processDesignTokens = async () => {
+  const brands = fs.readdirSync(PATHS.source.tokens);
+
+  brands.forEach(async brand => {
     logger.info(`Processing the Brand: [ ${brand} ]`);
+    const tokenFiles = fs.readdirSync(path.join(PATHS.source.tokens, brand));
 
-    fs.readdirSync(path.join(PATHS.source.tokens, brand))
-      .forEach((tokenFile) => {
-        const filePath = path.join(PATHS.source.tokens, brand, tokenFile);
+    tokenFiles.forEach(async tokenFile => {
+      const filePath = path.join(PATHS.source.tokens, brand, tokenFile);
+      const StyleDictionaryExtended = StyleDictionary.extend(getStyleDictionaryConfig(brand, filePath));
 
-        const StyleDictionaryExtended = StyleDictionary
-          .extend(getStyleDictionaryConfig(brand, filePath));
-
-        StyleDictionaryExtended.buildPlatform('web/es');
-        StyleDictionaryExtended.buildPlatform('web/css');
-        StyleDictionaryExtended.buildPlatform('web/scss');
-      });
+      await Promise.all([
+        StyleDictionaryExtended.buildPlatform('web/es'),
+        StyleDictionaryExtended.buildPlatform('web/css'),
+        StyleDictionaryExtended.buildPlatform('web/scss'),
+      ]);
+    });
   });
+};
+
+processDesignTokens().catch(error => {
+  logger.error('Error processing design tokens:', error);
+  process.exit(1);
+});

@@ -26,14 +26,11 @@ module.exports = {
     'plugin:@wso2/jest',
     'plugin:@wso2/prettier',
     'plugin:mdx/recommended',
-    'plugin:react/jsx-runtime'
+    'plugin:react/jsx-runtime',
   ],
   parserOptions: {
-    project: [
-      path.resolve(__dirname, 'tsconfig.app.json'),
-      path.resolve(__dirname, 'tsconfig.spec.json'),
-    ],
-    "sourceType": "module"
+    project: [path.resolve(__dirname, 'tsconfig.app.json'), path.resolve(__dirname, 'tsconfig.spec.json')],
+    sourceType: 'module',
   },
   plugins: ['@wso2'],
 };

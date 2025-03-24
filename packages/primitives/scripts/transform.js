@@ -16,12 +16,18 @@
  * under the License.
  */
 
-const { execSync } = require('child_process');
-const path = require('path');
-const { logger } = require('@oxygen-ui/logger');
-const fs = require('fs-extra');
-const tokens = require('../figma/tokens.json');
-const pkg = require('../package.json');
+import {execSync} from 'child_process';
+import path from 'path';
+import {fileURLToPath} from 'url';
+import {logger} from '@oxygen-ui/logger';
+import fs from 'fs-extra';
+import tokens from '../figma/tokens.json';
+import pkg from '../package.json';
+
+// eslint-disable-next-line no-underscore-dangle
+const __filename = fileURLToPath(import.meta.url);
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = path.dirname(__filename);
 
 const GLOBAL_TOKEN_SET_MATCHERS = ['global'];
 const INPUT = path.join(__dirname, '..', 'figma', 'tokens.json');
@@ -29,24 +35,22 @@ const OUTPUT_DIR = path.join(__dirname, '..', 'src', 'design-tokens');
 
 const transformTokensToStyleDictionary = () => {
   const tokenSets = tokens.$metadata.tokenSetOrder;
-  const getGlobalTokenSets = () => tokenSets
-    .filter((tokenSet) => GLOBAL_TOKEN_SET_MATCHERS
-      .some((matcher) => tokenSet.startsWith(matcher)));
+  const getGlobalTokenSets = () =>
+    tokenSets.filter(tokenSet => GLOBAL_TOKEN_SET_MATCHERS.some(matcher => tokenSet.startsWith(matcher)));
 
-  tokenSets.forEach((tokenSet) => {
+  tokenSets.forEach(tokenSet => {
     if (!fs.existsSync(OUTPUT_DIR)) {
       fs.mkdirSync(OUTPUT_DIR);
     }
 
     const tokenSetBase = tokenSet.split('-')[0];
     const isTokenSetVariant = tokenSet.split(`${tokenSetBase}-`).length > 1;
-    const tokensFileName = isTokenSetVariant ? `${tokenSet.replace(`${tokenSetBase}-`, '')}.tokens.json` : 'tokens.json';
+    const tokensFileName = isTokenSetVariant
+      ? `${tokenSet.replace(`${tokenSetBase}-`, '')}.tokens.json`
+      : 'tokens.json';
     const outputPath = path.join(OUTPUT_DIR, tokenSetBase, tokensFileName);
-    let exclude = getGlobalTokenSets().filter((set) => set !== tokenSet);
+    let exclude = getGlobalTokenSets().filter(set => set !== tokenSet);
 
-    // If the current token set is one of the global token sets,
-    // the `token-transformer` should be like below.
-    //   -> pnpm token-transformer input.json output.json global --flags
     if (GLOBAL_TOKEN_SET_MATCHERS.includes(tokenSet)) {
       exclude = [];
     }
@@ -55,7 +59,7 @@ const transformTokensToStyleDictionary = () => {
 
     logger.info(pkg.name, '💭 Processing the design tokens');
     logger.info(pkg.name, `    -> Including: [ ${getTokenSetsToInclude()} ]`);
-    logger.info(pkg.name, `    -> excluding: [${exclude}]`);
+    logger.info(pkg.name, `    -> Excluding: [ ${exclude} ]`);
 
     execSync(
       `pnpm token-transformer ${INPUT} ${outputPath} ${getTokenSetsToInclude()} ${exclude} --resolveReferences true`,

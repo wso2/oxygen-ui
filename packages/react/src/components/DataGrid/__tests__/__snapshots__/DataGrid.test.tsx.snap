@@ -7,7 +7,7 @@ exports[`DataGrid should match the snapshot 1`] = `
       aria-colcount="0"
       aria-multiselectable="false"
       aria-rowcount="1"
-      class="oxygen-data-grid MuiDataGrid-root MuiDataGrid-root--densityStandard MuiDataGrid-withBorderColor css-if49jn-MuiDataGrid-root"
+      class="oxygen-data-grid MuiDataGrid-root MuiDataGrid-root--densityStandard MuiDataGrid-withBorderColor css-1eoyxs3-MuiDataGrid-root"
       role="grid"
     >
       <div
@@ -15,6 +15,7 @@ exports[`DataGrid should match the snapshot 1`] = `
       >
         <div
           class="MuiDataGrid-columnHeaders MuiDataGrid-withBorderColor css-1iyq7zh-MuiDataGrid-columnHeaders"
+          role="presentation"
           style="min-height: 56px; max-height: 56px; line-height: 56px;"
         >
           <div
@@ -30,7 +31,8 @@ exports[`DataGrid should match the snapshot 1`] = `
           </div>
         </div>
         <div
-          class="MuiDataGrid-virtualScroller css-axafay-MuiDataGrid-virtualScroller"
+          class="MuiDataGrid-virtualScroller css-qvtrhg-MuiDataGrid-virtualScroller"
+          role="presentation"
           style="overflow-x: hidden;"
         >
           <div
@@ -38,7 +40,7 @@ exports[`DataGrid should match the snapshot 1`] = `
           >
             <div
               class="MuiDataGrid-overlayWrapperInner css-1akuw9y-MuiDataGrid-overlayWrapperInner"
-              style="height: -56px; width: 0px;"
+              style="height: 0px; width: 0px;"
             >
               <div
                 class="MuiDataGrid-overlay css-1w53k9d-MuiDataGrid-overlay"
@@ -49,10 +51,12 @@ exports[`DataGrid should match the snapshot 1`] = `
           </div>
           <div
             class="MuiDataGrid-virtualScrollerContent MuiDataGrid-virtualScrollerContent--overflowed css-1kwdphh-MuiDataGrid-virtualScrollerContent"
+            role="presentation"
             style="width: auto; height: 1px; min-height: auto;"
           >
             <div
               class="MuiDataGrid-virtualScrollerRenderZone css-s1v7zr-MuiDataGrid-virtualScrollerRenderZone"
+              role="rowgroup"
               style="transform: translate3d(NaNpx, undefinedpx, 0px);"
             />
           </div>
@@ -73,26 +77,28 @@ exports[`DataGrid should match the snapshot 1`] = `
             />
             <p
               class="MuiTablePagination-selectLabel css-3kw8qf-MuiTablePagination-selectLabel"
-              id=":r3:"
+              id=":r4:"
             >
               Rows per page:
             </p>
             <div
-              class="MuiInputBase-root MuiInputBase-colorPrimary css-1ob4j9x-MuiInputBase-root-MuiTablePagination-select"
+              class="MuiInputBase-root MuiInputBase-colorPrimary MuiTablePagination-input css-1ob4j9x-MuiInputBase-root-MuiTablePagination-select"
             >
               <div
+                aria-controls=":r5:"
                 aria-expanded="false"
                 aria-haspopup="listbox"
-                aria-labelledby=":r3: :r2:"
+                aria-labelledby=":r4: :r3:"
                 class="MuiSelect-select MuiTablePagination-select MuiSelect-standard MuiInputBase-input css-110apic-MuiSelect-select-MuiInputBase-input"
-                id=":r2:"
-                role="button"
+                id=":r3:"
+                role="combobox"
                 tabindex="0"
               >
                 100
               </div>
               <input
                 aria-hidden="true"
+                aria-invalid="false"
                 class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
                 tabindex="-1"
                 value="100"

@@ -17,9 +17,15 @@
  * under the License.
  */
 
-const cp = require('child_process');
-const path = require('path');
-const { logger } = require('@oxygen-ui/logger');
+import {execSync} from 'child_process';
+import path from 'path';
+import {fileURLToPath} from 'url';
+import {logger} from '@oxygen-ui/logger';
+
+// eslint-disable-next-line no-underscore-dangle
+const __filename = fileURLToPath(import.meta.url);
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = path.dirname(__filename);
 
 /* ====================================================================================== */
 /* Execution starts from here                                                             */
@@ -30,10 +36,10 @@ logger.log();
 logger.log('                         💅  Building Style Dictionary  💅                         ');
 logger.log();
 
-cp.execSync(`node ${path.resolve(__dirname, 'build-sd.js')}`, { stdio: 'inherit' });
+execSync(`node ${path.resolve(__dirname, 'build-sd.js')}`, {stdio: 'inherit'});
 
 logger.log();
 logger.log('                          💅  Building the SVG Icons  💅                           ');
 logger.log();
 
-cp.execSync(`node ${path.resolve(__dirname, 'build-icons.js')}`, { stdio: 'inherit' });
+execSync(`node ${path.resolve(__dirname, 'build-icons.js')}`, {stdio: 'inherit'});

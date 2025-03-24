@@ -16,17 +16,16 @@
  * under the License.
  */
 
-const path = require('path');
-
-module.exports = {
-  extends: [
-    'plugin:@wso2/typescript',
-    'plugin:@wso2/strict',
-    'plugin:@wso2/internal',
-    'plugin:@wso2/jest',
-    'plugin:@wso2/prettier',
-  ],
-  parserOptions: {
-    project: [path.resolve(__dirname, 'tsconfig.eslint.json')],
-  },
-};
+Object.defineProperty(window, 'matchMedia', {
+  value: jest.fn().mockImplementation((query: any) => ({
+    addEventListener: jest.fn(),
+    addListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+    matches: false,
+    media: query,
+    onchange: null,
+    removeEventListener: jest.fn(),
+    removeListener: jest.fn(),
+  })),
+  writable: true,
+});

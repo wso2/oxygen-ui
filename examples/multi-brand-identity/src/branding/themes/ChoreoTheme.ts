@@ -17,7 +17,11 @@
  */
 
 /* eslint-disable sort-keys */
-import tokens from '@oxygen-ui/primitives/dist/design-tokens/web/choreo/es/tokens';
+import {
+  ChoreoOxygenColorsPrimaryDark,
+  ChoreoOxygenColorsPrimaryDefault,
+  ChoreoOxygenColorsPrimaryLight,
+} from '@oxygen-ui/primitives/dist/design-tokens/web/choreo/es/tokens.es6';
 import {extendTheme, Theme} from '@oxygen-ui/react';
 
 const ChoreoTheme: Theme = extendTheme({
@@ -330,14 +334,14 @@ const ChoreoTheme: Theme = extendTheme({
         },
         gradients: {
           primary: {
-            stop1: tokens.ChoreoOxygenColorsPrimaryDefault,
-            stop2: tokens.ChoreoOxygenColorsPrimaryDefault,
+            stop1: ChoreoOxygenColorsPrimaryDefault,
+            stop2: ChoreoOxygenColorsPrimaryDefault,
           },
         },
         primary: {
-          light: tokens.ChoreoOxygenColorsPrimaryLight,
-          main: tokens.ChoreoOxygenColorsPrimaryDefault,
-          dark: tokens.ChoreoOxygenColorsPrimaryDark,
+          light: ChoreoOxygenColorsPrimaryLight,
+          main: ChoreoOxygenColorsPrimaryDefault,
+          dark: ChoreoOxygenColorsPrimaryDark,
         },
         secondary: {
           light: '#f7f8fb',
