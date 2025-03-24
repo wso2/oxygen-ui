@@ -154,6 +154,9 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
+      '@jest/globals':
+        specifier: ^29.3.1
+        version: 29.7.0
       '@testing-library/jest-dom':
         specifier: ^5.16.5
         version: 5.17.0
@@ -13491,7 +13494,7 @@ snapshots:
       exit: 0.1.2
       graceful-fs: 4.2.11
       jest-changed-files: 29.7.0
-      jest-config: 29.7.0(@types/node@18.19.80)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@18.11.10)(typescript@4.9.3))
+      jest-config: 29.7.0(@types/node@18.19.80)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@18.19.80)(typescript@4.9.3))
       jest-haste-map: 29.7.0
       jest-message-util: 29.7.0
       jest-regex-util: 29.6.3
@@ -18239,7 +18242,7 @@ snapshots:
       chalk: 4.1.2
       exit: 0.1.2
       graceful-fs: 4.2.11
-      jest-config: 29.7.0(@types/node@18.19.80)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@18.11.10)(typescript@4.9.3))
+      jest-config: 29.7.0(@types/node@18.19.80)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@18.19.80)(typescript@4.9.3))
       jest-util: 29.7.0
       prompts: 2.4.2
     transitivePeerDependencies:
@@ -18269,7 +18272,7 @@ snapshots:
       chalk: 4.1.2
       exit: 0.1.2
       graceful-fs: 4.2.11
-      jest-config: 29.7.0(@types/node@16.18.126)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@16.18.126)(typescript@4.9.3))
+      jest-config: 29.7.0(@types/node@18.19.80)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@18.19.80)(typescript@4.9.3))
       jest-util: 29.7.0
       prompts: 2.4.2
     transitivePeerDependencies:
@@ -21339,7 +21342,7 @@ snapshots:
       create-jest: 29.7.0(@types/node@18.19.80)(babel-plugin-macros@3.1.0)
       exit: 0.1.2
       import-local: 3.2.0
-      jest-config: 29.7.0(@types/node@18.19.80)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@18.11.10)(typescript@4.9.3))
+      jest-config: 29.7.0(@types/node@18.19.80)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@18.19.80)(typescript@4.9.3))
       jest-util: 29.7.0
       jest-validate: 29.7.0
       yargs: 17.7.2
@@ -21377,7 +21380,7 @@ snapshots:
       create-jest: 29.7.0(babel-plugin-macros@3.1.0)
       exit: 0.1.2
       import-local: 3.2.0
-      jest-config: 29.7.0(@types/node@16.18.126)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@16.18.126)(typescript@4.9.3))
+      jest-config: 29.7.0(@types/node@18.19.80)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@18.19.80)(typescript@4.9.3))
       jest-util: 29.7.0
       jest-validate: 29.7.0
       yargs: 17.7.2

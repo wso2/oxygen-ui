@@ -16,5 +16,5 @@
  * under the License.
  */
 
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import './__mocks__/match-media-mock';

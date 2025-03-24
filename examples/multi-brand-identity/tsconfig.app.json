@@ -4,9 +4,9 @@
     "declaration": true,
     "outDir": "dist",
     "declarationDir": "types",
-    "types": ["node"]
+    "types": ["node"],
+    "composite": true
   },
-  "files": [],
   "exclude": [
     "test-configs",
     "jest.config.ts",
@@ -19,5 +19,5 @@
     "**/*.spec.jsx",
     "**/*.test.jsx"
   ],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
+  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
 }

@@ -5,6 +5,7 @@
   "description": "Sample app to showcase Oxygen Design System multi-branding capabilities.",
   "author": "WSO2",
   "license": "Apache-2.0",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/wso2/oxygen/issues"
   },
@@ -38,6 +39,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@jest/globals": "^29.3.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",

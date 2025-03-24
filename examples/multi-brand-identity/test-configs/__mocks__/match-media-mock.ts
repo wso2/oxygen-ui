@@ -16,6 +16,8 @@
  * under the License.
  */
 
+import {jest} from '@jest/globals';
+
 Object.defineProperty(window, 'matchMedia', {
   value: jest.fn().mockImplementation((query: any) => ({
     addEventListener: jest.fn(),
@@ -27,5 +29,4 @@ Object.defineProperty(window, 'matchMedia', {
     removeEventListener: jest.fn(),
     removeListener: jest.fn(),
   })),
-  writable: true,
 });
