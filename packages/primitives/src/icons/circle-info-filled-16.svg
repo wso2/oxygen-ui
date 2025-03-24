@@ -1,0 +1,23 @@
+<!--
+ * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+-->
+
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M8 0C3.5888 0 0 3.5888 0 8C0 12.4112 3.5888 16 8 16C12.4112 16 16 12.4112 16 8C16 3.5888 12.4112 0 8 0ZM8 3.28C8.20569 3.28 8.40677 3.34099 8.57779 3.45527C8.74882 3.56955 8.88212 3.73197 8.96083 3.92201C9.03955 4.11204 9.06015 4.32115 9.02002 4.52289C8.97989 4.72463 8.88084 4.90994 8.73539 5.05539C8.58994 5.20084 8.40463 5.29989 8.20289 5.34002C8.00115 5.38014 7.79204 5.35955 7.60201 5.28083C7.41197 5.20212 7.24955 5.06882 7.13527 4.89779C7.02099 4.72677 6.96 4.52569 6.96 4.32C6.96 4.04417 7.06957 3.77965 7.26461 3.58461C7.45965 3.38957 7.72417 3.28 8 3.28ZM9.92 12.32H6.4C6.23026 12.32 6.06747 12.2526 5.94745 12.1325C5.82743 12.0125 5.76 11.8497 5.76 11.68C5.76 11.5103 5.82743 11.3475 5.94745 11.2275C6.06747 11.1074 6.23026 11.04 6.4 11.04H7.52V7.52H6.88C6.71026 7.52 6.54747 7.45257 6.42745 7.33255C6.30743 7.21252 6.24 7.04974 6.24 6.88C6.24 6.71026 6.30743 6.54747 6.42745 6.42745C6.54747 6.30743 6.71026 6.24 6.88 6.24H8.16C8.32974 6.24 8.49253 6.30743 8.61255 6.42745C8.73257 6.54747 8.8 6.71026 8.8 6.88V11.04H9.92C10.0897 11.04 10.2525 11.1074 10.3725 11.2275C10.4926 11.3475 10.56 11.5103 10.56 11.68C10.56 11.8497 10.4926 12.0125 10.3725 12.1325C10.2525 12.2526 10.0897 12.32 9.92 12.32Z"
+    fill="black" />
+</svg>
