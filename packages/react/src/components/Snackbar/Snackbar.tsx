@@ -21,7 +21,6 @@ import type {SnackbarProps as MuiSnackbarProps} from '@mui/material/Snackbar';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
-import './snackbar.scss';
 
 export type SnackbarProps = MuiSnackbarProps;
 

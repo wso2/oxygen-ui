@@ -21,7 +21,6 @@ import type {StepTypeMap, StepProps as MuiStepProps} from '@mui/material/Step';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement, ForwardRefExoticComponent} from 'react';
-import './step.scss';
 
 export type StepProps<
   C extends ElementType = ElementType,

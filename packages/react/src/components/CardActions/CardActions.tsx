@@ -21,7 +21,6 @@ import type {CardActionsProps as MuiCardActionsProps} from '@mui/material/CardAc
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
-import './card-actions.scss';
 
 export type CardActionsProps = MuiCardActionsProps;
 

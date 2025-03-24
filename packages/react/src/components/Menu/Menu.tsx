@@ -21,7 +21,6 @@ import type {MenuProps as MuiMenuProps} from '@mui/material/Menu';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement, ForwardRefExoticComponent} from 'react';
-import './menu.scss';
 
 export type MenuProps<C extends ElementType = ElementType> = {
   /**

@@ -22,7 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import './input-label.scss';
 
 export type InputLabelProps<
   C extends ElementType = ElementType,

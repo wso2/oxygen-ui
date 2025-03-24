@@ -21,7 +21,6 @@ import type {CircularProgressProps as MuiCircularProgressProps} from '@mui/mater
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
-import './circular-progress.scss';
 
 export type CircularProgressProps = MuiCircularProgressProps;
 

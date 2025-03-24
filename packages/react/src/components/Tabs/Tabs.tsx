@@ -23,7 +23,6 @@ import {forwardRef, ForwardRefExoticComponent} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
 import Box from '../Box';
 import Divider from '../Divider';
-import './tabs.scss';
 
 export type TabsProps<
   C extends ElementType = ElementType,

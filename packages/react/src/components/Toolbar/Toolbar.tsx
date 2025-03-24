@@ -22,7 +22,6 @@ import type {ToolbarProps as MuiToolbarProps, ToolbarTypeMap} from '@mui/materia
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import './toolbar.scss';
 
 export type ToolbarProps<
   C extends ElementType = ElementType,

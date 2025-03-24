@@ -21,7 +21,6 @@ import type {InputProps as MuiInputProps} from '@mui/material/Input';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
-import './input.scss';
 
 export type InputProps = MuiInputProps;
 

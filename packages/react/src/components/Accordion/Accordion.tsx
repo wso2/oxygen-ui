@@ -22,7 +22,6 @@ import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, ReactElement, Ref} from 'react';
 import type {PaperTypeMap} from '../Paper';
-import './accordion.scss';
 
 export type AccordionProps<C extends ElementType = ElementType> = {
   /**

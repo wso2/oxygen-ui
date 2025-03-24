@@ -22,7 +22,6 @@ import type {TypographyProps as MuiTypographyProps, TypographyTypeMap} from '@mu
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import './typography.scss';
 
 export type TypographyProps<
   C extends ElementType = ElementType,

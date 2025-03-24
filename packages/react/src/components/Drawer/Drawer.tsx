@@ -21,7 +21,6 @@ import type {DrawerProps as MuiDrawerProps} from '@mui/material/Drawer';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement, ForwardRefExoticComponent} from 'react';
-import './drawer.scss';
 
 export type DrawerProps<C extends ElementType = ElementType> = {
   /**

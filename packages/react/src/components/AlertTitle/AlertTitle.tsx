@@ -23,7 +23,6 @@ import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ReactElement, ElementType, Ref} from 'react';
 import type {TypographyTypeMap} from '../Typography';
-import './alert-title.scss';
 
 export type AlertTitleProps<C extends ElementType = ElementType> = {
   /**

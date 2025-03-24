@@ -23,7 +23,6 @@ import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ReactElement, ElementType, Ref} from 'react';
 import type {PaperTypeMap} from '../Paper';
-import './alert.scss';
 
 export type AlertProps<C extends ElementType = ElementType> = {
   /**

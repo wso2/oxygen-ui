@@ -21,7 +21,6 @@ import type {GridValidRowModel as MuiXGridValidRowModel, DataGridProps as MuiXDa
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
-import './data-grid.scss';
 
 export type DataGridProps<R extends MuiXGridValidRowModel = any> = MuiXDataGridProps<R>;
 

@@ -21,7 +21,6 @@ import type {ListItemAvatarProps as MuiListItemAvatarProps} from '@mui/material/
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
-import './list-item-avatar.scss';
 
 export type ListItemAvatarProps = MuiListItemAvatarProps;
 

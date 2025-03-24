@@ -22,7 +22,6 @@ import type {Grid2TypeMap, Grid2Props as MuiGridProps} from '@mui/material/Unsta
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import './grid.scss';
 
 export type GridProps<
   C extends ElementType = ElementType,

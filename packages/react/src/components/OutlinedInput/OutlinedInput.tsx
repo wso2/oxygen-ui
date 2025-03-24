@@ -21,7 +21,6 @@ import type {OutlinedInputProps as MuiOutlinedInputProps} from '@mui/material/Ou
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
-import './outlined-input.scss';
 
 export type OutlinedInputProps = MuiOutlinedInputProps;
 

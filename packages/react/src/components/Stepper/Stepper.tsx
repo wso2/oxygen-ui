@@ -22,7 +22,6 @@ import type {StepperProps as MuiStepperProps, StepperTypeMap} from '@mui/materia
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import './stepper.scss';
 
 export type StepperProps<
   C extends ElementType = ElementType,

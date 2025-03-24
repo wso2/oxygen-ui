@@ -23,7 +23,6 @@ import {useColorScheme} from '@mui/material/styles';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, PropsWithChildren, ReactElement, SVGProps} from 'react';
-import './color-mode-toggle.scss';
 
 export type ColorModeToggleProps<
   C extends ElementType = ElementType,

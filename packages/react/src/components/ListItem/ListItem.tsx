@@ -22,7 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, MutableRefObject, ReactElement} from 'react';
-import './list-item.scss';
 
 export type ListItemProps<C extends ElementType = ElementType, D extends ElementType = 'li', P = {}> = {
   /**

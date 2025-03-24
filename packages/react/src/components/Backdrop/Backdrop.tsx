@@ -22,7 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import './backdrop.scss';
 
 export type BackdropProps<
   C extends ElementType = ElementType,

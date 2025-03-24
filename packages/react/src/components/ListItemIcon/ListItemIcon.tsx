@@ -21,7 +21,6 @@ import type {ListItemIconProps as MuiListItemIconProps} from '@mui/material/List
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
-import './list-item-icon.scss';
 
 export type ListItemIconProps = MuiListItemIconProps;
 

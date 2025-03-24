@@ -22,7 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, ReactElement, Ref} from 'react';
-import './app-bar.scss';
 
 export type AppBarProps<
   C extends ElementType = ElementType,
