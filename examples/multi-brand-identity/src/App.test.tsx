@@ -19,6 +19,10 @@
 import {render} from '@unit-testing';
 import App from './App';
 
+/**
+ * Skipping this until unit test related issue in `@oxygen-ui/react` is resolved.
+ * Tracker: https://github.com/wso2/oxygen-ui/issues/218
+ */
 test.skip('App renders', () => {
   render(<App />);
   const {baseElement} = render(<App />);
