@@ -82,7 +82,18 @@ const TableRow: ForwardRefExoticComponent<TableRowProps> = forwardRef(
       );
     }
 
-    return <MuiTableRow ref={ref} className={classes} {...rest} />;
+    return (
+      <MuiTableRow
+        ref={ref}
+        className={clsx(
+          /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+          'oxygen-table-row',
+          'OxygenTableRow-root',
+          className,
+        )}
+        {...rest}
+      />
+    );
   },
 ) as ForwardRefExoticComponent<TableRowProps>;
 
