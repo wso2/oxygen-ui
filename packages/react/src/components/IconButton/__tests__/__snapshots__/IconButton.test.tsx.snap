@@ -4,7 +4,7 @@ exports[`IconButton should match the snapshot 1`] = `
 <body>
   <div>
     <button
-      class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium oxygen-icon-button css-lku9zg-MuiButtonBase-root-MuiIconButton-root"
+      class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium oxygen-icon-button OxygenIconButton-root css-lku9zg-MuiButtonBase-root-MuiIconButton-root"
       tabindex="0"
       type="button"
     >

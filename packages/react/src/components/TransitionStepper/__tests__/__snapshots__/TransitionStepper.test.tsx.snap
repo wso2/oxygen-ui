@@ -4,7 +4,7 @@ exports[`TransitionStepper should match the snapshot 1`] = `
 <body>
   <div>
     <p
-      class="MuiTypography-root MuiTypography-body1 oxygen-typography css-1qp7oek-MuiTypography-root"
+      class="MuiTypography-root MuiTypography-body1 oxygen-typography OxygenTypography-root css-1qp7oek-MuiTypography-root"
     >
       Step 1
     </p>

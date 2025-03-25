@@ -4,18 +4,18 @@ exports[`Header should match the snapshot 1`] = `
 <body>
   <div>
     <header
-      class="MuiPaper-root MuiPaper-outlined MuiAppBar-root MuiAppBar-colorDefault MuiAppBar-positionStatic oxygen-app-bar oxygen-header css-jfx6ty-MuiPaper-root-MuiAppBar-root"
+      class="MuiPaper-root MuiPaper-outlined MuiAppBar-root MuiAppBar-colorDefault MuiAppBar-positionStatic oxygen-app-bar OxygenAppBar-root oxygen-header OxygenHeader-root css-jfx6ty-MuiPaper-root-MuiAppBar-root"
       role="banner"
     >
       <div
-        class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular oxygen-toolbar oxygen-header-toolbar css-hyum1k-MuiToolbar-root"
+        class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular oxygen-toolbar OxygenToolbar-root OxygenHeader-toolbar oxygen-header-toolbar css-hyum1k-MuiToolbar-root"
       >
         <div
-          class="oxygen-box oxygen-header-user-dropdown-menu MuiBox-root css-0"
+          class="oxygen-box OxygenBox-root OxygenHeader-userDropdownMenu oxygen-header-user-dropdown-menu MuiBox-root css-0"
         >
           <button
             aria-haspopup="true"
-            class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit MuiButton-disableElevation MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit MuiButton-disableElevation oxygen-button css-td69co-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
+            class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit MuiButton-disableElevation MuiButton-root MuiLoadingButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit MuiButton-disableElevation oxygen-button OxygenButton-root css-td69co-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
             id=":r1:"
             tabindex="0"
             type="button"
@@ -24,7 +24,7 @@ exports[`Header should match the snapshot 1`] = `
               class="MuiButton-icon MuiButton-startIcon MuiButton-iconSizeMedium css-gcc2o7-MuiButton-startIcon"
             >
               <div
-                class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault oxygen-avatar OxygenAvatar-root image css-pvylc3-MuiAvatar-root"
+                class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault oxygen-avatar OxygenAvatar-root OxygenHeader-userDropdownMenuImage image css-pvylc3-MuiAvatar-root"
               >
                 <svg
                   aria-hidden="true"

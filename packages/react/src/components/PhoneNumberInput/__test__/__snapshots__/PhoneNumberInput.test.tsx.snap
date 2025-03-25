@@ -4,20 +4,20 @@ exports[`TextField should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="oxygen-box oxygen-phone-number-input MuiBox-root css-0"
+      class="oxygen-box OxygenBox-root oxygen-phone-number-input OxygenPhoneNumberInput-root MuiBox-root css-0"
     >
       <label
-        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label css-f3834g-MuiFormLabel-root-MuiInputLabel-root"
+        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label OxygenInputLabel-root css-f3834g-MuiFormLabel-root-MuiInputLabel-root"
         for="phone-number-input"
         id="phone-number-label"
       >
         Mobile
       </label>
       <div
-        class="oxygen-box oxygen-select-input MuiBox-root css-0"
+        class="oxygen-box OxygenBox-root OxygenPhoneNumberInput-selectWrapper oxygen-select-input MuiBox-root css-0"
       >
         <div
-          class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary oxygen-select css-saqlya-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+          class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary OxygenPhoneNumberInput-select oxygen-select css-saqlya-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
         >
           <div
             aria-controls=":r1:"
@@ -30,7 +30,7 @@ exports[`TextField should match the snapshot 1`] = `
             tabindex="0"
           >
             <div
-              class="MuiListItemIcon-root oxygen-list-item-icon css-1djcs2d-MuiListItemIcon-root"
+              class="MuiListItemIcon-root oxygen-list-item-icon OxygenListItemIcon-root css-1djcs2d-MuiListItemIcon-root"
             >
               <img
                 alt="Afghanistan"
@@ -74,7 +74,7 @@ exports[`TextField should match the snapshot 1`] = `
           </fieldset>
         </div>
         <div
-          class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary oxygen-outlined-input css-9s98je-MuiInputBase-root-MuiOutlinedInput-root"
+          class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary oxygen-outlined-input OxygenOutlinedInput-root css-9s98je-MuiInputBase-root-MuiOutlinedInput-root"
         >
           <input
             class="MuiInputBase-input MuiOutlinedInput-input css-d9o7zs-MuiInputBase-input-MuiOutlinedInput-input"

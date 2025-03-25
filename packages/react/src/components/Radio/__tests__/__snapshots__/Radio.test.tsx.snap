@@ -4,7 +4,7 @@ exports[`Radio should match the snapshot 1`] = `
 <body>
   <div>
     <span
-      class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary MuiRadio-root MuiRadio-colorPrimary oxygen-radio css-12s4c39-MuiButtonBase-root-MuiRadio-root"
+      class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary MuiRadio-root MuiRadio-colorPrimary oxygen-radio OxygenRadio-root css-12s4c39-MuiButtonBase-root-MuiRadio-root"
     >
       <input
         class="PrivateSwitchBase-input css-1m9pwf3"

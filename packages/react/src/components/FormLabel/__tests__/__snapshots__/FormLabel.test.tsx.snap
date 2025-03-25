@@ -4,7 +4,7 @@ exports[`FormLabel should match the snapshot 1`] = `
 <body>
   <div>
     <label
-      class="MuiFormLabel-root MuiFormLabel-colorPrimary oxygen-form-label css-1ewyo32-MuiFormLabel-root"
+      class="MuiFormLabel-root MuiFormLabel-colorPrimary oxygen-form-label OxygenFormLabel-root css-1ewyo32-MuiFormLabel-root"
     />
   </div>
 </body>

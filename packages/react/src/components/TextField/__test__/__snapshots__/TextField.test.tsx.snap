@@ -4,10 +4,10 @@ exports[`TextField should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="oxygen-text-field"
+      class="oxygen-text-field OxygenTextField-wrapper"
     >
       <label
-        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label css-f3834g-MuiFormLabel-root-MuiInputLabel-root"
+        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label OxygenInputLabel-root css-f3834g-MuiFormLabel-root-MuiInputLabel-root"
       />
       <div
         class="MuiFormControl-root MuiTextField-root OxygenTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"

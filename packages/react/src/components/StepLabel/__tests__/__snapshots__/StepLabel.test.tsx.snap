@@ -4,7 +4,7 @@ exports[`StepLabel should match the snapshot 1`] = `
 <body>
   <div>
     <span
-      class="MuiStepLabel-root oxygen-step-label css-ascpo7-MuiStepLabel-root"
+      class="MuiStepLabel-root oxygen-step-label OxygenStepLabel-root css-ascpo7-MuiStepLabel-root"
     >
       <span
         class="MuiStepLabel-labelContainer css-1c0m6we-MuiStepLabel-labelContainer"
@@ -15,7 +15,7 @@ exports[`StepLabel should match the snapshot 1`] = `
           Sample Step Label
         </span>
         <span
-          class="MuiTypography-root MuiTypography-caption oxygen-typography css-1f4niku-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-caption oxygen-typography OxygenTypography-root css-1f4niku-MuiTypography-root"
         >
           Last step
         </span>

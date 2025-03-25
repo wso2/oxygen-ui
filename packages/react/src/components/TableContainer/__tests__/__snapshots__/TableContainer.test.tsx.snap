@@ -4,7 +4,7 @@ exports[`TableContainer should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="MuiTableContainer-root oxygen-table-container css-rorn0c-MuiTableContainer-root"
+      class="MuiTableContainer-root oxygen-table-container OxygenTableContainer-root css-rorn0c-MuiTableContainer-root"
     >
       <p>
         test TableContainer

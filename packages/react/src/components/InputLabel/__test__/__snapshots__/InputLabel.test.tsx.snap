@@ -4,7 +4,7 @@ exports[`InputLabel should match the snapshot 1`] = `
 <body>
   <div>
     <label
-      class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label css-f3834g-MuiFormLabel-root-MuiInputLabel-root"
+      class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label OxygenInputLabel-root css-f3834g-MuiFormLabel-root-MuiInputLabel-root"
     />
   </div>
 </body>

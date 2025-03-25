@@ -4,7 +4,7 @@ exports[`Grid should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="MuiGrid2-root MuiGrid2-direction-xs-row oxygen-grid css-27y2fm-MuiGrid2-root"
+      class="MuiGrid2-root MuiGrid2-direction-xs-row oxygen-grid OxygenGrid-root css-27y2fm-MuiGrid2-root"
     />
   </div>
 </body>

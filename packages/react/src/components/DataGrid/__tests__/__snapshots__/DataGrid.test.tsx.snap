@@ -7,7 +7,7 @@ exports[`DataGrid should match the snapshot 1`] = `
       aria-colcount="0"
       aria-multiselectable="false"
       aria-rowcount="1"
-      class="oxygen-data-grid MuiDataGrid-root MuiDataGrid-root--densityStandard MuiDataGrid-withBorderColor css-1eoyxs3-MuiDataGrid-root"
+      class="oxygen-data-grid OxygenDataGrid-root MuiDataGrid-root MuiDataGrid-root--densityStandard MuiDataGrid-withBorderColor css-1eoyxs3-MuiDataGrid-root"
       role="grid"
     >
       <div

@@ -4,10 +4,10 @@ exports[`Footer should match the snapshot 1`] = `
 <body>
   <div>
     <footer
-      class="oxygen-box oxygen-footer MuiBox-root css-0"
+      class="oxygen-box OxygenBox-root oxygen-footer OxygenFooter-root MuiBox-root css-0"
     >
       <div
-        class="MuiContainer-root MuiContainer-maxWidthLg MuiContainer-disableGutters oxygen-container oxygen-footer-container css-1p4tas-MuiContainer-root"
+        class="MuiContainer-root MuiContainer-maxWidthLg MuiContainer-disableGutters oxygen-container OxygenContainer-root OxygenFooter-container oxygen-footer-container css-1p4tas-MuiContainer-root"
       />
     </footer>
   </div>

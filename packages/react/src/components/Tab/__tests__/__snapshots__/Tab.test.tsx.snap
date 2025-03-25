@@ -4,7 +4,7 @@ exports[`Tab should match the snapshot 1`] = `
 <body>
   <div>
     <button
-      class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit oxygen-tab css-185adt7-MuiButtonBase-root-MuiTab-root"
+      class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit oxygen-tab OxygenTab-root css-185adt7-MuiButtonBase-root-MuiTab-root"
       role="tab"
       tabindex="-1"
       type="button"

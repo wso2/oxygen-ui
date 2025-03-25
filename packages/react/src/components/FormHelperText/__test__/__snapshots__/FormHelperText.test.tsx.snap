@@ -4,7 +4,7 @@ exports[`FormHelperText should match the snapshot 1`] = `
 <body>
   <div>
     <p
-      class="MuiFormHelperText-root oxygen-form-helper-text css-17sskw4-MuiFormHelperText-root"
+      class="MuiFormHelperText-root oxygen-form-helper-text OxygenFormHelperText-root css-17sskw4-MuiFormHelperText-root"
     />
   </div>
 </body>

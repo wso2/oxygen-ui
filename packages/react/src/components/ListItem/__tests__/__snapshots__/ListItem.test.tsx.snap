@@ -4,7 +4,7 @@ exports[`ListItem should match the snapshot 1`] = `
 <body>
   <div>
     <li
-      class="MuiListItem-root MuiListItem-gutters MuiListItem-padding oxygen-list-item css-wxl0wh-MuiListItem-root"
+      class="MuiListItem-root MuiListItem-gutters MuiListItem-padding oxygen-list-item OxygenListItem-root css-wxl0wh-MuiListItem-root"
     >
       This is a list item
     </li>

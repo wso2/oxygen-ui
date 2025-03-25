@@ -4,7 +4,7 @@ exports[`Alert should match the snapshot 1`] = `
 <body>
   <div>
     <span
-      class="MuiSwitch-root MuiSwitch-sizeMedium oxygen-switch css-julti5-MuiSwitch-root"
+      class="MuiSwitch-root MuiSwitch-sizeMedium oxygen-switch OxygenSwitch-root css-julti5-MuiSwitch-root"
     >
       <span
         class="MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary css-yohqqs-MuiButtonBase-root-MuiSwitch-switchBase"

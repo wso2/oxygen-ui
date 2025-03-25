@@ -5,7 +5,7 @@ exports[`CircularProgress should match the snapshot 1`] = `
   <div>
     <span
       aria-label="progress"
-      class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary oxygen-circular-progress css-b5eq2j-MuiCircularProgress-root"
+      class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary oxygen-circular-progress OxygenCircularProgress-root css-b5eq2j-MuiCircularProgress-root"
       role="progressbar"
       style="width: 40px; height: 40px;"
     >

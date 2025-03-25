@@ -4,7 +4,7 @@ exports[`TableHead should match the snapshot 1`] = `
 <body>
   <div>
     <thead
-      class="MuiTableHead-root oxygen-table-head css-15wwp11-MuiTableHead-root"
+      class="MuiTableHead-root oxygen-table-head OxygenTableHead-root css-15wwp11-MuiTableHead-root"
     >
       <p>
         test TableHead

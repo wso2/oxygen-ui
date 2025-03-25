@@ -4,19 +4,19 @@ exports[`AppShell should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="oxygen-box oxygen-app-shell MuiBox-root css-0"
+      class="oxygen-box OxygenBox-root oxygen-app-shell OxygenAppShell-root MuiBox-root css-0"
     >
       <div
-        class="oxygen-box oxygen-app-shell-content MuiBox-root css-0"
+        class="oxygen-box OxygenBox-root oxygen-app-shell-content OxygenAppShell-content MuiBox-root css-0"
       >
         <div
-          class="oxygen-box oxygen-app-shell-navigation-wrapper MuiBox-root css-0"
+          class="oxygen-box OxygenBox-root oxygen-app-shell-navigation-wrapper OxygenAppShell-navigationWrapper MuiBox-root css-0"
         />
         <div
-          class="oxygen-box oxygen-app-shell-main-wrapper MuiBox-root css-0"
+          class="oxygen-box OxygenBox-root oxygen-app-shell-main-wrapper OxygenAppShell-mainWrapper MuiBox-root css-0"
         >
           <main
-            class="oxygen-box oxygen-app-shell-main MuiBox-root css-0"
+            class="oxygen-box OxygenBox-root oxygen-app-shell-main OxygenAppShell-main MuiBox-root css-0"
           />
         </div>
       </div>

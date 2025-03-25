@@ -4,7 +4,7 @@ exports[`Box should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="oxygen-box MuiBox-root css-0"
+      class="oxygen-box OxygenBox-root MuiBox-root css-0"
     />
   </div>
 </body>

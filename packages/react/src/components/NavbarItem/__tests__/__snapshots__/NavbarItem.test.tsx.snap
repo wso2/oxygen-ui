@@ -4,19 +4,19 @@ exports[`NavbarItem should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="oxygen-box oxygen-navbar-item open MuiBox-root css-0"
+      class="oxygen-box OxygenBox-root oxygen-navbar-item OxygenNavbarItem-root OxygenNavbarItem-open open MuiBox-root css-0"
     >
       <div
-        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters oxygen-list-item-button oxygen-tooltip css-1shd5sk-MuiButtonBase-root-MuiListItemButton-root"
+        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters oxygen-list-item-button OxygenListItemButton-root oxygen-tooltip OxygenTooltip-root css-1shd5sk-MuiButtonBase-root-MuiListItemButton-root"
         data-mui-internal-clone-element="true"
         role="button"
         tabindex="0"
       >
         <div
-          class="MuiListItemIcon-root oxygen-list-item-icon css-1djcs2d-MuiListItemIcon-root"
+          class="MuiListItemIcon-root oxygen-list-item-icon OxygenListItemIcon-root css-1djcs2d-MuiListItemIcon-root"
         />
         <div
-          class="MuiListItemText-root oxygen-list-item-text css-tlelie-MuiListItemText-root"
+          class="MuiListItemText-root oxygen-list-item-text OxygenListItemText-root css-tlelie-MuiListItemText-root"
         >
           <span
             class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-6dptn0-MuiTypography-root"
