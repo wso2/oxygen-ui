@@ -86,16 +86,6 @@ const CollapsibleNavbarItem: OverridableComponent<ListItemButtonTypeMap<Collapsi
     }: CollapsibleNavbarItemProps<C>,
     ref: Ref<HTMLDivElement>,
   ): ReactElement => {
-    const classes: string = clsx(
-      'oxygen-collapsible-navbar-item',
-      {
-        [`${fill}`]: fill,
-        fill,
-        open,
-      },
-      className,
-    );
-
     const [itemExpanded, setItemExpanded] = useState<boolean>(expanded || false);
 
     const handleItemClick = (e: MouseEvent<HTMLDivElement>): void => {
