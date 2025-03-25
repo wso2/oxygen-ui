@@ -4,13 +4,13 @@ exports[`Stepper should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="MuiStepper-root MuiStepper-horizontal oxygen-stepper css-m5vj9m-MuiStepper-root"
+      class="MuiStepper-root MuiStepper-horizontal oxygen-stepper OxygenStepper-root css-m5vj9m-MuiStepper-root"
     >
       <div
-        class="MuiStep-root MuiStep-horizontal oxygen-step-content css-1bw0nnu-MuiStep-root"
+        class="MuiStep-root MuiStep-horizontal oxygen-step-content OxygenStep-root css-1bw0nnu-MuiStep-root"
       >
         <span
-          class="MuiStepLabel-root MuiStepLabel-horizontal oxygen-step-label css-ascpo7-MuiStepLabel-root"
+          class="MuiStepLabel-root MuiStepLabel-horizontal oxygen-step-label OxygenStepLabel-root css-ascpo7-MuiStepLabel-root"
         >
           <span
             class="MuiStepLabel-iconContainer Mui-active css-vnkopk-MuiStepLabel-iconContainer"
@@ -46,14 +46,14 @@ exports[`Stepper should match the snapshot 1`] = `
               Step One Label
             </span>
             <span
-              class="MuiTypography-root MuiTypography-caption oxygen-typography css-1f4niku-MuiTypography-root"
+              class="MuiTypography-root MuiTypography-caption oxygen-typography OxygenTypography-root css-1f4niku-MuiTypography-root"
             >
               Step One Description
             </span>
           </span>
         </span>
         <div
-          class="MuiStepContent-root oxygen-step-content css-kdy6ax-MuiStepContent-root"
+          class="MuiStepContent-root oxygen-step-content OxygenStepContent-root css-kdy6ax-MuiStepContent-root"
         >
           <div
             class="MuiCollapse-root MuiCollapse-vertical MuiStepContent-transition MuiCollapse-entered css-1rw7nzj-MuiCollapse-root-MuiStepContent-transition"
@@ -66,17 +66,17 @@ exports[`Stepper should match the snapshot 1`] = `
                 class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
               >
                 <p
-                  class="MuiTypography-root MuiTypography-body1 oxygen-typography css-1qp7oek-MuiTypography-root"
+                  class="MuiTypography-root MuiTypography-body1 oxygen-typography OxygenTypography-root css-1qp7oek-MuiTypography-root"
                 >
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </p>
                 <p
-                  class="MuiTypography-root MuiTypography-body1 oxygen-typography css-1qp7oek-MuiTypography-root"
+                  class="MuiTypography-root MuiTypography-body1 oxygen-typography OxygenTypography-root css-1qp7oek-MuiTypography-root"
                 >
                   Aenean eleifend tortor lorem, at mollis mauris euismod in.
                 </p>
                 <button
-                  class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation oxygen-button css-1tzl05w-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
+                  class="MuiButtonBase-root MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation MuiButton-root MuiLoadingButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation oxygen-button OxygenButton-root css-1tzl05w-MuiButtonBase-root-MuiButton-root-MuiLoadingButton-root"
                   id=":r1:"
                   tabindex="0"
                   type="button"
@@ -99,10 +99,10 @@ exports[`Stepper should match the snapshot 1`] = `
         />
       </div>
       <div
-        class="MuiStep-root MuiStep-horizontal oxygen-step-content css-1bw0nnu-MuiStep-root"
+        class="MuiStep-root MuiStep-horizontal oxygen-step-content OxygenStep-root css-1bw0nnu-MuiStep-root"
       >
         <span
-          class="MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled oxygen-step-label css-ascpo7-MuiStepLabel-root"
+          class="MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled oxygen-step-label OxygenStepLabel-root css-ascpo7-MuiStepLabel-root"
         >
           <span
             class="MuiStepLabel-iconContainer Mui-disabled css-vnkopk-MuiStepLabel-iconContainer"
@@ -138,14 +138,14 @@ exports[`Stepper should match the snapshot 1`] = `
               Step Two Label
             </span>
             <span
-              class="MuiTypography-root MuiTypography-caption oxygen-typography css-1f4niku-MuiTypography-root"
+              class="MuiTypography-root MuiTypography-caption oxygen-typography OxygenTypography-root css-1f4niku-MuiTypography-root"
             >
               Step Two Description
             </span>
           </span>
         </span>
         <div
-          class="MuiStepContent-root oxygen-step-content css-kdy6ax-MuiStepContent-root"
+          class="MuiStepContent-root oxygen-step-content OxygenStepContent-root css-kdy6ax-MuiStepContent-root"
         />
       </div>
       <div
@@ -156,10 +156,10 @@ exports[`Stepper should match the snapshot 1`] = `
         />
       </div>
       <div
-        class="MuiStep-root MuiStep-horizontal oxygen-step-content css-1bw0nnu-MuiStep-root"
+        class="MuiStep-root MuiStep-horizontal oxygen-step-content OxygenStep-root css-1bw0nnu-MuiStep-root"
       >
         <span
-          class="MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled oxygen-step-label css-ascpo7-MuiStepLabel-root"
+          class="MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled oxygen-step-label OxygenStepLabel-root css-ascpo7-MuiStepLabel-root"
         >
           <span
             class="MuiStepLabel-iconContainer Mui-disabled css-vnkopk-MuiStepLabel-iconContainer"
@@ -195,14 +195,14 @@ exports[`Stepper should match the snapshot 1`] = `
               Step Three Label
             </span>
             <span
-              class="MuiTypography-root MuiTypography-caption oxygen-typography css-1f4niku-MuiTypography-root"
+              class="MuiTypography-root MuiTypography-caption oxygen-typography OxygenTypography-root css-1f4niku-MuiTypography-root"
             >
               Step Three Description
             </span>
           </span>
         </span>
         <div
-          class="MuiStepContent-root MuiStepContent-last oxygen-step-content css-1mz1l2x-MuiStepContent-root"
+          class="MuiStepContent-root MuiStepContent-last oxygen-step-content OxygenStepContent-root css-1mz1l2x-MuiStepContent-root"
         />
       </div>
     </div>

@@ -65,24 +65,56 @@ const AppShell: OverridableComponent<BoxTypeMap<AppShellProps>> = forwardRef(
   <C extends ElementType>(
     {className, children, footer, header, navigation, ...rest}: AppShellProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-app-shell', className);
-
-    return (
-      <Box ref={ref} className={classes} {...rest}>
-        {header}
-        <Box className="oxygen-app-shell-content">
-          <Box className="oxygen-app-shell-navigation-wrapper">{navigation}</Box>
-          <Box className="oxygen-app-shell-main-wrapper">
-            <Box component="main" className="oxygen-app-shell-main">
-              {children}
-            </Box>
-            {footer}
+  ): ReactElement => (
+    <Box
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-app-shell',
+        'OxygenAppShell-root',
+        className,
+      )}
+      {...rest}
+    >
+      {header}
+      <Box
+        className={clsx(
+          /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+          'oxygen-app-shell-content',
+          'OxygenAppShell-content',
+        )}
+      >
+        <Box
+          className={clsx(
+            /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+            'oxygen-app-shell-navigation-wrapper',
+            'OxygenAppShell-navigationWrapper',
+          )}
+        >
+          {navigation}
+        </Box>
+        <Box
+          className={clsx(
+            /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+            'oxygen-app-shell-main-wrapper',
+            'OxygenAppShell-mainWrapper',
+          )}
+        >
+          <Box
+            component="main"
+            className={clsx(
+              /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+              'oxygen-app-shell-main',
+              'OxygenAppShell-main',
+            )}
+          >
+            {children}
           </Box>
+          {footer}
         </Box>
       </Box>
-    );
-  },
+    </Box>
+  ),
 ) as OverridableComponent<BoxTypeMap<AppShellProps>>;
 
 export default AppShell;

@@ -21,7 +21,6 @@ import type {StepTypeMap, StepProps as MuiStepProps} from '@mui/material/Step';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement, ForwardRefExoticComponent} from 'react';
-import './step.scss';
 
 export type StepProps<
   C extends ElementType = ElementType,
@@ -57,11 +56,18 @@ export type StepProps<
  * @returns The rendered Step component.
  */
 const Step: ForwardRefExoticComponent<StepProps> = forwardRef(
-  ({className, ...rest}: StepProps, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-step-content', className);
-
-    return <MuiStep ref={ref} className={classes} {...rest} />;
-  },
+  ({className, ...rest}: StepProps, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiStep
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-step-content',
+        'OxygenStep-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<StepProps>;
 
 export default Step;

@@ -62,11 +62,18 @@ const Paper: OverridableComponent<PaperTypeMap<PaperProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: PaperProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-paper', className);
-
-    return <MuiPaper className={classes} {...rest} ref={ref} />;
-  },
+  ): ReactElement => (
+    <MuiPaper
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-paper',
+        'OxygenPaper-root',
+        className,
+      )}
+      {...rest}
+      ref={ref}
+    />
+  ),
 ) as OverridableComponent<PaperTypeMap<PaperProps>>;
 
 export default Paper;

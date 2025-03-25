@@ -61,11 +61,18 @@ const Fab: OverridableComponent<FabTypeMap<FabProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: FabProps<C>,
     ref: Ref<HTMLButtonElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-fab', className);
-
-    return <MuiFab ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiFab
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-fab',
+        'OxygenFab-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<FabTypeMap<FabProps>>;
 
 export default Fab;

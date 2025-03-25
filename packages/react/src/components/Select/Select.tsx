@@ -70,8 +70,6 @@ const Select: ForwardRefExoticComponent<SelectProps> = forwardRef(
     }: SelectProps,
     ref: Ref<HTMLDivElement>,
   ): ReactElement => {
-    const classes: string = clsx('oxygen-select', className);
-
     const labelProps: MuiInputLabelProps = {
       ...{
         disableAnimation: true,
@@ -94,7 +92,17 @@ const Select: ForwardRefExoticComponent<SelectProps> = forwardRef(
             {label}
           </InputLabel>
         )}
-        <MuiSelect ref={ref} labelId={name} className={classes} {...rest} />
+        <MuiSelect
+          ref={ref}
+          labelId={name}
+          className={clsx(
+            /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+            'oxygen-select',
+            'OxygenSelect-root',
+            className,
+          )}
+          {...rest}
+        />
       </>
     );
   },

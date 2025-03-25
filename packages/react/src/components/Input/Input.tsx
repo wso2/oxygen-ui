@@ -21,7 +21,6 @@ import type {InputProps as MuiInputProps} from '@mui/material/Input';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
-import './input.scss';
 
 export type InputProps = MuiInputProps;
 
@@ -48,11 +47,18 @@ export type InputProps = MuiInputProps;
  * @returns The rendered Input component.
  */
 const Input: ForwardRefExoticComponent<InputProps> = forwardRef(
-  ({className, ...rest}: InputProps, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-input', className);
-
-    return <MuiInput ref={ref} className={classes} {...rest} />;
-  },
+  ({className, ...rest}: InputProps, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiInput
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-input',
+        'OxygenInput-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<InputProps>;
 
 export default Input;

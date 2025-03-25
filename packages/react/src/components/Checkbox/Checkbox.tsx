@@ -60,11 +60,18 @@ const Checkbox: OverridableComponent<ButtonBaseTypeMap<CheckboxProps>> = forward
   <C extends ElementType = ElementType>(
     {className, ...rest}: CheckboxProps<C>,
     ref: Ref<HTMLButtonElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-checkbox', className);
-
-    return <MuiCheckbox ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiCheckbox
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-checkbox',
+        'OxygenCheckbox-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<ButtonBaseTypeMap<CheckboxProps>>;
 
 export default Checkbox;

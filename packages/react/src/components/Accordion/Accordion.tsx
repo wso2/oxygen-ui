@@ -22,7 +22,6 @@ import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, ReactElement, Ref} from 'react';
 import type {PaperTypeMap} from '../Paper';
-import './accordion.scss';
 
 export type AccordionProps<C extends ElementType = ElementType> = {
   /**
@@ -58,11 +57,18 @@ const Accordion: OverridableComponent<PaperTypeMap<AccordionProps>> = forwardRef
   <C extends ElementType = ElementType>(
     {className, ...rest}: AccordionProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-accordion', className);
-
-    return <MuiAccordion ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiAccordion
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-accordion',
+        'OxygenAccordion-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<PaperTypeMap<AccordionProps>>;
 
 export default Accordion;

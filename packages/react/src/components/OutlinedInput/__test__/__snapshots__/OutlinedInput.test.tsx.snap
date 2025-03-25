@@ -4,7 +4,7 @@ exports[`OutlinedInput should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary oxygen-outlined-input css-9s98je-MuiInputBase-root-MuiOutlinedInput-root"
+      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary oxygen-outlined-input OxygenOutlinedInput-root css-9s98je-MuiInputBase-root-MuiOutlinedInput-root"
     >
       <input
         class="MuiInputBase-input MuiOutlinedInput-input css-d9o7zs-MuiInputBase-input-MuiOutlinedInput-input"

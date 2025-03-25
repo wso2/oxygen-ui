@@ -131,8 +131,6 @@ const Carousel: OverridableComponent<BoxTypeMap<CarouselProps>> = forwardRef(
     const isFirstStep: boolean = useMemo(() => currentStep === 0, [currentStep]);
     const isMobile: boolean = useIsMobile();
 
-    const classes: string = clsx('oxygen-carousel', {mobile: isMobile}, className);
-
     useEffect(() => {
       if (!autoPlay) {
         return () => {};
@@ -180,10 +178,41 @@ const Carousel: OverridableComponent<BoxTypeMap<CarouselProps>> = forwardRef(
       });
 
     return (
-      <Box ref={ref} className={classes} {...rest}>
-        <Box className="oxygen-carousel-top-bar">
-          <Box className="oxygen-carousel-title">{title}</Box>
-          <Box className="oxygen-carousel-mobile-buttons">
+      <Box
+        ref={ref}
+        className={clsx(
+          /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+          'oxygen-carousel',
+          {mobile: isMobile},
+          'OxygenCarousel-root',
+          {'OxygenCarousel-mobile': isMobile},
+          className,
+        )}
+        {...rest}
+      >
+        <Box
+          className={clsx(
+            /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+            'oxygen-carousel-top-bar',
+            'OxygenCarousel-topBar',
+          )}
+        >
+          <Box
+            className={clsx(
+              /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+              'oxygen-carousel-title',
+              'OxygenCarousel-title',
+            )}
+          >
+            {title}
+          </Box>
+          <Box
+            className={clsx(
+              /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+              'oxygen-carousel-mobile-buttons',
+              'OxygenCarousel-mobileButtons',
+            )}
+          >
             <IconButton
               variant={IconButtonVariants.CONTAINED}
               color="secondary"
@@ -201,7 +230,13 @@ const Carousel: OverridableComponent<BoxTypeMap<CarouselProps>> = forwardRef(
               <ChevronRightIcon />
             </IconButton>
           </Box>
-          <Box className="oxygen-carousel-button-group">
+          <Box
+            className={clsx(
+              /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+              'oxygen-carousel-button-group',
+              'OxygenCarousel-buttonGroup',
+            )}
+          >
             <Button
               variant="text"
               color="secondary"

@@ -4,7 +4,7 @@ exports[`Checkbox should match the snapshot 1`] = `
 <body>
   <div>
     <span
-      class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium oxygen-checkbox css-hvaz3l-MuiButtonBase-root-MuiCheckbox-root"
+      class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium oxygen-checkbox OxygenCheckbox-root css-hvaz3l-MuiButtonBase-root-MuiCheckbox-root"
     >
       <input
         class="PrivateSwitchBase-input css-1m9pwf3"

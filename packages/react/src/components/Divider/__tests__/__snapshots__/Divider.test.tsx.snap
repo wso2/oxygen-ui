@@ -4,7 +4,7 @@ exports[`Divider should match the snapshot 1`] = `
 <body>
   <div>
     <hr
-      class="MuiDivider-root MuiDivider-fullWidth oxygen-divider css-f1a6nn-MuiDivider-root"
+      class="MuiDivider-root MuiDivider-fullWidth oxygen-divider OxygenDivider-root css-f1a6nn-MuiDivider-root"
     />
   </div>
 </body>

@@ -75,13 +75,23 @@ const IconButton: OverridableComponent<IconButtonTypeMap<IconButtonProps>> = for
   <C extends ElementType = ElementType>(
     {className, variant = IconButtonVariants.TEXT, ...rest}: IconButtonProps<C>,
     ref: Ref<HTMLButtonElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-icon-button', className, {
-      'oxygen-icon-button-contained': variant === IconButtonVariants.CONTAINED,
-    });
-
-    return <MuiIconButton ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiIconButton
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-icon-button',
+        'OxygenIconButton-root',
+        className,
+        {
+          'OxygenIconButton-contained': variant === IconButtonVariants.CONTAINED,
+          /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+          'oxygen-icon-button-contained': variant === IconButtonVariants.CONTAINED,
+        },
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<IconButtonTypeMap<IconButtonProps>>;
 
 export default IconButton;

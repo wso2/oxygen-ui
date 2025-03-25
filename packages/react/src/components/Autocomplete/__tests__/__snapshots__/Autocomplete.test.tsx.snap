@@ -4,14 +4,14 @@ exports[`Alert should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="MuiAutocomplete-root MuiAutocomplete-hasPopupIcon oxygen-autocomplete css-ka7ti6-MuiAutocomplete-root"
+      class="MuiAutocomplete-root MuiAutocomplete-hasPopupIcon oxygen-autocomplete OxygenAutocomplete-root css-ka7ti6-MuiAutocomplete-root"
     >
       <div
-        class="oxygen-text-field"
+        class="oxygen-text-field OxygenTextField-wrapper"
       >
         <label
           aria-describedby=":r2:"
-          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label css-f3834g-MuiFormLabel-root-MuiInputLabel-root"
+          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated oxygen-input-label OxygenInputLabel-root css-f3834g-MuiFormLabel-root-MuiInputLabel-root"
           for=":r2:"
           id=":r2:-label"
         >

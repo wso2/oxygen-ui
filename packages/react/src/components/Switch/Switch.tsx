@@ -61,11 +61,18 @@ const Switch: OverridableComponent<ButtonBaseTypeMap<SwitchProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: SwitchProps<C>,
     ref: Ref<HTMLButtonElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-switch', className);
-
-    return <MuiSwitch ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiSwitch
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-switch',
+        'OxygenSwitch-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<ButtonBaseTypeMap<SwitchProps>>;
 
 export default Switch;

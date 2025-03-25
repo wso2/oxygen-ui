@@ -22,7 +22,6 @@ import type {Grid2TypeMap, Grid2Props as MuiGridProps} from '@mui/material/Unsta
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import './grid.scss';
 
 export type GridProps<
   C extends ElementType = ElementType,
@@ -60,11 +59,18 @@ export type GridProps<
  * @returns The rendered FormControl component.
  */
 const Grid: OverridableComponent<Grid2TypeMap<GridProps>> = forwardRef(
-  <C extends ElementType = ElementType>({className, ...rest}: GridProps<C>, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-grid', className);
-
-    return <MuiGrid ref={ref} className={classes} {...rest} />;
-  },
+  <C extends ElementType = ElementType>({className, ...rest}: GridProps<C>, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiGrid
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-grid',
+        'OxygenGrid-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<Grid2TypeMap<GridProps>>;
 
 export default Grid;

@@ -71,8 +71,6 @@ const TransitionStepper: OverridableComponent<BoxTypeMap<TransitionStepperProps>
 
     const slideContainerRef: Ref<HTMLDivElement> = useRef<HTMLDivElement>(null);
 
-    const classes: string = clsx('oxygen-transition-stepper', className);
-
     const slideContainer: (position: number) => void = useCallback(
       (position: number): void => {
         if (!animateOnSlide) {
@@ -111,8 +109,19 @@ const TransitionStepper: OverridableComponent<BoxTypeMap<TransitionStepperProps>
 
     if (animateOnSlide) {
       return (
-        <Box className={classes} ref={slideContainerRef}>
-          <Box className="oxygen-transition-stepper-container" sx={{left: `${slideLeftPosition}px`}}>
+        <Box
+          className={clsx(
+            /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+            'oxygen-transition-stepper',
+            'OxygenTransitionStepper-root',
+            className,
+          )}
+          ref={slideContainerRef}
+        >
+          <Box
+            className="OxygenTransitionStepper-container oxygen-transition-stepper-container"
+            sx={{left: `${slideLeftPosition}px`}}
+          >
             {steps.map((step: ReactElement) => (
               <Box key={step.key} ref={ref} sx={{width: slideContainerWidth}}>
                 {step}

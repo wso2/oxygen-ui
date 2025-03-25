@@ -4,7 +4,7 @@ exports[`AlertTitle should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom MuiAlertTitle-root oxygen-alert-title css-2e5qgq-MuiTypography-root-MuiAlertTitle-root"
+      class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom MuiAlertTitle-root oxygen-alert-title OxygenAlertTitle-root css-2e5qgq-MuiTypography-root-MuiAlertTitle-root"
     >
       Test title
     </div>

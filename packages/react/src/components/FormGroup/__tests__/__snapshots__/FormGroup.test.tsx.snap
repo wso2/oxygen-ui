@@ -4,7 +4,7 @@ exports[`FormGroup should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="MuiFormGroup-root oxygen-form-group css-dmmspl-MuiFormGroup-root"
+      class="MuiFormGroup-root oxygen-form-group OxygenFormGroup-root css-dmmspl-MuiFormGroup-root"
     />
   </div>
 </body>

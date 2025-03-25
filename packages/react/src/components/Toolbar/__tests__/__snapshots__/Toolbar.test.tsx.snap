@@ -4,7 +4,7 @@ exports[`Toolbar should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular oxygen-toolbar css-hyum1k-MuiToolbar-root"
+      class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular oxygen-toolbar OxygenToolbar-root css-hyum1k-MuiToolbar-root"
     />
   </div>
 </body>

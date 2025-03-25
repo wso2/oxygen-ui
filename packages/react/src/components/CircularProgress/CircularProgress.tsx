@@ -21,7 +21,6 @@ import type {CircularProgressProps as MuiCircularProgressProps} from '@mui/mater
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, ReactElement, Ref} from 'react';
-import './circular-progress.scss';
 
 export type CircularProgressProps = MuiCircularProgressProps;
 
@@ -49,11 +48,19 @@ export type CircularProgressProps = MuiCircularProgressProps;
  * @returns The rendered CircularProgress component.
  */
 const CircularProgress: ForwardRefExoticComponent<CircularProgressProps> = forwardRef(
-  ({className, ...rest}: CircularProgressProps, ref: Ref<HTMLSpanElement>): ReactElement => {
-    const classes: string = clsx('oxygen-circular-progress', className);
-
-    return <MuiCircularProgress ref={ref} aria-label="progress" className={classes} {...rest} />;
-  },
+  ({className, ...rest}: CircularProgressProps, ref: Ref<HTMLSpanElement>): ReactElement => (
+    <MuiCircularProgress
+      ref={ref}
+      aria-label="progress"
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-circular-progress',
+        'OxygenCircularProgress-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<CircularProgressProps>;
 
 export default CircularProgress;

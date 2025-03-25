@@ -70,17 +70,26 @@ const Footer: OverridableComponent<BoxTypeMap<FooterProps>> = forwardRef(
   ): ReactElement => {
     const isMobile: boolean = useIsMobile();
 
-    const classes: string = clsx('oxygen-footer', {mobile: isMobile}, className);
-
     return (
-      <Box ref={ref} component={component} className={classes} {...rest}>
-        <Container disableGutters maxWidth={maxWidth} className="oxygen-footer-container">
+      <Box
+        ref={ref}
+        component={component}
+        className={clsx(
+          /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+          'oxygen-footer',
+          'OxygenFooter-root',
+          {mobile: isMobile},
+          className,
+        )}
+        {...rest}
+      >
+        <Container disableGutters maxWidth={maxWidth} className="OxygenFooter-container oxygen-footer-container">
           {links !== undefined && Array.isArray(links) && links.length > 0 && (
-            <Box className="oxygen-footer-links" fontSize="body2.fontSize">
+            <Box className="OxygenFooter-links oxygen-footer-links" fontSize="body2.fontSize">
               {links.map((link: LinkProps) => (
                 <Link
                   key={link.id}
-                  className="oxygen-footer-link"
+                  className="OxygenFooter-link oxygen-footer-link"
                   underline="none"
                   target="_blank"
                   rel="noopener"
@@ -91,9 +100,9 @@ const Footer: OverridableComponent<BoxTypeMap<FooterProps>> = forwardRef(
             </Box>
           )}
           {copyright && (
-            <Box className="oxygen-footer-links">
+            <Box className="OxygenFooter-links oxygen-footer-links">
               <Box color="text.secondary">
-                <Typography className="oxygen-footer-copyright" display="inline" variant="body2">
+                <Typography className="OxygenFooter-copyright oxygen-footer-copyright" display="inline" variant="body2">
                   {copyright}
                 </Typography>
               </Box>

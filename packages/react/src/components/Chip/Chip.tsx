@@ -58,11 +58,18 @@ export type ChipProps<
  * @returns The rendered Chip component.
  */
 const Chip: OverridableComponent<ChipTypeMap<ChipProps>> = forwardRef(
-  <C extends ElementType = ElementType>({className, ...rest}: ChipProps<C>, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-chip', className);
-
-    return <MuiChip ref={ref} className={classes} {...rest} />;
-  },
+  <C extends ElementType = ElementType>({className, ...rest}: ChipProps<C>, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiChip
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-chip',
+        'OxygenChip-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<ChipTypeMap<ChipProps>>;
 
 export default Chip;

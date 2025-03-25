@@ -4,7 +4,7 @@ exports[`Chip should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-filledDefault oxygen-chip css-17rmkja-MuiChip-root"
+      class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-filledDefault oxygen-chip OxygenChip-root css-17rmkja-MuiChip-root"
     >
       <span
         class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"

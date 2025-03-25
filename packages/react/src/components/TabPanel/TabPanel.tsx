@@ -61,15 +61,22 @@ const TabPanel: OverridableComponent<BoxTypeMap<TabPanelProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, children, value, index, ...rest}: TabPanelProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-tab-panel', className);
-
-    return (
-      <Box ref={ref} className={classes} role="tabpanel" hidden={value !== index} {...rest}>
-        {value === index && <Box>{children}</Box>}
-      </Box>
-    );
-  },
+  ): ReactElement => (
+    <Box
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-tab-panel',
+        'OxygenTabPanel-root',
+        className,
+      )}
+      role="tabpanel"
+      hidden={value !== index}
+      {...rest}
+    >
+      {value === index && <Box>{children}</Box>}
+    </Box>
+  ),
 ) as OverridableComponent<BoxTypeMap<TabPanelProps>>;
 
 export default TabPanel;

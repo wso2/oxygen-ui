@@ -4,7 +4,7 @@ exports[`ListItemText should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="MuiListItemText-root oxygen-list-item-text css-tlelie-MuiListItemText-root"
+      class="MuiListItemText-root oxygen-list-item-text OxygenListItemText-root css-tlelie-MuiListItemText-root"
     >
       <span
         class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-6dptn0-MuiTypography-root"

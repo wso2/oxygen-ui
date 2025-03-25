@@ -86,16 +86,6 @@ const CollapsibleNavbarItem: OverridableComponent<ListItemButtonTypeMap<Collapsi
     }: CollapsibleNavbarItemProps<C>,
     ref: Ref<HTMLDivElement>,
   ): ReactElement => {
-    const classes: string = clsx(
-      'oxygen-collapsible-navbar-item',
-      {
-        [`${fill}`]: fill,
-        fill,
-        open,
-      },
-      className,
-    );
-
     const [itemExpanded, setItemExpanded] = useState<boolean>(expanded || false);
 
     const handleItemClick = (e: MouseEvent<HTMLDivElement>): void => {
@@ -111,17 +101,53 @@ const CollapsibleNavbarItem: OverridableComponent<ListItemButtonTypeMap<Collapsi
     const renderChevron = (): ReactElement => (itemExpanded ? <ChevronUpIcon /> : <ChevronDownIcon />);
 
     return (
-      <Box ref={ref} className={clsx(classes, {expanded: itemExpanded})}>
+      <Box
+        ref={ref}
+        className={clsx(
+          /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+          'oxygen-collapsible-navbar-item',
+          {
+            [`${fill}`]: fill,
+            expanded: itemExpanded,
+            fill,
+            open,
+          },
+          'OxygenCollapsibleNavbarItem-root',
+          {
+            [`OxygenCollapsibleNavbarItem-${fill}`]: fill,
+            'OxygenCollapsibleNavbarItem-expanded': itemExpanded,
+            'OxygenCollapsibleNavbarItem-filled': fill,
+            'OxygenCollapsibleNavbarItem-opened': open,
+          },
+          className,
+        )}
+      >
         <Tooltip placement="right" title={!open && label}>
           <ListItemButton
             selected={getIsItemSelected}
-            className={clsx({selected: getIsItemSelected}, {expanded: itemExpanded})}
+            className={clsx(
+              /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+              {expanded: itemExpanded, selected: getIsItemSelected},
+              {
+                'OxygenCollapsibleNavbarItem-expanded': itemExpanded,
+                'OxygenCollapsibleNavbarItem-selected': getIsItemSelected,
+              },
+            )}
             onClick={handleItemClick}
             {...rest}
           >
             <ListItemIcon>{icon}</ListItemIcon>
             <ListItemText primary={label} />
-            <Box className="oxygen-collapsible-navbar-item-chevrons"> {renderChevron()} </Box>
+            <Box
+              className={clsx(
+                /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+                'oxygen-collapsible-navbar-item-chevrons',
+                'OxygenCollapsibleNavbarItem-chevrons',
+              )}
+            >
+              {' '}
+              {renderChevron()}{' '}
+            </Box>
           </ListItemButton>
         </Tooltip>
         <MuiCollapse in={itemExpanded} timeout="auto" unmountOnExit>
@@ -140,7 +166,13 @@ const CollapsibleNavbarItem: OverridableComponent<ListItemButtonTypeMap<Collapsi
                   <ListItemButton
                     component="li"
                     selected={subItemSelected}
-                    className={clsx('oxygen-list-sub-item-button', {selected: subItemSelected})}
+                    className={clsx(
+                      /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+                      'oxygen-list-sub-item-button',
+                      {selected: subItemSelected},
+                      'OxygenCollapsibleNavbarItem-subItemButton',
+                      {'OxygenCollapsibleNavbarItem-subItemButtonSelected': subItemSelected},
+                    )}
                     onClick={subItemOnClick}
                     {...otherSubItemProps}
                   >
@@ -149,8 +181,16 @@ const CollapsibleNavbarItem: OverridableComponent<ListItemButtonTypeMap<Collapsi
                     {open && subItemTag ? (
                       <Chip
                         label={subItemTag}
-                        className={clsx(`oxygen-chip-${subItemTag.toLowerCase()}`, subItemTagClassName)}
-                        classes={{label: 'oxygen-collapsible-navbar-item-chip-label'}}
+                        className={clsx(
+                          /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+                          `oxygen-chip-${subItemTag.toLowerCase()}`,
+                          `OxygenChip-${subItemTag.toLowerCase()}`,
+                          subItemTagClassName,
+                        )}
+                        classes={{
+                          /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+                          label: 'oxygen-collapsible-navbar-item-chip-label OxygenCollapsibleNavbarItem-chipLabel',
+                        }}
                       />
                     ) : null}
                   </ListItemButton>

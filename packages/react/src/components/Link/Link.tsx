@@ -22,7 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import './link.scss';
 
 export type LinkProps<
   C extends ElementType = ElementType,
@@ -64,11 +63,19 @@ const Link: OverridableComponent<LinkTypeMap<LinkProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: LinkProps<C>,
     ref: Ref<HTMLAnchorElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-link', className);
-
-    return <MuiLink ref={ref} className={classes} underline="hover" {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiLink
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-link',
+        'OxygenLink-root',
+        className,
+      )}
+      underline="hover"
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<LinkTypeMap<LinkProps>>;
 
 export default Link;

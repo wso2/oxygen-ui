@@ -60,11 +60,18 @@ const Skeleton: OverridableComponent<SkeletonTypeMap<SkeletonProps>> = forwardRe
   <C extends ElementType = ElementType>(
     {className, ...rest}: SkeletonProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-skeleton', className);
-
-    return <MuiSkeleton ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiSkeleton
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-skeleton',
+        'OxygenSkeleton-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<SkeletonTypeMap<SkeletonProps>>;
 
 export default Skeleton;

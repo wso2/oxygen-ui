@@ -22,7 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import './form-helper-text.scss';
 
 export type FormHelperTextProps<
   C extends ElementType = ElementType,
@@ -61,11 +60,18 @@ const FormHelperText: OverridableComponent<FormHelperTextTypeMap<FormHelperTextP
   <C extends ElementType = ElementType>(
     {className, ...rest}: FormHelperTextProps<C>,
     ref: Ref<HTMLParagraphElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-form-helper-text', className);
-
-    return <MuiFormHelperText ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiFormHelperText
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-form-helper-text',
+        'OxygenFormHelperText-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<FormHelperTextTypeMap<FormHelperTextProps>>;
 
 export default FormHelperText;

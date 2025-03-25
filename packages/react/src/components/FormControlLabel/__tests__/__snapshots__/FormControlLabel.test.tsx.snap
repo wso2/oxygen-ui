@@ -4,10 +4,10 @@ exports[`FormControlLabel should match the snapshot 1`] = `
 <body>
   <div>
     <label
-      class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd oxygen-form-control-label css-tajcny-MuiFormControlLabel-root"
+      class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd oxygen-form-control-label OxygenFormControlLabel-root css-tajcny-MuiFormControlLabel-root"
     >
       <span
-        class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium Mui-checked MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium oxygen-checkbox css-hvaz3l-MuiButtonBase-root-MuiCheckbox-root"
+        class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium Mui-checked MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium oxygen-checkbox OxygenCheckbox-root css-hvaz3l-MuiButtonBase-root-MuiCheckbox-root"
       >
         <input
           checked=""

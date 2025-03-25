@@ -136,8 +136,6 @@ const Wizard: OverridableComponent<BoxTypeMap<WizardProps>> = forwardRef(
   ): ReactElement => {
     const [currentStep, setCurrentStep] = useState<number>(0);
 
-    const classes: string = clsx('oxygen-wizard', className);
-
     const isLastStep: boolean = useMemo(() => currentStep === steps.length - 1, [steps, currentStep]);
     const isFirstStep: boolean = useMemo(() => currentStep === 0, [currentStep]);
     const displayCurrentStep: number = useMemo(() => currentStep + 1, [currentStep]);
@@ -170,13 +168,21 @@ const Wizard: OverridableComponent<BoxTypeMap<WizardProps>> = forwardRef(
     }, [isFirstStep, onPreviousButtonClick]);
 
     return (
-      <Box ref={ref} className={classes}>
-        <Card elevation={1} className="oxygen-wizard-card">
+      <Box
+        ref={ref}
+        className={clsx(
+          /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+          'oxygen-wizard',
+          'OxygenWizard-root',
+          className,
+        )}
+      >
+        <Card elevation={1} className="OxygenWizard-card oxygen-wizard-card">
           <CardHeader title={title} subheader={subtitle} />
-          <CardContent className="oxygen-wizard-card-content">
+          <CardContent className="OxygenWizard-cardContent oxygen-wizard-card-content">
             <TransitionStepper animateOnSlide={animateOnSlide} currentStep={currentStep} steps={steps} />
           </CardContent>
-          <CardActions className="oxygen-wizard-actions">
+          <CardActions className="OxygenWizard-actions oxygen-wizard-actions">
             <Box>
               {allowBackwardNavigation && !isFirstStep && (
                 <Button color="secondary" onClick={handlePreviousButtonClick}>
@@ -184,7 +190,7 @@ const Wizard: OverridableComponent<BoxTypeMap<WizardProps>> = forwardRef(
                 </Button>
               )}
             </Box>
-            <Box className="oxygen-wizard-right-aligned-buttons">
+            <Box className="OxygenWizard-actionRightAligned oxygen-wizard-right-aligned-buttons">
               {allowCancel && (
                 <Button variant="contained" color="secondary" onClick={onCancelButtonClick}>
                   {cancelButtonText}
@@ -196,11 +202,11 @@ const Wizard: OverridableComponent<BoxTypeMap<WizardProps>> = forwardRef(
             </Box>
           </CardActions>
         </Card>
-        <Box className="oxygen-wizard-progress-container">
+        <Box className="OxygenWizard-progressContainer oxygen-wizard-progress-container">
           <Typography>{`${displayCurrentStep}/${steps.length}`}</Typography>
-          <Box className="oxygen-wizard-progress-bar-container">
+          <Box className="OxygenWizard-progressBarContainer oxygen-wizard-progress-bar-container">
             <LinearProgress
-              className="oxygen-wizard-progress-bar"
+              className="OxygenWizard-progressBar oxygen-wizard-progress-bar"
               variant="determinate"
               value={(displayCurrentStep / steps.length) * 100}
               aria-label="Wizard Progress Bar"

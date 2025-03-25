@@ -22,7 +22,6 @@ import type {TypographyProps as MuiTypographyProps, TypographyTypeMap} from '@mu
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import './typography.scss';
 
 export type TypographyProps<
   C extends ElementType = ElementType,
@@ -63,11 +62,18 @@ const Typography: OverridableComponent<TypographyTypeMap<TypographyProps>> = for
   <C extends ElementType = ElementType>(
     {className, ...rest}: TypographyProps<C>,
     ref: Ref<HTMLSpanElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-typography', className);
-
-    return <MuiTypography ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiTypography
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-typography',
+        'OxygenTypography-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<TypographyTypeMap<TypographyProps>>;
 
 export default Typography;

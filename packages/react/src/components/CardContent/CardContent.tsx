@@ -22,7 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import './card-content.scss';
 
 export type CardContentProps<
   C extends ElementType = ElementType,
@@ -61,11 +60,18 @@ const CardContent: OverridableComponent<CardContentTypeMap<CardContentProps>> = 
   <C extends ElementType = ElementType>(
     {className, ...rest}: CardContentProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-card-content', className);
-
-    return <MuiCardContent ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiCardContent
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-card-content',
+        'OxygenCardContent-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<CardContentTypeMap<CardContentProps>>;
 
 export default CardContent;

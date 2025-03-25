@@ -176,15 +176,6 @@ const Header: OverridableComponent<AppBarTypeMap<HeaderProps>> = forwardRef(
     const {mode, setMode} = useColorScheme();
     const isMobile: boolean = useIsMobile();
 
-    const classes: string = clsx(
-      'oxygen-header',
-      {
-        mobile: isMobile,
-        'with-hamburger': showCollapsibleHamburger,
-      },
-      className,
-    );
-
     const onModeChange = (selectedMode: Mode): void => {
       setMode(selectedMode);
     };
@@ -196,13 +187,24 @@ const Header: OverridableComponent<AppBarTypeMap<HeaderProps>> = forwardRef(
         color="default"
         variant="outlined"
         elevation={0}
-        className={classes}
+        className={clsx(
+          /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+          'oxygen-header',
+          'OxygenHeader-root',
+          {
+            'OxygenHeader-mobile': isMobile,
+            'OxygenHeader-withHamburger': showCollapsibleHamburger,
+            mobile: isMobile,
+            'with-hamburger': showCollapsibleHamburger,
+          },
+          className,
+        )}
         role="banner"
         {...rest}
       >
-        <Toolbar className="oxygen-header-toolbar">
+        <Toolbar className="OxygenHeader-toolbar oxygen-header-toolbar">
           {showCollapsibleHamburger && (
-            <div className="oxygen-header-collapsible-hamburger">
+            <div className="OxygenHeader-collapsibleHamburger oxygen-header-collapsibleHamburger">
               <IconButton aria-label="Menu Icon" onClick={onCollapsibleHamburgerClick || ((): void => null)}>
                 {navbarToggleIcon}
               </IconButton>
@@ -212,32 +214,38 @@ const Header: OverridableComponent<AppBarTypeMap<HeaderProps>> = forwardRef(
             <Box
               tabIndex={0}
               component={brand.onClick ? Link : Box}
-              className={clsx('oxygen-brand', {
-                'with-link': Boolean(brand.onClick),
-              })}
+              className={clsx(
+                /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+                'oxygen-brand',
+                'OxygenHeader-brand',
+                {
+                  'OxygenHeader-brandWithLink': Boolean(brand.onClick),
+                  'with-link': Boolean(brand.onClick),
+                },
+              )}
               onClick={brand.onClick}
               color="inherit"
               {...(brand.onClick ? {underline: 'none'} : {})}
             >
-              <Box className="oxygen-brand-logo">
+              <Box className="OxygenHeader-brandLogo oxygen-brand-logo">
                 {isMobile ? brand.logo.mobile ?? brand.logo.desktop : brand.logo.desktop}
               </Box>
-              <Typography variant="h6" component="h1" className="oxygen-brand-portal-name">
+              <Typography variant="h6" component="h1" className="OxygenHeader-brandPortalName oxygen-brand-portal-name">
                 {brand.title}
               </Typography>
             </Box>
           )}
           {(leftAlignedElements || rightAlignedElements) && (
-            <Box className="oxygen-header-elements">
+            <Box className="OxygenHeader-elements oxygen-header-elements">
               {leftAlignedElements?.length > 0 && (
-                <Box className="oxygen-header-elements-left">{leftAlignedElements}</Box>
+                <Box className="OxygenHeader-elementsLeft oxygen-header-elements-left">{leftAlignedElements}</Box>
               )}
               {rightAlignedElements?.length > 0 && (
-                <Box className="oxygen-header-elements-right">{rightAlignedElements}</Box>
+                <Box className="OxygenHeader-elementsRight oxygen-header-elements-right">{rightAlignedElements}</Box>
               )}
             </Box>
           )}
-          <Box className="oxygen-header-user-dropdown-menu">
+          <Box className="OxygenHeader-userDropdownMenu oxygen-header-user-dropdown-menu">
             <UserDropdownMenu
               user={user}
               triggerOptions={{
@@ -246,7 +254,7 @@ const Header: OverridableComponent<AppBarTypeMap<HeaderProps>> = forwardRef(
                 endIcon: <ChevronDownIcon />,
                 startIcon: (
                   <Avatar
-                    className="image"
+                    className="OxygenHeader-userDropdownMenuImage image"
                     alt="User Image"
                     src={user?.image}
                     randomBackgroundColor={!user?.image}

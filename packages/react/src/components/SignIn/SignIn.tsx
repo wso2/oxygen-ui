@@ -75,63 +75,80 @@ const SignIn: OverridableComponent<BoxTypeMap<SignInProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, signUpUrl, logoUrl, signInOptions, ...rest}: SignInProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-sign-in', className);
-
-    return (
-      <Box ref={ref} className={classes} {...rest}>
-        {logoUrl && <Box className="oxygen-sign-in-logo" component="img" src={logoUrl} />}
-        <Paper className="oxygen-sign-in-box" elevation={0} variant="outlined">
-          <Typography align="center" className="oxygen-sign-in-header" variant="h5">
-            Sign in
-          </Typography>
-          <Box className="oxygen-sign-in-form" component="form" onSubmit={(): void => null} noValidate sx={{mt: 1}}>
-            <TextField
-              required
-              fullWidth
-              id="name"
-              label="Username"
-              name="text"
-              placeholder="Enter your username"
-              autoFocus
-            />
-            <TextField
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              placeholder="Enter your password"
-              autoComplete="current-password"
-            />
-            <FormGroup>
-              <FormControlLabel control={<Checkbox defaultChecked />} label="Remember me on this computer" />
-            </FormGroup>
-            <Button color="primary" variant="contained" className="oxygen-sign-in-cta" type="submit" fullWidth>
-              Sign In
-            </Button>
-            {signInOptions && (
-              <div className="oxygen-sign-in-options-wrapper">
-                <Divider>OR</Divider>
-                <div className="oxygen-sign-in-options">{signInOptions}</div>
-              </div>
-            )}
-            {signUpUrl && (
-              <Grid container className="oxygen-sign-in-sign-up-link">
-                <Grid>Don&apos;t have an account?</Grid>
-                <Grid>
-                  <Link href={signUpUrl} className="oxygen-sign-in-sign-up-link-action">
-                    Sign up
-                  </Link>
-                </Grid>
+  ): ReactElement => (
+    <Box
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-sign-in',
+        'OxygenSignIn-root',
+        className,
+      )}
+      {...rest}
+    >
+      {logoUrl && <Box className="OxygenSignIn-logo oxygen-sign-in-logo" component="img" src={logoUrl} />}
+      <Paper className="OxygenSignIn-box oxygen-sign-in-box" elevation={0} variant="outlined">
+        <Typography align="center" className="OxygenSignIn-header oxygen-sign-in-header" variant="h5">
+          Sign in
+        </Typography>
+        <Box
+          className="OxygenSignIn-form oxygen-sign-in-form"
+          component="form"
+          onSubmit={(): void => null}
+          noValidate
+          sx={{mt: 1}}
+        >
+          <TextField
+            required
+            fullWidth
+            id="name"
+            label="Username"
+            name="text"
+            placeholder="Enter your username"
+            autoFocus
+          />
+          <TextField
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            autoComplete="current-password"
+          />
+          <FormGroup>
+            <FormControlLabel control={<Checkbox defaultChecked />} label="Remember me on this computer" />
+          </FormGroup>
+          <Button
+            color="primary"
+            variant="contained"
+            className="OxygenSignIn-cta oxygen-sign-in-cta"
+            type="submit"
+            fullWidth
+          >
+            Sign In
+          </Button>
+          {signInOptions && (
+            <div className="OxygenSignIn-optionsWrapper oxygen-sign-in-options-wrapper">
+              <Divider>OR</Divider>
+              <div className="OxygenSignIn-options oxygen-sign-in-options">{signInOptions}</div>
+            </div>
+          )}
+          {signUpUrl && (
+            <Grid container className="OxygenSignIn-signUpLink oxygen-sign-in-sign-up-link">
+              <Grid>Don&apos;t have an account?</Grid>
+              <Grid>
+                <Link href={signUpUrl} className="OxygenSignIn-signUpLinkAction oxygen-sign-in-sign-up-link-action">
+                  Sign up
+                </Link>
               </Grid>
-            )}
-          </Box>
-        </Paper>
-      </Box>
-    );
-  },
+            </Grid>
+          )}
+        </Box>
+      </Paper>
+    </Box>
+  ),
 ) as OverridableComponent<BoxTypeMap<SignInProps>>;
 
 export default SignIn;

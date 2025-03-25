@@ -22,7 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import './form-control.scss';
 
 export type FormControlProps<
   C extends ElementType = ElementType,
@@ -67,11 +66,18 @@ const FormControl: OverridableComponent<FormControlTypeMap<FormControlProps>> = 
   <C extends ElementType = ElementType>(
     {className, ...rest}: FormControlProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-form-control', className);
-
-    return <MuiFormControl ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiFormControl
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-form-control',
+        'OxygenFormControl-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<FormControlTypeMap<FormControlProps>>;
 
 export default FormControl;

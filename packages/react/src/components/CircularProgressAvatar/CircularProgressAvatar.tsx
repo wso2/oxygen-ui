@@ -69,41 +69,58 @@ const CircularProgressAvatar: ForwardRefExoticComponent<CircularProgressAvatarPr
   (
     {className, progress, badgeOptions, avatarOptions, ...rest}: CircularProgressAvatarProps,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-circular-progress-avatar', className);
-
-    return (
-      <Box ref={ref} className={classes} role="presentation">
-        <Badge
-          className="oxygen-badge"
-          overlap="circular"
-          anchorOrigin={{
-            horizontal: 'left',
-            vertical: 'bottom',
-          }}
-          {...badgeOptions}
-        >
-          <Avatar {...avatarOptions} />
-          <CircularProgress
-            aria-label="progress"
-            size={90}
-            className="oxygen-circular-progress"
-            variant="determinate"
-            value={progress}
-            {...rest}
-          />
-          <CircularProgress
-            aria-label="progress"
-            size={90}
-            className="oxygen-circular-progress frame"
-            variant="determinate"
-            value={100}
-            {...rest}
-          />
-        </Badge>
-      </Box>
-    );
-  },
+  ): ReactElement => (
+    <Box
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-circular-progress-avatar',
+        'OxygenCircularProgress-avatar',
+        className,
+      )}
+      role="presentation"
+    >
+      <Badge
+        className={clsx(
+          /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+          'oxygen-badge',
+          'OxygenCircularProgress-avatarBadge',
+        )}
+        overlap="circular"
+        anchorOrigin={{
+          horizontal: 'left',
+          vertical: 'bottom',
+        }}
+        {...badgeOptions}
+      >
+        <Avatar {...avatarOptions} />
+        <CircularProgress
+          aria-label="progress"
+          size={90}
+          className={clsx(
+            /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+            'oxygen-circular-progress',
+            'OxygenCircularProgress-main',
+          )}
+          variant="determinate"
+          value={progress}
+          {...rest}
+        />
+        <CircularProgress
+          aria-label="progress"
+          size={90}
+          className={clsx(
+            /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+            'oxygen-circular-progress frame',
+            'OxygenCircularProgress-frame',
+          )}
+          variant="determinate"
+          value={100}
+          {...rest}
+        />
+      </Badge>
+    </Box>
+  ),
 ) as ForwardRefExoticComponent<CircularProgressAvatarProps>;
 
 export default CircularProgressAvatar;

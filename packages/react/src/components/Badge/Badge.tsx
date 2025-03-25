@@ -22,7 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
-import './badge.scss';
 
 export type BadgeProps<
   C extends ElementType = ElementType,
@@ -63,11 +62,18 @@ const Badge: OverridableComponent<BadgeTypeMap<BadgeTypeMap['defaultComponent'],
   <C extends ElementType = ElementType>(
     {className, ...rest}: BadgeProps<C>,
     ref: Ref<HTMLSpanElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-badge', className);
-
-    return <MuiBadge ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiBadge
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-badge',
+        'OxygenBadge-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<BadgeTypeMap<BadgeTypeMap['defaultComponent'], BadgeProps>>;
 
 export default Badge;

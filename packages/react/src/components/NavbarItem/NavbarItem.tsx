@@ -83,35 +83,48 @@ const NavbarItem: OverridableComponent<ListItemButtonTypeMap<NavbarItemProps>> =
   <C extends ElementType = ElementType>(
     {className, fill, icon, id, label, onClick, selected, tag, tagClassName, open = true, ...rest}: NavbarItemProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx(
-      'oxygen-navbar-item',
-      {
-        [`${fill}`]: fill,
-        fill,
-        open,
-      },
-      className,
-    );
-
-    return (
-      <Box ref={ref} className={classes}>
-        <Tooltip ref={ref} key={id} title={!open && label} placement="right">
-          <ListItemButton selected={selected} className={clsx({selected})} onClick={onClick} {...rest}>
-            <ListItemIcon>{icon}</ListItemIcon>
-            <ListItemText primary={label} />
-            {open && tag ? (
-              <Chip
-                label={tag}
-                className={clsx(`oxygen-chip-${tag.toLowerCase()}`, tagClassName)}
-                classes={{label: 'oxygen-navbar-item-chip-label'}}
-              />
-            ) : null}
-          </ListItemButton>
-        </Tooltip>
-      </Box>
-    );
-  },
+  ): ReactElement => (
+    <Box
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-navbar-item',
+        'OxygenNavbarItem-root',
+        {
+          [`OxygenNavbarItem-${fill}`]: fill,
+          [`${fill}`]: fill,
+          'OxygenNavbarItem-fill': fill,
+          'OxygenNavbarItem-open': open,
+          fill,
+          open,
+        },
+        className,
+      )}
+    >
+      <Tooltip ref={ref} key={id} title={!open && label} placement="right">
+        <ListItemButton
+          selected={selected}
+          className={clsx({'OxygenNavbarItem-selected': selected, selected})}
+          onClick={onClick}
+          {...rest}
+        >
+          <ListItemIcon>{icon}</ListItemIcon>
+          <ListItemText primary={label} />
+          {open && tag ? (
+            <Chip
+              label={tag}
+              className={clsx(
+                `oxygen-chip-${tag.toLowerCase()}`,
+                `OxygenNavbarItem-chip-${tag.toLowerCase()}`,
+                tagClassName,
+              )}
+              classes={{label: 'OxygenNavbarItem-chipLabel oxygen-navbar-item-chip-label'}}
+            />
+          ) : null}
+        </ListItemButton>
+      </Tooltip>
+    </Box>
+  ),
 ) as OverridableComponent<ListItemButtonTypeMap<NavbarItemProps>>;
 
 export default NavbarItem;

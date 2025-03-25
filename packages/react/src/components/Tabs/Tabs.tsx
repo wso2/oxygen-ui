@@ -23,7 +23,6 @@ import {forwardRef, ForwardRefExoticComponent} from 'react';
 import type {ElementType, Ref, ReactElement} from 'react';
 import Box from '../Box';
 import Divider from '../Divider';
-import './tabs.scss';
 
 export type TabsProps<
   C extends ElementType = ElementType,
@@ -62,16 +61,20 @@ export type TabsProps<
  * @returns The rendered Skeleton component.
  */
 const Tabs: ForwardRefExoticComponent<TabsProps> = forwardRef(
-  <C extends ElementType = ElementType>({className, ...rest}: TabsProps<C>, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-tabs', className);
-    return (
-      <Box className={classes}>
-        {/* @ts-ignore */}
-        <MuiTabs ref={ref} {...rest} />
-        <Divider />
-      </Box>
-    );
-  },
+  <C extends ElementType = ElementType>({className, ...rest}: TabsProps<C>, ref: Ref<HTMLDivElement>): ReactElement => (
+    <Box
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-tabs',
+        'OxygenTabs-root',
+        className,
+      )}
+    >
+      {/* @ts-ignore */}
+      <MuiTabs ref={ref} {...rest} />
+      <Divider />
+    </Box>
+  ),
 ) as unknown as ForwardRefExoticComponent<TabsProps>;
 
 export default Tabs;

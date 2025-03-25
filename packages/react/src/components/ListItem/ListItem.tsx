@@ -22,7 +22,6 @@ import type {OverridableComponent} from '@mui/material/OverridableComponent';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, MutableRefObject, ReactElement} from 'react';
-import './list-item.scss';
 
 export type ListItemProps<C extends ElementType = ElementType, D extends ElementType = 'li', P = {}> = {
   /**
@@ -59,11 +58,18 @@ const ListItem: OverridableComponent<ListItemTypeMap<ListItemProps, 'li'>> = for
   <C extends ElementType = ElementType>(
     {className, ...rest}: ListItemProps<C>,
     ref: MutableRefObject<HTMLLIElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-list-item', className);
-
-    return <MuiListItem ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiListItem
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-list-item',
+        'OxygenListItem-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<ListItemTypeMap<ListItemProps, 'li'>>;
 
 export default ListItem;

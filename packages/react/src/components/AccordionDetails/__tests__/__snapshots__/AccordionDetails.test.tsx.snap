@@ -4,7 +4,7 @@ exports[`AccordionDetails should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="MuiAccordionDetails-root oxygen-accordion-details css-15v22id-MuiAccordionDetails-root"
+      class="MuiAccordionDetails-root oxygen-accordion-details OxygenAccordionDetails-root css-15v22id-MuiAccordionDetails-root"
     />
   </div>
 </body>

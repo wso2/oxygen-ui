@@ -23,7 +23,6 @@ import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ReactElement, ElementType, Ref} from 'react';
 import type {TypographyTypeMap} from '../Typography';
-import './alert-title.scss';
 
 export type AlertTitleProps<C extends ElementType = ElementType> = {
   /**
@@ -59,11 +58,18 @@ const AlertTitle: OverridableComponent<TypographyTypeMap<AlertTitleProps>> = for
   <C extends ElementType = ElementType>(
     {className, ...rest}: AlertTitleProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-alert-title', className);
-
-    return <MuiAlertTitle ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiAlertTitle
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-alert-title',
+        'OxygenAlertTitle-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<TypographyTypeMap<AlertTitleProps>>;
 
 export default AlertTitle;

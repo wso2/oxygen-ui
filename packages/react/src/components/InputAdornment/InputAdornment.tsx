@@ -61,11 +61,19 @@ const InputAdornment: OverridableComponent<InputAdornmentTypeMap<InputAdornmentP
   <C extends ElementType = ElementType>(
     {className, position, ...rest}: InputAdornmentProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-input-adornment', className);
-
-    return <MuiInputAdornment ref={ref} position={position} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiInputAdornment
+      ref={ref}
+      position={position}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-input-adornment',
+        'OxygenInputAdornment-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<InputAdornmentTypeMap<InputAdornmentProps>>;
 
 export default InputAdornment;

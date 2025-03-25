@@ -51,11 +51,18 @@ const TableBody: ForwardRefExoticComponent<TableBodyProps> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: TableBodyProps<C>,
     ref: Ref<HTMLTableSectionElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-table-body', className);
-
-    return <MuiTableBody ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiTableBody
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-table-body',
+        'OxygenTableBody-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<TableBodyProps>;
 
 export default TableBody;

@@ -8,7 +8,7 @@ exports[`Popover should match the snapshot 1`] = `
     aria-hidden="true"
   />
   <div
-    class="MuiPopover-root oxygen-popover MuiModal-root css-wpwlzh-MuiModal-root-MuiPopover-root"
+    class="MuiPopover-root oxygen-popover OxygenPopover-root MuiModal-root css-wpwlzh-MuiModal-root-MuiPopover-root"
     role="presentation"
   >
     <div

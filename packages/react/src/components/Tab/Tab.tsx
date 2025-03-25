@@ -59,11 +59,18 @@ export type TabProps<
  * @returns The rendered Tab component.
  */
 const Tab: OverridableComponent<TabTypeMap<TabProps>> = forwardRef(
-  <C extends ElementType = ElementType>({className, ...rest}: TabProps<C>, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-tab', className);
-
-    return <MuiTab className={classes} ref={ref} {...rest} />;
-  },
+  <C extends ElementType = ElementType>({className, ...rest}: TabProps<C>, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiTab
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-tab',
+        'OxygenTab-root',
+        className,
+      )}
+      ref={ref}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<TabTypeMap<TabProps>>;
 
 export default Tab;

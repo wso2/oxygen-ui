@@ -54,11 +54,18 @@ export type AutocompleteProps<
  * @returns The rendered Accordion component.
  */
 const Autocomplete: ForwardRefExoticComponent<AutocompleteProps<any>> = forwardRef(
-  ({className, ...rest}: AutocompleteProps<any>, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-autocomplete', className);
-
-    return <MuiAutocomplete className={classes} {...rest} ref={ref} />;
-  },
+  ({className, ...rest}: AutocompleteProps<any>, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiAutocomplete
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-autocomplete',
+        'OxygenAutocomplete-root',
+        className,
+      )}
+      ref={ref}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<AutocompleteProps<any>>;
 
 export default Autocomplete;

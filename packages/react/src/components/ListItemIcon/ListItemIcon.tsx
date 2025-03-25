@@ -21,7 +21,6 @@ import type {ListItemIconProps as MuiListItemIconProps} from '@mui/material/List
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
-import './list-item-icon.scss';
 
 export type ListItemIconProps = MuiListItemIconProps;
 
@@ -47,11 +46,18 @@ export type ListItemIconProps = MuiListItemIconProps;
  * @returns The rendered ListItemIcon component.
  */
 const ListItemIcon: ForwardRefExoticComponent<ListItemIconProps> = forwardRef(
-  ({className, ...rest}: ListItemIconProps, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-list-item-icon', className);
-
-    return <MuiListItemIcon ref={ref} className={classes} {...rest} />;
-  },
+  ({className, ...rest}: ListItemIconProps, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiListItemIcon
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-list-item-icon',
+        'OxygenListItemIcon-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<ListItemIconProps>;
 
 export default ListItemIcon;

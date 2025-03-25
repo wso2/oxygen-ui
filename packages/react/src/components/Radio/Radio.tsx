@@ -58,11 +58,18 @@ const Radio: OverridableComponent<ButtonBaseTypeMap<RadioProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: RadioProps<C>,
     ref: Ref<HTMLButtonElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-radio', className);
-
-    return <MuiRadio className={classes} {...rest} ref={ref} />;
-  },
+  ): ReactElement => (
+    <MuiRadio
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-radio',
+        'OxygenRadio-root',
+        className,
+      )}
+      {...rest}
+      ref={ref}
+    />
+  ),
 ) as OverridableComponent<ButtonBaseTypeMap<RadioProps>>;
 
 export default Radio;

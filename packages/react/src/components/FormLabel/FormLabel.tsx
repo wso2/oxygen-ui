@@ -64,11 +64,18 @@ const FormLabel: OverridableComponent<FormLabelTypeMap<FormLabelProps>> = forwar
   <C extends ElementType = ElementType>(
     {className, ...rest}: FormLabelProps<C>,
     ref: Ref<HTMLLabelElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-form-label', className);
-
-    return <MuiFormLabel ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiFormLabel
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-form-label',
+        'OxygenFormLabel-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<FormLabelTypeMap<FormLabelProps>>;
 
 export default FormLabel;

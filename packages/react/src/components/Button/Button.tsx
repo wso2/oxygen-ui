@@ -63,11 +63,18 @@ const Button: OverridableComponent<ButtonTypeMap<ButtonProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: ButtonProps<C>,
     ref: Ref<HTMLButtonElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-button', className);
-
-    return <MuiButton ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiButton
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-button',
+        'OxygenButton-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<ButtonTypeMap<ButtonProps>>;
 
 export default Button;

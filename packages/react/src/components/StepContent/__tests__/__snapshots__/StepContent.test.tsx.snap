@@ -4,7 +4,7 @@ exports[`StepContent should match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="MuiStepContent-root oxygen-step-content css-kdy6ax-MuiStepContent-root"
+      class="MuiStepContent-root oxygen-step-content OxygenStepContent-root css-kdy6ax-MuiStepContent-root"
     />
   </div>
 </body>

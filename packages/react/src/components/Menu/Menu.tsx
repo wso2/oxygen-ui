@@ -21,7 +21,6 @@ import type {MenuProps as MuiMenuProps} from '@mui/material/Menu';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ElementType, Ref, ReactElement, ForwardRefExoticComponent} from 'react';
-import './menu.scss';
 
 export type MenuProps<C extends ElementType = ElementType> = {
   /**
@@ -56,11 +55,18 @@ export type MenuProps<C extends ElementType = ElementType> = {
  * @returns The rendered List component.
  */
 const Menu: ForwardRefExoticComponent<MenuProps> = forwardRef(
-  <C extends ElementType = ElementType>({className, ...rest}: MenuProps<C>, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-menu', className);
-
-    return <MuiMenu ref={ref} className={classes} {...rest} />;
-  },
+  <C extends ElementType = ElementType>({className, ...rest}: MenuProps<C>, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiMenu
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-menu',
+        'OxygenMenu-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<MenuProps>;
 
 export default Menu;

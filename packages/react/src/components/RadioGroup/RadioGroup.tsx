@@ -47,11 +47,18 @@ export type RadioGroupProps = MuiRadioGroupProps;
  * @returns The rendered RadioGroup component.
  */
 const RadioGroup: ForwardRefExoticComponent<RadioGroupProps> = forwardRef(
-  ({className, ...rest}: RadioGroupProps, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-radio-group', className);
-
-    return <MuiRadioGroup className={classes} {...rest} ref={ref} />;
-  },
+  ({className, ...rest}: RadioGroupProps, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiRadioGroup
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-radio-group',
+        'OxygenRadioGroup-root',
+        className,
+      )}
+      {...rest}
+      ref={ref}
+    />
+  ),
 ) as ForwardRefExoticComponent<RadioGroupProps>;
 
 export default RadioGroup;

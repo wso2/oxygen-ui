@@ -46,11 +46,18 @@ export type AccordionDetailsProps = MuiAccordionDetailsProps;
  * @returns The rendered AccordionDetails component.
  */
 const AccordionDetails: ForwardRefExoticComponent<AccordionDetailsProps> = forwardRef(
-  ({className, ...rest}: AccordionDetailsProps, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-accordion-details', className);
-
-    return <MuiAccordionDetails ref={ref} className={classes} {...rest} />;
-  },
+  ({className, ...rest}: AccordionDetailsProps, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiAccordionDetails
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-accordion-details',
+        'OxygenAccordionDetails-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<AccordionDetailsProps>;
 
 export default AccordionDetails;

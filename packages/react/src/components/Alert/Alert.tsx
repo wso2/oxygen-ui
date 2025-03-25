@@ -23,7 +23,6 @@ import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ReactElement, ElementType, Ref} from 'react';
 import type {PaperTypeMap} from '../Paper';
-import './alert.scss';
 
 export type AlertProps<C extends ElementType = ElementType> = {
   /**
@@ -59,11 +58,18 @@ const Alert: OverridableComponent<PaperTypeMap<AlertProps>> = forwardRef(
   <C extends ElementType = ElementType>(
     {className, ...rest}: AlertProps<C>,
     ref: Ref<HTMLDivElement>,
-  ): ReactElement => {
-    const classes: string = clsx('oxygen-alert', className);
-
-    return <MuiAlert ref={ref} className={classes} {...rest} />;
-  },
+  ): ReactElement => (
+    <MuiAlert
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-alert',
+        'OxygenAlert-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as OverridableComponent<PaperTypeMap<AlertProps>>;
 
 export default Alert;

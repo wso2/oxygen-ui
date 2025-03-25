@@ -21,7 +21,6 @@ import type {ListItemAvatarProps as MuiListItemAvatarProps} from '@mui/material/
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
-import './list-item-avatar.scss';
 
 export type ListItemAvatarProps = MuiListItemAvatarProps;
 
@@ -47,11 +46,18 @@ export type ListItemAvatarProps = MuiListItemAvatarProps;
  * @returns The rendered ListItemAvatar component.
  */
 const ListItemAvatar: ForwardRefExoticComponent<ListItemAvatarProps> = forwardRef(
-  ({className, ...rest}: ListItemAvatarProps, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-list-item-avatar', className);
-
-    return <MuiListItemAvatar ref={ref} className={classes} {...rest} />;
-  },
+  ({className, ...rest}: ListItemAvatarProps, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiListItemAvatar
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-list-item-avatar',
+        'OxygenListItemAvatar-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<ListItemAvatarProps>;
 
 export default ListItemAvatar;

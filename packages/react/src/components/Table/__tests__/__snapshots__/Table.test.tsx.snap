@@ -4,7 +4,7 @@ exports[`Table should match the snapshot 1`] = `
 <body>
   <div>
     <table
-      class="MuiTable-root oxygen-table css-1du9rtx-MuiTable-root"
+      class="MuiTable-root oxygen-table OxygenTable-root css-1du9rtx-MuiTable-root"
     >
       <p>
         test Table

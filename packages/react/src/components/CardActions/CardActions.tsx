@@ -21,7 +21,6 @@ import type {CardActionsProps as MuiCardActionsProps} from '@mui/material/CardAc
 import clsx from 'clsx';
 import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
-import './card-actions.scss';
 
 export type CardActionsProps = MuiCardActionsProps;
 
@@ -47,11 +46,18 @@ export type CardActionsProps = MuiCardActionsProps;
  * @returns The rendered CardActions component.
  */
 const CardActions: ForwardRefExoticComponent<CardActionsProps> = forwardRef(
-  ({className, ...rest}: CardActionsProps, ref: Ref<HTMLDivElement>): ReactElement => {
-    const classes: string = clsx('oxygen-card-actions', className);
-
-    return <MuiCardActions ref={ref} className={classes} {...rest} />;
-  },
+  ({className, ...rest}: CardActionsProps, ref: Ref<HTMLDivElement>): ReactElement => (
+    <MuiCardActions
+      ref={ref}
+      className={clsx(
+        /* @deprecated Use the PascalCase classname instead. https://github.com/wso2/oxygen-ui/issues/274 */
+        'oxygen-card-actions',
+        'OxygenCardActions-root',
+        className,
+      )}
+      {...rest}
+    />
+  ),
 ) as ForwardRefExoticComponent<CardActionsProps>;
 
 export default CardActions;
