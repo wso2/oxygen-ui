@@ -53,7 +53,7 @@ export type PhoneNumberInputProps<C extends ElementType = ElementType> = BoxProp
    *
    * Refer props: {@link https://mui.com/material-ui/api/select/}
    */
-  SelectProps?: Omit<MuiSelectProps, 'labelId' | 'id' | 'value' | 'onChange' | 'placeholder'>;
+  SelectProps?: Omit<MuiSelectProps, 'labelId' | 'id' | 'value' | 'onChange' | 'placeholder' | 'variant'>;
   /**
    * Dial code state value.
    *

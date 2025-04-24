@@ -21,7 +21,7 @@ import MuiTabs from '@mui/material/Tabs';
 import type {TabsProps as MuiTabsProps, TabsTypeMap} from '@mui/material/Tabs';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, Ref, ReactElement} from 'react';
+import type {ElementType, ReactElement} from 'react';
 import Box from '../Box';
 import Divider from '../Divider';
 import './tabs.scss';
@@ -54,16 +54,14 @@ export type TabsProps<
  * - ✅ `component` prop is supported.
  * - ✅ The `ref` is forwarded to the root element.
  *
+ *
  * @template C - The type of the component.
  * @param props - The props for the Skeleton component.
  * @param ref - The ref to be forwarded to the MuiSkeleton component.
  * @returns The rendered Skeleton component.
  */
 const Tabs: OverridableComponent<TabsTypeMap<TabsProps>> = forwardRef(
-  <C extends ElementType = ElementType>(
-    {className, ...rest}: TabsProps<C>,
-    ref: Ref<HTMLButtonElement>,
-  ): ReactElement => {
+  <C extends ElementType = ElementType>({className, ...rest}: TabsProps<C>, ref: any): ReactElement => {
     const classes: string = clsx('oxygen-tabs', className);
 
     // TODO: Need to evaluate this wrapper.
