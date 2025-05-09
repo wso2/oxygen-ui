@@ -1,0 +1,67 @@
+import { Meta, Story, Canvas, ArgsTable, Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import StoryConfig from '../../../.storybook/story-config.ts';
+import TimePicker from './TimePicker.tsx';
+import LocalizationProvider from '../LocalizationProvider/LocalizationProvider.tsx';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+
+export const meta = {
+  component: TimePicker,
+  title: StoryConfig.TimePicker.hierarchy,
+};
+
+<Meta title={meta.title} component={meta.component} />
+
+export const Template = args => (
+  <LocalizationProvider dateAdapter={AdapterMoment}>
+    <TimePicker {...args} />
+  </LocalizationProvider>
+);
+
+# TimePicker
+
+- [Overview](#overview)
+- [Props](#props)
+- [Usage](#usage)
+
+## Overview
+
+Use the TimePicker component to allow users to select a specific time. Automatically adapts to screen size and locale context.
+
+<Canvas>
+  <Story
+    name="Overview"
+    args={{
+      label: 'TimePicker',
+      ampm: true,
+      disabled: false,
+      disableFuture: false,
+      disablePast: false,
+      ampm: true,
+      minutesStep: 1,
+      views: ['hours', 'minutes', 'seconds'],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Overview" />
+
+## Usage
+
+<Source
+  language="jsx"
+  dark
+  format
+  code={dedent`
+import TimePicker from '@oxygen-ui/react/TimePicker';\n
+function Demo() {
+  return (
+    <TimePicker label="Select time" />
+  );
+}
+`}
+/>

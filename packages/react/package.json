@@ -39,10 +39,12 @@
   },
   "dependencies": {
     "@mui/x-data-grid": "^6.9.2",
+    "@mui/x-date-pickers": "^6.18.0",
     "@oxygen-ui/primitives": "2.3.4",
     "@oxygen-ui/react-icons": "2.3.4",
     "clsx": "^1.2.1",
     "dart-sass": "^1.25.0",
+    "moment": "^2.30.1",
     "react-world-flags": "^1.5.1"
   },
   "devDependencies": {
