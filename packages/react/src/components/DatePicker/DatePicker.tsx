@@ -24,9 +24,7 @@ import {forwardRef} from 'react';
 import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
 import type {InputLabelProps} from '../InputLabel';
 
-export type DatePickerProps<
-  TEnableAccessibleFieldDOMStructure extends boolean = true,
-> = {
+export type DatePickerProps<TEnableAccessibleFieldDOMStructure extends boolean = true> = {
   /**
    * Props for the label of the DatePicker.
    * This is used to customize the label of the DatePicker.
