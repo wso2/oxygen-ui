@@ -17,32 +17,26 @@
  */
 
 import InputLabel from '@mui/material/InputLabel';
-import { DatePicker as MUIDatePicker } from '@mui/x-date-pickers/DatePicker';
-import type { DatePickerProps as MuiDatePickerProps } from '@mui/x-date-pickers/DatePicker';
+import {DatePicker as MUIDatePicker} from '@mui/x-date-pickers/DatePicker';
+import type {DatePickerProps as MuiDatePickerProps} from '@mui/x-date-pickers/DatePicker';
 import clsx from 'clsx';
-import { forwardRef } from 'react';
-import type { ForwardRefExoticComponent, Ref, ReactElement } from 'react';
-import { InputLabelProps } from '../InputLabel';
+import {forwardRef} from 'react';
+import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
+import {InputLabelProps as InputLabelPropsType} from '../InputLabel';
 
 export type DatePickerProps = MuiDatePickerProps<true> & {
-  InputLabelProps: InputLabelProps
+  InputLabelProps?: InputLabelPropsType;
 };
 
 /**
  * Oxygen UI wrapper for the MUI DatePicker.
  * Applies Oxygen class naming and allows responsive behavior.
  */
-const DatePicker = forwardRef(function OxygenDatePicker(
-  { className, InputLabelProps, label, ...rest }: DatePickerProps,
-  ref: Ref<HTMLDivElement>
-): ReactElement {
-  return (
+const DatePicker: ForwardRefExoticComponent<DatePickerProps> = forwardRef(
+  ({className, InputLabelProps, label, ...rest}: DatePickerProps, ref: Ref<HTMLDivElement>): ReactElement => (
     <>
       {label && (
-        <InputLabel
-          {...InputLabelProps}
-          className={clsx('OxygenDatePicker-label', InputLabelProps?.className)}
-        >
+        <InputLabel {...InputLabelProps} className={clsx('OxygenDatePicker-label', InputLabelProps?.className)}>
           {label}
         </InputLabel>
       )}
@@ -58,7 +52,7 @@ const DatePicker = forwardRef(function OxygenDatePicker(
         }}
       />
     </>
-  );
-}) as ForwardRefExoticComponent<MuiDatePickerProps<true> & { ref?: Ref<HTMLDivElement> }>;
+  ),
+) as ForwardRefExoticComponent<MuiDatePickerProps<true> & {ref?: Ref<HTMLDivElement>}>;
 
 export default DatePicker;

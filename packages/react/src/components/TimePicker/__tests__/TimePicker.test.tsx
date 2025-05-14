@@ -16,26 +16,26 @@
  * under the License.
  */
 
-import { render } from "@unit-testing";
-import TimePicker from "../TimePicker";
-import LocalizationProvider from "../../LocalizationProvider/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment';
+import {render} from '@unit-testing';
+import LocalizationProvider from '../../LocalizationProvider/LocalizationProvider';
+import TimePicker from '../TimePicker';
 
 describe('TimePicker', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(
+    const {baseElement} = render(
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <TimePicker label="Time" />
-      </LocalizationProvider>
+      </LocalizationProvider>,
     );
     expect(baseElement).toBeTruthy();
   });
 
   it('should match the snapshot', () => {
-    const { baseElement } = render(
+    const {baseElement} = render(
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <TimePicker label="Time" />
-      </LocalizationProvider>
+      </LocalizationProvider>,
     );
     expect(baseElement).toMatchSnapshot();
   });

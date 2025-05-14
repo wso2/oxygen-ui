@@ -17,12 +17,12 @@
  */
 
 import InputLabel from '@mui/material/InputLabel';
+import {DateTimePicker as MUIDateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
+import type {DateTimePickerProps as MuiDateTimePickerProps} from '@mui/x-date-pickers/DateTimePicker';
 import clsx from 'clsx';
-import { forwardRef } from 'react';
-import type { Ref, ReactElement, ForwardRefExoticComponent } from 'react';
-import { DateTimePicker as MUIDateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import type { DateTimePickerProps as MuiDateTimePickerProps } from '@mui/x-date-pickers/DateTimePicker';
-import type { InputLabelProps } from '../InputLabel';
+import {forwardRef} from 'react';
+import type {Ref, ReactElement, ForwardRefExoticComponent} from 'react';
+import type {InputLabelProps} from '../InputLabel';
 
 export type DateTimePickerProps = MuiDateTimePickerProps<true> & {
   InputLabelProps?: InputLabelProps;
@@ -32,17 +32,11 @@ export type DateTimePickerProps = MuiDateTimePickerProps<true> & {
  * Oxygen UI wrapper for the MUI DateTimePicker.
  * Applies Oxygen class naming and adds a styled InputLabel.
  */
-const DateTimePicker = forwardRef(function OxygenDateTimePicker(
-  { className, InputLabelProps, label, ...rest }: DateTimePickerProps,
-  ref: Ref<HTMLDivElement>
-): ReactElement {
-  return (
+const DateTimePicker: ForwardRefExoticComponent<DateTimePickerProps> = forwardRef(
+  ({className, InputLabelProps, label, ...rest}: DateTimePickerProps, ref: Ref<HTMLDivElement>): ReactElement => (
     <>
       {label && (
-        <InputLabel
-          {...InputLabelProps}
-          className={clsx('OxygenDateTimePicker-label', InputLabelProps?.className)}
-        >
+        <InputLabel {...InputLabelProps} className={clsx('OxygenDateTimePicker-label', InputLabelProps?.className)}>
           {label}
         </InputLabel>
       )}
@@ -58,7 +52,7 @@ const DateTimePicker = forwardRef(function OxygenDateTimePicker(
         className={clsx('OxygenDateTimePicker-root', className)}
       />
     </>
-  );
-}) as ForwardRefExoticComponent<MuiDateTimePickerProps<true> & { ref?: Ref<HTMLDivElement> }>;
+  ),
+) as ForwardRefExoticComponent<MuiDateTimePickerProps<true> & {ref?: Ref<HTMLDivElement>}>;
 
 export default DateTimePicker;

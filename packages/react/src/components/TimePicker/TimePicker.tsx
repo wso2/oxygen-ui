@@ -17,31 +17,25 @@
  */
 
 import InputLabel from '@mui/material/InputLabel';
+import {TimePicker as MUITimePicker} from '@mui/x-date-pickers/TimePicker';
+import type {TimePickerProps as MUITimePickerProps} from '@mui/x-date-pickers/TimePicker';
 import clsx from 'clsx';
-import { forwardRef } from 'react';
-import type { Ref, ReactElement, ForwardRefExoticComponent } from 'react';
-import { TimePicker as MUITimePicker } from '@mui/x-date-pickers/TimePicker';
-import type { TimePickerProps as MUIv6TimePickerProps } from '@mui/x-date-pickers/TimePicker';
-import type { InputLabelProps } from '../InputLabel';
+import {forwardRef} from 'react';
+import type {Ref, ReactElement, ForwardRefExoticComponent} from 'react';
+import type {InputLabelProps} from '../InputLabel';
 
-export type TimePickerProps<TDate = unknown> = MUIv6TimePickerProps<TDate> & {
+export type TimePickerProps<TDate = unknown> = MUITimePickerProps<TDate> & {
   InputLabelProps?: InputLabelProps;
 };
 
 /**
  * Oxygen UI wrapper for MUI v6 TimePicker.
  */
-const TimePicker = forwardRef(function OxygenTimePicker<TDate = unknown>(
-  { className, InputLabelProps, label, ...rest }: TimePickerProps<TDate>,
-  ref: Ref<HTMLDivElement>
-): ReactElement {
-  return (
+const TimePicker: ForwardRefExoticComponent<TimePickerProps> = forwardRef(
+  ({className, InputLabelProps, label, ...rest}: TimePickerProps<any>, ref: Ref<HTMLDivElement>): ReactElement => (
     <>
       {label && (
-        <InputLabel
-          {...InputLabelProps}
-          className={clsx('OxygenTimePicker-label', InputLabelProps?.className)}
-        >
+        <InputLabel {...InputLabelProps} className={clsx('OxygenTimePicker-label', InputLabelProps?.className)}>
           {label}
         </InputLabel>
       )}
@@ -57,7 +51,7 @@ const TimePicker = forwardRef(function OxygenTimePicker<TDate = unknown>(
         }}
       />
     </>
-  );
-}) as ForwardRefExoticComponent<TimePickerProps & { ref?: Ref<HTMLDivElement> }>;
+  ),
+) as ForwardRefExoticComponent<TimePickerProps & {ref?: Ref<HTMLDivElement>}>;
 
 export default TimePicker;

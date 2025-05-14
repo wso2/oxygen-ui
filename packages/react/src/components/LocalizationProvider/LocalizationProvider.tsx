@@ -17,10 +17,10 @@
  */
 
 import {
-    LocalizationProvider as MuiLocalizationProvider,
-    type LocalizationProviderProps as MuiLocalizationProviderProps
+  LocalizationProvider as MuiLocalizationProvider,
+  type LocalizationProviderProps as MuiLocalizationProviderProps,
 } from '@mui/x-date-pickers';
-import { ReactElement } from 'react';
+import {ReactElement} from 'react';
 
 /**
  * Oxygen UI wrapper for MUI's LocalizationProvider.
@@ -38,11 +38,8 @@ import { ReactElement } from 'react';
  *
  * @see https://mui.com/x/react-date-pickers/localization/
  */
-const LocalizationProvider = <
-    TDate = unknown,
-    TLocale = unknown
->(
-    props: MuiLocalizationProviderProps<TDate, TLocale>
+const LocalizationProvider = <TDate = unknown, TLocale = unknown>(
+  props: MuiLocalizationProviderProps<TDate, TLocale>,
 ): ReactElement => <MuiLocalizationProvider {...props} />;
 
 export default LocalizationProvider;
