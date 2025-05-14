@@ -17,30 +17,55 @@
  */
 
 import InputLabel from '@mui/material/InputLabel';
-import {TimePicker as MUITimePicker} from '@mui/x-date-pickers/TimePicker';
-import type {TimePickerProps as MUITimePickerProps} from '@mui/x-date-pickers/TimePicker';
+import {TimePicker as MuiTimePicker} from '@mui/x-date-pickers/TimePicker';
+import type {TimePickerProps as MuiTimePickerProps} from '@mui/x-date-pickers/TimePicker';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {Ref, ReactElement, ForwardRefExoticComponent} from 'react';
+import type {ElementType, Ref, ReactElement, ForwardRefExoticComponent} from 'react';
 import type {InputLabelProps} from '../InputLabel';
 
-export type TimePickerProps<TDate = unknown> = MUITimePickerProps<TDate> & {
+export type TimePickerProps<C extends ElementType = ElementType> = {
+  /**
+   * Props for the label of the TimePicker.
+   * This is used to customize the label of the TimePicker.
+   */
   InputLabelProps?: InputLabelProps;
-};
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
+  component?: C;
+} & Omit<MuiTimePickerProps<C>, 'component'>;
 
 /**
- * Oxygen UI wrapper for MUI v6 TimePicker.
+ * The TimePicker component lets you select time values.
+ *
+ * Demos:
+ *
+ * - [TimePicker (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-time-picker)
+ * - [TimePicker (MUI)](https://mui.com/x/react-date-pickers/time-picker/)
+ *
+ * API:
+ *
+ * - [TimePicker API](https://mui.com/x/react-date-pickers/time-picker/#api)
+ *
+ * @remarks
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the TimePicker component.
+ * @param ref - The ref to be forwarded to the MuiTTimePickercomponent.
+ * @returns The rendered TimePicker component.
  */
 const TimePicker: ForwardRefExoticComponent<TimePickerProps> = forwardRef(
   ({className, InputLabelProps, label, ...rest}: TimePickerProps<any>, ref: Ref<HTMLDivElement>): ReactElement => (
     <>
       {label && (
-        <InputLabel {...InputLabelProps} className={clsx('OxygenTimePicker-label', InputLabelProps?.className)}>
+        <InputLabel className={clsx('OxygenTimePicker-label', InputLabelProps?.className)} {...InputLabelProps}>
           {label}
         </InputLabel>
       )}
-      <MUITimePicker
-        {...rest}
+      <MuiTimePicker
         ref={ref}
         className={clsx('OxygenTimePicker-root', className)}
         slotProps={{
@@ -49,6 +74,7 @@ const TimePicker: ForwardRefExoticComponent<TimePickerProps> = forwardRef(
           },
           ...rest.slotProps,
         }}
+        {...rest}
       />
     </>
   ),

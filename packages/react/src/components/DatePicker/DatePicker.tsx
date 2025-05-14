@@ -17,31 +17,55 @@
  */
 
 import InputLabel from '@mui/material/InputLabel';
-import {DatePicker as MUIDatePicker} from '@mui/x-date-pickers/DatePicker';
+import {DatePicker as MuiDatePicker} from '@mui/x-date-pickers/DatePicker';
 import type {DatePickerProps as MuiDatePickerProps} from '@mui/x-date-pickers/DatePicker';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ForwardRefExoticComponent, Ref, ReactElement} from 'react';
-import {InputLabelProps as InputLabelPropsType} from '../InputLabel';
+import type {ElementType, ForwardRefExoticComponent, Ref, ReactElement} from 'react';
+import type {InputLabelProps} from '../InputLabel';
 
-export type DatePickerProps = MuiDatePickerProps<true> & {
-  InputLabelProps?: InputLabelPropsType;
-};
+export type DatePickerProps<C extends ElementType = ElementType> = {
+  /**
+   * Props for the label of the DatePicker.
+   * This is used to customize the label of the DatePicker.
+   */
+  InputLabelProps?: InputLabelProps;
+  /**
+   * The component used for the root node. Either a string to use a HTML element or a component.
+   */
+  component?: C;
+} & Omit<MuiDatePickerProps<true>, 'component'>;
 
 /**
- * Oxygen UI wrapper for the MUI DatePicker.
- * Applies Oxygen class naming and allows responsive behavior.
+ * The DatePicker component lets you select date values.
+ *
+ * Demos:
+ *
+ * - [DatePicker (Oxygen UI)](https://wso2.github.io/oxygen-ui/react/?path=/docs/inputs-date-picker)
+ * - [DatePicker (MUI)](https://mui.com/x/react-date-pickers/date-picker/)
+ *
+ * API:
+ *
+ * - [DatePicker API](https://mui.com/x/react-date-pickers/date-picker/#api)
+ *
+ * @remarks
+ * - ✅ `component` prop is supported.
+ * - ✅ The `ref` is forwarded to the root element.
+ *
+ * @template C - The type of the component.
+ * @param props - The props for the DatePicker component.
+ * @param ref - The ref to be forwarded to the MuiDatePicker component.
+ * @returns The rendered DatePicker component.
  */
 const DatePicker: ForwardRefExoticComponent<DatePickerProps> = forwardRef(
   ({className, InputLabelProps, label, ...rest}: DatePickerProps, ref: Ref<HTMLDivElement>): ReactElement => (
     <>
       {label && (
-        <InputLabel {...InputLabelProps} className={clsx('OxygenDatePicker-label', InputLabelProps?.className)}>
+        <InputLabel className={clsx('OxygenDatePicker-label', InputLabelProps?.className)} {...InputLabelProps}>
           {label}
         </InputLabel>
       )}
-      <MUIDatePicker
-        {...rest}
+      <MuiDatePicker
         ref={ref}
         className={clsx('OxygenDatePicker-root', className)}
         slotProps={{
@@ -50,6 +74,7 @@ const DatePicker: ForwardRefExoticComponent<DatePickerProps> = forwardRef(
           },
           ...rest.slotProps,
         }}
+        {...rest}
       />
     </>
   ),
