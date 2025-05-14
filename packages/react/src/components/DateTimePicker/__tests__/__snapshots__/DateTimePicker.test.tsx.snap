@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateTimePicker should match the snapshot 1`] = `
+<body>
+  <div>
+    <label
+      class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-animated OxygenDateTimePicker-label css-f3834g-MuiFormLabel-root-MuiInputLabel-root"
+    >
+      Date & Time
+    </label>
+    <div
+      class="MuiFormControl-root MuiTextField-root OxygenDateTimePicker-root css-z3c6am-MuiFormControl-root-MuiTextField-root"
+    >
+      <div
+        class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-sizeSmall Mui-readOnly MuiInputBase-readOnly css-9s98je-MuiInputBase-root-MuiOutlinedInput-root"
+      >
+        <input
+          aria-invalid="false"
+          aria-label="Choose date"
+          autocomplete="off"
+          class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputSizeSmall Mui-readOnly MuiInputBase-readOnly css-18xv68w-MuiInputBase-input-MuiOutlinedInput-input"
+          id=":r4:"
+          inputmode="text"
+          placeholder="MM/DD/YYYY hh:mm aa"
+          readonly=""
+          type="text"
+          value=""
+        />
+        <fieldset
+          aria-hidden="true"
+          class="MuiOutlinedInput-notchedOutline css-116asjz-MuiOutlinedInput-notchedOutline"
+        >
+          <legend
+            class="css-ihdtdm"
+          >
+            <span
+              class="notranslate"
+            >
+              ​
+            </span>
+          </legend>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</body>
+`;

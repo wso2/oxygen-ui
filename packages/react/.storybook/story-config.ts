@@ -67,6 +67,8 @@ export type Stories =
   | 'Container'
   | 'CountryFlag'
   | 'DataGrid'
+  | 'DatePicker'
+  | 'DateTimePicker'
   | 'Dialog'
   | 'Divider'
   | 'DnD'
@@ -124,6 +126,7 @@ export type Stories =
   | 'TableRow'
   | 'TabPanel'
   | 'Tabs'
+  | 'TimePicker'
   | 'TransitionStepper'
   | 'TextField'
   | 'Toolbar'
@@ -171,10 +174,10 @@ const StoryConfig: StorybookConfig = {
     hierarchy: `${StorybookCategories.Surfaces}/App Bar`,
   },
   Alert: {
-    hierarchy: `${ StorybookCategories.Feedback }/Alert`,
+    hierarchy: `${StorybookCategories.Feedback}/Alert`,
   },
   AlertTitle: {
-    hierarchy: `${ StorybookCategories.Feedback }/Alert Title`,
+    hierarchy: `${StorybookCategories.Feedback}/Alert Title`,
   },
   AppShell: {
     hierarchy: `${StorybookCategories.Layout}/App Shell`,
@@ -248,6 +251,12 @@ const StoryConfig: StorybookConfig = {
   DataGrid: {
     hierarchy: `${StorybookCategories.DataDisplay}/DataGrid`,
   },
+  DateTimePicker: {
+    hierarchy: `${StorybookCategories.Inputs}/Date Time Picker`,
+  },
+  DatePicker: {
+    hierarchy: `${StorybookCategories.Inputs}/Date Picker`,
+  },
   Dialog: {
     hierarchy: `${StorybookCategories.Feedback}/Dialog`,
   },
@@ -317,7 +326,7 @@ const StoryConfig: StorybookConfig = {
     hierarchy: `${StorybookCategories.Icons}/Icons 🚧`
   },
   LinearProgress: {
-    hierarchy: `${ StorybookCategories.Feedback}/Linear Progress`,
+    hierarchy: `${StorybookCategories.Feedback}/Linear Progress`,
   },
   Link: {
     hierarchy: `${StorybookCategories.Navigation}/Link`,
@@ -398,7 +407,7 @@ const StoryConfig: StorybookConfig = {
     hierarchy: `${StorybookCategories.Navigation}/Stepper`,
   },
   Switch: {
-    hierarchy:  `${StorybookCategories.Inputs}/Switch`,
+    hierarchy: `${StorybookCategories.Inputs}/Switch`,
   },
   Tab: {
     hierarchy: `${StorybookCategories.Navigation}/Tab`,
@@ -429,6 +438,9 @@ const StoryConfig: StorybookConfig = {
   },
   Tabs: {
     hierarchy: `${StorybookCategories.Navigation}/Tabs`,
+  },
+  TimePicker: {
+    hierarchy: `${StorybookCategories.Inputs}/Time Picker`,
   },
   TransitionStepper: {
     hierarchy: `${StorybookCategories.Navigation}/Transition Stepper`,
