@@ -21,20 +21,16 @@ import {TimePicker as MuiTimePicker} from '@mui/x-date-pickers/TimePicker';
 import type {TimePickerProps as MuiTimePickerProps} from '@mui/x-date-pickers/TimePicker';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, Ref, ReactElement, ForwardRefExoticComponent} from 'react';
+import type {Ref, ReactElement, ForwardRefExoticComponent} from 'react';
 import type {InputLabelProps} from '../InputLabel';
 
-export type TimePickerProps<C extends ElementType = ElementType> = {
+export type TimePickerProps<TDate = unknown> = {
   /**
    * Props for the label of the TimePicker.
    * This is used to customize the label of the TimePicker.
    */
   InputLabelProps?: InputLabelProps;
-  /**
-   * The component used for the root node. Either a string to use a HTML element or a component.
-   */
-  component?: C;
-} & Omit<MuiTimePickerProps<C>, 'component'>;
+} & MuiTimePickerProps<TDate>;
 
 /**
  * The TimePicker component lets you select time values.
@@ -49,16 +45,16 @@ export type TimePickerProps<C extends ElementType = ElementType> = {
  * - [TimePicker API](https://mui.com/x/react-date-pickers/time-picker/#api)
  *
  * @remarks
- * - ✅ `component` prop is supported.
- * - ✅ The `ref` is forwarded to the root element.
+ * - ✅ Props of the native component are also available
+ * - ❌ `component` prop is not supported.
+ * - ❌ The component cannot hold a ref.
  *
- * @template C - The type of the component.
  * @param props - The props for the TimePicker component.
- * @param ref - The ref to be forwarded to the MuiTTimePickercomponent.
+ * @param ref - The ref to be forwarded to the MuiTimePicker component.
  * @returns The rendered TimePicker component.
  */
 const TimePicker: ForwardRefExoticComponent<TimePickerProps> = forwardRef(
-  ({className, InputLabelProps, label, ...rest}: TimePickerProps<any>, ref: Ref<HTMLDivElement>): ReactElement => (
+  ({className, InputLabelProps, label, ...rest}: TimePickerProps, ref: Ref<HTMLDivElement>): ReactElement => (
     <>
       {label && (
         <InputLabel className={clsx('OxygenTimePicker-label', InputLabelProps?.className)} {...InputLabelProps}>

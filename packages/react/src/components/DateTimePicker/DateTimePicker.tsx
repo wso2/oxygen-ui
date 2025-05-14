@@ -21,20 +21,16 @@ import {DateTimePicker as MuiDateTimePicker} from '@mui/x-date-pickers/DateTimeP
 import type {DateTimePickerProps as MuiDateTimePickerProps} from '@mui/x-date-pickers/DateTimePicker';
 import clsx from 'clsx';
 import {forwardRef} from 'react';
-import type {ElementType, Ref, ReactElement, ForwardRefExoticComponent} from 'react';
+import type {Ref, ReactElement, ForwardRefExoticComponent} from 'react';
 import type {InputLabelProps} from '../InputLabel';
 
-export type DateTimePickerProps<C extends ElementType = ElementType> = {
+export type DateTimePickerProps<TDate = unknown> = {
   /**
-   * Props for the label of the TimePicker.
-   * This is used to customize the label of the TimePicker.
+   * Props for the label of the DateTimePicker.
+   * This is used to customize the label of the DateTimePicker.
    */
   InputLabelProps?: InputLabelProps;
-  /**
-   * The component used for the root node. Either a string to use a HTML element or a component.
-   */
-  component?: C;
-} & Omit<MuiDateTimePickerProps<C>, 'component'>;
+} & MuiDateTimePickerProps<TDate>;
 
 /**
  * The DateTimePicker component lets you select date and time values.
@@ -49,10 +45,10 @@ export type DateTimePickerProps<C extends ElementType = ElementType> = {
  * - [DateTimePicker API](https://mui.com/x/react-date-pickers/date-time-picker/#api)
  *
  * @remarks
- * - ✅ `component` prop is supported.
+ * - ✅ Props of the native component are also available
+ * - ❌ `component` prop is not supported.
  * - ✅ The `ref` is forwarded to the root element.
  *
- * @template C - The type of the component.
  * @param props - The props for the DateTimePicker component.
  * @param ref - The ref to be forwarded to the MuiDateTimePickerComponent.
  * @returns The rendered DateTimePicker component.
