@@ -33,9 +33,9 @@
     "typecheck": "nx run-many --target=typecheck --parallel"
   },
   "devDependencies": {
-    "@release-it/conventional-changelog": "^7.0.0",
+    "@release-it/conventional-changelog": "5.1.1",
     "nx": "15.2.1",
-    "release-it": "^16.3.0",
+    "release-it": "15.9.1",
     "rimraf": "^3.0.2",
     "detect-indent": "^6.0.0",
     "detect-newline": "^3.1.0",
