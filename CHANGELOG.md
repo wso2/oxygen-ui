@@ -1,5 +1,31 @@
 # Changelog
 
+# [2.4.0](https://github.com/wso2/oxygen-ui/compare/v2.3.4...v2.4.0)
+<br> Released on: 2025-05-15
+
+## What's Changed
+
+### `@oxygen-ui/react`
+* **react:** Add TimePicker, DatePicker and DateTimePicker components ([1f88d37](https://github.com/wso2/oxygen-ui/commit/1f88d37029e26b35192e14bd18b2bd0d6dc764ed))
+
+
+### `@oxygen-ui/primitives`
+* **primitives:** add `GridDotsVertical` icon ([c9f667e](https://github.com/wso2/oxygen-ui/commit/c9f667e1df3a1a5a91f2e8f15dbfe33d378e8b6b))
+* **primitives:** add `ChevronsRight` icon ([7a12dc7](https://github.com/wso2/oxygen-ui/commit/7a12dc789ea5326d7582a576433e308cb0ce97a6))
+* **primitives:** add `ChevronsLeft` icon ([a1d1adb](https://github.com/wso2/oxygen-ui/commit/a1d1adb91acb356bb727c48a3af9478e191071e2))
+* **primitives:** add `CircleInfoFilled` icon ([f60b59b](https://github.com/wso2/oxygen-ui/commit/f60b59b8fb6c81d5731ce113e15c7f682725315c))
+
+
+### `@oxygen-ui/docs`
+* **docs:** fix unit tests ([f1cf5a7](https://github.com/wso2/oxygen-ui/commit/f1cf5a7258dea4fc5e7fa635370d3fe2feea2b59))
+* **docs:** fix TS issue ([82691aa](https://github.com/wso2/oxygen-ui/commit/82691aa39700eac4b40dc84dd5a569c2eb848bfe))
+
+
+### `other`
+
+* stylelint issues ([5781c89](https://github.com/wso2/oxygen-ui/commit/5781c896a61f7b137e3b5d5392d71ef97f1d8f59))
+* typings issues ([49906ab](https://github.com/wso2/oxygen-ui/commit/49906ab43e8ae33ed46d839ce228bed6b69c29ff))
+
 ## [2.3.4](https://github.com/wso2/oxygen-ui/compare/v2.3.3...v2.3.4)
 <br> Released on: 2025-02-07
 

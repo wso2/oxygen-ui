@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@oxygen-ui/multi-brand-identity-example",
-  "version": "2.3.4",
+  "version": "2.4.0",
   "description": "Sample app to showcase Oxygen Design System multi-branding capabilities.",
   "author": "WSO2",
   "license": "Apache-2.0",
