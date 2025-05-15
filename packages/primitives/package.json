@@ -37,7 +37,7 @@
     "@babel/parser": "^7.20.5",
     "@divriots/style-dictionary-to-figma": "^0.4.0",
     "@jest/globals": "^29.3.1",
-    "@oxygen-ui/logger": "2.3.4",
+    "@oxygen-ui/logger": "workspace:^",
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.18",
     "@wso2/eslint-plugin": "https://gitpkg.now.sh/brionmario/wso2-ui-configs/packages/eslint-plugin?4ee6f6be232d7631999d709a86b91612f1d34ce7",
