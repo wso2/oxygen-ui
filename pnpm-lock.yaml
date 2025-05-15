@@ -64,7 +64,7 @@ importers:
         version: 8.25.0
       next:
         specifier: ^13.4.5
-        version: 13.5.8(@babel/core@7.26.10)(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.86.0)
+        version: 13.5.8(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.86.0)
       prettier:
         specifier: ^2.8.0
         version: 2.8.8
@@ -309,8 +309,8 @@ importers:
         specifier: ^29.3.1
         version: 29.7.0
       '@oxygen-ui/logger':
-        specifier: 2.3.4
-        version: 2.3.4
+        specifier: workspace:^
+        version: link:../logger
       '@types/jest':
         specifier: ^29.2.3
         version: 29.5.14
@@ -372,11 +372,11 @@ importers:
         specifier: ^6.18.0
         version: 6.18.0(@emotion/react@11.14.0(@types/react@18.0.25)(react@18.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.0.25)(react@18.2.0))(@types/react@18.0.25)(react@18.2.0))(@mui/material@5.17.1(@emotion/react@11.14.0(@types/react@18.0.25)(react@18.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.0.25)(react@18.2.0))(@types/react@18.0.25)(react@18.2.0))(@types/react@18.0.25)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(@mui/system@5.17.1(@emotion/react@11.14.0(@types/react@18.0.25)(react@18.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.0.25)(react@18.2.0))(@types/react@18.0.25)(react@18.2.0))(@types/react@18.0.25)(react@18.2.0))(@types/react@18.0.25)(moment@2.30.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@oxygen-ui/primitives':
-        specifier: 2.3.4
-        version: 2.3.4
+        specifier: workspace:^
+        version: link:../primitives
       '@oxygen-ui/react-icons':
-        specifier: 2.3.4
-        version: 2.3.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(typescript@4.9.3)
+        specifier: workspace:^
+        version: link:../react-icons
       clsx:
         specifier: ^1.2.1
         version: 1.2.1
@@ -415,8 +415,8 @@ importers:
         specifier: ^5.10.16
         version: 5.17.1(@types/react@18.0.25)(react@18.2.0)
       '@oxygen-ui/logger':
-        specifier: 2.3.4
-        version: 2.3.4
+        specifier: workspace:^
+        version: link:../logger
       '@rollup/plugin-commonjs':
         specifier: ^23.0.3
         version: 23.0.7(rollup@3.29.5)
@@ -604,11 +604,11 @@ importers:
         specifier: ^7.20.2
         version: 7.26.10
       '@oxygen-ui/logger':
-        specifier: 2.3.4
-        version: 2.3.4
+        specifier: workspace:^
+        version: link:../logger
       '@oxygen-ui/primitives':
-        specifier: 2.3.4
-        version: 2.3.4
+        specifier: workspace:^
+        version: link:../primitives
       '@rollup/plugin-babel':
         specifier: 5.3.1
         version: 5.3.1(@babel/core@7.26.10)(@types/babel__core@7.20.5)(rollup@2.79.2)
@@ -2303,22 +2303,6 @@ packages:
 
   '@octokit/types@9.3.2':
     resolution: {integrity: sha512-D4iHGTdAnEEVsB8fl95m1hiz7D5YiRdQ9b/OEb3BYRVwbLsGHcRVPz+u+BgRLNk0Q0/4iZCBqDN96j2XNxfXrA==}
-
-  '@oxygen-ui/logger@2.3.4':
-    resolution: {integrity: sha512-WDtp/jmAT5sfg8tlzsZMbbjpTvRQLetK/uUKrp2mH2zQiQ9pgqm70wB1Akd7JqLOn5Cc9O/uQ/+dY/CB1jYh+Q==}
-
-  '@oxygen-ui/primitives@2.3.4':
-    resolution: {integrity: sha512-Soba/egRz3CMIu145nxQHoFDfLZul2eK2La9CN8rHQCGnTtbQ9CbarRPEkD7iFNam3IYmPEE6pseyLrPRUFZpg==}
-
-  '@oxygen-ui/react-icons@2.3.4':
-    resolution: {integrity: sha512-cbiMDQBTmLprAFvX5e4BzCK2Zdz+3CyRNrrv4kxaj3SXwh61Kbs6LEYNfF+QpOTV05X9wyIEZPMK2ANwvo0xEw==}
-    peerDependencies:
-      react: '>=18.0.0'
-      react-dom: '>=18.0.0'
-      typescript: '>=4.0.0'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
 
   '@parcel/watcher-android-arm64@2.5.1':
     resolution: {integrity: sha512-KF8+j9nNbUN8vzOFDpRMsaKBHZ/mcjEjMToVMJOhTozkDonQFFrRcfdLWn6yWKCmJKmdVxSgHiYvTCef4/qcBA==}
@@ -14444,19 +14428,6 @@ snapshots:
     dependencies:
       '@octokit/openapi-types': 18.1.1
 
-  '@oxygen-ui/logger@2.3.4':
-    dependencies:
-      chalk: 5.4.1
-
-  '@oxygen-ui/primitives@2.3.4': {}
-
-  '@oxygen-ui/react-icons@2.3.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(typescript@4.9.3)':
-    dependencies:
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    optionalDependencies:
-      typescript: 4.9.3
-
   '@parcel/watcher-android-arm64@2.5.1':
     optional: true
 
@@ -18435,7 +18406,7 @@ snapshots:
       chalk: 4.1.2
       exit: 0.1.2
       graceful-fs: 4.2.11
-      jest-config: 29.7.0(@types/node@18.19.80)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@18.19.80)(typescript@4.9.3))
+      jest-config: 29.7.0(@types/node@16.18.126)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@16.18.126)(typescript@4.9.3))
       jest-util: 29.7.0
       prompts: 2.4.2
     transitivePeerDependencies:
@@ -21562,7 +21533,7 @@ snapshots:
       create-jest: 29.7.0(babel-plugin-macros@3.1.0)
       exit: 0.1.2
       import-local: 3.2.0
-      jest-config: 29.7.0(@types/node@18.19.80)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@18.19.80)(typescript@4.9.3))
+      jest-config: 29.7.0(@types/node@16.18.126)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@16.18.126)(typescript@4.9.3))
       jest-util: 29.7.0
       jest-validate: 29.7.0
       yargs: 17.7.2
@@ -23467,7 +23438,7 @@ snapshots:
     dependencies:
       type-fest: 2.19.0
 
-  next@13.5.8(@babel/core@7.26.10)(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.86.0):
+  next@13.5.8(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.86.0):
     dependencies:
       '@next/env': 13.5.8
       '@swc/helpers': 0.5.2
@@ -23476,7 +23447,7 @@ snapshots:
       postcss: 8.4.31
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      styled-jsx: 5.1.1(@babel/core@7.26.10)(babel-plugin-macros@3.1.0)(react@18.2.0)
+      styled-jsx: 5.1.1(babel-plugin-macros@3.1.0)(react@18.2.0)
       watchpack: 2.4.0
     optionalDependencies:
       '@next/swc-darwin-arm64': 13.5.8
@@ -26444,12 +26415,11 @@ snapshots:
     dependencies:
       inline-style-parser: 0.1.1
 
-  styled-jsx@5.1.1(@babel/core@7.26.10)(babel-plugin-macros@3.1.0)(react@18.2.0):
+  styled-jsx@5.1.1(babel-plugin-macros@3.1.0)(react@18.2.0):
     dependencies:
       client-only: 0.0.1
       react: 18.2.0
     optionalDependencies:
-      '@babel/core': 7.26.10
       babel-plugin-macros: 3.1.0
 
   stylehacks@5.1.1(postcss@8.4.16):
