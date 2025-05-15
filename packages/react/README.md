@@ -12,6 +12,7 @@
 
 ## Table of Contents
 
+ - [Prerequisites](#prerequisites)
  - [Installation](#installation)
  - [Usage](#usage)
    - [ThemeProvider](#themeprovider)
@@ -23,6 +24,10 @@
     - [Locally Linking the Package](#locally-linking-the-package)
   - [Contributing](#contributing)
   - [License](#license)
+
+## Prerequisites
+- LTS version of Node.js (v22.x.x) to avoid any compatibility issues.
+- pnpm v10.x.x is required.
 
 ## Installation
 
