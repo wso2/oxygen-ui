@@ -21,7 +21,7 @@ import { ReactElement } from 'react';
 
 const LoginPage = (): ReactElement => {
   const theme: Theme = useTheme();
-  const { mode } = useColorScheme();
+  const {mode} = useColorScheme();
 
   return (
     <Grid
@@ -30,7 +30,7 @@ const LoginPage = (): ReactElement => {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      style={{ minHeight: '100vh' }}
+      style={{minHeight: '100vh'}}
     >
       <SignIn
         logoUrl={

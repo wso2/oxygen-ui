@@ -34,7 +34,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 env:
   GH_TOKEN: ${{ secrets.UI_BOT_TOKEN }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  SHOULD_GENERATE_CHANGESET: "true"
+  SHOULD_GENERATE_CHANGESET: 'true'
 
 jobs:
   release:
@@ -65,7 +65,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
+          cache: 'pnpm'
 
       - name: 🎈 Get pnpm store directory
         id: get-pnpm-cache-dir
@@ -84,10 +84,10 @@ jobs:
         id: changesets
         uses: changesets/action@v1.4.9
         with:
-          title: "[Release] [GitHub Action] Update package versions"
+          title: '[Release] [GitHub Action] Update package versions'
           publish: pnpm run publish:packages
           version: pnpm run version:packages
-          commit: "[Oxygen UI Release] [GitHub Action] [Release] [skip ci] update package versions"
+          commit: '[Oxygen UI Release] [GitHub Action] [Release] [skip ci] update package versions'
         env:
           NPM_TOKEN: ${{ env.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ env.GH_TOKEN }}
