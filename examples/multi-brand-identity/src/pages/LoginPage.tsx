@@ -16,14 +16,12 @@
  * under the License.
  */
 
-import {useTheme, useColorScheme, Theme} from '@oxygen-ui/react';
-import Grid from '@oxygen-ui/react/Grid';
-import SignIn from '@oxygen-ui/react/SignIn';
-import {ReactElement} from 'react';
+import { useTheme, useColorScheme, Theme, Grid, SignIn } from '@oxygen-ui/react';
+import { ReactElement } from 'react';
 
 const LoginPage = (): ReactElement => {
   const theme: Theme = useTheme();
-  const {mode} = useColorScheme();
+  const { mode } = useColorScheme();
 
   return (
     <Grid
@@ -32,7 +30,7 @@ const LoginPage = (): ReactElement => {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      style={{minHeight: '100vh'}}
+      style={{ minHeight: '100vh' }}
     >
       <SignIn
         logoUrl={
