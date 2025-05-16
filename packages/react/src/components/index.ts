@@ -112,6 +112,12 @@ export * from './CountryFlag';
 export {default as DataGrid} from './DataGrid';
 export * from './DataGrid';
 
+export {default as DatePicker} from './DatePicker';
+export * from './DatePicker';
+
+export {default as DateTimePicker} from './DateTimePicker';
+export * from './DateTimePicker';
+
 export {default as Dialog} from './Dialog';
 export * from './Dialog';
 
@@ -281,6 +287,9 @@ export * from './Tabs';
 
 export {default as TextField} from './TextField';
 export * from './TextField';
+
+export {default as TimePicker} from './TimePicker';
+export * from './TimePicker';
 
 export {default as Toolbar} from './Toolbar';
 export * from './Toolbar';
