@@ -1,31 +1,40 @@
+# -------------------------------------------------------------------------------------
+#
+# Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+#
+# WSO2 LLC. licenses this file to you under the Apache License,
+# Version 2.0 (the "License"); you may not use this file except
+# in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+# --------------------------------------------------------------------------------------
+
 # This workflow will release the packages.
 
 name: 🚀 Release
 
 on:
+  push:
+    branches: [master]
+    paths-ignore:
+      - "LICENSE"
   workflow_dispatch:
-    inputs:
-      version:
-        type: choice
-        description: Choose which version to bump before release
-        default: 'Auto'
-        options:
-        - Auto
-        - Major
-        - Minor
-        - Patch
-      preRelease:
-        description: |
-          The pre-release identifier for the version.
-          For example, if the version is "1.2.3-beta.1", the pre-release identifier is "beta.1".
-        default: ""
-        type: string
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 env:
   GH_TOKEN: ${{ secrets.UI_BOT_TOKEN }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  SHOULD_GENERATE_CHANGESET: "true"
 
 jobs:
   release:
@@ -44,7 +53,6 @@ jobs:
           fetch-depth: 0
           token: ${{ env.GH_TOKEN }}
 
-
       - name: 🥡 Setup pnpm
         id: setup-pnpm
         uses: pnpm/action-setup@v4
@@ -57,7 +65,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
+          cache: "pnpm"
 
       - name: 🎈 Get pnpm store directory
         id: get-pnpm-cache-dir
@@ -71,38 +79,15 @@ jobs:
         id: build
         run: pnpm build
 
-      - name: 📢 Release & Publish
-        id: release-and-publish
-        run: |
-          git config user.name "wso2-ui-bot"
-          git config user.email "wso2-ui-bot@wso2.com"
-          echo "//registry.npmjs.org/:_authToken=${{ env.NPM_TOKEN }}" >> ~/.npmrc
-
-          if [ "${{ github.event.inputs.version }}" = "Major" ]; then
-            if [ -n "${{ github.event.inputs.preRelease }}" ]; then
-              npm run release -- major --preRelease="${{ github.event.inputs.preRelease }}" --ci
-            else
-              npm run release -- major --ci
-            fi
-          elif [ "${{ github.event.inputs.version }}" = "Minor" ]; then
-            if [ -n "${{ github.event.inputs.preRelease }}" ]; then
-              npm run release -- minor --preRelease="${{ github.event.inputs.preRelease }}" --ci
-            else
-              npm run release -- minor --ci
-            fi
-          elif [ "${{ github.event.inputs.version }}" = "Patch" ]; then
-            if [ -n "${{ github.event.inputs.preRelease }}" ]; then
-              npm run release -- patch --preRelease="${{ github.event.inputs.preRelease }}" --ci
-            else
-              npm run release -- patch --ci
-            fi
-          else
-            if [ -n "${{ github.event.inputs.preRelease }}" ]; then
-              npm run release -- --preRelease="${{ github.event.inputs.preRelease }}" --ci
-            else
-              npm run release -- --ci
-            fi
-          fi
+      - name: 📣 Create Release Pull Request or Publish to npm
+        if: ${{ env.SHOULD_GENERATE_CHANGESET == 'true' }}
+        id: changesets
+        uses: changesets/action@v1.4.9
+        with:
+          title: "[Release] [GitHub Action] Update package versions"
+          publish: pnpm run publish:packages
+          version: pnpm run version:packages
+          commit: "[Oxygen UI Release] [GitHub Action] [Release] [skip ci] update package versions"
         env:
           NPM_TOKEN: ${{ env.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ env.GH_TOKEN }}

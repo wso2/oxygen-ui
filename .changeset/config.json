@@ -1,0 +1,25 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
+  "changelog": [
+    "@changesets/changelog-github",
+    { "repo": "DonOmalVindula/oxygen-ui" }
+  ],
+  "commit": false,
+  "fixed": [
+    [
+      "@oxygen-ui/react",
+      "@oxygen-ui/react-icons",
+      "@oxygen-ui/primitives",
+      "@oxygen-ui/logger"
+    ]
+  ],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": [],
+  "privatePackages": {
+    "version": true,
+    "tag": true
+  }
+}
