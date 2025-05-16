@@ -22,9 +22,9 @@ import type {Theme} from '../models/theme';
 
 // TODO: Move these to design tokens.
 // These are added as a temporary fix as a workaround for the ESM import issue.
-const OxygenOxygenColorsPrimaryDefault: string = "#ff5100";
-const OxygenOxygenColorsTextLight: string = "#666666";
-const OxygenOxygenColorsSecondaryDefault: string = "#ff7300";
+const OxygenOxygenColorsPrimaryDefault: string = '#ff5100';
+const OxygenOxygenColorsTextLight: string = '#666666';
+const OxygenOxygenColorsSecondaryDefault: string = '#ff7300';
 const OxygenOxygenBorderRadiusLg: number = 8;
 
 export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<Theme> => ({

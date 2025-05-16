@@ -26,7 +26,8 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
-  Theme} from '@oxygen-ui/react';
+  Theme,
+} from '@oxygen-ui/react';
 import {ChangeEvent, FC, ReactElement, useState} from 'react';
 import {BrandingActions} from '../branding/store/branding-reducer';
 
