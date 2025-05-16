@@ -151,8 +151,8 @@ importers:
         specifier: workspace:^
         version: link:../../packages/primitives
       '@oxygen-ui/react':
-        specifier: workspace:^
-        version: link:../../packages/react
+        specifier: workspace:../../packages/react/dist
+        version: link:../../packages/react/dist
       react:
         specifier: ^18.2.0
         version: 18.2.0
