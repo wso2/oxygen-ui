@@ -34,7 +34,7 @@
     "@fontsource/inter": "^4.5.14",
     "@fontsource/montserrat": "^4.5.13",
     "@oxygen-ui/primitives": "workspace:^",
-    "@oxygen-ui/react": "workspace:^",
+    "@oxygen-ui/react": "workspace:../../packages/react/dist",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
