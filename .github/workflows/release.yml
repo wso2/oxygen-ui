@@ -88,6 +88,3 @@ jobs:
           publish: pnpm run publish:packages
           version: pnpm run version:packages
           commit: "[Oxygen UI Release] [GitHub Action] [Release] [skip ci] update package versions"
-        env:
-          NPM_TOKEN: ${{ env.NPM_TOKEN }}
-          GITHUB_TOKEN: ${{ env.GH_TOKEN }}
