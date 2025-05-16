@@ -54,7 +54,7 @@ importers:
         specifier: ^13.4.5
         version: 13.5.8
       '@oxygen-ui/react':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../packages/react
       '@types/react':
         specifier: 18.0.25
@@ -88,7 +88,7 @@ importers:
         specifier: ^29.6.3
         version: 29.6.3
       '@oxygen-ui/logger':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../packages/logger
       '@testing-library/dom':
         specifier: ^10.4.0
@@ -148,11 +148,11 @@ importers:
         specifier: ^4.5.13
         version: 4.5.14
       '@oxygen-ui/primitives':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../packages/primitives
       '@oxygen-ui/react':
-        specifier: workspace:../../packages/react/dist
-        version: link:../../packages/react/dist
+        specifier: workspace:^
+        version: link:../../packages/react
       react:
         specifier: ^18.2.0
         version: 18.2.0
