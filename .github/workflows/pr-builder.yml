@@ -299,7 +299,7 @@ jobs:
 
   build:
     name: 🚧 Build
-    needs: [ lint, typecheck, test, storybook ]
+    # needs: [ lint, typecheck, test, storybook ]
     runs-on: ubuntu-latest
     strategy:
       matrix:

@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@next/font": "^13.4.5",
-    "@oxygen-ui/react": "workspace:*",
+    "@oxygen-ui/react": "workspace:^",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "clsx": "^1.2.1",
@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@jest/types": "^29.6.3",
-    "@oxygen-ui/logger": "workspace:*",
+    "@oxygen-ui/logger": "workspace:^",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
