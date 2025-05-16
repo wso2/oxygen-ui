@@ -17,9 +17,15 @@
  */
 
 import {experimental_extendTheme as extendTheme} from '@mui/material/styles';
-import lightTokens from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/tokens';
 import type {RecursivePartial} from '../models/common';
 import type {Theme} from '../models/theme';
+
+// TODO: Move these to design tokens.
+// These are added as a temporary fix as a workaround for the ESM import issue.
+const OxygenOxygenColorsPrimaryDefault: string = "#ff5100";
+const OxygenOxygenColorsTextLight: string = "#666666";
+const OxygenOxygenColorsSecondaryDefault: string = "#ff7300";
+const OxygenOxygenBorderRadiusLg: number = 8;
 
 export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<Theme> => ({
   colorSchemes: {
@@ -87,12 +93,12 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
         },
         primary: {
           contrastText: '#fff',
-          main: lightTokens.OxygenOxygenColorsPrimaryDefault,
+          main: OxygenOxygenColorsPrimaryDefault,
         },
         secondary: {
           // TODO: Need a dedicated variable for secondary button text.
-          contrastText: lightTokens.OxygenOxygenColorsTextLight,
-          main: lightTokens.OxygenOxygenColorsSecondaryDefault,
+          contrastText: OxygenOxygenColorsTextLight,
+          main: OxygenOxygenColorsSecondaryDefault,
         },
       },
     },
@@ -252,7 +258,7 @@ export const generateDefaultThemeOptions = (baseTheme: Theme): RecursivePartial<
   ],
   shape: {
     // TODO: Is `Lg` the default?
-    borderRadius: lightTokens.OxygenOxygenBorderRadiusLg,
+    borderRadius: OxygenOxygenBorderRadiusLg,
   },
   typography: {
     body1: {
