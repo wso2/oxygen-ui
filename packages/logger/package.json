@@ -1,6 +1,6 @@
 {
   "name": "@oxygen-ui/logger",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "Logger for Oxygen UI projects",
   "author": "WSO2",
   "license": "Apache-2.0",
