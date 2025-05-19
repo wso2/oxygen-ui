@@ -16,9 +16,7 @@
  * under the License.
  */
 
-import {useTheme, useColorScheme, Theme} from '@oxygen-ui/react';
-import Grid from '@oxygen-ui/react/Grid';
-import SignIn from '@oxygen-ui/react/SignIn';
+import {useTheme, useColorScheme, Theme, Grid, SignIn} from '@oxygen-ui/react';
 import {ReactElement} from 'react';
 
 const LoginPage = (): ReactElement => {

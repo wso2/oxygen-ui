@@ -30,15 +30,19 @@
     "lint:styles": "nx run-many --target=lint:styles --parallel",
     "release": "release-it",
     "test": "nx run-many --target=test --parallel",
-    "typecheck": "nx run-many --target=typecheck --parallel"
+    "typecheck": "nx run-many --target=typecheck --parallel",
+    "publish:packages": "pnpm build && changeset publish",
+    "version:packages": "changeset version && pnpm install --lockfile-only"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.5.1",
+    "@changesets/cli": "^2.29.4",
     "@release-it/conventional-changelog": "5.1.1",
+    "detect-indent": "^6.0.0",
+    "detect-newline": "^3.1.0",
     "nx": "15.2.1",
     "release-it": "15.9.1",
     "rimraf": "^3.0.2",
-    "detect-indent": "^6.0.0",
-    "detect-newline": "^3.1.0",
     "semver": "^7.1.3",
     "url-join": "^4.0.1",
     "validate-peer-dependencies": "^1.0.0",
