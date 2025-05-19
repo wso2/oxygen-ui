@@ -18,5 +18,3 @@
 
 export {default} from './DateTimePicker';
 export * from './DateTimePicker';
-
-export {DateTimePickerProps} from './DateTimePicker';

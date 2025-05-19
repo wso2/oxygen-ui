@@ -208,7 +208,6 @@ export {default as ListItemText} from './ListItemText';
 export * from './ListItemText';
 
 export {default as LocalizationProvider} from './LocalizationProvider';
-export * from './LocalizationProvider';
 
 export {default as Menu} from './Menu';
 export * from './Menu';
