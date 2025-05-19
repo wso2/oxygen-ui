@@ -18,5 +18,3 @@
 
 export {default} from './TimePicker';
 export * from './TimePicker';
-
-export {TimePickerProps} from './TimePicker';

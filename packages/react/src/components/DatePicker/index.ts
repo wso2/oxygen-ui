@@ -18,5 +18,3 @@
 
 export {default} from './DatePicker';
 export * from './DatePicker';
-
-export {DatePickerProps} from './DatePicker';
