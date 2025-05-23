@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import {AsgardeoOxygenColorsPrimaryDefault} from '@oxygen-ui/primitives/dist/design-tokens/web/asgardeo/es/tokens.es6';
+import {AsgardeoOxygenColorsPrimaryDefault} from '@oxygen-ui/primitives/design-tokens/web/asgardeo/es/tokens.es6';
 import {extendTheme, Theme} from '@oxygen-ui/react';
 
 const AsgardeoTheme: Theme = extendTheme({

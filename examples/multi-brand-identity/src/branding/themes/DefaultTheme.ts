@@ -12,12 +12,11 @@
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
  * KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations
  * under the License.
  */
 
-import {OxygenOxygenColorsPrimaryDefault as OxygenOxygenColorsPrimaryDefaultDark} from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/dark.tokens.es6';
-import {OxygenOxygenColorsPrimaryDefault} from '@oxygen-ui/primitives/dist/design-tokens/web/oxygen/es/tokens.es6';
+import {OxygenOxygenColorsPrimaryDefault as OxygenOxygenColorsPrimaryDefaultDark} from '@oxygen-ui/primitives/design-tokens/web/oxygen/es/dark.tokens.es6';
+import {OxygenOxygenColorsPrimaryDefault} from '@oxygen-ui/primitives/design-tokens/web/oxygen/es/tokens.es6';
 import {extendTheme, Theme} from '@oxygen-ui/react';
 
 const DefaultTheme: Theme = extendTheme({
