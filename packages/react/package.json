@@ -131,7 +131,8 @@
     }
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "directory": "dist"
   },
   "publishPath": "dist"
 }

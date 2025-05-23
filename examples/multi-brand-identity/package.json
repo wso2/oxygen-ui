@@ -35,6 +35,7 @@
     "@fontsource/montserrat": "^4.5.13",
     "@oxygen-ui/primitives": "workspace:^",
     "@oxygen-ui/react": "workspace:^",
+    "@oxygen-ui/react-icons": "workspace:^",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

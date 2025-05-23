@@ -57,6 +57,7 @@
     "typescript": "^4.9.3"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "directory": "dist"
   }
 }
