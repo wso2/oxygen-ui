@@ -149,7 +149,7 @@ importers:
         version: 4.5.14
       '@oxygen-ui/primitives':
         specifier: workspace:^
-        version: link:../../packages/primitives/dist
+        version: link:../../packages/primitives
       '@oxygen-ui/react':
         specifier: workspace:^
         version: link:../../packages/react/dist
@@ -371,7 +371,6 @@ importers:
       typescript:
         specifier: ^4.9.3
         version: 4.9.3
-    publishDirectory: dist
 
   packages/react:
     dependencies:
@@ -383,7 +382,7 @@ importers:
         version: 6.20.2(@emotion/react@11.14.0(@types/react@18.0.25)(react@18.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.0.25)(react@18.2.0))(@types/react@18.0.25)(react@18.2.0))(@mui/material@5.17.1(@emotion/react@11.14.0(@types/react@18.0.25)(react@18.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.0.25)(react@18.2.0))(@types/react@18.0.25)(react@18.2.0))(@types/react@18.0.25)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(@mui/system@5.17.1(@emotion/react@11.14.0(@types/react@18.0.25)(react@18.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.0.25)(react@18.2.0))(@types/react@18.0.25)(react@18.2.0))(@types/react@18.0.25)(react@18.2.0))(@types/react@18.0.25)(moment@2.30.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@oxygen-ui/primitives':
         specifier: workspace:^
-        version: link:../primitives/dist
+        version: link:../primitives
       '@oxygen-ui/react-icons':
         specifier: workspace:^
         version: link:../react-icons
@@ -619,7 +618,7 @@ importers:
         version: link:../logger
       '@oxygen-ui/primitives':
         specifier: workspace:^
-        version: link:../primitives/dist
+        version: link:../primitives
       '@rollup/plugin-babel':
         specifier: 5.3.1
         version: 5.3.1(@babel/core@7.27.1)(@types/babel__core@7.20.5)(rollup@2.79.2)
@@ -13875,7 +13874,7 @@ snapshots:
       exit: 0.1.2
       graceful-fs: 4.2.11
       jest-changed-files: 29.7.0
-      jest-config: 29.7.0(@types/node@16.18.126)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@16.18.126)(typescript@4.9.3))
+      jest-config: 29.7.0(@types/node@16.18.126)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@18.11.10)(typescript@4.9.3))
       jest-haste-map: 29.7.0
       jest-message-util: 29.7.0
       jest-regex-util: 29.6.3
@@ -18712,7 +18711,7 @@ snapshots:
       chalk: 4.1.2
       exit: 0.1.2
       graceful-fs: 4.2.11
-      jest-config: 29.7.0(@types/node@16.18.126)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@16.18.126)(typescript@4.9.3))
+      jest-config: 29.7.0(@types/node@18.19.103)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@18.19.103)(typescript@4.9.3))
       jest-util: 29.7.0
       prompts: 2.4.2
     transitivePeerDependencies:
@@ -21848,7 +21847,7 @@ snapshots:
       create-jest: 29.7.0(babel-plugin-macros@3.1.0)
       exit: 0.1.2
       import-local: 3.2.0
-      jest-config: 29.7.0(@types/node@16.18.126)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@16.18.126)(typescript@4.9.3))
+      jest-config: 29.7.0(@types/node@18.19.103)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@18.19.103)(typescript@4.9.3))
       jest-util: 29.7.0
       jest-validate: 29.7.0
       yargs: 17.7.2

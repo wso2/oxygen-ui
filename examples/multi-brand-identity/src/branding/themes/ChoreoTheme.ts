@@ -21,7 +21,7 @@ import {
   ChoreoOxygenColorsPrimaryDark,
   ChoreoOxygenColorsPrimaryDefault,
   ChoreoOxygenColorsPrimaryLight,
-} from '@oxygen-ui/primitives/design-tokens/web/choreo/es/tokens.es6';
+} from '@oxygen-ui/primitives/dist/design-tokens/web/choreo/es/tokens.es6';
 import {extendTheme, Theme} from '@oxygen-ui/react';
 
 const ChoreoTheme: Theme = extendTheme({
