@@ -12,13 +12,13 @@ exports[`DateTimePicker should match the snapshot 1`] = `
       class="MuiFormControl-root MuiTextField-root OxygenDateTimePicker-root css-z3c6am-MuiFormControl-root-MuiTextField-root"
     >
       <div
-        class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-sizeSmall Mui-readOnly MuiInputBase-readOnly css-9s98je-MuiInputBase-root-MuiOutlinedInput-root"
+        class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-sizeSmall MuiInputBase-adornedEnd Mui-readOnly MuiInputBase-readOnly css-ivpg3s-MuiInputBase-root-MuiOutlinedInput-root"
       >
         <input
           aria-invalid="false"
           aria-label="Choose date"
           autocomplete="off"
-          class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputSizeSmall Mui-readOnly MuiInputBase-readOnly css-18xv68w-MuiInputBase-input-MuiOutlinedInput-input"
+          class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputSizeSmall MuiInputBase-inputAdornedEnd Mui-readOnly MuiInputBase-readOnly css-1h5lv9e-MuiInputBase-input-MuiOutlinedInput-input"
           id=":r4:"
           inputmode="text"
           placeholder="MM/DD/YYYY hh:mm aa"
