@@ -1,5 +1,18 @@
 # @oxygen-ui/multi-brand-identity-example
 
+## 2.4.2
+
+### Patch Changes
+
+- [#351](https://github.com/wso2/oxygen-ui/pull/351)
+  [`c835f86`](https://github.com/wso2/oxygen-ui/commit/c835f8694b77351c94a6ab0687d510d67a600783) Thanks
+  [@DonOmalVindula](https://github.com/DonOmalVindula)! - fix build bundle import issue
+
+- Updated dependencies [[`c835f86`](https://github.com/wso2/oxygen-ui/commit/c835f8694b77351c94a6ab0687d510d67a600783)]:
+  - @oxygen-ui/primitives@2.4.2
+  - @oxygen-ui/react@2.4.2
+  - @oxygen-ui/react-icons@2.4.2
+
 ## 2.4.1
 
 ### Patch Changes
