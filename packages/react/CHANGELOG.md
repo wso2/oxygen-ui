@@ -1,5 +1,17 @@
 # @oxygen-ui/react
 
+## 2.4.3
+
+### Patch Changes
+
+- [#353](https://github.com/wso2/oxygen-ui/pull/353)
+  [`f29f64b`](https://github.com/wso2/oxygen-ui/commit/f29f64b59d59d22850125d6c9dde42eb7f68e38e) Thanks
+  [@UdeshAthukorala](https://github.com/UdeshAthukorala)! - Make CSS files direction-aware to support RTL layouts
+
+- Updated dependencies []:
+  - @oxygen-ui/react-icons@2.4.3
+  - @oxygen-ui/primitives@2.4.3
+
 ## 2.4.2
 
 ### Patch Changes
