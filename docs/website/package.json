@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@oxygen-ui/docs",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "description": "Documentation of WSO2 Oxygen Design System.",
   "author": "WSO2",
   "license": "Apache-2.0",
