@@ -1,5 +1,12 @@
 # @oxygen-ui/docs
 
+## 2.4.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @oxygen-ui/react@2.4.4
+
 ## 2.4.3
 
 ### Patch Changes

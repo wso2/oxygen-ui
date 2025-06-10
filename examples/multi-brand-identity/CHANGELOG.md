@@ -1,5 +1,14 @@
 # @oxygen-ui/multi-brand-identity-example
 
+## 2.4.4
+
+### Patch Changes
+
+- Updated dependencies [[`c0dfb11`](https://github.com/wso2/oxygen-ui/commit/c0dfb11ffaeb3f1eaa29a1d3cb1dbe7c9ad02e54)]:
+  - @oxygen-ui/primitives@2.4.4
+  - @oxygen-ui/react@2.4.4
+  - @oxygen-ui/react-icons@2.4.4
+
 ## 2.4.3
 
 ### Patch Changes
