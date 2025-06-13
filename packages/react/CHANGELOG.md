@@ -1,5 +1,17 @@
 # @oxygen-ui/react
 
+## 2.4.5
+
+### Patch Changes
+
+- [#358](https://github.com/wso2/oxygen-ui/pull/358)
+  [`e798ddf`](https://github.com/wso2/oxygen-ui/commit/e798ddf61bb31c48c44309dbe26ce429a890ed65) Thanks
+  [@brionmario](https://github.com/brionmario)! - Fix padding issue in Header hamburger
+
+- Updated dependencies []:
+  - @oxygen-ui/react-icons@2.4.5
+  - @oxygen-ui/primitives@2.4.5
+
 ## 2.4.4
 
 ### Patch Changes
