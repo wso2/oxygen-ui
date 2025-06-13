@@ -204,7 +204,7 @@ const Header: OverridableComponent<AppBarTypeMap<HeaderProps>> = forwardRef(
       >
         <Toolbar className="OxygenHeader-toolbar oxygen-header-toolbar">
           {showCollapsibleHamburger && (
-            <div className="OxygenHeader-collapsibleHamburger oxygen-header-collapsibleHamburger">
+            <div className="OxygenHeader-collapsibleHamburger oxygen-header-collapsible-hamburger">
               <IconButton aria-label="Menu Icon" onClick={onCollapsibleHamburgerClick || ((): void => null)}>
                 {navbarToggleIcon}
               </IconButton>
