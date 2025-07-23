@@ -54,7 +54,7 @@ export type NavbarItemProps<C extends ElementType = ElementType> = ListItemButto
     /**
      * Tag color variant.
      */
-    tagClassName?: 'premium' | 'beta' | 'new' | 'experimental';
+    tagClassName?: 'premium' | 'beta' | 'new' | 'preview';
   };
 
 /**
