@@ -1,5 +1,17 @@
 # @oxygen-ui/react
 
+## 2.4.6
+
+### Patch Changes
+
+- [#362](https://github.com/wso2/oxygen-ui/pull/362)
+  [`392b911`](https://github.com/wso2/oxygen-ui/commit/392b9111a06ea06f95fea3d117a0e55cfbc43770) Thanks
+  [@pavinduLakshan](https://github.com/pavinduLakshan)! - Add styles for preview chip
+
+- Updated dependencies []:
+  - @oxygen-ui/react-icons@2.4.6
+  - @oxygen-ui/primitives@2.4.6
+
 ## 2.4.5
 
 ### Patch Changes
