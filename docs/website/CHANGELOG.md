@@ -1,5 +1,12 @@
 # @oxygen-ui/docs
 
+## 2.4.6
+
+### Patch Changes
+
+- Updated dependencies [[`392b911`](https://github.com/wso2/oxygen-ui/commit/392b9111a06ea06f95fea3d117a0e55cfbc43770)]:
+  - @oxygen-ui/react@2.4.6
+
 ## 2.4.5
 
 ### Patch Changes
