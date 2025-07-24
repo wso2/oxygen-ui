@@ -136,6 +136,31 @@
     }
   }
 
+  &-preview {
+    background: var(--oxygen-customComponents-Chip-properties-experimental-background);
+    border-radius: var(--oxygen-customComponents-Chip-properties-border-radius);
+    border: var(--oxygen-customComponents-Chip-properties-border);
+    font-weight: var(--oxygen-customComponents-Chip-properties-font-weight);
+    line-height: var(--oxygen-customComponents-Chip-properties-line-height);
+
+    .MuiChip-icon {
+      fill: var(--oxygen-customComponents-Chip-properties-experimental-border-color);
+
+      path {
+        stroke: var(--oxygen-customComponents-Chip-properties-experimental-border-color);
+        stroke-width: var(--oxygen-customComponents-Chip-properties-icon-stroke-width);
+      }
+    }
+
+    .MuiChip-label {
+      background-clip: var(--oxygen-customComponents-Chip-properties-background-clip);
+      -webkit-background-clip: text;
+      color: var(--oxygen-customComponents-Chip-properties-text-fill-color);
+      background-image: var(--oxygen-customComponents-Chip-properties-experimental-text-color);
+      text-transform: var(--oxygen-customComponents-Chip-properties-text-transform);
+    }
+  }
+
   &-coming-soon {
     background: var(--oxygen-customComponents-Chip-properties-coming-soon-background);
     border-radius: var(--oxygen-customComponents-Chip-properties-border-radius);
