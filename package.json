@@ -1,0 +1,65 @@
+{
+  "name": "@wso2/oxygen-ui-workspace",
+  "version": "0.1.0-alpha",
+  "description": "WSO2 Oxygen UI | Workspace",
+  "files": [
+    "packages",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "private": true,
+  "scripts": {
+    "build": "nx run-many --target=build --all",
+    "build:affected": "nx affected --target=build",
+    "dev": "nx serve",
+    "type-check": "nx type-check",
+    "lint": "nx lint",
+    "lint:fix": "nx lint --fix",
+    "clean": "rimraf dist",
+    "prepublishOnly": "nx run-many --target=build --all",
+    "test": "nx test",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "keywords": [
+    "wso2",
+    "oxygen-ui",
+    "design-system",
+    "material-ui",
+    "mui",
+    "react",
+    "typescript",
+    "components",
+    "ui-library"
+  ],
+  "author": "WSO2 LLC",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wso2/oxygen-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wso2/oxygen-ui/issues"
+  },
+  "homepage": "https://github.com/wso2/oxygen-ui#readme",
+  "devDependencies": {
+    "@babel/core": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-react": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
+    "@mdx-js/react": "^3.1.1",
+    "@storybook/addon-docs": "^10.0.2",
+    "@storybook/addon-links": "^10.0.2",
+    "@storybook/react": "^10.0.2",
+    "@storybook/react-webpack5": "^10.0.2",
+    "babel-loader": "^10.0.0",
+    "nx": "22.0.1",
+    "rimraf": "^6.0.1",
+    "storybook": "^10.0.2",
+    "vite": "^7.1.12",
+    "vitest": "^1.0.4"
+  },
+  "engines": {
+    "node": ">=25.0.0"
+  }
+}

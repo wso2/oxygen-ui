@@ -1,0 +1,11 @@
+packages:
+  - packages/oxygen-ui
+  - packages/vite-plugin-oxygen-ui
+  - samples/oxygen-ui-test-app
+
+ignoredBuiltDependencies:
+  - '@swc/core'
+  - nx
+
+onlyBuiltDependencies:
+  - esbuild

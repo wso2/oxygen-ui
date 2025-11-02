@@ -1,0 +1,53 @@
+/**
+ * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+/* Storybook Docs Page Theme Overrides */
+
+/* Ensure Storybook docs page respects the theme background */
+#storybook-docs,
+.sbdocs,
+.docs-story {
+    background: transparent !important;
+}
+
+/* Dark mode text colors for Storybook docs */
+body[data-color-scheme='dark'] #storybook-docs,
+body[data-color-scheme='dark'] .sbdocs,
+body[data-color-scheme='dark'] .sbdocs-content,
+body[data-color-scheme='dark'] .sbdocs-title,
+body[data-color-scheme='dark'] .sbdocs-subtitle,
+body[data-color-scheme='dark'] .sbdocs-p,
+body[data-color-scheme='dark'] .sbdocs h1,
+body[data-color-scheme='dark'] .sbdocs h2,
+body[data-color-scheme='dark'] .sbdocs h3,
+body[data-color-scheme='dark'] .sbdocs h4,
+body[data-color-scheme='dark'] .sbdocs p,
+body[data-color-scheme='dark'] .sbdocs li,
+body[data-color-scheme='dark'] .sbdocs span,
+body[data-color-scheme='dark'] .sbdocs div,
+body[data-color-scheme='dark'] .docblock-argstable,
+body[data-color-scheme='dark'] .docblock-argstable td,
+body[data-color-scheme='dark'] .docblock-argstable th {
+    color: #ededed !important;
+}
+
+/* Light mode - ensure proper contrast */
+body[data-color-scheme='light'] .sbdocs,
+body[data-color-scheme='light'] .sbdocs-content {
+    color: #171717 !important;
+}

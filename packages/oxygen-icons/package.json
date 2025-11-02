@@ -1,0 +1,90 @@
+{
+  "name": "@wso2/oxygen-icons",
+  "version": "0.1.0-alpha",
+  "description": "WSO2 Oxygen Icons | System Icons - Powered with Lucide icons library",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js",
+      "require": "./dist/*.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "rolldown --config rolldown.config.js",
+    "build:watch": "rolldown --config rolldown.config.js --watch",
+    "dev": "rolldown --config rolldown.config.js --watch",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run clean && npm run build",
+    "test": "vitest"
+  },
+  "keywords": [
+    "wso2",
+    "oxygen-icons",
+    "design-system",
+    "lucide",
+    "lucide-icons",
+    "react",
+    "typescript",
+    "components",
+    "icon-library"
+  ],
+  "author": "WSO2 LLC",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wso2/oxygen-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wso2/oxygen-ui/issues"
+  },
+  "homepage": "https://github.com/wso2/oxygen-ui#readme",
+  "peerDependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^7.3.4",
+    "@mui/material": "^7.3.4",
+    "@mui/system": "^7.3.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/parser": "^7.0.1",
+    "@vitest/ui": "^1.0.4",
+    "eslint": "^9.12.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "rimraf": "^6.0.1",
+    "rolldown": "^1.0.0-beta.45",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.12",
+    "vitest": "^1.0.4"
+  },
+  "engines": {
+    "node": ">=25.0.0"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,15 @@
+# Exclude everything except dist and essential files
+src/
+index.js
+index.mjs
+esbuild.config.cjs
+esbuild.config.mjs
+node_modules/
+*.test.*
+*.spec.*
+__tests__/
+coverage/
+.DS_Store
+.env*
+.git*
+.vscode/
