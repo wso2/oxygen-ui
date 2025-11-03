@@ -36,7 +36,7 @@ html[data-color-scheme='light'] {
 html[data-color-scheme='dark'] {
     color-scheme: dark;
 
-    --background: #1E1E24;
+    --background: #000000;
     --foreground: #ededed;
 
     --md-palette-background-paper: #0f0f0f41;
@@ -45,6 +45,31 @@ html[data-color-scheme='dark'] {
     --mui-palette-background-paper: #141414;
 
     background: var(--background);
+}
+
+html[data-color-scheme='dark'] body {
+    background-color: var(--background) !important;
+    background-attachment: fixed;
+    background-image:
+        radial-gradient(circle at 30% 10%, rgba(255, 117, 2, 0.3) 0%, rgba(0,0,0,0) 40%),
+        radial-gradient(circle at 60% 40%, rgba(69, 30, 175, 0.14) 0%, rgba(0,0,0,0) 70%),
+        radial-gradient(circle at center, rgba(0,0,0,0.6) 0%, var(--background) 100%);
+    background-blend-mode: screen;
+}
+
+html[data-color-scheme='light'] body {
+    background-color: var(--background) !important;
+    background-attachment: fixed;
+    background-image:
+        radial-gradient(circle at 25% 15%, rgba(255, 117, 2, 0.2) 0%, rgba(255,255,255,0) 60%),
+        radial-gradient(circle at 50% 40%, rgba(69, 30, 175, 0.1) 0%, rgba(255,255,255,0) 20%),
+        radial-gradient(circle at center, rgba(255,255,255,0.9) 0%, var(--background) 100%);
+    background-blend-mode: normal;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
 }
 
 .MuiButton-colorPrimary:not(.MuiButton-outlined) {

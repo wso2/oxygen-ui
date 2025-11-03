@@ -23,6 +23,9 @@ import './theme.css';
 const noShadows = Array(25).fill('none') as Shadows;
 
 const OxygenTheme = createTheme({
+  typography: {
+    fontSize: 14
+  },
   shadows: noShadows,
   shape: {
     borderRadius: 20,
@@ -83,6 +86,26 @@ const OxygenTheme = createTheme({
           textTransform: 'none',
           fontWeight: 500,
         },
+      },
+    },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          fontSize: theme.typography.body2.fontSize
+        }),
+      },
+    },
+    MuiTextField: {
+      defaultProps: { size: 'small' },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          fontSize: theme.typography.body2.fontSize,
+          padding: '2px 4px',
+          borderRadius: 8
+        }),
+        notchedOutline: { borderWidth: 1 },
       },
     },
     MuiLink: {

@@ -30,10 +30,8 @@
   },
   "files": [
     "dist",
-    "src",
     "package.json",
-    "README.md",
-    "CHANGELOG.md"
+    "README.md"
   ],
   "sideEffects": [
     "src/styles/OxygenTheme/theme.css",

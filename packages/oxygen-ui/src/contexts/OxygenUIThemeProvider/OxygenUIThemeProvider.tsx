@@ -16,15 +16,17 @@
  * under the License.
  */
 
-import { ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
+import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import OxygenTheme from '../../styles/OxygenTheme/OxygenTheme';
 
 export default function OxygenUIThemeProvider({ children, theme }: { children: React.ReactNode, theme?: object }) {
   return (
-    <MUIThemeProvider theme={theme || OxygenTheme}>
-      <CssBaseline />
-      {children}
-    </MUIThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <MUIThemeProvider theme={theme || OxygenTheme}>
+        <CssBaseline />
+        {children}
+      </MUIThemeProvider>
+    </StyledEngineProvider>
   );
 }

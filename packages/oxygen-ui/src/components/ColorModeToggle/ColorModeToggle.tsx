@@ -17,12 +17,29 @@
  */
 
 import { useColorScheme } from '@mui/material/styles';
-import Button from '@mui/material/Button';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import { DarkModeRounded, LightModeRounded, Monitor } from '@mui/icons-material';
+import { Tooltip } from '@mui/material';
+
+/**
+ * Props for the ColorModeToggle component.
+ * @remarks Extends MUI IconButtonProps.
+ * @see {@link https://mui.com/material-ui/api/icon-button/#props IconButtonProps}
+ */
+interface ColorModeToggleProps extends IconButtonProps {
+  darkModeIcon?: React.ReactNode;
+  lightModeIcon?: React.ReactNode;
+  systemModeIcon?: React.ReactNode;
+}
 
 type Mode = 'light' | 'dark' | 'system';
 
-export const ColorModeToggle = () => {
+export const ColorModeToggle: React.FC<ColorModeToggleProps> = ({
+  darkModeIcon,
+  lightModeIcon,
+  systemModeIcon,
+  ...buttonProps
+}) => {
   const { mode, setMode } = useColorScheme();
 
   if (!mode) {
@@ -38,18 +55,20 @@ export const ColorModeToggle = () => {
   const ColorModeIcon = () => {
     switch (currentMode) {
       case 'light':
-        return <LightModeRounded />;
+        return lightModeIcon || <LightModeRounded />;
       case 'dark':
-        return <DarkModeRounded />;
+        return darkModeIcon || <DarkModeRounded />;
       default:
-        return <Monitor />;
+        return systemModeIcon || <Monitor />;
     }
   };
 
   return (
-    <Button variant="outlined" onClick={() => setMode(nextMode(currentMode))}>
-      <ColorModeIcon />
-    </Button>
+    <Tooltip title={currentMode.charAt(0).toUpperCase() + currentMode.slice(1) + ' Mode'}>
+      <IconButton {...buttonProps} onClick={() => setMode(nextMode(currentMode))}>
+        <ColorModeIcon />
+      </IconButton>
+    </Tooltip>
   );
 };
 
