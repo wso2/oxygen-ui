@@ -16,13 +16,23 @@
  * under the License.
  */
 
-// Export custom Oxygen UI components and utilities
-export { default as OxygenTheme } from "./styles/OxygenTheme/OxygenTheme";
-export { default as OxygenUIThemeProvider } from "./contexts/OxygenUIThemeProvider/OxygenUIThemeProvider";
-export { default as ColorModeToggle } from "./components/ColorModeToggle/ColorModeToggle";
-export { default as Layout } from "./layouts";
+import * as React from 'react';
+import Box, {BoxProps} from '@mui/material/Box';
+import type {PropsWithChildren} from 'react';
 
-// Re-export the entire @mui/material API
-// This allows consumers to import from @wso2/oxygen-ui instead of @mui/material
-// and automatically get the Oxygen theme applied
-export * from '@mui/material';
+function Layout({children = null, sx, ...rest}: PropsWithChildren<BoxProps>) {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        ...sx,
+      }}
+      {...rest}
+    >
+      {children}
+    </Box>
+  );
+}
+
+export default Layout;

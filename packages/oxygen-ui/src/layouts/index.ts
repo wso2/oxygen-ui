@@ -16,13 +16,17 @@
  * under the License.
  */
 
-// Export custom Oxygen UI components and utilities
-export { default as OxygenTheme } from "./styles/OxygenTheme/OxygenTheme";
-export { default as OxygenUIThemeProvider } from "./contexts/OxygenUIThemeProvider/OxygenUIThemeProvider";
-export { default as ColorModeToggle } from "./components/ColorModeToggle/ColorModeToggle";
-export { default as Layout } from "./layouts";
+import LayoutRoot from './Layout';
+import LayoutSidebar from './LayoutSidebar';
+import LayoutNavbar from './LayoutNavbar';
+import LayoutContent from './LayoutContent';
+import LayoutHeader from './LayoutHeader';
 
-// Re-export the entire @mui/material API
-// This allows consumers to import from @wso2/oxygen-ui instead of @mui/material
-// and automatically get the Oxygen theme applied
-export * from '@mui/material';
+const Layout = Object.assign(LayoutRoot, {
+  Sidebar: LayoutSidebar,
+  Navbar: LayoutNavbar,
+  Content: LayoutContent,
+  Header: LayoutHeader,
+});
+
+export default Layout;
