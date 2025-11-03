@@ -15,14 +15,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import * as React from 'react';
+import type {PropsWithChildren, ReactNode} from 'react';
 
-// Export custom Oxygen UI components and utilities
-export { default as OxygenTheme } from "./styles/OxygenTheme/OxygenTheme";
-export { default as OxygenUIThemeProvider } from "./contexts/OxygenUIThemeProvider/OxygenUIThemeProvider";
-export { default as ColorModeToggle } from "./components/ColorModeToggle/ColorModeToggle";
-export { default as Layout } from "./layouts";
+function LayoutNavbar({children = null}: PropsWithChildren): ReactNode {
+  return children;
+}
 
-// Re-export the entire @mui/material API
-// This allows consumers to import from @wso2/oxygen-ui instead of @mui/material
-// and automatically get the Oxygen theme applied
-export * from '@mui/material';
+export default LayoutNavbar;

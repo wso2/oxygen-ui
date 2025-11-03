@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import { Badge, Button } from '@wso2/oxygen-ui'
+import { Badge, Button, Layout } from '@wso2/oxygen-ui'
 import ColorModeToggle from '@wso2/oxygen-ui/ColorModeToggle'
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
@@ -27,7 +27,7 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
+    <Layout.Content>
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -50,7 +50,7 @@ function App() {
       <p className="read-the-docs">
         Click here to change color mode <ColorModeToggle />
       </p>
-    </>
+    </Layout.Content>
   )
 }
 
