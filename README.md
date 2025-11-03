@@ -18,13 +18,25 @@ Before you begin, ensure you have the following installed:
 
 # Usage Example
 
+If you are using typescript, add `path` config to resolve oxygen-ui types.
+
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@wso2/oxygen-ui/*": ["../../node_modules/@wso2/oxygen-ui/dist/*"],
+    },
+  }
+}
+```
+
 Simply import any Material-UI or Oxygen-UI custom component like:
 
 ```js
 import Button from '@wso2/oxygen-ui/Button'
 ```
 
->  Example: `import Button from '@wso2/oxygen-ui/Button'` == `import Button from '@mui/material/Button'`
+> Example: `import Button from '@wso2/oxygen-ui/Button'` == `import Button from '@mui/material/Button'`
 
 Refer to [Material-UI documentation](https://mui.com/material-ui/all-components/) for component usage details.
 
