@@ -18,11 +18,15 @@
 
 import { createTheme } from '@mui/material/styles';
 import type { Shadows } from '@mui/material/styles';
+import type {} from '@mui/x-data-grid/themeAugmentation';
 import './theme.css';
 
 const noShadows = Array(25).fill('none') as Shadows;
 
 const OxygenTheme = createTheme({
+  typography: {
+    fontSize: 14
+  },
   shadows: noShadows,
   shape: {
     borderRadius: 20,
@@ -48,7 +52,7 @@ const OxygenTheme = createTheme({
           primary: '#40404B',
           secondary: '#40404B',
         },
-        divider: '#e0e0e0',
+        divider: '#00000012',
       },
     },
     dark: {
@@ -61,14 +65,14 @@ const OxygenTheme = createTheme({
           main: '#3c3c3c',
         },
         background: {
-          default: '#121212',
-          paper: '#0F0F0F',
+          default: '#000000',
+          paper: '#00000088',
         },
         text: {
           primary: '#efefef',
           secondary: '#D0D3E2',
         },
-        divider: '#fefefe',
+        divider: '#fefefe12',
       },
     },
   },
@@ -85,6 +89,73 @@ const OxygenTheme = createTheme({
         },
       },
     },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          fontSize: theme.typography.body2.fontSize,
+          marginBottom: '4px'
+        }),
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          WebkitBackdropFilter: 'blur(3px)',
+          backdropFilter: 'blur(3px)',
+          ...theme.applyStyles('light', {
+            border: '1px solid #ffffff7a',
+            background: 'rgb(230 230 230 / 5%)',
+            boxShadow: 
+              '0 5px 10px 0 rgba(6, 6, 14, 0.1), ' +
+              '0 0 0 0 rgba(199, 211, 234, 0.01) inset, ' +
+              '0 0 0 0 rgba(199, 211, 234, 0.12) inset',
+          }),
+          ...theme.applyStyles('dark', {
+            border: '1px solid #d2d2d20f',
+            background: 'rgb(230 230 230 / 5%)',
+            boxShadow: 'hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px',
+          }),
+        })
+      }
+    },
+    MuiPopover: {
+      styleOverrides: {
+        paper: ({ theme }) => ({
+          ...theme.applyStyles('light', {
+            background: '#ffffff9c',
+          }),
+          ...theme.applyStyles('dark', {
+            background: '#040404c2',
+          }),
+        })
+      }
+    },
+    MuiTextField: {
+      defaultProps: { size: 'small' },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          fontSize: theme.typography.body2.fontSize,
+          borderRadius: 8,
+          ...theme.applyStyles('light', {
+            background: '#ffffffc4'
+          }),
+          ...theme.applyStyles('dark', {
+            background: '#ffffff05'
+          })
+        }),
+        notchedOutline: ({ theme }) => ({
+          borderWidth: 1,
+          ...theme.applyStyles('light', {
+            borderColor: '#d9d9d987'
+          }),
+          ...theme.applyStyles('dark', {
+            borderColor: '#ffffff0d'
+          })
+        }),
+      },
+    },
     MuiLink: {
       styleOverrides: {
         root: ({ theme }) => ({
@@ -96,7 +167,41 @@ const OxygenTheme = createTheme({
           },
         }),
       },
-    }
+    },
+    MuiListItemButton: {
+      styleOverrides: {
+        root: { borderRadius: '8px' },
+      },
+    },
+    MuiDataGrid: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          border: '1px solid',
+          borderColor: theme.palette.divider,
+          backgroundColor: 'transparent',
+          borderRadius: '8px',
+          overflow: 'hidden',
+          '& .MuiDataGrid-columnHeaders': {
+            backgroundColor: '#ffffff0a',
+            borderBottom: '1px solid',
+            borderColor: theme.palette.divider,
+          }
+        }),
+        columnHeaders: ({ theme }) => ({
+          backgroundColor: '#ffffff0a',
+          borderBottom: '1px solid',
+          borderColor: theme.palette.divider,
+        }),
+        columnHeader: {
+          backgroundColor: 'transparent',
+        },
+        cell: ({ theme }) => ({
+          borderBottom: '1px solid',
+          backgroundColor: 'transparent',
+          borderColor: theme.palette.divider,
+        }),
+      },
+    },
   },
 });
 

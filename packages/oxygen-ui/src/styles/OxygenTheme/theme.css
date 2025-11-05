@@ -26,40 +26,31 @@
 
 html[data-color-scheme='light'] {
     color-scheme: light;
-
-    --md-palette-background-paper: #ffffff6b;
-    --md-palette-border-color-paper: #ffffffd6;
-
     background: var(--background);
 }
 
 html[data-color-scheme='dark'] {
     color-scheme: dark;
 
-    --background: #1E1E24;
+    --background: #000000;
     --foreground: #ededed;
-
-    --md-palette-background-paper: #0f0f0f41;
-    --md-palette-border-color-paper: #2d2d2d;
-
-    --mui-palette-background-paper: #141414;
 
     background: var(--background);
 }
 
-.MuiButton-colorPrimary:not(.MuiButton-outlined) {
+body {
+    min-height: 100vh;
+    margin: 0;
+}
+
+.MuiButton-colorPrimary:not(.MuiButton-outlined, .MuiButton-text) {
     background: var(--md-contained-primary-background);
     color: #fff;
 }
 
-.MuiButton-colorPrimary:not(.MuiButton-outlined):hover {
+.MuiButton-colorPrimary:not(.MuiButton-outlined, .MuiButton-text):hover {
     background: var(--md-contained-primary-hover-background);
     color: #fff;
-}
-
-.MuiPaper-root {
-    border-radius: 15px !important;
-    border: 1px solid var(--md-palette-border-color-paper);
 }
 
 body {

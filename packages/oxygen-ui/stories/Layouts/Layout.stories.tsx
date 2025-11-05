@@ -296,7 +296,7 @@ export const FullFeaturedLayout = () => (
         </Toolbar>
       </AppBar>
     </Layout.Navbar>
-    <Layout sx={ { height: '100%' } }>
+    <Layout sx={{ height: '100%' }}>
       <Layout.Sidebar
         sx={{ width: 240, bgcolor: 'background.paper', borderRight: 1, borderColor: 'divider' }}
       >

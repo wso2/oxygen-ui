@@ -18,22 +18,18 @@
 
 import * as React from 'react';
 import Box, {BoxProps} from '@mui/material/Box';
-import {alpha} from '@mui/material/styles';
 import type {PropsWithChildren, ReactNode} from 'react';
 
 function LayoutContent({children = null, ...rest}: PropsWithChildren<BoxProps>): ReactNode {
   return (
     <Box
       component="main"
-      sx={(theme) => ({
+      sx={{
         display: 'flex',
         flexDirection: 'column',
         flexGrow: 1,
-        backgroundColor: theme.vars
-          ? `rgba(${theme.vars.palette.background.defaultChannel} / 1)`
-          : alpha(theme.palette.background.default, 1),
         overflow: 'auto',
-      })}
+      }}
       {...rest}
     >
       {children}
