@@ -105,9 +105,6 @@
     "vite": "^7.1.12",
     "vitest": "^1.0.4"
   },
-  "engines": {
-    "node": ">=25.0.0"
-  },
   "nx": {
     "targets": {
       "build": {
