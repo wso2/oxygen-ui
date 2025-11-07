@@ -16,16 +16,20 @@
  * under the License.
  */
 
-import { OxygenUIThemeProvider } from '@wso2/oxygen-ui'
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import { build } from "esbuild";
+import { glob } from "glob";
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <OxygenUIThemeProvider>
-      <App />
-    </OxygenUIThemeProvider>
-  </StrictMode>,
-)
+const entryPoints = await glob("src/**/*.ts?(x)");
+
+await build({
+  entryPoints,
+  outdir: "dist",
+  bundle: false,
+  splitting: false,
+  sourcemap: true,
+  format: "esm",
+  target: ["esnext"],
+  platform: "neutral",
+  jsx: "automatic",
+  logLevel: "info",
+});

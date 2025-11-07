@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import { Badge, Button, Layout } from '@wso2/oxygen-ui'
-import ColorModeToggle from '@wso2/oxygen-ui/ColorModeToggle'
+import { Badge, Box, Button, ColorModeToggle, Layout, Link, Typography } from '@wso2/oxygen-ui'
+import { Lightbulb, Monitor, Moon, Sun, WSO2 } from '@wso2/oxygen-icons'
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -28,6 +28,17 @@ function App() {
 
   return (
     <Layout.Content>
+      <ColorModeToggle
+        sx={{
+          position: 'fixed',
+          top: '2.3rem',
+          right: '3rem',
+          zIndex: 2
+        }}
+        darkModeIcon={<Moon strokeWidth={1} />}
+        lightModeIcon={<Sun strokeWidth={1} />}
+        systemModeIcon={<Monitor strokeWidth={1} />}
+      />
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -48,8 +59,16 @@ function App() {
         </p>
       </div>
       <p className="read-the-docs">
-        Click here to change color mode <ColorModeToggle />
+        <Lightbulb size={18} /> Click the icon on top right corner to change color mode
       </p>
+      <Box sx={{ mt: 5 }} className="footer">
+        <Typography variant='body2'>
+          Powered by&nbsp;
+          <Link href="https://github.com/wso2/oxygen-ui/tree/next" target="_blank" rel="noopener noreferrer">
+            WSO2 <WSO2 size={22} style={{ verticalAlign: 'bottom' }} /> Oxygen UI
+          </Link>
+        </Typography>
+      </Box>
     </Layout.Content>
   )
 }

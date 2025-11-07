@@ -76,6 +76,14 @@ a {
     text-decoration: none;
 }
 
+.lucide {
+  stroke-width: 1px;
+}
+
+.lucide:not(.lucide-logo) * {
+  vector-effect: non-scaling-stroke;
+}
+
 @media (prefers-color-scheme: dark) {
     html {
         color-scheme: dark;
