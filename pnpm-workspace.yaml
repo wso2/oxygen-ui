@@ -1,7 +1,6 @@
 packages:
-  - packages/oxygen-ui
-  - packages/vite-plugin-oxygen-ui
-  - samples/oxygen-ui-test-app
+  - packages/*
+  - samples/*
 
 ignoredBuiltDependencies:
   - '@swc/core'
