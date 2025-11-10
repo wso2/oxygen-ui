@@ -66,11 +66,14 @@
     "@mui/icons-material": "catalog:",
     "@mui/material": "catalog:",
     "@mui/x-data-grid": "catalog:",
+    "@mui/x-date-pickers": "catalog:",
     "@oxygen-ui/react-icons": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
   "devDependencies": {
+    "@mui/x-data-grid": "catalog:",
+    "@mui/x-date-pickers": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@typescript-eslint/eslint-plugin": "catalog:",

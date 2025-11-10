@@ -24,6 +24,14 @@ export { default as ColorSchemeToggle } from "./components/ColorSchemeToggle/Col
 export { default as Layout } from "./layouts";
 
 // Re-export the entire @mui/material API
-// This allows consumers to import from @wso2/oxygen-ui instead of @mui/material
+// This allows consumers to import from @oxygen-ui/react instead of @mui/material
 // and automatically get the Oxygen theme applied
 export * from '@mui/material';
+
+// Re-export @mui/x-data-grid as namespace to avoid conflicts
+// Usage: import { DataGrid } from '@oxygen-ui/react';
+export * as DataGrid from '@mui/x-data-grid';
+
+// Re-export @mui/x-date-pickers as namespace to avoid conflicts
+// Usage: import { DatePickers } from '@oxygen-ui/react';
+export * as DatePickers from '@mui/x-date-pickers';
