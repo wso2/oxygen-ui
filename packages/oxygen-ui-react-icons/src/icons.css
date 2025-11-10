@@ -16,13 +16,10 @@
  * under the License.
  */
 
-// Export custom Oxygen UI components and utilities
-export { default as OxygenTheme } from "./styles/OxygenTheme/OxygenTheme";
-export { default as OxygenUIThemeProvider } from "./contexts/OxygenUIThemeProvider/OxygenUIThemeProvider";
-export { default as ColorModeToggle } from "./components/ColorModeToggle/ColorModeToggle";
-export { default as Layout } from "./layouts";
+.lucide {
+  stroke-width: 1px;
+}
 
-// Re-export the entire @mui/material API
-// This allows consumers to import from @wso2/oxygen-ui instead of @mui/material
-// and automatically get the Oxygen theme applied
-export * from '@mui/material';
+.lucide:not(.lucide-logo) * {
+  vector-effect: non-scaling-stroke;
+}

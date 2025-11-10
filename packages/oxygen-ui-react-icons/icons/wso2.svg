@@ -1,4 +1,4 @@
-/**
+<!--
  * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
@@ -14,18 +14,21 @@
  * KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations
  * under the License.
- */
+ -->
 
-import { OxygenUIThemeProvider } from '@oxygen-ui/react'
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
-
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <OxygenUIThemeProvider>
-      <App />
-    </OxygenUIThemeProvider>
-  </StrictMode>,
-)
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="lucide-logo"
+  name="WSO2"
+>
+  <path d="M3 13.2222H9L12 6L15.5 16L17.5 12.1111H21" stroke-width="1.2"/>
+  <circle cx="12" cy="12" r="10" stroke-width="1.8" />
+</svg>

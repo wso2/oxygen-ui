@@ -16,16 +16,30 @@
  * under the License.
  */
 
-import { OxygenUIThemeProvider } from '@oxygen-ui/react'
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import {build} from 'esbuild';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <OxygenUIThemeProvider>
-      <App />
-    </OxygenUIThemeProvider>
-  </StrictMode>,
-)
+await build({
+  entryPoints: ['src/index.ts'],
+  outfile: 'dist/index.js',
+  bundle: true,
+  sourcemap: true,
+  format: 'esm',
+  target: ['esnext'],
+  platform: 'node',
+  external: ['eslint'],
+  logLevel: 'info',
+});
+
+await build({
+  entryPoints: ['src/index.ts'],
+  outfile: 'dist/index.cjs',
+  bundle: true,
+  sourcemap: true,
+  format: 'cjs',
+  target: ['esnext'],
+  platform: 'node',
+  external: ['eslint'],
+  logLevel: 'info',
+});
+
+console.log('✅ Build completed');

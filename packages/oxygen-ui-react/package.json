@@ -1,0 +1,101 @@
+{
+  "name": "@oxygen-ui/react",
+  "version": "2.4.6",
+  "description": "WSO2 Oxygen UI | Design System - Powered with Material-UI component library with TypeScript support",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js",
+      "require": "./dist/*.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
+  "sideEffects": [
+    "src/styles/OxygenTheme/theme.css",
+    "dist/styles/OxygenTheme/theme.css"
+  ],
+  "scripts": {
+    "build": "pnpm clean && tsc -p tsconfig.json && node esbuild.config.cjs",
+    "build:watch": "node esbuild.config.cjs --watch",
+    "dev": "node esbuild.config.cjs --watch",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run clean && npm run build",
+    "test": "vitest"
+  },
+  "keywords": [
+    "wso2",
+    "oxygen-ui",
+    "design-system",
+    "material-ui",
+    "mui",
+    "react",
+    "typescript",
+    "components",
+    "ui-library"
+  ],
+  "author": "WSO2 LLC",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wso2/oxygen-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wso2/oxygen-ui/issues"
+  },
+  "homepage": "https://github.com/wso2/oxygen-ui#readme",
+  "peerDependencies": {
+    "@emotion/react": "catalog:",
+    "@emotion/styled": "catalog:",
+    "@fontsource-variable/inter": "^5.2.8",
+    "@mui/icons-material": "catalog:",
+    "@mui/material": "catalog:",
+    "@mui/x-data-grid": "catalog:",
+    "@mui/x-date-pickers": "catalog:",
+    "@oxygen-ui/react-icons": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@mui/x-data-grid": "catalog:",
+    "@mui/x-date-pickers": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@typescript-eslint/eslint-plugin": "catalog:",
+    "@typescript-eslint/parser": "catalog:",
+    "@vitest/ui": "catalog:",
+    "esbuild": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-react": "catalog:",
+    "eslint-plugin-react-hooks": "catalog:",
+    "rimraf": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  },
+  "engines": {
+    "node": ">=25.0.0"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "dependsOn": []
+      }
+    }
+  }
+}

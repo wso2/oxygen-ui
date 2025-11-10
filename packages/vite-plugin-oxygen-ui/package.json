@@ -1,5 +1,5 @@
 {
-  "name": "@wso2/vite-plugin-oxygen-ui",
+  "name": "@oxygen-ui/vite-plugin",
   "version": "0.1.0",
   "description": "Vite plugin to alias @wso2/oxygen-ui/* imports to @mui/material/* components.",
   "main": "./dist/index.js",
@@ -8,12 +8,12 @@
   "author": "WSO2 LLC",
   "license": "Apache-2.0",
   "peerDependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@mui/material": "^7.3.4",
-    "esbuild": ">=0.19.0",
-    "rimraf": "^6.0.1",
-    "vite": ">=4.0.0"
+    "@emotion/react": "catalog:",
+    "@emotion/styled": "catalog:",
+    "@mui/material": "catalog:",
+    "esbuild": "catalog:",
+    "rimraf": "catalog:",
+    "vite": "catalog:"
   },
   "scripts": {
      "build": "node esbuild.config.js"

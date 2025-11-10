@@ -17,12 +17,30 @@
  */
 
 /* Storybook Docs Page Theme Overrides */
+html[data-color-scheme='light'] {
+    color-scheme: light;
+    background: #f5f5f5;
+}
+
+html[data-color-scheme='dark'] {
+    color-scheme: dark;
+    background: #161819;
+}
 
 /* Ensure Storybook docs page respects the theme background */
 #storybook-docs,
 .sbdocs,
 .docs-story {
     background: transparent !important;
+}
+
+body[data-color-scheme='dark'] .docs-story > div {
+    background: transparent !important;
+}
+
+body[data-color-scheme='dark'] .docblock-code-toggle,
+body[data-color-scheme='dark'] .sb-bar {
+    background-color: #252729 !important;
 }
 
 /* Dark mode text colors for Storybook docs */
@@ -40,14 +58,26 @@ body[data-color-scheme='dark'] .sbdocs p,
 body[data-color-scheme='dark'] .sbdocs li,
 body[data-color-scheme='dark'] .sbdocs span,
 body[data-color-scheme='dark'] .sbdocs div,
+body[data-color-scheme='dark'] .sbdocs .toc-list-item > a,
+body[data-color-scheme='dark'] .docblock-code-toggle,
 body[data-color-scheme='dark'] .docblock-argstable,
 body[data-color-scheme='dark'] .docblock-argstable td,
 body[data-color-scheme='dark'] .docblock-argstable th {
     color: #ededed !important;
 }
 
+body[data-color-scheme='dark'] .sbdocs .toc-list-item > a.is-active-link {
+    color: #f87643 !important;
+}
+
 /* Light mode - ensure proper contrast */
 body[data-color-scheme='light'] .sbdocs,
 body[data-color-scheme='light'] .sbdocs-content {
     color: #171717 !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    html {
+        color-scheme: dark;
+    }
 }
