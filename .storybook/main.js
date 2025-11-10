@@ -18,7 +18,7 @@
 
 export default {
   stories: [
-    '../packages/oxygen-ui/stories/**/*.stories.@(js|jsx|ts|tsx|mdx)'
+    '../packages/oxygen-ui-react/stories/**/*.stories.@(js|jsx|ts|tsx|mdx)'
   ],
   staticDirs: ['public'],
   addons: [
