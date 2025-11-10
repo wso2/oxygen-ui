@@ -23,11 +23,17 @@ import prettier from "prettier";
 
 const PACKAGE_NAME = "@wso2/oxygen-icons";
 const iconsDir = path.resolve("icons");
+const srcDir = path.resolve("src");
 const distDir = path.resolve("dist");
 const distIconsDir = path.join(distDir, "icons");
 
 fs.rmSync(distDir, { recursive: true, force: true });
 fs.mkdirSync(distIconsDir, { recursive: true });
+
+// Copy CSS file to dist
+if (fs.existsSync(path.join(srcDir, "icons.css"))) {
+  fs.copyFileSync(path.join(srcDir, "icons.css"), path.join(distDir, "icons.css"));
+}
 
 const parser = new XMLParser({
   ignoreAttributes: false,
@@ -103,11 +109,17 @@ export declare const ${svgName}: LucideIcon;
     indexTypeExports.push(`export { ${svgName} } from "./icons/${svgName}";`);
   }
 
+  // Add CSS import at the beginning
+  const cssImport = `import "./icons.css";`;
+  
   // Add lucide-react re-export
   indexExports.push(`export * from "lucide-react";`);
   indexTypeExports.push(`export * from "lucide-react";`);
 
-  const indexContent = await prettier.format(indexExports.join("\n"), { parser: "typescript" });
+  const indexContent = await prettier.format(
+    cssImport + "\n" + indexExports.join("\n"), 
+    { parser: "typescript" }
+  );
   const indexTypesContent = await prettier.format(indexTypeExports.join("\n"), { parser: "typescript" });
 
   fs.writeFileSync(path.join(distDir, "index.ts"), indexContent);

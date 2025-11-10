@@ -1,6 +1,7 @@
 packages:
-  - packages/oxygen-ui
-  - packages/oxygen-icons
+  - packages/eslint-plugin-oxygen-ui
+  - packages/oxygen-ui-react
+  - packages/oxygen-ui-react-icons
   - samples/oxygen-ui-test-app
 
 ignoredBuiltDependencies:
@@ -11,21 +12,13 @@ onlyBuiltDependencies:
   - esbuild
 
 catalog:
-  '@babel/core': ^7.28.5
-  '@babel/preset-env': ^7.28.5
-  '@babel/preset-react': ^7.28.5
-  '@babel/preset-typescript': ^7.28.5
   '@emotion/react': ^11.14.0
   '@emotion/styled': ^11.14.1
   '@eslint/js': ^9.36.0
   '@mui/icons-material': ^7.3.4
   '@mui/material': ^7.3.4
   '@mui/x-data-grid': ^8.16.0
-  '@mdx-js/react': ^3.1.1
-  '@storybook/addon-docs': ^10.0.2
-  '@storybook/addon-links': ^10.0.2
-  '@storybook/react': ^10.0.2
-  '@storybook/react-webpack5': ^10.0.5
+  '@types/eslint': ^9.6.1
   '@types/node': ^24.6.0
   '@types/react': ^19.2.2
   '@types/react-dom': ^19.2.2
@@ -33,25 +26,18 @@ catalog:
   '@typescript-eslint/parser': ^7.0.1
   '@vitejs/plugin-react-swc': ^4.2.0
   '@vitest/ui': ^4.0.7
-  'babel-loader': ^10.0.0
   'esbuild': ^0.25.12
-  'esbuild-plugin-inline-css': ^0.0.1
-  'esbuild-plugin-style': ^0.0.1
   'eslint': ^9.12.0
   'eslint-plugin-react': ^7.33.2
   'eslint-plugin-react-hooks': ^4.6.2
   'eslint-plugin-react-refresh': ^0.4.24
-  'fast-xml-parser': ^5.3.1
   'glob': ^11.0.3
   'globals': ^16.4.0
-  'lucide-react': ^0.552.0
-  'nx': ^22.0.2
+  'lucide-react': ^0.545.0
   'prettier': ^3.6.2
   'react': ^19.2.0
   'react-dom': ^19.2.0
   'rimraf': ^6.1.0
-  'rollup-plugin-visualizer': ^6.0.5
-  'storybook': ^10.0.2
   'typescript': ^5.9.3
   'typescript-eslint': ^8.45.0
   'vite': ^7.2.1

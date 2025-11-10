@@ -1,7 +1,7 @@
 {
-  "name": "@wso2/oxygen-icons",
-  "version": "0.1.0-alpha",
-  "description": "WSO2 Oxygen Icons | System Icons - Powered with Lucide icons library",
+  "name": "@oxygen-ui/react",
+  "version": "2.4.6",
+  "description": "WSO2 Oxygen UI | Design System - Powered with Material-UI component library with TypeScript support",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -23,30 +23,31 @@
     "package.json",
     "README.md"
   ],
-  "sideEffects": false,
+  "sideEffects": [
+    "src/styles/OxygenTheme/theme.css",
+    "dist/styles/OxygenTheme/theme.css"
+  ],
   "scripts": {
-    "build": "pnpm clean && pnpm generate:icons && tsc -p tsconfig.json && node esbuild.config.js",
-    "build:watch": "node esbuild.config.js --watch",
-    "dev": "node esbuild.config.js --watch",
+    "build": "pnpm clean && tsc -p tsconfig.json && node esbuild.config.cjs",
+    "build:watch": "node esbuild.config.cjs --watch",
+    "dev": "node esbuild.config.cjs --watch",
     "type-check": "tsc --noEmit",
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
-    "generate:icons": "node scripts/build-icons.js",
     "clean": "rimraf dist",
     "prepublishOnly": "npm run clean && npm run build",
     "test": "vitest"
   },
   "keywords": [
     "wso2",
-    "oxygen-icons",
+    "oxygen-ui",
     "design-system",
-    "lucide",
-    "lucide-icons",
-    "lucide-react",
+    "material-ui",
+    "mui",
     "react",
     "typescript",
     "components",
-    "icon-library"
+    "ui-library"
   ],
   "author": "WSO2 LLC",
   "license": "Apache-2.0",
@@ -59,11 +60,19 @@
   },
   "homepage": "https://github.com/wso2/oxygen-ui#readme",
   "peerDependencies": {
-    "lucide-react": "catalog:",
-    "react": "catalog:"
+    "@emotion/react": "catalog:",
+    "@emotion/styled": "catalog:",
+    "@fontsource-variable/inter": "^5.2.8",
+    "@mui/icons-material": "catalog:",
+    "@mui/material": "catalog:",
+    "@mui/x-data-grid": "catalog:",
+    "@oxygen-ui/react-icons": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
     "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "@typescript-eslint/eslint-plugin": "catalog:",
     "@typescript-eslint/parser": "catalog:",
     "@vitest/ui": "catalog:",
@@ -71,11 +80,9 @@
     "eslint": "catalog:",
     "eslint-plugin-react": "catalog:",
     "eslint-plugin-react-hooks": "catalog:",
-    "fast-xml-parser": "catalog:",
-    "glob": "catalog:",
-    "prettier": "catalog:",
     "rimraf": "catalog:",
     "typescript": "catalog:",
+    "vite": "catalog:",
     "vitest": "catalog:"
   },
   "engines": {

@@ -16,16 +16,7 @@
  * under the License.
  */
 
-import { OxygenUIThemeProvider } from '@oxygen-ui/react'
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import './icons.css';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <OxygenUIThemeProvider>
-      <App />
-    </OxygenUIThemeProvider>
-  </StrictMode>,
-)
+// This file will be replaced by the build script with actual icon exports
+// The CSS import above ensures styles are loaded when icons are imported

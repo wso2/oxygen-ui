@@ -16,20 +16,10 @@
  * under the License.
  */
 
-import { build } from "esbuild";
-import { glob } from "glob";
+.lucide {
+  stroke-width: 1px;
+}
 
-const entryPoints = await glob("src/**/*.ts?(x)");
-
-await build({
-  entryPoints,
-  outdir: "dist",
-  bundle: false,
-  splitting: false,
-  sourcemap: true,
-  format: "esm",
-  target: ["esnext"],
-  platform: "neutral",
-  jsx: "automatic",
-  logLevel: "info",
-});
+.lucide:not(.lucide-logo) * {
+  vector-effect: non-scaling-stroke;
+}

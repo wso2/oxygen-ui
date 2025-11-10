@@ -19,13 +19,21 @@
 import { createTheme } from '@mui/material/styles';
 import type { Shadows } from '@mui/material/styles';
 import type {} from '@mui/x-data-grid/themeAugmentation';
-import './theme.css';
+import '@fontsource-variable/inter';
 
 const noShadows = Array(25).fill('none') as Shadows;
 
 const OxygenTheme = createTheme({
   typography: {
-    fontSize: 14
+    fontFamily: "'Inter Variable', sans-serif",
+    fontWeightRegular: 300,
+    fontSize: 14,
+    body1: {
+      fontSize: 14,
+    },
+    body2: {
+      fontSize: 14,
+    },
   },
   shadows: noShadows,
   shape: {
@@ -78,14 +86,19 @@ const OxygenTheme = createTheme({
   },
   components: {
     MuiButton: {
-      defaultProps: {
-        color: 'primary',
-      },
       styleOverrides: {
         root: {
           borderRadius: 20,
           textTransform: 'none',
-          fontWeight: 500,
+          fontWeight: 400,
+        },
+        containedPrimary: {
+          background: 'linear-gradient(77.74deg, #eb4f63 11.16%, #fa7b3f 99.55%)',
+          color: '#fff',
+          '&:hover': {
+            background: 'linear-gradient(77.74deg, #d0364b 11.16%, #f2621f 99.55%)',
+            color: '#fff',
+          },
         },
       },
     },
@@ -153,6 +166,13 @@ const OxygenTheme = createTheme({
           ...theme.applyStyles('dark', {
             borderColor: '#ffffff0d'
           })
+        }),
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          fontSize: theme.typography.body2.fontSize,
         }),
       },
     },

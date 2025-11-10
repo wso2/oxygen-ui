@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import { Badge, Box, Button, ColorModeToggle, Layout, Link, Typography } from '@wso2/oxygen-ui'
-import { Lightbulb, Monitor, Moon, Sun, WSO2 } from '@wso2/oxygen-icons'
+import { Badge, Box, Button, ColorSchemeToggle, Layout, Link, Typography } from '@oxygen-ui/react'
+import { Lightbulb, WSO2 } from '@oxygen-ui/react-icons'
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -28,16 +28,13 @@ function App() {
 
   return (
     <Layout.Content>
-      <ColorModeToggle
+      <ColorSchemeToggle
         sx={{
           position: 'fixed',
           top: '2.3rem',
           right: '3rem',
           zIndex: 2
         }}
-        darkModeIcon={<Moon strokeWidth={1} />}
-        lightModeIcon={<Sun strokeWidth={1} />}
-        systemModeIcon={<Monitor strokeWidth={1} />}
       />
       <div>
         <a href="https://vite.dev" target="_blank">
@@ -58,6 +55,7 @@ function App() {
           <br /><br />
         </p>
       </div>
+      Run <code><pre>pnpm storybook</pre></code>
       <p className="read-the-docs">
         <Lightbulb size={18} /> Click the icon on top right corner to change color mode
       </p>

@@ -19,7 +19,8 @@
 // Export custom Oxygen UI components and utilities
 export { default as OxygenTheme } from "./styles/OxygenTheme/OxygenTheme";
 export { default as OxygenUIThemeProvider } from "./contexts/OxygenUIThemeProvider/OxygenUIThemeProvider";
-export { default as ColorModeToggle } from "./components/ColorModeToggle/ColorModeToggle";
+export { default as ColorSchemeImage } from "./components/ColorSchemeImage/ColorSchemeImage";
+export { default as ColorSchemeToggle } from "./components/ColorSchemeToggle/ColorSchemeToggle";
 export { default as Layout } from "./layouts";
 
 // Re-export the entire @mui/material API

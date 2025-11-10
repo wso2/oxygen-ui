@@ -1,5 +1,5 @@
 {
-  "name": "@wso2/oxygen-ui-test-app",
+  "name": "@oxygen-ui/test-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,11 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "catalog:",
-    "@emotion/styled": "catalog:",
-    "@mui/material": "catalog:",
-    "@wso2/oxygen-icons": "workspace:*",
-    "@wso2/oxygen-ui": "workspace:*",
+    "@oxygen-ui/react": "workspace:*",
+    "@oxygen-ui/react-icons": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
@@ -28,7 +25,7 @@
     "eslint-plugin-react-hooks": "catalog:",
     "eslint-plugin-react-refresh": "catalog:",
     "globals": "catalog:",
-    "rollup-plugin-visualizer": "catalog:",
+    "rollup-plugin-visualizer": "^6.0.5",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:",
     "vite": "catalog:"
