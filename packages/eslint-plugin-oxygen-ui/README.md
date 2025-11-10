@@ -63,11 +63,13 @@ import { Box, Stack, Button } from '@oxygen-ui/react';
 
 // MUI X Data Grid components (namespace export)
 import { DataGrid } from '@oxygen-ui/react';
-const { DataGrid: Grid } = DataGrid;
+// Then destructure specific components:
+const { DataGrid: DataGridComponent, GridColDef } = DataGrid;
 
 // MUI X Date Pickers components (namespace export)
 import { DatePickers } from '@oxygen-ui/react';
-const { DatePicker } = DatePickers;
+// Then destructure specific components:
+const { DatePicker, LocalizationProvider } = DatePickers;
 ```
 
 **Options:**
