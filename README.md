@@ -26,7 +26,7 @@ If you are using typescript, add `path` config to resolve oxygen-ui types.
 {
   "compilerOptions": {
     "paths": {
-      "@wso2/oxygen-ui/*": ["../../node_modules/@wso2/oxygen-ui/dist/*"],
+      "@oxygen-ui/react/*": ["../../node_modules/@oxygen-ui/react/dist/*"],
     },
   }
 }
@@ -35,10 +35,10 @@ If you are using typescript, add `path` config to resolve oxygen-ui types.
 Simply import any Material-UI or Oxygen-UI custom component like:
 
 ```js
-import { OxygenUIThemeProvider, Button } from '@wso2/oxygen-ui'
+import { OxygenUIThemeProvider, Button } from '@oxygen-ui/react'
 ```
 
-> Example: `import { Button } from '@wso2/oxygen-ui'` == `import { Button } from '@mui/material'`
+> Example: `import { Button } from '@oxygen-ui/react'` == `import { Button } from '@mui/material'`
 
 Refer to [Material-UI documentation](https://mui.com/material-ui/all-components/) for component usage details.
 
@@ -47,10 +47,10 @@ Refer to [Material-UI documentation](https://mui.com/material-ui/all-components/
 Simply import any Lucide icons or Oxygen-UI custom icons like:
 
 ```javascript
-import { Bell, WSO2 } from '@wso2/oxygen-icons'
+import { Bell, WSO2 } from '@oxygen-ui/react-icons'
 ```
 
-Example: `import { Bell } from '@wso2/oxygen-icons'` == `import { Bell } from 'lucide-react'`
+Example: `import { Bell } from '@oxygen-ui/react-icons'` == `import { Bell } from 'lucide-react'`
 
 Refer to [Lucide documentation](https://lucide.dev/icons) for list icons and for usage details.
 
@@ -88,8 +88,8 @@ The workspace is organized as follows:
 ```
 oxygen-ui/
 ├── packages/
-│   ├── oxygen-icons/             # Oxygen-UI icons library
-│   ├── oxygen-ui/                # Main Oxygen-UI component library
+│   ├── oxygen-ui-react-icons/             # Oxygen-UI icons library
+│   ├── oxygen-ui-react/                # Main Oxygen-UI component library
 │   └── ...
 ├── samples/
 │   └── oxygen-ui-test-app/       # Example Vite + React app using Oxygen-UI

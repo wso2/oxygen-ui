@@ -6,11 +6,23 @@ settings:
 
 catalogs:
   default:
+    '@emotion/react':
+      specifier: ^11.14.0
+      version: 11.14.0
+    '@emotion/styled':
+      specifier: ^11.14.1
+      version: 11.14.1
     '@eslint/js':
       specifier: ^9.36.0
       version: 9.38.0
+    '@mui/icons-material':
+      specifier: ^7.3.4
+      version: 7.3.4
+    '@mui/material':
+      specifier: ^7.3.4
+      version: 7.3.4
     '@mui/x-data-grid':
-      specifier: 8.16.0
+      specifier: ^8.16.0
       version: 8.16.0
     '@mui/x-date-pickers':
       specifier: ^8.17.0
