@@ -33,7 +33,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 env:
   GH_TOKEN: ${{ secrets.UI_BOT_TOKEN }}
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN_WSO2 }}
   SHOULD_GENERATE_CHANGESET: 'true'
 
 jobs:
@@ -86,5 +86,5 @@ jobs:
           version: pnpm run version:packages
           commit: '[Oxygen UI Release] [GitHub Action] [Release] [skip ci] update package versions'
         env:
-          NPM_TOKEN: ${{ env.NPM_TOKEN }}
+          NPM_TOKEN: ${{ env.NPM_TOKEN_WSO2 }}
           GITHUB_TOKEN: ${{ env.GH_TOKEN }}
