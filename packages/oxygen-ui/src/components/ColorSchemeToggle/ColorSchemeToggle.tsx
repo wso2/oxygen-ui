@@ -18,7 +18,7 @@
 
 import { useColorScheme } from '@mui/material/styles';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import { Moon, Monitor, Sun } from '@oxygen-ui/react-icons';
+import { Moon, Monitor, Sun } from '@wso2/oxygen-ui-icons-react';
 import { Tooltip } from '@mui/material';
 
 /**
