@@ -1,7 +1,7 @@
 packages:
   - packages/eslint-plugin-oxygen-ui
   - packages/oxygen-ui
-  - packages/oxygen-ui-react-icons
+  - packages/oxygen-ui-icons-react
   - samples/oxygen-ui-test-app
 
 ignoredBuiltDependencies:
