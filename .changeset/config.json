@@ -11,8 +11,7 @@
     [
       "@wso2/eslint-plugin-oxygen-ui",
       "@wso2/oxygen-ui",
-      "@wso2/oxygen-ui-icons-react",
-      "@wso2/vite-plugin-oxygen-ui"
+      "@wso2/oxygen-ui-icons-react"
     ]
   ],
   "access": "public",
