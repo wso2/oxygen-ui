@@ -33,7 +33,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 env:
   GH_TOKEN: ${{ secrets.UI_BOT_TOKEN }}
-  NPM_TOKEN: ${{ secrets.TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN_WSO2 }}
   SHOULD_GENERATE_CHANGESET: 'true'
 
 jobs:
@@ -75,6 +75,14 @@ jobs:
       - name: 🏗️ Build
         id: build
         run: pnpm build
+
+      - name: 🔐 Configure npm authentication
+        run: |
+          cat << EOF > "$HOME/.npmrc"
+            //registry.npmjs.org/:_authToken=$NPM_TOKEN
+          EOF
+        env:
+          NPM_TOKEN: ${{ env.NPM_TOKEN }}
 
       - name: 📣 Create Release Pull Request or Publish to npm
         if: ${{ env.SHOULD_GENERATE_CHANGESET == 'true' }}
