@@ -1,25 +1,25 @@
 {
-  "name": "@oxygen-ui/workspace",
-  "version": "0.1.0-alpha",
+  "private": true,
+  "name": "@wso2/oxygen-ui-workspace",
+  "version": "0.0.0",
   "description": "WSO2 Oxygen UI | Workspace",
   "files": [
     "packages",
     "README.md"
   ],
   "sideEffects": false,
-  "private": true,
   "scripts": {
     "build": "nx run-many --target=build --all",
-    "build:affected": "nx affected --target=build",
-    "dev": "nx serve",
-    "type-check": "nx type-check",
-    "lint": "nx lint",
-    "lint:fix": "nx lint --fix",
-    "clean": "nx clean",
+    "build:storybook": "storybook build",
+    "clean": "nx run-many --target=clean --all",
+    "typecheck": "nx run-many --target=typecheck --all",
+    "lint": "nx run-many --target=lint --all",
+    "lint:fix": "nx run-many --target=lint:fix --all",
     "prepublishOnly": "nx run-many --target=build --all",
-    "test": "nx test",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "publish:packages": "changeset publish",
+    "version:packages": "changeset version && pnpm install --lockfile-only",
+    "test": "nx run-many --target=test --all",
+    "storybook": "storybook dev -p 6006"
   },
   "keywords": [
     "wso2",
@@ -47,6 +47,8 @@
     "@babel/preset-env": "^7.28.5",
     "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
+    "@changesets/changelog-github": "^0.5.1",
+    "@changesets/cli": "^2.29.7",
     "@mdx-js/react": "^3.1.1",
     "@storybook/addon-docs": "^10.0.2",
     "@storybook/addon-links": "^10.0.2",
@@ -58,5 +60,8 @@
   },
   "engines": {
     "node": ">=24.0.0"
+  },
+  "publishConfig": {
+    "access": "restricted"
   }
 }

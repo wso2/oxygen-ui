@@ -31,7 +31,7 @@
     "build": "pnpm clean && tsc -p tsconfig.json && node esbuild.config.cjs",
     "build:watch": "node esbuild.config.cjs --watch",
     "dev": "node esbuild.config.cjs --watch",
-    "type-check": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "clean": "rimraf dist",
@@ -95,5 +95,8 @@
         "dependsOn": [ "^build" ]
       }
     }
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

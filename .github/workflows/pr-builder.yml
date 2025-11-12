@@ -1,0 +1,258 @@
+# This workflow will build PRs submitted to the main branch.
+
+name: 👷‍♂️ PR Builder
+
+on:
+  pull_request:
+    branches: [next]
+    paths-ignore:
+      - '**/*.md'
+      - 'LICENSE'
+  workflow_dispatch:
+
+# Avoid running multiple builds for the same PR.
+concurrency:
+  group: pr-builder-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+jobs:
+  lint:
+    name: 🌳 ESLint (STATIC ANALYSIS)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [lts/*]
+        pnpm-version: [latest]
+    steps:
+      - name: ⬇️ Checkout
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🥡 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ matrix.pnpm-version }}
+          run_install: false
+          cache: true
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: 🟢 Setup node
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: 🐳 Set SHAs for Nx
+        id: set-shas
+        uses: nrwl/nx-set-shas@v3
+        with:
+          main-branch-name: 'next'
+
+      - name: 🧩 Install Dependencies
+        id: install-dependencies
+        run: |
+          pnpm install --frozen-lockfile
+
+      - name: 🏗️ Build Project
+        id: build
+        run: pnpm build
+
+      - name: 🌳 Lint Files
+        id: lint-with-eslint
+        run: pnpm nx affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --target=lint --parallel=3
+
+  typecheck:
+    name: ʦ Typecheck (STATIC ANALYSIS)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [lts/*]
+        pnpm-version: [latest]
+    steps:
+      - name: ⬇️ Checkout
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🥡 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ matrix.pnpm-version }}
+          run_install: false
+          cache: true
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: 🟢 Setup node
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: 🐳 Set SHAs for Nx
+        id: set-shas
+        uses: nrwl/nx-set-shas@v3
+        with:
+          main-branch-name: 'next'
+
+      - name: 🧩 Install Dependencies
+        id: install-dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🏗️ Build Project
+        id: build
+        run: pnpm build
+
+      - name: ☄️ Check Type Errors
+        run: pnpm nx affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --target=typecheck --parallel=3
+
+  test:
+    name: 👾 Unit Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [lts/*]
+        pnpm-version: [latest]
+    steps:
+      - name: ⬇️ Checkout
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🥡 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ matrix.pnpm-version }}
+          run_install: false
+          cache: true
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: 🟢 Setup node
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: 🧩 Install Dependencies
+        id: install-dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🏗️ Build Project
+        id: build
+        run: pnpm build
+
+      - name: 🃏 Run Unit Tests
+        id: run-tests
+        run: pnpm test
+
+      - name: Upload `@wso2/oxygen-ui` coverage reports to Codecov
+        id: upload-wso2-oxygen-ui-coverage
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ env.CODECOV_TOKEN }}
+          files: ./packages/oxygen-ui/coverage/coverage-final.json
+          flags: '@wso2/oxygen-ui'
+          verbose: true
+
+      - name: Upload `@wso2/oxygen-icons` coverage reports to Codecov
+        id: upload-wso2-oxygen-icons-coverage
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ env.CODECOV_TOKEN }}
+          files: ./packages/oxygen-icons/coverage/coverage-final.json
+          flags: '@wso2/oxygen-icons'
+          verbose: true
+          
+      - name: Upload `@wso2/vite-plugin-oxygen-ui` coverage reports to Codecov
+        id: upload-wso2-vite-plugin-oxygen-ui-coverage
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ env.CODECOV_TOKEN }}
+          files: ./packages/vite-plugin-oxygen-ui/coverage/coverage-final.json
+          flags: '@wso2/vite-plugin-oxygen-ui'
+          verbose: true
+
+  storybook:
+    name: 💅 Storybook
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [lts/*]
+        pnpm-version: [latest]
+    steps:
+      - name: ⬇️ Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: 🥡 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ matrix.pnpm-version }}
+          run_install: false
+          cache: true
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: 🟢 Setup node
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: 🧩 Install Dependencies
+        id: install-dependencies
+        run: |
+          pnpm install --frozen-lockfile
+
+      - name: 🏗️ Build Project Project
+        id: build
+        run: pnpm build
+
+      - name: 💅 Build Storybook
+        id: build-storybook
+        run: pnpm build:storybook
+
+  build:
+    name: 🚧 Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [lts/*]
+        pnpm-version: [latest]
+    steps:
+      - name: ⬇️ Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: 🥡 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ matrix.pnpm-version }}
+          run_install: false
+          cache: true
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: 🟢 Setup node
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: 🧩 Install Dependencies
+        id: install-dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🏗️ Build Project
+        id: build
+        run: pnpm build

@@ -1,6 +1,6 @@
 {
-  "name": "@wso2/oxygen-ui-test-app",
   "private": true,
+  "name": "@wso2/oxygen-ui-test-app",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -29,5 +29,8 @@
     "typescript": "catalog:",
     "typescript-eslint": "catalog:",
     "vite": "catalog:"
+  },
+  "publishConfig": {
+    "access": "restricted"
   }
 }
