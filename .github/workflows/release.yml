@@ -83,12 +83,13 @@ jobs:
       - name: 📣 Create Release Pull Request or Publish to npm
         if: ${{ env.SHOULD_GENERATE_CHANGESET == 'true' }}
         id: changesets
-        uses: changesets/action@v1.4.9
+        uses: changesets/action@v1
         with:
           title: '[Release] [GitHub Action] Update package versions'
-          publish: pnpm publish --access public
-          version: pnpm run version:packages
-          commit: '[Oxygen UI Release] [GitHub Action] [Release] [skip ci] update package versions'
+          publish: pnpm publish:packages
+          version: pnpm version:packages
+          commit: "[WSO2 Release] [GitHub Action] [Release] [${{ github.ref_name }}] [skip ci] update package versions"
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_WSO2 }}
           GITHUB_TOKEN: ${{ env.GH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_WSO2 }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN_WSO2 }}
