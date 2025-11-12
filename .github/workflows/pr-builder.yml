@@ -116,7 +116,6 @@ jobs:
 
   test:
     name: 👾 Unit Tests
-    needs: [lint, typecheck]
     runs-on: ubuntu-latest
     strategy:
       matrix:
