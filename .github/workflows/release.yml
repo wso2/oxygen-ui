@@ -74,6 +74,12 @@ jobs:
       - name: 🏗️ Build
         run: pnpm build
 
+      - name: 🔐 Setup npm auth
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_WSO2 }}
+
       - name: 📣 Create Release Pull Request or Publish to npm
         if: ${{ env.SHOULD_GENERATE_CHANGESET == 'true' }}
         id: changesets
