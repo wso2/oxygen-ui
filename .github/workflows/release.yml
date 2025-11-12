@@ -77,12 +77,9 @@ jobs:
         run: pnpm build
 
       - name: 🔐 Configure npm authentication
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          EOF
+        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
         env:
-          NPM_TOKEN: ${{ env.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN_WSO2 }}
 
       - name: 📣 Create Release Pull Request or Publish to npm
         if: ${{ env.SHOULD_GENERATE_CHANGESET == 'true' }}
