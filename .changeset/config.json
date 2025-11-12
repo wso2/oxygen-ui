@@ -2,13 +2,23 @@
   "$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
   "changelog": [
     "@changesets/changelog-github",
-    { "repo": "wso2/oxygen-ui" }
+    {
+      "repo": "wso2/oxygen-ui"
+    }
   ],
   "commit": false,
-  "linked": [],
+  "linked": [
+    [
+      "@wso2/eslint-plugin-oxygen-ui",
+      "@wso2/oxygen-ui",
+      "@wso2/oxygen-ui-icons-react",
+      "@wso2/vite-plugin-oxygen-ui"
+    ]
+  ],
   "access": "public",
   "baseBranch": "next",
   "updateInternalDependencies": "patch",
+  "bumpVersionsWithWorkspaceProtocolOnly": true,
   "ignore": [],
   "privatePackages": {
     "version": false,

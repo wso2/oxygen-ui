@@ -1,7 +1,7 @@
 ---
-'@wso2/eslint-plugin-oxygen-ui': minor
-'@wso2/oxygen-ui': minor
-'@wso2/oxygen-ui-icons-react': minor
+'@wso2/eslint-plugin-oxygen-ui': patch
+'@wso2/oxygen-ui': patch
+'@wso2/oxygen-ui-icons-react': patch
 ---
 
 🎉 Initial pre-release
