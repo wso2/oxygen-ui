@@ -1,5 +1,5 @@
 {
-  "name": "@oxygen-ui/test-app",
+  "name": "@wso2/oxygen-ui-test-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@oxygen-ui/react": "workspace:*",
-    "@oxygen-ui/react-icons": "workspace:*",
+    "@wso2/oxygen-ui": "workspace:*",
+    "@wso2/oxygen-ui-icons-react": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

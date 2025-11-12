@@ -19,12 +19,28 @@
 /* Storybook Docs Page Theme Overrides */
 html[data-color-scheme='light'] {
     color-scheme: light;
-    background: #f5f5f5;
+    --background: #ffffff;
+
+    background-color: var(--background) !important;
+    background-attachment: fixed;
+    background-image:
+        radial-gradient(circle at 65% 30%, rgb(255 116 0 / 18%) 10%, rgba(255, 255, 255, 0) 40% 40%),
+        radial-gradient(circle at 35% 50%, rgb(74 41 165 / 10%) 1%, rgba(255, 255, 255, 0) 40% 70%),
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.6) 0%, var(--background) 100%);
+    background-blend-mode: normal;
 }
 
 html[data-color-scheme='dark'] {
     color-scheme: dark;
-    background: #161819;
+    --background: #000000;
+
+    background-color: var(--background) !important;
+    background-attachment: fixed;
+    background-image:
+        radial-gradient(circle at 65% 30%, rgb(255 116 0 / 18%) 10%, rgba(0, 0, 0, 0) 40% 40%),
+        radial-gradient(circle at 35% 50%, rgb(74 41 165 / 20%) 1%, rgba(0, 0, 0, 0) 40% 70%),
+        radial-gradient(circle at center, rgba(0, 0, 0, 0.6) 0%, var(--background) 100%);
+    background-blend-mode: screen;
 }
 
 /* Ensure Storybook docs page respects the theme background */
@@ -40,7 +56,7 @@ body[data-color-scheme='dark'] .docs-story > div {
 
 body[data-color-scheme='dark'] .docblock-code-toggle,
 body[data-color-scheme='dark'] .sb-bar {
-    background-color: #252729 !important;
+    background-color: #11111178 !important;
 }
 
 /* Dark mode text colors for Storybook docs */
@@ -74,6 +90,11 @@ body[data-color-scheme='dark'] .sbdocs .toc-list-item > a.is-active-link {
 body[data-color-scheme='light'] .sbdocs,
 body[data-color-scheme='light'] .sbdocs-content {
     color: #171717 !important;
+}
+
+body[data-color-scheme='light'] .docblock-code-toggle,
+body[data-color-scheme='light'] .sb-bar {
+    background: rgb(255 255 255 / 41%);
 }
 
 @media (prefers-color-scheme: dark) {

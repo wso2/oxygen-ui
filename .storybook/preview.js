@@ -17,7 +17,7 @@
  */
 
 import React from "react";
-import Theme from "../packages/oxygen-ui-react/src/styles/OxygenTheme/OxygenTheme";
+import Theme from "../packages/oxygen-ui/src/styles/OxygenTheme/OxygenTheme";
 import { ThemeProvider } from '@mui/material/styles';
 import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles';
 import './docs.css';
