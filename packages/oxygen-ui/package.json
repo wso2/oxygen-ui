@@ -1,6 +1,6 @@
 {
-  "name": "@oxygen-ui/react",
-  "version": "2.4.6",
+  "name": "@wso2/oxygen-ui",
+  "version": "0.0.0",
   "description": "WSO2 Oxygen UI | Design System - Powered with Material-UI component library with TypeScript support",
   "type": "module",
   "main": "./dist/index.js",
@@ -67,7 +67,7 @@
     "@mui/material": "catalog:",
     "@mui/x-data-grid": "catalog:",
     "@mui/x-date-pickers": "catalog:",
-    "@oxygen-ui/react-icons": "workspace:*",
+    "@wso2/oxygen-ui-icons-react": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
@@ -94,7 +94,7 @@
   "nx": {
     "targets": {
       "build": {
-        "dependsOn": []
+        "dependsOn": [ "^build" ]
       }
     }
   }

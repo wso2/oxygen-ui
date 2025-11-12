@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import { Badge, Box, Button, ColorSchemeToggle, Layout, Link, Typography } from '@oxygen-ui/react'
-import { Lightbulb, WSO2 } from '@oxygen-ui/react-icons'
+import { Badge, Box, Button, ColorSchemeToggle, Layout, Link, Typography } from '@wso2/oxygen-ui'
+import { Lightbulb, WSO2 } from '@wso2/oxygen-ui-icons-react'
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -55,7 +55,7 @@ function App() {
           <br /><br />
         </p>
       </div>
-      Run <code><pre>pnpm storybook</pre></code>
+      Run <pre><code>pnpm storybook</code></pre>
       <p className="read-the-docs">
         <Lightbulb size={18} /> Click the icon on top right corner to change color mode
       </p>
