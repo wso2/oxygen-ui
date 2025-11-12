@@ -18,7 +18,6 @@
 
 const { readFileSync } = require('fs');
 const esbuild = require('esbuild');
-const inlineCss = require('esbuild-plugin-inline-css');
 
 const pkg = JSON.parse(readFileSync('./package.json', 'utf8'));
 
@@ -27,7 +26,8 @@ esbuild.build({
     'src/index.ts',
     'src/styles/OxygenTheme/OxygenTheme.ts',
     'src/contexts/OxygenUIThemeProvider/OxygenUIThemeProvider.tsx',
-    'src/components/ColorModeToggle/ColorModeToggle.tsx'
+    'src/components/ColorSchemeImage/ColorSchemeImage.tsx',
+    'src/components/ColorSchemeToggle/ColorSchemeToggle.tsx'
   ],
   platform: 'browser',
   outdir: 'dist',
@@ -42,9 +42,6 @@ esbuild.build({
     ...Object.keys(pkg.peerDependencies || {})
   ],
   preserveSymlinks: true,
-  plugins: [
-    inlineCss()
-  ]
 }).catch((err) => {
   console.error(err);
   process.exit(1);

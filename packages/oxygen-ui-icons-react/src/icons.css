@@ -16,16 +16,10 @@
  * under the License.
  */
 
-import { OxygenUIThemeProvider } from '@wso2/oxygen-ui'
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+.lucide {
+  stroke-width: 1px;
+}
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <OxygenUIThemeProvider>
-      <App />
-    </OxygenUIThemeProvider>
-  </StrictMode>,
-)
+.lucide:not(.lucide-logo) * {
+  vector-effect: non-scaling-stroke;
+}

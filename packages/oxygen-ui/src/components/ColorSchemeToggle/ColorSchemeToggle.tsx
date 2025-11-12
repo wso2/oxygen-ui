@@ -18,15 +18,15 @@
 
 import { useColorScheme } from '@mui/material/styles';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import { DarkModeRounded, LightModeRounded, Monitor } from '@mui/icons-material';
+import { Moon, Monitor, Sun } from '@wso2/oxygen-ui-icons-react';
 import { Tooltip } from '@mui/material';
 
 /**
- * Props for the ColorModeToggle component.
+ * Props for the ColorSchemeToggle component.
  * @remarks Extends MUI IconButtonProps.
  * @see {@link https://mui.com/material-ui/api/icon-button/#props IconButtonProps}
  */
-interface ColorModeToggleProps extends IconButtonProps {
+interface ColorSchemeToggleProps extends IconButtonProps {
   darkModeIcon?: React.ReactNode;
   lightModeIcon?: React.ReactNode;
   systemModeIcon?: React.ReactNode;
@@ -34,7 +34,7 @@ interface ColorModeToggleProps extends IconButtonProps {
 
 type Mode = 'light' | 'dark' | 'system';
 
-export const ColorModeToggle: React.FC<ColorModeToggleProps> = ({
+export const ColorSchemeToggle: React.FC<ColorSchemeToggleProps> = ({
   darkModeIcon,
   lightModeIcon,
   systemModeIcon,
@@ -54,12 +54,12 @@ export const ColorModeToggle: React.FC<ColorModeToggleProps> = ({
 
   const currentMode: Mode = mode ?? 'system';
 
-  const ColorModeIcon = () => {
+  const ColorSchemeIcon = () => {
     switch (currentMode) {
       case 'light':
-        return lightModeIcon ?? <LightModeRounded />;
+        return lightModeIcon ?? <Sun />;
       case 'dark':
-        return darkModeIcon ?? <DarkModeRounded />;
+        return darkModeIcon ?? <Moon />;
       default:
         return systemModeIcon ?? <Monitor />;
     }
@@ -68,10 +68,10 @@ export const ColorModeToggle: React.FC<ColorModeToggleProps> = ({
   return (
     <Tooltip title={`${currentMode.charAt(0).toUpperCase()}${currentMode.slice(1)} Mode`}>
       <IconButton {...buttonProps} onClick={() => setMode(nextMode(currentMode))}>
-        <ColorModeIcon />
+        <ColorSchemeIcon />
       </IconButton>
     </Tooltip>
   );
 };
 
-export default ColorModeToggle;
+export default ColorSchemeToggle;

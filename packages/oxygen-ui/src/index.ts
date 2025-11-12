@@ -19,10 +19,27 @@
 // Export custom Oxygen UI components and utilities
 export { default as OxygenTheme } from "./styles/OxygenTheme/OxygenTheme";
 export { default as OxygenUIThemeProvider } from "./contexts/OxygenUIThemeProvider/OxygenUIThemeProvider";
-export { default as ColorModeToggle } from "./components/ColorModeToggle/ColorModeToggle";
+export { default as ColorSchemeImage } from "./components/ColorSchemeImage/ColorSchemeImage";
+export { default as ColorSchemeToggle } from "./components/ColorSchemeToggle/ColorSchemeToggle";
 export { default as Layout } from "./layouts";
 
 // Re-export the entire @mui/material API
 // This allows consumers to import from @wso2/oxygen-ui instead of @mui/material
 // and automatically get the Oxygen theme applied
 export * from '@mui/material';
+
+// Re-export @mui/x-charts as namespace to avoid conflicts
+// Usage: import { Charts } from '@wso2/oxygen-ui';
+export * as Charts from '@mui/x-charts';
+
+// Re-export @mui/x-data-grid as namespace to avoid conflicts
+// Usage: import { DataGrid } from '@wso2/oxygen-ui';
+export * as DataGrid from '@mui/x-data-grid';
+
+// Re-export @mui/x-date-pickers as namespace to avoid conflicts
+// Usage: import { DatePickers } from '@wso2/oxygen-ui';
+export * as DatePickers from '@mui/x-date-pickers';
+
+// Re-export @mui/x-charts as namespace to avoid conflicts
+// Usage: import { TreeView } from '@wso2/oxygen-ui';
+export * as TreeView from '@mui/x-tree-view';

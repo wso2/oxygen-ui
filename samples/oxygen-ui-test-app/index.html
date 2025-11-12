@@ -4,7 +4,36 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>import-test-app</title>
+    <title>Oxygen UI test App</title>
+    <style>
+      html[data-color-scheme='dark'] {
+        --background: #000;
+      }
+
+      html[data-color-scheme='light'] {
+        --background: #fff;
+      }
+
+      html[data-color-scheme='dark'] body {
+        background-color: var(--background) !important;
+        background-attachment: fixed;
+        background-image:
+          radial-gradient(circle at 65% 30%, rgb(255 116 0 / 18%) 10%, rgba(0, 0, 0, 0) 40% 40%),
+          radial-gradient(circle at 35% 50%, rgb(74 41 165 / 20%) 1%, rgba(0, 0, 0, 0) 40% 70%),
+          radial-gradient(circle at center, rgba(0, 0, 0, 0.6) 0%, var(--background) 100%);
+        background-blend-mode: screen;
+      }
+
+      html[data-color-scheme='light'] body {
+        background-color: var(--background) !important;
+        background-attachment: fixed;
+        background-image:
+          radial-gradient(circle at 65% 30%, rgb(255 116 0 / 18%) 10%, rgba(255, 255, 255, 0) 40% 40%),
+          radial-gradient(circle at 35% 50%, rgb(74 41 165 / 10%) 1%, rgba(255, 255, 255, 0) 40% 70%),
+          radial-gradient(circle at center, rgba(255, 255, 255, 0.6) 0%, var(--background) 100%);
+        background-blend-mode: normal;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

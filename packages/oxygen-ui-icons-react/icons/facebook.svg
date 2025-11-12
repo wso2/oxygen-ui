@@ -1,0 +1,28 @@
+<!--
+ * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ -->
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  class="lucide-logo"
+  name="Facebook"
+>
+  <path fill="currentColor" stroke="none" d="M22.9998 11.9319C22.9741 9.82279 22.3498 7.76495 21.2006 6.00078C20.0513 4.23662 18.425 2.8396 16.5132 1.97425C14.6012 1.10891 12.4834 0.811293 10.409 1.11643C8.33463 1.42157 6.3901 2.31676 4.80445 3.6966C3.21878 5.07642 2.05801 6.88342 1.45884 8.90477C0.85968 10.9261 0.847057 13.0776 1.42248 15.106C1.99791 17.1343 3.13741 18.9549 4.70678 20.3535C6.27614 21.7521 8.21004 22.6703 10.2807 23V15.1555H7.53062V11.9319H10.2807V9.48314C10.217 8.91377 10.2783 8.33725 10.4604 7.79431C10.6425 7.25136 10.9407 6.75524 11.3341 6.34095C11.7275 5.92664 12.2064 5.60427 12.7372 5.39659C13.268 5.1889 13.8376 5.10095 14.4058 5.13897C15.2306 5.15033 16.0534 5.22433 16.8671 5.36033V8.12734H15.4921C15.255 8.09725 15.0141 8.12116 14.7875 8.19729C14.5608 8.27343 14.354 8.39984 14.1824 8.56719C14.0108 8.73454 13.8787 8.93855 13.7961 9.1641C13.7133 9.38975 13.6821 9.63118 13.7045 9.87052V11.9596H16.7571L16.2621 15.1832H13.7183V22.9308C16.317 22.5173 18.6823 21.1803 20.3852 19.1623C22.088 17.1443 23.0156 14.5791 22.9998 11.9319Z" />
+</svg>

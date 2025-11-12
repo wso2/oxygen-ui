@@ -1,0 +1,28 @@
+<!--
+ * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ -->
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  class="lucide-logo"
+  name="Google"
+>
+  <path fill="currentColor" stroke="none" d="M21.8037 8.80435H11.2324C11.2324 9.90374 11.2324 12.1023 11.2257 13.2017H17.3515C17.1167 14.3011 16.2844 15.8405 15.1085 16.6156C15.1085 16.6156 15.1062 16.622 15.104 16.6209C13.5405 17.6533 11.4773 17.8875 9.94528 17.5797C7.54395 17.1026 5.64353 15.361 4.87191 13.1491C4.8764 13.1458 4.87979 13.1153 4.88316 13.1131C4.4002 11.741 4.4002 9.90374 4.88316 8.80435H4.88203C5.50427 6.78369 7.46194 4.9401 9.86665 4.43548C11.8007 4.02541 13.9831 4.46932 15.5881 5.97109C15.8015 5.76221 18.542 3.08641 18.7475 2.86873C13.2642 -2.09721 4.48443 -0.35033 1.19916 6.06239H1.19803C1.19803 6.06239 1.19917 6.06266 1.19243 6.07475C-0.4328 9.22449 -0.365411 12.9359 1.20366 15.9351C1.19916 15.9383 1.1958 15.9403 1.19243 15.9436C2.61436 18.7031 5.20214 20.8194 8.32006 21.6252C11.6323 22.4937 15.8475 21.9001 18.6712 19.3463L18.6746 19.3495C21.0669 17.1947 22.5562 13.524 21.8037 8.80435Z" />
+</svg>

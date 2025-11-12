@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Output */
+    "rootDir": "dist",
+    "outDir": "dist",
+    "declaration": false,
+    "emitDeclarationOnly": false,
+    "noEmit": true,
+
+    "isolatedModules": true,
+    "noEmitOnError": true
+  },
+  "include": ["dist/**/*.ts"],
+  "exclude": ["node_modules"]
+}

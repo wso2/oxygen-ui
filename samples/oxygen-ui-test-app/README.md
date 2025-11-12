@@ -1,73 +1,146 @@
-# React + TypeScript + Vite
+# Oxygen UI Test App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a sample Vite + React + TypeScript application demonstrating the usage of WSO2 Oxygen UI components.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This test app showcases:
+- Integration of `@wso2/oxygen-ui` components
+- Usage of `@wso2/oxygen-ui-icons-react` for icons
+- Theme customization with `OxygenUIThemeProvider`
+- MUI X Data Grid and Date Pickers integration
+- TypeScript configuration for Oxygen UI
 
-## React Compiler
+## Getting Started
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+### Prerequisites
 
-## Expanding the ESLint configuration
+- Node.js 24+ 
+- pnpm 10+
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Installation
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+From the test app directory:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Run the development server:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm dev
 ```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+### Build
+
+Create a production build:
+
+```bash
+pnpm build
+```
+
+Preview the production build:
+
+```bash
+pnpm preview
+```
+
+## Project Structure
+
+```
+oxygen-ui-test-app/
+├── src/
+│   ├── App.tsx           # Main application component
+│   ├── main.tsx          # Application entry point
+│   └── ...
+├── public/               # Static assets
+├── index.html
+├── vite.config.ts        # Vite configuration
+├── tsconfig.json         # TypeScript configuration
+└── package.json
+```
+
+## Using Oxygen UI Components
+
+### Basic Components
+
+```tsx
+import { Button, TextField, Box, Stack } from '@wso2/oxygen-ui';
+
+function MyComponent() {
+  return (
+    <Box>
+      <Stack spacing={2}>
+        <TextField label="Name" />
+        <Button variant="contained">Submit</Button>
+      </Stack>
+    </Box>
+  );
+}
+```
+
+### Icons
+
+```tsx
+import { Settings, User, LogOut } from '@wso2/oxygen-ui-icons-react';
+
+function Toolbar() {
+  return (
+    <div>
+      <Settings size={20} />
+      <User size={20} />
+      <LogOut size={20} />
+    </div>
+  );
+}
+```
+
+### Theme Provider
+
+```tsx
+import { OxygenUIThemeProvider } from '@wso2/oxygen-ui';
+
+function App() {
+  return (
+    <OxygenUIThemeProvider>
+      {/* Your app components */}
+    </OxygenUIThemeProvider>
+  );
+}
+```
+
+## Technologies Used
+
+- [React 19](https://react.dev/)
+- [TypeScript 5](https://www.typescriptlang.org/)
+- [Vite 7](https://vite.dev/)
+- [@wso2/oxygen-ui](../../packages/oxygen-ui/README.md) - WSO2 Oxygen UI component library
+- [@wso2/oxygen-ui-icons-react](../../packages/oxygen-ui-icons-react/README.md) - Icon library
+- [@wso2/eslint-plugin-oxygen-ui](../../packages/eslint-plugin-oxygen-ui/README.md) - ESLint plugin
+- [@wso2/vite-plugin-oxygen-ui](../../packages/vite-plugin-oxygen-ui/README.md) - Vite plugin
+
+## ESLint Configuration
+
+This project uses the Oxygen UI ESLint plugin to enforce best practices:
+
+```javascript
+import oxygenUIPlugin from '@wso2/eslint-plugin-oxygen-ui';
+
+export default [
+  oxygenUIPlugin.configs.recommended,
+];
+```
+
+This prevents direct imports from `@mui/*` and `lucide-react` packages.
+
+## Learn More
+
+- [Oxygen UI Documentation](../../README.md)
+- [Material-UI Documentation](https://mui.com/material-ui/)
+- [Vite Documentation](https://vite.dev/)
+- [React Documentation](https://react.dev/)

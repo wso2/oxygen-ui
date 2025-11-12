@@ -4,41 +4,78 @@
 
 Oxygen-UI delivers:
 
-- A comprehensive set of ready-to-use UI components, themed for WSO2 brand and product needs
-- Full compatibility with Material-UI 7 and its ecosystem
-- Support for custom WSO2 components and design patterns
+- A comprehensive set of ready-to-use UI components + icons, themed for WSO2 brand and product needs
+- Full compatibility with Material-UI v7.3.5 and its ecosystem
+- Full compatibility with Lucide v0.553
+- Support for custom WSO2 components, icons and design patterns
 - Easy integration with Vite, Nx, and modern React workflows
 
 # Prerequisites
 
 Before you begin, ensure you have the following installed:
 
-- [Node.js](https://nodejs.org/) (v25 or newer recommended)
+- [Node.js](https://nodejs.org/) (v24 or newer recommended)
 - [pnpm](https://pnpm.io/) (v10 or newer recommended)
 
 # Usage Example
 
-If you are using typescript, add `path` config to resolve oxygen-ui types.
+## Installing Oxygen UI
 
-```json
-{
-  "compilerOptions": {
-    "paths": {
-      "@wso2/oxygen-ui/*": ["../../node_modules/@wso2/oxygen-ui/dist/*"],
-    },
-  }
+```bash
+pnpm add @wso2/oxygen-ui @wso2/oxygen-ui-icons-react @emotion/react @emotion/styled @mui/material
+```
+
+## Using Components
+
+Import any Material-UI or Oxygen-UI custom component:
+
+```jsx
+import { OxygenUIThemeProvider, Button, TextField } from '@wso2/oxygen-ui';
+
+function App() {
+  return (
+    <OxygenUIThemeProvider>
+      <Button variant="contained">Hello World</Button>
+      <TextField label="Name" />
+    </OxygenUIThemeProvider>
+  );
 }
 ```
 
-Simply import any Material-UI or Oxygen-UI custom component like:
-
-```js
-import Button from '@wso2/oxygen-ui/Button'
-```
-
-> Example: `import Button from '@wso2/oxygen-ui/Button'` == `import Button from '@mui/material/Button'`
+> **Note**: `import { Button } from '@wso2/oxygen-ui'` is equivalent to `import { Button } from '@mui/material'`
 
 Refer to [Material-UI documentation](https://mui.com/material-ui/all-components/) for component usage details.
+
+## Using MUI X Components
+
+For DataGrid and DatePickers, use namespace imports:
+
+```jsx
+import { DataGrid } from '@wso2/oxygen-ui';
+
+function MyDataGrid() {
+  return (
+    <DataGrid.DataGrid
+      rows={rows}
+      columns={columns}
+    />
+  );
+}
+```
+
+See the [@wso2/oxygen-ui README](./packages/oxygen-ui/README.md) for detailed usage.
+
+## Using Icons
+
+Import Lucide icons or Oxygen-UI custom icons:
+
+```jsx
+import { Bell, WSO2 } from '@wso2/oxygen-ui-icons-react';
+```
+
+> **Note**: `import { Bell } from '@wso2/oxygen-ui-icons-react'` is equivalent to `import { Bell } from 'lucide-react'`
+
+Refer to [Lucide documentation](https://lucide.dev/icons) for the complete icon list.
 
 # Build Instructions
 
@@ -74,14 +111,15 @@ The workspace is organized as follows:
 ```
 oxygen-ui/
 ├── packages/
-│   ├── oxygen-ui/                # Main Oxygen-UI component library
-│   └── ...
+│   ├── oxygen-ui/                        # Main Oxygen-UI component library (@wso2/oxygen-ui)
+│   ├── oxygen-ui-icons-react/            # Oxygen-UI icons library (@wso2/oxygen-ui-icons-react) 
+│   └── eslint-plugin-oxygen-ui/          # ESLint plugin for enforcing Oxygen-UI import patterns
 ├── samples/
-│   └── oxygen-ui-test-app/       # Example Vite + React app using Oxygen-UI
-├── node_modules/
+│   └── oxygen-ui-test-app/               # Example Vite + React app using Oxygen-UI
 ├── README.md
 ├── package.json
-└── ...
+├── pnpm-workspace.yaml
+└── nx.json
 ```
 
 ## License
