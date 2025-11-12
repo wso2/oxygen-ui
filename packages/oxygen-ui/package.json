@@ -88,9 +88,6 @@
     "vite": "catalog:",
     "vitest": "catalog:"
   },
-  "engines": {
-    "node": ">=25.0.0"
-  },
   "nx": {
     "targets": {
       "build": {
