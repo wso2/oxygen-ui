@@ -22,11 +22,10 @@ Before you begin, ensure you have the following installed:
 ## Installing Oxygen UI
 
 ```bash
-pnpm add @wso2/oxygen-ui @wso2/oxygen-ui-icons-react
+pnpm add @wso2/oxygen-ui @wso2/oxygen-ui-icons-react @emotion/react @emotion/styled @mui/material
 ```
 
 ## Using Components
-
 
 Import any Material-UI or Oxygen-UI custom component:
 
