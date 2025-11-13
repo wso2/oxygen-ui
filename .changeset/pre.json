@@ -2,6 +2,7 @@
   "mode": "pre",
   "tag": "alpha",
   "initialVersions": {
+    "@wso2/esbuild-plugin-inline-css-fonts": "0.0.0",
     "@wso2/eslint-plugin-oxygen-ui": "0.0.0",
     "@wso2/oxygen-ui": "0.0.0",
     "@wso2/oxygen-ui-icons-react": "0.0.0"
