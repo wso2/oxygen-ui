@@ -89,16 +89,14 @@
     "vite": "catalog:",
     "vitest": "catalog:"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "nx": {
     "targets": {
       "build": {
-        "dependsOn": [
-          "^build"
-        ]
+        "dependsOn": []
       }
     }
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }
