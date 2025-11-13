@@ -9,6 +9,7 @@
   "commit": false,
   "linked": [
     [
+      "@wso2/esbuild-plugin-inline-css-fonts",
       "@wso2/eslint-plugin-oxygen-ui",
       "@wso2/oxygen-ui",
       "@wso2/oxygen-ui-icons-react"

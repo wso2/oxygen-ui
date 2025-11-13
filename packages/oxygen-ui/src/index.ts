@@ -16,6 +16,9 @@
  * under the License.
  */
 
+// Auto-import bundled fonts
+import './fonts.css';
+
 // Export custom Oxygen UI components and utilities
 export { default as OxygenTheme } from "./styles/OxygenTheme/OxygenTheme";
 export { default as OxygenUIThemeProvider } from "./contexts/OxygenUIThemeProvider/OxygenUIThemeProvider";

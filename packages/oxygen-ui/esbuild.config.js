@@ -16,8 +16,9 @@
  * under the License.
  */
 
-const { readFileSync } = require('fs');
-const esbuild = require('esbuild');
+import { readFileSync } from 'fs';
+import esbuild from 'esbuild';
+import { inlineCSSFontsPlugin } from '@wso2/esbuild-plugin-inline-css-fonts';
 
 const pkg = JSON.parse(readFileSync('./package.json', 'utf8'));
 
@@ -37,6 +38,17 @@ esbuild.build({
   sourcemap: true,
   minify: false,
   target: ['es2017'],
+  plugins: [ 
+    inlineCSSFontsPlugin({
+      styleAttribute: 'data-oxygen-fonts'
+    })
+  ],
+  loader: {
+    '.woff': 'file',
+    '.woff2': 'file',
+    '.ttf': 'file',
+    '.eot': 'file',
+  },
   external: [
     ...Object.keys(pkg.dependencies || {}),
     ...Object.keys(pkg.peerDependencies || {})
