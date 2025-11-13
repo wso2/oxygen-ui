@@ -53,10 +53,10 @@
     "@storybook/addon-docs": "^10.0.2",
     "@storybook/addon-links": "^10.0.2",
     "@storybook/react": "^10.0.2",
-    "@storybook/react-webpack5": "^10.0.5",
+    "@storybook/react-webpack5": "^10.0.7",
     "babel-loader": "^10.0.0",
     "nx": "^22.0.2",
-    "storybook": "^10.0.2"
+    "storybook": "^10.0.5"
   },
   "engines": {
     "node": ">=24.0.0"

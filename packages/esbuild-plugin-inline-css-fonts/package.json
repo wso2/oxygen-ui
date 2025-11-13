@@ -1,0 +1,39 @@
+{
+  "name": "@wso2/esbuild-plugin-inline-css-fonts",
+  "version": "0.0.0",
+  "description": "ESBuild plugin to inline CSS and embed fonts as base64 data URIs",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "keywords": [
+    "esbuild",
+    "plugin",
+    "css",
+    "inline",
+    "fonts",
+    "base64"
+  ],
+  "license": "Apache-2.0",
+  "peerDependencies": {
+    "esbuild": "^0.19.0 || ^0.20.0 || ^0.21.0 || ^0.22.0 || ^0.23.0 || ^0.24.0 || ^0.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "esbuild": "^0.25.12",
+    "typescript": "^5.7.3"
+  }
+}

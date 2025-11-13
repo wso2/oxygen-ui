@@ -44,7 +44,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React + Oxygen UI</h1>
+      <Typography variant='h3'>Vite + React + Oxygen UI</Typography>
       <div className="card">
         <p>
           <Badge badgeContent={count} color="secondary">

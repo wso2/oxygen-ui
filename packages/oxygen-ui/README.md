@@ -12,7 +12,7 @@ yarn add @wso2/oxygen-ui @emotion/react @emotion/styled @mui/material
 pnpm add @wso2/oxygen-ui @emotion/react @emotion/styled @mui/material
 ```
 
-The Inter font (`@fontsource-variable/inter`) is included as a dependency and will be installed automatically.
+**Note:** The Inter Variable font is automatically bundled and loaded when you import from `@wso2/oxygen-ui`. No additional setup required!
 
 ### Peer Dependencies
 

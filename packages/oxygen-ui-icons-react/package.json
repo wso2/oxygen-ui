@@ -31,13 +31,14 @@
     "build": "pnpm clean && pnpm generate:icons && tsc -p tsconfig.json && node esbuild.config.js",
     "build:watch": "node esbuild.config.js --watch",
     "dev": "node esbuild.config.js --watch",
-    "type-check": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "generate:icons": "node scripts/build-icons.js",
     "clean": "rimraf dist",
     "prepublishOnly": "npm run clean && npm run build",
-    "test": "vitest"
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest"
   },
   "keywords": [
     "wso2",
@@ -66,6 +67,7 @@
     "react": "catalog:"
   },
   "devDependencies": {
+    "@eslint/js": "catalog:",
     "@types/react": "catalog:",
     "@typescript-eslint/eslint-plugin": "catalog:",
     "@typescript-eslint/parser": "catalog:",
@@ -81,7 +83,6 @@
     "typescript": "catalog:",
     "vitest": "catalog:"
   },
-  "dependencies": {},
   "publishConfig": {
     "access": "public"
   },

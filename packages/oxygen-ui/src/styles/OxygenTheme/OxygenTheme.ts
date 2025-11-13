@@ -19,7 +19,6 @@
 import { createTheme } from '@mui/material/styles';
 import type { Shadows } from '@mui/material/styles';
 import type {} from '@mui/x-data-grid/themeAugmentation';
-import '@fontsource-variable/inter';
 
 const noShadows = Array(25).fill('none') as Shadows;
 

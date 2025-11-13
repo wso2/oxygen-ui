@@ -28,15 +28,16 @@
     "dist/styles/OxygenTheme/theme.css"
   ],
   "scripts": {
-    "build": "pnpm clean && tsc -p tsconfig.json && node esbuild.config.cjs",
-    "build:watch": "node esbuild.config.cjs --watch",
-    "dev": "node esbuild.config.cjs --watch",
+    "build": "pnpm clean && tsc -p tsconfig.json && node esbuild.config.js",
+    "build:watch": "node esbuild.config.js --watch",
+    "dev": "node esbuild.config.js --watch",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "clean": "rimraf dist",
     "prepublishOnly": "npm run clean && npm run build",
-    "test": "vitest"
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest"
   },
   "keywords": [
     "wso2",
@@ -60,7 +61,7 @@
   },
   "homepage": "https://github.com/wso2/oxygen-ui#readme",
   "dependencies": {
-    "@fontsource-variable/inter": "^5.2.8"
+    "@fontsource/inter": "^5.2.8"
   },
   "peerDependencies": {
     "@emotion/react": "catalog:",
@@ -75,11 +76,13 @@
     "react-dom": "catalog:"
   },
   "devDependencies": {
+    "@eslint/js": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@typescript-eslint/eslint-plugin": "catalog:",
     "@typescript-eslint/parser": "catalog:",
     "@vitest/ui": "catalog:",
+    "@wso2/esbuild-plugin-inline-css-fonts": "workspace:*",
     "esbuild": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-react": "catalog:",
@@ -95,7 +98,9 @@
   "nx": {
     "targets": {
       "build": {
-        "dependsOn": []
+        "dependsOn": [
+          "^build"
+        ]
       }
     }
   }
