@@ -33,7 +33,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 env:
   GH_TOKEN: ${{ secrets.UI_BOT_TOKEN }}
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN_WSO2 }}
+  NPM_TOKEN: ${{ secrets.WSO2_NPM_TOKEN }}
   SHOULD_GENERATE_CHANGESET: 'true'
 
 jobs:
