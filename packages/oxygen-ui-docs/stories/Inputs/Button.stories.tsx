@@ -17,9 +17,9 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import React from 'react';
 
 /**
  * The Button component triggers user actions such as submitting a form, opening a dialog, or performing navigation.
@@ -33,6 +33,7 @@ const meta = {
   title: 'Inputs/Button',
   tags: ['autodocs'],
   parameters: {
+    layout: 'centered',
     docs: {
       description: {
         component: 'Oxygen UI button component is a direct import of MUI button component. \n\n' + 
@@ -47,28 +48,33 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Variations – variant, color, size
-export const Variants = () => (
-  <Stack direction="row" spacing={2}>
-    <Button variant="text">Text</Button>
-    <Button variant="contained">Contained</Button>
-    <Button variant="outlined">Outlined</Button>
-  </Stack>
-);
+export const Variants: Story = {
+  render: () => (
+    <Stack direction="row" spacing={2}>
+      <Button variant="text">Text</Button>
+      <Button variant="contained">Contained</Button>
+      <Button variant="outlined">Outlined</Button>
+    </Stack>
+  ),
+};
 
-export const ColorVariants = () => (
-  <Stack direction="row" spacing={2}>
-    <Button variant="contained" color="primary">Primary Contained</Button>
-    <Button variant="contained" color="secondary">Secondary Contained</Button>
-    <Button variant="contained" color="error">Error Contained</Button>
-    <Button variant="outlined" color="success">Success Outlined</Button>
-  </Stack>
-);
+export const ColorVariants: Story = {
+  render: () => (
+    <Stack direction="row" spacing={2}>
+      <Button variant="contained" color="primary">Primary Contained</Button>
+      <Button variant="contained" color="secondary">Secondary Contained</Button>
+      <Button variant="contained" color="error">Error Contained</Button>
+      <Button variant="outlined" color="success">Success Outlined</Button>
+    </Stack>
+  ),
+};
 
-export const SizeVariants = () => (
-  <Stack direction="row" spacing={2}>
-    <Button variant="contained" size="small">Small</Button>
-    <Button variant="contained" size="medium">Medium</Button>
-    <Button variant="contained" size="large">Large</Button>
-  </Stack>
-);
-
+export const SizeVariants: Story = {
+  render: () => (
+    <Stack direction="row" spacing={2}>
+      <Button variant="contained" size="small">Small</Button>
+      <Button variant="contained" size="medium">Medium</Button>
+      <Button variant="contained" size="large">Large</Button>
+    </Stack>
+  ),
+};

@@ -23,8 +23,10 @@ import { themes } from 'storybook/internal/theming';
 addons.setConfig({
   theme: {
     ...themes.dark,
+    appBg: '#000000',
+    barBg: '#000000',
     brandTitle: 'WSO2 Oxygen UI',
     brandUrl: 'https://github.com/wso2/oxygen-ui',
     brandImage: '/oxygen-ui-react-logo.svg'
- }
+  }
 });

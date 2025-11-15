@@ -17,30 +17,37 @@
  */
 
 /* Storybook Docs Page Theme Overrides */
-html[data-color-scheme='light'] {
+html[data-color-scheme='light'],
+html[data-color-scheme='light'] body {
     color-scheme: light;
     --background: #ffffff;
 
     background-color: var(--background) !important;
-    background-attachment: fixed;
+    background-attachment: fixed !important;
     background-image:
         radial-gradient(circle at 65% 30%, rgb(255 116 0 / 18%) 10%, rgba(255, 255, 255, 0) 40% 40%),
         radial-gradient(circle at 35% 50%, rgb(74 41 165 / 10%) 1%, rgba(255, 255, 255, 0) 40% 70%),
-        radial-gradient(circle at center, rgba(255, 255, 255, 0.6) 0%, var(--background) 100%);
-    background-blend-mode: normal;
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.6) 0%, var(--background) 100%) !important;
+    background-blend-mode: normal !important;
 }
 
-html[data-color-scheme='dark'] {
+html[data-color-scheme='dark'],
+html[data-color-scheme='dark'] body {
     color-scheme: dark;
     --background: #000000;
 
     background-color: var(--background) !important;
-    background-attachment: fixed;
+    background-attachment: fixed !important;
     background-image:
         radial-gradient(circle at 65% 30%, rgb(255 116 0 / 18%) 10%, rgba(0, 0, 0, 0) 40% 40%),
         radial-gradient(circle at 35% 50%, rgb(74 41 165 / 20%) 1%, rgba(0, 0, 0, 0) 40% 70%),
-        radial-gradient(circle at center, rgba(0, 0, 0, 0.6) 0%, var(--background) 100%);
-    background-blend-mode: screen;
+        radial-gradient(circle at center, rgba(0, 0, 0, 0.6) 0%, var(--background) 100%) !important;
+    background-blend-mode: screen !important;
+}
+
+.sidebar-container,
+#storybook-preview-wrapper {
+    background-color: var(--background) !important;
 }
 
 /* Ensure Storybook docs page respects the theme background */
@@ -60,8 +67,6 @@ body[data-color-scheme='dark'] .sb-bar {
 }
 
 /* Dark mode text colors for Storybook docs */
-body[data-color-scheme='dark'] #storybook-docs,
-body[data-color-scheme='dark'] .sbdocs,
 body[data-color-scheme='dark'] .sbdocs-content,
 body[data-color-scheme='dark'] .sbdocs-title,
 body[data-color-scheme='dark'] .sbdocs-subtitle,
@@ -70,10 +75,8 @@ body[data-color-scheme='dark'] .sbdocs h1,
 body[data-color-scheme='dark'] .sbdocs h2,
 body[data-color-scheme='dark'] .sbdocs h3,
 body[data-color-scheme='dark'] .sbdocs h4,
-body[data-color-scheme='dark'] .sbdocs p,
+body[data-color-scheme='dark'] .sbdocs div:not(.sb-anchor) p,
 body[data-color-scheme='dark'] .sbdocs li,
-body[data-color-scheme='dark'] .sbdocs span,
-body[data-color-scheme='dark'] .sbdocs div,
 body[data-color-scheme='dark'] .sbdocs .toc-list-item > a,
 body[data-color-scheme='dark'] .docblock-code-toggle,
 body[data-color-scheme='dark'] .docblock-argstable,
@@ -82,8 +85,17 @@ body[data-color-scheme='dark'] .docblock-argstable th {
     color: #ededed !important;
 }
 
+body[data-color-scheme='dark'] .sbdocs-content tbody > tr > * {
+    background-color: #11111178 !important;
+}
+
 body[data-color-scheme='dark'] .sbdocs .toc-list-item > a.is-active-link {
     color: #f87643 !important;
+}
+
+body[data-color-scheme='dark'] .sbdocs-content tbody > tr textarea {
+    background-color: #222222 !important;
+    color: #ededed !important;
 }
 
 /* Light mode - ensure proper contrast */

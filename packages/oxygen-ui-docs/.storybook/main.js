@@ -18,7 +18,7 @@
 
 export default {
   stories: [
-    '../packages/oxygen-ui/stories/**/*.stories.@(js|jsx|ts|tsx|mdx)'
+    '../stories/**/*.stories.@(js|jsx|ts|tsx|mdx)'
   ],
   staticDirs: ['public'],
   addons: [
@@ -34,9 +34,10 @@ export default {
     reactDocgen: "react-docgen-typescript"
   },
   webpackFinal: async (config) => {
+    // Handle workspace packages - allow transpiling @wso2 packages
     config.module.rules.push({
       test: /\.(js|jsx|ts|tsx)$/,
-      exclude: /node_modules/,
+      exclude: /node_modules\/(?!@wso2)/,
       use: {
         loader: 'babel-loader',
         options: {
@@ -48,6 +49,7 @@ export default {
         },
       },
     });
+    
     return config;
   }
 }

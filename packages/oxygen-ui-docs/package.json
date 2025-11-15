@@ -1,0 +1,57 @@
+{
+  "name": "@wso2/oxygen-ui-docs",
+  "version": "0.0.0",
+  "description": "Documentation site for WSO2 Oxygen UI using Storybook",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build",
+    "preview": "http-server storybook-static"
+  },
+  "keywords": [
+    "wso2",
+    "oxygen-ui",
+    "documentation",
+    "storybook"
+  ],
+  "author": "WSO2 LLC",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wso2/oxygen-ui.git"
+  },
+  "dependencies": {
+    "@wso2/oxygen-ui": "workspace:*",
+    "@wso2/oxygen-ui-icons-react": "workspace:*"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-react": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
+    "@mdx-js/react": "^3.1.1",
+    "@storybook/addon-docs": "^10.0.2",
+    "@storybook/addon-links": "^10.0.2",
+    "@storybook/react": "^10.0.2",
+    "@storybook/react-webpack5": "^10.0.7",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "babel-loader": "^10.0.0",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "storybook": "^10.0.5"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "dependsOn": [
+          "^build"
+        ]
+      }
+    }
+  }
+}

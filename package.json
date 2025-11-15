@@ -10,7 +10,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "nx run-many --target=build --all",
-    "build:storybook": "storybook build",
+    "build:storybook": "pnpm --filter @wso2/oxygen-ui-docs build",
     "clean": "nx run-many --target=clean --all",
     "typecheck": "nx run-many --target=typecheck --all",
     "lint": "nx run-many --target=lint --all",
@@ -19,7 +19,7 @@
     "publish:packages": "changeset publish",
     "version:packages": "changeset version && pnpm install --lockfile-only",
     "test": "nx run-many --target=test --all",
-    "storybook": "storybook dev -p 6006"
+    "storybook": "pnpm --filter @wso2/oxygen-ui-docs dev"
   },
   "keywords": [
     "wso2",
@@ -43,20 +43,9 @@
   },
   "homepage": "https://github.com/wso2/oxygen-ui#readme",
   "devDependencies": {
-    "@babel/core": "^7.28.5",
-    "@babel/preset-env": "^7.28.5",
-    "@babel/preset-react": "^7.28.5",
-    "@babel/preset-typescript": "^7.28.5",
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.7",
-    "@mdx-js/react": "^3.1.1",
-    "@storybook/addon-docs": "^10.0.2",
-    "@storybook/addon-links": "^10.0.2",
-    "@storybook/react": "^10.0.2",
-    "@storybook/react-webpack5": "^10.0.7",
-    "babel-loader": "^10.0.0",
-    "nx": "^22.0.2",
-    "storybook": "^10.0.5"
+    "nx": "^22.0.2"
   },
   "engines": {
     "node": ">=24.0.0"

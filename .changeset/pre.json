@@ -5,6 +5,7 @@
     "@wso2/esbuild-plugin-inline-css-fonts": "0.0.0",
     "@wso2/eslint-plugin-oxygen-ui": "0.0.0",
     "@wso2/oxygen-ui": "0.0.0",
+    "@wso2/oxygen-ui-docs": "0.0.0",
     "@wso2/oxygen-ui-icons-react": "0.0.0",
     "@wso2/vite-plugin-oxygen-ui": "0.0.0",
     "@wso2/oxygen-ui-test-app": "0.0.0"
