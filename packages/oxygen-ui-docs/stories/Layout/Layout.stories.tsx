@@ -17,8 +17,6 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react'
-import * as React from 'react'
-import Layout from '../../src/layouts'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
@@ -27,6 +25,8 @@ import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import Box from '@mui/material/Box'
+import { Layout } from '@wso2/oxygen-ui'
+import * as React from 'react'
 
 interface LayoutStoryArgs {
   sidebarWidth: number
@@ -48,7 +48,7 @@ interface LayoutStoryArgs {
  * - Layout.Content: Main content area
  */
 const meta: Meta<LayoutStoryArgs> = {
-  title: 'Layouts/Layout',
+  title: 'Layout/Layout',
   tags: ['autodocs'],
   parameters: {
     docs: {

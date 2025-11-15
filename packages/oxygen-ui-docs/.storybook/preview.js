@@ -17,9 +17,7 @@
  */
 
 import React from "react";
-import Theme from "../packages/oxygen-ui/src/styles/OxygenTheme/OxygenTheme";
-import { ThemeProvider } from '@mui/material/styles';
-import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles';
+import { OxygenUIThemeProvider, OxygenTheme, Experimental_CssVarsProvider as CssVarsProvider } from "@wso2/oxygen-ui";
 import './docs.css';
 
 export const globalTypes = {
@@ -51,10 +49,10 @@ export const decorators = [
     }, [mode]);
     
     return (
-      <CssVarsProvider theme={Theme} defaultMode={mode} mode={mode} key={mode}>
-        <ThemeProvider theme={Theme}>
+      <CssVarsProvider theme={OxygenTheme} defaultMode={mode} mode={mode} key={mode}>
+        <OxygenUIThemeProvider>
           <Story />
-        </ThemeProvider>
+        </OxygenUIThemeProvider>
       </CssVarsProvider>
     );
   },
@@ -66,5 +64,10 @@ export const parameters = {
   },
   docs: {
     toc: true,
+  },
+  options: {
+    storySort: {
+      order: ['Inputs', 'DataDisplay', '*', 'Utils', 'MUI X'],
+    },
   },
 };

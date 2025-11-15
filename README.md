@@ -112,6 +112,7 @@ The workspace is organized as follows:
 oxygen-ui/
 ├── packages/
 │   ├── oxygen-ui/                        # Main Oxygen-UI component library (@wso2/oxygen-ui)
+│   ├── oxygen-ui-docs/                   # Oxygen-UI docs - storybook
 │   ├── oxygen-ui-icons-react/            # Oxygen-UI icons library (@wso2/oxygen-ui-icons-react) 
 │   └── eslint-plugin-oxygen-ui/          # ESLint plugin for enforcing Oxygen-UI import patterns
 ├── samples/
