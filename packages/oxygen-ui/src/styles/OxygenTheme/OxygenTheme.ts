@@ -22,6 +22,33 @@ import type {} from '@mui/x-data-grid/themeAugmentation';
 
 const noShadows = Array(25).fill('none') as Shadows;
 
+export const RadialBodyBackgroundDesign = {
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        "html[data-color-scheme='dark'] body": {
+          backgroundAttachment: 'fixed',
+          backgroundImage: `
+            radial-gradient(circle at 65% 30%, rgba(255, 116, 0, 0.12) 10%, rgba(0, 0, 0, 0) 60% 40%),
+            radial-gradient(circle at 15% 50%, rgba(74, 41, 165, 0.2) 1%, rgba(0, 0, 0, 0) 40% 70%),
+            radial-gradient(circle at center, rgba(0, 0, 0, 0.6) 0%, var(--mui-palette-background-default) 100%)
+          `,
+          backgroundBlendMode: 'screen',
+        },
+        "html[data-color-scheme='light'] body": {
+          backgroundAttachment: 'fixed',
+          backgroundImage: `
+            radial-gradient(circle at 65% 30%, rgba(255, 116, 0, 0.1) 10%, rgba(255, 255, 255, 0) 40% 40%),
+            radial-gradient(circle at 15% 50%, rgba(74, 41, 165, 0.1) 1%, rgba(255, 255, 255, 0) 40% 70%),
+            radial-gradient(circle at center, rgba(255, 255, 255, 0.6) 0%, var(--mui-palette-background-default) 100%)
+          `,
+          backgroundBlendMode: 'normal',
+        },
+      },
+    },
+  },
+};
+
 const OxygenTheme = createTheme({
   typography: {
     fontFamily: "'Inter Variable', sans-serif",
@@ -36,7 +63,7 @@ const OxygenTheme = createTheme({
   },
   shadows: noShadows,
   shape: {
-    borderRadius: 20,
+    borderRadius: 15,
   },
   cssVariables: {
     colorSchemeSelector: 'data-color-scheme',
@@ -84,6 +111,20 @@ const OxygenTheme = createTheme({
     },
   },
   components: {
+    MuiAvatar: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          ...theme.applyStyles('light', {
+            backgroundColor: '#ebebeb',
+            color: '#40404B',
+          }),
+          ...theme.applyStyles('dark', {
+            backgroundColor: '#3c3c3c',
+            color: '#D0D3E2',
+          }),
+        }),
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
@@ -101,17 +142,27 @@ const OxygenTheme = createTheme({
         },
       },
     },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: ({ theme }) => ({
+          ...theme.applyStyles('dark', {
+            background: 'transparent',
+          }),
+        }),
+      },
+    },
     MuiFormLabel: {
       styleOverrides: {
         root: ({ theme }) => ({
           fontSize: theme.typography.body2.fontSize,
-          marginBottom: '4px'
+          marginBottom: '6px'
         }),
       },
     },
     MuiPaper: {
       styleOverrides: {
         root: ({ theme }) => ({
+          borderRadius: theme.shape.borderRadius,
           WebkitBackdropFilter: 'blur(3px)',
           backdropFilter: 'blur(3px)',
           ...theme.applyStyles('light', {
@@ -124,7 +175,7 @@ const OxygenTheme = createTheme({
           }),
           ...theme.applyStyles('dark', {
             border: '1px solid #d2d2d20f',
-            background: 'rgb(230 230 230 / 5%)',
+            background: 'rgb(230 230 230 / 1%)',
             boxShadow: 
               '0 24px 32px 0 rgba(6, 6, 14, 0.70),' + 
               '0 24px 48px 0 rgba(199, 211, 234, 0.05) inset,' + 
@@ -196,7 +247,7 @@ const OxygenTheme = createTheme({
     MuiListItemButton: {
       styleOverrides: {
         root: ({ theme }) => ({
-          borderRadius: '8px',
+          borderRadius: 8,
           '&.Mui-selected': {
             ...theme.applyStyles('light', {
               backgroundColor: theme.palette.action.selected,
@@ -221,7 +272,6 @@ const OxygenTheme = createTheme({
         root: ({ theme }) => ({
           border: 'none',
           backgroundColor: 'transparent',
-          borderRadius: '8px',
           overflow: 'hidden',
           '& .MuiDataGrid-columnHeaders': {
             backgroundColor: '#ffffff0a',
