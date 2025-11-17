@@ -1,5 +1,11 @@
 # @wso2/oxygen-ui
 
+## 0.0.1-alpha.2
+
+### Patch Changes
+
+- [#389](https://github.com/wso2/oxygen-ui/pull/389) [`9d7ec7c`](https://github.com/wso2/oxygen-ui/commit/9d7ec7c291b9b01ace9c25434f95f07c733c79bc) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Add some fixes to support mui date component
+
 ## 0.0.1-alpha.1
 
 ### Patch Changes

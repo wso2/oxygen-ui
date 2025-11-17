@@ -11,6 +11,7 @@
     "@wso2/oxygen-ui-test-app": "0.0.0"
   },
   "changesets": [
+    "lazy-poems-shine",
     "public-lions-march",
     "strict-crews-bake"
   ]
