@@ -1,5 +1,11 @@
 # @wso2/oxygen-ui
 
+## 0.0.1-alpha.3
+
+### Patch Changes
+
+- [#392](https://github.com/wso2/oxygen-ui/pull/392) [`a9de0c2`](https://github.com/wso2/oxygen-ui/commit/a9de0c25dd49be86b78cce7253f16fb556e49a60) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Add gradient backgound style
+
 ## 0.0.1-alpha.2
 
 ### Patch Changes
