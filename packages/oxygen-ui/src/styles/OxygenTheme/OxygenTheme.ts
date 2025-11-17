@@ -79,7 +79,7 @@ const OxygenTheme = createTheme({
           primary: '#efefef',
           secondary: '#D0D3E2',
         },
-        divider: '#fefefe12',
+        divider: '#ffffff16',
       },
     },
   },
@@ -118,14 +118,17 @@ const OxygenTheme = createTheme({
             border: '1px solid #ffffff7a',
             background: 'rgb(230 230 230 / 5%)',
             boxShadow: 
-              '0 5px 10px 0 rgba(6, 6, 14, 0.1), ' +
-              '0 0 0 0 rgba(199, 211, 234, 0.01) inset, ' +
-              '0 0 0 0 rgba(199, 211, 234, 0.12) inset',
+              '0 10px 22px 0 rgba(6, 6, 14, 0.1),' +
+              '0 24px 48px 0 rgba(199, 211, 234, 0.05) inset,' +
+              '0 1px 1px 0 rgba(199, 211, 234, 0.12) inset',
           }),
           ...theme.applyStyles('dark', {
             border: '1px solid #d2d2d20f',
             background: 'rgb(230 230 230 / 5%)',
-            boxShadow: 'hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px',
+            boxShadow: 
+              '0 24px 32px 0 rgba(6, 6, 14, 0.70),' + 
+              '0 24px 48px 0 rgba(199, 211, 234, 0.05) inset,' + 
+              '0 1px 1px 0 rgba(199, 211, 234, 0.12) inset',
           }),
         })
       }
@@ -143,6 +146,9 @@ const OxygenTheme = createTheme({
       }
     },
     MuiTextField: {
+      defaultProps: { size: 'small' },
+    },
+    MuiSelect: {
       defaultProps: { size: 'small' },
     },
     MuiOutlinedInput: {
@@ -189,14 +195,31 @@ const OxygenTheme = createTheme({
     },
     MuiListItemButton: {
       styleOverrides: {
-        root: { borderRadius: '8px' },
+        root: ({ theme }) => ({
+          borderRadius: '8px',
+          '&.Mui-selected': {
+            ...theme.applyStyles('light', {
+              backgroundColor: theme.palette.action.selected,
+            }),
+            ...theme.applyStyles('dark', {
+              backgroundColor: '#ffffff1a',
+            }),
+            '&:hover': {
+              ...theme.applyStyles('light', {
+                backgroundColor: theme.palette.action.hover,
+              }),
+              ...theme.applyStyles('dark', {
+                backgroundColor: '#ffffff1a',
+              }),
+            },
+          },
+        }),
       },
     },
     MuiDataGrid: {
       styleOverrides: {
         root: ({ theme }) => ({
-          border: '1px solid',
-          borderColor: theme.palette.divider,
+          border: 'none',
           backgroundColor: 'transparent',
           borderRadius: '8px',
           overflow: 'hidden',
