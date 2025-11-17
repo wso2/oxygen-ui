@@ -16,14 +16,35 @@
  * under the License.
  */
 
-import { ThemeProvider as MUIThemeProvider, StyledEngineProvider, Theme } from '@mui/material/styles';
+import { useMemo } from 'react';
+import { ThemeProvider as MUIThemeProvider, StyledEngineProvider, Theme, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
-import OxygenTheme from '../../styles/OxygenTheme/OxygenTheme';
+import OxygenTheme, { RadialBodyBackgroundDesign } from '../../styles/OxygenTheme/OxygenTheme';
 
-export default function OxygenUIThemeProvider({ children, theme }: { children: React.ReactNode, theme?: Theme }) {
+interface OxygenUIThemeProviderProps {
+  children: React.ReactNode;
+  theme?: Theme;
+  radialBackground?: boolean;
+}
+
+export default function OxygenUIThemeProvider({
+  children,
+  theme,
+  radialBackground = false
+}: OxygenUIThemeProviderProps) {
+
+  const resolvedTheme = useMemo(() => {
+    if (theme) return theme;
+
+    if (!radialBackground) return OxygenTheme;
+
+    // Create a new Oxygen UI theme with CssBaseline overrides with radial background
+    return createTheme(OxygenTheme, RadialBodyBackgroundDesign);
+  }, [theme, radialBackground]);
+
   return (
     <StyledEngineProvider injectFirst>
-      <MUIThemeProvider theme={theme ?? OxygenTheme}>
+      <MUIThemeProvider theme={resolvedTheme}>
         <CssBaseline />
         {children}
       </MUIThemeProvider>
