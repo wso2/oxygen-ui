@@ -50,7 +50,7 @@ export const decorators = [
     
     return (
       <CssVarsProvider theme={OxygenTheme} defaultMode={mode} mode={mode} key={mode}>
-        <OxygenUIThemeProvider>
+        <OxygenUIThemeProvider radialBackground>
           <Story />
         </OxygenUIThemeProvider>
       </CssVarsProvider>
