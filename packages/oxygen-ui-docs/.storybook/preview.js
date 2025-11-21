@@ -17,7 +17,12 @@
  */
 
 import React from "react";
-import { OxygenUIThemeProvider, OxygenTheme, Experimental_CssVarsProvider as CssVarsProvider } from "@wso2/oxygen-ui";
+// importing from path to avoid preview break on change
+import {
+  OxygenUIThemeProvider,
+  OxygenTheme,
+  Experimental_CssVarsProvider as CssVarsProvider
+} from "../../oxygen-ui";
 import './docs.css';
 
 export const globalTypes = {

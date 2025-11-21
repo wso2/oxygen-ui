@@ -19,6 +19,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useTheme } from '@mui/material/styles';
 import React from 'react';
 
 /**
@@ -77,4 +79,56 @@ export const SizeVariants: Story = {
       <Button variant="contained" size="large">Large</Button>
     </Stack>
   ),
+};
+
+export const States: Story = {
+  render: () => {
+    const theme = useTheme();
+
+    return (
+      <Stack direction="column" spacing={3}>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Button variant="contained">Default</Button>
+          <Button variant="contained" disabled>
+            Disabled
+          </Button>
+          <Button
+            variant="contained"
+            startIcon={<CircularProgress color="inherit" size={16} />}
+            disabled
+          >
+            Loading
+          </Button>
+        </Stack>
+
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Button variant="outlined">Default</Button>
+          <Button variant="outlined" disabled>
+            Disabled
+          </Button>
+          <Button
+            variant="outlined"
+            startIcon={<CircularProgress color="inherit" size={16} />}
+            disabled
+          >
+            Loading
+          </Button>
+        </Stack>
+
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Button variant="text">Default</Button>
+          <Button variant="text" disabled>
+            Disabled
+          </Button>
+          <Button
+            variant="text"
+            startIcon={<CircularProgress color="inherit" size={16} />}
+            disabled
+          >
+            Loading
+          </Button>
+        </Stack>
+      </Stack>
+    );
+  },
 };
