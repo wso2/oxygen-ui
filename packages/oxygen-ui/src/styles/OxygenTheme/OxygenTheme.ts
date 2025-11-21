@@ -16,11 +16,20 @@
  * under the License.
  */
 
-import { createTheme } from '@mui/material/styles';
+import { createTheme, Theme } from '@mui/material/styles';
 import type { Shadows } from '@mui/material/styles';
 import type {} from '@mui/x-data-grid/themeAugmentation';
+import { ChevronDown, X } from '@wso2/oxygen-ui-icons-react';
+import React from 'react';
 
 const noShadows = Array(25).fill('none') as Shadows;
+
+const OxygenThemePrimitives = {
+  primary: {
+    color: 'linear-gradient(77.74deg, #e74420ff 11.16%, #fa7b3f 99.55%)',
+    colorHover: 'linear-gradient(77.74deg, #d04036ff 11.16%, #f2621f 99.55%)',
+  },
+}
 
 export const RadialBodyBackgroundDesign = {
   components: {
@@ -29,8 +38,8 @@ export const RadialBodyBackgroundDesign = {
         "html[data-color-scheme='dark'] body": {
           backgroundAttachment: 'fixed',
           backgroundImage: `
-            radial-gradient(circle at 65% 30%, rgba(255, 116, 0, 0.12) 10%, rgba(0, 0, 0, 0) 60% 40%),
-            radial-gradient(circle at 15% 50%, rgba(74, 41, 165, 0.2) 1%, rgba(0, 0, 0, 0) 40% 70%),
+            radial-gradient(circle at 65% 30%, rgba(255, 116, 0, 0.15) 10%, rgba(0, 0, 0, 0) 60% 40%),
+            radial-gradient(circle at 15% 50%, rgba(74, 41, 165, 0.32) 1%, rgba(0, 0, 0, 0) 40% 70%),
             radial-gradient(circle at center, rgba(0, 0, 0, 0.6) 0%, var(--mui-palette-background-default) 100%)
           `,
           backgroundBlendMode: 'screen',
@@ -49,16 +58,55 @@ export const RadialBodyBackgroundDesign = {
   },
 };
 
-const OxygenTheme = createTheme({
+// Create a base theme to access pxToRem function
+const baseTheme = createTheme();
+
+const OxygenTheme: Theme = createTheme({
   typography: {
     fontFamily: "'Inter Variable', sans-serif",
-    fontWeightRegular: 300,
+    fontWeightRegular: 400,
     fontSize: 14,
+    h1: {
+      fontSize: baseTheme.typography.pxToRem(36),
+      fontWeight: 400,
+    },
+    h2: {
+      fontSize: baseTheme.typography.pxToRem(30),
+      fontWeight: 400,
+    },
+    h3: {
+      fontSize: baseTheme.typography.pxToRem(24),
+      fontWeight: 400,
+    },
+    h4: {
+      fontSize: baseTheme.typography.pxToRem(18),
+      fontWeight: 400,
+    },
+    h5: {
+      fontSize: baseTheme.typography.pxToRem(16),
+      fontWeight: 400,
+    },
+    h6: {
+      fontSize: baseTheme.typography.pxToRem(14),
+      fontWeight: 500,
+    },
+    subtitle1: {
+      fontSize: baseTheme.typography.pxToRem(18),
+    },
+    subtitle2: {
+      fontSize: baseTheme.typography.pxToRem(14),
+      fontWeight: 400,
+    },
     body1: {
-      fontSize: 14,
+      fontSize: baseTheme.typography.pxToRem(14),
     },
     body2: {
-      fontSize: 14,
+      fontSize: baseTheme.typography.pxToRem(14),
+      fontWeight: 400,
+    },
+    caption: {
+      fontSize: baseTheme.typography.pxToRem(12),
+      fontWeight: 400,
     },
   },
   shadows: noShadows,
@@ -72,7 +120,7 @@ const OxygenTheme = createTheme({
     light: {
       palette: {
         primary: {
-          main: '#F87643',
+          main: '#fa7b3f',
           contrastText: '#ffffff',
         },
         secondary: {
@@ -125,6 +173,12 @@ const OxygenTheme = createTheme({
         }),
       },
     },
+    MuiAutocomplete: {
+      defaultProps: {
+        popupIcon: React.createElement(ChevronDown),
+        clearIcon: React.createElement(X),
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
@@ -133,14 +187,30 @@ const OxygenTheme = createTheme({
           fontWeight: 400,
         },
         containedPrimary: {
-          background: 'linear-gradient(77.74deg, #eb4f63 11.16%, #fa7b3f 99.55%)',
-          color: '#fff',
-          '&:hover': {
-            background: 'linear-gradient(77.74deg, #d0364b 11.16%, #f2621f 99.55%)',
+          '&:not(:disabled)': {
+            background: OxygenThemePrimitives.primary.color,
             color: '#fff',
-          },
+            '&:hover': {
+              background: OxygenThemePrimitives.primary.colorHover,
+              color: '#fff',
+            },
+          }
         },
       },
+    },
+    MuiDialog: {
+      styleOverrides: {
+        paper: ({ theme }) => ({
+          WebkitBackdropFilter: 'blur(10px)',
+          backdropFilter: 'blur(10px)',
+          ...theme.applyStyles('light', {
+            background: 'rgba(255, 255, 255, 0.7)',
+          }),
+          ...theme.applyStyles('dark', {
+            background: 'rgba(10, 10, 10, 0.7)',
+          }),
+        })
+      }
     },
     MuiDrawer: {
       styleOverrides: {
@@ -200,7 +270,21 @@ const OxygenTheme = createTheme({
       defaultProps: { size: 'small' },
     },
     MuiSelect: {
-      defaultProps: { size: 'small' },
+      defaultProps: {
+        size: 'small',
+        IconComponent: ChevronDown
+      },
+      styleOverrides: {
+        icon: {
+          top: '50%',
+          transform: 'translateY(-50%)',
+          marginTop: 0,
+        },
+        select: {
+          paddingTop: '10px',
+          paddingBottom: '10px',
+        },
+      }
     },
     MuiOutlinedInput: {
       styleOverrides: {

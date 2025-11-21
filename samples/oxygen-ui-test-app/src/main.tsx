@@ -24,7 +24,7 @@ import './index.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <OxygenUIThemeProvider>
+    <OxygenUIThemeProvider radialBackground>
       <App />
     </OxygenUIThemeProvider>
   </StrictMode>,
