@@ -1,5 +1,14 @@
 # @wso2/oxygen-ui
 
+## 0.0.1-alpha.4
+
+### Patch Changes
+
+- [#394](https://github.com/wso2/oxygen-ui/pull/394) [`1b3b937`](https://github.com/wso2/oxygen-ui/commit/1b3b937f49295d33e4a6c6bc50113ccda9cd53ee) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Fix some default theme styling issues
+
+- Updated dependencies [[`1b3b937`](https://github.com/wso2/oxygen-ui/commit/1b3b937f49295d33e4a6c6bc50113ccda9cd53ee)]:
+  - @wso2/oxygen-ui-icons-react@0.0.1-alpha.4
+
 ## 0.0.1-alpha.3
 
 ### Patch Changes
