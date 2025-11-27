@@ -32,8 +32,8 @@
     "build:watch": "node esbuild.config.js --watch",
     "dev": "node esbuild.config.js --watch",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src --ext .ts,.tsx",
-    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
     "clean": "rimraf dist",
     "prepublishOnly": "npm run clean && npm run build",
     "test": "vitest run --passWithNoTests",
@@ -61,7 +61,7 @@
   },
   "homepage": "https://github.com/wso2/oxygen-ui#readme",
   "dependencies": {
-    "@fontsource-variable/inter": "^5.2.8"
+    "@fontsource-variable/inter": "5.2.8"
   },
   "peerDependencies": {
     "@emotion/react": "catalog:",
@@ -72,7 +72,7 @@
     "@mui/x-date-pickers": "catalog:",
     "@mui/x-tree-view": "catalog:",
     "@wso2/oxygen-ui-icons-react": "workspace:*",
-    "date-fns": "^4.1.0",
+    "date-fns": "4.1.0",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

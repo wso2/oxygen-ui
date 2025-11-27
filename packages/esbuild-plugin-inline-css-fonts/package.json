@@ -32,8 +32,8 @@
     "esbuild": "^0.19.0 || ^0.20.0 || ^0.21.0 || ^0.22.0 || ^0.23.0 || ^0.24.0 || ^0.25.0"
   },
   "devDependencies": {
-    "@types/node": "^22.10.2",
-    "esbuild": "^0.25.12",
-    "typescript": "^5.7.3"
+    "@types/node": "catalog:",
+    "esbuild": "catalog:",
+    "typescript": "catalog:"
   }
 }
