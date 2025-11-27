@@ -26,21 +26,21 @@
     "@wso2/oxygen-ui-icons-react": "workspace:*"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.5",
-    "@babel/preset-env": "^7.28.5",
-    "@babel/preset-react": "^7.28.5",
-    "@babel/preset-typescript": "^7.28.5",
-    "@mdx-js/react": "^3.1.1",
-    "@storybook/addon-docs": "^10.0.2",
-    "@storybook/addon-links": "^10.0.2",
-    "@storybook/react": "^10.0.2",
-    "@storybook/react-webpack5": "^10.0.7",
+    "@babel/core": "7.28.5",
+    "@babel/preset-env": "7.28.5",
+    "@babel/preset-react": "7.28.5",
+    "@babel/preset-typescript": "7.28.5",
+    "@mdx-js/react": "3.1.1",
+    "@storybook/addon-docs": "10.0.2",
+    "@storybook/addon-links": "10.0.2",
+    "@storybook/react": "10.0.2",
+    "@storybook/react-webpack5": "10.0.2",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "babel-loader": "^10.0.0",
+    "babel-loader": "10.0.0",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "storybook": "^10.0.5"
+    "storybook": "10.0.2"
   },
   "publishConfig": {
     "access": "restricted"

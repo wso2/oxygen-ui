@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@types/eslint": "catalog:",
-    "@types/estree": "^1.0.6",
+    "@types/estree": "1.0.6",
     "esbuild": "catalog:",
     "rimraf": "catalog:",
     "typescript": "catalog:"
