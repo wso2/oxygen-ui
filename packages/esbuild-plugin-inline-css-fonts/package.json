@@ -1,6 +1,6 @@
 {
   "name": "@wso2/esbuild-plugin-inline-css-fonts",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.1-alpha.5",
   "description": "ESBuild plugin to inline CSS and embed fonts as base64 data URIs",
   "type": "module",
   "main": "./dist/index.js",

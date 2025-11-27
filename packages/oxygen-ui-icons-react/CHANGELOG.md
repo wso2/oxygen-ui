@@ -1,5 +1,11 @@
 # @wso2/oxygen-ui-icons-react
 
+## 0.0.1-alpha.5
+
+### Patch Changes
+
+- [#396](https://github.com/wso2/oxygen-ui/pull/396) [`48e28c0`](https://github.com/wso2/oxygen-ui/commit/48e28c0f1909941e61671337816081826c934d15) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Change all the dependencies to october releases
+
 ## 0.0.1-alpha.4
 
 ### Patch Changes
