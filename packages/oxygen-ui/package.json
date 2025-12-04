@@ -35,7 +35,6 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "clean": "rimraf dist",
-    "prepublishOnly": "npm run clean && npm run build",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest"
   },
