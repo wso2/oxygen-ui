@@ -1,5 +1,11 @@
 # @wso2/oxygen-ui
 
+## 0.0.1-alpha.6
+
+### Patch Changes
+
+- [#398](https://github.com/wso2/oxygen-ui/pull/398) [`2f62ef3`](https://github.com/wso2/oxygen-ui/commit/2f62ef3a5cf13916f85a3173c4dc5a5f1ddb426e) Thanks [@brionmario](https://github.com/brionmario)! - Bump versions
+
 ## 0.0.1-alpha.5
 
 ### Patch Changes
