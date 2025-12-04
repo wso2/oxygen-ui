@@ -1,5 +1,12 @@
 # @wso2/oxygen-ui
 
+## 0.0.1-alpha.7
+
+### Patch Changes
+
+- Updated dependencies [[`88627d6`](https://github.com/wso2/oxygen-ui/commit/88627d6d3c4525562ae2f57509b22fe2ba8e13d7)]:
+  - @wso2/oxygen-ui-icons-react@0.0.1-alpha.7
+
 ## 0.0.1-alpha.6
 
 ### Patch Changes
