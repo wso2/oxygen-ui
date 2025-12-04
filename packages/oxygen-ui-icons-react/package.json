@@ -36,7 +36,6 @@
     "lint:fix": "eslint src --fix",
     "generate:icons": "node scripts/build-icons.js",
     "clean": "rimraf dist",
-    "prepublishOnly": "npm run clean && npm run build",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest"
   },
