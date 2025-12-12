@@ -1,5 +1,14 @@
 # @wso2/oxygen-ui
 
+## 0.0.1-alpha.10
+
+### Patch Changes
+
+- [#406](https://github.com/wso2/oxygen-ui/pull/406) [`bfdfe7b`](https://github.com/wso2/oxygen-ui/commit/bfdfe7b7f4cae00730ac2b0308d492f8e5db67ea) Thanks [@DonOmalVindula](https://github.com/DonOmalVindula)! - Bump react versions
+
+- Updated dependencies [[`bfdfe7b`](https://github.com/wso2/oxygen-ui/commit/bfdfe7b7f4cae00730ac2b0308d492f8e5db67ea)]:
+  - @wso2/oxygen-ui-icons-react@0.0.1-alpha.10
+
 ## 0.0.1-alpha.9
 
 ### Patch Changes
