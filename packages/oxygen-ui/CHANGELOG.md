@@ -1,5 +1,11 @@
 # @wso2/oxygen-ui
 
+## 0.0.1-alpha.11
+
+### Patch Changes
+
+- [#408](https://github.com/wso2/oxygen-ui/pull/408) [`e9700be`](https://github.com/wso2/oxygen-ui/commit/e9700bef06e7aef36094034f8a723fae9eb9a882) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Add ThemeSwitcher and ComplexSelect components
+
 ## 0.0.1-alpha.10
 
 ### Patch Changes
