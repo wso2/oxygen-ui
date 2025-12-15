@@ -16,27 +16,4 @@
  * under the License.
  */
 
-import { Route, Routes } from 'react-router'
-import appRoutes from './config/appRoutes'
-import './App.css'
-
-function App() {
-  return (
-    <Routes>
-      {appRoutes.map((route) => (
-        <Route key={route.path} path={route.path} element={route.element}>
-          {route.children?.map((child, index) => (
-            <Route
-              key={child.path || `index-${index}`}
-              index={child.index}
-              path={child.path}
-              element={child.element}
-            />
-          ))}
-        </Route>
-      ))}
-    </Routes>
-  )
-}
-
-export default App
+export { pxToRem } from './pxToRem';

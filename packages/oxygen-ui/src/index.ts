@@ -21,9 +21,15 @@ import './fonts.css';
 
 // Export custom Oxygen UI components and utilities
 export { default as OxygenTheme } from "./styles/OxygenTheme/OxygenTheme";
-export { default as OxygenUIThemeProvider } from "./contexts/OxygenUIThemeProvider/OxygenUIThemeProvider";
+export { default as OxygenThemeWithRadialBackground } from "./styles/OxygenTheme/OxygenThemeWithRadialBackground";
+export {default as OxygenUIThemeProvider, useThemeSwitcher } from "./contexts/OxygenUIThemeProvider/OxygenUIThemeProvider";
+export type { ThemeOption, ThemeSwitcherContextValue } from "./contexts/OxygenUIThemeProvider/OxygenUIThemeProvider";
 export { default as ColorSchemeImage } from "./components/ColorSchemeImage/ColorSchemeImage";
 export { default as ColorSchemeToggle } from "./components/ColorSchemeToggle/ColorSchemeToggle";
+export { default as ComplexSelect } from "./components/ComplexSelect";
+export type { ComplexSelectProps } from "./components/ComplexSelect";
+export { default as ThemeSwitcher, ThemeSelect } from "./components/ThemeSwitcher";
+export type { ThemeSwitcherProps, ThemeSelectProps } from "./components/ThemeSwitcher";
 export { default as Layout } from "./layouts";
 
 // Re-export the entire @mui/material API

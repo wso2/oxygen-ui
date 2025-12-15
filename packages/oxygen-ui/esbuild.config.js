@@ -25,10 +25,6 @@ const pkg = JSON.parse(readFileSync('./package.json', 'utf8'));
 esbuild.build({
   entryPoints: [
     'src/index.ts',
-    'src/styles/OxygenTheme/OxygenTheme.ts',
-    'src/contexts/OxygenUIThemeProvider/OxygenUIThemeProvider.tsx',
-    'src/components/ColorSchemeImage/ColorSchemeImage.tsx',
-    'src/components/ColorSchemeToggle/ColorSchemeToggle.tsx'
   ],
   platform: 'browser',
   outdir: 'dist',
