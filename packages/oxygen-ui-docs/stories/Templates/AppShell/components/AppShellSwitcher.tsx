@@ -33,6 +33,31 @@ import { ChevronDown, Check, Building2, FolderKanban, Plus } from '@wso2/oxygen-
 import type { Organization, Project, Environment } from './types';
 
 /**
+ * Theme tokens used in this component:
+ *
+ * Chip color prop (environment switcher):
+ * - color="info" - Development environment (blue tones)
+ * - color="warning" - Staging environment (orange/yellow tones)
+ * - color="success" - Production environment (green tones)
+ * - color="default" - Inactive/unselected chips
+ *
+ * Chip variant prop:
+ * - variant="filled" - Selected state (solid background)
+ * - variant="outlined" - Unselected state (border only)
+ *
+ * Colors:
+ * - `text.primary` - Button text color
+ * - `text.secondary` - Category labels, secondary descriptions
+ * - `action.hover` - Button hover background
+ * - `action.selected` - Selected menu item background
+ * - `primary.main` - Selected avatar background, check icon
+ *
+ * Menu Paper:
+ * - Uses theme's elevation and border radius
+ * - slotProps.paper.sx for custom paper styling
+ */
+
+/**
  * Environment color mapping for visual distinction.
  */
 const environmentColors: Record<Environment, 'default' | 'info' | 'warning' | 'success'> = {

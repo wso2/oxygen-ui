@@ -32,6 +32,32 @@ import { AlertTriangle } from '@wso2/oxygen-ui-icons-react';
 import type { ConfirmDialogProps } from './types';
 
 /**
+ * Theme tokens used in this component:
+ *
+ * Button color prop:
+ * - color="primary" - Default confirm button
+ * - color="error" - Destructive action confirm button
+ * - color="inherit" - Cancel button with custom styling
+ *
+ * Button variant prop:
+ * - variant="contained" - Primary action (confirm)
+ * - variant="outlined" - Secondary action (cancel)
+ *
+ * Colors:
+ * - `error.main` - Destructive button, warning icon color
+ * - `error.light` - Warning icon background circle
+ * - `error.contrastText` - Button text on error background
+ * - `text.secondary` - Cancel button text
+ * - `divider` - Cancel button border
+ * - `action.hover` - Cancel button hover background
+ *
+ * Dialog:
+ * - Uses theme's paper background and elevation
+ * - maxWidth="sm" for consistent sizing
+ * - fullWidth for responsive behavior
+ */
+
+/**
  * AppShellConfirmDialog - Reusable confirmation dialog component.
  *
  * A modal dialog for confirming user actions, especially for destructive

@@ -43,6 +43,28 @@ import type {
 import { SIDEBAR_WIDTH, COLLAPSED_SIDEBAR_WIDTH } from './types';
 
 /**
+ * Theme tokens used in this component:
+ *
+ * Colors:
+ * - `background.paper` - Sidebar background
+ * - `action.selected` - Active menu item background
+ * - `action.hover` - Hover state background (implicit via ListItemButton)
+ * - `action.disabled` - Scrollbar thumb color
+ * - `action.active` - Scrollbar thumb hover color
+ * - `primary.main` - Active item icon color
+ * - `text.secondary` - Category labels
+ * - `divider` - Section borders
+ *
+ * Transitions (via theme.transitions):
+ * - `duration.leavingScreen` - Collapse animation (195ms default)
+ * - `duration.enteringScreen` - Expand animation (225ms default)
+ * - `easing.sharp` - Width transition easing curve
+ *
+ * Spacing:
+ * - px/py/mx/ml values use 8px base unit (e.g., px: 2 = 16px)
+ */
+
+/**
  * Props for the sidebar menu item component.
  */
 interface MenuItemProps {

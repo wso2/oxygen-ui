@@ -41,6 +41,30 @@ import { AppShellSwitcher } from './AppShellSwitcher';
 import { AppShellUserMenu } from './AppShellUserMenu';
 
 /**
+ * Theme tokens used in this component:
+ *
+ * Colors:
+ * - `background.paper` - AppBar background color
+ * - `text.secondary` - Icon button default color
+ * - `divider` - Bottom border, vertical dividers between sections
+ * - `error.main` - Notification badge color (via Badge color="error")
+ *
+ * Responsive Breakpoints:
+ * - `xs` (0px) - Mobile layout
+ * - `sm` (600px) - Tablet, shows title
+ * - `md` (900px) - Desktop, shows switchers
+ *
+ * Responsive Spacing:
+ * - minHeight: { xs: 56, sm: 64 } - Toolbar height
+ * - px: { xs: 1, sm: 2 } - Horizontal padding
+ * - display: { xs: 'none', sm: 'block' } - Conditional visibility
+ *
+ * Components:
+ * - ColorSchemeToggle - Built-in Oxygen UI theme toggle
+ * - Badge - Uses MUI's color prop for semantic colors
+ */
+
+/**
  * Props for the AppShellHeader component.
  */
 export interface AppShellHeaderProps {

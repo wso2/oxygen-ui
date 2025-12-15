@@ -26,6 +26,30 @@ import {
 import type { SxProps, Theme } from '@wso2/oxygen-ui';
 
 /**
+ * Theme tokens used in this component:
+ *
+ * Text Hierarchy:
+ * - `text.secondary` - Copyright text, link default color
+ * - `text.primary` - Link hover color
+ * - `text.disabled` - Version number (lowest emphasis)
+ *
+ * Background & Borders:
+ * - `background.paper` - Footer background
+ * - `divider` - Top border color
+ *
+ * Typography variants:
+ * - variant="caption" - Small footer text (12px default)
+ *
+ * Link component:
+ * - underline="hover" - Only show underline on hover
+ * - Custom fontSize: 12 for consistent sizing
+ *
+ * Responsive Layout:
+ * - flexDirection: { xs: 'column', sm: 'row' }
+ * - alignItems: { xs: 'flex-start', sm: 'center' }
+ */
+
+/**
  * Props for the AppShellFooter component.
  */
 export interface AppShellFooterProps {

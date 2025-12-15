@@ -36,6 +36,34 @@ import {
   Chip,
 } from '@wso2/oxygen-ui';
 import type { SxProps, Theme } from '@wso2/oxygen-ui';
+
+/**
+ * Theme tokens used in this component:
+ *
+ * Semantic Colors (notification types):
+ * - `success.main` / `success.light` - Success notifications
+ * - `warning.main` / `warning.light` - Warning notifications
+ * - `error.main` / `error.light` - Error notifications
+ * - `info.main` / `info.light` - Info notifications
+ *
+ * Pattern: bgcolor uses `${type}.light`, color uses `${type}.main`
+ * Example: { bgcolor: 'success.light', color: 'success.main' }
+ *
+ * Action Colors:
+ * - `action.hover` - Unread notification background
+ * - `action.selected` - Notification hover state
+ *
+ * UI Colors:
+ * - `primary.main` - Unread indicator dot, tab badges, Chip color="primary"
+ * - `text.secondary` - Secondary text, timestamps
+ * - `text.disabled` - Tertiary text (smaller timestamps)
+ * - `divider` - Section borders
+ *
+ * Components with color prop:
+ * - Chip: color="primary" | "warning" | "outlined"
+ * - Button: color="error" for destructive actions
+ */
+
 import {
   X,
   Bell,
