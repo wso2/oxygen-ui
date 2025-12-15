@@ -26,29 +26,55 @@ import {
   Grid,
   Button,
   Layout,
+  ColorSchemeToggle,
+  IconButton,
+  Tooltip,
+  Badge,
+  Divider,
 } from '@wso2/oxygen-ui';
-import { Zap } from '@wso2/oxygen-ui-icons-react';
+import {
+  Zap,
+  Bell,
+  HelpCircle,
+  Home,
+  BarChart3,
+  Users,
+  Settings,
+  FolderOpen,
+  Layers,
+  Shield,
+  Database,
+  Globe,
+  PieChart,
+  FileText,
+  Activity,
+  TrendingUp,
+  UserCog,
+  Lock,
+  Key,
+} from '@wso2/oxygen-ui-icons-react';
 import {
   // Types
-  type NotificationItem,
   type Organization,
   type Project,
   type Environment,
-  type User,
-  SIDEBAR_WIDTH,
-  COLLAPSED_SIDEBAR_WIDTH,
   // Mock data
-  navigationCategories,
-  settingsNavigation,
   mockNotifications,
   mockOrganizations,
   mockProjects,
   mockUser,
-  // Components
-  AppShellSidebar,
+  // Hooks
+  useAppShellState,
+  // Utilities
+  formatRelativeTime,
+  // Compound Components
   AppShellHeader,
-  AppShellNotificationBanner,
+  AppShellSidebar,
   AppShellNotificationPanel,
+  // Standalone Components
+  AppShellSwitcher,
+  AppShellUserMenu,
+  AppShellNotificationBanner,
   AppShellFooter,
   AppShellConfirmDialog,
 } from './components';
@@ -65,133 +91,6 @@ interface AppShellArgs {
   notificationCount: number;
   minimal: boolean;
 }
-
-/**
- * App Shell Context for state management demonstration.
- */
-interface AppShellState {
-  sidebarCollapsed: boolean;
-  notificationPanelOpen: boolean;
-  confirmDialogOpen: boolean;
-  activeMenuItem: string;
-  expandedMenus: Record<string, boolean>;
-  notifications: NotificationItem[];
-  selectedOrg: Organization;
-  selectedProject: Project;
-  environment: Environment;
-}
-
-/**
- * Custom hook for App Shell state management.
- * Demonstrates a clean pattern for managing shell state.
- */
-const useAppShellState = (initialCollapsed = false) => {
-  const [state, setState] = React.useState<AppShellState>({
-    sidebarCollapsed: initialCollapsed,
-    notificationPanelOpen: false,
-    confirmDialogOpen: false,
-    activeMenuItem: 'dashboard',
-    expandedMenus: {},
-    notifications: [...mockNotifications],
-    selectedOrg: mockOrganizations[0],
-    selectedProject: mockProjects[0],
-    environment: 'development',
-  });
-
-  const toggleSidebar = React.useCallback(() => {
-    setState((prev) => ({ ...prev, sidebarCollapsed: !prev.sidebarCollapsed }));
-  }, []);
-
-  const toggleNotificationPanel = React.useCallback(() => {
-    setState((prev) => ({
-      ...prev,
-      notificationPanelOpen: !prev.notificationPanelOpen,
-    }));
-  }, []);
-
-  const setActiveMenuItem = React.useCallback((id: string) => {
-    setState((prev) => ({ ...prev, activeMenuItem: id }));
-  }, []);
-
-  const toggleMenu = React.useCallback((id: string) => {
-    setState((prev) => ({
-      ...prev,
-      expandedMenus: {
-        ...prev.expandedMenus,
-        [id]: !prev.expandedMenus[id],
-      },
-    }));
-  }, []);
-
-  const markNotificationRead = React.useCallback((id: string) => {
-    setState((prev) => ({
-      ...prev,
-      notifications: prev.notifications.map((n) =>
-        n.id === id ? { ...n, read: true } : n
-      ),
-    }));
-  }, []);
-
-  const dismissNotification = React.useCallback((id: string) => {
-    setState((prev) => ({
-      ...prev,
-      notifications: prev.notifications.filter((n) => n.id !== id),
-    }));
-  }, []);
-
-  const markAllNotificationsRead = React.useCallback(() => {
-    setState((prev) => ({
-      ...prev,
-      notifications: prev.notifications.map((n) => ({ ...n, read: true })),
-    }));
-  }, []);
-
-  const clearAllNotifications = React.useCallback(() => {
-    setState((prev) => ({ ...prev, notifications: [] }));
-  }, []);
-
-  const setOrganization = React.useCallback((org: Organization) => {
-    setState((prev) => ({ ...prev, selectedOrg: org }));
-  }, []);
-
-  const setProject = React.useCallback((project: Project) => {
-    setState((prev) => ({ ...prev, selectedProject: project }));
-  }, []);
-
-  const setEnvironment = React.useCallback((env: Environment) => {
-    setState((prev) => ({ ...prev, environment: env }));
-  }, []);
-
-  const openConfirmDialog = React.useCallback(() => {
-    setState((prev) => ({ ...prev, confirmDialogOpen: true }));
-  }, []);
-
-  const closeConfirmDialog = React.useCallback(() => {
-    setState((prev) => ({ ...prev, confirmDialogOpen: false }));
-  }, []);
-
-  const unreadCount = state.notifications.filter((n) => !n.read).length;
-
-  return {
-    state,
-    actions: {
-      toggleSidebar,
-      toggleNotificationPanel,
-      setActiveMenuItem,
-      toggleMenu,
-      markNotificationRead,
-      dismissNotification,
-      markAllNotificationsRead,
-      clearAllNotifications,
-      setOrganization,
-      setProject,
-      setEnvironment,
-      openConfirmDialog,
-      closeConfirmDialog,
-    },
-    unreadCount,
-  };
-};
 
 /**
  * Sample content component to demonstrate the main content area.
@@ -243,80 +142,72 @@ const SampleContent: React.FC = () => (
  * Logo component for the header.
  */
 const Logo: React.FC = () => (
-  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-    <Box
-      sx={{
-        width: 32,
-        height: 32,
-        borderRadius: 1,
-        bgcolor: 'primary.main',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: 'primary.contrastText',
-      }}
-    >
-      <Zap size={20} />
-    </Box>
+  <Box
+    sx={{
+      width: 32,
+      height: 32,
+      borderRadius: 1,
+      bgcolor: 'primary.main',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: 'primary.contrastText',
+    }}
+  >
+    <Zap size={20} />
   </Box>
 );
 
 /**
- * The App Shell template demonstrates a complete application layout pattern.
+ * The App Shell template demonstrates a complete application layout pattern
+ * using **compound components** for maximum flexibility and composability.
  *
  * ## Overview
  * This template provides a comprehensive reference implementation for building
  * enterprise application layouts using Oxygen UI components. It demonstrates:
  *
+ * - **Compound Component Pattern**: Compose complex UIs from simple, focused parts
  * - **Layout Structure**: Using the Layout component for flexible composition
  * - **Navigation**: Collapsible sidebar with hierarchical menus
  * - **Header**: Top bar with logo, switchers, and user actions
  * - **Notifications**: Banner alerts and notification panel
  * - **Footer**: Copyright and legal links
- * - **Dialogs**: Confirmation patterns for user actions
  *
- * ## Key Patterns
+ * ## Compound Component Pattern
  *
- * ### State Management
- * The example uses a custom hook (`useAppShellState`) to demonstrate clean
- * state management patterns. In a real application, you would integrate this
- * with your preferred state management solution (Redux, Zustand, Context, etc.).
- *
- * ### Styling
- * All components use the MUI `sx` prop with theme tokens for consistent styling.
- * No inline styles are used, making it easy to customize via the theme.
- *
- * ### Responsive Design
- * The layout adapts to different screen sizes:
- * - Desktop: Full sidebar with text labels
- * - Tablet: Collapsed sidebar with icons only
- * - Mobile: Drawer-based navigation (implement as needed)
- *
- * ## Usage
- * Copy the relevant components and patterns for your application:
+ * Instead of monolithic components with many props, this template uses
+ * compound components (like MUI's Tabs + Tab) where a parent provides context
+ * and children compose the UI:
  *
  * ```tsx
- * import { Layout } from '@wso2/oxygen-ui';
+ * // OLD API (monolithic, 21+ props)
+ * <AppShellHeader
+ *   logo={...} title={...} organizations={...}
+ *   selectedOrg={...} onOrgChange={...} ... 20 more props
+ * />
  *
- * function MyApp() {
- *   return (
- *     <Layout sx={{ height: '100vh', flexDirection: 'column' }}>
- *       <Layout.Navbar>
- *         <Header />
- *       </Layout.Navbar>
- *       <Layout sx={{ flex: 1 }}>
- *         <Layout.Sidebar>
- *           <Sidebar />
- *         </Layout.Sidebar>
- *         <Layout.Content>
- *           <MainContent />
- *           <Footer />
- *         </Layout.Content>
- *       </Layout>
- *     </Layout>
- *   );
- * }
+ * // NEW API (composable, focused)
+ * <AppShellHeader>
+ *   <AppShellHeader.Toggle collapsed={collapsed} onToggle={toggle} />
+ *   <AppShellHeader.Brand logo={<Logo />} title="Dashboard" />
+ *   <AppShellHeader.Switchers>
+ *     <OrgSwitcher ... />
+ *   </AppShellHeader.Switchers>
+ *   <AppShellHeader.Spacer />
+ *   <AppShellHeader.Actions>
+ *     <ColorSchemeToggle />
+ *     <UserMenu ... />
+ *   </AppShellHeader.Actions>
+ * </AppShellHeader>
  * ```
+ *
+ * ## Benefits
+ *
+ * 1. **Design System Ready** - Each sub-component can be promoted independently
+ * 2. **Testable** - Small components are easier to unit test
+ * 3. **Flexible** - Users can compose their own layouts
+ * 4. **Maintainable** - ~100 lines per file instead of ~500
+ * 5. **Tree-shakeable** - Import only what you use
  */
 const meta: Meta<AppShellArgs> = {
   title: 'Templates/App Shell',
@@ -326,18 +217,33 @@ const meta: Meta<AppShellArgs> = {
     docs: {
       description: {
         component: `
-A comprehensive App Shell template demonstrating enterprise application layout patterns.
+A comprehensive App Shell template using **compound components** for maximum flexibility.
 
 This template shows how to compose Oxygen UI components to create a complete
 application shell with:
-- Collapsible navigation sidebar
-- Header with logo, context switchers, and user menu
-- Notification system (banner + panel)
+- Collapsible navigation sidebar (compound component)
+- Header with logo, context switchers, and user menu (compound component)
+- Notification system with panel (compound component)
 - Footer with legal links
-- Confirmation dialogs
 
-**Note:** The switcher components (Organization, Project, Environment) are visual
-demonstrations. Implement your own selection logic based on your application needs.
+**Compound Components:**
+\`\`\`tsx
+<AppShellHeader>
+  <AppShellHeader.Toggle ... />
+  <AppShellHeader.Brand ... />
+  <AppShellHeader.Switchers>...</AppShellHeader.Switchers>
+  <AppShellHeader.Actions>...</AppShellHeader.Actions>
+</AppShellHeader>
+
+<AppShellSidebar>
+  <AppShellSidebar.Nav>
+    <AppShellSidebar.Category label="Main">
+      <AppShellSidebar.Item ... />
+    </AppShellSidebar.Category>
+  </AppShellSidebar.Nav>
+  <AppShellSidebar.User ... />
+</AppShellSidebar>
+\`\`\`
         `,
       },
     },
@@ -370,7 +276,7 @@ demonstrations. Implement your own selection logic based on your application nee
     },
     minimal: {
       control: 'boolean',
-      description: 'Use minimal header (logo + user only)',
+      description: 'Use minimal header (hides switchers)',
     },
   },
   args: {
@@ -388,11 +294,16 @@ export default meta;
 type Story = StoryObj<AppShellArgs>;
 
 /**
- * Interactive playground with all features.
+ * Interactive playground with compound component API.
  */
 export const Playground: Story = {
   render: (args) => {
-    const { state, actions, unreadCount } = useAppShellState(args.sidebarCollapsed);
+    const { state, actions, unreadCount } = useAppShellState({
+      initialCollapsed: args.sidebarCollapsed,
+      initialNotifications: [...mockNotifications],
+      initialOrg: mockOrganizations[0],
+      initialProject: mockProjects[0],
+    });
 
     // Sync with storybook args
     React.useEffect(() => {
@@ -400,6 +311,23 @@ export const Playground: Story = {
         actions.toggleSidebar();
       }
     }, [args.sidebarCollapsed]);
+
+    const [tabIndex, setTabIndex] = React.useState(0);
+    const unreadNotifications = state.notifications.filter((n) => !n.read);
+    const alertNotifications = state.notifications.filter(
+      (n) => n.type === 'warning' || n.type === 'error'
+    );
+
+    const getFilteredNotifications = () => {
+      switch (tabIndex) {
+        case 1:
+          return unreadNotifications;
+        case 2:
+          return alertNotifications;
+        default:
+          return state.notifications;
+      }
+    };
 
     return (
       <Layout sx={{ height: '100vh', flexDirection: 'column' }}>
@@ -413,48 +341,143 @@ export const Playground: Story = {
           />
         )}
 
-        {/* Header */}
+        {/* Header - Using Compound Component Pattern */}
         <Layout.Navbar>
-          <AppShellHeader
-            sidebarCollapsed={state.sidebarCollapsed}
-            onToggleSidebar={actions.toggleSidebar}
-            logo={<Logo />}
-            title="Oxygen UI"
-            organizations={mockOrganizations}
-            selectedOrg={state.selectedOrg}
-            onOrgChange={(org) => actions.setOrganization(org as Organization)}
-            projects={mockProjects}
-            selectedProject={state.selectedProject}
-            onProjectChange={(proj) => actions.setProject(proj as Project)}
-            environment={state.environment}
-            onEnvironmentChange={actions.setEnvironment}
-            notificationCount={args.notificationCount ?? unreadCount}
-            onNotificationClick={actions.toggleNotificationPanel}
-            onHelpClick={() => console.log('Help clicked')}
-            user={mockUser}
-            onProfileClick={() => console.log('Profile clicked')}
-            onSettingsClick={() => console.log('Settings clicked')}
-            onBillingClick={() => console.log('Billing clicked')}
-            onLogout={actions.openConfirmDialog}
-            minimal={args.minimal}
-          />
+          <AppShellHeader minimal={args.minimal}>
+            <AppShellHeader.Toggle
+              collapsed={state.sidebarCollapsed}
+              onToggle={actions.toggleSidebar}
+            />
+            <AppShellHeader.Brand logo={<Logo />} title="Oxygen UI" />
+            <AppShellHeader.Switchers>
+              {state.selectedOrg && (
+                <AppShellSwitcher
+                  type="organization"
+                  items={mockOrganizations}
+                  selected={state.selectedOrg}
+                  onChange={(org) => actions.setOrganization(org as Organization)}
+                />
+              )}
+              {state.selectedProject && (
+                <AppShellSwitcher
+                  type="project"
+                  items={mockProjects}
+                  selected={state.selectedProject}
+                  onChange={(proj) => actions.setProject(proj as Project)}
+                />
+              )}
+              <AppShellSwitcher
+                type="environment"
+                environment={state.environment}
+                onEnvironmentChange={actions.setEnvironment}
+              />
+            </AppShellHeader.Switchers>
+            <AppShellHeader.Spacer />
+            <AppShellHeader.Actions>
+              <ColorSchemeToggle />
+              <Tooltip title="Help & Support">
+                <IconButton
+                  onClick={() => console.log('Help clicked')}
+                  size="small"
+                  sx={{ color: 'text.secondary' }}
+                >
+                  <HelpCircle size={20} />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Notifications">
+                <IconButton
+                  onClick={actions.toggleNotificationPanel}
+                  size="small"
+                  sx={{ color: 'text.secondary' }}
+                >
+                  <Badge
+                    badgeContent={args.notificationCount ?? unreadCount}
+                    color="error"
+                    max={99}
+                    invisible={(args.notificationCount ?? unreadCount) === 0}
+                  >
+                    <Bell size={20} />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
+              <Divider
+                orientation="vertical"
+                flexItem
+                sx={{ mx: 1, display: { xs: 'none', sm: 'block' } }}
+              />
+              <AppShellUserMenu
+                user={mockUser}
+                onProfileClick={() => console.log('Profile clicked')}
+                onSettingsClick={() => console.log('Settings clicked')}
+                onBillingClick={() => console.log('Billing clicked')}
+                onLogout={actions.openConfirmDialog}
+              />
+            </AppShellHeader.Actions>
+          </AppShellHeader>
         </Layout.Navbar>
 
         {/* Main Content Area */}
         <Layout sx={{ flex: 1, overflow: 'hidden' }}>
-          {/* Sidebar */}
+          {/* Sidebar - Using Compound Component Pattern */}
           <Layout.Sidebar>
             <AppShellSidebar
-              categories={navigationCategories}
-              settingsCategory={settingsNavigation}
               collapsed={state.sidebarCollapsed}
               activeItem={state.activeMenuItem}
               expandedMenus={state.expandedMenus}
-              user={mockUser}
               onSelect={actions.setActiveMenuItem}
               onToggleExpand={actions.toggleMenu}
-              onUserMenuClick={() => console.log('User menu clicked')}
-            />
+            >
+              <AppShellSidebar.Nav>
+                {/* Main Navigation */}
+                <AppShellSidebar.Category>
+                  <AppShellSidebar.Item id="dashboard" label="Dashboard" icon={Home} />
+                  <AppShellSidebar.Item id="analytics" label="Analytics" icon={BarChart3}>
+                    <AppShellSidebar.Item id="analytics-overview" label="Overview" icon={PieChart} />
+                    <AppShellSidebar.Item id="analytics-reports" label="Reports" icon={FileText} />
+                    <AppShellSidebar.Item id="analytics-realtime" label="Real-time" icon={Activity} />
+                    <AppShellSidebar.Item id="analytics-trends" label="Trends" icon={TrendingUp} />
+                  </AppShellSidebar.Item>
+                </AppShellSidebar.Category>
+
+                {/* Management */}
+                <AppShellSidebar.Category label="Management">
+                  <AppShellSidebar.Item id="users" label="Users" icon={Users} badge={3}>
+                    <AppShellSidebar.Item id="users-list" label="All Users" icon={Users} />
+                    <AppShellSidebar.Item id="users-roles" label="Roles" icon={UserCog} />
+                    <AppShellSidebar.Item id="users-permissions" label="Permissions" icon={Lock} />
+                  </AppShellSidebar.Item>
+                  <AppShellSidebar.Item id="projects" label="Projects" icon={FolderOpen} />
+                  <AppShellSidebar.Item id="integrations" label="Integrations" icon={Layers} />
+                </AppShellSidebar.Category>
+
+                {/* Infrastructure */}
+                <AppShellSidebar.Category label="Infrastructure">
+                  <AppShellSidebar.Item id="security" label="Security" icon={Shield}>
+                    <AppShellSidebar.Item id="security-overview" label="Overview" icon={Shield} />
+                    <AppShellSidebar.Item id="security-api-keys" label="API Keys" icon={Key} />
+                  </AppShellSidebar.Item>
+                  <AppShellSidebar.Item id="databases" label="Databases" icon={Database} />
+                  <AppShellSidebar.Item id="domains" label="Domains" icon={Globe} />
+                </AppShellSidebar.Category>
+              </AppShellSidebar.Nav>
+
+              {/* Settings Footer */}
+              <AppShellSidebar.Footer>
+                <AppShellSidebar.Category>
+                  <AppShellSidebar.Item id="settings" label="Settings" icon={Settings} />
+                  <AppShellSidebar.Item id="notifications-settings" label="Notifications" icon={Bell} />
+                  <AppShellSidebar.Item id="help" label="Help & Support" icon={HelpCircle} />
+                </AppShellSidebar.Category>
+              </AppShellSidebar.Footer>
+
+              {/* User Section */}
+              <AppShellSidebar.User
+                name={mockUser.name}
+                email={mockUser.email}
+                avatar={mockUser.avatar}
+                onClick={() => console.log('User menu clicked')}
+              />
+            </AppShellSidebar>
           </Layout.Sidebar>
 
           {/* Content */}
@@ -477,16 +500,59 @@ export const Playground: Story = {
           </Layout.Content>
         </Layout>
 
-        {/* Notification Panel */}
+        {/* Notification Panel - Using Compound Component Pattern */}
         <AppShellNotificationPanel
           open={state.notificationPanelOpen}
           onClose={actions.toggleNotificationPanel}
-          notifications={state.notifications}
-          onMarkRead={actions.markNotificationRead}
-          onDismiss={actions.dismissNotification}
-          onMarkAllRead={actions.markAllNotificationsRead}
-          onClearAll={actions.clearAllNotifications}
-        />
+        >
+          <AppShellNotificationPanel.Header unreadCount={unreadCount} />
+          <AppShellNotificationPanel.Tabs
+            tabs={[
+              { label: 'All', count: state.notifications.length },
+              { label: 'Unread', count: unreadNotifications.length, color: 'primary' },
+              { label: 'Alerts', count: alertNotifications.length, color: 'warning' },
+            ]}
+            value={tabIndex}
+            onChange={setTabIndex}
+          />
+          {state.notifications.length > 0 && (
+            <AppShellNotificationPanel.Actions
+              hasUnread={unreadNotifications.length > 0}
+              onMarkAllRead={actions.markAllNotificationsRead}
+              onClearAll={actions.clearAllNotifications}
+            />
+          )}
+          {getFilteredNotifications().length === 0 ? (
+            <AppShellNotificationPanel.EmptyState
+              message={
+                tabIndex === 0
+                  ? 'No notifications'
+                  : tabIndex === 1
+                  ? 'No unread notifications'
+                  : 'No alerts'
+              }
+            />
+          ) : (
+            <AppShellNotificationPanel.List>
+              {getFilteredNotifications().map((notification) => (
+                <AppShellNotificationPanel.Item
+                  key={notification.id}
+                  id={notification.id}
+                  type={notification.type}
+                  title={notification.title}
+                  message={notification.message}
+                  timestamp={formatRelativeTime(notification.timestamp)}
+                  read={notification.read}
+                  avatar={notification.avatar}
+                  actionLabel={notification.actionLabel}
+                  onAction={notification.onAction}
+                  onMarkRead={actions.markNotificationRead}
+                  onDismiss={actions.dismissNotification}
+                />
+              ))}
+            </AppShellNotificationPanel.List>
+          )}
+        </AppShellNotificationPanel>
 
         {/* Confirm Dialog */}
         <AppShellConfirmDialog
@@ -559,7 +625,7 @@ export const WithErrorBanner: Story = {
 };
 
 /**
- * Minimal header showing only logo and user menu.
+ * Minimal header showing only essential elements.
  */
 export const MinimalHeader: Story = {
   args: {
@@ -595,7 +661,17 @@ export const WithNotificationPanel: Story = {
     notificationCount: 3,
   },
   render: (args) => {
-    const { state, actions, unreadCount } = useAppShellState();
+    const { state, actions, unreadCount } = useAppShellState({
+      initialNotifications: [...mockNotifications],
+      initialOrg: mockOrganizations[0],
+      initialProject: mockProjects[0],
+    });
+
+    const [tabIndex, setTabIndex] = React.useState(0);
+    const unreadNotifications = state.notifications.filter((n) => !n.read);
+    const alertNotifications = state.notifications.filter(
+      (n) => n.type === 'warning' || n.type === 'error'
+    );
 
     // Auto-open notification panel for this story
     React.useEffect(() => {
@@ -607,43 +683,64 @@ export const WithNotificationPanel: Story = {
       return () => clearTimeout(timer);
     }, []);
 
+    const getFilteredNotifications = () => {
+      switch (tabIndex) {
+        case 1:
+          return unreadNotifications;
+        case 2:
+          return alertNotifications;
+        default:
+          return state.notifications;
+      }
+    };
+
     return (
       <Layout sx={{ height: '100vh', flexDirection: 'column' }}>
         <Layout.Navbar>
-          <AppShellHeader
-            sidebarCollapsed={state.sidebarCollapsed}
-            onToggleSidebar={actions.toggleSidebar}
-            logo={<Logo />}
-            title="Oxygen UI"
-            organizations={mockOrganizations}
-            selectedOrg={state.selectedOrg}
-            onOrgChange={(org) => actions.setOrganization(org as Organization)}
-            projects={mockProjects}
-            selectedProject={state.selectedProject}
-            onProjectChange={(proj) => actions.setProject(proj as Project)}
-            environment={state.environment}
-            onEnvironmentChange={actions.setEnvironment}
-            notificationCount={unreadCount}
-            onNotificationClick={actions.toggleNotificationPanel}
-            onHelpClick={() => console.log('Help clicked')}
-            user={mockUser}
-            onLogout={actions.openConfirmDialog}
-          />
+          <AppShellHeader>
+            <AppShellHeader.Toggle
+              collapsed={state.sidebarCollapsed}
+              onToggle={actions.toggleSidebar}
+            />
+            <AppShellHeader.Brand logo={<Logo />} title="Oxygen UI" />
+            <AppShellHeader.Spacer />
+            <AppShellHeader.Actions>
+              <ColorSchemeToggle />
+              <IconButton
+                onClick={actions.toggleNotificationPanel}
+                size="small"
+                sx={{ color: 'text.secondary' }}
+              >
+                <Badge badgeContent={unreadCount} color="error" max={99}>
+                  <Bell size={20} />
+                </Badge>
+              </IconButton>
+              <AppShellUserMenu user={mockUser} onLogout={actions.openConfirmDialog} />
+            </AppShellHeader.Actions>
+          </AppShellHeader>
         </Layout.Navbar>
 
         <Layout sx={{ flex: 1, overflow: 'hidden' }}>
           <Layout.Sidebar>
             <AppShellSidebar
-              categories={navigationCategories}
-              settingsCategory={settingsNavigation}
               collapsed={state.sidebarCollapsed}
               activeItem={state.activeMenuItem}
               expandedMenus={state.expandedMenus}
-              user={mockUser}
               onSelect={actions.setActiveMenuItem}
               onToggleExpand={actions.toggleMenu}
-              onUserMenuClick={() => {}}
-            />
+            >
+              <AppShellSidebar.Nav>
+                <AppShellSidebar.Category>
+                  <AppShellSidebar.Item id="dashboard" label="Dashboard" icon={Home} />
+                  <AppShellSidebar.Item id="analytics" label="Analytics" icon={BarChart3} />
+                </AppShellSidebar.Category>
+              </AppShellSidebar.Nav>
+              <AppShellSidebar.User
+                name={mockUser.name}
+                email={mockUser.email}
+                onClick={() => {}}
+              />
+            </AppShellSidebar>
           </Layout.Sidebar>
 
           <Layout.Content sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -659,12 +756,46 @@ export const WithNotificationPanel: Story = {
         <AppShellNotificationPanel
           open={state.notificationPanelOpen}
           onClose={actions.toggleNotificationPanel}
-          notifications={state.notifications}
-          onMarkRead={actions.markNotificationRead}
-          onDismiss={actions.dismissNotification}
-          onMarkAllRead={actions.markAllNotificationsRead}
-          onClearAll={actions.clearAllNotifications}
-        />
+        >
+          <AppShellNotificationPanel.Header unreadCount={unreadCount} />
+          <AppShellNotificationPanel.Tabs
+            tabs={[
+              { label: 'All', count: state.notifications.length },
+              { label: 'Unread', count: unreadNotifications.length, color: 'primary' },
+              { label: 'Alerts', count: alertNotifications.length, color: 'warning' },
+            ]}
+            value={tabIndex}
+            onChange={setTabIndex}
+          />
+          {state.notifications.length > 0 && (
+            <AppShellNotificationPanel.Actions
+              hasUnread={unreadNotifications.length > 0}
+              onMarkAllRead={actions.markAllNotificationsRead}
+              onClearAll={actions.clearAllNotifications}
+            />
+          )}
+          {getFilteredNotifications().length === 0 ? (
+            <AppShellNotificationPanel.EmptyState />
+          ) : (
+            <AppShellNotificationPanel.List>
+              {getFilteredNotifications().map((notification) => (
+                <AppShellNotificationPanel.Item
+                  key={notification.id}
+                  id={notification.id}
+                  type={notification.type}
+                  title={notification.title}
+                  message={notification.message}
+                  timestamp={formatRelativeTime(notification.timestamp)}
+                  read={notification.read}
+                  avatar={notification.avatar}
+                  actionLabel={notification.actionLabel}
+                  onMarkRead={actions.markNotificationRead}
+                  onDismiss={actions.dismissNotification}
+                />
+              ))}
+            </AppShellNotificationPanel.List>
+          )}
+        </AppShellNotificationPanel>
       </Layout>
     );
   },
@@ -697,30 +828,41 @@ export const WithConfirmDialog: Story = {
     return (
       <Layout sx={{ height: '100vh', flexDirection: 'column' }}>
         <Layout.Navbar>
-          <AppShellHeader
-            sidebarCollapsed={state.sidebarCollapsed}
-            onToggleSidebar={actions.toggleSidebar}
-            logo={<Logo />}
-            title="Oxygen UI"
-            user={mockUser}
-            onLogout={() => setDialogOpen(true)}
-            minimal
-          />
+          <AppShellHeader minimal>
+            <AppShellHeader.Toggle
+              collapsed={state.sidebarCollapsed}
+              onToggle={actions.toggleSidebar}
+            />
+            <AppShellHeader.Brand logo={<Logo />} title="Oxygen UI" />
+            <AppShellHeader.Spacer />
+            <AppShellHeader.Actions>
+              <ColorSchemeToggle />
+              <AppShellUserMenu user={mockUser} onLogout={() => setDialogOpen(true)} />
+            </AppShellHeader.Actions>
+          </AppShellHeader>
         </Layout.Navbar>
 
         <Layout sx={{ flex: 1, overflow: 'hidden' }}>
           <Layout.Sidebar>
             <AppShellSidebar
-              categories={navigationCategories}
-              settingsCategory={settingsNavigation}
               collapsed={state.sidebarCollapsed}
               activeItem={state.activeMenuItem}
               expandedMenus={state.expandedMenus}
-              user={mockUser}
               onSelect={actions.setActiveMenuItem}
               onToggleExpand={actions.toggleMenu}
-              onUserMenuClick={() => {}}
-            />
+            >
+              <AppShellSidebar.Nav>
+                <AppShellSidebar.Category>
+                  <AppShellSidebar.Item id="dashboard" label="Dashboard" icon={Home} />
+                  <AppShellSidebar.Item id="settings" label="Settings" icon={Settings} />
+                </AppShellSidebar.Category>
+              </AppShellSidebar.Nav>
+              <AppShellSidebar.User
+                name={mockUser.name}
+                email={mockUser.email}
+                onClick={() => {}}
+              />
+            </AppShellSidebar>
           </Layout.Sidebar>
 
           <Layout.Content sx={{ display: 'flex', flexDirection: 'column' }}>

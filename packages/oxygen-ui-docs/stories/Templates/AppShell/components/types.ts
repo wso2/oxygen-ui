@@ -223,8 +223,4 @@ export interface ConfirmDialogProps {
   onCancel: () => void;
 }
 
-/**
- * Sidebar sizing constants.
- */
-export const SIDEBAR_WIDTH = 250;
-export const COLLAPSED_SIDEBAR_WIDTH = 64;
+// Note: SIDEBAR_WIDTH and COLLAPSED_SIDEBAR_WIDTH have been moved to AppShellSidebar
