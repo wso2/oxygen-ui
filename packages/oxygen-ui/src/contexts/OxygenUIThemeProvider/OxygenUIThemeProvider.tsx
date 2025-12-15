@@ -16,38 +16,153 @@
  * under the License.
  */
 
-import { useMemo } from 'react';
-import { ThemeProvider as MUIThemeProvider, StyledEngineProvider, Theme, createTheme } from '@mui/material/styles';
+import { ThemeProvider, StyledEngineProvider, Theme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
-import OxygenTheme, { RadialBodyBackgroundDesign } from '../../styles/OxygenTheme/OxygenTheme';
+import { ReactNode, createContext, useContext, useState } from 'react';
+import OxygenTheme from '../../styles/OxygenTheme/OxygenTheme';
+import OxygenThemeWithRadialBackground from '../../styles/OxygenTheme/OxygenThemeWithRadialBackground';
+
+export interface ThemeOption {
+  /**
+   * Unique key for the theme
+   */
+  key: string;
+  /**
+   * Display label for the theme
+   */
+  label: string;
+  /**
+   * The theme object
+   */
+  theme: Theme;
+}
+
+export interface ThemeSwitcherContextValue {
+  /**
+   * The current active theme object
+   */
+  theme: Theme;
+  /**
+   * The current theme key
+   */
+  currentTheme: string;
+  /**
+   * All available theme options
+   */
+  themes: ThemeOption[];
+  /**
+   * Function to switch to a specific theme by key
+   */
+  setTheme: (themeKey: string) => void;
+  /**
+   * Check if a specific theme is active
+   */
+  isActive: (themeKey: string) => boolean;
+}
+
+// Default theme options
+const defaultThemes: ThemeOption[] = [
+  {
+    key: 'default',
+    label: 'Default',
+    theme: OxygenTheme,
+  },
+  {
+    key: 'radial',
+    label: 'Radial Background',
+    theme: OxygenThemeWithRadialBackground,
+  },
+];
+
+// Context for theme switching
+const ThemeSwitcherContext = createContext<ThemeSwitcherContextValue | null>(null);
+
+/**
+ * Hook to access theme switcher context
+ */
+export const useThemeSwitcher = () => {
+  const context = useContext(ThemeSwitcherContext);
+  if (!context) {
+    throw new Error('useThemeSwitcher must be used within OxygenUIThemeProvider with themes prop');
+  }
+  return context;
+};
 
 interface OxygenUIThemeProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
+  /**
+   * Optional single theme object. If provided, theme switching will be disabled.
+   * Use this for simple single-theme applications.
+   */
   theme?: Theme;
-  radialBackground?: boolean;
+  /**
+   * Array of theme options for theme switching.
+   * If provided, enables theme switching functionality.
+   * Takes precedence over the `theme` prop.
+   */
+  themes?: ThemeOption[];
+  /**
+   * Initial theme key when using theme switching.
+   * Defaults to the first theme in the themes array.
+   */
+  initialTheme?: string;
 }
 
 export default function OxygenUIThemeProvider({
   children,
   theme,
-  radialBackground = false
+  themes,
+  initialTheme,
 }: OxygenUIThemeProviderProps) {
+  // Use theme switching mode if themes array is provided
+  const useThemeSwitching = !!themes;
+  const themeOptions = themes || defaultThemes;
+  
+  const [currentThemeKey, setCurrentThemeKey] = useState<string>(
+    initialTheme || themeOptions[0]?.key || 'default'
+  );
 
-  const resolvedTheme = useMemo(() => {
-    if (theme) return theme;
+  // Determine which theme to use
+  let resolvedTheme: Theme;
+  if (useThemeSwitching) {
+    resolvedTheme = themeOptions.find((t) => t.key === currentThemeKey)?.theme || themeOptions[0]?.theme;
+  } else {
+    resolvedTheme = theme || OxygenTheme;
+  }
 
-    if (!radialBackground) return OxygenTheme;
+  const setTheme = (themeKey: string) => {
+    if (themeOptions.some((t) => t.key === themeKey)) {
+      setCurrentThemeKey(themeKey);
+    }
+  };
 
-    // Create a new Oxygen UI theme with CssBaseline overrides with radial background
-    return createTheme(OxygenTheme, RadialBodyBackgroundDesign);
-  }, [theme, radialBackground]);
+  const isActive = (themeKey: string) => currentThemeKey === themeKey;
 
-  return (
+  const contextValue: ThemeSwitcherContextValue = {
+    theme: resolvedTheme,
+    currentTheme: currentThemeKey,
+    themes: themeOptions,
+    setTheme,
+    isActive,
+  };
+
+  const content = (
     <StyledEngineProvider injectFirst>
-      <MUIThemeProvider theme={resolvedTheme}>
-        <CssBaseline />
+      <ThemeProvider theme={resolvedTheme}>
+        <CssBaseline enableColorScheme />
         {children}
-      </MUIThemeProvider>
+      </ThemeProvider>
     </StyledEngineProvider>
   );
+
+  // Only provide context if theme switching is enabled
+  if (useThemeSwitching) {
+    return (
+      <ThemeSwitcherContext.Provider value={contextValue}>
+        {content}
+      </ThemeSwitcherContext.Provider>
+    );
+  }
+
+  return content;
 }

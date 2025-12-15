@@ -181,15 +181,147 @@ function MyTreeView() {
 }
 ```
 
+## Theme Switching
+
+Oxygen UI provides built-in theme switching capabilities through `OxygenUIThemeProvider` and UI components for easy theme selection.
+
+### Basic Setup
+
+Pass a `themes` array to `OxygenUIThemeProvider`:
+
+```typescript
+import { 
+  OxygenUIThemeProvider, 
+  OxygenTheme, 
+  OxygenThemeWithRadialBackground 
+} from '@wso2/oxygen-ui';
+
+function App() {
+  return (
+    <OxygenUIThemeProvider 
+      themes={[
+        { key: 'default', label: 'Default', theme: OxygenTheme },
+        { key: 'radial', label: 'Radial Background', theme: OxygenThemeWithRadialBackground },
+      ]}
+      initialTheme="default"
+    >
+      <YourApp />
+    </OxygenUIThemeProvider>
+  );
+}
+```
+
+### Using ThemeSwitcher Component
+
+Add the `ThemeSwitcher` component to provide a select dropdown:
+
+```typescript
+import { 
+  OxygenUIThemeProvider, 
+  ThemeSwitcher, 
+  OxygenTheme, 
+  OxygenThemeWithRadialBackground 
+} from '@wso2/oxygen-ui';
+
+function App() {
+  return (
+    <OxygenUIThemeProvider 
+      themes={[
+        { key: 'default', label: 'Default', theme: OxygenTheme },
+        { key: 'radial', label: 'Radial Background', theme: OxygenThemeWithRadialBackground },
+      ]}
+    >
+      <header>
+        <ThemeSwitcher />  {/* Default select dropdown */}
+      </header>
+      <YourApp />
+    </OxygenUIThemeProvider>
+  );
+}
+```
+
+### Custom Theme Switcher UI
+
+Use render props for custom UI:
+
+```typescript
+<ThemeSwitcher>
+  {({ currentTheme, themes, setTheme, isActive }) => (
+    <ButtonGroup>
+      {themes.map(theme => (
+        <Button
+          key={theme.key}
+          variant={isActive(theme.key) ? 'contained' : 'outlined'}
+          onClick={() => setTheme(theme.key)}
+        >
+          {theme.label}
+        </Button>
+      ))}
+    </ButtonGroup>
+  )}
+</ThemeSwitcher>
+```
+
+### Custom Themes
+
+Add your own custom themes:
+
+```typescript
+import { extendTheme } from '@mui/material/styles';
+
+const customTheme = extendTheme({
+  palette: {
+    primary: { main: '#ff0000' },
+  },
+});
+
+function App() {
+  return (
+    <OxygenUIThemeProvider
+      themes={[
+        { key: 'default', label: 'Default', theme: OxygenTheme },
+        { key: 'custom', label: 'Custom Theme', theme: customTheme },
+      ]}
+    >
+      <ThemeSwitcher showLabel label="Select Theme" />
+      <YourApp />
+    </OxygenUIThemeProvider>
+  );
+}
+```
+
+### Programmatic Access
+
+Use the `useThemeSwitcher` hook to access theme state:
+
+```typescript
+import { useThemeSwitcher } from '@wso2/oxygen-ui';
+
+function MyComponent() {
+  const { currentTheme, themes, setTheme, isActive } = useThemeSwitcher();
+
+  return (
+    <div>
+      <p>Current theme: {currentTheme}</p>
+      <button onClick={() => setTheme('radial')}>Switch to Radial</button>
+    </div>
+  );
+}
+```
+
 ## Available Exports
 
 ### Custom Oxygen UI Components
 
-- `OxygenTheme` - Theme configuration
-- `OxygenUIThemeProvider` - Theme provider component
+- `OxygenTheme` - Default theme configuration
+- `OxygenThemeWithRadialBackground` - Theme variant with radial gradient backgrounds
+- `OxygenUIThemeProvider` - Theme provider component with theme switching support
+- `ThemeSwitcher` - Theme selection component (default select dropdown or render props)
+- `ThemeSelect` - Standalone theme select dropdown component
 - `ColorSchemeImage` - Image component that adapts to color scheme
 - `ColorSchemeToggle` - Toggle for light/dark mode
 - `Layout` - Layout components
+- `useThemeSwitcher` - Hook to access theme switcher context
 
 ### Material-UI Components
 

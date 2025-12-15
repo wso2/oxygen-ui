@@ -21,7 +21,8 @@ import React from "react";
 import {
   OxygenUIThemeProvider,
   OxygenTheme,
-  Experimental_CssVarsProvider as CssVarsProvider
+  Experimental_CssVarsProvider as CssVarsProvider,
+  OxygenThemeWithRadialBackground
 } from "../../oxygen-ui";
 import './docs.css';
 
@@ -55,7 +56,7 @@ export const decorators = [
     
     return (
       <CssVarsProvider theme={OxygenTheme} defaultMode={mode} mode={mode} key={mode}>
-        <OxygenUIThemeProvider radialBackground>
+        <OxygenUIThemeProvider theme={OxygenThemeWithRadialBackground}>
           <Story />
         </OxygenUIThemeProvider>
       </CssVarsProvider>

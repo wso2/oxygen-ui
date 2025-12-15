@@ -16,27 +16,29 @@
  * under the License.
  */
 
-import { Route, Routes } from 'react-router'
-import appRoutes from './config/appRoutes'
-import './App.css'
+import { Outlet } from 'react-router'
+import { Box, ColorSchemeToggle, Layout, Stack, ThemeSwitcher } from '@wso2/oxygen-ui'
+import type { JSX } from 'react'
 
-function App() {
+export default function DefaultLayout(): JSX.Element {
   return (
-    <Routes>
-      {appRoutes.map((route) => (
-        <Route key={route.path} path={route.path} element={route.element}>
-          {route.children?.map((child, index) => (
-            <Route
-              key={child.path || `index-${index}`}
-              index={child.index}
-              path={child.path}
-              element={child.element}
-            />
-          ))}
-        </Route>
-      ))}
-    </Routes>
-  )
+    <Layout.Content>
+      <Box sx={{ height: '100%' }}>
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{
+            position: 'fixed',
+            top: '2.3rem',
+            right: '3rem',
+            zIndex: 2
+          }}
+        >
+          <ThemeSwitcher />
+          <ColorSchemeToggle />
+        </Stack>
+        <Outlet />
+      </Box>
+    </Layout.Content>
+  );
 }
-
-export default App

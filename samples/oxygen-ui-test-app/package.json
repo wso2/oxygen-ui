@@ -13,7 +13,8 @@
     "@wso2/oxygen-ui": "workspace:*",
     "@wso2/oxygen-ui-icons-react": "workspace:*",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "react-router": "7.9.4"
   },
   "devDependencies": {
     "@eslint/js": "catalog:",
@@ -25,7 +26,7 @@
     "eslint-plugin-react-hooks": "catalog:",
     "eslint-plugin-react-refresh": "catalog:",
     "globals": "catalog:",
-    "rollup-plugin-visualizer": "^6.0.5",
+    "rollup-plugin-visualizer": "6.0.5",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:",
     "vite": "catalog:"

@@ -16,105 +16,72 @@
  * under the License.
  */
 
-import { createTheme, Theme } from '@mui/material/styles';
-import type { Shadows } from '@mui/material/styles';
+import { extendTheme } from '@mui/material/styles';
 import type {} from '@mui/x-data-grid/themeAugmentation';
 import { ChevronDown, X } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';
+import { pxToRem } from '../../utils';
 
-const noShadows = Array(25).fill('none') as Shadows;
-
-const OxygenThemePrimitives = {
+const primitives = {
   primary: {
-    color: 'linear-gradient(77.74deg, #e74420ff 11.16%, #fa7b3f 99.55%)',
-    colorHover: 'linear-gradient(77.74deg, #d04036ff 11.16%, #f2621f 99.55%)',
+    gradientColor: 'linear-gradient(77.74deg, #e74420ff 11.16%, #fa7b3f 99.55%)',
+    gradientColorHover: 'linear-gradient(77.74deg, #d04036ff 11.16%, #f2621f 99.55%)',
   },
 }
 
-export const RadialBodyBackgroundDesign = {
-  components: {
-    MuiCssBaseline: {
-      styleOverrides: {
-        "html[data-color-scheme='dark'] body": {
-          backgroundAttachment: 'fixed',
-          backgroundImage: `
-            radial-gradient(circle at 65% 30%, rgba(255, 116, 0, 0.15) 10%, rgba(0, 0, 0, 0) 60% 40%),
-            radial-gradient(circle at 15% 50%, rgba(74, 41, 165, 0.32) 1%, rgba(0, 0, 0, 0) 40% 70%),
-            radial-gradient(circle at center, rgba(0, 0, 0, 0.6) 0%, var(--mui-palette-background-default) 100%)
-          `,
-          backgroundBlendMode: 'screen',
-        },
-        "html[data-color-scheme='light'] body": {
-          backgroundAttachment: 'fixed',
-          backgroundImage: `
-            radial-gradient(circle at 65% 30%, rgba(255, 116, 0, 0.1) 10%, rgba(255, 255, 255, 0) 40% 40%),
-            radial-gradient(circle at 15% 50%, rgba(74, 41, 165, 0.1) 1%, rgba(255, 255, 255, 0) 40% 70%),
-            radial-gradient(circle at center, rgba(255, 255, 255, 0.6) 0%, var(--mui-palette-background-default) 100%)
-          `,
-          backgroundBlendMode: 'normal',
-        },
-      },
-    },
-  },
-};
-
-// Create a base theme to access pxToRem function
-const baseTheme = createTheme();
-
-const OxygenTheme: Theme = createTheme({
+const OxygenTheme = extendTheme({
+  cssVarPrefix: 'oxygen',
+  colorSchemeSelector: 'data-color-scheme',
   typography: {
     fontFamily: "'Inter Variable', sans-serif",
     fontWeightRegular: 400,
     fontSize: 14,
     h1: {
-      fontSize: baseTheme.typography.pxToRem(36),
+      fontSize: pxToRem(36),
       fontWeight: 400,
     },
     h2: {
-      fontSize: baseTheme.typography.pxToRem(30),
+      fontSize: pxToRem(30),
       fontWeight: 400,
     },
     h3: {
-      fontSize: baseTheme.typography.pxToRem(24),
+      fontSize: pxToRem(24),
       fontWeight: 400,
     },
     h4: {
-      fontSize: baseTheme.typography.pxToRem(18),
+      fontSize: pxToRem(18),
       fontWeight: 400,
     },
     h5: {
-      fontSize: baseTheme.typography.pxToRem(16),
+      fontSize: pxToRem(16),
       fontWeight: 400,
     },
     h6: {
-      fontSize: baseTheme.typography.pxToRem(14),
+      fontSize: pxToRem(14),
       fontWeight: 500,
     },
     subtitle1: {
-      fontSize: baseTheme.typography.pxToRem(18),
+      fontSize: pxToRem(18),
     },
     subtitle2: {
-      fontSize: baseTheme.typography.pxToRem(14),
+      fontSize: pxToRem(14),
       fontWeight: 400,
     },
     body1: {
-      fontSize: baseTheme.typography.pxToRem(14),
+      fontSize: pxToRem(14),
     },
     body2: {
-      fontSize: baseTheme.typography.pxToRem(14),
+      fontSize: pxToRem(14),
       fontWeight: 400,
     },
     caption: {
-      fontSize: baseTheme.typography.pxToRem(12),
+      fontSize: pxToRem(12),
       fontWeight: 400,
     },
   },
-  shadows: noShadows,
+  shadows: Array(25).fill('none') as any,
   shape: {
     borderRadius: 15,
-  },
-  cssVariables: {
-    colorSchemeSelector: 'data-color-scheme',
   },
   colorSchemes: {
     light: {
@@ -188,10 +155,10 @@ const OxygenTheme: Theme = createTheme({
         },
         containedPrimary: {
           '&:not(:disabled)': {
-            background: OxygenThemePrimitives.primary.color,
+            background: primitives.primary.gradientColor,
             color: '#fff',
             '&:hover': {
-              background: OxygenThemePrimitives.primary.colorHover,
+              background: primitives.primary.gradientColorHover,
               color: '#fff',
             },
           }
