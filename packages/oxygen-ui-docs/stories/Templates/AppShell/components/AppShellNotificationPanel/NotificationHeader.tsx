@@ -17,42 +17,79 @@
  */
 
 import * as React from 'react';
-import { Box, Typography, IconButton, Chip } from '@wso2/oxygen-ui';
+import { Box } from '@wso2/oxygen-ui';
 import type { SxProps, Theme } from '@wso2/oxygen-ui';
-import { X, Bell } from '@wso2/oxygen-ui-icons-react';
-import { useAppShellNotificationPanel } from './context';
+import { NotificationHeaderIcon } from './NotificationHeaderIcon';
+import { NotificationHeaderTitle } from './NotificationHeaderTitle';
+import { NotificationHeaderBadge } from './NotificationHeaderBadge';
+import { NotificationHeaderClose } from './NotificationHeaderClose';
+
+// Child display names for detection
+const CHILD_DISPLAY_NAMES = [
+  'NotificationHeaderIcon',
+  'NotificationHeaderTitle',
+  'NotificationHeaderBadge',
+  'NotificationHeaderClose',
+];
 
 /**
  * Props for NotificationHeader component.
  */
 export interface NotificationHeaderProps {
-  /** Title text */
-  title?: string;
-  /** Unread count to display */
-  unreadCount?: number;
-  /** Whether to show close button */
-  showCloseButton?: boolean;
+  /** Composable children (HeaderIcon, HeaderTitle, HeaderBadge, HeaderClose) */
+  children: React.ReactNode;
   /** Additional sx props */
   sx?: SxProps<Theme>;
 }
 
 /**
+ * Separates children by type for proper layout.
+ */
+const separateChildren = (children: React.ReactNode): {
+  leftChildren: React.ReactNode[];
+  closeChild: React.ReactNode;
+} => {
+  const leftChildren: React.ReactNode[] = [];
+  let closeChild: React.ReactNode = null;
+
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement(child)) {
+      const displayName = (child.type as React.FC)?.displayName;
+      if (displayName === 'NotificationHeaderClose') {
+        closeChild = child;
+      } else {
+        leftChildren.push(child);
+      }
+    } else {
+      leftChildren.push(child);
+    }
+  });
+
+  return { leftChildren, closeChild };
+};
+
+/**
  * NotificationHeader - Header section of the notification panel.
  *
- * Displays the panel title with an optional unread count badge
- * and close button.
+ * Uses composable children API:
+ * ```tsx
+ * <AppShellNotificationPanel.Header>
+ *   <AppShellNotificationPanel.HeaderIcon><Bell size={20} /></AppShellNotificationPanel.HeaderIcon>
+ *   <AppShellNotificationPanel.HeaderTitle>Notifications</AppShellNotificationPanel.HeaderTitle>
+ *   <AppShellNotificationPanel.HeaderBadge>5</AppShellNotificationPanel.HeaderBadge>
+ *   <AppShellNotificationPanel.HeaderClose />
+ * </AppShellNotificationPanel.Header>
+ * ```
  *
  * Theme tokens used:
  * - `divider` - Bottom border
  * - `primary` - Unread count chip color (via Chip color="primary")
  */
 export const NotificationHeader: React.FC<NotificationHeaderProps> = ({
-  title = 'Notifications',
-  unreadCount = 0,
-  showCloseButton = true,
+  children,
   sx,
 }) => {
-  const { onClose } = useAppShellNotificationPanel();
+  const { leftChildren, closeChild } = separateChildren(children);
 
   return (
     <Box
@@ -67,26 +104,25 @@ export const NotificationHeader: React.FC<NotificationHeaderProps> = ({
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <Bell size={20} />
-        <Typography variant="h6" sx={{ fontWeight: 600 }}>
-          {title}
-        </Typography>
-        {unreadCount > 0 && (
-          <Chip
-            label={unreadCount}
-            size="small"
-            color="primary"
-            sx={{ height: 20, fontSize: 11 }}
-          />
-        )}
+        {leftChildren}
       </Box>
-      {showCloseButton && (
-        <IconButton onClick={onClose} size="small">
-          <X size={20} />
-        </IconButton>
-      )}
+      {closeChild}
     </Box>
   );
 };
+
+// Add display name
+NotificationHeader.displayName = 'NotificationHeader';
+
+export {
+  NotificationHeaderIcon,
+  NotificationHeaderTitle,
+  NotificationHeaderBadge,
+  NotificationHeaderClose,
+};
+export type { NotificationHeaderIconProps } from './NotificationHeaderIcon';
+export type { NotificationHeaderTitleProps } from './NotificationHeaderTitle';
+export type { NotificationHeaderBadgeProps } from './NotificationHeaderBadge';
+export type { NotificationHeaderCloseProps } from './NotificationHeaderClose';
 
 export default NotificationHeader;

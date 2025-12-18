@@ -19,45 +19,41 @@
 import * as React from 'react';
 import { Box } from '@wso2/oxygen-ui';
 import type { SxProps, Theme } from '@wso2/oxygen-ui';
-import { AppShellHeaderBrandLogo } from './AppShellHeaderBrandLogo';
-import { AppShellHeaderBrandTitle } from './AppShellHeaderBrandTitle';
 
 /**
- * Props for AppShellHeaderBrand component.
+ * Props for AppShellHeaderBrandLogo component.
  */
-export interface AppShellHeaderBrandProps {
-  /** Click handler for brand area */
-  onClick?: () => void;
-  /** Child components (BrandLogo, BrandTitle) */
+export interface AppShellHeaderBrandLogoProps {
+  /** Logo element to display */
   children: React.ReactNode;
   /** Additional sx props */
   sx?: SxProps<Theme>;
 }
 
 /**
- * AppShellHeaderBrand - Logo and title section for the header.
+ * AppShellHeaderBrandLogo - Logo container for the header brand.
  *
- * Uses composable children API:
+ * Wraps your logo element with proper alignment and sizing.
+ * Use as a child of AppShellHeader.Brand for composable branding.
+ *
+ * @example
  * ```tsx
  * <AppShellHeader.Brand>
- *   <AppShellHeader.BrandLogo><Logo /></AppShellHeader.BrandLogo>
- *   <AppShellHeader.BrandTitle>Dashboard</AppShellHeader.BrandTitle>
+ *   <AppShellHeader.BrandLogo>
+ *     <MyLogo />
+ *   </AppShellHeader.BrandLogo>
  * </AppShellHeader.Brand>
  * ```
  */
-export const AppShellHeaderBrand: React.FC<AppShellHeaderBrandProps> = ({
-  onClick,
+export const AppShellHeaderBrandLogo: React.FC<AppShellHeaderBrandLogoProps> = ({
   children,
   sx,
 }) => {
   return (
     <Box
-      onClick={onClick}
       sx={{
         display: 'flex',
         alignItems: 'center',
-        ml: 1,
-        cursor: onClick ? 'pointer' : 'default',
         ...sx,
       }}
     >
@@ -66,10 +62,7 @@ export const AppShellHeaderBrand: React.FC<AppShellHeaderBrandProps> = ({
   );
 };
 
-AppShellHeaderBrand.displayName = 'AppShellHeaderBrand';
+// Add display name for child detection
+AppShellHeaderBrandLogo.displayName = 'AppShellHeaderBrandLogo';
 
-export { AppShellHeaderBrandLogo, AppShellHeaderBrandTitle };
-export type { AppShellHeaderBrandLogoProps } from './AppShellHeaderBrandLogo';
-export type { AppShellHeaderBrandTitleProps } from './AppShellHeaderBrandTitle';
-
-export default AppShellHeaderBrand;
+export default AppShellHeaderBrandLogo;

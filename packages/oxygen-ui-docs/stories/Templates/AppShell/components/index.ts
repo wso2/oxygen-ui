@@ -41,12 +41,17 @@ export {
   AppShellHeaderSwitchers,
   AppShellHeaderActions,
   useAppShellHeader,
+  // Brand sub-components for composable API
+  AppShellHeaderBrandLogo,
+  AppShellHeaderBrandTitle,
 } from './AppShellHeader';
 export type {
   AppShellHeaderToggleProps,
   AppShellHeaderBrandProps,
   AppShellHeaderSwitchersProps,
   AppShellHeaderActionsProps,
+  AppShellHeaderBrandLogoProps,
+  AppShellHeaderBrandTitleProps,
 } from './AppShellHeader';
 
 // AppShellSidebar - Composable sidebar component
@@ -59,6 +64,17 @@ export {
   AppShellSidebarFooter,
   AppShellSidebarUser,
   useAppShellSidebar,
+  // Category sub-components for composable API
+  AppShellSidebarCategoryLabel,
+  // Item sub-components for composable API
+  AppShellSidebarItemIcon,
+  AppShellSidebarItemLabel,
+  AppShellSidebarItemBadge,
+  useAppShellSidebarItemContext,
+  // User sub-components for composable API
+  AppShellSidebarUserAvatar,
+  AppShellSidebarUserName,
+  AppShellSidebarUserEmail,
 } from './AppShellSidebar';
 export type {
   AppShellSidebarNavProps,
@@ -66,6 +82,14 @@ export type {
   AppShellSidebarItemProps,
   AppShellSidebarFooterProps,
   AppShellSidebarUserProps,
+  AppShellSidebarCategoryLabelProps,
+  AppShellSidebarItemIconProps,
+  AppShellSidebarItemLabelProps,
+  AppShellSidebarItemBadgeProps,
+  AppShellSidebarItemContextValue,
+  AppShellSidebarUserAvatarProps,
+  AppShellSidebarUserNameProps,
+  AppShellSidebarUserEmailProps,
 } from './AppShellSidebar';
 
 // AppShellNotificationPanel - Composable notification panel
@@ -80,6 +104,18 @@ export {
   NotificationEmptyState,
   useAppShellNotificationPanel,
   getNotificationTypeProps,
+  // Header sub-components for composable API
+  NotificationHeaderIcon,
+  NotificationHeaderTitle,
+  NotificationHeaderBadge,
+  NotificationHeaderClose,
+  // Item sub-components for composable API
+  NotificationItemAvatar,
+  NotificationItemTitle,
+  NotificationItemMessage,
+  NotificationItemTimestamp,
+  NotificationItemAction,
+  useNotificationItemContext,
 } from './AppShellNotificationPanel';
 export type {
   NotificationHeaderProps,
@@ -91,6 +127,16 @@ export type {
   NotificationEmptyStateProps,
   NotificationType,
   NotificationTypeProps,
+  NotificationHeaderIconProps,
+  NotificationHeaderTitleProps,
+  NotificationHeaderBadgeProps,
+  NotificationHeaderCloseProps,
+  NotificationItemAvatarProps,
+  NotificationItemTitleProps,
+  NotificationItemMessageProps,
+  NotificationItemTimestampProps,
+  NotificationItemActionProps,
+  NotificationItemContextValue,
 } from './AppShellNotificationPanel';
 
 // =============================================================================

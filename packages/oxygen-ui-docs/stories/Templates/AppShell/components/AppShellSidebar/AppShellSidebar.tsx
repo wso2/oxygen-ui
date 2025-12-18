@@ -21,10 +21,23 @@ import { Box } from '@wso2/oxygen-ui';
 import type { SxProps, Theme } from '@wso2/oxygen-ui';
 import { AppShellSidebarContext } from './context';
 import { AppShellSidebarNav } from './AppShellSidebarNav';
-import { AppShellSidebarCategory } from './AppShellSidebarCategory';
-import { AppShellSidebarItem } from './AppShellSidebarItem';
+import {
+  AppShellSidebarCategory,
+  AppShellSidebarCategoryLabel,
+} from './AppShellSidebarCategory';
+import {
+  AppShellSidebarItem,
+  AppShellSidebarItemIcon,
+  AppShellSidebarItemLabel,
+  AppShellSidebarItemBadge,
+} from './AppShellSidebarItem';
 import { AppShellSidebarFooter } from './AppShellSidebarFooter';
-import { AppShellSidebarUser } from './AppShellSidebarUser';
+import {
+  AppShellSidebarUser,
+  AppShellSidebarUserAvatar,
+  AppShellSidebarUserName,
+  AppShellSidebarUserEmail,
+} from './AppShellSidebarUser';
 
 /**
  * Theme tokens used in this component:
@@ -172,9 +185,16 @@ const AppShellSidebarRoot: React.FC<AppShellSidebarProps> = ({
 export const AppShellSidebar = Object.assign(AppShellSidebarRoot, {
   Nav: AppShellSidebarNav,
   Category: AppShellSidebarCategory,
+  CategoryLabel: AppShellSidebarCategoryLabel,
   Item: AppShellSidebarItem,
+  ItemIcon: AppShellSidebarItemIcon,
+  ItemLabel: AppShellSidebarItemLabel,
+  ItemBadge: AppShellSidebarItemBadge,
   Footer: AppShellSidebarFooter,
   User: AppShellSidebarUser,
+  UserAvatar: AppShellSidebarUserAvatar,
+  UserName: AppShellSidebarUserName,
+  UserEmail: AppShellSidebarUserEmail,
 });
 
 export default AppShellSidebar;

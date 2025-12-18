@@ -22,16 +22,27 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Collapse,
   Tooltip,
-  Badge,
 } from '@wso2/oxygen-ui';
 import type { SxProps, Theme } from '@wso2/oxygen-ui';
 import { ChevronDown, ChevronUp } from '@wso2/oxygen-ui-icons-react';
-import type { LucideIcon } from '@wso2/oxygen-ui-icons-react';
 import { useAppShellSidebar } from './context';
+import {
+  AppShellSidebarItemContext,
+  AppShellSidebarItemProvider,
+  type AppShellSidebarItemContextValue,
+} from './AppShellSidebarItemContext';
+import { AppShellSidebarItemIcon } from './AppShellSidebarItemIcon';
+import { AppShellSidebarItemLabel } from './AppShellSidebarItemLabel';
+import { AppShellSidebarItemBadge } from './AppShellSidebarItemBadge';
+
+// Child display names for detection
+const CHILD_DISPLAY_NAMES = [
+  'AppShellSidebarItemIcon',
+  'AppShellSidebarItemLabel',
+  'AppShellSidebarItemBadge',
+];
 
 /**
  * Props for AppShellSidebarItem component.
@@ -39,14 +50,8 @@ import { useAppShellSidebar } from './context';
 export interface AppShellSidebarItemProps {
   /** Unique identifier for this item */
   id: string;
-  /** Item label */
-  label: string;
-  /** Icon component (from @wso2/oxygen-ui-icons-react) */
-  icon: LucideIcon;
-  /** Badge content (optional) */
-  badge?: number | string;
-  /** Nested items */
-  children?: React.ReactNode;
+  /** Composable children (ItemIcon, ItemLabel, ItemBadge) and nested items */
+  children: React.ReactNode;
   /** Nesting depth (used internally) */
   depth?: number;
   /** Additional sx props */
@@ -54,10 +59,59 @@ export interface AppShellSidebarItemProps {
 }
 
 /**
+ * Separates composable children from nested items.
+ */
+const separateChildren = (children: React.ReactNode): {
+  composableChildren: React.ReactNode[];
+  nestedItems: React.ReactNode[];
+} => {
+  const composableChildren: React.ReactNode[] = [];
+  const nestedItems: React.ReactNode[] = [];
+
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement(child)) {
+      const displayName = (child.type as React.FC)?.displayName;
+      if (displayName && CHILD_DISPLAY_NAMES.includes(displayName)) {
+        composableChildren.push(child);
+      } else {
+        nestedItems.push(child);
+      }
+    } else {
+      nestedItems.push(child);
+    }
+  });
+
+  return { composableChildren, nestedItems };
+};
+
+/**
+ * Gets the label for tooltip from children.
+ */
+const getTooltipLabel = (children: React.ReactNode): string => {
+  let tooltipLabel = '';
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement(child)) {
+      const displayName = (child.type as React.FC)?.displayName;
+      if (displayName === 'AppShellSidebarItemLabel' && child.props.children) {
+        tooltipLabel = String(child.props.children);
+      }
+    }
+  });
+  return tooltipLabel;
+};
+
+/**
  * AppShellSidebarItem - Individual navigation menu item.
  *
- * Supports nested children with collapsible sub-menus. When the sidebar
- * is collapsed, shows tooltips on hover.
+ * Uses composable children API:
+ * ```tsx
+ * <AppShellSidebar.Item id="home">
+ *   <AppShellSidebar.ItemIcon><Home size={20} /></AppShellSidebar.ItemIcon>
+ *   <AppShellSidebar.ItemLabel>Home</AppShellSidebar.ItemLabel>
+ *   <AppShellSidebar.ItemBadge>3</AppShellSidebar.ItemBadge>
+ *   {nestedItems}
+ * </AppShellSidebar.Item>
+ * ```
  *
  * Theme tokens used:
  * - `action.selected` - Active item background
@@ -65,29 +119,39 @@ export interface AppShellSidebarItemProps {
  */
 export const AppShellSidebarItem: React.FC<AppShellSidebarItemProps> = ({
   id,
-  label,
-  icon: Icon,
-  badge,
   children,
   depth = 0,
   sx,
 }) => {
   const { collapsed, activeItem, expandedMenus, onSelect, onToggleExpand } = useAppShellSidebar();
-  const hasChildren = React.Children.count(children) > 0;
+  const { composableChildren, nestedItems } = separateChildren(children);
+
+  const hasNestedItems = nestedItems.length > 0;
   const isActive = activeItem === id;
   const isExpanded = expandedMenus[id] || false;
 
+  // Create context value for child components
+  const contextValue: AppShellSidebarItemContextValue = {
+    id,
+    isActive,
+    isExpanded,
+    hasChildren: hasNestedItems,
+    depth,
+  };
+
   const handleClick = () => {
-    if (hasChildren) {
+    if (hasNestedItems) {
       onToggleExpand?.(id);
     } else {
       onSelect?.(id);
     }
   };
 
+  const tooltipLabel = getTooltipLabel(children);
+
   const buttonContent = (
     <ListItemButton
-      selected={isActive && !hasChildren}
+      selected={isActive && !hasNestedItems}
       onClick={handleClick}
       sx={{
         minHeight: 44,
@@ -105,38 +169,14 @@ export const AppShellSidebarItem: React.FC<AppShellSidebarItemProps> = ({
         ...sx,
       }}
     >
-      <ListItemIcon
-        sx={{
-          minWidth: 0,
-          mr: collapsed ? 0 : 2,
-          justifyContent: 'center',
-          color: isActive ? 'primary.main' : 'inherit',
-        }}
-      >
-        {badge ? (
-          <Badge badgeContent={badge} color="error" max={99}>
-            <Icon size={20} />
-          </Badge>
-        ) : (
-          <Icon size={20} />
+      <AppShellSidebarItemProvider value={contextValue}>
+        {composableChildren}
+        {!collapsed && hasNestedItems && (
+          <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center' }}>
+            {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+          </Box>
         )}
-      </ListItemIcon>
-      {!collapsed && (
-        <>
-          <ListItemText
-            primary={label}
-            primaryTypographyProps={{
-              fontSize: 14,
-              fontWeight: isActive ? 600 : 400,
-            }}
-          />
-          {hasChildren && (
-            <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center' }}>
-              {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-            </Box>
-          )}
-        </>
-      )}
+      </AppShellSidebarItemProvider>
     </ListItemButton>
   );
 
@@ -144,7 +184,7 @@ export const AppShellSidebarItem: React.FC<AppShellSidebarItemProps> = ({
     <>
       <ListItem disablePadding sx={{ display: 'block' }}>
         {collapsed ? (
-          <Tooltip title={label} placement="right" arrow>
+          <Tooltip title={tooltipLabel} placement="right" arrow>
             {buttonContent}
           </Tooltip>
         ) : (
@@ -153,12 +193,15 @@ export const AppShellSidebarItem: React.FC<AppShellSidebarItemProps> = ({
       </ListItem>
 
       {/* Nested children - only shown when not collapsed */}
-      {hasChildren && !collapsed && (
+      {hasNestedItems && !collapsed && (
         <Collapse in={isExpanded} timeout="auto" unmountOnExit>
           <List disablePadding>
-            {React.Children.map(children, (child) => {
+            {nestedItems.map((child, index) => {
               if (React.isValidElement<AppShellSidebarItemProps>(child)) {
-                return React.cloneElement(child, { depth: depth + 1 });
+                return React.cloneElement(child, {
+                  key: child.key || index,
+                  depth: depth + 1
+                });
               }
               return child;
             })}
@@ -168,5 +211,20 @@ export const AppShellSidebarItem: React.FC<AppShellSidebarItemProps> = ({
     </>
   );
 };
+
+AppShellSidebarItem.displayName = 'AppShellSidebarItem';
+
+export {
+  AppShellSidebarItemIcon,
+  AppShellSidebarItemLabel,
+  AppShellSidebarItemBadge,
+  AppShellSidebarItemContext,
+  AppShellSidebarItemProvider,
+};
+export { useAppShellSidebarItemContext } from './AppShellSidebarItemContext';
+export type { AppShellSidebarItemContextValue } from './AppShellSidebarItemContext';
+export type { AppShellSidebarItemIconProps } from './AppShellSidebarItemIcon';
+export type { AppShellSidebarItemLabelProps } from './AppShellSidebarItemLabel';
+export type { AppShellSidebarItemBadgeProps } from './AppShellSidebarItemBadge';
 
 export default AppShellSidebarItem;

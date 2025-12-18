@@ -21,7 +21,11 @@ import { AppBar, Toolbar, Box } from '@wso2/oxygen-ui';
 import type { SxProps, Theme } from '@wso2/oxygen-ui';
 import { AppShellHeaderContext } from './context';
 import { AppShellHeaderToggle } from './AppShellHeaderToggle';
-import { AppShellHeaderBrand } from './AppShellHeaderBrand';
+import {
+  AppShellHeaderBrand,
+  AppShellHeaderBrandLogo,
+  AppShellHeaderBrandTitle,
+} from './AppShellHeaderBrand';
 import { AppShellHeaderSwitchers } from './AppShellHeaderSwitchers';
 import { AppShellHeaderActions } from './AppShellHeaderActions';
 
@@ -133,6 +137,8 @@ const AppShellHeaderSpacer: React.FC<{ sx?: SxProps<Theme> }> = ({ sx }) => (
 export const AppShellHeader = Object.assign(AppShellHeaderRoot, {
   Toggle: AppShellHeaderToggle,
   Brand: AppShellHeaderBrand,
+  BrandLogo: AppShellHeaderBrandLogo,
+  BrandTitle: AppShellHeaderBrandTitle,
   Switchers: AppShellHeaderSwitchers,
   Actions: AppShellHeaderActions,
   Spacer: AppShellHeaderSpacer,

@@ -22,6 +22,19 @@ export type { AppShellNotificationPanelProps } from './AppShellNotificationPanel
 export { NotificationHeader } from './NotificationHeader';
 export type { NotificationHeaderProps } from './NotificationHeader';
 
+// Header sub-components for composable API
+export { NotificationHeaderIcon } from './NotificationHeaderIcon';
+export type { NotificationHeaderIconProps } from './NotificationHeaderIcon';
+
+export { NotificationHeaderTitle } from './NotificationHeaderTitle';
+export type { NotificationHeaderTitleProps } from './NotificationHeaderTitle';
+
+export { NotificationHeaderBadge } from './NotificationHeaderBadge';
+export type { NotificationHeaderBadgeProps } from './NotificationHeaderBadge';
+
+export { NotificationHeaderClose } from './NotificationHeaderClose';
+export type { NotificationHeaderCloseProps } from './NotificationHeaderClose';
+
 export { NotificationTabs } from './NotificationTabs';
 export type { NotificationTabsProps, NotificationTabConfig } from './NotificationTabs';
 
@@ -33,6 +46,29 @@ export type { NotificationListProps } from './NotificationList';
 
 export { NotificationItem } from './NotificationItem';
 export type { NotificationItemProps } from './NotificationItem';
+
+// Item sub-components for composable API
+export { NotificationItemAvatar } from './NotificationItemAvatar';
+export type { NotificationItemAvatarProps } from './NotificationItemAvatar';
+
+export { NotificationItemTitle } from './NotificationItemTitle';
+export type { NotificationItemTitleProps } from './NotificationItemTitle';
+
+export { NotificationItemMessage } from './NotificationItemMessage';
+export type { NotificationItemMessageProps } from './NotificationItemMessage';
+
+export { NotificationItemTimestamp } from './NotificationItemTimestamp';
+export type { NotificationItemTimestampProps } from './NotificationItemTimestamp';
+
+export { NotificationItemAction } from './NotificationItemAction';
+export type { NotificationItemActionProps } from './NotificationItemAction';
+
+export {
+  NotificationItemContext,
+  NotificationItemProvider,
+  useNotificationItemContext,
+} from './NotificationItemContext';
+export type { NotificationItemContextValue } from './NotificationItemContext';
 
 export { NotificationEmptyState } from './NotificationEmptyState';
 export type { NotificationEmptyStateProps } from './NotificationEmptyState';

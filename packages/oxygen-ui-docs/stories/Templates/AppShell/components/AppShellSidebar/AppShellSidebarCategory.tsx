@@ -17,62 +17,79 @@
  */
 
 import * as React from 'react';
-import { Box, List, Typography } from '@wso2/oxygen-ui';
+import { Box, List } from '@wso2/oxygen-ui';
 import type { SxProps, Theme } from '@wso2/oxygen-ui';
-import { useAppShellSidebar } from './context';
+import { AppShellSidebarCategoryLabel } from './AppShellSidebarCategoryLabel';
 
 /**
  * Props for AppShellSidebarCategory component.
  */
 export interface AppShellSidebarCategoryProps {
-  /** Category label (hidden when collapsed) */
-  label?: string;
-  /** Navigation items in this category */
+  /** Category label and navigation items */
   children: React.ReactNode;
   /** Additional sx props */
   sx?: SxProps<Theme>;
 }
 
 /**
+ * Separates CategoryLabel children from other children.
+ */
+const separateChildren = (children: React.ReactNode): {
+  labelChild: React.ReactNode;
+  otherChildren: React.ReactNode[];
+} => {
+  let labelChild: React.ReactNode = null;
+  const otherChildren: React.ReactNode[] = [];
+
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement(child)) {
+      const displayName = (child.type as React.FC)?.displayName;
+      if (displayName === 'AppShellSidebarCategoryLabel') {
+        labelChild = child;
+      } else {
+        otherChildren.push(child);
+      }
+    } else {
+      otherChildren.push(child);
+    }
+  });
+
+  return { labelChild, otherChildren };
+};
+
+/**
  * AppShellSidebarCategory - Groups navigation items under a label.
  *
- * The label is hidden when the sidebar is collapsed. Use this to
- * organize navigation items into logical sections.
+ * Uses composable children API:
+ * ```tsx
+ * <AppShellSidebar.Category>
+ *   <AppShellSidebar.CategoryLabel>Main</AppShellSidebar.CategoryLabel>
+ *   <AppShellSidebar.Item id="home">...</AppShellSidebar.Item>
+ * </AppShellSidebar.Category>
+ * ```
  *
  * Theme tokens used:
  * - `text.secondary` - Category label color
  */
 export const AppShellSidebarCategory: React.FC<AppShellSidebarCategoryProps> = ({
-  label,
   children,
   sx,
 }) => {
-  const { collapsed } = useAppShellSidebar();
+  const { labelChild, otherChildren } = separateChildren(children);
 
   return (
     <Box sx={{ mb: 1, ...sx }}>
-      {label && !collapsed && (
-        <Typography
-          variant="caption"
-          sx={{
-            px: 3,
-            py: 1,
-            display: 'block',
-            color: 'text.secondary',
-            fontWeight: 600,
-            textTransform: 'uppercase',
-            letterSpacing: '0.5px',
-            fontSize: 11,
-          }}
-        >
-          {label}
-        </Typography>
-      )}
+      {labelChild}
       <List disablePadding>
-        {children}
+        {otherChildren}
       </List>
     </Box>
   );
 };
+
+AppShellSidebarCategory.displayName = 'AppShellSidebarCategory';
+
+export { AppShellSidebarCategoryLabel };
+export type { AppShellSidebarCategoryLabelProps } from './AppShellSidebarCategoryLabel';
 
 export default AppShellSidebarCategory;

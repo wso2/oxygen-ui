@@ -69,8 +69,26 @@ import {
   formatRelativeTime,
   // Compound Components
   AppShellHeader,
+  AppShellHeaderBrandLogo,
+  AppShellHeaderBrandTitle,
   AppShellSidebar,
+  AppShellSidebarCategoryLabel,
+  AppShellSidebarItemIcon,
+  AppShellSidebarItemLabel,
+  AppShellSidebarItemBadge,
+  AppShellSidebarUserAvatar,
+  AppShellSidebarUserName,
+  AppShellSidebarUserEmail,
   AppShellNotificationPanel,
+  NotificationHeaderIcon,
+  NotificationHeaderTitle,
+  NotificationHeaderBadge,
+  NotificationHeaderClose,
+  NotificationItemAvatar,
+  NotificationItemTitle,
+  NotificationItemMessage,
+  NotificationItemTimestamp,
+  NotificationItemAction,
   // Standalone Components
   AppShellSwitcher,
   AppShellUserMenu,
@@ -348,7 +366,10 @@ export const Playground: Story = {
               collapsed={state.sidebarCollapsed}
               onToggle={actions.toggleSidebar}
             />
-            <AppShellHeader.Brand logo={<Logo />} title="Oxygen UI" />
+            <AppShellHeader.Brand>
+              <AppShellHeader.BrandLogo><Logo /></AppShellHeader.BrandLogo>
+              <AppShellHeader.BrandTitle>Oxygen UI</AppShellHeader.BrandTitle>
+            </AppShellHeader.Brand>
             <AppShellHeader.Switchers>
               {state.selectedOrg && (
                 <AppShellSwitcher
@@ -430,53 +451,112 @@ export const Playground: Story = {
               <AppShellSidebar.Nav>
                 {/* Main Navigation */}
                 <AppShellSidebar.Category>
-                  <AppShellSidebar.Item id="dashboard" label="Dashboard" icon={Home} />
-                  <AppShellSidebar.Item id="analytics" label="Analytics" icon={BarChart3}>
-                    <AppShellSidebar.Item id="analytics-overview" label="Overview" icon={PieChart} />
-                    <AppShellSidebar.Item id="analytics-reports" label="Reports" icon={FileText} />
-                    <AppShellSidebar.Item id="analytics-realtime" label="Real-time" icon={Activity} />
-                    <AppShellSidebar.Item id="analytics-trends" label="Trends" icon={TrendingUp} />
+                  <AppShellSidebar.Item id="dashboard">
+                    <AppShellSidebar.ItemIcon><Home size={20} /></AppShellSidebar.ItemIcon>
+                    <AppShellSidebar.ItemLabel>Dashboard</AppShellSidebar.ItemLabel>
+                  </AppShellSidebar.Item>
+                  <AppShellSidebar.Item id="analytics">
+                    <AppShellSidebar.ItemIcon><BarChart3 size={20} /></AppShellSidebar.ItemIcon>
+                    <AppShellSidebar.ItemLabel>Analytics</AppShellSidebar.ItemLabel>
+                    <AppShellSidebar.Item id="analytics-overview">
+                      <AppShellSidebar.ItemIcon><PieChart size={20} /></AppShellSidebar.ItemIcon>
+                      <AppShellSidebar.ItemLabel>Overview</AppShellSidebar.ItemLabel>
+                    </AppShellSidebar.Item>
+                    <AppShellSidebar.Item id="analytics-reports">
+                      <AppShellSidebar.ItemIcon><FileText size={20} /></AppShellSidebar.ItemIcon>
+                      <AppShellSidebar.ItemLabel>Reports</AppShellSidebar.ItemLabel>
+                    </AppShellSidebar.Item>
+                    <AppShellSidebar.Item id="analytics-realtime">
+                      <AppShellSidebar.ItemIcon><Activity size={20} /></AppShellSidebar.ItemIcon>
+                      <AppShellSidebar.ItemLabel>Real-time</AppShellSidebar.ItemLabel>
+                    </AppShellSidebar.Item>
+                    <AppShellSidebar.Item id="analytics-trends">
+                      <AppShellSidebar.ItemIcon><TrendingUp size={20} /></AppShellSidebar.ItemIcon>
+                      <AppShellSidebar.ItemLabel>Trends</AppShellSidebar.ItemLabel>
+                    </AppShellSidebar.Item>
                   </AppShellSidebar.Item>
                 </AppShellSidebar.Category>
 
                 {/* Management */}
-                <AppShellSidebar.Category label="Management">
-                  <AppShellSidebar.Item id="users" label="Users" icon={Users} badge={3}>
-                    <AppShellSidebar.Item id="users-list" label="All Users" icon={Users} />
-                    <AppShellSidebar.Item id="users-roles" label="Roles" icon={UserCog} />
-                    <AppShellSidebar.Item id="users-permissions" label="Permissions" icon={Lock} />
+                <AppShellSidebar.Category>
+                  <AppShellSidebar.CategoryLabel>Management</AppShellSidebar.CategoryLabel>
+                  <AppShellSidebar.Item id="users">
+                    <AppShellSidebar.ItemIcon><Users size={20} /></AppShellSidebar.ItemIcon>
+                    <AppShellSidebar.ItemLabel>Users</AppShellSidebar.ItemLabel>
+                    <AppShellSidebar.ItemBadge>3</AppShellSidebar.ItemBadge>
+                    <AppShellSidebar.Item id="users-list">
+                      <AppShellSidebar.ItemIcon><Users size={20} /></AppShellSidebar.ItemIcon>
+                      <AppShellSidebar.ItemLabel>All Users</AppShellSidebar.ItemLabel>
+                    </AppShellSidebar.Item>
+                    <AppShellSidebar.Item id="users-roles">
+                      <AppShellSidebar.ItemIcon><UserCog size={20} /></AppShellSidebar.ItemIcon>
+                      <AppShellSidebar.ItemLabel>Roles</AppShellSidebar.ItemLabel>
+                    </AppShellSidebar.Item>
+                    <AppShellSidebar.Item id="users-permissions">
+                      <AppShellSidebar.ItemIcon><Lock size={20} /></AppShellSidebar.ItemIcon>
+                      <AppShellSidebar.ItemLabel>Permissions</AppShellSidebar.ItemLabel>
+                    </AppShellSidebar.Item>
                   </AppShellSidebar.Item>
-                  <AppShellSidebar.Item id="projects" label="Projects" icon={FolderOpen} />
-                  <AppShellSidebar.Item id="integrations" label="Integrations" icon={Layers} />
+                  <AppShellSidebar.Item id="projects">
+                    <AppShellSidebar.ItemIcon><FolderOpen size={20} /></AppShellSidebar.ItemIcon>
+                    <AppShellSidebar.ItemLabel>Projects</AppShellSidebar.ItemLabel>
+                  </AppShellSidebar.Item>
+                  <AppShellSidebar.Item id="integrations">
+                    <AppShellSidebar.ItemIcon><Layers size={20} /></AppShellSidebar.ItemIcon>
+                    <AppShellSidebar.ItemLabel>Integrations</AppShellSidebar.ItemLabel>
+                  </AppShellSidebar.Item>
                 </AppShellSidebar.Category>
 
                 {/* Infrastructure */}
-                <AppShellSidebar.Category label="Infrastructure">
-                  <AppShellSidebar.Item id="security" label="Security" icon={Shield}>
-                    <AppShellSidebar.Item id="security-overview" label="Overview" icon={Shield} />
-                    <AppShellSidebar.Item id="security-api-keys" label="API Keys" icon={Key} />
+                <AppShellSidebar.Category>
+                  <AppShellSidebar.CategoryLabel>Infrastructure</AppShellSidebar.CategoryLabel>
+                  <AppShellSidebar.Item id="security">
+                    <AppShellSidebar.ItemIcon><Shield size={20} /></AppShellSidebar.ItemIcon>
+                    <AppShellSidebar.ItemLabel>Security</AppShellSidebar.ItemLabel>
+                    <AppShellSidebar.Item id="security-overview">
+                      <AppShellSidebar.ItemIcon><Shield size={20} /></AppShellSidebar.ItemIcon>
+                      <AppShellSidebar.ItemLabel>Overview</AppShellSidebar.ItemLabel>
+                    </AppShellSidebar.Item>
+                    <AppShellSidebar.Item id="security-api-keys">
+                      <AppShellSidebar.ItemIcon><Key size={20} /></AppShellSidebar.ItemIcon>
+                      <AppShellSidebar.ItemLabel>API Keys</AppShellSidebar.ItemLabel>
+                    </AppShellSidebar.Item>
                   </AppShellSidebar.Item>
-                  <AppShellSidebar.Item id="databases" label="Databases" icon={Database} />
-                  <AppShellSidebar.Item id="domains" label="Domains" icon={Globe} />
+                  <AppShellSidebar.Item id="databases">
+                    <AppShellSidebar.ItemIcon><Database size={20} /></AppShellSidebar.ItemIcon>
+                    <AppShellSidebar.ItemLabel>Databases</AppShellSidebar.ItemLabel>
+                  </AppShellSidebar.Item>
+                  <AppShellSidebar.Item id="domains">
+                    <AppShellSidebar.ItemIcon><Globe size={20} /></AppShellSidebar.ItemIcon>
+                    <AppShellSidebar.ItemLabel>Domains</AppShellSidebar.ItemLabel>
+                  </AppShellSidebar.Item>
                 </AppShellSidebar.Category>
               </AppShellSidebar.Nav>
 
               {/* Settings Footer */}
               <AppShellSidebar.Footer>
                 <AppShellSidebar.Category>
-                  <AppShellSidebar.Item id="settings" label="Settings" icon={Settings} />
-                  <AppShellSidebar.Item id="notifications-settings" label="Notifications" icon={Bell} />
-                  <AppShellSidebar.Item id="help" label="Help & Support" icon={HelpCircle} />
+                  <AppShellSidebar.Item id="settings">
+                    <AppShellSidebar.ItemIcon><Settings size={20} /></AppShellSidebar.ItemIcon>
+                    <AppShellSidebar.ItemLabel>Settings</AppShellSidebar.ItemLabel>
+                  </AppShellSidebar.Item>
+                  <AppShellSidebar.Item id="notifications-settings">
+                    <AppShellSidebar.ItemIcon><Bell size={20} /></AppShellSidebar.ItemIcon>
+                    <AppShellSidebar.ItemLabel>Notifications</AppShellSidebar.ItemLabel>
+                  </AppShellSidebar.Item>
+                  <AppShellSidebar.Item id="help">
+                    <AppShellSidebar.ItemIcon><HelpCircle size={20} /></AppShellSidebar.ItemIcon>
+                    <AppShellSidebar.ItemLabel>Help & Support</AppShellSidebar.ItemLabel>
+                  </AppShellSidebar.Item>
                 </AppShellSidebar.Category>
               </AppShellSidebar.Footer>
 
               {/* User Section */}
-              <AppShellSidebar.User
-                name={mockUser.name}
-                email={mockUser.email}
-                avatar={mockUser.avatar}
-                onClick={() => console.log('User menu clicked')}
-              />
+              <AppShellSidebar.User onClick={() => console.log('User menu clicked')}>
+                <AppShellSidebar.UserAvatar>{mockUser.avatar}</AppShellSidebar.UserAvatar>
+                <AppShellSidebar.UserName>{mockUser.name}</AppShellSidebar.UserName>
+                <AppShellSidebar.UserEmail>{mockUser.email}</AppShellSidebar.UserEmail>
+              </AppShellSidebar.User>
             </AppShellSidebar>
           </Layout.Sidebar>
 
@@ -505,7 +585,12 @@ export const Playground: Story = {
           open={state.notificationPanelOpen}
           onClose={actions.toggleNotificationPanel}
         >
-          <AppShellNotificationPanel.Header unreadCount={unreadCount} />
+          <AppShellNotificationPanel.Header>
+            <AppShellNotificationPanel.HeaderIcon><Bell size={20} /></AppShellNotificationPanel.HeaderIcon>
+            <AppShellNotificationPanel.HeaderTitle>Notifications</AppShellNotificationPanel.HeaderTitle>
+            {unreadCount > 0 && <AppShellNotificationPanel.HeaderBadge>{unreadCount}</AppShellNotificationPanel.HeaderBadge>}
+            <AppShellNotificationPanel.HeaderClose />
+          </AppShellNotificationPanel.Header>
           <AppShellNotificationPanel.Tabs
             tabs={[
               { label: 'All', count: state.notifications.length },
@@ -539,16 +624,19 @@ export const Playground: Story = {
                   key={notification.id}
                   id={notification.id}
                   type={notification.type}
-                  title={notification.title}
-                  message={notification.message}
-                  timestamp={formatRelativeTime(notification.timestamp)}
                   read={notification.read}
-                  avatar={notification.avatar}
-                  actionLabel={notification.actionLabel}
                   onAction={notification.onAction}
                   onMarkRead={actions.markNotificationRead}
                   onDismiss={actions.dismissNotification}
-                />
+                >
+                  <AppShellNotificationPanel.ItemAvatar>{notification.avatar}</AppShellNotificationPanel.ItemAvatar>
+                  <AppShellNotificationPanel.ItemTitle>{notification.title}</AppShellNotificationPanel.ItemTitle>
+                  <AppShellNotificationPanel.ItemMessage>{notification.message}</AppShellNotificationPanel.ItemMessage>
+                  <AppShellNotificationPanel.ItemTimestamp>{formatRelativeTime(notification.timestamp)}</AppShellNotificationPanel.ItemTimestamp>
+                  {notification.actionLabel && (
+                    <AppShellNotificationPanel.ItemAction>{notification.actionLabel}</AppShellNotificationPanel.ItemAction>
+                  )}
+                </AppShellNotificationPanel.Item>
               ))}
             </AppShellNotificationPanel.List>
           )}
@@ -702,7 +790,10 @@ export const WithNotificationPanel: Story = {
               collapsed={state.sidebarCollapsed}
               onToggle={actions.toggleSidebar}
             />
-            <AppShellHeader.Brand logo={<Logo />} title="Oxygen UI" />
+            <AppShellHeader.Brand>
+              <AppShellHeader.BrandLogo><Logo /></AppShellHeader.BrandLogo>
+              <AppShellHeader.BrandTitle>Oxygen UI</AppShellHeader.BrandTitle>
+            </AppShellHeader.Brand>
             <AppShellHeader.Spacer />
             <AppShellHeader.Actions>
               <ColorSchemeToggle />
@@ -731,15 +822,21 @@ export const WithNotificationPanel: Story = {
             >
               <AppShellSidebar.Nav>
                 <AppShellSidebar.Category>
-                  <AppShellSidebar.Item id="dashboard" label="Dashboard" icon={Home} />
-                  <AppShellSidebar.Item id="analytics" label="Analytics" icon={BarChart3} />
+                  <AppShellSidebar.Item id="dashboard">
+                    <AppShellSidebar.ItemIcon><Home size={20} /></AppShellSidebar.ItemIcon>
+                    <AppShellSidebar.ItemLabel>Dashboard</AppShellSidebar.ItemLabel>
+                  </AppShellSidebar.Item>
+                  <AppShellSidebar.Item id="analytics">
+                    <AppShellSidebar.ItemIcon><BarChart3 size={20} /></AppShellSidebar.ItemIcon>
+                    <AppShellSidebar.ItemLabel>Analytics</AppShellSidebar.ItemLabel>
+                  </AppShellSidebar.Item>
                 </AppShellSidebar.Category>
               </AppShellSidebar.Nav>
-              <AppShellSidebar.User
-                name={mockUser.name}
-                email={mockUser.email}
-                onClick={() => {}}
-              />
+              <AppShellSidebar.User onClick={() => {}}>
+                <AppShellSidebar.UserAvatar>{mockUser.avatar}</AppShellSidebar.UserAvatar>
+                <AppShellSidebar.UserName>{mockUser.name}</AppShellSidebar.UserName>
+                <AppShellSidebar.UserEmail>{mockUser.email}</AppShellSidebar.UserEmail>
+              </AppShellSidebar.User>
             </AppShellSidebar>
           </Layout.Sidebar>
 
@@ -757,7 +854,12 @@ export const WithNotificationPanel: Story = {
           open={state.notificationPanelOpen}
           onClose={actions.toggleNotificationPanel}
         >
-          <AppShellNotificationPanel.Header unreadCount={unreadCount} />
+          <AppShellNotificationPanel.Header>
+            <AppShellNotificationPanel.HeaderIcon><Bell size={20} /></AppShellNotificationPanel.HeaderIcon>
+            <AppShellNotificationPanel.HeaderTitle>Notifications</AppShellNotificationPanel.HeaderTitle>
+            {unreadCount > 0 && <AppShellNotificationPanel.HeaderBadge>{unreadCount}</AppShellNotificationPanel.HeaderBadge>}
+            <AppShellNotificationPanel.HeaderClose />
+          </AppShellNotificationPanel.Header>
           <AppShellNotificationPanel.Tabs
             tabs={[
               { label: 'All', count: state.notifications.length },
@@ -783,15 +885,18 @@ export const WithNotificationPanel: Story = {
                   key={notification.id}
                   id={notification.id}
                   type={notification.type}
-                  title={notification.title}
-                  message={notification.message}
-                  timestamp={formatRelativeTime(notification.timestamp)}
                   read={notification.read}
-                  avatar={notification.avatar}
-                  actionLabel={notification.actionLabel}
                   onMarkRead={actions.markNotificationRead}
                   onDismiss={actions.dismissNotification}
-                />
+                >
+                  <AppShellNotificationPanel.ItemAvatar>{notification.avatar}</AppShellNotificationPanel.ItemAvatar>
+                  <AppShellNotificationPanel.ItemTitle>{notification.title}</AppShellNotificationPanel.ItemTitle>
+                  <AppShellNotificationPanel.ItemMessage>{notification.message}</AppShellNotificationPanel.ItemMessage>
+                  <AppShellNotificationPanel.ItemTimestamp>{formatRelativeTime(notification.timestamp)}</AppShellNotificationPanel.ItemTimestamp>
+                  {notification.actionLabel && (
+                    <AppShellNotificationPanel.ItemAction>{notification.actionLabel}</AppShellNotificationPanel.ItemAction>
+                  )}
+                </AppShellNotificationPanel.Item>
               ))}
             </AppShellNotificationPanel.List>
           )}
@@ -833,7 +938,10 @@ export const WithConfirmDialog: Story = {
               collapsed={state.sidebarCollapsed}
               onToggle={actions.toggleSidebar}
             />
-            <AppShellHeader.Brand logo={<Logo />} title="Oxygen UI" />
+            <AppShellHeader.Brand>
+              <AppShellHeader.BrandLogo><Logo /></AppShellHeader.BrandLogo>
+              <AppShellHeader.BrandTitle>Oxygen UI</AppShellHeader.BrandTitle>
+            </AppShellHeader.Brand>
             <AppShellHeader.Spacer />
             <AppShellHeader.Actions>
               <ColorSchemeToggle />
@@ -853,15 +961,21 @@ export const WithConfirmDialog: Story = {
             >
               <AppShellSidebar.Nav>
                 <AppShellSidebar.Category>
-                  <AppShellSidebar.Item id="dashboard" label="Dashboard" icon={Home} />
-                  <AppShellSidebar.Item id="settings" label="Settings" icon={Settings} />
+                  <AppShellSidebar.Item id="dashboard">
+                    <AppShellSidebar.ItemIcon><Home size={20} /></AppShellSidebar.ItemIcon>
+                    <AppShellSidebar.ItemLabel>Dashboard</AppShellSidebar.ItemLabel>
+                  </AppShellSidebar.Item>
+                  <AppShellSidebar.Item id="settings">
+                    <AppShellSidebar.ItemIcon><Settings size={20} /></AppShellSidebar.ItemIcon>
+                    <AppShellSidebar.ItemLabel>Settings</AppShellSidebar.ItemLabel>
+                  </AppShellSidebar.Item>
                 </AppShellSidebar.Category>
               </AppShellSidebar.Nav>
-              <AppShellSidebar.User
-                name={mockUser.name}
-                email={mockUser.email}
-                onClick={() => {}}
-              />
+              <AppShellSidebar.User onClick={() => {}}>
+                <AppShellSidebar.UserAvatar>{mockUser.avatar}</AppShellSidebar.UserAvatar>
+                <AppShellSidebar.UserName>{mockUser.name}</AppShellSidebar.UserName>
+                <AppShellSidebar.UserEmail>{mockUser.email}</AppShellSidebar.UserEmail>
+              </AppShellSidebar.User>
             </AppShellSidebar>
           </Layout.Sidebar>
 

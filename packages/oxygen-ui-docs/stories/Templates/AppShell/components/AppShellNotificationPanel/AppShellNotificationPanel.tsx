@@ -20,11 +20,24 @@ import * as React from 'react';
 import { Drawer } from '@wso2/oxygen-ui';
 import type { SxProps, Theme } from '@wso2/oxygen-ui';
 import { AppShellNotificationPanelContext } from './context';
-import { NotificationHeader } from './NotificationHeader';
+import {
+  NotificationHeader,
+  NotificationHeaderIcon,
+  NotificationHeaderTitle,
+  NotificationHeaderBadge,
+  NotificationHeaderClose,
+} from './NotificationHeader';
 import { NotificationTabs } from './NotificationTabs';
 import { NotificationActions } from './NotificationActions';
 import { NotificationList } from './NotificationList';
-import { NotificationItem } from './NotificationItem';
+import {
+  NotificationItem,
+  NotificationItemAvatar,
+  NotificationItemTitle,
+  NotificationItemMessage,
+  NotificationItemTimestamp,
+  NotificationItemAction,
+} from './NotificationItem';
 import { NotificationEmptyState } from './NotificationEmptyState';
 
 /**
@@ -146,10 +159,19 @@ const AppShellNotificationPanelRoot: React.FC<AppShellNotificationPanelProps> = 
  */
 export const AppShellNotificationPanel = Object.assign(AppShellNotificationPanelRoot, {
   Header: NotificationHeader,
+  HeaderIcon: NotificationHeaderIcon,
+  HeaderTitle: NotificationHeaderTitle,
+  HeaderBadge: NotificationHeaderBadge,
+  HeaderClose: NotificationHeaderClose,
   Tabs: NotificationTabs,
   Actions: NotificationActions,
   List: NotificationList,
   Item: NotificationItem,
+  ItemAvatar: NotificationItemAvatar,
+  ItemTitle: NotificationItemTitle,
+  ItemMessage: NotificationItemMessage,
+  ItemTimestamp: NotificationItemTimestamp,
+  ItemAction: NotificationItemAction,
   EmptyState: NotificationEmptyState,
 });
 

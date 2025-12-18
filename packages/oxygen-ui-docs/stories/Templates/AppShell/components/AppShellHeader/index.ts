@@ -25,6 +25,13 @@ export type { AppShellHeaderToggleProps } from './AppShellHeaderToggle';
 export { AppShellHeaderBrand } from './AppShellHeaderBrand';
 export type { AppShellHeaderBrandProps } from './AppShellHeaderBrand';
 
+// Brand sub-components for composable API
+export { AppShellHeaderBrandLogo } from './AppShellHeaderBrandLogo';
+export type { AppShellHeaderBrandLogoProps } from './AppShellHeaderBrandLogo';
+
+export { AppShellHeaderBrandTitle } from './AppShellHeaderBrandTitle';
+export type { AppShellHeaderBrandTitleProps } from './AppShellHeaderBrandTitle';
+
 export { AppShellHeaderSwitchers } from './AppShellHeaderSwitchers';
 export type { AppShellHeaderSwitchersProps } from './AppShellHeaderSwitchers';
 

@@ -20,17 +20,31 @@ import * as React from 'react';
 import {
   Box,
   ListItem,
-  ListItemAvatar,
   ListItemButton,
   ListItemText,
-  Avatar,
-  Typography,
   IconButton,
-  Chip,
 } from '@wso2/oxygen-ui';
 import type { SxProps, Theme } from '@wso2/oxygen-ui';
 import { X } from '@wso2/oxygen-ui-icons-react';
 import { getNotificationTypeProps, NotificationType } from './utils';
+import {
+  NotificationItemProvider,
+  type NotificationItemContextValue,
+} from './NotificationItemContext';
+import { NotificationItemAvatar } from './NotificationItemAvatar';
+import { NotificationItemTitle } from './NotificationItemTitle';
+import { NotificationItemMessage } from './NotificationItemMessage';
+import { NotificationItemTimestamp } from './NotificationItemTimestamp';
+import { NotificationItemAction } from './NotificationItemAction';
+
+// Child display names for detection
+const CHILD_DISPLAY_NAMES = [
+  'NotificationItemAvatar',
+  'NotificationItemTitle',
+  'NotificationItemMessage',
+  'NotificationItemTimestamp',
+  'NotificationItemAction',
+];
 
 /**
  * Props for NotificationItem component.
@@ -40,18 +54,10 @@ export interface NotificationItemProps {
   id: string;
   /** Notification type for icon/color */
   type: NotificationType;
-  /** Notification title */
-  title: string;
-  /** Notification message */
-  message: string;
-  /** Timestamp string */
-  timestamp: string;
   /** Whether notification has been read */
   read?: boolean;
-  /** Optional avatar content */
-  avatar?: string;
-  /** Optional action button label */
-  actionLabel?: string;
+  /** Composable children (ItemAvatar, ItemTitle, ItemMessage, ItemTimestamp, ItemAction) */
+  children: React.ReactNode;
   /** Optional action callback */
   onAction?: () => void;
   /** Callback when marked as read */
@@ -63,10 +69,60 @@ export interface NotificationItemProps {
 }
 
 /**
+ * Separates children by type for proper layout.
+ */
+const separateChildren = (children: React.ReactNode): {
+  avatarChild: React.ReactNode;
+  titleChild: React.ReactNode;
+  messageChild: React.ReactNode;
+  timestampChild: React.ReactNode;
+  actionChild: React.ReactNode;
+} => {
+  let avatarChild: React.ReactNode = null;
+  let titleChild: React.ReactNode = null;
+  let messageChild: React.ReactNode = null;
+  let timestampChild: React.ReactNode = null;
+  let actionChild: React.ReactNode = null;
+
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement(child)) {
+      const displayName = (child.type as React.FC)?.displayName;
+      switch (displayName) {
+        case 'NotificationItemAvatar':
+          avatarChild = child;
+          break;
+        case 'NotificationItemTitle':
+          titleChild = child;
+          break;
+        case 'NotificationItemMessage':
+          messageChild = child;
+          break;
+        case 'NotificationItemTimestamp':
+          timestampChild = child;
+          break;
+        case 'NotificationItemAction':
+          actionChild = child;
+          break;
+      }
+    }
+  });
+
+  return { avatarChild, titleChild, messageChild, timestampChild, actionChild };
+};
+
+/**
  * NotificationItem - Individual notification in the panel.
  *
- * Displays a notification with icon, title, message, and timestamp.
- * Supports read/unread state, action buttons, and dismiss functionality.
+ * Uses composable children API:
+ * ```tsx
+ * <AppShellNotificationPanel.Item id="1" type="info">
+ *   <AppShellNotificationPanel.ItemAvatar>A</AppShellNotificationPanel.ItemAvatar>
+ *   <AppShellNotificationPanel.ItemTitle>New feature</AppShellNotificationPanel.ItemTitle>
+ *   <AppShellNotificationPanel.ItemMessage>Check it out</AppShellNotificationPanel.ItemMessage>
+ *   <AppShellNotificationPanel.ItemTimestamp>5m ago</AppShellNotificationPanel.ItemTimestamp>
+ *   <AppShellNotificationPanel.ItemAction>View</AppShellNotificationPanel.ItemAction>
+ * </AppShellNotificationPanel.Item>
+ * ```
  *
  * Theme tokens used:
  * - `action.hover` - Unread notification background
@@ -78,19 +134,26 @@ export interface NotificationItemProps {
 export const NotificationItem: React.FC<NotificationItemProps> = ({
   id,
   type,
-  title,
-  message,
-  timestamp,
   read = false,
-  avatar,
-  actionLabel,
+  children,
   onAction,
   onMarkRead,
   onDismiss,
   sx,
 }) => {
   const typeProps = getNotificationTypeProps(type);
-  const Icon = typeProps.icon;
+  const { avatarChild, titleChild, messageChild, timestampChild, actionChild } =
+    separateChildren(children);
+
+  // Create context value for child components
+  const contextValue: NotificationItemContextValue = {
+    id,
+    type,
+    typeProps,
+    read,
+    onMarkRead: () => onMarkRead?.(id),
+    onAction,
+  };
 
   const handleClick = () => {
     if (!read) {
@@ -100,121 +163,74 @@ export const NotificationItem: React.FC<NotificationItemProps> = ({
   };
 
   return (
-    <ListItem
-      disablePadding
-      secondaryAction={
-        onDismiss && (
-          <IconButton
-            size="small"
-            onClick={(e) => {
-              e.stopPropagation();
-              onDismiss(id);
-            }}
-            sx={{ opacity: 0.5, '&:hover': { opacity: 1 } }}
-          >
-            <X size={16} />
-          </IconButton>
-        )
-      }
-      sx={{
-        bgcolor: read ? 'transparent' : 'action.hover',
-        '&:hover': {
-          bgcolor: 'action.selected',
-        },
-        ...sx,
-      }}
-    >
-      <ListItemButton onClick={handleClick} sx={{ pr: 6 }}>
-        <ListItemAvatar>
-          <Avatar
-            sx={{
-              width: 40,
-              height: 40,
-              bgcolor: typeProps.bgcolor,
-              color: typeProps.color,
-              fontSize: avatar ? 14 : undefined,
-              fontWeight: avatar ? 600 : undefined,
-            }}
-          >
-            {avatar || <Icon size={20} />}
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText
-          primary={
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontWeight: read ? 400 : 600,
-                  flex: 1,
-                }}
-              >
-                {title}
-              </Typography>
-              {!read && (
+    <NotificationItemProvider value={contextValue}>
+      <ListItem
+        disablePadding
+        secondaryAction={
+          onDismiss && (
+            <IconButton
+              size="small"
+              onClick={(e) => {
+                e.stopPropagation();
+                onDismiss(id);
+              }}
+              sx={{ opacity: 0.5, '&:hover': { opacity: 1 } }}
+            >
+              <X size={16} />
+            </IconButton>
+          )
+        }
+        sx={{
+          bgcolor: read ? 'transparent' : 'action.hover',
+          '&:hover': {
+            bgcolor: 'action.selected',
+          },
+          ...sx,
+        }}
+      >
+        <ListItemButton onClick={handleClick} sx={{ pr: 6 }}>
+          {avatarChild}
+          <ListItemText
+            primary={titleChild}
+            secondary={
+              <Box component="span">
+                {messageChild}
                 <Box
                   sx={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: '50%',
-                    bgcolor: 'primary.main',
-                    flexShrink: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    mt: 0.5,
                   }}
-                />
-              )}
-            </Box>
-          }
-          secondary={
-            <Box component="span">
-              <Typography
-                component="span"
-                variant="caption"
-                sx={{
-                  display: 'block',
-                  color: 'text.secondary',
-                  mb: 0.5,
-                }}
-              >
-                {message}
-              </Typography>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 1,
-                  mt: 0.5,
-                }}
-              >
-                <Typography
-                  component="span"
-                  variant="caption"
-                  sx={{ color: 'text.disabled', fontSize: 11 }}
                 >
-                  {timestamp}
-                </Typography>
-                {actionLabel && (
-                  <Chip
-                    label={actionLabel}
-                    size="small"
-                    variant="outlined"
-                    sx={{
-                      height: 20,
-                      fontSize: 10,
-                      cursor: 'pointer',
-                    }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onAction?.();
-                    }}
-                  />
-                )}
+                  {timestampChild}
+                  {actionChild}
+                </Box>
               </Box>
-            </Box>
-          }
-        />
-      </ListItemButton>
-    </ListItem>
+            }
+          />
+        </ListItemButton>
+      </ListItem>
+    </NotificationItemProvider>
   );
 };
+
+// Add display name
+NotificationItem.displayName = 'NotificationItem';
+
+export {
+  NotificationItemAvatar,
+  NotificationItemTitle,
+  NotificationItemMessage,
+  NotificationItemTimestamp,
+  NotificationItemAction,
+};
+export { useNotificationItemContext } from './NotificationItemContext';
+export type { NotificationItemContextValue } from './NotificationItemContext';
+export type { NotificationItemAvatarProps } from './NotificationItemAvatar';
+export type { NotificationItemTitleProps } from './NotificationItemTitle';
+export type { NotificationItemMessageProps } from './NotificationItemMessage';
+export type { NotificationItemTimestampProps } from './NotificationItemTimestamp';
+export type { NotificationItemActionProps } from './NotificationItemAction';
 
 export default NotificationItem;

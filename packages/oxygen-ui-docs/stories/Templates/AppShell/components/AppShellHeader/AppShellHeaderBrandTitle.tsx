@@ -17,59 +17,56 @@
  */
 
 import * as React from 'react';
-import { Box } from '@wso2/oxygen-ui';
+import { Typography } from '@wso2/oxygen-ui';
 import type { SxProps, Theme } from '@wso2/oxygen-ui';
-import { AppShellHeaderBrandLogo } from './AppShellHeaderBrandLogo';
-import { AppShellHeaderBrandTitle } from './AppShellHeaderBrandTitle';
 
 /**
- * Props for AppShellHeaderBrand component.
+ * Props for AppShellHeaderBrandTitle component.
  */
-export interface AppShellHeaderBrandProps {
-  /** Click handler for brand area */
-  onClick?: () => void;
-  /** Child components (BrandLogo, BrandTitle) */
+export interface AppShellHeaderBrandTitleProps {
+  /** Title text to display */
   children: React.ReactNode;
   /** Additional sx props */
   sx?: SxProps<Theme>;
 }
 
 /**
- * AppShellHeaderBrand - Logo and title section for the header.
+ * AppShellHeaderBrandTitle - Title component for the header brand.
  *
- * Uses composable children API:
+ * Displays the application title with responsive behavior:
+ * - Hidden on xs viewports for cleaner mobile experience
+ * - Font size: 16px on xs, 18px on sm+
+ *
+ * @example
  * ```tsx
  * <AppShellHeader.Brand>
- *   <AppShellHeader.BrandLogo><Logo /></AppShellHeader.BrandLogo>
+ *   <AppShellHeader.BrandLogo>...</AppShellHeader.BrandLogo>
  *   <AppShellHeader.BrandTitle>Dashboard</AppShellHeader.BrandTitle>
  * </AppShellHeader.Brand>
  * ```
  */
-export const AppShellHeaderBrand: React.FC<AppShellHeaderBrandProps> = ({
-  onClick,
+export const AppShellHeaderBrandTitle: React.FC<AppShellHeaderBrandTitleProps> = ({
   children,
   sx,
 }) => {
   return (
-    <Box
-      onClick={onClick}
+    <Typography
+      variant="h6"
+      component="div"
       sx={{
-        display: 'flex',
-        alignItems: 'center',
+        fontWeight: 600,
+        fontSize: { xs: 16, sm: 18 },
         ml: 1,
-        cursor: onClick ? 'pointer' : 'default',
+        display: { xs: 'none', sm: 'block' },
         ...sx,
       }}
     >
       {children}
-    </Box>
+    </Typography>
   );
 };
 
-AppShellHeaderBrand.displayName = 'AppShellHeaderBrand';
+// Add display name for child detection
+AppShellHeaderBrandTitle.displayName = 'AppShellHeaderBrandTitle';
 
-export { AppShellHeaderBrandLogo, AppShellHeaderBrandTitle };
-export type { AppShellHeaderBrandLogoProps } from './AppShellHeaderBrandLogo';
-export type { AppShellHeaderBrandTitleProps } from './AppShellHeaderBrandTitle';
-
-export default AppShellHeaderBrand;
+export default AppShellHeaderBrandTitle;

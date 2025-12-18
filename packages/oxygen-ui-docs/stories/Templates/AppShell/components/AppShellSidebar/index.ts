@@ -30,14 +30,45 @@ export type { AppShellSidebarNavProps } from './AppShellSidebarNav';
 export { AppShellSidebarCategory } from './AppShellSidebarCategory';
 export type { AppShellSidebarCategoryProps } from './AppShellSidebarCategory';
 
+// Category sub-components for composable API
+export { AppShellSidebarCategoryLabel } from './AppShellSidebarCategoryLabel';
+export type { AppShellSidebarCategoryLabelProps } from './AppShellSidebarCategoryLabel';
+
 export { AppShellSidebarItem } from './AppShellSidebarItem';
 export type { AppShellSidebarItemProps } from './AppShellSidebarItem';
+
+// Item sub-components for composable API
+export { AppShellSidebarItemIcon } from './AppShellSidebarItemIcon';
+export type { AppShellSidebarItemIconProps } from './AppShellSidebarItemIcon';
+
+export { AppShellSidebarItemLabel } from './AppShellSidebarItemLabel';
+export type { AppShellSidebarItemLabelProps } from './AppShellSidebarItemLabel';
+
+export { AppShellSidebarItemBadge } from './AppShellSidebarItemBadge';
+export type { AppShellSidebarItemBadgeProps } from './AppShellSidebarItemBadge';
+
+export {
+  AppShellSidebarItemContext,
+  AppShellSidebarItemProvider,
+  useAppShellSidebarItemContext,
+} from './AppShellSidebarItemContext';
+export type { AppShellSidebarItemContextValue } from './AppShellSidebarItemContext';
 
 export { AppShellSidebarFooter } from './AppShellSidebarFooter';
 export type { AppShellSidebarFooterProps } from './AppShellSidebarFooter';
 
 export { AppShellSidebarUser } from './AppShellSidebarUser';
 export type { AppShellSidebarUserProps } from './AppShellSidebarUser';
+
+// User sub-components for composable API
+export { AppShellSidebarUserAvatar } from './AppShellSidebarUserAvatar';
+export type { AppShellSidebarUserAvatarProps } from './AppShellSidebarUserAvatar';
+
+export { AppShellSidebarUserName } from './AppShellSidebarUserName';
+export type { AppShellSidebarUserNameProps } from './AppShellSidebarUserName';
+
+export { AppShellSidebarUserEmail } from './AppShellSidebarUserEmail';
+export type { AppShellSidebarUserEmailProps } from './AppShellSidebarUserEmail';
 
 export { AppShellSidebarContext, useAppShellSidebar } from './context';
 export type { AppShellSidebarContextValue } from './context';

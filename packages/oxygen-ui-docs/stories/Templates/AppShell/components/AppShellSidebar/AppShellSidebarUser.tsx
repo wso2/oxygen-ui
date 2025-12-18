@@ -20,24 +20,28 @@ import * as React from 'react';
 import {
   Box,
   ListItemButton,
-  Avatar,
-  Typography,
   Tooltip,
   Divider,
 } from '@wso2/oxygen-ui';
 import type { SxProps, Theme } from '@wso2/oxygen-ui';
 import { useAppShellSidebar } from './context';
+import { AppShellSidebarUserAvatar } from './AppShellSidebarUserAvatar';
+import { AppShellSidebarUserName } from './AppShellSidebarUserName';
+import { AppShellSidebarUserEmail } from './AppShellSidebarUserEmail';
+
+// Child display names for detection
+const CHILD_DISPLAY_NAMES = [
+  'AppShellSidebarUserAvatar',
+  'AppShellSidebarUserName',
+  'AppShellSidebarUserEmail',
+];
 
 /**
  * Props for AppShellSidebarUser component.
  */
 export interface AppShellSidebarUserProps {
-  /** User's display name */
-  name: string;
-  /** User's email */
-  email?: string;
-  /** User's avatar (initials or image URL) */
-  avatar?: string;
+  /** Composable children (UserAvatar, UserName, UserEmail) */
+  children: React.ReactNode;
   /** Click handler */
   onClick?: () => void;
   /** Whether to show divider above */
@@ -47,24 +51,73 @@ export interface AppShellSidebarUserProps {
 }
 
 /**
+ * Separates children by type for proper layout.
+ */
+const separateChildren = (children: React.ReactNode): {
+  avatarChild: React.ReactNode;
+  textChildren: React.ReactNode[];
+} => {
+  let avatarChild: React.ReactNode = null;
+  const textChildren: React.ReactNode[] = [];
+
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement(child)) {
+      const displayName = (child.type as React.FC)?.displayName;
+      if (displayName === 'AppShellSidebarUserAvatar') {
+        avatarChild = child;
+      } else if (
+        displayName === 'AppShellSidebarUserName' ||
+        displayName === 'AppShellSidebarUserEmail'
+      ) {
+        textChildren.push(child);
+      }
+    }
+  });
+
+  return { avatarChild, textChildren };
+};
+
+/**
+ * Gets the tooltip text from children.
+ */
+const getTooltipText = (children: React.ReactNode): string => {
+  let tooltipText = '';
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement(child)) {
+      const displayName = (child.type as React.FC)?.displayName;
+      if (displayName === 'AppShellSidebarUserName' && child.props.children) {
+        tooltipText = String(child.props.children);
+      }
+    }
+  });
+  return tooltipText;
+};
+
+/**
  * AppShellSidebarUser - User profile section at the bottom of the sidebar.
  *
- * Displays user avatar, name, and email. When collapsed, shows only
- * the avatar with a tooltip containing the user's name.
+ * Uses composable children API:
+ * ```tsx
+ * <AppShellSidebar.User>
+ *   <AppShellSidebar.UserAvatar>JD</AppShellSidebar.UserAvatar>
+ *   <AppShellSidebar.UserName>John Doe</AppShellSidebar.UserName>
+ *   <AppShellSidebar.UserEmail>john@example.com</AppShellSidebar.UserEmail>
+ * </AppShellSidebar.User>
+ * ```
  *
  * Theme tokens used:
  * - `primary.main` - Avatar background color
  * - `text.secondary` - Email text color
  */
 export const AppShellSidebarUser: React.FC<AppShellSidebarUserProps> = ({
-  name,
-  email,
-  avatar,
+  children,
   onClick,
   showDivider = true,
   sx,
 }) => {
   const { collapsed } = useAppShellSidebar();
+  const { avatarChild, textChildren } = separateChildren(children);
+  const tooltipText = getTooltipText(children);
 
   const content = (
     <ListItemButton
@@ -77,43 +130,10 @@ export const AppShellSidebarUser: React.FC<AppShellSidebarUserProps> = ({
         mx: 1,
       }}
     >
-      <Avatar
-        sx={{
-          width: 32,
-          height: 32,
-          bgcolor: 'primary.main',
-          fontSize: 14,
-        }}
-      >
-        {avatar || name.charAt(0)}
-      </Avatar>
-      {!collapsed && (
+      {avatarChild}
+      {!collapsed && textChildren.length > 0 && (
         <Box sx={{ ml: 2, overflow: 'hidden' }}>
-          <Typography
-            variant="body2"
-            sx={{
-              fontWeight: 600,
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-            }}
-          >
-            {name}
-          </Typography>
-          {email && (
-            <Typography
-              variant="caption"
-              sx={{
-                color: 'text.secondary',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                display: 'block',
-              }}
-            >
-              {email}
-            </Typography>
-          )}
+          {textChildren}
         </Box>
       )}
     </ListItemButton>
@@ -124,7 +144,7 @@ export const AppShellSidebarUser: React.FC<AppShellSidebarUserProps> = ({
       {showDivider && <Divider />}
       <Box sx={{ p: 1, ...sx }}>
         {collapsed ? (
-          <Tooltip title={name} placement="right" arrow>
+          <Tooltip title={tooltipText} placement="right" arrow>
             {content}
           </Tooltip>
         ) : (
@@ -134,5 +154,12 @@ export const AppShellSidebarUser: React.FC<AppShellSidebarUserProps> = ({
     </>
   );
 };
+
+AppShellSidebarUser.displayName = 'AppShellSidebarUser';
+
+export { AppShellSidebarUserAvatar, AppShellSidebarUserName, AppShellSidebarUserEmail };
+export type { AppShellSidebarUserAvatarProps } from './AppShellSidebarUserAvatar';
+export type { AppShellSidebarUserNameProps } from './AppShellSidebarUserName';
+export type { AppShellSidebarUserEmailProps } from './AppShellSidebarUserEmail';
 
 export default AppShellSidebarUser;
