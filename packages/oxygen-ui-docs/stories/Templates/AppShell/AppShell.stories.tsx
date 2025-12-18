@@ -69,26 +69,8 @@ import {
   formatRelativeTime,
   // Compound Components
   AppShellHeader,
-  AppShellHeaderBrandLogo,
-  AppShellHeaderBrandTitle,
   AppShellSidebar,
-  AppShellSidebarCategoryLabel,
-  AppShellSidebarItemIcon,
-  AppShellSidebarItemLabel,
-  AppShellSidebarItemBadge,
-  AppShellSidebarUserAvatar,
-  AppShellSidebarUserName,
-  AppShellSidebarUserEmail,
   AppShellNotificationPanel,
-  NotificationHeaderIcon,
-  NotificationHeaderTitle,
-  NotificationHeaderBadge,
-  NotificationHeaderClose,
-  NotificationItemAvatar,
-  NotificationItemTitle,
-  NotificationItemMessage,
-  NotificationItemTimestamp,
-  NotificationItemAction,
   // Standalone Components
   AppShellSwitcher,
   AppShellUserMenu,
@@ -178,52 +160,51 @@ const Logo: React.FC = () => (
 
 /**
  * The App Shell template demonstrates a complete application layout pattern
- * using **compound components** for maximum flexibility and composability.
+ * using **compound components** with a **children-only API** for maximum
+ * flexibility and composability.
  *
  * ## Overview
  * This template provides a comprehensive reference implementation for building
  * enterprise application layouts using Oxygen UI components. It demonstrates:
  *
  * - **Compound Component Pattern**: Compose complex UIs from simple, focused parts
+ * - **Children-Only API**: No props for UI elements - use child components instead
  * - **Layout Structure**: Using the Layout component for flexible composition
  * - **Navigation**: Collapsible sidebar with hierarchical menus
  * - **Header**: Top bar with logo, switchers, and user actions
  * - **Notifications**: Banner alerts and notification panel
  * - **Footer**: Copyright and legal links
  *
- * ## Compound Component Pattern
+ * ## Children-Only API
  *
- * Instead of monolithic components with many props, this template uses
- * compound components (like MUI's Tabs + Tab) where a parent provides context
- * and children compose the UI:
+ * All compound components use a children-based API for maximum composability.
+ * Each UI element is a separate child component:
  *
  * ```tsx
- * // OLD API (monolithic, 21+ props)
- * <AppShellHeader
- *   logo={...} title={...} organizations={...}
- *   selectedOrg={...} onOrgChange={...} ... 20 more props
- * />
- *
- * // NEW API (composable, focused)
+ * // Header with composable children
  * <AppShellHeader>
  *   <AppShellHeader.Toggle collapsed={collapsed} onToggle={toggle} />
- *   <AppShellHeader.Brand logo={<Logo />} title="Dashboard" />
- *   <AppShellHeader.Switchers>
- *     <OrgSwitcher ... />
- *   </AppShellHeader.Switchers>
+ *   <AppShellHeader.Brand>
+ *     <AppShellHeader.BrandLogo><Logo /></AppShellHeader.BrandLogo>
+ *     <AppShellHeader.BrandTitle>Dashboard</AppShellHeader.BrandTitle>
+ *   </AppShellHeader.Brand>
  *   <AppShellHeader.Spacer />
- *   <AppShellHeader.Actions>
- *     <ColorSchemeToggle />
- *     <UserMenu ... />
- *   </AppShellHeader.Actions>
+ *   <AppShellHeader.Actions>...</AppShellHeader.Actions>
  * </AppShellHeader>
+ *
+ * // Sidebar with deeply composable items
+ * <AppShellSidebar.Item id="users">
+ *   <AppShellSidebar.ItemIcon><Users size={20} /></AppShellSidebar.ItemIcon>
+ *   <AppShellSidebar.ItemLabel>Users</AppShellSidebar.ItemLabel>
+ *   <AppShellSidebar.ItemBadge>3</AppShellSidebar.ItemBadge>
+ * </AppShellSidebar.Item>
  * ```
  *
  * ## Benefits
  *
- * 1. **Design System Ready** - Each sub-component can be promoted independently
- * 2. **Testable** - Small components are easier to unit test
- * 3. **Flexible** - Users can compose their own layouts
+ * 1. **Maximum Flexibility** - Full control over each UI element
+ * 2. **Design System Ready** - Each sub-component can be promoted independently
+ * 3. **Testable** - Small components are easier to unit test
  * 4. **Maintainable** - ~100 lines per file instead of ~500
  * 5. **Tree-shakeable** - Import only what you use
  */
@@ -235,31 +216,37 @@ const meta: Meta<AppShellArgs> = {
     docs: {
       description: {
         component: `
-A comprehensive App Shell template using **compound components** for maximum flexibility.
+A comprehensive App Shell template using **compound components** with a **children-only API**.
 
 This template shows how to compose Oxygen UI components to create a complete
 application shell with:
-- Collapsible navigation sidebar (compound component)
-- Header with logo, context switchers, and user menu (compound component)
-- Notification system with panel (compound component)
+- Collapsible navigation sidebar with hierarchical menus
+- Header with logo, context switchers, and user actions
+- Notification system with slide-out panel
 - Footer with legal links
 
-**Compound Components:**
+**Children-Only API Example:**
 \`\`\`tsx
 <AppShellHeader>
-  <AppShellHeader.Toggle ... />
-  <AppShellHeader.Brand ... />
-  <AppShellHeader.Switchers>...</AppShellHeader.Switchers>
+  <AppShellHeader.Toggle collapsed={collapsed} onToggle={toggle} />
+  <AppShellHeader.Brand>
+    <AppShellHeader.BrandLogo><Logo /></AppShellHeader.BrandLogo>
+    <AppShellHeader.BrandTitle>Dashboard</AppShellHeader.BrandTitle>
+  </AppShellHeader.Brand>
+  <AppShellHeader.Spacer />
   <AppShellHeader.Actions>...</AppShellHeader.Actions>
 </AppShellHeader>
 
-<AppShellSidebar>
+<AppShellSidebar collapsed={collapsed} activeItem={activeId} ...>
   <AppShellSidebar.Nav>
-    <AppShellSidebar.Category label="Main">
-      <AppShellSidebar.Item ... />
+    <AppShellSidebar.Category>
+      <AppShellSidebar.CategoryLabel>Main</AppShellSidebar.CategoryLabel>
+      <AppShellSidebar.Item id="home">
+        <AppShellSidebar.ItemIcon><Home size={20} /></AppShellSidebar.ItemIcon>
+        <AppShellSidebar.ItemLabel>Home</AppShellSidebar.ItemLabel>
+      </AppShellSidebar.Item>
     </AppShellSidebar.Category>
   </AppShellSidebar.Nav>
-  <AppShellSidebar.User ... />
 </AppShellSidebar>
 \`\`\`
         `,
@@ -550,13 +537,6 @@ export const Playground: Story = {
                   </AppShellSidebar.Item>
                 </AppShellSidebar.Category>
               </AppShellSidebar.Footer>
-
-              {/* User Section */}
-              <AppShellSidebar.User onClick={() => console.log('User menu clicked')}>
-                <AppShellSidebar.UserAvatar>{mockUser.avatar}</AppShellSidebar.UserAvatar>
-                <AppShellSidebar.UserName>{mockUser.name}</AppShellSidebar.UserName>
-                <AppShellSidebar.UserEmail>{mockUser.email}</AppShellSidebar.UserEmail>
-              </AppShellSidebar.User>
             </AppShellSidebar>
           </Layout.Sidebar>
 
@@ -832,11 +812,6 @@ export const WithNotificationPanel: Story = {
                   </AppShellSidebar.Item>
                 </AppShellSidebar.Category>
               </AppShellSidebar.Nav>
-              <AppShellSidebar.User onClick={() => {}}>
-                <AppShellSidebar.UserAvatar>{mockUser.avatar}</AppShellSidebar.UserAvatar>
-                <AppShellSidebar.UserName>{mockUser.name}</AppShellSidebar.UserName>
-                <AppShellSidebar.UserEmail>{mockUser.email}</AppShellSidebar.UserEmail>
-              </AppShellSidebar.User>
             </AppShellSidebar>
           </Layout.Sidebar>
 
@@ -971,11 +946,6 @@ export const WithConfirmDialog: Story = {
                   </AppShellSidebar.Item>
                 </AppShellSidebar.Category>
               </AppShellSidebar.Nav>
-              <AppShellSidebar.User onClick={() => {}}>
-                <AppShellSidebar.UserAvatar>{mockUser.avatar}</AppShellSidebar.UserAvatar>
-                <AppShellSidebar.UserName>{mockUser.name}</AppShellSidebar.UserName>
-                <AppShellSidebar.UserEmail>{mockUser.email}</AppShellSidebar.UserEmail>
-              </AppShellSidebar.User>
             </AppShellSidebar>
           </Layout.Sidebar>
 
