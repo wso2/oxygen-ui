@@ -304,12 +304,7 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
       window.removeEventListener('click', handleClick);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [baseDensity, maxSpeed, radius, linkDist, linkAlpha, mouseInfluence, repelStrength, clickBurst]);
-
-  // Update colors when theme changes
-  useEffect(() => {
-    // The color update happens naturally on next render since we're using mode in the effect
-  }, [mode]);
+  }, [baseDensity, maxSpeed, radius, linkDist, linkAlpha, mouseInfluence, repelStrength, clickBurst, mode]);
 
   return (
     <canvas
