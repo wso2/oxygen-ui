@@ -16,54 +16,29 @@
  * under the License.
  */
 
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { ThemeSwitcher, Stack, Typography, Paper, Box, OxygenUIThemeProvider } from '@wso2/oxygen-ui';
-import { extendTheme } from '@mui/material/styles';
+import { ThemeSwitcher, Stack, Typography, Box, OxygenUIThemeProvider, extendTheme, CodeBlock } from '@wso2/oxygen-ui';
+import React from 'react';
 
 // Define example themes for stories
 const defaultTheme = extendTheme({
   colorSchemes: {
-    light: {
-      palette: {
-        primary: { main: '#1976d2' },
-      },
-    },
-    dark: {
-      palette: {
-        primary: { main: '#90caf9' },
-      },
-    },
+    light: { palette: { primary: { main: '#1976d2' } } },
+    dark: { palette: { primary: { main: '#90caf9' } } },
   },
 });
 
 const purpleTheme = extendTheme({
   colorSchemes: {
-    light: {
-      palette: {
-        primary: { main: '#9c27b0' },
-      },
-    },
-    dark: {
-      palette: {
-        primary: { main: '#ce93d8' },
-      },
-    },
+    light: { palette: { primary: { main: '#9c27b0' } } },
+    dark: { palette: { primary: { main: '#ce93d8' } } },
   },
 });
 
 const greenTheme = extendTheme({
   colorSchemes: {
-    light: {
-      palette: {
-        primary: { main: '#2e7d32' },
-      },
-    },
-    dark: {
-      palette: {
-        primary: { main: '#66bb6a' },
-      },
-    },
+    light: { palette: { primary: { main: '#2e7d32' } } },
+    dark: { palette: { primary: { main: '#66bb6a' } } },
   },
 });
 
@@ -73,38 +48,67 @@ const exampleThemes = [
   { key: 'green', label: 'Green', theme: greenTheme },
 ];
 
+/**
+ * ThemeSwitcher allows users to switch between multiple theme configurations.
+ * Must be used within OxygenUIThemeProvider with the themes prop.
+ */
 const meta: Meta<typeof ThemeSwitcher> = {
   title: 'Theming/ThemeSwitcher',
   component: ThemeSwitcher,
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component:
-          'A component for switching between multiple theme configurations in your application. ' +
-          '**⚠️ Must be used within `OxygenUIThemeProvider` with `themes` prop.**\n\n' +
-          '**Features:**\n' +
-          '- Select dropdown for theme selection\n' +
-          '- Customizable label display\n' +
-          '- Multiple variants (outlined, filled, standard)\n' +
-          '- Render props support for custom UI\n' +
-          '- Automatic theme switching\n\n' +
-          '**Required Setup:**\n' +
-          '```tsx\n' +
-          'const themes = [\n' +
-          '  { key: "default", label: "Default", theme: defaultTheme },\n' +
-          '  { key: "purple", label: "Purple", theme: purpleTheme }\n' +
-          '];\n\n' +
-          '<OxygenUIThemeProvider themes={themes}>\n' +
-          '  <ThemeSwitcher showLabel />\n' +
-          '</OxygenUIThemeProvider>\n' +
-          '```\n\n' +
-          '**Note:** ThemeSwitcher will not work without being wrapped in OxygenUIThemeProvider ' +
-          'that has multiple themes configured via the `themes` prop.',
+        component: `
+The ThemeSwitcher component provides a dropdown interface for switching between multiple themes.
+It must be used within an OxygenUIThemeProvider that has been configured with multiple themes.
+
+### Features
+- **Select Dropdown**: Intuitive theme selection interface
+- **Label Display**: Optional label showing current theme
+- **Multiple Variants**: Outlined, filled, or standard styles
+- **Render Props**: Custom UI with complete control
+- **Auto Switching**: Automatically applies selected theme
+
+### Basic Usage
+\`\`\`tsx
+const themes = [
+  { key: "default", label: "Default", theme: defaultTheme },
+  { key: "purple", label: "Purple", theme: purpleTheme }
+];
+
+<OxygenUIThemeProvider themes={themes}>
+  <ThemeSwitcher showLabel />
+</OxygenUIThemeProvider>
+\`\`\`
+
+### ⚠️ Important
+ThemeSwitcher requires OxygenUIThemeProvider with the \`themes\` prop.
+It will not work with a single theme configuration.
+        `,
       },
     },
   },
-  tags: ['autodocs'],
+  argTypes: {
+    showLabel: {
+      control: 'boolean',
+      description: 'Whether to show the "Theme:" label',
+      table: { defaultValue: { summary: 'false' } },
+    },
+    variant: {
+      control: 'select',
+      options: ['outlined', 'filled', 'standard'],
+      description: 'The variant of the select component',
+      table: { defaultValue: { summary: 'standard' } },
+    },
+    size: {
+      control: 'select',
+      options: ['small', 'medium'],
+      description: 'The size of the select component',
+      table: { defaultValue: { summary: 'small' } },
+    },
+  },
 };
 
 export default meta;
@@ -202,20 +206,12 @@ export const DifferentSizes: Story = {
 
 export const UsageExample: Story = {
   render: () => (
-    <Paper elevation={3} sx={{ p: 3, minWidth: 350 }}>
-      <Stack spacing={3}>
-        <Typography variant="h6">Complete Usage Example</Typography>
-        
-        <Typography variant="body2" component="pre" sx={{ 
-          bgcolor: 'action.hover', 
-          p: 2, 
-          borderRadius: 1,
-          overflow: 'auto',
-          fontSize: '0.75rem',
-          whiteSpace: 'pre-wrap'
-        }}>
-{`import { OxygenUIThemeProvider, ThemeSwitcher } from "@wso2/oxygen-ui";
-import { extendTheme } from "@mui/material/styles";
+    <Stack spacing={3} sx={{ minWidth: 350, maxWidth: 600 }}>
+      <Typography variant="h6">Complete Usage Example</Typography>
+      
+      <CodeBlock 
+        language="tsx"
+        code={`import { OxygenUIThemeProvider, ThemeSwitcher, extendTheme } from "@wso2/oxygen-ui";
 
 // Define themes
 const defaultTheme = extendTheme({ /* ... */ });
@@ -243,8 +239,7 @@ function App() {
     </OxygenUIThemeProvider>
   );
 }`}
-        </Typography>
-      </Stack>
-    </Paper>
+      />
+    </Stack>
   ),
 };

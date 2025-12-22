@@ -24,8 +24,8 @@
     "README.md"
   ],
   "sideEffects": [
-    "src/styles/OxygenTheme/theme.css",
-    "dist/styles/OxygenTheme/theme.css"
+    "src/styles/Themes/theme.css",
+    "dist/styles/Themes/theme.css"
   ],
   "scripts": {
     "build": "pnpm clean && tsc -p tsconfig.json && node esbuild.config.js",
@@ -60,7 +60,8 @@
   },
   "homepage": "https://github.com/wso2/oxygen-ui#readme",
   "dependencies": {
-    "@fontsource-variable/inter": "5.2.8"
+    "@fontsource-variable/inter": "5.2.8",
+    "prismjs": "^1.30.0"
   },
   "peerDependencies": {
     "@emotion/react": "catalog:",
@@ -77,6 +78,7 @@
   },
   "devDependencies": {
     "@eslint/js": "catalog:",
+    "@types/prismjs": "^1.26.5",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@typescript-eslint/eslint-plugin": "catalog:",

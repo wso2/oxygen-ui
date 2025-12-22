@@ -24,7 +24,7 @@ export default function FormPage(): JSX.Element {
   const navigate = useNavigate()
 
   return (
-    <Box sx={{ p: 4 }}>
+    <Box sx={{ textAlign: 'center', mx: 'auto', maxWidth: '1280px', p: 2 }}>
       <Typography variant="h4" gutterBottom>
         Form Page
       </Typography>

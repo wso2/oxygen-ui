@@ -17,15 +17,17 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react'
-import AppBar from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemText from '@mui/material/ListItemText'
-import Box from '@mui/material/Box'
-import { Layout } from '@wso2/oxygen-ui'
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Box,
+  Layout,
+} from '@wso2/oxygen-ui'
 import * as React from 'react'
 
 interface LayoutStoryArgs {

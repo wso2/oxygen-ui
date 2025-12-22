@@ -16,64 +16,121 @@
  * under the License.
  */
 
+import {
+  Title,
+  Subtitle,
+  Description,
+  Controls,
+  Stories,
+} from '@storybook/addon-docs/blocks';
 import React from "react";
 // importing from path to avoid preview break on change
 import {
   OxygenUIThemeProvider,
   OxygenTheme,
-  Experimental_CssVarsProvider as CssVarsProvider,
-  OxygenThemeWithRadialBackground
-} from "../../oxygen-ui";
+  AsgardeoTheme,
+  ChoreoTheme,
+  ClassicTheme,
+  HighContrastTheme,
+} from "@wso2/oxygen-ui";
 import './docs.css';
 
-export const globalTypes = {
-  colorScheme: {
-    name: 'Color Scheme',
-    description: 'Global color scheme for components',
-    defaultValue: 'light',
-    toolbar: {
-      icon: 'mirror',
-      items: [
-        { value: 'light', title: 'Light' },
-        { value: 'dark', title: 'Dark' },
-      ],
-      showName: true,
+const preview = {
+  globalTypes: {
+    colorScheme: {
+      name: 'Color Scheme',
+      description: 'Global color scheme for components',
+      defaultValue: 'light',
+      toolbar: {
+        icon: 'mirror',
+        items: [
+          { value: 'light', title: 'Light' },
+          { value: 'dark', title: 'Dark' },
+        ],
+        showName: true,
+      },
+    },
+    theme: {
+      name: 'Theme',
+      description: 'Global theme for components',
+      defaultValue: 'radial',
+      toolbar: {
+        icon: 'paintbrush',
+        items: [
+          { value: 'default', title: 'Default' },
+          { value: 'asgardeo', title: 'Asgardeo' },
+          { value: 'choreo', title: 'Choreo' },
+          { value: 'classic', title: 'Classic' },
+          { value: 'highContrast', title: 'High Contrast' },
+        ],
+        showName: true,
+        dynamicTitle: true,
+      },
     },
   },
-};
 
-export const decorators = [
-  (Story, context) => {
-    const mode = context.globals.colorScheme || 'light';
-    
-    // Apply color scheme to the document for docs page
-    React.useEffect(() => {
-      document.documentElement.setAttribute('data-color-scheme', mode);
-      document.body.setAttribute('data-color-scheme', mode);
-      // Also update the CSS variable for background
-      document.documentElement.style.colorScheme = mode;
-    }, [mode]);
-    
-    return (
-      <CssVarsProvider theme={OxygenTheme} defaultMode={mode} mode={mode} key={mode}>
-        <OxygenUIThemeProvider theme={OxygenThemeWithRadialBackground}>
+  decorators: [
+    (Story, context) => {
+      const mode = context.globals.colorScheme ?? 'light';
+      const themeKey = context.globals.theme ?? 'radial';
+
+      const themes = [
+        { key: 'default', label: 'Default', theme: OxygenTheme },
+        { key: 'asgardeo', label: 'Asgardeo', theme: AsgardeoTheme },
+        { key: 'choreo', label: 'Choreo', theme: ChoreoTheme },
+        { key: 'classic', label: 'Classic', theme: ClassicTheme },
+        { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
+      ];
+
+      React.useEffect(() => {
+        document.documentElement.setAttribute('data-color-scheme', mode);
+        document.body.setAttribute('data-color-scheme', mode);
+        document.documentElement.style.colorScheme = mode;
+      }, [mode]);
+
+      return (
+        <OxygenUIThemeProvider
+          themes={themes}
+          initialTheme={themeKey}
+          key={themeKey}
+        >
           <Story />
         </OxygenUIThemeProvider>
-      </CssVarsProvider>
-    );
-  },
-];
+      );
+    },
+  ],
 
-export const parameters = {
-  backgrounds: {
-    disable: true, // Disable Storybook's default backgrounds since we're using theme
-  },
-  docs: {
-    toc: true,
-  },
-  options: {
-    storySort: {
-      order: ['Inputs', 'DataDisplay', '*', 'Utils', 'MUI X'],
+  parameters: {
+    backgrounds: {
+      disable: true,
+    },
+
+    options: {
+      storySort: {
+        order: ['Welcome', 'Inputs', 'DataDisplay', '*', 'Theming', 'Animations', 'Utils', 'MUI X'],
+      },
+    },
+
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
+    },
+
+    docs: {
+      toc: true,
+      page: () => (
+        <>
+          <Title />
+          <Subtitle />
+          <Description />
+          <Controls />
+          <Stories />
+        </>
+      ),
     },
   },
 };
+
+export default preview;

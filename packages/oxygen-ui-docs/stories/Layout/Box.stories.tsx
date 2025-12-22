@@ -48,7 +48,7 @@ type Story = StoryObj<typeof Box>;
 
 export const Default: Story = {
   render: () => (
-    <Box sx={{ width: 300, height: 300, bgcolor: 'primary.main', p: 2 }}>
+    <Box sx={{ width: 300, height: 300, border: '1px dashed grey', p: 2 }}>
       Box with primary background
     </Box>
   ),

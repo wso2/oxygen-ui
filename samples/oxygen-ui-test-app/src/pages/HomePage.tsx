@@ -19,7 +19,7 @@
 import { Badge, Box, Button, Divider, Link, Stack, Typography } from '@wso2/oxygen-ui'
 import { useState, type JSX } from 'react'
 import { Link as NavigateLink } from 'react-router'
-import reactLogo from '../assets/react.svg'
+import reactLogo from '/react.svg'
 import viteLogo from '/vite.svg'
 import { Lightbulb, WSO2 } from '@wso2/oxygen-ui-icons-react'
 import appRoutes from '../config/appRoutes'
@@ -28,7 +28,7 @@ export default function HomePage(): JSX.Element {
   const [count, setCount] = useState(0)
 
   return (
-    <>
+    <Box sx={{ textAlign: 'center', mx: 'auto', maxWidth: '1280px', p: 2 }}>
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -83,6 +83,6 @@ export default function HomePage(): JSX.Element {
           </Link>
         </Typography>
       </Box>
-    </>
+    </Box>
   );
 }

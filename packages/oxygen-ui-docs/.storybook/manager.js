@@ -16,7 +16,7 @@
  * under the License.
  */
 
-// In Storybook 10, addons and themes are in separate internal paths
+// Import from storybook internals for Storybook 10
 import { addons } from 'storybook/internal/manager-api';
 import { themes } from 'storybook/internal/theming';
 

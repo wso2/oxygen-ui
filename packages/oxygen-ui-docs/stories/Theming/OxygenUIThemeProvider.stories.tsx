@@ -18,112 +18,103 @@
 
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Stack, Typography, Paper, Box } from '@wso2/oxygen-ui';
+import { Stack, Typography, Box, CodeBlock, Paper, Button, OxygenUIThemeProvider, extendTheme } from '@wso2/oxygen-ui';
 
-const meta: Meta = {
+/**
+ * OxygenUIThemeProvider is the root theme provider component for Oxygen UI applications.
+ * It wraps your application to provide theming capabilities with support for CSS variables,
+ * color schemes, and multiple themes.
+ */
+const meta: Meta<typeof OxygenUIThemeProvider> = {
   title: 'Theming/OxygenUIThemeProvider',
+  component: OxygenUIThemeProvider,
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component:
-          'The root theme provider component for Oxygen UI applications. Wraps your application to provide theming capabilities ' +
-          'with support for CSS variables, color schemes, and multiple themes.\n\n' +
-          '**Features:**\n' +
-          '- CSS variables for dynamic theming\n' +
-          '- Built-in light and dark color schemes\n' +
-          '- Support for single or multiple themes\n' +
-          '- Theme switching capabilities\n' +
-          '- SSR-safe implementation\n' +
-          '- Persistent theme preferences\n\n' +
-          '**Basic Usage:**\n' +
-          '```tsx\n' +
-          'import { OxygenUIThemeProvider } from "@wso2/oxygen-ui";\n\n' +
-          'function App() {\n' +
-          '  return (\n' +
-          '    <OxygenUIThemeProvider>\n' +
-          '      <YourApp />\n' +
-          '    </OxygenUIThemeProvider>\n' +
-          '  );\n' +
-          '}\n' +
-          '```\n\n' +
-          '**With Custom Theme:**\n' +
-          '```tsx\n' +
-          'import { OxygenUIThemeProvider } from "@wso2/oxygen-ui";\n' +
-          'import { extendTheme } from "@mui/material/styles";\n\n' +
-          'const myTheme = extendTheme({\n' +
-          '  cssVarPrefix: "custom",\n' +
-          '  colorSchemes: {\n' +
-          '    light: {\n' +
-          '      palette: {\n' +
-          '        primary: { main: "#9c27b0" }\n' +
-          '      }\n' +
-          '    },\n' +
-          '    dark: {\n' +
-          '      palette: {\n' +
-          '        primary: { main: "#ce93d8" }\n' +
-          '      }\n' +
-          '    }\n' +
-          '  }\n' +
-          '});\n\n' +
-          '<OxygenUIThemeProvider theme={myTheme}>\n' +
-          '  <YourApp />\n' +
-          '</OxygenUIThemeProvider>\n' +
-          '```\n\n' +
-          '**With Multiple Themes:**\n' +
-          '```tsx\n' +
-          'const themes = [\n' +
-          '  { id: "default", name: "Default", theme: defaultTheme },\n' +
-          '  { id: "purple", name: "Purple", theme: purpleTheme },\n' +
-          '  { id: "green", name: "Green", theme: greenTheme }\n' +
-          '];\n\n' +
-          '<OxygenUIThemeProvider \n' +
-          '  themes={themes} \n' +
-          '  initialTheme="default"\n' +
-          '>\n' +
-          '  <ThemeSwitcher showLabel />\n' +
-          '  <YourApp />\n' +
-          '</OxygenUIThemeProvider>\n' +
-          '```\n\n' +
-          '**Accessing Theme Switcher:**\n' +
-          '```tsx\n' +
-          'import { useThemeSwitcher } from "@wso2/oxygen-ui";\n\n' +
-          'function MyComponent() {\n' +
-          '  const { currentTheme, themes, switchTheme } = useThemeSwitcher();\n' +
-          '  \n' +
-          '  return (\n' +
-          '    <div>\n' +
-          '      <p>Current: {currentTheme?.name}</p>\n' +
-          '      <button onClick={() => switchTheme("purple")}>\n' +
-          '        Switch to Purple\n' +
-          '      </button>\n' +
-          '    </div>\n' +
-          '  );\n' +
-          '}\n' +
-          '```',
+        component: `
+The OxygenUIThemeProvider component provides theming capabilities for your entire application.
+It supports single or multiple themes, color scheme switching (light/dark), and persistent theme preferences.
+
+### Features
+- **CSS Variables**: Dynamic theming with CSS custom properties
+- **Color Schemes**: Built-in light and dark mode support
+- **Multiple Themes**: Allow users to switch between different themes
+- **SSR-Safe**: Server-side rendering compatible
+- **Persistent Preferences**: Remembers user theme choices
+- **Theme Customization**: Fully customizable with MUI's extendTheme
+
+### Basic Usage
+\`\`\`tsx
+import { OxygenUIThemeProvider } from "@wso2/oxygen-ui";
+
+function App() {
+  return (
+    <OxygenUIThemeProvider>
+      <YourApp />
+    </OxygenUIThemeProvider>
+  );
+}
+\`\`\`
+
+### With Custom Theme
+\`\`\`tsx
+import { OxygenUIThemeProvider, extendTheme } from "@wso2/oxygen-ui";
+
+const customTheme = extendTheme({
+  colorSchemes: {
+    light: {
+      palette: {
+        primary: { main: "#9c27b0" }
+      }
+    }
+  }
+});
+
+<OxygenUIThemeProvider theme={customTheme}>
+  <YourApp />
+</OxygenUIThemeProvider>
+\`\`\`
+        `,
       },
     },
   },
-  tags: ['autodocs'],
+  argTypes: {
+    theme: {
+      control: false,
+      description: 'A single MUI theme created with extendTheme()',
+    },
+    themes: {
+      control: false,
+      description: 'Array of theme options for multi-theme support',
+    },
+    initialTheme: {
+      control: 'text',
+      description: 'The ID of the theme to use initially',
+    },
+    children: {
+      control: false,
+      description: 'Your application components',
+    },
+  },
 };
 
 export default meta;
-type Story = StoryObj;
+type Story = StoryObj<typeof OxygenUIThemeProvider>;
 
-export const SingleTheme: Story = {
+/**
+ * Basic setup using the default Oxygen theme with built-in light/dark color schemes.
+ */
+export const Default: Story = {
   render: () => (
-    <Stack spacing={3} sx={{ maxWidth: 600 }}>
-      <Typography variant="h5">Single Theme Setup</Typography>
-      <Paper elevation={2} sx={{ p: 3 }}>
-        <Typography variant="body2" component="pre" sx={{ 
-          bgcolor: 'action.hover', 
-          p: 2, 
-          borderRadius: 1,
-          overflow: 'auto',
-          fontSize: '0.875rem',
-          whiteSpace: 'pre-wrap'
-        }}>
-{`import { OxygenUIThemeProvider } from "@wso2/oxygen-ui";
+    <Stack spacing={2} sx={{ maxWidth: 600 }}>
+      <Typography variant="body2" color="text.secondary">
+        The simplest setup - wraps your app with the default Oxygen theme.
+      </Typography>
+      <CodeBlock 
+        language="tsx"
+        code={`import { OxygenUIThemeProvider } from "@wso2/oxygen-ui";
 
 function App() {
   return (
@@ -132,33 +123,25 @@ function App() {
     </OxygenUIThemeProvider>
   );
 }`}
-        </Typography>
-      </Paper>
-      <Typography variant="body2" color="text.secondary">
-        The simplest setup - uses the default Oxygen theme with built-in light/dark color schemes.
-      </Typography>
+      />
     </Stack>
   ),
 };
 
+/**
+ * Create and use a custom theme with your brand colors and preferences.
+ */
 export const CustomTheme: Story = {
   render: () => (
-    <Stack spacing={3} sx={{ maxWidth: 600 }}>
-      <Typography variant="h5">Custom Theme</Typography>
-      <Paper elevation={2} sx={{ p: 3 }}>
-        <Typography variant="body2" component="pre" sx={{ 
-          bgcolor: 'action.hover', 
-          p: 2, 
-          borderRadius: 1,
-          overflow: 'auto',
-          fontSize: '0.875rem',
-          whiteSpace: 'pre-wrap'
-        }}>
-{`import { OxygenUIThemeProvider } from "@wso2/oxygen-ui";
-import { extendTheme } from "@mui/material/styles";
+    <Stack spacing={2} sx={{ maxWidth: 600 }}>
+      <Typography variant="body2" color="text.secondary">
+        Extend the default theme with your own colors and typography.
+      </Typography>
+      <CodeBlock 
+        language="tsx"
+        code={`import { OxygenUIThemeProvider, extendTheme } from "@wso2/oxygen-ui";
 
 const customTheme = extendTheme({
-  cssVarPrefix: "custom",
   colorSchemes: {
     light: {
       palette: {
@@ -181,82 +164,70 @@ const customTheme = extendTheme({
 <OxygenUIThemeProvider theme={customTheme}>
   <YourApp />
 </OxygenUIThemeProvider>`}
-        </Typography>
-      </Paper>
-      <Typography variant="body2" color="text.secondary">
-        Create a custom theme using MUI's extendTheme with your brand colors and preferences.
-      </Typography>
+      />
     </Stack>
   ),
 };
 
+/**
+ * Provide multiple themes and let users switch between them.
+ */
 export const MultipleThemes: Story = {
   render: () => (
-    <Stack spacing={3} sx={{ maxWidth: 600 }}>
-      <Typography variant="h5">Multiple Themes Support</Typography>
-      <Paper elevation={2} sx={{ p: 3 }}>
-        <Typography variant="body2" component="pre" sx={{ 
-          bgcolor: 'action.hover', 
-          p: 2, 
-          borderRadius: 1,
-          overflow: 'auto',
-          fontSize: '0.875rem',
-          whiteSpace: 'pre-wrap'
-        }}>
-{`import { OxygenUIThemeProvider, ThemeSwitcher } from "@wso2/oxygen-ui";
-import { extendTheme } from "@mui/material/styles";
-
-const defaultTheme = extendTheme({ /* ... */ });
-const purpleTheme = extendTheme({
-  colorSchemes: {
-    light: { palette: { primary: { main: "#9c27b0" } } },
-    dark: { palette: { primary: { main: "#ce93d8" } } }
-  }
-});
+    <Stack spacing={2} sx={{ maxWidth: 600 }}>
+      <Typography variant="body2" color="text.secondary">
+        Enable theme switching by providing an array of themes.
+      </Typography>
+      <CodeBlock 
+        language="tsx"
+        code={`import { OxygenUIThemeProvider, ThemeSwitcher, extendTheme } from "@wso2/oxygen-ui";
 
 const themes = [
-  { id: "default", name: "Default", theme: defaultTheme },
-  { id: "purple", name: "Purple", theme: purpleTheme }
+  { 
+    id: "default", 
+    name: "Default", 
+    theme: extendTheme({ /* ... */ }) 
+  },
+  { 
+    id: "purple", 
+    name: "Purple", 
+    theme: extendTheme({
+      colorSchemes: {
+        light: { palette: { primary: { main: "#9c27b0" } } }
+      }
+    })
+  }
 ];
 
-<OxygenUIThemeProvider 
-  themes={themes} 
-  initialTheme="default"
->
+<OxygenUIThemeProvider themes={themes} initialTheme="default">
   <ThemeSwitcher showLabel />
   <YourApp />
 </OxygenUIThemeProvider>`}
-        </Typography>
-      </Paper>
-      <Typography variant="body2" color="text.secondary">
-        Provide multiple themes and let users switch between them using the ThemeSwitcher component.
-      </Typography>
+      />
     </Stack>
   ),
 };
 
+/**
+ * Programmatically access and control themes using the useThemeSwitcher hook.
+ */
 export const UsingHook: Story = {
   render: () => (
-    <Stack spacing={3} sx={{ maxWidth: 600 }}>
-      <Typography variant="h5">Using useThemeSwitcher Hook</Typography>
-      <Paper elevation={2} sx={{ p: 3 }}>
-        <Typography variant="body2" component="pre" sx={{ 
-          bgcolor: 'action.hover', 
-          p: 2, 
-          borderRadius: 1,
-          overflow: 'auto',
-          fontSize: '0.875rem',
-          whiteSpace: 'pre-wrap'
-        }}>
-{`import { useThemeSwitcher } from "@wso2/oxygen-ui";
+    <Stack spacing={2} sx={{ maxWidth: 600 }}>
+      <Typography variant="body2" color="text.secondary">
+        Access theme state and switch themes programmatically.
+      </Typography>
+      <CodeBlock 
+        language="tsx"
+        code={`import { useThemeSwitcher } from "@wso2/oxygen-ui";
 
 function ThemeInfo() {
   const { currentTheme, themes, switchTheme } = useThemeSwitcher();
   
   return (
     <div>
-      <p>Current Theme: {currentTheme?.name}</p>
-      <p>Available Themes: {themes.length}</p>
+      <p>Current: {currentTheme?.name}</p>
+      <p>Available: {themes.length}</p>
       
       {themes.map((theme) => (
         <button 
@@ -269,62 +240,7 @@ function ThemeInfo() {
     </div>
   );
 }`}
-        </Typography>
-      </Paper>
-      <Typography variant="body2" color="text.secondary">
-        Access theme information and programmatically switch themes in your components.
-      </Typography>
-    </Stack>
-  ),
-};
-
-export const Props: Story = {
-  render: () => (
-    <Stack spacing={3} sx={{ maxWidth: 600 }}>
-      <Typography variant="h5">Props Reference</Typography>
-      <Paper elevation={2} sx={{ p: 3 }}>
-        <Stack spacing={2}>
-          <Box>
-            <Typography variant="subtitle2" fontWeight="bold">theme</Typography>
-            <Typography variant="body2" color="text.secondary">
-              Type: <code>Theme</code> (optional)
-            </Typography>
-            <Typography variant="body2">
-              A single MUI theme created with extendTheme(). If not provided, uses the default Oxygen theme.
-            </Typography>
-          </Box>
-          
-          <Box>
-            <Typography variant="subtitle2" fontWeight="bold">themes</Typography>
-            <Typography variant="body2" color="text.secondary">
-              Type: <code>ThemeOption[]</code> (optional)
-            </Typography>
-            <Typography variant="body2">
-              Array of theme options for multi-theme support. Each option has: id (string), name (string), theme (Theme).
-            </Typography>
-          </Box>
-          
-          <Box>
-            <Typography variant="subtitle2" fontWeight="bold">initialTheme</Typography>
-            <Typography variant="body2" color="text.secondary">
-              Type: <code>string</code> (optional)
-            </Typography>
-            <Typography variant="body2">
-              The ID of the theme to use initially. Only applicable when themes prop is provided.
-            </Typography>
-          </Box>
-          
-          <Box>
-            <Typography variant="subtitle2" fontWeight="bold">children</Typography>
-            <Typography variant="body2" color="text.secondary">
-              Type: <code>React.ReactNode</code>
-            </Typography>
-            <Typography variant="body2">
-              Your application components.
-            </Typography>
-          </Box>
-        </Stack>
-      </Paper>
+      />
     </Stack>
   ),
 };

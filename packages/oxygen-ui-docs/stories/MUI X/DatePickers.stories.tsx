@@ -18,8 +18,7 @@
 
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { DatePickers, OxygenUIThemeProvider } from '@wso2/oxygen-ui';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { DatePickers, AdapterDateFns, OxygenUIThemeProvider } from '@wso2/oxygen-ui';
 
 const { LocalizationProvider, DatePicker, TimePicker, DateTimePicker } = DatePickers;
 
