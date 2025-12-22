@@ -16,33 +16,28 @@
  * under the License.
  */
 
-import { Theme } from '@mui/material/styles';
-import OxygenTheme from './OxygenTheme';
+import { extendTheme } from '@mui/material/styles';
+import OxygenBaseTheme from './OxygenBaseTheme';
+import type { OxygenTheme } from './OxygenBaseTheme';
 
 /**
- * Oxygen Theme with Radial Background Design
+ * Asgardeo Theme - Oxygen Theme with Radial Background Design
  * This theme extends the base OxygenTheme and adds radial gradient backgrounds
  * that respond to light/dark color schemes.
  * 
  * Usage:
  * ```tsx
- * import { OxygenUIThemeProvider, OxygenThemeWithRadialBackground } from '@wso2/oxygen-ui';
+ * import { OxygenUIThemeProvider, AsgardeoTheme } from '@wso2/oxygen-ui';
  * 
- * <OxygenUIThemeProvider theme={OxygenThemeWithRadialBackground}>
+ * <OxygenUIThemeProvider theme={AsgardeoTheme}>
  *   <App />
  * </OxygenUIThemeProvider>
  * ```
  */
-const OxygenThemeWithRadialBackground: Theme = {
-  ...OxygenTheme,
+const AsgardeoTheme = extendTheme(OxygenBaseTheme, {
   components: {
-    ...OxygenTheme.components,
     MuiCssBaseline: {
-      ...(OxygenTheme.components?.MuiCssBaseline || {}),
       styleOverrides: {
-        ...(typeof OxygenTheme.components?.MuiCssBaseline?.styleOverrides === 'object' 
-          ? OxygenTheme.components.MuiCssBaseline.styleOverrides 
-          : {}),
         "html[data-color-scheme='dark'] body": {
           backgroundAttachment: 'fixed',
           backgroundImage: `
@@ -64,6 +59,6 @@ const OxygenThemeWithRadialBackground: Theme = {
       },
     },
   },
-};
+}) as OxygenTheme;
 
-export default OxygenThemeWithRadialBackground;
+export default AsgardeoTheme;

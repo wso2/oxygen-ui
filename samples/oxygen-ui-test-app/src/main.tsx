@@ -16,23 +16,21 @@
  * under the License.
  */
 
-import { OxygenUIThemeProvider, OxygenTheme, OxygenThemeWithRadialBackground } from '@wso2/oxygen-ui'
+import { OxygenUIThemeProvider, AsgardeoTheme, ChoreoTheme } from '@wso2/oxygen-ui'
 import { BrowserRouter } from 'react-router'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
-import ChoreoTheme from './themes/choreo.ts'
 import './index.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <OxygenUIThemeProvider 
       themes={[
-        { key: 'radial', label: 'Radial Background', theme: OxygenThemeWithRadialBackground },
+        { key: 'asgardeo', label: 'Asgardeo Theme', theme: AsgardeoTheme },
         { key: 'choreo', label: 'Choreo Theme', theme: ChoreoTheme },
-        { key: 'default', label: 'Default Theme', theme: OxygenTheme },
       ]}
-      initialTheme="radial"
+      initialTheme="asgardeo"
     >
       <BrowserRouter>
         <App />

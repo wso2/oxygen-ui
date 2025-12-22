@@ -19,8 +19,9 @@
 import { ThemeProvider, StyledEngineProvider, Theme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { ReactNode, createContext, useContext, useState } from 'react';
-import OxygenTheme from '../../styles/OxygenTheme/OxygenTheme';
-import OxygenThemeWithRadialBackground from '../../styles/OxygenTheme/OxygenThemeWithRadialBackground';
+import OxygenTheme from '../../styles/Themes/OxygenBaseTheme';
+import AsgardeoTheme from '../../styles/Themes/AsgardeoTheme';
+import ChoreoTheme from '../../styles/Themes/ChoreoTheme';
 
 export interface ThemeOption {
   /**
@@ -68,9 +69,14 @@ const defaultThemes: ThemeOption[] = [
     theme: OxygenTheme,
   },
   {
-    key: 'radial',
-    label: 'Radial Background',
-    theme: OxygenThemeWithRadialBackground,
+    key: 'asgardeo',
+    label: 'Asgardeo',
+    theme: AsgardeoTheme,
+  },
+  {
+    key: 'choreo',
+    label: 'Choreo',
+    theme: ChoreoTheme,
   },
 ];
 

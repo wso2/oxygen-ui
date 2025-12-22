@@ -20,6 +20,7 @@ import { type RouteProps } from 'react-router'
 import DefaultLayout from '../layouts/DefaultLayout';
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
+import LoginPage2 from '../pages/LoginPage2';
 import ListingPage from '../pages/ListingPage';
 import FormPage from '../pages/FormPage';
 import GateLayout from '../layouts/GateLayout';
@@ -70,6 +71,12 @@ const appRoutes: AppRoute[] = [
         path: '/login',
         element: <LoginPage />,
         label: 'Login Page',
+        showInNav: true,
+      },
+      {
+        path: '/login2',
+        element: <LoginPage2 />,
+        label: 'Login Page 2',
         showInNav: true,
       },
       {

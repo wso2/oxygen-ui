@@ -18,7 +18,7 @@
 
 import MuiDivider, { DividerProps } from '@mui/material/Divider';
 
-export interface ComplexSelectDividerProps extends DividerProps {}
+export type ComplexSelectDividerProps = DividerProps;
 
 export function ComplexSelectDivider({ sx, ...props }: ComplexSelectDividerProps) {
   return <MuiDivider sx={{ mx: -1, ...sx }} {...props} />;

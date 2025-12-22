@@ -17,21 +17,22 @@
  */
 
 import { Outlet } from 'react-router'
-import { Box, ColorSchemeToggle, Layout, Stack, ThemeSwitcher } from '@wso2/oxygen-ui'
+import { Box, ColorSchemeToggle, Layout, ParticleBackground, Stack, ThemeSwitcher } from '@wso2/oxygen-ui'
 import FloatingNavMenu from '../components/FloatingNavMenu'
 import type { JSX } from 'react'
 
 export default function GateLayout(): JSX.Element {
   return (
     <Layout.Content>
+      <ParticleBackground opacity={0.5} />
       <Box sx={{ height: '100%' }}>
         <Stack
           direction="row"
           spacing={2}
           sx={{
             position: 'fixed',
-            top: '2.3rem',
-            right: '3rem',
+            top: '3.7rem',
+            left: '8rem',
             zIndex: 2
           }}
         >

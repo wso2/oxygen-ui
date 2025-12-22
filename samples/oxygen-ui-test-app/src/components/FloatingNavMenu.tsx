@@ -53,8 +53,8 @@ export default function FloatingNavMenu() {
         size="small"
         sx={{
           position: 'fixed',
-          bottom: 60,
-          right: 60,
+          top: 60,
+          left: 60,
           zIndex: 1000,
         }}
       >
@@ -66,13 +66,14 @@ export default function FloatingNavMenu() {
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'top',
+          vertical: 'bottom',
           horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
+          vertical: 'top',
+          horizontal: 'left',
         }}
+        sx={{ mt: 1 }}
       >
         <MenuItem onClick={() => handleNavigation('/')}>
           Home

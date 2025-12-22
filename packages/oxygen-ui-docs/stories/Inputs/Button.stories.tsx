@@ -17,10 +17,7 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import CircularProgress from '@mui/material/CircularProgress';
-import { useTheme } from '@mui/material/styles';
+import { Button, Stack, CircularProgress, useTheme } from '@wso2/oxygen-ui';
 import React from 'react';
 
 /**

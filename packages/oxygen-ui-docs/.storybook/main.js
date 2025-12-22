@@ -24,20 +24,18 @@ export default {
   addons: [
     '@storybook/addon-docs',
     '@storybook/addon-links',
+    '@storybook/mdx2-csf',
   ],
   framework: {
     name: '@storybook/react-webpack5',
     options: {}
   },
-  docs: {},
+  docs: {
+    autodocs: true,
+  },
   typescript: {
     reactDocgen: "react-docgen-typescript"
   },
-  managerHead: (head) => `
-    ${head}
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
-  `,
   webpackFinal: async (config) => {
     // Handle workspace packages - allow transpiling @wso2 packages
     config.module.rules.push({
