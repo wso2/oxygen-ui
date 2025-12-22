@@ -1,5 +1,11 @@
 # @wso2/oxygen-ui-icons-react
 
+## 0.0.1-alpha.12
+
+### Patch Changes
+
+- [#410](https://github.com/wso2/oxygen-ui/pull/410) [`466468a`](https://github.com/wso2/oxygen-ui/commit/466468ab3149602355faaffb85a519e79a388b08) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Add new components/themes/animations and stories along with some refactoring and improvements + fixes
+
 ## 0.0.1-alpha.10
 
 ### Patch Changes
