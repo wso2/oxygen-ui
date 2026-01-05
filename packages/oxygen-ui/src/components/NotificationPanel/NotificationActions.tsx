@@ -19,8 +19,36 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { CheckCheck, Trash2 } from '@wso2/oxygen-ui-icons-react';
+
+/**
+ * Styled actions container.
+ */
+const NotificationActionsRoot = styled(Box, {
+  name: 'MuiNotificationPanel',
+  slot: 'Actions',
+})(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  gap: theme.spacing(1),
+  padding: theme.spacing(1),
+  borderBottom: `1px solid ${(theme.vars || theme).palette.divider}`,
+  backgroundColor: (theme.vars || theme).palette.action.hover,
+}));
+
+/**
+ * Styled action button.
+ */
+const NotificationActionButton = styled(Button, {
+  name: 'MuiNotificationPanel',
+  slot: 'ActionButton',
+})({
+  textTransform: 'none',
+  fontSize: 12,
+});
 
 /**
  * Props for NotificationActions component.
@@ -53,41 +81,27 @@ export const NotificationActions: React.FC<NotificationActionsProps> = ({
   sx,
 }) => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        gap: 1,
-        p: 1,
-        borderBottom: 1,
-        borderColor: 'divider',
-        bgcolor: 'action.hover',
-        ...sx,
-      }}
-    >
+    <NotificationActionsRoot sx={sx}>
       {hasUnread && onMarkAllRead && (
-        <Button
+        <NotificationActionButton
           size="small"
           startIcon={<CheckCheck size={14} />}
           onClick={onMarkAllRead}
-          sx={{ textTransform: 'none', fontSize: 12 }}
         >
           Mark all read
-        </Button>
+        </NotificationActionButton>
       )}
       {onClearAll && (
-        <Button
+        <NotificationActionButton
           size="small"
           startIcon={<Trash2 size={14} />}
           onClick={onClearAll}
           color="error"
-          sx={{ textTransform: 'none', fontSize: 12 }}
         >
           Clear all
-        </Button>
+        </NotificationActionButton>
       )}
-    </Box>
+    </NotificationActionsRoot>
   );
 };
 

@@ -20,6 +20,7 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { HeaderContext } from './context';
 import { HeaderToggle } from './HeaderToggle';
@@ -42,6 +43,45 @@ import { HeaderActions } from './HeaderActions';
  * - `xs` (0px) - Mobile layout, minHeight: 56
  * - `sm` (600px) - Tablet, minHeight: 64
  */
+
+/**
+ * Styled root AppBar for the header.
+ */
+const HeaderRootStyled = styled(AppBar, {
+  name: 'MuiHeader',
+  slot: 'Root',
+})(({ theme }) => ({
+  backgroundColor: (theme.vars || theme).palette.background.paper,
+  borderBottom: `1px solid ${(theme.vars || theme).palette.divider}`,
+}));
+
+/**
+ * Styled toolbar for the header.
+ */
+const HeaderToolbar = styled(Toolbar, {
+  name: 'MuiHeader',
+  slot: 'Toolbar',
+})(({ theme }) => ({
+  gap: theme.spacing(1),
+  minHeight: 56,
+  paddingLeft: theme.spacing(1),
+  paddingRight: theme.spacing(1),
+  [theme.breakpoints.up('sm')]: {
+    minHeight: 64,
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+}));
+
+/**
+ * Styled spacer component for the header.
+ */
+const HeaderSpacerStyled = styled(Box, {
+  name: 'MuiHeader',
+  slot: 'Spacer',
+})({
+  flexGrow: 1,
+});
 
 /**
  * Props for the Header component.
@@ -97,27 +137,9 @@ const HeaderRoot: React.FC<HeaderProps> = ({
 
   return (
     <HeaderContext.Provider value={contextValue}>
-      <AppBar
-        position="static"
-        color="default"
-        elevation={0}
-        sx={{
-          bgcolor: 'background.paper',
-          borderBottom: 1,
-          borderColor: 'divider',
-          ...sx,
-        }}
-      >
-        <Toolbar
-          sx={{
-            gap: 1,
-            minHeight: { xs: 56, sm: 64 },
-            px: { xs: 1, sm: 2 },
-          }}
-        >
-          {children}
-        </Toolbar>
-      </AppBar>
+      <HeaderRootStyled position="static" color="default" elevation={0} sx={sx}>
+        <HeaderToolbar>{children}</HeaderToolbar>
+      </HeaderRootStyled>
     </HeaderContext.Provider>
   );
 };
@@ -134,7 +156,7 @@ export interface HeaderSpacerProps {
  * Spacer component for header layout.
  */
 const HeaderSpacer: React.FC<HeaderSpacerProps> = ({ sx }) => (
-  <Box sx={{ flexGrow: 1, ...sx }} />
+  <HeaderSpacerStyled sx={sx} />
 );
 
 /**

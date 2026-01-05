@@ -21,11 +21,59 @@ import Box from '@mui/material/Box';
 import ListItemButton from '@mui/material/ListItemButton';
 import Tooltip from '@mui/material/Tooltip';
 import Divider from '@mui/material/Divider';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { useSidebar } from './context';
 import { SidebarUserAvatar } from './SidebarUserAvatar';
 import { SidebarUserName } from './SidebarUserName';
 import { SidebarUserEmail } from './SidebarUserEmail';
+
+/**
+ * Props for styled SidebarUserButton.
+ */
+interface SidebarUserButtonProps {
+  ownerState: {
+    collapsed: boolean;
+  };
+}
+
+/**
+ * Styled container for the user section.
+ */
+const SidebarUserRoot = styled(Box, {
+  name: 'MuiSidebar',
+  slot: 'User',
+})(({ theme }) => ({
+  padding: theme.spacing(1),
+}));
+
+/**
+ * Styled button for user profile.
+ */
+const SidebarUserButton = styled(ListItemButton, {
+  name: 'MuiSidebar',
+  slot: 'UserButton',
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<SidebarUserButtonProps>(({ theme, ownerState }) => ({
+  minHeight: 56,
+  paddingLeft: theme.spacing(2),
+  paddingRight: theme.spacing(2),
+  justifyContent: ownerState.collapsed ? 'center' : 'initial',
+  borderRadius: theme.shape.borderRadius,
+  marginLeft: theme.spacing(1),
+  marginRight: theme.spacing(1),
+}));
+
+/**
+ * Styled container for user text content.
+ */
+const SidebarUserTextContainer = styled(Box, {
+  name: 'MuiSidebar',
+  slot: 'UserTextContainer',
+})(({ theme }) => ({
+  marginLeft: theme.spacing(2),
+  overflow: 'hidden',
+}));
 
 // Child display names for detection
 const CHILD_DISPLAY_NAMES = [
@@ -118,30 +166,21 @@ export const SidebarUser: React.FC<SidebarUserProps> = ({
   const { avatarChild, textChildren } = separateChildren(children);
   const tooltipText = getTooltipText(children);
 
+  const ownerState = { collapsed };
+
   const content = (
-    <ListItemButton
-      onClick={onClick}
-      sx={{
-        minHeight: 56,
-        px: 2,
-        justifyContent: collapsed ? 'center' : 'initial',
-        borderRadius: 1,
-        mx: 1,
-      }}
-    >
+    <SidebarUserButton onClick={onClick} ownerState={ownerState}>
       {avatarChild}
       {!collapsed && textChildren.length > 0 && (
-        <Box sx={{ ml: 2, overflow: 'hidden' }}>
-          {textChildren}
-        </Box>
+        <SidebarUserTextContainer>{textChildren}</SidebarUserTextContainer>
       )}
-    </ListItemButton>
+    </SidebarUserButton>
   );
 
   return (
     <>
       {showDivider && <Divider />}
-      <Box sx={{ p: 1, ...sx }}>
+      <SidebarUserRoot sx={sx}>
         {collapsed ? (
           <Tooltip title={tooltipText} placement="right" arrow>
             {content}
@@ -149,7 +188,7 @@ export const SidebarUser: React.FC<SidebarUserProps> = ({
         ) : (
           content
         )}
-      </Box>
+      </SidebarUserRoot>
     </>
   );
 };

@@ -23,6 +23,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import Collapse from '@mui/material/Collapse';
 import Tooltip from '@mui/material/Tooltip';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { ChevronDown, ChevronUp } from '@wso2/oxygen-ui-icons-react';
 import { useSidebar } from './context';
@@ -34,6 +35,62 @@ import {
 import { SidebarItemIcon } from './SidebarItemIcon';
 import { SidebarItemLabel } from './SidebarItemLabel';
 import { SidebarItemBadge } from './SidebarItemBadge';
+
+/**
+ * Props for styled SidebarItemButton.
+ */
+interface SidebarItemButtonProps {
+  ownerState: {
+    collapsed: boolean;
+    depth: number;
+  };
+}
+
+/**
+ * Styled list item container.
+ */
+const SidebarItemRoot = styled(ListItem, {
+  name: 'MuiSidebar',
+  slot: 'Item',
+})({
+  display: 'block',
+  padding: 0,
+});
+
+/**
+ * Styled button for sidebar item.
+ */
+const SidebarItemButton = styled(ListItemButton, {
+  name: 'MuiSidebar',
+  slot: 'ItemButton',
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<SidebarItemButtonProps>(({ theme, ownerState }) => ({
+  minHeight: 44,
+  paddingRight: theme.spacing(2),
+  paddingLeft: ownerState.collapsed ? theme.spacing(2) : theme.spacing(2 + ownerState.depth * 2),
+  justifyContent: ownerState.collapsed ? 'center' : 'initial',
+  borderRadius: theme.shape.borderRadius,
+  marginLeft: theme.spacing(1),
+  marginRight: theme.spacing(1),
+  '&.Mui-selected': {
+    backgroundColor: (theme.vars || theme).palette.action.selected,
+    '&:hover': {
+      backgroundColor: (theme.vars || theme).palette.action.selected,
+    },
+  },
+}));
+
+/**
+ * Styled container for expand/collapse chevron.
+ */
+const SidebarItemChevron = styled(Box, {
+  name: 'MuiSidebar',
+  slot: 'ItemChevron',
+})({
+  marginLeft: 'auto',
+  display: 'flex',
+  alignItems: 'center',
+});
 
 // Child display names for detection
 const CHILD_DISPLAY_NAMES = [
@@ -147,41 +204,29 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
   };
 
   const tooltipLabel = getTooltipLabel(children);
+  const ownerState = { collapsed, depth };
 
   const buttonContent = (
-    <ListItemButton
+    <SidebarItemButton
       selected={isActive && !hasNestedItems}
       onClick={handleClick}
-      sx={{
-        minHeight: 44,
-        px: 2,
-        pl: collapsed ? 2 : 2 + depth * 2,
-        justifyContent: collapsed ? 'center' : 'initial',
-        borderRadius: 1,
-        mx: 1,
-        '&.Mui-selected': {
-          bgcolor: 'action.selected',
-          '&:hover': {
-            bgcolor: 'action.selected',
-          },
-        },
-        ...sx,
-      }}
+      ownerState={ownerState}
+      sx={sx}
     >
       <SidebarItemProvider value={contextValue}>
         {composableChildren}
         {!collapsed && hasNestedItems && (
-          <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center' }}>
+          <SidebarItemChevron>
             {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-          </Box>
+          </SidebarItemChevron>
         )}
       </SidebarItemProvider>
-    </ListItemButton>
+    </SidebarItemButton>
   );
 
   return (
     <>
-      <ListItem disablePadding sx={{ display: 'block' }}>
+      <SidebarItemRoot disablePadding>
         {collapsed ? (
           <Tooltip title={tooltipLabel} placement="right" arrow>
             {buttonContent}
@@ -189,7 +234,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
         ) : (
           buttonContent
         )}
-      </ListItem>
+      </SidebarItemRoot>
 
       {/* Nested children - only shown when not collapsed */}
       {hasNestedItems && !collapsed && (

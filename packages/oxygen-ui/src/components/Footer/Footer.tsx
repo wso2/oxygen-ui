@@ -21,6 +21,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Divider from '@mui/material/Divider';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 
 /**
@@ -46,6 +47,103 @@ import type { SxProps, Theme } from '@mui/material/styles';
  * - flexDirection: { xs: 'column', sm: 'row' }
  * - alignItems: { xs: 'flex-start', sm: 'center' }
  */
+
+/**
+ * Styled root container for the footer.
+ */
+const FooterRoot = styled(Box, {
+  name: 'MuiFooter',
+  slot: 'Root',
+})<{ component?: React.ElementType }>(({ theme }) => ({
+  width: '100%',
+  paddingTop: theme.spacing(2),
+  paddingBottom: theme.spacing(2),
+  paddingLeft: theme.spacing(3),
+  paddingRight: theme.spacing(3),
+  marginTop: 'auto',
+  borderTop: `1px solid ${(theme.vars || theme).palette.divider}`,
+  backgroundColor: (theme.vars || theme).palette.background.paper,
+}));
+
+/**
+ * Styled content container.
+ */
+const FooterContent = styled(Box, {
+  name: 'MuiFooter',
+  slot: 'Content',
+})(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  justifyContent: 'space-between',
+  gap: theme.spacing(2),
+  [theme.breakpoints.up('sm')]: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+}));
+
+/**
+ * Styled copyright section.
+ */
+const FooterCopyright = styled(Box, {
+  name: 'MuiFooter',
+  slot: 'Copyright',
+})(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(2),
+  flexWrap: 'wrap',
+}));
+
+/**
+ * Styled copyright text.
+ */
+const FooterCopyrightText = styled(Typography, {
+  name: 'MuiFooter',
+  slot: 'CopyrightText',
+})(({ theme }) => ({
+  color: (theme.vars || theme).palette.text.secondary,
+}));
+
+/**
+ * Styled version text.
+ */
+const FooterVersion = styled(Typography, {
+  name: 'MuiFooter',
+  slot: 'Version',
+})(({ theme }) => ({
+  color: (theme.vars || theme).palette.text.disabled,
+  fontFamily: 'monospace',
+  fontSize: 11,
+}));
+
+/**
+ * Styled links container.
+ */
+const FooterLinks = styled(Box, {
+  name: 'MuiFooter',
+  slot: 'Links',
+})(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(2),
+  flexWrap: 'wrap',
+}));
+
+/**
+ * Styled footer link.
+ */
+const FooterLink = styled(Link, {
+  name: 'MuiFooter',
+  slot: 'Link',
+})(({ theme }) => ({
+  color: (theme.vars || theme).palette.text.secondary,
+  fontSize: 12,
+  '&:hover': {
+    color: (theme.vars || theme).palette.text.primary,
+  },
+}));
 
 /**
  * Props for the Footer component.
@@ -108,43 +206,13 @@ export const Footer: React.FC<FooterProps> = ({
   const copyrightText = copyright || `© ${currentYear} ${companyName}. All rights reserved.`;
 
   return (
-    <Box
-      component="footer"
-      sx={{
-        width: '100%',
-        py: 2,
-        px: 3,
-        mt: 'auto',
-        borderTop: 1,
-        borderColor: 'divider',
-        bgcolor: 'background.paper',
-        ...sx,
-      }}
-    >
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', sm: 'row' },
-          alignItems: { xs: 'flex-start', sm: 'center' },
-          justifyContent: 'space-between',
-          gap: 2,
-        }}
-      >
+    <FooterRoot component="footer" sx={sx}>
+      <FooterContent>
         {/* Copyright section */}
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 2,
-            flexWrap: 'wrap',
-          }}
-        >
-          <Typography
-            variant="caption"
-            sx={{ color: 'text.secondary' }}
-          >
+        <FooterCopyright>
+          <FooterCopyrightText variant="caption">
             {copyrightText}
-          </Typography>
+          </FooterCopyrightText>
           {version && (
             <>
               <Divider
@@ -152,74 +220,27 @@ export const Footer: React.FC<FooterProps> = ({
                 flexItem
                 sx={{ display: { xs: 'none', sm: 'block' } }}
               />
-              <Typography
-                variant="caption"
-                sx={{
-                  color: 'text.disabled',
-                  fontFamily: 'monospace',
-                  fontSize: 11,
-                }}
-              >
-                {version}
-              </Typography>
+              <FooterVersion variant="caption">{version}</FooterVersion>
             </>
           )}
-        </Box>
+        </FooterCopyright>
 
         {/* Links section */}
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 2,
-            flexWrap: 'wrap',
-          }}
-        >
-          <Link
-            href={termsUrl}
-            underline="hover"
-            sx={{
-              color: 'text.secondary',
-              fontSize: 12,
-              '&:hover': {
-                color: 'text.primary',
-              },
-            }}
-          >
+        <FooterLinks>
+          <FooterLink href={termsUrl} underline="hover">
             Terms & Conditions
-          </Link>
-          <Link
-            href={privacyUrl}
-            underline="hover"
-            sx={{
-              color: 'text.secondary',
-              fontSize: 12,
-              '&:hover': {
-                color: 'text.primary',
-              },
-            }}
-          >
+          </FooterLink>
+          <FooterLink href={privacyUrl} underline="hover">
             Privacy Policy
-          </Link>
+          </FooterLink>
           {links.map((link, index) => (
-            <Link
-              key={index}
-              href={link.url}
-              underline="hover"
-              sx={{
-                color: 'text.secondary',
-                fontSize: 12,
-                '&:hover': {
-                  color: 'text.primary',
-                },
-              }}
-            >
+            <FooterLink key={index} href={link.url} underline="hover">
               {link.label}
-            </Link>
+            </FooterLink>
           ))}
-        </Box>
-      </Box>
-    </Box>
+        </FooterLinks>
+      </FooterContent>
+    </FooterRoot>
   );
 };
 

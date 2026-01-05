@@ -22,7 +22,58 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Collapse from '@mui/material/Collapse';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
+
+/**
+ * Styled alert for the notification banner.
+ */
+const NotificationBannerAlert = styled(Alert, {
+  name: 'MuiNotificationBanner',
+  slot: 'Root',
+})({
+  borderRadius: 0,
+  '& .MuiAlert-message': {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  '& .MuiAlert-action': {
+    paddingTop: 0,
+    alignItems: 'center',
+  },
+});
+
+/**
+ * Styled content container.
+ */
+const NotificationBannerContent = styled(Box, {
+  name: 'MuiNotificationBanner',
+  slot: 'Content',
+})({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 2,
+  flex: 1,
+});
+
+/**
+ * Styled action button.
+ */
+const NotificationBannerAction = styled(Button, {
+  name: 'MuiNotificationBanner',
+  slot: 'Action',
+})({
+  fontWeight: 600,
+  textDecoration: 'underline',
+  '&:hover': {
+    textDecoration: 'underline',
+    backgroundColor: 'transparent',
+  },
+});
 
 /**
  * Props for the NotificationBanner component.
@@ -97,58 +148,28 @@ export const NotificationBanner: React.FC<NotificationBannerProps> = ({
 
   return (
     <Collapse in={isVisible}>
-      <Alert
+      <NotificationBannerAlert
         severity={severity}
         variant="filled"
         onClose={handleDismiss}
-        sx={{
-          borderRadius: 0,
-          '& .MuiAlert-message': {
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: 1,
-          },
-          '& .MuiAlert-action': {
-            pt: 0,
-            alignItems: 'center',
-          },
-          ...sx,
-        }}
+        sx={sx}
         action={
           actionLabel && onAction ? (
-            <Button
+            <NotificationBannerAction
               color="inherit"
               size="small"
               onClick={onAction}
-              sx={{
-                fontWeight: 600,
-                textDecoration: 'underline',
-                '&:hover': {
-                  textDecoration: 'underline',
-                  bgcolor: 'transparent',
-                },
-              }}
             >
               {actionLabel}
-            </Button>
+            </NotificationBannerAction>
           ) : undefined
         }
       >
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 0.25,
-            flex: 1,
-          }}
-        >
+        <NotificationBannerContent>
           {title && <AlertTitle sx={{ mb: 0 }}>{title}</AlertTitle>}
           <Box component="span">{message}</Box>
-        </Box>
-      </Alert>
+        </NotificationBannerContent>
+      </NotificationBannerAlert>
     </Collapse>
   );
 };

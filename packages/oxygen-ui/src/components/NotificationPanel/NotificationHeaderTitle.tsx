@@ -18,7 +18,18 @@
 
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
+
+/**
+ * Styled title for the notification panel header.
+ */
+const NotificationHeaderTitleRoot = styled(Typography, {
+  name: 'MuiNotificationPanel',
+  slot: 'HeaderTitle',
+})({
+  fontWeight: 600,
+});
 
 /**
  * Props for NotificationHeaderTitle component.
@@ -48,15 +59,9 @@ export const NotificationHeaderTitle: React.FC<NotificationHeaderTitleProps> = (
   sx,
 }) => {
   return (
-    <Typography
-      variant="h6"
-      sx={{
-        fontWeight: 600,
-        ...sx,
-      }}
-    >
+    <NotificationHeaderTitleRoot variant="h6" sx={sx}>
       {children}
-    </Typography>
+    </NotificationHeaderTitleRoot>
   );
 };
 

@@ -18,6 +18,7 @@
 
 import * as React from 'react';
 import Drawer from '@mui/material/Drawer';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { NotificationPanelContext } from './context';
 import { NotificationHeader } from './NotificationHeader';
@@ -44,6 +45,34 @@ import { NotificationEmptyState } from './NotificationEmptyState';
  * - Full width on xs (mobile)
  * - Fixed width on sm+ (tablet/desktop)
  */
+
+/**
+ * Props for styled NotificationPanelRoot.
+ */
+interface NotificationPanelRootProps {
+  ownerState: {
+    width: number;
+  };
+}
+
+/**
+ * Styled drawer for the notification panel.
+ */
+const NotificationPanelRoot = styled(Drawer, {
+  name: 'MuiNotificationPanel',
+  slot: 'Root',
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<NotificationPanelRootProps>(({ theme, ownerState }) => ({
+  '& .MuiDrawer-paper': {
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: ownerState.width,
+    },
+    maxWidth: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+}));
 
 /**
  * Props for the NotificationPanel component.
@@ -116,7 +145,7 @@ export interface NotificationPanelProps {
  * </NotificationPanel>
  * ```
  */
-const NotificationPanelRoot: React.FC<NotificationPanelProps> = ({
+const NotificationPanelComponent: React.FC<NotificationPanelProps> = ({
   open,
   onClose,
   children,
@@ -125,25 +154,19 @@ const NotificationPanelRoot: React.FC<NotificationPanelProps> = ({
   sx,
 }) => {
   const contextValue = React.useMemo(() => ({ onClose }), [onClose]);
+  const ownerState = { width };
 
   return (
     <NotificationPanelContext.Provider value={contextValue}>
-      <Drawer
+      <NotificationPanelRoot
         anchor={anchor}
         open={open}
         onClose={onClose}
-        sx={{
-          '& .MuiDrawer-paper': {
-            width: { xs: '100%', sm: width },
-            maxWidth: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-          },
-          ...sx,
-        }}
+        ownerState={ownerState}
+        sx={sx}
       >
         {children}
-      </Drawer>
+      </NotificationPanelRoot>
     </NotificationPanelContext.Provider>
   );
 };
@@ -168,7 +191,7 @@ const NotificationPanelRoot: React.FC<NotificationPanelProps> = ({
  * - `NotificationPanel.ItemAction` - Action button for notification item
  * - `NotificationPanel.EmptyState` - Empty state display
  */
-export const NotificationPanel = Object.assign(NotificationPanelRoot, {
+export const NotificationPanel = Object.assign(NotificationPanelComponent, {
   Header: NotificationHeader,
   HeaderIcon: NotificationHeaderIcon,
   HeaderTitle: NotificationHeaderTitle,

@@ -18,9 +18,36 @@
 
 import * as React from 'react';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { useSidebar } from './context';
 import { useSidebarItemContext } from './SidebarItemContext';
+
+/**
+ * Props for the styled component.
+ */
+interface SidebarItemIconRootProps {
+  ownerState: {
+    collapsed: boolean;
+    isActive: boolean;
+  };
+}
+
+/**
+ * Styled icon container for sidebar items.
+ */
+const SidebarItemIconRoot = styled(ListItemIcon, {
+  name: 'MuiSidebar',
+  slot: 'ItemIcon',
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<SidebarItemIconRootProps>(({ theme, ownerState }) => ({
+  minWidth: 0,
+  marginRight: ownerState.collapsed ? 0 : theme.spacing(2),
+  justifyContent: 'center',
+  color: ownerState.isActive
+    ? (theme.vars || theme).palette.primary.main
+    : 'inherit',
+}));
 
 /**
  * Props for SidebarItemIcon component.
@@ -57,17 +84,12 @@ export const SidebarItemIcon: React.FC<SidebarItemIconProps> = ({
   const { isActive } = useSidebarItemContext();
 
   return (
-    <ListItemIcon
-      sx={{
-        minWidth: 0,
-        mr: collapsed ? 0 : 2,
-        justifyContent: 'center',
-        color: isActive ? 'primary.main' : 'inherit',
-        ...sx,
-      }}
+    <SidebarItemIconRoot
+      ownerState={{ collapsed, isActive }}
+      sx={sx}
     >
       {children}
-    </ListItemIcon>
+    </SidebarItemIconRoot>
   );
 };
 

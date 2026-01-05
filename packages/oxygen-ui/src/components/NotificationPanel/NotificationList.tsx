@@ -20,7 +20,19 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
+
+/**
+ * Styled container for the notification list.
+ */
+const NotificationListRoot = styled(Box, {
+  name: 'MuiNotificationPanel',
+  slot: 'List',
+})({
+  flex: 1,
+  overflow: 'auto',
+});
 
 /**
  * Props for NotificationList component.
@@ -47,7 +59,7 @@ export const NotificationList: React.FC<NotificationListProps> = ({
   const childArray = React.Children.toArray(children);
 
   return (
-    <Box sx={{ flex: 1, overflow: 'auto', ...sx }}>
+    <NotificationListRoot sx={sx}>
       <List disablePadding>
         {childArray.map((child, index) => (
           <React.Fragment key={index}>
@@ -56,7 +68,7 @@ export const NotificationList: React.FC<NotificationListProps> = ({
           </React.Fragment>
         ))}
       </List>
-    </Box>
+    </NotificationListRoot>
   );
 };
 

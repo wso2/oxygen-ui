@@ -18,8 +18,22 @@
 
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { useSidebar } from './context';
+
+/**
+ * Styled user name for the sidebar user section.
+ */
+const SidebarUserNameRoot = styled(Typography, {
+  name: 'MuiSidebar',
+  slot: 'UserName',
+})({
+  fontWeight: 600,
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+});
 
 /**
  * Props for SidebarUserName component.
@@ -58,18 +72,9 @@ export const SidebarUserName: React.FC<SidebarUserNameProps> = ({
   }
 
   return (
-    <Typography
-      variant="body2"
-      sx={{
-        fontWeight: 600,
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        ...sx,
-      }}
-    >
+    <SidebarUserNameRoot variant="body2" sx={sx}>
       {children}
-    </Typography>
+    </SidebarUserNameRoot>
   );
 };
 

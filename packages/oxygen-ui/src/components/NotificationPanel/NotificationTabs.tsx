@@ -21,6 +21,7 @@ import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Chip from '@mui/material/Chip';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 
 /**
@@ -38,6 +39,54 @@ export interface NotificationTabConfig {
 /**
  * Props for NotificationTabs component.
  */
+/**
+ * Styled container for tabs.
+ */
+const NotificationTabsRoot = styled(Box, {
+  name: 'MuiNotificationPanel',
+  slot: 'Tabs',
+})(({ theme }) => ({
+  borderBottom: `1px solid ${(theme.vars || theme).palette.divider}`,
+}));
+
+/**
+ * Styled tabs component.
+ */
+const NotificationTabsInner = styled(Tabs, {
+  name: 'MuiNotificationPanel',
+  slot: 'TabsInner',
+})({
+  minHeight: 44,
+  '& .MuiTab-root': {
+    minHeight: 44,
+    textTransform: 'none',
+    fontWeight: 500,
+  },
+});
+
+/**
+ * Styled tab label container.
+ */
+const NotificationTabLabel = styled(Box, {
+  name: 'MuiNotificationPanel',
+  slot: 'TabLabel',
+})(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(1),
+}));
+
+/**
+ * Styled tab count chip.
+ */
+const NotificationTabCount = styled(Chip, {
+  name: 'MuiNotificationPanel',
+  slot: 'TabCount',
+})({
+  height: 18,
+  fontSize: 10,
+});
+
 export interface NotificationTabsProps {
   /** Tab configurations */
   tabs: NotificationTabConfig[];
@@ -65,41 +114,32 @@ export const NotificationTabs: React.FC<NotificationTabsProps> = ({
   sx,
 }) => {
   return (
-    <Box sx={{ borderBottom: 1, borderColor: 'divider', ...sx }}>
-      <Tabs
+    <NotificationTabsRoot sx={sx}>
+      <NotificationTabsInner
         value={value}
         onChange={(_, newValue) => onChange(newValue)}
         variant="fullWidth"
-        sx={{
-          minHeight: 44,
-          '& .MuiTab-root': {
-            minHeight: 44,
-            textTransform: 'none',
-            fontWeight: 500,
-          },
-        }}
       >
         {tabs.map((tab, index) => (
           <Tab
             key={index}
             label={
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <NotificationTabLabel>
                 {tab.label}
                 {tab.count !== undefined && tab.count > 0 && (
-                  <Chip
+                  <NotificationTabCount
                     label={tab.count}
                     size="small"
                     color={tab.color || 'default'}
                     variant={tab.color ? 'filled' : 'outlined'}
-                    sx={{ height: 18, fontSize: 10 }}
                   />
                 )}
-              </Box>
+              </NotificationTabLabel>
             }
           />
         ))}
-      </Tabs>
-    </Box>
+      </NotificationTabsInner>
+    </NotificationTabsRoot>
   );
 };
 

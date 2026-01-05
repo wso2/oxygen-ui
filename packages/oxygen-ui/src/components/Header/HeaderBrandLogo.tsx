@@ -18,7 +18,19 @@
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
+
+/**
+ * Styled logo container for the header brand.
+ */
+const HeaderBrandLogoRoot = styled(Box, {
+  name: 'MuiHeader',
+  slot: 'BrandLogo',
+})({
+  display: 'flex',
+  alignItems: 'center',
+});
 
 /**
  * Props for HeaderBrandLogo component.
@@ -49,17 +61,7 @@ export const HeaderBrandLogo: React.FC<HeaderBrandLogoProps> = ({
   children,
   sx,
 }) => {
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        ...sx,
-      }}
-    >
-      {children}
-    </Box>
-  );
+  return <HeaderBrandLogoRoot sx={sx}>{children}</HeaderBrandLogoRoot>;
 };
 
 // Add display name for child detection

@@ -18,9 +18,31 @@
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { HeaderBrandLogo } from './HeaderBrandLogo';
 import { HeaderBrandTitle } from './HeaderBrandTitle';
+
+/**
+ * Props for the styled component.
+ */
+interface HeaderBrandRootProps {
+  clickable?: boolean;
+}
+
+/**
+ * Styled container for the header brand.
+ */
+const HeaderBrandRoot = styled(Box, {
+  name: 'MuiHeader',
+  slot: 'Brand',
+  shouldForwardProp: (prop) => prop !== 'clickable',
+})<HeaderBrandRootProps>(({ theme, clickable }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  marginLeft: theme.spacing(1),
+  cursor: clickable ? 'pointer' : 'default',
+}));
 
 /**
  * Props for HeaderBrand component.
@@ -51,18 +73,9 @@ export const HeaderBrand: React.FC<HeaderBrandProps> = ({
   sx,
 }) => {
   return (
-    <Box
-      onClick={onClick}
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        ml: 1,
-        cursor: onClick ? 'pointer' : 'default',
-        ...sx,
-      }}
-    >
+    <HeaderBrandRoot onClick={onClick} clickable={!!onClick} sx={sx}>
       {children}
-    </Box>
+    </HeaderBrandRoot>
   );
 };
 

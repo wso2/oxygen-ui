@@ -19,8 +19,19 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { SidebarCategoryLabel } from './SidebarCategoryLabel';
+
+/**
+ * Styled container for sidebar category.
+ */
+const SidebarCategoryRoot = styled(Box, {
+  name: 'MuiSidebar',
+  slot: 'Category',
+})(({ theme }) => ({
+  marginBottom: theme.spacing(1),
+}));
 
 /**
  * Props for SidebarCategory component.
@@ -79,12 +90,10 @@ export const SidebarCategory: React.FC<SidebarCategoryProps> = ({
   const { labelChild, otherChildren } = separateChildren(children);
 
   return (
-    <Box sx={{ mb: 1, ...sx }}>
+    <SidebarCategoryRoot sx={sx}>
       {labelChild}
-      <List disablePadding>
-        {otherChildren}
-      </List>
-    </Box>
+      <List disablePadding>{otherChildren}</List>
+    </SidebarCategoryRoot>
   );
 };
 

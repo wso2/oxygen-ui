@@ -18,8 +18,28 @@
 
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { useSidebar } from './context';
+
+/**
+ * Styled category label for the sidebar.
+ */
+const SidebarCategoryLabelRoot = styled(Typography, {
+  name: 'MuiSidebar',
+  slot: 'CategoryLabel',
+})(({ theme }) => ({
+  paddingLeft: theme.spacing(3),
+  paddingRight: theme.spacing(3),
+  paddingTop: theme.spacing(1),
+  paddingBottom: theme.spacing(1),
+  display: 'block',
+  color: (theme.vars || theme).palette.text.secondary,
+  fontWeight: 600,
+  textTransform: 'uppercase',
+  letterSpacing: '0.5px',
+  fontSize: 11,
+}));
 
 /**
  * Props for SidebarCategoryLabel component.
@@ -60,22 +80,9 @@ export const SidebarCategoryLabel: React.FC<SidebarCategoryLabelProps> = ({
   }
 
   return (
-    <Typography
-      variant="caption"
-      sx={{
-        px: 3,
-        py: 1,
-        display: 'block',
-        color: 'text.secondary',
-        fontWeight: 600,
-        textTransform: 'uppercase',
-        letterSpacing: '0.5px',
-        fontSize: 11,
-        ...sx,
-      }}
-    >
+    <SidebarCategoryLabelRoot variant="caption" sx={sx}>
       {children}
-    </Typography>
+    </SidebarCategoryLabelRoot>
   );
 };
 

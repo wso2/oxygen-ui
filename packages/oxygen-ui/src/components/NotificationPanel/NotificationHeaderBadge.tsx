@@ -18,7 +18,19 @@
 
 import * as React from 'react';
 import Chip from '@mui/material/Chip';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
+
+/**
+ * Styled badge chip for the notification panel header.
+ */
+const NotificationHeaderBadgeRoot = styled(Chip, {
+  name: 'MuiNotificationPanel',
+  slot: 'HeaderBadge',
+})({
+  height: 20,
+  fontSize: 11,
+});
 
 /**
  * Props for NotificationHeaderBadge component.
@@ -57,16 +69,7 @@ export const NotificationHeaderBadge: React.FC<NotificationHeaderBadgeProps> = (
   }
 
   return (
-    <Chip
-      label={children}
-      size="small"
-      color={color}
-      sx={{
-        height: 20,
-        fontSize: 11,
-        ...sx,
-      }}
-    />
+    <NotificationHeaderBadgeRoot label={children} size="small" color={color} sx={sx} />
   );
 };
 
