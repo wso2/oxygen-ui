@@ -54,10 +54,23 @@ import {
   Key,
 } from '@wso2/oxygen-ui-icons-react';
 import {
-  // Types
+  Header,
+  Sidebar,
+  NotificationPanel,
+  UserMenu,
+  NotificationBanner,
+  Footer,
+  ComplexSelect,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from '@wso2/oxygen-ui';
+import {
+  // Types (story-specific)
   type Organization,
   type Project,
-  type Environment,
   // Mock data
   mockNotifications,
   mockOrganizations,
@@ -67,16 +80,6 @@ import {
   useAppShellState,
   // Utilities
   formatRelativeTime,
-  // Compound Components
-  AppShellHeader,
-  AppShellSidebar,
-  AppShellNotificationPanel,
-  // Standalone Components
-  AppShellSwitcher,
-  AppShellUserMenu,
-  AppShellNotificationBanner,
-  AppShellFooter,
-  AppShellConfirmDialog,
 } from './components';
 
 /**
@@ -182,22 +185,22 @@ const Logo: React.FC = () => (
  *
  * ```tsx
  * // Header with composable children
- * <AppShellHeader>
- *   <AppShellHeader.Toggle collapsed={collapsed} onToggle={toggle} />
- *   <AppShellHeader.Brand>
- *     <AppShellHeader.BrandLogo><Logo /></AppShellHeader.BrandLogo>
- *     <AppShellHeader.BrandTitle>Dashboard</AppShellHeader.BrandTitle>
- *   </AppShellHeader.Brand>
- *   <AppShellHeader.Spacer />
- *   <AppShellHeader.Actions>...</AppShellHeader.Actions>
- * </AppShellHeader>
+ * <Header>
+ *   <Header.Toggle collapsed={collapsed} onToggle={toggle} />
+ *   <Header.Brand>
+ *     <Header.BrandLogo><Logo /></Header.BrandLogo>
+ *     <Header.BrandTitle>Dashboard</Header.BrandTitle>
+ *   </Header.Brand>
+ *   <Header.Spacer />
+ *   <Header.Actions>...</Header.Actions>
+ * </Header>
  *
  * // Sidebar with deeply composable items
- * <AppShellSidebar.Item id="users">
- *   <AppShellSidebar.ItemIcon><Users size={20} /></AppShellSidebar.ItemIcon>
- *   <AppShellSidebar.ItemLabel>Users</AppShellSidebar.ItemLabel>
- *   <AppShellSidebar.ItemBadge>3</AppShellSidebar.ItemBadge>
- * </AppShellSidebar.Item>
+ * <Sidebar.Item id="users">
+ *   <Sidebar.ItemIcon><Users size={20} /></Sidebar.ItemIcon>
+ *   <Sidebar.ItemLabel>Users</Sidebar.ItemLabel>
+ *   <Sidebar.ItemBadge>3</Sidebar.ItemBadge>
+ * </Sidebar.Item>
  * ```
  *
  * ## Benefits
@@ -227,27 +230,27 @@ application shell with:
 
 **Children-Only API Example:**
 \`\`\`tsx
-<AppShellHeader>
-  <AppShellHeader.Toggle collapsed={collapsed} onToggle={toggle} />
-  <AppShellHeader.Brand>
-    <AppShellHeader.BrandLogo><Logo /></AppShellHeader.BrandLogo>
-    <AppShellHeader.BrandTitle>Dashboard</AppShellHeader.BrandTitle>
-  </AppShellHeader.Brand>
-  <AppShellHeader.Spacer />
-  <AppShellHeader.Actions>...</AppShellHeader.Actions>
-</AppShellHeader>
+<Header>
+  <Header.Toggle collapsed={collapsed} onToggle={toggle} />
+  <Header.Brand>
+    <Header.BrandLogo><Logo /></Header.BrandLogo>
+    <Header.BrandTitle>Dashboard</Header.BrandTitle>
+  </Header.Brand>
+  <Header.Spacer />
+  <Header.Actions>...</Header.Actions>
+</Header>
 
-<AppShellSidebar collapsed={collapsed} activeItem={activeId} ...>
-  <AppShellSidebar.Nav>
-    <AppShellSidebar.Category>
-      <AppShellSidebar.CategoryLabel>Main</AppShellSidebar.CategoryLabel>
-      <AppShellSidebar.Item id="home">
-        <AppShellSidebar.ItemIcon><Home size={20} /></AppShellSidebar.ItemIcon>
-        <AppShellSidebar.ItemLabel>Home</AppShellSidebar.ItemLabel>
-      </AppShellSidebar.Item>
-    </AppShellSidebar.Category>
-  </AppShellSidebar.Nav>
-</AppShellSidebar>
+<Sidebar collapsed={collapsed} activeItem={activeId} ...>
+  <Sidebar.Nav>
+    <Sidebar.Category>
+      <Sidebar.CategoryLabel>Main</Sidebar.CategoryLabel>
+      <Sidebar.Item id="home">
+        <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
+        <Sidebar.ItemLabel>Home</Sidebar.ItemLabel>
+      </Sidebar.Item>
+    </Sidebar.Category>
+  </Sidebar.Nav>
+</Sidebar>
 \`\`\`
         `,
       },
@@ -338,7 +341,7 @@ export const Playground: Story = {
       <Layout sx={{ height: '100vh', flexDirection: 'column' }}>
         {/* Notification Banner */}
         {args.showNotificationBanner && (
-          <AppShellNotificationBanner
+          <NotificationBanner
             severity={args.bannerSeverity}
             message={args.bannerMessage}
             actionLabel="Learn More"
@@ -348,40 +351,67 @@ export const Playground: Story = {
 
         {/* Header - Using Compound Component Pattern */}
         <Layout.Navbar>
-          <AppShellHeader minimal={args.minimal}>
-            <AppShellHeader.Toggle
+          <Header minimal={args.minimal}>
+            <Header.Toggle
               collapsed={state.sidebarCollapsed}
               onToggle={actions.toggleSidebar}
             />
-            <AppShellHeader.Brand>
-              <AppShellHeader.BrandLogo><Logo /></AppShellHeader.BrandLogo>
-              <AppShellHeader.BrandTitle>Oxygen UI</AppShellHeader.BrandTitle>
-            </AppShellHeader.Brand>
-            <AppShellHeader.Switchers>
+            <Header.Brand>
+              <Header.BrandLogo><Logo /></Header.BrandLogo>
+              <Header.BrandTitle>Oxygen UI</Header.BrandTitle>
+            </Header.Brand>
+            <Header.Switchers>
               {state.selectedOrg && (
-                <AppShellSwitcher
-                  type="organization"
-                  items={mockOrganizations}
-                  selected={state.selectedOrg}
-                  onChange={(org) => actions.setOrganization(org as Organization)}
-                />
+                <ComplexSelect
+                  value={state.selectedOrg.id}
+                  onChange={(e) => {
+                    const org = mockOrganizations.find((o) => o.id === e.target.value);
+                    if (org) actions.setOrganization(org);
+                  }}
+                  size="small"
+                  sx={{ minWidth: 180 }}
+                  renderValue={() => (
+                    <>
+                      <ComplexSelect.MenuItem.Avatar>
+                        {state.selectedOrg?.avatar}
+                      </ComplexSelect.MenuItem.Avatar>
+                      <ComplexSelect.MenuItem.Text primary={state.selectedOrg?.name} />
+                    </>
+                  )}
+                >
+                  <ComplexSelect.ListHeader>Organizations</ComplexSelect.ListHeader>
+                  {mockOrganizations.map((org) => (
+                    <ComplexSelect.MenuItem key={org.id} value={org.id}>
+                      <ComplexSelect.MenuItem.Avatar>{org.avatar}</ComplexSelect.MenuItem.Avatar>
+                      <ComplexSelect.MenuItem.Text primary={org.name} secondary={org.description} />
+                    </ComplexSelect.MenuItem>
+                  ))}
+                </ComplexSelect>
               )}
               {state.selectedProject && (
-                <AppShellSwitcher
-                  type="project"
-                  items={mockProjects}
-                  selected={state.selectedProject}
-                  onChange={(proj) => actions.setProject(proj as Project)}
-                />
+                <ComplexSelect
+                  value={state.selectedProject.id}
+                  onChange={(e) => {
+                    const project = mockProjects.find((p) => p.id === e.target.value);
+                    if (project) actions.setProject(project);
+                  }}
+                  size="small"
+                  sx={{ minWidth: 160 }}
+                  renderValue={() => (
+                    <ComplexSelect.MenuItem.Text primary={state.selectedProject?.name} />
+                  )}
+                >
+                  <ComplexSelect.ListHeader>Projects</ComplexSelect.ListHeader>
+                  {mockProjects.map((project) => (
+                    <ComplexSelect.MenuItem key={project.id} value={project.id}>
+                      <ComplexSelect.MenuItem.Text primary={project.name} secondary={project.description} />
+                    </ComplexSelect.MenuItem>
+                  ))}
+                </ComplexSelect>
               )}
-              <AppShellSwitcher
-                type="environment"
-                environment={state.environment}
-                onEnvironmentChange={actions.setEnvironment}
-              />
-            </AppShellHeader.Switchers>
-            <AppShellHeader.Spacer />
-            <AppShellHeader.Actions>
+            </Header.Switchers>
+            <Header.Spacer />
+            <Header.Actions>
               <ColorSchemeToggle />
               <Tooltip title="Help & Support">
                 <IconButton
@@ -413,131 +443,131 @@ export const Playground: Story = {
                 flexItem
                 sx={{ mx: 1, display: { xs: 'none', sm: 'block' } }}
               />
-              <AppShellUserMenu
+              <UserMenu
                 user={mockUser}
                 onProfileClick={() => console.log('Profile clicked')}
                 onSettingsClick={() => console.log('Settings clicked')}
                 onBillingClick={() => console.log('Billing clicked')}
                 onLogout={actions.openConfirmDialog}
               />
-            </AppShellHeader.Actions>
-          </AppShellHeader>
+            </Header.Actions>
+          </Header>
         </Layout.Navbar>
 
         {/* Main Content Area */}
         <Layout sx={{ flex: 1, overflow: 'hidden' }}>
           {/* Sidebar - Using Compound Component Pattern */}
           <Layout.Sidebar>
-            <AppShellSidebar
+            <Sidebar
               collapsed={state.sidebarCollapsed}
               activeItem={state.activeMenuItem}
               expandedMenus={state.expandedMenus}
               onSelect={actions.setActiveMenuItem}
               onToggleExpand={actions.toggleMenu}
             >
-              <AppShellSidebar.Nav>
+              <Sidebar.Nav>
                 {/* Main Navigation */}
-                <AppShellSidebar.Category>
-                  <AppShellSidebar.Item id="dashboard">
-                    <AppShellSidebar.ItemIcon><Home size={20} /></AppShellSidebar.ItemIcon>
-                    <AppShellSidebar.ItemLabel>Dashboard</AppShellSidebar.ItemLabel>
-                  </AppShellSidebar.Item>
-                  <AppShellSidebar.Item id="analytics">
-                    <AppShellSidebar.ItemIcon><BarChart3 size={20} /></AppShellSidebar.ItemIcon>
-                    <AppShellSidebar.ItemLabel>Analytics</AppShellSidebar.ItemLabel>
-                    <AppShellSidebar.Item id="analytics-overview">
-                      <AppShellSidebar.ItemIcon><PieChart size={20} /></AppShellSidebar.ItemIcon>
-                      <AppShellSidebar.ItemLabel>Overview</AppShellSidebar.ItemLabel>
-                    </AppShellSidebar.Item>
-                    <AppShellSidebar.Item id="analytics-reports">
-                      <AppShellSidebar.ItemIcon><FileText size={20} /></AppShellSidebar.ItemIcon>
-                      <AppShellSidebar.ItemLabel>Reports</AppShellSidebar.ItemLabel>
-                    </AppShellSidebar.Item>
-                    <AppShellSidebar.Item id="analytics-realtime">
-                      <AppShellSidebar.ItemIcon><Activity size={20} /></AppShellSidebar.ItemIcon>
-                      <AppShellSidebar.ItemLabel>Real-time</AppShellSidebar.ItemLabel>
-                    </AppShellSidebar.Item>
-                    <AppShellSidebar.Item id="analytics-trends">
-                      <AppShellSidebar.ItemIcon><TrendingUp size={20} /></AppShellSidebar.ItemIcon>
-                      <AppShellSidebar.ItemLabel>Trends</AppShellSidebar.ItemLabel>
-                    </AppShellSidebar.Item>
-                  </AppShellSidebar.Item>
-                </AppShellSidebar.Category>
+                <Sidebar.Category>
+                  <Sidebar.Item id="dashboard">
+                    <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Dashboard</Sidebar.ItemLabel>
+                  </Sidebar.Item>
+                  <Sidebar.Item id="analytics">
+                    <Sidebar.ItemIcon><BarChart3 size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Analytics</Sidebar.ItemLabel>
+                    <Sidebar.Item id="analytics-overview">
+                      <Sidebar.ItemIcon><PieChart size={20} /></Sidebar.ItemIcon>
+                      <Sidebar.ItemLabel>Overview</Sidebar.ItemLabel>
+                    </Sidebar.Item>
+                    <Sidebar.Item id="analytics-reports">
+                      <Sidebar.ItemIcon><FileText size={20} /></Sidebar.ItemIcon>
+                      <Sidebar.ItemLabel>Reports</Sidebar.ItemLabel>
+                    </Sidebar.Item>
+                    <Sidebar.Item id="analytics-realtime">
+                      <Sidebar.ItemIcon><Activity size={20} /></Sidebar.ItemIcon>
+                      <Sidebar.ItemLabel>Real-time</Sidebar.ItemLabel>
+                    </Sidebar.Item>
+                    <Sidebar.Item id="analytics-trends">
+                      <Sidebar.ItemIcon><TrendingUp size={20} /></Sidebar.ItemIcon>
+                      <Sidebar.ItemLabel>Trends</Sidebar.ItemLabel>
+                    </Sidebar.Item>
+                  </Sidebar.Item>
+                </Sidebar.Category>
 
                 {/* Management */}
-                <AppShellSidebar.Category>
-                  <AppShellSidebar.CategoryLabel>Management</AppShellSidebar.CategoryLabel>
-                  <AppShellSidebar.Item id="users">
-                    <AppShellSidebar.ItemIcon><Users size={20} /></AppShellSidebar.ItemIcon>
-                    <AppShellSidebar.ItemLabel>Users</AppShellSidebar.ItemLabel>
-                    <AppShellSidebar.ItemBadge>3</AppShellSidebar.ItemBadge>
-                    <AppShellSidebar.Item id="users-list">
-                      <AppShellSidebar.ItemIcon><Users size={20} /></AppShellSidebar.ItemIcon>
-                      <AppShellSidebar.ItemLabel>All Users</AppShellSidebar.ItemLabel>
-                    </AppShellSidebar.Item>
-                    <AppShellSidebar.Item id="users-roles">
-                      <AppShellSidebar.ItemIcon><UserCog size={20} /></AppShellSidebar.ItemIcon>
-                      <AppShellSidebar.ItemLabel>Roles</AppShellSidebar.ItemLabel>
-                    </AppShellSidebar.Item>
-                    <AppShellSidebar.Item id="users-permissions">
-                      <AppShellSidebar.ItemIcon><Lock size={20} /></AppShellSidebar.ItemIcon>
-                      <AppShellSidebar.ItemLabel>Permissions</AppShellSidebar.ItemLabel>
-                    </AppShellSidebar.Item>
-                  </AppShellSidebar.Item>
-                  <AppShellSidebar.Item id="projects">
-                    <AppShellSidebar.ItemIcon><FolderOpen size={20} /></AppShellSidebar.ItemIcon>
-                    <AppShellSidebar.ItemLabel>Projects</AppShellSidebar.ItemLabel>
-                  </AppShellSidebar.Item>
-                  <AppShellSidebar.Item id="integrations">
-                    <AppShellSidebar.ItemIcon><Layers size={20} /></AppShellSidebar.ItemIcon>
-                    <AppShellSidebar.ItemLabel>Integrations</AppShellSidebar.ItemLabel>
-                  </AppShellSidebar.Item>
-                </AppShellSidebar.Category>
+                <Sidebar.Category>
+                  <Sidebar.CategoryLabel>Management</Sidebar.CategoryLabel>
+                  <Sidebar.Item id="users">
+                    <Sidebar.ItemIcon><Users size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Users</Sidebar.ItemLabel>
+                    <Sidebar.ItemBadge>3</Sidebar.ItemBadge>
+                    <Sidebar.Item id="users-list">
+                      <Sidebar.ItemIcon><Users size={20} /></Sidebar.ItemIcon>
+                      <Sidebar.ItemLabel>All Users</Sidebar.ItemLabel>
+                    </Sidebar.Item>
+                    <Sidebar.Item id="users-roles">
+                      <Sidebar.ItemIcon><UserCog size={20} /></Sidebar.ItemIcon>
+                      <Sidebar.ItemLabel>Roles</Sidebar.ItemLabel>
+                    </Sidebar.Item>
+                    <Sidebar.Item id="users-permissions">
+                      <Sidebar.ItemIcon><Lock size={20} /></Sidebar.ItemIcon>
+                      <Sidebar.ItemLabel>Permissions</Sidebar.ItemLabel>
+                    </Sidebar.Item>
+                  </Sidebar.Item>
+                  <Sidebar.Item id="projects">
+                    <Sidebar.ItemIcon><FolderOpen size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Projects</Sidebar.ItemLabel>
+                  </Sidebar.Item>
+                  <Sidebar.Item id="integrations">
+                    <Sidebar.ItemIcon><Layers size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Integrations</Sidebar.ItemLabel>
+                  </Sidebar.Item>
+                </Sidebar.Category>
 
                 {/* Infrastructure */}
-                <AppShellSidebar.Category>
-                  <AppShellSidebar.CategoryLabel>Infrastructure</AppShellSidebar.CategoryLabel>
-                  <AppShellSidebar.Item id="security">
-                    <AppShellSidebar.ItemIcon><Shield size={20} /></AppShellSidebar.ItemIcon>
-                    <AppShellSidebar.ItemLabel>Security</AppShellSidebar.ItemLabel>
-                    <AppShellSidebar.Item id="security-overview">
-                      <AppShellSidebar.ItemIcon><Shield size={20} /></AppShellSidebar.ItemIcon>
-                      <AppShellSidebar.ItemLabel>Overview</AppShellSidebar.ItemLabel>
-                    </AppShellSidebar.Item>
-                    <AppShellSidebar.Item id="security-api-keys">
-                      <AppShellSidebar.ItemIcon><Key size={20} /></AppShellSidebar.ItemIcon>
-                      <AppShellSidebar.ItemLabel>API Keys</AppShellSidebar.ItemLabel>
-                    </AppShellSidebar.Item>
-                  </AppShellSidebar.Item>
-                  <AppShellSidebar.Item id="databases">
-                    <AppShellSidebar.ItemIcon><Database size={20} /></AppShellSidebar.ItemIcon>
-                    <AppShellSidebar.ItemLabel>Databases</AppShellSidebar.ItemLabel>
-                  </AppShellSidebar.Item>
-                  <AppShellSidebar.Item id="domains">
-                    <AppShellSidebar.ItemIcon><Globe size={20} /></AppShellSidebar.ItemIcon>
-                    <AppShellSidebar.ItemLabel>Domains</AppShellSidebar.ItemLabel>
-                  </AppShellSidebar.Item>
-                </AppShellSidebar.Category>
-              </AppShellSidebar.Nav>
+                <Sidebar.Category>
+                  <Sidebar.CategoryLabel>Infrastructure</Sidebar.CategoryLabel>
+                  <Sidebar.Item id="security">
+                    <Sidebar.ItemIcon><Shield size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Security</Sidebar.ItemLabel>
+                    <Sidebar.Item id="security-overview">
+                      <Sidebar.ItemIcon><Shield size={20} /></Sidebar.ItemIcon>
+                      <Sidebar.ItemLabel>Overview</Sidebar.ItemLabel>
+                    </Sidebar.Item>
+                    <Sidebar.Item id="security-api-keys">
+                      <Sidebar.ItemIcon><Key size={20} /></Sidebar.ItemIcon>
+                      <Sidebar.ItemLabel>API Keys</Sidebar.ItemLabel>
+                    </Sidebar.Item>
+                  </Sidebar.Item>
+                  <Sidebar.Item id="databases">
+                    <Sidebar.ItemIcon><Database size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Databases</Sidebar.ItemLabel>
+                  </Sidebar.Item>
+                  <Sidebar.Item id="domains">
+                    <Sidebar.ItemIcon><Globe size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Domains</Sidebar.ItemLabel>
+                  </Sidebar.Item>
+                </Sidebar.Category>
+              </Sidebar.Nav>
 
               {/* Settings Footer */}
-              <AppShellSidebar.Footer>
-                <AppShellSidebar.Category>
-                  <AppShellSidebar.Item id="settings">
-                    <AppShellSidebar.ItemIcon><Settings size={20} /></AppShellSidebar.ItemIcon>
-                    <AppShellSidebar.ItemLabel>Settings</AppShellSidebar.ItemLabel>
-                  </AppShellSidebar.Item>
-                  <AppShellSidebar.Item id="notifications-settings">
-                    <AppShellSidebar.ItemIcon><Bell size={20} /></AppShellSidebar.ItemIcon>
-                    <AppShellSidebar.ItemLabel>Notifications</AppShellSidebar.ItemLabel>
-                  </AppShellSidebar.Item>
-                  <AppShellSidebar.Item id="help">
-                    <AppShellSidebar.ItemIcon><HelpCircle size={20} /></AppShellSidebar.ItemIcon>
-                    <AppShellSidebar.ItemLabel>Help & Support</AppShellSidebar.ItemLabel>
-                  </AppShellSidebar.Item>
-                </AppShellSidebar.Category>
-              </AppShellSidebar.Footer>
-            </AppShellSidebar>
+              <Sidebar.Footer>
+                <Sidebar.Category>
+                  <Sidebar.Item id="settings">
+                    <Sidebar.ItemIcon><Settings size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
+                  </Sidebar.Item>
+                  <Sidebar.Item id="notifications-settings">
+                    <Sidebar.ItemIcon><Bell size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Notifications</Sidebar.ItemLabel>
+                  </Sidebar.Item>
+                  <Sidebar.Item id="help">
+                    <Sidebar.ItemIcon><HelpCircle size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Help & Support</Sidebar.ItemLabel>
+                  </Sidebar.Item>
+                </Sidebar.Category>
+              </Sidebar.Footer>
+            </Sidebar>
           </Layout.Sidebar>
 
           {/* Content */}
@@ -550,7 +580,7 @@ export const Playground: Story = {
 
             {/* Footer */}
             {args.showFooter && (
-              <AppShellFooter
+              <Footer
                 companyName="Oxygen UI"
                 version="v1.0.0"
                 termsUrl="#terms"
@@ -561,17 +591,17 @@ export const Playground: Story = {
         </Layout>
 
         {/* Notification Panel - Using Compound Component Pattern */}
-        <AppShellNotificationPanel
+        <NotificationPanel
           open={state.notificationPanelOpen}
           onClose={actions.toggleNotificationPanel}
         >
-          <AppShellNotificationPanel.Header>
-            <AppShellNotificationPanel.HeaderIcon><Bell size={20} /></AppShellNotificationPanel.HeaderIcon>
-            <AppShellNotificationPanel.HeaderTitle>Notifications</AppShellNotificationPanel.HeaderTitle>
-            {unreadCount > 0 && <AppShellNotificationPanel.HeaderBadge>{unreadCount}</AppShellNotificationPanel.HeaderBadge>}
-            <AppShellNotificationPanel.HeaderClose />
-          </AppShellNotificationPanel.Header>
-          <AppShellNotificationPanel.Tabs
+          <NotificationPanel.Header>
+            <NotificationPanel.HeaderIcon><Bell size={20} /></NotificationPanel.HeaderIcon>
+            <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
+            {unreadCount > 0 && <NotificationPanel.HeaderBadge>{unreadCount}</NotificationPanel.HeaderBadge>}
+            <NotificationPanel.HeaderClose />
+          </NotificationPanel.Header>
+          <NotificationPanel.Tabs
             tabs={[
               { label: 'All', count: state.notifications.length },
               { label: 'Unread', count: unreadNotifications.length, color: 'primary' },
@@ -581,14 +611,14 @@ export const Playground: Story = {
             onChange={setTabIndex}
           />
           {state.notifications.length > 0 && (
-            <AppShellNotificationPanel.Actions
+            <NotificationPanel.Actions
               hasUnread={unreadNotifications.length > 0}
               onMarkAllRead={actions.markAllNotificationsRead}
               onClearAll={actions.clearAllNotifications}
             />
           )}
           {getFilteredNotifications().length === 0 ? (
-            <AppShellNotificationPanel.EmptyState
+            <NotificationPanel.EmptyState
               message={
                 tabIndex === 0
                   ? 'No notifications'
@@ -598,9 +628,9 @@ export const Playground: Story = {
               }
             />
           ) : (
-            <AppShellNotificationPanel.List>
+            <NotificationPanel.List>
               {getFilteredNotifications().map((notification) => (
-                <AppShellNotificationPanel.Item
+                <NotificationPanel.Item
                   key={notification.id}
                   id={notification.id}
                   type={notification.type}
@@ -609,31 +639,45 @@ export const Playground: Story = {
                   onMarkRead={actions.markNotificationRead}
                   onDismiss={actions.dismissNotification}
                 >
-                  <AppShellNotificationPanel.ItemAvatar>{notification.avatar}</AppShellNotificationPanel.ItemAvatar>
-                  <AppShellNotificationPanel.ItemTitle>{notification.title}</AppShellNotificationPanel.ItemTitle>
-                  <AppShellNotificationPanel.ItemMessage>{notification.message}</AppShellNotificationPanel.ItemMessage>
-                  <AppShellNotificationPanel.ItemTimestamp>{formatRelativeTime(notification.timestamp)}</AppShellNotificationPanel.ItemTimestamp>
+                  <NotificationPanel.ItemAvatar>{notification.avatar}</NotificationPanel.ItemAvatar>
+                  <NotificationPanel.ItemTitle>{notification.title}</NotificationPanel.ItemTitle>
+                  <NotificationPanel.ItemMessage>{notification.message}</NotificationPanel.ItemMessage>
+                  <NotificationPanel.ItemTimestamp>{formatRelativeTime(notification.timestamp)}</NotificationPanel.ItemTimestamp>
                   {notification.actionLabel && (
-                    <AppShellNotificationPanel.ItemAction>{notification.actionLabel}</AppShellNotificationPanel.ItemAction>
+                    <NotificationPanel.ItemAction>{notification.actionLabel}</NotificationPanel.ItemAction>
                   )}
-                </AppShellNotificationPanel.Item>
+                </NotificationPanel.Item>
               ))}
-            </AppShellNotificationPanel.List>
+            </NotificationPanel.List>
           )}
-        </AppShellNotificationPanel>
+        </NotificationPanel>
 
         {/* Confirm Dialog */}
-        <AppShellConfirmDialog
+        <Dialog
           open={state.confirmDialogOpen}
-          title="Sign Out"
-          message="Are you sure you want to sign out of your account?"
-          confirmLabel="Sign Out"
-          onConfirm={() => {
-            console.log('Signed out');
-            actions.closeConfirmDialog();
-          }}
-          onCancel={actions.closeConfirmDialog}
-        />
+          onClose={actions.closeConfirmDialog}
+          maxWidth="sm"
+          fullWidth
+        >
+          <DialogTitle>Sign Out</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to sign out of your account?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={actions.closeConfirmDialog}>Cancel</Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                console.log('Signed out');
+                actions.closeConfirmDialog();
+              }}
+            >
+              Sign Out
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Layout>
     );
   },
@@ -765,17 +809,17 @@ export const WithNotificationPanel: Story = {
     return (
       <Layout sx={{ height: '100vh', flexDirection: 'column' }}>
         <Layout.Navbar>
-          <AppShellHeader>
-            <AppShellHeader.Toggle
+          <Header>
+            <Header.Toggle
               collapsed={state.sidebarCollapsed}
               onToggle={actions.toggleSidebar}
             />
-            <AppShellHeader.Brand>
-              <AppShellHeader.BrandLogo><Logo /></AppShellHeader.BrandLogo>
-              <AppShellHeader.BrandTitle>Oxygen UI</AppShellHeader.BrandTitle>
-            </AppShellHeader.Brand>
-            <AppShellHeader.Spacer />
-            <AppShellHeader.Actions>
+            <Header.Brand>
+              <Header.BrandLogo><Logo /></Header.BrandLogo>
+              <Header.BrandTitle>Oxygen UI</Header.BrandTitle>
+            </Header.Brand>
+            <Header.Spacer />
+            <Header.Actions>
               <ColorSchemeToggle />
               <IconButton
                 onClick={actions.toggleNotificationPanel}
@@ -786,33 +830,33 @@ export const WithNotificationPanel: Story = {
                   <Bell size={20} />
                 </Badge>
               </IconButton>
-              <AppShellUserMenu user={mockUser} onLogout={actions.openConfirmDialog} />
-            </AppShellHeader.Actions>
-          </AppShellHeader>
+              <UserMenu user={mockUser} onLogout={actions.openConfirmDialog} />
+            </Header.Actions>
+          </Header>
         </Layout.Navbar>
 
         <Layout sx={{ flex: 1, overflow: 'hidden' }}>
           <Layout.Sidebar>
-            <AppShellSidebar
+            <Sidebar
               collapsed={state.sidebarCollapsed}
               activeItem={state.activeMenuItem}
               expandedMenus={state.expandedMenus}
               onSelect={actions.setActiveMenuItem}
               onToggleExpand={actions.toggleMenu}
             >
-              <AppShellSidebar.Nav>
-                <AppShellSidebar.Category>
-                  <AppShellSidebar.Item id="dashboard">
-                    <AppShellSidebar.ItemIcon><Home size={20} /></AppShellSidebar.ItemIcon>
-                    <AppShellSidebar.ItemLabel>Dashboard</AppShellSidebar.ItemLabel>
-                  </AppShellSidebar.Item>
-                  <AppShellSidebar.Item id="analytics">
-                    <AppShellSidebar.ItemIcon><BarChart3 size={20} /></AppShellSidebar.ItemIcon>
-                    <AppShellSidebar.ItemLabel>Analytics</AppShellSidebar.ItemLabel>
-                  </AppShellSidebar.Item>
-                </AppShellSidebar.Category>
-              </AppShellSidebar.Nav>
-            </AppShellSidebar>
+              <Sidebar.Nav>
+                <Sidebar.Category>
+                  <Sidebar.Item id="dashboard">
+                    <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Dashboard</Sidebar.ItemLabel>
+                  </Sidebar.Item>
+                  <Sidebar.Item id="analytics">
+                    <Sidebar.ItemIcon><BarChart3 size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Analytics</Sidebar.ItemLabel>
+                  </Sidebar.Item>
+                </Sidebar.Category>
+              </Sidebar.Nav>
+            </Sidebar>
           </Layout.Sidebar>
 
           <Layout.Content sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -820,22 +864,22 @@ export const WithNotificationPanel: Story = {
               <SampleContent />
             </Box>
             {args.showFooter && (
-              <AppShellFooter companyName="Oxygen UI" version="v1.0.0" />
+              <Footer companyName="Oxygen UI" version="v1.0.0" />
             )}
           </Layout.Content>
         </Layout>
 
-        <AppShellNotificationPanel
+        <NotificationPanel
           open={state.notificationPanelOpen}
           onClose={actions.toggleNotificationPanel}
         >
-          <AppShellNotificationPanel.Header>
-            <AppShellNotificationPanel.HeaderIcon><Bell size={20} /></AppShellNotificationPanel.HeaderIcon>
-            <AppShellNotificationPanel.HeaderTitle>Notifications</AppShellNotificationPanel.HeaderTitle>
-            {unreadCount > 0 && <AppShellNotificationPanel.HeaderBadge>{unreadCount}</AppShellNotificationPanel.HeaderBadge>}
-            <AppShellNotificationPanel.HeaderClose />
-          </AppShellNotificationPanel.Header>
-          <AppShellNotificationPanel.Tabs
+          <NotificationPanel.Header>
+            <NotificationPanel.HeaderIcon><Bell size={20} /></NotificationPanel.HeaderIcon>
+            <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
+            {unreadCount > 0 && <NotificationPanel.HeaderBadge>{unreadCount}</NotificationPanel.HeaderBadge>}
+            <NotificationPanel.HeaderClose />
+          </NotificationPanel.Header>
+          <NotificationPanel.Tabs
             tabs={[
               { label: 'All', count: state.notifications.length },
               { label: 'Unread', count: unreadNotifications.length, color: 'primary' },
@@ -845,18 +889,18 @@ export const WithNotificationPanel: Story = {
             onChange={setTabIndex}
           />
           {state.notifications.length > 0 && (
-            <AppShellNotificationPanel.Actions
+            <NotificationPanel.Actions
               hasUnread={unreadNotifications.length > 0}
               onMarkAllRead={actions.markAllNotificationsRead}
               onClearAll={actions.clearAllNotifications}
             />
           )}
           {getFilteredNotifications().length === 0 ? (
-            <AppShellNotificationPanel.EmptyState />
+            <NotificationPanel.EmptyState />
           ) : (
-            <AppShellNotificationPanel.List>
+            <NotificationPanel.List>
               {getFilteredNotifications().map((notification) => (
-                <AppShellNotificationPanel.Item
+                <NotificationPanel.Item
                   key={notification.id}
                   id={notification.id}
                   type={notification.type}
@@ -864,18 +908,18 @@ export const WithNotificationPanel: Story = {
                   onMarkRead={actions.markNotificationRead}
                   onDismiss={actions.dismissNotification}
                 >
-                  <AppShellNotificationPanel.ItemAvatar>{notification.avatar}</AppShellNotificationPanel.ItemAvatar>
-                  <AppShellNotificationPanel.ItemTitle>{notification.title}</AppShellNotificationPanel.ItemTitle>
-                  <AppShellNotificationPanel.ItemMessage>{notification.message}</AppShellNotificationPanel.ItemMessage>
-                  <AppShellNotificationPanel.ItemTimestamp>{formatRelativeTime(notification.timestamp)}</AppShellNotificationPanel.ItemTimestamp>
+                  <NotificationPanel.ItemAvatar>{notification.avatar}</NotificationPanel.ItemAvatar>
+                  <NotificationPanel.ItemTitle>{notification.title}</NotificationPanel.ItemTitle>
+                  <NotificationPanel.ItemMessage>{notification.message}</NotificationPanel.ItemMessage>
+                  <NotificationPanel.ItemTimestamp>{formatRelativeTime(notification.timestamp)}</NotificationPanel.ItemTimestamp>
                   {notification.actionLabel && (
-                    <AppShellNotificationPanel.ItemAction>{notification.actionLabel}</AppShellNotificationPanel.ItemAction>
+                    <NotificationPanel.ItemAction>{notification.actionLabel}</NotificationPanel.ItemAction>
                   )}
-                </AppShellNotificationPanel.Item>
+                </NotificationPanel.Item>
               ))}
-            </AppShellNotificationPanel.List>
+            </NotificationPanel.List>
           )}
-        </AppShellNotificationPanel>
+        </NotificationPanel>
       </Layout>
     );
   },
@@ -908,45 +952,45 @@ export const WithConfirmDialog: Story = {
     return (
       <Layout sx={{ height: '100vh', flexDirection: 'column' }}>
         <Layout.Navbar>
-          <AppShellHeader minimal>
-            <AppShellHeader.Toggle
+          <Header minimal>
+            <Header.Toggle
               collapsed={state.sidebarCollapsed}
               onToggle={actions.toggleSidebar}
             />
-            <AppShellHeader.Brand>
-              <AppShellHeader.BrandLogo><Logo /></AppShellHeader.BrandLogo>
-              <AppShellHeader.BrandTitle>Oxygen UI</AppShellHeader.BrandTitle>
-            </AppShellHeader.Brand>
-            <AppShellHeader.Spacer />
-            <AppShellHeader.Actions>
+            <Header.Brand>
+              <Header.BrandLogo><Logo /></Header.BrandLogo>
+              <Header.BrandTitle>Oxygen UI</Header.BrandTitle>
+            </Header.Brand>
+            <Header.Spacer />
+            <Header.Actions>
               <ColorSchemeToggle />
-              <AppShellUserMenu user={mockUser} onLogout={() => setDialogOpen(true)} />
-            </AppShellHeader.Actions>
-          </AppShellHeader>
+              <UserMenu user={mockUser} onLogout={() => setDialogOpen(true)} />
+            </Header.Actions>
+          </Header>
         </Layout.Navbar>
 
         <Layout sx={{ flex: 1, overflow: 'hidden' }}>
           <Layout.Sidebar>
-            <AppShellSidebar
+            <Sidebar
               collapsed={state.sidebarCollapsed}
               activeItem={state.activeMenuItem}
               expandedMenus={state.expandedMenus}
               onSelect={actions.setActiveMenuItem}
               onToggleExpand={actions.toggleMenu}
             >
-              <AppShellSidebar.Nav>
-                <AppShellSidebar.Category>
-                  <AppShellSidebar.Item id="dashboard">
-                    <AppShellSidebar.ItemIcon><Home size={20} /></AppShellSidebar.ItemIcon>
-                    <AppShellSidebar.ItemLabel>Dashboard</AppShellSidebar.ItemLabel>
-                  </AppShellSidebar.Item>
-                  <AppShellSidebar.Item id="settings">
-                    <AppShellSidebar.ItemIcon><Settings size={20} /></AppShellSidebar.ItemIcon>
-                    <AppShellSidebar.ItemLabel>Settings</AppShellSidebar.ItemLabel>
-                  </AppShellSidebar.Item>
-                </AppShellSidebar.Category>
-              </AppShellSidebar.Nav>
-            </AppShellSidebar>
+              <Sidebar.Nav>
+                <Sidebar.Category>
+                  <Sidebar.Item id="dashboard">
+                    <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Dashboard</Sidebar.ItemLabel>
+                  </Sidebar.Item>
+                  <Sidebar.Item id="settings">
+                    <Sidebar.ItemIcon><Settings size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
+                  </Sidebar.Item>
+                </Sidebar.Category>
+              </Sidebar.Nav>
+            </Sidebar>
           </Layout.Sidebar>
 
           <Layout.Content sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -969,16 +1013,32 @@ export const WithConfirmDialog: Story = {
           </Layout.Content>
         </Layout>
 
-        <AppShellConfirmDialog
+        <Dialog
           open={dialogOpen}
-          title="Delete Project"
-          message="This will permanently delete the project and all associated data. This action cannot be undone."
-          confirmLabel="Delete Project"
-          destructive
-          loading={loading}
-          onConfirm={handleConfirm}
-          onCancel={() => setDialogOpen(false)}
-        />
+          onClose={() => !loading && setDialogOpen(false)}
+          maxWidth="sm"
+          fullWidth
+        >
+          <DialogTitle>Delete Project</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              This will permanently delete the project and all associated data. This action cannot be undone.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setDialogOpen(false)} disabled={loading}>
+              Cancel
+            </Button>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleConfirm}
+              disabled={loading}
+            >
+              {loading ? 'Deleting...' : 'Delete Project'}
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Layout>
     );
   },

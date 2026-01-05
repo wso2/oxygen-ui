@@ -16,20 +16,5 @@
  * under the License.
  */
 
-// =============================================================================
-// STORY-SPECIFIC EXPORTS
-// These exports are for story/demo purposes only.
-// The actual components are now exported from @wso2/oxygen-ui.
-// =============================================================================
-
-// Types (story-specific interfaces)
-export * from './types';
-
-// Mock data (for demos and stories)
-export * from './mock-data';
-
-// Utilities (formatRelativeTime, etc.)
-export * from './utils';
-
-// Hooks (useAppShellState for demo state management)
-export * from './hooks';
+export { Footer, default } from './Footer';
+export type { FooterProps } from './Footer';

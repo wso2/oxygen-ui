@@ -27,3 +27,70 @@ export { default as PageTitle } from './PageTitle';
 export type { PageTitleProps, PageTitleAvatarProps, PageTitleHeaderProps, PageTitleSubHeaderProps, PageTitleLinkProps } from './PageTitle';
 export { default as ThemeSwitcher, ThemeSelect } from './ThemeSwitcher';
 export type { ThemeSwitcherProps, ThemeSelectProps } from './ThemeSwitcher';
+
+// App Shell Components
+export { Header } from './Header';
+export type {
+  HeaderProps,
+  HeaderSpacerProps,
+  HeaderToggleProps,
+  HeaderBrandProps,
+  HeaderBrandLogoProps,
+  HeaderBrandTitleProps,
+  HeaderSwitchersProps,
+  HeaderActionsProps,
+  HeaderContextValue,
+} from './Header';
+
+export { Sidebar } from './Sidebar';
+export type {
+  SidebarProps,
+  SidebarNavProps,
+  SidebarCategoryProps,
+  SidebarCategoryLabelProps,
+  SidebarItemProps,
+  SidebarItemIconProps,
+  SidebarItemLabelProps,
+  SidebarItemBadgeProps,
+  SidebarFooterProps,
+  SidebarUserProps,
+  SidebarUserAvatarProps,
+  SidebarUserNameProps,
+  SidebarUserEmailProps,
+  SidebarContextValue,
+  SidebarItemContextValue,
+} from './Sidebar';
+
+export { NotificationPanel } from './NotificationPanel';
+export type {
+  NotificationPanelProps,
+  NotificationHeaderProps,
+  NotificationHeaderIconProps,
+  NotificationHeaderTitleProps,
+  NotificationHeaderBadgeProps,
+  NotificationHeaderCloseProps,
+  NotificationTabsProps,
+  NotificationTabConfig,
+  NotificationActionsProps,
+  NotificationListProps,
+  NotificationItemProps,
+  NotificationItemAvatarProps,
+  NotificationItemTitleProps,
+  NotificationItemMessageProps,
+  NotificationItemTimestampProps,
+  NotificationItemActionProps,
+  NotificationItemContextValue,
+  NotificationEmptyStateProps,
+  NotificationPanelContextValue,
+  NotificationType,
+  NotificationTypeProps,
+} from './NotificationPanel';
+
+export { Footer } from './Footer';
+export type { FooterProps } from './Footer';
+
+export { UserMenu } from './UserMenu';
+export type { UserMenuProps, UserMenuUser } from './UserMenu';
+
+export { NotificationBanner } from './NotificationBanner';
+export type { NotificationBannerProps } from './NotificationBanner';

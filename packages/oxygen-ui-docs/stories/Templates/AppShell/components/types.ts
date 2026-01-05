@@ -104,11 +104,6 @@ export interface Project {
 }
 
 /**
- * Environment type for environment switcher.
- */
-export type Environment = 'development' | 'staging' | 'production';
-
-/**
  * User information for the user menu.
  */
 export interface User {
@@ -159,11 +154,6 @@ export interface AppShellContextValue {
   selectedProject: Project | null;
   /** Set selected project */
   setSelectedProject: (project: Project) => void;
-
-  /** Current environment */
-  environment: Environment;
-  /** Set environment */
-  setEnvironment: (env: Environment) => void;
 
   /** Currently active menu item */
   activeMenuItem: string;

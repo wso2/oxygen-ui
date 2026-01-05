@@ -17,7 +17,7 @@
  */
 
 import * as React from 'react';
-import type { NotificationItem, Organization, Project, Environment } from '../types';
+import type { NotificationItem, Organization, Project } from '../types';
 
 /**
  * App Shell state interface.
@@ -39,8 +39,6 @@ export interface AppShellState {
   selectedOrg: Organization | null;
   /** Selected project */
   selectedProject: Project | null;
-  /** Current environment */
-  environment: Environment;
 }
 
 /**
@@ -57,7 +55,6 @@ export interface AppShellActions {
   clearAllNotifications: () => void;
   setOrganization: (org: Organization) => void;
   setProject: (project: Project) => void;
-  setEnvironment: (env: Environment) => void;
   openConfirmDialog: () => void;
   closeConfirmDialog: () => void;
 }
@@ -76,8 +73,6 @@ export interface UseAppShellStateOptions {
   initialOrg?: Organization | null;
   /** Initial project */
   initialProject?: Project | null;
-  /** Initial environment */
-  initialEnvironment?: Environment;
 }
 
 /**
@@ -114,7 +109,6 @@ export const useAppShellState = (options: UseAppShellStateOptions = {}) => {
     initialNotifications = [],
     initialOrg = null,
     initialProject = null,
-    initialEnvironment = 'development',
   } = options;
 
   const [state, setState] = React.useState<AppShellState>({
@@ -126,7 +120,6 @@ export const useAppShellState = (options: UseAppShellStateOptions = {}) => {
     notifications: initialNotifications,
     selectedOrg: initialOrg,
     selectedProject: initialProject,
-    environment: initialEnvironment,
   });
 
   const toggleSidebar = React.useCallback(() => {
@@ -189,10 +182,6 @@ export const useAppShellState = (options: UseAppShellStateOptions = {}) => {
     setState((prev) => ({ ...prev, selectedProject: project }));
   }, []);
 
-  const setEnvironment = React.useCallback((env: Environment) => {
-    setState((prev) => ({ ...prev, environment: env }));
-  }, []);
-
   const openConfirmDialog = React.useCallback(() => {
     setState((prev) => ({ ...prev, confirmDialogOpen: true }));
   }, []);
@@ -218,7 +207,6 @@ export const useAppShellState = (options: UseAppShellStateOptions = {}) => {
       clearAllNotifications,
       setOrganization,
       setProject,
-      setEnvironment,
       openConfirmDialog,
       closeConfirmDialog,
     }),
@@ -233,7 +221,6 @@ export const useAppShellState = (options: UseAppShellStateOptions = {}) => {
       clearAllNotifications,
       setOrganization,
       setProject,
-      setEnvironment,
       openConfirmDialog,
       closeConfirmDialog,
     ]
