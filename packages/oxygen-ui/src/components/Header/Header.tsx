@@ -128,7 +128,15 @@ export interface HeaderProps {
  * </Header>
  * ```
  */
-const HeaderRoot: React.FC<HeaderProps> = ({
+const Header: React.FC<HeaderProps> & {
+  Toggle: typeof HeaderToggle;
+  Brand: typeof HeaderBrand;
+  BrandLogo: typeof HeaderBrandLogo;
+  BrandTitle: typeof HeaderBrandTitle;
+  Switchers: typeof HeaderSwitchers;
+  Actions: typeof HeaderActions;
+  Spacer: typeof HeaderSpacer;
+} = ({
   children,
   minimal = false,
   sx,
@@ -169,14 +177,14 @@ const HeaderSpacer: React.FC<HeaderSpacerProps> = ({ sx }) => (
  * - `Header.Actions` - Container for action buttons
  * - `Header.Spacer` - Flexible spacer
  */
-export const Header = Object.assign(HeaderRoot, {
-  Toggle: HeaderToggle,
-  Brand: HeaderBrand,
-  BrandLogo: HeaderBrandLogo,
-  BrandTitle: HeaderBrandTitle,
-  Switchers: HeaderSwitchers,
-  Actions: HeaderActions,
-  Spacer: HeaderSpacer,
-});
+Header.Toggle = HeaderToggle;
+Header.Brand = HeaderBrand;
+Header.BrandLogo = HeaderBrandLogo;
+Header.BrandTitle = HeaderBrandTitle;
+Header.Switchers = HeaderSwitchers;
+Header.Actions = HeaderActions;
+Header.Spacer = HeaderSpacer;
+Header.displayName = 'Header';
 
+export { Header };
 export default Header;

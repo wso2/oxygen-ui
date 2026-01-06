@@ -145,7 +145,23 @@ export interface NotificationPanelProps {
  * </NotificationPanel>
  * ```
  */
-const NotificationPanelComponent: React.FC<NotificationPanelProps> = ({
+const NotificationPanel: React.FC<NotificationPanelProps> & {
+  Header: typeof NotificationHeader;
+  HeaderIcon: typeof NotificationHeaderIcon;
+  HeaderTitle: typeof NotificationHeaderTitle;
+  HeaderBadge: typeof NotificationHeaderBadge;
+  HeaderClose: typeof NotificationHeaderClose;
+  Tabs: typeof NotificationTabs;
+  Actions: typeof NotificationActions;
+  List: typeof NotificationList;
+  Item: typeof NotificationItem;
+  ItemAvatar: typeof NotificationItemAvatar;
+  ItemTitle: typeof NotificationItemTitle;
+  ItemMessage: typeof NotificationItemMessage;
+  ItemTimestamp: typeof NotificationItemTimestamp;
+  ItemAction: typeof NotificationItemAction;
+  EmptyState: typeof NotificationEmptyState;
+} = ({
   open,
   onClose,
   children,
@@ -191,22 +207,22 @@ const NotificationPanelComponent: React.FC<NotificationPanelProps> = ({
  * - `NotificationPanel.ItemAction` - Action button for notification item
  * - `NotificationPanel.EmptyState` - Empty state display
  */
-export const NotificationPanel = Object.assign(NotificationPanelComponent, {
-  Header: NotificationHeader,
-  HeaderIcon: NotificationHeaderIcon,
-  HeaderTitle: NotificationHeaderTitle,
-  HeaderBadge: NotificationHeaderBadge,
-  HeaderClose: NotificationHeaderClose,
-  Tabs: NotificationTabs,
-  Actions: NotificationActions,
-  List: NotificationList,
-  Item: NotificationItem,
-  ItemAvatar: NotificationItemAvatar,
-  ItemTitle: NotificationItemTitle,
-  ItemMessage: NotificationItemMessage,
-  ItemTimestamp: NotificationItemTimestamp,
-  ItemAction: NotificationItemAction,
-  EmptyState: NotificationEmptyState,
-});
+NotificationPanel.Header = NotificationHeader;
+NotificationPanel.HeaderIcon = NotificationHeaderIcon;
+NotificationPanel.HeaderTitle = NotificationHeaderTitle;
+NotificationPanel.HeaderBadge = NotificationHeaderBadge;
+NotificationPanel.HeaderClose = NotificationHeaderClose;
+NotificationPanel.Tabs = NotificationTabs;
+NotificationPanel.Actions = NotificationActions;
+NotificationPanel.List = NotificationList;
+NotificationPanel.Item = NotificationItem;
+NotificationPanel.ItemAvatar = NotificationItemAvatar;
+NotificationPanel.ItemTitle = NotificationItemTitle;
+NotificationPanel.ItemMessage = NotificationItemMessage;
+NotificationPanel.ItemTimestamp = NotificationItemTimestamp;
+NotificationPanel.ItemAction = NotificationItemAction;
+NotificationPanel.EmptyState = NotificationEmptyState;
+NotificationPanel.displayName = 'NotificationPanel';
 
+export { NotificationPanel };
 export default NotificationPanel;

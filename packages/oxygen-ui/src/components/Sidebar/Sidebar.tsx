@@ -158,7 +158,20 @@ export interface SidebarProps {
  * </Sidebar>
  * ```
  */
-const SidebarRoot: React.FC<SidebarProps> = ({
+const Sidebar: React.FC<SidebarProps> & {
+  Nav: typeof SidebarNav;
+  Category: typeof SidebarCategory;
+  CategoryLabel: typeof SidebarCategoryLabel;
+  Item: typeof SidebarItem;
+  ItemIcon: typeof SidebarItemIcon;
+  ItemLabel: typeof SidebarItemLabel;
+  ItemBadge: typeof SidebarItemBadge;
+  Footer: typeof SidebarFooter;
+  User: typeof SidebarUser;
+  UserAvatar: typeof SidebarUserAvatar;
+  UserName: typeof SidebarUserName;
+  UserEmail: typeof SidebarUserEmail;
+} = ({
   collapsed = false,
   activeItem,
   expandedMenus = {},
@@ -201,19 +214,19 @@ const SidebarRoot: React.FC<SidebarProps> = ({
  * - `Sidebar.Footer` - Fixed bottom section
  * - `Sidebar.User` - User profile section
  */
-export const Sidebar = Object.assign(SidebarRoot, {
-  Nav: SidebarNav,
-  Category: SidebarCategory,
-  CategoryLabel: SidebarCategoryLabel,
-  Item: SidebarItem,
-  ItemIcon: SidebarItemIcon,
-  ItemLabel: SidebarItemLabel,
-  ItemBadge: SidebarItemBadge,
-  Footer: SidebarFooter,
-  User: SidebarUser,
-  UserAvatar: SidebarUserAvatar,
-  UserName: SidebarUserName,
-  UserEmail: SidebarUserEmail,
-});
+Sidebar.Nav = SidebarNav;
+Sidebar.Category = SidebarCategory;
+Sidebar.CategoryLabel = SidebarCategoryLabel;
+Sidebar.Item = SidebarItem;
+Sidebar.ItemIcon = SidebarItemIcon;
+Sidebar.ItemLabel = SidebarItemLabel;
+Sidebar.ItemBadge = SidebarItemBadge;
+Sidebar.Footer = SidebarFooter;
+Sidebar.User = SidebarUser;
+Sidebar.UserAvatar = SidebarUserAvatar;
+Sidebar.UserName = SidebarUserName;
+Sidebar.UserEmail = SidebarUserEmail;
+Sidebar.displayName = 'Sidebar';
 
+export { Sidebar };
 export default Sidebar;
