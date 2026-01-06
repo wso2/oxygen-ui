@@ -22,4 +22,6 @@ function LayoutNavbar({children = null}: PropsWithChildren): ReactNode {
   return children;
 }
 
+LayoutNavbar.displayName = 'Layout.Navbar';
+
 export default LayoutNavbar;

@@ -34,4 +34,6 @@ function LayoutHeader({children = null, sx, ...rest}: PropsWithChildren<BoxProps
   );
 }
 
+LayoutHeader.displayName = 'Layout.Header';
+
 export default LayoutHeader;

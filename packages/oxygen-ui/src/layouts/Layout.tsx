@@ -35,4 +35,6 @@ function Layout({children = null, sx, ...rest}: PropsWithChildren<BoxProps>) {
   );
 }
 
+Layout.displayName = 'Layout';
+
 export default Layout;
