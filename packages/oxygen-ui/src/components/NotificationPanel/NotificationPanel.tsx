@@ -18,6 +18,7 @@
 
 import * as React from 'react';
 import Drawer from '@mui/material/Drawer';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { NotificationPanelContext } from './context';
 import { NotificationHeader } from './NotificationHeader';
@@ -44,6 +45,34 @@ import { NotificationEmptyState } from './NotificationEmptyState';
  * - Full width on xs (mobile)
  * - Fixed width on sm+ (tablet/desktop)
  */
+
+/**
+ * Props for styled NotificationPanelRoot.
+ */
+interface NotificationPanelRootProps {
+  ownerState: {
+    width: number;
+  };
+}
+
+/**
+ * Styled drawer for the notification panel.
+ */
+const NotificationPanelRoot = styled(Drawer, {
+  name: 'MuiNotificationPanel',
+  slot: 'Root',
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<NotificationPanelRootProps>(({ theme, ownerState }) => ({
+  '& .MuiDrawer-paper': {
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: ownerState.width,
+    },
+    maxWidth: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+}));
 
 /**
  * Props for the NotificationPanel component.
@@ -116,7 +145,23 @@ export interface NotificationPanelProps {
  * </NotificationPanel>
  * ```
  */
-const NotificationPanelRoot: React.FC<NotificationPanelProps> = ({
+const NotificationPanel: React.FC<NotificationPanelProps> & {
+  Header: typeof NotificationHeader;
+  HeaderIcon: typeof NotificationHeaderIcon;
+  HeaderTitle: typeof NotificationHeaderTitle;
+  HeaderBadge: typeof NotificationHeaderBadge;
+  HeaderClose: typeof NotificationHeaderClose;
+  Tabs: typeof NotificationTabs;
+  Actions: typeof NotificationActions;
+  List: typeof NotificationList;
+  Item: typeof NotificationItem;
+  ItemAvatar: typeof NotificationItemAvatar;
+  ItemTitle: typeof NotificationItemTitle;
+  ItemMessage: typeof NotificationItemMessage;
+  ItemTimestamp: typeof NotificationItemTimestamp;
+  ItemAction: typeof NotificationItemAction;
+  EmptyState: typeof NotificationEmptyState;
+} = ({
   open,
   onClose,
   children,
@@ -125,25 +170,19 @@ const NotificationPanelRoot: React.FC<NotificationPanelProps> = ({
   sx,
 }) => {
   const contextValue = React.useMemo(() => ({ onClose }), [onClose]);
+  const ownerState = { width };
 
   return (
     <NotificationPanelContext.Provider value={contextValue}>
-      <Drawer
+      <NotificationPanelRoot
         anchor={anchor}
         open={open}
         onClose={onClose}
-        sx={{
-          '& .MuiDrawer-paper': {
-            width: { xs: '100%', sm: width },
-            maxWidth: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-          },
-          ...sx,
-        }}
+        ownerState={ownerState}
+        sx={sx}
       >
         {children}
-      </Drawer>
+      </NotificationPanelRoot>
     </NotificationPanelContext.Provider>
   );
 };
@@ -168,22 +207,22 @@ const NotificationPanelRoot: React.FC<NotificationPanelProps> = ({
  * - `NotificationPanel.ItemAction` - Action button for notification item
  * - `NotificationPanel.EmptyState` - Empty state display
  */
-export const NotificationPanel = Object.assign(NotificationPanelRoot, {
-  Header: NotificationHeader,
-  HeaderIcon: NotificationHeaderIcon,
-  HeaderTitle: NotificationHeaderTitle,
-  HeaderBadge: NotificationHeaderBadge,
-  HeaderClose: NotificationHeaderClose,
-  Tabs: NotificationTabs,
-  Actions: NotificationActions,
-  List: NotificationList,
-  Item: NotificationItem,
-  ItemAvatar: NotificationItemAvatar,
-  ItemTitle: NotificationItemTitle,
-  ItemMessage: NotificationItemMessage,
-  ItemTimestamp: NotificationItemTimestamp,
-  ItemAction: NotificationItemAction,
-  EmptyState: NotificationEmptyState,
-});
+NotificationPanel.Header = NotificationHeader;
+NotificationPanel.HeaderIcon = NotificationHeaderIcon;
+NotificationPanel.HeaderTitle = NotificationHeaderTitle;
+NotificationPanel.HeaderBadge = NotificationHeaderBadge;
+NotificationPanel.HeaderClose = NotificationHeaderClose;
+NotificationPanel.Tabs = NotificationTabs;
+NotificationPanel.Actions = NotificationActions;
+NotificationPanel.List = NotificationList;
+NotificationPanel.Item = NotificationItem;
+NotificationPanel.ItemAvatar = NotificationItemAvatar;
+NotificationPanel.ItemTitle = NotificationItemTitle;
+NotificationPanel.ItemMessage = NotificationItemMessage;
+NotificationPanel.ItemTimestamp = NotificationItemTimestamp;
+NotificationPanel.ItemAction = NotificationItemAction;
+NotificationPanel.EmptyState = NotificationEmptyState;
+NotificationPanel.displayName = 'NotificationPanel';
 
+export { NotificationPanel };
 export default NotificationPanel;

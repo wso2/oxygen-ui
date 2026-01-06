@@ -18,7 +18,25 @@
 
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
+
+/**
+ * Styled title component for the header brand.
+ */
+const HeaderBrandTitleRoot = styled(Typography, {
+  name: 'MuiHeader',
+  slot: 'BrandTitle',
+})<{ component?: React.ElementType }>(({ theme }) => ({
+  fontWeight: 600,
+  fontSize: 16,
+  marginLeft: theme.spacing(1),
+  display: 'none',
+  [theme.breakpoints.up('sm')]: {
+    display: 'block',
+    fontSize: 18,
+  },
+}));
 
 /**
  * Props for HeaderBrandTitle component.
@@ -50,19 +68,9 @@ export const HeaderBrandTitle: React.FC<HeaderBrandTitleProps> = ({
   sx,
 }) => {
   return (
-    <Typography
-      variant="h6"
-      component="div"
-      sx={{
-        fontWeight: 600,
-        fontSize: { xs: 16, sm: 18 },
-        ml: 1,
-        display: { xs: 'none', sm: 'block' },
-        ...sx,
-      }}
-    >
+    <HeaderBrandTitleRoot variant="h6" component="div" sx={sx}>
       {children}
-    </Typography>
+    </HeaderBrandTitleRoot>
   );
 };
 

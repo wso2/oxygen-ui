@@ -140,7 +140,7 @@ const sampleNotifications = [
  */
 export const Default: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
 
     return (
       <Box>
@@ -177,7 +177,7 @@ export const Default: Story = {
  */
 export const WithTabs: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
     const [tabIndex, setTabIndex] = React.useState(0);
 
     const unreadNotifications = sampleNotifications.filter((n) => !n.read);
@@ -238,7 +238,7 @@ export const WithTabs: Story = {
  */
 export const WithActions: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
     const [notifications, setNotifications] = React.useState(sampleNotifications);
 
     const hasUnread = notifications.some((n) => !n.read);
@@ -295,7 +295,7 @@ export const WithActions: Story = {
  */
 export const WithItemActions: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
 
     return (
       <Box>
@@ -334,7 +334,7 @@ export const WithItemActions: Story = {
  */
 export const EmptyState: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
 
     return (
       <Box>
@@ -359,7 +359,7 @@ export const EmptyState: Story = {
  */
 export const LeftAnchored: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
 
     return (
       <Box>

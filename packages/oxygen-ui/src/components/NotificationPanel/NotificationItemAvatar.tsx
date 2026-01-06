@@ -19,8 +19,36 @@
 import * as React from 'react';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { useNotificationItemContext } from './NotificationItemContext';
+
+/**
+ * Props for styled avatar.
+ */
+interface NotificationItemAvatarStyledProps {
+  ownerState: {
+    bgcolor: string;
+    color: string;
+    hasChildren: boolean;
+  };
+}
+
+/**
+ * Styled avatar for notification item.
+ */
+const NotificationItemAvatarStyled = styled(Avatar, {
+  name: 'MuiNotificationPanel',
+  slot: 'ItemAvatar',
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<NotificationItemAvatarStyledProps>(({ ownerState }) => ({
+  width: 40,
+  height: 40,
+  backgroundColor: ownerState.bgcolor,
+  color: ownerState.color,
+  fontSize: ownerState.hasChildren ? 14 : undefined,
+  fontWeight: ownerState.hasChildren ? 600 : undefined,
+}));
 
 /**
  * Props for NotificationItemAvatar component.
@@ -53,21 +81,17 @@ export const NotificationItemAvatar: React.FC<NotificationItemAvatarProps> = ({
   const { typeProps } = useNotificationItemContext();
   const Icon = typeProps.icon;
 
+  const ownerState = {
+    bgcolor: typeProps.bgcolor,
+    color: typeProps.color,
+    hasChildren: !!children,
+  };
+
   return (
     <ListItemAvatar>
-      <Avatar
-        sx={{
-          width: 40,
-          height: 40,
-          bgcolor: typeProps.bgcolor,
-          color: typeProps.color,
-          fontSize: children ? 14 : undefined,
-          fontWeight: children ? 600 : undefined,
-          ...sx,
-        }}
-      >
+      <NotificationItemAvatarStyled ownerState={ownerState} sx={sx}>
         {children || <Icon size={20} />}
-      </Avatar>
+      </NotificationItemAvatarStyled>
     </ListItemAvatar>
   );
 };

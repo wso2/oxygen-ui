@@ -19,8 +19,45 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { useSidebar } from './context';
+
+/**
+ * Styled navigation container for the sidebar.
+ */
+const SidebarNavRoot = styled(Box, {
+  name: 'MuiSidebar',
+  slot: 'Nav',
+})<{ component?: React.ElementType }>(({ theme }) => ({
+  flex: 1,
+  overflow: 'auto',
+  paddingTop: theme.spacing(1),
+  paddingBottom: theme.spacing(1),
+  '&::-webkit-scrollbar': {
+    width: 6,
+  },
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: (theme.vars || theme).palette.action.disabled,
+    borderRadius: 3,
+  },
+  '&::-webkit-scrollbar-thumb:hover': {
+    backgroundColor: (theme.vars || theme).palette.action.active,
+  },
+}));
+
+/**
+ * Styled divider between navigation categories.
+ */
+const SidebarNavDivider = styled(Divider, {
+  name: 'MuiSidebar',
+  slot: 'NavDivider',
+})(({ theme }) => ({
+  marginTop: theme.spacing(1),
+  marginBottom: theme.spacing(1),
+  marginLeft: theme.spacing(2),
+  marginRight: theme.spacing(2),
+}));
 
 /**
  * Props for SidebarNav component.
@@ -53,34 +90,14 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
   const childArray = React.Children.toArray(children);
 
   return (
-    <Box
-      component="nav"
-      sx={{
-        flex: 1,
-        overflow: 'auto',
-        py: 1,
-        '&::-webkit-scrollbar': {
-          width: 6,
-        },
-        '&::-webkit-scrollbar-thumb': {
-          bgcolor: 'action.disabled',
-          borderRadius: 3,
-        },
-        '&::-webkit-scrollbar-thumb:hover': {
-          bgcolor: 'action.active',
-        },
-        ...sx,
-      }}
-    >
+    <SidebarNavRoot component="nav" sx={sx}>
       {childArray.map((child, index) => (
         <React.Fragment key={index}>
-          {index > 0 && showDividers && !collapsed && (
-            <Divider sx={{ my: 1, mx: 2 }} />
-          )}
+          {index > 0 && showDividers && !collapsed && <SidebarNavDivider />}
           {child}
         </React.Fragment>
       ))}
-    </Box>
+    </SidebarNavRoot>
   );
 };
 

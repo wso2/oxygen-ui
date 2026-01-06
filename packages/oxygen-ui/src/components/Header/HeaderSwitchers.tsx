@@ -19,8 +19,36 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { useHeader } from './context';
+
+/**
+ * Styled container for header switchers.
+ */
+const HeaderSwitchersRoot = styled(Box, {
+  name: 'MuiHeader',
+  slot: 'Switchers',
+})(({ theme }) => ({
+  display: 'none',
+  alignItems: 'center',
+  gap: theme.spacing(1),
+  marginLeft: theme.spacing(2),
+  [theme.breakpoints.up('md')]: {
+    display: 'flex',
+  },
+}));
+
+/**
+ * Styled divider for switchers section.
+ */
+const HeaderSwitchersDivider = styled(Divider, {
+  name: 'MuiHeader',
+  slot: 'SwitchersDivider',
+})(({ theme }) => ({
+  marginLeft: theme.spacing(1),
+  marginRight: theme.spacing(1),
+}));
 
 /**
  * Props for HeaderSwitchers component.
@@ -60,18 +88,10 @@ export const HeaderSwitchers: React.FC<HeaderSwitchersProps> = ({
   }
 
   return (
-    <Box
-      sx={{
-        display: { xs: 'none', md: 'flex' },
-        alignItems: 'center',
-        gap: 1,
-        ml: 2,
-        ...sx,
-      }}
-    >
-      {showDivider && <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />}
+    <HeaderSwitchersRoot sx={sx}>
+      {showDivider && <HeaderSwitchersDivider orientation="vertical" flexItem />}
       {children}
-    </Box>
+    </HeaderSwitchersRoot>
   );
 };
 

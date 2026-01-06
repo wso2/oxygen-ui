@@ -18,8 +18,23 @@
 
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { useSidebar } from './context';
+
+/**
+ * Styled user email for the sidebar user section.
+ */
+const SidebarUserEmailRoot = styled(Typography, {
+  name: 'MuiSidebar',
+  slot: 'UserEmail',
+})(({ theme }) => ({
+  color: (theme.vars || theme).palette.text.secondary,
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  display: 'block',
+}));
 
 /**
  * Props for SidebarUserEmail component.
@@ -61,19 +76,9 @@ export const SidebarUserEmail: React.FC<SidebarUserEmailProps> = ({
   }
 
   return (
-    <Typography
-      variant="caption"
-      sx={{
-        color: 'text.secondary',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        display: 'block',
-        ...sx,
-      }}
-    >
+    <SidebarUserEmailRoot variant="caption" sx={sx}>
       {children}
-    </Typography>
+    </SidebarUserEmailRoot>
   );
 };
 

@@ -18,9 +18,18 @@
 
 import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { X } from '@wso2/oxygen-ui-icons-react';
 import { useNotificationPanel } from './context';
+
+/**
+ * Styled close button for the notification panel header.
+ */
+const NotificationHeaderCloseRoot = styled(IconButton, {
+  name: 'MuiNotificationPanel',
+  slot: 'HeaderClose',
+})({});
 
 /**
  * Props for NotificationHeaderClose component.
@@ -64,9 +73,9 @@ export const NotificationHeaderClose: React.FC<NotificationHeaderCloseProps> = (
   };
 
   return (
-    <IconButton onClick={handleClick} size="small" sx={sx}>
+    <NotificationHeaderCloseRoot onClick={handleClick} size="small" sx={sx}>
       {children || <X size={20} />}
-    </IconButton>
+    </NotificationHeaderCloseRoot>
   );
 };
 

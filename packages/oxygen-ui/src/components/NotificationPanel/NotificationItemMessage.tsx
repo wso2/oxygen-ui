@@ -18,7 +18,20 @@
 
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
+
+/**
+ * Styled message text.
+ */
+const NotificationItemMessageRoot = styled(Typography, {
+  name: 'MuiNotificationPanel',
+  slot: 'ItemMessage',
+})<{ component?: React.ElementType }>(({ theme }) => ({
+  display: 'block',
+  color: (theme.vars || theme).palette.text.secondary,
+  marginBottom: theme.spacing(0.5),
+}));
 
 /**
  * Props for NotificationItemMessage component.
@@ -52,18 +65,9 @@ export const NotificationItemMessage: React.FC<NotificationItemMessageProps> = (
   sx,
 }) => {
   return (
-    <Typography
-      component="span"
-      variant="caption"
-      sx={{
-        display: 'block',
-        color: 'text.secondary',
-        mb: 0.5,
-        ...sx,
-      }}
-    >
+    <NotificationItemMessageRoot component="span" variant="caption" sx={sx}>
       {children}
-    </Typography>
+    </NotificationItemMessageRoot>
   );
 };
 

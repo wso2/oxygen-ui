@@ -18,8 +18,21 @@
 
 import * as React from 'react';
 import Chip from '@mui/material/Chip';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { useSidebar } from './context';
+
+/**
+ * Styled badge for sidebar items.
+ */
+const SidebarItemBadgeRoot = styled(Chip, {
+  name: 'MuiSidebar',
+  slot: 'ItemBadge',
+})({
+  height: 20,
+  fontSize: 11,
+  marginLeft: 'auto',
+});
 
 /**
  * Props for SidebarItemBadge component.
@@ -61,17 +74,7 @@ export const SidebarItemBadge: React.FC<SidebarItemBadgeProps> = ({
   }
 
   return (
-    <Chip
-      label={children}
-      size="small"
-      color={color}
-      sx={{
-        height: 20,
-        fontSize: 11,
-        ml: 'auto',
-        ...sx,
-      }}
-    />
+    <SidebarItemBadgeRoot label={children} size="small" color={color} sx={sx} />
   );
 };
 

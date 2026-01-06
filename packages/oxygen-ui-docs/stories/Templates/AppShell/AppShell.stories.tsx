@@ -785,16 +785,6 @@ export const WithNotificationPanel: Story = {
       (n) => n.type === 'warning' || n.type === 'error'
     );
 
-    // Auto-open notification panel for this story
-    React.useEffect(() => {
-      const timer = setTimeout(() => {
-        if (!state.notificationPanelOpen) {
-          actions.toggleNotificationPanel();
-        }
-      }, 500);
-      return () => clearTimeout(timer);
-    }, []);
-
     const getFilteredNotifications = () => {
       switch (tabIndex) {
         case 1:
@@ -937,7 +927,7 @@ export const WithConfirmDialog: Story = {
   },
   render: (args) => {
     const { state, actions } = useAppShellState();
-    const [dialogOpen, setDialogOpen] = React.useState(true);
+    const [dialogOpen, setDialogOpen] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
 
     const handleConfirm = () => {

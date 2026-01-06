@@ -19,8 +19,56 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { useNotificationItemContext } from './NotificationItemContext';
+
+/**
+ * Styled container for title.
+ */
+const NotificationItemTitleRoot = styled(Box, {
+  name: 'MuiNotificationPanel',
+  slot: 'ItemTitle',
+})(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(1),
+}));
+
+/**
+ * Props for styled title text.
+ */
+interface NotificationItemTitleTextProps {
+  ownerState: {
+    read: boolean;
+  };
+}
+
+/**
+ * Styled title text.
+ */
+const NotificationItemTitleText = styled(Typography, {
+  name: 'MuiNotificationPanel',
+  slot: 'ItemTitleText',
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<NotificationItemTitleTextProps>(({ ownerState }) => ({
+  fontWeight: ownerState.read ? 400 : 600,
+  flex: 1,
+}));
+
+/**
+ * Styled unread indicator dot.
+ */
+const NotificationItemUnreadDot = styled(Box, {
+  name: 'MuiNotificationPanel',
+  slot: 'ItemUnreadDot',
+})(({ theme }) => ({
+  width: 8,
+  height: 8,
+  borderRadius: '50%',
+  backgroundColor: (theme.vars || theme).palette.primary.main,
+  flexShrink: 0,
+}));
 
 /**
  * Props for NotificationItemTitle component.
@@ -59,28 +107,12 @@ export const NotificationItemTitle: React.FC<NotificationItemTitleProps> = ({
   const { read } = useNotificationItemContext();
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, ...sx }}>
-      <Typography
-        variant="body2"
-        sx={{
-          fontWeight: read ? 400 : 600,
-          flex: 1,
-        }}
-      >
+    <NotificationItemTitleRoot sx={sx}>
+      <NotificationItemTitleText variant="body2" ownerState={{ read }}>
         {children}
-      </Typography>
-      {showUnreadIndicator && !read && (
-        <Box
-          sx={{
-            width: 8,
-            height: 8,
-            borderRadius: '50%',
-            bgcolor: 'primary.main',
-            flexShrink: 0,
-          }}
-        />
-      )}
-    </Box>
+      </NotificationItemTitleText>
+      {showUnreadIndicator && !read && <NotificationItemUnreadDot />}
+    </NotificationItemTitleRoot>
   );
 };
 

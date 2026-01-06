@@ -28,6 +28,7 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
 import Tooltip from '@mui/material/Tooltip';
+import { styled } from '@mui/material/styles';
 import {
   User as UserIcon,
   Settings,
@@ -35,6 +36,182 @@ import {
   LogOut,
   ChevronRight,
 } from '@wso2/oxygen-ui-icons-react';
+
+/**
+ * Styled avatar button for the user menu trigger.
+ */
+const UserMenuTrigger = styled(IconButton, {
+  name: 'MuiUserMenu',
+  slot: 'Trigger',
+})(({ theme }) => ({
+  padding: theme.spacing(0.5),
+}));
+
+/**
+ * Styled avatar for the user menu.
+ */
+const UserMenuAvatar = styled(Avatar, {
+  name: 'MuiUserMenu',
+  slot: 'Avatar',
+})(({ theme }) => ({
+  width: 32,
+  height: 32,
+  backgroundColor: (theme.vars || theme).palette.primary.main,
+  fontSize: 14,
+  fontWeight: 600,
+}));
+
+/**
+ * Styled large avatar for the menu header.
+ */
+const UserMenuHeaderAvatar = styled(Avatar, {
+  name: 'MuiUserMenu',
+  slot: 'HeaderAvatar',
+})(({ theme }) => ({
+  width: 40,
+  height: 40,
+  backgroundColor: (theme.vars || theme).palette.primary.main,
+  fontSize: 16,
+  fontWeight: 600,
+}));
+
+/**
+ * Styled header container.
+ */
+const UserMenuHeader = styled(Box, {
+  name: 'MuiUserMenu',
+  slot: 'Header',
+})(({ theme }) => ({
+  paddingLeft: theme.spacing(2),
+  paddingRight: theme.spacing(2),
+  paddingTop: theme.spacing(1.5),
+  paddingBottom: theme.spacing(1.5),
+}));
+
+/**
+ * Styled header content container.
+ */
+const UserMenuHeaderContent = styled(Box, {
+  name: 'MuiUserMenu',
+  slot: 'HeaderContent',
+})(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(1.5),
+}));
+
+/**
+ * Styled user info container.
+ */
+const UserMenuUserInfo = styled(Box, {
+  name: 'MuiUserMenu',
+  slot: 'UserInfo',
+})({
+  flex: 1,
+  minWidth: 0,
+});
+
+/**
+ * Styled user name row.
+ */
+const UserMenuNameRow = styled(Box, {
+  name: 'MuiUserMenu',
+  slot: 'NameRow',
+})(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(1),
+}));
+
+/**
+ * Styled user name.
+ */
+const UserMenuName = styled(Typography, {
+  name: 'MuiUserMenu',
+  slot: 'Name',
+})({
+  fontWeight: 600,
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+});
+
+/**
+ * Styled role chip.
+ */
+const UserMenuRoleChip = styled(Chip, {
+  name: 'MuiUserMenu',
+  slot: 'RoleChip',
+})({
+  height: 20,
+  fontSize: 11,
+  fontWeight: 600,
+});
+
+/**
+ * Styled email text.
+ */
+const UserMenuEmail = styled(Typography, {
+  name: 'MuiUserMenu',
+  slot: 'Email',
+})(({ theme }) => ({
+  color: (theme.vars || theme).palette.text.secondary,
+  display: 'block',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+}));
+
+/**
+ * Styled menu item.
+ */
+const UserMenuMenuItem = styled(MenuItem, {
+  name: 'MuiUserMenu',
+  slot: 'MenuItem',
+})(({ theme }) => ({
+  paddingTop: theme.spacing(1.5),
+  paddingBottom: theme.spacing(1.5),
+}));
+
+/**
+ * Styled logout menu item.
+ */
+const UserMenuLogoutItem = styled(MenuItem, {
+  name: 'MuiUserMenu',
+  slot: 'LogoutItem',
+})(({ theme }) => ({
+  paddingTop: theme.spacing(1.5),
+  paddingBottom: theme.spacing(1.5),
+  color: (theme.vars || theme).palette.error.main,
+  '&:hover': {
+    backgroundColor: (theme.vars || theme).palette.error.main,
+    color: (theme.vars || theme).palette.error.contrastText,
+    '& .MuiListItemIcon-root': {
+      color: (theme.vars || theme).palette.error.contrastText,
+    },
+  },
+}));
+
+/**
+ * Styled logout icon container.
+ */
+const UserMenuLogoutIcon = styled(ListItemIcon, {
+  name: 'MuiUserMenu',
+  slot: 'LogoutIcon',
+})(({ theme }) => ({
+  color: (theme.vars || theme).palette.error.main,
+}));
+
+/**
+ * Styled billing chip.
+ */
+const UserMenuBillingChip = styled(Chip, {
+  name: 'MuiUserMenu',
+  slot: 'BillingChip',
+})({
+  height: 18,
+  fontSize: 10,
+});
 
 /**
  * User information for the UserMenu.
@@ -118,26 +295,17 @@ export const UserMenu: React.FC<UserMenuProps> = ({
   return (
     <>
       <Tooltip title="Account">
-        <IconButton
+        <UserMenuTrigger
           onClick={handleClick}
           size="small"
-          sx={{ p: 0.5 }}
           aria-controls={open ? 'user-menu' : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar
-            sx={{
-              width: 32,
-              height: 32,
-              bgcolor: 'primary.main',
-              fontSize: 14,
-              fontWeight: 600,
-            }}
-          >
+          <UserMenuAvatar>
             {user.avatar || user.name.charAt(0)}
-          </Avatar>
-        </IconButton>
+          </UserMenuAvatar>
+        </UserMenuTrigger>
       </Tooltip>
 
       <Menu
@@ -157,132 +325,76 @@ export const UserMenu: React.FC<UserMenuProps> = ({
         }}
       >
         {/* User info header */}
-        <Box sx={{ px: 2, py: 1.5 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-            <Avatar
-              sx={{
-                width: 40,
-                height: 40,
-                bgcolor: 'primary.main',
-                fontSize: 16,
-                fontWeight: 600,
-              }}
-            >
+        <UserMenuHeader>
+          <UserMenuHeaderContent>
+            <UserMenuHeaderAvatar>
               {user.avatar || user.name.charAt(0)}
-            </Avatar>
-            <Box sx={{ flex: 1, minWidth: 0 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Typography
-                  variant="subtitle2"
-                  sx={{
-                    fontWeight: 600,
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}
-                >
+            </UserMenuHeaderAvatar>
+            <UserMenuUserInfo>
+              <UserMenuNameRow>
+                <UserMenuName variant="subtitle2">
                   {user.name}
-                </Typography>
+                </UserMenuName>
                 {user.role && (
-                  <Chip
+                  <UserMenuRoleChip
                     label={user.role}
                     size="small"
                     color="primary"
-                    sx={{
-                      height: 20,
-                      fontSize: 11,
-                      fontWeight: 600,
-                    }}
                   />
                 )}
-              </Box>
-              <Typography
-                variant="caption"
-                sx={{
-                  color: 'text.secondary',
-                  display: 'block',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                }}
-              >
+              </UserMenuNameRow>
+              <UserMenuEmail variant="caption">
                 {user.email}
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
+              </UserMenuEmail>
+            </UserMenuUserInfo>
+          </UserMenuHeaderContent>
+        </UserMenuHeader>
 
         <Divider />
 
         {/* Menu items */}
-        <MenuItem
-          onClick={() => handleMenuAction(onProfileClick)}
-          sx={{ py: 1.5 }}
-        >
+        <UserMenuMenuItem onClick={() => handleMenuAction(onProfileClick)}>
           <ListItemIcon>
             <UserIcon size={18} />
           </ListItemIcon>
           <ListItemText primary="Profile" />
           <ChevronRight size={16} style={{ color: 'var(--mui-palette-text-secondary)' }} />
-        </MenuItem>
+        </UserMenuMenuItem>
 
-        <MenuItem
-          onClick={() => handleMenuAction(onSettingsClick)}
-          sx={{ py: 1.5 }}
-        >
+        <UserMenuMenuItem onClick={() => handleMenuAction(onSettingsClick)}>
           <ListItemIcon>
             <Settings size={18} />
           </ListItemIcon>
           <ListItemText primary="Settings" />
           <ChevronRight size={16} style={{ color: 'var(--mui-palette-text-secondary)' }} />
-        </MenuItem>
+        </UserMenuMenuItem>
 
-        <MenuItem
-          onClick={() => handleMenuAction(onBillingClick)}
-          sx={{ py: 1.5 }}
-        >
+        <UserMenuMenuItem onClick={() => handleMenuAction(onBillingClick)}>
           <ListItemIcon>
             <CreditCard size={18} />
           </ListItemIcon>
           <ListItemText primary="Billing" />
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             {user.role && (
-              <Chip
+              <UserMenuBillingChip
                 label={user.role}
                 size="small"
                 variant="outlined"
-                sx={{
-                  height: 18,
-                  fontSize: 10,
-                }}
               />
             )}
             <ChevronRight size={16} style={{ color: 'var(--mui-palette-text-secondary)' }} />
           </Box>
-        </MenuItem>
+        </UserMenuMenuItem>
 
         <Divider />
 
         {/* Logout - destructive action */}
-        <MenuItem
-          onClick={() => handleMenuAction(onLogout)}
-          sx={{
-            py: 1.5,
-            color: 'error.main',
-            '&:hover': {
-              bgcolor: 'error.main',
-              color: 'error.contrastText',
-              '& .MuiListItemIcon-root': {
-                color: 'error.contrastText',
-              },
-            },
-          }}
-        >
-          <ListItemIcon sx={{ color: 'error.main' }}>
+        <UserMenuLogoutItem onClick={() => handleMenuAction(onLogout)}>
+          <UserMenuLogoutIcon>
             <LogOut size={18} />
-          </ListItemIcon>
+          </UserMenuLogoutIcon>
           <ListItemText primary="Log out" />
-        </MenuItem>
+        </UserMenuLogoutItem>
       </Menu>
     </>
   );

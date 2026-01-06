@@ -18,7 +18,34 @@
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
+
+/**
+ * Styled header container for the notification panel.
+ */
+const NotificationHeaderRoot = styled(Box, {
+  name: 'MuiNotificationPanel',
+  slot: 'Header',
+})(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: theme.spacing(2),
+  borderBottom: `1px solid ${(theme.vars || theme).palette.divider}`,
+}));
+
+/**
+ * Styled container for header left content.
+ */
+const NotificationHeaderContent = styled(Box, {
+  name: 'MuiNotificationPanel',
+  slot: 'HeaderContent',
+})(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(1),
+}));
 
 /**
  * Props for NotificationHeader component.
@@ -80,22 +107,10 @@ export const NotificationHeader: React.FC<NotificationHeaderProps> = ({
   const { leftChildren, closeChild } = separateChildren(children);
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        p: 2,
-        borderBottom: 1,
-        borderColor: 'divider',
-        ...sx,
-      }}
-    >
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        {leftChildren}
-      </Box>
+    <NotificationHeaderRoot sx={sx}>
+      <NotificationHeaderContent>{leftChildren}</NotificationHeaderContent>
       {closeChild}
-    </Box>
+    </NotificationHeaderRoot>
   );
 };
 

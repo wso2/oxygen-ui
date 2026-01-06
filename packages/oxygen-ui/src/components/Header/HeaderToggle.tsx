@@ -19,8 +19,19 @@
 import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { Menu } from '@wso2/oxygen-ui-icons-react';
+
+/**
+ * Styled toggle button for the header.
+ */
+const HeaderToggleRoot = styled(IconButton, {
+  name: 'MuiHeader',
+  slot: 'Toggle',
+})(({ theme }) => ({
+  color: (theme.vars || theme).palette.text.secondary,
+}));
 
 /**
  * Props for HeaderToggle component.
@@ -49,7 +60,7 @@ export interface HeaderToggleProps {
  * and toggles between expanded/collapsed states.
  *
  * Custom icons can be provided via `expandIcon` and `collapseIcon` props.
- * If not provided, defaults to PanelLeftOpen and PanelLeftClose icons.
+ * If not provided, defaults to Menu icon.
  *
  * Theme tokens used:
  * - `text.secondary` - Icon color
@@ -65,17 +76,13 @@ export const HeaderToggle: React.FC<HeaderToggleProps> = ({
 }) => {
   return (
     <Tooltip title={collapsed ? expandLabel : collapseLabel}>
-      <IconButton
-        onClick={onToggle}
-        size="small"
-        sx={{ color: 'text.secondary', ...sx }}
-      >
+      <HeaderToggleRoot onClick={onToggle} size="small" sx={sx}>
         {collapsed ? (
           expandIcon || <Menu size={20} />
         ) : (
           collapseIcon || <Menu size={20} />
         )}
-      </IconButton>
+      </HeaderToggleRoot>
     </Tooltip>
   );
 };

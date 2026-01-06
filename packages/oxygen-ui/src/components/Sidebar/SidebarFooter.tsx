@@ -19,7 +19,19 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
+
+/**
+ * Styled footer container for the sidebar.
+ */
+const SidebarFooterRoot = styled(Box, {
+  name: 'MuiSidebar',
+  slot: 'Footer',
+})(({ theme }) => ({
+  paddingTop: theme.spacing(1),
+  paddingBottom: theme.spacing(1),
+}));
 
 /**
  * Props for SidebarFooter component.
@@ -47,9 +59,7 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({
   return (
     <>
       {showDivider && <Divider />}
-      <Box sx={{ py: 1, ...sx }}>
-        {children}
-      </Box>
+      <SidebarFooterRoot sx={sx}>{children}</SidebarFooterRoot>
     </>
   );
 };

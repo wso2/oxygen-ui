@@ -22,6 +22,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { X } from '@wso2/oxygen-ui-icons-react';
 import { getNotificationTypeProps, NotificationType } from './utils';
@@ -29,6 +30,67 @@ import {
   NotificationItemProvider,
   type NotificationItemContextValue,
 } from './NotificationItemContext';
+
+/**
+ * Props for styled NotificationItemRoot.
+ */
+interface NotificationItemRootProps {
+  ownerState: {
+    read: boolean;
+  };
+}
+
+/**
+ * Styled list item container.
+ */
+const NotificationItemRoot = styled(ListItem, {
+  name: 'MuiNotificationPanel',
+  slot: 'Item',
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<NotificationItemRootProps>(({ theme, ownerState }) => ({
+  backgroundColor: ownerState.read
+    ? 'transparent'
+    : (theme.vars || theme).palette.action.hover,
+  '&:hover': {
+    backgroundColor: (theme.vars || theme).palette.action.selected,
+  },
+}));
+
+/**
+ * Styled list item button.
+ */
+const NotificationItemButton = styled(ListItemButton, {
+  name: 'MuiNotificationPanel',
+  slot: 'ItemButton',
+})(({ theme }) => ({
+  paddingRight: theme.spacing(6),
+}));
+
+/**
+ * Styled dismiss button.
+ */
+const NotificationItemDismiss = styled(IconButton, {
+  name: 'MuiNotificationPanel',
+  slot: 'ItemDismiss',
+})({
+  opacity: 0.5,
+  '&:hover': {
+    opacity: 1,
+  },
+});
+
+/**
+ * Styled container for timestamp and action.
+ */
+const NotificationItemFooter = styled(Box, {
+  name: 'MuiNotificationPanel',
+  slot: 'ItemFooter',
+})(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(1),
+  marginTop: theme.spacing(0.5),
+}));
 
 /**
  * Props for NotificationItem component.
@@ -146,55 +208,44 @@ export const NotificationItem: React.FC<NotificationItemProps> = ({
     onAction?.();
   };
 
+  const ownerState = { read };
+
   return (
     <NotificationItemProvider value={contextValue}>
-      <ListItem
+      <NotificationItemRoot
         disablePadding
+        ownerState={ownerState}
         secondaryAction={
           onDismiss && (
-            <IconButton
+            <NotificationItemDismiss
               size="small"
               onClick={(e) => {
                 e.stopPropagation();
                 onDismiss(id);
               }}
-              sx={{ opacity: 0.5, '&:hover': { opacity: 1 } }}
             >
               <X size={16} />
-            </IconButton>
+            </NotificationItemDismiss>
           )
         }
-        sx={{
-          bgcolor: read ? 'transparent' : 'action.hover',
-          '&:hover': {
-            bgcolor: 'action.selected',
-          },
-          ...sx,
-        }}
+        sx={sx}
       >
-        <ListItemButton onClick={handleClick} sx={{ pr: 6 }}>
+        <NotificationItemButton onClick={handleClick}>
           {avatarChild}
           <ListItemText
             primary={titleChild}
             secondary={
               <Box component="span">
                 {messageChild}
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 1,
-                    mt: 0.5,
-                  }}
-                >
+                <NotificationItemFooter>
                   {timestampChild}
                   {actionChild}
-                </Box>
+                </NotificationItemFooter>
               </Box>
             }
           />
-        </ListItemButton>
-      </ListItem>
+        </NotificationItemButton>
+      </NotificationItemRoot>
     </NotificationItemProvider>
   );
 };

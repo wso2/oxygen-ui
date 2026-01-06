@@ -18,6 +18,7 @@
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { SidebarContext } from './context';
 import { SidebarNav } from './SidebarNav';
@@ -57,6 +58,40 @@ export const SIDEBAR_WIDTH = 250;
 
 /** Default collapsed sidebar width in pixels */
 export const COLLAPSED_SIDEBAR_WIDTH = 64;
+
+/**
+ * Props for styled SidebarRootStyled.
+ */
+interface SidebarRootStyledProps {
+  ownerState: {
+    collapsed: boolean;
+    width: number;
+    collapsedWidth: number;
+  };
+}
+
+/**
+ * Styled root container for the sidebar.
+ */
+const SidebarRootStyled = styled(Box, {
+  name: 'MuiSidebar',
+  slot: 'Root',
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<SidebarRootStyledProps & { component?: React.ElementType }>(({ theme, ownerState }) => ({
+  width: ownerState.collapsed ? ownerState.collapsedWidth : ownerState.width,
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: ownerState.collapsed
+      ? theme.transitions.duration.leavingScreen
+      : theme.transitions.duration.enteringScreen,
+  }),
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100%',
+  backgroundColor: (theme.vars || theme).palette.background.paper,
+  borderRight: `1px solid ${(theme.vars || theme).palette.divider}`,
+  overflow: 'hidden',
+}));
 
 /**
  * Props for the Sidebar component.
@@ -123,7 +158,20 @@ export interface SidebarProps {
  * </Sidebar>
  * ```
  */
-const SidebarRoot: React.FC<SidebarProps> = ({
+const Sidebar: React.FC<SidebarProps> & {
+  Nav: typeof SidebarNav;
+  Category: typeof SidebarCategory;
+  CategoryLabel: typeof SidebarCategoryLabel;
+  Item: typeof SidebarItem;
+  ItemIcon: typeof SidebarItemIcon;
+  ItemLabel: typeof SidebarItemLabel;
+  ItemBadge: typeof SidebarItemBadge;
+  Footer: typeof SidebarFooter;
+  User: typeof SidebarUser;
+  UserAvatar: typeof SidebarUserAvatar;
+  UserName: typeof SidebarUserName;
+  UserEmail: typeof SidebarUserEmail;
+} = ({
   collapsed = false,
   activeItem,
   expandedMenus = {},
@@ -145,31 +193,13 @@ const SidebarRoot: React.FC<SidebarProps> = ({
     [collapsed, activeItem, expandedMenus, onSelect, onToggleExpand]
   );
 
+  const ownerState = { collapsed, width, collapsedWidth };
+
   return (
     <SidebarContext.Provider value={contextValue}>
-      <Box
-        component="aside"
-        sx={{
-          width: collapsed ? collapsedWidth : width,
-          transition: (theme) =>
-            theme.transitions.create('width', {
-              easing: theme.transitions.easing.sharp,
-              duration: collapsed
-                ? theme.transitions.duration.leavingScreen
-                : theme.transitions.duration.enteringScreen,
-            }),
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%',
-          bgcolor: 'background.paper',
-          borderRight: 1,
-          borderColor: 'divider',
-          overflow: 'hidden',
-          ...sx,
-        }}
-      >
+      <SidebarRootStyled component="aside" ownerState={ownerState} sx={sx}>
         {children}
-      </Box>
+      </SidebarRootStyled>
     </SidebarContext.Provider>
   );
 };
@@ -184,19 +214,19 @@ const SidebarRoot: React.FC<SidebarProps> = ({
  * - `Sidebar.Footer` - Fixed bottom section
  * - `Sidebar.User` - User profile section
  */
-export const Sidebar = Object.assign(SidebarRoot, {
-  Nav: SidebarNav,
-  Category: SidebarCategory,
-  CategoryLabel: SidebarCategoryLabel,
-  Item: SidebarItem,
-  ItemIcon: SidebarItemIcon,
-  ItemLabel: SidebarItemLabel,
-  ItemBadge: SidebarItemBadge,
-  Footer: SidebarFooter,
-  User: SidebarUser,
-  UserAvatar: SidebarUserAvatar,
-  UserName: SidebarUserName,
-  UserEmail: SidebarUserEmail,
-});
+Sidebar.Nav = SidebarNav;
+Sidebar.Category = SidebarCategory;
+Sidebar.CategoryLabel = SidebarCategoryLabel;
+Sidebar.Item = SidebarItem;
+Sidebar.ItemIcon = SidebarItemIcon;
+Sidebar.ItemLabel = SidebarItemLabel;
+Sidebar.ItemBadge = SidebarItemBadge;
+Sidebar.Footer = SidebarFooter;
+Sidebar.User = SidebarUser;
+Sidebar.UserAvatar = SidebarUserAvatar;
+Sidebar.UserName = SidebarUserName;
+Sidebar.UserEmail = SidebarUserEmail;
+Sidebar.displayName = 'Sidebar';
 
+export { Sidebar };
 export default Sidebar;

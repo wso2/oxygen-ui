@@ -18,8 +18,21 @@
 
 import * as React from 'react';
 import Chip from '@mui/material/Chip';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { useNotificationItemContext } from './NotificationItemContext';
+
+/**
+ * Styled action chip.
+ */
+const NotificationItemActionRoot = styled(Chip, {
+  name: 'MuiNotificationPanel',
+  slot: 'ItemAction',
+})({
+  height: 20,
+  fontSize: 10,
+  cursor: 'pointer',
+});
 
 /**
  * Props for NotificationItemAction component.
@@ -64,17 +77,12 @@ export const NotificationItemAction: React.FC<NotificationItemActionProps> = ({
   };
 
   return (
-    <Chip
+    <NotificationItemActionRoot
       label={children}
       size="small"
       variant="outlined"
-      sx={{
-        height: 20,
-        fontSize: 10,
-        cursor: 'pointer',
-        ...sx,
-      }}
       onClick={handleClick}
+      sx={sx}
     />
   );
 };

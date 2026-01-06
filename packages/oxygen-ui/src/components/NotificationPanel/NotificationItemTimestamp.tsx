@@ -18,7 +18,19 @@
 
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
+
+/**
+ * Styled timestamp text.
+ */
+const NotificationItemTimestampRoot = styled(Typography, {
+  name: 'MuiNotificationPanel',
+  slot: 'ItemTimestamp',
+})<{ component?: React.ElementType }>(({ theme }) => ({
+  color: (theme.vars || theme).palette.text.disabled,
+  fontSize: 11,
+}));
 
 /**
  * Props for NotificationItemTimestamp component.
@@ -51,17 +63,9 @@ export const NotificationItemTimestamp: React.FC<NotificationItemTimestampProps>
   sx,
 }) => {
   return (
-    <Typography
-      component="span"
-      variant="caption"
-      sx={{
-        color: 'text.disabled',
-        fontSize: 11,
-        ...sx,
-      }}
-    >
+    <NotificationItemTimestampRoot component="span" variant="caption" sx={sx}>
       {children}
-    </Typography>
+    </NotificationItemTimestampRoot>
   );
 };
 

@@ -19,8 +19,37 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { BellOff } from '@wso2/oxygen-ui-icons-react';
+
+/**
+ * Styled container for empty state.
+ */
+const NotificationEmptyStateRoot = styled(Box, {
+  name: 'MuiNotificationPanel',
+  slot: 'EmptyState',
+})(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  paddingTop: theme.spacing(8),
+  paddingBottom: theme.spacing(8),
+  paddingLeft: theme.spacing(3),
+  paddingRight: theme.spacing(3),
+  textAlign: 'center',
+}));
+
+/**
+ * Styled message text.
+ */
+const NotificationEmptyStateMessage = styled(Typography, {
+  name: 'MuiNotificationPanel',
+  slot: 'EmptyStateMessage',
+})(({ theme }) => ({
+  color: (theme.vars || theme).palette.text.secondary,
+}));
 
 /**
  * Props for NotificationEmptyState component.
@@ -49,23 +78,12 @@ export const NotificationEmptyState: React.FC<NotificationEmptyStateProps> = ({
   sx,
 }) => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        py: 8,
-        px: 3,
-        textAlign: 'center',
-        ...sx,
-      }}
-    >
+    <NotificationEmptyStateRoot sx={sx}>
       {icon || <BellOff size={48} style={{ opacity: 0.3, marginBottom: 16 }} />}
-      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+      <NotificationEmptyStateMessage variant="body2">
         {message}
-      </Typography>
-    </Box>
+      </NotificationEmptyStateMessage>
+    </NotificationEmptyStateRoot>
   );
 };
 

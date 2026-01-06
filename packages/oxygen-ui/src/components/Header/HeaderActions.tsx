@@ -18,7 +18,20 @@
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
+
+/**
+ * Styled container for header actions.
+ */
+const HeaderActionsRoot = styled(Box, {
+  name: 'MuiHeader',
+  slot: 'Actions',
+})(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(0.5),
+}));
 
 /**
  * Props for HeaderActions component.
@@ -46,18 +59,7 @@ export const HeaderActions: React.FC<HeaderActionsProps> = ({
   children,
   sx,
 }) => {
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 0.5,
-        ...sx,
-      }}
-    >
-      {children}
-    </Box>
-  );
+  return <HeaderActionsRoot sx={sx}>{children}</HeaderActionsRoot>;
 };
 
 export default HeaderActions;

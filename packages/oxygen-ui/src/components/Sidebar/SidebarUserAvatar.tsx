@@ -18,7 +18,21 @@
 
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
+
+/**
+ * Styled avatar for the sidebar user section.
+ */
+const SidebarUserAvatarRoot = styled(Avatar, {
+  name: 'MuiSidebar',
+  slot: 'UserAvatar',
+})(({ theme }) => ({
+  width: 32,
+  height: 32,
+  backgroundColor: (theme.vars || theme).palette.primary.main,
+  fontSize: 14,
+}));
 
 /**
  * Props for SidebarUserAvatar component.
@@ -58,19 +72,9 @@ export const SidebarUserAvatar: React.FC<SidebarUserAvatarProps> = ({
   sx,
 }) => {
   return (
-    <Avatar
-      src={src}
-      alt={alt}
-      sx={{
-        width: 32,
-        height: 32,
-        bgcolor: 'primary.main',
-        fontSize: 14,
-        ...sx,
-      }}
-    >
+    <SidebarUserAvatarRoot src={src} alt={alt} sx={sx}>
       {children}
-    </Avatar>
+    </SidebarUserAvatarRoot>
   );
 };
 

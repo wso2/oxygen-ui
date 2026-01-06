@@ -18,9 +18,33 @@
 
 import * as React from 'react';
 import ListItemText from '@mui/material/ListItemText';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { useSidebar } from './context';
 import { useSidebarItemContext } from './SidebarItemContext';
+
+/**
+ * Props for the styled component.
+ */
+interface SidebarItemLabelRootProps {
+  ownerState: {
+    isActive: boolean;
+  };
+}
+
+/**
+ * Styled label for sidebar items.
+ */
+const SidebarItemLabelRoot = styled(ListItemText, {
+  name: 'MuiSidebar',
+  slot: 'ItemLabel',
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<SidebarItemLabelRootProps>(({ ownerState }) => ({
+  '& .MuiListItemText-primary': {
+    fontSize: 14,
+    fontWeight: ownerState.isActive ? 600 : 400,
+  },
+}));
 
 /**
  * Props for SidebarItemLabel component.
@@ -59,12 +83,9 @@ export const SidebarItemLabel: React.FC<SidebarItemLabelProps> = ({
   }
 
   return (
-    <ListItemText
+    <SidebarItemLabelRoot
       primary={children}
-      primaryTypographyProps={{
-        fontSize: 14,
-        fontWeight: isActive ? 600 : 400,
-      }}
+      ownerState={{ isActive }}
       sx={sx}
     />
   );

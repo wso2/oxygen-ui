@@ -18,7 +18,19 @@
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
+
+/**
+ * Styled icon container for the notification panel header.
+ */
+const NotificationHeaderIconRoot = styled(Box, {
+  name: 'MuiNotificationPanel',
+  slot: 'HeaderIcon',
+})({
+  display: 'flex',
+  alignItems: 'center',
+});
 
 /**
  * Props for NotificationHeaderIcon component.
@@ -48,15 +60,9 @@ export const NotificationHeaderIcon: React.FC<NotificationHeaderIconProps> = ({
   sx,
 }) => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        ...sx,
-      }}
-    >
+    <NotificationHeaderIconRoot sx={sx}>
       {children}
-    </Box>
+    </NotificationHeaderIconRoot>
   );
 };
 

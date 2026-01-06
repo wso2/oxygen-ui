@@ -21,8 +21,12 @@ import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 import Tooltip from '@mui/material/Tooltip';
+import Popover from '@mui/material/Popover';
+import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { ChevronDown, ChevronUp } from '@wso2/oxygen-ui-icons-react';
 import { useSidebar } from './context';
@@ -34,6 +38,103 @@ import {
 import { SidebarItemIcon } from './SidebarItemIcon';
 import { SidebarItemLabel } from './SidebarItemLabel';
 import { SidebarItemBadge } from './SidebarItemBadge';
+
+/**
+ * Props for styled SidebarItemButton.
+ */
+interface SidebarItemButtonProps {
+  ownerState: {
+    collapsed: boolean;
+    depth: number;
+  };
+}
+
+/**
+ * Styled list item container.
+ */
+const SidebarItemRoot = styled(ListItem, {
+  name: 'MuiSidebar',
+  slot: 'Item',
+})({
+  display: 'block',
+  padding: 0,
+});
+
+/**
+ * Styled button for sidebar item.
+ */
+const SidebarItemButton = styled(ListItemButton, {
+  name: 'MuiSidebar',
+  slot: 'ItemButton',
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<SidebarItemButtonProps>(({ theme, ownerState }) => ({
+  minHeight: 44,
+  paddingRight: theme.spacing(2),
+  paddingLeft: ownerState.collapsed ? theme.spacing(2) : theme.spacing(2 + ownerState.depth * 2),
+  justifyContent: ownerState.collapsed ? 'center' : 'initial',
+  borderRadius: theme.shape.borderRadius,
+  marginLeft: theme.spacing(1),
+  marginRight: theme.spacing(1),
+  '&.Mui-selected': {
+    backgroundColor: (theme.vars || theme).palette.action.selected,
+    '&:hover': {
+      backgroundColor: (theme.vars || theme).palette.action.selected,
+    },
+  },
+}));
+
+/**
+ * Styled container for expand/collapse chevron.
+ */
+const SidebarItemChevron = styled(Box, {
+  name: 'MuiSidebar',
+  slot: 'ItemChevron',
+})({
+  marginLeft: 'auto',
+  display: 'flex',
+  alignItems: 'center',
+});
+
+/**
+ * Styled popover for nested items when sidebar is collapsed.
+ */
+const SidebarItemPopover = styled(Popover, {
+  name: 'MuiSidebar',
+  slot: 'ItemPopover',
+})({
+  pointerEvents: 'none',
+});
+
+/**
+ * Styled list container for popover nested items.
+ */
+const SidebarItemPopoverList = styled(List, {
+  name: 'MuiSidebar',
+  slot: 'ItemPopoverList',
+})(({ theme }) => ({
+  padding: theme.spacing(0.5),
+  pointerEvents: 'auto',
+}));
+
+/**
+ * Styled button for popover menu items (always shows label, not icon-only).
+ */
+const SidebarItemPopoverButton = styled(ListItemButton, {
+  name: 'MuiSidebar',
+  slot: 'ItemPopoverButton',
+})(({ theme }) => ({
+  minHeight: 40,
+  paddingRight: theme.spacing(2),
+  paddingLeft: theme.spacing(2),
+  borderRadius: theme.shape.borderRadius,
+  gap: theme.spacing(1.5),
+  '&.Mui-selected': {
+    backgroundColor: (theme.vars || theme).palette.action.selected,
+    '&:hover': {
+      backgroundColor: (theme.vars || theme).palette.action.selected,
+    },
+  },
+}));
 
 // Child display names for detection
 const CHILD_DISPLAY_NAMES = [
@@ -100,6 +201,31 @@ const getTooltipLabel = (children: React.ReactNode): string => {
 };
 
 /**
+ * Extracts icon and label from a SidebarItem's children for popover rendering.
+ */
+const extractItemContent = (itemChildren: React.ReactNode): {
+  icon: React.ReactNode;
+  label: string;
+} => {
+  let icon: React.ReactNode = null;
+  let label = '';
+
+  React.Children.forEach(itemChildren, (child) => {
+    if (React.isValidElement(child)) {
+      const displayName = (child.type as React.FC)?.displayName;
+      const props = child.props as { children?: React.ReactNode };
+      if (displayName === 'SidebarItemIcon') {
+        icon = props.children;
+      } else if (displayName === 'SidebarItemLabel' && props.children) {
+        label = String(props.children);
+      }
+    }
+  });
+
+  return { icon, label };
+};
+
+/**
  * SidebarItem - Individual navigation menu item.
  *
  * Uses composable children API:
@@ -129,6 +255,21 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
   const isActive = activeItem === id;
   const isExpanded = expandedMenus[id] || false;
 
+  // Check if any nested child is active (for highlighting parent when collapsed)
+  const hasActiveChild = React.useMemo(() => {
+    if (!hasNestedItems || !activeItem) return false;
+    return nestedItems.some((child) => {
+      if (React.isValidElement<SidebarItemProps>(child)) {
+        return child.props.id === activeItem;
+      }
+      return false;
+    });
+  }, [hasNestedItems, nestedItems, activeItem]);
+
+  // Popover state for collapsed mode with nested items
+  const [popoverAnchor, setPopoverAnchor] = React.useState<HTMLElement | null>(null);
+  const popoverOpen = Boolean(popoverAnchor);
+
   // Create context value for child components
   const contextValue: SidebarItemContextValue = {
     id,
@@ -146,50 +287,114 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
     }
   };
 
+  // Hover handlers for collapsed state popover
+  const handleMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
+    if (collapsed && hasNestedItems) {
+      setPopoverAnchor(event.currentTarget);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setPopoverAnchor(null);
+  };
+
   const tooltipLabel = getTooltipLabel(children);
+  const ownerState = { collapsed, depth };
+
+  // Parent should appear selected when collapsed and has an active child
+  const shouldShowSelected = (isActive && !hasNestedItems) || (collapsed && hasActiveChild);
 
   const buttonContent = (
-    <ListItemButton
-      selected={isActive && !hasNestedItems}
+    <SidebarItemButton
+      selected={shouldShowSelected}
       onClick={handleClick}
-      sx={{
-        minHeight: 44,
-        px: 2,
-        pl: collapsed ? 2 : 2 + depth * 2,
-        justifyContent: collapsed ? 'center' : 'initial',
-        borderRadius: 1,
-        mx: 1,
-        '&.Mui-selected': {
-          bgcolor: 'action.selected',
-          '&:hover': {
-            bgcolor: 'action.selected',
-          },
-        },
-        ...sx,
-      }}
+      ownerState={ownerState}
+      sx={sx}
     >
       <SidebarItemProvider value={contextValue}>
         {composableChildren}
         {!collapsed && hasNestedItems && (
-          <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center' }}>
+          <SidebarItemChevron>
             {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-          </Box>
+          </SidebarItemChevron>
         )}
       </SidebarItemProvider>
-    </ListItemButton>
+    </SidebarItemButton>
   );
+
+  // For collapsed state with nested items, use a wrapper div for hover events
+  const collapsedWithNested = collapsed && hasNestedItems;
+
+  // Handler for clicking a nested item in the popover
+  const handlePopoverItemClick = (itemId: string) => {
+    onSelect?.(itemId);
+    setPopoverAnchor(null);
+  };
 
   return (
     <>
-      <ListItem disablePadding sx={{ display: 'block' }}>
+      <SidebarItemRoot
+        disablePadding
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         {collapsed ? (
-          <Tooltip title={tooltipLabel} placement="right" arrow>
-            {buttonContent}
-          </Tooltip>
+          // When collapsed: show tooltip only for items without nested children
+          collapsedWithNested ? (
+            buttonContent
+          ) : (
+            <Tooltip title={tooltipLabel} placement="right" arrow>
+              {buttonContent}
+            </Tooltip>
+          )
         ) : (
           buttonContent
         )}
-      </ListItem>
+      </SidebarItemRoot>
+
+      {/* Popover for nested items when collapsed */}
+      {collapsedWithNested && (
+        <SidebarItemPopover
+          open={popoverOpen}
+          anchorEl={popoverAnchor}
+          anchorOrigin={{ vertical: 'center', horizontal: 'right' }}
+          transformOrigin={{ vertical: 'center', horizontal: 'left' }}
+          onClose={handleMouseLeave}
+          disableRestoreFocus
+          slotProps={{
+            paper: {
+              onMouseEnter: () => setPopoverAnchor(popoverAnchor),
+              onMouseLeave: handleMouseLeave,
+            },
+          }}
+        >
+          <SidebarItemPopoverList disablePadding>
+            {nestedItems.map((child, index) => {
+              if (React.isValidElement<SidebarItemProps>(child)) {
+                const childProps = child.props as SidebarItemProps;
+                const { icon, label } = extractItemContent(childProps.children);
+                const isItemActive = activeItem === childProps.id;
+
+                return (
+                  <SidebarItemPopoverButton
+                    key={childProps.id || index}
+                    selected={isItemActive}
+                    onClick={() => handlePopoverItemClick(childProps.id)}
+                  >
+                    {icon && (
+                      <ListItemIcon sx={{ minWidth: 'auto' }}>
+                        {icon}
+                      </ListItemIcon>
+                    )}
+                    <ListItemText primary={label} />
+                  </SidebarItemPopoverButton>
+                );
+              }
+              return child;
+            })}
+          </SidebarItemPopoverList>
+        </SidebarItemPopover>
+      )}
 
       {/* Nested children - only shown when not collapsed */}
       {hasNestedItems && !collapsed && (
