@@ -41,7 +41,7 @@ const PageTitleHeaderStyled = styled(Typography, {
   fontSize: '1.5rem',
   lineHeight: 1.334,
   letterSpacing: '0em',
-  color: theme.palette.text.primary,
+  color: theme.vars?.palette.text.primary || theme.palette.text.primary,
 }));
 
 /**
