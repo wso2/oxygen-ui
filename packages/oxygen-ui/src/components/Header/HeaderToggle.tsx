@@ -20,7 +20,7 @@ import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import type { SxProps, Theme } from '@mui/material/styles';
-import { PanelLeftClose, PanelLeftOpen } from '@wso2/oxygen-ui-icons-react';
+import { Menu } from '@wso2/oxygen-ui-icons-react';
 
 /**
  * Props for HeaderToggle component.
@@ -34,6 +34,10 @@ export interface HeaderToggleProps {
   expandLabel?: string;
   /** Label for collapsed state tooltip */
   collapseLabel?: string;
+  /** Custom icon for expanded state */
+  expandIcon?: React.ReactNode;
+  /** Custom icon for collapsed state */
+  collapseIcon?: React.ReactNode;
   /** Additional sx props */
   sx?: SxProps<Theme>;
 }
@@ -44,6 +48,9 @@ export interface HeaderToggleProps {
  * Displays an animated icon that indicates the current sidebar state
  * and toggles between expanded/collapsed states.
  *
+ * Custom icons can be provided via `expandIcon` and `collapseIcon` props.
+ * If not provided, defaults to PanelLeftOpen and PanelLeftClose icons.
+ *
  * Theme tokens used:
  * - `text.secondary` - Icon color
  */
@@ -52,6 +59,8 @@ export const HeaderToggle: React.FC<HeaderToggleProps> = ({
   onToggle,
   expandLabel = 'Expand sidebar',
   collapseLabel = 'Collapse sidebar',
+  expandIcon,
+  collapseIcon,
   sx,
 }) => {
   return (
@@ -61,7 +70,11 @@ export const HeaderToggle: React.FC<HeaderToggleProps> = ({
         size="small"
         sx={{ color: 'text.secondary', ...sx }}
       >
-        {collapsed ? <PanelLeftOpen size={20} /> : <PanelLeftClose size={20} />}
+        {collapsed ? (
+          expandIcon || <Menu size={20} />
+        ) : (
+          collapseIcon || <Menu size={20} />
+        )}
       </IconButton>
     </Tooltip>
   );

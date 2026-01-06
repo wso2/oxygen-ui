@@ -35,4 +35,6 @@ function LayoutSidebar({children = null, sx, ...rest}: PropsWithChildren<BoxProp
   );
 }
 
+LayoutSidebar.displayName = 'Layout.Sidebar';
+
 export default LayoutSidebar;

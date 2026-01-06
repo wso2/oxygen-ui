@@ -25,7 +25,7 @@ import { Lightbulb, WSO2 } from '@wso2/oxygen-ui-icons-react'
 import appRoutes from '../config/appRoutes'
 
 export default function HomePage(): JSX.Element {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <Box sx={{ textAlign: 'center', mx: 'auto', maxWidth: '1280px', p: 2 }}>

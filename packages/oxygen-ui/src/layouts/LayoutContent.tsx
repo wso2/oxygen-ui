@@ -37,4 +37,6 @@ function LayoutContent({children = null, ...rest}: PropsWithChildren<BoxProps>):
   );
 }
 
+LayoutContent.displayName = 'Layout.Content';
+
 export default LayoutContent;
