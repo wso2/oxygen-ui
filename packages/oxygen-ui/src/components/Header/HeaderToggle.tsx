@@ -20,7 +20,7 @@ import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import type { SxProps, Theme } from '@mui/material/styles';
-import { Menu, } from '@wso2/oxygen-ui-icons-react';
+import { Menu } from '@wso2/oxygen-ui-icons-react';
 
 /**
  * Props for HeaderToggle component.
