@@ -16,17 +16,17 @@
  * under the License.
  */
 
-import { Select, SelectProps, FormControl, FormLabel } from '@mui/material'
-import React from 'react'
+import { Select, SelectProps, FormControl, FormLabel } from '@mui/material';
+import React from 'react';
 
 export interface SelectInputProps extends Omit<SelectProps, 'label'> {
-    label: string
-    name: string
-    children?: React.ReactNode
+    label: string;
+    name: string;
+    children?: React.ReactNode;
 }
 
 export const SelectInput = (props: SelectInputProps) => {
-    const { label, name, children, ...rest } = props
+    const { label, name, children, ...rest } = props;
     return (
         <FormControl fullWidth>
             <FormLabel htmlFor={name}>
@@ -36,7 +36,7 @@ export const SelectInput = (props: SelectInputProps) => {
                 {children}
             </Select>
         </FormControl>
-    )
-}
+    );
+};
 
-export { MenuItem } from '@mui/material'
+export { MenuItem } from '@mui/material';

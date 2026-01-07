@@ -16,32 +16,32 @@
  * under the License.
  */
 
-import React from "react"
-import { Typography, TypographyProps } from "@mui/material"
+import React from "react";
+import { Typography, TypographyProps } from "@mui/material";
 
 export const Header = (props: TypographyProps) => {
-    const { children, ...rest } = props
+    const { children, ...rest } = props;
     return (
         <Typography {...rest} variant="h4">
             {children}
         </Typography>
-    )
-}
+    );
+};
 
 export const Subheader = (props: TypographyProps) => {
-    const { children, ...rest } = props
+    const { children, ...rest } = props;
     return (
         <Typography {...rest} variant="h5">
             {children}
         </Typography>
-    )
-}
+    );
+};
 
 export const Body = (props: TypographyProps) => {
-    const { children, ...rest } = props
+    const { children, ...rest } = props;
     return (
         <Typography {...rest} variant="body2">
             {children}
         </Typography>
-    )
-}
+    );
+};

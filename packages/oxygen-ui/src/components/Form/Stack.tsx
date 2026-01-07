@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import React from "react"
-import { Stack as  OxygenStack, StackProps } from "@mui/material"
+import React from "react";
+import { Stack as  OxygenStack, StackProps } from "@mui/material";
 
 export const Stack = (props: StackProps) => {
-    return <OxygenStack  spacing={2} {...props} />
-}
+    return <OxygenStack  spacing={2} {...props} />;
+};

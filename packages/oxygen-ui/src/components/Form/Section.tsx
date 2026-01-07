@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import { Card, CardContent, Stack } from '@mui/material'
-import React from 'react'
+import { Card, CardContent, Stack } from '@mui/material';
+import React from 'react';
 
 export const Section = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -28,5 +28,5 @@ export const Section = ({ children }: { children: React.ReactNode }) => {
         </Stack>
       </CardContent>
     </Card>
-  )
-}
+  );
+};

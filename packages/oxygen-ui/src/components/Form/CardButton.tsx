@@ -16,12 +16,12 @@
  * under the License.
  */
 
-import React from 'react'
-import { Card, ButtonBase, SxProps, Theme, Box, styled, BoxProps } from '@mui/material'
+import React from 'react';
+import { Card, ButtonBase, Box, styled, BoxProps } from '@mui/material';
 
-export interface CardButtonProps {
+export interface CardButtonProps extends CardProps {
+  alignItems?: 'flex-start' | 'center' | 'flex-end'
   children: React.ReactNode
-  sx?: SxProps<Theme>
   onClick?: () => void
   disabled?: boolean
   selected?: boolean
@@ -32,14 +32,15 @@ type CardProps = React.ComponentProps<typeof Card>
 interface StyledCardButtonProps extends Omit<CardProps, 'selected' | 'disabled'> {
   selected?: boolean
   disabled?: boolean
+  alignItems?: 'flex-start' | 'center' | 'flex-end'
   component?: React.ElementType
 }
 
 const StyledCardButton = styled(Card, {
   shouldForwardProp: (prop) => prop !== 'selected' && prop !== 'disabled',
-})<StyledCardButtonProps>(({ theme, selected, disabled }) => ({
+})<StyledCardButtonProps>(({ theme, selected, disabled, alignItems = 'flex-start' }) => ({
   flexDirection: 'column',
-  alignItems: 'flex-start',
+  alignItems: alignItems,
   display: 'flex',
   textAlign: 'left',
   transition: 'all 0.3s ease',
@@ -61,25 +62,25 @@ const StyledCardButton = styled(Card, {
       boxShadow: theme.shadows[1],
     }),
   },
-}))
+}));
 
 export const CardButton = (props: CardButtonProps) => {
-  const { disabled, sx, selected, ...rest } = props
+  const { disabled, selected, alignItems = 'flex-start', ...rest } = props;
 
   return (
     <StyledCardButton
+      alignItems={alignItems}
       component={ButtonBase}
       selected={selected}
       disabled={disabled}
-      sx={sx}
       {...rest}
     />
-  )
-}
+  );
+};
 
 
 export const DisappearingCardButtonContent = (props: BoxProps) => (
   <Box className="creation-flow-card-actions" {...props} />
-)
+);
 
-export {CardHeader, CardContent, CardActions, CardMedia} from "@mui/material"
+export {CardHeader, CardContent, CardActions, CardMedia} from "@mui/material";

@@ -16,15 +16,13 @@
  * under the License.
  */
 
-export { default as IntegrationTypeCard } from './IntegrationTypeCard'
-export type { IntegrationTypeCardProps } from './IntegrationTypeCard'
+export { default as IntegrationTypeCard } from './IntegrationTypeCard';
+export type { IntegrationTypeCardProps } from './IntegrationTypeCard';
 
-export { default as IntegrationWizard } from './IntegrationWizard'
-export type { IntegrationWizardProps, WizardStep } from './IntegrationWizard'
+export { default as IntegrationWizard } from './IntegrationWizard';
 
-export { default as SampleAppCard } from './SampleAppCard'
-export type { SampleAppCardProps } from './SampleAppCard'
+export { default as SampleAppCard } from './SampleAppCard';
+export type { SampleAppCardProps } from './SampleAppCard';
 
-export { default as SampleIntegrationsSection } from './SampleIntegrationsSection'
-export type { SampleIntegrationsSectionProps } from './SampleIntegrationsSection'
-
+export { default as SampleIntegrationsSection } from './SampleIntegrationsSection';
+export type { SampleIntegrationsSectionProps } from './SampleIntegrationsSection';

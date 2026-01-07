@@ -49,10 +49,10 @@ import {
   AxeIcon,
   Circle,
   GitHub,
-} from '@wso2/oxygen-ui-icons-react';
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+} from '@wso2/oxygen-ui-icons-react'
+import { useForm, Controller } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
 /**
  * Comprehensive form templates and patterns for various use cases.
@@ -276,8 +276,8 @@ export const CreateServiceForm: Story = {
               {buildPresets.map(preset => (
                 <Form.CardButton
                   key={preset.id}
-                  onClick={() => setSelectedPreset(preset.id)}
                   sx={{ width: 200 }}
+                  onClick={() => setSelectedPreset(preset.id)}
                   selected={selectedPreset === preset.id}
                 >
                   <Form.CardHeader
@@ -423,153 +423,6 @@ export const ClickableCardWithMultipleActions: Story = {
   ),
 }
 
-/**
- * Source Selection - Full page template for selecting deployment source
- */
-export const SourceSelection: Story = {
-  parameters: {
-    layout: 'fullscreen',
-  },
-  render: () => (
-    <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', py: 6 }}>
-      <Container maxWidth="xl">
-        <Stack spacing={2}>
-          <Box>
-            <Typography variant="h3" gutterBottom>
-              Create a Web Application
-            </Typography>
-            <Typography variant="body1">
-              Connect your source code from an existing Git Repository or select one of our samples.
-            </Typography>
-          </Box>
-          {/* Main Content */}
-          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4 }}>
-            {/* Left Column - Connect Options */}
-            <Box sx={{ flex: { xs: '1', md: '0 0 40%' } }}>
-              <Stack spacing={2}>
-                {/* Git Repository Section */}
-                <Box>
-                  <Typography variant="h6" gutterBottom>
-                    Connect a Git Repository
-                  </Typography>
-                  <Stack spacing={2}>
-                    <Button
-                      variant="outlined"
-                      startIcon={<GitHub size={24} />}
-                      onClick={() => console.log('Connect GitHub')}
-                      sx={{ justifyContent: 'flex-start', textTransform: 'none' }}
-                    >
-                      Continue With GitHub
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      startIcon={<GitHub size={24} />}
-                      onClick={() => console.log('Use Public Repo')}
-                      sx={{ justifyContent: 'flex-start', textTransform: 'none' }}
-                    >
-                      Use Public GitHub Repository
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      fullWidth
-                      startIcon={<BoxIcon size={24} />}
-                      onClick={() => console.log('Different Provider')}
-                      sx={{ justifyContent: 'flex-start', textTransform: 'none' }}
-                    >
-                      Different Provider
-                    </Button>
-                  </Stack>
-                </Box>
-                {/* Docker Image Section */}
-                <Box>
-                  <Typography variant="h6" gutterBottom>
-                    Connect a Docker Image
-                  </Typography>
-                  <Button
-                    variant="outlined"
-                    fullWidth
-                    startIcon={<BoxIcon size={24} />}
-                    onClick={() => console.log('Container Registry')}
-                    sx={{ justifyContent: 'flex-start', textTransform: 'none' }}
-                  >
-                    Container Registry
-                  </Button>
-                </Box>
-              </Stack>
-            </Box>
-
-            {/* Right Column - Sample Applications */}
-            <Paper sx={{ p: 2 }}>
-              <Stack spacing={2}>
-                <Stack direction="row" justifyContent="space-between" alignItems="center">
-                  <Typography variant="h6">Get started with a sample</Typography>
-                </Stack>
-
-                <Box
-                  sx={{
-                    display: 'grid',
-                    gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
-                    gap: 2,
-                  }}
-                >
-                  <SampleAppCard
-                    icon={<BoxIcon size={32} />}
-                    title="Angular Single Page Application"
-                    subtitle="Web Application (Angular)"
-                    description="Simple Angular Single Page Web Application"
-                    onQuickDeploy={() => console.log('Deploy Angular')}
-                    onViewSource={() => console.log('View Angular Source')}
-                  />
-
-                  <SampleAppCard
-                    icon={<Circle size={32} />}
-                    title="Vue Single Page Application"
-                    subtitle="Web Application (Vue)"
-                    description="Simple Vue Single Page Web Application"
-                    onQuickDeploy={() => console.log('Deploy Vue')}
-                    onViewSource={() => console.log('View Vue Source')}
-                  />
-
-                  <SampleAppCard
-                    icon={<AxeIcon size={32} />}
-                    title="React Single Page Application"
-                    subtitle="Web Application (React)"
-                    description="Simple React Single Page Web Application"
-                    onQuickDeploy={() => console.log('Deploy React')}
-                    onViewSource={() => console.log('View React Source')}
-                  />
-
-                  <SampleAppCard
-                    icon={<BoxIcon size={32} />}
-                    title="Hello World Web in PHP"
-                    subtitle="Web Application (PHP)"
-                    description="A Hello World web app created using PHP"
-                    hasQuickDeploy={false}
-                    onViewSource={() => console.log('View PHP Source')}
-                  />
-                </Box>
-
-                <Box>
-                  <Link
-                    href="#"
-                    underline="hover"
-                    onClick={(e: React.MouseEvent) => {
-                      e.preventDefault()
-                      console.log('View All Samples')
-                    }}
-                  >
-                    View All Samples
-                  </Link>
-                </Box>
-              </Stack>
-            </Paper>
-          </Box>
-        </Stack>
-      </Container>
-    </Box>
-  ),
-}
-
 // ========================================
 // Individual Component Stories
 // ========================================
@@ -705,7 +558,7 @@ export const AutocompleteInputBasic: Story = {
   render: () => {
     const options = ['React', 'Vue', 'Angular', 'Svelte', 'Ember', 'Backbone']
     const [value, setValue] = useState<string | null>(null)
-    
+
     return (
       <Box sx={{ maxWidth: 400 }}>
         <Form.AutocompleteInput
@@ -728,7 +581,7 @@ export const AutocompleteInputMultiple: Story = {
   render: () => {
     const options = ['Python', 'Java', 'JavaScript', 'Go', 'Rust', 'C++', 'Ruby', 'PHP']
     const [value, setValue] = useState<string[]>([])
-    
+
     return (
       <Box sx={{ maxWidth: 400 }}>
         <Form.AutocompleteInput
@@ -749,27 +602,21 @@ export const AutocompleteInputMultiple: Story = {
  * Typography - Header component (h4 variant)
  */
 export const TypographyHeader: Story = {
-  render: () => (
-    <Form.Header>Create a Service</Form.Header>
-  ),
+  render: () => <Form.Header>Create a Service</Form.Header>,
 }
 
 /**
  * Typography - Subheader component (h5 variant)
  */
 export const TypographySubheader: Story = {
-  render: () => (
-    <Form.Subheader>Repository Details</Form.Subheader>
-  ),
+  render: () => <Form.Subheader>Repository Details</Form.Subheader>,
 }
 
 /**
  * Typography - Body component (body2 variant)
  */
 export const TypographyBody: Story = {
-  render: () => (
-    <Form.Body>Configure your repository settings for deployment</Form.Body>
-  ),
+  render: () => <Form.Body>Configure your repository settings for deployment</Form.Body>,
 }
 
 /**
@@ -793,7 +640,7 @@ export const StackHorizontal: Story = {
   render: () => {
     const [org, setOrg] = useState('wso2')
     const [repo, setRepo] = useState('banking-app')
-    
+
     return (
       <Form.Stack direction="row" sx={{ maxWidth: 800 }}>
         <Form.SelectInput
@@ -825,13 +672,10 @@ export const StackHorizontal: Story = {
 export const CardButtonBasic: Story = {
   render: () => {
     const [selected, setSelected] = useState(false)
-    
+
     return (
       <Box sx={{ maxWidth: 200 }}>
-        <Form.CardButton
-          onClick={() => setSelected(!selected)}
-          selected={selected}
-        >
+        <Form.CardButton onClick={() => setSelected(!selected)} selected={selected}>
           <Form.CardHeader
             title={
               <Form.Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
@@ -858,14 +702,14 @@ export const CardButtonGrid: Story = {
       { id: 'nodejs', label: 'NodeJS' },
       { id: 'go', label: 'Go' },
     ]
-    
+
     return (
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, maxWidth: 600 }}>
         {options.map(option => (
           <Form.CardButton
             key={option.id}
-            onClick={() => setSelected(option.id)}
             sx={{ width: 150 }}
+            onClick={() => setSelected(option.id)}
             selected={selected === option.id}
           >
             <Form.CardHeader
@@ -893,27 +737,31 @@ export const CardButtonGrid: Story = {
 export const WizardBasic: Story = {
   render: () => {
     const [activeStep, setActiveStep] = useState(0)
-    
+
     const steps = [
       {
         label: 'Select Campaign Type',
         component: (
-          <Form.Stack spacing={2}>
+          <Form.Stack spacing={2} flexGrow={1}>
             <Form.Header>Select Campaign Type</Form.Header>
             <Form.Body>Choose the type of campaign you want to create</Form.Body>
             <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
-              <Form.CardButton sx={{ width: 200 }}>
-                <Form.CardContent>
-                  <Typography variant="h6">Email Campaign</Typography>
-                  <Typography variant="caption">Send emails to your subscribers</Typography>
-                </Form.CardContent>
-              </Form.CardButton>
-              <Form.CardButton sx={{ width: 200 }}>
-                <Form.CardContent>
-                  <Typography variant="h6">SMS Campaign</Typography>
-                  <Typography variant="caption">Send SMS to your contacts</Typography>
-                </Form.CardContent>
-              </Form.CardButton>
+              <Box sx={{ width: 200 }}>
+                <Form.CardButton>
+                  <Form.CardContent>
+                    <Typography variant="h6">Email Campaign</Typography>
+                    <Typography variant="caption">Send emails to your subscribers</Typography>
+                  </Form.CardContent>
+                </Form.CardButton>
+              </Box>
+              <Box sx={{ width: 200 }}>
+                <Form.CardButton>
+                  <Form.CardContent>
+                    <Typography variant="h6">SMS Campaign</Typography>
+                    <Typography variant="caption">Send SMS to your contacts</Typography>
+                  </Form.CardContent>
+                </Form.CardButton>
+              </Box>
             </Box>
           </Form.Stack>
         ),
@@ -921,9 +769,13 @@ export const WizardBasic: Story = {
       {
         label: 'Campaign Details',
         component: (
-          <Form.Stack spacing={2}>
+          <Form.Stack spacing={2} flexGrow={1}>
             <Form.Header>Campaign Details</Form.Header>
-            <Form.TextInput label="Campaign Name" name="campaignName" placeholder="Enter campaign name" />
+            <Form.TextInput
+              label="Campaign Name"
+              name="campaignName"
+              placeholder="Enter campaign name"
+            />
             <Form.TextInput
               label="Description"
               name="description"
@@ -937,7 +789,7 @@ export const WizardBasic: Story = {
       {
         label: 'Review & Launch',
         component: (
-          <Form.Stack spacing={2}>
+          <Form.Stack spacing={2} flexGrow={1}>
             <Form.Header>Review & Launch</Form.Header>
             <Form.Body>Review your campaign details before launching</Form.Body>
             <Alert severity="success">
@@ -983,78 +835,71 @@ export const WizardBasic: Story = {
   },
 }
 
-
 // ========================================
 // React Hook Form + Yup Validation Example
 // ========================================
 
 /**
- * Form Validation with React Hook Form and Yup
- * 
- * This example demonstrates how to integrate react-hook-form with yup validation schema.
- * 
+ * Form Validation with React Hook Form and Zod
+ *
+ * This example demonstrates how to integrate react-hook-form with zod validation schema.
+ *
  * **Key Concepts:**
- * 
- * 1. **Yup Schema Definition**: Define validation rules using yup schema
- * 2. **useForm Hook**: Initialize form with yupResolver for validation
+ *
+ * 1. **Zod Schema Definition**: Define validation rules using zod schema
+ * 2. **useForm Hook**: Initialize form with zodResolver for validation
  * 3. **Controller Component**: Wrap custom components to integrate with react-hook-form
  * 4. **Error Handling**: Display validation errors from form state
  * 5. **Form Submission**: Handle validated form data on submit
- * 
+ *
  * **Installation Required:**
  * ```bash
- * npm install react-hook-form yup @hookform/resolvers
+ * npm install react-hook-form zod @hookform/resolvers
  * ```
- * 
+ *
  * **Learn More:**
  * - React Hook Form: https://react-hook-form.com/
- * - Yup Validation: https://github.com/jquense/yup
+ * - Zod Validation: https://zod.dev/
  */
 export const FormValidationExample: Story = {
   render: () => {
-    // Define validation schema using Yup
-    const validationSchema = yup.object().shape({
-      email: yup
-        .string()
-        .email('Invalid email format')
-        .required('Email is required'),
-      username: yup
-        .string()
-        .min(3, 'Username must be at least 3 characters')
-        .max(20, 'Username must not exceed 20 characters')
-        .required('Username is required'),
-      password: yup
-        .string()
-        .min(8, 'Password must be at least 8 characters')
-        .matches(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-          'Password must contain at least one uppercase letter, one lowercase letter, and one number'
-        )
-        .required('Password is required'),
-      confirmPassword: yup
-        .string()
-        .oneOf([yup.ref('password')], 'Passwords must match')
-        .required('Confirm password is required'),
-      organization: yup
-        .string()
-        .required('Organization is required'),
-      frameworks: yup
-        .array()
-        .min(1, 'Select at least one framework')
-        .required('Frameworks are required'),
-      agreeToTerms: yup
-        .boolean()
-        .oneOf([true], 'You must accept the terms and conditions'),
-    })
+    // Define validation schema using Zod
+    const validationSchema = z
+      .object({
+        email: z.string().min(1, 'Email is required').email('Invalid email format'),
+        username: z
+          .string()
+          .min(1, 'Username is required')
+          .min(3, 'Username must be at least 3 characters')
+          .max(20, 'Username must not exceed 20 characters'),
+        password: z
+          .string()
+          .min(1, 'Password is required')
+          .min(8, 'Password must be at least 8 characters')
+          .regex(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+            'Password must contain at least one uppercase letter, one lowercase letter, and one number'
+          ),
+        confirmPassword: z.string().min(1, 'Confirm password is required'),
+        organization: z.string().min(1, 'Organization is required'),
+        frameworks: z.array(z.string()).min(1, 'Select at least one framework'),
+        agreeToTerms: z
+          .boolean()
+          .refine(val => val === true, 'You must accept the terms and conditions'),
+      })
+      .refine(data => data.password === data.confirmPassword, {
+        message: 'Passwords must match',
+        path: ['confirmPassword'],
+      })
 
-    // Initialize react-hook-form with yup resolver
+    // Initialize react-hook-form with zod resolver
     const {
       control,
       handleSubmit,
       formState: { errors, isSubmitting, isValid },
       reset,
-    } = useForm({
-      resolver: yupResolver(validationSchema),
+    } = useForm<z.infer<typeof validationSchema>>({
+      resolver: zodResolver(validationSchema),
       mode: 'onChange', // Validate on change
       defaultValues: {
         email: '',
@@ -1248,26 +1093,30 @@ export const FormValidationExample: Story = {
             <Form.Subheader>Code Example</Form.Subheader>
             <CodeBlock
               language="typescript"
-              code={`// 1. Define Yup validation schema
-const validationSchema = yup.object().shape({
-  email: yup
+              code={`// 1. Define Zod validation schema
+import { z } from 'zod'
+
+const validationSchema = z.object({
+  email: z
     .string()
-    .email('Invalid email format')
-    .required('Email is required'),
-  username: yup
+    .min(1, 'Email is required')
+    .email('Invalid email format'),
+  username: z
     .string()
-    .min(3, 'Username must be at least 3 characters')
-    .required('Username is required'),
-  password: yup
+    .min(1, 'Username is required')
+    .min(3, 'Username must be at least 3 characters'),
+  password: z
     .string()
+    .min(1, 'Password is required')
     .min(8, 'Password must be at least 8 characters')
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)/, 'Must contain uppercase, lowercase, and number')
-    .required('Password is required'),
+    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)/, 'Must contain uppercase, lowercase, and number'),
 })
 
-// 2. Initialize useForm with yupResolver
+// 2. Initialize useForm with zodResolver
+import { zodResolver } from '@hookform/resolvers/zod'
+
 const { control, handleSubmit, formState: { errors } } = useForm({
-  resolver: yupResolver(validationSchema),
+  resolver: zodResolver(validationSchema),
   mode: 'onChange',
   defaultValues: {
     email: '',
@@ -1291,7 +1140,7 @@ const { control, handleSubmit, formState: { errors } } = useForm({
 />
 
 // 4. Handle form submission
-const onSubmit = (data) => {
+const onSubmit = (data: z.infer<typeof validationSchema>) => {
   console.log('Valid form data:', data)
   // Process form data
 }
@@ -1308,23 +1157,27 @@ const onSubmit = (data) => {
             <Form.Subheader>Best Practices</Form.Subheader>
             <Stack spacing={1}>
               <Typography variant="body2">
-                • <strong>Validation Mode:</strong> Use <code>mode: 'onChange'</code> for real-time validation
-                or <code>mode: 'onBlur'</code> for validation on field blur
+                • <strong>Validation Mode:</strong> Use <code>mode: 'onChange'</code> for real-time
+                validation or <code>mode: 'onBlur'</code> for validation on field blur
               </Typography>
               <Typography variant="body2">
                 • <strong>Error Display:</strong> Always show clear, user-friendly error messages
               </Typography>
               <Typography variant="body2">
-                • <strong>Submit Button:</strong> Disable submit button when form is invalid or submitting
+                • <strong>Submit Button:</strong> Disable submit button when form is invalid or
+                submitting
               </Typography>
               <Typography variant="body2">
-                • <strong>Default Values:</strong> Always provide default values to avoid uncontrolled component warnings
+                • <strong>Default Values:</strong> Always provide default values to avoid
+                uncontrolled component warnings
               </Typography>
               <Typography variant="body2">
-                • <strong>Schema Reusability:</strong> Define validation schemas separately for reuse across forms
+                • <strong>Schema Reusability:</strong> Define validation schemas separately for
+                reuse across forms
               </Typography>
               <Typography variant="body2">
-                • <strong>Custom Validation:</strong> Use <code>.test()</code> method in Yup for complex custom validations
+                • <strong>Custom Validation:</strong> Use <code>.refine()</code> or{' '}
+                <code>.superRefine()</code> methods in Zod for complex custom validations
               </Typography>
             </Stack>
           </Form.Section>
@@ -1333,4 +1186,3 @@ const onSubmit = (data) => {
     )
   },
 }
-

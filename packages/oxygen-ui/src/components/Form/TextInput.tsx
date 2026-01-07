@@ -16,11 +16,11 @@
  * under the License.
  */
 
-import { TextField, TextFieldProps, FormControl, FormLabel } from "@mui/material"
-import React from "react"
+import { TextField, TextFieldProps, FormControl, FormLabel } from "@mui/material";
+import React from "react";
 
 export const TextInput = (props: TextFieldProps) => {
-    const { label, name, ...rest } = props
+    const { label, name, ...rest } = props;
     return (
         <FormControl fullWidth>
             <FormLabel htmlFor={name}>
@@ -32,5 +32,5 @@ export const TextInput = (props: TextFieldProps) => {
                 name={name}
             />
         </FormControl>
-    )
-}
+    );
+};

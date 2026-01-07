@@ -16,21 +16,21 @@
  * under the License.
  */
 
-import { Box, Button, Form, IconButton, InputAdornment } from '@wso2/oxygen-ui'
-import type { JSX } from 'react'
-import { useState } from 'react'
-import { BoxIcon, CheckIcon, CircleQuestionMark, GitBranchIcon, PencilIcon } from '@wso2/oxygen-ui-icons-react'
+import { Box, Button, Form, IconButton, InputAdornment } from '@wso2/oxygen-ui';
+import type { JSX } from 'react';
+import { useState } from 'react';
+import { BoxIcon, CheckIcon, CircleQuestionMark, GitBranchIcon, PencilIcon } from '@wso2/oxygen-ui-icons-react';
 
 export default function IntegrationWizard(): JSX.Element {
   // Form state
-  const [organization, setOrganization] = useState('wso2-oxigen')
-  const [repository, setRepository] = useState('')
-  const [branch, setBranch] = useState('main')
-  const [componentDirectory, setComponentDirectory] = useState('/')
-  const [displayName, setDisplayName] = useState('')
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
-  const [selectedPreset, setSelectedPreset] = useState<string | null>(null)
+  const [organization, setOrganization] = useState('wso2-oxigen');
+  const [repository, setRepository] = useState('');
+  const [branch, setBranch] = useState('main');
+  const [componentDirectory, setComponentDirectory] = useState('/');
+  const [displayName, setDisplayName] = useState('');
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [selectedPreset, setSelectedPreset] = useState<string | null>(null);
 
   const buildPresets = [
     { id: 'python', label: 'Python' },
@@ -44,7 +44,7 @@ export default function IntegrationWizard(): JSX.Element {
     { id: 'docker', label: 'Docker' },
     { id: 'wso2mi', label: 'WSO2 MI' },
     { id: 'prismmock', label: 'Prism Mock' },
-  ]
+  ];
 
   const handleDeploy = () => {
     console.log('Deploying integration...', {
@@ -57,8 +57,8 @@ export default function IntegrationWizard(): JSX.Element {
       description,
       selectedPreset,
     })
-    alert('Integration deployed successfully!')
-  }
+    alert('Integration deployed successfully!');
+  };
 
   return (
     <Form.Stack spacing={4}>
@@ -174,7 +174,6 @@ export default function IntegrationWizard(): JSX.Element {
             <Form.CardButton
               key={preset.id}
               onClick={() => setSelectedPreset(preset.id)}
-              sx={{ width: 200 }}
               selected={selectedPreset === preset.id}
             >
               <Form.CardHeader

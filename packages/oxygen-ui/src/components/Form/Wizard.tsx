@@ -22,28 +22,30 @@ import {
   StepLabel,
   Step,
   Stepper,
-  CardActionArea,
-  Fade,
   Divider,
-  Collapse,
-  Box,
-} from '@mui/material'
-import { Stack } from './Stack'
-import { useMemo } from 'react'
+} from '@mui/material';
+import { Stack } from './Stack';
+import { styled } from '@mui/material/styles';
+import { useMemo } from 'react';
 
 export type WizardStep = {
-  label: string
-  component: React.ReactNode
-}
+  label: string;
+  component: React.ReactNode;
+};
 
 export type WizardProps = {
-  steps: WizardStep[]
-  activeStep: number
-  actions?: React.ReactNode
-}
+  steps: WizardStep[];
+  activeStep: number;
+  actions?: React.ReactNode;
+};
+
+const StyledWizardActionsStack = styled(Stack)(() => ({
+  justifyContent: 'space-between',
+  flexGrow: 1,
+}));
 
 export function Wizard({ steps, activeStep, actions }: WizardProps) {
-  const step = useMemo(() => activeStep < steps.length ? steps[activeStep] : null, [steps, activeStep])
+  const step = useMemo(() => activeStep < steps.length ? steps[activeStep] : null, [steps, activeStep]);
   return (
     <Card>
       <CardContent>
@@ -57,11 +59,11 @@ export function Wizard({ steps, activeStep, actions }: WizardProps) {
           </Stepper>
           <Divider />
           <Stack direction="row">{step?.component}</Stack>
-          <Stack direction="row" justifyContent="space-between">
+          <StyledWizardActionsStack direction="row">
             {actions}
-          </Stack>
+          </StyledWizardActionsStack>
         </Stack>
       </CardContent>
     </Card>
-  )
+  );
 }

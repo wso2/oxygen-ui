@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import { Box, Button, Form, Stack, Typography } from '@wso2/oxygen-ui'
-import { ExternalLinkIcon } from '@wso2/oxygen-ui-icons-react'
-import type { JSX } from 'react'
+import { Box, Button, Form, Stack, Typography } from '@wso2/oxygen-ui';
+import { ExternalLinkIcon } from '@wso2/oxygen-ui-icons-react';
+import type { JSX } from 'react';
 
 export interface SampleAppCardProps {
   icon?: React.ReactNode
@@ -40,7 +40,7 @@ export default function SampleAppCard({
   hasQuickDeploy = true,
 }: SampleAppCardProps): JSX.Element {
   return (
-    <Form.CardButton sx={{ minWidth: '300px' }}>
+    <Form.CardButton sx={{ width: 280 }}>
       <Form.CardContent>
         <Stack spacing={1}>
           <Stack direction="row" spacing={1}>

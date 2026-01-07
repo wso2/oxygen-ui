@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import { Box, Form, Stack, Tooltip, Typography } from '@wso2/oxygen-ui'
-import { CircleQuestionMark, type LucideIcon } from '@wso2/oxygen-ui-icons-react'
-import type { JSX } from 'react'
+import { Box, Form, Stack, Tooltip, Typography } from '@wso2/oxygen-ui';
+import { CircleQuestionMark, type LucideIcon } from '@wso2/oxygen-ui-icons-react';
+import type { JSX } from 'react';
 
 export interface IntegrationTypeCardProps {
   icon: LucideIcon
@@ -35,21 +35,12 @@ export default function IntegrationTypeCard({
   tooltipText,
   onClick,
 }: IntegrationTypeCardProps): JSX.Element {
-  const Icon = icon
+  const Icon = icon;
   return (
     <Form.CardButton
+      alignItems="center"
       onClick={onClick}
-      sx={{
-        width: '340px',
-        '& .integration-type-card-icon': {
-          transition: 'all 0.3s ease',
-        },
-        '&:hover': {
-          '.integration-type-card-icon': {
-            color: 'primary.main',
-          },
-        },
-      }}
+      sx={{ width: "50%" }}
     >
       <Form.CardHeader
         title={
@@ -67,9 +58,11 @@ export default function IntegrationTypeCard({
       />
       <Form.CardContent>
         <Box display="flex" py={2} justifyContent="center" alignItems="center">
-          <Icon size={200} className="integration-type-card-icon" />
+          <Icon size={240} className="integration-type-card-icon" />
         </Box>
-        <Typography variant="caption">{description}</Typography>
+        <Box textAlign="center" width="100%">
+          <Typography variant="caption">{description}</Typography>
+        </Box>
       </Form.CardContent>
     </Form.CardButton>
   )
