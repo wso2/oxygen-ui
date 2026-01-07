@@ -30,6 +30,10 @@ import { AutocompleteInput } from './AutocompleteInput'
 import { Stack } from './Stack'
 import { Header, Subheader, Body } from './Typography'
 import { Section } from './Section'
+import { Wizard } from './Wizard'
+import type { WizardProps, WizardStep } from './Wizard'
+
+export type { WizardProps, WizardStep }
 
 export const Form = {
   CardButton: CardButton,
@@ -47,4 +51,5 @@ export const Form = {
   Subheader: Subheader,
   Body: Body,
   Section: Section,
+  Wizard: Wizard,
 }
