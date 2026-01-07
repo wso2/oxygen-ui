@@ -31,8 +31,8 @@ import InputLabel from '@mui/material/InputLabel'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 
-import {Search} from '@wso2/oxygen-ui-icons-react'
-import {ListFilter} from '@wso2/oxygen-ui-icons-react'
+import { Search } from '@wso2/oxygen-ui-icons-react'
+import { ListFilter } from '@wso2/oxygen-ui-icons-react'
 
 export type AdvancedFilterOption = {
   value: string
@@ -86,12 +86,7 @@ export function SearchBarWithAdvancedFilter({
     onAdvancedFilterChange({ ...advancedFilter, attribute: e.target.value as string })
   }
 
-  const handleCondChange = (
-    e:
-      | React.ChangeEvent<Omit<HTMLInputElement, 'value'> & { value: string }>
-      | (Event & { target: { value: string; name: string } }),
-    child: React.ReactNode
-  ) => {
+  const handleCondChange = (e: SelectChangeEvent, child: React.ReactNode) => {
     onAdvancedFilterChange({ ...advancedFilter, condition: e.target.value as string })
   }
 
