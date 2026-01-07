@@ -78,9 +78,8 @@ import {
   mockUser,
   // Hooks
   useAppShellState,
-  // Utilities
-  formatRelativeTime,
 } from './components';
+import { formatRelativeTime } from '@wso2/oxygen-ui';
 
 /**
  * Storybook args interface for the App Shell.

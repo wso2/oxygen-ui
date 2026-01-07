@@ -23,6 +23,7 @@ import {
   CardContent,
   CardActions,
   Grid,
+  PageTitle,
   Typography,
   TextField,
   InputAdornment,
@@ -33,7 +34,6 @@ import { Search, Plus, MoreVertical, Folder } from '@wso2/oxygen-ui-icons-react'
 import { useNavigate } from 'react-router'
 import type { JSX } from 'react'
 import { useState } from 'react'
-import PageTitle from '../components/PageTitle'
 
 interface Project {
   id: string
@@ -105,15 +105,17 @@ export default function ProjectList(): JSX.Element {
   return (
     <Box sx={{ p: 3, maxWidth: '1400px', mx: 'auto' }}>
       {/* Header */}
-      <PageTitle
-        title="Projects"
-        description="Manage your authentication projects and flows"
-        action={
-          <Button variant="contained" startIcon={<Plus size={20} />} onClick={() => navigate('/projects/new')}>
-            New Project
-          </Button>
-        }
-      />
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 4 }}>
+        <Box sx={{ flexGrow: 1 }}>
+          <PageTitle>
+            <PageTitle.Header>Projects</PageTitle.Header>
+            <PageTitle.SubHeader>Manage your authentication projects and flows</PageTitle.SubHeader>
+          </PageTitle>
+        </Box>
+        <Button variant="contained" startIcon={<Plus size={20} />} onClick={() => navigate('/projects/new')}>
+          New Project
+        </Button>
+      </Box>
 
       {/* Search */}
       <Box sx={{ mb: 3 }}>

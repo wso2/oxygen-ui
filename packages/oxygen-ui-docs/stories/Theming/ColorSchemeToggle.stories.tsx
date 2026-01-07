@@ -35,7 +35,8 @@ const meta: Meta<typeof ColorSchemeToggle> = {
           '- Automatic icon updates based on current mode\n' +
           '- Tooltip labels for each mode\n' +
           '- Customizable icons\n' +
-          '- Extends MUI IconButton props\n\n' +
+          '- Extends MUI IconButton props\n' +
+          '- Fully interactive - click to cycle through modes!\n\n' +
           'Read MUI documentation for IconButton API: ' +
           '[https://mui.com/material-ui/api/icon-button/](https://mui.com/material-ui/api/icon-button/)',
       },

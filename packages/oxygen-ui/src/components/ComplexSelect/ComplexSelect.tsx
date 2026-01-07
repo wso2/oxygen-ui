@@ -42,8 +42,10 @@ export function ComplexSelect({ children, sx, label, labelId, ...props }: Comple
         [`& .${selectClasses.select}`]: {
           display: 'flex',
           alignItems: 'center',
-          gap: '2px',
-          pl: 1,
+          paddingRight: '42px',
+        },
+        [`& .${selectClasses.icon}`]: {
+          marginLeft: '8px',
         },
         ...sx,
       }}
@@ -70,8 +72,10 @@ export function ComplexSelect({ children, sx, label, labelId, ...props }: Comple
             [`& .${selectClasses.select}`]: {
               display: 'flex',
               alignItems: 'center',
-              gap: '2px',
-              pl: 1,
+              paddingRight: '42px',
+            },
+            [`& .${selectClasses.icon}`]: {
+              marginLeft: '8px',
             },
             ...sx,
           }}

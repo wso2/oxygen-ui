@@ -32,8 +32,17 @@ import {
   Tooltip,
   UserMenu,
   Link,
+  NotificationPanel,
+  formatRelativeTime,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
 } from '@wso2/oxygen-ui'
-import type { JSX } from 'react'
+import { useState, type JSX } from 'react'
+import { useNavigate } from 'react-router'
 import Logo from '../components/Logo';
 import {
   Activity,
@@ -60,6 +69,7 @@ import { mockNotifications, mockOrganizations, mockProjects, mockUser } from '..
 import { useAppShellState } from '../hooks';
 
 export default function AppLayout(): JSX.Element {
+  const navigate = useNavigate();
 
   const { state, actions, unreadCount } = useAppShellState({
     initialCollapsed: true,
@@ -67,7 +77,24 @@ export default function AppLayout(): JSX.Element {
     initialOrg: mockOrganizations[0],
     initialProject: mockProjects[0],
   });
-  
+
+  const [tabIndex, setTabIndex] = useState(0);
+  const unreadNotifications = state.notifications.filter((n) => !n.read);
+  const alertNotifications = state.notifications.filter(
+    (n) => n.type === 'warning' || n.type === 'error'
+  );
+
+  const getFilteredNotifications = () => {
+    switch (tabIndex) {
+      case 1:
+        return unreadNotifications;
+      case 2:
+        return alertNotifications;
+      default:
+        return state.notifications;
+    }
+  };
+
   return (
     <Layout sx={{ height: '100vh', flexDirection: 'column' }}>
       <Layout.Navbar>
@@ -80,7 +107,7 @@ export default function AppLayout(): JSX.Element {
             <Header.BrandLogo><Logo /></Header.BrandLogo>
             <Header.BrandTitle>Developer</Header.BrandTitle>
           </Header.Brand>
-          <Header.Switchers>
+          <Header.Switchers showDivider={false}>
             <ComplexSelect
               value={state.selectedOrg?.id || ''}
               onChange={(e) => {
@@ -118,7 +145,7 @@ export default function AppLayout(): JSX.Element {
               size="small"
               sx={{ minWidth: 160 }}
               renderValue={() => (
-                <ComplexSelect.MenuItem.Text primary={state.selectedProject?.name} />
+                <ComplexSelect.MenuItem.Text primary={state.selectedProject?.name} secondary={state.selectedProject?.description} />
               )}
             >
               <ComplexSelect.ListHeader>Projects</ComplexSelect.ListHeader>
@@ -226,6 +253,7 @@ export default function AppLayout(): JSX.Element {
                   <Sidebar.Item id="projects">
                     <Sidebar.ItemIcon><FolderOpen size={20} /></Sidebar.ItemIcon>
                     <Sidebar.ItemLabel>Projects</Sidebar.ItemLabel>
+                    <Sidebar.ItemBadge>5</Sidebar.ItemBadge>
                   </Sidebar.Item>
                 </Link>
                 <Sidebar.Item id="integrations">
@@ -280,13 +308,93 @@ export default function AppLayout(): JSX.Element {
 
         <Layout.Content sx={{ flex: 1 }}>
           <Layout sx={{ height: '100%', flexDirection: 'column' }}>
-            <Box sx={{ overflow: 'auto' }}>
+            
+            <Box sx={{ overflow: 'auto', py: 2 }}>
               <Outlet />
             </Box>
 
+            <NotificationPanel
+              open={state.notificationPanelOpen}
+              onClose={actions.toggleNotificationPanel}
+            >
+              <NotificationPanel.Header>
+                <NotificationPanel.HeaderIcon><Bell size={20} /></NotificationPanel.HeaderIcon>
+                <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
+                {unreadCount > 0 && <NotificationPanel.HeaderBadge>{unreadCount}</NotificationPanel.HeaderBadge>}
+                <NotificationPanel.HeaderClose />
+              </NotificationPanel.Header>
+              <NotificationPanel.Tabs
+                tabs={[
+                  { label: 'All', count: state.notifications.length },
+                  { label: 'Unread', count: unreadNotifications.length, color: 'primary' },
+                  { label: 'Alerts', count: alertNotifications.length, color: 'warning' },
+                ]}
+                value={tabIndex}
+                onChange={setTabIndex}
+              />
+              {state.notifications.length > 0 && (
+                <NotificationPanel.Actions
+                  hasUnread={unreadNotifications.length > 0}
+                  onMarkAllRead={actions.markAllNotificationsRead}
+                  onClearAll={actions.clearAllNotifications}
+                />
+              )}
+              {getFilteredNotifications().length === 0 ? (
+                <NotificationPanel.EmptyState />
+              ) : (
+                <NotificationPanel.List>
+                  {getFilteredNotifications().map((notification) => (
+                    <NotificationPanel.Item
+                      key={notification.id}
+                      id={notification.id}
+                      type={notification.type}
+                      read={notification.read}
+                      onMarkRead={actions.markNotificationRead}
+                      onDismiss={actions.dismissNotification}
+                    >
+                      <NotificationPanel.ItemAvatar>{notification.avatar}</NotificationPanel.ItemAvatar>
+                      <NotificationPanel.ItemTitle>{notification.title}</NotificationPanel.ItemTitle>
+                      <NotificationPanel.ItemMessage>{notification.message}</NotificationPanel.ItemMessage>
+                      <NotificationPanel.ItemTimestamp>{formatRelativeTime(notification.timestamp)}</NotificationPanel.ItemTimestamp>
+                      {notification.actionLabel && (
+                        <NotificationPanel.ItemAction>{notification.actionLabel}</NotificationPanel.ItemAction>
+                      )}
+                    </NotificationPanel.Item>
+                  ))}
+                </NotificationPanel.List>
+              )}
+            </NotificationPanel>
+
+            {/* Confirm Dialog */}
+            <Dialog
+              open={state.confirmDialogOpen}
+              onClose={actions.closeConfirmDialog}
+              maxWidth="sm"
+              fullWidth
+            >
+              <DialogTitle>Sign Out</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Are you sure you want to sign out of your account?
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={actions.closeConfirmDialog}>Cancel</Button>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    navigate('/login');
+                    actions.closeConfirmDialog();
+                  }}
+                >
+                  Sign Out
+                </Button>
+              </DialogActions>
+            </Dialog>
+
             <Footer
-              companyName="Oxygen UI"
-              version="v1.0.0"
+              companyName="WSO2 LLC"
+              version="oxygen-ui_v3.0.0-alpha.13"
               termsUrl="#terms"
               privacyUrl="#privacy"
             />

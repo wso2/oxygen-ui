@@ -88,6 +88,8 @@ export interface NotificationPanelProps {
   width?: number;
   /** Drawer anchor position */
   anchor?: 'left' | 'right';
+  /** Drawer variant (default: 'temporary') */
+  variant?: 'permanent' | 'persistent' | 'temporary';
   /** Additional sx props */
   sx?: SxProps<Theme>;
 }
@@ -103,47 +105,44 @@ export interface NotificationPanelProps {
  * - Compound component pattern for maximum flexibility
  * - Context-based close handler sharing
  * - Responsive width (full on mobile, fixed on desktop)
+ * - Supports temporary, persistent, and permanent variants
+ * - Can be clipped under app bar using persistent/permanent variant
  *
- * Usage:
- * ```tsx
+ * @example
+ * // Clipped under app bar
+ * <Box sx={{ display: 'flex' }}>
+ *   <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+ *     <Toolbar>...</Toolbar>
+ *   </AppBar>
+ *   <Box component="main" sx={{ flexGrow: 1 }}>
+ *     <Toolbar />
+ *     <NotificationPanel open={open} onClose={handleClose} variant="persistent">
+ *       ...
+ *     </NotificationPanel>
+ *   </Box>
+ * </Box>
+ *
+ * @example
+ * // Default overlay
  * <NotificationPanel open={open} onClose={handleClose}>
  *   <NotificationPanel.Header>
- *     <NotificationPanel.HeaderIcon><Bell size={20} /></NotificationPanel.HeaderIcon>
+ *     <NotificationPanel.HeaderIcon>...</NotificationPanel.HeaderIcon>
  *     <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
- *     <NotificationPanel.HeaderBadge>{unreadCount}</NotificationPanel.HeaderBadge>
+ *     <NotificationPanel.HeaderBadge>5</NotificationPanel.HeaderBadge>
  *     <NotificationPanel.HeaderClose />
  *   </NotificationPanel.Header>
- *   <NotificationPanel.Tabs
- *     tabs={[
- *       { label: 'All', count: all.length },
- *       { label: 'Unread', count: unread.length, color: 'primary' },
- *       { label: 'Alerts', count: alerts.length, color: 'warning' },
- *     ]}
- *     value={tabIndex}
- *     onChange={setTabIndex}
- *   />
- *   <NotificationPanel.Actions
- *     hasUnread={hasUnread}
- *     onMarkAllRead={handleMarkAllRead}
- *     onClearAll={handleClearAll}
- *   />
- *   {notifications.length === 0 ? (
- *     <NotificationPanel.EmptyState />
- *   ) : (
- *     <NotificationPanel.List>
- *       {notifications.map(n => (
- *         <NotificationPanel.Item key={n.id} id={n.id} type={n.type}>
- *           <NotificationPanel.ItemAvatar>{n.avatar}</NotificationPanel.ItemAvatar>
- *           <NotificationPanel.ItemTitle>{n.title}</NotificationPanel.ItemTitle>
- *           <NotificationPanel.ItemMessage>{n.message}</NotificationPanel.ItemMessage>
- *           <NotificationPanel.ItemTimestamp>{n.timestamp}</NotificationPanel.ItemTimestamp>
- *           <NotificationPanel.ItemAction>View</NotificationPanel.ItemAction>
- *         </NotificationPanel.Item>
- *       ))}
- *     </NotificationPanel.List>
- *   )}
+ *   <NotificationPanel.Tabs tabs={tabs} value={tabIndex} onChange={setTabIndex} />
+ *   <NotificationPanel.Actions hasUnread={true} onMarkAllRead={handler} onClearAll={handler} />
+ *   <NotificationPanel.List>
+ *     <NotificationPanel.Item id="1" type="info">
+ *       <NotificationPanel.ItemAvatar>A</NotificationPanel.ItemAvatar>
+ *       <NotificationPanel.ItemTitle>Title</NotificationPanel.ItemTitle>
+ *       <NotificationPanel.ItemMessage>Message</NotificationPanel.ItemMessage>
+ *       <NotificationPanel.ItemTimestamp>5 min ago</NotificationPanel.ItemTimestamp>
+ *       <NotificationPanel.ItemAction>View</NotificationPanel.ItemAction>
+ *     </NotificationPanel.Item>
+ *   </NotificationPanel.List>
  * </NotificationPanel>
- * ```
  */
 const NotificationPanel: React.FC<NotificationPanelProps> & {
   Header: typeof NotificationHeader;
@@ -167,6 +166,7 @@ const NotificationPanel: React.FC<NotificationPanelProps> & {
   children,
   width = 380,
   anchor = 'right',
+  variant = 'temporary',
   sx,
 }) => {
   const contextValue = React.useMemo(() => ({ onClose }), [onClose]);
@@ -180,6 +180,7 @@ const NotificationPanel: React.FC<NotificationPanelProps> & {
         onClose={onClose}
         ownerState={ownerState}
         sx={sx}
+        variant={variant}
       >
         {children}
       </NotificationPanelRoot>

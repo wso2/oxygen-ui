@@ -18,10 +18,12 @@
 
 import { ThemeProvider, StyledEngineProvider, Theme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
-import { ReactNode, createContext, useContext, useState } from 'react';
-import OxygenTheme from '../../styles/Themes/OxygenBaseTheme';
-import AsgardeoTheme from '../../styles/Themes/AsgardeoTheme';
-import ChoreoTheme from '../../styles/Themes/ChoreoTheme';
+import { ReactNode, createContext, useContext, useState, useEffect } from 'react';
+import OxygenTheme from '../../styles/Themes/AcrylicBaseTheme';
+import AcrylicOrangeTheme from '../../styles/Themes/AcrylicOrangeTheme';
+import AcrylicPurpleTheme from '../../styles/Themes/AcrylicPurpleTheme';
+
+const THEME_STORAGE_KEY = 'oxygen-theme';
 
 export interface ThemeOption {
   /**
@@ -69,14 +71,14 @@ const defaultThemes: ThemeOption[] = [
     theme: OxygenTheme,
   },
   {
-    key: 'asgardeo',
-    label: 'Asgardeo',
-    theme: AsgardeoTheme,
+    key: 'acrylicOrange',
+    label: 'Acrylic Orange',
+    theme: AcrylicOrangeTheme,
   },
   {
-    key: 'choreo',
-    label: 'Choreo',
-    theme: ChoreoTheme,
+    key: 'acrylicPurple',
+    label: 'Acrylic Purple',
+    theme: AcrylicPurpleTheme,
   },
 ];
 
@@ -124,9 +126,36 @@ export default function OxygenUIThemeProvider({
   const useThemeSwitching = !!themes;
   const themeOptions = themes || defaultThemes;
   
-  const [currentThemeKey, setCurrentThemeKey] = useState<string>(
-    initialTheme || themeOptions[0]?.key || 'default'
-  );
+  // Get initial theme from localStorage or prop
+  const [currentThemeKey, setCurrentThemeKey] = useState<string>(() => {
+    // Try to load from localStorage first
+    if (typeof window !== 'undefined' && useThemeSwitching) {
+      try {
+        const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+        if (storedTheme && themeOptions.some((t) => t.key === storedTheme)) {
+          return storedTheme;
+        }
+      } catch (error) {
+        // localStorage might be disabled
+        console.warn('Failed to read theme from localStorage:', error);
+      }
+    }
+    
+    // Fall back to initialTheme prop or first theme
+    return initialTheme || themeOptions[0]?.key || 'default';
+  });
+
+  // Persist theme to localStorage when it changes
+  useEffect(() => {
+    if (typeof window !== 'undefined' && useThemeSwitching) {
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, currentThemeKey);
+      } catch (error) {
+        // localStorage might be disabled
+        console.warn('Failed to save theme to localStorage:', error);
+      }
+    }
+  }, [currentThemeKey, useThemeSwitching]);
 
   // Determine which theme to use
   let resolvedTheme: Theme;

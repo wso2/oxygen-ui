@@ -24,42 +24,89 @@ import {
   Stories,
 } from '@storybook/addon-docs/blocks';
 import React from "react";
+import { addons } from 'storybook/internal/preview-api';
 // importing from path to avoid preview break on change
+import { useColorScheme } from '@mui/material/styles';
 import {
   OxygenUIThemeProvider,
-  OxygenTheme,
-  AsgardeoTheme,
-  ChoreoTheme,
+  AcrylicOrangeTheme,
+  AcrylicPurpleTheme,
   ClassicTheme,
   HighContrastTheme,
 } from "@wso2/oxygen-ui";
 import './docs.css';
+
+/**
+ * Component to sync the Storybook toolbar color scheme with MUI's internal state.
+ * This must be rendered inside the ThemeProvider.
+ * Syncs both ways: toolbar -> component and component -> toolbar.
+ */
+function ColorSchemeSyncer({ mode, resolvedMode }) {
+  const { mode: currentMode, setMode } = useColorScheme();
+  const channel = addons.getChannel();
+  const lastModeRef = React.useRef(mode);
+  const lastCurrentModeRef = React.useRef(currentMode);
+  const isUpdatingFromToolbarRef = React.useRef(false);
+
+  // Update document attributes immediately when resolved mode changes
+  React.useLayoutEffect(() => {
+    document.documentElement.setAttribute('data-color-scheme', resolvedMode);
+    document.body.setAttribute('data-color-scheme', resolvedMode);
+    document.documentElement.style.colorScheme = resolvedMode;
+  }, [resolvedMode]);
+
+  // Sync toolbar mode to MUI (when toolbar changes)
+  React.useEffect(() => {
+    if (mode !== lastModeRef.current) {
+      lastModeRef.current = mode;
+      isUpdatingFromToolbarRef.current = true;
+      setMode(mode);
+      // Reset flag after state update
+      setTimeout(() => {
+        isUpdatingFromToolbarRef.current = false;
+      }, 0);
+    }
+  }, [mode, setMode]);
+
+  // Sync MUI mode back to toolbar (when component changes internally)
+  React.useEffect(() => {
+    if (currentMode !== lastCurrentModeRef.current && currentMode !== mode && !isUpdatingFromToolbarRef.current) {
+      lastCurrentModeRef.current = currentMode;
+      channel.emit('updateGlobals', {
+        globals: { colorScheme: currentMode },
+      });
+    }
+  }, [currentMode, mode, channel]);
+
+  return null;
+}
 
 const preview = {
   globalTypes: {
     colorScheme: {
       name: 'Color Scheme',
       description: 'Global color scheme for components',
-      defaultValue: 'light',
+      defaultValue: 'system',
       toolbar: {
-        icon: 'mirror',
+        icon: 'circlehollow',
         items: [
-          { value: 'light', title: 'Light' },
-          { value: 'dark', title: 'Dark' },
+          { value: 'light', icon: 'sun', title: 'Light' },
+          { value: 'dark', icon: 'moon', title: 'Dark' },
+          { value: 'system', icon: 'browser', title: 'System' },
         ],
         showName: true,
+        dynamicTitle: true,
       },
     },
     theme: {
       name: 'Theme',
       description: 'Global theme for components',
-      defaultValue: 'radial',
+      defaultValue: 'classic',
       toolbar: {
         icon: 'paintbrush',
         items: [
-          { value: 'default', title: 'Default' },
-          { value: 'asgardeo', title: 'Asgardeo' },
-          { value: 'choreo', title: 'Choreo' },
+          { value: 'acrylicOrange', title: 'Acrylic Orange' },
+          { value: 'acrylicPurple', title: 'Acrylic Purple' },
           { value: 'classic', title: 'Classic' },
           { value: 'highContrast', title: 'High Contrast' },
         ],
@@ -71,22 +118,23 @@ const preview = {
 
   decorators: [
     (Story, context) => {
-      const mode = context.globals.colorScheme ?? 'light';
-      const themeKey = context.globals.theme ?? 'radial';
+      const mode = context.globals.colorScheme ?? 'dark';
+      const themeKey = context.globals.theme ?? 'acrylicPurple';
 
-      const themes = [
-        { key: 'default', label: 'Default', theme: OxygenTheme },
-        { key: 'asgardeo', label: 'Asgardeo', theme: AsgardeoTheme },
-        { key: 'choreo', label: 'Choreo', theme: ChoreoTheme },
+      const themes = React.useMemo(() => [
+        { key: 'acrylicOrange', label: 'Acrylic Orange', theme: AcrylicOrangeTheme },
+        { key: 'acrylicPurple', label: 'Acrylic Purple', theme: AcrylicPurpleTheme },
         { key: 'classic', label: 'Classic', theme: ClassicTheme },
         { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
-      ];
+      ], []);
 
-      React.useEffect(() => {
-        document.documentElement.setAttribute('data-color-scheme', mode);
-        document.body.setAttribute('data-color-scheme', mode);
-        document.documentElement.style.colorScheme = mode;
-      }, [mode]);
+      // Resolve system mode to actual light/dark based on OS preference
+      const resolvedMode = React.useMemo(() => 
+        mode === 'system' 
+          ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+          : mode,
+        [mode]
+      );
 
       return (
         <OxygenUIThemeProvider
@@ -94,6 +142,7 @@ const preview = {
           initialTheme={themeKey}
           key={themeKey}
         >
+          <ColorSchemeSyncer mode={mode} resolvedMode={resolvedMode} />
           <Story />
         </OxygenUIThemeProvider>
       );

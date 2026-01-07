@@ -37,7 +37,7 @@ const PageTitleHeaderStyled = styled(Typography, {
   name: 'MuiPageTitle',
   slot: 'Header',
 })<TypographyProps>(({ theme }) => ({
-  fontWeight: 600,
+  fontWeight: 500,
   fontSize: '1.5rem',
   lineHeight: 1.334,
   letterSpacing: '0em',
