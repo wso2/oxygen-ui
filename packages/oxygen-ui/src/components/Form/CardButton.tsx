@@ -45,7 +45,7 @@ const StyledCardButton = styled(Card, {
   transition: 'all 0.3s ease',
   cursor: 'pointer',
   "&.MuiCard-root": {
-    backgroundColor: selected ? "background.paper" : 'inherit',
+    backgroundColor: selected ? "background.paper" : 'background.default',
     borderColor: selected && theme.palette.primary.main,
   },
   '.creation-flow-card-actions': {

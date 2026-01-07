@@ -24,9 +24,9 @@
   "dependencies": {
     "@wso2/oxygen-ui": "workspace:*",
     "@wso2/oxygen-ui-icons-react": "workspace:*",
-    "react-hook-form": "^7.54.2",
-    "@hookform/resolvers": "^3.9.1",
-    "yup": "^1.4.0"
+    "react-hook-form": "7.54.2",
+    "@hookform/resolvers": "3.9.1",
+    "yup": "1.4.0"
   },
   "devDependencies": {
     "@babel/core": "7.28.5",

@@ -43,7 +43,7 @@ export type WizardProps = {
 }
 
 export function Wizard({ steps, activeStep, actions }: WizardProps) {
-  const step = useMemo(() => steps[activeStep], [steps, activeStep])
+  const step = useMemo(() => activeStep < steps.length ? steps[activeStep] : null, [steps, activeStep])
   return (
     <Card>
       <CardContent>
@@ -56,7 +56,7 @@ export function Wizard({ steps, activeStep, actions }: WizardProps) {
             ))}
           </Stepper>
           <Divider />
-          <Stack direction="row">{step.component}</Stack>
+          <Stack direction="row">{step?.component}</Stack>
           <Stack direction="row" justifyContent="space-between">
             {actions}
           </Stack>

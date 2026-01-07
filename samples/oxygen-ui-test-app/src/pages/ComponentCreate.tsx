@@ -16,272 +16,77 @@
  * under the License.
  */
 
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Typography,
-  TextField,
-  FormControl,
-  FormLabel,
-  Select,
-  MenuItem,
-  IconButton,
-  Stepper,
-  Step,
-  StepLabel,
-  Switch,
-  FormControlLabel,
-  Divider,
-} from '@wso2/oxygen-ui'
-import { ArrowLeft, Save, Eye } from '@wso2/oxygen-ui-icons-react'
-import { useNavigate, useParams } from 'react-router'
+import { Divider, Form, Stack } from '@wso2/oxygen-ui'
 import type { JSX } from 'react'
 import { useState } from 'react'
-
-const steps = ['Basic Information', 'Configuration', 'Review']
+import PageTitle from '../components/PageTitle'
+import { Import, Network, WSO2 } from '@wso2/oxygen-ui-icons-react'
+import {
+  IntegrationTypeCard,
+  IntegrationWizard,
+  SampleAppCard,
+  SampleIntegrationsSection,
+} from '../components/ComponentCreate'
 
 export default function ComponentCreate(): JSX.Element {
-  const navigate = useNavigate()
-  const { id } = useParams<{ id: string }>()
-  const [activeStep, setActiveStep] = useState(0)
+  const [page, setPage] = useState<'select-type' | 'configuration'>('select-type')
 
-  // Form state
-  const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    type: '',
-    category: '',
-    enabled: true,
-    requireAuth: false,
-    timeout: '30',
-    retryAttempts: '3',
-  })
-
-  const handleNext = () => {
-    setActiveStep((prevStep) => prevStep + 1)
-  }
-
-  const handleBack = () => {
-    setActiveStep((prevStep) => prevStep - 1)
-  }
-
-  const handleChange = (field: string) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [field]: event.target.value })
-  }
-
-  const handleSwitchChange = (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [field]: event.target.checked })
-  }
-
-  const handleSubmit = () => {
-    console.log('Form submitted:', formData)
-    navigate(`/projects/${id}`)
+  if (page === 'select-type') {
+    return (
+      <Stack p={3} maxWidth="xl" mx="auto" spacing={2}>
+        <PageTitle
+          title="Get started  with your Integration"
+          description="Follow the steps below to create a new integration"
+        />
+        <Stack direction="row" spacing={2}>
+          <Form.Stack direction="row" height="fit-content" width="md">
+            <IntegrationTypeCard
+              icon={Network}
+              title="Create a new Integration"
+              description="Start developing in a complete, browser-based development environment."
+              tooltipText="What is this?"
+              onClick={() => setPage('configuration')}
+            />
+            <IntegrationTypeCard
+              icon={Import}
+              title="Import an Integration"
+              description="Connect your existing code repository, and start building instantly"
+              tooltipText="What is this?"
+            />
+          </Form.Stack>
+          <Divider orientation="vertical" flexItem />
+          <SampleIntegrationsSection>
+            <SampleAppCard
+              title="Sample Integration 1"
+              subtitle="Sample Integration 1"
+              description="Sample Integration 1"
+              icon={<WSO2 />}
+            />
+            <SampleAppCard
+              title="Sample Integration 2"
+              subtitle="Sample Integration 2"
+              description="Sample Integration 2"
+              icon={<WSO2 />}
+            />
+            <SampleAppCard
+              title="Sample Integration 2"
+              subtitle="Sample Integration 2"
+              description="Sample Integration 2"
+              icon={<WSO2 />}
+            />
+          </SampleIntegrationsSection>
+        </Stack>
+      </Stack>
+    )
   }
 
   return (
-    <Box sx={{ p: 3, maxWidth: '1200px', mx: 'auto' }}>
-      {/* Header */}
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 4 }}>
-        <IconButton onClick={() => navigate(`/projects/${id}`)}>
-          <ArrowLeft size={20} />
-        </IconButton>
-        <Box sx={{ flexGrow: 1 }}>
-          <Typography variant="h4">Create New Component</Typography>
-          <Typography variant="body2" color="text.secondary">
-            Configure your authentication component
-          </Typography>
-        </Box>
-        <Button variant="outlined" startIcon={<Eye size={18} />}>
-          Preview
-        </Button>
-      </Box>
-
-      {/* Stepper */}
-      <Card variant="outlined" sx={{ mb: 3 }}>
-        <CardContent>
-          <Stepper activeStep={activeStep}>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-        </CardContent>
-      </Card>
-
-      {/* Step Content */}
-      <Card variant="outlined">
-        <CardContent>
-          {activeStep === 0 && (
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-              <Typography variant="h6">Basic Information</Typography>
-              <Divider />
-
-              <FormControl required>
-                <FormLabel>Component Name</FormLabel>
-                <TextField
-                  fullWidth
-                  placeholder="Enter component name"
-                  value={formData.name}
-                  onChange={handleChange('name')}
-                />
-              </FormControl>
-
-              <FormControl required>
-                <FormLabel>Description</FormLabel>
-                <TextField
-                  fullWidth
-                  multiline
-                  rows={3}
-                  placeholder="Describe the purpose of this component"
-                  value={formData.description}
-                  onChange={handleChange('description')}
-                />
-              </FormControl>
-
-              <FormControl required>
-                <FormLabel>Component Type</FormLabel>
-                <Select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value })}>
-                  <MenuItem value="">Select type</MenuItem>
-                  <MenuItem value="authentication">Authentication</MenuItem>
-                  <MenuItem value="authorization">Authorization</MenuItem>
-                  <MenuItem value="registration">Registration</MenuItem>
-                  <MenuItem value="recovery">Recovery</MenuItem>
-                  <MenuItem value="mfa">Multi-Factor Authentication</MenuItem>
-                </Select>
-              </FormControl>
-
-              <FormControl required>
-                <FormLabel>Category</FormLabel>
-                <Select
-                  value={formData.category}
-                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                >
-                  <MenuItem value="">Select category</MenuItem>
-                  <MenuItem value="login">Login Flow</MenuItem>
-                  <MenuItem value="signup">Sign Up Flow</MenuItem>
-                  <MenuItem value="password">Password Management</MenuItem>
-                  <MenuItem value="social">Social Login</MenuItem>
-                  <MenuItem value="enterprise">Enterprise SSO</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-          )}
-
-          {activeStep === 1 && (
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-              <Typography variant="h6">Configuration</Typography>
-              <Divider />
-
-              <FormControlLabel
-                control={<Switch checked={formData.enabled} onChange={handleSwitchChange('enabled')} />}
-                label="Enable component"
-              />
-
-              <FormControlLabel
-                control={<Switch checked={formData.requireAuth} onChange={handleSwitchChange('requireAuth')} />}
-                label="Require authentication"
-              />
-
-              <FormControl>
-                <FormLabel>Timeout (seconds)</FormLabel>
-                <TextField
-                  fullWidth
-                  type="number"
-                  placeholder="30"
-                  value={formData.timeout}
-                  onChange={handleChange('timeout')}
-                />
-              </FormControl>
-
-              <FormControl>
-                <FormLabel>Retry Attempts</FormLabel>
-                <TextField
-                  fullWidth
-                  type="number"
-                  placeholder="3"
-                  value={formData.retryAttempts}
-                  onChange={handleChange('retryAttempts')}
-                />
-              </FormControl>
-
-              <Box sx={{ p: 2, bgcolor: 'action.hover', borderRadius: 1 }}>
-                <Typography variant="body2" color="text.secondary">
-                  Advanced configuration options will be available after component creation.
-                </Typography>
-              </Box>
-            </Box>
-          )}
-
-          {activeStep === 2 && (
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-              <Typography variant="h6">Review</Typography>
-              <Divider />
-
-              <Box>
-                <Typography variant="subtitle2" color="text.secondary">
-                  Component Name
-                </Typography>
-                <Typography variant="body1">{formData.name || 'Not specified'}</Typography>
-              </Box>
-
-              <Box>
-                <Typography variant="subtitle2" color="text.secondary">
-                  Description
-                </Typography>
-                <Typography variant="body1">{formData.description || 'Not specified'}</Typography>
-              </Box>
-
-              <Box>
-                <Typography variant="subtitle2" color="text.secondary">
-                  Type
-                </Typography>
-                <Typography variant="body1">{formData.type || 'Not specified'}</Typography>
-              </Box>
-
-              <Box>
-                <Typography variant="subtitle2" color="text.secondary">
-                  Category
-                </Typography>
-                <Typography variant="body1">{formData.category || 'Not specified'}</Typography>
-              </Box>
-
-              <Divider />
-
-              <Box>
-                <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                  Configuration
-                </Typography>
-                <Typography variant="body2">Enabled: {formData.enabled ? 'Yes' : 'No'}</Typography>
-                <Typography variant="body2">Require Authentication: {formData.requireAuth ? 'Yes' : 'No'}</Typography>
-                <Typography variant="body2">Timeout: {formData.timeout} seconds</Typography>
-                <Typography variant="body2">Retry Attempts: {formData.retryAttempts}</Typography>
-              </Box>
-            </Box>
-          )}
-        </CardContent>
-
-        {/* Actions */}
-        <Divider />
-        <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between' }}>
-          <Button disabled={activeStep === 0} onClick={handleBack}>
-            Back
-          </Button>
-          <Box sx={{ display: 'flex', gap: 1 }}>
-            {activeStep === steps.length - 1 ? (
-              <Button variant="contained" startIcon={<Save size={18} />} onClick={handleSubmit}>
-                Create Component
-              </Button>
-            ) : (
-              <Button variant="contained" onClick={handleNext}>
-                Next
-              </Button>
-            )}
-          </Box>
-        </Box>
-      </Card>
-    </Box>
+    <Stack p={3} maxWidth="xl" mx="auto" spacing={2}>
+      <PageTitle
+        title="Import your Integration"
+        description="Follow the steps below to import your integration"
+      />
+      <IntegrationWizard />
+    </Stack>
   )
 }

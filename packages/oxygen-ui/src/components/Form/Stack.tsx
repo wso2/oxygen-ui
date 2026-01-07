@@ -20,5 +20,5 @@ import React from "react"
 import { Stack as  OxygenStack, StackProps } from "@mui/material"
 
 export const Stack = (props: StackProps) => {
-    return <OxygenStack {...props} spacing={2} />
+    return <OxygenStack  spacing={2} {...props} />
 }

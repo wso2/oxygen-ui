@@ -157,7 +157,7 @@ const SampleAppCard = ({
  */
 export const CreateServiceForm: Story = {
   render: () => {
-    const [organization, setOrganization] = useState('rasika2012')
+    const [organization, setOrganization] = useState('wso2-oxigen')
     const [repository, setRepository] = useState('banking-app')
     const [branch, setBranch] = useState('main')
     const [componentDirectory, setComponentDirectory] = useState('/')
