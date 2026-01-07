@@ -134,6 +134,7 @@ export function SearchBarWithAdvancedFilter({
                 <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
                 <IconButton
                   aria-describedby={popoverId}
+                  aria-label="Open advanced search"
                   onClick={handleOpen}
                   size="small"
                   sx={{ mx: 0.5 }}

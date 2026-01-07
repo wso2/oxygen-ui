@@ -19,8 +19,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
 import { Stack } from '@wso2/oxygen-ui'
-
-// import {SearchBarWithAdvancedFilter} from '@wso2/oxygen-ui'
 import { SearchBarWithAdvancedFilter, SearchBar } from '@wso2/oxygen-ui'
 
 /**
