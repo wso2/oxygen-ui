@@ -27,3 +27,7 @@ export { default as PageTitle } from './PageTitle';
 export type { PageTitleProps, PageTitleAvatarProps, PageTitleHeaderProps, PageTitleSubHeaderProps, PageTitleLinkProps } from './PageTitle';
 export { default as ThemeSwitcher, ThemeSelect } from './ThemeSwitcher';
 export type { ThemeSwitcherProps, ThemeSelectProps } from './ThemeSwitcher';
+export { default as SearchBarWithAdvancedFilter } from './SearchBar/SearchBarWithFilter';
+export type { SearchBarWithAdvancedFilterProps } from './SearchBar/SearchBarWithFilter';
+export { default as SearchBar } from './SearchBar/SearchBart';
+export type { SearchBarProps } from './SearchBar/SearchBart';
