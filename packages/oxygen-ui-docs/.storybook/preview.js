@@ -29,6 +29,7 @@ import { addons } from 'storybook/internal/preview-api';
 import { useColorScheme } from '@mui/material/styles';
 import {
   OxygenUIThemeProvider,
+  useThemeSwitcher,
   AcrylicOrangeTheme,
   AcrylicPurpleTheme,
   ClassicTheme,
@@ -77,6 +78,45 @@ function ColorSchemeSyncer({ mode, resolvedMode }) {
       });
     }
   }, [currentMode, mode, channel]);
+
+  return null;
+}
+
+/**
+ * Component to sync the Storybook toolbar theme with OxygenUI's theme state.
+ */
+function ThemeSyncer({ themeKey }) {
+  const { currentTheme, setTheme } = useThemeSwitcher();
+  const channel = addons.getChannel();
+  const lastThemeKeyRef = React.useRef(themeKey);
+  const isUpdatingFromToolbarRef = React.useRef(false);
+  const hasSyncedRef = React.useRef(false);
+
+  // Sync toolbar theme to OxygenUI (when toolbar changes)
+  React.useEffect(() => {
+    if (themeKey !== lastThemeKeyRef.current) {
+      lastThemeKeyRef.current = themeKey;
+      isUpdatingFromToolbarRef.current = true;
+      setTheme(themeKey);
+      // Reset flag after state update
+      setTimeout(() => {
+        isUpdatingFromToolbarRef.current = false;
+      }, 0);
+    }
+  }, [themeKey, setTheme]);
+
+  // Sync OxygenUI theme back to toolbar on mount and when theme changes
+  React.useEffect(() => {
+    if (!isUpdatingFromToolbarRef.current && currentTheme !== themeKey) {
+      // Only sync once on mount or when there's an actual mismatch
+      if (!hasSyncedRef.current || currentTheme !== lastThemeKeyRef.current) {
+        hasSyncedRef.current = true;
+        channel.emit('updateGlobals', {
+          globals: { theme: currentTheme },
+        });
+      }
+    }
+  }, [currentTheme, themeKey, channel]);
 
   return null;
 }
@@ -140,9 +180,9 @@ const preview = {
         <OxygenUIThemeProvider
           themes={themes}
           initialTheme={themeKey}
-          key={themeKey}
         >
           <ColorSchemeSyncer mode={mode} resolvedMode={resolvedMode} />
+          <ThemeSyncer themeKey={themeKey} />
           <Story />
         </OxygenUIThemeProvider>
       );
