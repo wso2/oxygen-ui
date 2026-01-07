@@ -1,0 +1,67 @@
+/**
+ * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import { styled } from '@mui/material/styles';
+import type { SxProps, Theme } from '@mui/material/styles';
+
+/**
+ * Styled footer container for the sidebar.
+ */
+const SidebarFooterRoot = styled(Box, {
+  name: 'MuiSidebar',
+  slot: 'Footer',
+})(({ theme }) => ({
+  paddingTop: theme.spacing(1),
+  paddingBottom: theme.spacing(1),
+}));
+
+/**
+ * Props for SidebarFooter component.
+ */
+export interface SidebarFooterProps {
+  /** Footer content */
+  children: React.ReactNode;
+  /** Whether to show divider above footer */
+  showDivider?: boolean;
+  /** Additional sx props */
+  sx?: SxProps<Theme>;
+}
+
+/**
+ * SidebarFooter - Fixed bottom section of the sidebar.
+ *
+ * Use this for settings navigation, user profile, or any content
+ * that should stay visible at the bottom of the sidebar.
+ */
+export const SidebarFooter: React.FC<SidebarFooterProps> = ({
+  children,
+  showDivider = true,
+  sx,
+}) => {
+  return (
+    <>
+      {showDivider && <Divider />}
+      <SidebarFooterRoot sx={sx}>{children}</SidebarFooterRoot>
+    </>
+  );
+};
+
+export default SidebarFooter;

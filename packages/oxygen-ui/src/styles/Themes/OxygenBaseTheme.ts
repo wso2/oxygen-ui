@@ -303,6 +303,40 @@ const OxygenBaseTheme = extendTheme({
         }),
       },
     },
+    MuiTabs: {
+      styleOverrides: {
+        root: {
+          '&.MuiTabs-vertical': {
+            alignItems: 'flex-start',
+          },
+        },
+        flexContainer: {
+          '&.MuiTabs-flexContainerVertical': {
+            alignItems: 'flex-start',
+          },
+        },
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          textTransform: 'none',
+          fontWeight: 400,
+          fontSize: theme.typography.body2.fontSize,
+          '&.MuiTab-root': {
+            minHeight: 48,
+            padding: '8px 16px',
+          },
+          '.MuiTabs-vertical &': {
+            minHeight: 40,
+            padding: '6px 16px',
+            alignItems: 'flex-start',
+            justifyContent: 'flex-start',
+            textAlign: 'left',
+          },
+        }),
+      },
+    },
     MuiMenuItem: {
       styleOverrides: {
         root: ({ theme }) => ({

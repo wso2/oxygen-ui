@@ -16,24 +16,20 @@
  * under the License.
  */
 
-import { Box, Button, Typography } from '@wso2/oxygen-ui'
-import { useNavigate } from 'react-router'
-import type { JSX } from 'react'
+// =============================================================================
+// STORY-SPECIFIC EXPORTS
+// These exports are for story/demo purposes only.
+// The actual components are now exported from @wso2/oxygen-ui.
+// =============================================================================
 
-export default function FormPage(): JSX.Element {
-  const navigate = useNavigate()
+// Types (story-specific interfaces)
+export * from './types';
 
-  return (
-    <Box sx={{ textAlign: 'center', mx: 'auto', maxWidth: '1280px', p: 2 }}>
-      <Typography variant="h4" gutterBottom>
-        Form Page
-      </Typography>
-      <Typography variant="body1" sx={{ mb: 3 }}>
-        This is a placeholder for the form page.
-      </Typography>
-      <Button variant="outlined" onClick={() => navigate('/')}>
-        Back to Home
-      </Button>
-    </Box>
-  )
-}
+// Mock data (for demos and stories)
+export * from './mock-data';
+
+// Utilities (formatRelativeTime, etc.)
+export * from './utils';
+
+// Hooks (useAppShellState for demo state management)
+export * from './hooks';

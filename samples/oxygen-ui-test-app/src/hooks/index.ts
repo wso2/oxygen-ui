@@ -16,24 +16,9 @@
  * under the License.
  */
 
-import { Box, Button, Typography } from '@wso2/oxygen-ui'
-import { useNavigate } from 'react-router'
-import type { JSX } from 'react'
-
-export default function ListingPage(): JSX.Element {
-  const navigate = useNavigate()
-
-  return (
-    <Box sx={{ textAlign: 'center', mx: 'auto', maxWidth: '1280px', p: 2 }}>
-      <Typography variant="h4" gutterBottom>
-        Listing Page
-      </Typography>
-      <Typography variant="body1" sx={{ mb: 3 }}>
-        This is a placeholder for the listing page.
-      </Typography>
-      <Button variant="outlined" onClick={() => navigate('/')}>
-        Back to Home
-      </Button>
-    </Box>
-  )
-}
+export { useAppShellState } from './useAppShellState';
+export type {
+  AppShellState,
+  AppShellActions,
+  UseAppShellStateOptions,
+} from './useAppShellState';

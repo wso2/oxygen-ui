@@ -40,7 +40,7 @@ const PageTitleSubHeaderStyled = styled(Typography, {
   fontSize: '0.875rem',
   lineHeight: 1.43,
   letterSpacing: '0.01071em',
-  color: theme.palette.text.secondary,
+  color: theme.vars?.palette.text.secondary || theme.palette.text.secondary,
 }));
 
 /**

@@ -21,9 +21,17 @@ import DefaultLayout from '../layouts/DefaultLayout';
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
 import LoginPage2 from '../pages/LoginPage2';
-import ListingPage from '../pages/ListingPage';
-import FormPage from '../pages/FormPage';
 import GateLayout from '../layouts/GateLayout';
+import ProjectList from '../pages/ProjectList';
+import ProjectOverview from '../pages/ProjectOverview';
+import ComponentCreate from '../pages/ComponentCreate';
+import ComponentList from '../pages/ComponentList';
+import EmptyComponentList from '../pages/EmptyComponentList';
+import LogView from '../pages/LogView';
+import LoginEditorView from '../pages/LoginEditorView';
+import SettingsPage from '../pages/SettingsPage';
+import ErrorPage from '../pages/ErrorPage';
+import AppLayout from '../layouts/AppLayout';
 
 /**
  * Interface representing an application route configuration.
@@ -77,18 +85,71 @@ const appRoutes: AppRoute[] = [
         path: '/login2',
         element: <LoginPage2 />,
         label: 'Login Page 2',
+        showInNav: false,
+      },
+    ],
+  },
+  {
+    element: <AppLayout />,
+    children: [
+      {
+        path: '/projects',
+        element: <ProjectList />,
+        label: 'Projects',
         showInNav: true,
       },
       {
-        path: '/listing',
-        element: <ListingPage />,
-        label: 'Listing Page',
-        showInNav: true,
+        path: '/projects/:id',
+        element: <ProjectOverview />,
+        label: 'Project Overview',
+        showInNav: false,
       },
       {
-        path: '/form',
-        element: <FormPage />,
-        label: 'Form Page',
+        path: '/projects/:id/components',
+        element: <ComponentList />,
+        label: 'Components',
+        showInNav: false,
+      },
+      {
+        path: '/projects/:id/components/empty',
+        element: <EmptyComponentList />,
+        label: 'Empty Component List',
+        showInNav: false,
+      },
+      {
+        path: '/projects/:id/components/new',
+        element: <ComponentCreate />,
+        label: 'Create Component',
+        showInNav: false,
+      },
+      {
+        path: '/projects/:id/components/:componentId',
+        element: <LoginEditorView />,
+        label: 'Component Editor',
+        showInNav: false,
+      },
+      {
+        path: '/projects/:id/components/:componentId/edit',
+        element: <LoginEditorView />,
+        label: 'Edit Component',
+        showInNav: false,
+      },
+      {
+        path: '/projects/:id/logs',
+        element: <LogView />,
+        label: 'Activity Logs',
+        showInNav: false,
+      },
+      {
+        path: '/settings',
+        element: <SettingsPage />,
+        label: 'Organization Settings',
+        showInNav: false,
+      },
+      {
+        path: '/error',
+        element: <ErrorPage />,
+        label: 'Error Page',
         showInNav: true,
       },
     ],
