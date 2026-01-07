@@ -30,12 +30,19 @@ import {
   Typography
 } from '@wso2/oxygen-ui';
 import { GitHub, Google } from '@wso2/oxygen-ui-icons-react'
+import {useNavigate} from 'react-router';
 
 export default function LoginBox(): JSX.Element {
   const [error] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    navigate('/projects');
+  };
 
   return (
-    <form method="POST" action="">
+    <form onSubmit={handleLogin}>
       <Box sx={{ mb: 6 }}>
         <Typography variant="h3" gutterBottom>
           Login to Account

@@ -23,8 +23,18 @@ export interface ComplexSelectMenuItemIconProps extends ListItemIconProps {
   children: ReactNode;
 }
 
-export function ComplexSelectMenuItemIcon({ children, ...props }: ComplexSelectMenuItemIconProps) {
-  return <MuiListItemIcon {...props}>{children}</MuiListItemIcon>;
+export function ComplexSelectMenuItemIcon({ children, sx, ...props }: ComplexSelectMenuItemIconProps) {
+  return (
+    <MuiListItemIcon 
+      sx={{ 
+        minWidth: '36px',
+        ...sx 
+      }} 
+      {...props}
+    >
+      {children}
+    </MuiListItemIcon>
+  );
 }
 
 export default ComplexSelectMenuItemIcon;

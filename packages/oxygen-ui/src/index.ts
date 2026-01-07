@@ -37,6 +37,9 @@ export * from "./animations";
 // Export hooks
 export * from "./hooks";
 
+// Export utils
+export * from "./utils";
+
 // Re-export the entire @mui/material API
 // This allows consumers to import from @wso2/oxygen-ui instead of @mui/material
 // and automatically get the Oxygen theme applied

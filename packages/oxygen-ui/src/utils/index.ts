@@ -16,4 +16,5 @@
  * under the License.
  */
 
+export { formatRelativeTime } from './formatRelativeTime';
 export { pxToRem } from './pxToRem';

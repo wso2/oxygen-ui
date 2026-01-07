@@ -91,6 +91,7 @@ const SidebarItemChevron = styled(Box, {
   slot: 'ItemChevron',
 })({
   marginLeft: 'auto',
+  paddingLeft: 1,
   display: 'flex',
   alignItems: 'center',
 });
@@ -317,6 +318,9 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
           <SidebarItemChevron>
             {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
           </SidebarItemChevron>
+        )}
+        {!collapsed && !hasNestedItems && (
+          <Box sx={{ ml: 'auto', width: 16, pl: 1 }} />
         )}
       </SidebarItemProvider>
     </SidebarItemButton>

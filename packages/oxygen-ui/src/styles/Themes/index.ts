@@ -16,8 +16,8 @@
  * under the License.
  */
 
-export { default as OxygenTheme } from './OxygenBaseTheme';
-export { default as AsgardeoTheme } from './AsgardeoTheme';
-export { default as ChoreoTheme } from './ChoreoTheme';
+export { default as OxygenTheme } from './AcrylicBaseTheme';
+export { default as AcrylicOrangeTheme } from './AcrylicOrangeTheme';
+export { default as AcrylicPurpleTheme } from './AcrylicPurpleTheme';
 export { default as ClassicTheme } from './ClassicTheme';
 export { default as HighContrastTheme } from './HighContrastTheme';

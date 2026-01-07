@@ -25,7 +25,14 @@ export interface ComplexSelectMenuItemTextProps extends ListItemTextProps {
 }
 
 export function ComplexSelectMenuItemText({ primary, secondary, ...props }: ComplexSelectMenuItemTextProps) {
-  return <MuiListItemText primary={primary} secondary={secondary} {...props} />;
+  return (
+    <MuiListItemText 
+      primary={primary} 
+      secondary={secondary} 
+      slotProps={{ secondary: { variant: 'caption' } }}
+      {...props} 
+    />
+  );
 }
 
 export default ComplexSelectMenuItemText;
