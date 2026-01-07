@@ -27,8 +27,8 @@ export { default as PageTitle } from './PageTitle';
 export type { PageTitleProps, PageTitleAvatarProps, PageTitleHeaderProps, PageTitleSubHeaderProps, PageTitleLinkProps } from './PageTitle';
 export { default as ThemeSwitcher, ThemeSelect } from './ThemeSwitcher';
 export type { ThemeSwitcherProps, ThemeSelectProps } from './ThemeSwitcher';
-export { default as SearchBarWithAdvancedFilter } from './SearchBar/SearchBarWithFilter';
-export type { SearchBarWithAdvancedFilterProps } from './SearchBar/SearchBarWithFilter';
+export { default as SearchBarWithAdvancedFilter } from './SearchBar/SearchBarWithAdvancedFilter';
+export type { SearchBarWithAdvancedFilterProps } from './SearchBar/SearchBarWithAdvancedFilter';
 export { default as SearchBar } from './SearchBar/SearchBar';
 export type { SearchBarProps } from './SearchBar/SearchBar';
 
