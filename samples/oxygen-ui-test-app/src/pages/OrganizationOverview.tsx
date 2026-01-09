@@ -79,7 +79,7 @@ const mockProjects: Project[] = [
   },
 ]
 
-export default function ProjectList(): JSX.Element {
+export default function OrganizationOverview(): JSX.Element {
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')
 

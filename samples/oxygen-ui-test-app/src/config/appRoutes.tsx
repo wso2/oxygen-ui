@@ -22,7 +22,6 @@ import HomePage from '../pages/HomePage'
 import LoginPage from '../pages/LoginPage'
 import LoginPage2 from '../pages/LoginPage2'
 import GateLayout from '../layouts/GateLayout'
-import ProjectList from '../pages/OrganizationOverview'
 import ProjectOverview from '../pages/ProjectOverview'
 import ComponentCreate from '../pages/ComponentCreate'
 import ComponentList from '../pages/ComponentList'
@@ -32,6 +31,7 @@ import LoginEditorView from '../pages/LoginEditorView'
 import SettingsPage from '../pages/SettingsPage'
 import ErrorPage from '../pages/ErrorPage'
 import AppLayout from '../layouts/AppLayout'
+import OrganizationOverview from '../pages/OrganizationOverview'
 
 /**
  * Interface representing an application route configuration.
@@ -94,7 +94,7 @@ const appRoutes: AppRoute[] = [
     children: [
       {
         path: '/organizations',
-        element: <ProjectList />,
+        element: <OrganizationOverview />,
         label: 'Organizations',
         showInNav: true,
       },
