@@ -96,8 +96,8 @@ const { LineChart } = Charts
 type OverviewColumn<T> = {
   header: ReactNode
   render: (row: T) => ReactNode
-  headerSx?: Record<string, any>
-  cellSx?: Record<string, any>
+  headerSx?: Record<string, string | number>
+  cellSx?: Record<string, string | number>
 }
 
 type OverviewTableSectionProps<T extends { id: string }> = {
