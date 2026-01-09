@@ -35,14 +35,16 @@ import {
   UserCog,
   Lock,
   Key,
-} from '@wso2/oxygen-ui-icons-react';
+} from '@wso2/oxygen-ui-icons-react'
 import type {
   NavigationCategory,
   NotificationItem,
   Organization,
   Project,
   User,
-} from './types';
+  Component,
+  McpServer,
+} from './types'
 
 /**
  * Main navigation items organized by category.
@@ -172,7 +174,7 @@ export const navigationCategories: NavigationCategory[] = [
       },
     ],
   },
-];
+]
 
 /**
  * Settings navigation items (shown at bottom of sidebar).
@@ -199,7 +201,7 @@ export const settingsNavigation: NavigationCategory = {
       href: '/help',
     },
   ],
-};
+}
 
 /**
  * Sample notifications for the notification panel.
@@ -258,7 +260,7 @@ export const mockNotifications: NotificationItem[] = [
     timestamp: new Date(Date.now() - 1000 * 60 * 60 * 48), // 2 days ago
     read: true,
   },
-];
+]
 
 /**
  * Sample organizations for the org switcher.
@@ -282,7 +284,7 @@ export const mockOrganizations: Organization[] = [
     avatar: 'GL',
     description: 'Research division',
   },
-];
+]
 
 /**
  * Sample projects for the project switcher.
@@ -312,7 +314,7 @@ export const mockProjects: Project[] = [
     description: 'Internal analytics',
     color: '#ed6c02',
   },
-];
+]
 
 /**
  * Sample user for the user menu.
@@ -322,6 +324,42 @@ export const mockUser: User = {
   email: 'john.doe@example.com',
   avatar: 'JD',
   role: 'Pro',
-};
+}
 
-// Note: formatRelativeTime has been moved to utils/formatRelativeTime.ts
+export const mockComponents: Component[] = [
+  {
+    id: '1',
+    name: 'User Authentication API',
+    type: 'HTTP',
+    status: 'active',
+    lastModified: '2 months ago',
+  },
+  {
+    id: '2',
+    name: 'Order Management API',
+    type: 'HTTP',
+    status: 'active',
+    lastModified: '3 months ago',
+  },
+  {
+    id: '3',
+    name: 'Product Catalog API',
+    type: 'HTTP',
+    status: 'active',
+    lastModified: '3 months ago',
+  },
+  {
+    id: '4',
+    name: 'Payment Processing API',
+    type: 'HTTP',
+    status: 'inactive',
+    lastModified: '5 months ago',
+  },
+]
+
+export const mockMcpServers: McpServer[] = [
+  { id: '1', action: 'Customer Support MCP', user: 'System', timestamp: '2 months ago' },
+  { id: '2', action: 'Order Processing MCP', user: 'System', timestamp: '3 months ago' },
+  { id: '3', action: 'Fraud Detection MCP', user: 'System', timestamp: '5 months ago' },
+  { id: '4', action: 'Notification Dispatcher MCP', user: 'System', timestamp: '7 months ago' },
+]
