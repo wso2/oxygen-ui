@@ -34,6 +34,10 @@ const AcrylicPurpleThemeBase = extendTheme(AcrylicBaseTheme, {
           dark: '#4651cc',
           contrastText: '#ffffff',
         },
+        action: {
+          selected: 'rgba(100, 108, 255, 0.16)',
+          selectedOpacity: 0.16,
+        },
       },
     },
     dark: {
@@ -43,6 +47,10 @@ const AcrylicPurpleThemeBase = extendTheme(AcrylicBaseTheme, {
           light: '#8187ff',
           dark: '#4651cc',
           contrastText: '#ffffff',
+        },
+        action: {
+          selected: 'rgba(100, 108, 255, 0.24)',
+          selectedOpacity: 0.24,
         },
       },
     },
@@ -61,6 +69,18 @@ const AcrylicPurpleThemeBase = extendTheme(AcrylicBaseTheme, {
             },
           },
         }),
+      },
+    },
+    MuiTableRow: {
+      styleOverrides: {
+        root: {
+          '&.Mui-selected': {
+            backgroundColor: 'rgba(100, 108, 255, 0.16)',
+            '&:hover': {
+              backgroundColor: 'rgba(100, 108, 255, 0.24)',
+            },
+          },
+        },
       },
     },
     MuiCssBaseline: {

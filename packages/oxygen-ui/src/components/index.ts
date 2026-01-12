@@ -98,3 +98,33 @@ export type { UserMenuProps, UserMenuUser } from './UserMenu';
 
 export { NotificationBanner } from './NotificationBanner';
 export type { NotificationBannerProps } from './NotificationBanner';
+
+// ListingTable Component (compound component with enhanced features)
+export { default as ListingTable } from './ListingTable';
+export {
+  useListingTable,
+  useListingTableRequired,
+  ListingTableContext,
+  ListingTableProvider,
+} from './ListingTable';
+export type {
+  ListingTableProps,
+  ListingTableContainerProps,
+  ListingTableHeadProps,
+  ListingTableBodyProps,
+  ListingTableFooterProps,
+  ListingTableRowProps,
+  ListingTableCellProps,
+  ListingTableDensity,
+  ListingTableVariant,
+  ListingTableToolbarProps,
+  ListingTableEmptyStateProps,
+  ListingTableDensityControlProps,
+  ListingTableSortLabelProps,
+  ListingSortDirection,
+  ListingTableRowActionsProps,
+  ListingTableCellIconProps,
+  ListingTableContextValue,
+  ListingTableSortDirection,
+  ListingTableProviderProps,
+} from './ListingTable';
