@@ -101,6 +101,9 @@ export interface Project {
   description?: string
   /** Optional project color/identifier */
   color?: string
+  status?: 'active' | 'archived' | 'draft'
+  componentsCount?: number
+  lastUpdated?: string
 }
 
 /**
