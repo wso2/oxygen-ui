@@ -17,24 +17,24 @@
  */
 
 import { extendTheme } from '@mui/material/styles';
-import OxygenBaseTheme from './OxygenBaseTheme';
-import type { OxygenTheme } from './OxygenBaseTheme';
+import AcrylicBaseTheme from './AcrylicBaseTheme';
+import type { OxygenTheme } from './OxygenThemeBase';
 
 /**
- * Asgardeo Theme - Oxygen Theme with Radial Background Design
- * This theme extends the base OxygenTheme and adds radial gradient backgrounds
+ * AcrylicOrange Theme - Oxygen Theme with Radial Background Design
+ * This theme extends the base AcrylicBaseTheme and adds radial gradient backgrounds
  * that respond to light/dark color schemes.
  * 
  * Usage:
  * ```tsx
- * import { OxygenUIThemeProvider, AsgardeoTheme } from '@wso2/oxygen-ui';
+ * import { OxygenUIThemeProvider, AcrylicOrangeTheme } from '@wso2/oxygen-ui';
  * 
- * <OxygenUIThemeProvider theme={AsgardeoTheme}>
+ * <OxygenUIThemeProvider theme={AcrylicOrangeTheme}>
  *   <App />
  * </OxygenUIThemeProvider>
  * ```
  */
-const AsgardeoTheme = extendTheme(OxygenBaseTheme, {
+const AcrylicOrangeTheme = extendTheme(AcrylicBaseTheme, {
   components: {
     MuiCssBaseline: {
       styleOverrides: {
@@ -42,7 +42,7 @@ const AsgardeoTheme = extendTheme(OxygenBaseTheme, {
           backgroundAttachment: 'fixed',
           backgroundImage: `
             radial-gradient(circle at 65% 30%, rgb(255 116 0 / 13%) 10%, rgba(0, 0, 0, 0) 60% 40%),
-            radial-gradient(circle at 15% 50%, rgb(74 41 165 / 22%) 1%, rgba(0, 0, 0, 0) 40% 70%),
+            radial-gradient(circle at 15% 50%, rgb(132 40 0 / 18%) 1%, rgba(0, 0, 0, 0) 40% 70%),
             radial-gradient(circle at center, rgba(0, 0, 0, 0.6) 0%, var(--oxygen-palette-background-default) 100%)
           `,
           backgroundBlendMode: 'screen',
@@ -61,4 +61,4 @@ const AsgardeoTheme = extendTheme(OxygenBaseTheme, {
   },
 }) as OxygenTheme;
 
-export default AsgardeoTheme;
+export default AcrylicOrangeTheme;

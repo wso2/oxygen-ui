@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import { OxygenUIThemeProvider, AsgardeoTheme, ChoreoTheme } from '@wso2/oxygen-ui'
+import { OxygenUIThemeProvider, AcrylicOrangeTheme, AcrylicPurpleTheme, ClassicTheme, HighContrastTheme } from '@wso2/oxygen-ui'
 import { BrowserRouter } from 'react-router'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -27,10 +27,12 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <OxygenUIThemeProvider 
       themes={[
-        { key: 'asgardeo', label: 'Asgardeo Theme', theme: AsgardeoTheme },
-        { key: 'choreo', label: 'Choreo Theme', theme: ChoreoTheme },
+        { key: 'acrylicOrange', label: 'Acrylic Orange Theme', theme: AcrylicOrangeTheme },
+        { key: 'acrylicPurple', label: 'Acrylic Purple Theme', theme: AcrylicPurpleTheme },
+        { key: 'highContrast', label: 'High Contrast Theme', theme: HighContrastTheme },
+        { key: 'classic', label: 'Classic Theme', theme: ClassicTheme },
       ]}
-      initialTheme="asgardeo"
+      initialTheme="acrylicOrange"
     >
       <BrowserRouter>
         <App />

@@ -150,14 +150,14 @@ export default function SettingsPage(): JSX.Element {
           {activeTab === 0 && (
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
                   Organization Information
                 </Typography>
-                <Divider sx={{ mb: 3 }} />
+                <Divider sx={{ mb: 4 }} />
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                   <Box>
-                    <Typography variant="subtitle2" gutterBottom>
+                    <Typography variant="body1" gutterBottom sx={{ mb: 2 }}>
                       Organization Logo
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -281,7 +281,7 @@ export default function SettingsPage(): JSX.Element {
           {activeTab === 1 && (
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
                   Appearance Settings
                 </Typography>
                 <Divider sx={{ mb: 3 }} />
@@ -357,7 +357,7 @@ export default function SettingsPage(): JSX.Element {
           {activeTab === 2 && (
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
                   Notification Settings
                 </Typography>
                 <Divider sx={{ mb: 3 }} />
@@ -489,7 +489,7 @@ export default function SettingsPage(): JSX.Element {
           {activeTab === 3 && (
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
                   Security Settings
                 </Typography>
                 <Divider sx={{ mb: 3 }} />
@@ -574,7 +574,7 @@ export default function SettingsPage(): JSX.Element {
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                  <Typography variant="h6">Team Members</Typography>
+                  <Typography variant="h5" gutterBottom>Team Members</Typography>
                   <Button variant="contained" size="small" startIcon={<Users size={18} />}>
                     Invite Member
                   </Button>
@@ -663,7 +663,7 @@ export default function SettingsPage(): JSX.Element {
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                  <Typography variant="h6">API Keys</Typography>
+                  <Typography variant="h5" gutterBottom>API Keys</Typography>
                   <Button variant="contained" size="small">
                     Generate New Key
                   </Button>
@@ -738,7 +738,7 @@ export default function SettingsPage(): JSX.Element {
           {activeTab === 6 && (
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
                   Billing & Subscription
                 </Typography>
                 <Divider sx={{ mb: 3 }} />
@@ -849,7 +849,7 @@ export default function SettingsPage(): JSX.Element {
           {activeTab === 7 && (
             <Card variant="outlined" sx={{ borderColor: 'error.main' }}>
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="h6" gutterBottom color="error">
+                <Typography variant="h5" gutterBottom sx={{ mb: 2 }} color="error">
                   Danger Zone
                 </Typography>
                 <Divider sx={{ mb: 3 }} />

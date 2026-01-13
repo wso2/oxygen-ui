@@ -17,15 +17,14 @@
  */
 
 import { extendTheme } from '@mui/material/styles';
-import OxygenBaseTheme from './OxygenBaseTheme';
-import type { OxygenTheme } from './OxygenBaseTheme';
+import OxygenThemeBase, { type OxygenTheme } from './OxygenThemeBase';
 
 /**
  * High Contrast Theme - Maximum accessibility with high contrast colors
  * Features: Pure black/white backgrounds, bold borders, enhanced visibility
  * Designed for users with visual impairments or low vision
  */
-const HighContrastThemeBase = extendTheme(OxygenBaseTheme, {
+const HighContrastThemeBase = extendTheme(OxygenThemeBase, {
   colorSchemes: {
     light: {
       palette: {
@@ -110,10 +109,6 @@ const HighContrastThemeBase = extendTheme(OxygenBaseTheme, {
       },
     },
   },
-  border: {
-    width: '3px',
-    style: 'solid',
-  },
   components: {
     MuiButton: {
       styleOverrides: {
@@ -191,13 +186,6 @@ const HighContrastThemeBase = extendTheme(OxygenBaseTheme, {
           textDecorationThickness: '2px',
           textUnderlineOffset: '4px',
           fontWeight: 700,
-        },
-      },
-    },
-    MuiDivider: {
-      styleOverrides: {
-        root: {
-          borderWidth: '2px',
         },
       },
     },

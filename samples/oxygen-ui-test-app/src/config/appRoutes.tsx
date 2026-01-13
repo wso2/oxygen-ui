@@ -17,21 +17,21 @@
  */
 
 import { type RouteProps } from 'react-router'
-import DefaultLayout from '../layouts/DefaultLayout';
-import HomePage from '../pages/HomePage';
-import LoginPage from '../pages/LoginPage';
-import LoginPage2 from '../pages/LoginPage2';
-import GateLayout from '../layouts/GateLayout';
-import ProjectList from '../pages/ProjectList';
-import ProjectOverview from '../pages/ProjectOverview';
-import ComponentCreate from '../pages/ComponentCreate';
-import ComponentList from '../pages/ComponentList';
-import EmptyComponentList from '../pages/EmptyComponentList';
-import LogView from '../pages/LogView';
-import LoginEditorView from '../pages/LoginEditorView';
-import SettingsPage from '../pages/SettingsPage';
-import ErrorPage from '../pages/ErrorPage';
-import AppLayout from '../layouts/AppLayout';
+import DefaultLayout from '../layouts/DefaultLayout'
+import HomePage from '../pages/HomePage'
+import LoginPage from '../pages/LoginPage'
+import LoginPage2 from '../pages/LoginPage2'
+import GateLayout from '../layouts/GateLayout'
+import ProjectOverview from '../pages/ProjectOverview'
+import ComponentCreate from '../pages/ComponentCreate'
+import ComponentList from '../pages/ComponentList'
+import EmptyComponentList from '../pages/EmptyComponentList'
+import LogView from '../pages/LogView'
+import LoginEditorView from '../pages/LoginEditorView'
+import SettingsPage from '../pages/SettingsPage'
+import ErrorPage from '../pages/ErrorPage'
+import AppLayout from '../layouts/AppLayout'
+import OrganizationOverview from '../pages/OrganizationOverview'
 
 /**
  * Interface representing an application route configuration.
@@ -41,15 +41,15 @@ export interface AppRoute extends Omit<RouteProps, 'children'> {
   /**
    * Child routes nested under this route.
    */
-  children?: AppRoute[];
+  children?: AppRoute[]
   /**
    * Label to display in navigation links.
    */
-  label?: string;
+  label?: string
   /**
    * Whether to show this route in navigation.
    */
-  showInNav?: boolean;
+  showInNav?: boolean
 }
 
 /**
@@ -93,8 +93,19 @@ const appRoutes: AppRoute[] = [
     element: <AppLayout />,
     children: [
       {
+        path: '/organizations',
+        element: <OrganizationOverview />,
+        label: 'Organizations',
+        showInNav: true,
+      },
+    ],
+  },
+  {
+    element: <AppLayout />,
+    children: [
+      {
         path: '/projects',
-        element: <ProjectList />,
+        element: <ProjectOverview />,
         label: 'Projects',
         showInNav: true,
       },
@@ -166,6 +177,6 @@ const appRoutes: AppRoute[] = [
       },
     ],
   },
-];
+]
 
-export default appRoutes;
+export default appRoutes

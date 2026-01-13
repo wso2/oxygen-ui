@@ -77,7 +77,7 @@ export default function LoginPage(): JSX.Element {
         height={30}
         width="auto"
       />),
-    choreo: (
+    acrylicPurple: (
       <ColorSchemeImage
         src={{
           light: `${import.meta.env.BASE_URL}assets/images/choreo-logo.svg`,
@@ -111,7 +111,7 @@ export default function LoginPage(): JSX.Element {
           ))}
         </Stack>
       </>),
-    choreo: (
+    acrylicPurple: (
       <>
         <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 0 }}>
           Get Started with Choreo Internal Developer Platform
@@ -146,7 +146,7 @@ export default function LoginPage(): JSX.Element {
         width="auto"
         sx={{ position: 'absolute', bottom: 50, right: -100 }}
       />),
-    choreo: (
+    acrylicPurple: (
       <ColorSchemeImage
         src={{
           light: `${import.meta.env.BASE_URL}assets/images/idevp-login.svg`,

@@ -17,14 +17,14 @@
  */
 
 import { extendTheme } from '@mui/material/styles';
-import OxygenBaseTheme from './OxygenBaseTheme';
-import type { OxygenTheme } from './OxygenBaseTheme';
+import AcrylicBaseTheme from './AcrylicBaseTheme';
+import type { OxygenTheme } from './OxygenThemeBase';
 
 /**
- * Choreo Theme - Inspired by Choreo's design system
+ * AcrylicPurple Theme - Purple-blue gradient theme
  * Features: Purple-blue gradient, modern spacing, radial background
  */
-const ChoreoThemeBase = extendTheme(OxygenBaseTheme, {
+const AcrylicPurpleThemeBase = extendTheme(AcrylicBaseTheme, {
   colorSchemes: {
     light: {
       palette: {
@@ -33,6 +33,10 @@ const ChoreoThemeBase = extendTheme(OxygenBaseTheme, {
           light: '#8187ff',
           dark: '#4651cc',
           contrastText: '#ffffff',
+        },
+        action: {
+          selected: 'rgba(100, 108, 255, 0.16)',
+          selectedOpacity: 0.16,
         },
       },
     },
@@ -43,6 +47,10 @@ const ChoreoThemeBase = extendTheme(OxygenBaseTheme, {
           light: '#8187ff',
           dark: '#4651cc',
           contrastText: '#ffffff',
+        },
+        action: {
+          selected: 'rgba(100, 108, 255, 0.24)',
+          selectedOpacity: 0.24,
         },
       },
     },
@@ -61,6 +69,18 @@ const ChoreoThemeBase = extendTheme(OxygenBaseTheme, {
             },
           },
         }),
+      },
+    },
+    MuiTableRow: {
+      styleOverrides: {
+        root: {
+          '&.Mui-selected': {
+            backgroundColor: 'rgba(100, 108, 255, 0.16)',
+            '&:hover': {
+              backgroundColor: 'rgba(100, 108, 255, 0.24)',
+            },
+          },
+        },
       },
     },
     MuiCssBaseline: {
@@ -89,17 +109,17 @@ const ChoreoThemeBase = extendTheme(OxygenBaseTheme, {
 });
 
 // Add custom gradient property
-const choreoGradient = {
+const acrylicPurpleGradient = {
   gradient: {
     primary: 'linear-gradient(77.74deg, #5567d5 11.16%, #7155d5ff 99.55%)',
   },
 };
 
-Object.assign(ChoreoThemeBase, choreoGradient);
-if (ChoreoThemeBase.vars) {
-  Object.assign(ChoreoThemeBase.vars, choreoGradient);
+Object.assign(AcrylicPurpleThemeBase, acrylicPurpleGradient);
+if (AcrylicPurpleThemeBase.vars) {
+  Object.assign(AcrylicPurpleThemeBase.vars, acrylicPurpleGradient);
 }
 
-const ChoreoTheme = ChoreoThemeBase as OxygenTheme;
+const AcrylicPurpleTheme = AcrylicPurpleThemeBase as OxygenTheme;
 
-export default ChoreoTheme;
+export default AcrylicPurpleTheme;
