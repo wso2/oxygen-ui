@@ -31,6 +31,8 @@ export { default as SearchBarWithAdvancedFilter } from './SearchBar/SearchBarWit
 export type { SearchBarWithAdvancedFilterProps } from './SearchBar/SearchBarWithAdvancedFilter';
 export { default as SearchBar } from './SearchBar/SearchBar';
 export type { SearchBarProps } from './SearchBar/SearchBar';
+export { NoResultsIllustration, NotFoundIllustration } from './Illustrations';
+export type { NoResultsIllustrationProps, NotFoundIllustrationProps } from './Illustrations';
 
 // App Shell Components
 export { Header } from './Header';

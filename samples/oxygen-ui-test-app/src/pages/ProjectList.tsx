@@ -29,6 +29,8 @@ import {
   InputAdornment,
   Chip,
   IconButton,
+  NoResultsIllustration,
+  NotFoundIllustration,
 } from '@wso2/oxygen-ui'
 import { Search, Plus, MoreVertical, Folder } from '@wso2/oxygen-ui-icons-react'
 import { useNavigate } from 'react-router'
@@ -135,7 +137,8 @@ export default function ProjectList(): JSX.Element {
           }}
         />
       </Box>
-
+      <NoResultsIllustration />
+      <NotFoundIllustration />
       {/* Projects Grid */}
       {filteredProjects.length === 0 ? (
         <Box sx={{ textAlign: 'center', py: 8 }}>
