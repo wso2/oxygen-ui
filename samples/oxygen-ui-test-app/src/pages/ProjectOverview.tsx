@@ -31,26 +31,66 @@ import {
   ListItem,
   ListItemText,
   Grid,
+  ListingTable,
 } from '@wso2/oxygen-ui'
-import { ArrowLeft, Settings, Plus, Activity, FileText, Users, Clock } from '@wso2/oxygen-ui-icons-react'
+import {
+  ArrowLeft,
+  Settings,
+  Plus,
+  Activity,
+  FileText,
+  Users,
+  Clock,
+  Key,
+  Shield,
+  RefreshCw,
+  Lock,
+  Edit,
+  ChevronRight,
+} from '@wso2/oxygen-ui-icons-react'
 import { useNavigate, useParams } from 'react-router'
 import type { JSX } from 'react'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 
 interface Component {
   id: string
   name: string
-  type: string
+  type: 'Authentication' | 'Authorization' | 'Registration' | 'Recovery' | 'Security'
   status: 'active' | 'inactive'
   lastModified: string
 }
 
 const mockComponents: Component[] = [
-  { id: '1', name: 'Login Flow', type: 'Authentication', status: 'active', lastModified: '2 hours ago' },
-  { id: '2', name: 'Sign Up Flow', type: 'Registration', status: 'active', lastModified: '1 day ago' },
+  { id: '1', name: 'Basic Login Flow', type: 'Authentication', status: 'active', lastModified: '2 hours ago' },
+  { id: '2', name: 'Social Sign Up', type: 'Registration', status: 'active', lastModified: '1 day ago' },
   { id: '3', name: 'Password Reset', type: 'Recovery', status: 'active', lastModified: '3 days ago' },
-  { id: '4', name: 'MFA Configuration', type: 'Security', status: 'inactive', lastModified: '1 week ago' },
+  { id: '4', name: 'MFA Setup', type: 'Security', status: 'inactive', lastModified: '1 week ago' },
+  { id: '5', name: 'OAuth Integration', type: 'Authorization', status: 'active', lastModified: '5 days ago' },
+  { id: '6', name: 'SAML SSO', type: 'Authentication', status: 'active', lastModified: '4 days ago' },
+  { id: '7', name: 'Email Verification', type: 'Registration', status: 'active', lastModified: '5 days ago' },
+  { id: '8', name: 'Account Lockout', type: 'Security', status: 'active', lastModified: '6 days ago' },
+  { id: '9', name: 'Session Management', type: 'Authorization', status: 'active', lastModified: '1 week ago' },
+  { id: '10', name: 'Magic Link Login', type: 'Authentication', status: 'inactive', lastModified: '2 weeks ago' },
+  { id: '11', name: 'Biometric Auth', type: 'Security', status: 'inactive', lastModified: '3 weeks ago' },
+  { id: '12', name: 'API Key Management', type: 'Authorization', status: 'active', lastModified: '4 days ago' },
 ]
+
+const getTypeIcon = (type: Component['type']) => {
+  switch (type) {
+    case 'Authentication':
+      return <Key size={18} />
+    case 'Authorization':
+      return <Shield size={18} />
+    case 'Registration':
+      return <FileText size={18} />
+    case 'Recovery':
+      return <RefreshCw size={18} />
+    case 'Security':
+      return <Lock size={18} />
+    default:
+      return <FileText size={18} />
+  }
+}
 
 const mockActivity = [
   { id: '1', action: 'Updated Login Flow component', user: 'John Doe', timestamp: '2 hours ago' },
@@ -63,9 +103,31 @@ export default function ProjectOverview(): JSX.Element {
   const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
   const [activeTab, setActiveTab] = useState(0)
+  const [sortField, setSortField] = useState<keyof Component>('name')
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
 
   const projectName = 'E-Commerce Platform'
   const projectDescription = 'Complete authentication and user management system for e-commerce'
+
+  const handleSort = (field: keyof Component) => {
+    if (sortField === field) {
+      setSortDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'))
+    } else {
+      setSortField(field)
+      setSortDirection('asc')
+    }
+  }
+
+  const sortedComponents = useMemo(() => {
+    return [...mockComponents].sort((a, b) => {
+      const aVal = a[sortField]
+      const bVal = b[sortField]
+      const comparison = String(aVal).localeCompare(String(bVal))
+      return sortDirection === 'asc' ? comparison : -comparison
+    })
+  }, [sortField, sortDirection])
+
+  const displayedComponents = sortedComponents.slice(0, 4)
 
   return (
     <Box sx={{ p: 3, maxWidth: '1400px', mx: 'auto' }}>
@@ -84,6 +146,9 @@ export default function ProjectOverview(): JSX.Element {
         <Box sx={{ display: 'flex', gap: 2, mt: 2, ml: 6 }}>
           <Button variant="contained" startIcon={<Plus size={18} />} onClick={() => navigate(`/projects/${id}/components/new`)}>
             Add Component
+          </Button>
+          <Button variant="outlined" onClick={() => navigate(`/projects/${id}/components`)}>
+            Manage Components
           </Button>
           <Button variant="outlined" startIcon={<Settings size={18} />} onClick={() => navigate(`/projects/${id}/settings`)}>
             Settings
@@ -167,41 +232,93 @@ export default function ProjectOverview(): JSX.Element {
       {/* Tab Content */}
       {activeTab === 0 && (
         <Card variant="outlined">
-          <CardContent>
-            <Typography variant="h6" sx={{ mb: 2 }}>
-              Components
-            </Typography>
-            <Divider sx={{ mb: 2 }} />
-            <List>
-              {mockComponents.map((component, index) => (
-                <Box key={component.id}>
-                  <ListItem
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      '&:hover': { bgcolor: 'action.hover', cursor: 'pointer' },
-                    }}
-                    onClick={() => navigate(`/projects/${id}/components/${component.id}`)}
-                  >
-                    <ListItemText
-                      primary={component.name}
-                      secondary={`${component.type} • Modified ${component.lastModified}`}
-                    />
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                      <Chip
-                        label={component.status}
-                        size="small"
-                        color={component.status === 'active' ? 'success' : 'default'}
-                      />
-                      <Button size="small" variant="text">
-                        Edit
-                      </Button>
-                    </Box>
-                  </ListItem>
-                  {index < mockComponents.length - 1 && <Divider />}
-                </Box>
-              ))}
-            </List>
+          <CardContent sx={{ p: 0, '&:last-child': { pb: 0 } }}>
+            <ListingTable.Container>
+              <ListingTable density="compact">
+                <ListingTable.Head>
+                  <ListingTable.Row>
+                    <ListingTable.Cell>
+                      <ListingTable.SortLabel
+                        active={sortField === 'name'}
+                        direction={sortField === 'name' ? sortDirection : 'asc'}
+                        onClick={() => handleSort('name')}
+                      >
+                        Name
+                      </ListingTable.SortLabel>
+                    </ListingTable.Cell>
+                    <ListingTable.Cell>Type</ListingTable.Cell>
+                    <ListingTable.Cell>
+                      <ListingTable.SortLabel
+                        active={sortField === 'status'}
+                        direction={sortField === 'status' ? sortDirection : 'asc'}
+                        onClick={() => handleSort('status')}
+                      >
+                        Status
+                      </ListingTable.SortLabel>
+                    </ListingTable.Cell>
+                    <ListingTable.Cell>
+                      <ListingTable.SortLabel
+                        active={sortField === 'lastModified'}
+                        direction={sortField === 'lastModified' ? sortDirection : 'asc'}
+                        onClick={() => handleSort('lastModified')}
+                      >
+                        Last Modified
+                      </ListingTable.SortLabel>
+                    </ListingTable.Cell>
+                    <ListingTable.Cell align="right">Actions</ListingTable.Cell>
+                  </ListingTable.Row>
+                </ListingTable.Head>
+                <ListingTable.Body>
+                  {displayedComponents.map((component) => (
+                    <ListingTable.Row
+                      key={component.id}
+                      hover
+                      clickable
+                      onClick={() => navigate(`/projects/${id}/components/${component.id}`)}
+                    >
+                      <ListingTable.Cell>
+                        <ListingTable.CellIcon icon={getTypeIcon(component.type)} primary={component.name} />
+                      </ListingTable.Cell>
+                      <ListingTable.Cell>
+                        <Chip label={component.type} size="small" variant="outlined" />
+                      </ListingTable.Cell>
+                      <ListingTable.Cell>
+                        <Chip
+                          label={component.status}
+                          size="small"
+                          color={component.status === 'active' ? 'success' : 'default'}
+                        />
+                      </ListingTable.Cell>
+                      <ListingTable.Cell>{component.lastModified}</ListingTable.Cell>
+                      <ListingTable.Cell align="right">
+                        <ListingTable.RowActions visibility="hover">
+                          <IconButton
+                            size="small"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              navigate(`/projects/${id}/components/${component.id}/edit`)
+                            }}
+                          >
+                            <Edit size={16} />
+                          </IconButton>
+                        </ListingTable.RowActions>
+                      </ListingTable.Cell>
+                    </ListingTable.Row>
+                  ))}
+                </ListingTable.Body>
+              </ListingTable>
+            </ListingTable.Container>
+            {mockComponents.length > 4 && (
+              <Box sx={{ p: 2, borderTop: 1, borderColor: 'divider', textAlign: 'right' }}>
+                <Button
+                  size="small"
+                  endIcon={<ChevronRight size={16} />}
+                  onClick={() => navigate(`/projects/${id}/components`)}
+                >
+                  View All Components ({mockComponents.length})
+                </Button>
+              </Box>
+            )}
           </CardContent>
         </Card>
       )}
