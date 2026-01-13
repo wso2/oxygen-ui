@@ -80,7 +80,16 @@ const SidebarUserTextContainer = styled(Box, {
 })<{ collapsed: boolean }>(({ theme, collapsed }) => ({
   marginLeft: theme.spacing(2),
   overflow: 'hidden',
-}));
+  opacity: collapsed ? 0 : 1,
+  width: collapsed ? 0 : 'auto',
+  whiteSpace: 'nowrap',
+  transition: theme.transitions.create(['opacity', 'width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: collapsed
+      ? theme.transitions.duration.leavingScreen
+      : theme.transitions.duration.enteringScreen,
+  }),
+}))
 
 // Child display names for detection
 const CHILD_DISPLAY_NAMES = [
