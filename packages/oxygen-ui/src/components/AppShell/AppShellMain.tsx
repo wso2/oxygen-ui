@@ -16,9 +16,34 @@
  * under the License.
  */
 
-export { useAppShellState } from './useAppShellState';
-export type {
-  AppShellState,
-  AppShellActions,
-  UseAppShellStateOptions,
-} from './useAppShellState';
+import * as React from 'react';
+
+/**
+ * Props for AppShellMain component.
+ */
+export interface AppShellMainProps {
+  /** Main content area */
+  children: React.ReactNode;
+}
+
+/**
+ * AppShellMain - Slot component for the main content area.
+ *
+ * Used as a child of AppShell to define the primary content area.
+ *
+ * @example
+ * ```tsx
+ * <AppShell>
+ *   <AppShell.Main>
+ *     <Outlet />
+ *   </AppShell.Main>
+ * </AppShell>
+ * ```
+ */
+export const AppShellMain: React.FC<AppShellMainProps> = ({ children }) => {
+  return <>{children}</>;
+};
+
+AppShellMain.displayName = 'AppShellMain';
+
+export default AppShellMain;

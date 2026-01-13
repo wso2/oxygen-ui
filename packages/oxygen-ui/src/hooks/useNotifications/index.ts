@@ -16,20 +16,10 @@
  * under the License.
  */
 
-export { useThemeContent, default as useThemeContentDefault } from './useThemeContent/useThemeContent';
-
-export { useAppShell } from './useAppShell/useAppShell';
-export type {
-  AppShellState,
-  AppShellActions,
-  UseAppShellOptions,
-  UseAppShellReturn,
-} from './useAppShell/useAppShell';
-
-export { useNotifications } from './useNotifications/useNotifications';
+export { useNotifications, default } from './useNotifications';
 export type {
   NotificationItem,
   NotificationActions,
   UseNotificationsOptions,
   UseNotificationsReturn,
-} from './useNotifications/useNotifications';
+} from './useNotifications';

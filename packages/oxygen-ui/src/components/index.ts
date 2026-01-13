@@ -99,6 +99,10 @@ export type { UserMenuProps, UserMenuUser } from './UserMenu';
 export { NotificationBanner } from './NotificationBanner';
 export type { NotificationBannerProps } from './NotificationBanner';
 
+// AppShell Component
+export { AppShell } from './AppShell';
+export type { AppShellProps } from './AppShell';
+
 // ListingTable Component (compound component with enhanced features)
 export { default as ListingTable } from './ListingTable';
 export {
