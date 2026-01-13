@@ -61,18 +61,84 @@ interface Component {
 }
 
 const mockComponents: Component[] = [
-  { id: '1', name: 'Basic Login Flow', type: 'Authentication', status: 'active', lastModified: '2 hours ago' },
-  { id: '2', name: 'Social Sign Up', type: 'Registration', status: 'active', lastModified: '1 day ago' },
-  { id: '3', name: 'Password Reset', type: 'Recovery', status: 'active', lastModified: '3 days ago' },
+  {
+    id: '1',
+    name: 'Basic Login Flow',
+    type: 'Authentication',
+    status: 'active',
+    lastModified: '2 hours ago',
+  },
+  {
+    id: '2',
+    name: 'Social Sign Up',
+    type: 'Registration',
+    status: 'active',
+    lastModified: '1 day ago',
+  },
+  {
+    id: '3',
+    name: 'Password Reset',
+    type: 'Recovery',
+    status: 'active',
+    lastModified: '3 days ago',
+  },
   { id: '4', name: 'MFA Setup', type: 'Security', status: 'inactive', lastModified: '1 week ago' },
-  { id: '5', name: 'OAuth Integration', type: 'Authorization', status: 'active', lastModified: '5 days ago' },
-  { id: '6', name: 'SAML SSO', type: 'Authentication', status: 'active', lastModified: '4 days ago' },
-  { id: '7', name: 'Email Verification', type: 'Registration', status: 'active', lastModified: '5 days ago' },
-  { id: '8', name: 'Account Lockout', type: 'Security', status: 'active', lastModified: '6 days ago' },
-  { id: '9', name: 'Session Management', type: 'Authorization', status: 'active', lastModified: '1 week ago' },
-  { id: '10', name: 'Magic Link Login', type: 'Authentication', status: 'inactive', lastModified: '2 weeks ago' },
-  { id: '11', name: 'Biometric Auth', type: 'Security', status: 'inactive', lastModified: '3 weeks ago' },
-  { id: '12', name: 'API Key Management', type: 'Authorization', status: 'active', lastModified: '4 days ago' },
+  {
+    id: '5',
+    name: 'OAuth Integration',
+    type: 'Authorization',
+    status: 'active',
+    lastModified: '5 days ago',
+  },
+  {
+    id: '6',
+    name: 'SAML SSO',
+    type: 'Authentication',
+    status: 'active',
+    lastModified: '4 days ago',
+  },
+  {
+    id: '7',
+    name: 'Email Verification',
+    type: 'Registration',
+    status: 'active',
+    lastModified: '5 days ago',
+  },
+  {
+    id: '8',
+    name: 'Account Lockout',
+    type: 'Security',
+    status: 'active',
+    lastModified: '6 days ago',
+  },
+  {
+    id: '9',
+    name: 'Session Management',
+    type: 'Authorization',
+    status: 'active',
+    lastModified: '1 week ago',
+  },
+  {
+    id: '10',
+    name: 'Magic Link Login',
+    type: 'Authentication',
+    status: 'inactive',
+    lastModified: '2 weeks ago',
+  },
+  {
+    id: '11',
+    name: 'Biometric Auth',
+    type: 'Security',
+    status: 'inactive',
+    lastModified: '3 weeks ago',
+  },
+  {
+    id: '12',
+    name: 'API Key Management',
+    type: 'Authorization',
+    status: 'active',
+    lastModified: '4 days ago',
+  },
 ]
 
 const getTypeIcon = (type: Component['type']) => {
@@ -111,7 +177,7 @@ export default function ProjectOverview(): JSX.Element {
 
   const handleSort = (field: keyof Component) => {
     if (sortField === field) {
-      setSortDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'))
+      setSortDirection(prev => (prev === 'asc' ? 'desc' : 'asc'))
     } else {
       setSortField(field)
       setSortDirection('asc')
@@ -144,13 +210,21 @@ export default function ProjectOverview(): JSX.Element {
           {projectDescription}
         </Typography>
         <Box sx={{ display: 'flex', gap: 2, mt: 2, ml: 6 }}>
-          <Button variant="contained" startIcon={<Plus size={18} />} onClick={() => navigate(`/projects/${id}/components/new`)}>
+          <Button
+            variant="contained"
+            startIcon={<Plus size={18} />}
+            onClick={() => navigate(`/projects/${id}/components/new`)}
+          >
             Add Component
           </Button>
           <Button variant="outlined" onClick={() => navigate(`/projects/${id}/components`)}>
             Manage Components
           </Button>
-          <Button variant="outlined" startIcon={<Settings size={18} />} onClick={() => navigate(`/projects/${id}/settings`)}>
+          <Button
+            variant="outlined"
+            startIcon={<Settings size={18} />}
+            onClick={() => navigate(`/projects/${id}/settings`)}
+          >
             Settings
           </Button>
         </Box>
@@ -179,7 +253,9 @@ export default function ProjectOverview(): JSX.Element {
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                 <Activity size={24} color="success" />
                 <Box>
-                  <Typography variant="h5">{mockComponents.filter((c) => c.status === 'active').length}</Typography>
+                  <Typography variant="h5">
+                    {mockComponents.filter(c => c.status === 'active').length}
+                  </Typography>
                   <Typography variant="body2" color="text.secondary">
                     Active
                   </Typography>
@@ -269,7 +345,7 @@ export default function ProjectOverview(): JSX.Element {
                   </ListingTable.Row>
                 </ListingTable.Head>
                 <ListingTable.Body>
-                  {displayedComponents.map((component) => (
+                  {displayedComponents.map(component => (
                     <ListingTable.Row
                       key={component.id}
                       hover
@@ -277,7 +353,10 @@ export default function ProjectOverview(): JSX.Element {
                       onClick={() => navigate(`/projects/${id}/components/${component.id}`)}
                     >
                       <ListingTable.Cell>
-                        <ListingTable.CellIcon icon={getTypeIcon(component.type)} primary={component.name} />
+                        <ListingTable.CellIcon
+                          icon={getTypeIcon(component.type)}
+                          primary={component.name}
+                        />
                       </ListingTable.Cell>
                       <ListingTable.Cell>
                         <Chip label={component.type} size="small" variant="outlined" />
@@ -294,7 +373,7 @@ export default function ProjectOverview(): JSX.Element {
                         <ListingTable.RowActions visibility="hover">
                           <IconButton
                             size="small"
-                            onClick={(e) => {
+                            onClick={e => {
                               e.stopPropagation()
                               navigate(`/projects/${id}/components/${component.id}/edit`)
                             }}
