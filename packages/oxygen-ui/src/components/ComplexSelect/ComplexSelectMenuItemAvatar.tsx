@@ -21,15 +21,22 @@ import { ReactNode } from 'react';
 import MuiListItemAvatar from '@mui/material/ListItemAvatar';
 import MuiAvatar, { AvatarProps } from '@mui/material/Avatar';
 
-const StyledAvatar = styled(MuiAvatar)(({ theme }) => ({
+const StyledAvatar = styled(MuiAvatar, {
+  name: 'MuiComplexSelectMenuItemAvatar',
+  slot: 'Avatar',
+})(({ theme }) => ({
   width: 28,
   height: 28,
+  fontSize: '1rem',
   backgroundColor: (theme.vars || theme).palette.background.paper,
   color: (theme.vars || theme).palette.text.secondary,
   border: `1px solid ${(theme.vars || theme).palette.divider}`,
 }));
 
-const StyledListItemAvatar = styled(MuiListItemAvatar)({
+const StyledListItemAvatar = styled(MuiListItemAvatar, {
+  name: 'MuiComplexSelectMenuItemAvatar',
+  slot: 'Root',
+})({
   minWidth: 0,
   marginRight: 12,
 });

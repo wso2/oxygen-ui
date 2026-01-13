@@ -18,9 +18,31 @@
 
 import { ReactNode, ReactElement } from 'react';
 import MuiMenuItem, { MenuItemProps } from '@mui/material/MenuItem';
+import { styled } from '@mui/material/styles';
 import ComplexSelectMenuItemAvatar from './ComplexSelectMenuItemAvatar';
 import ComplexSelectMenuItemText from './ComplexSelectMenuItemText';
 import ComplexSelectMenuItemIcon from './ComplexSelectMenuItemIcon';
+
+const StyledMenuItem = styled(MuiMenuItem, {
+  name: 'MuiComplexSelectMenuItem',
+  slot: 'Root',
+})(({ theme }) => ({
+  '&:hover': {
+    backgroundColor: theme.vars
+      ? `rgba(${theme.vars.palette.primary.mainChannel} / 0.08)`
+      : theme.palette.action.hover,
+  },
+  '&.Mui-selected': {
+    backgroundColor: theme.vars
+      ? `rgba(${theme.vars.palette.primary.mainChannel} / 0.12)`
+      : theme.palette.action.selected,
+    '&:hover': {
+      backgroundColor: theme.vars
+        ? `rgba(${theme.vars.palette.primary.mainChannel} / 0.16)`
+        : theme.palette.action.selected,
+    },
+  },
+}));
 
 export interface ComplexSelectMenuItemProps extends MenuItemProps {
   children: ReactNode;
@@ -35,7 +57,7 @@ interface ComplexSelectMenuItemComponent {
 
 export const ComplexSelectMenuItem: ComplexSelectMenuItemComponent = Object.assign(
   ({ children, ...props }: ComplexSelectMenuItemProps) => {
-    return <MuiMenuItem {...props}>{children}</MuiMenuItem>;
+    return <StyledMenuItem {...props}>{children}</StyledMenuItem>;
   },
   {
     Avatar: ComplexSelectMenuItemAvatar,
