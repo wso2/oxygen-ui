@@ -28,7 +28,8 @@ import { useSidebar } from './context';
 const SidebarCategoryLabelRoot = styled(Typography, {
   name: 'MuiSidebar',
   slot: 'CategoryLabel',
-})(({ theme }) => ({
+  shouldForwardProp: prop => prop !== 'collapsed',
+})<{ collapsed: boolean }>(({ theme, collapsed }) => ({
   paddingLeft: theme.spacing(3),
   paddingRight: theme.spacing(3),
   paddingTop: theme.spacing(1),
