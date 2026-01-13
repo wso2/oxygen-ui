@@ -168,7 +168,7 @@ const separateChildren = (children: React.ReactNode): {
   const composableChildren: React.ReactNode[] = [];
   const nestedItems: React.ReactNode[] = [];
 
-  React.Children.forEach(children, (child) => {
+  React.Children.toArray(children).forEach((child) => {
     if (React.isValidElement(child)) {
       const displayName = (child.type as React.FC)?.displayName;
       if (displayName && CHILD_DISPLAY_NAMES.includes(displayName)) {
