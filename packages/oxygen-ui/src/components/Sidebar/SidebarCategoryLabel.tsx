@@ -82,7 +82,7 @@ export const SidebarCategoryLabel: React.FC<SidebarCategoryLabelProps> = ({ chil
   const { collapsed } = useSidebar()
 
   return (
-    <SidebarCategoryLabelRoot variant="caption" sx={sx}>
+    <SidebarCategoryLabelRoot variant="caption" collapsed={collapsed} sx={sx}>
       {children}
     </SidebarCategoryLabelRoot>
   );
