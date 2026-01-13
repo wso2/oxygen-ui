@@ -187,9 +187,7 @@ export const SidebarUser: React.FC<SidebarUserProps> = ({
   const content = (
     <SidebarUserButton onClick={onClick} ownerState={ownerState}>
       {avatarChild}
-      {!collapsed && textChildren.length > 0 && (
-        <SidebarUserTextContainer>{textChildren}</SidebarUserTextContainer>
-      )}
+      <SidebarUserTextContainer collapsed={collapsed}>{textChildren}</SidebarUserTextContainer>
     </SidebarUserButton>
   );
 
