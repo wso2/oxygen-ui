@@ -28,8 +28,9 @@ import { useSidebarItemContext } from './SidebarItemContext';
  */
 interface SidebarItemLabelRootProps {
   ownerState: {
-    isActive: boolean;
-  };
+    isActive: boolean
+    collapsed: boolean
+  }
 }
 
 /**
