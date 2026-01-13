@@ -76,7 +76,8 @@ const SidebarUserButton = styled(ListItemButton, {
 const SidebarUserTextContainer = styled(Box, {
   name: 'MuiSidebar',
   slot: 'UserTextContainer',
-})(({ theme }) => ({
+  shouldForwardProp: prop => prop !== 'collapsed',
+})<{ collapsed: boolean }>(({ theme, collapsed }) => ({
   marginLeft: theme.spacing(2),
   overflow: 'hidden',
 }));
