@@ -99,6 +99,9 @@ export type { UserMenuProps, UserMenuUser } from './UserMenu';
 export { NotificationBanner } from './NotificationBanner';
 export type { NotificationBannerProps } from './NotificationBanner';
 
+// Form Component
+export { Form } from './Form';
+
 // AppShell Component
 export { AppShell } from './AppShell';
 export type { AppShellProps } from './AppShell';
