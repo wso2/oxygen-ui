@@ -165,7 +165,7 @@ export default function LoginEditorView(): JSX.Element {
           }}
         >
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={activeTab} onChange={(_, newValue) => setActiveTab(newValue)}>
+            <Tabs value={activeTab} onChange={(_, newValue) => setActiveTab(newValue)} variant="fullWidth">
               <Tab label="Visual Editor" icon={<Settings size={16} />} iconPosition="start" />
               <Tab label="Code Editor" icon={<Code size={16} />} iconPosition="start" />
             </Tabs>

@@ -41,6 +41,7 @@ import {
   Grid,
   Avatar,
   ThemeSwitcher,
+  PageContent,
 } from '@wso2/oxygen-ui'
 import {
   Save,
@@ -102,7 +103,7 @@ export default function SettingsPage(): JSX.Element {
   }
 
   return (
-    <Box sx={{ p: 3, maxWidth: '1400px', mx: 'auto' }}>
+    <PageContent>
       {/* Header */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 4 }}>
         <Box sx={{ flexGrow: 1 }}>
@@ -899,6 +900,6 @@ export default function SettingsPage(): JSX.Element {
           )}
         </Box>
       </Box>
-    </Box>
+    </PageContent>
   )
 }

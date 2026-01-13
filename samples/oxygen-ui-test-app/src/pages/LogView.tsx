@@ -33,6 +33,7 @@ import {
   Switch,
   FormControlLabel,
   Divider,
+  PageContent,
 } from '@wso2/oxygen-ui'
 import {
   Search,
@@ -185,7 +186,7 @@ export default function LogView(): JSX.Element {
   }
 
   return (
-    <Box sx={{ p: 3, maxWidth: '1400px', mx: 'auto' }}>
+    <PageContent>
       {/* Header */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 4 }}>
         <IconButton onClick={() => navigate(`/projects/${id}`)}>
@@ -332,6 +333,6 @@ export default function LogView(): JSX.Element {
           Showing {filteredLogs.length} of {mockLogs.length} logs
         </Typography>
       </Box>
-    </Box>
+    </PageContent>
   )
 }
