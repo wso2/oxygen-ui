@@ -74,7 +74,7 @@ body[data-color-scheme='dark'] .sbdocs-content tbody > tr > * {
 }
 
 body[data-color-scheme='dark'] .sbdocs .toc-list-item > a.is-active-link {
-    color: #f87643 !important;
+    color: #009cfd !important;
 }
 
 body[data-color-scheme='dark'] .sbdocs-content tbody > tr textarea {
