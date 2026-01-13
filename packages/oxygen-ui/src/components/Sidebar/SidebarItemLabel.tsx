@@ -89,19 +89,8 @@ export const SidebarItemLabel: React.FC<SidebarItemLabelProps> = ({
   const { collapsed } = useSidebar();
   const { isActive } = useSidebarItemContext();
 
-  // Hide label when sidebar is collapsed
-  if (collapsed) {
-    return null;
-  }
-
-  return (
-    <SidebarItemLabelRoot
-      primary={children}
-      ownerState={{ isActive }}
-      sx={sx}
-    />
-  );
-};
+  return <SidebarItemLabelRoot primary={children} ownerState={{ isActive, collapsed }} sx={sx} />
+}
 
 // Add display name for child detection
 SidebarItemLabel.displayName = 'SidebarItemLabel';
