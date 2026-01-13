@@ -39,8 +39,19 @@ interface SidebarItemLabelRootProps {
 const SidebarItemLabelRoot = styled(ListItemText, {
   name: 'MuiSidebar',
   slot: 'ItemLabel',
-  shouldForwardProp: (prop) => prop !== 'ownerState',
-})<SidebarItemLabelRootProps>(({ ownerState }) => ({
+  shouldForwardProp: prop => prop !== 'ownerState',
+})<SidebarItemLabelRootProps>(({ theme, ownerState }) => ({
+  margin: 0,
+  opacity: ownerState.collapsed ? 0 : 1,
+  width: ownerState.collapsed ? 0 : 'auto',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  transition: theme.transitions.create(['opacity', 'width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: ownerState.collapsed
+      ? theme.transitions.duration.leavingScreen
+      : theme.transitions.duration.enteringScreen,
+  }),
   '& .MuiListItemText-primary': {
     fontSize: 14,
     fontWeight: ownerState.isActive ? 600 : 400,
