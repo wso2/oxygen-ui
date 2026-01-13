@@ -31,7 +31,8 @@ const SidebarNavRoot = styled(Box, {
   slot: 'Nav',
 })<{ component?: React.ElementType }>(({ theme }) => ({
   flex: 1,
-  overflow: 'auto',
+  overflowY: 'auto',
+  overflowX: 'hidden',
   paddingTop: theme.spacing(1),
   paddingBottom: theme.spacing(1),
   '&::-webkit-scrollbar': {
