@@ -62,7 +62,13 @@ const SidebarUserButton = styled(ListItemButton, {
   borderRadius: theme.shape.borderRadius,
   marginLeft: theme.spacing(1),
   marginRight: theme.spacing(1),
-}));
+  transition: theme.transitions.create(['padding-left', 'padding-right'], {
+    easing: theme.transitions.easing.sharp,
+    duration: ownerState.collapsed
+      ? theme.transitions.duration.leavingScreen
+      : theme.transitions.duration.enteringScreen,
+  }),
+}))
 
 /**
  * Styled container for user text content.
