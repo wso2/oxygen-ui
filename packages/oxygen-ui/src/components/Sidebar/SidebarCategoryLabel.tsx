@@ -78,16 +78,8 @@ export interface SidebarCategoryLabelProps {
  * </Sidebar.Category>
  * ```
  */
-export const SidebarCategoryLabel: React.FC<SidebarCategoryLabelProps> = ({
-  children,
-  sx,
-}) => {
-  const { collapsed } = useSidebar();
-
-  // Hide label when sidebar is collapsed
-  if (collapsed) {
-    return null;
-  }
+export const SidebarCategoryLabel: React.FC<SidebarCategoryLabelProps> = ({ children, sx }) => {
+  const { collapsed } = useSidebar()
 
   return (
     <SidebarCategoryLabelRoot variant="caption" sx={sx}>
