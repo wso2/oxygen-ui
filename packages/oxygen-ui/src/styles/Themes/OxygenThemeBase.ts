@@ -196,12 +196,12 @@ const OxygenThemeBase = extendTheme({
           textTransform: 'none',
           fontWeight: 400,
           fontSize: theme.typography.body1.fontSize,
-          width: '100%',
           '&.MuiTab-root': {
             minHeight: 48,
             padding: '8px 16px',
           },
           '.MuiTabs-vertical &': {
+            width: '100%',
             minHeight: 40,
             padding: '8px 16px',
             alignItems: 'center',

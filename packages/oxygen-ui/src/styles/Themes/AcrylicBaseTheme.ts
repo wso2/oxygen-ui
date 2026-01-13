@@ -79,8 +79,8 @@ const AcrylicBaseTheme = extendTheme(OxygenThemeBase, {
     MuiAvatar: {
       styleOverrides: {
         root: ({ theme }: { theme: OxygenTheme }) => ({
-          backgroundColor: theme.palette.secondary.main,
-          color: theme.palette.text.primary,
+          backgroundColor: theme.vars!.palette.secondary.main,
+          color: theme.vars!.palette.text.primary,
         }),
       },
     },
