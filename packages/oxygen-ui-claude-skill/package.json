@@ -1,0 +1,50 @@
+{
+  "name": "@wso2/oxygen-ui-claude-skill",
+  "version": "0.0.1-alpha.12",
+  "description": "Claude Code skill for WSO2 Oxygen UI - Helps developers integrate, migrate to, and use Oxygen UI components",
+  "type": "module",
+  "main": "./dist/oxygen-ui-claude-skill.skill",
+  "exports": {
+    ".": "./dist/oxygen-ui-claude-skill.skill",
+    "./skill": "./dist/oxygen-ui-claude-skill.skill",
+    "./SKILL.md": "./SKILL.md",
+    "./references/*": "./references/*"
+  },
+  "files": [
+    "dist",
+    "SKILL.md",
+    "references",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "node scripts/build.js",
+    "clean": "rimraf dist",
+    "prebuild": "pnpm clean"
+  },
+  "keywords": [
+    "wso2",
+    "oxygen-ui",
+    "claude-code",
+    "claude-skill",
+    "agent-skill",
+    "ai-coding",
+    "developer-tools"
+  ],
+  "author": "WSO2 LLC",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wso2/oxygen-ui.git",
+    "directory": "packages/oxygen-ui-claude-skill"
+  },
+  "bugs": {
+    "url": "https://github.com/wso2/oxygen-ui/issues"
+  },
+  "homepage": "https://github.com/wso2/oxygen-ui/tree/main/packages/oxygen-ui-claude-skill#readme",
+  "devDependencies": {
+    "rimraf": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
