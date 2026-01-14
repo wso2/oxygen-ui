@@ -18,23 +18,21 @@
 
 import { ReactNode } from 'react';
 import MuiListItemIcon, { ListItemIconProps } from '@mui/material/ListItemIcon';
+import { styled } from '@mui/material/styles';
 
 export interface ComplexSelectMenuItemIconProps extends ListItemIconProps {
   children: ReactNode;
 }
 
-export function ComplexSelectMenuItemIcon({ children, sx, ...props }: ComplexSelectMenuItemIconProps) {
-  return (
-    <MuiListItemIcon 
-      sx={{ 
-        minWidth: '36px',
-        ...sx 
-      }} 
-      {...props}
-    >
-      {children}
-    </MuiListItemIcon>
-  );
+const StyledListItemIcon = styled(MuiListItemIcon, {
+  name: 'MuiComplexSelectMenuItemIcon',
+  slot: 'Root',
+})(() => ({
+  minWidth: '36px',
+}));
+
+export function ComplexSelectMenuItemIcon({ children, ...props }: ComplexSelectMenuItemIconProps) {
+  return <StyledListItemIcon {...props}>{children}</StyledListItemIcon>;
 }
 
 export default ComplexSelectMenuItemIcon;
