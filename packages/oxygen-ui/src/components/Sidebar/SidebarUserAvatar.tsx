@@ -31,6 +31,7 @@ const SidebarUserAvatarRoot = styled(Avatar, {
   width: 32,
   height: 32,
   backgroundColor: (theme.vars || theme).palette.primary.main,
+  color: (theme.vars || theme).palette.primary.contrastText,
   fontSize: 14,
 }));
 

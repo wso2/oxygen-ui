@@ -76,7 +76,7 @@ const StatCard: React.FC<StatCardProps> = ({
       <CardContent>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           {icon && (
-            <Box sx={{ color: `${iconColor}.main`, display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ color: (theme) => theme.palette[iconColor].main, display: 'flex', alignItems: 'center' }}>
               {icon}
             </Box>
           )}

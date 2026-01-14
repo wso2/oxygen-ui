@@ -150,8 +150,8 @@ const AppShell: React.FC<AppShellProps> & {
         {slots.sidebar && <Layout.Sidebar>{slots.sidebar}</Layout.Sidebar>}
 
         {/* Content + Footer */}
-        <Layout.Content sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Box sx={{ flex: 1, overflow: 'auto' }}>
+        <Layout.Content sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+          <Box sx={{ flex: 1, overflow: 'auto', display: 'flex' }}>
             {slots.main}
           </Box>
           {slots.footer}

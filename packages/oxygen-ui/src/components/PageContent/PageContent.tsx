@@ -43,6 +43,11 @@ export interface PageContentProps extends Omit<BoxProps, 'maxWidth'> {
    * @default false
    */
   fullWidth?: boolean;
+  /**
+   * Whether to remove padding
+   * @default false
+   */
+  noPadding?: boolean;
 }
 
 /**
@@ -51,11 +56,12 @@ export interface PageContentProps extends Omit<BoxProps, 'maxWidth'> {
 const PageContentRoot = styled(Box, {
   name: 'MuiPageContent',
   slot: 'Root',
-  shouldForwardProp: (prop) => prop !== 'maxWidth' && prop !== 'centered' && prop !== 'fullWidth',
-})<PageContentProps>(({ theme, maxWidth = '1400px', centered = true, fullWidth = false }) => ({
+  shouldForwardProp: (prop) => prop !== 'maxWidth' && prop !== 'centered' && prop !== 'fullWidth' && prop !== 'noPadding',
+})<PageContentProps>(({ theme, maxWidth = '1400px', centered = true, fullWidth = false, noPadding = false }) => ({
+  width: '100%',
   ...(!fullWidth && { maxWidth }),
   ...(centered && { marginLeft: 'auto', marginRight: 'auto' }),
-  padding: theme.spacing(8),
+  ...(!noPadding && { padding: theme.spacing(8) }),
 }));
 
 /**
@@ -101,6 +107,7 @@ const PageContent: React.FC<PageContentProps> = ({
   maxWidth,
   centered,
   fullWidth,
+  noPadding,
   ...props
 }) => {
   return (
@@ -108,6 +115,7 @@ const PageContent: React.FC<PageContentProps> = ({
       maxWidth={maxWidth}
       centered={centered}
       fullWidth={fullWidth}
+      noPadding={noPadding}
       {...props}
     >
       {children}

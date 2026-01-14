@@ -57,6 +57,7 @@ const UserMenuAvatar = styled(Avatar, {
   width: 32,
   height: 32,
   backgroundColor: (theme.vars || theme).palette.primary.main,
+  color: (theme.vars || theme).palette.primary.contrastText,
   fontSize: 14,
   fontWeight: 600,
 }));
@@ -71,6 +72,7 @@ const UserMenuHeaderAvatar = styled(Avatar, {
   width: 40,
   height: 40,
   backgroundColor: (theme.vars || theme).palette.primary.main,
+  color: (theme.vars || theme).palette.primary.contrastText,
   fontSize: 16,
   fontWeight: 600,
 }));

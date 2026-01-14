@@ -167,6 +167,7 @@ export default function SettingsPage(): JSX.Element {
                           width: 80,
                           height: 80,
                           bgcolor: 'primary.main',
+                          color: (theme) => (theme.vars || theme).palette.primary.contrastText,
                           fontSize: '2rem',
                         }}
                       >
