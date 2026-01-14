@@ -113,7 +113,8 @@ oxygen-ui/
 ├── packages/
 │   ├── oxygen-ui/                        # Main Oxygen-UI component library (@wso2/oxygen-ui)
 │   ├── oxygen-ui-docs/                   # Oxygen-UI docs - storybook
-│   ├── oxygen-ui-icons-react/            # Oxygen-UI icons library (@wso2/oxygen-ui-icons-react) 
+│   ├── oxygen-ui-icons-react/            # Oxygen-UI icons library (@wso2/oxygen-ui-icons-react)
+│   ├── oxygen-ui-claude-skill/           # Claude Code skill for Oxygen-UI (@wso2/oxygen-ui-claude-skill)
 │   └── eslint-plugin-oxygen-ui/          # ESLint plugin for enforcing Oxygen-UI import patterns
 ├── samples/
 │   └── oxygen-ui-test-app/               # Example Vite + React app using Oxygen-UI
@@ -121,6 +122,21 @@ oxygen-ui/
 ├── package.json
 ├── pnpm-workspace.yaml
 └── nx.json
+```
+
+## Claude Code Skill
+
+The `@wso2/oxygen-ui-claude-skill` package provides a [Claude Code Skill](https://docs.anthropic.com/en/docs/claude-code/skills) that helps developers work with Oxygen UI. When installed, Claude can assist with:
+
+- Setting up and integrating Oxygen UI in React projects
+- Migrating from `@mui/material` or `lucide-react` to Oxygen UI
+- Using components like AppShell, Header, Sidebar, Form, ListingTable
+- Configuring theming and dark mode
+
+Install the skill:
+```bash
+# Copy the .skill file to Claude's skills directory
+cp node_modules/@wso2/oxygen-ui-claude-skill/dist/oxygen-ui-claude-skill.skill ~/.claude/skills/
 ```
 
 ## License
