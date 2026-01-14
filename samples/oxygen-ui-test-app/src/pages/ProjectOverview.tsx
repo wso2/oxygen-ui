@@ -31,6 +31,7 @@ import {
   SearchBar,
   Charts,
   PageTitle,
+  PageContent,
   ListingTable,
   Chip,
 } from '@wso2/oxygen-ui'
@@ -127,7 +128,7 @@ export default function ProjectOverview(): JSX.Element {
   const projectLetter = (projectName?.trim()?.[0] ?? 'P').toUpperCase()
 
   return (
-    <Box sx={{ p: 3, maxWidth: '1400px', mx: 'auto' }}>
+    <PageContent>
       <Box sx={{ mb: 3 }}>
         <PageTitle>
           <PageTitle.Avatar sx={{ bgcolor: 'primary.main', color: 'primary.contrastText' }}>
@@ -416,6 +417,6 @@ export default function ProjectOverview(): JSX.Element {
           </Grid>
         </Grid>
       </Box>
-    </Box>
+    </PageContent>
   )
 }
