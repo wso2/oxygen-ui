@@ -29,6 +29,7 @@ function LayoutContent({ children = null, sx, ...rest }: PropsWithChildren<BoxPr
         flexDirection: 'column',
         flexGrow: 1,
         overflow: 'auto',
+        ...sx,
       }}
       {...rest}
     >
