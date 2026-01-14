@@ -20,7 +20,7 @@ import * as React from 'react';
 import Box, {BoxProps} from '@mui/material/Box';
 import type {PropsWithChildren, ReactNode} from 'react';
 
-function LayoutContent({children = null, ...rest}: PropsWithChildren<BoxProps>): ReactNode {
+function LayoutContent({ children = null, sx, ...rest }: PropsWithChildren<BoxProps>): ReactNode {
   return (
     <Box
       component="main"
