@@ -36,6 +36,10 @@ import {
   Alert,
   CodeBlock,
   Form,
+  TextField,
+  Select,
+  MenuItem,
+  Autocomplete,
 } from '@wso2/oxygen-ui'
 import {
   CircleQuestionMark,
@@ -174,97 +178,111 @@ export const CreateServiceForm: Story = {
           <Form.Subheader>Repository Details</Form.Subheader>
           <Form.Body>Configure your repository settings for deployment</Form.Body>
           <Form.Stack direction="row">
-            <Form.SelectInput
-              label="Organization"
-              name="organization"
-              value={organization}
-              onChange={e => setOrganization(e.target.value as string)}
-            >
-              <Form.MenuItem value="wso2">wso2</Form.MenuItem>
-              <Form.MenuItem value="asgardeo">asgardeo</Form.MenuItem>
-            </Form.SelectInput>
-            <Form.SelectInput
-              label="Repository"
-              name="repository"
-              value={repository}
-              onChange={e => setRepository(e.target.value as string)}
-            >
-              <Form.MenuItem value="banking-app">banking-app</Form.MenuItem>
-              <Form.MenuItem value="ecommerce-service">ecommerce-service</Form.MenuItem>
-              <Form.MenuItem value="auth-service">auth-service</Form.MenuItem>
-            </Form.SelectInput>
-            <Form.SelectInput
-              label="Branch"
-              name="branch"
-              value={branch}
-              onChange={e => setBranch(e.target.value as string)}
-              startAdornment={
-                <InputAdornment position="start">
-                  <GitBranchIcon size={16} />
-                </InputAdornment>
-              }
-            >
-              <Form.MenuItem value="main">main</Form.MenuItem>
-              <Form.MenuItem value="develop">develop</Form.MenuItem>
-              <Form.MenuItem value="staging">staging</Form.MenuItem>
-            </Form.SelectInput>
-            <Form.TextInput
-              label="Component Directory"
-              name="componentDirectory"
-              value={componentDirectory}
-              onChange={e => setComponentDirectory(e.target.value)}
-              slotProps={{
-                input: {
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton size="small" edge="end">
-                        <PencilIcon size={16} />
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                },
-              }}
-            />
+            <Form.ElementWrapper label="Organization" name="organization">
+              <Select
+                id="organization"
+                value={organization}
+                onChange={e => setOrganization(e.target.value as string)}
+                fullWidth
+              >
+                <MenuItem value="wso2">wso2</MenuItem>
+                <MenuItem value="asgardeo">asgardeo</MenuItem>
+              </Select>
+            </Form.ElementWrapper>
+            <Form.ElementWrapper label="Repository" name="repository">
+              <Select
+                id="repository"
+                value={repository}
+                onChange={e => setRepository(e.target.value as string)}
+                fullWidth
+              >
+                <MenuItem value="banking-app">banking-app</MenuItem>
+                <MenuItem value="ecommerce-service">ecommerce-service</MenuItem>
+                <MenuItem value="auth-service">auth-service</MenuItem>
+              </Select>
+            </Form.ElementWrapper>
+            <Form.ElementWrapper label="Branch" name="branch">
+              <Select
+                id="branch"
+                value={branch}
+                onChange={e => setBranch(e.target.value as string)}
+                startAdornment={
+                  <InputAdornment position="start">
+                    <GitBranchIcon size={16} />
+                  </InputAdornment>
+                }
+                fullWidth
+              >
+                <MenuItem value="main">main</MenuItem>
+                <MenuItem value="develop">develop</MenuItem>
+                <MenuItem value="staging">staging</MenuItem>
+              </Select>
+            </Form.ElementWrapper>
+            <Form.ElementWrapper label="Component Directory" name="componentDirectory">
+              <TextField
+                id="componentDirectory"
+                value={componentDirectory}
+                onChange={e => setComponentDirectory(e.target.value)}
+                slotProps={{
+                  input: {
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton size="small" edge="end">
+                          <PencilIcon size={16} />
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  },
+                }}
+                fullWidth
+              />
+            </Form.ElementWrapper>
           </Form.Stack>
         </Form.Section>
         {/* Component Details Section */}
         <Form.Section>
           <Form.Subheader>Component Details</Form.Subheader>
           <Form.Stack direction="row" spacing={2}>
-            <Form.TextInput
-              label="Display Name"
-              name="displayName"
-              placeholder="Enter display name here"
-              value={displayName}
-              onChange={e => setDisplayName(e.target.value)}
-            />
-            <Form.TextInput
-              label="Name"
-              name="name"
-              placeholder="Enter name here"
-              value={name}
-              onChange={e => setName(e.target.value)}
-              slotProps={{
-                input: {
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton size="small">
-                        <CircleQuestionMark size={16} />
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                },
-              }}
-            />
-            <Form.TextInput
-              label="Description"
-              name="description"
-              placeholder="Enter description here"
-              value={description}
-              onChange={e => setDescription(e.target.value)}
-              multiline
-              minRows={1}
-            />
+            <Form.ElementWrapper label="Display Name" name="displayName">
+              <TextField
+                id="displayName"
+                placeholder="Enter display name here"
+                value={displayName}
+                onChange={e => setDisplayName(e.target.value)}
+                fullWidth
+              />
+            </Form.ElementWrapper>
+            <Form.ElementWrapper label="Name" name="name">
+              <TextField
+                id="name"
+                placeholder="Enter name here"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                slotProps={{
+                  input: {
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton size="small">
+                          <CircleQuestionMark size={16} />
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  },
+                }}
+                fullWidth
+              />
+            </Form.ElementWrapper>
+            <Form.ElementWrapper label="Description" name="description">
+              <TextField
+                id="description"
+                placeholder="Enter description here"
+                value={description}
+                onChange={e => setDescription(e.target.value)}
+                multiline
+                minRows={1}
+                fullWidth
+              />
+            </Form.ElementWrapper>
           </Form.Stack>
         </Form.Section>
         {/* Build Details Section */}
@@ -435,13 +453,15 @@ export const TextInputBasic: Story = {
     const [value, setValue] = useState('')
     return (
       <Box sx={{ maxWidth: 400 }}>
-        <Form.TextInput
-          label="Display Name"
-          name="displayName"
-          placeholder="Enter display name"
-          value={value}
-          onChange={e => setValue(e.target.value)}
-        />
+        <Form.ElementWrapper label="Display Name" name="displayName">
+          <TextField
+            id="displayName"
+            placeholder="Enter display name"
+            value={value}
+            onChange={e => setValue(e.target.value)}
+            fullWidth
+          />
+        </Form.ElementWrapper>
       </Box>
     )
   },
@@ -455,23 +475,25 @@ export const TextInputWithAdornment: Story = {
     const [value, setValue] = useState('/')
     return (
       <Box sx={{ maxWidth: 400 }}>
-        <Form.TextInput
-          label="Component Directory"
-          name="componentDirectory"
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          slotProps={{
-            input: {
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton size="small" edge="end">
-                    <PencilIcon size={16} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            },
-          }}
-        />
+        <Form.ElementWrapper label="Component Directory" name="componentDirectory">
+          <TextField
+            id="componentDirectory"
+            value={value}
+            onChange={e => setValue(e.target.value)}
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton size="small" edge="end">
+                      <PencilIcon size={16} />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
+            }}
+            fullWidth
+          />
+        </Form.ElementWrapper>
       </Box>
     )
   },
@@ -485,15 +507,17 @@ export const TextInputMultiline: Story = {
     const [value, setValue] = useState('')
     return (
       <Box sx={{ maxWidth: 400 }}>
-        <Form.TextInput
-          label="Description"
-          name="description"
-          placeholder="Enter description here"
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          multiline
-          minRows={3}
-        />
+        <Form.ElementWrapper label="Description" name="description">
+          <TextField
+            id="description"
+            placeholder="Enter description here"
+            value={value}
+            onChange={e => setValue(e.target.value)}
+            multiline
+            minRows={3}
+            fullWidth
+          />
+        </Form.ElementWrapper>
       </Box>
     )
   },
@@ -507,16 +531,18 @@ export const SelectInputBasic: Story = {
     const [value, setValue] = useState('wso2')
     return (
       <Box sx={{ maxWidth: 400 }}>
-        <Form.SelectInput
-          label="Organization"
-          name="organization"
-          value={value}
-          onChange={e => setValue(e.target.value as string)}
-        >
-          <Form.MenuItem value="wso2">wso2</Form.MenuItem>
-          <Form.MenuItem value="asgardeo">asgardeo</Form.MenuItem>
-          <Form.MenuItem value="choreo">choreo</Form.MenuItem>
-        </Form.SelectInput>
+        <Form.ElementWrapper label="Organization" name="organization">
+          <Select
+            id="organization"
+            value={value}
+            onChange={e => setValue(e.target.value as string)}
+            fullWidth
+          >
+            <MenuItem value="wso2">wso2</MenuItem>
+            <MenuItem value="asgardeo">asgardeo</MenuItem>
+            <MenuItem value="choreo">choreo</MenuItem>
+          </Select>
+        </Form.ElementWrapper>
       </Box>
     )
   },
@@ -530,22 +556,24 @@ export const SelectInputWithIcon: Story = {
     const [value, setValue] = useState('main')
     return (
       <Box sx={{ maxWidth: 400 }}>
-        <Form.SelectInput
-          label="Branch"
-          name="branch"
-          value={value}
-          onChange={e => setValue(e.target.value as string)}
-          startAdornment={
-            <InputAdornment position="start">
-              <GitBranchIcon size={16} />
-            </InputAdornment>
-          }
-        >
-          <Form.MenuItem value="main">main</Form.MenuItem>
-          <Form.MenuItem value="develop">develop</Form.MenuItem>
-          <Form.MenuItem value="staging">staging</Form.MenuItem>
-          <Form.MenuItem value="production">production</Form.MenuItem>
-        </Form.SelectInput>
+        <Form.ElementWrapper label="Branch" name="branch">
+          <Select
+            id="branch"
+            value={value}
+            onChange={e => setValue(e.target.value as string)}
+            startAdornment={
+              <InputAdornment position="start">
+                <GitBranchIcon size={16} />
+              </InputAdornment>
+            }
+            fullWidth
+          >
+            <MenuItem value="main">main</MenuItem>
+            <MenuItem value="develop">develop</MenuItem>
+            <MenuItem value="staging">staging</MenuItem>
+            <MenuItem value="production">production</MenuItem>
+          </Select>
+        </Form.ElementWrapper>
       </Box>
     )
   },
@@ -561,14 +589,16 @@ export const AutocompleteInputBasic: Story = {
 
     return (
       <Box sx={{ maxWidth: 400 }}>
-        <Form.AutocompleteInput
-          label="Framework"
-          name="framework"
-          placeholder="Select a framework"
-          options={options}
-          value={value}
-          onChange={(_, newValue) => setValue(newValue)}
-        />
+        <Form.ElementWrapper label="Framework" name="framework">
+          <Autocomplete
+            id="framework"
+            options={options}
+            value={value}
+            onChange={(_, newValue) => setValue(newValue)}
+            renderInput={params => <TextField {...params} placeholder="Select a framework" />}
+            fullWidth
+          />
+        </Form.ElementWrapper>
       </Box>
     )
   },
@@ -584,15 +614,17 @@ export const AutocompleteInputMultiple: Story = {
 
     return (
       <Box sx={{ maxWidth: 400 }}>
-        <Form.AutocompleteInput
-          label="Programming Languages"
-          name="languages"
-          placeholder="Select languages"
-          options={options}
-          value={value}
-          onChange={(_, newValue) => setValue(newValue)}
-          multiple
-        />
+        <Form.ElementWrapper label="Programming Languages" name="languages">
+          <Autocomplete
+            id="languages"
+            options={options}
+            value={value}
+            onChange={(_, newValue) => setValue(newValue)}
+            multiple
+            renderInput={params => <TextField {...params} placeholder="Select languages" />}
+            fullWidth
+          />
+        </Form.ElementWrapper>
       </Box>
     )
   },
@@ -643,24 +675,28 @@ export const StackHorizontal: Story = {
 
     return (
       <Form.Stack direction="row" sx={{ maxWidth: 800 }}>
-        <Form.SelectInput
-          label="Organization"
-          name="organization"
-          value={org}
-          onChange={e => setOrg(e.target.value as string)}
-        >
-          <Form.MenuItem value="wso2">wso2</Form.MenuItem>
-          <Form.MenuItem value="asgardeo">asgardeo</Form.MenuItem>
-        </Form.SelectInput>
-        <Form.SelectInput
-          label="Repository"
-          name="repository"
-          value={repo}
-          onChange={e => setRepo(e.target.value as string)}
-        >
-          <Form.MenuItem value="banking-app">banking-app</Form.MenuItem>
-          <Form.MenuItem value="ecommerce-service">ecommerce-service</Form.MenuItem>
-        </Form.SelectInput>
+        <Form.ElementWrapper label="Organization" name="organization">
+          <Select
+            id="organization"
+            value={org}
+            onChange={e => setOrg(e.target.value as string)}
+            fullWidth
+          >
+            <MenuItem value="wso2">wso2</MenuItem>
+            <MenuItem value="asgardeo">asgardeo</MenuItem>
+          </Select>
+        </Form.ElementWrapper>
+        <Form.ElementWrapper label="Repository" name="repository">
+          <Select
+            id="repository"
+            value={repo}
+            onChange={e => setRepo(e.target.value as string)}
+            fullWidth
+          >
+            <MenuItem value="banking-app">banking-app</MenuItem>
+            <MenuItem value="ecommerce-service">ecommerce-service</MenuItem>
+          </Select>
+        </Form.ElementWrapper>
       </Form.Stack>
     )
   },
@@ -771,18 +807,18 @@ export const WizardBasic: Story = {
         component: (
           <Form.Stack spacing={2} flexGrow={1}>
             <Form.Header>Campaign Details</Form.Header>
-            <Form.TextInput
-              label="Campaign Name"
-              name="campaignName"
-              placeholder="Enter campaign name"
-            />
-            <Form.TextInput
-              label="Description"
-              name="description"
-              placeholder="Enter description"
-              multiline
-              minRows={3}
-            />
+            <Form.ElementWrapper label="Campaign Name" name="campaignName">
+              <TextField id="campaignName" placeholder="Enter campaign name" fullWidth />
+            </Form.ElementWrapper>
+            <Form.ElementWrapper label="Description" name="description">
+              <TextField
+                id="description"
+                placeholder="Enter description"
+                multiline
+                minRows={3}
+                fullWidth
+              />
+            </Form.ElementWrapper>
           </Form.Stack>
         ),
       },
@@ -946,13 +982,16 @@ export const FormValidationExample: Story = {
                   name="email"
                   control={control}
                   render={({ field }) => (
-                    <Form.TextInput
-                      {...field}
-                      label="Email Address"
-                      placeholder="user@example.com"
-                      error={!!errors.email}
-                      helperText={errors.email?.message}
-                    />
+                    <Form.ElementWrapper label="Email Address" name="email">
+                      <TextField
+                        {...field}
+                        id="email"
+                        placeholder="user@example.com"
+                        error={!!errors.email}
+                        helperText={errors.email?.message}
+                        fullWidth
+                      />
+                    </Form.ElementWrapper>
                   )}
                 />
 
@@ -961,13 +1000,16 @@ export const FormValidationExample: Story = {
                   name="username"
                   control={control}
                   render={({ field }) => (
-                    <Form.TextInput
-                      {...field}
-                      label="Username"
-                      placeholder="Enter username"
-                      error={!!errors.username}
-                      helperText={errors.username?.message}
-                    />
+                    <Form.ElementWrapper label="Username" name="username">
+                      <TextField
+                        {...field}
+                        id="username"
+                        placeholder="Enter username"
+                        error={!!errors.username}
+                        helperText={errors.username?.message}
+                        fullWidth
+                      />
+                    </Form.ElementWrapper>
                   )}
                 />
 
@@ -977,14 +1019,17 @@ export const FormValidationExample: Story = {
                     name="password"
                     control={control}
                     render={({ field }) => (
-                      <Form.TextInput
-                        {...field}
-                        label="Password"
-                        type="password"
-                        placeholder="Enter password"
-                        error={!!errors.password}
-                        helperText={errors.password?.message}
-                      />
+                      <Form.ElementWrapper label="Password" name="password">
+                        <TextField
+                          {...field}
+                          id="password"
+                          type="password"
+                          placeholder="Enter password"
+                          error={!!errors.password}
+                          helperText={errors.password?.message}
+                          fullWidth
+                        />
+                      </Form.ElementWrapper>
                     )}
                   />
 
@@ -992,14 +1037,17 @@ export const FormValidationExample: Story = {
                     name="confirmPassword"
                     control={control}
                     render={({ field }) => (
-                      <Form.TextInput
-                        {...field}
-                        label="Confirm Password"
-                        type="password"
-                        placeholder="Confirm password"
-                        error={!!errors.confirmPassword}
-                        helperText={errors.confirmPassword?.message}
-                      />
+                      <Form.ElementWrapper label="Confirm Password" name="confirmPassword">
+                        <TextField
+                          {...field}
+                          id="confirmPassword"
+                          type="password"
+                          placeholder="Confirm password"
+                          error={!!errors.confirmPassword}
+                          helperText={errors.confirmPassword?.message}
+                          fullWidth
+                        />
+                      </Form.ElementWrapper>
                     )}
                   />
                 </Form.Stack>
@@ -1010,16 +1058,19 @@ export const FormValidationExample: Story = {
                   control={control}
                   render={({ field }) => (
                     <Box>
-                      <Form.SelectInput
-                        {...field}
-                        label="Organization"
-                        error={!!errors.organization}
-                      >
-                        <Form.MenuItem value="">Select an organization</Form.MenuItem>
-                        <Form.MenuItem value="wso2">WSO2</Form.MenuItem>
-                        <Form.MenuItem value="asgardeo">Asgardeo</Form.MenuItem>
-                        <Form.MenuItem value="choreo">Choreo</Form.MenuItem>
-                      </Form.SelectInput>
+                      <Form.ElementWrapper label="Organization" name="organization">
+                        <Select
+                          {...field}
+                          id="organization"
+                          error={!!errors.organization}
+                          fullWidth
+                        >
+                          <MenuItem value="">Select an organization</MenuItem>
+                          <MenuItem value="wso2">WSO2</MenuItem>
+                          <MenuItem value="asgardeo">Asgardeo</MenuItem>
+                          <MenuItem value="choreo">Choreo</MenuItem>
+                        </Select>
+                      </Form.ElementWrapper>
                       {errors.organization && (
                         <Typography variant="caption" color="error" sx={{ ml: 2, mt: 0.5 }}>
                           {errors.organization?.message}
@@ -1035,15 +1086,17 @@ export const FormValidationExample: Story = {
                   control={control}
                   render={({ field: { onChange, value } }) => (
                     <Box>
-                      <Form.AutocompleteInput
-                        label="Frameworks"
-                        name="frameworks"
-                        placeholder="Select frameworks"
-                        options={frameworkOptions}
-                        value={value}
-                        onChange={(_, newValue) => onChange(newValue)}
-                        multiple
-                      />
+                      <Form.ElementWrapper label="Frameworks" name="frameworks">
+                        <Autocomplete
+                          id="frameworks"
+                          options={frameworkOptions}
+                          value={value}
+                          onChange={(_, newValue) => onChange(newValue)}
+                          multiple
+                          renderInput={params => <TextField {...params} placeholder="Select frameworks" />}
+                          fullWidth
+                        />
+                      </Form.ElementWrapper>
                       {errors.frameworks && (
                         <Typography variant="caption" color="error" sx={{ ml: 2, mt: 0.5 }}>
                           {errors.frameworks?.message}
@@ -1130,12 +1183,15 @@ const { control, handleSubmit, formState: { errors } } = useForm({
   name="email"
   control={control}
   render={({ field }) => (
-    <Form.TextInput
-      {...field}
-      label="Email"
-      error={!!errors.email}
-      helperText={errors.email?.message}
-    />
+    <Form.ElementWrapper label="Email" name="email">
+      <TextField
+        {...field}
+        id="email"
+        error={!!errors.email}
+        helperText={errors.email?.message}
+        fullWidth
+      />
+    </Form.ElementWrapper>
   )}
 />
 

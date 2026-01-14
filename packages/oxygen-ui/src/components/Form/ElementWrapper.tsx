@@ -16,31 +16,22 @@
  * under the License.
  */
 
-import { Autocomplete, AutocompleteProps, TextField, FormControl, FormLabel } from '@mui/material';
-import React from 'react';
+import { FormControl, FormLabel } from '@mui/material'
+import React from 'react'
 
-export interface AutocompleteInputProps
-  extends Omit<AutocompleteProps<any, boolean, boolean, boolean>, 'renderInput'> {
-  label: string;
-  name: string;
-  placeholder?: string;
+export interface ElementWrapperProps {
+  label: string
+  name: string
+  children?: React.ReactNode
 }
 
-export const AutocompleteInput = (props: AutocompleteInputProps) => {
-  const { label, name, placeholder, ...rest } = props;
-
+export const ElementWrapper = (props: ElementWrapperProps) => {
+  const { label, name, children } = props
   return (
     <FormControl fullWidth>
-      <FormLabel htmlFor={name}>
-        {label}
-      </FormLabel>
-      <Autocomplete
-        id={name}
-        renderInput={params => (
-          <TextField {...params} name={name} placeholder={placeholder} />
-        )}
-        {...rest}
-      />
+      <FormLabel htmlFor={name}>{label}</FormLabel>
+      {children}
     </FormControl>
-  );
-};
+  )
+}
+
