@@ -44,7 +44,7 @@ const SidebarUserRoot = styled(Box, {
   name: 'MuiSidebar',
   slot: 'User',
 })(({ theme }) => ({
-  padding: theme.spacing(1),
+  padding: theme.spacing(2),
 }));
 
 /**
