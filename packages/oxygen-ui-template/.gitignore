@@ -1,0 +1,3 @@
+# Template directory is generated from samples/oxygen-ui-test-app during prepack
+# Run `npm run prepare-template` to generate it locally
+template/

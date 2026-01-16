@@ -2,6 +2,11 @@
   "name": "@wso2/oxygen-ui-template",
   "version": "0.0.1-alpha.1",
   "description": "Template for creating Oxygen UI projects",
+  "type": "module",
+  "scripts": {
+    "prepare-template": "node scripts/copy-template.js",
+    "prepack": "npm run prepare-template"
+  },
   "files": [
     "template",
     "claude"
