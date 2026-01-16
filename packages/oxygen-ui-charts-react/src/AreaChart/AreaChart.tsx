@@ -260,3 +260,86 @@ export interface AreaChartProps {
   children?: React.ReactNode
 }
 
+/**
+ * AreaChart component for Oxygen UI powered by Recharts.
+ */
+const AreaChart = ({
+  data,
+  areas,
+  xAxisDataKey,
+  height = 300,
+  width = '100%',
+  legend = { show: true, align: 'center', verticalAlign: 'bottom' },
+  grid = { show: true, strokeDasharray: '3 3' },
+  layout = 'horizontal',
+  margin = { top: 12, right: 24, left: 24, bottom: 40 },
+  syncId,
+  syncMethod,
+  role,
+  title,
+  desc,
+  accessibilityLayer = true,
+  xAxis = { show: true },
+  yAxis = { show: true },
+  onClick,
+  onMouseDown,
+  onMouseUp,
+  onMouseMove,
+  onMouseEnter,
+  onMouseLeave,
+  isAnimationActive = true,
+  animationDuration = 1500,
+  animationBegin = 0,
+  animationEasing = 'ease',
+  children,
+}: AreaChartProps): React.ReactElement => {
+  const theme = useTheme()
+
+  // Check color scheme from DOM attribute (set by MUI's extendTheme)
+  const [isDark, setIsDark] = React.useState(false)
+
+  React.useEffect(() => {
+    const checkColorScheme = () => {
+      const htmlElement = document.documentElement
+      const colorScheme = htmlElement.getAttribute('data-color-scheme')
+      setIsDark(colorScheme === 'dark' || theme.palette.mode === 'dark')
+    }
+
+    checkColorScheme()
+
+    // Watch for changes to the color scheme attribute
+    const observer = new MutationObserver(checkColorScheme)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-color-scheme'],
+    })
+
+    return () => observer.disconnect()
+  }, [theme.palette.mode])
+
+  const defaultColors = {
+    background: isDark ? '#1e1e1e' : '#f5f5f5',
+    text: isDark ? '#d4d4d4' : '#24292e',
+    comment: isDark ? '#6a9955' : '#6a737d',
+    keyword: isDark ? '#569cd6' : '#d73a49',
+    string: isDark ? '#ce9178' : '#032f62',
+    function: isDark ? '#dcdcaa' : '#6f42c1',
+    number: isDark ? '#b5cea8' : '#005cc5',
+    operator: isDark ? '#d4d4d4' : '#d73a49',
+  }
+
+  const colors =
+    (isDark ? (theme.vars as any)?.syntax?.dark : (theme.vars as any)?.syntax?.light) ||
+    defaultColors
+
+  const areaColors = React.useMemo(() => {
+    return [
+      theme.palette.primary?.main,
+      colors.keyword,
+      colors.string,
+      colors.function,
+      colors.number,
+      colors.operator,
+    ]
+  }, [theme, colors])
+
