@@ -179,3 +179,86 @@ export interface PieChartProps {
   children?: React.ReactNode
 }
 
+/**
+ * PieChart component for Oxygen UI powered by Recharts.
+ */
+const PieChart = ({
+  data,
+  pies,
+  nameKey,
+  height = 300,
+  width = '100%',
+  legend = { show: true, align: 'center', verticalAlign: 'bottom' },
+  margin = { top: 12, right: 24, left: 24, bottom: 40 },
+  cx = '50%',
+  cy = '50%',
+  startAngle = 0,
+  endAngle = 360,
+  innerRadius = 0,
+  outerRadius = '80%',
+  paddingAngle = 0,
+  cornerRadius = 0,
+  minAngle = 0,
+  isAnimationActive = true,
+  animationDuration = 1500,
+  animationBegin = 0,
+  animationEasing = 'ease',
+  colors: customColors,
+  label,
+  labelLine,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+  children,
+}: PieChartProps): React.ReactElement => {
+  const theme = useTheme()
+
+  // Check color scheme from DOM attribute (set by MUI's extendTheme)
+  const [isDark, setIsDark] = React.useState(false)
+
+  React.useEffect(() => {
+    const checkColorScheme = () => {
+      const htmlElement = document.documentElement
+      const colorScheme = htmlElement.getAttribute('data-color-scheme')
+      setIsDark(colorScheme === 'dark' || theme.palette.mode === 'dark')
+    }
+
+    checkColorScheme()
+
+    // Watch for changes to the color scheme attribute
+    const observer = new MutationObserver(checkColorScheme)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-color-scheme'],
+    })
+
+    return () => observer.disconnect()
+  }, [theme.palette.mode])
+
+  const defaultColors = {
+    background: isDark ? '#1e1e1e' : '#f5f5f5',
+    text: isDark ? '#d4d4d4' : '#24292e',
+    comment: isDark ? '#6a9955' : '#6a737d',
+    keyword: isDark ? '#569cd6' : '#d73a49',
+    string: isDark ? '#ce9178' : '#032f62',
+    function: isDark ? '#dcdcaa' : '#6f42c1',
+    number: isDark ? '#b5cea8' : '#005cc5',
+    operator: isDark ? '#d4d4d4' : '#d73a49',
+  }
+
+  const syntaxColors =
+    (isDark ? (theme.vars as any)?.syntax?.dark : (theme.vars as any)?.syntax?.light) ||
+    defaultColors
+
+  const chartColors = React.useMemo(() => {
+    if (customColors) return customColors
+    return [
+      theme.palette.primary?.main,
+      syntaxColors.keyword,
+      syntaxColors.string,
+      syntaxColors.function,
+      syntaxColors.number,
+      syntaxColors.operator,
+    ]
+  }, [theme, syntaxColors, customColors])
+
