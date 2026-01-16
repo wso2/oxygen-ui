@@ -144,4 +144,8 @@ This package re-exports all major Recharts components for flexibility.
 
 ## License
 
-This project is licensed under the Apache License 2.0. See the main [Oxygen UI repository](https://github.com/wso2/oxygen-ui) for license information.
+See the main [Oxygen UI repository](https://github.com/wso2/oxygen-ui) for license information.
+
+## Contributing
+
+See the main [Oxygen UI repository](https://github.com/wso2/oxygen-ui) for contribution guidelines.
