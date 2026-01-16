@@ -43,7 +43,7 @@ import {
   useNotifications,
 } from '@wso2/oxygen-ui'
 import { useState, type JSX } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate, useLocation } from 'react-router'
 import Logo from '../components/Logo';
 import {
   BarChart3,
@@ -67,6 +67,7 @@ import type { Organization, Project } from '../mock-data/types';
 
 export default function AppLayout(): JSX.Element {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Shell layout state (sidebar, menu, panel visibility)
   const { state: shellState, actions: shellActions } = useAppShell({
@@ -103,6 +104,9 @@ export default function AppLayout(): JSX.Element {
         return notifications;
     }
   };
+
+  // Check if current path matches /projects/:id or any subpaths
+  const isProject = /^\/projects\/[^/]+/.test(location.pathname);
 
   return (
     <AppShell>
@@ -145,25 +149,27 @@ export default function AppLayout(): JSX.Element {
                 </ComplexSelect.MenuItem>
               ))}
             </ComplexSelect>
-            <ComplexSelect
-              value={selectedProject?.id || ''}
-              onChange={(e) => {
-                const project = mockProjects.find((p) => p.id === e.target.value);
-                if (project) setProject(project);
-              }}
-              size="small"
-              sx={{ minWidth: 160 }}
-              renderValue={() => (
-                <ComplexSelect.MenuItem.Text primary={selectedProject?.name} secondary={selectedProject?.description} />
-              )}
-              label="Projects"
-            >
-              {mockProjects.map((project) => (
-                <ComplexSelect.MenuItem key={project.id} value={project.id}>
-                  <ComplexSelect.MenuItem.Text primary={project.name} secondary={project.description} />
-                </ComplexSelect.MenuItem>
-              ))}
-            </ComplexSelect>
+            {isProject && (
+              <ComplexSelect
+                value={selectedProject?.id || ''}
+                onChange={(e) => {
+                  const project = mockProjects.find((p) => p.id === e.target.value);
+                  if (project) setProject(project);
+                }}
+                size="small"
+                sx={{ minWidth: 160 }}
+                renderValue={() => (
+                  <ComplexSelect.MenuItem.Text primary={selectedProject?.name} secondary={selectedProject?.description} />
+                )}
+                label="Projects"
+              >
+                {mockProjects.map((project) => (
+                  <ComplexSelect.MenuItem key={project.id} value={project.id}>
+                    <ComplexSelect.MenuItem.Text primary={project.name} secondary={project.description} />
+                  </ComplexSelect.MenuItem>
+                ))}
+              </ComplexSelect>
+            )}
           </Header.Switchers>
           <Header.Spacer />
           <Header.Actions>

@@ -30,8 +30,8 @@ import LoginEditorView from '../pages/LoginEditorView'
 import SettingsPage from '../pages/SettingsPage'
 import ErrorPage from '../pages/ErrorPage'
 import AppLayout from '../layouts/AppLayout'
-import OrganizationOverview from '../pages/OrganizationOverview'
 import AnalyticsOverview from '../pages/Analytics'
+import Projects from '../pages/Projects'
 
 /**
  * Interface representing an application route configuration.
@@ -87,19 +87,8 @@ const appRoutes: AppRoute[] = [
     element: <AppLayout />,
     children: [
       {
-        path: '/organizations',
-        element: <OrganizationOverview />,
-        label: 'Organizations List Page',
-        showInNav: true,
-      },
-    ],
-  },
-  {
-    element: <AppLayout />,
-    children: [
-      {
         path: '/projects',
-        element: <ProjectOverview />,
+        element: <Projects />,
         label: 'Projects',
         showInNav: false,
       },

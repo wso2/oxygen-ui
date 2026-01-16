@@ -127,6 +127,9 @@ export default function ProjectOverview(): JSX.Element {
   const projectDescription = 'Complete authentication and user management system for e-commerce'
   const projectLetter = (projectName?.trim()?.[0] ?? 'P').toUpperCase()
 
+  // Use the id from params or a default value
+  const projectId = id || '1'
+
   return (
     <PageContent>
       <Box sx={{ mb: 3 }}>
@@ -184,7 +187,7 @@ export default function ProjectOverview(): JSX.Element {
                         variant="card"
                         hover
                         clickable
-                        onClick={() => navigate(`/projects/${id}/components/${component.id}`)}
+                        onClick={() => navigate(`/projects/${projectId}/components/${component.id}`)}
                       >
                         <ListingTable.Cell>
                           <ListingTable.CellIcon
@@ -255,7 +258,7 @@ export default function ProjectOverview(): JSX.Element {
                         variant="card"
                         hover
                         clickable
-                        onClick={() => navigate(`/projects/${id}/components/${server.id}`)}
+                        onClick={() => navigate(`/projects/${projectId}/components/${server.id}`)}
                       >
                         <ListingTable.Cell>
                           <ListingTable.CellIcon
