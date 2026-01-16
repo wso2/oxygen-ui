@@ -259,3 +259,147 @@ const BarChart = ({
     ]
   }, [theme, colors])
 
+  return (
+    <ResponsiveContainer width={width} height={height}>
+      <RechartsBarChart
+        data={data}
+        layout={layout}
+        margin={margin}
+        barCategoryGap={barCategoryGap}
+        barGap={barGap}
+        barSize={barSize}
+        maxBarSize={maxBarSize}
+        stackOffset={stackOffset}
+        accessibilityLayer={accessibilityLayer}
+      >
+        {grid?.show && (
+          <CartesianGrid
+            strokeDasharray={grid.strokeDasharray}
+            stroke={colors.text}
+            vertical={false}
+          />
+        )}
+
+        {xAxis?.show && (
+          <XAxis
+            type={layout === 'vertical' ? 'number' : 'category'}
+            dataKey={layout === 'vertical' ? undefined : xAxisDataKey}
+            stroke={colors.text}
+            tick={{
+              fill: colors.text,
+              fontSize: 12,
+            }}
+            tickMargin={8}
+            axisLine={{ stroke: colors.text }}
+            tickLine={{ stroke: colors.text }}
+            label={
+              xAxis.name
+                ? {
+                    value: xAxis.name,
+                    position: 'insideBottom',
+                    offset: -18,
+                    fill: colors.text,
+                    fontSize: 12,
+                  }
+                : undefined
+            }
+          />
+        )}
+
+        {yAxis?.show && (
+          <YAxis
+            type={layout === 'vertical' ? 'category' : 'number'}
+            dataKey={layout === 'vertical' ? xAxisDataKey : undefined}
+            stroke={colors.text}
+            tick={{
+              fill: colors.text,
+              fontSize: 12,
+            }}
+            tickMargin={8}
+            axisLine={{ stroke: colors.text }}
+            tickLine={{ stroke: colors.text }}
+            label={
+              yAxis.name
+                ? {
+                    value: yAxis.name,
+                    angle: -90,
+                    position: 'insideLeft',
+                    offset: 0,
+                    fill: colors.text,
+                    fontSize: 12,
+                  }
+                : undefined
+            }
+          />
+        )}
+
+        {/* Only render default Tooltip if no children are provided, to avoid duplicates if user passes their own */}
+        {!children && (
+          <Tooltip
+            cursor={{
+              fill: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
+            }}
+            contentStyle={{
+              backgroundColor: colors.background,
+              border: `1px solid ${colors.text}`,
+              borderRadius: theme.shape.borderRadius || 8,
+              color: colors.text,
+              boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+            }}
+            itemStyle={{
+              color: colors.text,
+              fontSize: 12,
+            }}
+            labelStyle={{
+              color: colors.text,
+              fontWeight: 600,
+              marginBottom: 4,
+            }}
+          />
+        )}
+
+        {legend.show && (
+          <Legend
+            align={legend.align}
+            verticalAlign={legend.verticalAlign}
+            iconType="circle"
+            formatter={(value: any) => (
+              <span
+                style={{
+                  color: colors.text,
+                  fontSize: 13,
+                  fontWeight: 500,
+                }}
+              >
+                {value}
+              </span>
+            )}
+            wrapperStyle={{ paddingTop: 32 }}
+          />
+        )}
+
+        {bars?.map((bar, index) => (
+          <Bar
+            key={bar.dataKey}
+            dataKey={bar.dataKey}
+            name={bar.name}
+            fill={bar.fill || barColors[index % barColors.length]}
+            radius={bar.radius || [4, 4, 0, 0]}
+            stackId={bar.stackId}
+            hide={bar.hide}
+            label={bar.label}
+            isAnimationActive={bar.isAnimationActive ?? isAnimationActive}
+            animationDuration={bar.animationDuration ?? animationDuration}
+            animationBegin={bar.animationBegin ?? animationBegin}
+            animationEasing={bar.animationEasing ?? animationEasing}
+          />
+        ))}
+
+        {children}
+      </RechartsBarChart>
+    </ResponsiveContainer>
+  )
+}
+
+BarChart.displayName = 'BarChart'
+export default BarChart
