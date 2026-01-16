@@ -87,6 +87,8 @@ export interface Organization {
   avatar?: string
   /** Optional description or subtitle */
   description?: string
+  orgId: string;
+  status: 'active' | 'inactive';
 }
 
 /**
