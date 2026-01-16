@@ -220,18 +220,18 @@ const BarChart = ({
   xAxisDataKey,
   height = 300,
   width = '100%',
-  legend = { show: true, align: 'center', verticalAlign: 'bottom' },
-  grid = { show: true, strokeDasharray: '3 3' },
+  legend,
+  grid,
   layout = 'horizontal',
-  margin = { top: 12, right: 24, left: 24, bottom: 40 },
+  margin,
   barCategoryGap,
   barGap,
   barSize,
   maxBarSize,
   stackOffset = 'none',
   accessibilityLayer = true,
-  xAxis = { show: true },
-  yAxis = { show: true },
+  xAxis,
+  yAxis,
   isAnimationActive = true,
   animationDuration = 1500,
   animationBegin = 0,
@@ -295,12 +295,18 @@ const BarChart = ({
     ]
   }, [theme, colors])
 
+  const legendConfig = { show: true, align: 'center', verticalAlign: 'bottom', ...legend } as const
+  const gridConfig = { show: true, strokeDasharray: '3 3', ...grid }
+  const marginConfig = { top: 12, right: 24, left: 24, bottom: 40, ...margin }
+  const xAxisConfig = { show: true, ...xAxis }
+  const yAxisConfig = { show: true, ...yAxis }
+
   return (
     <ResponsiveContainer width={width} height={height}>
       <RechartsBarChart
         data={data}
         layout={layout}
-        margin={margin}
+        margin={marginConfig}
         barCategoryGap={barCategoryGap}
         barGap={barGap}
         barSize={barSize}
@@ -308,15 +314,15 @@ const BarChart = ({
         stackOffset={stackOffset}
         accessibilityLayer={accessibilityLayer}
       >
-        {grid?.show && (
+        {gridConfig?.show && (
           <CartesianGrid
-            strokeDasharray={grid.strokeDasharray}
+            strokeDasharray={gridConfig.strokeDasharray}
             stroke={colors.text}
             vertical={false}
           />
         )}
 
-        {xAxis?.show && (
+        {xAxisConfig?.show && (
           <XAxis
             type={layout === 'vertical' ? 'number' : 'category'}
             dataKey={layout === 'vertical' ? undefined : xAxisDataKey}
@@ -329,9 +335,9 @@ const BarChart = ({
             axisLine={{ stroke: colors.text }}
             tickLine={{ stroke: colors.text }}
             label={
-              xAxis.name
+              xAxisConfig.name
                 ? {
-                    value: xAxis.name,
+                    value: xAxisConfig.name,
                     position: 'insideBottom',
                     offset: -18,
                     fill: colors.text,
@@ -342,7 +348,7 @@ const BarChart = ({
           />
         )}
 
-        {yAxis?.show && (
+        {yAxisConfig?.show && (
           <YAxis
             type={layout === 'vertical' ? 'category' : 'number'}
             dataKey={layout === 'vertical' ? xAxisDataKey : undefined}
@@ -355,9 +361,9 @@ const BarChart = ({
             axisLine={{ stroke: colors.text }}
             tickLine={{ stroke: colors.text }}
             label={
-              yAxis.name
+              yAxisConfig.name
                 ? {
-                    value: yAxis.name,
+                    value: yAxisConfig.name,
                     angle: -90,
                     position: 'insideLeft',
                     offset: 0,
@@ -378,7 +384,7 @@ const BarChart = ({
             contentStyle={{
               backgroundColor: colors.background,
               border: `1px solid ${colors.text}`,
-              borderRadius: theme.shape.borderRadius || 8,
+              borderRadius: theme.shape.borderRadius ?? 8,
               color: colors.text,
               boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
             }}
@@ -394,10 +400,10 @@ const BarChart = ({
           />
         )}
 
-        {legend.show && (
+        {legendConfig.show && (
           <Legend
-            align={legend.align}
-            verticalAlign={legend.verticalAlign}
+            align={legendConfig.align}
+            verticalAlign={legendConfig.verticalAlign}
             iconType="circle"
             formatter={(value: any) => (
               <span
