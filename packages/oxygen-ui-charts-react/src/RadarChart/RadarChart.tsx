@@ -412,3 +412,166 @@ const RadarChart = ({
     ]
   }, [theme, colors])
 
+  return (
+    <ResponsiveContainer width={width} height={height}>
+      <RechartsRadarChart
+        data={data}
+        cx={cx}
+        cy={cy}
+        innerRadius={innerRadius}
+        outerRadius={outerRadius}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        margin={margin}
+        syncId={syncId}
+        syncMethod={syncMethod}
+        role={role}
+        title={title}
+        desc={desc}
+        id={id}
+        className={className}
+        style={style}
+        tabIndex={tabIndex}
+        layout={layout}
+        stackOffset={stackOffset}
+        reverseStackOrder={reverseStackOrder}
+        barSize={barSize}
+        barCategoryGap={barCategoryGap}
+        barGap={barGap}
+        maxBarSize={maxBarSize}
+        onClick={onClick}
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}
+        onMouseMove={onMouseMove}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onContextMenu={onContextMenu}
+        onDoubleClick={onDoubleClick}
+        accessibilityLayer={accessibilityLayer}
+      >
+        {polarGrid?.show && (
+          <PolarGrid
+            gridType={polarGrid.gridType}
+            radialLines={polarGrid.radialLines}
+            polarAngles={polarGrid.polarAngles}
+            polarRadius={polarGrid.polarRadius}
+            stroke={colors.comment}
+            strokeOpacity={0.3}
+          />
+        )}
+
+        {polarAngleAxis?.show && (
+          <PolarAngleAxis
+            dataKey={polarAngleAxis.dataKey || angleKey}
+            tick={polarAngleAxis.tick ?? { fill: colors.text, fontSize: 12 }}
+            axisLine={polarAngleAxis.axisLine ?? { stroke: colors.comment, strokeOpacity: 0.3 }}
+            axisLineType={polarAngleAxis.axisLineType}
+            orientation={polarAngleAxis.orientation}
+            ticks={polarAngleAxis.ticks}
+          />
+        )}
+
+        {polarRadiusAxis?.show && (
+          <PolarRadiusAxis
+            angle={polarRadiusAxis.angle}
+            domain={polarRadiusAxis.domain}
+            tick={polarRadiusAxis.tick ?? { fill: colors.text, fontSize: 10 }}
+            axisLine={polarRadiusAxis.axisLine ?? { stroke: colors.comment, strokeOpacity: 0.3 }}
+            orientation={polarRadiusAxis.orientation}
+            reversed={polarRadiusAxis.reversed}
+            ticks={polarRadiusAxis.ticks}
+          />
+        )}
+
+        {!children && (
+          <Tooltip
+            contentStyle={{
+              backgroundColor: colors.background,
+              border: `1px solid ${colors.text}`,
+              borderRadius: theme.shape.borderRadius || 8,
+              color: colors.text,
+              boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+            }}
+            itemStyle={{
+              color: colors.text,
+              fontSize: 12,
+            }}
+            labelStyle={{
+              color: colors.text,
+              fontWeight: 600,
+              marginBottom: 4,
+            }}
+          />
+        )}
+
+        {legend.show && (
+          <Legend
+            align={legend.align}
+            verticalAlign={legend.verticalAlign}
+            layout={legend.layout}
+            iconType={legend.iconType || 'circle'}
+            formatter={(value: any) => (
+              <span style={{ color: colors.text, fontSize: 13, fontWeight: 500 }}>{value}</span>
+            )}
+            wrapperStyle={{ paddingTop: 20 }}
+          />
+        )}
+
+        {radars?.map((radar, index) => (
+          <Radar
+            key={radar.dataKey}
+            name={radar.name}
+            dataKey={radar.dataKey}
+            stroke={radar.stroke || radarColors[index % radarColors.length]}
+            strokeWidth={radar.strokeWidth || 2}
+            strokeDasharray={radar.strokeDasharray}
+            fill={radar.fill || radarColors[index % radarColors.length]}
+            fillOpacity={radar.fillOpacity || 0.6}
+            hide={radar.hide}
+            label={radar.label}
+            dot={radar.dot ?? true}
+            activeDot={radar.activeDot ?? true}
+            connectNulls={radar.connectNulls}
+            legendType={radar.legendType}
+            tooltipType={radar.tooltipType}
+            onMouseEnter={radar.onMouseEnter as any}
+            onMouseLeave={radar.onMouseLeave as any}
+            onClick={radar.onClick as any}
+            isAnimationActive={radar.isAnimationActive}
+            animationDuration={radar.animationDuration}
+            animationBegin={radar.animationBegin}
+            animationEasing={radar.animationEasing}
+          />
+        ))}
+
+        {radialBars?.map((bar, index) => (
+          <RadialBar
+            key={bar.dataKey}
+            name={bar.name}
+            dataKey={bar.dataKey}
+            fill={bar.fill || radarColors[index % radarColors.length]}
+            background={bar.background}
+            cornerRadius={bar.cornerRadius}
+            minPointSize={bar.minPointSize}
+            maxBarSize={bar.maxBarSize}
+            hide={bar.hide}
+            label={bar.label}
+            stackId={bar.stackId}
+            isAnimationActive={bar.isAnimationActive}
+            animationDuration={bar.animationDuration}
+            animationBegin={bar.animationBegin}
+            animationEasing={bar.animationEasing}
+            onClick={bar.onClick as any}
+            onMouseEnter={bar.onMouseEnter as any}
+            onMouseLeave={bar.onMouseLeave as any}
+          />
+        ))}
+
+        {children}
+      </RechartsRadarChart>
+    </ResponsiveContainer>
+  )
+}
+
+RadarChart.displayName = 'RadarChart'
+export default RadarChart
