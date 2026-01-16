@@ -9,11 +9,13 @@
   "commit": false,
   "linked": [
     [
+      "@wso2/create-oxygen-ui",
       "@wso2/esbuild-plugin-inline-css-fonts",
       "@wso2/eslint-plugin-oxygen-ui",
       "@wso2/oxygen-ui",
       "@wso2/oxygen-ui-docs",
       "@wso2/oxygen-ui-icons-react",
+      "@wso2/oxygen-ui-template",
       "@wso2/vite-plugin-oxygen-ui",
       "@wso2/oxygen-ui-test-app"
     ]
