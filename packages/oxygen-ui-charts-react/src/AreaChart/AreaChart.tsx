@@ -113,14 +113,14 @@ export interface AreaChartProps {
      * Event handlers for individual areas.
      * Receives (props, event) where props contains all area properties including its data.
      */
-    onClick?: (props: any, event: React.MouseEvent) => void
-    onMouseDown?: (props: any, event: React.MouseEvent) => void
-    onMouseUp?: (props: any, event: React.MouseEvent) => void
-    onMouseMove?: (props: any, event: React.MouseEvent) => void
-    onMouseOver?: (props: any, event: React.MouseEvent) => void
-    onMouseOut?: (props: any, event: React.MouseEvent) => void
-    onMouseEnter?: (props: any, event: React.MouseEvent) => void
-    onMouseLeave?: (props: any, event: React.MouseEvent) => void
+    onClick?: (data: any, index: number, event: React.MouseEvent) => void
+    onMouseDown?: (data: any, index: number, event: React.MouseEvent) => void
+    onMouseUp?: (data: any, index: number, event: React.MouseEvent) => void
+    onMouseMove?: (data: any, index: number, event: React.MouseEvent) => void
+    onMouseOver?: (data: any, index: number, event: React.MouseEvent) => void
+    onMouseOut?: (data: any, index: number, event: React.MouseEvent) => void
+    onMouseEnter?: (data: any, index: number, event: React.MouseEvent) => void
+    onMouseLeave?: (data: any, index: number, event: React.MouseEvent) => void
     /**
      * If true, the area will be animated.
      * @default true
@@ -228,12 +228,12 @@ export interface AreaChartProps {
   /**
    * Event handlers for the entire chart.
    */
-  onClick?: (data: any, event: React.MouseEvent) => void
-  onMouseDown?: (data: any, event: React.MouseEvent) => void
-  onMouseUp?: (data: any, event: React.MouseEvent) => void
-  onMouseMove?: (data: any, event: React.MouseEvent) => void
-  onMouseEnter?: (data: any, event: React.MouseEvent) => void
-  onMouseLeave?: (data: any, event: React.MouseEvent) => void
+  onClick?: (data: any, index: number, event: React.MouseEvent) => void
+  onMouseDown?: (data: any, index: number, event: React.MouseEvent) => void
+  onMouseUp?: (data: any, index: number, event: React.MouseEvent) => void
+  onMouseMove?: (data: any, index: number, event: React.MouseEvent) => void
+  onMouseEnter?: (data: any, index: number, event: React.MouseEvent) => void
+  onMouseLeave?: (data: any, index: number, event: React.MouseEvent) => void
   /**
    * If true, the chart areas will be animated.
    * @default true
@@ -355,12 +355,6 @@ const AreaChart = ({
         title={title}
         desc={desc}
         accessibilityLayer={accessibilityLayer}
-        onClick={onClick}
-        onMouseDown={onMouseDown}
-        onMouseUp={onMouseUp}
-        onMouseMove={onMouseMove}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
       >
         <defs>
           {areas?.map((area, index) => {
@@ -374,7 +368,7 @@ const AreaChart = ({
                 x2="0"
                 y2="1"
               >
-                <stop offset="5%" stopColor={color} stopOpacity={area.fillOpacity || 0.8} />
+                <stop offset="5%" stopColor={color} stopOpacity={area.fillOpacity ?? 0.8} />
                 <stop offset="95%" stopColor={color} stopOpacity={0} />
               </linearGradient>
             )
@@ -496,7 +490,7 @@ const AreaChart = ({
             name={area.name}
             stroke={area.stroke || areaColors[index % areaColors.length]}
             fill={`url(#gradient-${area.dataKey})`}
-            strokeWidth={area.strokeWidth || 2}
+            strokeWidth={area.strokeWidth ?? 2}
             strokeDasharray={area.strokeDasharray}
             type={area.type || 'monotone'}
             stackId={area.stackId}
@@ -507,14 +501,14 @@ const AreaChart = ({
             connectNulls={area.connectNulls}
             unit={area.unit}
             legendType={area.legendType || 'line'}
-            onClick={area.onClick as any}
-            onMouseDown={area.onMouseDown as any}
-            onMouseUp={area.onMouseUp as any}
-            onMouseMove={area.onMouseMove as any}
+            onClick={(area.onClick || onClick) as any}
+            onMouseDown={(area.onMouseDown || onMouseDown) as any}
+            onMouseUp={(area.onMouseUp || onMouseUp) as any}
+            onMouseMove={(area.onMouseMove || onMouseMove) as any}
             onMouseOver={area.onMouseOver as any}
             onMouseOut={area.onMouseOut as any}
-            onMouseEnter={area.onMouseEnter as any}
-            onMouseLeave={area.onMouseLeave as any}
+            onMouseEnter={(area.onMouseEnter || onMouseEnter) as any}
+            onMouseLeave={(area.onMouseLeave || onMouseLeave) as any}
             isAnimationActive={area.isAnimationActive ?? isAnimationActive}
             animationDuration={area.animationDuration ?? animationDuration}
             animationBegin={area.animationBegin ?? animationBegin}
