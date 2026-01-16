@@ -22,7 +22,6 @@ import { GitHub } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';
 import packageJson from '../../oxygen-ui/package.json';
 
-
 const meta = {
   title: 'Welcome',
   parameters: {
