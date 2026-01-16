@@ -18,16 +18,3 @@
 
 export { default } from './BarChart'
 export * from './BarChart'
-
-export {
-  XAxis,
-  YAxis,
-  Bar,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  Cell,
-  Label,
-  LabelList,
-} from 'recharts'
