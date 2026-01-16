@@ -341,3 +341,169 @@ const LineChart = ({
     ]
   }, [theme, colors])
 
+  return (
+    <ResponsiveContainer width={width} height={height}>
+      <RechartsLineChart
+        data={data}
+        layout={layout}
+        margin={margin}
+        syncId={syncId}
+        syncMethod={syncMethod}
+        role={role}
+        title={title}
+        desc={desc}
+        accessibilityLayer={accessibilityLayer}
+        onClick={onClick}
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}
+        onMouseMove={onMouseMove}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        {grid?.show && (
+          <CartesianGrid
+            strokeDasharray={grid.strokeDasharray}
+            stroke={colors.text}
+            vertical={false}
+          />
+        )}
+
+        {xAxis?.show && (
+          <XAxis
+            type={xAxis.type || (layout === 'vertical' ? 'number' : 'category')}
+            dataKey={layout === 'vertical' ? undefined : xAxisDataKey}
+            stroke={colors.text}
+            domain={xAxis.domain}
+            tickCount={xAxis.tickCount}
+            interval={xAxis.interval}
+            tick={{
+              fill: colors.text,
+              fontSize: 12,
+            }}
+            tickMargin={8}
+            axisLine={{ stroke: colors.text }}
+            tickLine={{ stroke: colors.text }}
+            label={
+              xAxis.name
+                ? {
+                    value: xAxis.name,
+                    position: 'insideBottom',
+                    offset: -18,
+                    fill: colors.text,
+                    fontSize: 12,
+                  }
+                : undefined
+            }
+          />
+        )}
+
+        {yAxis?.show && (
+          <YAxis
+            type={yAxis.type || (layout === 'vertical' ? 'category' : 'number')}
+            dataKey={layout === 'vertical' ? xAxisDataKey : undefined}
+            stroke={colors.text}
+            domain={yAxis.domain}
+            tickCount={yAxis.tickCount}
+            interval={yAxis.interval}
+            tick={{
+              fill: colors.text,
+              fontSize: 12,
+            }}
+            tickMargin={8}
+            axisLine={{ stroke: colors.text }}
+            tickLine={{ stroke: colors.text }}
+            label={
+              yAxis.name
+                ? {
+                    value: yAxis.name,
+                    angle: -90,
+                    position: 'insideLeft',
+                    offset: 0,
+                    fill: colors.text,
+                    fontSize: 12,
+                  }
+                : undefined
+            }
+          />
+        )}
+
+        {!children && (
+          <Tooltip
+            contentStyle={{
+              backgroundColor: colors.background,
+              border: `1px solid ${colors.text}`,
+              borderRadius: theme.shape.borderRadius || 8,
+              color: colors.text,
+              boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+            }}
+            itemStyle={{
+              color: colors.text,
+              fontSize: 12,
+            }}
+            labelStyle={{
+              color: colors.text,
+              fontWeight: 600,
+              marginBottom: 4,
+            }}
+          />
+        )}
+
+        {legend.show && (
+          <Legend
+            align={legend.align}
+            verticalAlign={legend.verticalAlign}
+            iconType="circle"
+            formatter={(value: any) => (
+              <span
+                style={{
+                  color: colors.text,
+                  fontSize: 13,
+                  fontWeight: 500,
+                }}
+              >
+                {value}
+              </span>
+            )}
+            wrapperStyle={{ paddingTop: 32 }}
+          />
+        )}
+
+        {lines?.map((line, index) => (
+          <Line
+            key={line.dataKey}
+            dataKey={line.dataKey}
+            name={line.name}
+            stroke={line.stroke || lineColors[index % lineColors.length]}
+            strokeWidth={line.strokeWidth || 2}
+            strokeDasharray={line.strokeDasharray}
+            type={line.type || 'monotone'}
+            hide={line.hide}
+            label={line.label}
+            dot={line.dot ?? true}
+            activeDot={line.activeDot ?? true}
+            connectNulls={line.connectNulls}
+            unit={line.unit}
+            legendType={line.legendType || 'line'}
+            onClick={line.onClick}
+            onMouseDown={line.onMouseDown}
+            onMouseUp={line.onMouseUp}
+            onMouseMove={line.onMouseMove}
+            onMouseOver={line.onMouseOver}
+            onMouseOut={line.onMouseOut}
+            onMouseEnter={line.onMouseEnter}
+            onMouseLeave={line.onMouseLeave}
+            isAnimationActive={line.isAnimationActive ?? isAnimationActive}
+            animationDuration={line.animationDuration ?? animationDuration}
+            animationBegin={line.animationBegin ?? animationBegin}
+            animationEasing={line.animationEasing ?? animationEasing}
+          />
+        ))}
+
+        {children}
+      </RechartsLineChart>
+    </ResponsiveContainer>
+  )
+}
+
+LineChart.displayName = 'LineChart'
+export default LineChart
