@@ -262,3 +262,88 @@ const PieChart = ({
     ]
   }, [theme, syntaxColors, customColors])
 
+  return (
+    <ResponsiveContainer width={width} height={height}>
+      <RechartsPieChart data={data} margin={margin}>
+        {pies?.map((pie, index) => (
+          <Pie
+            key={pie.dataKey}
+            data={data}
+            dataKey={pie.dataKey as any}
+            nameKey={pie.nameKey || nameKey}
+            name={pie.name}
+            cx={pie.cx || cx}
+            cy={pie.cy || cy}
+            startAngle={pie.startAngle ?? startAngle}
+            endAngle={pie.endAngle ?? endAngle}
+            innerRadius={pie.innerRadius || innerRadius}
+            outerRadius={pie.outerRadius || outerRadius}
+            paddingAngle={pie.paddingAngle ?? paddingAngle}
+            cornerRadius={pie.cornerRadius ?? cornerRadius}
+            minAngle={pie.minAngle ?? minAngle}
+            isAnimationActive={pie.isAnimationActive ?? isAnimationActive}
+            animationDuration={pie.animationDuration ?? animationDuration}
+            animationBegin={pie.animationBegin ?? animationBegin}
+            animationEasing={pie.animationEasing ?? animationEasing}
+            label={pie.label ?? label}
+            labelLine={pie.labelLine ?? labelLine}
+            onClick={pie.onClick || onClick}
+            onMouseEnter={pie.onMouseEnter || onMouseEnter}
+            onMouseLeave={pie.onMouseLeave || onMouseLeave}
+          >
+            {data?.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />
+            ))}
+          </Pie>
+        ))}
+
+        {/* Only render default Tooltip if no children are provided */}
+        {!children && (
+          <Tooltip
+            contentStyle={{
+              backgroundColor: syntaxColors.background,
+              border: `1px solid ${syntaxColors.text}`,
+              borderRadius: theme.shape.borderRadius || 8,
+              color: syntaxColors.text,
+              boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+            }}
+            itemStyle={{
+              color: syntaxColors.text,
+              fontSize: 12,
+            }}
+            labelStyle={{
+              color: syntaxColors.text,
+              fontWeight: 600,
+              marginBottom: 4,
+            }}
+          />
+        )}
+
+        {legend.show && (
+          <Legend
+            align={legend.align}
+            verticalAlign={legend.verticalAlign}
+            iconType="circle"
+            formatter={(value: any) => (
+              <span
+                style={{
+                  color: syntaxColors.text,
+                  fontSize: 13,
+                  fontWeight: 500,
+                }}
+              >
+                {value}
+              </span>
+            )}
+            wrapperStyle={{ paddingTop: 32 }}
+          />
+        )}
+
+        {children}
+      </RechartsPieChart>
+    </ResponsiveContainer>
+  )
+}
+
+PieChart.displayName = 'PieChart'
+export default PieChart
