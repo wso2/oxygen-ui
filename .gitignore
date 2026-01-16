@@ -62,6 +62,7 @@ yarn.lock
 .github/instructions/nx.instructions.md
 
 storybook-static
+packages/oxygen-ui-docs/.storybook/public/sample
 
 # Claude Code files
 CLAUDE.md

@@ -9,8 +9,9 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "nx run-many --target=build --all",
-    "build:storybook": "pnpm --filter @wso2/oxygen-ui-docs build",
+    "build": "nx run-many --target=build --all && pnpm copy:sample",
+    "build:sample": "cd samples/oxygen-ui-test-app && BUILD_FOR_STORYBOOK=true pnpm build",
+    "build:storybook": "pnpm build:sample && pnpm --filter @wso2/oxygen-ui-docs build",
     "clean": "nx run-many --target=clean --all",
     "typecheck": "nx run-many --target=typecheck --all",
     "lint": "nx run-many --target=lint --all",
@@ -18,6 +19,7 @@
     "prepublishOnly": "nx run-many --target=build --all",
     "publish:packages": "changeset publish",
     "version:packages": "changeset version && pnpm install --lockfile-only",
+    "copy:sample": "node ./scripts/copy-sample-to-storybook.js",
     "test": "nx run-many --target=test --all",
     "storybook": "pnpm --filter @wso2/oxygen-ui-docs dev"
   },
