@@ -18,7 +18,9 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
 import { Box, Typography, Paper, Stack, Link, CodeBlock } from '@wso2/oxygen-ui';
+import { GitHub } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';
+import packageJson from '../../oxygen-ui/package.json';
 
 const meta = {
   title: 'Welcome',
@@ -42,11 +44,19 @@ const WelcomeContent = () => (
       <Typography variant="h2" gutterBottom>
         Welcome to Oxygen UI
       </Typography>
+
+      <Typography variant="body2" sx={{ mt: 2, mb: 4, display: 'flex', alignItems: 'center', gap: 1 }}>
+        <GitHub /> Version {packageJson.version}
+      </Typography>
       
       <Typography variant="body1" paragraph sx={{ fontSize: '1.1rem', mb: 4 }}>
         Oxygen UI is a design system built on MUI (Material-UI), providing a comprehensive set of 
         customizable components, themes, and utilities for building modern React applications.
       </Typography>
+
+      <Link href="./sample/index.html" target="_blank" rel="noopener" variant="h6">
+        View Sample App &rarr;
+      </Link>
     </Box>
 
     <Stack spacing={3} sx={{ mb: 4 }}>

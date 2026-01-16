@@ -46,7 +46,7 @@ interface Project {
   lastUpdated: string
 }
 
-export default function OrganizationOverview(): JSX.Element {
+export default function Projects(): JSX.Element {
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -78,7 +78,7 @@ export default function OrganizationOverview(): JSX.Element {
         <Box sx={{ flexGrow: 1 }}>
           <PageTitle>
             <PageTitle.Header>Projects</PageTitle.Header>
-            <PageTitle.SubHeader>Manage your authentication projects and flows</PageTitle.SubHeader>
+            <PageTitle.SubHeader>Manage your projects and workflows</PageTitle.SubHeader>
           </PageTitle>
         </Box>
         <Button
