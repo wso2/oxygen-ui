@@ -26,7 +26,7 @@ You can use this library in two ways depending on your needs:
 
 The configuration pattern allows you to define chart series (bars, lines, areas, etc.) using a simple array prop. This reduces boilerplate and keeps your code clean.
 
-**Example: Stacked Bar Chart**
+#### Example: Stacked Bar Chart
 
 ```jsx
 import { BarChart } from '@wso2/oxygen-ui-charts-react'
@@ -57,7 +57,7 @@ function StackedBarChart() {
 
 For advanced customization, you can use the standard Recharts composition pattern. Specifically useful when you need custom tooltips, specific legend formatting, complex layouts, or custom SVG elements.
 
-**Example: Custom Composition**
+#### Example: Custom Composition
 
 ```jsx
 import {
