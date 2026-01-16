@@ -315,3 +315,100 @@ export interface RadarChartProps {
   children?: React.ReactNode
 }
 
+/**
+ * RadarChart component for Oxygen UI powered by Recharts.
+ */
+const RadarChart = ({
+  data,
+  radars,
+  radialBars,
+  angleKey,
+  height = 300,
+  width = '100%',
+  legend = { show: true, align: 'center', verticalAlign: 'bottom' },
+  innerRadius = 0,
+  outerRadius = '80%',
+  cx = '50%',
+  cy = '50%',
+  startAngle = 90,
+  endAngle = -270,
+  margin = { top: 20, right: 20, bottom: 20, left: 20 },
+  polarGrid = { show: true, gridType: 'polygon' },
+  polarAngleAxis = { show: true },
+  polarRadiusAxis = { show: false },
+  syncId,
+  syncMethod,
+  role,
+  title,
+  desc,
+  id,
+  className,
+  style,
+  tabIndex,
+  layout = 'centric',
+  stackOffset,
+  reverseStackOrder,
+  barSize,
+  barCategoryGap,
+  barGap,
+  maxBarSize,
+  onClick,
+  onMouseDown,
+  onMouseUp,
+  onMouseMove,
+  onMouseEnter,
+  onMouseLeave,
+  onContextMenu,
+  onDoubleClick,
+  accessibilityLayer = true,
+  children,
+}: RadarChartProps): React.ReactElement => {
+  const theme = useTheme()
+
+  // Check color scheme from DOM attribute (set by MUI's extendTheme)
+  const [isDark, setIsDark] = React.useState(false)
+
+  React.useEffect(() => {
+    const checkColorScheme = () => {
+      const htmlElement = document.documentElement
+      const colorScheme = htmlElement.getAttribute('data-color-scheme')
+      setIsDark(colorScheme === 'dark' || theme.palette.mode === 'dark')
+    }
+
+    checkColorScheme()
+
+    const observer = new MutationObserver(checkColorScheme)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-color-scheme'],
+    })
+
+    return () => observer.disconnect()
+  }, [theme.palette.mode])
+
+  const defaultColors = {
+    background: isDark ? '#1e1e1e' : '#f5f5f5',
+    text: isDark ? '#d4d4d4' : '#24292e',
+    comment: isDark ? '#6a9955' : '#6a737d',
+    keyword: isDark ? '#569cd6' : '#d73a49',
+    string: isDark ? '#ce9178' : '#032f62',
+    function: isDark ? '#dcdcaa' : '#6f42c1',
+    number: isDark ? '#b5cea8' : '#005cc5',
+    operator: isDark ? '#d4d4d4' : '#d73a49',
+  }
+
+  const colors =
+    (isDark ? (theme.vars as any)?.syntax?.dark : (theme.vars as any)?.syntax?.light) ||
+    defaultColors
+
+  const radarColors = React.useMemo(() => {
+    return [
+      theme.palette.primary?.main,
+      colors.keyword,
+      colors.string,
+      colors.function,
+      colors.number,
+      colors.operator,
+    ]
+  }, [theme, colors])
+
