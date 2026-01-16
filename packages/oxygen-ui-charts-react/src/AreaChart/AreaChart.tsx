@@ -343,3 +343,190 @@ const AreaChart = ({
     ]
   }, [theme, colors])
 
+  return (
+    <ResponsiveContainer width={width} height={height}>
+      <RechartsAreaChart
+        data={data}
+        layout={layout}
+        margin={margin}
+        syncId={syncId}
+        syncMethod={syncMethod}
+        role={role}
+        title={title}
+        desc={desc}
+        accessibilityLayer={accessibilityLayer}
+        onClick={onClick}
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}
+        onMouseMove={onMouseMove}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        <defs>
+          {areas?.map((area, index) => {
+            const color = area.fill || area.stroke || areaColors[index % areaColors.length]
+            return (
+              <linearGradient
+                key={`gradient-${area.dataKey}`}
+                id={`gradient-${area.dataKey}`}
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="1"
+              >
+                <stop offset="5%" stopColor={color} stopOpacity={area.fillOpacity || 0.8} />
+                <stop offset="95%" stopColor={color} stopOpacity={0} />
+              </linearGradient>
+            )
+          })}
+        </defs>
+
+        {grid?.show && (
+          <CartesianGrid
+            strokeDasharray={grid.strokeDasharray}
+            stroke={colors.text}
+            vertical={false}
+          />
+        )}
+
+        {xAxis?.show && (
+          <XAxis
+            type={xAxis.type || (layout === 'vertical' ? 'number' : 'category')}
+            dataKey={layout === 'vertical' ? undefined : xAxisDataKey}
+            stroke={colors.text}
+            domain={xAxis.domain}
+            tickCount={xAxis.tickCount}
+            interval={xAxis.interval}
+            tick={{
+              fill: colors.text,
+              fontSize: 12,
+            }}
+            tickMargin={8}
+            axisLine={{ stroke: colors.text }}
+            tickLine={{ stroke: colors.text }}
+            label={
+              xAxis.name
+                ? {
+                    value: xAxis.name,
+                    position: 'insideBottom',
+                    offset: -18,
+                    fill: colors.text,
+                    fontSize: 12,
+                  }
+                : undefined
+            }
+          />
+        )}
+
+        {yAxis?.show && (
+          <YAxis
+            type={yAxis.type || (layout === 'vertical' ? 'category' : 'number')}
+            dataKey={layout === 'vertical' ? xAxisDataKey : undefined}
+            stroke={colors.text}
+            domain={yAxis.domain}
+            tickCount={yAxis.tickCount}
+            interval={yAxis.interval}
+            tick={{
+              fill: colors.text,
+              fontSize: 12,
+            }}
+            tickMargin={8}
+            axisLine={{ stroke: colors.text }}
+            tickLine={{ stroke: colors.text }}
+            label={
+              yAxis.name
+                ? {
+                    value: yAxis.name,
+                    angle: -90,
+                    position: 'insideLeft',
+                    offset: 0,
+                    fill: colors.text,
+                    fontSize: 12,
+                  }
+                : undefined
+            }
+          />
+        )}
+
+        {!children && (
+          <Tooltip
+            contentStyle={{
+              backgroundColor: colors.background,
+              border: `1px solid ${colors.text}`,
+              borderRadius: theme.shape.borderRadius || 8,
+              color: colors.text,
+              boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+            }}
+            itemStyle={{
+              color: colors.text,
+              fontSize: 12,
+            }}
+            labelStyle={{
+              color: colors.text,
+              fontWeight: 600,
+              marginBottom: 4,
+            }}
+          />
+        )}
+
+        {legend.show && (
+          <Legend
+            align={legend.align}
+            verticalAlign={legend.verticalAlign}
+            iconType="circle"
+            formatter={(value: any) => (
+              <span
+                style={{
+                  color: colors.text,
+                  fontSize: 13,
+                  fontWeight: 500,
+                }}
+              >
+                {value}
+              </span>
+            )}
+            wrapperStyle={{ paddingTop: 32 }}
+          />
+        )}
+
+        {areas?.map((area, index) => (
+          <Area
+            key={area.dataKey}
+            dataKey={area.dataKey}
+            name={area.name}
+            stroke={area.stroke || areaColors[index % areaColors.length]}
+            fill={`url(#gradient-${area.dataKey})`}
+            strokeWidth={area.strokeWidth || 2}
+            strokeDasharray={area.strokeDasharray}
+            type={area.type || 'monotone'}
+            stackId={area.stackId}
+            hide={area.hide}
+            label={area.label}
+            dot={area.dot ?? false}
+            activeDot={area.activeDot ?? true}
+            connectNulls={area.connectNulls}
+            unit={area.unit}
+            legendType={area.legendType || 'line'}
+            onClick={area.onClick as any}
+            onMouseDown={area.onMouseDown as any}
+            onMouseUp={area.onMouseUp as any}
+            onMouseMove={area.onMouseMove as any}
+            onMouseOver={area.onMouseOver as any}
+            onMouseOut={area.onMouseOut as any}
+            onMouseEnter={area.onMouseEnter as any}
+            onMouseLeave={area.onMouseLeave as any}
+            isAnimationActive={area.isAnimationActive ?? isAnimationActive}
+            animationDuration={area.animationDuration ?? animationDuration}
+            animationBegin={area.animationBegin ?? animationBegin}
+            animationEasing={area.animationEasing ?? animationEasing}
+          />
+        ))}
+
+        {children}
+      </RechartsAreaChart>
+    </ResponsiveContainer>
+  )
+}
+
+AreaChart.displayName = 'AreaChart'
+export default AreaChart
