@@ -57,6 +57,11 @@ export interface PieChartProps {
     onClick?: (data: any, index: number, event: React.MouseEvent) => void
     onMouseEnter?: (data: any, index: number, event: React.MouseEvent) => void
     onMouseLeave?: (data: any, index: number, event: React.MouseEvent) => void
+    onMouseDown?: (data: any, index: number, event: React.MouseEvent) => void
+    onMouseUp?: (data: any, index: number, event: React.MouseEvent) => void
+    onMouseMove?: (data: any, index: number, event: React.MouseEvent) => void
+    onContextMenu?: (data: any, index: number, event: React.MouseEvent) => void
+    onDoubleClick?: (data: any, index: number, event: React.MouseEvent) => void
   }>
   /**
    * Default key of each sector's name in data.
@@ -174,6 +179,26 @@ export interface PieChartProps {
    */
   onMouseLeave?: (data: any, index: number, event: React.MouseEvent) => void
   /**
+   * Default mouse down event handler.
+   */
+  onMouseDown?: (data: any, index: number, event: React.MouseEvent) => void
+  /**
+   * Default mouse up event handler.
+   */
+  onMouseUp?: (data: any, index: number, event: React.MouseEvent) => void
+  /**
+   * Default mouse move event handler.
+   */
+  onMouseMove?: (data: any, index: number, event: React.MouseEvent) => void
+  /**
+   * Default context menu event handler.
+   */
+  onContextMenu?: (data: any, index: number, event: React.MouseEvent) => void
+  /**
+   * Default double click event handler.
+   */
+  onDoubleClick?: (data: any, index: number, event: React.MouseEvent) => void
+  /**
    * Optional children for composition.
    */
   children?: React.ReactNode
@@ -209,6 +234,11 @@ const PieChart = ({
   onClick,
   onMouseEnter,
   onMouseLeave,
+  onMouseDown,
+  onMouseUp,
+  onMouseMove,
+  onContextMenu,
+  onDoubleClick,
   children,
 }: PieChartProps): React.ReactElement => {
   const theme = useTheme()
@@ -290,6 +320,11 @@ const PieChart = ({
             onClick={pie.onClick || onClick}
             onMouseEnter={pie.onMouseEnter || onMouseEnter}
             onMouseLeave={pie.onMouseLeave || onMouseLeave}
+            onMouseDown={pie.onMouseDown || onMouseDown}
+            onMouseUp={pie.onMouseUp || onMouseUp}
+            onMouseMove={pie.onMouseMove || onMouseMove}
+            onContextMenu={pie.onContextMenu || onContextMenu}
+            onDoubleClick={pie.onDoubleClick || onDoubleClick}
           >
             {data?.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />
