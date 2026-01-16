@@ -77,6 +77,12 @@ export interface BarChartProps {
      * @default 'ease'
      */
     animationEasing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear'
+    onClick?: (data: any, index: number, event: React.MouseEvent) => void
+    onMouseEnter?: (data: any, index: number, event: React.MouseEvent) => void
+    onMouseLeave?: (data: any, index: number, event: React.MouseEvent) => void
+    onMouseDown?: (data: any, index: number, event: React.MouseEvent) => void
+    onMouseUp?: (data: any, index: number, event: React.MouseEvent) => void
+    onMouseMove?: (data: any, index: number, event: React.MouseEvent) => void
   }>
   /**
    * The key of each sector's label in data.
@@ -179,6 +185,30 @@ export interface BarChartProps {
    * Optional children for composition.
    */
   children?: React.ReactNode
+  /**
+   * Default click event handler.
+   */
+  onClick?: (data: any, index: number, event: React.MouseEvent) => void
+  /**
+   * Default mouse enter event handler.
+   */
+  onMouseEnter?: (data: any, index: number, event: React.MouseEvent) => void
+  /**
+   * Default mouse leave event handler.
+   */
+  onMouseLeave?: (data: any, index: number, event: React.MouseEvent) => void
+  /**
+   * Default mouse down event handler.
+   */
+  onMouseDown?: (data: any, index: number, event: React.MouseEvent) => void
+  /**
+   * Default mouse up event handler.
+   */
+  onMouseUp?: (data: any, index: number, event: React.MouseEvent) => void
+  /**
+   * Default mouse move event handler.
+   */
+  onMouseMove?: (data: any, index: number, event: React.MouseEvent) => void
 }
 
 /**
@@ -207,6 +237,12 @@ const BarChart = ({
   animationBegin = 0,
   animationEasing = 'ease',
   children,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+  onMouseDown,
+  onMouseUp,
+  onMouseMove,
 }: BarChartProps): React.ReactElement => {
   const theme = useTheme()
 
@@ -392,6 +428,12 @@ const BarChart = ({
             animationDuration={bar.animationDuration ?? animationDuration}
             animationBegin={bar.animationBegin ?? animationBegin}
             animationEasing={bar.animationEasing ?? animationEasing}
+            onClick={bar.onClick || onClick}
+            onMouseEnter={bar.onMouseEnter || onMouseEnter}
+            onMouseLeave={bar.onMouseLeave || onMouseLeave}
+            onMouseDown={bar.onMouseDown || onMouseDown}
+            onMouseUp={bar.onMouseUp || onMouseUp}
+            onMouseMove={bar.onMouseMove || onMouseMove}
           />
         ))}
 
