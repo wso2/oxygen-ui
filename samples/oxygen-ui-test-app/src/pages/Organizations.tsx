@@ -27,6 +27,8 @@ import {
   SearchBarWithAdvancedFilter,
   ListingTable,
   Tooltip,
+  Card,
+  Grid,
 } from '@wso2/oxygen-ui'
 import {
   Plus,
@@ -37,12 +39,13 @@ import {
   Trash2,
   SlidersHorizontal,
   Building2,
+  ArrowRight,
 } from '@wso2/oxygen-ui-icons-react'
 import { useNavigate } from 'react-router'
 import type { JSX } from 'react'
 import { useMemo, useState } from 'react'
 import type { AdvancedFilterState } from '@wso2/oxygen-ui/components/SearchBar/SearchBarWithAdvancedFilter'
-import { mockOrganizations } from '../mock-data'
+import { mockOrganizations, mockExploreMoreSections } from '../mock-data'
 
 interface Organization {
   id: string
@@ -110,8 +113,6 @@ export default function Organizations(): JSX.Element {
           fullWidth
         />
       </Box>
-
-      {/* Organizations Table */}
       {filteredOrganizations.length === 0 ? (
         <Box sx={{ textAlign: 'center', py: 8 }}>
           <Folder size={48} style={{ opacity: 0.3, marginBottom: 16 }} />
@@ -179,6 +180,7 @@ export default function Organizations(): JSX.Element {
                               }}
                             />
                           </Box>
+
                           <Box display="flex" alignItems="center" gap={1} mt={0.5} flexWrap="wrap">
                             <Typography variant="body2" color="text.secondary">
                               Organization Id:
@@ -187,6 +189,7 @@ export default function Organizations(): JSX.Element {
                           </Box>
                         </Box>
                       </Box>
+
                       <Box display="flex" alignItems="center" gap={0.5} flexShrink={0}>
                         <Tooltip title="Info">
                           <IconButton
@@ -245,6 +248,59 @@ export default function Organizations(): JSX.Element {
           </ListingTable>
         </ListingTable.Container>
       )}
+
+      {/* Explore More */}
+      <Box sx={{ mt: 5 }}>
+        <Typography variant="h6" sx={{ mb: 1 }}>
+          Explore More
+        </Typography>
+
+        <Card
+          variant="outlined"
+          sx={{
+            p: 3,
+          }}
+        >
+          <Grid container spacing={6}>
+            {mockExploreMoreSections.map(section => {
+              const SectionIcon = section.icon
+
+              return (
+                <Grid key={section.id} size={{ xs: 12, md: 4 }}>
+                  <Box display="flex" alignItems="flex-start" gap={2}>
+                    <Box sx={{ color: 'primary.main', mt: 0.25 }}>
+                      <SectionIcon size={34} />
+                    </Box>
+                    <Box>
+                      <Typography variant="h6" sx={{ mb: 1 }}>
+                        {section.title}
+                      </Typography>
+                      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                        {section.items.map(item => (
+                          <Button
+                            key={item.id}
+                            variant="text"
+                            size="small"
+                            startIcon={<ArrowRight size={16} />}
+                            sx={{
+                              justifyContent: 'flex-start',
+                            }}
+                            onClick={() => {
+                              console.log('Explore item:', item.label)
+                            }}
+                          >
+                            {item.label}
+                          </Button>
+                        ))}
+                      </Box>
+                    </Box>
+                  </Box>
+                </Grid>
+              )
+            })}
+          </Grid>
+        </Card>
+      </Box>
     </PageContent>
   )
 }

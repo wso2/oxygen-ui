@@ -87,8 +87,8 @@ export interface Organization {
   avatar?: string
   /** Optional description or subtitle */
   description?: string
-  orgId: string;
-  status: 'active' | 'inactive';
+  orgId: string
+  status: 'active' | 'inactive'
 }
 
 /**
@@ -231,6 +231,19 @@ export interface McpServer {
   action: string
   user: string
   timestamp: string
+}
+
+export interface ExploreMoreItem {
+  id: string
+  label: string
+  href?: string
+}
+
+export interface ExploreMoreSection {
+  id: string
+  title: string
+  icon: React.ElementType
+  items: ExploreMoreItem[]
 }
 
 // Note: SIDEBAR_WIDTH and COLLAPSED_SIDEBAR_WIDTH have been moved to AppShellSidebar
