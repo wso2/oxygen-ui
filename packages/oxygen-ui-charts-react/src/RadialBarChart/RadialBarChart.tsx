@@ -99,14 +99,14 @@ export interface RadialBarChartProps {
     /**
      * Event handlers for individual radial bars.
      */
-    onClick?: (props: any, e: React.MouseEvent) => void
-    onMouseDown?: (props: any, e: React.MouseEvent) => void
-    onMouseUp?: (props: any, e: React.MouseEvent) => void
-    onMouseMove?: (props: any, e: React.MouseEvent) => void
-    onMouseOver?: (props: any, e: React.MouseEvent) => void
-    onMouseOut?: (props: any, e: React.MouseEvent) => void
-    onMouseEnter?: (props: any, e: React.MouseEvent) => void
-    onMouseLeave?: (props: any, e: React.MouseEvent) => void
+    onClick?: (props: any, index: number, e: React.MouseEvent) => void
+    onMouseDown?: (props: any, index: number, e: React.MouseEvent) => void
+    onMouseUp?: (props: any, index: number, e: React.MouseEvent) => void
+    onMouseMove?: (props: any, index: number, e: React.MouseEvent) => void
+    onMouseOver?: (props: any, index: number, e: React.MouseEvent) => void
+    onMouseOut?: (props: any, index: number, e: React.MouseEvent) => void
+    onMouseEnter?: (props: any, index: number, e: React.MouseEvent) => void
+    onMouseLeave?: (props: any, index: number, e: React.MouseEvent) => void
     onAnimationStart?: () => void
     onAnimationEnd?: () => void
   }>
@@ -495,14 +495,14 @@ const RadialBarChart = ({
             animationDuration={bar.animationDuration}
             animationBegin={bar.animationBegin}
             animationEasing={bar.animationEasing}
-            onClick={bar.onClick as any}
-            onMouseDown={bar.onMouseDown as any}
-            onMouseUp={bar.onMouseUp as any}
-            onMouseMove={bar.onMouseMove as any}
-            onMouseOver={bar.onMouseOver as any}
-            onMouseOut={bar.onMouseOut as any}
-            onMouseEnter={bar.onMouseEnter as any}
-            onMouseLeave={bar.onMouseLeave as any}
+            onClick={bar.onClick}
+            onMouseDown={bar.onMouseDown}
+            onMouseUp={bar.onMouseUp}
+            onMouseMove={bar.onMouseMove}
+            onMouseOver={bar.onMouseOver}
+            onMouseOut={bar.onMouseOut}
+            onMouseEnter={bar.onMouseEnter}
+            onMouseLeave={bar.onMouseLeave}
             onAnimationStart={bar.onAnimationStart}
             onAnimationEnd={bar.onAnimationEnd}
           />
