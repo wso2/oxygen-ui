@@ -55,7 +55,7 @@ const StyledTableRow = styled(MuiTableRow, {
     // Card variant specific styles
     ...(variant === 'card' && {
       // Use acrylic background for glassmorphism effect, consistent with MuiCard/MuiPaper
-      backgroundColor: theme.vars?.palette.background.acrylic ?? theme.palette.background.paper,
+      backgroundColor: theme.vars?.palette.background.acrylic ?? (theme.vars || theme).palette.background.paper,
       backdropFilter: theme.blur?.light,
       WebkitBackdropFilter: theme.blur?.light,
       borderRadius,
@@ -77,7 +77,7 @@ const StyledTableRow = styled(MuiTableRow, {
         isDarkMode ? 0.1 : 0.06
       )}`,
       '&:hover': {
-        backgroundColor: theme.palette.action.hover,
+        backgroundColor: (theme.vars || theme).palette.action.hover,
       },
     }),
     // Table variant - remove last child border

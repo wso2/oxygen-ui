@@ -21,7 +21,6 @@ import { Link as NavigateLink } from 'react-router'
 import {
   AppShell,
   Badge,
-  Box,
   ColorSchemeToggle,
   ComplexSelect,
   Footer,
@@ -44,15 +43,13 @@ import {
   useNotifications,
 } from '@wso2/oxygen-ui'
 import { useState, type JSX } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate, useLocation } from 'react-router'
 import Logo from '../components/Logo';
 import {
-  Activity,
   BarChart3,
   Bell,
   Building,
   Database,
-  FileText,
   FolderOpen,
   Globe,
   HelpCircle,
@@ -60,10 +57,8 @@ import {
   Key,
   Layers,
   Lock,
-  PieChart,
   Settings,
   Shield,
-  TrendingUp,
   UserCog,
   Users
 } from '@wso2/oxygen-ui-icons-react';
@@ -72,6 +67,7 @@ import type { Organization, Project } from '../mock-data/types';
 
 export default function AppLayout(): JSX.Element {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Shell layout state (sidebar, menu, panel visibility)
   const { state: shellState, actions: shellActions } = useAppShell({
@@ -109,6 +105,9 @@ export default function AppLayout(): JSX.Element {
     }
   };
 
+  // Check if current path matches /projects/:id or any subpaths
+  const isProject = /^\/projects\/[^/]+/.test(location.pathname);
+
   return (
     <AppShell>
       <AppShell.Navbar>
@@ -141,8 +140,8 @@ export default function AppLayout(): JSX.Element {
                   />
                 </>
               )}
+              label="Organizations"
             >
-              <ComplexSelect.ListHeader>Organizations</ComplexSelect.ListHeader>
               {mockOrganizations.map((org) => (
                 <ComplexSelect.MenuItem key={org.id} value={org.id}>
                   <ComplexSelect.MenuItem.Icon><Building /></ComplexSelect.MenuItem.Icon>
@@ -150,25 +149,27 @@ export default function AppLayout(): JSX.Element {
                 </ComplexSelect.MenuItem>
               ))}
             </ComplexSelect>
-            <ComplexSelect
-              value={selectedProject?.id || ''}
-              onChange={(e) => {
-                const project = mockProjects.find((p) => p.id === e.target.value);
-                if (project) setProject(project);
-              }}
-              size="small"
-              sx={{ minWidth: 160 }}
-              renderValue={() => (
-                <ComplexSelect.MenuItem.Text primary={selectedProject?.name} secondary={selectedProject?.description} />
-              )}
-            >
-              <ComplexSelect.ListHeader>Projects</ComplexSelect.ListHeader>
-              {mockProjects.map((project) => (
-                <ComplexSelect.MenuItem key={project.id} value={project.id}>
-                  <ComplexSelect.MenuItem.Text primary={project.name} secondary={project.description} />
-                </ComplexSelect.MenuItem>
-              ))}
-            </ComplexSelect>
+            {isProject && (
+              <ComplexSelect
+                value={selectedProject?.id || ''}
+                onChange={(e) => {
+                  const project = mockProjects.find((p) => p.id === e.target.value);
+                  if (project) setProject(project);
+                }}
+                size="small"
+                sx={{ minWidth: 160 }}
+                renderValue={() => (
+                  <ComplexSelect.MenuItem.Text primary={selectedProject?.name} secondary={selectedProject?.description} />
+                )}
+                label="Projects"
+              >
+                {mockProjects.map((project) => (
+                  <ComplexSelect.MenuItem key={project.id} value={project.id}>
+                    <ComplexSelect.MenuItem.Text primary={project.name} secondary={project.description} />
+                  </ComplexSelect.MenuItem>
+                ))}
+              </ComplexSelect>
+            )}
           </Header.Switchers>
           <Header.Spacer />
           <Header.Actions>
@@ -220,26 +221,12 @@ export default function AppLayout(): JSX.Element {
                 <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
                 <Sidebar.ItemLabel>Dashboard</Sidebar.ItemLabel>
               </Sidebar.Item>
-              <Sidebar.Item id="analytics">
-                <Sidebar.ItemIcon><BarChart3 size={20} /></Sidebar.ItemIcon>
-                <Sidebar.ItemLabel>Analytics</Sidebar.ItemLabel>
-                <Sidebar.Item id="analytics-overview">
-                  <Sidebar.ItemIcon><PieChart size={20} /></Sidebar.ItemIcon>
-                  <Sidebar.ItemLabel>Overview</Sidebar.ItemLabel>
+              <Link component={NavigateLink} to="/analytics">
+                <Sidebar.Item id="analytics">
+                  <Sidebar.ItemIcon><BarChart3 size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemLabel>Analytics</Sidebar.ItemLabel>
                 </Sidebar.Item>
-                <Sidebar.Item id="analytics-reports">
-                  <Sidebar.ItemIcon><FileText size={20} /></Sidebar.ItemIcon>
-                  <Sidebar.ItemLabel>Reports</Sidebar.ItemLabel>
-                </Sidebar.Item>
-                <Sidebar.Item id="analytics-realtime">
-                  <Sidebar.ItemIcon><Activity size={20} /></Sidebar.ItemIcon>
-                  <Sidebar.ItemLabel>Real-time</Sidebar.ItemLabel>
-                </Sidebar.Item>
-                <Sidebar.Item id="analytics-trends">
-                  <Sidebar.ItemIcon><TrendingUp size={20} /></Sidebar.ItemIcon>
-                  <Sidebar.ItemLabel>Trends</Sidebar.ItemLabel>
-                </Sidebar.Item>
-              </Sidebar.Item>
+              </Link>
             </Sidebar.Category>
 
             {/* Management */}
@@ -320,9 +307,7 @@ export default function AppLayout(): JSX.Element {
       </AppShell.Sidebar>
 
       <AppShell.Main>
-        <Box sx={{ py: 2 }}>
-          <Outlet />
-        </Box>
+        <Outlet />
       </AppShell.Main>
 
       <AppShell.Footer>

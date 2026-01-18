@@ -16,20 +16,22 @@
  * under the License.
  */
 
-// =============================================================================
-// STORY-SPECIFIC EXPORTS
-// These exports are for story/demo purposes only.
-// The actual components are now exported from @wso2/oxygen-ui.
-// =============================================================================
+import { FormControl, FormLabel } from '@mui/material'
+import React from 'react'
 
-// Types (story-specific interfaces)
-export * from './types';
+export interface ElementWrapperProps {
+  label: string
+  name: string
+  children?: React.ReactNode
+}
 
-// Mock data (for demos and stories)
-export * from './mock-data';
+export const ElementWrapper = (props: ElementWrapperProps) => {
+  const { label, name, children } = props
+  return (
+    <FormControl fullWidth>
+      <FormLabel htmlFor={name}>{label}</FormLabel>
+      {children}
+    </FormControl>
+  )
+}
 
-// Utilities (formatRelativeTime, etc.)
-export * from './utils';
-
-// Hooks (useAppShellState for demo state management)
-export * from './hooks';

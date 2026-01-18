@@ -18,17 +18,21 @@
 
 import { ReactNode } from 'react';
 import MuiListSubheader, { ListSubheaderProps } from '@mui/material/ListSubheader';
+import { styled } from '@mui/material/styles';
 
 export interface ComplexSelectListHeaderProps extends ListSubheaderProps {
   children: ReactNode;
 }
 
-export function ComplexSelectListHeader({ children, sx, ...props }: ComplexSelectListHeaderProps) {
-  return (
-    <MuiListSubheader sx={{ pt: 0, ...sx }} {...props}>
-      {children}
-    </MuiListSubheader>
-  );
+const StyledListSubheader = styled(MuiListSubheader, {
+  name: 'MuiComplexSelectListHeader',
+  slot: 'Root',
+})(() => ({
+  paddingTop: 0,
+}));
+
+export function ComplexSelectListHeader({ children, ...props }: ComplexSelectListHeaderProps) {
+  return <StyledListSubheader {...props}>{children}</StyledListSubheader>;
 }
 
 export default ComplexSelectListHeader;

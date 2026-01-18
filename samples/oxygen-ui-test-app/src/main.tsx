@@ -16,12 +16,22 @@
  * under the License.
  */
 
-import { OxygenUIThemeProvider, AcrylicOrangeTheme, AcrylicPurpleTheme, ClassicTheme, HighContrastTheme } from '@wso2/oxygen-ui'
-import { BrowserRouter } from 'react-router'
+import {
+  OxygenUIThemeProvider,
+  AcrylicOrangeTheme,
+  AcrylicPurpleTheme,
+  ClassicTheme,
+  HighContrastTheme
+} from '@wso2/oxygen-ui'
+import { HashRouter, BrowserRouter } from 'react-router'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
+
+// Use HashRouter for production builds (for static hosting in Storybook)
+// Use BrowserRouter for development
+const Router = import.meta.env.PROD ? HashRouter : BrowserRouter
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -34,9 +44,9 @@ createRoot(document.getElementById('root')!).render(
       ]}
       initialTheme="acrylicOrange"
     >
-      <BrowserRouter>
+      <Router>
         <App />
-      </BrowserRouter>
+      </Router>
     </OxygenUIThemeProvider>
   </StrictMode>,
 )

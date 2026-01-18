@@ -30,6 +30,7 @@ const AcrylicPurpleThemeBase = extendTheme(AcrylicBaseTheme, {
       palette: {
         primary: {
           main: '#646cff',
+          mainChannel: '100 108 255',
           light: '#8187ff',
           dark: '#4651cc',
           contrastText: '#ffffff',
@@ -44,6 +45,7 @@ const AcrylicPurpleThemeBase = extendTheme(AcrylicBaseTheme, {
       palette: {
         primary: {
           main: '#646cff',
+          mainChannel: '100 108 255',
           light: '#8187ff',
           dark: '#4651cc',
           contrastText: '#ffffff',

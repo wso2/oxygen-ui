@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import { Box, Button, Form, IconButton, InputAdornment } from '@wso2/oxygen-ui';
+import { Box, Button, Form, IconButton, InputAdornment, TextField, Select, MenuItem } from '@wso2/oxygen-ui';
 import type { JSX } from 'react';
 import { useState } from 'react';
 import { BoxIcon, CheckIcon, CircleQuestionMark, GitBranchIcon, PencilIcon } from '@wso2/oxygen-ui-icons-react';
@@ -67,59 +67,67 @@ export default function IntegrationWizard(): JSX.Element {
         <Form.Subheader>Repository Details</Form.Subheader>
         <Form.Body>Configure your repository settings for deployment</Form.Body>
         <Form.Stack direction="row">
-          <Form.SelectInput
-            label="Organization"
-            name="organization"
-            value={organization}
-            onChange={e => setOrganization(e.target.value as string)}
-          >
-            <Form.MenuItem value="wso2-oxigen">wso2-oxigen</Form.MenuItem>
-            <Form.MenuItem value="wso2">wso2</Form.MenuItem>
-            <Form.MenuItem value="asgardeo">asgardeo</Form.MenuItem>
-          </Form.SelectInput>
-          <Form.SelectInput
-            label="Repository"
-            name="repository"
-            value={repository}
-            onChange={e => setRepository(e.target.value as string)}
-          >
-            <Form.MenuItem value="">Select a repository</Form.MenuItem>
-            <Form.MenuItem value="integration-app">integration-app</Form.MenuItem>
-            <Form.MenuItem value="banking-integration">banking-integration</Form.MenuItem>
-            <Form.MenuItem value="ecommerce-integration">ecommerce-integration</Form.MenuItem>
-          </Form.SelectInput>
-          <Form.SelectInput
-            label="Branch"
-            name="branch"
-            value={branch}
-            onChange={e => setBranch(e.target.value as string)}
-            startAdornment={
-              <InputAdornment position="start">
-                <GitBranchIcon size={16} />
-              </InputAdornment>
-            }
-          >
-            <Form.MenuItem value="main">main</Form.MenuItem>
-            <Form.MenuItem value="develop">develop</Form.MenuItem>
-            <Form.MenuItem value="staging">staging</Form.MenuItem>
-          </Form.SelectInput>
-          <Form.TextInput
-            label="Component Directory"
-            name="componentDirectory"
-            value={componentDirectory}
-            onChange={e => setComponentDirectory(e.target.value)}
-            slotProps={{
-              input: {
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton size="small" edge="end">
-                      <PencilIcon size={16} />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              },
-            }}
-          />
+          <Form.ElementWrapper label="Organization" name="organization">
+            <Select
+              id="organization"
+              value={organization}
+              onChange={e => setOrganization(e.target.value as string)}
+              fullWidth
+            >
+              <MenuItem value="wso2-oxigen">wso2-oxigen</MenuItem>
+              <MenuItem value="wso2">wso2</MenuItem>
+              <MenuItem value="asgardeo">asgardeo</MenuItem>
+            </Select>
+          </Form.ElementWrapper>
+          <Form.ElementWrapper label="Repository" name="repository">
+            <Select
+              id="repository"
+              value={repository}
+              onChange={e => setRepository(e.target.value as string)}
+              fullWidth
+            >
+              <MenuItem value="">Select a repository</MenuItem>
+              <MenuItem value="integration-app">integration-app</MenuItem>
+              <MenuItem value="banking-integration">banking-integration</MenuItem>
+              <MenuItem value="ecommerce-integration">ecommerce-integration</MenuItem>
+            </Select>
+          </Form.ElementWrapper>
+          <Form.ElementWrapper label="Branch" name="branch">
+            <Select
+              id="branch"
+              value={branch}
+              onChange={e => setBranch(e.target.value as string)}
+              startAdornment={
+                <InputAdornment position="start">
+                  <GitBranchIcon size={16} />
+                </InputAdornment>
+              }
+              fullWidth
+            >
+              <MenuItem value="main">main</MenuItem>
+              <MenuItem value="develop">develop</MenuItem>
+              <MenuItem value="staging">staging</MenuItem>
+            </Select>
+          </Form.ElementWrapper>
+          <Form.ElementWrapper label="Component Directory" name="componentDirectory">
+            <TextField
+              id="componentDirectory"
+              value={componentDirectory}
+              onChange={e => setComponentDirectory(e.target.value)}
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton size="small" edge="end">
+                        <PencilIcon size={16} />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                },
+              }}
+              fullWidth
+            />
+          </Form.ElementWrapper>
         </Form.Stack>
       </Form.Section>
 
@@ -128,40 +136,46 @@ export default function IntegrationWizard(): JSX.Element {
         <Form.Subheader>Component Details</Form.Subheader>
         <Form.Body>Provide information about your integration component</Form.Body>
         <Form.Stack direction="row" spacing={2}>
-          <Form.TextInput
-            label="Display Name"
-            name="displayName"
-            placeholder="Enter display name here"
-            value={displayName}
-            onChange={e => setDisplayName(e.target.value)}
-          />
-          <Form.TextInput
-            label="Name"
-            name="name"
-            placeholder="Enter name here"
-            value={name}
-            onChange={e => setName(e.target.value)}
-            slotProps={{
-              input: {
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton size="small">
-                      <CircleQuestionMark size={16} />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              },
-            }}
-          />
-          <Form.TextInput
-            label="Description"
-            name="description"
-            placeholder="Enter description here"
-            value={description}
-            onChange={e => setDescription(e.target.value)}
-            multiline
-            minRows={1}
-          />
+          <Form.ElementWrapper label="Display Name" name="displayName">
+            <TextField
+              id="displayName"
+              placeholder="Enter display name here"
+              value={displayName}
+              onChange={e => setDisplayName(e.target.value)}
+              fullWidth
+            />
+          </Form.ElementWrapper>
+          <Form.ElementWrapper label="Name" name="name">
+            <TextField
+              id="name"
+              placeholder="Enter name here"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton size="small">
+                        <CircleQuestionMark size={16} />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                },
+              }}
+              fullWidth
+            />
+          </Form.ElementWrapper>
+          <Form.ElementWrapper label="Description" name="description">
+            <TextField
+              id="description"
+              placeholder="Enter description here"
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+              multiline
+              minRows={1}
+              fullWidth
+            />
+          </Form.ElementWrapper>
         </Form.Stack>
       </Form.Section>
 

@@ -86,8 +86,13 @@ const StyledTable = styled(MuiTable, {
       backgroundColor: 'transparent',
       borderBottom: 'none',
       fontWeight: 600,
-      color: `${theme.palette.text.primary} !important`,
       padding: '0 16px 8px 16px',
+      ...theme.applyStyles('light', {
+        color: theme.palette.text.secondary,
+      }),
+      ...theme.applyStyles('dark', {
+        color: theme.palette.grey[400],
+      }),
     },
   }),
   // Standard table cell padding based on density

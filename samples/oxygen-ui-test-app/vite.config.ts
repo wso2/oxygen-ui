@@ -19,14 +19,24 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import { visualizer } from 'rollup-plugin-visualizer'
+import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: './',
+  build: {
+    outDir: process.env.BUILD_FOR_STORYBOOK 
+      ? path.resolve(__dirname, '../../packages/oxygen-ui-docs/.storybook/public/sample')
+      : 'dist',
+    emptyOutDir: true,
+  },
   plugins: [
     react(),
     visualizer({
       open: false, // Set to false to prevent auto-opening, manually open dist/stats.html
-      filename: 'dist/stats.html',
+      filename: process.env.BUILD_FOR_STORYBOOK 
+        ? path.resolve(__dirname, 'dist/stats.html')
+        : 'dist/stats.html',
       gzipSize: true,
       brotliSize: true,
     }),

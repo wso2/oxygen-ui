@@ -23,6 +23,7 @@ import {
   CardContent,
   CardActions,
   Grid,
+  PageContent,
   PageTitle,
   Typography,
   TextField,
@@ -45,7 +46,7 @@ interface Project {
   lastUpdated: string
 }
 
-export default function OrganizationOverview(): JSX.Element {
+export default function Projects(): JSX.Element {
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -71,13 +72,13 @@ export default function OrganizationOverview(): JSX.Element {
   }
 
   return (
-    <Box sx={{ p: 3, maxWidth: '1400px', mx: 'auto' }}>
+    <PageContent>
       {/* Header */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 4 }}>
         <Box sx={{ flexGrow: 1 }}>
           <PageTitle>
             <PageTitle.Header>Projects</PageTitle.Header>
-            <PageTitle.SubHeader>Manage your authentication projects and flows</PageTitle.SubHeader>
+            <PageTitle.SubHeader>Manage your projects and workflows</PageTitle.SubHeader>
           </PageTitle>
         </Box>
         <Button
@@ -184,6 +185,6 @@ export default function OrganizationOverview(): JSX.Element {
           ))}
         </Grid>
       )}
-    </Box>
+    </PageContent>
   )
 }

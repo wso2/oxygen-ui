@@ -17,11 +17,20 @@
  */
 
 import MuiDivider, { DividerProps } from '@mui/material/Divider';
+import { styled } from '@mui/material/styles';
 
 export type ComplexSelectDividerProps = DividerProps;
 
-export function ComplexSelectDivider({ sx, ...props }: ComplexSelectDividerProps) {
-  return <MuiDivider sx={{ mx: -1, ...sx }} {...props} />;
+const StyledDivider = styled(MuiDivider, {
+  name: 'MuiComplexSelectDivider',
+  slot: 'Root',
+})(({ theme }) => ({
+  marginLeft: theme.spacing(-1),
+  marginRight: theme.spacing(-1),
+}));
+
+export function ComplexSelectDivider({ ...props }: ComplexSelectDividerProps) {
+  return <StyledDivider {...props} />;
 }
 
 export default ComplexSelectDivider;
