@@ -143,6 +143,10 @@ export interface AreaChartProps {
     animationEasing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear'
   }>
   /**
+   * Custom colors for the areas.
+   */
+  colors?: string[]
+  /**
    * The key of each sector's label in data.
    */
   xAxisDataKey?: string
@@ -291,6 +295,7 @@ const AreaChart = ({
   animationDuration = 1500,
   animationBegin = 0,
   animationEasing = 'ease',
+  colors: customColors,
   children,
 }: AreaChartProps): React.ReactElement => {
   const theme = useTheme()
@@ -333,6 +338,7 @@ const AreaChart = ({
     defaultColors
 
   const areaColors = React.useMemo(() => {
+    if (customColors && customColors.length > 0) return customColors
     return [
       theme.palette.primary?.main,
       colors.keyword,
@@ -341,7 +347,7 @@ const AreaChart = ({
       colors.number,
       colors.operator,
     ]
-  }, [theme, colors])
+  }, [theme, colors, customColors])
 
   const legendConfig = { show: true, align: 'center', verticalAlign: 'bottom', ...legend } as const
   const gridConfig = { show: true, strokeDasharray: '3 3', ...grid }

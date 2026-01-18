@@ -116,6 +116,10 @@ export interface RadarChartProps {
     animationEasing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear'
   }>
   /**
+   * Custom colors for the radars.
+   */
+  colors?: string[]
+  /**
    * Configuration for radial bars in the chart.
    */
   radialBars?: Array<{
@@ -361,6 +365,7 @@ const RadarChart = ({
   onContextMenu,
   onDoubleClick,
   accessibilityLayer = true,
+  colors: customColors,
   children,
 }: RadarChartProps): React.ReactElement => {
   const theme = useTheme()
@@ -402,6 +407,7 @@ const RadarChart = ({
     defaultColors
 
   const radarColors = React.useMemo(() => {
+    if (customColors && customColors.length > 0) return customColors
     return [
       theme.palette.primary?.main,
       colors.keyword,
@@ -410,7 +416,7 @@ const RadarChart = ({
       colors.number,
       colors.operator,
     ]
-  }, [theme, colors])
+  }, [theme, colors, customColors])
 
   const legendConfig = { show: true, align: 'center', verticalAlign: 'bottom', ...legend } as const
   const marginConfig = { top: 20, right: 20, bottom: 20, left: 20, ...margin }

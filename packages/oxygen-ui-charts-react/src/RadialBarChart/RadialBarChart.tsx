@@ -111,6 +111,10 @@ export interface RadialBarChartProps {
     onAnimationEnd?: () => void
   }>
   /**
+   * Custom colors for the radial bars.
+   */
+  colors?: string[]
+  /**
    * Height of the chart.
    * @default 300
    */
@@ -321,6 +325,7 @@ const RadialBarChart = ({
   onContextMenu,
   onDoubleClick,
   accessibilityLayer = true,
+  colors: customColors,
   children,
 }: RadialBarChartProps): React.ReactElement => {
   const theme = useTheme()
@@ -362,6 +367,7 @@ const RadialBarChart = ({
     defaultColors
 
   const barColors = React.useMemo(() => {
+    if (customColors && customColors.length > 0) return customColors
     return [
       theme.palette.primary?.main,
       colors.keyword,
@@ -370,7 +376,7 @@ const RadialBarChart = ({
       colors.number,
       colors.operator,
     ]
-  }, [theme, colors])
+  }, [theme, colors, customColors])
 
   const legendConfig = { show: true, align: 'center', verticalAlign: 'bottom', ...legend } as const
   const marginConfig = { top: 20, right: 20, bottom: 20, left: 20, ...margin }
@@ -457,7 +463,7 @@ const RadialBarChart = ({
             contentStyle={{
               backgroundColor: colors.background,
               border: `1px solid ${colors.text}`,
-              borderRadius: theme.shape.borderRadius || 8,
+              borderRadius: theme.shape.borderRadius ?? 8,
               color: colors.text,
               boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
             }}

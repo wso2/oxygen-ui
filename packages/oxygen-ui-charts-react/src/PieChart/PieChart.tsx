@@ -281,7 +281,7 @@ const PieChart = ({
     defaultColors
 
   const chartColors = React.useMemo(() => {
-    if (customColors) return customColors
+    if (customColors && customColors.length > 0) return customColors
     return [
       theme.palette.primary?.main,
       syntaxColors.keyword,
@@ -341,7 +341,7 @@ const PieChart = ({
             contentStyle={{
               backgroundColor: syntaxColors.background,
               border: `1px solid ${syntaxColors.text}`,
-              borderRadius: theme.shape.borderRadius || 8,
+              borderRadius: theme.shape.borderRadius ?? 8,
               color: syntaxColors.text,
               boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
             }}
