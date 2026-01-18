@@ -89,7 +89,7 @@ export interface BarChartProps {
    */
   colors?: string[]
   /**
-   * The key of each sector's label in data.
+   * The key of each category/series label in data.
    */
   xAxisDataKey?: string
   /**
