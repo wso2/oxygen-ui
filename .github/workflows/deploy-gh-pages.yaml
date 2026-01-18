@@ -4,7 +4,7 @@ name: ☄️ Deploy Documentation
 
 on:
   push:
-    branches: [next]
+    branches: [main]
     paths:
       - 'packages/oxygen-ui/**'
       - 'packages/oxygen-ui-docs/**'
