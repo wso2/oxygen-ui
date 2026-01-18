@@ -16,7 +16,8 @@
  * under the License.
  */
 
-import { Tooltip } from "recharts"
+import React from 'react'
+import { Tooltip } from 'recharts'
 
 export interface AreaChartProps {
   /**

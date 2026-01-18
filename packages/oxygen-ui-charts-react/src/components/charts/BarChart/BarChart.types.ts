@@ -16,6 +16,7 @@
  * under the License.
  */
 
+import React from 'react'
 import { Tooltip } from "recharts"
 
 export interface BarChartProps {

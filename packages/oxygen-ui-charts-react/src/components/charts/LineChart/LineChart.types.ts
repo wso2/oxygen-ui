@@ -16,6 +16,7 @@
  * under the License.
  */
 
+import React from 'react'
 import { Tooltip } from "recharts"
 
 export interface LineChartProps {
@@ -34,7 +35,7 @@ export interface LineChartProps {
     strokeDasharray?: string | number
     /**
      * The interpolation type of curve.
-     * @default 'linear'
+     * @default 'monotone'
      */
     type?:
       | 'basis'
@@ -92,10 +93,6 @@ export interface LineChartProps {
       | 'triangle'
       | 'wye'
       | 'none'
-    /**
-     * Z-index of the line.
-     */
-    zIndex?: number
     /**
      * Event handlers for individual lines.
      * Receives (props, event) where props contains all line properties including its data.

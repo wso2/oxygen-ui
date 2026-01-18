@@ -70,20 +70,24 @@ const AreaChart = ({
 
   const isDark = useColorScheme(theme.palette.mode)
 
-  const defaultColors = {
-    background: isDark ? '#1e1e1e' : '#f5f5f5',
-    text: isDark ? '#d4d4d4' : '#24292e',
-    comment: isDark ? '#6a9955' : '#6a737d',
-    keyword: isDark ? '#569cd6' : '#d73a49',
-    string: isDark ? '#ce9178' : '#032f62',
-    function: isDark ? '#dcdcaa' : '#6f42c1',
-    number: isDark ? '#b5cea8' : '#005cc5',
-    operator: isDark ? '#d4d4d4' : '#d73a49',
-  }
+  const colors = React.useMemo(() => {
+    const defaultColors = {
+      background: isDark ? '#1e1e1e' : '#f5f5f5',
+      text: isDark ? '#d4d4d4' : '#24292e',
+      comment: isDark ? '#6a9955' : '#6a737d',
+      keyword: isDark ? '#569cd6' : '#d73a49',
+      string: isDark ? '#ce9178' : '#032f62',
+      function: isDark ? '#dcdcaa' : '#6f42c1',
+      number: isDark ? '#b5cea8' : '#005cc5',
+      operator: isDark ? '#d4d4d4' : '#d73a49',
+    }
+    return (
+      (isDark ? (theme.vars as any)?.syntax?.dark : (theme.vars as any)?.syntax?.light) ||
+      defaultColors
+    )
+  }, [isDark, theme.vars])
 
-  const colors =
-    (isDark ? (theme.vars as any)?.syntax?.dark : (theme.vars as any)?.syntax?.light) ||
-    defaultColors
+  const idPrefix = React.useId()
 
   const areaColors = React.useMemo(() => {
     if (customColors && customColors.length > 0) return customColors
@@ -95,13 +99,27 @@ const AreaChart = ({
       colors.number,
       colors.operator,
     ]
-  }, [theme, colors, customColors])
+  }, [
+    customColors,
+    theme.palette.primary?.main,
+    colors.keyword,
+    colors.string,
+    colors.function,
+    colors.number,
+    colors.operator,
+  ])
 
-  const legendConfig = { show: true, align: 'center', verticalAlign: 'bottom', ...legend } as const
-  const gridConfig = { show: true, strokeDasharray: '3 3', ...grid }
-  const marginConfig = { top: 12, right: 24, left: 24, bottom: 40, ...margin }
-  const xAxisConfig = { show: true, ...xAxis }
-  const yAxisConfig = { show: true, ...yAxis }
+  const legendConfig = React.useMemo(
+    () => ({ show: true, align: 'center', verticalAlign: 'bottom', ...legend }) as const,
+    [legend]
+  )
+  const gridConfig = React.useMemo(() => ({ show: true, strokeDasharray: '3 3', ...grid }), [grid])
+  const marginConfig = React.useMemo(
+    () => ({ top: 12, right: 24, left: 24, bottom: 40, ...margin }),
+    [margin]
+  )
+  const xAxisConfig = React.useMemo(() => ({ show: true, ...xAxis }), [xAxis])
+  const yAxisConfig = React.useMemo(() => ({ show: true, ...yAxis }), [yAxis])
 
   return (
     <ResponsiveContainer width={width} height={height}>
@@ -121,8 +139,8 @@ const AreaChart = ({
             const color = area.fill || area.stroke || areaColors[index % areaColors.length]
             return (
               <linearGradient
-                key={`gradient-${area.dataKey}`}
-                id={`gradient-${area.dataKey}`}
+                key={`${idPrefix}-gradient-${area.dataKey}`}
+                id={`${idPrefix}-gradient-${area.dataKey}`}
                 x1="0"
                 y1="0"
                 x2="0"
@@ -253,11 +271,11 @@ const AreaChart = ({
 
         {areas?.map((area, index) => (
           <Area
-            key={area.dataKey}
+            key={`${area.dataKey}-${index}`}
             dataKey={area.dataKey}
             name={area.name}
             stroke={area.stroke || areaColors[index % areaColors.length]}
-            fill={`url(#gradient-${area.dataKey})`}
+            fill={`url(#${idPrefix}-gradient-${area.dataKey})`}
             strokeWidth={area.strokeWidth ?? 2}
             strokeDasharray={area.strokeDasharray}
             type={area.type || 'monotone'}

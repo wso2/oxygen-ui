@@ -71,20 +71,22 @@ const PieChart = ({
 
   const isDark = useColorScheme(theme.palette.mode)
 
-  const defaultColors = {
-    background: isDark ? '#1e1e1e' : '#f5f5f5',
-    text: isDark ? '#d4d4d4' : '#24292e',
-    comment: isDark ? '#6a9955' : '#6a737d',
-    keyword: isDark ? '#569cd6' : '#d73a49',
-    string: isDark ? '#ce9178' : '#032f62',
-    function: isDark ? '#dcdcaa' : '#6f42c1',
-    number: isDark ? '#b5cea8' : '#005cc5',
-    operator: isDark ? '#d4d4d4' : '#d73a49',
-  }
-
-  const syntaxColors =
-    (isDark ? (theme.vars as any)?.syntax?.dark : (theme.vars as any)?.syntax?.light) ||
-    defaultColors
+  const syntaxColors = React.useMemo(() => {
+    const defaultColors = {
+      background: isDark ? '#1e1e1e' : '#f5f5f5',
+      text: isDark ? '#d4d4d4' : '#24292e',
+      comment: isDark ? '#6a9955' : '#6a737d',
+      keyword: isDark ? '#569cd6' : '#d73a49',
+      string: isDark ? '#ce9178' : '#032f62',
+      function: isDark ? '#dcdcaa' : '#6f42c1',
+      number: isDark ? '#b5cea8' : '#005cc5',
+      operator: isDark ? '#d4d4d4' : '#d73a49',
+    }
+    return (
+      (isDark ? (theme.vars as any)?.syntax?.dark : (theme.vars as any)?.syntax?.light) ||
+      defaultColors
+    )
+  }, [isDark, theme.vars])
 
   const chartColors = React.useMemo(() => {
     if (customColors && customColors.length > 0) return customColors
@@ -96,17 +98,31 @@ const PieChart = ({
       syntaxColors.number,
       syntaxColors.operator,
     ]
-  }, [theme, syntaxColors, customColors])
+  }, [
+    customColors,
+    theme.palette.primary?.main,
+    syntaxColors.keyword,
+    syntaxColors.string,
+    syntaxColors.function,
+    syntaxColors.number,
+    syntaxColors.operator,
+  ])
 
-  const legendConfig = { show: true, align: 'center', verticalAlign: 'bottom', ...legend } as const
-  const marginConfig = { top: 12, right: 24, left: 24, bottom: 40, ...margin }
+  const legendConfig = React.useMemo(
+    () => ({ show: true, align: 'center', verticalAlign: 'bottom', ...legend }) as const,
+    [legend]
+  )
+  const marginConfig = React.useMemo(
+    () => ({ top: 12, right: 24, left: 24, bottom: 40, ...margin }),
+    [margin]
+  )
 
   return (
     <ResponsiveContainer width={width} height={height}>
       <RechartsPieChart data={data} margin={marginConfig}>
         {pies?.map((pie, index) => (
           <Pie
-            key={pie.dataKey}
+            key={`${pie.dataKey}-${index}`}
             data={data}
             dataKey={pie.dataKey as any}
             nameKey={pie.nameKey || nameKey}
@@ -141,7 +157,6 @@ const PieChart = ({
           </Pie>
         ))}
 
-        {/* Only render default Tooltip if no children are provided */}
         {tooltip?.show !== false &&
           (() => {
             const { contentStyle, itemStyle, labelStyle, show, ...rest } = tooltip || {}

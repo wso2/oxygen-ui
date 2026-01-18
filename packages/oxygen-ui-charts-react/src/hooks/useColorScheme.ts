@@ -40,13 +40,17 @@ export const useColorScheme = (themeMode: string): boolean => {
 
     checkColorScheme()
 
-    const observer = new MutationObserver(checkColorScheme)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['data-color-scheme'],
-    })
+    if (typeof MutationObserver !== 'undefined') {
+      const observer = new MutationObserver(checkColorScheme)
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-color-scheme'],
+      })
 
-    return () => observer.disconnect()
+      return () => observer.disconnect()
+    }
+
+    return undefined
   }, [themeMode])
 
   return isDark
