@@ -372,7 +372,7 @@ const RadarChart = ({
 
   // Check color scheme from DOM attribute (set by MUI's extendTheme)
   const [isDark, setIsDark] = React.useState(() => {
-    if (typeof document === 'undefined') return false
+    if (typeof document === 'undefined') return theme.palette.mode === 'dark'
     const htmlElement = document.documentElement
     const colorScheme = htmlElement.getAttribute('data-color-scheme')
     return colorScheme === 'dark' || theme.palette.mode === 'dark'

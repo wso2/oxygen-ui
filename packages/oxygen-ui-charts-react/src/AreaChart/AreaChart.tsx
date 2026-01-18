@@ -302,7 +302,7 @@ const AreaChart = ({
 
   // Check color scheme from DOM attribute (set by MUI's extendTheme)
   const [isDark, setIsDark] = React.useState(() => {
-    if (typeof document === 'undefined') return false
+    if (typeof document === 'undefined') return theme.palette.mode === 'dark'
     const htmlElement = document.documentElement
     const colorScheme = htmlElement.getAttribute('data-color-scheme')
     return colorScheme === 'dark' || theme.palette.mode === 'dark'
@@ -464,7 +464,7 @@ const AreaChart = ({
             contentStyle={{
               backgroundColor: colors.background,
               border: `1px solid ${colors.text}`,
-              borderRadius: theme.shape.borderRadius || 8,
+              borderRadius: theme.shape.borderRadius ?? 8,
               color: colors.text,
               boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
             }}
