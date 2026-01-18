@@ -17,7 +17,8 @@
  */
 
 import React from 'react'
-import { useTheme } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
+import { useColorScheme } from '../../../hooks/useColorScheme'
 import {
   BarChart as RechartsBarChart,
   Bar,
@@ -28,198 +29,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts'
-
-export interface BarChartProps {
-  /**
-   * Data to be displayed in the chart.
-   */
-  data?: any[]
-  /**
-   * Configuration for the bars in the chart.
-   */
-  bars?: Array<{
-    dataKey: string
-    name?: string
-    fill?: string
-    /**
-     * The id of the stack the bar belongs to.
-     */
-    stackId?: string | number
-    /**
-     * The radius of the bar's corners.
-     */
-    radius?: number | [number, number, number, number]
-    /**
-     * If true, the bar will be hidden.
-     */
-    hide?: boolean
-    /**
-     * Configuration for the bar's label.
-     */
-    label?: boolean | any
-    /**
-     * If true, the bar will be animated.
-     * @default true
-     */
-    isAnimationActive?: boolean
-    /**
-     * Duration of the animation in ms.
-     * @default 1500
-     */
-    animationDuration?: number
-    /**
-     * Delay before the animation begins in ms.
-     * @default 0
-     */
-    animationBegin?: number
-    /**
-     * Easing function for the animation.
-     * @default 'ease'
-     */
-    animationEasing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear'
-    onClick?: (data: any, index: number, event: React.MouseEvent) => void
-    onMouseEnter?: (data: any, index: number, event: React.MouseEvent) => void
-    onMouseLeave?: (data: any, index: number, event: React.MouseEvent) => void
-    onMouseDown?: (data: any, index: number, event: React.MouseEvent) => void
-    onMouseUp?: (data: any, index: number, event: React.MouseEvent) => void
-    onMouseMove?: (data: any, index: number, event: React.MouseEvent) => void
-  }>
-  /**
-   * Custom colors for the bars.
-   */
-  colors?: string[]
-  /**
-   * The key of each category/series label in data.
-   */
-  xAxisDataKey?: string
-  /**
-   * Height of the chart.
-   * @default 300
-   */
-  height?: number | string
-  /**
-   * Width of the chart.
-   * @default '100%'
-   */
-  width?: number | string
-  /**
-   * Legend configuration.
-   */
-  legend?: {
-    show?: boolean
-    align?: 'left' | 'center' | 'right'
-    verticalAlign?: 'top' | 'middle' | 'bottom'
-  }
-  /**
-   * Grid configuration.
-   */
-  grid?: {
-    show?: boolean
-    strokeDasharray?: string
-  }
-  /**
-   * Tooltip configuration.
-   */
-  tooltip?: {
-    show?: boolean
-  } & React.ComponentProps<typeof Tooltip>
-  /**
-   * The layout of the chart.
-   * @default 'horizontal'
-   */
-  layout?: 'horizontal' | 'vertical'
-  /**
-   * Margin around the chart.
-   */
-  margin?: { top?: number; right?: number; bottom?: number; left?: number }
-  /**
-   * The gap between two bar categories.
-   */
-  barCategoryGap?: number | string
-  /**
-   * The gap between two bars in the same category.
-   */
-  barGap?: number | string
-  /**
-   * The width or height of each bar.
-   */
-  barSize?: number | string
-  /**
-   * The maximum width or height of each bar.
-   */
-  maxBarSize?: number
-  /**
-   * The offset of the stacks.
-   */
-  stackOffset?: 'sign' | 'expand' | 'none' | 'wiggle' | 'silhouette' | 'positive'
-  /**
-   * If true, an accessibility layer will be added to the chart.
-   * @default true
-   */
-  accessibilityLayer?: boolean
-  /**
-   * XAxis configuration.
-   */
-  xAxis?: {
-    show?: boolean
-    name?: string
-  }
-  /**
-   * YAxis configuration.
-   */
-  yAxis?: {
-    show?: boolean
-    name?: string
-  }
-  /**
-   * If true, the chart bars will be animated.
-   * @default true
-   */
-  isAnimationActive?: boolean
-  /**
-   * Duration of the animation in ms.
-   * @default 1500
-   */
-  animationDuration?: number
-  /**
-   * Delay before the animation begins in ms.
-   * @default 0
-   */
-  animationBegin?: number
-  /**
-   * Easing function for the animation.
-   * @default 'ease'
-   */
-  animationEasing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear'
-  /**
-   * Optional children for composition.
-   */
-  children?: React.ReactNode
-  /**
-   * Default click event handler.
-   */
-  onClick?: (data: any, index: number, event: React.MouseEvent) => void
-  /**
-   * Default mouse enter event handler.
-   */
-  onMouseEnter?: (data: any, index: number, event: React.MouseEvent) => void
-  /**
-   * Default mouse leave event handler.
-   */
-  onMouseLeave?: (data: any, index: number, event: React.MouseEvent) => void
-  /**
-   * Default mouse down event handler.
-   */
-  onMouseDown?: (data: any, index: number, event: React.MouseEvent) => void
-  /**
-   * Default mouse up event handler.
-   */
-  onMouseUp?: (data: any, index: number, event: React.MouseEvent) => void
-  /**
-   * Default mouse move event handler.
-   */
-  onMouseMove?: (data: any, index: number, event: React.MouseEvent) => void
-}
+import { BarChartProps } from './BarChart.types'
 
 /**
  * BarChart component for Oxygen UI powered by Recharts.
@@ -258,32 +68,7 @@ const BarChart = ({
 }: BarChartProps): React.ReactElement => {
   const theme = useTheme()
 
-  // Check color scheme from DOM attribute (set by MUI's extendTheme)
-  const [isDark, setIsDark] = React.useState(() => {
-    if (typeof document === 'undefined') return theme.palette.mode === 'dark'
-    const htmlElement = document.documentElement
-    const colorScheme = htmlElement.getAttribute('data-color-scheme')
-    return colorScheme === 'dark' || theme.palette.mode === 'dark'
-  })
-
-  React.useEffect(() => {
-    const checkColorScheme = () => {
-      const htmlElement = document.documentElement
-      const colorScheme = htmlElement.getAttribute('data-color-scheme')
-      setIsDark(colorScheme === 'dark' || theme.palette.mode === 'dark')
-    }
-
-    checkColorScheme()
-
-    // Watch for changes to the color scheme attribute
-    const observer = new MutationObserver(checkColorScheme)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['data-color-scheme'],
-    })
-
-    return () => observer.disconnect()
-  }, [theme.palette.mode])
+  const isDark = useColorScheme(theme.palette.mode)
 
   const defaultColors = {
     background: isDark ? '#1e1e1e' : '#f5f5f5',
@@ -392,33 +177,37 @@ const BarChart = ({
           />
         )}
 
-        {tooltip?.show !== false && (
-          <Tooltip
-            cursor={{
-              fill: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
-            }}
-            contentStyle={{
-              backgroundColor: colors.background,
-              border: `1px solid ${colors.text}`,
-              borderRadius: theme.shape.borderRadius ?? 8,
-              color: colors.text,
-              boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
-              ...tooltip?.contentStyle,
-            }}
-            itemStyle={{
-              color: colors.text,
-              fontSize: 12,
-              ...tooltip?.itemStyle,
-            }}
-            labelStyle={{
-              color: colors.text,
-              fontWeight: 600,
-              marginBottom: 4,
-              ...tooltip?.labelStyle,
-            }}
-            {...tooltip}
-          />
-        )}
+        {tooltip?.show !== false &&
+          (() => {
+            const { contentStyle, itemStyle, labelStyle, show, ...rest } = tooltip || {}
+            return (
+              <Tooltip
+                cursor={{
+                  fill: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
+                }}
+                {...rest}
+                contentStyle={{
+                  backgroundColor: colors.background,
+                  border: `1px solid ${colors.text}`,
+                  borderRadius: theme.shape.borderRadius ?? 8,
+                  color: colors.text,
+                  boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+                  ...contentStyle,
+                }}
+                itemStyle={{
+                  color: colors.text,
+                  fontSize: 12,
+                  ...itemStyle,
+                }}
+                labelStyle={{
+                  color: colors.text,
+                  fontWeight: 600,
+                  marginBottom: 4,
+                  ...labelStyle,
+                }}
+              />
+            )
+          })()}
 
         {legendConfig.show && (
           <Legend

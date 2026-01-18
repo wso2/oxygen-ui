@@ -16,18 +16,18 @@
  * under the License.
  */
 
-export { default as BarChart } from './BarChart'
-export * from './BarChart'
+export { default as BarChart } from './components/charts/BarChart'
+export * from './components/charts/BarChart'
 
-export { default as PieChart } from './PieChart'
-export * from './PieChart'
+export { default as PieChart } from './components/charts/PieChart'
+export * from './components/charts/PieChart'
 
-export { default as LineChart } from './LineChart'
-export * from './LineChart'
+export { default as LineChart } from './components/charts/LineChart'
+export * from './components/charts/LineChart'
 
-export * from './AreaChart'
-export * from './RadarChart'
-export * from './RadialBarChart'
+export * from './components/charts/AreaChart'
+export * from './components/charts/RadarChart'
+export * from './components/charts/RadialBarChart'
 
 export {
   XAxis,

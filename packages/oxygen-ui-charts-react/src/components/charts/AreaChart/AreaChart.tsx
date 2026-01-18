@@ -17,7 +17,8 @@
  */
 
 import React from 'react'
-import { useTheme } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
+import { useColorScheme } from '../../../hooks/useColorScheme'
 import {
   AreaChart as RechartsAreaChart,
   Area,
@@ -28,247 +29,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts'
-
-export interface AreaChartProps {
-  /**
-   * Data to be displayed in the chart.
-   */
-  data?: any[]
-  /**
-   * Configuration for the areas in the chart.
-   */
-  areas?: Array<{
-    dataKey: string
-    name?: string
-    stroke?: string
-    strokeWidth?: number
-    strokeDasharray?: string | number
-    fill?: string
-    fillOpacity?: number
-    /**
-     * When two Areas have the same axisId and same stackId, then the two Areas are stacked in the chart.
-     */
-    stackId?: string | number
-    /**
-     * The interpolation type of curve.
-     * @default 'linear'
-     */
-    type?:
-      | 'basis'
-      | 'basisClosed'
-      | 'basisOpen'
-      | 'linear'
-      | 'linearClosed'
-      | 'natural'
-      | 'monotoneX'
-      | 'monotoneY'
-      | 'monotone'
-      | 'step'
-      | 'stepBefore'
-      | 'stepAfter'
-    /**
-     * If true, the area will be hidden.
-     */
-    hide?: boolean
-    /**
-     * Configuration for the area's label.
-     */
-    label?: boolean | any
-    /**
-     * If false, dots will not be drawn.
-     * @default true
-     */
-    dot?: boolean | any
-    /**
-     * The dot is shown when user enter an area chart and this chart has tooltip.
-     * @default true
-     */
-    activeDot?: boolean | any
-    /**
-     * Whether to connect the area across null points.
-     * @default false
-     */
-    connectNulls?: boolean
-    /**
-     * The unit of data. This option will be used in tooltip.
-     */
-    unit?: string | number
-    /**
-     * The type of icon in legend.
-     * @default 'line'
-     */
-    legendType?:
-      | 'line'
-      | 'plainline'
-      | 'square'
-      | 'rect'
-      | 'circle'
-      | 'cross'
-      | 'diamond'
-      | 'star'
-      | 'triangle'
-      | 'wye'
-      | 'none'
-    /**
-     * Event handlers for individual areas.
-     * Receives (props, event) where props contains all area properties including its data.
-     */
-    onClick?: (data: any, index: number, event: React.MouseEvent) => void
-    onMouseDown?: (data: any, index: number, event: React.MouseEvent) => void
-    onMouseUp?: (data: any, index: number, event: React.MouseEvent) => void
-    onMouseMove?: (data: any, index: number, event: React.MouseEvent) => void
-    onMouseOver?: (data: any, index: number, event: React.MouseEvent) => void
-    onMouseOut?: (data: any, index: number, event: React.MouseEvent) => void
-    onMouseEnter?: (data: any, index: number, event: React.MouseEvent) => void
-    onMouseLeave?: (data: any, index: number, event: React.MouseEvent) => void
-    /**
-     * If true, the area will be animated.
-     * @default true
-     */
-    isAnimationActive?: boolean
-    /**
-     * Duration of the animation in ms.
-     * @default 1500
-     */
-    animationDuration?: number
-    /**
-     * Delay before the animation begins in ms.
-     * @default 0
-     */
-    animationBegin?: number
-    /**
-     * Easing function for the animation.
-     * @default 'ease'
-     */
-    animationEasing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear'
-  }>
-  /**
-   * Custom colors for the areas.
-   */
-  colors?: string[]
-  /**
-   * The key of each category/series label in data.
-   */
-  xAxisDataKey?: string
-  /**
-   * Height of the chart.
-   * @default 300
-   */
-  height?: number | string
-  /**
-   * Width of the chart.
-   * @default '100%'
-   */
-  width?: number | string
-  /**
-   * Legend configuration.
-   */
-  legend?: {
-    show?: boolean
-    align?: 'left' | 'center' | 'right'
-    verticalAlign?: 'top' | 'middle' | 'bottom'
-  }
-  /**
-   * Tooltip configuration.
-   */
-  tooltip?: {
-    show?: boolean
-  } & React.ComponentProps<typeof Tooltip>
-  /**
-   * Grid configuration.
-   */
-  grid?: {
-    show?: boolean
-    strokeDasharray?: string
-  }
-  /**
-   * The layout of the chart.
-   * @default 'horizontal'
-   */
-  layout?: 'horizontal' | 'vertical'
-  /**
-   * Margin around the chart.
-   */
-  margin?: { top?: number; right?: number; bottom?: number; left?: number }
-  /**
-   * Charts with the same syncId will synchronize Tooltip and Brush events.
-   */
-  syncId?: number | string
-  /**
-   * Customize how the charts will synchronize tooltips and brushes.
-   * @default 'index'
-   */
-  syncMethod?: 'index' | 'value' | ((ticks: any[], data: any[]) => number)
-  /**
-   * ARIA role for the chart.
-   */
-  role?: string
-  /**
-   * Accessible title and description.
-   */
-  title?: string
-  desc?: string
-  /**
-   * If true, an accessibility layer will be added to the chart.
-   * @default true
-   */
-  accessibilityLayer?: boolean
-  /**
-   * XAxis configuration.
-   */
-  xAxis?: {
-    show?: boolean
-    name?: string
-    domain?: [any, any]
-    type?: 'number' | 'category'
-    tickCount?: number
-    interval?: number | 'preserveStart' | 'preserveEnd' | 'preserveStartEnd'
-  }
-  /**
-   * YAxis configuration.
-   */
-  yAxis?: {
-    show?: boolean
-    name?: string
-    domain?: [any, any]
-    type?: 'number' | 'category'
-    tickCount?: number
-    interval?: number | 'preserveStart' | 'preserveEnd' | 'preserveStartEnd'
-  }
-  /**
-   * Event handlers for the entire chart.
-   */
-  onClick?: (data: any, index: number, event: React.MouseEvent) => void
-  onMouseDown?: (data: any, index: number, event: React.MouseEvent) => void
-  onMouseUp?: (data: any, index: number, event: React.MouseEvent) => void
-  onMouseMove?: (data: any, index: number, event: React.MouseEvent) => void
-  onMouseEnter?: (data: any, index: number, event: React.MouseEvent) => void
-  onMouseLeave?: (data: any, index: number, event: React.MouseEvent) => void
-  /**
-   * If true, the chart areas will be animated.
-   * @default true
-   */
-  isAnimationActive?: boolean
-  /**
-   * Duration of the animation in ms.
-   * @default 1500
-   */
-  animationDuration?: number
-  /**
-   * Delay before the animation begins in ms.
-   * @default 0
-   */
-  animationBegin?: number
-  /**
-   * Easing function for the animation.
-   * @default 'ease'
-   */
-  animationEasing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear'
-  /**
-   * Optional children for composition.
-   */
-  children?: React.ReactNode
-}
+import { AreaChartProps } from './AreaChart.types'
 
 /**
  * AreaChart component for Oxygen UI powered by Recharts.
@@ -307,32 +68,7 @@ const AreaChart = ({
 }: AreaChartProps): React.ReactElement => {
   const theme = useTheme()
 
-  // Check color scheme from DOM attribute (set by MUI's extendTheme)
-  const [isDark, setIsDark] = React.useState(() => {
-    if (typeof document === 'undefined') return theme.palette.mode === 'dark'
-    const htmlElement = document.documentElement
-    const colorScheme = htmlElement.getAttribute('data-color-scheme')
-    return colorScheme === 'dark' || theme.palette.mode === 'dark'
-  })
-
-  React.useEffect(() => {
-    const checkColorScheme = () => {
-      const htmlElement = document.documentElement
-      const colorScheme = htmlElement.getAttribute('data-color-scheme')
-      setIsDark(colorScheme === 'dark' || theme.palette.mode === 'dark')
-    }
-
-    checkColorScheme()
-
-    // Watch for changes to the color scheme attribute
-    const observer = new MutationObserver(checkColorScheme)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['data-color-scheme'],
-    })
-
-    return () => observer.disconnect()
-  }, [theme.palette.mode])
+  const isDark = useColorScheme(theme.palette.mode)
 
   const defaultColors = {
     background: isDark ? '#1e1e1e' : '#f5f5f5',
@@ -466,30 +202,34 @@ const AreaChart = ({
           />
         )}
 
-        {tooltip?.show !== false && (
-          <Tooltip
-            contentStyle={{
-              backgroundColor: colors.background,
-              border: `1px solid ${colors.text}`,
-              borderRadius: theme.shape.borderRadius ?? 8,
-              color: colors.text,
-              boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
-              ...tooltip?.contentStyle,
-            }}
-            itemStyle={{
-              color: colors.text,
-              fontSize: 12,
-              ...tooltip?.itemStyle,
-            }}
-            labelStyle={{
-              color: colors.text,
-              fontWeight: 600,
-              marginBottom: 4,
-              ...tooltip?.labelStyle,
-            }}
-            {...tooltip}
-          />
-        )}
+        {tooltip?.show !== false &&
+          (() => {
+            const { contentStyle, itemStyle, labelStyle, show, ...rest } = tooltip || {}
+            return (
+              <Tooltip
+                {...rest}
+                contentStyle={{
+                  backgroundColor: colors.background,
+                  border: `1px solid ${colors.text}`,
+                  borderRadius: theme.shape.borderRadius ?? 8,
+                  color: colors.text,
+                  boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+                  ...contentStyle,
+                }}
+                itemStyle={{
+                  color: colors.text,
+                  fontSize: 12,
+                  ...itemStyle,
+                }}
+                labelStyle={{
+                  color: colors.text,
+                  fontWeight: 600,
+                  marginBottom: 4,
+                  ...labelStyle,
+                }}
+              />
+            )
+          })()}
 
         {legendConfig.show && (
           <Legend
