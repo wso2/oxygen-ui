@@ -24,9 +24,6 @@ import {
   Stories,
 } from '@storybook/addon-docs/blocks';
 import React from "react";
-import { addons } from 'storybook/internal/preview-api';
-// importing from path to avoid preview break on change
-import { useColorScheme } from '@mui/material/styles';
 import {
   OxygenUIThemeProvider,
   useThemeSwitcher,
@@ -34,6 +31,7 @@ import {
   AcrylicPurpleTheme,
   ClassicTheme,
   HighContrastTheme,
+  useColorScheme,
 } from "@wso2/oxygen-ui";
 import './docs.css';
 
@@ -44,10 +42,7 @@ import './docs.css';
  */
 function ColorSchemeSyncer({ mode, resolvedMode }) {
   const { mode: currentMode, setMode } = useColorScheme();
-  const channel = addons.getChannel();
-  const lastModeRef = React.useRef(mode);
-  const lastCurrentModeRef = React.useRef(currentMode);
-  const isUpdatingFromToolbarRef = React.useRef(false);
+  const isSyncingRef = React.useRef(false);
 
   // Update document attributes immediately when resolved mode changes
   React.useLayoutEffect(() => {
@@ -58,26 +53,14 @@ function ColorSchemeSyncer({ mode, resolvedMode }) {
 
   // Sync toolbar mode to MUI (when toolbar changes)
   React.useEffect(() => {
-    if (mode !== lastModeRef.current) {
-      lastModeRef.current = mode;
-      isUpdatingFromToolbarRef.current = true;
+    if (mode !== currentMode && !isSyncingRef.current) {
+      isSyncingRef.current = true;
       setMode(mode);
-      // Reset flag after state update
-      setTimeout(() => {
-        isUpdatingFromToolbarRef.current = false;
-      }, 0);
-    }
-  }, [mode, setMode]);
-
-  // Sync MUI mode back to toolbar (when component changes internally)
-  React.useEffect(() => {
-    if (currentMode !== lastCurrentModeRef.current && currentMode !== mode && !isUpdatingFromToolbarRef.current) {
-      lastCurrentModeRef.current = currentMode;
-      channel.emit('updateGlobals', {
-        globals: { colorScheme: currentMode },
+      requestAnimationFrame(() => {
+        isSyncingRef.current = false;
       });
     }
-  }, [currentMode, mode, channel]);
+  }, [mode, currentMode, setMode]);
 
   return null;
 }
@@ -87,36 +70,18 @@ function ColorSchemeSyncer({ mode, resolvedMode }) {
  */
 function ThemeSyncer({ themeKey }) {
   const { currentTheme, setTheme } = useThemeSwitcher();
-  const channel = addons.getChannel();
-  const lastThemeKeyRef = React.useRef(themeKey);
-  const isUpdatingFromToolbarRef = React.useRef(false);
-  const hasSyncedRef = React.useRef(false);
+  const isSyncingRef = React.useRef(false);
 
   // Sync toolbar theme to OxygenUI (when toolbar changes)
   React.useEffect(() => {
-    if (themeKey !== lastThemeKeyRef.current) {
-      lastThemeKeyRef.current = themeKey;
-      isUpdatingFromToolbarRef.current = true;
+    if (themeKey !== currentTheme && !isSyncingRef.current) {
+      isSyncingRef.current = true;
       setTheme(themeKey);
-      // Reset flag after state update
-      setTimeout(() => {
-        isUpdatingFromToolbarRef.current = false;
-      }, 0);
+      requestAnimationFrame(() => {
+        isSyncingRef.current = false;
+      });
     }
-  }, [themeKey, setTheme]);
-
-  // Sync OxygenUI theme back to toolbar on mount and when theme changes
-  React.useEffect(() => {
-    if (!isUpdatingFromToolbarRef.current && currentTheme !== themeKey) {
-      // Only sync once on mount or when there's an actual mismatch
-      if (!hasSyncedRef.current || currentTheme !== lastThemeKeyRef.current) {
-        hasSyncedRef.current = true;
-        channel.emit('updateGlobals', {
-          globals: { theme: currentTheme },
-        });
-      }
-    }
-  }, [currentTheme, themeKey, channel]);
+  }, [themeKey, currentTheme, setTheme]);
 
   return null;
 }

@@ -23,8 +23,12 @@ export type { ColorSchemeImageProps, ColorSchemeImageAttribute } from './ColorSc
 export { ColorSchemeToggle, default as ColorSchemeToggleDefault } from './ColorSchemeToggle';
 export { default as ComplexSelect } from './ComplexSelect';
 export type { ComplexSelectProps } from './ComplexSelect';
+export { default as PageContent } from './PageContent';
+export type { PageContentProps } from './PageContent';
 export { default as PageTitle } from './PageTitle';
 export type { PageTitleProps, PageTitleAvatarProps, PageTitleHeaderProps, PageTitleSubHeaderProps, PageTitleLinkProps } from './PageTitle';
+export { default as StatCard } from './StatCard';
+export type { StatCardProps } from './StatCard';
 export { default as ThemeSwitcher, ThemeSelect } from './ThemeSwitcher';
 export type { ThemeSwitcherProps, ThemeSelectProps } from './ThemeSwitcher';
 export { default as SearchBarWithAdvancedFilter } from './SearchBar/SearchBarWithAdvancedFilter';
@@ -98,3 +102,40 @@ export type { UserMenuProps, UserMenuUser } from './UserMenu';
 
 export { NotificationBanner } from './NotificationBanner';
 export type { NotificationBannerProps } from './NotificationBanner';
+
+// Form Component
+export { Form } from './Form';
+
+// AppShell Component
+export { AppShell } from './AppShell';
+export type { AppShellProps } from './AppShell';
+
+// ListingTable Component (compound component with enhanced features)
+export { default as ListingTable } from './ListingTable';
+export {
+  useListingTable,
+  useListingTableRequired,
+  ListingTableContext,
+  ListingTableProvider,
+} from './ListingTable';
+export type {
+  ListingTableProps,
+  ListingTableContainerProps,
+  ListingTableHeadProps,
+  ListingTableBodyProps,
+  ListingTableFooterProps,
+  ListingTableRowProps,
+  ListingTableCellProps,
+  ListingTableDensity,
+  ListingTableVariant,
+  ListingTableToolbarProps,
+  ListingTableEmptyStateProps,
+  ListingTableDensityControlProps,
+  ListingTableSortLabelProps,
+  ListingSortDirection,
+  ListingTableRowActionsProps,
+  ListingTableCellIconProps,
+  ListingTableContextValue,
+  ListingTableSortDirection,
+  ListingTableProviderProps,
+} from './ListingTable';

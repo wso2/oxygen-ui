@@ -358,3 +358,139 @@ export const WithMultipleSections: Story = {
     );
   },
 };
+
+export const LabelAnchorVariants: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 
+          'The ComplexSelect component supports three label positioning modes:\n\n' +
+          '- **outside** (default): Label appears above the select field as a separate element\n' +
+          '- **border**: Label appears on the border (standard MUI behavior with notched outline)\n' +
+          '- **inside**: Label appears inside the select field above the selected value. ' +
+          'Icons are preserved but secondary text is automatically hidden for a cleaner, more compact display.',
+      },
+    },
+  },
+  render: () => {
+    const [role, setRole] = useState('admin');
+    
+    return (
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, minWidth: 300 }}>
+        <ComplexSelect
+          value={role}
+          onChange={(e) => setRole(e.target.value as string)}
+          label="Inside Position (Default)"
+          labelAnchor="inside"
+          fullWidth
+        >
+          <ComplexSelect.MenuItem value="admin">
+            <ComplexSelect.MenuItem.Icon>
+              <ShieldCheck />
+            </ComplexSelect.MenuItem.Icon>
+            <ComplexSelect.MenuItem.Text 
+              primary="Administrator" 
+              secondary="Full system access"
+            />
+          </ComplexSelect.MenuItem>
+
+          <ComplexSelect.MenuItem value="moderator">
+            <ComplexSelect.MenuItem.Icon>
+              <Users />
+            </ComplexSelect.MenuItem.Icon>
+            <ComplexSelect.MenuItem.Text 
+              primary="Moderator" 
+              secondary="Manage users"
+            />
+          </ComplexSelect.MenuItem>
+
+          <ComplexSelect.MenuItem value="user">
+            <ComplexSelect.MenuItem.Icon>
+              <User />
+            </ComplexSelect.MenuItem.Icon>
+            <ComplexSelect.MenuItem.Text 
+              primary="User" 
+              secondary="Standard access"
+            />
+          </ComplexSelect.MenuItem>
+        </ComplexSelect>
+
+        <ComplexSelect
+          value={role}
+          onChange={(e) => setRole(e.target.value as string)}
+          label="Outside"
+          labelAnchor="outside"
+          fullWidth
+        >
+          <ComplexSelect.MenuItem value="admin">
+            <ComplexSelect.MenuItem.Icon>
+              <ShieldCheck />
+            </ComplexSelect.MenuItem.Icon>
+            <ComplexSelect.MenuItem.Text 
+              primary="Administrator" 
+              secondary="Full system access"
+            />
+          </ComplexSelect.MenuItem>
+
+          <ComplexSelect.MenuItem value="moderator">
+            <ComplexSelect.MenuItem.Icon>
+              <Users />
+            </ComplexSelect.MenuItem.Icon>
+            <ComplexSelect.MenuItem.Text 
+              primary="Moderator" 
+              secondary="Manage users"
+            />
+          </ComplexSelect.MenuItem>
+
+          <ComplexSelect.MenuItem value="user">
+            <ComplexSelect.MenuItem.Icon>
+              <User />
+            </ComplexSelect.MenuItem.Icon>
+            <ComplexSelect.MenuItem.Text 
+              primary="User" 
+              secondary="Standard access"
+            />
+          </ComplexSelect.MenuItem>
+        </ComplexSelect>
+
+        <ComplexSelect
+          value={role}
+          onChange={(e) => setRole(e.target.value as string)}
+          label="Border Position"
+          labelAnchor="border"
+          fullWidth
+        >
+          <ComplexSelect.MenuItem value="admin">
+            <ComplexSelect.MenuItem.Icon>
+              <ShieldCheck />
+            </ComplexSelect.MenuItem.Icon>
+            <ComplexSelect.MenuItem.Text 
+              primary="Administrator" 
+              secondary="Full system access"
+            />
+          </ComplexSelect.MenuItem>
+
+          <ComplexSelect.MenuItem value="moderator">
+            <ComplexSelect.MenuItem.Icon>
+              <Users />
+            </ComplexSelect.MenuItem.Icon>
+            <ComplexSelect.MenuItem.Text 
+              primary="Moderator" 
+              secondary="Manage users"
+            />
+          </ComplexSelect.MenuItem>
+
+          <ComplexSelect.MenuItem value="user">
+            <ComplexSelect.MenuItem.Icon>
+              <User />
+            </ComplexSelect.MenuItem.Icon>
+            <ComplexSelect.MenuItem.Text 
+              primary="User" 
+              secondary="Standard access"
+            />
+          </ComplexSelect.MenuItem>
+        </ComplexSelect>
+      </Box>
+    );
+  },
+};

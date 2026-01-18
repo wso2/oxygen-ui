@@ -17,21 +17,21 @@
  */
 
 import { type RouteProps } from 'react-router'
-import DefaultLayout from '../layouts/DefaultLayout';
-import HomePage from '../pages/HomePage';
-import LoginPage from '../pages/LoginPage';
-import LoginPage2 from '../pages/LoginPage2';
-import GateLayout from '../layouts/GateLayout';
-import ProjectList from '../pages/ProjectList';
-import ProjectOverview from '../pages/ProjectOverview';
-import ComponentCreate from '../pages/ComponentCreate';
-import ComponentList from '../pages/ComponentList';
-import EmptyComponentList from '../pages/EmptyComponentList';
-import LogView from '../pages/LogView';
-import LoginEditorView from '../pages/LoginEditorView';
-import SettingsPage from '../pages/SettingsPage';
-import ErrorPage from '../pages/ErrorPage';
-import AppLayout from '../layouts/AppLayout';
+import DefaultLayout from '../layouts/DefaultLayout'
+import HomePage from '../pages/HomePage'
+import LoginPage from '../pages/LoginPage'
+import GateLayout from '../layouts/GateLayout'
+import ProjectOverview from '../pages/ProjectOverview'
+import ComponentCreate from '../pages/ComponentCreate'
+import ComponentList from '../pages/ComponentList'
+import EmptyComponentList from '../pages/EmptyComponentList'
+import LogView from '../pages/LogView'
+import LoginEditorView from '../pages/LoginEditorView'
+import SettingsPage from '../pages/SettingsPage'
+import ErrorPage from '../pages/ErrorPage'
+import AppLayout from '../layouts/AppLayout'
+import AnalyticsOverview from '../pages/Analytics'
+import Projects from '../pages/Projects'
 
 /**
  * Interface representing an application route configuration.
@@ -41,15 +41,15 @@ export interface AppRoute extends Omit<RouteProps, 'children'> {
   /**
    * Child routes nested under this route.
    */
-  children?: AppRoute[];
+  children?: AppRoute[]
   /**
    * Label to display in navigation links.
    */
-  label?: string;
+  label?: string
   /**
    * Whether to show this route in navigation.
    */
-  showInNav?: boolean;
+  showInNav?: boolean
 }
 
 /**
@@ -81,12 +81,6 @@ const appRoutes: AppRoute[] = [
         label: 'Login Page',
         showInNav: true,
       },
-      {
-        path: '/login2',
-        element: <LoginPage2 />,
-        label: 'Login Page 2',
-        showInNav: false,
-      },
     ],
   },
   {
@@ -94,13 +88,19 @@ const appRoutes: AppRoute[] = [
     children: [
       {
         path: '/projects',
-        element: <ProjectList />,
+        element: <Projects />,
         label: 'Projects',
-        showInNav: true,
+        showInNav: false,
       },
       {
         path: '/projects/:id',
         element: <ProjectOverview />,
+        label: 'Project Overview',
+        showInNav: false,
+      },
+      {
+        path: '/analytics',
+        element: <AnalyticsOverview />,
         label: 'Project Overview',
         showInNav: false,
       },
@@ -146,12 +146,6 @@ const appRoutes: AppRoute[] = [
         label: 'Organization Settings',
         showInNav: false,
       },
-      {
-        path: '/error',
-        element: <ErrorPage />,
-        label: 'Error Page',
-        showInNav: true,
-      },
     ],
   },
   {
@@ -164,8 +158,14 @@ const appRoutes: AppRoute[] = [
         label: 'Home',
         showInNav: false,
       },
+      {
+        path: '/error',
+        element: <ErrorPage />,
+        label: '404 Error Page',
+        showInNav: true,
+      },
     ],
   },
-];
+]
 
-export default appRoutes;
+export default appRoutes

@@ -36,8 +36,7 @@ import {
   ParticleBackground,
 } from '@wso2/oxygen-ui';
 import {Cloud, GitHub, Google, ShieldCheck, TerminalSquare, Zap} from '@wso2/oxygen-ui-icons-react';
-import {error} from 'console';
-import React, {JSX} from 'react';
+import React, {type JSX} from 'react';
 
 const meta: Meta = {
   title: 'Templates/Login',

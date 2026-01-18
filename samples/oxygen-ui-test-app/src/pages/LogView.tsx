@@ -33,6 +33,7 @@ import {
   Switch,
   FormControlLabel,
   Divider,
+  PageContent,
 } from '@wso2/oxygen-ui'
 import {
   Search,
@@ -45,7 +46,7 @@ import {
   AlertTriangle,
   Info,
 } from '@wso2/oxygen-ui-icons-react'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
 import type { JSX } from 'react'
 import { useState } from 'react'
 
@@ -127,7 +128,6 @@ const mockLogs: LogEntry[] = [
 
 export default function LogView(): JSX.Element {
   const navigate = useNavigate()
-  const { id } = useParams<{ id: string }>()
   const [searchQuery, setSearchQuery] = useState('')
   const [levelFilter, setLevelFilter] = useState('all')
   const [componentFilter, setComponentFilter] = useState('all')
@@ -185,10 +185,10 @@ export default function LogView(): JSX.Element {
   }
 
   return (
-    <Box sx={{ p: 3, maxWidth: '1400px', mx: 'auto' }}>
+    <PageContent>
       {/* Header */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 4 }}>
-        <IconButton onClick={() => navigate(`/projects/${id}`)}>
+        <IconButton onClick={() => navigate(`/analytics`)}>
           <ArrowLeft size={20} />
         </IconButton>
         <Box sx={{ flexGrow: 1 }}>
@@ -332,6 +332,6 @@ export default function LogView(): JSX.Element {
           Showing {filteredLogs.length} of {mockLogs.length} logs
         </Typography>
       </Box>
-    </Box>
+    </PageContent>
   )
 }

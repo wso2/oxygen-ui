@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "storybook dev -p 6006",
-    "build": "storybook build",
-    "preview": "http-server storybook-static"
+    "build": "storybook build -o dist",
+    "preview": "http-server dist"
   },
   "keywords": [
     "wso2",
@@ -23,7 +23,10 @@
   },
   "dependencies": {
     "@wso2/oxygen-ui": "workspace:*",
-    "@wso2/oxygen-ui-icons-react": "workspace:*"
+    "@wso2/oxygen-ui-icons-react": "workspace:*",
+    "react-hook-form": "7.62.0",
+    "@hookform/resolvers": "5.2.1",
+    "zod": "4.0.10"
   },
   "devDependencies": {
     "@babel/core": "7.28.5",

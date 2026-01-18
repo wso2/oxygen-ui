@@ -1,0 +1,96 @@
+# This workflow will deploy the docs as static content to GitHub Pages
+
+name: ☄️ Deploy Documentation
+
+on:
+  push:
+    branches: [next]
+    paths:
+      - 'packages/oxygen-ui/**'
+      - 'packages/oxygen-ui-docs/**'
+      - 'samples/oxygen-ui-test-app/**'
+      - '.github/workflows/deploy-gh-pages.yaml'
+
+  workflow_dispatch:
+    inputs:
+      basePath:
+        description: |
+          The base path to deploy the docs to. Default is "oxygen-ui" (https://wso2.github.io/oxygen-ui/).
+          Note: Do not include a leading or trailing slash.
+        default: "oxygen-ui"
+        type: string
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+env:
+  GH_TOKEN: ${{ secrets.UI_BOT_TOKEN }}
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [lts/*]
+        pnpm-version: [latest]
+    steps:
+      - name: ⬇️ Checkout
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🥡 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ matrix.pnpm-version }}
+          run_install: false
+          cache: true
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: 🟢 Setup node
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: 🎈 Get pnpm store directory
+        id: get-pnpm-cache-dir
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - name: 🧩 Install Dependencies
+        id: install-dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🏗️ Build Project
+        id: build
+        run: |
+          pnpm build
+
+      - name: ⚙️ Setup Pages
+        id: setup-pages
+        uses: actions/configure-pages@v3
+
+      - name: 🌩 Upload artifact
+        id: upload-artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./packages/oxygen-ui-docs/dist
+
+      - name: 🔥 Deploy to GitHub Pages
+        id: deploy-gh-pages
+        uses: actions/deploy-pages@v1

@@ -16,32 +16,27 @@
  * under the License.
  */
 
+import { useState, useMemo } from 'react'
 import {
   Box,
   Button,
   Card,
   CardContent,
   Typography,
-  TextField,
-  InputAdornment,
   Chip,
   IconButton,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
+  ListingTable,
   Menu,
   MenuItem,
   Select,
   FormControl,
   FormLabel,
+  TablePagination,
 } from '@wso2/oxygen-ui'
-import { Search, Plus, MoreVertical, Filter, Download, ArrowLeft } from '@wso2/oxygen-ui-icons-react'
+import type { ListingTableDensity, ListingTableSortDirection } from '@wso2/oxygen-ui'
+import { Plus, MoreVertical, Filter, Download, ArrowLeft, FileText, Key, Shield, RefreshCw, Lock, Inbox } from '@wso2/oxygen-ui-icons-react'
 import { useNavigate, useParams } from 'react-router'
 import type { JSX } from 'react'
-import { useState } from 'react'
 
 interface Component {
   id: string
@@ -51,6 +46,7 @@ interface Component {
   status: 'active' | 'inactive' | 'draft'
   lastModified: string
   author: string
+  description: string
 }
 
 const mockComponents: Component[] = [
@@ -62,6 +58,7 @@ const mockComponents: Component[] = [
     status: 'active',
     lastModified: '2 hours ago',
     author: 'John Doe',
+    description: 'Standard username/password authentication flow',
   },
   {
     id: '2',
@@ -71,6 +68,7 @@ const mockComponents: Component[] = [
     status: 'active',
     lastModified: '1 day ago',
     author: 'Jane Smith',
+    description: 'Registration via social identity providers',
   },
   {
     id: '3',
@@ -80,6 +78,7 @@ const mockComponents: Component[] = [
     status: 'active',
     lastModified: '3 days ago',
     author: 'Mike Johnson',
+    description: 'Email-based password recovery flow',
   },
   {
     id: '4',
@@ -89,6 +88,7 @@ const mockComponents: Component[] = [
     status: 'inactive',
     lastModified: '1 week ago',
     author: 'Sarah Wilson',
+    description: 'Configure TOTP and SMS verification',
   },
   {
     id: '5',
@@ -98,15 +98,112 @@ const mockComponents: Component[] = [
     status: 'draft',
     lastModified: '2 weeks ago',
     author: 'John Doe',
+    description: 'OAuth 2.0 authorization code flow',
+  },
+  {
+    id: '6',
+    name: 'SAML SSO',
+    type: 'Authentication',
+    category: 'Enterprise SSO',
+    status: 'active',
+    lastModified: '4 days ago',
+    author: 'Alice Brown',
+    description: 'SAML 2.0 single sign-on integration',
+  },
+  {
+    id: '7',
+    name: 'Email Verification',
+    type: 'Registration',
+    category: 'Sign Up Flow',
+    status: 'active',
+    lastModified: '5 days ago',
+    author: 'Bob Williams',
+    description: 'Email confirmation during registration',
+  },
+  {
+    id: '8',
+    name: 'Account Lockout',
+    type: 'Multi-Factor Authentication',
+    category: 'Security',
+    status: 'active',
+    lastModified: '6 days ago',
+    author: 'Charlie Davis',
+    description: 'Brute force protection with account lockout',
+  },
+  {
+    id: '9',
+    name: 'Session Management',
+    type: 'Authorization',
+    category: 'Security',
+    status: 'active',
+    lastModified: '1 week ago',
+    author: 'Diana Martinez',
+    description: 'User session timeout and invalidation',
+  },
+  {
+    id: '10',
+    name: 'Magic Link Login',
+    type: 'Authentication',
+    category: 'Passwordless',
+    status: 'draft',
+    lastModified: '2 weeks ago',
+    author: 'Edward Lee',
+    description: 'Passwordless authentication via email link',
+  },
+  {
+    id: '11',
+    name: 'Biometric Auth',
+    type: 'Multi-Factor Authentication',
+    category: 'Passwordless',
+    status: 'inactive',
+    lastModified: '3 weeks ago',
+    author: 'Fiona Garcia',
+    description: 'WebAuthn fingerprint and face recognition',
+  },
+  {
+    id: '12',
+    name: 'API Key Management',
+    type: 'Authorization',
+    category: 'API Security',
+    status: 'active',
+    lastModified: '4 days ago',
+    author: 'George Taylor',
+    description: 'Generate and manage API access keys',
   },
 ]
+
+const getTypeIcon = (type: string) => {
+  switch (type) {
+    case 'Authentication':
+      return <Key size={20} />
+    case 'Authorization':
+      return <Shield size={20} />
+    case 'Registration':
+      return <FileText size={20} />
+    case 'Recovery':
+      return <RefreshCw size={20} />
+    case 'Multi-Factor Authentication':
+      return <Lock size={20} />
+    default:
+      return <FileText size={20} />
+  }
+}
 
 export default function ComponentList(): JSX.Element {
   const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
+
+  // Table state
   const [searchQuery, setSearchQuery] = useState('')
   const [filterType, setFilterType] = useState('all')
   const [filterStatus, setFilterStatus] = useState('all')
+  const [density, setDensity] = useState<ListingTableDensity>('standard')
+  const [sortField, setSortField] = useState<string>('name')
+  const [sortDirection, setSortDirection] = useState<ListingTableSortDirection>('asc')
+  const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(5)
+
+  // Menu state
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [selectedComponent, setSelectedComponent] = useState<string | null>(null)
 
@@ -120,17 +217,53 @@ export default function ComponentList(): JSX.Element {
     setSelectedComponent(null)
   }
 
-  const filteredComponents = mockComponents.filter((component) => {
-    const matchesSearch =
-      component.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      component.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      component.category.toLowerCase().includes(searchQuery.toLowerCase())
+  const handleSortChange = (field: string, direction: ListingTableSortDirection) => {
+    setSortField(field)
+    setSortDirection(direction)
+  }
 
-    const matchesType = filterType === 'all' || component.type === filterType
-    const matchesStatus = filterStatus === 'all' || component.status === filterStatus
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value)
+    setPage(0)
+  }
 
-    return matchesSearch && matchesType && matchesStatus
-  })
+  const handleChangePage = (_event: unknown, newPage: number) => {
+    setPage(newPage)
+  }
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10))
+    setPage(0)
+  }
+
+  const filteredComponents = useMemo(() => {
+    const result = mockComponents.filter((component) => {
+      const matchesSearch =
+        component.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        component.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        component.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        component.description.toLowerCase().includes(searchQuery.toLowerCase())
+
+      const matchesType = filterType === 'all' || component.type === filterType
+      const matchesStatus = filterStatus === 'all' || component.status === filterStatus
+
+      return matchesSearch && matchesType && matchesStatus
+    })
+
+    // Sort
+    result.sort((a, b) => {
+      const aVal = a[sortField as keyof Component]
+      const bVal = b[sortField as keyof Component]
+      const comparison = String(aVal).localeCompare(String(bVal))
+      return sortDirection === 'asc' ? comparison : -comparison
+    })
+
+    return result
+  }, [searchQuery, filterType, filterStatus, sortField, sortDirection])
+
+  const paginatedComponents = useMemo(() => {
+    return filteredComponents.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+  }, [filteredComponents, page, rowsPerPage])
 
   const getStatusColor = (status: Component['status']) => {
     switch (status) {
@@ -170,24 +303,6 @@ export default function ComponentList(): JSX.Element {
       <Card variant="outlined" sx={{ mb: 3 }}>
         <CardContent>
           <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', alignItems: 'end' }}>
-            <Box sx={{ flexGrow: 1, minWidth: 250 }}>
-              <TextField
-                fullWidth
-                placeholder="Search components..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                slotProps={{
-                  input: {
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Search size={20} />
-                      </InputAdornment>
-                    ),
-                  },
-                }}
-              />
-            </Box>
-
             <FormControl sx={{ minWidth: 200 }}>
               <FormLabel>Type</FormLabel>
               <Select value={filterType} onChange={(e) => setFilterType(e.target.value)}>
@@ -217,68 +332,126 @@ export default function ComponentList(): JSX.Element {
         </CardContent>
       </Card>
 
-      {/* Components Table */}
-      <Card variant="outlined">
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Type</TableCell>
-                <TableCell>Category</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Author</TableCell>
-                <TableCell>Last Modified</TableCell>
-                <TableCell align="right">Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {filteredComponents.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={7} align="center" sx={{ py: 8 }}>
-                    <Typography variant="body2" color="text.secondary">
-                      No components found
-                    </Typography>
-                  </TableCell>
-                </TableRow>
+      {/* Components Table using ListingTable with Provider */}
+      <ListingTable.Provider
+        searchValue={searchQuery}
+        onSearchChange={handleSearchChange}
+        sortField={sortField}
+        sortDirection={sortDirection}
+        onSortChange={handleSortChange}
+        density={density}
+        onDensityChange={setDensity}
+      >
+        <ListingTable.Container disablePaper>
+          <ListingTable.Toolbar
+            showSearch
+            searchPlaceholder="Search components..."
+            actions={<ListingTable.DensityControl />}
+          />
+          <ListingTable variant="card" density={density}>
+            <ListingTable.Head>
+              <ListingTable.Row>
+                <ListingTable.Cell>
+                  <ListingTable.SortLabel field="name">Name</ListingTable.SortLabel>
+                </ListingTable.Cell>
+                <ListingTable.Cell>
+                  <ListingTable.SortLabel field="type">Type</ListingTable.SortLabel>
+                </ListingTable.Cell>
+                <ListingTable.Cell>
+                  <ListingTable.SortLabel field="category">Category</ListingTable.SortLabel>
+                </ListingTable.Cell>
+                <ListingTable.Cell>
+                  <ListingTable.SortLabel field="status">Status</ListingTable.SortLabel>
+                </ListingTable.Cell>
+                <ListingTable.Cell>
+                  <ListingTable.SortLabel field="author">Author</ListingTable.SortLabel>
+                </ListingTable.Cell>
+                <ListingTable.Cell>
+                  <ListingTable.SortLabel field="lastModified">Last Modified</ListingTable.SortLabel>
+                </ListingTable.Cell>
+                <ListingTable.Cell align="right">Actions</ListingTable.Cell>
+              </ListingTable.Row>
+            </ListingTable.Head>
+            <ListingTable.Body>
+              {paginatedComponents.length === 0 ? (
+                <ListingTable.Row>
+                  <ListingTable.Cell colSpan={7}>
+                    <ListingTable.EmptyState
+                      illustration={<Inbox size={64} />}
+                      title="No components found"
+                      description={
+                        searchQuery || filterType !== 'all' || filterStatus !== 'all'
+                          ? 'Try adjusting your search or filter criteria'
+                          : 'Get started by creating your first authentication component'
+                      }
+                      action={
+                        !searchQuery && filterType === 'all' && filterStatus === 'all' ? (
+                          <Button
+                            variant="contained"
+                            startIcon={<Plus size={16} />}
+                            onClick={() => navigate(`/projects/${id}/components/new`)}
+                          >
+                            Create Component
+                          </Button>
+                        ) : undefined
+                      }
+                    />
+                  </ListingTable.Cell>
+                </ListingTable.Row>
               ) : (
-                filteredComponents.map((component) => (
-                  <TableRow
+                paginatedComponents.map((component) => (
+                  <ListingTable.Row
                     key={component.id}
+                    variant="card"
                     hover
-                    sx={{ cursor: 'pointer' }}
+                    clickable
                     onClick={() => navigate(`/projects/${id}/components/${component.id}`)}
                   >
-                    <TableCell>
-                      <Typography variant="body2" fontWeight={500}>
-                        {component.name}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>{component.type}</TableCell>
-                    <TableCell>{component.category}</TableCell>
-                    <TableCell>
+                    <ListingTable.Cell>
+                      <ListingTable.CellIcon
+                        icon={getTypeIcon(component.type)}
+                        primary={component.name}
+                        secondary={component.description}
+                      />
+                    </ListingTable.Cell>
+                    <ListingTable.Cell>
+                      <Chip label={component.type} size="small" variant="outlined" />
+                    </ListingTable.Cell>
+                    <ListingTable.Cell>{component.category}</ListingTable.Cell>
+                    <ListingTable.Cell>
                       <Chip label={component.status} size="small" color={getStatusColor(component.status)} />
-                    </TableCell>
-                    <TableCell>{component.author}</TableCell>
-                    <TableCell>{component.lastModified}</TableCell>
-                    <TableCell align="right">
-                      <IconButton
-                        size="small"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleMenuOpen(e, component.id)
-                        }}
-                      >
-                        <MoreVertical size={18} />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
+                    </ListingTable.Cell>
+                    <ListingTable.Cell>{component.author}</ListingTable.Cell>
+                    <ListingTable.Cell>{component.lastModified}</ListingTable.Cell>
+                    <ListingTable.Cell align="right">
+                      <ListingTable.RowActions visibility="hover">
+                        <IconButton
+                          size="small"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleMenuOpen(e, component.id)
+                          }}
+                        >
+                          <MoreVertical size={18} />
+                        </IconButton>
+                      </ListingTable.RowActions>
+                    </ListingTable.Cell>
+                  </ListingTable.Row>
                 ))
               )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Card>
+            </ListingTable.Body>
+          </ListingTable>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={filteredComponents.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </ListingTable.Container>
+      </ListingTable.Provider>
 
       {/* Action Menu */}
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>

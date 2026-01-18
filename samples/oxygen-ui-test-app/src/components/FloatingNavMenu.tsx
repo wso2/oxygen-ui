@@ -41,7 +41,14 @@ export default function FloatingNavMenu() {
   };
 
   const navItems = appRoutes
-    .flatMap((route) => route.children || [])
+    .flatMap((route) => {
+      // Include top-level routes with showInNav
+      if (route.showInNav && route.path) {
+        return [route];
+      }
+      // Include child routes with showInNav
+      return route.children || [];
+    })
     .filter((child) => child.showInNav);
 
   return (
