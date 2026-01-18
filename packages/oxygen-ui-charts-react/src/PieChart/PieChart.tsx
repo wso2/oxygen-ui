@@ -86,6 +86,12 @@ export interface PieChartProps {
     verticalAlign?: 'top' | 'middle' | 'bottom'
   }
   /**
+   * Tooltip configuration.
+   */
+  tooltip?: {
+    show?: boolean
+  } & React.ComponentProps<typeof Tooltip>
+  /**
    * Margin around the chart.
    */
   margin?: { top?: number; right?: number; bottom?: number; left?: number }
@@ -214,6 +220,7 @@ const PieChart = ({
   height = 300,
   width = '100%',
   legend,
+  tooltip,
   margin,
   cx = '50%',
   cy = '50%',
@@ -341,7 +348,7 @@ const PieChart = ({
         ))}
 
         {/* Only render default Tooltip if no children are provided */}
-        {!children && (
+        {tooltip?.show !== false && (
           <Tooltip
             contentStyle={{
               backgroundColor: syntaxColors.background,
@@ -349,16 +356,20 @@ const PieChart = ({
               borderRadius: theme.shape.borderRadius ?? 8,
               color: syntaxColors.text,
               boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+              ...tooltip?.contentStyle,
             }}
             itemStyle={{
               color: syntaxColors.text,
               fontSize: 12,
+              ...tooltip?.itemStyle,
             }}
             labelStyle={{
               color: syntaxColors.text,
               fontWeight: 600,
               marginBottom: 4,
+              ...tooltip?.labelStyle,
             }}
+            {...tooltip}
           />
         )}
 

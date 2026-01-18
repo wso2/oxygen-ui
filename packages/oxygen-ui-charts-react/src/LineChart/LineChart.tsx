@@ -174,6 +174,12 @@ export interface LineChartProps {
     strokeDasharray?: string
   }
   /**
+   * Tooltip configuration.
+   */
+  tooltip?: {
+    show?: boolean
+  } & React.ComponentProps<typeof Tooltip>
+  /**
    * The layout of the chart.
    * @default 'horizontal'
    */
@@ -273,6 +279,7 @@ const LineChart = ({
   width = '100%',
   legend,
   grid,
+  tooltip,
   layout = 'horizontal',
   margin,
   syncId,
@@ -444,7 +451,7 @@ const LineChart = ({
           />
         )}
 
-        {!children && (
+        {tooltip?.show !== false && (
           <Tooltip
             contentStyle={{
               backgroundColor: colors.background,
@@ -452,16 +459,20 @@ const LineChart = ({
               borderRadius: theme.shape.borderRadius ?? 8,
               color: colors.text,
               boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+              ...tooltip?.contentStyle,
             }}
             itemStyle={{
               color: colors.text,
               fontSize: 12,
+              ...tooltip?.itemStyle,
             }}
             labelStyle={{
               color: colors.text,
               fontWeight: 600,
               marginBottom: 4,
+              ...tooltip?.labelStyle,
             }}
+            {...tooltip}
           />
         )}
 

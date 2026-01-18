@@ -118,6 +118,12 @@ export interface BarChartProps {
     strokeDasharray?: string
   }
   /**
+   * Tooltip configuration.
+   */
+  tooltip?: {
+    show?: boolean
+  } & React.ComponentProps<typeof Tooltip>
+  /**
    * The layout of the chart.
    * @default 'horizontal'
    */
@@ -226,6 +232,7 @@ const BarChart = ({
   width = '100%',
   legend,
   grid,
+  tooltip,
   layout = 'horizontal',
   margin,
   barCategoryGap,
@@ -385,8 +392,7 @@ const BarChart = ({
           />
         )}
 
-        {/* Only render default Tooltip if no children are provided, to avoid duplicates if user passes their own */}
-        {!children && (
+        {tooltip?.show !== false && (
           <Tooltip
             cursor={{
               fill: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
@@ -397,16 +403,20 @@ const BarChart = ({
               borderRadius: theme.shape.borderRadius ?? 8,
               color: colors.text,
               boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+              ...tooltip?.contentStyle,
             }}
             itemStyle={{
               color: colors.text,
               fontSize: 12,
+              ...tooltip?.itemStyle,
             }}
             labelStyle={{
               color: colors.text,
               fontWeight: 600,
               marginBottom: 4,
+              ...tooltip?.labelStyle,
             }}
+            {...tooltip}
           />
         )}
 

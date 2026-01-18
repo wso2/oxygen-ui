@@ -145,6 +145,12 @@ export interface RadialBarChartProps {
       | 'wye'
   }
   /**
+   * Tooltip configuration.
+   */
+  tooltip?: {
+    show?: boolean
+  } & React.ComponentProps<typeof Tooltip>
+  /**
    * Inner radius of the chart.
    * @default 0
    */
@@ -291,6 +297,7 @@ const RadialBarChart = ({
   height = 300,
   width = '100%',
   legend,
+  tooltip,
   innerRadius = 0,
   outerRadius = '80%',
   cx = '50%',
@@ -463,7 +470,7 @@ const RadialBarChart = ({
           />
         )}
 
-        {!children && (
+        {tooltip?.show !== false && (
           <Tooltip
             contentStyle={{
               backgroundColor: colors.background,
@@ -471,16 +478,20 @@ const RadialBarChart = ({
               borderRadius: theme.shape.borderRadius ?? 8,
               color: colors.text,
               boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+              ...tooltip?.contentStyle,
             }}
             itemStyle={{
               color: colors.text,
               fontSize: 12,
+              ...tooltip?.itemStyle,
             }}
             labelStyle={{
               color: colors.text,
               fontWeight: 600,
               marginBottom: 4,
+              ...tooltip?.labelStyle,
             }}
+            {...tooltip}
           />
         )}
 

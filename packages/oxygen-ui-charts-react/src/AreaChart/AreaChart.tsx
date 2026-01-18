@@ -169,6 +169,12 @@ export interface AreaChartProps {
     verticalAlign?: 'top' | 'middle' | 'bottom'
   }
   /**
+   * Tooltip configuration.
+   */
+  tooltip?: {
+    show?: boolean
+  } & React.ComponentProps<typeof Tooltip>
+  /**
    * Grid configuration.
    */
   grid?: {
@@ -275,6 +281,7 @@ const AreaChart = ({
   width = '100%',
   legend,
   grid,
+  tooltip,
   layout = 'horizontal',
   margin,
   syncId,
@@ -459,7 +466,7 @@ const AreaChart = ({
           />
         )}
 
-        {!children && (
+        {tooltip?.show !== false && (
           <Tooltip
             contentStyle={{
               backgroundColor: colors.background,
@@ -467,16 +474,20 @@ const AreaChart = ({
               borderRadius: theme.shape.borderRadius ?? 8,
               color: colors.text,
               boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+              ...tooltip?.contentStyle,
             }}
             itemStyle={{
               color: colors.text,
               fontSize: 12,
+              ...tooltip?.itemStyle,
             }}
             labelStyle={{
               color: colors.text,
               fontWeight: 600,
               marginBottom: 4,
+              ...tooltip?.labelStyle,
             }}
+            {...tooltip}
           />
         )}
 
