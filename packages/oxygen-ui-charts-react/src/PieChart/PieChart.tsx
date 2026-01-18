@@ -213,8 +213,8 @@ const PieChart = ({
   nameKey,
   height = 300,
   width = '100%',
-  legend = { show: true, align: 'center', verticalAlign: 'bottom' },
-  margin = { top: 12, right: 24, left: 24, bottom: 40 },
+  legend,
+  margin,
   cx = '50%',
   cy = '50%',
   startAngle = 0,
@@ -292,9 +292,12 @@ const PieChart = ({
     ]
   }, [theme, syntaxColors, customColors])
 
+  const legendConfig = { show: true, align: 'center', verticalAlign: 'bottom', ...legend } as const
+  const marginConfig = { top: 12, right: 24, left: 24, bottom: 40, ...margin }
+
   return (
     <ResponsiveContainer width={width} height={height}>
-      <RechartsPieChart data={data} margin={margin}>
+      <RechartsPieChart data={data} margin={marginConfig}>
         {pies?.map((pie, index) => (
           <Pie
             key={pie.dataKey}
@@ -354,10 +357,10 @@ const PieChart = ({
           />
         )}
 
-        {legend.show && (
+        {legendConfig.show && (
           <Legend
-            align={legend.align}
-            verticalAlign={legend.verticalAlign}
+            align={legendConfig.align}
+            verticalAlign={legendConfig.verticalAlign}
             iconType="circle"
             formatter={(value: any) => (
               <span

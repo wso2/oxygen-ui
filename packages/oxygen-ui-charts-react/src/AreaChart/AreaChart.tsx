@@ -269,18 +269,18 @@ const AreaChart = ({
   xAxisDataKey,
   height = 300,
   width = '100%',
-  legend = { show: true, align: 'center', verticalAlign: 'bottom' },
-  grid = { show: true, strokeDasharray: '3 3' },
+  legend,
+  grid,
   layout = 'horizontal',
-  margin = { top: 12, right: 24, left: 24, bottom: 40 },
+  margin,
   syncId,
   syncMethod,
   role,
   title,
   desc,
   accessibilityLayer = true,
-  xAxis = { show: true },
-  yAxis = { show: true },
+  xAxis,
+  yAxis,
   onClick,
   onMouseDown,
   onMouseUp,
@@ -343,12 +343,18 @@ const AreaChart = ({
     ]
   }, [theme, colors])
 
+  const legendConfig = { show: true, align: 'center', verticalAlign: 'bottom', ...legend } as const
+  const gridConfig = { show: true, strokeDasharray: '3 3', ...grid }
+  const marginConfig = { top: 12, right: 24, left: 24, bottom: 40, ...margin }
+  const xAxisConfig = { show: true, ...xAxis }
+  const yAxisConfig = { show: true, ...yAxis }
+
   return (
     <ResponsiveContainer width={width} height={height}>
       <RechartsAreaChart
         data={data}
         layout={layout}
-        margin={margin}
+        margin={marginConfig}
         syncId={syncId}
         syncMethod={syncMethod}
         role={role}
@@ -375,22 +381,22 @@ const AreaChart = ({
           })}
         </defs>
 
-        {grid?.show && (
+        {gridConfig?.show && (
           <CartesianGrid
-            strokeDasharray={grid.strokeDasharray}
+            strokeDasharray={gridConfig.strokeDasharray}
             stroke={colors.text}
             vertical={false}
           />
         )}
 
-        {xAxis?.show && (
+        {xAxisConfig?.show && (
           <XAxis
-            type={xAxis.type || (layout === 'vertical' ? 'number' : 'category')}
+            type={xAxisConfig.type || (layout === 'vertical' ? 'number' : 'category')}
             dataKey={layout === 'vertical' ? undefined : xAxisDataKey}
             stroke={colors.text}
-            domain={xAxis.domain}
-            tickCount={xAxis.tickCount}
-            interval={xAxis.interval}
+            domain={xAxisConfig.domain}
+            tickCount={xAxisConfig.tickCount}
+            interval={xAxisConfig.interval}
             tick={{
               fill: colors.text,
               fontSize: 12,
@@ -399,9 +405,9 @@ const AreaChart = ({
             axisLine={{ stroke: colors.text }}
             tickLine={{ stroke: colors.text }}
             label={
-              xAxis.name
+              xAxisConfig.name
                 ? {
-                    value: xAxis.name,
+                    value: xAxisConfig.name,
                     position: 'insideBottom',
                     offset: -18,
                     fill: colors.text,
@@ -412,14 +418,14 @@ const AreaChart = ({
           />
         )}
 
-        {yAxis?.show && (
+        {yAxisConfig?.show && (
           <YAxis
-            type={yAxis.type || (layout === 'vertical' ? 'category' : 'number')}
+            type={yAxisConfig.type || (layout === 'vertical' ? 'category' : 'number')}
             dataKey={layout === 'vertical' ? xAxisDataKey : undefined}
             stroke={colors.text}
-            domain={yAxis.domain}
-            tickCount={yAxis.tickCount}
-            interval={yAxis.interval}
+            domain={yAxisConfig.domain}
+            tickCount={yAxisConfig.tickCount}
+            interval={yAxisConfig.interval}
             tick={{
               fill: colors.text,
               fontSize: 12,
@@ -428,9 +434,9 @@ const AreaChart = ({
             axisLine={{ stroke: colors.text }}
             tickLine={{ stroke: colors.text }}
             label={
-              yAxis.name
+              yAxisConfig.name
                 ? {
-                    value: yAxis.name,
+                    value: yAxisConfig.name,
                     angle: -90,
                     position: 'insideLeft',
                     offset: 0,
@@ -463,10 +469,10 @@ const AreaChart = ({
           />
         )}
 
-        {legend.show && (
+        {legendConfig.show && (
           <Legend
-            align={legend.align}
-            verticalAlign={legend.verticalAlign}
+            align={legendConfig.align}
+            verticalAlign={legendConfig.verticalAlign}
             iconType="circle"
             formatter={(value: any) => (
               <span

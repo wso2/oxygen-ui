@@ -325,17 +325,17 @@ const RadarChart = ({
   angleKey,
   height = 300,
   width = '100%',
-  legend = { show: true, align: 'center', verticalAlign: 'bottom' },
+  legend,
   innerRadius = 0,
   outerRadius = '80%',
   cx = '50%',
   cy = '50%',
   startAngle = 90,
   endAngle = -270,
-  margin = { top: 20, right: 20, bottom: 20, left: 20 },
-  polarGrid = { show: true, gridType: 'polygon' },
-  polarAngleAxis = { show: true },
-  polarRadiusAxis = { show: false },
+  margin,
+  polarGrid,
+  polarAngleAxis,
+  polarRadiusAxis,
   syncId,
   syncMethod,
   role,
@@ -412,6 +412,12 @@ const RadarChart = ({
     ]
   }, [theme, colors])
 
+  const legendConfig = { show: true, align: 'center', verticalAlign: 'bottom', ...legend } as const
+  const marginConfig = { top: 20, right: 20, bottom: 20, left: 20, ...margin }
+  const polarGridConfig = { show: true, gridType: 'polygon', ...polarGrid } as const
+  const polarAngleAxisConfig = { show: true, ...polarAngleAxis }
+  const polarRadiusAxisConfig = { show: false, ...polarRadiusAxis }
+
   return (
     <ResponsiveContainer width={width} height={height}>
       <RechartsRadarChart
@@ -422,7 +428,7 @@ const RadarChart = ({
         outerRadius={outerRadius}
         startAngle={startAngle}
         endAngle={endAngle}
-        margin={margin}
+        margin={marginConfig}
         syncId={syncId}
         syncMethod={syncMethod}
         role={role}
@@ -449,37 +455,41 @@ const RadarChart = ({
         onDoubleClick={onDoubleClick}
         accessibilityLayer={accessibilityLayer}
       >
-        {polarGrid?.show && (
+        {polarGridConfig?.show && (
           <PolarGrid
-            gridType={polarGrid.gridType}
-            radialLines={polarGrid.radialLines}
-            polarAngles={polarGrid.polarAngles}
-            polarRadius={polarGrid.polarRadius}
+            gridType={polarGridConfig.gridType}
+            radialLines={polarGridConfig.radialLines}
+            polarAngles={polarGridConfig.polarAngles}
+            polarRadius={polarGridConfig.polarRadius}
             stroke={colors.comment}
             strokeOpacity={0.3}
           />
         )}
 
-        {polarAngleAxis?.show && (
+        {polarAngleAxisConfig?.show && (
           <PolarAngleAxis
-            dataKey={polarAngleAxis.dataKey || angleKey}
-            tick={polarAngleAxis.tick ?? { fill: colors.text, fontSize: 12 }}
-            axisLine={polarAngleAxis.axisLine ?? { stroke: colors.comment, strokeOpacity: 0.3 }}
-            axisLineType={polarAngleAxis.axisLineType}
-            orientation={polarAngleAxis.orientation}
-            ticks={polarAngleAxis.ticks}
+            dataKey={polarAngleAxisConfig.dataKey || angleKey}
+            tick={polarAngleAxisConfig.tick ?? { fill: colors.text, fontSize: 12 }}
+            axisLine={
+              polarAngleAxisConfig.axisLine ?? { stroke: colors.comment, strokeOpacity: 0.3 }
+            }
+            axisLineType={polarAngleAxisConfig.axisLineType}
+            orientation={polarAngleAxisConfig.orientation}
+            ticks={polarAngleAxisConfig.ticks}
           />
         )}
 
-        {polarRadiusAxis?.show && (
+        {polarRadiusAxisConfig?.show && (
           <PolarRadiusAxis
-            angle={polarRadiusAxis.angle}
-            domain={polarRadiusAxis.domain}
-            tick={polarRadiusAxis.tick ?? { fill: colors.text, fontSize: 10 }}
-            axisLine={polarRadiusAxis.axisLine ?? { stroke: colors.comment, strokeOpacity: 0.3 }}
-            orientation={polarRadiusAxis.orientation}
-            reversed={polarRadiusAxis.reversed}
-            ticks={polarRadiusAxis.ticks}
+            angle={polarRadiusAxisConfig.angle}
+            domain={polarRadiusAxisConfig.domain}
+            tick={polarRadiusAxisConfig.tick ?? { fill: colors.text, fontSize: 10 }}
+            axisLine={
+              polarRadiusAxisConfig.axisLine ?? { stroke: colors.comment, strokeOpacity: 0.3 }
+            }
+            orientation={polarRadiusAxisConfig.orientation}
+            reversed={polarRadiusAxisConfig.reversed}
+            ticks={polarRadiusAxisConfig.ticks}
           />
         )}
 
@@ -504,12 +514,12 @@ const RadarChart = ({
           />
         )}
 
-        {legend.show && (
+        {legendConfig.show && (
           <Legend
-            align={legend.align}
-            verticalAlign={legend.verticalAlign}
-            layout={legend.layout}
-            iconType={legend.iconType || 'circle'}
+            align={legendConfig.align}
+            verticalAlign={legendConfig.verticalAlign}
+            layout={legendConfig.layout}
+            iconType={legendConfig.iconType || 'circle'}
             formatter={(value: any) => (
               <span style={{ color: colors.text, fontSize: 13, fontWeight: 500 }}>{value}</span>
             )}

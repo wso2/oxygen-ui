@@ -284,7 +284,6 @@ const BarChart = ({
     defaultColors
 
   const barColors = React.useMemo(() => {
-    // Use specific colors from theme if available, otherwise fallbacks from syntax colors
     return [
       theme.palette.primary?.main,
       colors.keyword,
