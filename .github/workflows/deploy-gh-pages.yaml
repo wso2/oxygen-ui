@@ -3,13 +3,11 @@
 name: ☄️ Deploy Documentation
 
 on:
-  push:
+  workflow_run:
+    workflows: ["🚀 Release"]
+    types:
+      - completed
     branches: [main]
-    paths:
-      - 'packages/oxygen-ui/**'
-      - 'packages/oxygen-ui-docs/**'
-      - 'samples/oxygen-ui-test-app/**'
-      - '.github/workflows/deploy-gh-pages.yaml'
 
   workflow_dispatch:
     inputs:
@@ -37,6 +35,7 @@ env:
 
 jobs:
   deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
