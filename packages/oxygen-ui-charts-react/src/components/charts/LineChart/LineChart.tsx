@@ -72,6 +72,7 @@ const LineChart = ({
 
   const colors = React.useMemo(() => {
     const defaultColors = {
+      primary: isDark ? '#F87643' : '#fa7b3f',
       background: isDark ? '#1e1e1e' : '#f5f5f5',
       text: isDark ? '#d4d4d4' : '#24292e',
       comment: isDark ? '#6a9955' : '#6a737d',
@@ -81,16 +82,21 @@ const LineChart = ({
       number: isDark ? '#b5cea8' : '#005cc5',
       operator: isDark ? '#d4d4d4' : '#d73a49',
     }
-    return (
-      (isDark ? (theme.vars as any)?.syntax?.dark : (theme.vars as any)?.syntax?.light) ||
-      defaultColors
-    )
-  }, [isDark, theme.vars])
+    const themeSyntax = isDark
+      ? (theme.vars as any)?.syntax?.dark
+      : (theme.vars as any)?.syntax?.light
+
+    return {
+      ...defaultColors,
+      ...themeSyntax,
+      primary: theme.palette.primary?.main || themeSyntax?.primary || defaultColors.primary,
+    }
+  }, [isDark, theme.palette.primary?.main, theme.vars])
 
   const lineColors = React.useMemo(() => {
     if (customColors && customColors.length > 0) return customColors
     return [
-      theme.palette.primary?.main,
+      colors.primary,
       colors.keyword,
       colors.string,
       colors.function,
@@ -99,7 +105,7 @@ const LineChart = ({
     ]
   }, [
     customColors,
-    theme.palette.primary?.main,
+    colors.primary,
     colors.keyword,
     colors.string,
     colors.function,
