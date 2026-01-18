@@ -444,7 +444,7 @@ const LineChart = ({
             contentStyle={{
               backgroundColor: colors.background,
               border: `1px solid ${colors.text}`,
-              borderRadius: theme.shape.borderRadius || 8,
+              borderRadius: theme.shape.borderRadius ?? 8,
               color: colors.text,
               boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
             }}
