@@ -18,10 +18,16 @@
       "require": "./dist/*.cjs"
     }
   },
+  "bin": {
+    "oxygen-ui": "./bin/cli.js"
+  },
   "files": [
     "dist",
     "package.json",
-    "README.md"
+    "README.md",
+    ".claude",
+    ".ai",
+    "bin"
   ],
   "sideEffects": [
     "src/styles/Themes/theme.css",
