@@ -45,7 +45,7 @@
     "@wso2/oxygen-ui": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "recharts": "catalog:"
+    "recharts": "3.3.0"
   },
   "devDependencies": {
     "@emotion/react": "catalog:",
@@ -60,7 +60,7 @@
     "eslint": "catalog:",
     "eslint-plugin-react": "catalog:",
     "eslint-plugin-react-hooks": "catalog:",
-    "recharts": "catalog:",
+    "recharts": "3.3.0",
     "rimraf": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
