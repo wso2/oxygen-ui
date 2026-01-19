@@ -265,12 +265,12 @@ const BarChart = ({
             animationDuration={bar.animationDuration ?? animationDuration}
             animationBegin={bar.animationBegin ?? animationBegin}
             animationEasing={bar.animationEasing ?? animationEasing}
-            onClick={bar.onClick || onClick}
-            onMouseEnter={bar.onMouseEnter || onMouseEnter}
-            onMouseLeave={bar.onMouseLeave || onMouseLeave}
-            onMouseDown={bar.onMouseDown || onMouseDown}
-            onMouseUp={bar.onMouseUp || onMouseUp}
-            onMouseMove={bar.onMouseMove || onMouseMove}
+            onClick={(bar.onClick || onClick) as any}
+            onMouseEnter={(bar.onMouseEnter || onMouseEnter) as any}
+            onMouseLeave={(bar.onMouseLeave || onMouseLeave) as any}
+            onMouseDown={(bar.onMouseDown || onMouseDown) as any}
+            onMouseUp={(bar.onMouseUp || onMouseUp) as any}
+            onMouseMove={(bar.onMouseMove || onMouseMove) as any}
           />
         ))}
 

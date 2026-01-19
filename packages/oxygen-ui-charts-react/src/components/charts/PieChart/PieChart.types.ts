@@ -17,7 +17,7 @@
  */
 
 import React from 'react'
-import { Tooltip } from "recharts"
+import { Tooltip } from 'recharts'
 
 export interface PieChartProps {
   /**
@@ -63,12 +63,12 @@ export interface PieChartProps {
    * Height of the chart.
    * @default 300
    */
-  height?: number | string
+  height?: number | `${number}%`
   /**
    * Width of the chart.
    * @default '100%'
    */
-  width?: number | string
+  width?: number | `${number}%`
   /**
    * Legend configuration.
    */

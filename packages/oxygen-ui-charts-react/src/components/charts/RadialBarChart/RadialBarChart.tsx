@@ -170,14 +170,14 @@ const RadialBarChart = ({
         tabIndex={tabIndex}
         stackOffset={stackOffset}
         reverseStackOrder={reverseStackOrder}
-        onClick={onClick}
-        onMouseDown={onMouseDown}
-        onMouseUp={onMouseUp}
-        onMouseMove={onMouseMove}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        onContextMenu={onContextMenu}
-        onDoubleClick={onDoubleClick}
+        onClick={onClick as any}
+        onMouseDown={onMouseDown as any}
+        onMouseUp={onMouseUp as any}
+        onMouseMove={onMouseMove as any}
+        onMouseEnter={onMouseEnter as any}
+        onMouseLeave={onMouseLeave as any}
+        onContextMenu={onContextMenu as any}
+        onDoubleClick={onDoubleClick as any}
         accessibilityLayer={accessibilityLayer}
       >
         {polarGridConfig?.show && (
@@ -200,7 +200,11 @@ const RadialBarChart = ({
             }
             axisLineType={polarAngleAxisConfig.axisLineType}
             orientation={polarAngleAxisConfig.orientation}
-            ticks={polarAngleAxisConfig.ticks}
+            ticks={
+              polarAngleAxisConfig.ticks
+                ? polarAngleAxisConfig.ticks.map((tick: any, index: number) => ({ ...tick, index }))
+                : undefined
+            }
           />
         )}
 
@@ -214,7 +218,14 @@ const RadialBarChart = ({
             }
             orientation={polarRadiusAxisConfig.orientation}
             reversed={polarRadiusAxisConfig.reversed}
-            ticks={polarRadiusAxisConfig.ticks}
+            ticks={
+              polarRadiusAxisConfig.ticks
+                ? polarRadiusAxisConfig.ticks.map((tick: any, index: number) => ({
+                    ...tick,
+                    index,
+                  }))
+                : undefined
+            }
           />
         )}
 

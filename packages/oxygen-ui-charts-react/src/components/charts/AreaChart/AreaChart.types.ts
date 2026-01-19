@@ -144,12 +144,12 @@ export interface AreaChartProps {
    * Height of the chart.
    * @default 300
    */
-  height?: number | string
+  height?: number | `${number}%`
   /**
    * Width of the chart.
    * @default '100%'
    */
-  width?: number | string
+  width?: number | `${number}%`
   /**
    * Legend configuration.
    */
@@ -188,7 +188,7 @@ export interface AreaChartProps {
    * Customize how the charts will synchronize tooltips and brushes.
    * @default 'index'
    */
-  syncMethod?: 'index' | 'value' | ((ticks: any[], data: any[]) => number)
+  syncMethod?: 'index' | 'value' | ((ticks: readonly any[], data: any) => number)
   /**
    * ARIA role for the chart.
    */

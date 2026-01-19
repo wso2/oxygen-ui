@@ -17,7 +17,7 @@
  */
 
 import React from 'react'
-import { Tooltip } from "recharts"
+import { Tooltip } from 'recharts'
 
 export interface RadarChartProps {
   /**
@@ -138,12 +138,12 @@ export interface RadarChartProps {
    * Height of the chart.
    * @default 300
    */
-  height?: number | string
+  height?: number | `${number}%`
   /**
    * Width of the chart.
    * @default '100%'
    */
-  width?: number | string
+  width?: number | `${number}%`
   /**
    * Legend configuration.
    */
@@ -247,7 +247,7 @@ export interface RadarChartProps {
    * Customize how the charts will synchronize tooltips and brushes.
    * @default 'index'
    */
-  syncMethod?: 'index' | 'value' | ((ticks: any[], data: any[]) => number)
+  syncMethod?: 'index' | 'value' | ((ticks: readonly any[], data: any) => number)
   /**
    * ARIA role for the chart.
    */

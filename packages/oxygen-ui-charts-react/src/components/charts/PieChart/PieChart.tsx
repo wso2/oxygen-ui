@@ -148,14 +148,14 @@ const PieChart = ({
             animationEasing={pie.animationEasing ?? animationEasing}
             label={pie.label ?? label}
             labelLine={pie.labelLine ?? labelLine}
-            onClick={pie.onClick || onClick}
-            onMouseEnter={pie.onMouseEnter || onMouseEnter}
-            onMouseLeave={pie.onMouseLeave || onMouseLeave}
-            onMouseDown={pie.onMouseDown || onMouseDown}
-            onMouseUp={pie.onMouseUp || onMouseUp}
-            onMouseMove={pie.onMouseMove || onMouseMove}
-            onContextMenu={pie.onContextMenu || onContextMenu}
-            onDoubleClick={pie.onDoubleClick || onDoubleClick}
+            onClick={(pie.onClick || onClick) as any}
+            onMouseEnter={(pie.onMouseEnter || onMouseEnter) as any}
+            onMouseLeave={(pie.onMouseLeave || onMouseLeave) as any}
+            onMouseDown={(pie.onMouseDown || onMouseDown) as any}
+            onMouseUp={(pie.onMouseUp || onMouseUp) as any}
+            onMouseMove={(pie.onMouseMove || onMouseMove) as any}
+            onContextMenu={(pie.onContextMenu || onContextMenu) as any}
+            onDoubleClick={(pie.onDoubleClick || onDoubleClick) as any}
           >
             {data?.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />

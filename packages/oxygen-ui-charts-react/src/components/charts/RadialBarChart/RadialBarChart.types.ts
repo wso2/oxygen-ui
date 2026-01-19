@@ -17,7 +17,7 @@
  */
 
 import React from 'react'
-import { Tooltip } from "recharts"
+import { Tooltip } from 'recharts'
 
 export interface RadialBarChartProps {
   /**
@@ -108,12 +108,12 @@ export interface RadialBarChartProps {
    * Height of the chart.
    * @default 300
    */
-  height?: number | string
+  height?: number | `${number}%`
   /**
    * Width of the chart.
    * @default '100%'
    */
-  width?: number | string
+  width?: number | `${number}%`
   /**
    * Legend configuration.
    */
@@ -232,7 +232,7 @@ export interface RadialBarChartProps {
   /**
    * Customize how the charts will synchronize tooltips and brushes.
    */
-  syncMethod?: 'index' | 'value' | ((ticks: any[], data: any[]) => number)
+  syncMethod?: 'index' | 'value' | ((ticks: readonly any[], data: any) => number)
   /**
    * ARIA role for the chart.
    */

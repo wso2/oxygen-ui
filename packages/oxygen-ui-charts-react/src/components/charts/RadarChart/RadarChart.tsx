@@ -177,14 +177,14 @@ const RadarChart = ({
         barCategoryGap={barCategoryGap}
         barGap={barGap}
         maxBarSize={maxBarSize}
-        onClick={onClick}
-        onMouseDown={onMouseDown}
-        onMouseUp={onMouseUp}
-        onMouseMove={onMouseMove}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        onContextMenu={onContextMenu}
-        onDoubleClick={onDoubleClick}
+        onClick={onClick as any}
+        onMouseDown={onMouseDown as any}
+        onMouseUp={onMouseUp as any}
+        onMouseMove={onMouseMove as any}
+        onMouseEnter={onMouseEnter as any}
+        onMouseLeave={onMouseLeave as any}
+        onContextMenu={onContextMenu as any}
+        onDoubleClick={onDoubleClick as any}
         accessibilityLayer={accessibilityLayer}
       >
         {polarGridConfig?.show && (
@@ -207,7 +207,11 @@ const RadarChart = ({
             }
             axisLineType={polarAngleAxisConfig.axisLineType}
             orientation={polarAngleAxisConfig.orientation}
-            ticks={polarAngleAxisConfig.ticks}
+            ticks={
+              polarAngleAxisConfig.ticks
+                ? polarAngleAxisConfig.ticks.map((tick: any, index: number) => ({ ...tick, index }))
+                : undefined
+            }
           />
         )}
 
@@ -221,7 +225,14 @@ const RadarChart = ({
             }
             orientation={polarRadiusAxisConfig.orientation}
             reversed={polarRadiusAxisConfig.reversed}
-            ticks={polarRadiusAxisConfig.ticks}
+            ticks={
+              polarRadiusAxisConfig.ticks
+                ? polarRadiusAxisConfig.ticks.map((tick: any, index: number) => ({
+                    ...tick,
+                    index,
+                  }))
+                : undefined
+            }
           />
         )}
 
