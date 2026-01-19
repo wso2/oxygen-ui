@@ -24,17 +24,33 @@ import {
   Checkbox,
   Divider,
   FormControlLabel,
+  IconButton,
+  InputAdornment,
   InputLabel,
   Link,
   OutlinedInput,
   Typography
 } from '@wso2/oxygen-ui';
-import { GitHub, Google } from '@wso2/oxygen-ui-icons-react'
+import { Eye, EyeOff, GitHub, Google } from '@wso2/oxygen-ui-icons-react'
 import {useNavigate} from 'react-router';
 
 export default function LoginBox(): JSX.Element {
   const [error] = useState(false);
   const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [username, setUsername] = useState("admin");
+  const [password, setPassword] = useState("admin");
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
+  const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -90,6 +106,8 @@ export default function LoginBox(): JSX.Element {
             id="username"
             name="username"
             placeholder="Enter your username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             size="small"
             required
           />
@@ -97,10 +115,27 @@ export default function LoginBox(): JSX.Element {
         <Box display="flex" flexDirection="column" gap={0.5}>
           <InputLabel htmlFor="password">Password</InputLabel>
           <OutlinedInput
-            type="password"
+            type={showPassword ? 'text' : 'password'}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label={
+                    showPassword ? 'hide the password' : 'display the password'
+                  }
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  onMouseUp={handleMouseUpPassword}
+                  edge="end"
+                >
+                  {showPassword ? <EyeOff /> : <Eye />}
+                </IconButton>
+              </InputAdornment>
+            }
             id="password"
             name="password"
             placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             size="small"
             required
           />
