@@ -10,10 +10,7 @@
   "fixed": [
     [
       "@wso2/oxygen-ui",
-      "@wso2/oxygen-ui-docs",
       "@wso2/oxygen-ui-icons-react",
-      "@wso2/vite-plugin-oxygen-ui",
-      "@wso2/oxygen-ui-test-app",
       "@wso2/oxygen-ui-charts-react"
     ]
   ],
