@@ -54,7 +54,7 @@ const WelcomeContent = () => (
         customizable components, themes, and utilities for building modern React applications.
       </Typography>
 
-      <Link href="./sample/index.html" target="_blank" rel="noopener" variant="h6">
+      <Link href="./sample/index.html#/login" target="_blank" rel="noopener" variant="h6">
         View Sample App &rarr;
       </Link>
     </Box>
