@@ -3,10 +3,8 @@
 name: ☄️ Deploy Documentation
 
 on:
-  workflow_run:
-    workflows: ["🚀 Release"]
-    types:
-      - completed
+  pull_request:
+    types: [closed]
     branches: [main]
 
   workflow_dispatch:
@@ -35,7 +33,10 @@ env:
 
 jobs:
   deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    if: |
+      github.event.pull_request.merged == true && 
+      startsWith(github.event.pull_request.title, '[Release] [GitHub Action]') ||
+      github.event_name == 'workflow_dispatch'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
