@@ -27,6 +27,6 @@ addons.setConfig({
     barBg: '#000000',
     brandTitle: 'WSO2 Oxygen UI',
     brandUrl: 'https://github.com/wso2/oxygen-ui',
-    brandImage: '/oxygen-ui-react-logo-inverted.svg'
+    brandImage: './oxygen-ui-react-logo-inverted.svg'
   }
 });

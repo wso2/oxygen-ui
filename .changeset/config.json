@@ -7,19 +7,15 @@
     }
   ],
   "commit": false,
-  "linked": [
+  "fixed": [
     [
-      "@wso2/esbuild-plugin-inline-css-fonts",
-      "@wso2/eslint-plugin-oxygen-ui",
       "@wso2/oxygen-ui",
-      "@wso2/oxygen-ui-docs",
-      "@wso2/oxygen-ui-icons-react",
-      "@wso2/vite-plugin-oxygen-ui",
-      "@wso2/oxygen-ui-test-app"
+      "@wso2/oxygen-ui-icons-react"
     ]
   ],
+  "linked": [],
   "access": "public",
-  "baseBranch": "next",
+  "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "bumpVersionsWithWorkspaceProtocolOnly": true,
   "ignore": [],
