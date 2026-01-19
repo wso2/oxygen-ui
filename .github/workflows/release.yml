@@ -24,7 +24,7 @@ name: 🚀 Release
 
 on:
   push:
-    branches: [next]
+    branches: [main]
     paths-ignore:
       - 'LICENSE'
   workflow_dispatch:

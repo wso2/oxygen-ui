@@ -4,7 +4,7 @@ name: 👷‍♂️ PR Builder
 
 on:
   pull_request:
-    branches: [next]
+    branches: [main]
     paths-ignore:
       - '**/*.md'
       - 'LICENSE'
