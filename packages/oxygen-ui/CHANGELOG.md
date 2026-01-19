@@ -1,5 +1,16 @@
 # @wso2/oxygen-ui
 
+## 0.1.0
+
+### Minor Changes
+
+- [#447](https://github.com/wso2/oxygen-ui/pull/447) [`9d18257`](https://github.com/wso2/oxygen-ui/commit/9d1825741bc2e733181d45b1ecd7a87f3d4d3138) Thanks [@brionmario](https://github.com/brionmario)! - 🎉 Initial stable release v0.1.0
+
+### Patch Changes
+
+- Updated dependencies [[`9d18257`](https://github.com/wso2/oxygen-ui/commit/9d1825741bc2e733181d45b1ecd7a87f3d4d3138)]:
+  - @wso2/oxygen-ui-icons-react@0.1.0
+
 ## 0.0.1-alpha.12
 
 ### Patch Changes

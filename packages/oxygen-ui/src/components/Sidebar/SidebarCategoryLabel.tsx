@@ -28,11 +28,21 @@ import { useSidebar } from './context';
 const SidebarCategoryLabelRoot = styled(Typography, {
   name: 'MuiSidebar',
   slot: 'CategoryLabel',
-})(({ theme }) => ({
+  shouldForwardProp: prop => prop !== 'collapsed',
+})<{ collapsed: boolean }>(({ theme, collapsed }) => ({
   paddingLeft: theme.spacing(3),
   paddingRight: theme.spacing(3),
-  paddingTop: theme.spacing(1),
-  paddingBottom: theme.spacing(1),
+  paddingTop: collapsed ? 0 : theme.spacing(1),
+  paddingBottom: collapsed ? 0 : theme.spacing(1),
+  height: collapsed ? 0 : 'auto',
+  opacity: collapsed ? 0 : 1,
+  overflow: 'hidden',
+  transition: theme.transitions.create(['padding', 'height', 'opacity'], {
+    easing: theme.transitions.easing.sharp,
+    duration: collapsed
+      ? theme.transitions.duration.leavingScreen
+      : theme.transitions.duration.enteringScreen,
+  }),
   display: 'block',
   color: (theme.vars || theme).palette.text.secondary,
   fontWeight: 600,
@@ -68,19 +78,11 @@ export interface SidebarCategoryLabelProps {
  * </Sidebar.Category>
  * ```
  */
-export const SidebarCategoryLabel: React.FC<SidebarCategoryLabelProps> = ({
-  children,
-  sx,
-}) => {
-  const { collapsed } = useSidebar();
-
-  // Hide label when sidebar is collapsed
-  if (collapsed) {
-    return null;
-  }
+export const SidebarCategoryLabel: React.FC<SidebarCategoryLabelProps> = ({ children, sx }) => {
+  const { collapsed } = useSidebar()
 
   return (
-    <SidebarCategoryLabelRoot variant="caption" sx={sx}>
+    <SidebarCategoryLabelRoot variant="caption" collapsed={collapsed} sx={sx}>
       {children}
     </SidebarCategoryLabelRoot>
   );
