@@ -1,7 +1,6 @@
 {
   "private": true,
   "name": "@wso2/oxygen-ui-workspace",
-  "version": "0.0.0",
   "description": "WSO2 Oxygen UI | Workspace",
   "files": [
     "packages",

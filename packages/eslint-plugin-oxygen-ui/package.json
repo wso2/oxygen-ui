@@ -1,7 +1,7 @@
 {
   "name": "@wso2/eslint-plugin-oxygen-ui",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "ESLint plugin to prevent @mui and lucide-react direct imports in Oxygen UI based projects.",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
