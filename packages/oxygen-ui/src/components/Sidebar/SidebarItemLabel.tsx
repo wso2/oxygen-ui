@@ -28,8 +28,9 @@ import { useSidebarItemContext } from './SidebarItemContext';
  */
 interface SidebarItemLabelRootProps {
   ownerState: {
-    isActive: boolean;
-  };
+    isActive: boolean
+    collapsed: boolean
+  }
 }
 
 /**
@@ -38,8 +39,19 @@ interface SidebarItemLabelRootProps {
 const SidebarItemLabelRoot = styled(ListItemText, {
   name: 'MuiSidebar',
   slot: 'ItemLabel',
-  shouldForwardProp: (prop) => prop !== 'ownerState',
-})<SidebarItemLabelRootProps>(({ ownerState }) => ({
+  shouldForwardProp: prop => prop !== 'ownerState',
+})<SidebarItemLabelRootProps>(({ theme, ownerState }) => ({
+  margin: 0,
+  opacity: ownerState.collapsed ? 0 : 1,
+  width: ownerState.collapsed ? 0 : 'auto',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  transition: theme.transitions.create(['opacity', 'width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: ownerState.collapsed
+      ? theme.transitions.duration.leavingScreen
+      : theme.transitions.duration.enteringScreen,
+  }),
   '& .MuiListItemText-primary': {
     fontSize: 14,
     fontWeight: ownerState.isActive ? 600 : 400,
@@ -77,19 +89,8 @@ export const SidebarItemLabel: React.FC<SidebarItemLabelProps> = ({
   const { collapsed } = useSidebar();
   const { isActive } = useSidebarItemContext();
 
-  // Hide label when sidebar is collapsed
-  if (collapsed) {
-    return null;
-  }
-
-  return (
-    <SidebarItemLabelRoot
-      primary={children}
-      ownerState={{ isActive }}
-      sx={sx}
-    />
-  );
-};
+  return <SidebarItemLabelRoot primary={children} ownerState={{ isActive, collapsed }} sx={sx} />
+}
 
 // Add display name for child detection
 SidebarItemLabel.displayName = 'SidebarItemLabel';

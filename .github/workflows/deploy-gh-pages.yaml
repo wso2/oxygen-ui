@@ -3,13 +3,9 @@
 name: ☄️ Deploy Documentation
 
 on:
-  push:
-    branches: [next]
-    paths:
-      - 'packages/oxygen-ui/**'
-      - 'packages/oxygen-ui-docs/**'
-      - 'samples/oxygen-ui-test-app/**'
-      - '.github/workflows/deploy-gh-pages.yaml'
+  pull_request:
+    types: [closed]
+    branches: [main]
 
   workflow_dispatch:
     inputs:
@@ -37,6 +33,10 @@ env:
 
 jobs:
   deploy:
+    if: |
+      github.event.pull_request.merged == true && 
+      startsWith(github.event.pull_request.title, '[Release] [GitHub Action]') ||
+      github.event_name == 'workflow_dispatch'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -83,14 +83,14 @@ jobs:
 
       - name: ⚙️ Setup Pages
         id: setup-pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v5
 
       - name: 🌩 Upload artifact
         id: upload-artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./packages/oxygen-ui-docs/dist
 
       - name: 🔥 Deploy to GitHub Pages
         id: deploy-gh-pages
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4

@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@wso2/vite-plugin-oxygen-ui",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Vite plugin to alias @wso2/oxygen-ui/* imports to @mui/material/* components.",
   "main": "./dist/index.js",
   "type": "module",
