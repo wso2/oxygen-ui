@@ -351,9 +351,6 @@ importers:
       '@storybook/addon-links':
         specifier: 10.0.2
         version: 10.0.2(react@19.2.3)(storybook@10.0.2(@testing-library/dom@10.4.0)(prettier@3.6.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(vite@7.2.1(@types/node@24.9.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1)))
-      '@storybook/mdx2-csf':
-        specifier: ^1.1.0
-        version: 1.1.0
       '@storybook/react':
         specifier: 10.0.2
         version: 10.0.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(storybook@10.0.2(@testing-library/dom@10.4.0)(prettier@3.6.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(vite@7.2.1(@types/node@24.9.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1)))(typescript@5.9.3)
@@ -2255,9 +2252,6 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
-
-  '@storybook/mdx2-csf@1.1.0':
-    resolution: {integrity: sha512-TXJJd5RAKakWx4BtpwvSNdgTDkKM6RkXU8GK34S/LhidQ5Pjz3wcnqb0TxEkfhK/ztbP8nKHqXFwLfa2CYkvQw==}
 
   '@storybook/preset-react-webpack@10.0.2':
     resolution: {integrity: sha512-jDbtec44Fc8kM+1nAxrHLrmUCukrHllEg22yrVHaXMPDIz1/DESl5RzvWTAmN/5848lUAhTobvDkkDECHfLhcQ==}
@@ -7360,8 +7354,6 @@ snapshots:
     dependencies:
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)
-
-  '@storybook/mdx2-csf@1.1.0': {}
 
   '@storybook/preset-react-webpack@10.0.2(@swc/core@1.13.5)(esbuild@0.25.12)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(storybook@10.0.2(@testing-library/dom@10.4.0)(prettier@3.6.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(vite@7.2.1(@types/node@24.9.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1)))(typescript@5.9.3)':
     dependencies:
