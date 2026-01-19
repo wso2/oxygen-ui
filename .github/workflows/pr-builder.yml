@@ -53,7 +53,7 @@ jobs:
         id: set-shas
         uses: nrwl/nx-set-shas@v3
         with:
-          main-branch-name: 'next'
+          main-branch-name: 'main'
 
       - name: 🧩 Install Dependencies
         id: install-dependencies
@@ -101,7 +101,7 @@ jobs:
         id: set-shas
         uses: nrwl/nx-set-shas@v3
         with:
-          main-branch-name: 'next'
+          main-branch-name: 'main'
 
       - name: 🧩 Install Dependencies
         id: install-dependencies
