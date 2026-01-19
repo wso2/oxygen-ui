@@ -1,6 +1,6 @@
 {
   "name": "@wso2/oxygen-ui-docs",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Documentation site for WSO2 Oxygen UI using Storybook",
   "private": true,
   "type": "module",
