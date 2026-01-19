@@ -44,7 +44,7 @@ const SidebarUserRoot = styled(Box, {
   name: 'MuiSidebar',
   slot: 'User',
 })(({ theme }) => ({
-  padding: theme.spacing(1),
+  padding: theme.spacing(2),
 }));
 
 /**
@@ -62,7 +62,13 @@ const SidebarUserButton = styled(ListItemButton, {
   borderRadius: theme.shape.borderRadius,
   marginLeft: theme.spacing(1),
   marginRight: theme.spacing(1),
-}));
+  transition: theme.transitions.create(['padding-left', 'padding-right'], {
+    easing: theme.transitions.easing.sharp,
+    duration: ownerState.collapsed
+      ? theme.transitions.duration.leavingScreen
+      : theme.transitions.duration.enteringScreen,
+  }),
+}))
 
 /**
  * Styled container for user text content.
@@ -70,10 +76,20 @@ const SidebarUserButton = styled(ListItemButton, {
 const SidebarUserTextContainer = styled(Box, {
   name: 'MuiSidebar',
   slot: 'UserTextContainer',
-})(({ theme }) => ({
+  shouldForwardProp: prop => prop !== 'collapsed',
+})<{ collapsed: boolean }>(({ theme, collapsed }) => ({
   marginLeft: theme.spacing(2),
   overflow: 'hidden',
-}));
+  opacity: collapsed ? 0 : 1,
+  width: collapsed ? 0 : 'auto',
+  whiteSpace: 'nowrap',
+  transition: theme.transitions.create(['opacity', 'width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: collapsed
+      ? theme.transitions.duration.leavingScreen
+      : theme.transitions.duration.enteringScreen,
+  }),
+}))
 
 // Child display names for detection
 const CHILD_DISPLAY_NAMES = [
@@ -171,9 +187,7 @@ export const SidebarUser: React.FC<SidebarUserProps> = ({
   const content = (
     <SidebarUserButton onClick={onClick} ownerState={ownerState}>
       {avatarChild}
-      {!collapsed && textChildren.length > 0 && (
-        <SidebarUserTextContainer>{textChildren}</SidebarUserTextContainer>
-      )}
+      <SidebarUserTextContainer collapsed={collapsed}>{textChildren}</SidebarUserTextContainer>
     </SidebarUserButton>
   );
 
