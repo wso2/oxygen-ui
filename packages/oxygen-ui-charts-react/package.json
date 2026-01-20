@@ -45,6 +45,7 @@
     "@wso2/oxygen-ui": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:",
+    "react-is": "19.0.0",
     "recharts": "3.3.0"
   },
   "devDependencies": {
