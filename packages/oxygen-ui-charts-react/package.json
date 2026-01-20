@@ -1,0 +1,81 @@
+{
+  "name": "@wso2/oxygen-ui-charts-react",
+  "version": "0.0.0",
+  "description": "WSO2 Oxygen UI Charts - React components",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "pnpm clean && tsc -p tsconfig.json && node esbuild.config.js",
+    "build:watch": "node esbuild.config.js --watch",
+    "dev": "node esbuild.config.js --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "clean": "rimraf dist",
+    "test": "vitest run --passWithNoTests"
+  },
+  "keywords": [
+    "wso2",
+    "oxygen-ui",
+    "charts",
+    "recharts",
+    "react",
+    "typescript"
+  ],
+  "author": "WSO2 LLC",
+  "license": "Apache-2.0",
+  "peerDependencies": {
+    "@emotion/react": "catalog:",
+    "@emotion/styled": "catalog:",
+    "@mui/material": "catalog:",
+    "@wso2/oxygen-ui": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-is": "19.0.0",
+    "recharts": "3.3.0"
+  },
+  "devDependencies": {
+    "@emotion/react": "catalog:",
+    "@emotion/styled": "catalog:",
+    "@eslint/js": "catalog:",
+    "@mui/material": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@typescript-eslint/eslint-plugin": "catalog:",
+    "@typescript-eslint/parser": "catalog:",
+    "esbuild": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-react": "catalog:",
+    "eslint-plugin-react-hooks": "catalog:",
+    "recharts": "3.3.0",
+    "rimraf": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "dependsOn": [
+          "^build"
+        ]
+      }
+    }
+  }
+}
