@@ -203,7 +203,12 @@ const RadialBarChart = ({
             orientation={polarAngleAxisConfig.orientation}
             ticks={
               polarAngleAxisConfig.ticks
-                ? polarAngleAxisConfig.ticks.map((tick: any, index: number) => ({ ...tick, index }))
+                ? polarAngleAxisConfig.ticks.map((tick: any, index: number) => {
+                    if (typeof tick === 'object' && tick !== null) {
+                      return { ...tick, index }
+                    }
+                    return tick
+                  })
                 : undefined
             }
           />
@@ -221,10 +226,12 @@ const RadialBarChart = ({
             reversed={polarRadiusAxisConfig.reversed}
             ticks={
               polarRadiusAxisConfig.ticks
-                ? polarRadiusAxisConfig.ticks.map((tick: any, index: number) => ({
-                    ...tick,
-                    index,
-                  }))
+                ? polarRadiusAxisConfig.ticks.map((tick: any, index: number) => {
+                    if (typeof tick === 'object' && tick !== null) {
+                      return { ...tick, index }
+                    }
+                    return tick
+                  })
                 : undefined
             }
           />

@@ -33,7 +33,7 @@ import { PieChartProps } from './PieChart.types'
  * PieChart component for Oxygen UI powered by Recharts.
  */
 const PieChart = ({
-  data,
+  data = [],
   pies,
   nameKey,
   height = 300,
@@ -158,7 +158,7 @@ const PieChart = ({
             onContextMenu={(pie.onContextMenu || onContextMenu) as any}
             onDoubleClick={(pie.onDoubleClick || onDoubleClick) as any}
           >
-            {data?.map((entry, index) => (
+            {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />
             ))}
           </Pie>
