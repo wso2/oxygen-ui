@@ -18,7 +18,7 @@
 
 import React from 'react'
 import { useTheme } from '@mui/material/styles'
-import { useColorScheme } from '../../../hooks/useColorScheme'
+import { useColorScheme } from '@wso2/oxygen-ui'
 import {
   PieChart as RechartsPieChart,
   Pie,
@@ -69,7 +69,8 @@ const PieChart = ({
 }: PieChartProps): React.ReactElement => {
   const theme = useTheme()
 
-  const isDark = useColorScheme(theme.palette.mode)
+  const { mode, systemMode } = useColorScheme()
+  const isDark = mode === 'dark' || (mode === 'system' && systemMode === 'dark')
 
   const syntaxColors = React.useMemo(() => {
     const defaultColors = {

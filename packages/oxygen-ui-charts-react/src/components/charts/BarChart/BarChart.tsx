@@ -18,7 +18,7 @@
 
 import React from 'react'
 import { useTheme } from '@mui/material/styles'
-import { useColorScheme } from '../../../hooks/useColorScheme'
+import { useColorScheme } from '@wso2/oxygen-ui'
 import {
   BarChart as RechartsBarChart,
   Bar,
@@ -68,7 +68,8 @@ const BarChart = ({
 }: BarChartProps): React.ReactElement => {
   const theme = useTheme()
 
-  const isDark = useColorScheme(theme.palette.mode)
+  const { mode, systemMode } = useColorScheme()
+  const isDark = mode === 'dark' || (mode === 'system' && systemMode === 'dark')
 
   const colors = React.useMemo(() => {
     const defaultColors = {
