@@ -42,7 +42,6 @@
     "@emotion/react": "catalog:",
     "@emotion/styled": "catalog:",
     "@mui/material": "catalog:",
-    "@wso2/oxygen-ui": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-is": "19.0.0",
