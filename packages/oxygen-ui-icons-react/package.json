@@ -61,8 +61,10 @@
     "url": "https://github.com/wso2/oxygen-ui/issues"
   },
   "homepage": "https://github.com/wso2/oxygen-ui#readme",
+  "dependencies": {
+    "lucide-react": "catalog:"
+  },
   "peerDependencies": {
-    "lucide-react": "catalog:",
     "react": "catalog:"
   },
   "devDependencies": {

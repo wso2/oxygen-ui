@@ -17,8 +17,7 @@
  */
 
 import React from 'react'
-import { useTheme } from '@mui/material/styles'
-import { useColorScheme } from '@wso2/oxygen-ui'
+import { useColorScheme, useTheme } from '@wso2/oxygen-ui'
 import {
   RadarChart as RechartsRadarChart,
   Radar,

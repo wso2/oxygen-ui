@@ -67,10 +67,6 @@
   "homepage": "https://github.com/wso2/oxygen-ui#readme",
   "dependencies": {
     "@fontsource-variable/inter": "5.2.8",
-    "@wso2/oxygen-ui-icons-react": "workspace:*",
-    "prismjs": "^1.30.0"
-  },
-  "peerDependencies": {
     "@emotion/react": "catalog:",
     "@emotion/styled": "catalog:",
     "@mui/material": "catalog:",
@@ -79,6 +75,10 @@
     "@mui/x-date-pickers": "catalog:",
     "@mui/x-tree-view": "catalog:",
     "date-fns": "4.1.0",
+    "prismjs": "^1.30.0"
+  },
+  "peerDependencies": {
+    "@wso2/oxygen-ui-icons-react": "workspace:^",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

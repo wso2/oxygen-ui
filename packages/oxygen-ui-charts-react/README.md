@@ -14,9 +14,32 @@ This package provides a comprehensive set of accessible, theme-aware chart compo
 
 ## Installation
 
+Install the package:
+
 ```bash
 pnpm add @wso2/oxygen-ui-charts-react
 ```
+
+This will automatically install all required dependencies. If you're using npm or yarn, you may need to install peer dependencies manually:
+
+```bash
+pnpm add @wso2/oxygen-ui-charts-react @wso2/oxygen-ui
+```
+
+### Dependencies
+
+This package includes:
+
+- **recharts** (3.3.0) - Bundled as a dependency
+
+### Peer Dependencies
+
+This package requires the following peer dependencies (automatically installed with pnpm):
+
+- `@wso2/oxygen-ui` (workspace:^)
+- `react`
+- `react-dom`
+- `react-is` (19.0.0)
 
 ## Usage Patterns
 
@@ -103,17 +126,17 @@ No extra configuration is required if your app is wrapped in an Oxygen UI `Theme
 
 All Chart components (`BarChart`, `LineChart`, etc.) share these base props:
 
-| Prop       | Type               | Description                                                |
-| ---------- | ------------------ | ---------------------------------------------------------- |
-| `data`     | `any[]`            | Array of data objects.                                     |
-| `width`    | `number \| string` | Chart width (default: '100%').                             |
-| `height`   | `number \| string` | Chart height (default: 300).                               |
-| `margin`   | `object`           | Margin around the chart content.                           |
-| `xAxis`    | `object`           | Configuration for XAxis (`{ show: true, name: '...' }`).   |
-| `yAxis`    | `object`           | Configuration for YAxis.                                   |
-| `legend`   | `object`           | Configuration for Legend (`{ show: true, align: '...' }`). |
-| `grid`     | `object`           | Configuration for CartesianGrid (`{ show: true }`).        |
-| `children` | `ReactNode`        | Children for composition pattern.                          |
+| Prop         | Type                | Description                                                  |
+| ------------ | ------------------- | ------------------------------------------------------------ |
+| `data`     | `any[]`           | Array of data objects.                                       |
+| `width`    | `number \| string` | Chart width (default: '100%').                               |
+| `height`   | `number \| string` | Chart height (default: 300).                                 |
+| `margin`   | `object`          | Margin around the chart content.                             |
+| `xAxis`    | `object`          | Configuration for XAxis (`{ show: true, name: '...' }`).   |
+| `yAxis`    | `object`          | Configuration for YAxis.                                     |
+| `legend`   | `object`          | Configuration for Legend (`{ show: true, align: '...' }`). |
+| `grid`     | `object`          | Configuration for CartesianGrid (`{ show: true }`).        |
+| `children` | `ReactNode`       | Children for composition pattern.                            |
 
 ### Event Handlers
 
