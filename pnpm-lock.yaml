@@ -247,9 +247,6 @@ importers:
 
   packages/oxygen-ui-charts-react:
     dependencies:
-      '@wso2/oxygen-ui':
-        specifier: workspace:*
-        version: link:../oxygen-ui
       react:
         specifier: 'catalog:'
         version: 19.2.3
