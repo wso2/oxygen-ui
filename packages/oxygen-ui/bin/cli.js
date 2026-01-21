@@ -18,6 +18,8 @@
  * under the License.
  */
 
+/* global process, console */
+
 import { fileURLToPath } from 'url';
 import { dirname, join, resolve } from 'path';
 import {
@@ -190,7 +192,6 @@ function copyAgentsMd() {
     if (content.includes(AGENTS_IMPORT_MARKER)) {
       console.log('  Root AGENTS.md already contains Oxygen UI reference.');
       // Still copy the file content
-      const sourceContent = readFileSync(sourceFile, 'utf-8');
       writeFileSync(agentsTargetFile, content);
       return false;
     }
