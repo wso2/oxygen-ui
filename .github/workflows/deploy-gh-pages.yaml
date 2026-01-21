@@ -6,6 +6,10 @@ on:
   pull_request:
     types: [closed]
     branches: [main]
+    paths:
+      - 'packages/oxygen-ui/**'
+      - 'packages/oxygen-ui-docs/**'
+      - 'pnpm-lock.yaml'
 
   workflow_dispatch:
     inputs:
@@ -35,7 +39,8 @@ jobs:
   deploy:
     if: |
       (github.event.pull_request.merged == true && 
-      contains(github.event.pull_request.head.ref, 'changeset-release')) ||
+      contains(github.event.pull_request.head.ref, 'changeset-release') &&
+      github.event.pull_request.base.ref == 'main') ||
       github.event_name == 'workflow_dispatch'
     environment:
       name: github-pages
