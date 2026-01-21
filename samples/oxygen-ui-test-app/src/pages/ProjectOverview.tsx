@@ -187,7 +187,9 @@ export default function ProjectOverview(): JSX.Element {
                         variant="card"
                         hover
                         clickable
-                        onClick={() => navigate(`/projects/${projectId}/components/${component.id}`)}
+                        onClick={() =>
+                          navigate(`/projects/${projectId}/components/${component.id}`)
+                        }
                       >
                         <ListingTable.Cell>
                           <ListingTable.CellIcon

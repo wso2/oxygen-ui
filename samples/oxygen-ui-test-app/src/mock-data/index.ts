@@ -35,6 +35,9 @@ import {
   UserCog,
   Lock,
   Key,
+  BookOpen,
+  Book,
+  Headphones,
 } from '@wso2/oxygen-ui-icons-react'
 import type {
   NavigationCategory,
@@ -44,6 +47,7 @@ import type {
   User,
   Component,
   McpServer,
+  ExploreMoreSection,
 } from './types'
 
 /**
@@ -271,18 +275,24 @@ export const mockOrganizations: Organization[] = [
     name: 'Acme Corporation',
     avatar: 'AC',
     description: 'Primary organization',
+    orgId: '62edf0f6-b427-413b-aac8-67ba7d6b403b',
+    status: 'active',
   },
   {
     id: 'org-2',
     name: 'Beta Industries',
     avatar: 'BI',
     description: 'Partner organization',
+    orgId: 'b1f5d9a2-1e2a-4d0e-9a1f-cc32b0a98c12',
+    status: 'inactive',
   },
   {
     id: 'org-3',
     name: 'Gamma Labs',
     avatar: 'GL',
     description: 'Research division',
+    orgId: '2f7a0f14-9f12-4d2f-8a41-1b9d8d3ab9e1',
+    status: 'active',
   },
 ]
 
@@ -374,4 +384,63 @@ export const mockMcpServers: McpServer[] = [
   { id: '2', action: 'Order Processing MCP', user: 'System', timestamp: '3 months ago' },
   { id: '3', action: 'Fraud Detection MCP', user: 'System', timestamp: '5 months ago' },
   { id: '4', action: 'Notification Dispatcher MCP', user: 'System', timestamp: '7 months ago' },
+]
+
+export const mockExploreMoreSections: ExploreMoreSection[] = [
+  {
+    id: 'tutorials',
+    title: 'Tutorials',
+    icon: BookOpen,
+    items: [
+      {
+        id: 't-1',
+        label: 'Create your first project',
+        href: '/docs/tutorials/create-project',
+      },
+      {
+        id: 't-2',
+        label: 'Invite team members',
+        href: '/docs/tutorials/invite-team',
+      },
+      {
+        id: 't-3',
+        label: 'Configure basic settings',
+        href: '/docs/tutorials/configure-settings',
+      },
+    ],
+  },
+  {
+    id: 'references',
+    title: 'References',
+    icon: Book,
+    items: [
+      {
+        id: 'r-1',
+        label: 'Application concepts',
+        href: '/docs/references/concepts',
+      },
+      {
+        id: 'r-2',
+        label: 'Configuration reference',
+        href: '/docs/references/configuration',
+      },
+    ],
+  },
+  {
+    id: 'support',
+    title: 'Support',
+    icon: Headphones,
+    items: [
+      {
+        id: 's-1',
+        label: 'Help center',
+        href: '/support/help-center',
+      },
+      {
+        id: 's-2',
+        label: 'Contact support',
+        href: '/support/contact',
+      },
+    ],
+  },
 ]
