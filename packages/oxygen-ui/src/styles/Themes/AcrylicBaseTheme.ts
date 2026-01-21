@@ -145,16 +145,13 @@ const AcrylicBaseTheme = extendTheme(OxygenThemeBase, {
         paper: ({ theme }: { theme: OxygenTheme }) => ({
           WebkitBackdropFilter: theme.blur.medium,
           backdropFilter: theme.blur.medium,
-          // Use CSS variable - will automatically switch between light/dark
-          background: theme.vars!.palette.background.paper,
-          opacity: 0.7,
+          background: theme.vars!.palette.background.paper
         }),
       }
     },
     MuiDrawer: {
       styleOverrides: {
         paper: ({ theme }: { theme: OxygenTheme }) => ({
-          // Paper background is already set by colorSchemes
           background: theme.vars!.palette.background.paper,
         }),
       },
