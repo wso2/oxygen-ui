@@ -1,6 +1,6 @@
 # This workflow will deploy the docs as static content to GitHub Pages
 
-name: 📖 Deploy Documentation
+name: 📘 Deploy Documentation
 
 on:
   pull_request:
