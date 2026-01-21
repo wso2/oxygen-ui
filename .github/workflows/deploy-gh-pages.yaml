@@ -6,8 +6,6 @@ on:
   pull_request:
     types: [closed]
     branches: [main]
-    # Only trigger for PRs from changeset-release branches
-    paths-ignore: []
 
   workflow_dispatch:
     inputs:
@@ -36,8 +34,8 @@ env:
 jobs:
   deploy:
     if: |
-      github.event.pull_request.merged == true && 
-      contains(github.event.pull_request.head.ref, 'changeset-release') ||
+      (github.event.pull_request.merged == true && 
+      contains(github.event.pull_request.head.ref, 'changeset-release')) ||
       github.event_name == 'workflow_dispatch'
     environment:
       name: github-pages
@@ -48,6 +46,16 @@ jobs:
         node-version: [lts/*]
         pnpm-version: [latest]
     steps:
+      - name: ⏳ Wait for Release Workflow
+        if: github.event_name == 'pull_request'
+        uses: fountainhead/action-wait-for-check@v1.2.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          checkName: 📦 Release
+          ref: ${{ github.event.pull_request.merge_commit_sha || github.sha }}
+          timeoutSeconds: 1800
+          intervalSeconds: 30
+
       - name: ⬇️ Checkout
         id: checkout
         uses: actions/checkout@v4

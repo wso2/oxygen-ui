@@ -21,9 +21,27 @@ Before you begin, ensure you have the following installed:
 
 ## Installing Oxygen UI
 
+Install the main Oxygen UI library:
+
 ```bash
-pnpm add @wso2/oxygen-ui @wso2/oxygen-ui-icons-react @emotion/react @emotion/styled @mui/material
+pnpm add @wso2/oxygen-ui
 ```
+
+This will automatically install all required dependencies including Material-UI, Emotion, and other peer dependencies.
+
+### Additional Packages
+
+**Icons:**
+```bash
+pnpm add @wso2/oxygen-ui-icons-react
+```
+
+**Charts:**
+```bash
+pnpm add @wso2/oxygen-ui-charts-react
+```
+
+> **Note:** If using npm or yarn, you may need to install peer dependencies manually. With pnpm, peer dependencies are installed automatically.
 
 ## Using Components
 
@@ -112,6 +130,7 @@ The workspace is organized as follows:
 oxygen-ui/
 ├── packages/
 │   ├── oxygen-ui/                        # Main Oxygen-UI component library (@wso2/oxygen-ui)
+│   ├── oxygen-ui-charts-react/           # Oxygen-UI charts library (@wso2/oxygen-ui-charts-react)
 │   ├── oxygen-ui-docs/                   # Oxygen-UI docs - storybook
 │   ├── oxygen-ui-icons-react/            # Oxygen-UI icons library (@wso2/oxygen-ui-icons-react) 
 │   └── eslint-plugin-oxygen-ui/          # ESLint plugin for enforcing Oxygen-UI import patterns

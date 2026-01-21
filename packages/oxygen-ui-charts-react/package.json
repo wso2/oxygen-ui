@@ -38,21 +38,17 @@
   ],
   "author": "WSO2 LLC",
   "license": "Apache-2.0",
-  "peerDependencies": {
-    "@emotion/react": "catalog:",
-    "@emotion/styled": "catalog:",
-    "@mui/material": "catalog:",
-    "@wso2/oxygen-ui": ">=0.1.0",
-    "react": "catalog:",
-    "react-dom": "catalog:",
-    "react-is": "19.0.0",
+  "dependencies": {
     "recharts": "3.3.0"
   },
+  "peerDependencies": {
+    "@wso2/oxygen-ui": "workspace:^",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-is": "19.0.0"
+  },
   "devDependencies": {
-    "@emotion/react": "catalog:",
-    "@emotion/styled": "catalog:",
     "@eslint/js": "catalog:",
-    "@mui/material": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@typescript-eslint/eslint-plugin": "catalog:",
