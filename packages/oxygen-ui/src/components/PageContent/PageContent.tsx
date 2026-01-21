@@ -51,11 +51,25 @@ export interface PageContentProps extends Omit<BoxProps, 'maxWidth'> {
 }
 
 /**
- * Styled root container for PageContent
+ * Styled root container for PageContent - outer wrapper with scroll
  */
 const PageContentRoot = styled(Box, {
   name: 'MuiPageContent',
   slot: 'Root',
+})(() => ({
+  width: '100%',
+  overflow: 'auto',
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+}));
+
+/**
+ * Styled inner container for PageContent - applies sizing and layout
+ */
+const PageContentInner = styled(Box, {
+  name: 'MuiPageContent',
+  slot: 'Inner',
   shouldForwardProp: (prop) => prop !== 'maxWidth' && prop !== 'centered' && prop !== 'fullWidth' && prop !== 'noPadding',
 })<PageContentProps>(({ theme, maxWidth = '1400px', centered = true, fullWidth = false, noPadding = false }) => ({
   width: '100%',
@@ -111,16 +125,20 @@ const PageContent: React.FC<PageContentProps> = ({
   ...props
 }) => {
   return (
-    <PageContentRoot
-      maxWidth={maxWidth}
-      centered={centered}
-      fullWidth={fullWidth}
-      noPadding={noPadding}
-      {...props}
-    >
-      {children}
+    <PageContentRoot>
+      <PageContentInner
+        maxWidth={maxWidth}
+        centered={centered}
+        fullWidth={fullWidth}
+        noPadding={noPadding}
+        {...props}
+      >
+        {children}
+      </PageContentInner>
     </PageContentRoot>
   );
 };
+
+PageContent.displayName = 'PageContent';
 
 export default PageContent;
