@@ -63,27 +63,21 @@ const mockActivity = [
 
 export default function AnalyticsOverview(): JSX.Element {
   const navigate = useNavigate()
-  const { id } = useParams<{ id: string }>()
+  const { orgId } = useParams<{ orgId: string }>()
   const [activeTab, setActiveTab] = useState(0)
 
   return (
     <PageContent>
       {/* Header */}
-      <Box sx={{ mb: 4 }}>
-        <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 2, mb: 2 }}>
-          <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 2 }}>
-            <PageTitle>
-              <PageTitle.Header>Analytics <Chip label="Active" size="small" color="success" /></PageTitle.Header>
-              <PageTitle.SubHeader>Overview of activities</PageTitle.SubHeader>
-            </PageTitle>
-          </Box>
-          <Box sx={{ display: 'flex', gap: 2, ml: 'auto' }}>
-            <Button variant="outlined" startIcon={<Logs size={18} />} onClick={() => navigate(`/projects/${id}/logs`)}>
-              View logs
-            </Button>
-          </Box>
-        </Box>
-      </Box>
+      <PageTitle>
+        <PageTitle.Header>Analytics <Chip label="Active" size="small" color="success" /></PageTitle.Header>
+        <PageTitle.SubHeader>Overview of activities</PageTitle.SubHeader>
+        <PageTitle.Actions>
+          <Button variant="outlined" startIcon={<Logs size={18} />} onClick={() => navigate(`/o/${orgId}/analytics/logs`)}>
+            View logs
+          </Button>
+        </PageTitle.Actions>
+      </PageTitle>
 
       {/* Stats Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
@@ -133,8 +127,8 @@ export default function AnalyticsOverview(): JSX.Element {
       {activeTab === 0 && (
         <Grid container spacing={3}>
           <Grid size={{ xs: 12, md: 6 }}>
-            <Card variant="outlined">
-              <CardContent>
+            <Card variant="outlined" sx={{ height: '100%' }}>
+              <CardContent sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                 <Typography variant="h6" sx={{ mb: 2 }}>
                   User Growth
                 </Typography>
@@ -156,8 +150,8 @@ export default function AnalyticsOverview(): JSX.Element {
           </Grid>
 
           <Grid size={{ xs: 12, md: 6 }}>
-            <Card variant="outlined">
-              <CardContent>
+            <Card variant="outlined" sx={{ height: '100%' }}>
+              <CardContent sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                 <Typography variant="h6" sx={{ mb: 2 }}>
                   Component Status
                 </Typography>
@@ -176,8 +170,8 @@ export default function AnalyticsOverview(): JSX.Element {
           </Grid>
 
           <Grid size={{ xs: 12, md: 6 }}>
-            <Card variant="outlined">
-              <CardContent>
+            <Card variant="outlined" sx={{ height: '100%' }}>
+              <CardContent sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                 <Typography variant="h6" sx={{ mb: 2 }}>
                   Traffic Distribution
                 </Typography>
@@ -199,8 +193,8 @@ export default function AnalyticsOverview(): JSX.Element {
           </Grid>
 
           <Grid size={{ xs: 12, md: 6 }}>
-            <Card variant="outlined">
-              <CardContent>
+            <Card variant="outlined" sx={{ height: '100%' }}>
+              <CardContent sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                 <Typography variant="h6" sx={{ mb: 2 }}>
                   Monthly Revenue
                 </Typography>

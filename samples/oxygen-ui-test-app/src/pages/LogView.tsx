@@ -25,7 +25,6 @@ import {
   TextField,
   InputAdornment,
   Chip,
-  IconButton,
   Select,
   MenuItem,
   FormControl,
@@ -34,19 +33,19 @@ import {
   FormControlLabel,
   Divider,
   PageContent,
+  PageTitle,
 } from '@wso2/oxygen-ui'
 import {
   Search,
   Download,
   RefreshCw,
   Filter,
-  ArrowLeft,
   AlertCircle,
   CheckCircle,
   AlertTriangle,
   Info,
 } from '@wso2/oxygen-ui-icons-react'
-import { useNavigate } from 'react-router'
+import { Link, useParams } from 'react-router'
 import type { JSX } from 'react'
 import { useState } from 'react'
 
@@ -127,7 +126,7 @@ const mockLogs: LogEntry[] = [
 ]
 
 export default function LogView(): JSX.Element {
-  const navigate = useNavigate()
+  const { orgId } = useParams<{ orgId: string }>()
   const [searchQuery, setSearchQuery] = useState('')
   const [levelFilter, setLevelFilter] = useState('all')
   const [componentFilter, setComponentFilter] = useState('all')
@@ -187,27 +186,23 @@ export default function LogView(): JSX.Element {
   return (
     <PageContent>
       {/* Header */}
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 4 }}>
-        <IconButton onClick={() => navigate(`/analytics`)}>
-          <ArrowLeft size={20} />
-        </IconButton>
-        <Box sx={{ flexGrow: 1 }}>
-          <Typography variant="h4">Activity Logs</Typography>
-          <Typography variant="body2" color="text.secondary">
-            View and monitor authentication events and system activities
-          </Typography>
-        </Box>
-        <FormControlLabel
-          control={<Switch checked={autoRefresh} onChange={(e) => setAutoRefresh(e.target.checked)} />}
-          label="Auto-refresh"
-        />
-        <Button variant="outlined" startIcon={<RefreshCw size={18} />} onClick={handleRefresh}>
-          Refresh
-        </Button>
-        <Button variant="outlined" startIcon={<Download size={18} />} onClick={handleExport}>
-          Export
-        </Button>
-      </Box>
+      <PageTitle>
+        <PageTitle.BackButton component={<Link to={`/o/${orgId}/analytics`} />} />
+        <PageTitle.Header>Activity Logs</PageTitle.Header>
+        <PageTitle.SubHeader>View and monitor authentication events and system activities</PageTitle.SubHeader>
+        <PageTitle.Actions>
+          <FormControlLabel
+            control={<Switch checked={autoRefresh} onChange={(e) => setAutoRefresh(e.target.checked)} />}
+            label="Auto-refresh"
+          />
+          <Button variant="outlined" startIcon={<RefreshCw size={18} />} onClick={handleRefresh}>
+            Refresh
+          </Button>
+          <Button variant="outlined" startIcon={<Download size={18} />} onClick={handleExport}>
+            Export
+          </Button>
+        </PageTitle.Actions>
+      </PageTitle>
 
       {/* Filters */}
       <Card variant="outlined" sx={{ mb: 3 }}>

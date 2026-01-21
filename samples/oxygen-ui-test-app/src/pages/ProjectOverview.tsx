@@ -36,7 +36,8 @@ import {
   Chip,
 } from '@wso2/oxygen-ui'
 import { Clock, Plus, RefreshCw, Info, Link as LinkIcon } from '@wso2/oxygen-ui-icons-react'
-import { useNavigate, useParams } from 'react-router'
+import { Link, useNavigate, useParams } from 'react-router'
+import { mockProjects } from '../mock-data'
 
 interface Component {
   id: string
@@ -121,19 +122,19 @@ function LastUpdatedCell({ value }: { value: string }): JSX.Element {
 
 export default function ProjectOverview(): JSX.Element {
   const navigate = useNavigate()
-  const { id } = useParams<{ id: string }>()
+  const { id, orgId } = useParams<{ id: string; orgId: string }>()
 
-  const projectName = 'E-Commerce Platform'
-  const projectDescription = 'Complete authentication and user management system for e-commerce'
+  // Find the project from mockProjects using URL id
+  const project = mockProjects.find(p => p.id === id) || mockProjects[0]
+  const projectName = project.name
+  const projectDescription = project.description || 'No description available'
   const projectLetter = (projectName?.trim()?.[0] ?? 'P').toUpperCase()
-
-  // Use the id from params or a default value
-  const projectId = id || '1'
 
   return (
     <PageContent>
       <Box sx={{ mb: 3 }}>
         <PageTitle>
+          <PageTitle.BackButton component={<Link to={`/o/${orgId}/projects`} />} />
           <PageTitle.Avatar sx={{ bgcolor: 'primary.main', color: 'primary.contrastText' }}>
             {projectLetter}
           </PageTitle.Avatar>
@@ -159,6 +160,7 @@ export default function ProjectOverview(): JSX.Element {
                   variant="contained"
                   startIcon={<Plus size={18} />}
                   sx={{ height: 40 }}
+                  onClick={() => navigate(`/o/${orgId}/projects/${id}/components/new`)}
                 >
                   Create
                 </Button>
@@ -188,7 +190,7 @@ export default function ProjectOverview(): JSX.Element {
                         hover
                         clickable
                         onClick={() =>
-                          navigate(`/projects/${projectId}/components/${component.id}`)
+                          navigate(`components/${component.id}`)
                         }
                       >
                         <ListingTable.Cell>
@@ -260,7 +262,7 @@ export default function ProjectOverview(): JSX.Element {
                         variant="card"
                         hover
                         clickable
-                        onClick={() => navigate(`/projects/${projectId}/components/${server.id}`)}
+                        onClick={() => navigate(`components/${server.id}`)}
                       >
                         <ListingTable.Cell>
                           <ListingTable.CellIcon

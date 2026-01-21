@@ -19,6 +19,12 @@
 // Auto-import bundled fonts
 import './fonts.css';
 
+// Import package.json to extract version
+import pkg from '../package.json';
+
+// Export version
+export const version =  pkg.version;
+
 // Export custom Oxygen UI components and utilities
 // Export styles (themes)
 export * from "./styles";

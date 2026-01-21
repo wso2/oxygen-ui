@@ -54,7 +54,7 @@ export default function LoginBox(): JSX.Element {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate('/projects');
+    navigate('/organizations');
   };
 
   return (

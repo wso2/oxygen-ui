@@ -29,6 +29,7 @@ import {
   Tooltip,
   Card,
   Grid,
+  Link,
 } from '@wso2/oxygen-ui'
 import {
   Plus,
@@ -79,27 +80,26 @@ export default function Organizations(): JSX.Element {
   return (
     <PageContent>
       {/* Header */}
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Box sx={{ flexGrow: 1 }}>
-          <PageTitle>
-            <PageTitle.Header>Organizations</PageTitle.Header>
-            <Box display="flex" alignItems="center">
-              <PageTitle.SubHeader>Create and manage organizations</PageTitle.SubHeader>
-              <Button variant="text" endIcon={<ExternalLink size={16} />}>
-                Learn More
-              </Button>
-            </Box>
-          </PageTitle>
+      <PageTitle>
+        <PageTitle.Header>Organizations</PageTitle.Header>
+        <Box display="flex" alignItems="center">
+          <PageTitle.SubHeader>
+            Create and manage organizations
+            <Link href="https://www.wso2.com" target="_blank" rel="noopener noreferrer" sx={{ ml: 1 }}>
+              <ExternalLink size={16} /> Learn More
+            </Link>
+          </PageTitle.SubHeader>
         </Box>
-
-        <Button
-          variant="contained"
-          startIcon={<Plus size={20} />}
-          onClick={() => navigate('/organizations/new')}
-        >
-          New Organization
-        </Button>
-      </Box>
+        <PageTitle.Actions>
+          <Button
+            variant="contained"
+            startIcon={<Plus size={20} />}
+            onClick={() => navigate('/organizations/new')}
+          >
+            New Organization
+          </Button>
+        </PageTitle.Actions>
+      </PageTitle>
 
       {/* Search */}
       <Box sx={{ mb: 3 }}>
@@ -144,7 +144,7 @@ export default function Organizations(): JSX.Element {
                   variant="card"
                   hover
                   clickable
-                  onClick={() => navigate('/projects')}
+                  onClick={() => navigate(`/o/${org.orgId}/projects`)}
                 >
                   <ListingTable.Cell>
                     <Box display="flex" alignItems="center" justifyContent="space-between" gap={2}>
