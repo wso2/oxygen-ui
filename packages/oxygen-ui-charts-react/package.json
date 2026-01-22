@@ -42,7 +42,7 @@
     "recharts": "3.3.0"
   },
   "peerDependencies": {
-    "@wso2/oxygen-ui": ">=0.1.0",
+    "@wso2/oxygen-ui": "workspace:>=0.1.0",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-is": "19.0.0"

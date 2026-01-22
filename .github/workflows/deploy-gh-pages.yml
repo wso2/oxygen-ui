@@ -1,11 +1,15 @@
 # This workflow will deploy the docs as static content to GitHub Pages
 
 name: 📘 Deploy Documentation
-run-name: "📘 Deploy Documentation @wso2/oxygen-ui@${{ github.event.inputs.basePath || 'oxygen-ui' }}"
+run-name: "${{ github.event.head_commit.message || format('📘 Deploy Documentation @wso2/oxygen-ui@{0}', inputs.version) }}"
 
 on:
   workflow_dispatch:
     inputs:
+      version:
+        description: "Package version to deploy (e.g., 1.0.0)"
+        required: false
+        type: string
       basePath:
         description: |
           The base path to deploy the docs to. Default is "oxygen-ui" (https://wso2.github.io/oxygen-ui/).
@@ -51,7 +55,10 @@ jobs:
         run: |
           VERSION=$(jq -r '.version' packages/oxygen-ui/package.json)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "📦 Documentation Version: $VERSION"
+          echo "## 📘 Deploy Documentation" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Package:** @wso2/oxygen-ui" >> $GITHUB_STEP_SUMMARY
+          echo "**Version:** \`$VERSION\`" >> $GITHUB_STEP_SUMMARY
 
       - name: 🥡 Setup pnpm
         uses: pnpm/action-setup@v4
