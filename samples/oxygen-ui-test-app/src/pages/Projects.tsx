@@ -33,8 +33,7 @@ import {
 } from '@wso2/oxygen-ui'
 import { Search, Plus, MoreVertical, Folder } from '@wso2/oxygen-ui-icons-react'
 import { useNavigate, useParams } from 'react-router'
-import type { JSX } from 'react'
-import { useState } from 'react'
+import { useState, type JSX } from 'react'
 import { mockProjects } from '../mock-data'
 
 interface Project {
@@ -48,7 +47,7 @@ interface Project {
 
 export default function Projects(): JSX.Element {
   const navigate = useNavigate()
-  const { orgId } = useParams<{ orgId: string }>()
+  const { orgId } = useParams<{ orgId: string }>() || 'default-org'
   const [searchQuery, setSearchQuery] = useState('')
 
   const filteredProjects = mockProjects.filter(project => {

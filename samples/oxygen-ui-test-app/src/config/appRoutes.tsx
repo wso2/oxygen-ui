@@ -112,7 +112,7 @@ const appRoutes: AppRoute[] = [
       {
         path: '/o/:orgId/analytics',
         element: <AnalyticsOverview />,
-        label: 'Project Overview',
+        label: 'Analytics Overview',
         showInNav: false,
       },
       {
@@ -152,7 +152,7 @@ const appRoutes: AppRoute[] = [
         showInNav: false,
       },
       {
-        path: '/o/:orgId/settings',
+        path: '/settings',
         element: <SettingsPage />,
         label: 'Organization Settings',
         showInNav: false,
@@ -164,7 +164,6 @@ const appRoutes: AppRoute[] = [
     children: [
       {
         path: '/Home',
-        index: true,
         element: <HomePage />,
         label: 'Home',
         showInNav: false,

@@ -33,8 +33,9 @@ import {
   TablePagination,
   PageContent,
   PageTitle,
+  type ListingTableDensity,
+  type ListingTableSortDirection,
 } from '@wso2/oxygen-ui'
-import type { ListingTableDensity, ListingTableSortDirection } from '@wso2/oxygen-ui'
 import {
   Plus,
   MoreVertical,
@@ -47,7 +48,7 @@ import {
   Lock,
   Inbox
 } from '@wso2/oxygen-ui-icons-react'
-import { useNavigate, useParams, Link } from 'react-router'
+import { useNavigate, useParams, Link as NavigateLink } from 'react-router'
 import type { JSX } from 'react'
 
 interface Component {
@@ -294,7 +295,7 @@ export default function ComponentList(): JSX.Element {
     <PageContent>
       {/* Header */}
       <PageTitle>
-        <PageTitle.BackButton component={<Link to={`/o/${orgId}/projects/${id}`} />} />
+        <PageTitle.BackButton component={<NavigateLink to={`/o/${orgId}/projects/${id}`} />} />
         <PageTitle.Header>Components</PageTitle.Header>
         <PageTitle.SubHeader>Manage authentication components for your project</PageTitle.SubHeader>
         <PageTitle.Actions>

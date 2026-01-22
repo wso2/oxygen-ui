@@ -16,7 +16,6 @@
  * under the License.
  */
 
-import type { JSX } from 'react'
 import {
   Box,
   Button,
@@ -36,7 +35,8 @@ import {
   Chip,
 } from '@wso2/oxygen-ui'
 import { Clock, Plus, RefreshCw, Info, Link as LinkIcon } from '@wso2/oxygen-ui-icons-react'
-import { Link, useNavigate, useParams } from 'react-router'
+import type { JSX } from 'react'
+import { Link as NavigateLink, useNavigate, useParams } from 'react-router'
 import { mockProjects } from '../mock-data'
 
 interface Component {
@@ -134,7 +134,7 @@ export default function ProjectOverview(): JSX.Element {
     <PageContent>
       <Box sx={{ mb: 3 }}>
         <PageTitle>
-          <PageTitle.BackButton component={<Link to={`/o/${orgId}/projects`} />} />
+          <PageTitle.BackButton component={<NavigateLink to={`/o/${orgId}/projects`} />} />
           <PageTitle.Avatar sx={{ bgcolor: 'primary.main', color: 'primary.contrastText' }}>
             {projectLetter}
           </PageTitle.Avatar>

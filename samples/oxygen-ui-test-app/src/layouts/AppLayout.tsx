@@ -16,8 +16,6 @@
  * under the License.
  */
 
-import { Outlet } from 'react-router'
-import { Link as NavigateLink } from 'react-router'
 import {
   AppShell,
   Badge,
@@ -44,12 +42,13 @@ import {
   version as OXYGEN_UI_VERSION
 } from '@wso2/oxygen-ui'
 import { useState, useEffect, type JSX } from 'react'
-import { useNavigate, useLocation } from 'react-router'
+import { useNavigate, useLocation, Outlet, Link as NavigateLink, useParams } from 'react-router'
 import Logo from '../components/Logo';
 import {
   BarChart3,
   Bell,
   Building,
+  CircleDollarSign,
   Database,
   FolderOpen,
   Globe,
@@ -69,13 +68,23 @@ import type { Organization, Project } from '../mock-data/types';
 export default function AppLayout(): JSX.Element {
   const navigate = useNavigate();
   const location = useLocation();
-  const { orgId } = useLocation().pathname.match(/\/o\/(?<orgId>[^/]+)/)?.groups || {};
-  const { projectId } = useLocation().pathname.match(/\/projects\/(?<projectId>[^/]+)/)?.groups || {};
+  const { orgId, projectId } = useParams<{ orgId?: string; projectId?: string }>();
 
   // Shell layout state (sidebar, menu, panel visibility)
   const { state: shellState, actions: shellActions } = useAppShell({
     initialCollapsed: true,
   });
+
+  // Determine initial sidebar active item based on route
+  const getInitialActiveMenuItem = (): string => {
+    const path = location.pathname;
+    if (path.includes('/analytics')) return 'analytics';
+    if (path.includes('/projects/')) return 'projects';
+    if (path.includes('/projects')) return 'projects';
+    if (path.includes('/organizations')) return 'dashboard';
+    if (path.includes('/settings')) return 'settings';
+    return 'dashboard';
+  };
 
   // Notification state (separate concern)
   const {
@@ -115,6 +124,14 @@ export default function AppLayout(): JSX.Element {
   }, [projectId, selectedProject.id]);
 
   const [tabIndex, setTabIndex] = useState(0);
+  const [initialActiveItem, setInitialActiveItem] = useState<string>(getInitialActiveMenuItem());
+
+  // Update active menu item when route changes
+  useEffect(() => {
+    const activeItem = getInitialActiveMenuItem();
+    setInitialActiveItem(activeItem);
+    shellActions.setActiveMenuItem(activeItem);
+  }, [location.pathname]);
   const alertNotifications = notifications.filter(
     (n) => n.type === 'warning' || n.type === 'error'
   );
@@ -247,7 +264,7 @@ export default function AppLayout(): JSX.Element {
       <AppShell.Sidebar>
         <Sidebar
           collapsed={shellState.sidebarCollapsed}
-          activeItem={shellState.activeMenuItem}
+          activeItem={initialActiveItem}
           expandedMenus={shellState.expandedMenus}
           onSelect={shellActions.setActiveMenuItem}
           onToggleExpand={shellActions.toggleMenu}
@@ -255,16 +272,22 @@ export default function AppLayout(): JSX.Element {
           <Sidebar.Nav>
             {/* Global Navigation */}
             {!isOrganization && (
-            <Sidebar.Category>
-              <Sidebar.Item id="billing">
-                <Sidebar.ItemIcon><Settings size={20} /></Sidebar.ItemIcon>
-                <Sidebar.ItemLabel>Billing</Sidebar.ItemLabel>
-              </Sidebar.Item>
-              <Sidebar.Item id="account">
-                <Sidebar.ItemIcon><UserCog size={20} /></Sidebar.ItemIcon>
-                <Sidebar.ItemLabel>Account</Sidebar.ItemLabel>
-              </Sidebar.Item>
-            </Sidebar.Category>
+              <Sidebar.Category>
+                <Link component={NavigateLink} to="/organizations">
+                  <Sidebar.Item id="dashboard">
+                    <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Organizations</Sidebar.ItemLabel>
+                  </Sidebar.Item>
+                </Link>
+                <Sidebar.Item id="account">
+                  <Sidebar.ItemIcon><UserCog size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemLabel>Account</Sidebar.ItemLabel>
+                </Sidebar.Item>
+                <Sidebar.Item id="billing">
+                  <Sidebar.ItemIcon><CircleDollarSign size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemLabel>Billing</Sidebar.ItemLabel>
+                </Sidebar.Item>
+              </Sidebar.Category>
             )}
 
             {isOrganization && (
@@ -274,7 +297,7 @@ export default function AppLayout(): JSX.Element {
                   <Link component={NavigateLink} to="/organizations">
                     <Sidebar.Item id="dashboard">
                       <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
-                      <Sidebar.ItemLabel>Dashboard</Sidebar.ItemLabel>
+                      <Sidebar.ItemLabel>Organizations</Sidebar.ItemLabel>
                     </Sidebar.Item>
                   </Link>
                   <Link component={NavigateLink} to={`/o/${selectedOrg?.orgId}/analytics`}>
@@ -349,7 +372,7 @@ export default function AppLayout(): JSX.Element {
           {/* Settings Footer */}
           <Sidebar.Footer>
             <Sidebar.Category>
-              <Link component={NavigateLink} to={`/o/${selectedOrg?.id}/settings`}>
+              <Link component={NavigateLink} to={`/settings`}>
                 <Sidebar.Item id="settings">
                   <Sidebar.ItemIcon><Settings size={20} /></Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>

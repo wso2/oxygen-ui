@@ -45,9 +45,8 @@ import {
   AlertTriangle,
   Info,
 } from '@wso2/oxygen-ui-icons-react'
-import { Link, useParams } from 'react-router'
-import type { JSX } from 'react'
-import { useState } from 'react'
+import { Link as NavigateLink, useParams } from 'react-router'
+import { useState, type JSX } from 'react'
 
 interface LogEntry {
   id: string
@@ -126,7 +125,7 @@ const mockLogs: LogEntry[] = [
 ]
 
 export default function LogView(): JSX.Element {
-  const { orgId } = useParams<{ orgId: string }>()
+  const { orgId } = useParams<{ orgId: string }>() || 'default-org'
   const [searchQuery, setSearchQuery] = useState('')
   const [levelFilter, setLevelFilter] = useState('all')
   const [componentFilter, setComponentFilter] = useState('all')
@@ -187,7 +186,7 @@ export default function LogView(): JSX.Element {
     <PageContent>
       {/* Header */}
       <PageTitle>
-        <PageTitle.BackButton component={<Link to={`/o/${orgId}/analytics`} />} />
+        <PageTitle.BackButton component={<NavigateLink to={`/o/${orgId}/analytics`} />} />
         <PageTitle.Header>Activity Logs</PageTitle.Header>
         <PageTitle.SubHeader>View and monitor authentication events and system activities</PageTitle.SubHeader>
         <PageTitle.Actions>

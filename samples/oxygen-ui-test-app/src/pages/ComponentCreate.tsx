@@ -18,7 +18,7 @@
 
 import { Button, Divider, Form, PageTitle, PageContent, Stack } from '@wso2/oxygen-ui'
 import { useState, type JSX } from 'react'
-import { Link, useParams } from 'react-router'
+import { Link as NavigateLink, useParams } from 'react-router'
 import { ExternalLinkIcon, Import, Network, WSO2 } from '@wso2/oxygen-ui-icons-react'
 import {
   IntegrationTypeCard,
@@ -36,7 +36,7 @@ export default function ComponentCreate(): JSX.Element {
     return (
       <PageContent>
         <PageTitle>
-          <PageTitle.BackButton component={<Link to={`/o/${orgId}/projects/${id}`} />} />
+          <PageTitle.BackButton component={<NavigateLink to={`/o/${orgId}/projects/${id}`} />} />
           <PageTitle.Header>Get started  with your Integration</PageTitle.Header>
           <PageTitle.SubHeader>Follow the steps below to create a new integration</PageTitle.SubHeader>
         </PageTitle>

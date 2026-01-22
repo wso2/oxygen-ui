@@ -30,6 +30,7 @@ import {
   Card,
   Grid,
   Link,
+  type AdvancedFilterState,
 } from '@wso2/oxygen-ui'
 import {
   Plus,
@@ -43,9 +44,7 @@ import {
   ArrowRight,
 } from '@wso2/oxygen-ui-icons-react'
 import { useNavigate } from 'react-router'
-import type { JSX } from 'react'
-import { useMemo, useState } from 'react'
-import type { AdvancedFilterState } from '@wso2/oxygen-ui/components/SearchBar/SearchBarWithAdvancedFilter'
+import { useMemo, useState, type JSX } from 'react'
 import { mockOrganizations, mockExploreMoreSections } from '../mock-data'
 
 interface Organization {
