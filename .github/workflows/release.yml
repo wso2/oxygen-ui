@@ -34,7 +34,6 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 env:
   GH_TOKEN: ${{ secrets.UI_BOT_TOKEN }}
   NPM_TOKEN: ${{ secrets.WSO2_NPM_TOKEN }}
-  SHOULD_GENERATE_CHANGESET: 'true'
 
 jobs:
   release:
@@ -78,7 +77,6 @@ jobs:
         run: pnpm build
 
       - name: 📣 Create Release Pull Request or Publish to npm
-        if: ${{ env.SHOULD_GENERATE_CHANGESET == 'true' }}
         id: changesets
         uses: changesets/action@v1.4.9
         with:
@@ -89,3 +87,20 @@ jobs:
         env:
           NPM_TOKEN: ${{ env.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ env.GH_TOKEN }}
+
+      - name: ⚙️ Setup Pages to Deploy Documentation
+        if: steps.changesets.outputs.published == 'true'
+        id: setup-pages
+        uses: actions/configure-pages@v5
+
+      - name: 🌩 Upload Documentation Artifact
+        if: steps.changesets.outputs.published == 'true'
+        id: upload-artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./packages/oxygen-ui-docs/dist
+
+      - name: 🔥 Deploy to GitHub Pages
+        if: steps.changesets.outputs.published == 'true'
+        id: deploy-gh-pages
+        uses: actions/deploy-pages@v4
