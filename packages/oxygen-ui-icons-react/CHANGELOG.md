@@ -1,5 +1,11 @@
 # @wso2/oxygen-ui-icons-react
 
+## 1.0.0
+
+### Minor Changes
+
+- [#465](https://github.com/wso2/oxygen-ui/pull/465) [`56a3aaa`](https://github.com/wso2/oxygen-ui/commit/56a3aaa7f41c70bffa35a75a6c8a505bf169a298) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Stabilization fixes along with updates to sample app
+
 ## 0.2.1
 
 ### Patch Changes
