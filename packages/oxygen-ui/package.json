@@ -90,7 +90,7 @@
     "@typescript-eslint/eslint-plugin": "catalog:",
     "@typescript-eslint/parser": "catalog:",
     "@vitest/ui": "catalog:",
-    "@wso2/esbuild-plugin-inline-css-fonts": "workspace:*",
+    "@wso2/esbuild-plugin-inline-css-fonts": "workspace:^",
     "esbuild": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-react": "catalog:",
