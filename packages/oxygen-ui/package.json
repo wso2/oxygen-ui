@@ -1,6 +1,6 @@
 {
   "name": "@wso2/oxygen-ui",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "WSO2 Oxygen UI | Design System - Powered with Material-UI component library with TypeScript support",
   "type": "module",
   "main": "./dist/index.js",

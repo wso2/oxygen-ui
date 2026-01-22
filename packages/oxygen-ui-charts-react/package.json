@@ -1,6 +1,6 @@
 {
   "name": "@wso2/oxygen-ui-charts-react",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "WSO2 Oxygen UI Charts - React components",
   "type": "module",
   "main": "./dist/index.js",
