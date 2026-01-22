@@ -74,11 +74,11 @@
     "@mui/x-data-grid": "catalog:",
     "@mui/x-date-pickers": "catalog:",
     "@mui/x-tree-view": "catalog:",
+    "@wso2/oxygen-ui-icons-react": "workspace:^",
     "date-fns": "4.1.0",
     "prismjs": "^1.30.0"
   },
   "peerDependencies": {
-    "@wso2/oxygen-ui-icons-react": "workspace:^",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

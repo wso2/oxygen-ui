@@ -44,6 +44,7 @@ esbuild.build({
     '.woff2': 'file',
     '.ttf': 'file',
     '.eot': 'file',
+    '.json': 'json',
   },
   external: [
     ...Object.keys(pkg.dependencies || {}),

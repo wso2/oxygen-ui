@@ -26,3 +26,7 @@ export { default as PageTitleSubHeader } from './PageTitleSubHeader';
 export type { PageTitleSubHeaderProps } from './PageTitleSubHeader';
 export { default as PageTitleLink } from './PageTitleLink';
 export type { PageTitleLinkProps } from './PageTitleLink';
+export { default as PageTitleActions } from './PageTitleActions';
+export type { PageTitleActionsProps } from './PageTitleActions';
+export { default as PageTitleBackButton } from './PageTitleBackButton';
+export type { PageTitleBackButtonProps } from './PageTitleBackButton';

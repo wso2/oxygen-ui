@@ -92,4 +92,6 @@ const StatCard: React.FC<StatCardProps> = ({
   );
 };
 
+StatCard.displayName = 'StatCard';
+
 export default StatCard;

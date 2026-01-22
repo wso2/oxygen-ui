@@ -1,12 +1,9 @@
 # This workflow will deploy the docs as static content to GitHub Pages
 
 name: 📘 Deploy Documentation
+run-name: "📘 Deploy Documentation @wso2/oxygen-ui@${{ github.event.inputs.basePath || 'oxygen-ui' }}"
 
 on:
-  pull_request:
-    types: [closed]
-    branches: [main]
-
   workflow_dispatch:
     inputs:
       basePath:
@@ -33,10 +30,7 @@ env:
 
 jobs:
   deploy:
-    if: |
-      (github.event.pull_request.merged == true && 
-      contains(github.event.pull_request.head.ref, 'changeset-release')) ||
-      github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -46,21 +40,18 @@ jobs:
         node-version: [lts/*]
         pnpm-version: [latest]
     steps:
-      - name: ⏳ Wait for Release Workflow
-        if: github.event_name == 'pull_request'
-        uses: fountainhead/action-wait-for-check@v1.2.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: 📦 Release
-          ref: ${{ github.event.pull_request.merge_commit_sha || github.sha }}
-          timeoutSeconds: 1800
-          intervalSeconds: 30
-
       - name: ⬇️ Checkout
         id: checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: 📦 Get Package Version
+        id: version
+        run: |
+          VERSION=$(jq -r '.version' packages/oxygen-ui/package.json)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "📦 Documentation Version: $VERSION"
 
       - name: 🥡 Setup pnpm
         uses: pnpm/action-setup@v4
@@ -95,7 +86,7 @@ jobs:
         id: setup-pages
         uses: actions/configure-pages@v5
 
-      - name: 🌩 Upload artifact
+      - name: 🌩 Upload Artifact
         id: upload-artifact
         uses: actions/upload-pages-artifact@v3
         with:

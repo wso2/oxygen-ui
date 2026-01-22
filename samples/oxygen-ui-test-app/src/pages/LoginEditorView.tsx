@@ -44,7 +44,7 @@ import { useState } from 'react'
 
 export default function LoginEditorView(): JSX.Element {
   const navigate = useNavigate()
-  const { id } = useParams<{ id: string; }>()
+  const { id, orgId } = useParams<{ id: string; orgId: string }>()
   const [activeTab, setActiveTab] = useState(0)
   const [previewMode, setPreviewMode] = useState(false)
 
@@ -118,7 +118,7 @@ export default function LoginEditorView(): JSX.Element {
             bgcolor: 'background.paper',
           }}
         >
-          <IconButton onClick={() => navigate(`/projects/${id}`)}>
+          <IconButton onClick={() => navigate(`/o/${orgId}/projects/${id}`)}>
             <ArrowLeft size={20} />
           </IconButton>
           <Box sx={{ flexGrow: 1 }}>

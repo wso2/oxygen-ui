@@ -91,6 +91,12 @@ const SidebarRootStyled = styled(Box, {
   backgroundColor: (theme.vars || theme).palette.background.paper,
   borderRight: `1px solid ${(theme.vars || theme).palette.divider}`,
   overflow: 'hidden',
+  '& a': {
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'none',
+    },
+  },
 }));
 
 /**

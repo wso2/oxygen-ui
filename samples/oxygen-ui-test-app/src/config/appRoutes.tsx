@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import { type RouteProps } from 'react-router'
+import { type RouteProps, Navigate } from 'react-router'
 import DefaultLayout from '../layouts/DefaultLayout'
 import HomePage from '../pages/HomePage'
 import LoginPage from '../pages/LoginPage'
@@ -74,6 +74,10 @@ export interface AppRoute extends Omit<RouteProps, 'children'> {
  */
 const appRoutes: AppRoute[] = [
   {
+    path: '/',
+    element: <Navigate to="/login" replace />,
+  },
+  {
     element: <GateLayout />,
     children: [
       {
@@ -93,61 +97,56 @@ const appRoutes: AppRoute[] = [
         label: 'Organizations',
         showInNav: false,
       },
-    ],
-  },
-  {
-    element: <AppLayout />,
-    children: [
       {
-        path: '/projects',
+        path: '/o/:orgId/projects',
         element: <Projects />,
         label: 'Projects',
         showInNav: false,
       },
       {
-        path: '/projects/:id',
+        path: '/o/:orgId/projects/:id',
         element: <ProjectOverview />,
         label: 'Project Overview',
         showInNav: false,
       },
       {
-        path: '/analytics',
+        path: '/o/:orgId/analytics',
         element: <AnalyticsOverview />,
-        label: 'Project Overview',
+        label: 'Analytics Overview',
         showInNav: false,
       },
       {
-        path: '/projects/:id/components',
+        path: '/o/:orgId/projects/:id/components',
         element: <ComponentList />,
         label: 'Components',
         showInNav: false,
       },
       {
-        path: '/projects/:id/components/empty',
+        path: '/o/:orgId/projects/:id/components/empty',
         element: <EmptyComponentList />,
         label: 'Empty Component List',
         showInNav: false,
       },
       {
-        path: '/projects/:id/components/new',
+        path: '/o/:orgId/projects/:id/components/new',
         element: <ComponentCreate />,
         label: 'Create Component',
         showInNav: false,
       },
       {
-        path: '/projects/:id/components/:componentId',
+        path: '/o/:orgId/projects/:id/components/:componentId',
         element: <LoginEditorView />,
         label: 'Component Editor',
         showInNav: false,
       },
       {
-        path: '/projects/:id/components/:componentId/edit',
+        path: '/o/:orgId/projects/:id/components/:componentId/edit',
         element: <LoginEditorView />,
         label: 'Edit Component',
         showInNav: false,
       },
       {
-        path: '/projects/:id/logs',
+        path: '/o/:orgId/analytics/logs',
         element: <LogView />,
         label: 'Activity Logs',
         showInNav: false,
@@ -164,8 +163,7 @@ const appRoutes: AppRoute[] = [
     element: <DefaultLayout />,
     children: [
       {
-        path: '/',
-        index: true,
+        path: '/Home',
         element: <HomePage />,
         label: 'Home',
         showInNav: false,

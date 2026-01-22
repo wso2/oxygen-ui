@@ -36,7 +36,7 @@ This package includes:
 
 This package requires the following peer dependencies (automatically installed with pnpm):
 
-- `@wso2/oxygen-ui` (workspace:^)
+- `@wso2/oxygen-ui`
 - `react`
 - `react-dom`
 - `react-is` (19.0.0)

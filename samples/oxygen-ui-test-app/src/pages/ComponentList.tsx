@@ -22,7 +22,6 @@ import {
   Button,
   Card,
   CardContent,
-  Typography,
   Chip,
   IconButton,
   ListingTable,
@@ -32,10 +31,24 @@ import {
   FormControl,
   FormLabel,
   TablePagination,
+  PageContent,
+  PageTitle,
+  type ListingTableDensity,
+  type ListingTableSortDirection,
 } from '@wso2/oxygen-ui'
-import type { ListingTableDensity, ListingTableSortDirection } from '@wso2/oxygen-ui'
-import { Plus, MoreVertical, Filter, Download, ArrowLeft, FileText, Key, Shield, RefreshCw, Lock, Inbox } from '@wso2/oxygen-ui-icons-react'
-import { useNavigate, useParams } from 'react-router'
+import {
+  Plus,
+  MoreVertical,
+  Filter,
+  Download,
+  FileText,
+  Key,
+  Shield,
+  RefreshCw,
+  Lock,
+  Inbox
+} from '@wso2/oxygen-ui-icons-react'
+import { useNavigate, useParams, Link as NavigateLink } from 'react-router'
 import type { JSX } from 'react'
 
 interface Component {
@@ -191,7 +204,7 @@ const getTypeIcon = (type: string) => {
 
 export default function ComponentList(): JSX.Element {
   const navigate = useNavigate()
-  const { id } = useParams<{ id: string }>()
+  const { id, orgId } = useParams<{ id: string; orgId: string }>()
 
   // Table state
   const [searchQuery, setSearchQuery] = useState('')
@@ -279,25 +292,21 @@ export default function ComponentList(): JSX.Element {
   }
 
   return (
-    <Box sx={{ p: 3, maxWidth: '1400px', mx: 'auto' }}>
+    <PageContent>
       {/* Header */}
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 4 }}>
-        <IconButton onClick={() => navigate(`/projects/${id}`)}>
-          <ArrowLeft size={20} />
-        </IconButton>
-        <Box sx={{ flexGrow: 1 }}>
-          <Typography variant="h4">Components</Typography>
-          <Typography variant="body2" color="text.secondary">
-            Manage authentication components for your project
-          </Typography>
-        </Box>
-        <Button variant="outlined" startIcon={<Download size={18} />}>
-          Export
-        </Button>
-        <Button variant="contained" startIcon={<Plus size={18} />} onClick={() => navigate(`/projects/${id}/components/new`)}>
-          New Component
-        </Button>
-      </Box>
+      <PageTitle>
+        <PageTitle.BackButton component={<NavigateLink to={`/o/${orgId}/projects/${id}`} />} />
+        <PageTitle.Header>Components</PageTitle.Header>
+        <PageTitle.SubHeader>Manage authentication components for your project</PageTitle.SubHeader>
+        <PageTitle.Actions>
+          <Button variant="outlined" startIcon={<Download size={18} />}>
+            Export
+          </Button>
+          <Button variant="contained" startIcon={<Plus size={18} />} onClick={() => navigate(`/projects/${id}/components/new`)}>
+            New Component
+          </Button>
+        </PageTitle.Actions>
+      </PageTitle>
 
       {/* Filters */}
       <Card variant="outlined" sx={{ mb: 3 }}>
@@ -477,6 +486,6 @@ export default function ComponentList(): JSX.Element {
           Delete
         </MenuItem>
       </Menu>
-    </Box>
+    </PageContent>
   )
 }

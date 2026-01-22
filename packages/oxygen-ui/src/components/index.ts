@@ -32,7 +32,7 @@ export type { StatCardProps } from './StatCard';
 export { default as ThemeSwitcher, ThemeSelect } from './ThemeSwitcher';
 export type { ThemeSwitcherProps, ThemeSelectProps } from './ThemeSwitcher';
 export { default as SearchBarWithAdvancedFilter } from './SearchBar/SearchBarWithAdvancedFilter';
-export type { SearchBarWithAdvancedFilterProps } from './SearchBar/SearchBarWithAdvancedFilter';
+export type { SearchBarWithAdvancedFilterProps, AdvancedFilterState } from './SearchBar/SearchBarWithAdvancedFilter';
 export { default as SearchBar } from './SearchBar/SearchBar';
 export type { SearchBarProps } from './SearchBar/SearchBar';
 

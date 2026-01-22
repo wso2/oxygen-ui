@@ -17,7 +17,7 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react';
-import { PageTitle, colors } from '@wso2/oxygen-ui';
+import { PageTitle, colors, Box } from '@wso2/oxygen-ui';
 import { Link as LinkIcon, User, Folder } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';
 
@@ -41,7 +41,7 @@ It uses the compound component pattern, providing PageTitle.Header and PageTitle
 - **Avatar Support**: Optional avatar on the left side
 - **Link Component**: Add links with icon support below the subheader
 - **Theme Integration**: Automatically adapts to the current theme
-- **Flexible Styling**: Accepts all standard HTML div props
+- **Flexible Styling**: Accepts all standard HTML div props and the sx prop for Material-UI theming
 - **Typography Control**: Full control over variant, color, and other Typography props
 
 ### Usage
@@ -49,7 +49,7 @@ It uses the compound component pattern, providing PageTitle.Header and PageTitle
 import { PageTitle } from '@wso2/oxygen-ui';
 import { Link as LinkIcon } from '@wso2/oxygen-ui-icons-react';
 
-<PageTitle>
+<PageTitle sx={{ mb: 4 }}>
   <PageTitle.Avatar src="/avatar.png" />
   <PageTitle.Header>Dashboard</PageTitle.Header>
   <PageTitle.SubHeader>Overview of your workspace</PageTitle.SubHeader>
@@ -140,6 +140,47 @@ export const Complete: Story = {
       <PageTitle.Link href="#" icon={<LinkIcon size={14} />}>
         View project details
       </PageTitle.Link>
+    </PageTitle>
+  ),
+};
+
+/**
+ * Page title with custom styling using the sx prop.
+ */
+export const WithSxProp: Story = {
+  render: () => (
+    <PageTitle sx={{ mb: 4, p: 2, bgcolor: 'action.hover', borderRadius: 1 }}>
+      <PageTitle.Header>Activity Logs</PageTitle.Header>
+      <PageTitle.SubHeader>View and monitor authentication events and system activities</PageTitle.SubHeader>
+      <PageTitle.Link href="#" icon={<LinkIcon size={14} />}>
+        View detailed logs
+      </PageTitle.Link>
+    </PageTitle>
+  ),
+};
+
+/**
+ * Full example with BackButton, Avatar, Header, SubHeader, Link, and Actions.
+ */
+export const FullExample: Story = {
+  render: () => (
+    <PageTitle>
+      <PageTitle.BackButton component={<a href="#" />} />
+      <PageTitle.Avatar sx={{ bgcolor: colors.deepPurple[500] }}>
+        E
+      </PageTitle.Avatar>
+      <PageTitle.Header>E-Commerce Platform</PageTitle.Header>
+      <PageTitle.SubHeader>Complete authentication and user management system for e-commerce</PageTitle.SubHeader>
+      <PageTitle.Link href="#" icon={<LinkIcon size={14} />}>
+        Link a Repository
+      </PageTitle.Link>
+      <PageTitle.Actions>
+        <Box sx={{ display: 'flex', gap: 1 }}>
+          <button style={{ padding: '8px 16px', borderRadius: '4px', border: 'none', backgroundColor: '#1976d2', color: 'white', cursor: 'pointer' }}>
+            Create
+          </button>
+        </Box>
+      </PageTitle.Actions>
     </PageTitle>
   ),
 };
