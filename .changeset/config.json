@@ -17,7 +17,6 @@
     "@wso2/oxygen-ui-docs",
     "@wso2/oxygen-ui-test-app",
     "@wso2/vite-plugin-oxygen-ui",
-    "@wso2/esbuild-plugin-inline-css-fonts",
     "@wso2/eslint-plugin-oxygen-ui"
   ],
   "privatePackages": {
