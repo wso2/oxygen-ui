@@ -22,8 +22,8 @@
     "url": "https://github.com/wso2/oxygen-ui.git"
   },
   "dependencies": {
-    "@wso2/oxygen-ui": "workspace:*",
-    "@wso2/oxygen-ui-icons-react": "workspace:*",
+    "@wso2/oxygen-ui": "workspace:^",
+    "@wso2/oxygen-ui-icons-react": "workspace:^",
     "react-hook-form": "7.62.0",
     "@hookform/resolvers": "5.2.1",
     "zod": "4.0.10"

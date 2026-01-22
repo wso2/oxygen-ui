@@ -218,7 +218,7 @@ importers:
         specifier: 'catalog:'
         version: 4.0.6(vitest@4.0.6)
       '@wso2/esbuild-plugin-inline-css-fonts':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../esbuild-plugin-inline-css-fonts
       esbuild:
         specifier: 'catalog:'
@@ -306,10 +306,10 @@ importers:
         specifier: 5.2.1
         version: 5.2.1(react-hook-form@7.62.0(react@19.2.3))
       '@wso2/oxygen-ui':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../oxygen-ui
       '@wso2/oxygen-ui-icons-react':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../oxygen-ui-icons-react
       react-hook-form:
         specifier: 7.62.0
@@ -443,10 +443,10 @@ importers:
   samples/oxygen-ui-test-app:
     dependencies:
       '@wso2/oxygen-ui':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../packages/oxygen-ui
       '@wso2/oxygen-ui-icons-react':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../packages/oxygen-ui-icons-react
       react:
         specifier: 'catalog:'
