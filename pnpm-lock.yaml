@@ -180,9 +180,6 @@ importers:
       '@mui/x-tree-view':
         specifier: 'catalog:'
         version: 8.14.0(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.3))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.3))(@types/react@19.2.2)(react@19.2.3))(@mui/material@7.3.4(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.3))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.3))(@types/react@19.2.2)(react@19.2.3))(@types/react@19.2.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@mui/system@7.3.3(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.3))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.3))(@types/react@19.2.2)(react@19.2.3))(@types/react@19.2.2)(react@19.2.3))(@types/react@19.2.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      '@wso2/oxygen-ui-icons-react':
-        specifier: workspace:^
-        version: link:../oxygen-ui-icons-react
       date-fns:
         specifier: 4.1.0
         version: 4.1.0
@@ -220,6 +217,9 @@ importers:
       '@wso2/esbuild-plugin-inline-css-fonts':
         specifier: workspace:^
         version: link:../esbuild-plugin-inline-css-fonts
+      '@wso2/oxygen-ui-icons-react':
+        specifier: workspace:^
+        version: link:../oxygen-ui-icons-react
       esbuild:
         specifier: 'catalog:'
         version: 0.25.11
@@ -247,9 +247,6 @@ importers:
 
   packages/oxygen-ui-charts-react:
     dependencies:
-      '@wso2/oxygen-ui':
-        specifier: workspace:^
-        version: link:../oxygen-ui
       react:
         specifier: 'catalog:'
         version: 19.2.3
@@ -278,6 +275,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: 'catalog:'
         version: 8.45.0(eslint@9.12.0)(typescript@5.9.3)
+      '@wso2/oxygen-ui':
+        specifier: workspace:^
+        version: link:../oxygen-ui
       esbuild:
         specifier: 'catalog:'
         version: 0.25.11
