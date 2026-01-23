@@ -45,7 +45,7 @@ const StyledTableRow = styled(MuiTableRow, {
   shouldForwardProp: (prop) => !['clickable', 'variant'].includes(prop as string),
 })<StyledTableRowProps>(({ theme: muiTheme, clickable, variant = 'table' }) => {
   const theme = muiTheme as OxygenTheme;
-  const borderRadius = typeof theme.shape.borderRadius === 'number' ? theme.shape.borderRadius * 3 : 12;
+  const borderRadius = 8;
   const isDarkMode = theme.palette.mode === 'dark';
 
   return {
@@ -53,33 +53,42 @@ const StyledTableRow = styled(MuiTableRow, {
       cursor: 'pointer',
     }),
     // Card variant specific styles
-    ...(variant === 'card' && {
-      // Use acrylic background for glassmorphism effect, consistent with MuiCard/MuiPaper
-      backgroundColor: theme.vars?.palette.background.acrylic ?? (theme.vars || theme).palette.background.paper,
-      backdropFilter: theme.blur?.light,
-      WebkitBackdropFilter: theme.blur?.light,
-      borderRadius,
-      '& .MuiTableCell-root': {
-        borderBottom: 'none',
-        backgroundColor: 'transparent',
-        '&:first-of-type': {
-          borderTopLeftRadius: borderRadius,
-          borderBottomLeftRadius: borderRadius,
-        },
-        '&:last-of-type': {
-          borderTopRightRadius: borderRadius,
-          borderBottomRightRadius: borderRadius,
-        },
-      },
-      // Subtle border - slightly more visible in dark mode
-      boxShadow: `inset 0 0 0 1px ${alpha(
+    ...(variant === 'card' && (() => {
+      // Border color - more visible in dark mode for better contrast
+      const borderColor = alpha(
         isDarkMode ? theme.palette.common.white : theme.palette.common.black,
-        isDarkMode ? 0.1 : 0.06
-      )}`,
-      '&:hover': {
-        backgroundColor: (theme.vars || theme).palette.action.hover,
-      },
-    }),
+        isDarkMode ? 0.3 : 0.12
+      );
+
+      return {
+        // Use acrylic background for glassmorphism effect, consistent with MuiCard/MuiPaper
+        backgroundColor: theme.vars?.palette.background.acrylic ?? (theme.vars || theme).palette.background.paper,
+        backdropFilter: theme.blur?.light,
+        WebkitBackdropFilter: theme.blur?.light,
+        borderRadius,
+        '& .MuiTableCell-root': {
+          backgroundColor: 'transparent',
+          // Apply top and bottom borders to all cells
+          borderTop: `1px solid ${borderColor}`,
+          borderBottom: `1px solid ${borderColor}`,
+          '&:first-of-type': {
+            borderTopLeftRadius: borderRadius,
+            borderBottomLeftRadius: borderRadius,
+            // Left border on first cell
+            borderLeft: `1px solid ${borderColor}`,
+          },
+          '&:last-of-type': {
+            borderTopRightRadius: borderRadius,
+            borderBottomRightRadius: borderRadius,
+            // Right border on last cell
+            borderRight: `1px solid ${borderColor}`,
+          },
+        },
+        '&:hover': {
+          backgroundColor: (theme.vars || theme).palette.action.hover,
+        },
+      };
+    })()),
     // Table variant - remove last child border
     ...(variant === 'table' && {
       '&:last-child td, &:last-child th': {
