@@ -1,0 +1,62 @@
+name: "💡 New Feature Request"
+description: Suggest new functionality and features for Oxygen UI.
+labels: ["Type/NewFeature"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What is the problem this feature will solve?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the solution you'd like to have.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives
+      description: Describe any alternatives have you considered
+    validations:
+      required: false
+  - type: dropdown
+    id: area
+    attributes:
+      label: Please select the package issue is related to
+      options:
+        - '@oxygen-ui/react'
+        - '@oxygen-ui/react-icons'
+        - '@oxygen-ui/react-charts'
+        - '@oxygen-ui/eslint-plugin'
+        - '@oxygen-ui/esbuild-plugin-inline-css-fonts'
+        - '@oxygen-ui/vite-plugin'
+        - 'oxygen-ui-docs'
+        - 'samples'
+        - 'other'
+      default: 1
+      multiple: true
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Enter package version or commit hash. (Use `N/A` if not applicable)
+    validations:
+      required: true
+  - type: checkboxes
+    id: reporter-checklist
+    attributes:
+      label: Reporter Checklist
+      description: Please review and confirm the following items before opening the feature request.
+      options:
+        - label: "I have searched the existing issues and this is not a duplicate."
+          required: true
+        - label: "I have provided all the necessary information."
+          required: true
+        - label: "I have verified the feature on the latest version of the package."
+          required: true

@@ -1,0 +1,61 @@
+name: "🐞 Report a Bug"
+description: Create an issue if something does not work as expected.
+labels: ["Type/Bug"]
+body:
+  - type: textarea
+    id: background
+    attributes:
+      label: Description
+      description: Please share a clear and concise description of the problem.
+      placeholder: Description
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: List the steps you followed when you encountered the issue.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Please select the area the issue is related to
+      options:
+        - '@oxygen-ui/react'
+        - '@oxygen-ui/react-icons'
+        - '@oxygen-ui/react-charts'
+        - '@oxygen-ui/eslint-plugin'
+        - '@oxygen-ui/esbuild-plugin-inline-css-fonts'
+        - '@oxygen-ui/vite-plugin'
+        - 'oxygen-ui-docs'
+        - 'samples'
+        - 'other'
+      default: 1
+      multiple: true
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Enter package version or commit hash. (Use `N/A` if not applicable)
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment Details (with versions)
+      description: Mention the environment details (OS, Browser, React version, etc.) that the UI library is running on.
+    validations:
+      required: false
+  - type: checkboxes
+    id: reporter-checklist
+    attributes:
+      label: Reporter Checklist
+      description: Please ensure the following before submitting the issue.
+      options:
+        - label: "I have searched the existing issues and this is not a duplicate."
+          required: true
+        - label: "I have provided all the necessary information."
+          required: true
+        - label: "I have tested the issue on the latest version of the package."
+          required: true

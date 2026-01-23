@@ -42,7 +42,7 @@
     "recharts": "3.3.0"
   },
   "peerDependencies": {
-    "@wso2/oxygen-ui": "workspace:^",
+    "@wso2/oxygen-ui": ">=0.1.0",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-is": "19.0.0"
@@ -53,6 +53,7 @@
     "@types/react-dom": "catalog:",
     "@typescript-eslint/eslint-plugin": "catalog:",
     "@typescript-eslint/parser": "catalog:",
+    "@wso2/oxygen-ui": "workspace:^",
     "esbuild": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-react": "catalog:",

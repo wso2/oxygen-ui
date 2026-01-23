@@ -1,0 +1,55 @@
+name: "🚀 Improvement Request"
+description: Suggest an improvement for Oxygen UI.
+labels: ["Type/Improvement"]
+body:
+  - type: textarea
+    id: limitation
+    attributes:
+      label: Current Limitation
+      description: Describe the current limitation.
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested Improvement
+      description: Describe the improvement you suggest.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Please select the package issue is related to
+      options:
+        - '@oxygen-ui/react'
+        - '@oxygen-ui/react-icons'
+        - '@oxygen-ui/react-charts'
+        - '@oxygen-ui/eslint-plugin'
+        - '@oxygen-ui/esbuild-plugin-inline-css-fonts'
+        - '@oxygen-ui/vite-plugin'
+        - 'oxygen-ui-docs'
+        - 'samples'
+        - 'other'
+      default: 1
+      multiple: true
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Enter package version or commit hash. (Use `N/A` if not applicable)
+    validations:
+      required: true
+  - type: checkboxes
+    id: reporter-checklist
+    attributes:
+      label: Reporter Checklist
+      description: Please review and confirm the following items before opening the improvement request.
+      options:
+        - label: "I have searched the existing issues and this is not a duplicate."
+          required: true
+        - label: "I have provided all the necessary information."
+          required: true
+        - label: "I have verified the improvement is not available in the latest version of the package."
+          required: true
