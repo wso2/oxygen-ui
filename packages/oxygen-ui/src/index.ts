@@ -56,10 +56,6 @@ export * from '@mui/material';
 // Then: colors.deepOrange[500], colors.deepPurple[500], etc.
 export * as colors from '@mui/material/colors';
 
-// Re-export @mui/x-charts as namespace to avoid conflicts
-// Usage: import { Charts } from '@wso2/oxygen-ui';
-export * as Charts from '@mui/x-charts';
-
 // Re-export @mui/x-data-grid as namespace to avoid conflicts
 // Usage: import { DataGrid } from '@wso2/oxygen-ui';
 export * as DataGrid from '@mui/x-data-grid';
@@ -72,6 +68,6 @@ export * as DatePickers from '@mui/x-date-pickers';
 // Other adapters (Dayjs, Luxon, Moment) can be imported directly from @mui/x-date-pickers if needed
 export { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
-// Re-export @mui/x-charts as namespace to avoid conflicts
+// Re-export @mui/x-tree-view as namespace to avoid conflicts
 // Usage: import { TreeView } from '@wso2/oxygen-ui';
 export * as TreeView from '@mui/x-tree-view';
