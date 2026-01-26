@@ -335,7 +335,7 @@ export default function ProjectOverview(): JSX.Element {
 
                   <Box
                     sx={{
-                      height: 220,
+                      height: 260,
                       borderRadius: 0.8,
                       border: '1px solid',
                       borderColor: 'divider',
