@@ -70,7 +70,6 @@
     "@emotion/react": "catalog:",
     "@emotion/styled": "catalog:",
     "@mui/material": "catalog:",
-    "@mui/x-charts": "catalog:",
     "@mui/x-data-grid": "catalog:",
     "@mui/x-date-pickers": "catalog:",
     "@mui/x-tree-view": "catalog:",
