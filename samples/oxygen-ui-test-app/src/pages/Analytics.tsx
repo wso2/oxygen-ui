@@ -33,8 +33,8 @@ import {
   PageContent,
   PageTitle,
   StatCard,
-  Charts,
 } from '@wso2/oxygen-ui'
+import { LineChart, BarChart, PieChart } from '@wso2/oxygen-ui-charts-react'
 import { Activity, FileText, Users, Clock, Logs } from '@wso2/oxygen-ui-icons-react'
 import { useNavigate, useParams } from 'react-router'
 import { useState, type JSX } from 'react'
@@ -48,10 +48,34 @@ interface Component {
 }
 
 const mockComponents: Component[] = [
-  { id: '1', name: 'Login Flow', type: 'Authentication', status: 'active', lastModified: '2 hours ago' },
-  { id: '2', name: 'Sign Up Flow', type: 'Registration', status: 'active', lastModified: '1 day ago' },
-  { id: '3', name: 'Password Reset', type: 'Recovery', status: 'active', lastModified: '3 days ago' },
-  { id: '4', name: 'MFA Configuration', type: 'Security', status: 'inactive', lastModified: '1 week ago' },
+  {
+    id: '1',
+    name: 'Login Flow',
+    type: 'Authentication',
+    status: 'active',
+    lastModified: '2 hours ago',
+  },
+  {
+    id: '2',
+    name: 'Sign Up Flow',
+    type: 'Registration',
+    status: 'active',
+    lastModified: '1 day ago',
+  },
+  {
+    id: '3',
+    name: 'Password Reset',
+    type: 'Recovery',
+    status: 'active',
+    lastModified: '3 days ago',
+  },
+  {
+    id: '4',
+    name: 'MFA Configuration',
+    type: 'Security',
+    status: 'inactive',
+    lastModified: '1 week ago',
+  },
 ]
 
 const mockActivity = [
@@ -70,10 +94,16 @@ export default function AnalyticsOverview(): JSX.Element {
     <PageContent>
       {/* Header */}
       <PageTitle>
-        <PageTitle.Header>Analytics <Chip label="Active" size="small" color="success" /></PageTitle.Header>
+        <PageTitle.Header>
+          Analytics <Chip label="Active" size="small" color="success" />
+        </PageTitle.Header>
         <PageTitle.SubHeader>Overview of activities</PageTitle.SubHeader>
         <PageTitle.Actions>
-          <Button variant="outlined" startIcon={<Logs size={18} />} onClick={() => navigate(`/o/${orgId}/analytics/logs`)}>
+          <Button
+            variant="outlined"
+            startIcon={<Logs size={18} />}
+            onClick={() => navigate(`/o/${orgId}/analytics/logs`)}
+          >
             View logs
           </Button>
         </PageTitle.Actions>
@@ -91,19 +121,14 @@ export default function AnalyticsOverview(): JSX.Element {
         </Grid>
         <Grid size={{ xs: 12, sm: 6, md: 6, lg: 3 }}>
           <StatCard
-            value={mockComponents.filter((c) => c.status === 'active').length}
+            value={mockComponents.filter(c => c.status === 'active').length}
             label="Active"
             icon={<Activity size={24} />}
             iconColor="success"
           />
         </Grid>
         <Grid size={{ xs: 12, sm: 6, md: 6, lg: 3 }}>
-          <StatCard
-            value="3"
-            label="Contributors"
-            icon={<Users size={24} />}
-            iconColor="info"
-          />
+          <StatCard value="3" label="Contributors" icon={<Users size={24} />} iconColor="info" />
         </Grid>
         <Grid size={{ xs: 12, sm: 6, md: 6, lg: 3 }}>
           <StatCard
@@ -132,8 +157,8 @@ export default function AnalyticsOverview(): JSX.Element {
                 <Typography variant="h6" sx={{ mb: 2 }}>
                   User Growth
                 </Typography>
-                <Charts.LineChart
-                  dataset={[
+                <LineChart
+                  data={[
                     { month: 'Jan', users: 120 },
                     { month: 'Feb', users: 180 },
                     { month: 'Mar', users: 240 },
@@ -141,8 +166,8 @@ export default function AnalyticsOverview(): JSX.Element {
                     { month: 'May', users: 420 },
                     { month: 'Jun', users: 580 },
                   ]}
-                  xAxis={[{ scaleType: 'band', dataKey: 'month' }]}
-                  series={[{ dataKey: 'users', label: 'Users' }]}
+                  xAxisDataKey="month"
+                  lines={[{ dataKey: 'users', name: 'Users' }]}
                   height={300}
                 />
               </CardContent>
@@ -155,14 +180,14 @@ export default function AnalyticsOverview(): JSX.Element {
                 <Typography variant="h6" sx={{ mb: 2 }}>
                   Component Status
                 </Typography>
-                <Charts.BarChart
-                  dataset={[
+                <BarChart
+                  data={[
                     { status: 'Active', count: 3 },
                     { status: 'Inactive', count: 1 },
                     { status: 'Pending', count: 2 },
                   ]}
-                  xAxis={[{ scaleType: 'band', dataKey: 'status' }]}
-                  series={[{ dataKey: 'count', label: 'Count' }]}
+                  xAxisDataKey="status"
+                  bars={[{ dataKey: 'count', name: 'Count' }]}
                   height={300}
                 />
               </CardContent>
@@ -175,16 +200,12 @@ export default function AnalyticsOverview(): JSX.Element {
                 <Typography variant="h6" sx={{ mb: 2 }}>
                   Traffic Distribution
                 </Typography>
-                <Charts.PieChart
-                  series={[
-                    {
-                      data: [
-                        { id: 0, value: 45, label: 'Direct' },
-                        { id: 1, value: 30, label: 'Organic' },
-                        { id: 2, value: 15, label: 'Social' },
-                        { id: 3, value: 10, label: 'Referral' },
-                      ],
-                    },
+                <PieChart
+                  data={[
+                    { name: 'Direct', value: 45 },
+                    { name: 'Organic', value: 30 },
+                    { name: 'Social', value: 15 },
+                    { name: 'Referral', value: 10 },
                   ]}
                   height={300}
                 />
@@ -198,8 +219,8 @@ export default function AnalyticsOverview(): JSX.Element {
                 <Typography variant="h6" sx={{ mb: 2 }}>
                   Monthly Revenue
                 </Typography>
-                <Charts.BarChart
-                  dataset={[
+                <BarChart
+                  data={[
                     { month: 'Jan', revenue: 4500 },
                     { month: 'Feb', revenue: 5200 },
                     { month: 'Mar', revenue: 6100 },
@@ -207,8 +228,8 @@ export default function AnalyticsOverview(): JSX.Element {
                     { month: 'May', revenue: 8400 },
                     { month: 'Jun', revenue: 9800 },
                   ]}
-                  xAxis={[{ scaleType: 'band', dataKey: 'month' }]}
-                  series={[{ dataKey: 'revenue', label: 'Revenue ($)' }]}
+                  xAxisDataKey="month"
+                  bars={[{ dataKey: 'revenue', name: 'Revenue ($)' }]}
                   height={300}
                 />
               </CardContent>
