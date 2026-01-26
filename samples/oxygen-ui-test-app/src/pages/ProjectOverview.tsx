@@ -28,12 +28,12 @@ import {
   Grid,
   Avatar,
   SearchBar,
-  Charts,
   PageTitle,
   PageContent,
   ListingTable,
   Chip,
 } from '@wso2/oxygen-ui'
+import { LineChart } from '@wso2/oxygen-ui-charts-react'
 import { Clock, Plus, RefreshCw, Info, Link as LinkIcon } from '@wso2/oxygen-ui-icons-react'
 import type { JSX } from 'react'
 import { Link as NavigateLink, useNavigate, useParams } from 'react-router'
@@ -95,7 +95,12 @@ const mockActivity: McpServer[] = [
 const uData = [4000, 3000, 2000, 2780, 1890, 2390, 3490]
 const pData = [2400, 1398, 9800, 3908, 4800, 3800, 4300]
 const xLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']
-const { LineChart } = Charts
+
+const chartData = xLabels.map((label, index) => ({
+  name: label,
+  pData: pData[index],
+  uData: uData[index],
+}))
 
 function LastUpdatedCell({ value }: { value: string }): JSX.Element {
   return (
@@ -189,9 +194,7 @@ export default function ProjectOverview(): JSX.Element {
                         variant="card"
                         hover
                         clickable
-                        onClick={() =>
-                          navigate(`components/${component.id}`)
-                        }
+                        onClick={() => navigate(`components/${component.id}`)}
                       >
                         <ListingTable.Cell>
                           <ListingTable.CellIcon
@@ -344,13 +347,14 @@ export default function ProjectOverview(): JSX.Element {
                     }}
                   >
                     <LineChart
+                      data={chartData}
+                      xAxisDataKey="name"
+                      lines={[
+                        { dataKey: 'pData', name: 'Product A' },
+                        { dataKey: 'uData', name: 'Product B' },
+                      ]}
                       width={400}
                       height={200}
-                      series={[
-                        { data: pData, label: 'Product A' },
-                        { data: uData, label: 'Product B' },
-                      ]}
-                      xAxis={[{ scaleType: 'point', data: xLabels }]}
                     />
                   </Box>
                 </CardContent>
