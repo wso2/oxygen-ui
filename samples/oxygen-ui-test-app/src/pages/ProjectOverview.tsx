@@ -343,7 +343,6 @@ export default function ProjectOverview(): JSX.Element {
                       alignItems: 'center',
                       justifyContent: 'center',
                       bgcolor: 'background.default',
-                      paddingTop: 1,
                     }}
                   >
                     <LineChart
@@ -353,8 +352,9 @@ export default function ProjectOverview(): JSX.Element {
                         { dataKey: 'pData', name: 'Product A' },
                         { dataKey: 'uData', name: 'Product B' },
                       ]}
-                      width={400}
-                      height={200}
+                      legend={{ show: true, align: 'center', verticalAlign: 'top' }}
+                      height={260}
+                      grid={{ show: false }}
                     />
                   </Box>
                 </CardContent>

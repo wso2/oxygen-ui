@@ -31,8 +31,8 @@ import {
   ListItemText,
   Grid,
   PageContent,
-  PageTitle,
   StatCard,
+  PageTitle,
 } from '@wso2/oxygen-ui'
 import { LineChart, BarChart, PieChart } from '@wso2/oxygen-ui-charts-react'
 import { Activity, FileText, Users, Clock, Logs } from '@wso2/oxygen-ui-icons-react'
@@ -154,9 +154,7 @@ export default function AnalyticsOverview(): JSX.Element {
           <Grid size={{ xs: 12, md: 6 }}>
             <Card variant="outlined" sx={{ height: '100%' }}>
               <CardContent sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                <Typography variant="h6" sx={{ mb: 2 }}>
-                  User Growth
-                </Typography>
+                <Typography variant="h6">User Growth</Typography>
                 <LineChart
                   data={[
                     { month: 'Jan', users: 120 },
@@ -168,7 +166,9 @@ export default function AnalyticsOverview(): JSX.Element {
                   ]}
                   xAxisDataKey="month"
                   lines={[{ dataKey: 'users', name: 'Users' }]}
-                  height={300}
+                  legend={{ show: true, align: 'center', verticalAlign: 'top' }}
+                  height={400}
+                  grid={{ show: false }}
                 />
               </CardContent>
             </Card>
@@ -177,9 +177,7 @@ export default function AnalyticsOverview(): JSX.Element {
           <Grid size={{ xs: 12, md: 6 }}>
             <Card variant="outlined" sx={{ height: '100%' }}>
               <CardContent sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                <Typography variant="h6" sx={{ mb: 2 }}>
-                  Component Status
-                </Typography>
+                <Typography variant="h6">Component Status</Typography>
                 <BarChart
                   data={[
                     { status: 'Active', count: 3 },
@@ -188,7 +186,9 @@ export default function AnalyticsOverview(): JSX.Element {
                   ]}
                   xAxisDataKey="status"
                   bars={[{ dataKey: 'count', name: 'Count' }]}
-                  height={300}
+                  legend={{ show: true, align: 'center', verticalAlign: 'top' }}
+                  height={400}
+                  grid={{ show: false }}
                 />
               </CardContent>
             </Card>
@@ -197,9 +197,7 @@ export default function AnalyticsOverview(): JSX.Element {
           <Grid size={{ xs: 12, md: 6 }}>
             <Card variant="outlined" sx={{ height: '100%' }}>
               <CardContent sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                <Typography variant="h6" sx={{ mb: 2 }}>
-                  Traffic Distribution
-                </Typography>
+                <Typography variant="h6">Traffic Distribution</Typography>
                 <PieChart
                   data={[
                     { name: 'Direct', value: 45 },
@@ -207,7 +205,9 @@ export default function AnalyticsOverview(): JSX.Element {
                     { name: 'Social', value: 15 },
                     { name: 'Referral', value: 10 },
                   ]}
-                  height={300}
+                  pies={[{ dataKey: 'value', nameKey: 'name' }]}
+                  legend={{ show: true, align: 'center', verticalAlign: 'top' }}
+                  height={400}
                 />
               </CardContent>
             </Card>
@@ -216,9 +216,7 @@ export default function AnalyticsOverview(): JSX.Element {
           <Grid size={{ xs: 12, md: 6 }}>
             <Card variant="outlined" sx={{ height: '100%' }}>
               <CardContent sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                <Typography variant="h6" sx={{ mb: 2 }}>
-                  Monthly Revenue
-                </Typography>
+                <Typography variant="h6">Monthly Revenue</Typography>
                 <BarChart
                   data={[
                     { month: 'Jan', revenue: 4500 },
@@ -230,7 +228,9 @@ export default function AnalyticsOverview(): JSX.Element {
                   ]}
                   xAxisDataKey="month"
                   bars={[{ dataKey: 'revenue', name: 'Revenue ($)' }]}
-                  height={300}
+                  legend={{ show: true, align: 'center', verticalAlign: 'top' }}
+                  height={400}
+                  grid={{ show: false }}
                 />
               </CardContent>
             </Card>
