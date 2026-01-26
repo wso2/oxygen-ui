@@ -302,6 +302,9 @@ importers:
       '@wso2/oxygen-ui':
         specifier: workspace:^
         version: link:../oxygen-ui
+      '@wso2/oxygen-ui-charts-react':
+        specifier: workspace:^
+        version: link:../oxygen-ui-charts-react
       '@wso2/oxygen-ui-icons-react':
         specifier: workspace:^
         version: link:../oxygen-ui-icons-react
