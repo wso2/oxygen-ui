@@ -180,9 +180,6 @@ importers:
       '@mui/x-tree-view':
         specifier: 'catalog:'
         version: 8.14.0(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.3))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.3))(@types/react@19.2.2)(react@19.2.3))(@mui/material@7.3.4(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.3))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.3))(@types/react@19.2.2)(react@19.2.3))(@types/react@19.2.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@mui/system@7.3.3(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.3))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.3))(@types/react@19.2.2)(react@19.2.3))(@types/react@19.2.2)(react@19.2.3))(@types/react@19.2.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      '@wso2/oxygen-ui-icons-react':
-        specifier: workspace:>=0.1.0
-        version: link:../oxygen-ui-icons-react
       date-fns:
         specifier: 4.1.0
         version: 4.1.0
@@ -218,8 +215,11 @@ importers:
         specifier: 'catalog:'
         version: 4.0.6(vitest@4.0.6)
       '@wso2/esbuild-plugin-inline-css-fonts':
-        specifier: workspace:>=0.1.0
+        specifier: workspace:^
         version: link:../esbuild-plugin-inline-css-fonts
+      '@wso2/oxygen-ui-icons-react':
+        specifier: workspace:^
+        version: link:../oxygen-ui-icons-react
       esbuild:
         specifier: 'catalog:'
         version: 0.25.11
@@ -306,13 +306,13 @@ importers:
         specifier: 5.2.1
         version: 5.2.1(react-hook-form@7.62.0(react@19.2.3))
       '@wso2/oxygen-ui':
-        specifier: workspace:>=0.1.0
+        specifier: workspace:^
         version: link:../oxygen-ui
       '@wso2/oxygen-ui-charts-react':
         specifier: workspace:^
         version: link:../oxygen-ui-charts-react
       '@wso2/oxygen-ui-icons-react':
-        specifier: workspace:>=0.1.0
+        specifier: workspace:^
         version: link:../oxygen-ui-icons-react
       react-hook-form:
         specifier: 7.62.0
@@ -446,10 +446,10 @@ importers:
   samples/oxygen-ui-test-app:
     dependencies:
       '@wso2/oxygen-ui':
-        specifier: workspace:>=0.1.0
+        specifier: workspace:^
         version: link:../../packages/oxygen-ui
       '@wso2/oxygen-ui-icons-react':
-        specifier: workspace:>=0.1.0
+        specifier: workspace:^
         version: link:../../packages/oxygen-ui-icons-react
       react:
         specifier: 'catalog:'
