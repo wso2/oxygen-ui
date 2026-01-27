@@ -24,21 +24,16 @@ Before you begin, ensure you have the following installed:
 Install the main Oxygen UI library:
 
 ```bash
-pnpm add @wso2/oxygen-ui
+pnpm add @wso2/oxygen-ui @wso2/oxygen-ui-icons-react
 ```
 
 This will automatically install all required dependencies including Material-UI, Emotion, and other peer dependencies.
 
 ### Additional Packages
 
-**Icons:**
-```bash
-pnpm add @wso2/oxygen-ui-icons-react
-```
-
 **Charts:**
 ```bash
-pnpm add @wso2/oxygen-ui-charts-react
+pnpm add @wso2/oxygen-ui @wso2/oxygen-ui-charts-react
 ```
 
 > **Note:** If using npm or yarn, you may need to install peer dependencies manually. With pnpm, peer dependencies are installed automatically.

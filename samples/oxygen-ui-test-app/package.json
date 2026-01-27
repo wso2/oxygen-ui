@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@wso2/oxygen-ui": "workspace:^",
-    "@wso2/oxygen-ui-icons-react": "workspace:^",
+    "@wso2/oxygen-ui": "workspace:>=0.1.0",
+    "@wso2/oxygen-ui-icons-react": "workspace:>=0.1.0",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-router": "7.9.4"
