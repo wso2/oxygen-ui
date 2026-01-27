@@ -7,7 +7,13 @@
     }
   ],
   "commit": false,
-  "fixed": [],
+  "fixed": [
+    [
+      "@wso2/oxygen-ui",
+      "@wso2/oxygen-ui-icons-react",
+      "@wso2/oxygen-ui-charts-react"
+    ]
+  ],
   "linked": [],
   "access": "public",
   "baseBranch": "main",
