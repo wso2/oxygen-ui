@@ -27,7 +27,6 @@
     "@wso2/oxygen-ui-charts-react": "workspace:^",
     "react-hook-form": "7.62.0",
     "@hookform/resolvers": "5.2.1",
-    "@wso2/oxygen-ui-charts-react": "workspace:^",
     "zod": "4.0.10"
   },
   "devDependencies": {
