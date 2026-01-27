@@ -74,6 +74,7 @@
     "@mui/x-data-grid": "catalog:",
     "@mui/x-date-pickers": "catalog:",
     "@mui/x-tree-view": "catalog:",
+    "@wso2/oxygen-ui-icons-react": "workspace:>=0.1.0",
     "date-fns": "4.1.0",
     "prismjs": "^1.30.0"
   },
@@ -90,8 +91,7 @@
     "@typescript-eslint/eslint-plugin": "catalog:",
     "@typescript-eslint/parser": "catalog:",
     "@vitest/ui": "catalog:",
-    "@wso2/esbuild-plugin-inline-css-fonts": "workspace:^",
-    "@wso2/oxygen-ui-icons-react": "workspace:^",
+    "@wso2/esbuild-plugin-inline-css-fonts": "workspace:>=0.1.0",
     "esbuild": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-react": "catalog:",
