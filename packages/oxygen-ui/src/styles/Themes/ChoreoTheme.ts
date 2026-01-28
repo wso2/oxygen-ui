@@ -17,12 +17,12 @@
  */
 
 import { extendTheme } from '@mui/material/styles';
-import AcrylicBaseTheme from './AcrylicBaseTheme';
+import OxygenThemeBase from './OxygenThemeBase';
 import type { OxygenTheme } from './OxygenThemeBase';
 
 /**
  * Choreo Theme - Indigo-violet gradient theme for Choreo product
- * Features: Choreo brand indigo (#5567d5), violet accents, modern acrylic styling
+ * Features: Choreo brand indigo (#5567d5), violet accents, clean professional styling
  *
  * Usage:
  * ```tsx
@@ -33,7 +33,10 @@ import type { OxygenTheme } from './OxygenThemeBase';
  * </OxygenUIThemeProvider>
  * ```
  */
-const ChoreoThemeBase = extendTheme(AcrylicBaseTheme, {
+const ChoreoThemeBase = extendTheme(OxygenThemeBase, {
+  shape: {
+    borderRadius: 8,
+  },
   colorSchemes: {
     light: {
       palette: {
@@ -68,6 +71,10 @@ const ChoreoThemeBase = extendTheme(AcrylicBaseTheme, {
           main: '#5567d5',
           light: '#7a8aef',
           dark: '#3d4db0',
+        },
+        background: {
+          default: '#f7f8fb',
+          paper: '#ffffff',
         },
         text: {
           primary: '#1d2028',
@@ -119,8 +126,8 @@ const ChoreoThemeBase = extendTheme(AcrylicBaseTheme, {
           dark: '#5567d5',
         },
         background: {
-          default: '#000000',
-          paper: '#000000b8',
+          default: '#0d0d14',
+          paper: '#1a1a24',
         },
         text: {
           primary: '#efefef',
@@ -141,6 +148,10 @@ const ChoreoThemeBase = extendTheme(AcrylicBaseTheme, {
   components: {
     MuiButton: {
       styleOverrides: {
+        root: {
+          textTransform: 'none',
+          fontWeight: 400,
+        },
         containedPrimary: () => ({
           '&:not(:disabled)': {
             background: 'linear-gradient(77.74deg, #4a5bc8 11.16%, #745bcc 99.55%) !important',
@@ -162,6 +173,37 @@ const ChoreoThemeBase = extendTheme(AcrylicBaseTheme, {
             outlineOffset: '2px',
           },
         },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: ({ theme }: { theme: OxygenTheme }) => ({
+          borderRadius: theme.shape.borderRadius,
+          border: `1px solid ${theme.vars!.palette.divider}`,
+          boxShadow: '0 0 1px rgba(141,145,163,0.4), 0 1px 2px rgba(203,206,219,0.3)',
+        }),
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: ({ theme }: { theme: OxygenTheme }) => ({
+          backgroundColor: theme.vars!.palette.background.paper,
+          borderBottom: `1px solid ${theme.vars!.palette.divider}`,
+          boxShadow: 'none',
+        }),
+      },
+    },
+    MuiTextField: {
+      defaultProps: { size: 'small' },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: ({ theme }: { theme: OxygenTheme }) => ({
+          fontSize: theme.typography.body2.fontSize,
+        }),
+        notchedOutline: ({ theme }: { theme: OxygenTheme }) => ({
+          borderColor: theme.vars!.palette.divider,
+        }),
       },
     },
     MuiTableRow: {
@@ -190,28 +232,6 @@ const ChoreoThemeBase = extendTheme(AcrylicBaseTheme, {
           border: `1px solid ${theme.vars!.palette.divider}`,
           fontSize: theme.typography.caption.fontSize,
         }),
-      },
-    },
-    MuiCssBaseline: {
-      styleOverrides: {
-        "html[data-color-scheme='dark'] body": {
-          backgroundAttachment: 'fixed',
-          backgroundImage: `
-            radial-gradient(circle at 70% 20%, rgba(85, 103, 213, 0.18) 0%, transparent 50%),
-            radial-gradient(circle at 20% 60%, rgba(116, 91, 204, 0.22) 0%, transparent 45%),
-            radial-gradient(circle at 50% 100%, rgba(85, 103, 213, 0.08) 0%, transparent 60%)
-          `,
-          backgroundBlendMode: 'screen',
-        },
-        "html[data-color-scheme='light'] body": {
-          backgroundAttachment: 'fixed',
-          backgroundImage: `
-            radial-gradient(circle at 70% 20%, rgba(85, 103, 213, 0.10) 0%, transparent 45%),
-            radial-gradient(circle at 20% 60%, rgba(116, 91, 204, 0.12) 0%, transparent 40%),
-            radial-gradient(circle at center bottom, rgba(85, 103, 213, 0.04) 0%, transparent 50%)
-          `,
-          backgroundBlendMode: 'normal',
-        },
       },
     },
   },
