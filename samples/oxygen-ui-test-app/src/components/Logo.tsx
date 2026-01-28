@@ -19,6 +19,18 @@
 import { ColorSchemeImage, useThemeContent } from "@wso2/oxygen-ui";
 
 export default function Logo() {
+  const choreoLogo = (
+    <ColorSchemeImage
+      src={{
+        light: `${import.meta.env.BASE_URL}assets/images/choreo-logo.svg`,
+        dark: `${import.meta.env.BASE_URL}assets/images/choreo-logo.svg`,
+      }}
+      alt={{light: 'Choreo Logo (Light)', dark: 'Choreo Logo (Dark)'}}
+      height={24}
+      width="auto"
+    />
+  );
+
   const Logo = useThemeContent({
     default: (
       <ColorSchemeImage
@@ -33,16 +45,8 @@ export default function Logo() {
           marginTop: '-5px'
         }}
       />),
-    acrylicPurple: (
-      <ColorSchemeImage
-        src={{
-          light: `${import.meta.env.BASE_URL}assets/images/choreo-logo.svg`,
-          dark: `${import.meta.env.BASE_URL}assets/images/choreo-logo.svg`,
-        }}
-        alt={{light: 'Choreo Logo (Light)', dark: 'Choreo Logo (Dark)'}}
-        height={24}
-        width="auto"
-      />)
+    acrylicPurple: choreoLogo,
+    choreo: choreoLogo
   });
 
   return Logo;
