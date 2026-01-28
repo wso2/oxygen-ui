@@ -54,6 +54,7 @@ import { DataGrid, Charts, DatePickers, TreeView } from '@wso2/oxygen-ui';
 - `OxygenTheme` - Default theme (recommended)
 - `AcrylicOrangeTheme` - Orange accent variant
 - `AcrylicPurpleTheme` - Purple accent variant
+- `ChoreoTheme` - Choreo product theme (indigo-violet gradient)
 - `ClassicTheme` - Traditional styling
 - `HighContrastTheme` - Accessibility-focused
 

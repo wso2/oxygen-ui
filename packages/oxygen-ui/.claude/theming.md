@@ -17,6 +17,7 @@
 | OxygenTheme | `OxygenTheme` | Default theme (Acrylic Base) |
 | Acrylic Orange | `AcrylicOrangeTheme` | Glass-morphism effects, orange primary |
 | Acrylic Purple | `AcrylicPurpleTheme` | Glass-morphism with purple accents |
+| Choreo | `ChoreoTheme` | Choreo product theme (indigo-violet gradient) |
 | Classic | `ClassicTheme` | Standard flat design |
 | High Contrast | `HighContrastTheme` | Accessibility-focused with high contrast colors |
 
@@ -25,6 +26,7 @@ import {
   OxygenTheme,
   AcrylicOrangeTheme,
   AcrylicPurpleTheme,
+  ChoreoTheme,
   ClassicTheme,
   HighContrastTheme
 } from '@wso2/oxygen-ui';
@@ -68,6 +70,7 @@ import {
     { key: 'default', label: 'Default', theme: OxygenTheme },
     { key: 'orange', label: 'Acrylic Orange', theme: AcrylicOrangeTheme },
     { key: 'purple', label: 'Acrylic Purple', theme: AcrylicPurpleTheme },
+    { key: 'choreo', label: 'Choreo', theme: ChoreoTheme },
     { key: 'classic', label: 'Classic', theme: ClassicTheme },
     { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
   ]}

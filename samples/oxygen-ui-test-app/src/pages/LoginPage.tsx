@@ -86,6 +86,16 @@ export default function LoginPage(): JSX.Element {
         alt={{light: 'Choreo Logo (Light)', dark: 'Choreo Logo (Dark)'}}
         height={40}
         width="auto"
+      />),
+    choreo: (
+      <ColorSchemeImage
+        src={{
+          light: `${import.meta.env.BASE_URL}assets/images/choreo-logo.svg`,
+          dark: `${import.meta.env.BASE_URL}assets/images/choreo-logo.svg`,
+        }}
+        alt={{light: 'Choreo Logo (Light)', dark: 'Choreo Logo (Dark)'}}
+        height={40}
+        width="auto"
       />)
   });
 
@@ -131,6 +141,27 @@ export default function LoginPage(): JSX.Element {
             </Stack>
           ))}
         </Stack>
+      </>),
+    choreo: (
+      <>
+        <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 0 }}>
+          Get Started with Choreo Internal Developer Platform
+        </Typography>
+        <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+          A full-fledged platform for cloud native application development
+        </Typography>
+        <Stack sx={{gap: 2}}>
+          {sloganListItemsChoreo.map((item) => (
+            <Stack key={item.title} direction="row" sx={{gap: 2}}>
+              {item.icon}
+              <div>
+                <Typography gutterBottom sx={{fontWeight: 'medium'}}>
+                  {item.title}
+                </Typography>
+              </div>
+            </Stack>
+          ))}
+        </Stack>
       </>)
   });
 
@@ -147,6 +178,17 @@ export default function LoginPage(): JSX.Element {
         sx={{ position: 'absolute', bottom: 50, right: -100 }}
       />),
     acrylicPurple: (
+      <ColorSchemeImage
+        src={{
+          light: `${import.meta.env.BASE_URL}assets/images/idevp-login.svg`,
+          dark: `${import.meta.env.BASE_URL}assets/images/idevp-login-inverted.svg`,
+        }}
+        alt={{light: 'Login Screen Image (Light)', dark: 'Login Screen Image (Dark)'}}
+        height={450}
+        width="auto"
+        sx={{ position: 'absolute', bottom: 50, right: -100 }}
+      />),
+    choreo: (
       <ColorSchemeImage
         src={{
           light: `${import.meta.env.BASE_URL}assets/images/idevp-login.svg`,
