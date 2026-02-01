@@ -29,6 +29,7 @@ import {
   useThemeSwitcher,
   AcrylicOrangeTheme,
   AcrylicPurpleTheme,
+  ChoreoTheme,
   ClassicTheme,
   HighContrastTheme,
   useColorScheme,
@@ -112,6 +113,7 @@ const preview = {
         items: [
           { value: 'acrylicOrange', title: 'Acrylic Orange' },
           { value: 'acrylicPurple', title: 'Acrylic Purple' },
+          { value: 'choreo', title: 'Choreo' },
           { value: 'classic', title: 'Classic' },
           { value: 'highContrast', title: 'High Contrast' },
         ],
@@ -129,6 +131,7 @@ const preview = {
       const themes = React.useMemo(() => [
         { key: 'acrylicOrange', label: 'Acrylic Orange', theme: AcrylicOrangeTheme },
         { key: 'acrylicPurple', label: 'Acrylic Purple', theme: AcrylicPurpleTheme },
+        { key: 'choreo', label: 'Choreo', theme: ChoreoTheme },
         { key: 'classic', label: 'Classic', theme: ClassicTheme },
         { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
       ], []);
