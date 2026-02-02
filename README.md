@@ -137,7 +137,57 @@ oxygen-ui/
 └── nx.json
 ```
 
-## License
+# AI-Assisted Development
+
+Oxygen UI includes built-in documentation for AI assistants, enabling AI coding tools to understand the component library and generate correct code.
+
+## Universal Setup (Works with any AI)
+
+```bash
+npx @wso2/oxygen-ui init
+```
+
+Creates:
+- `AGENTS.md` - Streamlined AI guide at project root
+- `.ai/oxygen-ui/` - Detailed documentation:
+  - `components.md` - Component API reference
+  - `patterns.md` - Common UI patterns
+  - `theming.md` - Theme customization
+  - `migration.md` - Migration guide
+
+## Claude Code Setup (Recommended for Claude)
+
+```bash
+npx @wso2/oxygen-ui init --claude
+```
+
+Creates:
+- `.claude/oxygen-ui/` - Claude-optimized documentation
+- `.claude/skills/` - Invokable skills:
+  - `/oxygen-component` - Generate Oxygen UI components
+  - `/oxygen-layout` - Generate app layouts
+  - `/oxygen-form` - Generate forms with validation
+  - `/oxygen-migrate` - Migrate MUI code
+- Updates root `CLAUDE.md` with reference
+
+## Updating After Upgrade
+
+```bash
+npx @wso2/oxygen-ui update           # Universal
+npx @wso2/oxygen-ui update --claude  # Claude-specific
+```
+
+## AI Documentation
+
+For detailed information, see the generated files:
+- Components: `.ai/oxygen-ui/components.md` or `.claude/oxygen-ui/components.md`
+- Patterns: `.ai/oxygen-ui/patterns.md` or `.claude/oxygen-ui/patterns.md`
+- Theming: `.ai/oxygen-ui/theming.md` or `.claude/oxygen-ui/theming.md`
+- Migration: `.ai/oxygen-ui/migration.md` or `.claude/oxygen-ui/migration.md`
+
+See the [@wso2/oxygen-ui README](./packages/oxygen-ui/README.md#ai-assisted-development) for more details.
+
+# License
 
 Licenses this source under the Apache License, Version 2.0 ([LICENSE](LICENSE)), You may not use this file except in compliance with the License.
 

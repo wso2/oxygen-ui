@@ -134,6 +134,32 @@ function App() {
       />
     </Paper>
 
+    <Paper sx={{ p: 3, mb: 4 }}>
+      <Typography variant="h5" gutterBottom>
+        AI-Assisted Development
+      </Typography>
+      <Typography variant="body2" paragraph>
+        Oxygen UI includes built-in documentation for AI assistants like Claude Code, Cursor, and Copilot.
+        Set up AI-optimized docs in your project with a single command:
+      </Typography>
+      <CodeBlock
+        language="bash"
+        code="npx @wso2/oxygen-ui init"
+      />
+      <Typography variant="body2" sx={{ mt: 2 }}>
+        For Claude Code users, run{' '}
+        <Typography component="code" variant="body2" sx={{ bgcolor: 'action.hover', px: 0.5, borderRadius: 0.5 }}>
+          npx @wso2/oxygen-ui init --claude
+        </Typography>
+        {' '}to also get invokable skills and Claude-optimized documentation.
+      </Typography>
+      <Typography variant="body2" sx={{ mt: 1 }}>
+        <Link href="https://github.com/wso2/oxygen-ui#ai-assisted-development" target="_blank" rel="noopener">
+          View full AI documentation &rarr;
+        </Link>
+      </Typography>
+    </Paper>
+
     <Box sx={{ textAlign: 'center' }}>
       <Typography variant="body1" color="text.secondary">
         Browse the sidebar to explore all available components, animations, and utilities.
