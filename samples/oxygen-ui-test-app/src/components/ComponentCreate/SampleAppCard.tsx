@@ -48,7 +48,17 @@ export default function SampleAppCard({
             <Form.Subheader>{title}</Form.Subheader>
           </Stack>
           <Typography variant="body2">{subtitle}</Typography>
-          <Typography variant="caption">{description}</Typography>
+          <Typography
+            variant="caption"
+            sx={{
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+            }}
+          >
+            {description}
+          </Typography>
         </Stack>
       </Form.CardContent>
       <Form.CardActions>

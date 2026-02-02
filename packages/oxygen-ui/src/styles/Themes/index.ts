@@ -22,3 +22,6 @@ export { default as AcrylicPurpleTheme } from './AcrylicPurpleTheme';
 export { default as ChoreoTheme } from './ChoreoTheme';
 export { default as ClassicTheme } from './ClassicTheme';
 export { default as HighContrastTheme } from './HighContrastTheme';
+export { default as LowColorBaseTheme } from './LowColorBaseTheme';
+export { default as PaleGrayTheme } from './PaleGray';
+export { default as PaleIndigoTheme } from './PaleIndigo';

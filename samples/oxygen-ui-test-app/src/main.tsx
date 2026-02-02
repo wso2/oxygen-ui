@@ -22,7 +22,9 @@ import {
   AcrylicPurpleTheme,
   ChoreoTheme,
   ClassicTheme,
-  HighContrastTheme
+  HighContrastTheme,
+  PaleGrayTheme,
+  PaleIndigoTheme
 } from '@wso2/oxygen-ui'
 import { HashRouter, BrowserRouter } from 'react-router'
 import { StrictMode } from 'react'
@@ -43,6 +45,8 @@ createRoot(document.getElementById('root')!).render(
         { key: 'choreo', label: 'Choreo Theme', theme: ChoreoTheme },
         { key: 'highContrast', label: 'High Contrast Theme', theme: HighContrastTheme },
         { key: 'classic', label: 'Classic Theme', theme: ClassicTheme },
+        { key: 'paleGray', label: 'Pale Gray Theme', theme: PaleGrayTheme },
+        { key: 'paleIndigo', label: 'Pale Indigo Theme', theme: PaleIndigoTheme },
       ]}
       initialTheme="acrylicOrange"
     >
