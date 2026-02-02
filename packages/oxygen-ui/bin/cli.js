@@ -22,6 +22,7 @@
 
 import { fileURLToPath } from 'url';
 import { dirname, join, resolve } from 'path';
+import { createInterface } from 'readline';
 import {
   existsSync,
   mkdirSync,
@@ -72,6 +73,56 @@ For Oxygen UI component guidelines and patterns, see [.ai/oxygen-ui/components.m
 // Markers to detect if import reference already exists
 const CLAUDE_IMPORT_MARKER = '.claude/oxygen-ui/CLAUDE.md';
 const AGENTS_IMPORT_MARKER = '.ai/oxygen-ui/';
+
+// ============================================================================
+// Interactive Prompt
+// ============================================================================
+
+/**
+ * Prompt the user to select their AI assistant.
+ * Returns true for Claude mode, false for universal mode.
+ * Falls back to universal mode in non-interactive environments (CI/CD).
+ */
+function promptSelection() {
+  // Non-interactive environment — default to universal mode
+  if (!process.stdin.isTTY) {
+    return Promise.resolve(false);
+  }
+
+  return new Promise((resolve) => {
+    const rl = createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+
+    console.log('\n? Which AI assistant are you using?\n');
+    console.log('  1. Claude Code (recommended \u2014 includes skills & Claude-specific docs)');
+    console.log('  2. Other AI assistant (universal docs for any AI tool)\n');
+
+    rl.question('Select [1-2]: ', (answer) => {
+      rl.close();
+      const choice = answer.trim();
+      if (choice === '1') {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+}
+
+/**
+ * Detect previous setup mode by checking for existing project directories.
+ * Returns 'claude' | 'other' | null.
+ */
+function detectPreviousMode() {
+  const claudeExists = existsSync(resolve(process.cwd(), '.claude', 'oxygen-ui'));
+  const aiExists = existsSync(resolve(process.cwd(), '.ai', 'oxygen-ui'));
+
+  if (claudeExists) return 'claude';
+  if (aiExists) return 'other';
+  return null;
+}
 
 // ============================================================================
 // Argument Parsing
@@ -277,10 +328,13 @@ function copySkillsDir() {
 
   console.log('Copying Claude Code skills...\n');
 
-  // Get list of skill directories
+  // Internal-only skills excluded from consumer distribution
+  const INTERNAL_SKILLS = ['oxygen-sync'];
+
+  // Get list of skill directories (excluding internal-only skills)
   const skillDirs = readdirSync(skillsSourceDir).filter(entry => {
     const fullPath = join(skillsSourceDir, entry);
-    return statSync(fullPath).isDirectory();
+    return statSync(fullPath).isDirectory() && !INTERNAL_SKILLS.includes(entry);
   });
 
   let totalCopied = 0;
@@ -328,7 +382,6 @@ function initDefault() {
   console.log('  - .ai/oxygen-ui/patterns.md (common patterns)');
   console.log('  - .ai/oxygen-ui/theming.md (theme customization)');
   console.log('  - .ai/oxygen-ui/migration.md (migration guide)\n');
-  console.log('For Claude Code with skills: npx @wso2/oxygen-ui init --claude\n');
 }
 
 /**
@@ -366,7 +419,14 @@ function initClaude() {
 /**
  * Initialize Oxygen UI AI documentation
  */
-function init(claudeMode) {
+async function init(claudeFlag) {
+  let claudeMode = claudeFlag;
+
+  if (!claudeFlag) {
+    console.log('\nOxygen UI - AI Integration Setup');
+    claudeMode = await promptSelection();
+  }
+
   if (claudeMode) {
     initClaude();
   } else {
@@ -404,7 +464,26 @@ function updateClaude() {
 /**
  * Update Oxygen UI AI documentation
  */
-function update(claudeMode) {
+async function update(claudeFlag) {
+  let claudeMode = claudeFlag;
+
+  if (!claudeFlag) {
+    const previousMode = detectPreviousMode();
+
+    if (previousMode === 'claude') {
+      console.log('\nOxygen UI - Updating AI Documentation');
+      console.log('\nDetected previous Claude Code setup. Updating Claude docs...');
+      claudeMode = true;
+    } else if (previousMode === 'other') {
+      console.log('\nOxygen UI - Updating AI Documentation');
+      console.log('\nDetected previous universal setup. Updating universal docs...');
+      claudeMode = false;
+    } else {
+      console.log('\nOxygen UI - Updating AI Documentation');
+      claudeMode = await promptSelection();
+    }
+  }
+
   if (claudeMode) {
     updateClaude();
   } else {
@@ -427,24 +506,30 @@ Commands:
   help      Show this help message
 
 Options:
-  --claude  Use Claude Code mode (includes skills and Claude-specific docs)
+  --claude  Skip prompt and use Claude Code mode directly
+
+Interactive Behavior:
+  init      Prompts to select your AI assistant (Claude Code or Other)
+  update    Auto-detects previous setup mode from project files;
+            prompts only if no prior setup is found
+  --claude  Bypasses the interactive prompt for CI/CD or scripted usage
 
 Modes:
-  Default (no flag):
+  Universal (Other AI assistant):
     - Creates AGENTS.md at project root
     - Creates .ai/oxygen-ui/ folder with documentation
     - Works with any AI assistant
 
-  Claude (--claude flag):
+  Claude Code:
     - Creates .claude/oxygen-ui/ folder with documentation
     - Creates .claude/skills/ with invokable skills
     - Updates root CLAUDE.md with reference
 
 Examples:
-  npx @wso2/oxygen-ui init           # Universal setup
-  npx @wso2/oxygen-ui init --claude  # Claude Code setup with skills
-  npx @wso2/oxygen-ui update         # Refresh universal docs
-  npx @wso2/oxygen-ui update --claude # Refresh Claude docs and skills
+  npx @wso2/oxygen-ui init            # Interactive — choose your AI assistant
+  npx @wso2/oxygen-ui init --claude   # Claude Code setup (skip prompt)
+  npx @wso2/oxygen-ui update          # Auto-detects previous mode
+  npx @wso2/oxygen-ui update --claude # Force Claude mode update
 
 Available Skills (Claude mode only):
   /oxygen-component  Generate Oxygen UI React components
@@ -460,22 +545,24 @@ Available Skills (Claude mode only):
 
 const { command, flags } = parseArgs();
 
-switch (command) {
-  case 'init':
-    init(flags.claude);
-    break;
-  case 'update':
-    update(flags.claude);
-    break;
-  case 'help':
-  case '--help':
-  case '-h':
-    showHelp();
-    break;
-  default:
-    if (command) {
-      console.error(`Unknown command: ${command}\n`);
-    }
-    showHelp();
-    process.exit(command ? 1 : 0);
-}
+(async () => {
+  switch (command) {
+    case 'init':
+      await init(flags.claude);
+      break;
+    case 'update':
+      await update(flags.claude);
+      break;
+    case 'help':
+    case '--help':
+    case '-h':
+      showHelp();
+      break;
+    default:
+      if (command) {
+        console.error(`Unknown command: ${command}\n`);
+      }
+      showHelp();
+      process.exit(command ? 1 : 0);
+  }
+})();
