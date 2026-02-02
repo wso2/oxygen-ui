@@ -31,6 +31,8 @@ import {
   AcrylicPurpleTheme,
   ClassicTheme,
   HighContrastTheme,
+  PaleGrayTheme,
+  PaleIndigoTheme,
   useColorScheme,
 } from "@wso2/oxygen-ui";
 import './docs.css';
@@ -114,6 +116,8 @@ const preview = {
           { value: 'acrylicPurple', title: 'Acrylic Purple' },
           { value: 'classic', title: 'Classic' },
           { value: 'highContrast', title: 'High Contrast' },
+          { value: 'paleGray', title: 'Pale Gray' },
+          { value: 'paleIndigo', title: 'Pale Indigo' },
         ],
         showName: true,
         dynamicTitle: true,
@@ -131,6 +135,8 @@ const preview = {
         { key: 'acrylicPurple', label: 'Acrylic Purple', theme: AcrylicPurpleTheme },
         { key: 'classic', label: 'Classic', theme: ClassicTheme },
         { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
+        { key: 'paleGray', label: 'Pale Gray', theme: PaleGrayTheme },
+        { key: 'paleIndigo', label: 'Pale Indigo', theme: PaleIndigoTheme },
       ], []);
 
       // Resolve system mode to actual light/dark based on OS preference
