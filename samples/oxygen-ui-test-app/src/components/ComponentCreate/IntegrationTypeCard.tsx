@@ -45,7 +45,7 @@ export default function IntegrationTypeCard({
       <Form.CardHeader
         title={
           <Stack direction="row" spacing={1} alignItems="center">
-            <Form.Header>{title}</Form.Header>
+            <Form.Subheader noWrap>{title}</Form.Subheader>
             {tooltipText && (
               <Form.DisappearingCardButtonContent>
                 <Tooltip title={tooltipText}>
@@ -58,10 +58,20 @@ export default function IntegrationTypeCard({
       />
       <Form.CardContent>
         <Box display="flex" py={2} justifyContent="center" alignItems="center">
-          <Icon size={240} className="integration-type-card-icon" />
+          <Icon size={140} className="integration-type-card-icon" />
         </Box>
         <Box textAlign="center" width="100%">
-          <Typography variant="caption">{description}</Typography>
+          <Typography
+            variant="caption"
+            sx={{
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+            }}
+          >
+            {description}
+          </Typography>
         </Box>
       </Form.CardContent>
     </Form.CardButton>
