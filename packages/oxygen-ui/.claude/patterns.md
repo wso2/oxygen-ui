@@ -1136,8 +1136,12 @@ import {
   OxygenTheme,
   AcrylicOrangeTheme,
   AcrylicPurpleTheme,
+  ChoreoTheme,
   ClassicTheme,
   HighContrastTheme,
+  LowColorBaseTheme,
+  PaleGrayTheme,
+  PaleIndigoTheme,
   useThemeSwitcher,
   Select,
   MenuItem,
@@ -1147,8 +1151,12 @@ const themes = [
   { key: 'default', label: 'Default', theme: OxygenTheme },
   { key: 'orange', label: 'Acrylic Orange', theme: AcrylicOrangeTheme },
   { key: 'purple', label: 'Acrylic Purple', theme: AcrylicPurpleTheme },
+  { key: 'choreo', label: 'Choreo', theme: ChoreoTheme },
   { key: 'classic', label: 'Classic', theme: ClassicTheme },
   { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
+  { key: 'lowColor', label: 'Low Color', theme: LowColorBaseTheme },
+  { key: 'paleGray', label: 'Pale Gray', theme: PaleGrayTheme },
+  { key: 'paleIndigo', label: 'Pale Indigo', theme: PaleIndigoTheme },
 ];
 
 function ThemeSelector() {

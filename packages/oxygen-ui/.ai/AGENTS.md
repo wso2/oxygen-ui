@@ -57,23 +57,24 @@ import { DataGrid, Charts, DatePickers, TreeView } from '@wso2/oxygen-ui';
 - `ChoreoTheme` - Choreo product theme (indigo-violet gradient)
 - `ClassicTheme` - Traditional styling
 - `HighContrastTheme` - Accessibility-focused
+- `LowColorBaseTheme` - Minimal color palette
+- `PaleGrayTheme` - Soft gray tones
+- `PaleIndigoTheme` - Soft indigo tones
 
 ## Custom Oxygen Components
 
-- **Layout**: `AppShell`, `Header`, `Sidebar`, `Footer`
-- **Data Display**: `ListingTable`, `PageTitle`, `CodeBlock`
-- **Forms**: `Form.TextInput`, `Form.SelectInput`, `Form.Wizard`
+- **Layout**: `AppShell`, `Header`, `Sidebar`, `Footer`, `PageContent`
+- **Data Display**: `ListingTable`, `PageTitle`, `CodeBlock`, `StatCard`
+- **Forms**: `Form.CardButton`, `Form.Section`, `Form.Stack`, `Form.Wizard`
+- **Inputs**: `SearchBar`, `SearchBarWithAdvancedFilter`, `ComplexSelect`
 - **Feedback**: `NotificationPanel`, `NotificationBanner`
-- **Theming**: `OxygenUIThemeProvider`, `ThemeSwitcher`, `ColorSchemeToggle`
+- **Theming**: `OxygenUIThemeProvider`, `ThemeSwitcher`, `ColorSchemeToggle`, `ColorSchemeImage`
+- **User**: `UserMenu`
 
 ## Detailed Documentation
 
 For comprehensive API reference and examples, see:
-- [Component API Reference](./.ai/oxygen-ui/components.md)
-- [UI Patterns & Examples](./.ai/oxygen-ui/patterns.md)
-- [Theme Customization](./.ai/oxygen-ui/theming.md)
-- [Migration Guide](./.ai/oxygen-ui/migration.md)
-
----
-
-For Claude Code users with enhanced features (invokable skills): `npx @wso2/oxygen-ui init --claude`
+- [Component API Reference](./components.md)
+- [UI Patterns & Examples](./patterns.md)
+- [Theme Customization](./theming.md)
+- [Migration Guide](./migration.md)

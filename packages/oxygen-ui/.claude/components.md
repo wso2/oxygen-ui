@@ -436,7 +436,7 @@ import { HomeIcon, SettingsIcon } from '@wso2/oxygen-ui-icons-react';
 
 ## Form
 
-Form components namespace with enhanced inputs.
+Form components namespace for building forms with card-based layouts and wizards.
 
 ```tsx
 import { Form } from '@wso2/oxygen-ui';
@@ -446,17 +446,19 @@ import { Form } from '@wso2/oxygen-ui';
 
 | Component | Description |
 |-----------|-------------|
-| `Form.TextInput` | Enhanced text field |
-| `Form.SelectInput` | Enhanced select dropdown |
-| `Form.MenuItem` | Select menu item |
-| `Form.AutocompleteInput` | Autocomplete input |
-| `Form.CardButton` | Clickable card |
-| `Form.Section` | Form section with heading |
+| `Form.CardButton` | Clickable card button for selection |
+| `Form.DisappearingCardButtonContent` | Content that fades when card is selected |
+| `Form.CardHeader` | Card header section |
+| `Form.CardContent` | Card content section |
+| `Form.CardActions` | Card action buttons section |
+| `Form.CardMedia` | Card media/image section |
+| `Form.Stack` | Form field stack layout |
 | `Form.Header` | Section header text |
 | `Form.Subheader` | Section subheader text |
 | `Form.Body` | Section body text |
-| `Form.Stack` | Form field stack layout |
+| `Form.Section` | Form section with heading |
 | `Form.Wizard` | Multi-step form wizard |
+| `Form.ElementWrapper` | Wrapper for form elements |
 
 ### Wizard Props
 
@@ -479,26 +481,28 @@ interface WizardProps {
 ### Usage
 
 ```tsx
+// Card-based selection form
+<Form.Stack spacing={2}>
+  <Form.CardButton selected={selected === 'option1'} onClick={() => setSelected('option1')}>
+    <Form.CardHeader title="Option 1" />
+    <Form.CardContent>
+      <Form.Body>Description of option 1</Form.Body>
+    </Form.CardContent>
+  </Form.CardButton>
+
+  <Form.CardButton selected={selected === 'option2'} onClick={() => setSelected('option2')}>
+    <Form.CardHeader title="Option 2" />
+    <Form.CardContent>
+      <Form.Body>Description of option 2</Form.Body>
+    </Form.CardContent>
+  </Form.CardButton>
+</Form.Stack>
+
+// Section with typography
 <Form.Section>
   <Form.Header>User Details</Form.Header>
   <Form.Subheader>Enter your information</Form.Subheader>
-
-  <Form.Stack spacing={2}>
-    <Form.TextInput
-      label="Name"
-      value={name}
-      onChange={(e) => setName(e.target.value)}
-    />
-
-    <Form.SelectInput
-      label="Role"
-      value={role}
-      onChange={(e) => setRole(e.target.value)}
-    >
-      <Form.MenuItem value="admin">Admin</Form.MenuItem>
-      <Form.MenuItem value="user">User</Form.MenuItem>
-    </Form.SelectInput>
-  </Form.Stack>
+  <Form.Body>Additional context about the form section.</Form.Body>
 </Form.Section>
 ```
 
@@ -506,11 +510,31 @@ interface WizardProps {
 
 ## NotificationPanel
 
-Slide-out notification panel with tabs.
+Slide-out notification panel with tabs and compound component pattern.
 
 ```tsx
 import { NotificationPanel } from '@wso2/oxygen-ui';
 ```
+
+### Sub-components
+
+| Component | Description |
+|-----------|-------------|
+| `NotificationPanel.Header` | Panel header container |
+| `NotificationPanel.HeaderIcon` | Header icon |
+| `NotificationPanel.HeaderTitle` | Header title text |
+| `NotificationPanel.HeaderBadge` | Unread count badge |
+| `NotificationPanel.HeaderClose` | Close button |
+| `NotificationPanel.Tabs` | Tab navigation |
+| `NotificationPanel.Actions` | Action buttons container |
+| `NotificationPanel.List` | Notification list container |
+| `NotificationPanel.Item` | Individual notification item |
+| `NotificationPanel.ItemAvatar` | Item avatar |
+| `NotificationPanel.ItemTitle` | Item title |
+| `NotificationPanel.ItemMessage` | Item message text |
+| `NotificationPanel.ItemTimestamp` | Item timestamp |
+| `NotificationPanel.ItemAction` | Item action button |
+| `NotificationPanel.EmptyState` | Empty state display |
 
 ### Props
 
@@ -518,36 +542,212 @@ import { NotificationPanel } from '@wso2/oxygen-ui';
 |------|------|---------|-------------|
 | `open` | `boolean` | required | Panel visibility |
 | `onClose` | `() => void` | required | Close handler |
-| `title` | `string` | `'Notifications'` | Panel title |
+
+### Tabs Props
+
+```tsx
+interface NotificationTabConfig {
+  id: string;
+  label: string;
+  badge?: number;
+}
+
+interface NotificationTabsProps {
+  tabs: NotificationTabConfig[];
+  activeTab: string;
+  onTabChange: (tabId: string) => void;
+}
+```
 
 ### Usage
 
 ```tsx
 <NotificationPanel open={open} onClose={() => setOpen(false)}>
   <NotificationPanel.Header>
-    <NotificationPanel.Tabs>
-      <NotificationPanel.Tab label="All" />
-      <NotificationPanel.Tab label="Unread" badge={3} />
-    </NotificationPanel.Tabs>
-    <NotificationPanel.Actions>
-      <Button onClick={markAllRead}>Mark all read</Button>
-    </NotificationPanel.Actions>
+    <NotificationPanel.HeaderIcon />
+    <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
+    <NotificationPanel.HeaderBadge count={unreadCount} />
+    <NotificationPanel.HeaderClose />
   </NotificationPanel.Header>
+
+  <NotificationPanel.Tabs
+    tabs={[
+      { id: 'all', label: 'All' },
+      { id: 'unread', label: 'Unread', badge: 3 },
+    ]}
+    activeTab={activeTab}
+    onTabChange={setActiveTab}
+  />
+
+  <NotificationPanel.Actions>
+    <Button onClick={markAllRead}>Mark all read</Button>
+  </NotificationPanel.Actions>
 
   <NotificationPanel.List>
     {notifications.map((n) => (
-      <NotificationPanel.Item
-        key={n.id}
-        title={n.title}
-        message={n.message}
-        time={n.timestamp}
-        read={n.read}
-      />
+      <NotificationPanel.Item key={n.id}>
+        <NotificationPanel.ItemAvatar src={n.avatar} />
+        <NotificationPanel.ItemTitle>{n.title}</NotificationPanel.ItemTitle>
+        <NotificationPanel.ItemMessage>{n.message}</NotificationPanel.ItemMessage>
+        <NotificationPanel.ItemTimestamp>{n.timestamp}</NotificationPanel.ItemTimestamp>
+        <NotificationPanel.ItemAction onClick={() => handleAction(n.id)}>
+          View
+        </NotificationPanel.ItemAction>
+      </NotificationPanel.Item>
     ))}
   </NotificationPanel.List>
 
-  <NotificationPanel.EmptyState message="No notifications" />
+  {notifications.length === 0 && (
+    <NotificationPanel.EmptyState message="No notifications" />
+  )}
 </NotificationPanel>
+```
+
+### Hooks
+
+```tsx
+import { useNotificationPanel } from '@wso2/oxygen-ui';
+
+// Access panel context inside NotificationPanel
+const { open, onClose } = useNotificationPanel();
+```
+
+---
+
+## SearchBar
+
+Search input components with optional advanced filtering.
+
+```tsx
+import { SearchBar, SearchBarWithAdvancedFilter } from '@wso2/oxygen-ui';
+```
+
+### SearchBar Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | - | Search input value |
+| `onChange` | `(value: string) => void` | - | Change handler |
+| `placeholder` | `string` | `'Search...'` | Placeholder text |
+
+### SearchBarWithAdvancedFilter Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | - | Search input value |
+| `onChange` | `(value: string) => void` | - | Change handler |
+| `advancedFilters` | `AdvancedFilterState` | - | Filter state |
+| `onAdvancedFilterChange` | `(filters: AdvancedFilterState) => void` | - | Filter change handler |
+
+### Usage
+
+```tsx
+// Basic search
+<SearchBar
+  value={search}
+  onChange={setSearch}
+  placeholder="Search users..."
+/>
+
+// With advanced filters
+<SearchBarWithAdvancedFilter
+  value={search}
+  onChange={setSearch}
+  advancedFilters={filters}
+  onAdvancedFilterChange={setFilters}
+/>
+```
+
+---
+
+## StatCard
+
+Statistics display card for dashboards.
+
+```tsx
+import { StatCard } from '@wso2/oxygen-ui';
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | required | Stat label |
+| `value` | `string \| number` | required | Stat value |
+| `icon` | `ReactNode` | - | Optional icon |
+| `change` | `number` | - | Percentage change |
+| `trend` | `'up' \| 'down'` | - | Trend direction |
+
+### Usage
+
+```tsx
+<StatCard
+  title="Total Users"
+  value="12,345"
+  change={12.5}
+  trend="up"
+/>
+```
+
+---
+
+## PageContent
+
+Page content wrapper with consistent padding and max-width.
+
+```tsx
+import { PageContent } from '@wso2/oxygen-ui';
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | required | Page content |
+| `maxWidth` | `string \| number` | - | Maximum width |
+
+### Usage
+
+```tsx
+<PageContent>
+  <PageTitle>Dashboard</PageTitle>
+  {/* Page content */}
+</PageContent>
+```
+
+---
+
+## ComplexSelect
+
+Enhanced select component with search and multi-select capabilities.
+
+```tsx
+import { ComplexSelect } from '@wso2/oxygen-ui';
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `options` | `Option[]` | required | Select options |
+| `value` | `string \| string[]` | - | Selected value(s) |
+| `onChange` | `(value) => void` | - | Change handler |
+| `multiple` | `boolean` | `false` | Enable multi-select |
+| `searchable` | `boolean` | `false` | Enable search |
+
+### Usage
+
+```tsx
+<ComplexSelect
+  options={[
+    { value: 'us', label: 'United States' },
+    { value: 'uk', label: 'United Kingdom' },
+    { value: 'ca', label: 'Canada' },
+  ]}
+  value={country}
+  onChange={setCountry}
+  searchable
+/>
 ```
 
 ---
@@ -732,6 +932,71 @@ function ThemeSelector() {
 }
 ```
 
+### useThemeContent
+
+Get content based on current color scheme (light/dark).
+
+```tsx
+import { useThemeContent } from '@wso2/oxygen-ui';
+
+function AdaptiveContent() {
+  const content = useThemeContent({
+    light: 'Light mode content',
+    dark: 'Dark mode content',
+  });
+
+  return <Typography>{content}</Typography>;
+}
+```
+
+### useAppShell
+
+Manage AppShell state (sidebar collapsed, notifications open, etc.).
+
+```tsx
+import { useAppShell } from '@wso2/oxygen-ui';
+
+function MyComponent() {
+  const {
+    sidebarCollapsed,
+    setSidebarCollapsed,
+    notificationPanelOpen,
+    setNotificationPanelOpen,
+  } = useAppShell();
+
+  return (
+    <Button onClick={() => setSidebarCollapsed(!sidebarCollapsed)}>
+      Toggle Sidebar
+    </Button>
+  );
+}
+```
+
+### useNotifications
+
+Manage notification state and actions.
+
+```tsx
+import { useNotifications } from '@wso2/oxygen-ui';
+
+function NotificationManager() {
+  const {
+    notifications,
+    unreadCount,
+    addNotification,
+    markAsRead,
+    markAllAsRead,
+    removeNotification,
+  } = useNotifications();
+
+  return (
+    <Badge badgeContent={unreadCount}>
+      <NotificationIcon />
+    </Badge>
+  );
+}
+```
+
 ### useListingTable
 
 Access ListingTable context (returns null outside Provider).
@@ -765,6 +1030,22 @@ function TableControls() {
 }
 ```
 
+### Component Context Hooks
+
+```tsx
+// Header context
+import { useHeader } from '@wso2/oxygen-ui';
+const headerContext = useHeader();
+
+// Sidebar context
+import { useSidebar } from '@wso2/oxygen-ui';
+const sidebarContext = useSidebar();
+
+// NotificationPanel context
+import { useNotificationPanel } from '@wso2/oxygen-ui';
+const panelContext = useNotificationPanel();
+```
+
 ---
 
 ## Type Exports
@@ -779,20 +1060,117 @@ import type {
 
   // ListingTable
   ListingTableProps,
+  ListingTableContainerProps,
+  ListingTableHeadProps,
+  ListingTableBodyProps,
+  ListingTableFooterProps,
+  ListingTableRowProps,
+  ListingTableCellProps,
   ListingTableProviderProps,
   ListingTableContextValue,
   ListingTableToolbarProps,
+  ListingTableEmptyStateProps,
+  ListingTableDensityControlProps,
+  ListingTableSortLabelProps,
+  ListingTableRowActionsProps,
+  ListingTableCellIconProps,
   ListingTableDensity,
   ListingTableVariant,
   ListingTableSortDirection,
+  ListingSortDirection,
 
-  // Layout components
+  // AppShell
   AppShellProps,
+  AppShellNavbarProps,
+  AppShellSidebarProps,
+  AppShellMainProps,
+  AppShellFooterProps,
+  AppShellNotificationPanelProps,
+
+  // Header
   HeaderProps,
+  HeaderSpacerProps,
+  HeaderToggleProps,
+  HeaderBrandProps,
+  HeaderBrandLogoProps,
+  HeaderBrandTitleProps,
+  HeaderSwitchersProps,
+  HeaderActionsProps,
+  HeaderContextValue,
+
+  // Sidebar
   SidebarProps,
+  SidebarNavProps,
+  SidebarCategoryProps,
+  SidebarCategoryLabelProps,
+  SidebarItemProps,
+  SidebarItemIconProps,
+  SidebarItemLabelProps,
+  SidebarItemBadgeProps,
+  SidebarFooterProps,
+  SidebarUserProps,
+  SidebarUserAvatarProps,
+  SidebarUserNameProps,
+  SidebarUserEmailProps,
+  SidebarContextValue,
+  SidebarItemContextValue,
+
+  // NotificationPanel
+  NotificationPanelProps,
+  NotificationHeaderProps,
+  NotificationHeaderIconProps,
+  NotificationHeaderTitleProps,
+  NotificationHeaderBadgeProps,
+  NotificationHeaderCloseProps,
+  NotificationTabsProps,
+  NotificationTabConfig,
+  NotificationActionsProps,
+  NotificationListProps,
+  NotificationItemProps,
+  NotificationItemAvatarProps,
+  NotificationItemTitleProps,
+  NotificationItemMessageProps,
+  NotificationItemTimestampProps,
+  NotificationItemActionProps,
+  NotificationItemContextValue,
+  NotificationEmptyStateProps,
+  NotificationPanelContextValue,
+  NotificationType,
+  NotificationTypeProps,
+
+  // Other components
+  FooterProps,
+  UserMenuProps,
+  UserMenuUser,
+  CodeBlockProps,
+  ColorSchemeImageProps,
+  ColorSchemeImageAttribute,
+  ComplexSelectProps,
+  PageContentProps,
+  PageTitleProps,
+  PageTitleAvatarProps,
+  PageTitleHeaderProps,
+  PageTitleSubHeaderProps,
+  PageTitleLinkProps,
+  StatCardProps,
+  ThemeSwitcherProps,
+  ThemeSelectProps,
+  SearchBarProps,
+  SearchBarWithAdvancedFilterProps,
+  AdvancedFilterState,
 
   // Form
   WizardProps,
   WizardStep,
+
+  // Hooks
+  AppShellState,
+  AppShellActions,
+  UseAppShellOptions,
+  UseAppShellReturn,
+  NotificationItem,
+  NotificationActions,
+  UseNotificationsOptions,
+  UseNotificationsReturn,
 } from '@wso2/oxygen-ui';
 ```
