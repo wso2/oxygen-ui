@@ -361,8 +361,11 @@ function Dashboard() {
 
 ### Dashboard with Charts
 
+> **Note:** Charts are available in a separate package `@wso2/oxygen-ui-charts-react` built on Recharts.
+
 ```tsx
-import { Grid, Paper, Typography, Box, Charts } from '@wso2/oxygen-ui';
+import { Grid, Paper, Typography, Box } from '@wso2/oxygen-ui';
+import { LineChart, PieChart } from '@wso2/oxygen-ui-charts-react';
 
 function DashboardCharts() {
   const salesData = [
@@ -381,7 +384,7 @@ function DashboardCharts() {
           <Typography variant="h6" gutterBottom>
             Sales Overview
           </Typography>
-          <Charts.LineChart
+          <LineChart
             height={300}
             series={[
               { data: salesData.map((d) => d.sales), label: 'Sales' },
@@ -397,7 +400,7 @@ function DashboardCharts() {
           <Typography variant="h6" gutterBottom>
             Traffic Sources
           </Typography>
-          <Charts.PieChart
+          <PieChart
             height={300}
             series={[
               {

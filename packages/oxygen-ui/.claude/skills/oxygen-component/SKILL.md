@@ -121,15 +121,10 @@ import {
 ## MUI X Components (Use Namespaces)
 
 ```tsx
-import { DataGrid, Charts, DatePickers, TreeView } from '@wso2/oxygen-ui';
+import { DataGrid, DatePickers, TreeView } from '@wso2/oxygen-ui';
 
 // DataGrid
 <DataGrid.DataGrid rows={rows} columns={columns} />
-
-// Charts
-<Charts.LineChart series={series} />
-<Charts.BarChart series={series} />
-<Charts.PieChart series={series} />
 
 // DatePickers
 <DatePickers.DatePicker value={date} onChange={setDate} />
@@ -138,4 +133,15 @@ import { DataGrid, Charts, DatePickers, TreeView } from '@wso2/oxygen-ui';
 <TreeView.SimpleTreeView>
   <TreeView.TreeItem itemId="1" label="Item 1" />
 </TreeView.SimpleTreeView>
+```
+
+## Charts (Separate Package)
+
+```tsx
+// Charts are in a separate package built on Recharts
+import { LineChart, BarChart, PieChart } from '@wso2/oxygen-ui-charts-react';
+
+<LineChart series={series} />
+<BarChart series={series} />
+<PieChart series={series} />
 ```

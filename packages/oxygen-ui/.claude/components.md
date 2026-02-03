@@ -837,8 +837,10 @@ import { CodeBlock } from '@wso2/oxygen-ui';
 MUI X components are exported as namespaces to avoid naming conflicts.
 
 ```tsx
-import { DataGrid, Charts, DatePickers, TreeView, AdapterDateFns } from '@wso2/oxygen-ui';
+import { DataGrid, DatePickers, TreeView, AdapterDateFns } from '@wso2/oxygen-ui';
 ```
+
+> **Note:** Charts are available in a separate package `@wso2/oxygen-ui-charts-react` built on Recharts.
 
 ### DataGrid
 
@@ -855,19 +857,6 @@ import { DataGrid, Charts, DatePickers, TreeView, AdapterDateFns } from '@wso2/o
   columns={columns}
   treeData
 />
-```
-
-### Charts
-
-```tsx
-<Charts.LineChart
-  series={[{ data: [1, 2, 3, 4], label: 'Sales' }]}
-  xAxis={[{ data: ['Jan', 'Feb', 'Mar', 'Apr'], scaleType: 'band' }]}
-/>
-
-<Charts.BarChart series={series} />
-<Charts.PieChart series={series} />
-<Charts.ScatterChart series={series} />
 ```
 
 ### DatePickers
