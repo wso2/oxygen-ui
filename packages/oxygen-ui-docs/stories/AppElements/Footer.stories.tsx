@@ -21,8 +21,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Footer, Box } from '@wso2/oxygen-ui';
 
 /**
- * Footer is a component for displaying application footer with copyright,
- * legal links, and optional version information.
+ * Footer is a compound component for displaying application footer with copyright,
+ * legal links, and version information.
  */
 const meta: Meta<typeof Footer> = {
   title: 'App Elements/Footer',
@@ -36,27 +36,26 @@ const meta: Meta<typeof Footer> = {
 The Footer component displays copyright information and legal links at the bottom of the application.
 
 ### Features
-- Copyright text with automatic year
-- Terms & Conditions link
-- Privacy Policy link
-- Optional version display
-- Custom additional links support
+- Compound component pattern for flexible composition
+- Copyright text element
+- Version display element
+- Link elements for legal and custom links
+- Divider elements for visual separation
 - Responsive layout (stacks on mobile)
+- Auto-organizes left (Copyright/Version/Divider) and right (Links) sections
 
 ### Usage
 \`\`\`tsx
 import { Footer } from '@wso2/oxygen-ui';
 
-<Footer
-  companyName="Acme Corporation"
-  termsUrl="/terms"
-  privacyUrl="/privacy"
-  version="v2.1.0"
-  links={[
-    { label: 'Documentation', url: '/docs' },
-    { label: 'Status', url: '/status' },
-  ]}
-/>
+<Footer>
+  <Footer.Copyright>© 2024 Your Company. All rights reserved.</Footer.Copyright>
+  <Footer.Divider />
+  <Footer.Version>v2.1.0</Footer.Version>
+  <Footer.Link href="/terms">Terms & Conditions</Footer.Link>
+  <Footer.Link href="/privacy">Privacy Policy</Footer.Link>
+  <Footer.Link href="/docs">Documentation</Footer.Link>
+</Footer>
 \`\`\`
         `,
       },
@@ -68,25 +67,17 @@ export default meta;
 type Story = StoryObj<typeof Footer>;
 
 /**
- * Basic footer with default settings.
+ * Basic footer with copyright and legal links.
  */
 export const Default: Story = {
   render: () => (
     <Box sx={{ minHeight: 200, display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ flex: 1 }} />
-      <Footer />
-    </Box>
-  ),
-};
-
-/**
- * Footer with company name.
- */
-export const WithCompanyName: Story = {
-  render: () => (
-    <Box sx={{ minHeight: 200, display: 'flex', flexDirection: 'column' }}>
-      <Box sx={{ flex: 1 }} />
-      <Footer companyName="Acme Corporation" />
+      <Footer>
+        <Footer.Copyright>© {new Date().getFullYear()} Your Company. All rights reserved.</Footer.Copyright>
+        <Footer.Link href="#terms">Terms & Conditions</Footer.Link>
+        <Footer.Link href="#privacy">Privacy Policy</Footer.Link>
+      </Footer>
     </Box>
   ),
 };
@@ -98,10 +89,13 @@ export const WithVersion: Story = {
   render: () => (
     <Box sx={{ minHeight: 200, display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ flex: 1 }} />
-      <Footer
-        companyName="Oxygen UI"
-        version="v2.1.0"
-      />
+      <Footer>
+        <Footer.Copyright>© {new Date().getFullYear()} Oxygen UI. All rights reserved.</Footer.Copyright>
+        <Footer.Divider />
+        <Footer.Version>v2.1.0</Footer.Version>
+        <Footer.Link href="#terms">Terms & Conditions</Footer.Link>
+        <Footer.Link href="#privacy">Privacy Policy</Footer.Link>
+      </Footer>
     </Box>
   ),
 };
@@ -113,16 +107,14 @@ export const WithCustomLinks: Story = {
   render: () => (
     <Box sx={{ minHeight: 200, display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ flex: 1 }} />
-      <Footer
-        companyName="Acme Corporation"
-        termsUrl="/terms"
-        privacyUrl="/privacy"
-        links={[
-          { label: 'Documentation', url: '/docs' },
-          { label: 'Status', url: '/status' },
-          { label: 'Support', url: '/support' },
-        ]}
-      />
+      <Footer>
+        <Footer.Copyright>© {new Date().getFullYear()} Acme Corporation. All rights reserved.</Footer.Copyright>
+        <Footer.Link href="/terms">Terms & Conditions</Footer.Link>
+        <Footer.Link href="/privacy">Privacy Policy</Footer.Link>
+        <Footer.Link href="/docs">Documentation</Footer.Link>
+        <Footer.Link href="/status">Status</Footer.Link>
+        <Footer.Link href="/support">Support</Footer.Link>
+      </Footer>
     </Box>
   ),
 };
@@ -134,33 +126,46 @@ export const Complete: Story = {
   render: () => (
     <Box sx={{ minHeight: 200, display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ flex: 1 }} />
-      <Footer
-        companyName="WSO2 LLC"
-        copyright="© 2025 WSO2 LLC. All rights reserved."
-        termsUrl="https://wso2.com/terms"
-        privacyUrl="https://wso2.com/privacy"
-        version="v3.0.0-beta.1"
-        links={[
-          { label: 'Documentation', url: 'https://docs.wso2.com' },
-          { label: 'GitHub', url: 'https://github.com/wso2' },
-        ]}
-      />
+      <Footer>
+        <Footer.Copyright>© {new Date().getFullYear()} WSO2 LLC. All rights reserved.</Footer.Copyright>
+        <Footer.Divider />
+        <Footer.Version>v3.0.0-beta.1</Footer.Version>
+        <Footer.Link href="https://wso2.com/terms">Terms & Conditions</Footer.Link>
+        <Footer.Link href="https://wso2.com/privacy">Privacy Policy</Footer.Link>
+        <Footer.Link href="https://docs.wso2.com">Documentation</Footer.Link>
+        <Footer.Link href="https://github.com/wso2">GitHub</Footer.Link>
+      </Footer>
     </Box>
   ),
 };
 
 /**
- * Footer with custom copyright text.
+ * Minimal footer with just copyright.
  */
-export const CustomCopyright: Story = {
+export const Minimal: Story = {
   render: () => (
     <Box sx={{ minHeight: 200, display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ flex: 1 }} />
-      <Footer
-        copyright="Made with love by the Oxygen UI team"
-        termsUrl="/terms"
-        privacyUrl="/privacy"
-      />
+      <Footer>
+        <Footer.Copyright>Made with love by the Oxygen UI team</Footer.Copyright>
+      </Footer>
+    </Box>
+  ),
+};
+
+/**
+ * Footer without divider.
+ */
+export const WithoutDivider: Story = {
+  render: () => (
+    <Box sx={{ minHeight: 200, display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ flex: 1 }} />
+      <Footer>
+        <Footer.Copyright>© {new Date().getFullYear()} Your Company. All rights reserved.</Footer.Copyright>
+        <Footer.Version>v2.1.0</Footer.Version>
+        <Footer.Link href="#terms">Terms & Conditions</Footer.Link>
+        <Footer.Link href="#privacy">Privacy Policy</Footer.Link>
+      </Footer>
     </Box>
   ),
 };

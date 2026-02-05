@@ -41,7 +41,7 @@ import {
   useNotifications,
   version as OXYGEN_UI_VERSION
 } from '@wso2/oxygen-ui'
-import { useState, useEffect, type JSX } from 'react'
+import { useState, useEffect, type JSX, useCallback } from 'react'
 import { useNavigate, useLocation, Outlet, Link as NavigateLink, useParams } from 'react-router'
 import Logo from '../components/Logo';
 import {
@@ -60,7 +60,10 @@ import {
   Settings,
   Shield,
   UserCog,
-  Users
+  Users,
+  User as UserIcon,
+  CreditCard,
+  LogOut,
 } from '@wso2/oxygen-ui-icons-react';
 import { mockNotifications, mockOrganizations, mockProjects, mockUser } from '../mock-data';
 import type { Organization, Project } from '../mock-data/types';
@@ -76,7 +79,7 @@ export default function AppLayout(): JSX.Element {
   });
 
   // Determine initial sidebar active item based on route
-  const getInitialActiveMenuItem = (): string => {
+  const getInitialActiveMenuItem = useCallback((): string => {
     const path = location.pathname;
     if (path.includes('/analytics')) return 'analytics';
     if (path.includes('/projects/')) return 'projects';
@@ -84,7 +87,7 @@ export default function AppLayout(): JSX.Element {
     if (path.includes('/organizations')) return 'dashboard';
     if (path.includes('/settings')) return 'settings';
     return 'dashboard';
-  };
+  }, [location.pathname]);
 
   // Notification state (separate concern)
   const {
@@ -131,7 +134,7 @@ export default function AppLayout(): JSX.Element {
     const activeItem = getInitialActiveMenuItem();
     setInitialActiveItem(activeItem);
     shellActions.setActiveMenuItem(activeItem);
-  }, [location.pathname]);
+  }, [getInitialActiveMenuItem, location.pathname, shellActions]);
   const alertNotifications = notifications.filter(
     (n) => n.type === 'warning' || n.type === 'error'
   );
@@ -250,13 +253,35 @@ export default function AppLayout(): JSX.Element {
               flexItem
               sx={{ mx: 1, display: { xs: 'none', sm: 'block' } }}
             />
-            <UserMenu
-              user={mockUser}
-              onProfileClick={() => console.log('Profile clicked')}
-              onSettingsClick={() => console.log('Settings clicked')}
-              onBillingClick={() => console.log('Billing clicked')}
-              onLogout={() => setConfirmDialogOpen(true)}
-            />
+            <UserMenu>
+              <UserMenu.Trigger name={mockUser.name} avatar={mockUser.avatar} />
+              <UserMenu.Header 
+                name={mockUser.name} 
+                email={mockUser.email} 
+                avatar={mockUser.avatar} 
+                role={mockUser.role}
+              />
+              <UserMenu.Item
+                icon={<UserIcon size={18} />}
+                label="Profile"
+                onClick={() => console.log('Profile clicked')}
+              />
+              <UserMenu.Item
+                icon={<Settings size={18} />}
+                label="Settings"
+                onClick={() => console.log('Settings clicked')}
+              />
+              <UserMenu.Item
+                icon={<CreditCard size={18} />}
+                label="Billing"
+                onClick={() => console.log('Billing clicked')}
+              />
+              <UserMenu.Divider />
+              <UserMenu.Logout
+                icon={<LogOut size={18} />}
+                onClick={() => setConfirmDialogOpen(true)}
+              />
+            </UserMenu>
           </Header.Actions>
         </Header>
       </AppShell.Navbar>
@@ -392,12 +417,13 @@ export default function AppLayout(): JSX.Element {
       </AppShell.Main>
 
       <AppShell.Footer>
-        <Footer
-          companyName="WSO2 LLC"
-          version={`oxygen-ui-v${OXYGEN_UI_VERSION}`}
-          termsUrl="#terms"
-          privacyUrl="#privacy"
-        />
+        <Footer>
+          <Footer.Copyright>© {new Date().getFullYear()} WSO2 LLC. All rights reserved.</Footer.Copyright>
+          <Footer.Divider />
+          <Footer.Version>oxygen-ui-v{OXYGEN_UI_VERSION}</Footer.Version>
+          <Footer.Link href="#terms">Terms & Conditions</Footer.Link>
+          <Footer.Link href="#privacy">Privacy Policy</Footer.Link>
+        </Footer>
       </AppShell.Footer>
 
       <AppShell.NotificationPanel>

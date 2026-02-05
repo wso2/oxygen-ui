@@ -28,7 +28,7 @@ const { LocalizationProvider, DatePicker, TimePicker, DateTimePicker } = DatePic
  * Read more at: https://mui.com/x/react-date-pickers/
  */
 const meta: Meta<typeof DatePicker> = {
-  title: 'MUI X/DatePickers',
+  title: 'Inputs/Date Picker',
   component: DatePicker,
   parameters: {
     layout: 'centered',

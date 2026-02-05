@@ -28,7 +28,7 @@ const { SimpleTreeView, TreeItem } = TreeView;
  * Read more at: https://mui.com/x/react-tree-view/
  */
 const meta: Meta<typeof SimpleTreeView> = {
-  title: 'MUI X/TreeView',
+  title: 'Data Display/TreeView',
   component: SimpleTreeView,
   parameters: {
     layout: 'centered',

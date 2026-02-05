@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,12 +16,27 @@
  * under the License.
  */
 
-export { Footer, default } from './Footer';
-export type { FooterProps } from './Footer';
-export { FooterCopyright } from './FooterCopyright';
-export type { FooterCopyrightProps } from './FooterCopyright';
-export { FooterVersion } from './FooterVersion';
-export type { FooterVersionProps } from './FooterVersion';
-export { FooterLink } from './FooterLink';
-export type { FooterLinkProps } from './FooterLink';
-export { FooterDivider } from './FooterDivider';
+import * as React from 'react';
+import Divider from '@mui/material/Divider';
+
+/**
+ * FooterDivider - Vertical divider for the footer.
+ *
+ * Usage:
+ * ```tsx
+ * <Footer.Divider />
+ * ```
+ */
+export const FooterDivider: React.FC = () => {
+  return (
+    <Divider
+      orientation="vertical"
+      flexItem
+      sx={{ display: { xs: 'none', sm: 'block' } }}
+    />
+  );
+};
+
+FooterDivider.displayName = 'Footer.Divider';
+
+export default FooterDivider;

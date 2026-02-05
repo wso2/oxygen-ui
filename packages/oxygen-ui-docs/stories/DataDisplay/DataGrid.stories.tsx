@@ -23,7 +23,7 @@ import { DataGrid } from '@wso2/oxygen-ui';
 const { DataGrid: DataGridComponent } = DataGrid;
 
 const meta: Meta<typeof DataGridComponent> = {
-  title: 'MUI X/DataGrid',
+  title: 'Data Display/DataGrid',
   component: DataGridComponent,
   parameters: {
     layout: 'centered',

@@ -18,11 +18,12 @@
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
-import Divider from '@mui/material/Divider';
 import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
+import { FooterCopyright } from './FooterCopyright';
+import { FooterVersion } from './FooterVersion';
+import { FooterLink } from './FooterLink';
+import { FooterDivider } from './FooterDivider';
 
 /**
  * Theme tokens used in this component:
@@ -84,11 +85,11 @@ const FooterContent = styled(Box, {
 }));
 
 /**
- * Styled copyright section.
+ * Styled left section container.
  */
-const FooterCopyright = styled(Box, {
+const FooterLeft = styled(Box, {
   name: 'MuiFooter',
-  slot: 'Copyright',
+  slot: 'Left',
 })(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -97,33 +98,11 @@ const FooterCopyright = styled(Box, {
 }));
 
 /**
- * Styled copyright text.
+ * Styled right section container (links).
  */
-const FooterCopyrightText = styled(Typography, {
+const FooterRight = styled(Box, {
   name: 'MuiFooter',
-  slot: 'CopyrightText',
-})(({ theme }) => ({
-  color: (theme.vars || theme).palette.text.secondary,
-}));
-
-/**
- * Styled version text.
- */
-const FooterVersion = styled(Typography, {
-  name: 'MuiFooter',
-  slot: 'Version',
-})(({ theme }) => ({
-  color: (theme.vars || theme).palette.text.disabled,
-  fontFamily: 'monospace',
-  fontSize: 11,
-}));
-
-/**
- * Styled links container.
- */
-const FooterLinks = styled(Box, {
-  name: 'MuiFooter',
-  slot: 'Links',
+  slot: 'Right',
 })(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -132,35 +111,11 @@ const FooterLinks = styled(Box, {
 }));
 
 /**
- * Styled footer link.
- */
-const FooterLink = styled(Link, {
-  name: 'MuiFooter',
-  slot: 'Link',
-})(({ theme }) => ({
-  color: (theme.vars || theme).palette.text.secondary,
-  fontSize: 12,
-  '&:hover': {
-    color: (theme.vars || theme).palette.text.primary,
-  },
-}));
-
-/**
- * Props for the Footer component.
+ * Props for the Footer root component.
  */
 export interface FooterProps {
-  /** Copyright text (defaults to current year) */
-  copyright?: string;
-  /** Company/organization name */
-  companyName?: string;
-  /** Link to terms and conditions */
-  termsUrl?: string;
-  /** Link to privacy policy */
-  privacyUrl?: string;
-  /** Optional version string to display */
-  version?: string;
-  /** Additional links to display */
-  links?: Array<{ label: string; url: string }>;
+  /** Child elements (Copyright, Version, Link, Divider components) */
+  children: React.ReactNode;
   /** Additional sx props */
   sx?: SxProps<Theme>;
 }
@@ -182,66 +137,73 @@ export interface FooterProps {
  * Usage:
  * ```tsx
  * <Footer
- *   companyName="Acme Corporation"
- *   termsUrl="/terms"
- *   privacyUrl="/privacy"
- *   version="v2.1.0"
- *   links={[
- *     { label: 'Documentation', url: '/docs' },
- *     { label: 'Status', url: '/status' },
- *   ]}
- * />
+/**
+ * Footer - Application footer component.
+ *
+ * A compound component for building flexible footer layouts.
+ * Use the sub-components to compose your footer structure.
+ *
+ * Composition pattern example:
+ * ```tsx
+ * <Footer>
+ *   <Footer.Copyright>© 2024 Your Company. All rights reserved.</Footer.Copyright>
+ *   <Footer.Divider />
+ *   <Footer.Version>v2.1.0</Footer.Version>
+ *   <Footer.Link href="/terms">Terms & Conditions</Footer.Link>
+ *   <Footer.Link href="/privacy">Privacy Policy</Footer.Link>
+ * </Footer>
  * ```
  */
-export const Footer: React.FC<FooterProps> = ({
-  copyright,
-  companyName = 'Your Company',
-  termsUrl = '#',
-  privacyUrl = '#',
-  version,
-  links = [],
-  sx,
-}) => {
-  const currentYear = new Date().getFullYear();
-  const copyrightText = copyright || `© ${currentYear} ${companyName}. All rights reserved.`;
+const Footer: React.FC<FooterProps> & {
+  Copyright: typeof FooterCopyright;
+  Version: typeof FooterVersion;
+  Link: typeof FooterLink;
+  Divider: typeof FooterDivider;
+} = ({ children, sx }) => {
+  // Separate left section (Copyright, Version, Dividers) from right section (Links)
+  const childrenArray = React.Children.toArray(children);
+  
+  const leftChildren: React.ReactNode[] = [];
+  const rightChildren: React.ReactNode[] = [];
+  
+  childrenArray.forEach((child) => {
+    if (React.isValidElement(child)) {
+      // Copyright, Version, and Divider go to left section
+      if (
+        child.type === FooterCopyright ||
+        child.type === FooterVersion ||
+        child.type === FooterDivider
+      ) {
+        leftChildren.push(child);
+      }
+      // Links go to right section
+      else if (child.type === FooterLink) {
+        rightChildren.push(child);
+      }
+    }
+  });
 
   return (
     <FooterRoot component="footer" sx={sx}>
       <FooterContent>
-        {/* Copyright section */}
-        <FooterCopyright>
-          <FooterCopyrightText variant="caption">
-            {copyrightText}
-          </FooterCopyrightText>
-          {version && (
-            <>
-              <Divider
-                orientation="vertical"
-                flexItem
-                sx={{ display: { xs: 'none', sm: 'block' } }}
-              />
-              <FooterVersion variant="caption">{version}</FooterVersion>
-            </>
-          )}
-        </FooterCopyright>
-
-        {/* Links section */}
-        <FooterLinks>
-          <FooterLink href={termsUrl} underline="hover">
-            Terms & Conditions
-          </FooterLink>
-          <FooterLink href={privacyUrl} underline="hover">
-            Privacy Policy
-          </FooterLink>
-          {links.map((link, index) => (
-            <FooterLink key={index} href={link.url} underline="hover">
-              {link.label}
-            </FooterLink>
-          ))}
-        </FooterLinks>
+        {leftChildren.length > 0 && (
+          <FooterLeft>{leftChildren}</FooterLeft>
+        )}
+        {rightChildren.length > 0 && (
+          <FooterRight>{rightChildren}</FooterRight>
+        )}
       </FooterContent>
     </FooterRoot>
   );
 };
 
+// Attach sub-components
+Footer.Copyright = FooterCopyright;
+Footer.Version = FooterVersion;
+Footer.Link = FooterLink;
+Footer.Divider = FooterDivider;
+
+Footer.displayName = 'Footer';
+
+export { Footer };
 export default Footer;

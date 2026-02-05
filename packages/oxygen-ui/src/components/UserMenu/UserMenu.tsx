@@ -17,203 +17,13 @@
  */
 
 import * as React from 'react';
-import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import Chip from '@mui/material/Chip';
-import Tooltip from '@mui/material/Tooltip';
-import { styled } from '@mui/material/styles';
-import {
-  User as UserIcon,
-  Settings,
-  CreditCard,
-  LogOut,
-  ChevronRight,
-} from '@wso2/oxygen-ui-icons-react';
-
-/**
- * Styled avatar button for the user menu trigger.
- */
-const UserMenuTrigger = styled(IconButton, {
-  name: 'MuiUserMenu',
-  slot: 'Trigger',
-})(({ theme }) => ({
-  padding: theme.spacing(0.5),
-}));
-
-/**
- * Styled avatar for the user menu.
- */
-const UserMenuAvatar = styled(Avatar, {
-  name: 'MuiUserMenu',
-  slot: 'Avatar',
-})(({ theme }) => ({
-  width: 32,
-  height: 32,
-  backgroundColor: (theme.vars || theme).palette.primary.main,
-  color: (theme.vars || theme).palette.primary.contrastText,
-  fontSize: 14,
-  fontWeight: 600,
-}));
-
-/**
- * Styled large avatar for the menu header.
- */
-const UserMenuHeaderAvatar = styled(Avatar, {
-  name: 'MuiUserMenu',
-  slot: 'HeaderAvatar',
-})(({ theme }) => ({
-  width: 40,
-  height: 40,
-  backgroundColor: (theme.vars || theme).palette.primary.main,
-  color: (theme.vars || theme).palette.primary.contrastText,
-  fontSize: 16,
-  fontWeight: 600,
-}));
-
-/**
- * Styled header container.
- */
-const UserMenuHeader = styled(Box, {
-  name: 'MuiUserMenu',
-  slot: 'Header',
-})(({ theme }) => ({
-  paddingLeft: theme.spacing(2),
-  paddingRight: theme.spacing(2),
-  paddingTop: theme.spacing(1.5),
-  paddingBottom: theme.spacing(1.5),
-}));
-
-/**
- * Styled header content container.
- */
-const UserMenuHeaderContent = styled(Box, {
-  name: 'MuiUserMenu',
-  slot: 'HeaderContent',
-})(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: theme.spacing(1.5),
-}));
-
-/**
- * Styled user info container.
- */
-const UserMenuUserInfo = styled(Box, {
-  name: 'MuiUserMenu',
-  slot: 'UserInfo',
-})({
-  flex: 1,
-  minWidth: 0,
-});
-
-/**
- * Styled user name row.
- */
-const UserMenuNameRow = styled(Box, {
-  name: 'MuiUserMenu',
-  slot: 'NameRow',
-})(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: theme.spacing(1),
-}));
-
-/**
- * Styled user name.
- */
-const UserMenuName = styled(Typography, {
-  name: 'MuiUserMenu',
-  slot: 'Name',
-})({
-  fontWeight: 600,
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-});
-
-/**
- * Styled role chip.
- */
-const UserMenuRoleChip = styled(Chip, {
-  name: 'MuiUserMenu',
-  slot: 'RoleChip',
-})({
-  height: 20,
-  fontSize: 11,
-  fontWeight: 600,
-});
-
-/**
- * Styled email text.
- */
-const UserMenuEmail = styled(Typography, {
-  name: 'MuiUserMenu',
-  slot: 'Email',
-})(({ theme }) => ({
-  color: (theme.vars || theme).palette.text.secondary,
-  display: 'block',
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-}));
-
-/**
- * Styled menu item.
- */
-const UserMenuMenuItem = styled(MenuItem, {
-  name: 'MuiUserMenu',
-  slot: 'MenuItem',
-})(({ theme }) => ({
-  paddingTop: theme.spacing(1.5),
-  paddingBottom: theme.spacing(1.5),
-}));
-
-/**
- * Styled logout menu item.
- */
-const UserMenuLogoutItem = styled(MenuItem, {
-  name: 'MuiUserMenu',
-  slot: 'LogoutItem',
-})(({ theme }) => ({
-  paddingTop: theme.spacing(1.5),
-  paddingBottom: theme.spacing(1.5),
-  color: (theme.vars || theme).palette.error.main,
-  '&:hover': {
-    backgroundColor: (theme.vars || theme).palette.error.main,
-    color: (theme.vars || theme).palette.error.contrastText,
-    '& .MuiListItemIcon-root': {
-      color: (theme.vars || theme).palette.error.contrastText,
-    },
-  },
-}));
-
-/**
- * Styled logout icon container.
- */
-const UserMenuLogoutIcon = styled(ListItemIcon, {
-  name: 'MuiUserMenu',
-  slot: 'LogoutIcon',
-})(({ theme }) => ({
-  color: (theme.vars || theme).palette.error.main,
-}));
-
-/**
- * Styled billing chip.
- */
-const UserMenuBillingChip = styled(Chip, {
-  name: 'MuiUserMenu',
-  slot: 'BillingChip',
-})({
-  height: 18,
-  fontSize: 10,
-});
+import { UserMenuContext } from './UserMenuContext';
+import { UserMenuTrigger } from './UserMenuTrigger';
+import { UserMenuHeader } from './UserMenuHeader';
+import { UserMenuItem } from './UserMenuItem';
+import { UserMenuLogout } from './UserMenuLogout';
+import { UserMenuDivider } from './UserMenuDivider';
 
 /**
  * User information for the UserMenu.
@@ -230,58 +40,41 @@ export interface UserMenuUser {
 }
 
 /**
- * Props for the UserMenu component.
+ * Props for the UserMenu root component (composition pattern).
  */
 export interface UserMenuProps {
-  /** User information */
-  user: UserMenuUser;
-  /** Callback when profile is clicked */
-  onProfileClick?: () => void;
-  /** Callback when settings is clicked */
-  onSettingsClick?: () => void;
-  /** Callback when billing is clicked */
-  onBillingClick?: () => void;
-  /** Callback when logout is clicked */
-  onLogout?: () => void;
+  /** Child elements (Trigger, Header, Item components) */
+  children: React.ReactNode;
 }
 
 /**
- * UserMenu - User profile dropdown menu component.
+ * UserMenu - Dropdown menu for user account actions.
  *
- * Features:
- * - User avatar button that opens dropdown
- * - User info header with name, email, and role badge
- * - Menu items for Profile, Settings, Billing, and Logout
- * - Destructive styling for logout action
- * - Role/plan badge display (e.g., "Pro")
+ * A compound component using the composition pattern for flexible menu customization.
  *
- * Usage:
+ * Composition pattern example:
  * ```tsx
- * <UserMenu
- *   user={{
- *     name: 'John Doe',
- *     email: 'john@example.com',
- *     avatar: 'JD',
- *     role: 'Pro'
- *   }}
- *   onProfileClick={() => navigate('/profile')}
- *   onSettingsClick={() => navigate('/settings')}
- *   onBillingClick={() => navigate('/billing')}
- *   onLogout={() => handleLogout()}
- * />
+ * <UserMenu>
+ *   <UserMenu.Trigger user={mockUser} />
+ *   <UserMenu.Header user={mockUser} />
+ *   <UserMenu.Item icon={<UserIcon />} label="Profile" onClick={...} />
+ *   <UserMenu.Item icon={<Settings />} label="Settings" onClick={...} />
+ *   <UserMenu.Divider />
+ *   <UserMenu.Item icon={<LogOut />} label="Log out" destructive onClick={...} />
+ * </UserMenu>
  * ```
  */
-export const UserMenu: React.FC<UserMenuProps> = ({
-  user,
-  onProfileClick,
-  onSettingsClick,
-  onBillingClick,
-  onLogout,
-}) => {
+const UserMenu: React.FC<UserMenuProps> & {
+  Trigger: typeof UserMenuTrigger;
+  Header: typeof UserMenuHeader;
+  Item: typeof UserMenuItem;
+  Logout: typeof UserMenuLogout;
+  Divider: typeof UserMenuDivider;
+} = ({ children }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -289,27 +82,18 @@ export const UserMenu: React.FC<UserMenuProps> = ({
     setAnchorEl(null);
   };
 
-  const handleMenuAction = (callback?: () => void) => {
-    handleClose();
-    callback?.();
-  };
+  // Separate trigger from menu content
+  const childrenArray = React.Children.toArray(children);
+  const triggerChild = childrenArray.find(
+    (child) => React.isValidElement(child) && child.type === UserMenuTrigger
+  );
+  const menuChildren = childrenArray.filter(
+    (child) => React.isValidElement(child) && child.type !== UserMenuTrigger
+  );
 
   return (
-    <>
-      <Tooltip title="Account">
-        <UserMenuTrigger
-          onClick={handleClick}
-          size="small"
-          aria-controls={open ? 'user-menu' : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
-        >
-          <UserMenuAvatar>
-            {user.avatar || user.name.charAt(0)}
-          </UserMenuAvatar>
-        </UserMenuTrigger>
-      </Tooltip>
-
+    <UserMenuContext.Provider value={{ open, anchorEl, handleOpen, handleClose }}>
+      {triggerChild}
       <Menu
         id="user-menu"
         anchorEl={anchorEl}
@@ -326,80 +110,19 @@ export const UserMenu: React.FC<UserMenuProps> = ({
           },
         }}
       >
-        {/* User info header */}
-        <UserMenuHeader>
-          <UserMenuHeaderContent>
-            <UserMenuHeaderAvatar>
-              {user.avatar || user.name.charAt(0)}
-            </UserMenuHeaderAvatar>
-            <UserMenuUserInfo>
-              <UserMenuNameRow>
-                <UserMenuName variant="subtitle2">
-                  {user.name}
-                </UserMenuName>
-                {user.role && (
-                  <UserMenuRoleChip
-                    label={user.role}
-                    size="small"
-                    color="primary"
-                  />
-                )}
-              </UserMenuNameRow>
-              <UserMenuEmail variant="caption">
-                {user.email}
-              </UserMenuEmail>
-            </UserMenuUserInfo>
-          </UserMenuHeaderContent>
-        </UserMenuHeader>
-
-        <Divider />
-
-        {/* Menu items */}
-        <UserMenuMenuItem onClick={() => handleMenuAction(onProfileClick)}>
-          <ListItemIcon>
-            <UserIcon size={18} />
-          </ListItemIcon>
-          <ListItemText primary="Profile" />
-          <ChevronRight size={16} style={{ color: 'var(--mui-palette-text-secondary)' }} />
-        </UserMenuMenuItem>
-
-        <UserMenuMenuItem onClick={() => handleMenuAction(onSettingsClick)}>
-          <ListItemIcon>
-            <Settings size={18} />
-          </ListItemIcon>
-          <ListItemText primary="Settings" />
-          <ChevronRight size={16} style={{ color: 'var(--mui-palette-text-secondary)' }} />
-        </UserMenuMenuItem>
-
-        <UserMenuMenuItem onClick={() => handleMenuAction(onBillingClick)}>
-          <ListItemIcon>
-            <CreditCard size={18} />
-          </ListItemIcon>
-          <ListItemText primary="Billing" />
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-            {user.role && (
-              <UserMenuBillingChip
-                label={user.role}
-                size="small"
-                variant="outlined"
-              />
-            )}
-            <ChevronRight size={16} style={{ color: 'var(--mui-palette-text-secondary)' }} />
-          </Box>
-        </UserMenuMenuItem>
-
-        <Divider />
-
-        {/* Logout - destructive action */}
-        <UserMenuLogoutItem onClick={() => handleMenuAction(onLogout)}>
-          <UserMenuLogoutIcon>
-            <LogOut size={18} />
-          </UserMenuLogoutIcon>
-          <ListItemText primary="Log out" />
-        </UserMenuLogoutItem>
+        {menuChildren}
       </Menu>
-    </>
+    </UserMenuContext.Provider>
   );
 };
 
+// Attach sub-components
+UserMenu.Trigger = UserMenuTrigger;
+UserMenu.Header = UserMenuHeader;
+UserMenu.Item = UserMenuItem;
+UserMenu.Logout = UserMenuLogout;
+UserMenu.Divider = UserMenuDivider;
+UserMenu.displayName = 'UserMenu';
+
+export { UserMenu };
 export default UserMenu;

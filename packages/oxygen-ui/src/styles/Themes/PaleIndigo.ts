@@ -17,7 +17,7 @@
  */
 
 import { extendTheme } from '@mui/material/styles';
-import LowColorBaseTheme from './LowColorBaseTheme';
+import PaleBaseTheme from './PaleBaseTheme';
 import type { OxygenTheme } from './OxygenThemeBase';
 
 /**
@@ -34,7 +34,7 @@ import type { OxygenTheme } from './OxygenThemeBase';
  * </OxygenUIThemeProvider>
  * ```
  */
-const PaleIndigoTheme = extendTheme(LowColorBaseTheme, {
+const PaleIndigoTheme = extendTheme(PaleBaseTheme, {
   colorSchemes: {
     light: {
       palette: {

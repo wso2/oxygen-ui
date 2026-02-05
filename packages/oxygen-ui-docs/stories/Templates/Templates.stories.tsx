@@ -23,6 +23,9 @@ import { Default as DashboardTemplate } from './DashboardTemplate.stories';
 import { Default as EmptyStateTemplate } from './EmptyStateTemplate.stories';
 import { Default as TabbedContentTemplate } from './TabbedContentTemplate.stories';
 import { Default as LoginTemplate } from './LoginTemplate.stories';
+import { Default as CreateServiceFormTemplate } from './CreateServiceFormTemplate.stories';
+import { Default as WizardTemplate } from './WizardTemplate.stories';
+import { Default as FormValidationTemplate } from './FormValidationTemplate.stories';
 
 const meta: Meta = {
   title: 'Templates',
@@ -79,6 +82,30 @@ const templates: TemplateCard[] = [
     previewUrl: '/templates/tabbed-content',
     liveUrl: '/?path=#',
     component: TabbedContentTemplate,
+  },
+  {
+    id: 'create-service-form',
+    title: 'Create Service Form',
+    description: 'A comprehensive multi-section form for service creation with repository details, component configuration, and build preset selection',
+    previewUrl: '/templates/create-service-form',
+    liveUrl: '/?path=#',
+    component: CreateServiceFormTemplate,
+  },
+  {
+    id: 'wizard',
+    title: 'Wizard',
+    description: 'A multi-step wizard template for guided workflows like campaign creation with step navigation and progress tracking',
+    previewUrl: '/templates/wizard',
+    liveUrl: '/?path=#',
+    component: WizardTemplate,
+  },
+  {
+    id: 'form-validation',
+    title: 'Form Validation',
+    description: 'A registration form with React Hook Form and Zod validation, demonstrating real-time validation and error handling',
+    previewUrl: '/templates/form-validation',
+    liveUrl: '/?path=#',
+    component: FormValidationTemplate,
   },
 ];
 
@@ -151,7 +178,7 @@ const TemplatePreview = ({ template }: { template: TemplateCard }) => {
   );
 };
 
-export const Default: Story = {
+export const ListTemplates: Story = {
   render: () => (
     <Box sx={{ padding: 4 }}>
       <Box sx={{ marginBottom: 4 }}>

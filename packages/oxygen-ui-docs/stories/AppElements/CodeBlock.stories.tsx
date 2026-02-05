@@ -22,7 +22,7 @@ import { Stack, Typography } from '@wso2/oxygen-ui';
 import React from 'react';
 
 const meta: Meta<typeof CodeBlock> = {
-  title: 'App Elements/CodeBlock',
+  title: 'App Elements/Code Block',
   component: CodeBlock,
   tags: ['autodocs'],
   parameters: {

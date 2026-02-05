@@ -18,3 +18,18 @@
 
 export { UserMenu, default } from './UserMenu';
 export type { UserMenuProps, UserMenuUser } from './UserMenu';
+
+// Export sub-components separately for direct import
+export { UserMenuTrigger } from './UserMenuTrigger';
+export type { UserMenuTriggerProps } from './UserMenuTrigger';
+
+export { UserMenuHeader } from './UserMenuHeader';
+export type { UserMenuHeaderProps } from './UserMenuHeader';
+
+export { UserMenuItem } from './UserMenuItem';
+export type { UserMenuItemProps } from './UserMenuItem';
+
+export { UserMenuLogout } from './UserMenuLogout';
+export type { UserMenuLogoutProps } from './UserMenuLogout';
+
+export { UserMenuDivider } from './UserMenuDivider';

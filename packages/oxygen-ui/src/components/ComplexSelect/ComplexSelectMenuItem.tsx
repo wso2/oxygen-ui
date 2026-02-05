@@ -66,4 +66,6 @@ export const ComplexSelectMenuItem: ComplexSelectMenuItemComponent = Object.assi
   }
 );
 
+StyledMenuItem.displayName = 'ComplexSelect.MenuItem';
+
 export default ComplexSelectMenuItem;
