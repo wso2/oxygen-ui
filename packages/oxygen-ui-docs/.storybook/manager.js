@@ -20,13 +20,43 @@
 import { addons } from 'storybook/internal/manager-api';
 import { themes } from 'storybook/internal/theming';
 
-addons.setConfig({
-  theme: {
-    ...themes.dark,
-    appBg: '#000000',
-    barBg: '#000000',
-    brandTitle: 'WSO2 Oxygen UI',
-    brandUrl: 'https://github.com/wso2/oxygen-ui',
-    brandImage: './oxygen-ui-react-logo-inverted.svg'
+const getThemeMode = () => {
+  return localStorage.getItem('mui-mode') === 'light' ? 'light' : 'dark';
+};
+
+const applyTheme = (mode) => {
+  addons.setConfig({
+    theme: {
+      ...(mode === 'light' ? themes.light : themes.dark),
+      appBg: (mode === 'light' ? '#ffffff' : '#000000'),
+      barBg: (mode === 'light' ? '#f0f0f0' : '#000000'),
+      brandTitle: 'WSO2 Oxygen UI',
+      brandUrl: 'https://github.com/wso2/oxygen-ui',
+      brandImage: (mode === 'light' ? './oxygen-ui-react-logo.svg' : './oxygen-ui-react-logo-inverted.svg')
+    }
+  });
+};
+
+// Apply initial theme
+let currentMode = getThemeMode();
+applyTheme(currentMode);
+
+// Poll for changes in localStorage (checks every 500ms)
+setInterval(() => {
+  const newMode = getThemeMode();
+  if (newMode !== currentMode) {
+    currentMode = newMode;
+    applyTheme(currentMode);
+  }
+}, 500);
+
+// Also listen for storage events (works across tabs)
+window.addEventListener('storage', (e) => {
+  if (e.key === 'mui-mode') {
+    const newMode = getThemeMode();
+    if (newMode !== currentMode) {
+      currentMode = newMode;
+      applyTheme(currentMode);
+    }
   }
 });
