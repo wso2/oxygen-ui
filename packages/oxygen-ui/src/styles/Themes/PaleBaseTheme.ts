@@ -28,12 +28,12 @@ declare module '@mui/material/styles' {
 }
 
 /**
- * LowColorBaseTheme - Base theme for flat design with solid colors and no blur effects
+ * PaleBaseTheme - Base theme for flat design with solid colors and no blur effects
  * Features: Clean minimalist design, solid colors, no blur effects, minimal shadows
  * This base theme contains all common flat design component styles.
  * Extend this theme to create color variants (PaleGray, PaleIndigo, etc.)
  */
-const LowColorBaseTheme = extendTheme(OxygenThemeBase, {
+const PaleBaseTheme = extendTheme(OxygenThemeBase, {
   shape: {
     borderRadius: 8,
   },
@@ -277,9 +277,9 @@ const lowColorBaseGradient = {
   },
 };
 
-Object.assign(LowColorBaseTheme, lowColorBaseGradient);
-if (LowColorBaseTheme.vars) {
-  Object.assign(LowColorBaseTheme.vars, lowColorBaseGradient);
+Object.assign(PaleBaseTheme, lowColorBaseGradient);
+if (PaleBaseTheme.vars) {
+  Object.assign(PaleBaseTheme.vars, lowColorBaseGradient);
 }
 
-export default LowColorBaseTheme as OxygenTheme;
+export default PaleBaseTheme as OxygenTheme;

@@ -127,7 +127,7 @@ export const Complete: Story = {
     <Box sx={{ minHeight: 200, display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ flex: 1 }} />
       <Footer>
-        <Footer.Copyright>© 2025 WSO2 LLC. All rights reserved.</Footer.Copyright>
+        <Footer.Copyright>© {new Date().getFullYear()} WSO2 LLC. All rights reserved.</Footer.Copyright>
         <Footer.Divider />
         <Footer.Version>v3.0.0-beta.1</Footer.Version>
         <Footer.Link href="https://wso2.com/terms">Terms & Conditions</Footer.Link>

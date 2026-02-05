@@ -133,6 +133,10 @@ const OxygenThemeBase = extendTheme({
           main: '#ff7300',
           contrastText: '#ffffff',
         },
+        secondary: {
+          main: '#757575',
+          contrastText: '#ffffff',
+        },
         background: {
           default: '#fafafa',
           paper: '#ffffff',
@@ -143,6 +147,10 @@ const OxygenThemeBase = extendTheme({
       palette: {
         primary: {
           main: '#ff7300',
+          contrastText: '#ffffff',
+        },
+        secondary: {
+          main: '#757575',
           contrastText: '#ffffff',
         },
         background: {
