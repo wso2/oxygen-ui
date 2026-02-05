@@ -170,7 +170,36 @@ const preview = {
 
     options: {
       storySort: {
-        order: ['Welcome', 'Inputs', 'DataDisplay', '*', 'Theming', 'Animations', 'Utils', 'MUI X'],
+        order: [
+          'Welcome',
+          'App Elements', [
+            'App Shell',
+            'Header',
+            'User Menu',
+            'Sidebar',
+            'Footer',
+            'Page Content',
+            'Page Title',
+            '*'
+          ],
+          'Tables',
+          'Inputs',
+          'Data Display',
+          '*',
+          'Theming',
+          'Animations',
+          'Templates', [
+            'Overview',
+            '*',
+          ],
+          'Utils', [
+            '*',
+            'useTheme',
+            'useThemeContent',
+            'useMediaQuery',
+          ],
+          'MUI X'
+        ],
       },
     },
 

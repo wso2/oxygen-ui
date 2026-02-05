@@ -38,7 +38,7 @@ import { PencilIcon, GitBranchIcon, BoxIcon } from '@wso2/oxygen-ui-icons-react'
  * Built using MUI components with Form wrappers for consistent styling.
  */
 const meta: Meta = {
-  title: 'App Elements/FormElements',
+  title: 'App Elements/Form Elements',
   parameters: {
     layout: 'padded',
     docs: {

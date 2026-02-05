@@ -25,7 +25,7 @@ import { NotificationBanner, Box, Button } from '@wso2/oxygen-ui';
  * important announcements or notifications at the top of the application.
  */
 const meta: Meta<typeof NotificationBanner> = {
-  title: 'App Elements/NotificationBanner',
+  title: 'App Elements/Notification Banner',
   component: NotificationBanner,
   tags: ['autodocs'],
   parameters: {

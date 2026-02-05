@@ -35,7 +35,7 @@ import {
  * headers, tabs, action buttons, and notification lists.
  */
 const meta: Meta<typeof NotificationPanel> = {
-  title: 'App Elements/NotificationPanel',
+  title: 'App Elements/Notification Panel',
   component: NotificationPanel,
   tags: ['autodocs'],
   parameters: {
