@@ -19,13 +19,19 @@
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { UserMenu, Box, Typography } from '@wso2/oxygen-ui';
+import {
+  User as ProfileIcon,
+  Settings,
+  CreditCard,
+  LogOut,
+} from '@wso2/oxygen-ui-icons-react';
 
 /**
- * UserMenu is a component for displaying user profile dropdown menu
+ * UserMenu is a compound component for displaying user profile dropdown menu
  * with navigation options like Profile, Settings, Billing, and Logout.
  */
 const meta: Meta<typeof UserMenu> = {
-  title: 'App Elements/UserMenu',
+  title: 'App Elements/User Menu',
   component: UserMenu,
   tags: ['autodocs'],
   parameters: {
@@ -33,31 +39,58 @@ const meta: Meta<typeof UserMenu> = {
     docs: {
       description: {
         component: `
-The UserMenu component provides a user profile dropdown menu.
+The UserMenu is a compound component that provides a user profile dropdown menu with customizable content.
 
 ### Features
-- User avatar button that opens dropdown
+- Composable structure with Trigger, Header, Item, Logout, and Divider sub-components
+- User avatar button that opens dropdown (supports image URLs or text fallback)
+- Option to show user name next to avatar with \`showName\` prop
 - User info header with name, email, and role badge
-- Menu items for Profile, Settings, Billing, and Logout
-- Destructive styling for logout action
-- Role/plan badge display (e.g., "Pro")
+- Customizable menu items for various actions
+- Dedicated Logout component with destructive styling
+- Role/plan badge display (e.g., "Pro", "Admin")
+
+### Sub-components
+- \`UserMenu.Trigger\` - Avatar button with optional name display
+- \`UserMenu.Header\` - User info header (name, email, role badge)
+- \`UserMenu.Item\` - Regular menu item with icon and label
+- \`UserMenu.Logout\` - Destructive menu item for logout action
+- \`UserMenu.Divider\` - Visual separator between menu sections
 
 ### Usage
 \`\`\`tsx
 import { UserMenu } from '@wso2/oxygen-ui';
+import { User, Settings, CreditCard, LogOut } from '@wso2/oxygen-ui-icons-react';
 
-<UserMenu
-  user={{
-    name: 'John Doe',
-    email: 'john@example.com',
-    avatar: 'JD',
-    role: 'Pro'
-  }}
-  onProfileClick={() => navigate('/profile')}
-  onSettingsClick={() => navigate('/settings')}
-  onBillingClick={() => navigate('/billing')}
-  onLogout={() => handleLogout()}
-/>
+<UserMenu>
+  <UserMenu.Trigger 
+    name="John Doe" 
+    avatar="/avatar.jpg"  // Image URL or null for initials
+    showName  // Optional: show name next to avatar
+  />
+  <UserMenu.Header 
+    name="John Doe" 
+    email="john@example.com" 
+    avatar="/avatar.jpg"
+    role="Pro"  // Optional role badge
+  />
+  <UserMenu.Item
+    icon={<User size={18} />}
+    label="Profile"
+    onClick={() => navigate('/profile')}
+  />
+  <UserMenu.Item
+    icon={<Settings size={18} />}
+    label="Settings"
+    onClick={() => navigate('/settings')}
+  />
+  <UserMenu.Divider />
+  <UserMenu.Logout
+    icon={<LogOut size={18} />}
+    label="Log out"  // Optional, defaults to "Log out"
+    onClick={() => handleLogout()}
+  />
+</UserMenu>
 \`\`\`
         `,
       },
@@ -69,129 +102,190 @@ export default meta;
 type Story = StoryObj<typeof UserMenu>;
 
 /**
- * Basic user menu with all options.
+ * Default composition pattern example with all menu items.
  */
-export const Default: Story = {
+export const Composed: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
       <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
-        Click the avatar to open menu
+        Composition Pattern - Click the avatar to open menu
       </Typography>
-      <UserMenu
-        user={{
-          name: 'John Doe',
-          email: 'john@example.com',
-          avatar: 'JD',
-        }}
-        onProfileClick={() => console.log('Profile clicked')}
-        onSettingsClick={() => console.log('Settings clicked')}
-        onBillingClick={() => console.log('Billing clicked')}
-        onLogout={() => console.log('Logout clicked')}
-      />
+      <UserMenu>
+        <UserMenu.Trigger name="John Doe" avatar="JD" />
+        <UserMenu.Header name="John Doe" email="john@example.com" avatar="JD" role="Pro" />
+        <UserMenu.Item
+          icon={<ProfileIcon size={18} />}
+          label="Profile"
+          onClick={() => console.log('Profile clicked')}
+        />
+        <UserMenu.Item
+          icon={<Settings size={18} />}
+          label="Settings"
+          onClick={() => console.log('Settings clicked')}
+        />
+        <UserMenu.Item
+          icon={<CreditCard size={18} />}
+          label="Billing"
+          onClick={() => console.log('Billing clicked')}
+        />
+        <UserMenu.Divider />
+        <UserMenu.Logout
+          icon={<LogOut size={18} />}
+          onClick={() => console.log('Logout clicked')}
+        />
+      </UserMenu>
     </Box>
   ),
 };
 
 /**
- * User menu with role badge.
+ * Menu with avatar image URL.
  */
-export const WithRole: Story = {
+export const WithAvatarImage: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
       <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
-        User with Pro role badge
+        Avatar with image URL
       </Typography>
-      <UserMenu
-        user={{
-          name: 'Jane Smith',
-          email: 'jane@example.com',
-          avatar: 'JS',
-          role: 'Pro',
-        }}
-        onProfileClick={() => console.log('Profile clicked')}
-        onSettingsClick={() => console.log('Settings clicked')}
-        onBillingClick={() => console.log('Billing clicked')}
-        onLogout={() => console.log('Logout clicked')}
-      />
+      <UserMenu>
+        <UserMenu.Trigger 
+          name="Sarah Wilson" 
+          avatar="https://i.pravatar.cc/150?img=47"
+        />
+        <UserMenu.Header 
+          name="Sarah Wilson" 
+          email="sarah@example.com" 
+          avatar="https://i.pravatar.cc/150?img=47"
+          role="Enterprise" 
+        />
+        <UserMenu.Item
+          icon={<ProfileIcon size={18} />}
+          label="Profile"
+          onClick={() => console.log('Profile clicked')}
+        />
+        <UserMenu.Item
+          icon={<Settings size={18} />}
+          label="Settings"
+          onClick={() => console.log('Settings clicked')}
+        />
+        <UserMenu.Divider />
+        <UserMenu.Logout
+          icon={<LogOut size={18} />}
+          onClick={() => console.log('Logout clicked')}
+        />
+      </UserMenu>
     </Box>
   ),
 };
 
 /**
- * Admin user with admin role.
+ * Trigger with name displayed next to avatar.
  */
-export const AdminUser: Story = {
+export const WithNameVisible: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
       <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
-        Admin user
+        Avatar with name displayed
       </Typography>
-      <UserMenu
-        user={{
-          name: 'Admin User',
-          email: 'admin@company.com',
-          avatar: 'AU',
-          role: 'Admin',
-        }}
-        onProfileClick={() => console.log('Profile clicked')}
-        onSettingsClick={() => console.log('Settings clicked')}
-        onBillingClick={() => console.log('Billing clicked')}
-        onLogout={() => console.log('Logout clicked')}
-      />
+      <UserMenu>
+        <UserMenu.Trigger 
+          name="Alex Morgan" 
+          avatar="AM"
+          showName
+        />
+        <UserMenu.Header 
+          name="Alex Morgan" 
+          email="alex@example.com" 
+          avatar="AM"
+          role="Admin" 
+        />
+        <UserMenu.Item
+          icon={<ProfileIcon size={18} />}
+          label="Profile"
+          onClick={() => console.log('Profile clicked')}
+        />
+        <UserMenu.Item
+          icon={<Settings size={18} />}
+          label="Settings"
+          onClick={() => console.log('Settings clicked')}
+        />
+        <UserMenu.Divider />
+        <UserMenu.Logout
+          icon={<LogOut size={18} />}
+          onClick={() => console.log('Logout clicked')}
+        />
+      </UserMenu>
     </Box>
   ),
 };
 
 /**
- * User without avatar initials (uses first letter of name).
+ * Custom menu items with only profile and logout.
  */
-export const WithoutAvatar: Story = {
+export const MinimalMenu: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
       <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
-        Avatar uses first letter of name
+        Minimal menu with custom items
       </Typography>
-      <UserMenu
-        user={{
-          name: 'Michael Johnson',
-          email: 'michael.johnson@example.com',
-        }}
-        onProfileClick={() => console.log('Profile clicked')}
-        onSettingsClick={() => console.log('Settings clicked')}
-        onBillingClick={() => console.log('Billing clicked')}
-        onLogout={() => console.log('Logout clicked')}
-      />
+      <UserMenu>
+        <UserMenu.Trigger name="Minimal User" avatar="MU" />
+        <UserMenu.Header name="Minimal User" email="minimal@example.com" avatar="MU" />
+        <UserMenu.Item
+          icon={<ProfileIcon size={18} />}
+          label="View Profile"
+          onClick={() => console.log('Profile clicked')}
+        />
+        <UserMenu.Divider />
+        <UserMenu.Logout
+          icon={<LogOut size={18} />}
+          label="Sign Out"
+          onClick={() => console.log('Logout clicked')}
+        />
+      </UserMenu>
     </Box>
   ),
 };
 
 /**
- * Enterprise user with long email.
+ * Admin user with more menu options.
  */
-export const LongEmail: Story = {
+export const AdminMenu: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
       <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
-        Long email gets truncated
+        Admin menu with additional options
       </Typography>
-      <UserMenu
-        user={{
-          name: 'Enterprise User',
-          email: 'enterprise.user.with.very.long.email@corporation.example.com',
-          avatar: 'EU',
-          role: 'Enterprise',
-        }}
-        onProfileClick={() => console.log('Profile clicked')}
-        onSettingsClick={() => console.log('Settings clicked')}
-        onBillingClick={() => console.log('Billing clicked')}
-        onLogout={() => console.log('Logout clicked')}
-      />
+      <UserMenu>
+        <UserMenu.Trigger name="Admin User" avatar="AU" />
+        <UserMenu.Header name="Admin User" email="admin@company.com" avatar="AU" role="Admin" />
+        <UserMenu.Item
+          icon={<ProfileIcon size={18} />}
+          label="Profile"
+          onClick={() => console.log('Profile clicked')}
+        />
+        <UserMenu.Item
+          icon={<Settings size={18} />}
+          label="Settings"
+          onClick={() => console.log('Settings clicked')}
+        />
+        <UserMenu.Item
+          icon={<Settings size={18} />}
+          label="Admin Panel"
+          onClick={() => console.log('Admin panel clicked')}
+        />
+        <UserMenu.Divider />
+        <UserMenu.Logout
+          icon={<LogOut size={18} />}
+          onClick={() => console.log('Logout clicked')}
+        />
+      </UserMenu>
     </Box>
   ),
 };
 
 /**
- * Multiple user menus (showing different users).
+ * Multiple user menus showing different user roles.
  */
 export const MultipleUsers: Story = {
   render: () => (
@@ -200,46 +294,138 @@ export const MultipleUsers: Story = {
         <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: 'block' }}>
           Free User
         </Typography>
-        <UserMenu
-          user={{
-            name: 'Free User',
-            email: 'free@example.com',
-            avatar: 'FU',
-          }}
-          onProfileClick={() => console.log('Profile clicked')}
-          onLogout={() => console.log('Logout clicked')}
-        />
+        <UserMenu>
+          <UserMenu.Trigger name="Free User" avatar="FU" />
+          <UserMenu.Header name="Free User" email="free@example.com" avatar="FU" />
+          <UserMenu.Item
+            icon={<ProfileIcon size={18} />}
+            label="Profile"
+            onClick={() => console.log('Profile clicked')}
+          />
+          <UserMenu.Divider />
+          <UserMenu.Logout
+            icon={<LogOut size={18} />}
+            onClick={() => console.log('Logout clicked')}
+          />
+        </UserMenu>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: 'block' }}>
           Pro User
         </Typography>
-        <UserMenu
-          user={{
-            name: 'Pro User',
-            email: 'pro@example.com',
-            avatar: 'PU',
-            role: 'Pro',
-          }}
-          onProfileClick={() => console.log('Profile clicked')}
-          onLogout={() => console.log('Logout clicked')}
-        />
+        <UserMenu>
+          <UserMenu.Trigger name="Pro User" avatar="PU" />
+          <UserMenu.Header name="Pro User" email="pro@example.com" avatar="PU" role="Pro" />
+          <UserMenu.Item
+            icon={<ProfileIcon size={18} />}
+            label="Profile"
+            onClick={() => console.log('Profile clicked')}
+          />
+          <UserMenu.Item
+            icon={<CreditCard size={18} />}
+            label="Billing"
+            onClick={() => console.log('Billing clicked')}
+          />
+          <UserMenu.Divider />
+          <UserMenu.Logout
+            icon={<LogOut size={18} />}
+            onClick={() => console.log('Logout clicked')}
+          />
+        </UserMenu>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: 'block' }}>
-          Admin
+          Enterprise
         </Typography>
-        <UserMenu
-          user={{
-            name: 'Admin',
-            email: 'admin@example.com',
-            avatar: 'AD',
-            role: 'Admin',
-          }}
-          onProfileClick={() => console.log('Profile clicked')}
-          onLogout={() => console.log('Logout clicked')}
-        />
+        <UserMenu>
+          <UserMenu.Trigger name="Enterprise" avatar="EN" />
+          <UserMenu.Header name="Enterprise" email="enterprise@example.com" avatar="EN" role="Enterprise" />
+          <UserMenu.Item
+            icon={<ProfileIcon size={18} />}
+            label="Profile"
+            onClick={() => console.log('Profile clicked')}
+          />
+          <UserMenu.Item
+            icon={<Settings size={18} />}
+            label="Settings"
+            onClick={() => console.log('Settings clicked')}
+          />
+          <UserMenu.Item
+            icon={<CreditCard size={18} />}
+            label="Billing"
+            onClick={() => console.log('Billing clicked')}
+          />
+          <UserMenu.Divider />
+          <UserMenu.Logout
+            icon={<LogOut size={18} />}
+            onClick={() => console.log('Logout clicked')}
+          />
+        </UserMenu>
       </Box>
+    </Box>
+  ),
+};
+
+/**
+ * User without custom avatar - uses first letter of name.
+ */
+export const WithoutCustomAvatar: Story = {
+  render: () => (
+    <Box sx={{ p: 4 }}>
+      <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+        Avatar uses first letter of name
+      </Typography>
+      <UserMenu>
+        <UserMenu.Trigger name="Michael Johnson" />
+        <UserMenu.Header name="Michael Johnson" email="michael.johnson@example.com" />
+        <UserMenu.Item
+          icon={<ProfileIcon size={18} />}
+          label="Profile"
+          onClick={() => console.log('Profile clicked')}
+        />
+        <UserMenu.Divider />
+        <UserMenu.Logout
+          icon={<LogOut size={18} />}
+          onClick={() => console.log('Logout clicked')}
+        />
+      </UserMenu>
+    </Box>
+  ),
+};
+
+/**
+ * Long email that gets truncated in the header.
+ */
+export const LongEmail: Story = {
+  render: () => (
+    <Box sx={{ p: 4 }}>
+      <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+        Long email gets truncated
+      </Typography>
+      <UserMenu>
+        <UserMenu.Trigger name="Enterprise User" avatar="EU" />
+        <UserMenu.Header 
+          name="Enterprise User" 
+          email="enterprise.user.with.very.long.email@corporation.example.com" 
+          avatar="EU" 
+          role="Enterprise" 
+        />
+        <UserMenu.Item
+          icon={<ProfileIcon size={18} />}
+          label="Profile"
+          onClick={() => console.log('Profile clicked')}
+        />
+        <UserMenu.Item
+          icon={<CreditCard size={18} />}
+          label="Billing"
+          onClick={() => console.log('Billing clicked')}
+        />
+        <UserMenu.Divider />
+        <UserMenu.Logout
+          icon={<LogOut size={18} />}
+          onClick={() => console.log('Logout clicked')}
+        />
+      </UserMenu>
     </Box>
   ),
 };
