@@ -1,5 +1,11 @@
 # @wso2/oxygen-ui-icons-react
 
+## 0.5.0
+
+### Minor Changes
+
+- [#488](https://github.com/wso2/oxygen-ui/pull/488) [`3de0d68`](https://github.com/wso2/oxygen-ui/commit/3de0d68dfec0966ead144e340ca1d8750929eb52) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Update Footer and UserMenu components to be composable
+
 ## 0.4.0
 
 ### Minor Changes
