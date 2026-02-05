@@ -92,6 +92,7 @@ export const UserMenuTrigger: React.FC<UserMenuTriggerProps> = ({ name, avatar, 
         onClick={handleOpen}
         size="small"
         showName={showName}
+        aria-label={showName ? name : 'Account'}
         aria-controls={open ? 'user-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}

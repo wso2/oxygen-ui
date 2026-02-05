@@ -21,7 +21,11 @@ import { addons } from 'storybook/internal/manager-api';
 import { themes } from 'storybook/internal/theming';
 
 const getThemeMode = () => {
-  return localStorage.getItem('mui-mode') === 'light' ? 'light' : 'dark';
+  try {
+    return localStorage.getItem('mui-mode') === 'light' ? 'light' : 'dark';
+  } catch {
+    return 'dark';
+  }
 };
 
 const applyTheme = (mode) => {

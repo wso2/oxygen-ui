@@ -50,7 +50,7 @@ export interface UserMenuProps {
 /**
  * UserMenu - Dropdown menu for user account actions.
  *
- * A compound component that supports both composition pattern (new) and legacy props pattern (backward compatibility).
+ * A compound component using the composition pattern for flexible menu customization.
  *
  * Composition pattern example:
  * ```tsx
@@ -62,16 +62,6 @@ export interface UserMenuProps {
  *   <UserMenu.Divider />
  *   <UserMenu.Item icon={<LogOut />} label="Log out" destructive onClick={...} />
  * </UserMenu>
- * ```
- *
- * Legacy pattern example (for backward compatibility):
- * ```tsx
- * <UserMenu
- *   user={user}
- *   onProfileClick={...}
- *   onSettingsClick={...}
- *   onLogout={...}
- * />
  * ```
  */
 const UserMenu: React.FC<UserMenuProps> & {
