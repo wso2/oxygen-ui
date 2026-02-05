@@ -40,3 +40,5 @@ export const useUserMenu = () => {
   }
   return context;
 };
+
+UserMenuContext.displayName = 'UserMenu.Context';

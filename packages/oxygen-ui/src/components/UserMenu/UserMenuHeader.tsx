@@ -176,3 +176,5 @@ export const UserMenuHeader: React.FC<UserMenuHeaderProps> = ({ name, email, ava
     </>
   );
 };
+
+UserMenuHeader.displayName = 'UserMenu.Header';

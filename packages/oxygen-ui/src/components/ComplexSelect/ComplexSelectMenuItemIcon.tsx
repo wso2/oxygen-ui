@@ -35,4 +35,6 @@ export function ComplexSelectMenuItemIcon({ children, ...props }: ComplexSelectM
   return <StyledListItemIcon {...props}>{children}</StyledListItemIcon>;
 }
 
+ComplexSelectMenuItemIcon.displayName = 'ComplexSelect.MenuItemIcon';
+
 export default ComplexSelectMenuItemIcon;

@@ -33,4 +33,6 @@ export function ComplexSelectDivider({ ...props }: ComplexSelectDividerProps) {
   return <StyledDivider {...props} />;
 }
 
+ComplexSelectDivider.displayName = 'ComplexSelect.Divider';
+
 export default ComplexSelectDivider;

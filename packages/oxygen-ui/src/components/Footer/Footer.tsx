@@ -203,5 +203,7 @@ Footer.Version = FooterVersion;
 Footer.Link = FooterLink;
 Footer.Divider = FooterDivider;
 
+Footer.displayName = 'Footer';
+
 export { Footer };
 export default Footer;

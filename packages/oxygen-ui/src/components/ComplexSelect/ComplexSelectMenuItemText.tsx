@@ -35,4 +35,6 @@ export function ComplexSelectMenuItemText({ primary, secondary, ...props }: Comp
   );
 }
 
+ComplexSelectMenuItemText.displayName = 'ComplexSelect.MenuItemText';
+
 export default ComplexSelectMenuItemText;

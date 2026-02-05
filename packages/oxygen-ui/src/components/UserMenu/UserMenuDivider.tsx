@@ -23,3 +23,5 @@ import Divider from '@mui/material/Divider';
  * UserMenu.Divider - Separator between menu sections.
  */
 export const UserMenuDivider: React.FC = () => <Divider />;
+
+UserMenuDivider.displayName = 'UserMenu.Divider';

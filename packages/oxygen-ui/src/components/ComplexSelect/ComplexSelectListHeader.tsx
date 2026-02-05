@@ -35,4 +35,6 @@ export function ComplexSelectListHeader({ children, ...props }: ComplexSelectLis
   return <StyledListSubheader {...props}>{children}</StyledListSubheader>;
 }
 
+ComplexSelectListHeader.displayName = 'ComplexSelect.ListHeader';
+
 export default ComplexSelectListHeader;

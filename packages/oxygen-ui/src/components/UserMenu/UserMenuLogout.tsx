@@ -80,3 +80,5 @@ export const UserMenuLogout: React.FC<UserMenuLogoutProps> = ({
     </StyledLogoutItem>
   );
 };
+
+UserMenuLogout.displayName = 'UserMenu.Logout';

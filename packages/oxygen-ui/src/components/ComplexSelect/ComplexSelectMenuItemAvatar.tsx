@@ -53,4 +53,6 @@ export function ComplexSelectMenuItemAvatar({ children, ...props }: ComplexSelec
   );
 }
 
+ComplexSelectMenuItemAvatar.displayName = 'ComplexSelect.MenuItemAvatar';
+
 export default ComplexSelectMenuItemAvatar;

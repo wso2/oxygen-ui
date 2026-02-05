@@ -100,3 +100,5 @@ export const UserMenuItem: React.FC<UserMenuItemProps> = ({
     </StyledMenuItem>
   );
 };
+
+UserMenuItem.displayName = 'UserMenu.Item';

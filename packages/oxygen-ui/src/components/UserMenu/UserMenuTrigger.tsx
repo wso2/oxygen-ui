@@ -104,3 +104,5 @@ export const UserMenuTrigger: React.FC<UserMenuTriggerProps> = ({ name, avatar, 
     </Tooltip>
   );
 };
+
+UserMenuTrigger.displayName = 'UserMenu.Trigger';
