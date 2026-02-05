@@ -16,12 +16,25 @@
  * under the License.
  */
 
-export { Footer, default } from './Footer';
-export type { FooterProps } from './Footer';
-export { FooterCopyright } from './FooterCopyright';
-export type { FooterCopyrightProps } from './FooterCopyright';
-export { FooterVersion } from './FooterVersion';
-export type { FooterVersionProps } from './FooterVersion';
-export { FooterLink } from './FooterLink';
-export type { FooterLinkProps } from './FooterLink';
-export { FooterDivider } from './FooterDivider';
+import * as React from 'react';
+import Divider from '@mui/material/Divider';
+
+/**
+ * FooterDivider - Vertical divider for the footer.
+ *
+ * Usage:
+ * ```tsx
+ * <Footer.Divider />
+ * ```
+ */
+export const FooterDivider: React.FC = () => {
+  return (
+    <Divider
+      orientation="vertical"
+      flexItem
+      sx={{ display: { xs: 'none', sm: 'block' } }}
+    />
+  );
+};
+
+export default FooterDivider;
