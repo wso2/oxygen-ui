@@ -67,3 +67,6 @@ packages/oxygen-ui-docs/.storybook/public/sample
 # Claude Code files
 CLAUDE.md
 docs/
+
+.ai/
+.claude/

@@ -57,19 +57,20 @@ import { DataGrid, DatePickers, TreeView } from '@wso2/oxygen-ui';
 - `ChoreoTheme` - Choreo product theme (indigo-violet gradient)
 - `ClassicTheme` - Traditional styling
 - `HighContrastTheme` - Accessibility-focused
-- `LowColorBaseTheme` - Minimal color palette
+- `PaleBaseTheme` - Minimal color palette
 - `PaleGrayTheme` - Soft gray tones
 - `PaleIndigoTheme` - Soft indigo tones
 
 ## Custom Oxygen Components
 
-- **Layout**: `AppShell`, `Header`, `Sidebar`, `Footer`, `PageContent`
+- **Layout**: `AppShell`, `Layout`, `Header`, `Sidebar`, `Footer`, `PageContent`
 - **Data Display**: `ListingTable`, `PageTitle`, `CodeBlock`, `StatCard`
 - **Forms**: `Form.CardButton`, `Form.Section`, `Form.Stack`, `Form.Wizard`
 - **Inputs**: `SearchBar`, `SearchBarWithAdvancedFilter`, `ComplexSelect`
 - **Feedback**: `NotificationPanel`, `NotificationBanner`
 - **Theming**: `OxygenUIThemeProvider`, `ThemeSwitcher`, `ColorSchemeToggle`, `ColorSchemeImage`
 - **User**: `UserMenu`
+- **Animations**: `ParticleBackground`
 
 ## Detailed Documentation
 

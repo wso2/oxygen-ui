@@ -56,10 +56,9 @@ function App() {
             <Header.Spacer />
             <Header.Actions>
               <ColorSchemeToggle />
-              <UserMenu
-                user={{ name: 'John Doe', email: 'john@example.com' }}
-                onSignOut={() => console.log('Sign out')}
-              />
+              <UserMenu>
+                <UserMenu.Trigger name="John Doe" />
+              </UserMenu>
             </Header.Actions>
           </Header>
         </AppShell.Navbar>
@@ -99,7 +98,9 @@ function App() {
         </AppShell.Main>
 
         <AppShell.Footer>
-          <Footer companyName="WSO2 LLC" />
+          <Footer>
+            <Footer.Copyright>© 2025 WSO2 LLC. All rights reserved.</Footer.Copyright>
+          </Footer>
         </AppShell.Footer>
       </AppShell>
     </OxygenUIThemeProvider>
@@ -1142,7 +1143,7 @@ import {
   ChoreoTheme,
   ClassicTheme,
   HighContrastTheme,
-  LowColorBaseTheme,
+  PaleBaseTheme,
   PaleGrayTheme,
   PaleIndigoTheme,
   useThemeSwitcher,
@@ -1157,7 +1158,7 @@ const themes = [
   { key: 'choreo', label: 'Choreo', theme: ChoreoTheme },
   { key: 'classic', label: 'Classic', theme: ClassicTheme },
   { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
-  { key: 'lowColor', label: 'Low Color', theme: LowColorBaseTheme },
+  { key: 'paleBase', label: 'Pale Base', theme: PaleBaseTheme },
   { key: 'paleGray', label: 'Pale Gray', theme: PaleGrayTheme },
   { key: 'paleIndigo', label: 'Pale Indigo', theme: PaleIndigoTheme },
 ];

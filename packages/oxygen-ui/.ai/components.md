@@ -7,13 +7,19 @@ Complete API reference for custom Oxygen UI components. For MUI components, refe
 - [OxygenUIThemeProvider](#oxygenuitthemeprovider)
 - [ListingTable](#listingtable)
 - [AppShell](#appshell)
+- [Layout](#layout)
 - [Header](#header)
 - [Sidebar](#sidebar)
+- [Footer](#footer)
+- [UserMenu](#usermenu)
 - [Form](#form)
 - [NotificationPanel](#notificationpanel)
+- [NotificationBanner](#notificationbanner)
+- [ParticleBackground](#particlebackground)
 - [Other Components](#other-components)
 - [MUI X Namespaces](#mui-x-namespaces)
 - [Hooks](#hooks)
+- [Utilities](#utilities)
 
 ---
 
@@ -296,6 +302,45 @@ import { AppShell } from '@wso2/oxygen-ui';
     </NotificationPanel>
   </AppShell.NotificationPanel>
 </AppShell>
+```
+
+---
+
+## Layout
+
+Lightweight layout compound component for building flex-based page structures.
+
+```tsx
+import { Layout } from '@wso2/oxygen-ui';
+```
+
+### Sub-components
+
+| Component | Description |
+|-----------|-------------|
+| `Layout.Sidebar` | Sidebar area |
+| `Layout.Navbar` | Top navigation area |
+| `Layout.Content` | Main content area |
+| `Layout.Header` | Header area |
+
+### Props
+
+Extends MUI `BoxProps`. The root component renders a flex row container.
+
+### Usage
+
+```tsx
+<Layout>
+  <Layout.Navbar>
+    <Header>...</Header>
+  </Layout.Navbar>
+  <Layout.Sidebar>
+    <Sidebar>...</Sidebar>
+  </Layout.Sidebar>
+  <Layout.Content>
+    {/* Page content */}
+  </Layout.Content>
+</Layout>
 ```
 
 ---
@@ -752,6 +797,81 @@ import { ComplexSelect } from '@wso2/oxygen-ui';
 
 ---
 
+## NotificationBanner
+
+Dismissible system alert banner for top-level announcements.
+
+```tsx
+import { NotificationBanner } from '@wso2/oxygen-ui';
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `visible` | `boolean` | `true` | Whether the banner is visible |
+| `severity` | `'info' \| 'warning' \| 'error' \| 'success'` | `'info'` | Banner severity/type |
+| `title` | `string` | - | Optional banner title |
+| `message` | `string` | required | Banner message text |
+| `actionLabel` | `string` | - | Optional action button label |
+| `onAction` | `() => void` | - | Action button callback |
+| `onDismiss` | `() => void` | - | Dismiss callback |
+| `sx` | `SxProps` | - | Custom styles |
+
+### Usage
+
+```tsx
+<NotificationBanner
+  visible={showBanner}
+  severity="info"
+  title="Scheduled Maintenance"
+  message="The system will be undergoing maintenance on Dec 20th."
+  actionLabel="Learn More"
+  onAction={() => openMaintenanceInfo()}
+  onDismiss={() => setShowBanner(false)}
+/>
+```
+
+---
+
+## ParticleBackground
+
+Animated particle canvas background with mouse interaction. Adapts to light/dark color scheme.
+
+```tsx
+import { ParticleBackground } from '@wso2/oxygen-ui';
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `opacity` | `number` | `0.5` | Canvas opacity |
+| `baseDensity` | `number` | `0.12` | Particles per 10,000 px² |
+| `maxSpeed` | `number` | `0.3` | Maximum speed in px per frame |
+| `radius` | `[number, number]` | `[2.0, 3.2]` | Min and max particle radius |
+| `linkDist` | `number` | `210` | Maximum distance to draw lines between particles |
+| `linkAlpha` | `number` | `0.2` | Base opacity of the lines |
+| `mouseInfluence` | `number` | `110` | Radius of mouse influence |
+| `repelStrength` | `number` | `0.35` | Strength of the repel effect |
+| `clickBurst` | `number` | `120` | Impulse on click |
+
+### Usage
+
+```tsx
+// Fixed background behind content
+<ParticleBackground opacity={0.3} />
+
+// Higher density with stronger interaction
+<ParticleBackground
+  baseDensity={0.2}
+  mouseInfluence={150}
+  repelStrength={0.5}
+/>
+```
+
+---
+
 ## Other Components
 
 ### ColorSchemeToggle
@@ -774,34 +894,131 @@ import { ThemeSwitcher } from '@wso2/oxygen-ui';
 <ThemeSwitcher />  // Requires OxygenUIThemeProvider with themes
 ```
 
-### Footer
+---
 
-Application footer component.
+## Footer
+
+Application footer compound component with composition pattern.
 
 ```tsx
 import { Footer } from '@wso2/oxygen-ui';
-
-<Footer
-  companyName="WSO2 LLC"
-  year={2025}
-  links={[
-    { label: 'Privacy', href: '/privacy' },
-    { label: 'Terms', href: '/terms' },
-  ]}
-/>
 ```
 
-### UserMenu
+### Sub-components
 
-User profile dropdown menu.
+| Component | Description |
+|-----------|-------------|
+| `Footer.Copyright` | Copyright text display |
+| `Footer.Version` | Version number display (monospace, muted) |
+| `Footer.Link` | Footer link (auto-placed in right section) |
+| `Footer.Divider` | Visual divider between footer items |
+
+### Footer Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | required | Footer sub-components |
+| `sx` | `SxProps` | - | Custom styles |
+
+### Usage
+
+```tsx
+<Footer>
+  <Footer.Copyright>© 2025 WSO2 LLC. All rights reserved.</Footer.Copyright>
+  <Footer.Divider />
+  <Footer.Version>v2.1.0</Footer.Version>
+  <Footer.Link href="/terms">Terms & Conditions</Footer.Link>
+  <Footer.Link href="/privacy">Privacy Policy</Footer.Link>
+</Footer>
+```
+
+> **Note:** `Footer.Copyright`, `Footer.Version`, and `Footer.Divider` are placed in the left section. `Footer.Link` elements are placed in the right section. Layout is responsive (stacks on mobile).
+
+---
+
+## UserMenu
+
+User profile dropdown menu compound component.
 
 ```tsx
 import { UserMenu } from '@wso2/oxygen-ui';
+```
 
-<UserMenu
-  user={{ name: 'John Doe', email: 'john@example.com', avatar: '/avatar.png' }}
-  onSignOut={() => signOut()}
-/>
+### Sub-components
+
+| Component | Description |
+|-----------|-------------|
+| `UserMenu.Trigger` | Avatar button that opens the menu |
+| `UserMenu.Header` | User info section (name, email, avatar, role badge) |
+| `UserMenu.Item` | Menu item with icon, label, and optional badge |
+| `UserMenu.Logout` | Destructive logout menu item |
+| `UserMenu.Divider` | Menu divider |
+
+### UserMenu Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | required | Menu sub-components |
+
+### UserMenuTrigger Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `name` | `string` | required | User display name |
+| `avatar` | `string \| null` | - | Avatar image URL |
+| `showName` | `boolean` | `false` | Show name text after avatar |
+
+### UserMenuHeader Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `name` | `string` | required | User display name |
+| `email` | `string` | required | User email address |
+| `avatar` | `string \| null` | - | Avatar image URL |
+| `role` | `string` | - | Role badge text (e.g., "Pro", "Admin") |
+
+### UserMenuItem Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `icon` | `ReactNode` | - | Left-side icon |
+| `label` | `string` | required | Item label text |
+| `badge` | `string` | - | Right-side badge/chip |
+| `onClick` | `() => void` | - | Click handler |
+
+### UserMenuLogout Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `icon` | `ReactNode` | - | Left-side icon |
+| `label` | `string` | `'Log out'` | Item label text |
+| `onClick` | `() => void` | - | Click handler |
+
+### UserMenuUser Type
+
+```tsx
+interface UserMenuUser {
+  name: string;
+  email: string;
+  avatar?: string;
+  role?: string;
+}
+```
+
+### Usage
+
+```tsx
+import { UserMenu } from '@wso2/oxygen-ui';
+import { UserIcon, SettingsIcon, LogOutIcon } from '@wso2/oxygen-ui-icons-react';
+
+<UserMenu>
+  <UserMenu.Trigger name="John Doe" avatar="/avatar.png" />
+  <UserMenu.Header name="John Doe" email="john@example.com" role="Admin" />
+  <UserMenu.Item icon={<UserIcon size={20} />} label="Profile" onClick={() => {}} />
+  <UserMenu.Item icon={<SettingsIcon size={20} />} label="Settings" onClick={() => {}} />
+  <UserMenu.Divider />
+  <UserMenu.Logout icon={<LogOutIcon size={20} />} onClick={() => signOut()} />
+</UserMenu>
 ```
 
 ### PageTitle
@@ -1037,6 +1254,38 @@ const panelContext = useNotificationPanel();
 
 ---
 
+## Utilities
+
+### formatRelativeTime
+
+Format a date as a relative time string.
+
+```tsx
+import { formatRelativeTime } from '@wso2/oxygen-ui';
+
+formatRelativeTime(new Date(Date.now() - 1000 * 60 * 5));
+// Returns: "5 minutes ago"
+
+formatRelativeTime(new Date(Date.now() - 1000 * 60 * 60 * 2));
+// Returns: "2 hours ago"
+```
+
+Returns: `"Just now"` | `"X minute(s) ago"` | `"X hour(s) ago"` | `"X day(s) ago"` | locale date string (after 7 days).
+
+### pxToRem
+
+Convert pixel values to rem based on 14px base font size.
+
+```tsx
+import { pxToRem } from '@wso2/oxygen-ui';
+
+pxToRem(14); // "1rem"
+pxToRem(28); // "2rem"
+pxToRem(7);  // "0.5rem"
+```
+
+---
+
 ## Type Exports
 
 Import types for TypeScript usage:
@@ -1127,10 +1376,27 @@ import type {
   NotificationType,
   NotificationTypeProps,
 
-  // Other components
+  // Footer
   FooterProps,
+  FooterCopyrightProps,
+  FooterVersionProps,
+  FooterLinkProps,
+
+  // UserMenu
   UserMenuProps,
   UserMenuUser,
+  UserMenuTriggerProps,
+  UserMenuHeaderProps,
+  UserMenuItemProps,
+  UserMenuLogoutProps,
+
+  // NotificationBanner
+  NotificationBannerProps,
+
+  // ParticleBackground
+  ParticleBackgroundProps,
+
+  // Other components
   CodeBlockProps,
   ColorSchemeImageProps,
   ColorSchemeImageAttribute,

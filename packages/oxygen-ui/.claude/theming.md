@@ -20,7 +20,7 @@
 | Choreo | `ChoreoTheme` | Choreo product theme (indigo-violet gradient) |
 | Classic | `ClassicTheme` | Standard flat design |
 | High Contrast | `HighContrastTheme` | Accessibility-focused with high contrast colors |
-| Low Color Base | `LowColorBaseTheme` | Minimal color palette for subtle interfaces |
+| Pale Base | `PaleBaseTheme` | Minimal color palette for subtle interfaces |
 | Pale Gray | `PaleGrayTheme` | Soft gray tones for a muted appearance |
 | Pale Indigo | `PaleIndigoTheme` | Soft indigo tones for a calm interface |
 
@@ -32,7 +32,7 @@ import {
   ChoreoTheme,
   ClassicTheme,
   HighContrastTheme,
-  LowColorBaseTheme,
+  PaleBaseTheme,
   PaleGrayTheme,
   PaleIndigoTheme,
 } from '@wso2/oxygen-ui';
@@ -70,7 +70,7 @@ import {
   ChoreoTheme,
   ClassicTheme,
   HighContrastTheme,
-  LowColorBaseTheme,
+  PaleBaseTheme,
   PaleGrayTheme,
   PaleIndigoTheme,
 } from '@wso2/oxygen-ui';
@@ -83,7 +83,7 @@ import {
     { key: 'choreo', label: 'Choreo', theme: ChoreoTheme },
     { key: 'classic', label: 'Classic', theme: ClassicTheme },
     { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
-    { key: 'lowColor', label: 'Low Color', theme: LowColorBaseTheme },
+    { key: 'paleBase', label: 'Pale Base', theme: PaleBaseTheme },
     { key: 'paleGray', label: 'Pale Gray', theme: PaleGrayTheme },
     { key: 'paleIndigo', label: 'Pale Indigo', theme: PaleIndigoTheme },
   ]}
