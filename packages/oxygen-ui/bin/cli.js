@@ -136,6 +136,7 @@ function parseArgs() {
   const command = args.find(arg => !arg.startsWith('--'));
   const flags = {
     claude: args.includes('--claude'),
+    internal: args.includes('--internal'),
   };
   return { command, flags };
 }
@@ -320,7 +321,7 @@ function copyClaudeFiles() {
 /**
  * Copy skills directories (Claude mode)
  */
-function copySkillsDir() {
+function copySkillsDir(includeInternal = false) {
   if (!existsSync(skillsSourceDir)) {
     console.log('  No skills directory found in source.');
     return 0;
@@ -331,10 +332,10 @@ function copySkillsDir() {
   // Internal-only skills excluded from consumer distribution
   const INTERNAL_SKILLS = ['oxygen-sync'];
 
-  // Get list of skill directories (excluding internal-only skills)
+  // Get list of skill directories (include internal skills when --internal flag is used)
   const skillDirs = readdirSync(skillsSourceDir).filter(entry => {
     const fullPath = join(skillsSourceDir, entry);
-    return statSync(fullPath).isDirectory() && !INTERNAL_SKILLS.includes(entry);
+    return statSync(fullPath).isDirectory() && (includeInternal || !INTERNAL_SKILLS.includes(entry));
   });
 
   let totalCopied = 0;
@@ -387,14 +388,14 @@ function initDefault() {
 /**
  * Initialize Oxygen UI AI documentation - Claude mode
  */
-function initClaude() {
-  console.log('\nOxygen UI - AI Integration Setup (Claude Code)\n');
+function initClaude(includeInternal = false) {
+  console.log(`\nOxygen UI - AI Integration Setup (Claude Code${includeInternal ? ' + Internal' : ''})\n`);
 
   // Copy .claude/ files
   copyClaudeFiles();
 
-  // Copy skills
-  copySkillsDir();
+  // Copy skills (include internal skills when --internal flag is used)
+  copySkillsDir(includeInternal);
 
   // Update root CLAUDE.md
   console.log('Updating root CLAUDE.md...\n');
@@ -413,13 +414,17 @@ function initClaude() {
   console.log('  - /oxygen-component  Generate Oxygen UI components');
   console.log('  - /oxygen-layout     Generate app layouts');
   console.log('  - /oxygen-form       Generate forms with validation');
-  console.log('  - /oxygen-migrate    Migrate MUI code to Oxygen UI\n');
+  console.log('  - /oxygen-migrate    Migrate MUI code to Oxygen UI');
+  if (includeInternal) {
+    console.log('  - /oxygen-sync       Sync AI docs with source (internal)');
+  }
+  console.log('');
 }
 
 /**
  * Initialize Oxygen UI AI documentation
  */
-async function init(claudeFlag) {
+async function init(claudeFlag, internalFlag = false) {
   let claudeMode = claudeFlag;
 
   if (!claudeFlag) {
@@ -428,8 +433,11 @@ async function init(claudeFlag) {
   }
 
   if (claudeMode) {
-    initClaude();
+    initClaude(internalFlag);
   } else {
+    if (internalFlag) {
+      console.log('\n  Note: --internal flag is only supported with Claude Code mode (--claude).\n');
+    }
     initDefault();
   }
 }
@@ -449,14 +457,14 @@ function updateDefault() {
 /**
  * Update Oxygen UI AI documentation - Claude mode
  */
-function updateClaude() {
-  console.log('\nOxygen UI - Updating AI Documentation (Claude Code)\n');
+function updateClaude(includeInternal = false) {
+  console.log(`\nOxygen UI - Updating AI Documentation (Claude Code${includeInternal ? ' + Internal' : ''})\n`);
 
   // Refresh .claude/ files
   copyClaudeFiles();
 
-  // Refresh skills
-  copySkillsDir();
+  // Refresh skills (include internal skills when --internal flag is used)
+  copySkillsDir(includeInternal);
 
   console.log('Update complete!\n');
 }
@@ -464,7 +472,7 @@ function updateClaude() {
 /**
  * Update Oxygen UI AI documentation
  */
-async function update(claudeFlag) {
+async function update(claudeFlag, internalFlag = false) {
   let claudeMode = claudeFlag;
 
   if (!claudeFlag) {
@@ -485,7 +493,7 @@ async function update(claudeFlag) {
   }
 
   if (claudeMode) {
-    updateClaude();
+    updateClaude(internalFlag);
   } else {
     updateDefault();
   }
@@ -506,7 +514,8 @@ Commands:
   help      Show this help message
 
 Options:
-  --claude  Skip prompt and use Claude Code mode directly
+  --claude    Skip prompt and use Claude Code mode directly
+  --internal  Include internal/maintainer skills (e.g., /oxygen-sync)
 
 Interactive Behavior:
   init      Prompts to select your AI assistant (Claude Code or Other)
@@ -531,6 +540,10 @@ Examples:
   npx @wso2/oxygen-ui update          # Auto-detects previous mode
   npx @wso2/oxygen-ui update --claude # Force Claude mode update
 
+Internal (WSO2 maintainers):
+  npx @wso2/oxygen-ui init --claude --internal   # Include internal skills
+  npx @wso2/oxygen-ui update --claude --internal  # Update with internal skills
+
 Available Skills (Claude mode only):
   /oxygen-component  Generate Oxygen UI React components
   /oxygen-layout     Generate app layouts with AppShell
@@ -548,10 +561,10 @@ const { command, flags } = parseArgs();
 (async () => {
   switch (command) {
     case 'init':
-      await init(flags.claude);
+      await init(flags.claude, flags.internal);
       break;
     case 'update':
-      await update(flags.claude);
+      await update(flags.claude, flags.internal);
       break;
     case 'help':
     case '--help':

@@ -61,11 +61,13 @@ import { BarChart } from '@mui/x-charts';
 
 **After:**
 ```tsx
-import { DataGrid, DatePickers, Charts } from '@wso2/oxygen-ui';
+import { DataGrid, DatePickers } from '@wso2/oxygen-ui';
 
 const { DataGrid: DataGridComponent } = DataGrid;
 const { DatePicker } = DatePickers;
-const { BarChart } = Charts;
+
+// For Charts, use the separate package
+import { BarChart } from '@wso2/oxygen-ui-charts-react';
 ```
 
 ### Icons

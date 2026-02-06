@@ -68,13 +68,16 @@ import { SimpleTreeView } from '@mui/x-tree-view';
 
 **After:**
 ```tsx
-import { DataGrid, DatePickers, Charts, TreeView } from '@wso2/oxygen-ui';
+import { DataGrid, DatePickers, TreeView } from '@wso2/oxygen-ui';
 
 // Use as namespaces
 <DataGrid.DataGrid rows={rows} columns={columns} />
 <DatePickers.DatePicker value={date} onChange={setDate} />
-<Charts.BarChart series={series} />
 <TreeView.SimpleTreeView items={items} />
+
+// For Charts, use the separate package
+import { BarChart } from '@wso2/oxygen-ui-charts-react';
+<BarChart series={series} />
 ```
 
 ## Theme Provider Migration

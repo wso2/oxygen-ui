@@ -56,10 +56,9 @@ function App() {
             <Header.Spacer />
             <Header.Actions>
               <ColorSchemeToggle />
-              <UserMenu
-                user={{ name: 'John Doe', email: 'john@example.com' }}
-                onSignOut={() => console.log('Sign out')}
-              />
+              <UserMenu>
+                <UserMenu.Trigger name="John Doe" />
+              </UserMenu>
             </Header.Actions>
           </Header>
         </AppShell.Navbar>
@@ -99,7 +98,9 @@ function App() {
         </AppShell.Main>
 
         <AppShell.Footer>
-          <Footer companyName="WSO2 LLC" />
+          <Footer>
+            <Footer.Copyright>© 2025 WSO2 LLC. All rights reserved.</Footer.Copyright>
+          </Footer>
         </AppShell.Footer>
       </AppShell>
     </OxygenUIThemeProvider>
@@ -361,8 +362,11 @@ function Dashboard() {
 
 ### Dashboard with Charts
 
+> **Note:** Charts are available in a separate package `@wso2/oxygen-ui-charts-react` built on Recharts.
+
 ```tsx
-import { Grid, Paper, Typography, Box, Charts } from '@wso2/oxygen-ui';
+import { Grid, Paper, Typography, Box } from '@wso2/oxygen-ui';
+import { LineChart, PieChart } from '@wso2/oxygen-ui-charts-react';
 
 function DashboardCharts() {
   const salesData = [
@@ -381,7 +385,7 @@ function DashboardCharts() {
           <Typography variant="h6" gutterBottom>
             Sales Overview
           </Typography>
-          <Charts.LineChart
+          <LineChart
             height={300}
             series={[
               { data: salesData.map((d) => d.sales), label: 'Sales' },
@@ -397,7 +401,7 @@ function DashboardCharts() {
           <Typography variant="h6" gutterBottom>
             Traffic Sources
           </Typography>
-          <Charts.PieChart
+          <PieChart
             height={300}
             series={[
               {
@@ -1136,8 +1140,12 @@ import {
   OxygenTheme,
   AcrylicOrangeTheme,
   AcrylicPurpleTheme,
+  ChoreoTheme,
   ClassicTheme,
   HighContrastTheme,
+  PaleBaseTheme,
+  PaleGrayTheme,
+  PaleIndigoTheme,
   useThemeSwitcher,
   Select,
   MenuItem,
@@ -1147,8 +1155,12 @@ const themes = [
   { key: 'default', label: 'Default', theme: OxygenTheme },
   { key: 'orange', label: 'Acrylic Orange', theme: AcrylicOrangeTheme },
   { key: 'purple', label: 'Acrylic Purple', theme: AcrylicPurpleTheme },
+  { key: 'choreo', label: 'Choreo', theme: ChoreoTheme },
   { key: 'classic', label: 'Classic', theme: ClassicTheme },
   { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
+  { key: 'paleBase', label: 'Pale Base', theme: PaleBaseTheme },
+  { key: 'paleGray', label: 'Pale Gray', theme: PaleGrayTheme },
+  { key: 'paleIndigo', label: 'Pale Indigo', theme: PaleIndigoTheme },
 ];
 
 function ThemeSelector() {

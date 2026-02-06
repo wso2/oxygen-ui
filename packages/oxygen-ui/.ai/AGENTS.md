@@ -21,7 +21,7 @@ function App() {
 1. **Import from `@wso2/oxygen-ui`** - Never import directly from `@mui/material`
 2. **Always wrap with `OxygenUIThemeProvider`** - Required at app root
 3. **Icons from `@wso2/oxygen-ui-icons-react`** - Separate package for icons
-4. **MUI X uses namespaces** - `DataGrid.DataGrid`, `Charts.LineChart`, `DatePickers.DatePicker`
+4. **MUI X uses namespaces** - `DataGrid.DataGrid`, `DatePickers.DatePicker`, `TreeView.TreeView`
 5. **Use theme tokens** - Use `sx` prop with theme values, not hardcoded colors/spacing
 
 ## Import Patterns
@@ -34,9 +34,9 @@ import { Button, TextField, Box, Typography, ListingTable } from '@wso2/oxygen-u
 import { HomeIcon, SettingsIcon, UserIcon } from '@wso2/oxygen-ui-icons-react';
 
 // MUI X - use as namespaces
-import { DataGrid, Charts, DatePickers, TreeView } from '@wso2/oxygen-ui';
+import { DataGrid, DatePickers, TreeView } from '@wso2/oxygen-ui';
 <DataGrid.DataGrid rows={rows} columns={columns} />
-<Charts.LineChart series={series} />
+<DatePickers.DatePicker value={date} onChange={setDate} />
 ```
 
 ## Theme Tokens (Always Use)
@@ -57,23 +57,25 @@ import { DataGrid, Charts, DatePickers, TreeView } from '@wso2/oxygen-ui';
 - `ChoreoTheme` - Choreo product theme (indigo-violet gradient)
 - `ClassicTheme` - Traditional styling
 - `HighContrastTheme` - Accessibility-focused
+- `PaleBaseTheme` - Minimal color palette
+- `PaleGrayTheme` - Soft gray tones
+- `PaleIndigoTheme` - Soft indigo tones
 
 ## Custom Oxygen Components
 
-- **Layout**: `AppShell`, `Header`, `Sidebar`, `Footer`
-- **Data Display**: `ListingTable`, `PageTitle`, `CodeBlock`
-- **Forms**: `Form.TextInput`, `Form.SelectInput`, `Form.Wizard`
+- **Layout**: `AppShell`, `Layout`, `Header`, `Sidebar`, `Footer`, `PageContent`
+- **Data Display**: `ListingTable`, `PageTitle`, `CodeBlock`, `StatCard`
+- **Forms**: `Form.CardButton`, `Form.Section`, `Form.Stack`, `Form.Wizard`
+- **Inputs**: `SearchBar`, `SearchBarWithAdvancedFilter`, `ComplexSelect`
 - **Feedback**: `NotificationPanel`, `NotificationBanner`
-- **Theming**: `OxygenUIThemeProvider`, `ThemeSwitcher`, `ColorSchemeToggle`
+- **Theming**: `OxygenUIThemeProvider`, `ThemeSwitcher`, `ColorSchemeToggle`, `ColorSchemeImage`
+- **User**: `UserMenu`
+- **Animations**: `ParticleBackground`
 
 ## Detailed Documentation
 
 For comprehensive API reference and examples, see:
-- [Component API Reference](./.ai/oxygen-ui/components.md)
-- [UI Patterns & Examples](./.ai/oxygen-ui/patterns.md)
-- [Theme Customization](./.ai/oxygen-ui/theming.md)
-- [Migration Guide](./.ai/oxygen-ui/migration.md)
-
----
-
-For Claude Code users with enhanced features (invokable skills): `npx @wso2/oxygen-ui init --claude`
+- [Component API Reference](./components.md)
+- [UI Patterns & Examples](./patterns.md)
+- [Theme Customization](./theming.md)
+- [Migration Guide](./migration.md)
