@@ -75,53 +75,63 @@ declare module '@mui/material/styles' {
 
 export interface OxygenTheme extends Theme, CustomThemeProperties {}
 
+const OxygenUIPrimitives = {
+  fontSize: 14,
+  primaryColor: '#ff7300',
+  secondaryColor: '#757575',
+};
+
 const OxygenThemeBase = extendTheme({
   cssVarPrefix: 'oxygen',
   colorSchemeSelector: 'data-color-scheme',
   typography: {
     fontFamily: "'Inter Variable', sans-serif",
     fontWeightRegular: 400,
-    fontSize: 14,
+    fontSize: OxygenUIPrimitives.fontSize,
     h1: {
-      fontSize: pxToRem(36),
+      fontSize: pxToRem(OxygenUIPrimitives.fontSize + 14),
       fontWeight: 400,
     },
     h2: {
-      fontSize: pxToRem(30),
+      fontSize: pxToRem(OxygenUIPrimitives.fontSize + 10),
       fontWeight: 400,
     },
     h3: {
-      fontSize: pxToRem(24),
+      fontSize: pxToRem(OxygenUIPrimitives.fontSize + 8),
       fontWeight: 400,
     },
     h4: {
-      fontSize: pxToRem(18),
+      fontSize: pxToRem(OxygenUIPrimitives.fontSize + 6),
       fontWeight: 400,
     },
     h5: {
-      fontSize: pxToRem(16),
+      fontSize: pxToRem(OxygenUIPrimitives.fontSize + 2),
       fontWeight: 400,
     },
     h6: {
-      fontSize: pxToRem(14),
+      fontSize: pxToRem(OxygenUIPrimitives.fontSize),
       fontWeight: 500,
     },
     subtitle1: {
-      fontSize: pxToRem(18),
+      fontSize: pxToRem(OxygenUIPrimitives.fontSize + 4),
     },
     subtitle2: {
-      fontSize: pxToRem(14),
+      fontSize: pxToRem(OxygenUIPrimitives.fontSize),
       fontWeight: 400,
     },
     body1: {
-      fontSize: pxToRem(14),
+      fontSize: pxToRem(OxygenUIPrimitives.fontSize),
     },
     body2: {
-      fontSize: pxToRem(12),
+      fontSize: pxToRem(OxygenUIPrimitives.fontSize - 1), // Will use by the labels in the components
       fontWeight: 400,
     },
+    button: {
+      fontSize: pxToRem(OxygenUIPrimitives.fontSize),
+      fontWeight: 500,
+    },
     caption: {
-      fontSize: pxToRem(11),
+      fontSize: pxToRem(OxygenUIPrimitives.fontSize - 3),
       fontWeight: 400,
     },
   },
@@ -130,11 +140,11 @@ const OxygenThemeBase = extendTheme({
     light: {
       palette: {
         primary: {
-          main: '#ff7300',
+          main: OxygenUIPrimitives.primaryColor,
           contrastText: '#ffffff',
         },
         secondary: {
-          main: '#757575',
+          main: OxygenUIPrimitives.secondaryColor,
           contrastText: '#ffffff',
         },
         background: {
@@ -146,11 +156,11 @@ const OxygenThemeBase = extendTheme({
     dark: {
       palette: {
         primary: {
-          main: '#ff7300',
+          main: OxygenUIPrimitives.primaryColor,
           contrastText: '#ffffff',
         },
         secondary: {
-          main: '#757575',
+          main: OxygenUIPrimitives.secondaryColor,
           contrastText: '#ffffff',
         },
         background: {

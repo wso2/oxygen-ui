@@ -174,7 +174,7 @@ export default function Projects(): JSX.Element {
                     </IconButton>
                   </Box>
                   <Typography
-                    variant="body2"
+                    variant="body1"
                     color="text.secondary"
                     sx={{
                       mb: 3,
