@@ -73,7 +73,12 @@ export const UserMenuLogout: React.FC<UserMenuLogoutProps> = ({
     <StyledLogoutItem onClick={handleClick}>
       {icon && (
         <ListItemIcon>
-          {icon}
+          {React.isValidElement(icon)
+            ? React.cloneElement(icon, {
+                ...(icon.props as object),
+                size: (icon.props as { size?: number }).size ?? 18,
+              } as React.Attributes)
+            : icon}
         </ListItemIcon>
       )}
       <ListItemText primary={label} />

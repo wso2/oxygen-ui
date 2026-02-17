@@ -75,6 +75,7 @@ const SidebarItemButton = styled(ListItemButton, {
   borderRadius: theme.shape.borderRadius,
   marginLeft: theme.spacing(1),
   marginRight: theme.spacing(1),
+  color: (theme.vars || theme).palette.text.primary,
   transition: theme.transitions.create(['padding-left', 'padding-right'], {
     easing: theme.transitions.easing.sharp,
     duration: ownerState.collapsed

@@ -122,8 +122,8 @@ export default function LoginEditorView(): JSX.Element {
             <ArrowLeft size={20} />
           </IconButton>
           <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="h6">Login Flow Editor</Typography>
-            <Typography variant="caption" color="text.secondary">
+            <Typography variant="h4">Login Flow Editor</Typography>
+            <Typography variant="body2" color="text.secondary">
               Basic Login Flow
             </Typography>
           </Box>
@@ -319,10 +319,10 @@ export default function LoginEditorView(): JSX.Element {
           >
             <Card sx={{ width: '100%', maxWidth: 450, m: 3 }}>
               <CardContent sx={{ p: 4 }}>
-                <Typography variant="h5" gutterBottom>
+                <Typography variant="h1" gutterBottom>
                   {formConfig.title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 3 }}>
                   {formConfig.subtitle}
                 </Typography>
 

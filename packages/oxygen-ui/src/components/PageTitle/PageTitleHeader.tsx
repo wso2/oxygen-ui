@@ -37,17 +37,13 @@ const PageTitleHeaderStyled = styled(Typography, {
   name: 'MuiPageTitle',
   slot: 'Header',
 })<TypographyProps>(({ theme }) => ({
-  fontWeight: 500,
-  fontSize: '1.5rem',
-  lineHeight: 1.334,
-  letterSpacing: '0em',
   color: theme.vars?.palette.text.primary || theme.palette.text.primary,
 }));
 
 /**
  * PageTitle Header component
  */
-const PageTitleHeader: React.FC<PageTitleHeaderProps> = ({ children, variant = 'h4', ...props }) => {
+const PageTitleHeader: React.FC<PageTitleHeaderProps> = ({ children, variant = 'h1', ...props }) => {
   return (
     <PageTitleHeaderStyled variant={variant} {...props}>
       {children}

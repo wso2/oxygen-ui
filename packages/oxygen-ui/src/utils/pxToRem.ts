@@ -17,8 +17,8 @@
  */
 
 /**
- * Helper function to convert px to rem based on base font size (14px)
+ * Helper function to convert px to rem based on standard base font size (16px)
  * @param size - The size in pixels
  * @returns The size in rem units
  */
-export const pxToRem = (size: number): string => `${size / 14}rem`;
+export const pxToRem = (size: number): string => `${size / 16}rem`;

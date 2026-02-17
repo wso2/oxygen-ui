@@ -60,7 +60,7 @@ export default function LoginBox(): JSX.Element {
   return (
     <form onSubmit={handleLogin}>
       <Box sx={{ mb: 6 }}>
-        <Typography variant="h3" gutterBottom>
+        <Typography variant="h1" gutterBottom>
           Login to Account
         </Typography>
 

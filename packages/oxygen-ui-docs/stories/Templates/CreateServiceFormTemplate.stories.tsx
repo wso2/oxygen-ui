@@ -27,15 +27,12 @@ import {
   TextField,
   Select,
   MenuItem,
-  Typography,
-  Stack,
 } from '@wso2/oxygen-ui'
 import {
   CircleQuestionMark,
   PencilIcon,
   GitBranchIcon,
   BoxIcon,
-  ExternalLinkIcon,
 } from '@wso2/oxygen-ui-icons-react'
 
 const meta: Meta = {
