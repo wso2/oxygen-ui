@@ -1,6 +1,6 @@
 {
   "name": "@wso2/oxygen-ui-icons-react",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "WSO2 Oxygen UI Icons - Powered with Lucide icons library",
   "type": "module",
   "main": "./dist/index.js",
