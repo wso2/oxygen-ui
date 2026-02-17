@@ -85,8 +85,8 @@ export const UserMenuItem: React.FC<UserMenuItemProps> = ({
         <ListItemIcon>
           {React.isValidElement(icon)
             ? React.cloneElement(icon, {
-                size: (icon.props as { size?: number }).size ?? 18,
                 ...(icon.props as object),
+                size: (icon.props as { size?: number }).size ?? 18,
               } as React.Attributes)
             : icon}
         </ListItemIcon>

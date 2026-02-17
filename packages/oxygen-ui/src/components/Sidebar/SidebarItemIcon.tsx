@@ -85,8 +85,8 @@ export const SidebarItemIcon: React.FC<SidebarItemIconProps> = ({
 
   const iconWithSize = React.isValidElement(children)
     ? React.cloneElement(children, {
-        size: (children.props as { size?: number }).size ?? 20,
         ...(children.props as object),
+        size: (children.props as { size?: number }).size ?? 20,
       } as React.Attributes)
     : children;
 
