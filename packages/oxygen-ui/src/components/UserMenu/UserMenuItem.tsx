@@ -83,7 +83,12 @@ export const UserMenuItem: React.FC<UserMenuItemProps> = ({
     <StyledMenuItem onClick={handleClick}>
       {icon && (
         <ListItemIcon>
-          {icon}
+          {React.isValidElement(icon)
+            ? React.cloneElement(icon, {
+                size: (icon.props as { size?: number }).size ?? 18,
+                ...(icon.props as object),
+              } as React.Attributes)
+            : icon}
         </ListItemIcon>
       )}
       <ListItemText primary={label} />

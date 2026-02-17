@@ -262,23 +262,23 @@ export default function AppLayout(): JSX.Element {
                 role={mockUser.role}
               />
               <UserMenu.Item
-                icon={<UserIcon size={18} />}
+                icon={<UserIcon />}
                 label="Profile"
                 onClick={() => console.log('Profile clicked')}
               />
               <UserMenu.Item
-                icon={<Settings size={18} />}
+                icon={<Settings />}
                 label="Settings"
                 onClick={() => console.log('Settings clicked')}
               />
               <UserMenu.Item
-                icon={<CreditCard size={18} />}
+                icon={<CreditCard />}
                 label="Billing"
                 onClick={() => console.log('Billing clicked')}
               />
               <UserMenu.Divider />
               <UserMenu.Logout
-                icon={<LogOut size={18} />}
+                icon={<LogOut />}
                 onClick={() => setConfirmDialogOpen(true)}
               />
             </UserMenu>
@@ -300,16 +300,16 @@ export default function AppLayout(): JSX.Element {
               <Sidebar.Category>
                 <Link component={NavigateLink} to="/organizations">
                   <Sidebar.Item id="dashboard">
-                    <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemIcon><Home /></Sidebar.ItemIcon>
                     <Sidebar.ItemLabel>Organizations</Sidebar.ItemLabel>
                   </Sidebar.Item>
                 </Link>
                 <Sidebar.Item id="account">
-                  <Sidebar.ItemIcon><UserCog size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon><UserCog /></Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Account</Sidebar.ItemLabel>
                 </Sidebar.Item>
                 <Sidebar.Item id="billing">
-                  <Sidebar.ItemIcon><CircleDollarSign size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon><CircleDollarSign /></Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Billing</Sidebar.ItemLabel>
                 </Sidebar.Item>
               </Sidebar.Category>
@@ -321,13 +321,13 @@ export default function AppLayout(): JSX.Element {
                 <Sidebar.Category>
                   <Link component={NavigateLink} to="/organizations">
                     <Sidebar.Item id="dashboard">
-                      <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
+                      <Sidebar.ItemIcon><Home /></Sidebar.ItemIcon>
                       <Sidebar.ItemLabel>Organizations</Sidebar.ItemLabel>
                     </Sidebar.Item>
                   </Link>
                   <Link component={NavigateLink} to={`/o/${selectedOrg?.orgId}/analytics`}>
                     <Sidebar.Item id="analytics">
-                      <Sidebar.ItemIcon><BarChart3 size={20} /></Sidebar.ItemIcon>
+                      <Sidebar.ItemIcon><BarChart3 /></Sidebar.ItemIcon>
                       <Sidebar.ItemLabel>Analytics</Sidebar.ItemLabel>
                     </Sidebar.Item>
                   </Link>
@@ -337,31 +337,31 @@ export default function AppLayout(): JSX.Element {
                 <Sidebar.Category>
                   <Sidebar.CategoryLabel>Management</Sidebar.CategoryLabel>
                   <Sidebar.Item id="users">
-                    <Sidebar.ItemIcon><Users size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemIcon><Users /></Sidebar.ItemIcon>
                     <Sidebar.ItemLabel>Users</Sidebar.ItemLabel>
                     <Sidebar.ItemBadge>3</Sidebar.ItemBadge>
                     <Sidebar.Item id="users-list">
-                      <Sidebar.ItemIcon><Users size={20} /></Sidebar.ItemIcon>
+                      <Sidebar.ItemIcon><Users /></Sidebar.ItemIcon>
                       <Sidebar.ItemLabel>All Users</Sidebar.ItemLabel>
                     </Sidebar.Item>
                     <Sidebar.Item id="users-roles">
-                      <Sidebar.ItemIcon><UserCog size={20} /></Sidebar.ItemIcon>
+                      <Sidebar.ItemIcon><UserCog /></Sidebar.ItemIcon>
                       <Sidebar.ItemLabel>Roles</Sidebar.ItemLabel>
                     </Sidebar.Item>
                     <Sidebar.Item id="users-permissions">
-                      <Sidebar.ItemIcon><Lock size={20} /></Sidebar.ItemIcon>
+                      <Sidebar.ItemIcon><Lock /></Sidebar.ItemIcon>
                       <Sidebar.ItemLabel>Permissions</Sidebar.ItemLabel>
                     </Sidebar.Item>
                   </Sidebar.Item>
                   <Link component={NavigateLink} to={`/o/${selectedOrg?.orgId}/projects`}>
                     <Sidebar.Item id="projects">
-                      <Sidebar.ItemIcon><FolderOpen size={20} /></Sidebar.ItemIcon>
+                      <Sidebar.ItemIcon><FolderOpen /></Sidebar.ItemIcon>
                       <Sidebar.ItemLabel>Projects</Sidebar.ItemLabel>
                       <Sidebar.ItemBadge>5</Sidebar.ItemBadge>
                     </Sidebar.Item>
                   </Link>
                   <Sidebar.Item id="integrations">
-                    <Sidebar.ItemIcon><Layers size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemIcon><Layers /></Sidebar.ItemIcon>
                     <Sidebar.ItemLabel>Integrations</Sidebar.ItemLabel>
                   </Sidebar.Item>
                 </Sidebar.Category>
@@ -370,23 +370,23 @@ export default function AppLayout(): JSX.Element {
                 <Sidebar.Category>
                   <Sidebar.CategoryLabel>Infrastructure</Sidebar.CategoryLabel>
                   <Sidebar.Item id="security">
-                    <Sidebar.ItemIcon><Shield size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemIcon><Shield /></Sidebar.ItemIcon>
                     <Sidebar.ItemLabel>Security</Sidebar.ItemLabel>
                     <Sidebar.Item id="security-overview">
-                      <Sidebar.ItemIcon><Shield size={20} /></Sidebar.ItemIcon>
+                      <Sidebar.ItemIcon><Shield /></Sidebar.ItemIcon>
                       <Sidebar.ItemLabel>Overview</Sidebar.ItemLabel>
                     </Sidebar.Item>
                     <Sidebar.Item id="security-api-keys">
-                      <Sidebar.ItemIcon><Key size={20} /></Sidebar.ItemIcon>
+                      <Sidebar.ItemIcon><Key /></Sidebar.ItemIcon>
                       <Sidebar.ItemLabel>API Keys</Sidebar.ItemLabel>
                     </Sidebar.Item>
                   </Sidebar.Item>
                   <Sidebar.Item id="databases">
-                    <Sidebar.ItemIcon><Database size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemIcon><Database /></Sidebar.ItemIcon>
                     <Sidebar.ItemLabel>Databases</Sidebar.ItemLabel>
                   </Sidebar.Item>
                   <Sidebar.Item id="domains">
-                    <Sidebar.ItemIcon><Globe size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemIcon><Globe /></Sidebar.ItemIcon>
                     <Sidebar.ItemLabel>Domains</Sidebar.ItemLabel>
                   </Sidebar.Item>
                 </Sidebar.Category>
@@ -399,12 +399,12 @@ export default function AppLayout(): JSX.Element {
             <Sidebar.Category>
               <Link component={NavigateLink} to={`/settings`}>
                 <Sidebar.Item id="settings">
-                  <Sidebar.ItemIcon><Settings size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon><Settings /></Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
                 </Sidebar.Item>
               </Link>
               <Sidebar.Item id="help">
-                <Sidebar.ItemIcon><HelpCircle size={20} /></Sidebar.ItemIcon>
+                <Sidebar.ItemIcon><HelpCircle /></Sidebar.ItemIcon>
                 <Sidebar.ItemLabel>Help & Support</Sidebar.ItemLabel>
               </Sidebar.Item>
             </Sidebar.Category>

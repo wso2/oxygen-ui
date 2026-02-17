@@ -83,12 +83,19 @@ export const SidebarItemIcon: React.FC<SidebarItemIconProps> = ({
   const { collapsed } = useSidebar();
   const { isActive } = useSidebarItemContext();
 
+  const iconWithSize = React.isValidElement(children)
+    ? React.cloneElement(children, {
+        size: (children.props as { size?: number }).size ?? 20,
+        ...(children.props as object),
+      } as React.Attributes)
+    : children;
+
   return (
     <SidebarItemIconRoot
       ownerState={{ collapsed, isActive }}
       sx={sx}
     >
-      {children}
+      {iconWithSize}
     </SidebarItemIconRoot>
   );
 };
