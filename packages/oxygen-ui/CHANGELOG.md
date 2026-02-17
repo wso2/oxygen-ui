@@ -1,5 +1,16 @@
 # @wso2/oxygen-ui
 
+## 0.6.0
+
+### Minor Changes
+
+- [#493](https://github.com/wso2/oxygen-ui/pull/493) [`6f64455`](https://github.com/wso2/oxygen-ui/commit/6f64455e66a6d20dd0b1251eb3c853703ef292c2) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Changed default header font sizes
+
+### Patch Changes
+
+- Updated dependencies [[`6f64455`](https://github.com/wso2/oxygen-ui/commit/6f64455e66a6d20dd0b1251eb3c853703ef292c2)]:
+  - @wso2/oxygen-ui-icons-react@0.6.0
+
 ## 0.5.0
 
 ### Minor Changes
