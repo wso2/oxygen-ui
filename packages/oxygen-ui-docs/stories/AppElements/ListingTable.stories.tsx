@@ -286,7 +286,7 @@ interface ListingTableStoryArgs {
  * ```
  */
 const meta: Meta<typeof ListingTable> = {
-  title: 'Tables/ListingTable',
+  title: 'App Elements/ListingTable',
   component: ListingTable,
   parameters: {
     layout: 'centered',
