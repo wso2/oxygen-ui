@@ -41,7 +41,7 @@ const AcrylicBaseTheme = extendTheme(OxygenThemeBase, {
         background: {
           default: '#f5f5f5',
           paper: '#ffffffe1',
-          acrylic: '#ffffff78',
+          acrylic: '#ffffff4a',
         },
         text: {
           primary: '#40404B',
@@ -153,6 +153,15 @@ const AcrylicBaseTheme = extendTheme(OxygenThemeBase, {
       styleOverrides: {
         paper: ({ theme }: { theme: OxygenTheme }) => ({
           background: theme.vars!.palette.background.paper,
+        }),
+      },
+    },
+    MuiSidebar: {
+      styleOverrides: {
+        root: ({ theme }: { theme: OxygenTheme }) => ({
+          backgroundColor: theme.vars!.palette.background.acrylic,
+          WebkitBackdropFilter: theme.blur.light,
+          backdropFilter: theme.blur.light,
         }),
       },
     },
