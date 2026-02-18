@@ -163,6 +163,8 @@ export interface SidebarItemProps {
   depth?: number;
   /** Additional sx props */
   sx?: SxProps<Theme>;
+  /** Optional navigation link component to wrap the item button */
+  link?: React.ReactElement;
 }
 
 /**
@@ -246,6 +248,14 @@ const extractItemContent = (itemChildren: React.ReactNode): {
  * </Sidebar.Item>
  * ```
  *
+ * With navigation link:
+ * ```tsx
+ * <Sidebar.Item id="home" link={<Link to="/home" />}>
+ *   <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
+ *   <Sidebar.ItemLabel>Home</Sidebar.ItemLabel>
+ * </Sidebar.Item>
+ * ```
+ *
  * Theme tokens used:
  * - `action.selected` - Active item background
  * - `primary.main` - Active item icon color
@@ -255,6 +265,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
   children,
   depth = 0,
   sx,
+  link,
 }) => {
   const { collapsed, activeItem, expandedMenus, onSelect, onToggleExpand } = useSidebar();
   const { composableChildren, nestedItems } = separateChildren(children);
@@ -333,6 +344,15 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
     </SidebarItemButton>
   );
 
+  // Wrap button content with link if provided
+  const wrappedContent = link ? (
+    <>
+      {React.cloneElement(link, {}, buttonContent)}
+    </>
+  ) : (
+    buttonContent
+  );
+
   // For collapsed state with nested items, use a wrapper div for hover events
   const collapsedWithNested = collapsed && hasNestedItems;
 
@@ -352,14 +372,14 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
         {collapsed ? (
           // When collapsed: show tooltip only for items without nested children
           collapsedWithNested ? (
-            buttonContent
+            wrappedContent
           ) : (
             <Tooltip title={tooltipLabel} placement="right" arrow>
-              {buttonContent}
+              {wrappedContent}
             </Tooltip>
           )
         ) : (
-          buttonContent
+          wrappedContent
         )}
       </SidebarItemRoot>
 

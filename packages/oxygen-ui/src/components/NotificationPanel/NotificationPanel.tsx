@@ -21,6 +21,7 @@ import Drawer from '@mui/material/Drawer';
 import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { NotificationPanelContext } from './context';
+import { AppShellContext } from '../AppShell/context';
 import { NotificationHeader } from './NotificationHeader';
 import { NotificationHeaderIcon } from './NotificationHeaderIcon';
 import { NotificationHeaderTitle } from './NotificationHeaderTitle';
@@ -78,10 +79,10 @@ const NotificationPanelRoot = styled(Drawer, {
  * Props for the NotificationPanel component.
  */
 export interface NotificationPanelProps {
-  /** Whether the panel is open */
-  open: boolean;
-  /** Callback to close the panel */
-  onClose: () => void;
+  /** Whether the panel is open (optional, uses AppShell context if available) */
+  open?: boolean;
+  /** Callback to close the panel (optional, uses AppShell context if available) */
+  onClose?: () => void;
   /** Panel content */
   children: React.ReactNode;
   /** Panel width (default: 380) */
@@ -161,14 +162,24 @@ const NotificationPanel: React.FC<NotificationPanelProps> & {
   ItemAction: typeof NotificationItemAction;
   EmptyState: typeof NotificationEmptyState;
 } = ({
-  open,
-  onClose,
+  open: openProp,
+  onClose: onCloseProp,
   children,
   width = 380,
   anchor = 'right',
   variant = 'temporary',
   sx,
 }) => {
+  // Try to consume AppShell context (optional - gracefully degrades if not available)
+  const appShellContext = React.useContext(AppShellContext);
+
+  // Use context values as defaults, allow prop overrides
+  const open = openProp ?? appShellContext?.state.notificationPanelOpen ?? false;
+  const onClose = React.useMemo(
+    () => onCloseProp ?? appShellContext?.actions.toggleNotificationPanel ?? (() => {}),
+    [onCloseProp, appShellContext?.actions.toggleNotificationPanel]
+  );
+
   const contextValue = React.useMemo(() => ({ onClose }), [onClose]);
   const ownerState = { width };
 

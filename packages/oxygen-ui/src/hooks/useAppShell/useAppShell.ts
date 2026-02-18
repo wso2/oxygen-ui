@@ -17,6 +17,9 @@
  */
 
 import * as React from 'react';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import type {Theme} from '@mui/material/styles';
+import {AppShellContext} from '../../components/AppShell/context';
 
 /**
  * App Shell state interface.
@@ -30,6 +33,10 @@ export interface AppShellState {
   activeMenuItem: string;
   /** Map of expanded menu IDs */
   expandedMenus: Record<string, boolean>;
+  /** Expanded sidebar width in pixels */
+  sidebarWidth: number;
+  /** Collapsed sidebar width in pixels */
+  sidebarCollapsedWidth: number;
 }
 
 /**
@@ -37,6 +44,9 @@ export interface AppShellState {
  */
 export interface AppShellActions {
   toggleSidebar: () => void;
+  setSidebarCollapsed: (collapsed: boolean) => void;
+  collapseSidebar: () => void;
+  expandSidebar: () => void;
   toggleNotificationPanel: () => void;
   setActiveMenuItem: (id: string) => void;
   toggleMenu: (id: string) => void;
@@ -50,6 +60,14 @@ export interface UseAppShellOptions {
   initialCollapsed?: boolean;
   /** Initial active menu item */
   initialActiveItem?: string;
+  /** Auto-collapse sidebar on menu item selection in mobile view (default: true) */
+  collapseOnSelectOnMobile?: boolean;
+  /** Auto-collapse sidebar on page load when in mobile view (default: false) */
+  collapseOnMobile?: boolean;
+  /** Expanded sidebar width in pixels (default: 250) */
+  sidebarWidth?: number;
+  /** Collapsed sidebar width in pixels (default: 64) */
+  sidebarCollapsedWidth?: number;
 }
 
 /**
@@ -68,37 +86,89 @@ export interface UseAppShellReturn {
  * - Notification panel visibility
  * - Active menu item and expanded menus
  *
+ * Can be used in two modes:
+ * 1. **Create mode** (with options): Creates a new shell state instance
+ * 2. **Consume mode** (without options): Consumes shared state from AppShellProvider
+ *
  * For notification data management, use the `useNotifications` hook separately.
  *
  * @example
  * ```tsx
- * const { state, actions } = useAppShell({
- *   initialCollapsed: false,
- * });
+ * // Create mode - in layout component
+ * function AppLayout() {
+ *   const shell = useAppShell({
+ *     initialCollapsed: false,
+ *     collapseOnSelectOnMobile: true,
+ *     sidebarWidth: 280,
+ *   });
  *
- * // Use state
- * <Sidebar collapsed={state.sidebarCollapsed} />
- * <NotificationPanel open={state.notificationPanelOpen} />
+ *   return (
+ *     <AppShellProvider value={shell}>
+ *       <AppShell>
+ *         <Sidebar collapsed={shell.state.sidebarCollapsed} />
+ *         <Outlet />
+ *       </AppShell>
+ *     </AppShellProvider>
+ *   );
+ * }
  *
- * // Use actions
- * <Button onClick={actions.toggleSidebar}>Toggle</Button>
+ * // Consume mode - in child page component
+ * function MyPage() {
+ *   const { state, actions } = useAppShell(); // No options = consume from context
+ *   
+ *   useEffect(() => {
+ *     actions.toggleSidebar(); // Control shared sidebar state
+ *   }, []);
+ * }
  * ```
  */
-export const useAppShell = (options: UseAppShellOptions = {}): UseAppShellReturn => {
+export const useAppShell = (options?: UseAppShellOptions): UseAppShellReturn => {
+  const contextValue = React.useContext(AppShellContext);
+
+  // Extract options (do this before any conditional returns)
   const {
     initialCollapsed = false,
     initialActiveItem = 'dashboard',
-  } = options;
+    collapseOnSelectOnMobile = true,
+    collapseOnMobile = true,
+    sidebarWidth = 250,
+    sidebarCollapsedWidth = 64,
+  } = options || {};
 
+  // Detect mobile view using MUI breakpoint (must call unconditionally)
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
+
+  // Create state (must call unconditionally)
   const [state, setState] = React.useState<AppShellState>({
     sidebarCollapsed: initialCollapsed,
     notificationPanelOpen: false,
     activeMenuItem: initialActiveItem,
     expandedMenus: {},
+    sidebarWidth,
+    sidebarCollapsedWidth,
   });
+
+  // Auto-collapse sidebar on mobile if collapseOnMobile is enabled
+  React.useEffect(() => {
+    if (options && collapseOnMobile && isMobile) {
+      setState((prev) => ({ ...prev, sidebarCollapsed: true }));
+    }
+  }, [options, collapseOnMobile, isMobile]);
 
   const toggleSidebar = React.useCallback(() => {
     setState((prev) => ({ ...prev, sidebarCollapsed: !prev.sidebarCollapsed }));
+  }, []);
+
+  const setSidebarCollapsed = React.useCallback((collapsed: boolean) => {
+    setState((prev) => ({ ...prev, sidebarCollapsed: collapsed }));
+  }, []);
+
+  const collapseSidebar = React.useCallback(() => {
+    setState((prev) => ({ ...prev, sidebarCollapsed: true }));
+  }, []);
+
+  const expandSidebar = React.useCallback(() => {
+    setState((prev) => ({ ...prev, sidebarCollapsed: false }));
   }, []);
 
   const toggleNotificationPanel = React.useCallback(() => {
@@ -109,8 +179,17 @@ export const useAppShell = (options: UseAppShellOptions = {}): UseAppShellReturn
   }, []);
 
   const setActiveMenuItem = React.useCallback((id: string) => {
-    setState((prev) => ({ ...prev, activeMenuItem: id }));
-  }, []);
+    setState((prev) => {
+      const newState = { ...prev, activeMenuItem: id };
+      
+      // Auto-collapse sidebar on mobile when collapseOnSelectOnMobile is enabled
+      if (collapseOnSelectOnMobile && isMobile && !prev.sidebarCollapsed) {
+        newState.sidebarCollapsed = true;
+      }
+      
+      return newState;
+    });
+  }, [collapseOnSelectOnMobile, isMobile]);
 
   const toggleMenu = React.useCallback((id: string) => {
     setState((prev) => ({
@@ -125,22 +204,53 @@ export const useAppShell = (options: UseAppShellOptions = {}): UseAppShellReturn
   const actions: AppShellActions = React.useMemo(
     () => ({
       toggleSidebar,
+      setSidebarCollapsed,
+      collapseSidebar,
+      expandSidebar,
       toggleNotificationPanel,
       setActiveMenuItem,
       toggleMenu,
     }),
     [
       toggleSidebar,
+      setSidebarCollapsed,
+      collapseSidebar,
+      expandSidebar,
       toggleNotificationPanel,
       setActiveMenuItem,
       toggleMenu,
     ]
   );
 
-  return {
-    state,
-    actions,
-  };
+  const createdValue: UseAppShellReturn = React.useMemo(
+    () => ({
+      state,
+      actions,
+    }),
+    [state, actions]
+  );
+
+  // If no options provided, consume from context (after all hooks are called)
+  if (options === undefined) {
+    if (!contextValue) {
+      throw new Error(
+        'useAppShell() must be used within an <AppShell> component. ' +
+        'Either wrap your component tree with <AppShell> or pass options to create a new instance.\n\n' +
+        'Example usage:\n' +
+        '// As a child of AppShell (consumes context):\n' +
+        'function MyPage() {\n' +
+        '  const { state, actions } = useAppShell();\n' +
+        '  // ...\n' +
+        '}\n\n' +
+        '// Or create instance with options:\n' +
+        'const shell = useAppShell({ initialCollapsed: false });'
+      );
+    }
+    return contextValue;
+  }
+
+  // Options provided, return created instance
+  return createdValue;
 };
 
 export default useAppShell;

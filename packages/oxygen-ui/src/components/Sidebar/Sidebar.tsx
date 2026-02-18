@@ -21,24 +21,12 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { SidebarContext } from './context';
+import { AppShellContext } from '../AppShell/context';
 import { SidebarNav } from './SidebarNav';
-import {
-  SidebarCategory,
-  SidebarCategoryLabel,
-} from './SidebarCategory';
-import {
-  SidebarItem,
-  SidebarItemIcon,
-  SidebarItemLabel,
-  SidebarItemBadge,
-} from './SidebarItem';
+import { SidebarCategory, SidebarCategoryLabel } from './SidebarCategory';
+import { SidebarItem, SidebarItemIcon, SidebarItemLabel, SidebarItemBadge } from './SidebarItem';
 import { SidebarFooter } from './SidebarFooter';
-import {
-  SidebarUser,
-  SidebarUserAvatar,
-  SidebarUserName,
-  SidebarUserEmail,
-} from './SidebarUser';
+import { SidebarUser, SidebarUserAvatar, SidebarUserName, SidebarUserEmail } from './SidebarUser';
 
 /**
  * Theme tokens used in this component:
@@ -178,16 +166,31 @@ const Sidebar: React.FC<SidebarProps> & {
   UserName: typeof SidebarUserName;
   UserEmail: typeof SidebarUserEmail;
 } = ({
-  collapsed = false,
-  activeItem,
-  expandedMenus = {},
-  onSelect,
-  onToggleExpand,
+  collapsed: collapsedProp,
+  activeItem: activeItemProp,
+  expandedMenus: expandedMenusProp,
+  onSelect: onSelectProp,
+  onToggleExpand: onToggleExpandProp,
   children,
-  width = SIDEBAR_WIDTH,
-  collapsedWidth = COLLAPSED_SIDEBAR_WIDTH,
+  width: widthProp,
+  collapsedWidth: collapsedWidthProp,
   sx,
 }) => {
+  // Try to consume AppShell context (optional - gracefully degrades if not available)
+  const appShellContext = React.useContext(AppShellContext);
+
+  // Use context values as defaults, allow prop overrides
+  const collapsed = collapsedProp ?? appShellContext?.state.sidebarCollapsed ?? false;
+  const activeItem = activeItemProp ?? appShellContext?.state.activeMenuItem;
+  const expandedMenus = React.useMemo(
+    () => expandedMenusProp ?? appShellContext?.state.expandedMenus ?? {},
+    [expandedMenusProp, appShellContext?.state.expandedMenus]
+  );
+  const onSelect = onSelectProp ?? appShellContext?.actions.setActiveMenuItem;
+  const onToggleExpand = onToggleExpandProp ?? appShellContext?.actions.toggleMenu;
+  const width = widthProp ?? appShellContext?.state.sidebarWidth ?? SIDEBAR_WIDTH;
+  const collapsedWidth = collapsedWidthProp ?? appShellContext?.state.sidebarCollapsedWidth ?? COLLAPSED_SIDEBAR_WIDTH;
+
   const contextValue = React.useMemo(
     () => ({
       collapsed,
