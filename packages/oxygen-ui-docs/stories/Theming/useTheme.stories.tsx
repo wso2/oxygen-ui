@@ -298,7 +298,7 @@ sx={{
 }
 
 const meta: Meta = {
-  title: 'Utils/useTheme',
+  title: 'Theming/useTheme',
   parameters: {
     layout: 'centered',
     docs: {
