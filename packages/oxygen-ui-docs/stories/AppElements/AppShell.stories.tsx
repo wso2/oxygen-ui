@@ -46,8 +46,8 @@ import {
   formatRelativeTime,
   useAppShell,
   useNotifications,
+  type NotificationItem,
 } from '@wso2/oxygen-ui';
-import type { NotificationItem } from '@wso2/oxygen-ui';
 import {
   Zap,
   Bell,
@@ -68,6 +68,9 @@ import {
   UserCog,
   Lock,
   Key,
+  UserRoundIcon,
+  CreditCard,
+  LogOut,
 } from '@wso2/oxygen-ui-icons-react';
 
 // =============================================================================
@@ -255,6 +258,32 @@ const Logo: React.FC = () => (
 );
 
 /**
+ * Notification button that consumes AppShell context.
+ */
+const NotificationButton: React.FC<{ count: number }> = ({ count }) => {
+  const { actions } = useAppShell();
+  
+  return (
+    <Tooltip title="Notifications">
+      <IconButton
+        onClick={actions.toggleNotificationPanel}
+        size="small"
+        sx={{ color: 'text.secondary' }}
+      >
+        <Badge
+          badgeContent={count}
+          color="error"
+          max={99}
+          invisible={count === 0}
+        >
+          <Bell size={20} />
+        </Badge>
+      </IconButton>
+    </Tooltip>
+  );
+};
+
+/**
  * The App Shell template demonstrates a complete application layout pattern
  * using **compound components** with a **children-only API** for maximum
  * flexibility and composability.
@@ -399,11 +428,6 @@ type Story = StoryObj<AppShellArgs>;
  */
 export const Playground: Story = {
   render: (args) => {
-    // Shell layout state (sidebar, menu, panel visibility)
-    const { state: shellState, actions: shellActions } = useAppShell({
-      initialCollapsed: args.sidebarCollapsed,
-    });
-
     // Notification state (separate concern)
     const {
       notifications,
@@ -436,7 +460,11 @@ export const Playground: Story = {
     };
 
     return (
-      <AppShell>
+      <AppShell
+        initialCollapsed={args.sidebarCollapsed}
+        collapseOnSelectOnMobile={true}
+        collapseOnMobile={false}
+      >
         {/* Notification Banner */}
         {args.showNotificationBanner && (
           <NotificationBanner
@@ -449,10 +477,7 @@ export const Playground: Story = {
 
         <AppShell.Navbar>
           <Header minimal={args.minimal}>
-            <Header.Toggle
-              collapsed={shellState.sidebarCollapsed}
-              onToggle={shellActions.toggleSidebar}
-            />
+            <Header.Toggle />
             <Header.Brand>
               <Header.BrandLogo><Logo /></Header.BrandLogo>
               <Header.BrandTitle>Oxygen UI</Header.BrandTitle>
@@ -515,46 +540,47 @@ export const Playground: Story = {
                   <HelpCircle size={20} />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Notifications">
-                <IconButton
-                  onClick={shellActions.toggleNotificationPanel}
-                  size="small"
-                  sx={{ color: 'text.secondary' }}
-                >
-                  <Badge
-                    badgeContent={args.notificationCount ?? unreadCount}
-                    color="error"
-                    max={99}
-                    invisible={(args.notificationCount ?? unreadCount) === 0}
-                  >
-                    <Bell size={20} />
-                  </Badge>
-                </IconButton>
-              </Tooltip>
+              <NotificationButton count={args.notificationCount ?? unreadCount} />
               <Divider
                 orientation="vertical"
                 flexItem
                 sx={{ mx: 1, display: { xs: 'none', sm: 'block' } }}
               />
-              <UserMenu
-                user={mockUser}
-                onProfileClick={() => console.log('Profile clicked')}
-                onSettingsClick={() => console.log('Settings clicked')}
-                onBillingClick={() => console.log('Billing clicked')}
-                onLogout={() => setConfirmDialogOpen(true)}
-              />
+              <UserMenu>
+                <UserMenu.Trigger name={mockUser.name} avatar={mockUser.avatar} />
+                <UserMenu.Header 
+                  name={mockUser.name} 
+                  email={mockUser.email} 
+                  avatar={mockUser.avatar} 
+                  role={mockUser.role}
+                />
+                <UserMenu.Item
+                  icon={<UserRoundIcon />}
+                  label="Profile"
+                  onClick={() => console.log('Profile clicked')}
+                />
+                <UserMenu.Item
+                  icon={<Settings />}
+                  label="Settings"
+                  onClick={() => console.log('Settings clicked')}
+                />
+                <UserMenu.Item
+                  icon={<CreditCard />}
+                  label="Billing"
+                  onClick={() => console.log('Billing clicked')}
+                />
+                <UserMenu.Divider />
+                <UserMenu.Logout
+                  icon={<LogOut />}
+                  onClick={() => setConfirmDialogOpen(true)}
+                />
+              </UserMenu>
             </Header.Actions>
           </Header>
         </AppShell.Navbar>
 
         <AppShell.Sidebar>
-          <Sidebar
-            collapsed={shellState.sidebarCollapsed}
-            activeItem={shellState.activeMenuItem}
-            expandedMenus={shellState.expandedMenus}
-            onSelect={shellActions.setActiveMenuItem}
-            onToggleExpand={shellActions.toggleMenu}
-          >
+          <Sidebar>
             <Sidebar.Nav>
               {/* Main Navigation */}
               <Sidebar.Category>
@@ -666,20 +692,18 @@ export const Playground: Story = {
 
         {args.showFooter && (
           <AppShell.Footer>
-            <Footer
-              companyName="Oxygen UI"
-              version="v1.0.0"
-              termsUrl="#terms"
-              privacyUrl="#privacy"
-            />
+            <Footer>
+              <Footer.Copyright>© {new Date().getFullYear()} WSO2 LLC. All rights reserved.</Footer.Copyright>
+              <Footer.Divider />
+              <Footer.Version>oxygen-ui-v1.0.0</Footer.Version>
+              <Footer.Link href="#terms">Terms & Conditions</Footer.Link>
+              <Footer.Link href="#privacy">Privacy Policy</Footer.Link>
+            </Footer>
           </AppShell.Footer>
         )}
 
         <AppShell.NotificationPanel>
-          <NotificationPanel
-            open={shellState.notificationPanelOpen}
-            onClose={shellActions.toggleNotificationPanel}
-          >
+          <NotificationPanel>
             <NotificationPanel.Header>
               <NotificationPanel.HeaderIcon><Bell size={20} /></NotificationPanel.HeaderIcon>
               <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
@@ -871,7 +895,6 @@ export const WithConfirmDialog: Story = {
     showFooter: true,
   },
   render: (args) => {
-    const { state, actions } = useAppShell();
     const [dialogOpen, setDialogOpen] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
 
@@ -885,13 +908,10 @@ export const WithConfirmDialog: Story = {
     };
 
     return (
-      <AppShell>
+      <AppShell initialCollapsed={args.sidebarCollapsed}>
         <AppShell.Navbar>
           <Header minimal>
-            <Header.Toggle
-              collapsed={state.sidebarCollapsed}
-              onToggle={actions.toggleSidebar}
-            />
+            <Header.Toggle />
             <Header.Brand>
               <Header.BrandLogo><Logo /></Header.BrandLogo>
               <Header.BrandTitle>Oxygen UI</Header.BrandTitle>
@@ -899,19 +919,22 @@ export const WithConfirmDialog: Story = {
             <Header.Spacer />
             <Header.Actions>
               <ColorSchemeToggle />
-              <UserMenu user={mockUser} onLogout={() => setDialogOpen(true)} />
+              <UserMenu>
+                <UserMenu.Trigger name={mockUser.name} avatar={mockUser.avatar} />
+                <UserMenu.Header 
+                  name={mockUser.name} 
+                  email={mockUser.email} 
+                  avatar={mockUser.avatar} 
+                  role={mockUser.role}
+                />
+                <UserMenu.Logout onClick={() => setDialogOpen(true)} />
+              </UserMenu>
             </Header.Actions>
           </Header>
         </AppShell.Navbar>
 
         <AppShell.Sidebar>
-          <Sidebar
-            collapsed={state.sidebarCollapsed}
-            activeItem={state.activeMenuItem}
-            expandedMenus={state.expandedMenus}
-            onSelect={actions.setActiveMenuItem}
-            onToggleExpand={actions.toggleMenu}
-          >
+          <Sidebar>
             <Sidebar.Nav>
               <Sidebar.Category>
                 <Sidebar.Item id="dashboard">
@@ -974,6 +997,229 @@ export const WithConfirmDialog: Story = {
             </DialogActions>
           </Dialog>
         </AppShell.NotificationPanel>
+      </AppShell>
+    );
+  },
+};
+
+/**
+ * App Shell with mobile-responsive sidebar behavior.
+ * Demonstrates auto-collapse features for mobile devices.
+ * 
+ * Features:
+ * - collapseOnSelectOnMobile: Sidebar automatically collapses after selecting a menu item on mobile
+ * - collapseOnMobile: Sidebar starts collapsed on page load when in mobile view
+ * 
+ * Resize your browser window to mobile size (<900px) to see the behavior.
+ */
+export const MobileResponsive: Story = {
+  args: {
+    sidebarCollapsed: false,
+    showNotificationBanner: false,
+    showFooter: true,
+  },
+  render: (args) => {
+    // MobileInfo component that uses context to display state
+    const MobileInfo: React.FC = () => {
+      const { state } = useAppShell();
+      
+      return (
+        <Box sx={{ p: 3 }}>
+          <Typography variant="h5" gutterBottom>
+            Mobile-Responsive Sidebar
+          </Typography>
+          <Typography sx={{ color: 'text.secondary', mb: 3 }}>
+            This example demonstrates mobile-responsive sidebar behavior. 
+            Resize your browser to mobile width (&lt;900px) to see:
+          </Typography>
+          <Box component="ul" sx={{ color: 'text.secondary', mb: 3 }}>
+            <li>Sidebar starts collapsed on page load (collapseOnMobile: true)</li>
+            <li>Sidebar auto-collapses after selecting a menu item (collapseOnSelectOnMobile: true)</li>
+            <li>On desktop, sidebar remains open by default</li>
+          </Box>
+          <Typography sx={{ color: 'text.secondary' }}>
+            Current sidebar state: <strong>{state.sidebarCollapsed ? 'Collapsed' : 'Expanded'}</strong>
+          </Typography>
+          <Typography sx={{ color: 'text.secondary' }}>
+            Active menu item: <strong>{state.activeMenuItem}</strong>
+          </Typography>
+        </Box>
+      );
+    };
+
+    return (
+      <AppShell
+        initialCollapsed={false}
+        collapseOnSelectOnMobile={true}
+        collapseOnMobile={true}
+      >
+        <AppShell.Navbar>
+          <Header>
+            <Header.Toggle />
+            <Header.Brand>
+              <Header.BrandLogo><Logo /></Header.BrandLogo>
+              <Header.BrandTitle>Mobile Demo</Header.BrandTitle>
+            </Header.Brand>
+            <Header.Spacer />
+            <Header.Actions>
+              <ColorSchemeToggle />
+            </Header.Actions>
+          </Header>
+        </AppShell.Navbar>
+
+        <AppShell.Sidebar>
+          <Sidebar>
+            <Sidebar.Nav>
+              <Sidebar.Category>
+                <Sidebar.CategoryLabel>Navigation</Sidebar.CategoryLabel>
+                <Sidebar.Item id="dashboard">
+                  <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemLabel>Dashboard</Sidebar.ItemLabel>
+                </Sidebar.Item>
+                <Sidebar.Item id="analytics">
+                  <Sidebar.ItemIcon><BarChart3 size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemLabel>Analytics</Sidebar.ItemLabel>
+                </Sidebar.Item>
+                <Sidebar.Item id="users">
+                  <Sidebar.ItemIcon><Users size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemLabel>Users</Sidebar.ItemLabel>
+                </Sidebar.Item>
+                <Sidebar.Item id="settings">
+                  <Sidebar.ItemIcon><Settings size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
+                </Sidebar.Item>
+              </Sidebar.Category>
+            </Sidebar.Nav>
+          </Sidebar>
+        </AppShell.Sidebar>
+
+        <AppShell.Main>
+          <MobileInfo />
+        </AppShell.Main>
+
+        {args.showFooter && (
+          <AppShell.Footer>
+            <Footer>
+              <Footer.Copyright>© 2026 WSO2 LLC</Footer.Copyright>
+              <Footer.Divider />
+              <Footer.Link href="#privacy">Privacy</Footer.Link>
+              <Footer.Link href="#terms">Terms</Footer.Link>
+            </Footer>
+          </AppShell.Footer>
+        )}
+      </AppShell>
+    );
+  },
+};
+
+/**
+ * App Shell with custom sidebar width configuration.
+ * Demonstrates how to customize the expanded and collapsed sidebar widths.
+ * 
+ * Features:
+ * - sidebarWidth: Custom width when sidebar is expanded (default: 250px)
+ * - sidebarCollapsedWidth: Custom width when sidebar is collapsed (default: 64px)
+ * 
+ * This example uses 300px expanded width and 80px collapsed width.
+ */
+export const CustomSidebarWidth: Story = {
+  args: {
+    sidebarCollapsed: false,
+    showNotificationBanner: false,
+    showFooter: true,
+  },
+  render: (args) => {
+    // WidthInfo component that uses context and actions
+    const WidthInfo: React.FC = () => {
+      const { state, actions } = useAppShell();
+      
+      return (
+        <Box sx={{ p: 3 }}>
+          <Typography variant="h5" gutterBottom>
+            Custom Sidebar Width
+          </Typography>
+          <Typography sx={{ color: 'text.secondary', mb: 3 }}>
+            This example demonstrates custom sidebar width configuration.
+          </Typography>
+          <Box component="ul" sx={{ color: 'text.secondary', mb: 3 }}>
+            <li>Expanded width: 300px (default is 250px)</li>
+            <li>Collapsed width: 80px (default is 64px)</li>
+          </Box>
+          <Typography sx={{ color: 'text.secondary' }}>
+            Current width: <strong>{state.sidebarCollapsed ? `${state.sidebarCollapsedWidth}px` : `${state.sidebarWidth}px`}</strong>
+          </Typography>
+          <Typography sx={{ color: 'text.secondary' }}>
+            Sidebar state: <strong>{state.sidebarCollapsed ? 'Collapsed' : 'Expanded'}</strong>
+          </Typography>
+          <Box sx={{ mt: 3 }}>
+            <Button variant="outlined" onClick={actions.toggleSidebar}>
+              Toggle Sidebar
+            </Button>
+          </Box>
+        </Box>
+      );
+    };
+
+    return (
+      <AppShell
+        initialCollapsed={false}
+        sidebarWidth={300}
+        sidebarCollapsedWidth={80}
+      >
+        <AppShell.Navbar>
+          <Header>
+            <Header.Toggle />
+            <Header.Brand>
+              <Header.BrandLogo><Logo /></Header.BrandLogo>
+              <Header.BrandTitle>Custom Width Demo</Header.BrandTitle>
+            </Header.Brand>
+            <Header.Spacer />
+            <Header.Actions>
+              <ColorSchemeToggle />
+            </Header.Actions>
+          </Header>
+        </AppShell.Navbar>
+
+        <AppShell.Sidebar>
+          <Sidebar>
+            <Sidebar.Nav>
+              <Sidebar.Category>
+                <Sidebar.CategoryLabel>Navigation</Sidebar.CategoryLabel>
+                <Sidebar.Item id="dashboard">
+                  <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemLabel>Dashboard</Sidebar.ItemLabel>
+                </Sidebar.Item>
+                <Sidebar.Item id="analytics">
+                  <Sidebar.ItemIcon><BarChart3 size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemLabel>Analytics</Sidebar.ItemLabel>
+                </Sidebar.Item>
+                <Sidebar.Item id="users">
+                  <Sidebar.ItemIcon><Users size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemLabel>Users</Sidebar.ItemLabel>
+                </Sidebar.Item>
+                <Sidebar.Item id="settings">
+                  <Sidebar.ItemIcon><Settings size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
+                </Sidebar.Item>
+              </Sidebar.Category>
+            </Sidebar.Nav>
+          </Sidebar>
+        </AppShell.Sidebar>
+
+        <AppShell.Main>
+          <WidthInfo />
+        </AppShell.Main>
+
+        {args.showFooter && (
+          <AppShell.Footer>
+            <Footer>
+              <Footer.Copyright>© 2026 WSO2 LLC</Footer.Copyright>
+              <Footer.Divider />
+              <Footer.Link href="#privacy">Privacy</Footer.Link>
+              <Footer.Link href="#terms">Terms</Footer.Link>
+            </Footer>
+          </AppShell.Footer>
+        )}
       </AppShell>
     );
   },

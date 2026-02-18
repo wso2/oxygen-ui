@@ -22,6 +22,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { Menu } from '@wso2/oxygen-ui-icons-react';
+import { AppShellContext } from '../AppShell/context';
 
 /**
  * Styled toggle button for the header.
@@ -37,10 +38,10 @@ const HeaderToggleRoot = styled(IconButton, {
  * Props for HeaderToggle component.
  */
 export interface HeaderToggleProps {
-  /** Whether the sidebar is collapsed */
-  collapsed: boolean;
-  /** Callback to toggle sidebar */
-  onToggle: () => void;
+  /** Whether the sidebar is collapsed (optional, uses AppShell context if available) */
+  collapsed?: boolean;
+  /** Callback to toggle sidebar (optional, uses AppShell context if available) */
+  onToggle?: () => void;
   /** Label for expanded state tooltip */
   expandLabel?: string;
   /** Label for collapsed state tooltip */
@@ -66,14 +67,21 @@ export interface HeaderToggleProps {
  * - `text.secondary` - Icon color
  */
 export const HeaderToggle: React.FC<HeaderToggleProps> = ({
-  collapsed,
-  onToggle,
+  collapsed: collapsedProp,
+  onToggle: onToggleProp,
   expandLabel = 'Expand sidebar',
   collapseLabel = 'Collapse sidebar',
   expandIcon,
   collapseIcon,
   sx,
 }) => {
+  // Try to consume AppShell context (optional - gracefully degrades if not available)
+  const appShellContext = React.useContext(AppShellContext);
+
+  // Use context values as defaults, allow prop overrides
+  const collapsed = collapsedProp ?? appShellContext?.state.sidebarCollapsed ?? false;
+  const onToggle = onToggleProp ?? appShellContext?.actions.toggleSidebar ?? (() => {});
+
   return (
     <Tooltip title={collapsed ? expandLabel : collapseLabel}>
       <HeaderToggleRoot onClick={onToggle} size="small" sx={sx}>

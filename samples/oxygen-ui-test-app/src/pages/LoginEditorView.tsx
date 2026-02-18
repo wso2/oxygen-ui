@@ -36,17 +36,27 @@ import {
   MenuItem,
   Chip,
   Grid,
+  useAppShell,
 } from '@wso2/oxygen-ui'
 import { ArrowLeft, Save, Eye, Code, Settings, Play, Undo, Redo } from '@wso2/oxygen-ui-icons-react'
 import { useNavigate, useParams } from 'react-router'
-import type { JSX } from 'react'
-import { useState } from 'react'
+import { useState, useEffect, type JSX } from 'react'
 
 export default function LoginEditorView(): JSX.Element {
   const navigate = useNavigate()
   const { id, orgId } = useParams<{ id: string; orgId: string }>()
   const [activeTab, setActiveTab] = useState(0)
   const [previewMode, setPreviewMode] = useState(false)
+  const { actions } = useAppShell()
+
+  // Collapse sidebar when this page loads, expand when leaving
+  useEffect(() => {
+    actions.collapseSidebar()
+    
+    return () => {
+      actions.expandSidebar()
+    }
+  }, [actions])
 
   // Editor state
   const [formConfig, setFormConfig] = useState({

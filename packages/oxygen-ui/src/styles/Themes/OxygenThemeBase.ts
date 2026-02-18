@@ -177,6 +177,15 @@ const OxygenThemeBase = extendTheme({
         clearIcon: React.createElement(X),
       },
     },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          '.MuiFormControl-root:has(.MuiSelect-select) &:not(.MuiInputLabel-shrink)': {
+            top: '-7px',
+          },
+        },
+      },
+    },
     MuiSelect: {
       defaultProps: {
         size: 'small',

@@ -28,3 +28,4 @@ export { AppShellFooter } from './AppShellFooter';
 export type { AppShellFooterProps } from './AppShellFooter';
 export { AppShellNotificationPanel } from './AppShellNotificationPanel';
 export type { AppShellNotificationPanelProps } from './AppShellNotificationPanel';
+export { AppShellContext, AppShellProvider, useAppShellContext } from './context';

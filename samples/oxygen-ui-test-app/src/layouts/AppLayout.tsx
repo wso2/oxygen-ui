@@ -28,7 +28,6 @@ import {
   Sidebar,
   Tooltip,
   UserMenu,
-  Link,
   NotificationPanel,
   formatRelativeTime,
   Dialog,
@@ -62,21 +61,39 @@ import {
   UserCog,
   Users,
   User as UserIcon,
-  CreditCard,
   LogOut,
 } from '@wso2/oxygen-ui-icons-react';
 import { mockNotifications, mockOrganizations, mockProjects, mockUser } from '../mock-data';
 import type { Organization, Project } from '../mock-data/types';
 
+// Notification button component - must be a child of AppShell to access context
+function NotificationButton({ unreadCount }: { unreadCount: number }) {
+  const { actions } = useAppShell();
+  
+  return (
+    <Tooltip title="Notifications">
+      <IconButton
+        onClick={actions.toggleNotificationPanel}
+        size="small"
+        sx={{ color: 'text.secondary' }}
+      >
+        <Badge
+          badgeContent={unreadCount}
+          color="error"
+          max={99}
+          invisible={unreadCount === 0}
+        >
+          <Bell size={20} />
+        </Badge>
+      </IconButton>
+    </Tooltip>
+  );
+}
+
 export default function AppLayout(): JSX.Element {
   const navigate = useNavigate();
   const location = useLocation();
   const { orgId, projectId } = useParams<{ orgId?: string; projectId?: string }>();
-
-  // Shell layout state (sidebar, menu, panel visibility)
-  const { state: shellState, actions: shellActions } = useAppShell({
-    initialCollapsed: true,
-  });
 
   // Determine initial sidebar active item based on route
   const getInitialActiveMenuItem = useCallback((): string => {
@@ -133,8 +150,8 @@ export default function AppLayout(): JSX.Element {
   useEffect(() => {
     const activeItem = getInitialActiveMenuItem();
     setInitialActiveItem(activeItem);
-    shellActions.setActiveMenuItem(activeItem);
-  }, [getInitialActiveMenuItem, location.pathname, shellActions]);
+  }, [getInitialActiveMenuItem, location.pathname]);
+
   const alertNotifications = notifications.filter(
     (n) => n.type === 'warning' || n.type === 'error'
   );
@@ -155,13 +172,10 @@ export default function AppLayout(): JSX.Element {
   const isOrganization = /^\/o\/[^/]+/.test(location.pathname);
 
   return (
-    <AppShell>
+    <AppShell initialCollapsed={false} collapseOnSelectOnMobile={true}>
       <AppShell.Navbar>
         <Header>
-          <Header.Toggle
-            collapsed={false}
-            onToggle={shellActions.toggleSidebar}
-          />
+          <Header.Toggle />
           <Header.Brand>
             <Header.BrandLogo><Logo /></Header.BrandLogo>
             <Header.BrandTitle>Developer</Header.BrandTitle>
@@ -232,22 +246,7 @@ export default function AppLayout(): JSX.Element {
           <Header.Spacer />
           <Header.Actions>
             <ColorSchemeToggle />
-            <Tooltip title="Notifications">
-              <IconButton
-                onClick={shellActions.toggleNotificationPanel}
-                size="small"
-                sx={{ color: 'text.secondary' }}
-              >
-                <Badge
-                  badgeContent={unreadCount ?? 0}
-                  color="error"
-                  max={99}
-                  invisible={(unreadCount ?? 0) === 0}
-                >
-                  <Bell size={20} />
-                </Badge>
-              </IconButton>
-            </Tooltip>
+            <NotificationButton unreadCount={unreadCount ?? 0} />
             <Divider
               orientation="vertical"
               flexItem
@@ -272,7 +271,7 @@ export default function AppLayout(): JSX.Element {
                 onClick={() => console.log('Settings clicked')}
               />
               <UserMenu.Item
-                icon={<CreditCard />}
+                icon={<CircleDollarSign />}
                 label="Billing"
                 onClick={() => console.log('Billing clicked')}
               />
@@ -287,23 +286,15 @@ export default function AppLayout(): JSX.Element {
       </AppShell.Navbar>
 
       <AppShell.Sidebar>
-        <Sidebar
-          collapsed={shellState.sidebarCollapsed}
-          activeItem={initialActiveItem}
-          expandedMenus={shellState.expandedMenus}
-          onSelect={shellActions.setActiveMenuItem}
-          onToggleExpand={shellActions.toggleMenu}
-        >
+        <Sidebar activeItem={initialActiveItem}>
           <Sidebar.Nav>
             {/* Global Navigation */}
             {!isOrganization && (
               <Sidebar.Category>
-                <Link component={NavigateLink} to="/organizations">
-                  <Sidebar.Item id="dashboard">
-                    <Sidebar.ItemIcon><Home /></Sidebar.ItemIcon>
-                    <Sidebar.ItemLabel>Organizations</Sidebar.ItemLabel>
-                  </Sidebar.Item>
-                </Link>
+                <Sidebar.Item id="dashboard" link={<NavigateLink to="/organizations" />}>
+                  <Sidebar.ItemIcon><Home /></Sidebar.ItemIcon>
+                  <Sidebar.ItemLabel>Organizations</Sidebar.ItemLabel>
+                </Sidebar.Item>
                 <Sidebar.Item id="account">
                   <Sidebar.ItemIcon><UserCog /></Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Account</Sidebar.ItemLabel>
@@ -319,18 +310,14 @@ export default function AppLayout(): JSX.Element {
               <>
                 {/* Main Navigation */}
                 <Sidebar.Category>
-                  <Link component={NavigateLink} to="/organizations">
-                    <Sidebar.Item id="dashboard">
-                      <Sidebar.ItemIcon><Home /></Sidebar.ItemIcon>
-                      <Sidebar.ItemLabel>Organizations</Sidebar.ItemLabel>
-                    </Sidebar.Item>
-                  </Link>
-                  <Link component={NavigateLink} to={`/o/${selectedOrg?.orgId}/analytics`}>
-                    <Sidebar.Item id="analytics">
-                      <Sidebar.ItemIcon><BarChart3 /></Sidebar.ItemIcon>
-                      <Sidebar.ItemLabel>Analytics</Sidebar.ItemLabel>
-                    </Sidebar.Item>
-                  </Link>
+                  <Sidebar.Item id="dashboard" link={<NavigateLink to="/organizations" />}>
+                    <Sidebar.ItemIcon><Home /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Organizations</Sidebar.ItemLabel>
+                  </Sidebar.Item>
+                  <Sidebar.Item id="analytics" link={<NavigateLink to={`/o/${selectedOrg?.orgId}/analytics`} />}>
+                    <Sidebar.ItemIcon><BarChart3 /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Analytics</Sidebar.ItemLabel>
+                  </Sidebar.Item>
                 </Sidebar.Category>
 
                 {/* Management */}
@@ -353,13 +340,11 @@ export default function AppLayout(): JSX.Element {
                       <Sidebar.ItemLabel>Permissions</Sidebar.ItemLabel>
                     </Sidebar.Item>
                   </Sidebar.Item>
-                  <Link component={NavigateLink} to={`/o/${selectedOrg?.orgId}/projects`}>
-                    <Sidebar.Item id="projects">
-                      <Sidebar.ItemIcon><FolderOpen /></Sidebar.ItemIcon>
-                      <Sidebar.ItemLabel>Projects</Sidebar.ItemLabel>
-                      <Sidebar.ItemBadge>5</Sidebar.ItemBadge>
-                    </Sidebar.Item>
-                  </Link>
+                  <Sidebar.Item id="projects" link={<NavigateLink to={`/o/${selectedOrg?.orgId}/projects`} />}>
+                    <Sidebar.ItemIcon><FolderOpen /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Projects</Sidebar.ItemLabel>
+                    <Sidebar.ItemBadge>5</Sidebar.ItemBadge>
+                  </Sidebar.Item>
                   <Sidebar.Item id="integrations">
                     <Sidebar.ItemIcon><Layers /></Sidebar.ItemIcon>
                     <Sidebar.ItemLabel>Integrations</Sidebar.ItemLabel>
@@ -397,12 +382,10 @@ export default function AppLayout(): JSX.Element {
           {/* Settings Footer */}
           <Sidebar.Footer>
             <Sidebar.Category>
-              <Link component={NavigateLink} to={`/settings`}>
-                <Sidebar.Item id="settings">
-                  <Sidebar.ItemIcon><Settings /></Sidebar.ItemIcon>
-                  <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
-                </Sidebar.Item>
-              </Link>
+              <Sidebar.Item id="settings" link={<NavigateLink to="/settings" />}>
+                <Sidebar.ItemIcon><Settings /></Sidebar.ItemIcon>
+                <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
+              </Sidebar.Item>
               <Sidebar.Item id="help">
                 <Sidebar.ItemIcon><HelpCircle /></Sidebar.ItemIcon>
                 <Sidebar.ItemLabel>Help & Support</Sidebar.ItemLabel>
@@ -427,10 +410,7 @@ export default function AppLayout(): JSX.Element {
       </AppShell.Footer>
 
       <AppShell.NotificationPanel>
-        <NotificationPanel
-          open={shellState.notificationPanelOpen}
-          onClose={shellActions.toggleNotificationPanel}
-        >
+        <NotificationPanel>
           <NotificationPanel.Header>
             <NotificationPanel.HeaderIcon><Bell size={20} /></NotificationPanel.HeaderIcon>
             <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>

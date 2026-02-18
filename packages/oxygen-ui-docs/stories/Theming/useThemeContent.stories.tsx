@@ -125,7 +125,7 @@ function ThemeConfig() {
 }
 
 const meta: Meta = {
-  title: 'Utils/useThemeContent',
+  title: 'Theming/useThemeContent',
   parameters: {
     layout: 'centered',
     docs: {

@@ -25,6 +25,8 @@ import { AppShellSidebar } from './AppShellSidebar';
 import { AppShellMain } from './AppShellMain';
 import { AppShellFooter } from './AppShellFooter';
 import { AppShellNotificationPanel } from './AppShellNotificationPanel';
+import { useAppShell, type UseAppShellOptions } from '../../hooks/useAppShell';
+import { AppShellContext } from './context';
 
 /**
  * Display names for slot detection.
@@ -96,7 +98,7 @@ const extractSlots = (children: React.ReactNode): ExtractedSlots => {
 /**
  * Props for AppShell component.
  */
-export interface AppShellProps {
+export interface AppShellProps extends UseAppShellOptions {
   /** AppShell slot components (Navbar, Sidebar, Main, Footer, NotificationPanel) */
   children: React.ReactNode;
   /** Additional sx props for the root container */
@@ -109,9 +111,13 @@ export interface AppShellProps {
  * Uses a compound component pattern where children define the layout slots.
  * This reduces boilerplate compared to manually composing Layout components.
  *
+ * AppShell automatically provides shell state management through context.
+ * Child components can use the `useAppShell()` hook to access and control
+ * the shell state (sidebar collapse, notification panel, active menu items).
+ *
  * @example
  * ```tsx
- * <AppShell>
+ * <AppShell initialCollapsed={false} collapseOnSelectOnMobile={true}>
  *   <AppShell.Navbar>
  *     <Header>...</Header>
  *   </AppShell.Navbar>
@@ -119,14 +125,11 @@ export interface AppShellProps {
  *     <Sidebar collapsed={collapsed}>...</Sidebar>
  *   </AppShell.Sidebar>
  *   <AppShell.Main>
- *     <Outlet />
+ *     <MyPage /> {/* Can use useAppShell()
  *   </AppShell.Main>
  *   <AppShell.Footer>
  *     <Footer companyName="WSO2 LLC" />
  *   </AppShell.Footer>
- *   <AppShell.NotificationPanel>
- *     <NotificationPanel open={open} onClose={onClose}>...</NotificationPanel>
- *   </AppShell.NotificationPanel>
  * </AppShell>
  * ```
  */
@@ -136,31 +139,35 @@ const AppShell: React.FC<AppShellProps> & {
   Main: typeof AppShellMain;
   Footer: typeof AppShellFooter;
   NotificationPanel: typeof AppShellNotificationPanel;
-} = ({ children, sx }) => {
+} = ({ children, sx, ...shellOptions }) => {
+  // Create shell state from options
+  const shell = useAppShell(shellOptions);
   const slots = extractSlots(children);
 
   return (
-    <Layout sx={{ height: '100vh', flexDirection: 'column', ...sx }}>
-      {/* Navbar/Header */}
-      {slots.navbar && <Layout.Navbar>{slots.navbar}</Layout.Navbar>}
+    <AppShellContext.Provider value={shell}>
+      <Layout sx={{ height: '100vh', flexDirection: 'column', ...sx }}>
+        {/* Navbar/Header */}
+        {slots.navbar && <Layout.Navbar>{slots.navbar}</Layout.Navbar>}
 
-      {/* Main content area with sidebar */}
-      <Layout sx={{ flex: 1, overflow: 'hidden' }}>
-        {/* Sidebar */}
-        {slots.sidebar && <Layout.Sidebar>{slots.sidebar}</Layout.Sidebar>}
+        {/* Main content area with sidebar */}
+        <Layout sx={{ flex: 1, overflow: 'hidden' }}>
+          {/* Sidebar */}
+          {slots.sidebar && <Layout.Sidebar>{slots.sidebar}</Layout.Sidebar>}
 
-        {/* Content + Footer */}
-        <Layout.Content sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Box sx={{ flex: 1, overflow: 'auto', display: 'flex' }}>
-            {slots.main}
-          </Box>
-          {slots.footer}
-        </Layout.Content>
+          {/* Content + Footer */}
+          <Layout.Content sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            <Box sx={{ flex: 1, overflow: 'auto', display: 'flex' }}>
+              {slots.main}
+            </Box>
+            {slots.footer}
+          </Layout.Content>
+        </Layout>
+
+        {/* Notification Panel - overlay */}
+        {slots.notificationPanel}
       </Layout>
-
-      {/* Notification Panel - overlay */}
-      {slots.notificationPanel}
-    </Layout>
+    </AppShellContext.Provider>
   );
 };
 

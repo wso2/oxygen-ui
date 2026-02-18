@@ -172,6 +172,8 @@ const preview = {
       storySort: {
         order: [
           'Welcome',
+          'Getting Started',
+          'How To Contribute',
           'App Elements', [
             'App Shell',
             'Header',
@@ -180,13 +182,18 @@ const preview = {
             'Footer',
             'Page Content',
             'Page Title',
-            '*'
+            '*',
+            'useAppShell',
           ],
           'Tables',
           'Inputs',
           'Data Display',
           '*',
-          'Theming',
+          'Theming', [
+            '*',
+            'useTheme',
+            'useThemeContent',
+          ],
           'Animations',
           'Templates', [
             'Overview',
@@ -194,8 +201,6 @@ const preview = {
           ],
           'Utils', [
             '*',
-            'useTheme',
-            'useThemeContent',
             'useMediaQuery',
           ],
           'MUI X'
