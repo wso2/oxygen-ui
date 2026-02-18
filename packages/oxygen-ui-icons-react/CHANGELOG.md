@@ -1,5 +1,11 @@
 # @wso2/oxygen-ui-icons-react
 
+## 0.7.0
+
+### Minor Changes
+
+- [#496](https://github.com/wso2/oxygen-ui/pull/496) [`cc45d6f`](https://github.com/wso2/oxygen-ui/commit/cc45d6fb0231e36d22a5323b7c7602534995df92) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Improve AppShell along with some stability fixes
+
 ## 0.6.0
 
 ### Minor Changes
