@@ -19,6 +19,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import {
   ListingTable,
+  DataGrid,
   Button,
   Checkbox,
   Chip,
@@ -32,7 +33,7 @@ import {
   TextField,
   useListingTable,
 } from '@wso2/oxygen-ui';
-import type { ListingTableDensity, ListingTableSortDirection, ListingTableVariant } from '@wso2/oxygen-ui';
+import type { ListingTableDensity, ListingTableDataGridProps, ListingTableSortDirection, ListingTableVariant } from '@wso2/oxygen-ui';
 import {
   Edit,
   Trash2,
@@ -187,18 +188,18 @@ const platformComponents: PlatformComponent[] = [
 // Helper Functions
 // ============================================================================
 
-const getComponentIcon = (type: ComponentType) => {
+const getComponentIcon = (type: ComponentType, size: number = 20) => {
   switch (type) {
     case 'Service':
-      return <Server size={20} />;
+      return <Server size={size} />;
     case 'WebApp':
-      return <Globe size={20} />;
+      return <Globe size={size} />;
     case 'Webhook':
-      return <Webhook size={20} />;
+      return <Webhook size={size} />;
     case 'Proxy':
-      return <Shield size={20} />;
+      return <Shield size={size} />;
     default:
-      return <Server size={20} />;
+      return <Server size={size} />;
   }
 };
 
@@ -295,10 +296,10 @@ const meta: Meta<typeof ListingTable> = {
   argTypes: {
     variant: {
       control: 'radio',
-      options: ['table', 'card'],
-      description: 'Display variant - table (traditional) or card (card-like rows with rounded corners and gaps)',
+      options: ['table', 'card', 'data-grid'],
+      description: 'Display variant - table (traditional), card (card-like rows with rounded corners and gaps), data-grid (MUI DataGrid), or data-grid-card (MUI DataGrid with card rows)',
       table: {
-        type: { summary: "'table' | 'card'" },
+        type: { summary: "'table' | 'card' | 'data-grid'" },
         defaultValue: { summary: 'table' },
       },
     },
@@ -576,7 +577,7 @@ export const ProductionExample: Story = {
                 <ListingTable.Cell>
                   <ListingTable.SortLabel field="environment">Environment</ListingTable.SortLabel>
                 </ListingTable.Cell>
-                <ListingTable.Cell align="right">Actions</ListingTable.Cell>
+                <ListingTable.Cell align="center">Actions</ListingTable.Cell>
               </ListingTable.Row>
             </ListingTable.Head>
             <ListingTable.Body>
@@ -615,7 +616,7 @@ export const ProductionExample: Story = {
                       />
                     </ListingTable.Cell>
                     <ListingTable.Cell>{component.environment}</ListingTable.Cell>
-                    <ListingTable.Cell align="right">
+                    <ListingTable.Cell align="center">
                       <ListingTable.RowActions visibility="hover">
                         <Tooltip title="Edit">
                           <IconButton
@@ -897,6 +898,390 @@ export const CardVariant: Story = {
       </ListingTable>
     </ListingTable.Container>
   ),
+};
+
+/**
+ * The `data-grid` variant renders an MUI DataGrid instead of a traditional HTML table.
+ *
+ * Use this variant when you need built-in:
+ * - Column resizing, reordering, and visibility toggling
+ * - Server-side or client-side sorting and filtering
+ * - Virtual scrolling for large datasets
+ * - Checkbox selection with a toolbar
+ *
+ * `ListingTable.DataGrid` accepts all [MUI DataGrid props](https://mui.com/x/react-data-grid/).
+ * Use the `density` prop (or set it via `ListingTable.Provider`) to control row padding.
+ */
+export const DataGridVariant: Story = {
+  name: 'DataGrid Variant',
+  args: {
+    density: 'standard',
+  },
+  argTypes: {
+    density: {
+      control: 'select',
+      options: ['compact', 'standard', 'comfortable'],
+    },
+  },
+  render: (args) => {
+    const { DataGrid: MuiDataGrid } = DataGrid;
+
+    const columns: React.ComponentProps<typeof MuiDataGrid>['columns'] = [
+      {
+        field: 'name',
+        headerName: 'Name',
+        flex: 1.5,
+        minWidth: 180,
+        renderCell: ({ row }) => (
+          <ListingTable.CellIcon
+            sx={{ width: '100%' }}
+            icon={getComponentIcon(row.type as ComponentType)}
+            primary={row.name}
+          />
+        ),
+      },
+      {
+        field: 'type',
+        headerName: 'Type',
+        flex: 1,
+        minWidth: 110,
+        renderCell: ({ value }) => <Chip label={value} size="small" variant="outlined" />,
+      },
+      {
+        field: 'status',
+        headerName: 'Status',
+        flex: 1,
+        minWidth: 120,
+        renderCell: ({ value }) => (
+          <Chip
+            icon={getStatusIcon(value as ComponentStatus) || undefined}
+            label={value}
+            size="small"
+            color={getStatusColor(value as ComponentStatus)}
+            variant="outlined"
+          />
+        ),
+      },
+      { field: 'environment', headerName: 'Environment', flex: 1, minWidth: 130 },
+      { field: 'version', headerName: 'Version', flex: 0.8, minWidth: 100 },
+    ];
+
+    const rows = platformComponents.map((c) => ({ ...c }));
+
+    return (
+      <ListingTable.Container sx={{ minWidth: 700 }}>
+        <ListingTable.DataGrid
+          rows={rows}
+          columns={columns}
+          density={args.density}
+          autoHeight
+          disableRowSelectionOnClick
+          pageSizeOptions={[5, 10]}
+          initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
+        />
+      </ListingTable.Container>
+    );
+  },
+};
+
+/**
+ * Row actions that appear on hover, using `ListingTable.RowActions` inside a DataGrid `renderCell`.
+ *
+ * Add a dedicated actions column with `sortable: false` and `disableColumnMenu: true`,
+ * then render `ListingTable.RowActions` with `visibility="hover"` inside its `renderCell`.
+ */
+export const DataGridRowActions: Story = {
+  name: 'DataGrid Row Actions',
+  render: () => {
+    const { DataGrid: MuiDataGrid } = DataGrid;
+
+    const handleAction = (action: string, id: string, e: React.MouseEvent) => {
+      e.stopPropagation();
+      console.log(`${action}:`, id);
+    };
+
+    const columns: React.ComponentProps<typeof MuiDataGrid>['columns'] = [
+      {
+        field: 'name',
+        headerName: 'Name',
+        flex: 1.5,
+        minWidth: 220,
+        renderCell: ({ row }) => (
+          <ListingTable.CellIcon
+            sx={{ width: '100%' }}
+            icon={getComponentIcon(row.type as ComponentType)}
+            primary={row.name}
+            secondary={row.description}
+          />
+        ),
+      },
+      {
+        field: 'type',
+        headerName: 'Type',
+        flex: 1,
+        minWidth: 110,
+        renderCell: ({ value }) => <Chip label={value} size="small" variant="outlined" />,
+      },
+      {
+        field: 'status',
+        headerName: 'Status',
+        flex: 1,
+        minWidth: 120,
+        renderCell: ({ value }) => (
+          <Chip
+            icon={getStatusIcon(value as ComponentStatus) || undefined}
+            label={value}
+            size="small"
+            color={getStatusColor(value as ComponentStatus)}
+            variant="outlined"
+          />
+        ),
+      },
+      { field: 'environment', headerName: 'Environment', flex: 1, minWidth: 130 },
+      {
+        field: 'actions',
+        headerName: 'Actions',
+        width: 160,
+        sortable: false,
+        disableColumnMenu: true,
+        align: 'center',
+        headerAlign: 'center',
+        renderCell: ({ row }) => (
+          <ListingTable.RowActions visibility="hover">
+            <Tooltip title="View Details">
+              <IconButton size="small" onClick={(e) => handleAction('View', row.id, e)}>
+                <ExternalLink size={16} />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Edit">
+              <IconButton size="small" onClick={(e) => handleAction('Edit', row.id, e)}>
+                <Edit size={16} />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Delete">
+              <IconButton size="small" color="error" onClick={(e) => handleAction('Delete', row.id, e)}>
+                <Trash2 size={16} />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="More Options">
+              <IconButton size="small" onClick={(e) => handleAction('More', row.id, e)}>
+                <MoreVertical size={16} />
+              </IconButton>
+            </Tooltip>
+          </ListingTable.RowActions>
+        ),
+      },
+    ];
+
+    const rows = platformComponents.map((c) => ({ ...c }));
+
+    return (
+      <ListingTable.Container sx={{ minWidth: 800 }}>
+        <ListingTable.DataGrid
+          rows={rows}
+          columns={columns}
+          autoHeight
+          getRowHeight={() => 64}
+          disableRowSelectionOnClick
+          pageSizeOptions={[5, 10]}
+          initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
+        />
+      </ListingTable.Container>
+    );
+  },
+};
+
+/**
+ * The `data-grid-card` variant renders each DataGrid row as a floating card —
+ * identical in spirit to the `card` variant of `ListingTable`, but backed by MUI DataGrid
+ * so you keep all built-in DataGrid features (sorting, filtering, selection, etc.).
+ *
+ * **How it works:**
+ * - Set `variant="data-grid-card"` on a parent `ListingTable.Provider` (or `ListingTable`)
+ * - Each row gets a border, rounded corners, and a paper background
+ * - A 12 px gap is automatically added between rows via `getRowSpacing`
+ * - The column header border is removed and header text is styled as secondary
+ * - The virtual scroller overflow is set to `visible` so row borders are not clipped
+ */
+export const DataGridCardVariant: Story = {
+  name: 'DataGrid Card Variant',
+  args: {
+    density: 'standard',
+  },
+  argTypes: {
+    density: {
+      control: 'select',
+      options: ['compact', 'standard', 'comfortable'],
+    },
+  },
+  render: (args) => {
+    const { DataGrid: MuiDataGrid } = DataGrid;
+
+    const columns: React.ComponentProps<typeof MuiDataGrid>['columns'] = [
+      {
+        field: 'name',
+        headerName: 'Name',
+        flex: 1.5,
+        minWidth: 220,
+        renderCell: ({ row }) => (
+          <ListingTable.CellIcon
+            sx={{ width: '100%' }}
+            icon={getComponentIcon(row.type as ComponentType)}
+            primary={row.name}
+            secondary={row.description}
+          />
+        ),
+      },
+      {
+        field: 'type',
+        headerName: 'Type',
+        flex: 1,
+        minWidth: 110,
+        renderCell: ({ value }) => <Chip label={value} size="small" variant="outlined" />,
+      },
+      {
+        field: 'status',
+        headerName: 'Status',
+        flex: 1,
+        minWidth: 120,
+        renderCell: ({ value }) => (
+          <Chip
+            icon={getStatusIcon(value as ComponentStatus) || undefined}
+            label={value}
+            size="small"
+            color={getStatusColor(value as ComponentStatus)}
+            variant="outlined"
+          />
+        ),
+      },
+      { field: 'environment', headerName: 'Environment', flex: 1, minWidth: 130 },
+      { field: 'version', headerName: 'Version', flex: 0.8, minWidth: 100 },
+    ];
+
+    const rows = platformComponents.map((c) => ({ ...c }));
+
+    return (
+      <ListingTable.Provider variant="data-grid-card" density={args.density}>
+        <ListingTable.Container sx={{ minWidth: 700 }} disablePaper>
+          <ListingTable.DataGrid
+            rows={rows}
+            columns={columns}
+            autoHeight
+            getRowHeight={() => 64}
+            disableRowSelectionOnClick
+            pageSizeOptions={[5, 10]}
+            initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
+          />
+        </ListingTable.Container>
+      </ListingTable.Provider>
+    );
+  },
+};
+
+/**
+ * Full-featured DataGrid variant integrated with `ListingTable.Provider`.
+ *
+ * Demonstrates how `density` and `loading` flow automatically from context — no need to pass
+ * them down manually. The Toolbar's search and DensityControl work out of the box.
+ *
+ * Click **Simulate Load** to see the loading overlay in action.
+ */
+export const DataGridWithProvider: Story = {
+  name: 'DataGrid With Provider',
+  render: () => {
+    const { DataGrid: MuiDataGrid } = DataGrid;
+    const [searchValue, setSearchValue] = useState('');
+    const [density, setDensity] = useState<ListingTableDensity>('standard');
+    const [loading, setLoading] = useState(false);
+
+    const columns: React.ComponentProps<typeof MuiDataGrid>['columns'] = [
+      {
+        field: 'name',
+        headerName: 'Name',
+        flex: 1.5,
+        minWidth: 220,
+        renderCell: ({ row }) => (
+          <ListingTable.CellIcon
+            sx={{ width: '100%' }}
+            icon={getComponentIcon(row.type as ComponentType)}
+            primary={row.name}
+            secondary={row.description}
+          />
+        ),
+      },
+      {
+        field: 'type',
+        headerName: 'Type',
+        flex: 1,
+        minWidth: 110,
+        renderCell: ({ value }) => <Chip label={value} size="small" variant="outlined" />,
+      },
+      {
+        field: 'status',
+        headerName: 'Status',
+        flex: 1,
+        minWidth: 120,
+        renderCell: ({ value }) => (
+          <Chip
+            icon={getStatusIcon(value as ComponentStatus) || undefined}
+            label={value}
+            size="small"
+            color={getStatusColor(value as ComponentStatus)}
+            variant="outlined"
+          />
+        ),
+      },
+      { field: 'environment', headerName: 'Environment', flex: 1, minWidth: 130 },
+      { field: 'version', headerName: 'Version', flex: 0.8, minWidth: 100 },
+      { field: 'lastDeployed', headerName: 'Last Deployed', flex: 1, minWidth: 130 },
+    ];
+
+    const rows = platformComponents.map((c) => ({ ...c }));
+
+    const handleSimulateLoad = () => {
+      setLoading(true);
+      setTimeout(() => setLoading(false), 1500);
+    };
+
+    return (
+      <ListingTable.Provider
+        searchValue={searchValue}
+        onSearchChange={setSearchValue}
+        density={density}
+        onDensityChange={setDensity}
+        loading={loading}
+      >
+        <ListingTable.Container sx={{ minWidth: 900 }}>
+          <ListingTable.Toolbar
+            showSearch
+            searchPlaceholder="Search components..."
+            actions={
+              <>
+                <Button variant="outlined" size="small" onClick={handleSimulateLoad}>
+                  Simulate Load
+                </Button>
+                <ListingTable.DensityControl />
+                <Button variant="contained" size="small" startIcon={<Plus size={16} />}>
+                  New Component
+                </Button>
+              </>
+            }
+          />
+          {/* density and loading are automatically read from ListingTable.Provider context */}
+          <ListingTable.DataGrid
+            rows={rows}
+            columns={columns}
+            autoHeight
+            getRowHeight={() => 64}
+            checkboxSelection
+            disableRowSelectionOnClick
+            pageSizeOptions={[5, 10]}
+            initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
+          />
+        </ListingTable.Container>
+      </ListingTable.Provider>
+    );
+  },
 };
 
 /**
@@ -1393,7 +1778,7 @@ export const RowActions: Story = {
               <ListingTable.Cell>Type</ListingTable.Cell>
               <ListingTable.Cell>Status</ListingTable.Cell>
               <ListingTable.Cell>Environment</ListingTable.Cell>
-              <ListingTable.Cell align="right">Actions</ListingTable.Cell>
+              <ListingTable.Cell align="center">Actions</ListingTable.Cell>
             </ListingTable.Row>
           </ListingTable.Head>
           <ListingTable.Body>
@@ -1424,7 +1809,7 @@ export const RowActions: Story = {
                   />
                 </ListingTable.Cell>
                 <ListingTable.Cell>{component.environment}</ListingTable.Cell>
-                <ListingTable.Cell align="right">
+                <ListingTable.Cell align="center">
                   <ListingTable.RowActions visibility="hover">
                     <Tooltip title="View Details">
                       <IconButton size="small" onClick={(e) => handleAction('View', component.id, e)}>
@@ -1821,7 +2206,7 @@ export const ProviderFullFeatured: Story = {
                 <ListingTable.Cell>
                   <ListingTable.SortLabel field="environment">Environment</ListingTable.SortLabel>
                 </ListingTable.Cell>
-                <ListingTable.Cell align="right">Actions</ListingTable.Cell>
+                <ListingTable.Cell align="center">Actions</ListingTable.Cell>
               </ListingTable.Row>
             </ListingTable.Head>
             <ListingTable.Body>
@@ -1859,7 +2244,7 @@ export const ProviderFullFeatured: Story = {
                       />
                     </ListingTable.Cell>
                     <ListingTable.Cell>{component.environment}</ListingTable.Cell>
-                    <ListingTable.Cell align="right">
+                    <ListingTable.Cell align="center">
                       <ListingTable.RowActions visibility="hover">
                         <Tooltip title="Edit">
                           <IconButton
@@ -2131,7 +2516,8 @@ const TypeFilterChips = () => {
           variant={currentFilter === type ? 'filled' : 'outlined'}
           color={currentFilter === type ? 'primary' : 'default'}
           onClick={() => handleFilterClick(type)}
-          icon={getComponentIcon(type)}
+          icon={getComponentIcon(type, 14)}
+          sx={{ px: 0.5 }}
         />
       ))}
     </Stack>

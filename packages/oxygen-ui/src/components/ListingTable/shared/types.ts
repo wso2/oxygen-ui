@@ -18,7 +18,7 @@
 
 export type ListingTableDensity = 'compact' | 'standard' | 'comfortable';
 
-export type ListingTableVariant = 'table' | 'card';
+export type ListingTableVariant = 'table' | 'card' | 'data-grid' | 'data-grid-card';
 
 export const densityStyles: Record<ListingTableDensity, { padding: string }> = {
   compact: { padding: '6px 16px' },

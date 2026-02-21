@@ -64,8 +64,8 @@ export function ListingTableRowActions({
         ...(visibility === 'hover' && {
           opacity: 0,
           transition: 'opacity 0.2s ease-in-out',
-          // Support both TableView rows and ListView items
-          '.MuiTableRow-root:hover &, .list-view-item:hover &': {
+          // Support both TableView rows, DataGrid rows, and ListView items
+          '.MuiTableRow-root:hover &, .MuiDataGrid-row:hover &, .list-view-item:hover &': {
             opacity: 1,
           },
         }),

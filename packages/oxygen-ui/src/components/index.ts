@@ -138,4 +138,5 @@ export type {
   ListingTableContextValue,
   ListingTableSortDirection,
   ListingTableProviderProps,
+  ListingTableDataGridProps,
 } from './ListingTable';
