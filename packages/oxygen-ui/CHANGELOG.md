@@ -1,5 +1,16 @@
 # @wso2/oxygen-ui
 
+## 0.8.0
+
+### Minor Changes
+
+- [#498](https://github.com/wso2/oxygen-ui/pull/498) [`ec00d58`](https://github.com/wso2/oxygen-ui/commit/ec00d585b6bf25a647c9132fc70585ef510b4779) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Add DataGrid support to the ListingTable composite component
+
+### Patch Changes
+
+- Updated dependencies [[`ec00d58`](https://github.com/wso2/oxygen-ui/commit/ec00d585b6bf25a647c9132fc70585ef510b4779)]:
+  - @wso2/oxygen-ui-icons-react@0.8.0
+
 ## 0.7.0
 
 ### Minor Changes
