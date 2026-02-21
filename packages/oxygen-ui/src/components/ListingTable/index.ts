@@ -28,6 +28,7 @@ export type { ListingTableBodyProps } from './ListingTable';
 export type { ListingTableFooterProps } from './ListingTable';
 export type { ListingTableRowProps } from './ListingTable';
 export type { ListingTableCellProps } from './ListingTable';
+export type { ListingTableDataGridProps } from './ListingTable';
 
 // Re-export context and hooks
 export { ListingTableContext, useListingTable, useListingTableRequired } from './context';

@@ -43,3 +43,7 @@ export type { ListingTableRowProps } from './ListingTableRow';
 export { default as ListingTableCell } from './ListingTableCell';
 export { ListingTableCell as Cell } from './ListingTableCell';
 export type { ListingTableCellProps } from './ListingTableCell';
+
+export { default as ListingTableDataGrid } from './ListingTableDataGrid';
+export { ListingTableDataGrid as DataGrid } from './ListingTableDataGrid';
+export type { ListingTableDataGridProps } from './ListingTableDataGrid';

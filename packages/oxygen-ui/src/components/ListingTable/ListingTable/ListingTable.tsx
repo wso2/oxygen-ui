@@ -26,6 +26,7 @@ import ListingTableBody from './ListingTableBody';
 import ListingTableFooter from './ListingTableFooter';
 import ListingTableRow from './ListingTableRow';
 import ListingTableCell from './ListingTableCell';
+import ListingTableDataGrid from './ListingTableDataGrid';
 import {
   ListingTableCellIcon,
   ListingTableRowActions,
@@ -154,6 +155,7 @@ interface ListingTableComponent {
   Toolbar: typeof ListingTableToolbar;
   SortLabel: typeof ListingTableSortLabel;
   DensityControl: typeof ListingTableDensityControl;
+  DataGrid: typeof ListingTableDataGrid;
 }
 
 // Create the compound component
@@ -171,6 +173,7 @@ const ListingTableCompound: ListingTableComponent = Object.assign(ListingTable, 
   Toolbar: ListingTableToolbar,
   SortLabel: ListingTableSortLabel,
   DensityControl: ListingTableDensityControl,
+  DataGrid: ListingTableDataGrid,
 });
 
 export default ListingTableCompound;
