@@ -36,7 +36,7 @@ const applyTheme = (mode) => {
       barBg: (mode === 'light' ? '#f0f0f0' : '#000000'),
       brandTitle: 'WSO2 Oxygen UI',
       brandUrl: 'https://github.com/wso2/oxygen-ui',
-      brandImage: (mode === 'light' ? './oxygen-ui-react-logo.svg' : './oxygen-ui-react-logo-inverted.svg')
+      brandImage: (mode === 'light' ? './oxygen-ui-logo.svg' : './oxygen-ui-logo-inverted.svg')
     }
   });
 };
