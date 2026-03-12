@@ -1,5 +1,11 @@
 # @wso2/oxygen-ui-icons-react
 
+## 0.8.1
+
+### Patch Changes
+
+- [#503](https://github.com/wso2/oxygen-ui/pull/503) [`bf30d76`](https://github.com/wso2/oxygen-ui/commit/bf30d76c71c3863fd639564f3cdfde3bcda4e3ec) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Fix content area not scrollable in AppShell + Update new logo
+
 ## 0.8.0
 
 ### Minor Changes
