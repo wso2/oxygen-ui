@@ -117,8 +117,8 @@ export const Default: Story = {
             >
               <ColorSchemeImage
                 src={{
-                  light: `oxygen-ui-react-logo.svg`,
-                  dark: `oxygen-ui-react-logo-inverted.svg`,
+                  light: `oxygen-ui-logo.svg`,
+                  dark: `oxygen-ui-logo-inverted.svg`,
                 }}
                 alt={{light: 'Logo (Light)', dark: 'Logo (Dark)'}}
                 height={50}
