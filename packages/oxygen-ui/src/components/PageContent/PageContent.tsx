@@ -72,7 +72,14 @@ const PageContentInner = styled(Box, {
   slot: 'Inner',
   shouldForwardProp: (prop) => prop !== 'maxWidth' && prop !== 'centered' && prop !== 'fullWidth' && prop !== 'noPadding',
 })<PageContentProps>(({ theme, maxWidth = '1400px', centered = true, fullWidth = false, noPadding = false }) => ({
-  width: '100%',
+  // Use fit-content so the inner container expands to accommodate children that have a
+  // min-width (e.g. responsive data tables).  minWidth: 100% ensures it still fills the
+  // parent when the content is narrower, preserving the normal full-width layout.
+  // Together these mean: width = max(100% of scroll-parent, intrinsic min-content).
+  // When content exceeds the viewport, PageContentRoot (overflow:auto) shows a horizontal
+  // scrollbar for the entire content area rather than only the inner table element.
+  width: 'fit-content',
+  minWidth: '100%',
   ...(!fullWidth && { maxWidth }),
   ...(centered && { marginLeft: 'auto', marginRight: 'auto' }),
   ...(!noPadding && { padding: theme.spacing(8) }),
