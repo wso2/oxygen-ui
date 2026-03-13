@@ -122,6 +122,7 @@ export function ListingTableDataGrid({
   density: densityProp,
   loading: loadingProp,
   getRowSpacing: getRowSpacingProp,
+  getRowHeight: getRowHeightProp,
   filterModel: filterModelProp,
   sx,
   ...props
@@ -234,6 +235,7 @@ export function ListingTableDataGrid({
       loading={loading}
       filterModel={filterModel}
       getRowSpacing={variant === 'card' ? (getRowSpacingProp ?? defaultCardRowSpacing) : getRowSpacingProp}
+      getRowHeight={variant === 'card' ? (getRowHeightProp ?? (() => 'auto' as const)) : getRowHeightProp}
       sx={mergedSx}
       {...props}
     />

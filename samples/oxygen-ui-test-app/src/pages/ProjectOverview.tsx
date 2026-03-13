@@ -32,6 +32,7 @@ import {
   PageContent,
   ListingTable,
   Chip,
+  DataGrid,
 } from '@wso2/oxygen-ui'
 import { LineChart } from '@wso2/oxygen-ui-charts-react'
 import { Clock, Plus, RefreshCw, Info, Link as LinkIcon } from '@wso2/oxygen-ui-icons-react'
@@ -176,28 +177,19 @@ export default function ProjectOverview(): JSX.Element {
               <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
                 API Proxies
               </Typography>
-              <ListingTable.Container sx={{ width: '100%' }} disablePaper>
-                <ListingTable variant="card" density="standard">
-                  <ListingTable.Head>
-                    <ListingTable.Row>
-                      <ListingTable.Cell>Name</ListingTable.Cell>
-                      <ListingTable.Cell>Description</ListingTable.Cell>
-                      <ListingTable.Cell>Type</ListingTable.Cell>
-                      <ListingTable.Cell align="right">Last Updated</ListingTable.Cell>
-                    </ListingTable.Row>
-                  </ListingTable.Head>
-
-                  <ListingTable.Body>
-                    {mockComponents.map(component => (
-                      <ListingTable.Row
-                        key={component.id}
-                        variant="card"
-                        hover
-                        clickable
-                        onClick={() => navigate(`components/${component.id}`)}
-                      >
-                        <ListingTable.Cell>
+              <ListingTable.Provider variant="data-grid-card">
+                <ListingTable.Container disablePaper>
+                  <ListingTable.DataGrid
+                    rows={mockComponents}
+                    columns={[
+                      {
+                        field: 'name',
+                        headerName: 'Name',
+                        flex: 1.5,
+                        minWidth: 220,
+                        renderCell: ({ row }: DataGrid.GridRenderCellParams<Component>) => (
                           <ListingTable.CellIcon
+                            sx={{ width: '100%' }}
                             icon={
                               <Avatar
                                 sx={{
@@ -207,14 +199,19 @@ export default function ProjectOverview(): JSX.Element {
                                   color: 'text.primary',
                                 }}
                               >
-                                {(component.name?.trim()?.[0] ?? 'A').toUpperCase()}
+                                {(row.name?.trim()?.[0] ?? 'A').toUpperCase()}
                               </Avatar>
                             }
-                            primary={component.name}
+                            primary={row.name}
                           />
-                        </ListingTable.Cell>
-
-                        <ListingTable.Cell>
+                        ),
+                      },
+                      {
+                        field: 'description',
+                        headerName: 'Description',
+                        flex: 2,
+                        minWidth: 200,
+                        renderCell: () => (
                           <Typography
                             variant="caption"
                             color="text.secondary"
@@ -222,25 +219,41 @@ export default function ProjectOverview(): JSX.Element {
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',
                               whiteSpace: 'nowrap',
-                              maxWidth: 420,
                             }}
                           >
                             This is a sample proxy that manages a list of reading items.
                           </Typography>
-                        </ListingTable.Cell>
-
-                        <ListingTable.Cell>
-                          <Chip label={component.type ?? 'HTTP'} size="small" variant="outlined" />
-                        </ListingTable.Cell>
-
-                        <ListingTable.Cell align="right">
-                          <LastUpdatedCell value={component.lastModified} />
-                        </ListingTable.Cell>
-                      </ListingTable.Row>
-                    ))}
-                  </ListingTable.Body>
-                </ListingTable>
-              </ListingTable.Container>
+                        ),
+                      },
+                      {
+                        field: 'type',
+                        headerName: 'Type',
+                        width: 120,
+                        renderCell: ({ row }: DataGrid.GridRenderCellParams<Component>) => (
+                          <Chip label={row.type ?? 'HTTP'} size="small" variant="outlined" />
+                        ),
+                      },
+                      {
+                        field: 'lastModified',
+                        headerName: 'Last Updated',
+                        width: 150,
+                        headerAlign: 'left',
+                        align: 'left',
+                        renderCell: ({ row }: DataGrid.GridRenderCellParams<Component>) => (
+                          <LastUpdatedCell value={row.lastModified} />
+                        ),
+                      },
+                    ] as DataGrid.GridColDef<Component>[]}
+                    onRowClick={params => navigate(`components/${(params.row as Component).id}`)}
+                    disableRowSelectionOnClick
+                    hideFooter
+                    sx={{
+                      height: 'auto',
+                      '& .MuiDataGrid-row': { cursor: 'pointer' },
+                    }}
+                  />
+                </ListingTable.Container>
+              </ListingTable.Provider>
             </Box>
 
             <Box sx={{ mb: 4 }}>
@@ -254,7 +267,7 @@ export default function ProjectOverview(): JSX.Element {
                     <ListingTable.Row>
                       <ListingTable.Cell>Name</ListingTable.Cell>
                       <ListingTable.Cell>Description</ListingTable.Cell>
-                      <ListingTable.Cell>Last Updated</ListingTable.Cell>
+                      <ListingTable.Cell sx={{ maxWidth: 150 }}>Last Updated</ListingTable.Cell>
                     </ListingTable.Row>
                   </ListingTable.Head>
 
@@ -300,8 +313,8 @@ export default function ProjectOverview(): JSX.Element {
                           </Typography>
                         </ListingTable.Cell>
 
-                        <ListingTable.Cell>
-                          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <ListingTable.Cell sx={{ maxWidth: 150 }}>
+                          <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
                             <LastUpdatedCell value={server.timestamp} />
                           </Box>
                         </ListingTable.Cell>

@@ -63,11 +63,10 @@ const HeaderToolbar = styled(Toolbar, {
   slot: 'Toolbar',
 })(({ theme }) => ({
   gap: theme.spacing(1),
-  minHeight: 56,
-  paddingLeft: theme.spacing(1),
-  paddingRight: theme.spacing(1),
+  minHeight: 64,
+  paddingLeft: theme.spacing(2),
+  paddingRight: theme.spacing(2),
   [theme.breakpoints.up('sm')]: {
-    minHeight: 64,
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
   },
