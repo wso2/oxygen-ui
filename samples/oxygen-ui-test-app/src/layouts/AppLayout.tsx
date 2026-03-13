@@ -250,7 +250,6 @@ export default function AppLayout(): JSX.Element {
             <Divider
               orientation="vertical"
               flexItem
-              sx={{ mx: 1, display: { xs: 'none', sm: 'block' } }}
             />
             <UserMenu>
               <UserMenu.Trigger name={mockUser.name} avatar={mockUser.avatar} />

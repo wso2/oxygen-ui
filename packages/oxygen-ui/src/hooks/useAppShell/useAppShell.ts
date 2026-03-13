@@ -138,6 +138,9 @@ export const useAppShell = (options?: UseAppShellOptions): UseAppShellReturn => 
   // Detect mobile view using MUI breakpoint (must call unconditionally)
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
 
+  // Stable boolean for "create mode" — avoids re-running effects when `options` object reference changes
+  const isCreateMode = options !== undefined;
+
   // Create state (must call unconditionally)
   const [state, setState] = React.useState<AppShellState>({
     sidebarCollapsed: initialCollapsed,
@@ -148,12 +151,16 @@ export const useAppShell = (options?: UseAppShellOptions): UseAppShellReturn => 
     sidebarCollapsedWidth,
   });
 
-  // Auto-collapse sidebar on mobile if collapseOnMobile is enabled
+  // Auto-collapse sidebar on mobile if collapseOnMobile is enabled.
+  // Only fires when `isMobile` changes (e.g. viewport crosses the breakpoint),
+  // NOT on every render — the previous `options` dependency caused continuous
+  // re-runs because the object reference was new each render, which prevented
+  // the sidebar from ever being expanded on mobile.
   React.useEffect(() => {
-    if (options && collapseOnMobile && isMobile) {
+    if (isCreateMode && collapseOnMobile && isMobile) {
       setState((prev) => ({ ...prev, sidebarCollapsed: true }));
     }
-  }, [options, collapseOnMobile, isMobile]);
+  }, [isCreateMode, collapseOnMobile, isMobile]);
 
   const toggleSidebar = React.useCallback(() => {
     setState((prev) => ({ ...prev, sidebarCollapsed: !prev.sidebarCollapsed }));
