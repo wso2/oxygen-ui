@@ -1,5 +1,14 @@
 # @wso2/oxygen-ui-charts-react
 
+## 0.8.2
+
+### Patch Changes
+
+- [#505](https://github.com/wso2/oxygen-ui/pull/505) [`fe53cc2`](https://github.com/wso2/oxygen-ui/commit/fe53cc27dbef8229d50cc13a4c0a1b72bd4a4260) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Fix some issue in ListingTable and AppShell sidebar
+
+- Updated dependencies [[`fe53cc2`](https://github.com/wso2/oxygen-ui/commit/fe53cc27dbef8229d50cc13a4c0a1b72bd4a4260)]:
+  - @wso2/oxygen-ui@0.8.2
+
 ## 0.8.1
 
 ### Patch Changes
