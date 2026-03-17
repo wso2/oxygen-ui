@@ -42,6 +42,7 @@ import {
   Avatar,
   ThemeSwitcher,
   PageContent,
+  Autocomplete,
 } from '@wso2/oxygen-ui'
 import {
   Save,
@@ -296,20 +297,31 @@ export default function SettingsPage(): JSX.Element {
 
                   <FormControl>
                     <FormLabel>Language</FormLabel>
-                    <Select
-                      value={appearanceSettings.language}
-                      onChange={(e) => {
-                        setAppearanceSettings({ ...appearanceSettings, language: e.target.value })
-                        handleChange()
+                    <Autocomplete
+                      value={{ value: appearanceSettings.language, label: {
+                        en: 'English',
+                        es: 'Spanish',
+                        fr: 'French',
+                        de: 'German',
+                        ja: 'Japanese',
+                        zh: 'Chinese'
+                      }[appearanceSettings.language] || 'English' }}
+                      onChange={(_, newValue) => {
+                        if (newValue) {
+                          setAppearanceSettings({ ...appearanceSettings, language: newValue.value })
+                          handleChange()
+                        }
                       }}
-                    >
-                      <MenuItem value="en">English</MenuItem>
-                      <MenuItem value="es">Spanish</MenuItem>
-                      <MenuItem value="fr">French</MenuItem>
-                      <MenuItem value="de">German</MenuItem>
-                      <MenuItem value="ja">Japanese</MenuItem>
-                      <MenuItem value="zh">Chinese</MenuItem>
-                    </Select>
+                      options={[
+                        { value: 'en', label: 'English' },
+                        { value: 'es', label: 'Spanish' },
+                        { value: 'fr', label: 'French' },
+                        { value: 'de', label: 'German' },
+                        { value: 'ja', label: 'Japanese' },
+                        { value: 'zh', label: 'Chinese' }
+                      ]}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
                   </FormControl>
 
                   <FormControl>

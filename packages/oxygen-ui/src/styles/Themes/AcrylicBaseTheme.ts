@@ -40,8 +40,8 @@ const AcrylicBaseTheme = extendTheme(OxygenThemeBase, {
         },
         background: {
           default: '#f5f5f5',
-          paper: '#ffffffe1',
-          acrylic: '#ffffff4a',
+          paper: '#ffffffc5',
+          acrylic: '#ffffff40', // More transparent version for Paper and Card components
         },
         text: {
           primary: '#40404B',
@@ -61,8 +61,8 @@ const AcrylicBaseTheme = extendTheme(OxygenThemeBase, {
         },
         background: {
           default: '#000000',
-          paper: '#000000b8',
-          acrylic: '#00000045', // More transparent version for Paper and Card components
+          paper: '#000000c5',
+          acrylic: '#00000040', // More transparent version for Paper and Card components
         },
         text: {
           primary: '#efefef',
@@ -202,8 +202,20 @@ const AcrylicBaseTheme = extendTheme(OxygenThemeBase, {
     MuiPopover: {
       styleOverrides: {
         paper: ({ theme }: { theme: OxygenTheme }) => ({
-          background: theme.vars!.palette.background.paper,
-          opacity: 0.95,
+          backgroundColor: theme.vars!.palette.background.paper,
+          WebkitBackdropFilter: theme.blur.medium,
+          backdropFilter: theme.blur.medium,
+          backgroundImage: 'none',
+        })
+      }
+    },
+    MuiAutocomplete: {
+      styleOverrides: {
+        paper: ({ theme }: { theme: OxygenTheme }) => ({
+          backgroundColor: theme.vars!.palette.background.paper,
+          WebkitBackdropFilter: theme.blur.medium,
+          backdropFilter: theme.blur.medium,
+          backgroundImage: 'none',
         })
       }
     },
