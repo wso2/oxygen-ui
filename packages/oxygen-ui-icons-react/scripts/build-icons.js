@@ -125,7 +125,9 @@ export declare const ${svgName}: LucideIcon;
   fs.writeFileSync(path.join(distDir, "index.ts"), indexContent);
   fs.writeFileSync(path.join(distDir, "index.d.ts"), indexTypesContent);
 
+  // eslint-disable-next-line no-undef
   console.log(`✅ Generated ${files.length} icons in dist/icons`);
+  // eslint-disable-next-line no-undef
   console.log(`✨ All icons + lucide-react are exported from ${PACKAGE_NAME}`);
 }
 

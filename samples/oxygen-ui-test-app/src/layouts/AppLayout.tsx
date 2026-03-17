@@ -38,7 +38,8 @@ import {
   Button,
   useAppShell,
   useNotifications,
-  version as OXYGEN_UI_VERSION
+  version as OXYGEN_UI_VERSION,
+  Box
 } from '@wso2/oxygen-ui'
 import { useState, useEffect, type JSX, useCallback } from 'react'
 import { useNavigate, useLocation, Outlet, Link as NavigateLink, useParams } from 'react-router'
@@ -62,6 +63,7 @@ import {
   Users,
   User as UserIcon,
   LogOut,
+  WSO2,
 } from '@wso2/oxygen-ui-icons-react';
 import { mockNotifications, mockOrganizations, mockProjects, mockUser } from '../mock-data';
 import type { Organization, Project } from '../mock-data/types';
@@ -178,7 +180,7 @@ export default function AppLayout(): JSX.Element {
           <Header.Toggle />
           <Header.Brand>
             <Header.BrandLogo><Logo /></Header.BrandLogo>
-            <Header.BrandTitle>Developer</Header.BrandTitle>
+            <Header.BrandTitle>Console</Header.BrandTitle>
           </Header.Brand>
           <Header.Switchers showDivider={false}>
             {isOrganization && (
@@ -400,7 +402,12 @@ export default function AppLayout(): JSX.Element {
 
       <AppShell.Footer>
         <Footer>
-          <Footer.Copyright>© {new Date().getFullYear()} WSO2 LLC. All rights reserved.</Footer.Copyright>
+          <Footer.Copyright>
+            © {new Date().getFullYear()} |  
+            <Box sx={{ verticalAlign: 'middle', mt: .2, mx: .5, display: 'inline-block' }}>
+              <WSO2 size={12} />
+            </Box>
+            WSO2 LLC.</Footer.Copyright>
           <Footer.Divider />
           <Footer.Version>oxygen-ui-v{OXYGEN_UI_VERSION}</Footer.Version>
           <Footer.Link href="#terms">Terms & Conditions</Footer.Link>
