@@ -29,11 +29,11 @@ export interface ListingTableCellIconProps {
   /**
    * Primary text content
    */
-  primary: string;
+  primary: ReactNode;
   /**
    * Secondary text content (optional)
    */
-  secondary?: string;
+  secondary?: ReactNode;
   /**
    * Icon position relative to text
    * @default 'left'
