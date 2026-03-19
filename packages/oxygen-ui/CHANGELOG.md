@@ -1,5 +1,16 @@
 # @wso2/oxygen-ui
 
+## 0.8.3
+
+### Patch Changes
+
+- [#508](https://github.com/wso2/oxygen-ui/pull/508) [`3e66854`](https://github.com/wso2/oxygen-ui/commit/3e668545e59f693b4d9309f47981c4d6ba2741fc) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Fix dropdown menu background issue and WSO2 logo icon
+
+- [#511](https://github.com/wso2/oxygen-ui/pull/511) [`b5dde05`](https://github.com/wso2/oxygen-ui/commit/b5dde05753e24416224ba552bd1b4b7ea2243dd6) Thanks [@brionmario](https://github.com/brionmario)! - Allow `ReactNode` in `ListingTableCellIcon` + Add `Lambda` Icon
+
+- Updated dependencies [[`3e66854`](https://github.com/wso2/oxygen-ui/commit/3e668545e59f693b4d9309f47981c4d6ba2741fc), [`b5dde05`](https://github.com/wso2/oxygen-ui/commit/b5dde05753e24416224ba552bd1b4b7ea2243dd6)]:
+  - @wso2/oxygen-ui-icons-react@0.8.3
+
 ## 0.8.2
 
 ### Patch Changes
