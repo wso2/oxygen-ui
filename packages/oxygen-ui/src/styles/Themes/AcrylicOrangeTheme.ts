@@ -16,9 +16,8 @@
  * under the License.
  */
 
-import { extendTheme } from '@mui/material/styles';
 import AcrylicBaseTheme from './AcrylicBaseTheme';
-import type { OxygenTheme } from './OxygenThemeBase';
+import { createOxygenTheme } from '../../utils/createOxygenTheme';
 
 /**
  * AcrylicOrange Theme - Oxygen Theme with Radial Background Design
@@ -34,7 +33,7 @@ import type { OxygenTheme } from './OxygenThemeBase';
  * </OxygenUIThemeProvider>
  * ```
  */
-const AcrylicOrangeTheme = extendTheme(AcrylicBaseTheme, {
+const AcrylicOrangeTheme = {
   components: {
     MuiCssBaseline: {
       styleOverrides: {
@@ -59,6 +58,6 @@ const AcrylicOrangeTheme = extendTheme(AcrylicBaseTheme, {
       },
     },
   },
-}) as OxygenTheme;
+};
 
-export default AcrylicOrangeTheme;
+export default createOxygenTheme(AcrylicOrangeTheme, AcrylicBaseTheme);

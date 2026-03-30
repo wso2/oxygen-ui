@@ -16,6 +16,8 @@
  * under the License.
  */
 
+export type { OxygenTheme as OxygenThemeType } from './OxygenThemeBase';
+
 export { default as OxygenTheme } from './AcrylicBaseTheme';
 export { default as AcrylicOrangeTheme } from './AcrylicOrangeTheme';
 export { default as AcrylicPurpleTheme } from './AcrylicPurpleTheme';

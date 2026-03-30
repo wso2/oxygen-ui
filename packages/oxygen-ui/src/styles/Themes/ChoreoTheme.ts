@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import { extendTheme } from '@mui/material/styles';
 import OxygenThemeBase from './OxygenThemeBase';
+import { createOxygenTheme } from '../../utils/createOxygenTheme';
 import type { OxygenTheme } from './OxygenThemeBase';
 
 /**
@@ -33,7 +33,7 @@ import type { OxygenTheme } from './OxygenThemeBase';
  * </OxygenUIThemeProvider>
  * ```
  */
-const ChoreoThemeBase = extendTheme(OxygenThemeBase, {
+const ChoreoThemeConfig = {
   shape: {
     borderRadius: 8,
   },
@@ -235,7 +235,7 @@ const ChoreoThemeBase = extendTheme(OxygenThemeBase, {
       },
     },
   },
-});
+};
 
 // Add custom gradient property (with improved contrast)
 const choreoGradient = {
@@ -270,11 +270,11 @@ const choreoSyntax = {
   },
 };
 
-Object.assign(ChoreoThemeBase, choreoGradient, choreoSyntax);
-if (ChoreoThemeBase.vars) {
-  Object.assign(ChoreoThemeBase.vars, choreoGradient, choreoSyntax);
-}
+const ChoreoTheme = createOxygenTheme(ChoreoThemeConfig, OxygenThemeBase);
 
-const ChoreoTheme = ChoreoThemeBase as OxygenTheme;
+Object.assign(ChoreoTheme, choreoGradient, choreoSyntax);
+if (ChoreoTheme.vars) {
+  Object.assign(ChoreoTheme.vars, choreoGradient, choreoSyntax);
+}
 
 export default ChoreoTheme;

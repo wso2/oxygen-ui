@@ -16,9 +16,8 @@
  * under the License.
  */
 
-import { extendTheme } from '@mui/material/styles';
 import PaleBaseTheme from './PaleBaseTheme';
-import type { OxygenTheme } from './OxygenThemeBase';
+import { createOxygenTheme } from '../../utils/createOxygenTheme';
 
 /**
  * PaleGray Theme - Professional flat design with grey and black color scheme
@@ -34,7 +33,7 @@ import type { OxygenTheme } from './OxygenThemeBase';
  * </OxygenUIThemeProvider>
  * ```
  */
-const PaleGrayTheme = extendTheme(PaleBaseTheme, {
+const PaleGrayThemeConfig = {
   colorSchemes: {
     light: {
       palette: {
@@ -153,6 +152,6 @@ const PaleGrayTheme = extendTheme(PaleBaseTheme, {
       },
     },
   },
-});
+};
 
-export default PaleGrayTheme as OxygenTheme;
+export default createOxygenTheme(PaleGrayThemeConfig, PaleBaseTheme);

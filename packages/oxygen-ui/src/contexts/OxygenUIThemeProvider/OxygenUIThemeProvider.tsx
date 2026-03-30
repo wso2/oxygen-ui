@@ -20,8 +20,6 @@ import { ThemeProvider, StyledEngineProvider, Theme } from '@mui/material/styles
 import { CssBaseline } from '@mui/material';
 import { ReactNode, createContext, useContext, useState, useEffect } from 'react';
 import OxygenTheme from '../../styles/Themes/AcrylicBaseTheme';
-import AcrylicOrangeTheme from '../../styles/Themes/AcrylicOrangeTheme';
-import AcrylicPurpleTheme from '../../styles/Themes/AcrylicPurpleTheme';
 
 const THEME_STORAGE_KEY = 'oxygen-theme';
 
@@ -35,9 +33,10 @@ export interface ThemeOption {
    */
   label: string;
   /**
-   * The theme object
+   * The theme object or a string path to load the theme from.
+   * If a string path is provided, the theme will be loaded asynchronously.
    */
-  theme: Theme;
+  theme: Theme | string;
 }
 
 export interface ThemeSwitcherContextValue {
@@ -69,17 +68,7 @@ const defaultThemes: ThemeOption[] = [
     key: 'default',
     label: 'Default',
     theme: OxygenTheme,
-  },
-  {
-    key: 'acrylicOrange',
-    label: 'Acrylic Orange',
-    theme: AcrylicOrangeTheme,
-  },
-  {
-    key: 'acrylicPurple',
-    label: 'Acrylic Purple',
-    theme: AcrylicPurpleTheme,
-  },
+  }
 ];
 
 // Context for theme switching
@@ -95,6 +84,52 @@ export const useThemeSwitcher = () => {
   }
   return context;
 };
+
+/**
+ * Loads a single theme JavaScript file by fetching and evaluating it.
+ * The theme file should export default with a partial theme config object.
+ * 
+ * @param themeUrl - URL to the theme JavaScript file
+ * @returns Promise resolving to the theme object
+ */
+async function loadThemeFile(themeUrl: string): Promise<Theme | null> {
+  try {
+    const response = await fetch(themeUrl);
+    
+    if (!response.ok) {
+      console.warn(`Failed to fetch theme from ${themeUrl}`);
+      return null;
+    }
+
+    const themeCode = await response.text();
+    
+    // Create a module environment to evaluate the theme code
+    const moduleFunction = new Function(
+      'exports',
+      'module',
+      'createOxygenTheme',
+      `${themeCode}\nreturn module.exports.default || exports.default;`
+    );
+
+    // Import createOxygenTheme utility
+    const { createOxygenTheme } = await import('../../utils/createOxygenTheme');
+    
+    // Execute the theme code and get the partial config
+    const themeConfig = moduleFunction({}, { exports: {} }, createOxygenTheme);
+    
+    // If the file already used createOxygenTheme, return as-is
+    // Otherwise, pass it through createOxygenTheme
+    if (themeConfig && typeof themeConfig === 'object' && '_cssVarsTemplate' in themeConfig) {
+      return themeConfig as Theme;
+    }
+    
+    const createdTheme = createOxygenTheme(themeConfig) as Theme;
+    return createdTheme;
+  } catch (error) {
+    console.error(`Failed to load theme from ${themeUrl}:`, error);
+    return null;
+  }
+}
 
 interface OxygenUIThemeProviderProps {
   children: ReactNode;
@@ -114,6 +149,11 @@ interface OxygenUIThemeProviderProps {
    * Defaults to the first theme in the themes array.
    */
   initialTheme?: string;
+  /**
+   * Callback fired when themes are loaded and resolved.
+   * Receives the array of resolved theme configurations.
+   */
+  onThemesLoaded?: (themes: ThemeOption[]) => void;
 }
 
 export default function OxygenUIThemeProvider({
@@ -121,10 +161,62 @@ export default function OxygenUIThemeProvider({
   theme,
   themes,
   initialTheme,
+  onThemesLoaded,
 }: OxygenUIThemeProviderProps) {
+  // State for managing dynamically loaded themes
+  const [resolvedThemes, setResolvedThemes] = useState<ThemeOption[]>([]);
+  const [themesLoaded, setThemesLoaded] = useState(false);
+
+  // Resolve any string path themes to actual Theme objects
+  useEffect(() => {
+    const allThemes = themes || defaultThemes;
+    
+    // Check if any themes need to be loaded from paths
+    const themesToLoad = allThemes.filter(t => typeof t.theme === 'string');
+    
+    if (themesToLoad.length === 0) {
+      // No async loading needed, cast to proper type
+      const resolvedThemeList = allThemes.map(t => ({
+        key: t.key,
+        label: t.label,
+        theme: t.theme as Theme
+      }));
+      setResolvedThemes(resolvedThemeList);
+      setThemesLoaded(true);
+      if (onThemesLoaded) {
+        onThemesLoaded(resolvedThemeList);
+      }
+      return;
+    }
+
+    // Load themes asynchronously
+    Promise.all(
+      allThemes.map(async (themeOption) => {
+        if (typeof themeOption.theme === 'string') {
+          const loadedTheme = await loadThemeFile(themeOption.theme);
+          if (loadedTheme) {
+            return { ...themeOption, theme: loadedTheme as Theme };
+          } else {
+            return null;
+          }
+        }
+        return { ...themeOption, theme: themeOption.theme as Theme };
+      })
+    ).then((loaded) => {
+      const validThemes = loaded.filter((t): t is { key: string; label: string; theme: Theme } => t !== null);
+      setResolvedThemes(validThemes);
+      setThemesLoaded(true);
+      if (onThemesLoaded) {
+        onThemesLoaded(validThemes);
+      }
+    });
+  }, [themes, onThemesLoaded]);
+
   // Use theme switching mode if themes array is provided
   const useThemeSwitching = !!themes;
-  const themeOptions = themes || defaultThemes;
+  
+  // Use resolved themes
+  const themeOptions = resolvedThemes.length > 0 ? resolvedThemes : (themes || defaultThemes);
   
   // Get initial theme from localStorage or prop
   const [currentThemeKey, setCurrentThemeKey] = useState<string>(() => {
@@ -160,7 +252,8 @@ export default function OxygenUIThemeProvider({
   // Determine which theme to use
   let resolvedTheme: Theme;
   if (useThemeSwitching) {
-    resolvedTheme = themeOptions.find((t) => t.key === currentThemeKey)?.theme || themeOptions[0]?.theme;
+    const selectedTheme = themeOptions.find((t) => t.key === currentThemeKey)?.theme || themeOptions[0]?.theme;
+    resolvedTheme = (typeof selectedTheme === 'string' ? OxygenTheme : selectedTheme) as Theme;
   } else {
     resolvedTheme = theme || OxygenTheme;
   }
@@ -180,6 +273,11 @@ export default function OxygenUIThemeProvider({
     setTheme,
     isActive,
   };
+
+  // Show loading state while themes are being resolved
+  if (useThemeSwitching && !themesLoaded) {
+    return null;
+  }
 
   const content = (
     <StyledEngineProvider injectFirst>

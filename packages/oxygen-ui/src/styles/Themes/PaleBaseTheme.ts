@@ -16,9 +16,10 @@
  * under the License.
  */
 
-import { extendTheme } from '@mui/material/styles';
 import type {} from '@mui/x-data-grid/themeAugmentation';
-import OxygenThemeBase, { type OxygenTheme } from './OxygenThemeBase';
+import OxygenThemeBase from './OxygenThemeBase';
+import { createOxygenTheme } from '../../utils/createOxygenTheme';
+import type { OxygenTheme } from './OxygenThemeBase';
 
 // Extend the TypeBackground interface to include acrylic
 declare module '@mui/material/styles' {
@@ -33,7 +34,7 @@ declare module '@mui/material/styles' {
  * This base theme contains all common flat design component styles.
  * Extend this theme to create color variants (PaleGray, PaleIndigo, etc.)
  */
-const PaleBaseTheme = extendTheme(OxygenThemeBase, {
+const PaleBaseThemeConfig = {
   shape: {
     borderRadius: 8,
   },
@@ -268,7 +269,7 @@ const PaleBaseTheme = extendTheme(OxygenThemeBase, {
       },
     },
   },
-});
+};
 
 // LowColor base theme uses subtle gradients for primary elements
 const lowColorBaseGradient = {
@@ -277,9 +278,11 @@ const lowColorBaseGradient = {
   },
 };
 
+const PaleBaseTheme = createOxygenTheme(PaleBaseThemeConfig, OxygenThemeBase);
+
 Object.assign(PaleBaseTheme, lowColorBaseGradient);
 if (PaleBaseTheme.vars) {
   Object.assign(PaleBaseTheme.vars, lowColorBaseGradient);
 }
 
-export default PaleBaseTheme as OxygenTheme;
+export default PaleBaseTheme;
