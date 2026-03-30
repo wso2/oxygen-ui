@@ -70,6 +70,16 @@ export default function LoginPage(): JSX.Element {
     default: (
       <ColorSchemeImage
         src={{
+          light: `${import.meta.env.BASE_URL}assets/images/oxygen-ui-logo.svg`,
+          dark: `${import.meta.env.BASE_URL}assets/images/oxygen-ui-logo-inverted.svg`,
+        }}
+        alt={{light: 'Oxygen UI Logo (Light)', dark: 'Oxygen UI Logo (Dark)'}}
+        height={40}
+        width="auto"
+      />),
+    asgardeo: (
+      <ColorSchemeImage
+        src={{
           light: `${import.meta.env.BASE_URL}assets/images/logo.svg`,
           dark: `${import.meta.env.BASE_URL}assets/images/logo-inverted.svg`,
         }}

@@ -31,21 +31,31 @@ export default function Logo() {
     />
   );
 
+  const asgardeoLogo = (
+    <ColorSchemeImage
+      src={{
+        light: `${import.meta.env.BASE_URL}assets/images/asgardeo-logo.svg`,
+        dark: `${import.meta.env.BASE_URL}assets/images/asgardeo-logo-inverted.svg`,
+      }}
+      alt={{light: 'Asgardeo Logo (Light)', dark: 'Asgardeo Logo (Dark)'}}
+      height={24}
+      width="auto"
+    />
+  );
+
   const Logo = useThemeContent({
     default: (
       <ColorSchemeImage
         src={{
-          light: `${import.meta.env.BASE_URL}assets/images/logo.svg`,
-          dark: `${import.meta.env.BASE_URL}assets/images/logo-inverted.svg`,
+          light: `${import.meta.env.BASE_URL}assets/images/oxygen-ui-logo.svg`,
+          dark: `${import.meta.env.BASE_URL}assets/images/oxygen-ui-logo-inverted.svg`,
         }}
-        alt={{light: 'Asgardeo Logo (Light)', dark: 'Asgardeo Logo (Dark)'}}
-        height={17}
+        alt={{light: 'Oxygen UI Logo (Light)', dark: 'Oxygen UI Logo (Dark)'}}
+        height={22}
         width="auto"
-        sx={{
-          marginTop: '-5px'
-        }}
       />),
     acrylicPurple: choreoLogo,
+    asgardeoLogo: asgardeoLogo,
     choreo: choreoLogo
   });
 

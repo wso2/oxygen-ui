@@ -83,8 +83,8 @@ export default function LoginPage(): JSX.Element {
     default: (
       <ColorSchemeImage
         src={{
-          light: `${import.meta.env.BASE_URL}assets/images/logo.svg`,
-          dark: `${import.meta.env.BASE_URL}assets/images/logo-inverted.svg`,
+          light: `${import.meta.env.BASE_URL}assets/images/oxygen-ui-logo.svg`,
+          dark: `${import.meta.env.BASE_URL}assets/images/oxygen-uilogo-inverted.svg`,
         }}
         alt={{light: 'Asgardeo Logo (Light)', dark: 'Asgardeo Logo (Dark)'}}
         height={30}
