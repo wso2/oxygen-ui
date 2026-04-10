@@ -85,14 +85,29 @@ async function generateIcons() {
 
     const iconNodeJson = JSON.stringify(nodeElements, null, 2);
 
+    const wrapperProps = [
+      svgClass ? `className = "${svgClass}"` : "className",
+      svgViewBox ? `viewBox = "${svgViewBox}"` : "viewBox",
+      "...props",
+    ].join(", ");
+
     const tsSource = `
-import { createLucideIcon } from "lucide-react";
+import * as React from "react";
+import { createLucideIcon, type LucideProps } from "lucide-react";
 
 const ${svgName}Icon = createLucideIcon("${svgName}", ${iconNodeJson}) as any;
-${svgClass || svgViewBox
-      ? `${svgName}Icon.defaultProps = {${svgClass ? ` className: "${svgClass}",` : ""}${svgViewBox ? ` viewBox: "${svgViewBox}",` : ""} };`
-      : ""}
-export const ${svgName} = ${svgName}Icon;
+
+export const ${svgName} = React.forwardRef<SVGSVGElement, LucideProps>(
+  ({ ${wrapperProps} }, ref) =>
+    React.createElement(${svgName}Icon, {
+      ref,
+      className,
+      viewBox,
+      ...props,
+    }),
+) as any;
+
+${svgName}.displayName = "${svgName}";
 `;
 
     const dtsSource = `
