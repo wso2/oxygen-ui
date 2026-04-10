@@ -16,7 +16,7 @@
  * under the License.
  */
 
-.lucide {
+.lucide:not(.lucide-logo) {
   stroke-width: 1.5px;
 }
 

@@ -72,6 +72,7 @@ async function generateIcons() {
     const baseName = path.basename(file, ".svg");
     const svgName = svg.name || svg.id || toPascalCase(baseName);
     const svgClass = svg.class || undefined;
+    const svgViewBox = svg.viewBox || undefined;
 
     const nodeElements = Object.entries(svg)
       .filter(([tag]) =>
@@ -88,7 +89,9 @@ async function generateIcons() {
 import { createLucideIcon } from "lucide-react";
 
 const ${svgName}Icon = createLucideIcon("${svgName}", ${iconNodeJson}) as any;
-${svgClass ? `${svgName}Icon.defaultProps = { className: "${svgClass}" };` : ""}
+${svgClass || svgViewBox
+      ? `${svgName}Icon.defaultProps = {${svgClass ? ` className: "${svgClass}",` : ""}${svgViewBox ? ` viewBox: "${svgViewBox}",` : ""} };`
+      : ""}
 export const ${svgName} = ${svgName}Icon;
 `;
 
