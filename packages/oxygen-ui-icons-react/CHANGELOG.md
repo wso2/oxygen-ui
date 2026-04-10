@@ -1,5 +1,11 @@
 # @wso2/oxygen-ui-icons-react
 
+## 0.9.0
+
+### Minor Changes
+
+- [#517](https://github.com/wso2/oxygen-ui/pull/517) [`bc942c3`](https://github.com/wso2/oxygen-ui/commit/bc942c316e3d64020a1cab47145ee410961b8367) Thanks [@sm1990](https://github.com/sm1990)! - Add GitLab, Bitbucket, MCP, and DevPortal icons and showcase them in the Icons story
+
 ## 0.8.3
 
 ### Patch Changes
