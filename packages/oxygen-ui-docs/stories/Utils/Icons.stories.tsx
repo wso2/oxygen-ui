@@ -114,6 +114,10 @@ import {
   Pause,
   SkipBack,
   SkipForward,
+  GitLab,
+  Bitbucket,
+  MCP,
+  DevPortal,
 } from '@wso2/oxygen-ui-icons-react';
 
 const meta: Meta = {
@@ -157,6 +161,13 @@ const customIconsList: { Icon: React.ComponentType<any>; name: string }[] = icon
     const name = key.replace(/^\.\//, '').replace(/\.js$/, '')
     return { Icon: iconModules(key)[name], name }
   });
+
+const featuredBrandIcons = [
+  { Icon: GitLab, name: 'GitLab' },
+  { Icon: Bitbucket, name: 'Bitbucket' },
+  { Icon: MCP, name: 'MCP' },
+  { Icon: DevPortal, name: 'DevPortal' },
+];
 
 const iconsList = [
   { Icon: Home, name: 'Home' },
@@ -259,6 +270,59 @@ export const IconGallery: Story = {
   render: () => (
     <Box>
       <Typography variant="h5" gutterBottom>
+        New Brand Icons
+      </Typography>
+      <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+        Recently added custom platform icons with theme-aware coloring for light and dark modes.
+      </Typography>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: {
+            xs: 'repeat(2, 1fr)',
+            sm: 'repeat(4, 1fr)',
+          },
+          gap: 2,
+          mb: 6,
+        }}
+      >
+        {featuredBrandIcons.map(({ Icon, name }) => (
+          <Tooltip key={name} title={name} arrow>
+            <Paper
+              elevation={0}
+              sx={{
+                p: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 1,
+                border: '1px solid',
+                borderColor: 'divider',
+                transition: 'all 0.2s',
+                '&:hover': {
+                  borderColor: 'primary.main',
+                  backgroundColor: 'action.hover',
+                  transform: 'translateY(-2px)',
+                },
+              }}
+            >
+              <Icon size={28} />
+              <Typography
+                variant="caption"
+                align="center"
+                sx={{
+                  fontSize: '0.75rem',
+                  fontWeight: 600,
+                }}
+              >
+                {name}
+              </Typography>
+            </Paper>
+          </Tooltip>
+        ))}
+      </Box>
+
+      <Typography variant="h5" gutterBottom>
         Icons from Lucide Library
       </Typography>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
@@ -295,7 +359,6 @@ export const IconGallery: Story = {
                 flexDirection: 'column',
                 alignItems: 'center',
                 gap: 1,
-                cursor: 'pointer',
                 border: '1px solid',
                 borderColor: 'divider',
                 transition: 'all 0.2s',
@@ -353,7 +416,6 @@ export const IconGallery: Story = {
                   flexDirection: 'column',
                   alignItems: 'center',
                   gap: 1,
-                  cursor: 'pointer',
                   border: '1px solid',
                   borderColor: 'divider',
                   transition: 'all 0.2s',

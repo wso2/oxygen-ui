@@ -1,0 +1,32 @@
+<!--
+ * Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com).
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ -->
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 193 185"
+  class="lucide-logo"
+  name="GitLab"
+>
+  <path
+    fill="currentColor"
+    stroke="none"
+    d="M188.857 73.2127L188.587 72.5227L162.447 4.30274C161.915 2.96566 160.973 1.83142 159.757 1.06274C158.54 0.307128 157.12 -0.0568007 155.689 0.020095C154.259 0.0969907 152.886 0.611008 151.757 1.49274C150.64 2.39979 149.83 3.62888 149.437 5.01274L131.787 59.0127H60.3168L42.6668 5.01274C42.284 3.62134 41.4721 2.3861 40.3468 1.48274C39.2176 0.601006 37.845 0.0869885 36.4144 0.0100929C34.9837 -0.0668028 33.564 0.297126 32.3468 1.05274C31.133 1.82452 30.1921 2.95777 29.6568 4.29274L3.46676 72.4827L3.20676 73.1727C-0.556211 83.0048 -1.02069 93.7937 1.88336 103.913C4.78741 114.032 10.9025 122.933 19.3068 129.273L19.3968 129.343L19.6368 129.513L59.4568 159.333L79.1568 174.243L91.1568 183.303C92.5604 184.368 94.2744 184.945 96.0368 184.945C97.7992 184.945 99.5131 184.368 100.917 183.303L112.917 174.243L132.617 159.333L172.677 129.333L172.777 129.253C181.162 122.911 187.263 114.02 190.163 103.914C193.062 93.809 192.604 83.0355 188.857 73.2127Z"
+  />
+</svg>
