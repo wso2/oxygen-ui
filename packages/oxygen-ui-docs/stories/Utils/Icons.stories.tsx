@@ -117,7 +117,6 @@ import {
   GitLab,
   Bitbucket,
   MCP,
-  DevPortal,
 } from '@wso2/oxygen-ui-icons-react';
 
 const meta: Meta = {
@@ -166,7 +165,6 @@ const featuredBrandIcons = [
   { Icon: GitLab, name: 'GitLab' },
   { Icon: Bitbucket, name: 'Bitbucket' },
   { Icon: MCP, name: 'MCP' },
-  { Icon: DevPortal, name: 'DevPortal' },
 ];
 
 const iconsList = [

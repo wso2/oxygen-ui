@@ -16,6 +16,12 @@
  * under the License.
  */
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 export default {
   stories: [
     '../stories/**/*.stories.@(js|jsx|ts|tsx|mdx)'
@@ -37,6 +43,14 @@ export default {
     reactDocgen: "react-docgen-typescript"
   },
   webpackFinal: async (config) => {
+    config.resolve = config.resolve || {};
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      '@wso2/oxygen-ui': path.resolve(__dirname, '../../oxygen-ui/dist/index.js'),
+      '@wso2/oxygen-ui-icons-react': path.resolve(__dirname, '../../oxygen-ui-icons-react/dist/index.js'),
+      '@wso2/oxygen-ui-charts-react': path.resolve(__dirname, '../../oxygen-ui-charts-react/dist/index.js'),
+    };
+
     // Handle workspace packages - allow transpiling @wso2 packages
     config.module.rules.push({
       test: /\.(js|jsx|ts|tsx)$/,
