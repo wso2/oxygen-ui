@@ -1,5 +1,14 @@
 # @wso2/oxygen-ui
 
+## 0.9.1
+
+### Patch Changes
+
+- [#519](https://github.com/wso2/oxygen-ui/pull/519) [`c9657e6`](https://github.com/wso2/oxygen-ui/commit/c9657e644fb393780095d7faf658b8c1d213a4dc) Thanks [@sm1990](https://github.com/sm1990)! - Update GitLab, Bitbucket, and MCP icons, improve custom icon rendering, and update the Icons story showcase
+
+- Updated dependencies [[`c9657e6`](https://github.com/wso2/oxygen-ui/commit/c9657e644fb393780095d7faf658b8c1d213a4dc)]:
+  - @wso2/oxygen-ui-icons-react@0.9.1
+
 ## 0.9.0
 
 ### Minor Changes
