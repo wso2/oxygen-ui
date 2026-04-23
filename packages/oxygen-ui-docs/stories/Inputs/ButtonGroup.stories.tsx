@@ -102,7 +102,7 @@ export const Colors: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <Stack direction="column" spacing={2} alignItems="center">
+    <Stack direction="column" spacing={2} sx={{ alignItems: 'center' }}>
       <ButtonGroup size="small" variant="contained">
         <Button>Small</Button>
         <Button>Small</Button>

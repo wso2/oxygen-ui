@@ -6,11 +6,11 @@ catalog:
   '@emotion/react': 11.14.0
   '@emotion/styled': 11.14.1
   '@eslint/js': 9.39.0
-  '@mui/icons-material': 7.3.4
-  '@mui/material': 7.3.4
-  '@mui/x-data-grid': 8.16.0
-  '@mui/x-date-pickers': 8.16.0
-  '@mui/x-tree-view': 8.14.0
+  '@mui/icons-material': 9.0.0
+  '@mui/material': 9.0.0
+  '@mui/x-data-grid': 9.0.2
+  '@mui/x-date-pickers': 9.0.2
+  '@mui/x-tree-view': 9.0.2
   '@mui/utils': 9.0.0
   '@types/eslint': 9.6.1
   '@types/node': 24.6.0

@@ -54,7 +54,7 @@ export const Default: Story = {
           borderColor: 'divider',
         }}
       >
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography variant="h4">Projects</Typography>
           <Button variant="contained" color="primary">
             New Project
@@ -72,7 +72,7 @@ export const Default: Story = {
           padding: 4,
         }}
       >
-        <Stack spacing={3} alignItems="center" sx={{ maxWidth: 400, textAlign: 'center' }}>
+        <Stack spacing={3} sx={{ alignItems: 'center', maxWidth: 400, textAlign: 'center' }}>
           <Typography variant="h5">No projects yet</Typography>
           <Typography variant="body1" color="text.secondary">
             Get started by creating your first project. Projects help you organize and manage your work effectively.
