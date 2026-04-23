@@ -16,22 +16,12 @@
  * under the License.
  */
 
-import { TextFieldProps } from '@mui/material/TextField'
-import { SearchBarBase } from './SearchBarBase'
-
-export interface SearchBarProps extends Omit<TextFieldProps, 'variant'> {
-}
-
-export function SearchBar({
-  placeholder = 'Search',
-  ...props
-}: SearchBarProps) {
-  return (
-    <SearchBarBase
-      {...props}
-      placeholder={placeholder}
-    />
-  )
-}
-
-export default SearchBar
+export { SearchBar, SearchBarProps } from './SearchBar'
+export { SearchBarBase, SearchBarBaseProps } from './SearchBarBase'
+export {
+  SearchBarWithAdvancedFilter,
+  type SearchBarWithAdvancedFilterProps,
+  type AdvancedFilterOption,
+  type AdvancedFilterState,
+} from './SearchBarWithAdvancedFilter'
+export { default } from './SearchBar'

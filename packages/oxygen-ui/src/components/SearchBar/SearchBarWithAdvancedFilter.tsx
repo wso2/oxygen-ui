@@ -31,8 +31,8 @@ import InputLabel from '@mui/material/InputLabel'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 
-import { Search } from '@wso2/oxygen-ui-icons-react'
 import { ListFilter } from '@wso2/oxygen-ui-icons-react'
+import { SearchBarBase } from './SearchBarBase'
 
 export type AdvancedFilterOption = {
   value: string
@@ -108,43 +108,28 @@ export function SearchBarWithAdvancedFilter({
 
   return (
     <>
-      <TextField
+      <SearchBarBase
         {...props}
         value={value}
         onChange={handleInputChange}
         placeholder={placeholder}
-        variant="outlined"
-        sx={{
-          maxHeight,
-          '& .MuiInputBase-root': {
-            maxHeight,
-            pr: 0,
-          },
-          ...sx,
-        }}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Search fontSize="small" />
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <InputAdornment position="end" sx={{ m: 0 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', height: '100%' }}>
-                <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
-                <IconButton
-                  aria-describedby={popoverId}
-                  aria-label="Open advanced search"
-                  onClick={handleOpen}
-                  size="small"
-                  sx={{ mx: 0.5 }}
-                >
-                  <ListFilter fontSize="tiny" />
-                </IconButton>
-              </Box>
-            </InputAdornment>
-          ),
-        }}
+        sx={sx}
+        endAdornment={
+          <InputAdornment position="end" sx={{ m: 0 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+              <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
+              <IconButton
+                aria-describedby={popoverId}
+                aria-label="Open advanced search"
+                onClick={handleOpen}
+                size="small"
+                sx={{ mx: 0.5 }}
+              >
+                <ListFilter fontSize="tiny" />
+              </IconButton>
+            </Box>
+          </InputAdornment>
+        }
       />
 
       <Popover
