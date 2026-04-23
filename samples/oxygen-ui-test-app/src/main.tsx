@@ -25,8 +25,9 @@ import {
   HighContrastTheme,
   PaleGrayTheme,
   PaleIndigoTheme,
+  WSO2Theme,
   createOxygenTheme,
-  type OxygenThemeType
+  type OxygenThemeType,
 } from '@wso2/oxygen-ui'
 import { HashRouter, BrowserRouter } from 'react-router'
 import { StrictMode } from 'react'
@@ -84,6 +85,7 @@ createRoot(document.getElementById('root')!).render(
         { key: 'classic', label: 'Classic Theme', theme: ClassicTheme },
         { key: 'paleGray', label: 'Pale Gray Theme', theme: PaleGrayTheme },
         { key: 'paleIndigo', label: 'Pale Indigo Theme', theme: PaleIndigoTheme },
+        { key: 'wso2', label: 'WSO2 Theme', theme: WSO2Theme },
         ...(APP_CONFIG.design?.themes?.map(
           (theme) => ({
             key: theme.key,

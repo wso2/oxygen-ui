@@ -17,7 +17,7 @@
  */
 
 import { createOxygenTheme } from '../../utils/createOxygenTheme';
-import type { OxygenTheme } from './OxygenThemeBase';
+import type { OxygenTheme } from '../OxygenThemeBase';
 
 // Extend the TypeBackground interface to include acrylic
 declare module '@mui/material/styles' {

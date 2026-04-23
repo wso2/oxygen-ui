@@ -16,8 +16,6 @@
  * under the License.
  */
 
-export type { OxygenTheme as OxygenThemeType } from './OxygenThemeBase';
-
 export { default as OxygenTheme } from './AcrylicBaseTheme';
 export { default as AcrylicOrangeTheme } from './AcrylicOrangeTheme';
 export { default as AcrylicPurpleTheme } from './AcrylicPurpleTheme';
@@ -27,3 +25,4 @@ export { default as HighContrastTheme } from './HighContrastTheme';
 export { default as PaleBaseTheme } from './PaleBaseTheme';
 export { default as PaleGrayTheme } from './PaleGray';
 export { default as PaleIndigoTheme } from './PaleIndigo';
+export { default as WSO2Theme } from './WSO2Theme';

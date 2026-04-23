@@ -20,5 +20,14 @@
 window.__APP_RUNTIME_CONFIG__ = {
   brand: {
     productName: 'Oxygen UI',
+  },
+  design: {
+    themes: [
+      {
+        key: "thunder",
+        label: "Thunder Theme",
+        theme: "custom-themes/ThunderTheme.js",
+      },
+    ]
   }
 };

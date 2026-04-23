@@ -17,7 +17,7 @@
  */
 
 import type { Shadows } from '@mui/material/styles';
-import OxygenThemeBase from './OxygenThemeBase';
+import OxygenThemeBase from '../OxygenThemeBase';
 import { createOxygenTheme } from '../../utils/createOxygenTheme';
 
 /**

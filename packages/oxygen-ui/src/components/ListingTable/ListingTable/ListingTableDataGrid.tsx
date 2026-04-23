@@ -21,7 +21,7 @@ import { DataGrid, DataGridProps, GridDensity, GridRowSpacingParams } from '@mui
 import { styled, alpha } from '@mui/material/styles';
 import { useListingTable } from '../context';
 import { ListingTableDensity, densityStyles } from '../shared/types';
-import type { OxygenTheme } from '../../../styles/Themes/OxygenThemeBase';
+import type { OxygenTheme } from '../../../styles/OxygenThemeBase';
 
 export interface ListingTableDataGridProps extends Omit<DataGridProps, 'density'> {
   /**

@@ -16,4 +16,6 @@
  * under the License.
  */
 
+export type { OxygenTheme as OxygenThemeType } from './OxygenThemeBase';
+
 export * from './Themes';

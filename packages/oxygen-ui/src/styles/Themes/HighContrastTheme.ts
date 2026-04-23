@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import OxygenThemeBase from './OxygenThemeBase';
+import OxygenThemeBase from '../OxygenThemeBase';
 import { createOxygenTheme } from '../../utils/createOxygenTheme';
-import type { OxygenTheme } from './OxygenThemeBase';
+import type { OxygenTheme } from '../OxygenThemeBase';
 
 /**
  * High Contrast Theme - Maximum accessibility with high contrast colors

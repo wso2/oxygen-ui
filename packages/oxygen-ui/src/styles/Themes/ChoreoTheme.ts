@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import OxygenThemeBase from './OxygenThemeBase';
+import OxygenThemeBase from '../OxygenThemeBase';
 import { createOxygenTheme } from '../../utils/createOxygenTheme';
-import type { OxygenTheme } from './OxygenThemeBase';
+import type { OxygenTheme } from '../OxygenThemeBase';
 
 /**
  * Choreo Theme - Indigo-violet gradient theme for Choreo product
@@ -149,7 +149,7 @@ const ChoreoThemeConfig = {
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: 'none',
+          textTransform: 'none' as const,
           fontWeight: 400,
         },
         containedPrimary: () => ({
@@ -194,7 +194,9 @@ const ChoreoThemeConfig = {
       },
     },
     MuiTextField: {
-      defaultProps: { size: 'small' },
+      defaultProps: {
+        size: 'small' as const
+      },
     },
     MuiOutlinedInput: {
       styleOverrides: {

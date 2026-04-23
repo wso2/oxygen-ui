@@ -86,29 +86,84 @@ export const useThemeSwitcher = () => {
 };
 
 /**
+ * Validates if a theme URL is from the same origin.
+ * Only allows relative paths and same-origin URLs for security.
+ * 
+ * @param url - URL to validate
+ * @returns true if URL is same-origin
+ */
+function isSameOrigin(url: string): boolean {
+  try {
+    const urlObj = new URL(url, window.location.href);
+    const currentOrigin = window.location.origin;
+
+    // Check if same origin
+    return urlObj.origin === currentOrigin;
+  } catch {
+    // Invalid URL
+    return false;
+  }
+}
+
+/**
  * Loads a single theme JavaScript file by fetching and evaluating it.
  * The theme file should export default with a partial theme config object.
  * 
- * @param themeUrl - URL to the theme JavaScript file
+ * **SECURITY**: Only relative paths and same-origin URLs are allowed.
+ * External/cross-origin URLs are blocked for security.
+ * 
+ * @param themeUrl - URL to the theme JavaScript file (must be same-origin or relative)
  * @returns Promise resolving to the theme object
  */
 async function loadThemeFile(themeUrl: string): Promise<Theme | null> {
   try {
-    const response = await fetch(themeUrl);
+    // Validate URL is same-origin
+    if (!isSameOrigin(themeUrl)) {
+      console.error(`Security Error: Theme URL "${themeUrl}" is not from the same origin. Only relative paths and same-origin URLs are allowed.`);
+      return null;
+    }
+
+    const response = await fetch(themeUrl, {
+      // Use same-origin credentials only
+      credentials: 'same-origin',
+      // Set appropriate headers
+      headers: {
+        'Accept': 'application/javascript, text/javascript',
+      },
+    });
     
     if (!response.ok) {
-      console.warn(`Failed to fetch theme from ${themeUrl}`);
+      console.warn(`Failed to fetch theme from ${themeUrl}: ${response.status} ${response.statusText}`);
+      return null;
+    }
+
+    // Verify content type
+    const contentType = response.headers.get('content-type');
+    if (contentType && !contentType.includes('javascript') && !contentType.includes('ecmascript')) {
+      console.warn(`Invalid content type for theme file: ${contentType}`);
       return null;
     }
 
     const themeCode = await response.text();
+    
+    // Basic validation: check for suspicious patterns
+    if (themeCode.includes('eval(') || themeCode.includes('Function(')) {
+      console.error('Security Error: Theme code contains potentially dangerous eval() or Function() calls');
+      return null;
+    }
+
+    // Limit code size to prevent DoS (500KB max)
+    if (themeCode.length > 500000) {
+      console.error('Security Error: Theme file too large');
+      return null;
+    }
     
     // Create a module environment to evaluate the theme code
     const moduleFunction = new Function(
       'exports',
       'module',
       'createOxygenTheme',
-      `${themeCode}\nreturn module.exports.default || exports.default;`
+      `'use strict';\n${themeCode}\nreturn module.exports.default || exports.default;`
     );
 
     // Import createOxygenTheme utility
@@ -117,9 +172,15 @@ async function loadThemeFile(themeUrl: string): Promise<Theme | null> {
     // Execute the theme code and get the partial config
     const themeConfig = moduleFunction({}, { exports: {} }, createOxygenTheme);
     
+    // Validate the returned config is an object
+    if (!themeConfig || typeof themeConfig !== 'object') {
+      console.error('Invalid theme: theme file must export an object');
+      return null;
+    }
+
     // If the file already used createOxygenTheme, return as-is
     // Otherwise, pass it through createOxygenTheme
-    if (themeConfig && typeof themeConfig === 'object' && '_cssVarsTemplate' in themeConfig) {
+    if ('_cssVarsTemplate' in themeConfig) {
       return themeConfig as Theme;
     }
     

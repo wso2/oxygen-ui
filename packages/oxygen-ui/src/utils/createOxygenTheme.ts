@@ -16,8 +16,9 @@
  * under the License.
  */
 
+import { deepmerge } from '@mui/utils';
 import { extendTheme, type Theme, type ThemeOptions } from '@mui/material/styles';
-import OxygenThemeBase, { type OxygenTheme } from '../styles/Themes/OxygenThemeBase';
+import OxygenThemeBase, { type OxygenTheme } from '../styles/OxygenThemeBase';
 
 /**
  * Creates an Oxygen UI theme by extending a base theme with custom configuration.
@@ -56,8 +57,9 @@ import OxygenThemeBase, { type OxygenTheme } from '../styles/Themes/OxygenThemeB
  * ```
  */
 export function createOxygenTheme(
-  config?: Partial<ThemeOptions> | Record<string, unknown>,
+  config?: Partial<ThemeOptions> | Record<string, any>,
   baseTheme: Theme = OxygenThemeBase
 ): OxygenTheme {
-  return extendTheme(baseTheme, config ?? {}) as OxygenTheme;
+  const merged = deepmerge(baseTheme, config ?? {});
+  return extendTheme(merged) as OxygenTheme;
 }
