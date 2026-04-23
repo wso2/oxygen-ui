@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+<!--
+ * Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -14,12 +14,14 @@
  * KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations
  * under the License.
- */
+ -->
+ 
+<!-- TODO: Remove this once https://github.com/lucide-icons/lucide/pull/4017 is merged -->
 
-.lucide:not(.lucide-logo) {
-  stroke-width: 1.5px;
-}
-
-.lucide:not(.lucide-logo) * {
-  vector-effect: non-scaling-stroke;
-}
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+  stroke="currentColor"
+  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-logo"
+  name="Lambda">
+  <path d="M11.38 10 5 20" />
+  <path d="M19 18a2 2 0 0 1-2 2c-4.87-.003-5.052-16-10-16a2 2 0 0 0-2 2" />
+</svg>

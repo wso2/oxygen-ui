@@ -114,7 +114,9 @@ import {
   Pause,
   SkipBack,
   SkipForward,
-  GitHub,
+  GitLab,
+  Bitbucket,
+  MCP,
 } from '@wso2/oxygen-ui-icons-react';
 
 const meta: Meta = {
@@ -138,6 +140,32 @@ const meta: Meta = {
 
 export default meta;
 type Story = StoryObj;
+
+declare const require: {
+  context(path: string, deep: boolean, filter: RegExp): { keys(): string[]; (id: string): any }
+};
+
+// NOTE: This only works with Storybook -> Webpack.
+// If we switch to Vite, we will need to change this to use dynamic imports instead.
+const iconModules = require.context(
+  '../../node_modules/@wso2/oxygen-ui-icons-react/dist/icons',
+  false,
+  /^\.\/[A-Z]\w+\.js$/
+);
+
+const customIconsList: { Icon: React.ComponentType<any>; name: string }[] = iconModules
+  .keys()
+  .sort()
+  .map((key: string) => {
+    const name = key.replace(/^\.\//, '').replace(/\.js$/, '')
+    return { Icon: iconModules(key)[name], name }
+  });
+
+const featuredBrandIcons = [
+  { Icon: GitLab, name: 'GitLab' },
+  { Icon: Bitbucket, name: 'Bitbucket' },
+  { Icon: MCP, name: 'MCP' },
+];
 
 const iconsList = [
   { Icon: Home, name: 'Home' },
@@ -203,7 +231,6 @@ const iconsList = [
   { Icon: Code, name: 'Code' },
   { Icon: Terminal, name: 'Terminal' },
   { Icon: GitBranch, name: 'GitBranch' },
-  { Icon: GitHub, name: 'GitHub' },
   { Icon: AlertCircle, name: 'AlertCircle' },
   { Icon: AlertTriangle, name: 'AlertTriangle' },
   { Icon: Info, name: 'Info' },
@@ -235,13 +262,66 @@ const iconsList = [
   { Icon: Pause, name: 'Pause' },
   { Icon: SkipBack, name: 'SkipBack' },
   { Icon: SkipForward, name: 'SkipForward' },
-];
+]
 
 export const IconGallery: Story = {
   render: () => (
     <Box>
       <Typography variant="h5" gutterBottom>
-        Icon Gallery
+        New Brand Icons
+      </Typography>
+      <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+        Recently added custom platform icons with theme-aware coloring for light and dark modes.
+      </Typography>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: {
+            xs: 'repeat(2, 1fr)',
+            sm: 'repeat(4, 1fr)',
+          },
+          gap: 2,
+          mb: 6,
+        }}
+      >
+        {featuredBrandIcons.map(({ Icon, name }) => (
+          <Tooltip key={name} title={name} arrow>
+            <Paper
+              elevation={0}
+              sx={{
+                p: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 1,
+                border: '1px solid',
+                borderColor: 'divider',
+                transition: 'all 0.2s',
+                '&:hover': {
+                  borderColor: 'primary.main',
+                  backgroundColor: 'action.hover',
+                  transform: 'translateY(-2px)',
+                },
+              }}
+            >
+              <Icon size={28} />
+              <Typography
+                variant="caption"
+                align="center"
+                sx={{
+                  fontSize: '0.75rem',
+                  fontWeight: 600,
+                }}
+              >
+                {name}
+              </Typography>
+            </Paper>
+          </Tooltip>
+        ))}
+      </Box>
+
+      <Typography variant="h5" gutterBottom>
+        Icons from Lucide Library
       </Typography>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
         Showing {iconsList.length} popular icons. Visit{' '}
@@ -277,7 +357,6 @@ export const IconGallery: Story = {
                 flexDirection: 'column',
                 alignItems: 'center',
                 gap: 1,
-                cursor: 'pointer',
                 border: '1px solid',
                 borderColor: 'divider',
                 transition: 'all 0.2s',
@@ -305,6 +384,64 @@ export const IconGallery: Story = {
             </Paper>
           </Tooltip>
         ))}
+      </Box>
+
+      <Box sx={{ mt: 6 }}>
+        <Typography variant="h5" gutterBottom>
+          Custom Icons
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+          Custom SVG icons bundled with Oxygen UI Icons React, not part of the Lucide library.
+        </Typography>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: 'repeat(2, 1fr)',
+              sm: 'repeat(3, 1fr)',
+              md: 'repeat(5, 1fr)',
+            },
+            gap: 2,
+          }}
+        >
+          {customIconsList.map(({ Icon, name }) => (
+            <Tooltip key={name} title={name} arrow>
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 2,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: 1,
+                  border: '1px solid',
+                  borderColor: 'divider',
+                  transition: 'all 0.2s',
+                  '&:hover': {
+                    borderColor: 'primary.main',
+                    backgroundColor: 'action.hover',
+                    transform: 'translateY(-2px)',
+                  },
+                }}
+              >
+                <Icon size={24} />
+                <Typography
+                  variant="caption"
+                  align="center"
+                  sx={{
+                    fontSize: '0.7rem',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    width: '100%',
+                  }}
+                >
+                  {name}
+                </Typography>
+              </Paper>
+            </Tooltip>
+          ))}
+        </Box>
       </Box>
     </Box>
   ),
@@ -491,7 +628,6 @@ export const IconCategories: Story = {
           <Code size={24} />
           <Terminal size={24} />
           <GitBranch size={24} />
-          <GitHub size={24} />
           <Database size={24} />
           <Server size={24} />
         </Box>

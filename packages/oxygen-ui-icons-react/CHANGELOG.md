@@ -1,5 +1,25 @@
 # @wso2/oxygen-ui-icons-react
 
+## 0.9.1
+
+### Patch Changes
+
+- [#519](https://github.com/wso2/oxygen-ui/pull/519) [`c9657e6`](https://github.com/wso2/oxygen-ui/commit/c9657e644fb393780095d7faf658b8c1d213a4dc) Thanks [@sm1990](https://github.com/sm1990)! - Update GitLab, Bitbucket, and MCP icons, improve custom icon rendering, and update the Icons story showcase
+
+## 0.9.0
+
+### Minor Changes
+
+- [#517](https://github.com/wso2/oxygen-ui/pull/517) [`bc942c3`](https://github.com/wso2/oxygen-ui/commit/bc942c316e3d64020a1cab47145ee410961b8367) Thanks [@sm1990](https://github.com/sm1990)! - Add GitLab, Bitbucket, MCP, and DevPortal icons and showcase them in the Icons story
+
+## 0.8.3
+
+### Patch Changes
+
+- [#508](https://github.com/wso2/oxygen-ui/pull/508) [`3e66854`](https://github.com/wso2/oxygen-ui/commit/3e668545e59f693b4d9309f47981c4d6ba2741fc) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Fix dropdown menu background issue and WSO2 logo icon
+
+- [#511](https://github.com/wso2/oxygen-ui/pull/511) [`b5dde05`](https://github.com/wso2/oxygen-ui/commit/b5dde05753e24416224ba552bd1b4b7ea2243dd6) Thanks [@brionmario](https://github.com/brionmario)! - Allow `ReactNode` in `ListingTableCellIcon` + Add `Lambda` Icon
+
 ## 0.8.2
 
 ### Patch Changes
