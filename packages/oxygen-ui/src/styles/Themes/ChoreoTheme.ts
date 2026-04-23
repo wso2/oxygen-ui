@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2025-2026, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import { extendTheme } from '@mui/material/styles';
-import OxygenThemeBase from './OxygenThemeBase';
-import type { OxygenTheme } from './OxygenThemeBase';
+import OxygenThemeBase from '../OxygenThemeBase';
+import { createOxygenTheme } from '../../utils/createOxygenTheme';
+import type { OxygenTheme } from '../OxygenThemeBase';
 
 /**
  * Choreo Theme - Indigo-violet gradient theme for Choreo product
@@ -33,7 +33,7 @@ import type { OxygenTheme } from './OxygenThemeBase';
  * </OxygenUIThemeProvider>
  * ```
  */
-const ChoreoThemeBase = extendTheme(OxygenThemeBase, {
+const ChoreoThemeConfig = {
   shape: {
     borderRadius: 8,
   },
@@ -149,7 +149,7 @@ const ChoreoThemeBase = extendTheme(OxygenThemeBase, {
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: 'none',
+          textTransform: 'none' as const,
           fontWeight: 400,
         },
         containedPrimary: () => ({
@@ -194,7 +194,9 @@ const ChoreoThemeBase = extendTheme(OxygenThemeBase, {
       },
     },
     MuiTextField: {
-      defaultProps: { size: 'small' },
+      defaultProps: {
+        size: 'small' as const
+      },
     },
     MuiOutlinedInput: {
       styleOverrides: {
@@ -235,7 +237,7 @@ const ChoreoThemeBase = extendTheme(OxygenThemeBase, {
       },
     },
   },
-});
+};
 
 // Add custom gradient property (with improved contrast)
 const choreoGradient = {
@@ -270,11 +272,11 @@ const choreoSyntax = {
   },
 };
 
-Object.assign(ChoreoThemeBase, choreoGradient, choreoSyntax);
-if (ChoreoThemeBase.vars) {
-  Object.assign(ChoreoThemeBase.vars, choreoGradient, choreoSyntax);
-}
+const ChoreoTheme = createOxygenTheme(ChoreoThemeConfig, OxygenThemeBase);
 
-const ChoreoTheme = ChoreoThemeBase as OxygenTheme;
+Object.assign(ChoreoTheme, choreoGradient, choreoSyntax);
+if (ChoreoTheme.vars) {
+  Object.assign(ChoreoTheme.vars, choreoGradient, choreoSyntax);
+}
 
 export default ChoreoTheme;

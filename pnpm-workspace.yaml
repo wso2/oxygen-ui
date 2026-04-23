@@ -11,6 +11,7 @@ catalog:
   '@mui/x-data-grid': 8.16.0
   '@mui/x-date-pickers': 8.16.0
   '@mui/x-tree-view': 8.14.0
+  '@mui/utils': 9.0.0
   '@types/eslint': 9.6.1
   '@types/node': 24.6.0
   '@types/react': 19.2.2

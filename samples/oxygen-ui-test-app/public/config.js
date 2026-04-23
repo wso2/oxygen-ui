@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025-2026, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,6 +16,18 @@
  * under the License.
  */
 
-export type { OxygenTheme as OxygenThemeType } from './OxygenThemeBase';
-
-export * from './Themes';
+/* eslint-disable no-undef */
+window.__APP_RUNTIME_CONFIG__ = {
+  brand: {
+    productName: 'Oxygen UI',
+  },
+  design: {
+    themes: [
+      {
+        key: "thunder",
+        label: "Thunder Theme",
+        theme: "custom-themes/ThunderTheme.js",
+      },
+    ]
+  }
+};

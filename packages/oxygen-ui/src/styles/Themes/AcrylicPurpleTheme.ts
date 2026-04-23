@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2025-2026, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,15 +16,14 @@
  * under the License.
  */
 
-import { extendTheme } from '@mui/material/styles';
 import AcrylicBaseTheme from './AcrylicBaseTheme';
-import type { OxygenTheme } from './OxygenThemeBase';
+import { createOxygenTheme } from '../../utils/createOxygenTheme';
 
 /**
  * AcrylicPurple Theme - Purple-blue gradient theme
  * Features: Purple-blue gradient, modern spacing, radial background
  */
-const AcrylicPurpleThemeBase = extendTheme(AcrylicBaseTheme, {
+const AcrylicPurpleThemeConfig = {
   colorSchemes: {
     light: {
       palette: {
@@ -108,7 +107,7 @@ const AcrylicPurpleThemeBase = extendTheme(AcrylicBaseTheme, {
       },
     },
   },
-});
+};
 
 // Add custom gradient property
 const acrylicPurpleGradient = {
@@ -117,11 +116,11 @@ const acrylicPurpleGradient = {
   },
 };
 
-Object.assign(AcrylicPurpleThemeBase, acrylicPurpleGradient);
-if (AcrylicPurpleThemeBase.vars) {
-  Object.assign(AcrylicPurpleThemeBase.vars, acrylicPurpleGradient);
-}
+const AcrylicPurpleTheme = createOxygenTheme(AcrylicPurpleThemeConfig, AcrylicBaseTheme);
 
-const AcrylicPurpleTheme = AcrylicPurpleThemeBase as OxygenTheme;
+Object.assign(AcrylicPurpleTheme, acrylicPurpleGradient);
+if (AcrylicPurpleTheme.vars) {
+  Object.assign(AcrylicPurpleTheme.vars, acrylicPurpleGradient);
+}
 
 export default AcrylicPurpleTheme;

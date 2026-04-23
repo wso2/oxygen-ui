@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2025-2026, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,15 +16,16 @@
  * under the License.
  */
 
-import { extendTheme } from '@mui/material/styles';
-import OxygenThemeBase, { type OxygenTheme } from './OxygenThemeBase';
+import OxygenThemeBase from '../OxygenThemeBase';
+import { createOxygenTheme } from '../../utils/createOxygenTheme';
+import type { OxygenTheme } from '../OxygenThemeBase';
 
 /**
  * High Contrast Theme - Maximum accessibility with high contrast colors
  * Features: Pure black/white backgrounds, bold borders, enhanced visibility
  * Designed for users with visual impairments or low vision
  */
-const HighContrastThemeBase = extendTheme(OxygenThemeBase, {
+const HighContrastThemeConfig = {
   colorSchemes: {
     light: {
       palette: {
@@ -190,10 +191,11 @@ const HighContrastThemeBase = extendTheme(OxygenThemeBase, {
       },
     },
   },
-});
+};
 
 // Add custom gradient property
-const HighContrastTheme = HighContrastThemeBase as OxygenTheme;
+const HighContrastTheme = createOxygenTheme(HighContrastThemeConfig, OxygenThemeBase);
+
 Object.assign(HighContrastTheme, {
   gradient: {
     primary: 'none',

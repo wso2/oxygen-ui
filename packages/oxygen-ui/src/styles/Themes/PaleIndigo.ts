@@ -16,9 +16,8 @@
  * under the License.
  */
 
-import { extendTheme } from '@mui/material/styles';
 import PaleBaseTheme from './PaleBaseTheme';
-import type { OxygenTheme } from './OxygenThemeBase';
+import { createOxygenTheme } from '../../utils/createOxygenTheme';
 
 /**
  * PaleIndigo Theme - Professional flat design with indigo color scheme
@@ -34,7 +33,7 @@ import type { OxygenTheme } from './OxygenThemeBase';
  * </OxygenUIThemeProvider>
  * ```
  */
-const PaleIndigoTheme = extendTheme(PaleBaseTheme, {
+const PaleIndigoThemeConfig = {
   colorSchemes: {
     light: {
       palette: {
@@ -153,6 +152,6 @@ const PaleIndigoTheme = extendTheme(PaleBaseTheme, {
       },
     },
   },
-});
+};
 
-export default PaleIndigoTheme as OxygenTheme;
+export default createOxygenTheme(PaleIndigoThemeConfig, PaleBaseTheme);

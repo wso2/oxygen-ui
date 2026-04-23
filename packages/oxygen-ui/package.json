@@ -66,10 +66,11 @@
   },
   "homepage": "https://github.com/wso2/oxygen-ui#readme",
   "dependencies": {
-    "@fontsource-variable/inter": "5.2.8",
     "@emotion/react": "catalog:",
     "@emotion/styled": "catalog:",
+    "@fontsource-variable/inter": "5.2.8",
     "@mui/material": "catalog:",
+    "@mui/utils": "catalog:",
     "@mui/x-data-grid": "catalog:",
     "@mui/x-date-pickers": "catalog:",
     "@mui/x-tree-view": "catalog:",

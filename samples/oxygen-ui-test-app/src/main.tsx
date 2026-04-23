@@ -24,7 +24,10 @@ import {
   ClassicTheme,
   HighContrastTheme,
   PaleGrayTheme,
-  PaleIndigoTheme
+  PaleIndigoTheme,
+  WSO2Theme,
+  createOxygenTheme,
+  type OxygenThemeType,
 } from '@wso2/oxygen-ui'
 import { HashRouter, BrowserRouter } from 'react-router'
 import { StrictMode } from 'react'
@@ -32,9 +35,44 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
+interface RuntimeTheme {
+  key: string;
+  label: string;
+  theme: string | Partial<OxygenThemeType>;
+}
+
+interface LoadedTheme {
+  key: string;
+  label: string;
+  theme: string | Partial<OxygenThemeType>;
+}
+
+// Declare the global variable for runtime configuration
+declare global {
+  interface Window {
+    __APP_RUNTIME_CONFIG__?: {
+      design?: {
+        initialTheme?: string;
+        themes?: RuntimeTheme[];
+      };
+    };
+  }
+}
+
 // Use HashRouter for production builds (for static hosting in Storybook)
 // Use BrowserRouter for development
 const Router = import.meta.env.PROD ? HashRouter : BrowserRouter
+
+// Function to load runtime configuration from the global variable
+function loadConfig() {
+  if (typeof window !== 'undefined' && window.__APP_RUNTIME_CONFIG__) {
+    return window.__APP_RUNTIME_CONFIG__;
+  }
+
+  throw new Error('App runtime configuration is not available on window.__APP_RUNTIME_CONFIG__');
+}
+
+const APP_CONFIG = loadConfig();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -47,8 +85,19 @@ createRoot(document.getElementById('root')!).render(
         { key: 'classic', label: 'Classic Theme', theme: ClassicTheme },
         { key: 'paleGray', label: 'Pale Gray Theme', theme: PaleGrayTheme },
         { key: 'paleIndigo', label: 'Pale Indigo Theme', theme: PaleIndigoTheme },
+        { key: 'wso2', label: 'WSO2 Theme', theme: WSO2Theme },
+        ...(APP_CONFIG.design?.themes?.map(
+          (theme) => ({
+            key: theme.key,
+            label: theme.label,
+            theme: typeof theme.theme === 'string' ? theme.theme : createOxygenTheme(theme.theme),
+          })
+        ) ?? [])
       ]}
-      initialTheme="acrylicOrange"
+      initialTheme={APP_CONFIG.design?.initialTheme ?? "acrylicOrange"}
+      onThemesLoaded={(loadedThemes: LoadedTheme[]) => {
+        console.log('Themes loaded:', loadedThemes);
+      }}
     >
       <Router>
         <App />

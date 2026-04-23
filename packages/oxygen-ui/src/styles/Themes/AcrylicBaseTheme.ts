@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2025-2026, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,9 +16,8 @@
  * under the License.
  */
 
-import { extendTheme } from '@mui/material/styles';
-import type {} from '@mui/x-data-grid/themeAugmentation';
-import OxygenThemeBase, { type OxygenTheme } from './OxygenThemeBase';
+import { createOxygenTheme } from '../../utils/createOxygenTheme';
+import type { OxygenTheme } from '../OxygenThemeBase';
 
 // Extend the TypeBackground interface to include acrylic
 declare module '@mui/material/styles' {
@@ -27,7 +26,7 @@ declare module '@mui/material/styles' {
   }
 }
 
-const AcrylicBaseTheme = extendTheme(OxygenThemeBase, {
+const AcrylicBaseTheme = {
   colorSchemes: {
     light: {
       palette: {
@@ -312,6 +311,6 @@ const AcrylicBaseTheme = extendTheme(OxygenThemeBase, {
       },
     },
   },
-});
+};
 
-export default AcrylicBaseTheme as OxygenTheme;
+export default createOxygenTheme(AcrylicBaseTheme);

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025-2026, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,6 +16,16 @@
  * under the License.
  */
 
-export type { OxygenTheme as OxygenThemeType } from './OxygenThemeBase';
+import {Box} from "@wso2/oxygen-ui";
+import React from 'react';
+import type {JSX} from "react";
 
-export * from './Themes';
+function CenterContentLayout({children}: {children: JSX.Element}): JSX.Element {
+  return (
+    <Box sx={{ p: 4, my: 10, maxWidth: 1200, mx: 'auto' }}>
+      {children}
+    </Box>
+  );
+}
+
+export default CenterContentLayout;

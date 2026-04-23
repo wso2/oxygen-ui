@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2025-2026, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -20,7 +20,7 @@ import { extendTheme, type Theme, type Shadows } from '@mui/material/styles';
 import type {} from '@mui/x-data-grid/themeAugmentation';
 import { ChevronDown, X } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';
-import { pxToRem } from '../../utils';
+import { pxToRem } from '../utils';
 
 // Define custom theme properties interface
 interface CustomThemeProperties {
@@ -73,7 +73,9 @@ declare module '@mui/material/styles' {
   interface ThemeVars extends CustomThemeProperties {}
 }
 
-export interface OxygenTheme extends Theme, CustomThemeProperties {}
+export interface OxygenTheme extends Theme {
+  vars: NonNullable<Theme['vars']>;
+}
 
 const OxygenUIPrimitives = {
   fontSize: 14,

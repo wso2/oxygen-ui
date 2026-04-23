@@ -20,7 +20,7 @@ import { ReactElement } from 'react';
 import MuiTableRow, { TableRowProps as MuiTableRowProps } from '@mui/material/TableRow';
 import { styled, alpha } from '@mui/material/styles';
 import { ListingTableVariant } from '../shared/types';
-import type { OxygenTheme } from '../../../styles/Themes/OxygenThemeBase';
+import type { OxygenTheme } from '../../../styles/OxygenThemeBase';
 
 export interface ListingTableRowProps extends MuiTableRowProps {
   /**

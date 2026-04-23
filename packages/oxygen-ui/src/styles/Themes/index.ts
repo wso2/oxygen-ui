@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2025-2026, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -25,3 +25,4 @@ export { default as HighContrastTheme } from './HighContrastTheme';
 export { default as PaleBaseTheme } from './PaleBaseTheme';
 export { default as PaleGrayTheme } from './PaleGray';
 export { default as PaleIndigoTheme } from './PaleIndigo';
+export { default as WSO2Theme } from './WSO2Theme';

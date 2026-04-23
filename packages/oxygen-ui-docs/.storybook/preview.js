@@ -34,6 +34,7 @@ import {
   HighContrastTheme,
   PaleGrayTheme,
   PaleIndigoTheme,
+  WSO2Theme,
   useColorScheme,
 } from "@wso2/oxygen-ui";
 import './docs.css';
@@ -113,13 +114,11 @@ const preview = {
       toolbar: {
         icon: 'paintbrush',
         items: [
-          { value: 'acrylicOrange', title: 'Acrylic Orange' },
-          { value: 'acrylicPurple', title: 'Acrylic Purple' },
-          { value: 'choreo', title: 'Choreo' },
+          { value: 'wso2', title: 'WSO2' },
           { value: 'classic', title: 'Classic' },
           { value: 'highContrast', title: 'High Contrast' },
-          { value: 'paleGray', title: 'Pale Gray' },
-          { value: 'paleIndigo', title: 'Pale Indigo' },
+          { value: 'acrylicOrange', title: 'Acrylic Orange' },
+          { value: 'acrylicPurple', title: 'Acrylic Purple' },
         ],
         showName: true,
         dynamicTitle: true,
@@ -130,7 +129,7 @@ const preview = {
   decorators: [
     (Story, context) => {
       const mode = context.globals.colorScheme ?? 'dark';
-      const themeKey = context.globals.theme ?? 'acrylicPurple';
+      const themeKey = context.globals.theme ?? 'wso2';
 
       const themes = React.useMemo(() => [
         { key: 'acrylicOrange', label: 'Acrylic Orange', theme: AcrylicOrangeTheme },
@@ -140,6 +139,7 @@ const preview = {
         { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
         { key: 'paleGray', label: 'Pale Gray', theme: PaleGrayTheme },
         { key: 'paleIndigo', label: 'Pale Indigo', theme: PaleIndigoTheme },
+        { key: 'wso2', label: 'WSO2', theme: WSO2Theme },
       ], []);
 
       // Resolve system mode to actual light/dark based on OS preference

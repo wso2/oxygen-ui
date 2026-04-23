@@ -80,7 +80,12 @@ async function generateIcons() {
       )
       .flatMap(([tag, val]) => {
         const arr = Array.isArray(val) ? val : [val];
-        return arr.map((attrs) => [tag, normalizeAttributes(attrs)]);
+        return arr.map((attrs, index) => {
+          const normalized = normalizeAttributes(attrs);
+          // Add key prop for React list rendering
+          normalized.key = `${tag}-${index}`;
+          return [tag, normalized];
+        });
       });
 
     const iconNodeJson = JSON.stringify(nodeElements, null, 2);

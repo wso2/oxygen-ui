@@ -16,5 +16,6 @@
  * under the License.
  */
 
+export { createOxygenTheme } from './createOxygenTheme';
 export { formatRelativeTime } from './formatRelativeTime';
 export { pxToRem } from './pxToRem';
