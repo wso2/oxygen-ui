@@ -19,6 +19,7 @@
 import { Box, ColorSchemeImage, Divider, Grid, Link, Paper, Stack, Typography, useThemeContent } from '@wso2/oxygen-ui'
 import { type JSX } from 'react'
 import LoginBox from '../components/LoginBox'
+import Logo from '../components/Logo'
 import { AppWindow, Cloud, Cog, FlaskConical, ShieldCheck, TerminalSquare, Zap } from '@wso2/oxygen-ui-icons-react';
 
 export default function LoginPage(): JSX.Element {
@@ -65,49 +66,6 @@ export default function LoginPage(): JSX.Element {
       title: 'Observe and test an application',
     },
   ];
-
-  const Logo = useThemeContent({
-    default: (
-      <ColorSchemeImage
-        src={{
-          light: `${import.meta.env.BASE_URL}assets/images/oxygen-ui-logo.svg`,
-          dark: `${import.meta.env.BASE_URL}assets/images/oxygen-ui-logo-inverted.svg`,
-        }}
-        alt={{light: 'Oxygen UI Logo (Light)', dark: 'Oxygen UI Logo (Dark)'}}
-        height={40}
-        width="auto"
-      />),
-    asgardeo: (
-      <ColorSchemeImage
-        src={{
-          light: `${import.meta.env.BASE_URL}assets/images/logo.svg`,
-          dark: `${import.meta.env.BASE_URL}assets/images/logo-inverted.svg`,
-        }}
-        alt={{light: 'Asgardeo Logo (Light)', dark: 'Asgardeo Logo (Dark)'}}
-        height={30}
-        width="auto"
-      />),
-    acrylicPurple: (
-      <ColorSchemeImage
-        src={{
-          light: `${import.meta.env.BASE_URL}assets/images/choreo-logo.svg`,
-          dark: `${import.meta.env.BASE_URL}assets/images/choreo-logo.svg`,
-        }}
-        alt={{light: 'Choreo Logo (Light)', dark: 'Choreo Logo (Dark)'}}
-        height={40}
-        width="auto"
-      />),
-    choreo: (
-      <ColorSchemeImage
-        src={{
-          light: `${import.meta.env.BASE_URL}assets/images/choreo-logo.svg`,
-          dark: `${import.meta.env.BASE_URL}assets/images/choreo-logo.svg`,
-        }}
-        alt={{light: 'Choreo Logo (Light)', dark: 'Choreo Logo (Dark)'}}
-        height={40}
-        width="auto"
-      />)
-  });
 
   const Slogan = useThemeContent({
     default: (
@@ -208,7 +166,18 @@ export default function LoginPage(): JSX.Element {
         height={450}
         width="auto"
         sx={{ position: 'absolute', bottom: 50, right: -100 }}
-      />)
+      />),
+    thunder: (
+      <ColorSchemeImage
+        src={{
+          light: `${import.meta.env.BASE_URL}assets/images/thunder-login-inverted.svg`,
+          dark: `${import.meta.env.BASE_URL}assets/images/thunder-login-inverted.svg`,
+        }}
+        alt={{light: 'Login Screen Image (Light)', dark: 'Login Screen Image (Dark)'}}
+        height={450}
+        width="auto"
+        sx={{ position: 'absolute', bottom: 50, right: -100 }}
+      />),
   });
 
   return (
@@ -234,7 +203,7 @@ export default function LoginPage(): JSX.Element {
               display={{xs: 'none', md: 'flex'}}
             >
               <Box sx={{ my: 3 }}>
-                {Logo}
+                <Logo height={35} />
               </Box>
               {Slogan}
             </Stack>

@@ -16,8 +16,9 @@
  * under the License.
  */
 
-import { Box, ColorSchemeImage, Divider, Grid, Link, Paper, Stack, styled, Typography, useThemeContent } from '@wso2/oxygen-ui'
+import { Box, Divider, Grid, Link, Paper, Stack, styled, Typography, useThemeContent } from '@wso2/oxygen-ui'
 import { type JSX } from 'react'
+import Logo from '../components/Logo'
 import LoginBox from '../components/LoginBox'
 import { AppWindow, Cloud, Cog, FlaskConical, ShieldCheck, TerminalSquare, Zap } from '@wso2/oxygen-ui-icons-react';
 
@@ -78,29 +79,6 @@ export default function LoginPage(): JSX.Element {
       title: 'Observe and test an application',
     },
   ];
-
-  const Logo = useThemeContent({
-    default: (
-      <ColorSchemeImage
-        src={{
-          light: `${import.meta.env.BASE_URL}assets/images/oxygen-ui-logo.svg`,
-          dark: `${import.meta.env.BASE_URL}assets/images/oxygen-uilogo-inverted.svg`,
-        }}
-        alt={{light: 'Asgardeo Logo (Light)', dark: 'Asgardeo Logo (Dark)'}}
-        height={30}
-        width="auto"
-      />),
-    choreo: (
-      <ColorSchemeImage
-        src={{
-          light: `${import.meta.env.BASE_URL}assets/images/choreo-logo.svg`,
-          dark: `${import.meta.env.BASE_URL}assets/images/choreo-logo.svg`,
-        }}
-        alt={{light: 'Choreo Logo (Light)', dark: 'Choreo Logo (Dark)'}}
-        height={40}
-        width="auto"
-      />)
-  });
 
   const Slogan = useThemeContent({
     default: (
@@ -170,7 +148,7 @@ export default function LoginPage(): JSX.Element {
               display={{xs: 'none', md: 'flex'}}
             >
               <Box sx={{ mb: 3 }}>
-                {Logo}
+                <Logo height={35} />
               </Box>
               {Slogan}
             </Stack>
