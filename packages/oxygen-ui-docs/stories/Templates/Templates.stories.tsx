@@ -56,7 +56,7 @@ const templates: TemplateCard[] = [
     title: 'Login',
     description: 'A comprehensive login template with social login options and form validation',
     previewUrl: '/templates/login',
-    liveUrl: '/?path=#',
+    liveUrl: '/story/templates-login--default',
     component: LoginTemplate,
   },
   {
@@ -64,7 +64,7 @@ const templates: TemplateCard[] = [
     title: 'Dashboard',
     description: 'A comprehensive dashboard template with stats cards, activity feed, and sidebar',
     previewUrl: '/templates/dashboard',
-    liveUrl: '/?path=#',
+    liveUrl: '/story/templates-dashboard--default',
     component: DashboardTemplate,
   },
   {
@@ -72,7 +72,7 @@ const templates: TemplateCard[] = [
     title: 'Empty State',
     description: 'A clean empty state template with centered call-to-action for new projects or features',
     previewUrl: '/templates/empty-state',
-    liveUrl: '/?path=#',
+    liveUrl: '/story/templates-empty-state--default',
     component: EmptyStateTemplate,
   },
   {
@@ -80,7 +80,7 @@ const templates: TemplateCard[] = [
     title: 'Tabbed Content',
     description: 'A full-width content area with tab navigation for organized data sections',
     previewUrl: '/templates/tabbed-content',
-    liveUrl: '/?path=#',
+    liveUrl: '/story/templates-tabbed-content--default',
     component: TabbedContentTemplate,
   },
   {
@@ -88,7 +88,7 @@ const templates: TemplateCard[] = [
     title: 'Create Service Form',
     description: 'A comprehensive multi-section form for service creation with repository details, component configuration, and build preset selection',
     previewUrl: '/templates/create-service-form',
-    liveUrl: '/?path=#',
+    liveUrl: '/story/templates-create-service-form--default',
     component: CreateServiceFormTemplate,
   },
   {
@@ -96,7 +96,7 @@ const templates: TemplateCard[] = [
     title: 'Wizard',
     description: 'A multi-step wizard template for guided workflows like campaign creation with step navigation and progress tracking',
     previewUrl: '/templates/wizard',
-    liveUrl: '/?path=#',
+    liveUrl: '/story/templates-wizard--default',
     component: WizardTemplate,
   },
   {
@@ -104,13 +104,31 @@ const templates: TemplateCard[] = [
     title: 'Form Validation',
     description: 'A registration form with React Hook Form and Zod validation, demonstrating real-time validation and error handling',
     previewUrl: '/templates/form-validation',
-    liveUrl: '/?path=#',
+    liveUrl: '/story/templates-form-validation--default',
     component: FormValidationTemplate,
   },
 ];
 
 const TemplatePreview = ({ template }: { template: TemplateCard }) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  // Preserve current query parameters when navigating
+  const getLiveUrl = () => {
+    const currentParams = new URLSearchParams(window.location.search);
+    const newParams = new URLSearchParams();
+    
+    // Set the new path
+    newParams.set('path', template.liveUrl);
+    
+    // Preserve all other existing params
+    currentParams.forEach((value, key) => {
+      if (key !== 'path') {
+        newParams.set(key, value);
+      }
+    });
+    
+    return '?' + newParams.toString();
+  };
 
   return (
     <Box>
@@ -130,7 +148,7 @@ const TemplatePreview = ({ template }: { template: TemplateCard }) => {
         <CardContent>
           {isHovered && (
             <Link
-              href={template.liveUrl}
+              href={getLiveUrl()}
               target="_blank"
               rel="noopener noreferrer"
               sx={{
