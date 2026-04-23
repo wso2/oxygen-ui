@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2025-2026, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -20,6 +20,8 @@ export { default as CodeBlock } from './CodeBlock';
 export type { CodeBlockProps } from './CodeBlock';
 export { default as ColorSchemeImage } from './ColorSchemeImage';
 export type { ColorSchemeImageProps, ColorSchemeImageAttribute } from './ColorSchemeImage';
+export { default as ColorSchemeSVG } from './ColorSchemeSVG';
+export type { ColorSchemeSVGProps } from './ColorSchemeSVG';
 export { ColorSchemeToggle, default as ColorSchemeToggleDefault } from './ColorSchemeToggle';
 export { default as ComplexSelect } from './ComplexSelect';
 export type { ComplexSelectProps } from './ComplexSelect';
