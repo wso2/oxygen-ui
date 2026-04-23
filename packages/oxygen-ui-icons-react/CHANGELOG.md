@@ -1,5 +1,11 @@
 # @wso2/oxygen-ui-icons-react
 
+## 0.10.0
+
+### Minor Changes
+
+- [#524](https://github.com/wso2/oxygen-ui/pull/524) [`9c3f869`](https://github.com/wso2/oxygen-ui/commit/9c3f869210781da6642635d6aa25b36bc2923d7a) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Add new ColorSchemeSVG component + Runtime Theme Support and Improve stability
+
 ## 0.9.1
 
 ### Patch Changes
