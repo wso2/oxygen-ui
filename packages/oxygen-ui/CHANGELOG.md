@@ -1,5 +1,14 @@
 # @wso2/oxygen-ui
 
+## 0.10.1
+
+### Patch Changes
+
+- [#527](https://github.com/wso2/oxygen-ui/pull/527) [`c26bdd3`](https://github.com/wso2/oxygen-ui/commit/c26bdd3b9bd66599532bd34cdb91c64e7670b438) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Expose `useSidebar` hook
+
+- Updated dependencies [[`c26bdd3`](https://github.com/wso2/oxygen-ui/commit/c26bdd3b9bd66599532bd34cdb91c64e7670b438)]:
+  - @wso2/oxygen-ui-icons-react@0.10.1
+
 ## 0.10.0
 
 ### Minor Changes
