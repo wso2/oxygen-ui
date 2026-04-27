@@ -212,8 +212,8 @@ const OxygenThemeBase = extendTheme({
             alignItems: 'flex-start',
           },
         },
-        flexContainer: {
-          '&.MuiTabs-flexContainerVertical': {
+        scroller: {
+          '&.MuiTabs-scrollerVertical': {
             alignItems: 'flex-start',
           },
         },

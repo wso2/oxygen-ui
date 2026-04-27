@@ -204,7 +204,7 @@ function MyComponent() {
 export const WithStrings: Story = {
   render: () => (
     <OxygenUIThemeProvider themes={exampleThemes}>
-      <Stack spacing={3} alignItems="center" sx={{ minWidth: 400 }}>
+      <Stack spacing={3} sx={{ alignItems: 'center', minWidth: 400 }}>
         <ThemeSwitcher showLabel />
         <Paper elevation={2} sx={{ p: 3, bgcolor: 'background.paper', width: '100%' }}>
           <ThemeGreeting />
@@ -220,10 +220,10 @@ export const WithStrings: Story = {
 export const WithComponents: Story = {
   render: () => (
     <OxygenUIThemeProvider themes={exampleThemes}>
-      <Stack spacing={3} alignItems="center">
+      <Stack spacing={3} sx={{ alignItems: 'center' }}>
         <ThemeSwitcher showLabel />
         <Paper elevation={2} sx={{ p: 4, bgcolor: 'background.paper' }}>
-          <Stack spacing={2} alignItems="center">
+          <Stack spacing={2} sx={{ alignItems: 'center' }}>
             <ThemeIcon />
             <Typography variant="body2" color="text.secondary">
               Icon changes with theme
@@ -238,7 +238,7 @@ export const WithComponents: Story = {
 export const WithObjects: Story = {
   render: () => (
     <OxygenUIThemeProvider themes={exampleThemes}>
-      <Stack spacing={3} alignItems="center" sx={{ minWidth: 350 }}>
+      <Stack spacing={3} sx={{ alignItems: 'center', minWidth: 350 }}>
         <ThemeSwitcher showLabel />
         <Paper elevation={2} sx={{ p: 4, bgcolor: 'background.paper', width: '100%' }}>
           <ThemeConfig />
@@ -282,8 +282,8 @@ export const RealWorldExample: Story = {
         <Card sx={{ maxWidth: 400 }}>
           <CardContent>
             <Stack spacing={2}>
-              <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
-                <Stack direction="row" spacing={2} alignItems="center">
+              <Stack direction="row" spacing={2} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
+                <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
                   <Avatar sx={{ bgcolor: 'primary.main' }}>
                     {cardConfig.avatar}
                   </Avatar>
@@ -304,7 +304,7 @@ export const RealWorldExample: Story = {
 
     return (
       <OxygenUIThemeProvider themes={exampleThemes}>
-        <Stack spacing={3} alignItems="center">
+        <Stack spacing={3} sx={{ alignItems: 'center' }}>
           <ThemeSwitcher showLabel />
           <DashboardCard />
           <Typography variant="caption" color="text.secondary" sx={{ maxWidth: 400, textAlign: 'center' }}>
@@ -336,7 +336,7 @@ export const WithFallback: Story = {
 
     return (
       <OxygenUIThemeProvider themes={exampleThemes}>
-        <Stack spacing={3} alignItems="center" sx={{ minWidth: 450 }}>
+        <Stack spacing={3} sx={{ alignItems: 'center', minWidth: 450 }}>
           <ThemeSwitcher showLabel />
           <FallbackExample />
           <Typography variant="caption" color="text.secondary" sx={{ textAlign: 'center' }}>

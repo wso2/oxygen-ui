@@ -26,7 +26,7 @@ window.__APP_RUNTIME_CONFIG__ = {
       {
         key: "thunder",
         label: "Thunder Theme",
-        theme: "custom-themes/ThunderTheme.js",
+        theme: "./custom-themes/ThunderTheme.js",
       },
     ]
   }
