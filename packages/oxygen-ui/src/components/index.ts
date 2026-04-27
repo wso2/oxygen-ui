@@ -52,7 +52,7 @@ export type {
   HeaderContextValue,
 } from './Header';
 
-export { Sidebar } from './Sidebar';
+export { Sidebar, useSidebar } from './Sidebar';
 export type {
   SidebarProps,
   SidebarNavProps,
