@@ -50,8 +50,8 @@ const WelcomeContent = () => (
           <GitHub /> Version {packageJson.version}
         </Typography>
         
-        <Typography variant="body1" paragraph sx={{ fontSize: '1.1rem', mb: 4 }}>
-          Oxygen UI is a design system built on MUI (Material-UI) v7, providing a comprehensive set of 
+        <Typography variant="body1" sx={{ fontSize: '1.1rem', mb: 4 }}>
+          Oxygen UI is a design system built on MUI (Material-UI) v9, providing a comprehensive set of 
           customizable composite components, themes, and utilities in addition to what MUI provides for building 
           unified React applications in the WSO2 ecosystem.
         </Typography>
@@ -110,14 +110,14 @@ const WelcomeContent = () => (
         <Typography variant="h5" gutterBottom>
           Getting Started
         </Typography>
-        <Typography variant="body2" paragraph>
+        <Typography variant="body2" sx={{ mb: 2 }}>
           Install Oxygen UI in your project:
         </Typography>
         <CodeBlock
           language="bash"
           code="npm install @wso2/oxygen-ui"
         />
-        <Typography variant="body2" paragraph>
+        <Typography variant="body2" sx={{ mb: 2 }}>
           Wrap your app with the OxygenUIThemeProvider:
         </Typography>
         <CodeBlock
@@ -140,7 +140,7 @@ const WelcomeContent = () => (
         <Typography variant="h5" gutterBottom>
           AI-Assisted Development
         </Typography>
-        <Typography variant="body2" paragraph>
+        <Typography variant="body2" sx={{ mb: 2 }}>
           Oxygen UI includes built-in documentation for AI assistants like Claude Code, Cursor, and Copilot.
           Set up AI-optimized docs in your project with a single command:
         </Typography>

@@ -70,7 +70,7 @@ export const CircularDeterminate: Story = {
 
 export const CircularSizes: Story = {
   render: () => (
-    <Stack direction="row" spacing={2} alignItems="center">
+    <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
       <CircularProgress size={20} />
       <CircularProgress size={30} />
       <CircularProgress />

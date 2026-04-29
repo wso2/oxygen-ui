@@ -153,7 +153,7 @@ export default function ProjectOverview(): JSX.Element {
 
         <Divider sx={{ mt: 2 }} />
 
-        <Grid container spacing={3} mt={2}>
+        <Grid container spacing={3} sx={{ mt: 2 }}>
           <Grid size={{ xs: 12, lg: 8 }}>
             <Grid container spacing={2} sx={{ mb: 2 }}>
               <Grid size={{ xs: 12, md: 10 }}>
