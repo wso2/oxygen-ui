@@ -24,9 +24,14 @@ window.__APP_RUNTIME_CONFIG__ = {
   design: {
     themes: [
       {
-        key: "thunder",
-        label: "Thunder Theme",
-        theme: "custom-themes/ThunderTheme.js",
+        key: "purple-runtime",
+        label: "Purple Theme (Runtime)",
+        theme: "./custom-themes/PurpleTheme.js",
+      },
+      {
+        key: "green-runtime",
+        label: "Green Theme (Runtime)",
+        theme: "./custom-themes/GreenTheme.js",
       },
     ]
   }

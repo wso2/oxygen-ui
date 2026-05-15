@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025-2026, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,24 +16,14 @@
  * under the License.
  */
 
-import OxygenThemeBase from '../OxygenThemeBase';
-import { createOxygenTheme } from '../../utils/createOxygenTheme';
-import type { OxygenTheme } from '../OxygenThemeBase';
-
 /**
- * Choreo Theme - Indigo-violet gradient theme for Choreo product
- * Features: Choreo brand indigo (#5567d5), violet accents, clean professional styling
- *
- * Usage:
- * ```tsx
- * import { OxygenUIThemeProvider, ChoreoTheme } from '@wso2/oxygen-ui';
- *
- * <OxygenUIThemeProvider theme={ChoreoTheme}>
- *   <App />
- * </OxygenUIThemeProvider>
- * ```
+ * Purple Theme - Example custom theme extension for Oxygen UI
+ * This theme demonstrates a professional purple color scheme.
  */
-const ChoreoThemeConfig = {
+
+// Export the partial theme configuration object
+// The loader will pass this to createOxygenTheme
+const PurpleThemeConfig = {
   shape: {
     borderRadius: 8,
   },
@@ -81,7 +71,7 @@ const ChoreoThemeConfig = {
           secondary: '#4a4a5a',
           disabled: '#9ca3af',
         },
-        divider: '#e6e7ec',
+        divider: '#b2b6c961',
         action: {
           active: 'rgba(85, 103, 213, 0.56)',
           hover: 'rgba(85, 103, 213, 0.08)',
@@ -149,7 +139,7 @@ const ChoreoThemeConfig = {
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: 'none' as const,
+          textTransform: 'none',
           fontWeight: 400,
         },
         containedPrimary: () => ({
@@ -177,34 +167,35 @@ const ChoreoThemeConfig = {
     },
     MuiPaper: {
       styleOverrides: {
-        root: ({ theme }: { theme: OxygenTheme }) => ({
+        root: ({ theme }) => ({
           borderRadius: theme.shape.borderRadius,
-          border: `1px solid ${theme.vars!.palette.divider}`,
+          border: 'none',
           boxShadow: '0 0 1px rgba(141,145,163,0.4), 0 1px 2px rgba(203,206,219,0.3)',
         }),
       },
     },
     MuiAppBar: {
       styleOverrides: {
-        root: ({ theme }: { theme: OxygenTheme }) => ({
-          backgroundColor: theme.vars!.palette.background.paper,
-          borderBottom: `1px solid ${theme.vars!.palette.divider}`,
+        root: ({ theme }) => ({
+          backgroundColor: theme.palette.background.paper,
+          borderBottom: `1px solid ${theme.palette.divider}`,
           boxShadow: 'none',
+          borderRadius: 0,
         }),
       },
     },
     MuiTextField: {
       defaultProps: {
-        size: 'small' as const
+        size: 'small'
       },
     },
     MuiOutlinedInput: {
       styleOverrides: {
-        root: ({ theme }: { theme: OxygenTheme }) => ({
+        root: ({ theme }) => ({
           fontSize: theme.typography.body2.fontSize,
         }),
-        notchedOutline: ({ theme }: { theme: OxygenTheme }) => ({
-          borderColor: theme.vars!.palette.divider,
+        notchedOutline: ({ theme }) => ({
+          borderColor: theme.palette.divider,
         }),
       },
     },
@@ -228,10 +219,10 @@ const ChoreoThemeConfig = {
     },
     MuiTooltip: {
       styleOverrides: {
-        tooltip: ({ theme }: { theme: OxygenTheme }) => ({
-          backgroundColor: theme.vars!.palette.background.paper,
-          color: theme.vars!.palette.text.primary,
-          border: `1px solid ${theme.vars!.palette.divider}`,
+        tooltip: ({ theme }) => ({
+          backgroundColor: theme.palette.background.paper,
+          color: theme.palette.text.primary,
+          border: `1px solid ${theme.palette.divider}`,
           fontSize: theme.typography.caption.fontSize,
         }),
       },
@@ -240,14 +231,14 @@ const ChoreoThemeConfig = {
 };
 
 // Add custom gradient property (with improved contrast)
-const choreoGradient = {
+const purpleGradient = {
   gradient: {
     primary: 'linear-gradient(77.74deg, #4a5bc8 11.16%, #745bcc 99.55%)',
   },
 };
 
-// Add Choreo-branded syntax highlighting
-const choreoSyntax = {
+// Add branded syntax highlighting
+const purpleSyntax = {
   syntax: {
     light: {
       background: '#f8f9fc',
@@ -272,11 +263,14 @@ const choreoSyntax = {
   },
 };
 
-const ChoreoTheme = createOxygenTheme(ChoreoThemeConfig, OxygenThemeBase);
+Object.assign(PurpleThemeConfig, purpleGradient, purpleSyntax);
 
-Object.assign(ChoreoTheme, choreoGradient, choreoSyntax);
-if (ChoreoTheme.vars) {
-  Object.assign(ChoreoTheme.vars, choreoGradient, choreoSyntax);
+if (PurpleThemeConfig.vars) {
+  Object.assign(PurpleThemeConfig.vars, purpleGradient, purpleSyntax);
 }
 
-export default ChoreoTheme;
+// Export using CommonJS format for the loader
+/* eslint-disable no-undef */
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports.default = PurpleThemeConfig;
+}
