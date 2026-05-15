@@ -253,7 +253,7 @@ export const Default: Story = {
                 />
 
                 {/* Form Actions */}
-                <Form.Stack direction="row" spacing={2} justifyContent="flex-end">
+                <Form.Stack direction="row" spacing={2} sx={{ justifyContent: 'flex-end' }}>
                   <Button
                     variant="text"
                     size="large"

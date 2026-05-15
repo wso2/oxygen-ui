@@ -179,7 +179,7 @@ const ControlPanel: React.FC = () => {
             <Typography variant="body2" color="text.secondary" gutterBottom>
               Sidebar Controls:
             </Typography>
-            <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+            <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
               <Button
                 variant="outlined"
                 size="small"
@@ -208,7 +208,7 @@ const ControlPanel: React.FC = () => {
             <Typography variant="body2" color="text.secondary" gutterBottom>
               Active Menu Item:
             </Typography>
-            <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+            <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
               <Button
                 variant="outlined"
                 size="small"
@@ -237,7 +237,7 @@ const ControlPanel: React.FC = () => {
             <Typography variant="body2" color="text.secondary" gutterBottom>
               Notification Panel:
             </Typography>
-            <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+            <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
               <Button
                 variant="outlined"
                 size="small"
@@ -300,7 +300,7 @@ export const ConsumeContext: Story = {
             <Typography variant="h5" gutterBottom>
               Consume Context Mode
             </Typography>
-            <Typography variant="body2" color="text.secondary" paragraph>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
               These components use <code>useAppShell()</code> to consume the context created by{' '}
               <code>&lt;AppShell&gt;</code>.
             </Typography>
@@ -355,7 +355,7 @@ export const CreateMode: Story = {
           <Typography variant="h5" gutterBottom>
             Create Mode
           </Typography>
-          <Typography variant="body2" color="text.secondary" paragraph>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
             Using <code>useAppShell(options)</code> to create shell state directly.
           </Typography>
 
@@ -400,7 +400,7 @@ export const CreateMode: Story = {
                 <Typography variant="body2" color="text.secondary" gutterBottom>
                   Actions:
                 </Typography>
-                <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
                   <Button
                     variant="outlined"
                     size="small"

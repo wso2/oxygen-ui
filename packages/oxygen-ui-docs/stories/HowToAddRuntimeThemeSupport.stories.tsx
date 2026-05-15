@@ -55,7 +55,7 @@ export const Overview: Story = {
     <CenterContentLayout>
       <Stack spacing={4} sx={{ maxWidth: 900 }}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography variant="h2" sx={{ mb: 2 }}>
             Runtime Theme Support
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
@@ -67,12 +67,12 @@ export const Overview: Story = {
         <Divider />
 
         <Box>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" sx={{ mb: 2 }}>
             ✨ What You Can Do
           </Typography>
           <Stack spacing={2} sx={{ pl: 2 }}>
             <Box>
-              <Typography variant="body2" fontWeight="medium">
+              <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
                 📝 Configure themes via external configuration files
               </Typography>
               <Typography variant="body2" color="text.secondary">
@@ -80,7 +80,7 @@ export const Overview: Story = {
               </Typography>
             </Box>
             <Box>
-              <Typography variant="body2" fontWeight="medium">
+              <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
                 📂 Load themes from relative paths without rebuilding
               </Typography>
               <Typography variant="body2" color="text.secondary">
@@ -88,7 +88,7 @@ export const Overview: Story = {
               </Typography>
             </Box>
             <Box>
-              <Typography variant="body2" fontWeight="medium">
+              <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
                 🔄 Support both inline theme objects and external theme files
               </Typography>
               <Typography variant="body2" color="text.secondary">
@@ -96,7 +96,7 @@ export const Overview: Story = {
               </Typography>
             </Box>
             <Box>
-              <Typography variant="body2" fontWeight="medium">
+              <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
                 🎨 Enable theme switching without code changes
               </Typography>
               <Typography variant="body2" color="text.secondary">
@@ -109,12 +109,12 @@ export const Overview: Story = {
         <Divider />
 
         <Box>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" sx={{ mb: 2 }}>
             🏗️ Architecture Overview
           </Typography>
           <Stack spacing={2} sx={{ pl: 2 }}>
             <Box>
-              <Typography variant="body2" fontWeight="medium">
+              <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
                 1. config.js
               </Typography>
               <Typography variant="body2" color="text.secondary">
@@ -122,7 +122,7 @@ export const Overview: Story = {
               </Typography>
             </Box>
             <Box>
-              <Typography variant="body2" fontWeight="medium">
+              <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
                 2. index.html
               </Typography>
               <Typography variant="body2" color="text.secondary">
@@ -130,7 +130,7 @@ export const Overview: Story = {
               </Typography>
             </Box>
             <Box>
-              <Typography variant="body2" fontWeight="medium">
+              <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
                 3. main.tsx
               </Typography>
               <Typography variant="body2" color="text.secondary">
@@ -138,7 +138,7 @@ export const Overview: Story = {
               </Typography>
             </Box>
             <Box>
-              <Typography variant="body2" fontWeight="medium">
+              <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
                 4. Theme Files
               </Typography>
               <Typography variant="body2" color="text.secondary">
@@ -151,27 +151,27 @@ export const Overview: Story = {
         <Divider />
 
         <Box>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" sx={{ mb: 2 }}>
             🔒 Security
           </Typography>
-          <Typography variant="body2" paragraph>
+          <Typography variant="body2" sx={{ mb: 2 }}>
             For security, only same-origin theme files are allowed:
           </Typography>
           <Stack spacing={1} sx={{ pl: 2 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Typography variant="body2" fontWeight="medium" color="success.main">✅</Typography>
+              <Typography variant="body2" color="success.main" sx={{ fontWeight: 'medium' }}>✅</Typography>
               <Typography variant="body2">
                 <strong>Relative paths</strong> - <code>"themes/CustomTheme.js"</code>
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Typography variant="body2" fontWeight="medium" color="success.main">✅</Typography>
+              <Typography variant="body2" color="success.main" sx={{ fontWeight: 'medium' }}>✅</Typography>
               <Typography variant="body2">
                 <strong>Absolute same-origin paths</strong> - <code>"/themes/CustomTheme.js"</code>
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Typography variant="body2" fontWeight="medium" color="error.main">❌</Typography>
+              <Typography variant="body2" color="error.main" sx={{ fontWeight: 'medium' }}>❌</Typography>
               <Typography variant="body2">
                 <strong>External/cross-origin URLs</strong> - Blocked for security
               </Typography>
@@ -182,7 +182,7 @@ export const Overview: Story = {
         <Divider />
 
         <Box>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" sx={{ mb: 2 }}>
             💼 Perfect For
           </Typography>
           <Stack spacing={1} sx={{ pl: 2 }}>
@@ -194,7 +194,7 @@ export const Overview: Story = {
         </Box>
 
         <Box sx={{ bgcolor: 'info.main', p: 2, borderRadius: 1, mt: 2 }}>
-          <Typography variant="body2" fontWeight="medium" gutterBottom>
+          <Typography variant="body2" sx={{ fontWeight: 'medium', mb: 2 }}>
             📖 Follow the Steps Below
           </Typography>
           <Typography variant="body2">
@@ -218,10 +218,10 @@ export const Step1_ConfigFile: Story = {
     <CenterContentLayout>
       <Stack spacing={3} sx={{ maxWidth: 800 }}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography variant="h2" sx={{ mb: 2 }}>
             Step 1: Create config.js
           </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           Create a <code>public/config.js</code> file in your project root. This file will be loaded at runtime.
         </Typography>
       </Box>
@@ -273,7 +273,7 @@ window.__APP_RUNTIME_CONFIG__ = {
       />
 
       <Box sx={{ bgcolor: 'background.paper', p: 2, borderRadius: 1 }}>
-        <Typography variant="body2" color="primary" fontWeight="medium">
+        <Typography variant="body2" color="primary" sx={{ fontWeight: 'medium' }}>
           💡 Key Points
         </Typography>
         <Typography variant="body2" component="ul" sx={{ mt: 1, pl: 2 }}>
@@ -299,10 +299,10 @@ export const Step2_ExternalThemeFile: Story = {
     <CenterContentLayout>
       <Stack spacing={3} sx={{ maxWidth: 800 }}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography variant="h2" sx={{ mb: 2 }}>
             Step 2: Create External Theme File (Optional)
           </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           Create <code>public/themes/CorporateTheme.js</code> for externally loaded themes.
         </Typography>
       </Box>
@@ -361,7 +361,7 @@ if (typeof module !== 'undefined' && module.exports) {
       />
 
       <Box sx={{ bgcolor: 'background.paper', p: 2, borderRadius: 1 }}>
-        <Typography variant="body2" color="primary" fontWeight="medium">
+        <Typography variant="body2" color="primary" sx={{ fontWeight: 'medium' }}>
           💡 File Requirements
         </Typography>
         <Typography variant="body2" component="ul" sx={{ mt: 1, pl: 2 }}>
@@ -385,10 +385,10 @@ export const Step3_IndexHTML: Story = {
     <CenterContentLayout>
       <Stack spacing={3} sx={{ maxWidth: 800 }}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography variant="h2" sx={{ mb: 2 }}>
             Step 3: Load Config in index.html
           </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           Add a script tag to load <code>config.js</code> before your app bundle.
         </Typography>
       </Box>
@@ -415,7 +415,7 @@ export const Step3_IndexHTML: Story = {
       />
 
       <Box sx={{ bgcolor: 'warning.main', p: 2, borderRadius: 1 }}>
-        <Typography variant="body2" fontWeight="medium">
+        <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
           ⚠️ Load Order is Critical
         </Typography>
         <Typography variant="body2" sx={{ mt: 1 }}>
@@ -437,10 +437,10 @@ export const Step4_MainSetup: Story = {
     <CenterContentLayout>
       <Stack spacing={3} sx={{ maxWidth: 800 }}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography variant="h2" sx={{ mb: 2 }}>
             Step 4: Setup main.tsx
           </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           Configure TypeScript types and implement the config loader.
         </Typography>
       </Box>
@@ -511,10 +511,10 @@ export const Step5_ThemeProvider: Story = {
     <CenterContentLayout>
       <Stack spacing={3} sx={{ maxWidth: 800 }}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography variant="h2" sx={{ mb: 2 }}>
             Step 5: Initialize Theme Provider
           </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           Combine built-in themes with runtime-loaded themes in OxygenUIThemeProvider.
         </Typography>
       </Box>
@@ -562,7 +562,7 @@ createRoot(document.getElementById('root')!).render(
       />
 
       <Box sx={{ bgcolor: 'background.paper', p: 2, borderRadius: 1 }}>
-        <Typography variant="body2" color="primary" fontWeight="medium">
+        <Typography variant="body2" color="primary" sx={{ fontWeight: 'medium' }}>
           💡 How It Works
         </Typography>
         <Typography variant="body2" component="ul" sx={{ mt: 1, pl: 2 }}>
@@ -586,17 +586,17 @@ export const Step6_Security: Story = {
     <CenterContentLayout>
       <Stack spacing={3} sx={{ maxWidth: 800 }}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography variant="h2" sx={{ mb: 2 }}>
             Step 6: Security Information
           </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           OxygenUIThemeProvider includes built-in security validation that only allows 
           same-origin theme files for your protection.
         </Typography>
       </Box>
 
       <Box sx={{ bgcolor: 'success.main', p: 2, borderRadius: 1, mb: 2 }}>
-        <Typography variant="body2" fontWeight="medium" gutterBottom>
+        <Typography variant="body2" sx={{ fontWeight: 'medium', mb: 2 }}>
           ✅ Allowed (Same-Origin Only)
         </Typography>
         <Typography variant="body2" component="ul" sx={{ pl: 2 }}>
@@ -608,7 +608,7 @@ export const Step6_Security: Story = {
       </Box>
 
       <Box sx={{ bgcolor: 'error.main', p: 2, borderRadius: 1, mb: 2 }}>
-        <Typography variant="body2" fontWeight="medium" gutterBottom>
+        <Typography variant="body2" sx={{ fontWeight: 'medium', mb: 2 }}>
           🚫 Blocked for Security
         </Typography>
         <Typography variant="body2" component="ul" sx={{ pl: 2 }}>
@@ -622,7 +622,7 @@ export const Step6_Security: Story = {
         </Typography>
       </Box>
 
-      <Typography variant="subtitle2" fontWeight="bold" gutterBottom sx={{ mt: 3 }}>
+      <Typography variant="subtitle2" sx={{ fontWeight: 'bold', mb: 2, mt: 3 }}>
         Example: Valid Theme Configurations
       </Typography>
       <CodeBlock 
@@ -660,7 +660,7 @@ export const Step6_Security: Story = {
       />
 
       <Box sx={{ bgcolor: 'info.main', p: 2, borderRadius: 1, mt: 3 }}>
-        <Typography variant="body2" fontWeight="medium" gutterBottom>
+        <Typography variant="body2" sx={{ fontWeight: 'medium', mb: 2 }}>
           🔒 Security Features
         </Typography>
         <Typography variant="body2" component="ul" sx={{ pl: 2 }}>
@@ -674,7 +674,7 @@ export const Step6_Security: Story = {
       </Box>
 
       <Box sx={{ bgcolor: 'background.paper', p: 2, borderRadius: 1, mt: 3 }}>
-        <Typography variant="body2" fontWeight="medium" gutterBottom>
+        <Typography variant="body2" sx={{ fontWeight: 'medium', mb: 2 }}>
           💡 Why Same-Origin Only?
         </Typography>
         <Typography variant="body2" sx={{ mt: 1 }}>
@@ -704,10 +704,10 @@ export const CompleteExample: Story = {
     <CenterContentLayout>
       <Stack spacing={4} sx={{ maxWidth: 900 }}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography variant="h2" sx={{ mb: 2 }}>
             Complete Implementation
           </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           All files together in one view.
         </Typography>
       </Box>
@@ -715,7 +715,7 @@ export const CompleteExample: Story = {
       <Divider />
 
       <Box>
-        <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+        <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>
           📁 Project Structure
         </Typography>
         <CodeBlock 
@@ -736,12 +736,12 @@ export const CompleteExample: Story = {
       <Divider />
 
       <Box>
-        <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+        <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>
           🎨 Benefits of This Approach
         </Typography>
         <Stack spacing={2} sx={{ pl: 2 }}>
           <Box>
-            <Typography variant="body2" fontWeight="medium">
+            <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
               ✅ No Rebuild Required
             </Typography>
             <Typography variant="body2" color="text.secondary">
@@ -750,7 +750,7 @@ export const CompleteExample: Story = {
           </Box>
           
           <Box>
-            <Typography variant="body2" fontWeight="medium">
+            <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
               ✅ Environment-Specific Themes
             </Typography>
             <Typography variant="body2" color="text.secondary">
@@ -759,7 +759,7 @@ export const CompleteExample: Story = {
           </Box>
           
           <Box>
-            <Typography variant="body2" fontWeight="medium">
+            <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
               ✅ Customer Customization
             </Typography>
             <Typography variant="body2" color="text.secondary">
@@ -768,7 +768,7 @@ export const CompleteExample: Story = {
           </Box>
           
           <Box>
-            <Typography variant="body2" fontWeight="medium">
+            <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
               ✅ Secure by Default
             </Typography>
             <Typography variant="body2" color="text.secondary">
@@ -777,7 +777,7 @@ export const CompleteExample: Story = {
           </Box>
           
           <Box>
-            <Typography variant="body2" fontWeight="medium">
+            <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
               ✅ Mix Built-in and Custom Themes
             </Typography>
             <Typography variant="body2" color="text.secondary">
@@ -790,7 +790,7 @@ export const CompleteExample: Story = {
       <Divider />
 
       <Box sx={{ bgcolor: 'info.main', p: 2, borderRadius: 1 }}>
-        <Typography variant="body2" fontWeight="medium" gutterBottom>
+        <Typography variant="body2" sx={{ fontWeight: 'medium', mb: 2 }}>
           🚀 Next Steps
         </Typography>
         <Typography variant="body2" component="ol" sx={{ pl: 2 }}>

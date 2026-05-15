@@ -209,7 +209,7 @@ export const ListTemplates: Story = {
         </Typography>
       </Box>
 
-      <Grid container spacing={1} gap={4}>
+      <Grid container spacing={1} sx={{ gap: 4 }}>
         {templates.map((template) => (
           <Grid size={5}>
             <TemplatePreview template={template} />

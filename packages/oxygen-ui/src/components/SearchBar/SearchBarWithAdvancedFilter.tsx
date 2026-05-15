@@ -139,11 +139,13 @@ export function SearchBarWithAdvancedFilter({
         onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        PaperProps={{
-          sx: {
-            width: popoverWidth,
-            borderRadius: 1,
-            p: 2,
+        slotProps={{
+          paper: {
+            sx: {
+              width: popoverWidth,
+              borderRadius: 1,
+              p: 2,
+            },
           },
         }}
       >
@@ -153,7 +155,7 @@ export function SearchBarWithAdvancedFilter({
 
         <Divider sx={{ my: 1 }} />
 
-        <Stack spacing={2} marginTop={2}>
+        <Stack spacing={2} sx={{ mt: 2 }}>
           <FormControl fullWidth size="small">
             <InputLabel id="adv-filter-attribute-label">
               Filter attribute{' '}

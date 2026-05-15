@@ -178,7 +178,7 @@ export default function SettingsPage(): JSX.Element {
                         <Button variant="outlined" size="small" sx={{ mb: 1 }}>
                           Change Logo
                         </Button>
-                        <Typography variant="caption" display="block" color="text.secondary">
+                        <Typography variant="caption" sx={{ display: 'block' }} color="text.secondary">
                           Recommended: Square image, at least 200x200px
                         </Typography>
                       </Box>
@@ -697,7 +697,7 @@ export default function SettingsPage(): JSX.Element {
                       primary="Production API Key"
                       secondary={
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1 }}>
-                          <Typography variant="body2" fontFamily="monospace">
+                          <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
                             sk_prod_••••••••••••••••
                           </Typography>
                           <Chip label="Active" size="small" color="success" />
@@ -723,7 +723,7 @@ export default function SettingsPage(): JSX.Element {
                       primary="Development API Key"
                       secondary={
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1 }}>
-                          <Typography variant="body2" fontFamily="monospace">
+                          <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
                             sk_dev_••••••••••••••••
                           </Typography>
                           <Chip label="Active" size="small" color="success" />

@@ -35,7 +35,7 @@ function ThemeInspector() {
           <Typography variant="subtitle2" color="text.secondary" gutterBottom>
             Breakpoints
           </Typography>
-          <Stack direction="row" spacing={1} flexWrap="wrap" sx={{ gap: 1 }}>
+          <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1 }}>
             {Object.entries(theme.breakpoints.values).map(([key, value]) => (
               <Chip key={key} label={`${key}: ${value}px`} size="small" />
             ))}

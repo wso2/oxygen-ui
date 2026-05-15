@@ -127,7 +127,7 @@ export const CreateNewComponent: Story = {
   CustomCardDescription.displayName = 'CustomCard.Description';
   CustomCardDescription.defaultProps = {
     variant: 'body2',
-    paragraph: true,
+    sx: { mb: 2 },
   };
 
   export default CustomCardDescription;`}
@@ -441,7 +441,7 @@ export const CreateStory: Story = {
    */
   export const MultipleCards: Story = {
     render: () => (
-      <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
+      <Stack direction="row" spacing={2} useFlexGap sx={{ flexWrap: 'wrap' }}>
         <CustomCard>
           <CustomCard.Header>Card 1</CustomCard.Header>
           <CustomCard.Description>First card</CustomCard.Description>

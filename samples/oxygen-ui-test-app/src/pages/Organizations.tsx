@@ -81,7 +81,7 @@ export default function Organizations(): JSX.Element {
       {/* Header */}
       <PageTitle>
         <PageTitle.Header>Organizations</PageTitle.Header>
-        <Box display="flex" alignItems="center">
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <PageTitle.SubHeader>
             Create and manage organizations
             <Link href="https://www.wso2.com" target="_blank" rel="noopener noreferrer" sx={{ ml: 1 }}>
@@ -146,8 +146,8 @@ export default function Organizations(): JSX.Element {
                   onClick={() => navigate(`/o/${org.orgId}/projects`)}
                 >
                   <ListingTable.Cell>
-                    <Box display="flex" alignItems="center" justifyContent="space-between" gap={2}>
-                      <Box display="flex" alignItems="center" gap={2} minWidth={0}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 2 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, minWidth: 0 }}>
                         <Box
                           sx={{
                             width: 48,
@@ -164,8 +164,8 @@ export default function Organizations(): JSX.Element {
                           <Building2 size={22} />
                         </Box>
 
-                        <Box minWidth={0}>
-                          <Box display="flex" alignItems="center" gap={1} minWidth={0}>
+                        <Box sx={{ minWidth: 0 }}>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0 }}>
                             <Typography variant="h6" sx={{ lineHeight: 1.2 }} noWrap>
                               {org.name}
                             </Typography>
@@ -180,7 +180,7 @@ export default function Organizations(): JSX.Element {
                             />
                           </Box>
 
-                          <Box display="flex" alignItems="center" gap={1} mt={0.5} flexWrap="wrap">
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 0.5, flexWrap: 'wrap' }}>
                             <Typography variant="body2" color="text.secondary">
                               Organization Id:
                             </Typography>
@@ -189,7 +189,7 @@ export default function Organizations(): JSX.Element {
                         </Box>
                       </Box>
 
-                      <Box display="flex" alignItems="center" gap={0.5} flexShrink={0}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, flexShrink: 0 }}>
                         <Tooltip title="Info">
                           <IconButton
                             size="small"
@@ -266,7 +266,7 @@ export default function Organizations(): JSX.Element {
 
               return (
                 <Grid key={section.id} size={{ xs: 12, md: 4 }}>
-                  <Box display="flex" alignItems="flex-start" gap={2}>
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
                     <Box sx={{ color: 'primary.main', mt: 0.25 }}>
                       <SectionIcon size={34} />
                     </Box>

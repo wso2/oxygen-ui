@@ -58,7 +58,7 @@ export const Default: Story = {
           borderColor: 'divider',
         }}
       >
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography variant="h4">Dashboard</Typography>
           <Button variant="contained" color="primary">
             New Item
@@ -144,7 +144,7 @@ export const Default: Story = {
                 <Stack spacing={2}>
                   {[1, 2, 3, 4, 5].map((item) => (
                     <Box key={item}>
-                      <Stack direction="row" justifyContent="space-between" alignItems="center">
+                      <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                         <Box>
                           <Typography variant="body1">User Action {item}</Typography>
                           <Typography variant="caption" color="text.secondary">

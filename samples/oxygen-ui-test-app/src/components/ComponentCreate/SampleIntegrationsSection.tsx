@@ -31,10 +31,10 @@ export default function SampleIntegrationsSection({
   children,
 }: SampleIntegrationsSectionProps): JSX.Element {
   return (
-    <Form.Stack flexGrow={1}>
+    <Form.Stack sx={{ flexGrow: 1 }}>
       <Form.Header>{title}</Form.Header>
       <Form.Body>{description}</Form.Body>
-      <Box display="flex" flexWrap="wrap" gap={2}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
         {children}
       </Box>
     </Form.Stack>

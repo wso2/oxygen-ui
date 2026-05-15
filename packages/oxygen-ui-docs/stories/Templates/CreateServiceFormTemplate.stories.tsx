@@ -204,8 +204,7 @@ export const Default: Story = {
                       <Form.Stack
                         direction="row"
                         spacing={2}
-                        justifyContent="center"
-                        alignItems="center"
+                        sx={{ justifyContent: 'center', alignItems: 'center' }}
                       >
                         {preset.icon}
                         <Form.Body>{preset.label}</Form.Body>

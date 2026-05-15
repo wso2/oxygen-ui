@@ -143,19 +143,21 @@ export function ListingTableToolbar({
             minWidth: searchMinWidth,
             maxWidth: searchMaxWidth,
           }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search size={18} />
-              </InputAdornment>
-            ),
-            endAdornment: searchValue ? (
-              <InputAdornment position="end">
-                <IconButton size="small" onClick={handleClearSearch} edge="end">
-                  <X size={16} />
-                </IconButton>
-              </InputAdornment>
-            ) : null,
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search size={18} />
+                </InputAdornment>
+              ),
+              endAdornment: searchValue ? (
+                <InputAdornment position="end">
+                  <IconButton size="small" onClick={handleClearSearch} edge="end">
+                    <X size={16} />
+                  </IconButton>
+                </InputAdornment>
+              ) : null,
+            },
           }}
         />
       );
