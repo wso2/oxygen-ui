@@ -1,5 +1,16 @@
 # @wso2/oxygen-ui-charts-react
 
+## 0.11.0
+
+### Minor Changes
+
+- [#530](https://github.com/wso2/oxygen-ui/pull/530) [`8eca27e`](https://github.com/wso2/oxygen-ui/commit/8eca27e1a46518183ed1d5332f63ffa89d1954f8) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Add AppBreadcrumbs component + Improve ColorSchemeSVG component
+
+### Patch Changes
+
+- Updated dependencies [[`8eca27e`](https://github.com/wso2/oxygen-ui/commit/8eca27e1a46518183ed1d5332f63ffa89d1954f8)]:
+  - @wso2/oxygen-ui@0.11.0
+
 ## 0.10.1
 
 ### Patch Changes
