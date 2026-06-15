@@ -17,13 +17,13 @@
  */
 
 /**
- * Corporate Blue Theme - Example custom theme extension for Oxygen UI
- * This theme demonstrates a professional corporate blue color scheme.
+ * Green Theme - Example custom theme extension for Oxygen UI
+ * This theme demonstrates a professional green color scheme.
  */
 
 // Export the partial theme configuration object
 // The loader will pass this to createOxygenTheme
-const corporateBlueThemeConfig = {
+const GreenThemeConfig = {
   colorSchemes: {
     light: {
       palette: {
@@ -226,5 +226,5 @@ const corporateBlueThemeConfig = {
 // Export using CommonJS format for the loader
 /* eslint-disable no-undef */
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports.default = corporateBlueThemeConfig;
+  module.exports.default = GreenThemeConfig;
 }

@@ -19,6 +19,8 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Box, Typography, Paper, Tooltip, Button } from '@wso2/oxygen-ui';
+// lucide-react is a direct dependency of @wso2/oxygen-ui-icons-react; version is read from its installed package.json
+import lucideReactPkg from 'lucide-react/package.json';
 import {
   Home,
   User,
@@ -26,9 +28,6 @@ import {
   Search,
   Mail,
   Bell,
-  Calendar,
-  File,
-  Folder,
   Download,
   Upload,
   Edit,
@@ -38,46 +37,15 @@ import {
   Copy,
   Check,
   X,
-  Plus,
-  Minus,
   ChevronRight,
   ChevronLeft,
-  ChevronUp,
-  ChevronDown,
   Menu,
   MoreVertical,
-  MoreHorizontal,
   Star,
-  Heart,
-  Eye,
-  EyeOff,
-  Lock,
-  Unlock,
-  LogIn,
-  LogOut,
-  UserPlus,
   MessageSquare,
   Send,
   Phone,
   Video,
-  Image,
-  Camera,
-  FileText,
-  Package,
-  ShoppingCart,
-  CreditCard,
-  DollarSign,
-  TrendingUp,
-  TrendingDown,
-  BarChart3,
-  PieChart,
-  Activity,
-  Zap,
-  Globe,
-  Wifi,
-  WifiOff,
-  Cloud,
-  CloudOff,
   Database,
   Server,
   Code,
@@ -86,34 +54,8 @@ import {
   AlertCircle,
   AlertTriangle,
   Info,
-  HelpCircle,
   CheckCircle,
   XCircle,
-  Loader,
-  RefreshCw,
-  Clock,
-  MapPin,
-  Navigation,
-  Compass,
-  Map,
-  Award,
-  Bookmark,
-  Flag,
-  Tag,
-  Filter,
-  Sliders,
-  Printer,
-  Clipboard,
-  Link,
-  ExternalLink,
-  Maximize,
-  Minimize,
-  Volume2,
-  VolumeX,
-  Play,
-  Pause,
-  SkipBack,
-  SkipForward,
   GitLab,
   Bitbucket,
   MCP,
@@ -174,167 +116,42 @@ const iconsList = [
   { Icon: Search, name: 'Search' },
   { Icon: Mail, name: 'Mail' },
   { Icon: Bell, name: 'Bell' },
-  { Icon: Calendar, name: 'Calendar' },
-  { Icon: File, name: 'File' },
-  { Icon: Folder, name: 'Folder' },
-  { Icon: Download, name: 'Download' },
-  { Icon: Upload, name: 'Upload' },
-  { Icon: Edit, name: 'Edit' },
-  { Icon: Trash2, name: 'Trash2' },
-  { Icon: Save, name: 'Save' },
-  { Icon: Share2, name: 'Share2' },
-  { Icon: Copy, name: 'Copy' },
-  { Icon: Check, name: 'Check' },
-  { Icon: X, name: 'X' },
-  { Icon: Plus, name: 'Plus' },
-  { Icon: Minus, name: 'Minus' },
-  { Icon: ChevronRight, name: 'ChevronRight' },
-  { Icon: ChevronLeft, name: 'ChevronLeft' },
-  { Icon: ChevronUp, name: 'ChevronUp' },
-  { Icon: ChevronDown, name: 'ChevronDown' },
-  { Icon: Menu, name: 'Menu' },
-  { Icon: MoreVertical, name: 'MoreVertical' },
-  { Icon: MoreHorizontal, name: 'MoreHorizontal' },
-  { Icon: Star, name: 'Star' },
-  { Icon: Heart, name: 'Heart' },
-  { Icon: Eye, name: 'Eye' },
-  { Icon: EyeOff, name: 'EyeOff' },
-  { Icon: Lock, name: 'Lock' },
-  { Icon: Unlock, name: 'Unlock' },
-  { Icon: LogIn, name: 'LogIn' },
-  { Icon: LogOut, name: 'LogOut' },
-  { Icon: UserPlus, name: 'UserPlus' },
-  { Icon: MessageSquare, name: 'MessageSquare' },
-  { Icon: Send, name: 'Send' },
-  { Icon: Phone, name: 'Phone' },
-  { Icon: Video, name: 'Video' },
-  { Icon: Image, name: 'Image' },
-  { Icon: Camera, name: 'Camera' },
-  { Icon: FileText, name: 'FileText' },
-  { Icon: Package, name: 'Package' },
-  { Icon: ShoppingCart, name: 'ShoppingCart' },
-  { Icon: CreditCard, name: 'CreditCard' },
-  { Icon: DollarSign, name: 'DollarSign' },
-  { Icon: TrendingUp, name: 'TrendingUp' },
-  { Icon: TrendingDown, name: 'TrendingDown' },
-  { Icon: BarChart3, name: 'BarChart3' },
-  { Icon: PieChart, name: 'PieChart' },
-  { Icon: Activity, name: 'Activity' },
-  { Icon: Zap, name: 'Zap' },
-  { Icon: Globe, name: 'Globe' },
-  { Icon: Wifi, name: 'Wifi' },
-  { Icon: WifiOff, name: 'WifiOff' },
-  { Icon: Cloud, name: 'Cloud' },
-  { Icon: CloudOff, name: 'CloudOff' },
-  { Icon: Database, name: 'Database' },
-  { Icon: Server, name: 'Server' },
-  { Icon: Code, name: 'Code' },
-  { Icon: Terminal, name: 'Terminal' },
-  { Icon: GitBranch, name: 'GitBranch' },
-  { Icon: AlertCircle, name: 'AlertCircle' },
-  { Icon: AlertTriangle, name: 'AlertTriangle' },
-  { Icon: Info, name: 'Info' },
-  { Icon: HelpCircle, name: 'HelpCircle' },
-  { Icon: CheckCircle, name: 'CheckCircle' },
-  { Icon: XCircle, name: 'XCircle' },
-  { Icon: Loader, name: 'Loader' },
-  { Icon: RefreshCw, name: 'RefreshCw' },
-  { Icon: Clock, name: 'Clock' },
-  { Icon: MapPin, name: 'MapPin' },
-  { Icon: Navigation, name: 'Navigation' },
-  { Icon: Compass, name: 'Compass' },
-  { Icon: Map, name: 'Map' },
-  { Icon: Award, name: 'Award' },
-  { Icon: Bookmark, name: 'Bookmark' },
-  { Icon: Flag, name: 'Flag' },
-  { Icon: Tag, name: 'Tag' },
-  { Icon: Filter, name: 'Filter' },
-  { Icon: Sliders, name: 'Sliders' },
-  { Icon: Printer, name: 'Printer' },
-  { Icon: Clipboard, name: 'Clipboard' },
-  { Icon: Link, name: 'Link' },
-  { Icon: ExternalLink, name: 'ExternalLink' },
-  { Icon: Maximize, name: 'Maximize' },
-  { Icon: Minimize, name: 'Minimize' },
-  { Icon: Volume2, name: 'Volume2' },
-  { Icon: VolumeX, name: 'VolumeX' },
-  { Icon: Play, name: 'Play' },
-  { Icon: Pause, name: 'Pause' },
-  { Icon: SkipBack, name: 'SkipBack' },
-  { Icon: SkipForward, name: 'SkipForward' },
 ]
 
 export const IconGallery: Story = {
   render: () => (
     <Box>
       <Typography variant="h5" gutterBottom>
-        New Brand Icons
-      </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-        Recently added custom platform icons with theme-aware coloring for light and dark modes.
+        Icons from Lucide Library
       </Typography>
       <Box
         sx={{
-          display: 'grid',
-          gridTemplateColumns: {
-            xs: 'repeat(2, 1fr)',
-            sm: 'repeat(4, 1fr)',
-          },
-          gap: 2,
-          mb: 6,
+          mb: 3,
+          px: 2,
+          py: 1.5,
+          borderRadius: 1,
+          bgcolor: 'info.50',
+          border: '1px solid',
+          borderColor: 'info.light',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1,
         }}
       >
-        {featuredBrandIcons.map(({ Icon, name }) => (
-          <Tooltip key={name} title={name} arrow>
-            <Paper
-              elevation={0}
-              sx={{
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: 1,
-                border: '1px solid',
-                borderColor: 'divider',
-                transition: 'all 0.2s',
-                '&:hover': {
-                  borderColor: 'primary.main',
-                  backgroundColor: 'action.hover',
-                  transform: 'translateY(-2px)',
-                },
-              }}
-            >
-              <Icon size={28} />
-              <Typography
-                variant="caption"
-                align="center"
-                sx={{
-                  fontSize: '0.75rem',
-                  fontWeight: 600,
-                }}
-              >
-                {name}
-              </Typography>
-            </Paper>
-          </Tooltip>
-        ))}
+        <Typography variant="body2" color="info.dark">
+          Showing <strong>{iconsList.length}</strong> popular icons from{' '}
+          <strong>lucide-react v{lucideReactPkg.version}</strong>. Visit{' '}
+          <a
+            href="https://lucide.dev/icons/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: 'inherit', fontWeight: 600, textDecoration: 'underline' }}
+          >
+            lucide.dev/icons
+          </a>{' '}
+          for the complete list of <strong>1000+ icons</strong>.
+        </Typography>
       </Box>
-
-      <Typography variant="h5" gutterBottom>
-        Icons from Lucide Library
-      </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-        Showing {iconsList.length} popular icons. Visit{' '}
-        <a
-          href="https://lucide.dev/icons/"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: 'inherit', textDecoration: 'underline' }}
-        >
-          lucide.dev/icons
-        </a>{' '}
-        for the complete list of 1000+ icons.
-      </Typography>
       <Box
         sx={{
           display: 'grid',

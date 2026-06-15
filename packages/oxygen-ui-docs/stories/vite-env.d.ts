@@ -16,23 +16,15 @@
  * under the License.
  */
 
-/* eslint-disable no-undef */
-window.__APP_RUNTIME_CONFIG__ = {
-  brand: {
-    productName: 'Oxygen UI',
-  },
-  design: {
-    themes: [
-      {
-        key: "purple-runtime",
-        label: "Purple Theme (Runtime)",
-        theme: "./custom-themes/PurpleTheme.js",
-      },
-      {
-        key: "green-runtime",
-        label: "Green Theme (Runtime)",
-        theme: "./custom-themes/GreenTheme.js",
-      },
-    ]
-  }
-};
+declare module 'lucide-react/package.json' {
+	const pkg: {version: string; [key: string]: unknown};
+	export default pkg;
+}
+
+declare module '*.svg?react' {
+	import type {FunctionComponent, SVGProps} from 'react';
+
+	const ReactComponent: FunctionComponent<SVGProps<SVGSVGElement>>;
+
+	export default ReactComponent;
+}

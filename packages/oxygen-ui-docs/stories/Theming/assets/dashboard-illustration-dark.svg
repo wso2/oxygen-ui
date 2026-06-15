@@ -1,0 +1,22 @@
+<svg width="400" height="250" viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect fill="background" width="400" height="250" rx="8" />
+
+  <circle fill="surface" cx="318" cy="60" r="24" />
+  <circle fill="background" cx="328" cy="54" r="22" />
+
+  <circle fill="info" cx="68" cy="48" r="3" />
+  <circle fill="info" cx="106" cy="74" r="2.5" />
+  <circle fill="info" cx="142" cy="44" r="2" />
+  <circle fill="info" cx="236" cy="52" r="2.5" />
+  <circle fill="info" cx="268" cy="84" r="2" />
+
+  <path fill="muted" d="M0 192 C55 172 110 206 170 184 C228 164 284 206 344 186 C366 178 384 178 400 175 V250 H0 Z" />
+
+  <rect fill="surface" x="150" y="146" width="90" height="64" rx="6" />
+  <path fill="secondary" d="M143 148 L195 114 L247 148 Z" />
+  <rect fill="primary" x="185" y="174" width="20" height="36" rx="3" />
+  <rect fill="warning" x="163" y="162" width="16" height="12" rx="2" />
+  <rect fill="warning" x="211" y="162" width="16" height="12" rx="2" />
+
+  <rect fill="text-disabled" x="120" y="214" width="160" height="8" rx="4" />
+</svg>

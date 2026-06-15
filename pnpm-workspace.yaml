@@ -2,6 +2,11 @@ packages:
   - packages/*
   - samples/*
 
+allowBuilds:
+  '@swc/core': false
+  esbuild: true
+  nx: true
+
 catalog:
   '@emotion/react': 11.14.0
   '@emotion/styled': 11.14.1
@@ -27,7 +32,7 @@ catalog:
   eslint-plugin-react-refresh: 0.4.24
   glob: 11.0.3
   globals: 16.4.0
-  lucide-react: 0.545.0
+  lucide-react: 1.16.0
   prettier: 3.6.2
   react: 19.2.3
   react-dom: 19.2.3

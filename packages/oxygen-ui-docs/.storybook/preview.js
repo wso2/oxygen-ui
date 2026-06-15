@@ -167,7 +167,6 @@ const preview = {
     backgrounds: {
       disable: true,
     },
-
     options: {
       storySort: {
         order: [
@@ -176,6 +175,7 @@ const preview = {
           'How To Contribute',
           'App Elements', [
             'App Shell',
+            'App Breadcrumbs',
             'Header',
             'User Menu',
             'Sidebar',

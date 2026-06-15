@@ -16,6 +16,9 @@
  * under the License.
  */
 
+export { default as AppBreadcrumbs } from './AppBreadcrumbs';
+export type { AppBreadcrumbsProps, BreadcrumbItem } from './AppBreadcrumbs';
+
 export { default as CodeBlock } from './CodeBlock';
 export type { CodeBlockProps } from './CodeBlock';
 export { default as ColorSchemeImage } from './ColorSchemeImage';

@@ -1,0 +1,29 @@
+<svg width="400" height="250" viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect fill="background" width="400" height="250" rx="8" />
+
+  <rect fill="surface" x="20" y="20" width="170" height="210" rx="10" />
+  <rect fill="surface" x="210" y="20" width="170" height="210" rx="10" />
+
+  <circle fill="warning" cx="72" cy="68" r="22" />
+  <ellipse fill="background" cx="140" cy="80" rx="30" ry="13" />
+
+  <circle fill="surface" cx="338" cy="64" r="20" />
+  <circle fill="background" cx="346" cy="58" r="18" />
+  <circle fill="info" cx="258" cy="54" r="2.5" />
+  <circle fill="info" cx="282" cy="82" r="2" />
+  <circle fill="info" cx="304" cy="46" r="2" />
+
+  <path fill="success" d="M20 182 C50 165 84 195 118 180 C145 168 168 186 190 176 V230 H20 Z" />
+  <path fill="muted" d="M210 182 C240 165 274 195 308 180 C335 168 358 186 380 176 V230 H210 Z" />
+
+  <rect fill="surface" x="88" y="148" width="36" height="44" rx="4" />
+  <path fill="primary" d="M84 149 L106 134 L128 149 Z" />
+  <rect fill="secondary" x="102" y="169" width="8" height="23" rx="2" />
+
+  <rect fill="surface" x="278" y="148" width="36" height="44" rx="4" />
+  <path fill="secondary" d="M274 149 L296 134 L318 149 Z" />
+  <rect fill="primary" x="292" y="169" width="8" height="23" rx="2" />
+
+  <text fill="text-secondary" x="62" y="214" font-size="12" font-weight="600">DAY</text>
+  <text fill="text-secondary" x="248" y="214" font-size="12" font-weight="600">NIGHT</text>
+</svg>
