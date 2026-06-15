@@ -31,6 +31,12 @@ export default {
     '@storybook/addon-docs',
     '@storybook/addon-links',
     '@storybook/mdx2-csf',
+    {
+      name: '@storybook/addon-essentials',
+      options: {
+        controls: false,
+      },
+    },
   ],
   framework: {
     name: '@storybook/react-webpack5',
@@ -50,6 +56,30 @@ export default {
       '@wso2/oxygen-ui-icons-react': path.resolve(__dirname, '../../oxygen-ui-icons-react/dist/index.js'),
       '@wso2/oxygen-ui-charts-react': path.resolve(__dirname, '../../oxygen-ui-charts-react/dist/index.js'),
     };
+
+    config.module.rules = (config.module.rules || []).map((rule) => {
+      if (rule && typeof rule === 'object' && rule.test instanceof RegExp && rule.test.test('.svg')) {
+        return {
+          ...rule,
+          exclude: [/\.svg$/i, ...(Array.isArray(rule.exclude) ? rule.exclude : rule.exclude ? [rule.exclude] : [])],
+        };
+      }
+
+      return rule;
+    });
+
+    config.module.rules.push({
+      test: /\.svg$/i,
+      resourceQuery: /react/,
+      use: [
+        {
+          loader: '@svgr/webpack',
+          options: {
+            exportType: 'default',
+          },
+        },
+      ],
+    });
 
     // Handle workspace packages - allow transpiling @wso2 packages
     config.module.rules.push({

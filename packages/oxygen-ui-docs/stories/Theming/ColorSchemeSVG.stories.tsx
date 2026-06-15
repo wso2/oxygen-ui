@@ -19,47 +19,63 @@
 import React from 'react';
 import type {Meta, StoryObj} from '@storybook/react';
 import {ColorSchemeSVG, ColorSchemeToggle, Stack, Typography, Paper, Box, Divider} from '@wso2/oxygen-ui';
+import DashboardIllustration from './assets/dashboard-illustration.svg?react';
+import DashboardIllustrationLight from './assets/dashboard-illustration-light.svg?react';
+import DashboardIllustrationDark from './assets/dashboard-illustration-dark.svg?react';
 
-// Example SVG component (simulating an imported SVG with ?react)
-// This demonstrates how an imported SVG file would look with theme color attributes
-const ExampleSVGComponent = (props: React.SVGProps<SVGSVGElement>) => (
+const InlineDashboardIllustration = (props: React.SVGProps<SVGSVGElement>) => (
   <svg width="400" height="250" viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    {/* Dashboard illustration with theme colors */}
     <rect fill="background" width="400" height="250" rx="8" />
-    
-    {/* Header bar */}
     <rect fill="primary" width="400" height="50" rx="8" />
     <circle fill="surface" cx="30" cy="25" r="12" />
     <rect fill="surface" x="60" y="18" width="100" height="14" rx="4" />
-    
-    {/* Main content cards */}
     <rect fill="surface" x="20" y="70" width="170" height="160" rx="6" />
     <rect fill="surface" x="210" y="70" width="170" height="160" rx="6" />
-    
-    {/* Card 1 content */}
     <circle fill="success" cx="50" cy="100" r="20" />
     <rect fill="text-secondary" x="80" y="92" width="80" height="8" rx="4" />
     <rect fill="text-disabled" x="80" y="105" width="60" height="6" rx="3" />
     <rect fill="accent" x="30" y="140" width="150" height="6" rx="3" />
     <rect fill="accent" x="30" y="155" width="120" height="6" rx="3" />
     <rect fill="muted" x="30" y="170" width="100" height="6" rx="3" />
-    
-    {/* Card 2 content */}
     <circle fill="warning" cx="240" cy="100" r="20" />
     <rect fill="text-secondary" x="270" y="92" width="80" height="8" rx="4" />
     <rect fill="text-disabled" x="270" y="105" width="60" height="6" rx="3" />
-    
-    {/* Progress bars in card 2 */}
     <rect fill="muted" x="220" y="140" width="150" height="8" rx="4" />
     <rect fill="primary" x="220" y="140" width="100" height="8" rx="4" />
     <rect fill="muted" x="220" y="160" width="150" height="8" rx="4" />
     <rect fill="secondary" x="220" y="160" width="120" height="8" rx="4" />
     <rect fill="muted" x="220" y="180" width="150" height="8" rx="4" />
     <rect fill="info" x="220" y="180" width="80" height="8" rx="4" />
-    
-    {/* Footer icons */}
     <circle stroke="primary" strokeWidth="2" fill="none" cx="350" cy="215" r="12" />
     <circle stroke="error" strokeWidth="2" fill="none" cx="320" cy="215" r="12" />
+  </svg>
+);
+
+const InlineDashboardIllustrationLight = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg width="400" height="250" viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <rect fill="background" width="400" height="250" rx="8" />
+    <rect fill="primary" width="400" height="50" rx="8" />
+    <circle fill="surface" cx="30" cy="25" r="12" />
+    <rect fill="surface" x="60" y="18" width="100" height="14" rx="4" />
+    <rect fill="surface" x="20" y="70" width="170" height="160" rx="6" />
+    <rect fill="surface" x="210" y="70" width="170" height="160" rx="6" />
+    <circle fill="success" cx="50" cy="100" r="20" />
+    <rect fill="text-secondary" x="80" y="92" width="80" height="8" rx="4" />
+    <rect fill="text-disabled" x="80" y="105" width="60" height="6" rx="3" />
+  </svg>
+);
+
+const InlineDashboardIllustrationDark = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg width="400" height="250" viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <rect fill="background" width="400" height="250" rx="8" />
+    <rect fill="secondary" width="400" height="50" rx="8" />
+    <circle fill="surface" cx="30" cy="25" r="12" />
+    <rect fill="surface" x="60" y="18" width="100" height="14" rx="4" />
+    <rect fill="surface" x="20" y="70" width="170" height="160" rx="6" />
+    <rect fill="surface" x="210" y="70" width="170" height="160" rx="6" />
+    <circle fill="warning" cx="50" cy="100" r="20" />
+    <rect fill="text-secondary" x="80" y="92" width="80" height="8" rx="4" />
+    <rect fill="text-disabled" x="80" y="105" width="60" height="6" rx="3" />
   </svg>
 );
 
@@ -72,9 +88,40 @@ const meta: Meta<typeof ColorSchemeSVG> = {
       description: {
         component:
           'A theme-aware SVG component that applies color scheme to SVG elements. ' +
-          'Automatically adapts colors to light and dark modes using attribute-based selectors.\n\n' +
+          'Automatically adapts colors to light and dark modes using attribute-based selectors and SVGR components.\n\n' +
           '**Usage Pattern:**\n' +
-          'Use `fill="primary"` or `stroke="primary"` attributes (similar to `currentColor`)\n\n' +
+          'Use `fill="primary"` or `stroke="primary"` attributes (similar to `currentColor`) in inline SVG or imported SVGR components\n\n' +
+          '**Important prerequisite for imported SVG files:**\n' +
+          'Using `svg={ImportedSvg}` requires your app bundler to transform SVG files into React components.\n' +
+          'If this setup is missing, imported SVG examples will not work.\n\n' +
+          '**Vite setup:**\n' +
+          '1. Install: `pnpm add -D vite-plugin-svgr`\n' +
+          '2. Add `svgr()` to `plugins` in `vite.config.ts`\n' +
+          '3. Add declaration (for example in `vite-env.d.ts`):\n' +
+          '```ts\n' +
+          'declare module "*.svg?react" {\n' +
+          '  import type { FunctionComponent, SVGProps } from "react";\n' +
+          '  const ReactComponent: FunctionComponent<SVGProps<SVGSVGElement>>;\n' +
+          '  export default ReactComponent;\n' +
+          '}\n' +
+          '```\n\n' +
+          '**Webpack setup:**\n' +
+          '1. Install: `pnpm add -D @svgr/webpack`\n' +
+          '2. Add a rule in `webpack.config.js` for `?react` imports:\n' +
+          '```js\n' +
+          'module.exports = {\n' +
+          '  module: {\n' +
+          '    rules: [\n' +
+          '      {\n' +
+          '        test: /\\.svg$/i,\n' +
+          '        resourceQuery: /react/,\n' +
+          '        use: ["@svgr/webpack"]\n' +
+          '      }\n' +
+          '    ]\n' +
+          '  }\n' +
+          '};\n' +
+          '```\n' +
+          '3. Reuse the same TypeScript declaration shown above for `*.svg?react`.\n\n' +
           '**Supported Color Values:**\n' +
           '- `primary`, `secondary`, `accent`, `muted` - Theme colors\n' +
           '- `text-primary`, `text-secondary`, `text-disabled` - Text colors\n' +
@@ -84,14 +131,22 @@ const meta: Meta<typeof ColorSchemeSVG> = {
           '- `highlight`, `hover` - Action colors (fill only)\n\n' +
           '**Usage Examples:**\n' +
           '```tsx\n' +
+          'import { ColorSchemeSVG } from "@wso2/oxygen-ui";\n' +
+          'import Logo from "./assets/logo.svg?react";\n' +
+          'import LogoLight from "./assets/logo-light.svg?react";\n' +
+          'import LogoDark from "./assets/logo-dark.svg?react";\n\n' +
           '// With inline SVG elements\n' +
           '<ColorSchemeSVG width={200} height={100} viewBox="0 0 200 100">\n' +
           '  <rect fill="primary" x="0" y="0" width="100" height="100" />\n' +
           '  <circle stroke="secondary" fill="none" strokeWidth="2" cx="150" cy="50" r="40" />\n' +
           '</ColorSchemeSVG>\n\n' +
-          '// With imported SVG component\n' +
+          '// With imported relative SVG file\n' +
           'import Logo from "./logo.svg?react";\n' +
           '<ColorSchemeSVG svg={Logo} width={200} />\n' +
+          '\n// With imported relative light/dark SVG files\n' +
+          'import LogoLight from "./logo-light.svg?react";\n' +
+          'import LogoDark from "./logo-dark.svg?react";\n' +
+          '<ColorSchemeSVG svg={{ light: LogoLight, dark: LogoDark }} width={200} />\n' +
           '```\n\n' +
           '**Note:** For imported SVG files, edit the source SVG to use theme color values (e.g., `fill="primary"`) instead of hex colors.',
       },
@@ -105,7 +160,7 @@ type Story = StoryObj<typeof ColorSchemeSVG>;
 
 export const Default: Story = {
   render: () => (
-    <Stack spacing={3} alignItems="center">
+    <Stack spacing={3} sx={{alignItems: 'center'}}>
       <Typography variant="body2" color="text.secondary" sx={{textAlign: 'center', maxWidth: 400}}>
         Toggle the color scheme to see the SVG colors adapt
       </Typography>
@@ -121,29 +176,100 @@ export const Default: Story = {
           </text>
         </ColorSchemeSVG>
       </Paper>
-      <ColorSchemeToggle />
     </Stack>
   ),
 };
 
-export const WithSVGComponent: Story = {
+export const WithRelativeSVGFile: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code:
+          'import { ColorSchemeSVG } from "@wso2/oxygen-ui";\n' +
+          'import DashboardIllustration from "./assets/dashboard-illustration.svg?react";\n\n' +
+          'export function Example() {\n' +
+          '  return <ColorSchemeSVG svg={DashboardIllustration} width={400} height={250} />;\n' +
+          '}',
+      },
+    },
+  },
   render: () => (
-    <Stack spacing={3} alignItems="center">
+    <Stack spacing={3} sx={{alignItems: 'center'}}>
       <Typography variant="body2" color="text.secondary" sx={{textAlign: 'center', maxWidth: 400}}>
-        Dashboard illustration using imported SVG component with theme color attributes
+        Dashboard illustration using an imported relative SVG file with theme color attributes
       </Typography>
       <Paper elevation={2} sx={{p: 3, bgcolor: 'background.paper'}}>
-        <ColorSchemeSVG svg={ExampleSVGComponent} height={250} width={400} />
+        <ColorSchemeSVG svg={DashboardIllustration} height={250} width={400} />
       </Paper>
-      <ColorSchemeToggle />
+    </Stack>
+  ),
+};
+
+export const WithModeAwareSVGComponents: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code:
+          'import { ColorSchemeSVG } from "@wso2/oxygen-ui";\n' +
+          'import DashboardIllustrationLight from "./assets/dashboard-illustration-light.svg?react";\n' +
+          'import DashboardIllustrationDark from "./assets/dashboard-illustration-dark.svg?react";\n\n' +
+          'export function Example() {\n' +
+          '  return (\n' +
+          '    <ColorSchemeSVG svg={{ light: DashboardIllustrationLight, dark: DashboardIllustrationDark }} width={400} height={250} />\n' +
+          '  );\n' +
+          '}',
+      },
+    },
+  },
+  render: () => (
+    <Stack spacing={3} sx={{alignItems: 'center'}}>
+      <Typography variant="body2" color="text.secondary" sx={{textAlign: 'center', maxWidth: 420}}>
+        Relative light and dark SVG files can swap entire SVGs while still using theme-aware fills and strokes.
+      </Typography>
+      <Paper elevation={2} sx={{p: 3, bgcolor: 'background.paper'}}>
+        <ColorSchemeSVG svg={{light: DashboardIllustrationLight, dark: DashboardIllustrationDark}} height={250} width={400} />
+      </Paper>
+    </Stack>
+  ),
+};
+
+export const WithInlineSVGComponent: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `import React from "react";
+import { ColorSchemeSVG } from "@wso2/oxygen-ui";
+
+const DashboardIllustration = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg width="400" height="250" viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <rect fill="background" width="400" height="250" rx="8" />
+    <rect fill="primary" width="400" height="50" rx="8" />
+    {/* ... more elements ... */}
+  </svg>
+);
+
+export function Example() {
+  return <ColorSchemeSVG svg={DashboardIllustration} width={400} height={250} />;
+}`,
+      },
+    },
+  },
+  render: () => (
+    <Stack spacing={3} sx={{alignItems: 'center'}}>
+      <Typography variant="body2" color="text.secondary" sx={{textAlign: 'center', maxWidth: 400}}>
+        Dashboard illustration using an inline React SVG component passed to the svg prop
+      </Typography>
+      <Paper elevation={2} sx={{p: 3, bgcolor: 'background.paper'}}>
+        <ColorSchemeSVG svg={InlineDashboardIllustration} height={250} width={400} />
+      </Paper>
     </Stack>
   ),
 };
 
 export const AllColorValues: Story = {
   render: () => (
-    <Stack spacing={3} alignItems="center" sx={{width: '100%', maxWidth: 800}}>
-      <Typography variant="h5" fontWeight={600}>
+    <Stack spacing={3} sx={{alignItems: 'center', width: '100%', maxWidth: 800}}>
+      <Typography variant="h5" sx={{fontWeight: 600}}>
         Available Color Values
       </Typography>
       <Typography variant="body2" color="text.secondary" sx={{textAlign: 'center'}}>
@@ -249,15 +375,13 @@ export const AllColorValues: Story = {
           </Box>
         </Stack>
       </Paper>
-
-      <ColorSchemeToggle />
     </Stack>
   ),
 };
 
 export const ComplexIllustration: Story = {
   render: () => (
-    <Stack spacing={3} alignItems="center">
+    <Stack spacing={3} sx={{alignItems: 'center'}}>
       <Typography variant="body2" color="text.secondary" sx={{textAlign: 'center', maxWidth: 500}}>
         A more complex example showing how multiple color classes work together
       </Typography>
@@ -296,7 +420,6 @@ export const ComplexIllustration: Story = {
           </text>
         </ColorSchemeSVG>
       </Paper>
-      <ColorSchemeToggle />
     </Stack>
   ),
 };

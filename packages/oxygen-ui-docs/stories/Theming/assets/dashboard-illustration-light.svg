@@ -1,0 +1,19 @@
+<svg width="400" height="250" viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect fill="background" width="400" height="250" rx="8" />
+
+  <circle fill="warning" cx="78" cy="66" r="28" />
+
+  <ellipse fill="surface" cx="274" cy="70" rx="34" ry="16" />
+  <ellipse fill="surface" cx="248" cy="74" rx="20" ry="11" />
+  <ellipse fill="surface" cx="300" cy="74" rx="18" ry="10" />
+
+  <path fill="success" d="M0 190 C50 165 100 200 150 182 C205 160 260 205 320 182 C350 170 375 178 400 172 V250 H0 Z" />
+
+  <rect fill="surface" x="150" y="146" width="90" height="64" rx="6" />
+  <path fill="primary" d="M143 148 L195 114 L247 148 Z" />
+  <rect fill="secondary" x="185" y="174" width="20" height="36" rx="3" />
+  <rect fill="info" x="163" y="162" width="16" height="12" rx="2" />
+  <rect fill="info" x="211" y="162" width="16" height="12" rx="2" />
+
+  <rect fill="muted" x="120" y="214" width="160" height="8" rx="4" />
+</svg>
