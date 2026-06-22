@@ -3,10 +3,11 @@
 > WSO2's React component library built on Material-UI v7
 
 > [!IMPORTANT]
-> **All UI in this project must be built with Oxygen UI.** For any React UI work —
-> components, pages, layouts, forms, tables, dialogs, theming — follow this guide and
-> reuse Oxygen's composite components, even when the request does not mention Oxygen UI
-> by name.
+> **For ANY UI work in this project, use the `oxygen-ui` skill.** All React UI —
+> components, pages, layouts, forms, tables, dialogs, theming — must be built with Oxygen
+> UI. Consult the `oxygen-ui` skill before writing or editing UI code, even when the
+> request does not mention Oxygen UI by name. (Skill descriptions alone under-trigger on
+> generic UI prompts, so this rule is what reliably routes UI tasks to the skill.)
 
 ## Quick Start
 
@@ -84,6 +85,11 @@ Create a custom theme with `createOxygenTheme(overrides)` (extends the Oxygen ba
   `ColorSchemeToggle`, `ColorSchemeImage`, `ColorSchemeSVG`
 - **User**: `UserMenu`
 - **Animations**: `ParticleBackground`
+
+## Available Skills
+
+- `oxygen-ui` - Build UIs with Oxygen UI: components, tables, cards, forms, wizards,
+  layouts, theming, and MUI → Oxygen migration. Routes into the detailed references below.
 
 ## Detailed Documentation
 

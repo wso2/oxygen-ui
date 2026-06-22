@@ -207,11 +207,9 @@ const theme = createTheme({
 
 **After:**
 ```tsx
-import { extendTheme } from '@mui/material/styles';
-import { OxygenThemeBase, OxygenUIThemeProvider } from '@wso2/oxygen-ui';
+import { createOxygenTheme, OxygenUIThemeProvider } from '@wso2/oxygen-ui';
 
-const customTheme = extendTheme({
-  ...OxygenThemeBase,
+const customTheme = createOxygenTheme({
   colorSchemes: {
     light: {
       palette: { primary: { main: '#1976d2' } },

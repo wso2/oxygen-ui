@@ -109,8 +109,9 @@ After the user confirms, update each file while preserving existing format conve
 
 - Update the **Available Themes** list to match `src/styles/Themes/index.ts`
 - Update the **Custom Oxygen Components** list to match `src/components/index.ts`
-- Update the **Available Skills** list to match the directories in `.claude/skills/`
-- Do NOT include `/oxygen-sync` in the Available Skills list (it is internal-only and already listed separately)
+- Update the **Available Skills** list to match the consumer skill directories in
+  `.claude/skills/` (currently just `oxygen-ui`)
+- Do NOT include `oxygen-sync` in the Available Skills list (it is internal-only)
 
 ### `.claude/components.md`
 
@@ -145,6 +146,20 @@ After updating all `.claude/` files, mirror the content to `.ai/`:
 | `.claude/patterns.md` | `.ai/patterns.md` | Copy as-is |
 | `.claude/theming.md` | `.ai/theming.md` | Copy as-is |
 | `.claude/migration.md` | `.ai/migration.md` | Copy as-is |
+
+### Mirror to the bundled skill references
+
+The `oxygen-ui` skill is **distributed to consumer apps**, so it carries its own copy of
+the four reference docs. After updating `.claude/`, copy the four reference files into the
+skill so the distributable copy stays in sync (the skill's `SKILL.md` is hand-authored —
+do **not** overwrite it):
+
+| Source | Target |
+|--------|--------|
+| `.claude/components.md` | `.claude/skills/oxygen-ui/references/components.md` |
+| `.claude/patterns.md` | `.claude/skills/oxygen-ui/references/patterns.md` |
+| `.claude/theming.md` | `.claude/skills/oxygen-ui/references/theming.md` |
+| `.claude/migration.md` | `.claude/skills/oxygen-ui/references/migration.md` |
 
 ---
 
