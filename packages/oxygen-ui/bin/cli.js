@@ -411,10 +411,8 @@ function initClaude(includeInternal = false) {
   console.log('  - .claude/oxygen-ui/migration.md (migration guide)');
   console.log('  - .claude/skills/ (invokable skills)\n');
   console.log('Available skills:');
-  console.log('  - /oxygen-component  Generate Oxygen UI components');
-  console.log('  - /oxygen-layout     Generate app layouts');
-  console.log('  - /oxygen-form       Generate forms with validation');
-  console.log('  - /oxygen-migrate    Migrate MUI code to Oxygen UI');
+  console.log('  - /oxygen-ui         Build any UI with Oxygen UI (components, tables,');
+  console.log('                       forms, wizards, layouts, theming) & migrate MUI code');
   if (includeInternal) {
     console.log('  - /oxygen-sync       Sync AI docs with source (internal)');
   }
@@ -545,10 +543,9 @@ Internal (WSO2 maintainers):
   npx @wso2/oxygen-ui update --claude --internal  # Update with internal skills
 
 Available Skills (Claude mode only):
-  /oxygen-component  Generate Oxygen UI React components
-  /oxygen-layout     Generate app layouts with AppShell
-  /oxygen-form       Generate forms with validation
-  /oxygen-migrate    Migrate existing MUI code
+  /oxygen-ui   Build any UI with Oxygen UI — components, tables, cards, dialogs,
+               forms, wizards, app shells/headers/sidebars, dashboards, theming —
+               and migrate existing @mui/material / lucide-react code
 `);
 }
 

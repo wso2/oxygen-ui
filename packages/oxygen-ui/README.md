@@ -372,11 +372,9 @@ npx @wso2/oxygen-ui init --claude
 
 Creates:
 - `.claude/oxygen-ui/` - Claude-optimized documentation
-- `.claude/skills/` - Invokable skills:
-  - `/oxygen-component` - Generate Oxygen UI components
-  - `/oxygen-layout` - Generate app layouts
-  - `/oxygen-form` - Generate forms with validation
-  - `/oxygen-migrate` - Migrate MUI code
+- `.claude/skills/oxygen-ui/` - the invokable `/oxygen-ui` skill: build any UI with Oxygen
+  (components, tables, forms, wizards, layouts, theming) and migrate `@mui/material` /
+  `lucide-react` code. It bundles its own reference docs, so it works standalone.
 - Updates root `CLAUDE.md` with reference
 
 ### Updating After Upgrade
