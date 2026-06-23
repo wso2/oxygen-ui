@@ -46,8 +46,9 @@ const aiTargetDir = resolve(process.cwd(), '.ai', 'oxygen-ui');
 const agentsTargetFile = resolve(process.cwd(), 'AGENTS.md');
 
 // Claude-specific files (--claude mode)
-const claudeSourceDir = join(__dirname, '..', '.claude');
-const claudeTargetDir = resolve(process.cwd(), '.claude', 'oxygen-ui');
+// The skill is self-contained (it bundles its own reference docs), so Claude mode
+// installs only the skill plus a routing rule in the root CLAUDE.md — no separate
+// .claude/oxygen-ui/ doc copy (that would duplicate the skill's references/).
 const skillsSourceDir = join(__dirname, '..', '.claude', 'skills');
 const skillsTargetDir = resolve(process.cwd(), '.claude', 'skills');
 const rootClaudeMd = resolve(process.cwd(), 'CLAUDE.md');
@@ -56,11 +57,16 @@ const rootClaudeMd = resolve(process.cwd(), 'CLAUDE.md');
 // Markers and References
 // ============================================================================
 
-// Import reference for root CLAUDE.md (Claude mode)
+// Routing rule appended to the root CLAUDE.md (Claude mode). Always-in-context so that
+// any UI work reliably routes to the self-contained oxygen-ui skill.
 const CLAUDE_IMPORT_REFERENCE = `
 ## Oxygen UI
 
-For Oxygen UI component guidelines and patterns, see [.claude/oxygen-ui/CLAUDE.md](.claude/oxygen-ui/CLAUDE.md).
+> [!IMPORTANT]
+> This project uses WSO2 Oxygen UI as its design system. For ANY React UI work —
+> components, pages, layouts, forms, tables, dialogs, theming — use the \`oxygen-ui\`
+> skill (in .claude/skills/oxygen-ui/) and build with Oxygen UI, even when the request
+> does not mention Oxygen UI by name.
 `;
 
 // Import reference for root AGENTS.md (default mode)
@@ -71,7 +77,7 @@ For Oxygen UI component guidelines and patterns, see [.ai/oxygen-ui/components.m
 `;
 
 // Markers to detect if import reference already exists
-const CLAUDE_IMPORT_MARKER = '.claude/oxygen-ui/CLAUDE.md';
+const CLAUDE_IMPORT_MARKER = '.claude/skills/oxygen-ui';
 const AGENTS_IMPORT_MARKER = '.ai/oxygen-ui/';
 
 // ============================================================================
@@ -116,7 +122,7 @@ function promptSelection() {
  * Returns 'claude' | 'other' | null.
  */
 function detectPreviousMode() {
-  const claudeExists = existsSync(resolve(process.cwd(), '.claude', 'oxygen-ui'));
+  const claudeExists = existsSync(resolve(process.cwd(), '.claude', 'skills', 'oxygen-ui'));
   const aiExists = existsSync(resolve(process.cwd(), '.ai', 'oxygen-ui'));
 
   if (claudeExists) return 'claude';
@@ -304,21 +310,6 @@ function copyAiFiles() {
 }
 
 /**
- * Copy Claude files to .claude/oxygen-ui/ (Claude mode)
- */
-function copyClaudeFiles() {
-  console.log('\nCopying Claude documentation files...\n');
-
-  const copiedCount = copyFiles(claudeSourceDir, claudeTargetDir, ['.md']);
-
-  if (copiedCount > 0) {
-    console.log(`\n  Copied ${copiedCount} file(s) to .claude/oxygen-ui/\n`);
-  }
-
-  return copiedCount;
-}
-
-/**
  * Copy skills directories (Claude mode)
  */
 function copySkillsDir(includeInternal = false) {
@@ -391,25 +382,18 @@ function initDefault() {
 function initClaude(includeInternal = false) {
   console.log(`\nOxygen UI - AI Integration Setup (Claude Code${includeInternal ? ' + Internal' : ''})\n`);
 
-  // Copy .claude/ files
-  copyClaudeFiles();
-
-  // Copy skills (include internal skills when --internal flag is used)
+  // Copy the self-contained skill (it bundles its own reference docs)
   copySkillsDir(includeInternal);
 
-  // Update root CLAUDE.md
+  // Update root CLAUDE.md with the routing rule
   console.log('Updating root CLAUDE.md...\n');
   updateRootClaudeMd();
 
   console.log('\nSetup complete!\n');
-  console.log('Claude Code will now have access to Oxygen UI documentation and skills.');
+  console.log('Claude Code will now use Oxygen UI for UI work in this project.');
   console.log('Files created:');
-  console.log('  - .claude/oxygen-ui/CLAUDE.md (core instructions)');
-  console.log('  - .claude/oxygen-ui/components.md (component reference)');
-  console.log('  - .claude/oxygen-ui/patterns.md (common patterns)');
-  console.log('  - .claude/oxygen-ui/theming.md (theme customization)');
-  console.log('  - .claude/oxygen-ui/migration.md (migration guide)');
-  console.log('  - .claude/skills/ (invokable skills)\n');
+  console.log('  - .claude/skills/oxygen-ui/ (self-contained skill + bundled references)');
+  console.log('  - CLAUDE.md updated with the Oxygen UI routing rule\n');
   console.log('Available skills:');
   console.log('  - /oxygen-ui         Build any UI with Oxygen UI (components, tables,');
   console.log('                       forms, wizards, layouts, theming) & migrate MUI code');
@@ -458,10 +442,7 @@ function updateDefault() {
 function updateClaude(includeInternal = false) {
   console.log(`\nOxygen UI - Updating AI Documentation (Claude Code${includeInternal ? ' + Internal' : ''})\n`);
 
-  // Refresh .claude/ files
-  copyClaudeFiles();
-
-  // Refresh skills (include internal skills when --internal flag is used)
+  // Refresh the self-contained skill (include internal skills when --internal is used)
   copySkillsDir(includeInternal);
 
   console.log('Update complete!\n');
@@ -528,9 +509,9 @@ Modes:
     - Works with any AI assistant
 
   Claude Code:
-    - Creates .claude/oxygen-ui/ folder with documentation
-    - Creates .claude/skills/ with invokable skills
-    - Updates root CLAUDE.md with reference
+    - Installs the self-contained .claude/skills/oxygen-ui/ skill
+      (it bundles its own reference docs)
+    - Updates root CLAUDE.md with the Oxygen UI routing rule
 
 Examples:
   npx @wso2/oxygen-ui init            # Interactive — choose your AI assistant
