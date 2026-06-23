@@ -27,7 +27,8 @@ function App() {
 
 1. **Import from `@wso2/oxygen-ui`** - Never import directly from `@mui/material`
 2. **Always wrap with `OxygenUIThemeProvider`** - Required at app root
-3. **Icons from `@wso2/oxygen-ui-icons-react`** - Separate package for icons
+3. **Icons from `@wso2/oxygen-ui-icons-react`** - bare lucide names, no `Icon` suffix
+   (`Home`, `Settings`, `Search`) + WSO2 brand icons (`WSO2`, `Github`)
 4. **Charts from `@wso2/oxygen-ui-charts-react`** - Separate package, Recharts-based
 5. **MUI X uses namespaces** - `DataGrid.DataGrid`, `DatePickers.DatePicker`, `TreeView.SimpleTreeView`
 6. **Use theme tokens** - Use `sx` prop with theme values, not hardcoded colors/spacing
@@ -40,8 +41,8 @@ function App() {
 // Components - import from @wso2/oxygen-ui
 import { Button, TextField, Box, Typography, ListingTable } from '@wso2/oxygen-ui';
 
-// Icons - import from @wso2/oxygen-ui-icons-react
-import { HomeIcon, SettingsIcon, UserIcon } from '@wso2/oxygen-ui-icons-react';
+// Icons - import from @wso2/oxygen-ui-icons-react (bare lucide names, no "Icon" suffix)
+import { Home, Settings, User } from '@wso2/oxygen-ui-icons-react';
 
 // MUI X - use as namespaces
 import { DataGrid, DatePickers, TreeView } from '@wso2/oxygen-ui';

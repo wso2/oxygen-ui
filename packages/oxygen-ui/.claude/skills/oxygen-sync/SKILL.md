@@ -7,7 +7,9 @@ description: Sync AI documentation with current source code. Use when components
 
 ## Purpose
 
-Reads the Oxygen UI source code and regenerates all AI documentation files (`.claude/` and `.ai/`) to match the current codebase state. Intended for design system maintainers working inside the `oxygen-ui` repo.
+Reads the Oxygen UI source code and regenerates the AI documentation files under `.claude/`
+(including the bundled `oxygen-ui` skill references) to match the current codebase state.
+Intended for design system maintainers working inside the `oxygen-ui` repo.
 
 ## Rules
 
@@ -18,7 +20,7 @@ Reads the Oxygen UI source code and regenerates all AI documentation files (`.cl
 - Use `src/components/index.ts` export order as canonical component ordering
 - Extract props from actual TypeScript interfaces — never guess or fabricate
 - Report major additions/removals to the user before writing
-- Mirror `.claude/` content to `.ai/` after every sync
+- Mirror the four `.claude/` reference docs into the skill's `references/` after every sync
 
 ---
 
@@ -135,24 +137,12 @@ After the user confirms, update each file while preserving existing format conve
 - Verify import examples are accurate
 - Update any migration guidance affected by API changes
 
-### Mirror to `.ai/`
-
-After updating all `.claude/` files, mirror the content to `.ai/`:
-
-| Source | Target | Notes |
-|--------|--------|-------|
-| `.claude/CLAUDE.md` | `.ai/AGENTS.md` | Adjust paths (`.claude/` -> `.ai/`), remove the Available Skills section |
-| `.claude/components.md` | `.ai/components.md` | Copy as-is |
-| `.claude/patterns.md` | `.ai/patterns.md` | Copy as-is |
-| `.claude/theming.md` | `.ai/theming.md` | Copy as-is |
-| `.claude/migration.md` | `.ai/migration.md` | Copy as-is |
-
 ### Mirror to the bundled skill references
 
 The `oxygen-ui` skill is **distributed to consumer apps**, so it carries its own copy of
 the four reference docs. After updating `.claude/`, copy the four reference files into the
-skill so the distributable copy stays in sync (the skill's `SKILL.md` is hand-authored —
-do **not** overwrite it):
+skill so the distributable copy stays in sync (the skill's `SKILL.md` and
+`references/app-structure.md` are hand-authored — do **not** overwrite them):
 
 | Source | Target |
 |--------|--------|

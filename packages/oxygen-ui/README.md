@@ -348,47 +348,23 @@ type MyGridColDef = typeof GridColDef;
 
 ## AI-Assisted Development
 
-Oxygen UI includes built-in documentation for AI assistants.
+Oxygen UI ships a self-contained **Claude Code skill** that teaches coding agents to set up
+and build UIs with the design system — installing the right dependencies and versions,
+wiring up `OxygenUIThemeProvider`, and scaffolding pages/layouts that match the canonical
+sample app (`samples/oxygen-ui-test-app`).
 
-### Universal Setup (Works with any AI)
-
-```bash
-npx @wso2/oxygen-ui init
-```
-
-Creates:
-- `AGENTS.md` - Streamlined AI guide at project root
-- `.ai/oxygen-ui/` - Detailed documentation:
-  - `components.md` - Component API reference
-  - `patterns.md` - Common UI patterns
-  - `theming.md` - Theme customization
-  - `migration.md` - Migration guide
-
-### Claude Code Setup (Recommended for Claude)
+The skill lives in this package at `.claude/skills/oxygen-ui/` (`SKILL.md` plus bundled
+`references/`). To use it, copy that directory into your project's `.claude/skills/`:
 
 ```bash
-npx @wso2/oxygen-ui init --claude
+mkdir -p .claude/skills
+cp -r node_modules/@wso2/oxygen-ui/.claude/skills/oxygen-ui .claude/skills/
 ```
 
-Creates:
-- `.claude/skills/oxygen-ui/` - the invokable `/oxygen-ui` skill: build any UI with Oxygen
-  (components, tables, forms, wizards, layouts, theming) and migrate `@mui/material` /
-  `lucide-react` code. It bundles its own reference docs, so it works standalone.
-- Updates root `CLAUDE.md` with the Oxygen UI routing rule
-
-### Updating After Upgrade
-
-```bash
-npx @wso2/oxygen-ui update           # Universal
-npx @wso2/oxygen-ui update --claude  # Claude-specific
-```
-
-### AI Documentation
-
-For detailed information, see the generated files:
-- Universal mode (`.ai/oxygen-ui/`): `components.md`, `patterns.md`, `theming.md`, `migration.md`
-- Claude mode: the same references are bundled inside the skill at
-  `.claude/skills/oxygen-ui/references/`
+Then, in Claude Code, just ask for UI work in your project ("add a users page with a
+searchable table", "scaffold an admin dashboard with a sidebar", "set up Oxygen UI in this
+app") and the skill handles the rest. See `.claude/skills/oxygen-ui/README.md` for setup
+and the recommended `CLAUDE.md` routing rule.
 
 ## License
 

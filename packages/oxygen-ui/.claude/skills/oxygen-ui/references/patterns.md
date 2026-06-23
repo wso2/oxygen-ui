@@ -32,7 +32,7 @@ import {
   ColorSchemeToggle,
   UserMenu,
 } from '@wso2/oxygen-ui';
-import { HomeIcon, DashboardIcon, SettingsIcon } from '@wso2/oxygen-ui-icons-react';
+import { Home, LayoutDashboard, Settings } from '@wso2/oxygen-ui-icons-react';
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -73,18 +73,18 @@ function App() {
               <Sidebar.Category>
                 <Sidebar.CategoryLabel>Main</Sidebar.CategoryLabel>
                 <Sidebar.Item id="home">
-                  <Sidebar.ItemIcon><HomeIcon size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Home</Sidebar.ItemLabel>
                 </Sidebar.Item>
                 <Sidebar.Item id="dashboard">
-                  <Sidebar.ItemIcon><DashboardIcon size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon><LayoutDashboard size={20} /></Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Dashboard</Sidebar.ItemLabel>
                 </Sidebar.Item>
               </Sidebar.Category>
             </Sidebar.Nav>
             <Sidebar.Footer>
               <Sidebar.Item id="settings">
-                <Sidebar.ItemIcon><SettingsIcon size={20} /></Sidebar.ItemIcon>
+                <Sidebar.ItemIcon><Settings size={20} /></Sidebar.ItemIcon>
                 <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
               </Sidebar.Item>
             </Sidebar.Footer>
@@ -209,7 +209,7 @@ function LoginForm() {
 
           <Divider sx={{ my: 3 }}>or</Divider>
 
-          <Button fullWidth variant="outlined" startIcon={<GoogleIcon />}>
+          <Button fullWidth variant="outlined" startIcon={<Google />}>
             Continue with Google
           </Button>
         </Box>
@@ -290,7 +290,7 @@ function PasswordResetForm() {
 
 ```tsx
 import { Grid, Paper, Typography, Box } from '@wso2/oxygen-ui';
-import { TrendingUpIcon, TrendingDownIcon } from '@wso2/oxygen-ui-icons-react';
+import { TrendingUp, TrendingDown } from '@wso2/oxygen-ui-icons-react';
 
 interface StatCardProps {
   title: string;
@@ -324,7 +324,7 @@ function StatCard({ title, value, change, icon }: StatCardProps) {
             color: isPositive ? 'success.main' : 'error.main',
           }}
         >
-          {isPositive ? <TrendingUpIcon size={16} /> : <TrendingDownIcon size={16} />}
+          {isPositive ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
           <Typography variant="body2" sx={{ ml: 0.5 }}>
             {Math.abs(change)}% from last month
           </Typography>
@@ -430,7 +430,7 @@ function DashboardCharts() {
 ```tsx
 import { useState, useMemo } from 'react';
 import { ListingTable, Button, IconButton, Chip } from '@wso2/oxygen-ui';
-import { EditIcon, TrashIcon, MoreVerticalIcon } from '@wso2/oxygen-ui-icons-react';
+import { Pencil, Trash2, MoreVertical } from '@wso2/oxygen-ui-icons-react';
 
 interface User {
   id: string;
@@ -539,10 +539,10 @@ function UsersTable({ users }: { users: User[] }) {
                   </ListingTable.Cell>
                   <ListingTable.Cell align="right">
                     <IconButton size="small">
-                      <EditIcon size={18} />
+                      <Pencil size={18} />
                     </IconButton>
                     <IconButton size="small" color="error">
-                      <TrashIcon size={18} />
+                      <Trash2 size={18} />
                     </IconButton>
                   </ListingTable.Cell>
                 </ListingTable.Row>
@@ -576,7 +576,7 @@ function UsersTable({ users }: { users: User[] }) {
         <ListingTable.Cell>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <ListingTable.CellIcon>
-              <FolderIcon />
+              <Folder />
             </ListingTable.CellIcon>
             <Box>
               <Typography fontWeight="medium">{project.name}</Typography>
@@ -779,7 +779,7 @@ function NotFoundPage() {
 
 ```tsx
 import { Box, Typography, Button, Paper } from '@wso2/oxygen-ui';
-import { AlertTriangleIcon } from '@wso2/oxygen-ui-icons-react';
+import { AlertTriangle } from '@wso2/oxygen-ui-icons-react';
 
 function ErrorFallback({ error, resetError }) {
   return (
@@ -793,7 +793,7 @@ function ErrorFallback({ error, resetError }) {
       }}
     >
       <Paper sx={{ p: 4, maxWidth: 500, textAlign: 'center' }}>
-        <AlertTriangleIcon size={48} color="error" />
+        <AlertTriangle size={48} color="error" />
         <Typography variant="h5" sx={{ mt: 2 }} gutterBottom>
           Something went wrong
         </Typography>
@@ -813,10 +813,10 @@ function ErrorFallback({ error, resetError }) {
 
 ```tsx
 import { Box, Typography, Button } from '@wso2/oxygen-ui';
-import { InboxIcon } from '@wso2/oxygen-ui-icons-react';
+import { Inbox } from '@wso2/oxygen-ui-icons-react';
 
 function EmptyState({
-  icon = <InboxIcon size={48} />,
+  icon = <Inbox size={48} />,
   title,
   description,
   action,
@@ -1067,12 +1067,12 @@ function ValidatedForm() {
 
 ```tsx
 import { Breadcrumbs, Link, Typography } from '@wso2/oxygen-ui';
-import { ChevronRightIcon } from '@wso2/oxygen-ui-icons-react';
+import { ChevronRight } from '@wso2/oxygen-ui-icons-react';
 
 function PageBreadcrumbs({ items }: { items: { label: string; href?: string }[] }) {
   return (
     <Breadcrumbs
-      separator={<ChevronRightIcon size={16} />}
+      separator={<ChevronRight size={16} />}
       sx={{ mb: 2 }}
     >
       {items.map((item, index) => {
