@@ -94,8 +94,9 @@ Create a custom theme with `createOxygenTheme(overrides)` (extends the Oxygen ba
 
 ## Detailed Documentation
 
-For comprehensive API reference and examples, see:
-- [Component API Reference](./components.md)
-- [UI Patterns & Examples](./patterns.md)
-- [Theme Customization](./theming.md)
-- [Migration Guide](./migration.md)
+The `oxygen-ui` skill is the single source of truth; its bundled references are:
+- [Setup & App Structure](./skills/oxygen-ui/references/app-structure.md)
+- [Component API Reference](./skills/oxygen-ui/references/components.md)
+- [UI Patterns & Examples](./skills/oxygen-ui/references/patterns.md)
+- [Theme Customization](./skills/oxygen-ui/references/theming.md)
+- [Migration Guide](./skills/oxygen-ui/references/migration.md)
