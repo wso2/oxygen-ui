@@ -143,16 +143,19 @@ from the sample app. In short:
 and `ComplexSelect` are **compound components** (`AppShell.Main`, `Sidebar.Item`,
 `ListingTable.Row`, `Form.Section`, …).
 
-> This table is a quick guide; the authoritative, version-matched component catalog is
-> `references/components.md` in the installed package (see
-> [Reading the references](#reading-the-references)).
+> This table is a quick guide; the authoritative component catalog is
+> `references/components.md` (see [Reading the references](#reading-the-references) for
+> which copy to read).
 
 ## Reading the references
 
-The reference files below are **version-matched** to the `@wso2/oxygen-ui` you have
-installed — they ship inside the package and are read **in place** (this skill itself stays
-thin and version-independent; it carries no copy of them). Locate them in the installed
-package:
+The reference files are bundled in `references/` next to this SKILL.md, so they are always
+available.
+
+When this project also has `@wso2/oxygen-ui` installed, **prefer that package's copy of the
+references** — they are matched to your installed version, so they stay accurate even if this
+skill was installed a while ago (or by `npx skills add` from a different version). Locate
+them:
 
 ```bash
 node -p "require('path').dirname(require.resolve('@wso2/oxygen-ui/package.json'))"
@@ -160,9 +163,9 @@ node -p "require('path').dirname(require.resolve('@wso2/oxygen-ui/package.json')
 # fallback: find . -path '*@wso2/oxygen-ui/.claude/skills/oxygen-ui/references/*.md'
 ```
 
-Inside the oxygen-ui monorepo these are simply the files next to this skill. During a fresh
-setup (before `npm install`), the [Setup](#setup) and [Quick start](#quick-start) sections
-above are self-sufficient; the references become available once the package is installed.
+If the package isn't installed or can't be resolved, use the bundled `references/` next to
+this file. During a fresh setup (before `npm install`), the [Setup](#setup) and
+[Quick start](#quick-start) sections above are self-sufficient.
 
 ## When to read which reference
 
@@ -180,5 +183,5 @@ above are self-sufficient; the references become available once the package is i
 `OxygenTheme` (default), `AcrylicOrangeTheme`, `AcrylicPurpleTheme`, `ClassicTheme`,
 `HighContrastTheme`, `PaleBaseTheme`, `PaleGrayTheme`, `PaleIndigoTheme`, `WSO2Theme`.
 Custom theme: `createOxygenTheme(overrides)` (extends the Oxygen base). This list is a quick
-guide; the authoritative, version-matched set of themes is in `references/theming.md` in the
-installed package (see [Reading the references](#reading-the-references)).
+guide; the authoritative set of themes is in `references/theming.md` (see
+[Reading the references](#reading-the-references) for which copy to read).

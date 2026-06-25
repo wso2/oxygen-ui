@@ -348,23 +348,33 @@ type MyGridColDef = typeof GridColDef;
 
 ## AI-Assisted Development
 
-Oxygen UI ships a self-contained **Claude Code skill** that teaches coding agents to set up
+Oxygen UI ships an agent **skill** that teaches coding agents to set up
 and build UIs with the design system — installing the right dependencies and versions,
 wiring up `OxygenUIThemeProvider`, and scaffolding pages/layouts that match the canonical
 sample app (`samples/oxygen-ui-test-app`).
 
 The skill lives in this package at `.claude/skills/oxygen-ui/` (`SKILL.md` plus bundled
-`references/`). To use it, copy that directory into your project's `.claude/skills/`:
+`references/`). When `@wso2/oxygen-ui` is installed in the project, it prefers the package's
+version-matched references.
+
+Install it with the [Vercel **skills** CLI](https://github.com/vercel-labs/skills) (Claude
+Code, Cursor, GitHub Copilot, and 15+ other agents):
+
+```bash
+npx skills add wso2/oxygen-ui
+```
+
+Or vendor it by hand from the installed package:
 
 ```bash
 mkdir -p .claude/skills
 cp -r node_modules/@wso2/oxygen-ui/.claude/skills/oxygen-ui .claude/skills/
 ```
 
-Then, in Claude Code, just ask for UI work in your project ("add a users page with a
+Then just ask your coding agent for UI work in your project ("add a users page with a
 searchable table", "scaffold an admin dashboard with a sidebar", "set up Oxygen UI in this
-app") and the skill handles the rest. See `.claude/skills/oxygen-ui/README.md` for setup
-and the recommended `CLAUDE.md` routing rule.
+app") and the skill handles the rest. See `.claude/skills/oxygen-ui/README.md` for setup and
+the recommended `CLAUDE.md` routing rule.
 
 ## License
 

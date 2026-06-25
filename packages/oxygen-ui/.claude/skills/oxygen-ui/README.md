@@ -1,35 +1,36 @@
 # oxygen-ui skill
 
-A self-contained Claude Code skill that teaches coding agents to **set up and build** UIs
-with the WSO2 Oxygen UI design system (`@wso2/oxygen-ui`) — installing the right packages
-and versions, wiring `OxygenUIThemeProvider`, and scaffolding pages/layouts that match the
-canonical sample app (`samples/oxygen-ui-test-app`).
-
-The skill is thin and **version-independent**: it's just `SKILL.md`. The detailed
-`references/` (app-structure, components, patterns, theming, migration) travel with the
-`@wso2/oxygen-ui` npm package and are read **in place** at the version your project has
-installed, so they never drift out of sync with your package. No CLI, no build step.
+A skill for the WSO2 Oxygen UI design system (`@wso2/oxygen-ui`) that teaches coding agents to
+**set up and build** UIs — installing the right packages and versions, wiring
+`OxygenUIThemeProvider`, and scaffolding pages/layouts that match the canonical sample app
+(`samples/oxygen-ui-test-app`).
 
 ## Install
 
-Copy only `SKILL.md` into your project's `.claude/skills/oxygen-ui/`:
+Install with the [Vercel **skills** CLI](https://github.com/vercel-labs/skills) — it works
+with Claude Code, Cursor, GitHub Copilot, Codex, Gemini CLI, and 15+ other agents:
 
 ```bash
-mkdir -p .claude/skills/oxygen-ui
-# from the installed npm package:
-cp node_modules/@wso2/oxygen-ui/.claude/skills/oxygen-ui/SKILL.md .claude/skills/oxygen-ui/
-# or from a checkout of this repo:
-cp packages/oxygen-ui/.claude/skills/oxygen-ui/SKILL.md .claude/skills/oxygen-ui/
+npx skills add wso2/oxygen-ui
 ```
 
-That's it. The references are read from the installed `@wso2/oxygen-ui` package, so they
-always match your version — **re-copying the skill after a package upgrade is unnecessary**.
-(Before you've installed the package, `SKILL.md`'s Setup and Quick start sections are
-self-sufficient; the references become available once it's installed.)
+This installs the skill into your agent's skills directory (e.g. `.claude/skills/oxygen-ui/`
+for Claude Code).
+
+Prefer to vendor it by hand? Copy the skill folder from the installed npm package:
+
+```bash
+mkdir -p .claude/skills
+cp -r node_modules/@wso2/oxygen-ui/.claude/skills/oxygen-ui .claude/skills/
+```
+
+The skill bundles its `references/`, so it works on its own. When `@wso2/oxygen-ui` is
+installed in the project, it prefers that package's **version-matched** references, so the
+docs track your installed version after upgrades.
 
 ## Use
 
-Just ask Claude Code for UI work in your project; the skill handles setup and building:
+Just ask your coding agent for UI work in your project; the skill handles setup and building:
 
 - "set up Oxygen UI in this app" / "scaffold a new Oxygen UI app"
 - "add a users page with a searchable table and edit/delete actions per row"
@@ -64,3 +65,7 @@ root `CLAUDE.md`:
 In a monorepo where the app is in a subdirectory (e.g. `apps/web/`), put the skill in
 `apps/web/.claude/skills/` and the rule in `apps/web/CLAUDE.md` (or scope a pointer in the
 root `CLAUDE.md` if you launch Claude at the repo root).
+
+On other agents, add the equivalent always-in-context rule to their instructions file
+(e.g. `AGENTS.md` for Codex, `.cursor/rules` for Cursor, `.github/copilot-instructions.md`
+for Copilot) so UI tasks reliably route to the skill.
