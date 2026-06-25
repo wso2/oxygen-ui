@@ -5,22 +5,27 @@ with the WSO2 Oxygen UI design system (`@wso2/oxygen-ui`) — installing the rig
 and versions, wiring `OxygenUIThemeProvider`, and scaffolding pages/layouts that match the
 canonical sample app (`samples/oxygen-ui-test-app`).
 
-It is fully self-contained: `SKILL.md` + bundled `references/` (app-structure, components,
-patterns, theming, migration). No CLI, no build step.
+The skill is thin and **version-independent**: it's just `SKILL.md`. The detailed
+`references/` (app-structure, components, patterns, theming, migration) travel with the
+`@wso2/oxygen-ui` npm package and are read **in place** at the version your project has
+installed, so they never drift out of sync with your package. No CLI, no build step.
 
 ## Install
 
-Copy this `oxygen-ui/` directory into your project's `.claude/skills/`:
+Copy only `SKILL.md` into your project's `.claude/skills/oxygen-ui/`:
 
 ```bash
-mkdir -p .claude/skills
-# from a checkout of this repo:
-cp -r packages/oxygen-ui/.claude/skills/oxygen-ui .claude/skills/
-# or from the installed npm package:
-cp -r node_modules/@wso2/oxygen-ui/.claude/skills/oxygen-ui .claude/skills/
+mkdir -p .claude/skills/oxygen-ui
+# from the installed npm package:
+cp node_modules/@wso2/oxygen-ui/.claude/skills/oxygen-ui/SKILL.md .claude/skills/oxygen-ui/
+# or from a checkout of this repo:
+cp packages/oxygen-ui/.claude/skills/oxygen-ui/SKILL.md .claude/skills/oxygen-ui/
 ```
 
-That's it — the references travel with the skill, so it works standalone.
+That's it. The references are read from the installed `@wso2/oxygen-ui` package, so they
+always match your version — **re-copying the skill after a package upgrade is unnecessary**.
+(Before you've installed the package, `SKILL.md`'s Setup and Quick start sections are
+self-sufficient; the references become available once it's installed.)
 
 ## Use
 

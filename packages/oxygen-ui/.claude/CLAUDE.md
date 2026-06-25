@@ -94,7 +94,11 @@ Create a custom theme with `createOxygenTheme(overrides)` (extends the Oxygen ba
 
 ## Detailed Documentation
 
-The `oxygen-ui` skill is the single source of truth; its bundled references are:
+The `oxygen-ui` skill is the single source of truth. These reference files ship with the
+`@wso2/oxygen-ui` package and are **version-matched** to it; the paths below are the in-repo
+copies, and installed consumers read the same files from
+`node_modules/@wso2/oxygen-ui/.claude/skills/oxygen-ui/references/` at their installed
+version:
 - [Setup & App Structure](./skills/oxygen-ui/references/app-structure.md)
 - [Component API Reference](./skills/oxygen-ui/references/components.md)
 - [UI Patterns & Examples](./skills/oxygen-ui/references/patterns.md)

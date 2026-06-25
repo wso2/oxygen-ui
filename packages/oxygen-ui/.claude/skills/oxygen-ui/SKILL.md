@@ -45,8 +45,9 @@ npm install @wso2/oxygen-ui@latest @wso2/oxygen-ui-icons-react@latest react-rout
 npm install @wso2/oxygen-ui-charts-react@latest
 ```
 
-Then create the canonical structure (see `references/app-structure.md` for full file
-contents): `src/main.tsx` (provider + router), `src/App.tsx` (maps routes),
+Then create the canonical structure (see `references/app-structure.md` — read it from the
+installed package, see [Reading the references](#reading-the-references)): `src/main.tsx`
+(provider + router), `src/App.tsx` (maps routes),
 `src/config/appRoutes.tsx`, `src/layouts/` (`AppLayout` with `AppShell`), `src/pages/`.
 
 ### Existing React app
@@ -56,7 +57,7 @@ npm install @wso2/oxygen-ui@latest @wso2/oxygen-ui-icons-react@latest
 ```
 
 Wrap the app root once in `OxygenUIThemeProvider` (see Quick start). Then build pages in
-the canonical structure (`references/app-structure.md`).
+the canonical structure (`references/app-structure.md`, read from the installed package).
 
 ## Critical rules
 
@@ -107,9 +108,10 @@ import { DataGrid, DatePickers } from '@wso2/oxygen-ui';
 
 ## Canonical app structure (match the sample)
 
-Read `references/app-structure.md` before scaffolding an app or adding pages/layouts — it
-has the full `main.tsx`, `appRoutes.tsx`, `AppLayout`, and page templates from the sample
-app. In short:
+Read `references/app-structure.md` (from the installed package — see
+[Reading the references](#reading-the-references)) before scaffolding an app or adding
+pages/layouts — it has the full `main.tsx`, `appRoutes.tsx`, `AppLayout`, and page templates
+from the sample app. In short:
 
 - `src/main.tsx` — `OxygenUIThemeProvider` (with `theme` or a `themes={[…]}` switcher) →
   `<BrowserRouter>` → `<App/>`.
@@ -141,6 +143,27 @@ app. In short:
 and `ComplexSelect` are **compound components** (`AppShell.Main`, `Sidebar.Item`,
 `ListingTable.Row`, `Form.Section`, …).
 
+> This table is a quick guide; the authoritative, version-matched component catalog is
+> `references/components.md` in the installed package (see
+> [Reading the references](#reading-the-references)).
+
+## Reading the references
+
+The reference files below are **version-matched** to the `@wso2/oxygen-ui` you have
+installed — they ship inside the package and are read **in place** (this skill itself stays
+thin and version-independent; it carries no copy of them). Locate them in the installed
+package:
+
+```bash
+node -p "require('path').dirname(require.resolve('@wso2/oxygen-ui/package.json'))"
+# then read <that-dir>/.claude/skills/oxygen-ui/references/<file>.md
+# fallback: find . -path '*@wso2/oxygen-ui/.claude/skills/oxygen-ui/references/*.md'
+```
+
+Inside the oxygen-ui monorepo these are simply the files next to this skill. During a fresh
+setup (before `npm install`), the [Setup](#setup) and [Quick start](#quick-start) sections
+above are self-sufficient; the references become available once the package is installed.
+
 ## When to read which reference
 
 | Task | Read |
@@ -156,5 +179,6 @@ and `ComplexSelect` are **compound components** (`AppShell.Main`, `Sidebar.Item`
 
 `OxygenTheme` (default), `AcrylicOrangeTheme`, `AcrylicPurpleTheme`, `ClassicTheme`,
 `HighContrastTheme`, `PaleBaseTheme`, `PaleGrayTheme`, `PaleIndigoTheme`, `WSO2Theme`.
-Custom theme: `createOxygenTheme(overrides)` (extends the Oxygen base). See
-`references/theming.md`.
+Custom theme: `createOxygenTheme(overrides)` (extends the Oxygen base). This list is a quick
+guide; the authoritative, version-matched set of themes is in `references/theming.md` in the
+installed package (see [Reading the references](#reading-the-references)).
