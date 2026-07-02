@@ -266,7 +266,7 @@ const content = useThemeContent({
 ## Migration Checklist
 
 - [ ] Install `@wso2/oxygen-ui@latest` and `@wso2/oxygen-ui-icons-react@latest`
-      (do NOT install `@mui/*` or `@emotion/*` — they are bundled)
+      (do NOT install `@mui/*`, `@emotion/*`, or `date-fns` — they are bundled)
 - [ ] Wrap root component with `OxygenUIThemeProvider`
 - [ ] Replace `@mui/material` imports with `@wso2/oxygen-ui`
 - [ ] Replace `@mui/icons-material` or `lucide-react` with `@wso2/oxygen-ui-icons-react`

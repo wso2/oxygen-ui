@@ -126,6 +126,7 @@ import {
   Divider,
   Alert,
 } from '@wso2/oxygen-ui';
+import { Google } from '@wso2/oxygen-ui-icons-react';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -561,6 +562,8 @@ function UsersTable({ users }: { users: User[] }) {
 ### Card Variant Table
 
 ```tsx
+import { Folder } from '@wso2/oxygen-ui-icons-react';
+
 <ListingTable variant="card" density="comfortable">
   <ListingTable.Head>
     <ListingTable.Row>

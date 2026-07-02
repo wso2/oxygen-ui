@@ -26,7 +26,7 @@
       "id": 3,
       "name": "migrate-screen",
       "prompt": "Convert this screen to our Oxygen UI design system. Here is the current file (it uses @mui/material and lucide-react):\n\n<see inputs/UserSettings.tsx>",
-      "expected_output": "Imports from @wso2/oxygen-ui instead of @mui/material; icons from @wso2/oxygen-ui-icons-react (PencilIcon/TrashIcon); table becomes ListingTable.*; theme via createOxygenTheme + OxygenUIThemeProvider; hardcoded px/hex replaced with theme tokens.",
+      "expected_output": "Imports from @wso2/oxygen-ui instead of @mui/material; icons from @wso2/oxygen-ui-icons-react (Pencil/Trash2); table becomes ListingTable.*; theme via createOxygenTheme + OxygenUIThemeProvider; hardcoded px/hex replaced with theme tokens.",
       "files": ["inputs/UserSettings.tsx"]
     }
   ]

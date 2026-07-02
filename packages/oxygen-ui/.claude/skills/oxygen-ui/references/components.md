@@ -1027,6 +1027,7 @@ Page header with avatar and breadcrumb support.
 
 ```tsx
 import { PageTitle } from '@wso2/oxygen-ui';
+import { User } from '@wso2/oxygen-ui-icons-react';
 
 <PageTitle>
   <PageTitle.Avatar><User /></PageTitle.Avatar>

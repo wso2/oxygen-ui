@@ -127,6 +127,7 @@ import { type RouteProps, Navigate } from 'react-router';
 import AppLayout from '../layouts/AppLayout';
 import GateLayout from '../layouts/GateLayout';
 import LoginPage from '../pages/LoginPage';
+import HomePage from '../pages/HomePage';
 import Projects from '../pages/Projects';
 import SettingsPage from '../pages/SettingsPage';
 
@@ -144,6 +145,7 @@ const appRoutes: AppRoute[] = [
   {
     element: <AppLayout />,
     children: [
+      { path: '/home', element: <HomePage />, label: 'Home' },
       { path: '/projects', element: <Projects />, label: 'Projects' },
       { path: '/settings', element: <SettingsPage />, label: 'Settings' },
     ],
