@@ -14,8 +14,9 @@ description: >-
 # Oxygen UI
 
 WSO2's React component library, built on Material UI v7. Everything ships from
-`@wso2/oxygen-ui` with the Oxygen theme already applied. The canonical reference app is
-`samples/oxygen-ui-test-app` — match its structure.
+`@wso2/oxygen-ui` with the Oxygen theme already applied. The canonical reference app ships
+**inside the installed package** (read its real source — see
+[Reading the sample app](#reading-the-sample-app)); match its structure.
 
 ## Why this skill exists: consistency through reuse
 
@@ -76,6 +77,12 @@ the canonical structure (`references/app-structure.md`, read from the installed 
 5. **Wrap the app root in `OxygenUIThemeProvider`** with a theme.
 6. **Style with theme tokens via `sx`** (`p: 2`, `bgcolor: 'background.paper'`,
    `color: 'text.primary'`) — never hardcode hex colors or pixel spacing.
+7. **Page precedents first.** Before composing ANY page or page-level surface (header/title,
+   listing, detail view, dashboard, login), check whether the sample app already has that
+   page, **read its real source**, and match its composition — compose from primitives only
+   when no page-level precedent exists. Skipping this rebuilds headers and listings from
+   `Box`/`Typography`/`Grid` into pages that don't match the design system; the sample page is
+   the spec. See [Reading the sample app](#reading-the-sample-app).
 
 ## Quick start
 
@@ -166,6 +173,38 @@ node -p "require('path').dirname(require.resolve('@wso2/oxygen-ui/package.json')
 If the package isn't installed or can't be resolved, use the bundled `references/` next to
 this file. During a fresh setup (before `npm install`), the [Setup](#setup) and
 [Quick start](#quick-start) sections above are self-sufficient.
+
+## Reading the sample app
+
+The canonical reference app's full source ships **inside the installed `@wso2/oxygen-ui`
+package**, under `.claude/skills/oxygen-ui/sample/src/`. Once the package is installed (which
+it always is by the time you're building), read the real files instead of inferring structure
+from prose. Locate them the same way as the references:
+
+```bash
+node -p "require('path').dirname(require.resolve('@wso2/oxygen-ui/package.json'))"
+# then read <that-dir>/.claude/skills/oxygen-ui/sample/src/<file>
+# in this monorepo, read samples/oxygen-ui-test-app/src/<file> directly
+# fallback: find . -path '*@wso2/oxygen-ui/.claude/skills/oxygen-ui/sample/src/*'
+```
+
+Resolution order: the installed package's copy → (in this repo) the live
+`samples/oxygen-ui-test-app/src`. Read the real files when scaffolding an app or matching an
+existing pattern. Where to look:
+
+| To see… | Read in `sample/src/` |
+| --- | --- |
+| Provider + router entry | `main.tsx` |
+| Route table grouped by layout | `config/appRoutes.tsx` |
+| App shell (Header/Sidebar/Footer/Outlet) | `layouts/AppLayout.tsx` |
+| Login / unauthenticated layout | `layouts/GateLayout.tsx` |
+| Listing page with a table | `pages/Organizations.tsx`, `pages/Projects.tsx` |
+| Project / detail page (title, avatar, back button, repo link) | `pages/ProjectOverview.tsx` |
+| Rows-as-cards listing (card-variant `ListingTable`) | `pages/ProjectOverview.tsx` (MCP Servers section), `pages/Organizations.tsx` |
+| Multi-step form / wizard | `components/ComponentCreate/IntegrationWizard.tsx` |
+| Settings page | `pages/SettingsPage.tsx` |
+| Dashboard / analytics | `pages/Analytics.tsx` |
+| Page heading / body wrapper pattern | `components/PageTitle.tsx` + any page |
 
 ## When to read which reference
 
