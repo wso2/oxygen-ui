@@ -38,8 +38,10 @@ export interface UserMenuTriggerProps {
 /**
  * Styled avatar button for the user menu trigger.
  */
-const StyledTrigger = styled(IconButton, {  name: 'MuiUserMenu',
+const StyledTrigger = styled(IconButton, {
+  name: 'MuiUserMenu',
   slot: 'Trigger',
+  shouldForwardProp: (prop) => prop !== 'showName',
 })<{ showName?: boolean }>(({ theme, showName }) => ({
   padding: theme.spacing(0.5),
   gap: theme.spacing(1),
