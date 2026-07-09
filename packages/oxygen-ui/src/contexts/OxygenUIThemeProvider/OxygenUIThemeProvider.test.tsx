@@ -101,13 +101,37 @@ describe('OxygenUIThemeProvider CSP support', () => {
     expect(document.querySelector('style[nonce="ignored-nonce"]')).toBeNull();
   });
 
-  it('renders without a nonce or custom cache (default behavior)', () => {
-    const { getByRole } = render(
-      <OxygenUIThemeProvider>
-        <Button variant="contained">Default render</Button>
-      </OxygenUIThemeProvider>
-    );
+  it('defaults to StyledEngineProvider injectFirst without a nonce or custom cache', () => {
+    // Simulates a pre-existing application style tag at the end of <head>.
+    // injectFirst must insert Oxygen UI styles before it so application
+    // styles can override Oxygen UI styles.
+    const marker = document.createElement('style');
+    marker.setAttribute('data-test-marker', 'true');
+    document.head.appendChild(marker);
 
-    expect(getByRole('button')).toHaveProperty('textContent', 'Default render');
+    try {
+      const { getByRole } = render(
+        <OxygenUIThemeProvider>
+          <Button variant="contained">Default render</Button>
+        </OxygenUIThemeProvider>
+      );
+
+      expect(getByRole('button')).toHaveProperty('textContent', 'Default render');
+
+      // MUI's StyledEngineProvider injectFirst inserts styles at an
+      // emotion-insertion-point meta tag prepended to <head>.
+      expect(document.head.querySelector('meta[name="emotion-insertion-point"]')).not.toBeNull();
+
+      const styleTags = getEmotionStyleTags('css');
+      expect(styleTags.length).toBeGreaterThan(0);
+      styleTags.forEach((tag) => {
+        expect(tag.getAttribute('nonce')).toBeNull();
+        // Emotion style tags must precede the pre-existing marker style.
+        const position = tag.compareDocumentPosition(marker);
+        expect(position & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+      });
+    } finally {
+      marker.remove();
+    }
   });
 });

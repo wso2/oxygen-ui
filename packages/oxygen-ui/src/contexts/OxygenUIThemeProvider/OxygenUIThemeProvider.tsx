@@ -225,7 +225,10 @@ interface OxygenUIThemeProviderProps {
    *
    * When provided, an Emotion cache is created internally with
    * `createCache({ key: 'css', nonce, prepend: true })` and supplied via
-   * Emotion's `CacheProvider`.
+   * Emotion's `CacheProvider`. The cache is created per provider instance, so
+   * apps that mount multiple providers or remount the provider should prefer
+   * passing a module-level cache via `emotionCache` to avoid re-injecting
+   * styles on every mount.
    *
    * Ignored if `emotionCache` is provided.
    */

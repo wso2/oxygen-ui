@@ -318,10 +318,12 @@ Content-Security-Policy:
   default-src 'self';
   style-src-elem 'self' 'nonce-<value>';
   style-src-attr 'unsafe-inline';
+  font-src 'self' data:;
 ```
 
 - **`style-src-elem`** — Emotion injects `<style>` elements; each needs a matching nonce.
 - **`style-src-attr 'unsafe-inline'`** — MUI components apply dynamic inline `style` attributes (dimensions, CSS custom properties, positioning). Nonces cannot cover style attributes.
+- **`font-src 'self' data:`** — The bundled Inter font is embedded as base64 `data:` URIs. Without `data:` in `font-src` (which otherwise falls back to `default-src 'self'`), the browser blocks the fonts even when the style tag itself is allowed.
 - **`script-src 'nonce-...'`** — Only required if your app uses MUI's `InitColorSchemeScript`. Oxygen UI does not ship that script.
 
 ### Using the `nonce` prop
@@ -367,17 +369,21 @@ function App() {
 
 `emotionCache` takes precedence over `nonce` if both are provided.
 
+Note that the `nonce` prop creates an Emotion cache per provider instance. If your app mounts multiple providers or remounts the provider (for example, on route-level key changes), each mount injects a fresh set of style tags. In that case, prefer a module-level cache passed via `emotionCache` (as in the example above) so styles are injected only once.
+
 ### Server-side rendering (SSR)
 
 Generate a unique nonce per request on the server, include it in the CSP header, and pass the same value to `OxygenUIThemeProvider` via `nonce` or a shared `emotionCache` on both server and client. Keep server and client Emotion caches aligned (same key, nonce, and insertion options). See the [MUI CSP guide](https://mui.com/material-ui/guides/content-security-policy/) for framework-specific examples (Next.js, Vite, and Emotion SSR).
 
-### Bundled fonts
+### Bundled fonts and theme CSS
 
-The Inter Variable font styles are injected as a separate `<style>` tag when the package is imported (before React renders), so the nonce for that tag is resolved from well-known conventions instead of a prop:
+The bundled CSS — the Inter Variable font styles and the theme CSS — is injected as separate `<style>` tags when the package is imported (before React renders), so the nonce for those tags is resolved from well-known conventions instead of a prop:
 
 1. The `__webpack_nonce__` global ([webpack convention](https://webpack.js.org/guides/csp/))
 2. A `<meta property="csp-nonce" nonce="...">` tag ([Vite convention](https://vite.dev/guide/features.html#content-security-policy-csp)); `content` is also accepted as a fallback
 3. A `<meta name="csp-nonce" content="...">` tag ([MUI / Next.js convention](https://mui.com/material-ui/guides/content-security-policy/))
+
+Because the nonce is read at module evaluation time, the meta tag (or the `__webpack_nonce__` assignment) must already be present in the document before the app bundle executes. A meta tag added later from JavaScript silently results in style tags without a nonce.
 
 ```html
 <!-- Vite convention -->

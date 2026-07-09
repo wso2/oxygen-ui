@@ -75,6 +75,8 @@ If the consuming application enforces a strict `style-src` / `style-src-elem` CS
 
 If none are present, the style tag is injected without a nonce (unchanged behavior).
 
+Because the nonce is read at module evaluation time, the meta tag (or the `__webpack_nonce__` assignment) must already be present in the document before the bundle executes — a meta tag added later from JavaScript results in a style tag without a nonce.
+
 ```html
 <!-- Vite convention -->
 <meta property="csp-nonce" nonce="YOUR_SERVER_GENERATED_NONCE" />
@@ -82,6 +84,8 @@ If none are present, the style tag is injected without a nonce (unchanged behavi
 <!-- MUI / Next.js convention -->
 <meta name="csp-nonce" content="YOUR_SERVER_GENERATED_NONCE" />
 ```
+
+Since fonts are embedded as base64 `data:` URIs, the CSP must also allow them via `font-src`, e.g. `font-src 'self' data:;` — otherwise `font-src` falls back to `default-src 'self'` and the browser blocks the embedded fonts even when the style tag itself is allowed.
 
 ## Example
 

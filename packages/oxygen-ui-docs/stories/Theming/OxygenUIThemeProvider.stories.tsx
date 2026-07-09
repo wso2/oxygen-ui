@@ -81,7 +81,8 @@ const customTheme = extendTheme({
 For applications enforcing a strict CSP, pass a nonce (or a custom Emotion
 cache) so runtime-injected style tags are allowed. Pair with
 \`style-src-elem 'nonce-...'\` and \`style-src-attr 'unsafe-inline'\` as
-recommended by MUI:
+recommended by MUI, plus \`font-src 'self' data:\` because the bundled Inter
+font is embedded as base64 data URIs:
 
 \`\`\`tsx
 <OxygenUIThemeProvider nonce={serverNonce}>
@@ -285,8 +286,9 @@ export const ContentSecurityPolicy: Story = {
       <Typography variant="body2" color="text.secondary">
         Pass your server-generated nonce so runtime-injected style tags satisfy
         style-src-elem. Also allow style-src-attr &apos;unsafe-inline&apos; for MUI
-        inline style attributes. For full control over style injection, pass a
-        custom Emotion cache with prepend: true.
+        inline style attributes, and font-src &apos;self&apos; data: because the
+        bundled Inter font is embedded as base64 data URIs. For full control over
+        style injection, pass a custom Emotion cache with prepend: true.
       </Typography>
       <CodeBlock 
         language="tsx"
@@ -312,10 +314,11 @@ const cache = createEmotionCache({
 </OxygenUIThemeProvider>`}
       />
       <Typography variant="body2" color="text.secondary">
-        The bundled Inter font styles are injected at import time, so their nonce
-        is resolved from the __webpack_nonce__ global (webpack), a
-        {' '}meta[property=&quot;csp-nonce&quot;] tag (Vite), or a
+        The bundled CSS (Inter font styles and theme CSS) is injected at import
+        time, so its nonce is resolved from the __webpack_nonce__ global
+        (webpack), a {' '}meta[property=&quot;csp-nonce&quot;] tag (Vite), or a
         {' '}meta[name=&quot;csp-nonce&quot;] tag (MUI/Next) instead of a prop.
+        The meta tag (or global) must be present before the app bundle executes.
       </Typography>
     </Stack>
   ),

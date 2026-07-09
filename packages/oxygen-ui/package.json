@@ -41,7 +41,7 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "clean": "rimraf dist",
-    "test": "vitest run --passWithNoTests",
+    "test": "vitest run",
     "test:watch": "vitest"
   },
   "keywords": [
