@@ -309,6 +309,68 @@ function MyComponent() {
 }
 ```
 
+## Content Security Policy (CSP)
+
+Oxygen UI (via MUI and Emotion) injects styles at runtime using `<style>` tags. If your application enforces a strict `style-src` CSP directive, pass a nonce so those tags are allowed.
+
+### Using the `nonce` prop
+
+Pass your server-generated nonce to `OxygenUIThemeProvider`. It is applied to every style tag injected by the styling engine (components, `CssBaseline`, theme styles):
+
+```typescript
+import { OxygenUIThemeProvider } from '@wso2/oxygen-ui';
+
+function App() {
+  return (
+    <OxygenUIThemeProvider nonce={window.__MY_APP_NONCE__}>
+      <YourApp />
+    </OxygenUIThemeProvider>
+  );
+}
+```
+
+The nonce must match the one in your CSP header, e.g. `Content-Security-Policy: style-src 'self' 'nonce-<value>'`.
+
+### Using a custom Emotion cache
+
+For full control over style injection (cache key, insertion point, stylis plugins, shadow DOM containers, SSR caches), pass a custom Emotion cache. `createEmotionCache` is re-exported from `@emotion/cache` for convenience:
+
+```typescript
+import { OxygenUIThemeProvider, createEmotionCache } from '@wso2/oxygen-ui';
+
+const cache = createEmotionCache({
+  key: 'css',
+  nonce: window.__MY_APP_NONCE__,
+  prepend: true,
+});
+
+function App() {
+  return (
+    <OxygenUIThemeProvider emotionCache={cache}>
+      <YourApp />
+    </OxygenUIThemeProvider>
+  );
+}
+```
+
+`emotionCache` takes precedence over `nonce` if both are provided.
+
+### Bundled fonts
+
+The Inter Variable font styles are injected as a separate `<style>` tag when the package is imported (before React renders), so the nonce for that tag is resolved from well-known conventions instead of a prop:
+
+1. The `__webpack_nonce__` global ([webpack convention](https://webpack.js.org/guides/csp/))
+2. A `<meta property="csp-nonce" nonce="...">` tag in the document ([Vite convention](https://vite.dev/guide/features.html#content-security-policy-csp))
+
+```html
+<!-- Server-rendered HTML -->
+<meta property="csp-nonce" nonce="YOUR_SERVER_GENERATED_NONCE" />
+```
+
+### Known limitation: runtime theme loading
+
+Loading themes from URLs (`themes: [{ key: 'x', label: 'X', theme: '/themes/x.js' }]`) evaluates the fetched theme file with `new Function(...)`, which additionally requires `script-src 'unsafe-eval'`. Under a strict CSP, prefer passing theme objects directly instead of URL-based themes.
+
 ## Available Exports
 
 ### Custom Oxygen UI Components
@@ -322,6 +384,8 @@ function MyComponent() {
 - `ColorSchemeToggle` - Toggle for light/dark mode
 - `Layout` - Layout components
 - `useThemeSwitcher` - Hook to access theme switcher context
+- `createEmotionCache` - Create a custom Emotion cache (re-export of `@emotion/cache`, for CSP and advanced style injection)
+- `EmotionCache` - Type for Emotion cache instances
 
 ### Material-UI Components
 
