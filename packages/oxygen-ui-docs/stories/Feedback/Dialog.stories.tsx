@@ -56,8 +56,8 @@ export const Default: Story = {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setOpen(false)}>Cancel</Button>
-            <Button onClick={() => setOpen(false)} variant="contained">
+            <Button variant="outlined" onClick={() => setOpen(false)}>Cancel</Button>
+            <Button variant="contained" onClick={() => setOpen(false)}>
               Confirm
             </Button>
           </DialogActions>
@@ -83,7 +83,7 @@ export const Alert: Story = {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setOpen(false)}>Cancel</Button>
+            <Button onClick={() => setOpen(false)} variant="outlined">Cancel</Button>
             <Button onClick={() => setOpen(false)} variant="contained" color="error">
               Delete
             </Button>
