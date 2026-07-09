@@ -360,6 +360,9 @@ importers:
       babel-loader:
         specifier: 10.0.0
         version: 10.0.0(@babel/core@7.28.5)(webpack@5.102.1(@swc/core@1.13.5)(esbuild@0.25.12))
+      lucide-react:
+        specifier: 'catalog:'
+        version: 1.16.0(react@19.2.3)
       lucide-static:
         specifier: 1.16.0
         version: 1.16.0
