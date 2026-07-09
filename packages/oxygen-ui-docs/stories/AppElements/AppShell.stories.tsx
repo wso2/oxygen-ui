@@ -774,7 +774,7 @@ export const Playground: Story = {
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button onClick={() => setConfirmDialogOpen(false)}>Cancel</Button>
+              <Button variant="outlined" onClick={() => setConfirmDialogOpen(false)}>Cancel</Button>
               <Button
                 variant="contained"
                 onClick={() => {
@@ -983,7 +983,11 @@ export const WithConfirmDialog: Story = {
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button onClick={() => setDialogOpen(false)} disabled={loading}>
+              <Button
+                variant="outlined"
+                onClick={() => setDialogOpen(false)}
+                disabled={loading}
+              >
                 Cancel
               </Button>
               <Button
