@@ -240,6 +240,25 @@ interface OxygenUIThemeProviderProps {
   emotionCache?: EmotionCache;
 }
 
+/**
+ * Root theme provider for Oxygen UI applications.
+ *
+ * Wraps children with MUI's ThemeProvider and CssBaseline. When `themes` is
+ * provided, enables theme switching via context (`useThemeSwitcher`).
+ *
+ * For CSP-restricted environments, pass `nonce` to apply a Content Security
+ * Policy nonce to Emotion-injected style tags, or supply a fully custom
+ * Emotion cache via `emotionCache` (takes precedence over `nonce`).
+ *
+ * @param props - Provider configuration
+ * @param props.children - Application content to theme
+ * @param props.theme - Optional single theme (disables switching)
+ * @param props.themes - Optional theme options enabling switching
+ * @param props.initialTheme - Initial theme key when switching is enabled
+ * @param props.onThemesLoaded - Callback when themes finish resolving
+ * @param props.nonce - CSP nonce for Emotion style tags
+ * @param props.emotionCache - Custom Emotion cache (overrides `nonce`)
+ */
 export default function OxygenUIThemeProvider({
   children,
   theme,
