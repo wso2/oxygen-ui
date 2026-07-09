@@ -25,10 +25,15 @@ import OxygenUIThemeProvider from './OxygenUIThemeProvider';
 /**
  * Collects all Emotion-generated style tags for a given cache key.
  * In test/development mode Emotion runs in non-speedy mode, so every
- * inserted rule produces an inspectable `<style data-emotion="<key>">` tag.
+ * inserted rule produces an inspectable `<style data-emotion="<key> <ids...>">`
+ * tag. Match by prefix so both exact (`css`) and spaced (`css abc`) forms work.
  */
 function getEmotionStyleTags(key: string): HTMLStyleElement[] {
-  return Array.from(document.querySelectorAll<HTMLStyleElement>(`style[data-emotion="${key}"]`));
+  return Array.from(
+    document.querySelectorAll<HTMLStyleElement>(
+      `style[data-emotion="${key}"], style[data-emotion^="${key} "]`
+    )
+  );
 }
 
 describe('OxygenUIThemeProvider CSP support', () => {
