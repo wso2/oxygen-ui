@@ -18,7 +18,10 @@
 
 import { ThemeProvider, StyledEngineProvider, Theme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
-import { ReactNode, createContext, useContext, useState, useEffect } from 'react';
+import { CacheProvider } from '@emotion/react';
+import createCache from '@emotion/cache';
+import type { EmotionCache } from '@emotion/cache';
+import { ReactNode, createContext, useContext, useState, useEffect, useMemo } from 'react';
 import OxygenTheme from '../../styles/Themes/AcrylicBaseTheme';
 
 const THEME_STORAGE_KEY = 'oxygen-theme';
@@ -215,6 +218,26 @@ interface OxygenUIThemeProviderProps {
    * Receives the array of resolved theme configurations.
    */
   onThemesLoaded?: (themes: ThemeOption[]) => void;
+  /**
+   * CSP (Content Security Policy) nonce applied to all style tags injected by
+   * the styling engine (Emotion). Use this when your application enforces a
+   * strict `style-src` CSP directive.
+   *
+   * When provided, an Emotion cache is created internally with
+   * `createCache({ key: 'css', nonce, prepend: true })` and supplied via
+   * Emotion's `CacheProvider`.
+   *
+   * Ignored if `emotionCache` is provided.
+   */
+  nonce?: string;
+  /**
+   * A custom Emotion cache instance, for full control over style injection
+   * (cache key, nonce, insertion point, stylis plugins, container, etc.).
+   * Create one with `createEmotionCache` (re-exported from `@emotion/cache`).
+   *
+   * Takes precedence over the `nonce` prop.
+   */
+  emotionCache?: EmotionCache;
 }
 
 export default function OxygenUIThemeProvider({
@@ -223,10 +246,27 @@ export default function OxygenUIThemeProvider({
   themes,
   initialTheme,
   onThemesLoaded,
+  nonce,
+  emotionCache,
 }: OxygenUIThemeProviderProps) {
   // State for managing dynamically loaded themes
   const [resolvedThemes, setResolvedThemes] = useState<ThemeOption[]>([]);
   const [themesLoaded, setThemesLoaded] = useState(false);
+
+  // Resolve the Emotion cache used for style injection. When a custom cache or
+  // a CSP nonce is provided, styles are delivered through Emotion's
+  // CacheProvider instead of MUI's StyledEngineProvider (which does not expose
+  // cache options such as `nonce`). `prepend: true` mirrors the `injectFirst`
+  // behavior so application styles can still override Oxygen UI styles.
+  const styleCache = useMemo<EmotionCache | null>(() => {
+    if (emotionCache) {
+      return emotionCache;
+    }
+    if (nonce) {
+      return createCache({ key: 'css', nonce, prepend: true });
+    }
+    return null;
+  }, [emotionCache, nonce]);
 
   // Resolve any string path themes to actual Theme objects
   useEffect(() => {
@@ -340,13 +380,17 @@ export default function OxygenUIThemeProvider({
     return null;
   }
 
-  const content = (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={resolvedTheme}>
-        <CssBaseline enableColorScheme />
-        {children}
-      </ThemeProvider>
-    </StyledEngineProvider>
+  const themedContent = (
+    <ThemeProvider theme={resolvedTheme}>
+      <CssBaseline enableColorScheme />
+      {children}
+    </ThemeProvider>
+  );
+
+  const content = styleCache ? (
+    <CacheProvider value={styleCache}>{themedContent}</CacheProvider>
+  ) : (
+    <StyledEngineProvider injectFirst>{themedContent}</StyledEngineProvider>
   );
 
   // Only provide context if theme switching is enabled

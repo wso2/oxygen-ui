@@ -18,3 +18,9 @@
 
 export { default as OxygenUIThemeProvider, useThemeSwitcher } from './OxygenUIThemeProvider/OxygenUIThemeProvider';
 export type { ThemeOption, ThemeSwitcherContextValue } from './OxygenUIThemeProvider/OxygenUIThemeProvider';
+
+// Re-export Emotion cache utilities so consumers can create a custom cache
+// (e.g. for CSP nonces, custom insertion points, or shadow DOM containers)
+// without installing @emotion/cache themselves.
+export { default as createEmotionCache } from '@emotion/cache';
+export type { EmotionCache } from '@emotion/cache';

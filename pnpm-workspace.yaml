@@ -8,6 +8,7 @@ allowBuilds:
   nx: true
 
 catalog:
+  '@emotion/cache': 11.14.0
   '@emotion/react': 11.14.0
   '@emotion/styled': 11.14.1
   '@eslint/js': 9.39.0
@@ -17,6 +18,8 @@ catalog:
   '@mui/x-date-pickers': 8.16.0
   '@mui/x-tree-view': 8.14.0
   '@mui/utils': 9.0.0
+  '@testing-library/dom': 10.4.1
+  '@testing-library/react': 16.3.2
   '@types/eslint': 9.6.1
   '@types/node': 24.6.0
   '@types/react': 19.2.2
@@ -32,6 +35,7 @@ catalog:
   eslint-plugin-react-refresh: 0.4.24
   glob: 11.0.3
   globals: 16.4.0
+  jsdom: 29.1.1
   lucide-react: 1.16.0
   prettier: 3.6.2
   react: 19.2.3
