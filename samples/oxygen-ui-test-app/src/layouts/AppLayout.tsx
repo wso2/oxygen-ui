@@ -482,7 +482,12 @@ export default function AppLayout(): JSX.Element {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setConfirmDialogOpen(false)}>Cancel</Button>
+            <Button
+              variant="outlined"
+              onClick={() => setConfirmDialogOpen(false)}
+            >
+              Cancel
+            </Button>
             <Button
               variant="contained"
               onClick={() => {

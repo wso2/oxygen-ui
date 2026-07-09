@@ -106,7 +106,7 @@ export const WithActions: Story = {
               Are you sure you want to proceed with this action?
             </Typography>
             <Box sx={{ mt: 3, display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button variant="outlined" onClick={() => setOpen(false)}>Cancel</Button>
               <Button variant="contained" onClick={() => setOpen(false)}>
                 Confirm
               </Button>
