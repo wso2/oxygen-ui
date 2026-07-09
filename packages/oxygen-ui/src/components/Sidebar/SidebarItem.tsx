@@ -69,12 +69,15 @@ const SidebarItemButton = styled(ListItemButton, {
   shouldForwardProp: (prop) => prop !== 'ownerState',
 })<SidebarItemButtonProps>(({ theme, ownerState }) => ({
   minHeight: 44,
+  paddingTop: theme.spacing(1.5),
+  paddingBottom: theme.spacing(1.5),
   paddingRight: theme.spacing(2),
   paddingLeft: ownerState.collapsed ? theme.spacing(2) : theme.spacing(2 + ownerState.depth * 2),
   justifyContent: ownerState.collapsed ? 'center' : 'initial',
   borderRadius: theme.shape.borderRadius,
   marginLeft: theme.spacing(1),
   marginRight: theme.spacing(1),
+  marginBottom: theme.spacing(0.5),
   color: (theme.vars || theme).palette.text.primary,
   transition: theme.transitions.create(['padding-left', 'padding-right'], {
     easing: theme.transitions.easing.sharp,
@@ -82,6 +85,13 @@ const SidebarItemButton = styled(ListItemButton, {
       ? theme.transitions.duration.leavingScreen
       : theme.transitions.duration.enteringScreen,
   }),
+  '&:hover': {
+    backgroundColor: (theme.vars || theme).palette.action.hover,
+  },
+  '&.Mui-focusVisible': {
+    outline: `2px solid ${(theme.vars || theme).palette.primary.main}`,
+    outlineOffset: -2,
+  },
   '&.Mui-selected': {
     backgroundColor: (theme.vars || theme).palette.action.selected,
     '&:hover': {
@@ -131,11 +141,20 @@ const SidebarItemPopoverButton = styled(ListItemButton, {
   name: 'MuiSidebar',
   slot: 'ItemPopoverButton',
 })(({ theme }) => ({
-  minHeight: 40,
+  minHeight: 44,
+  paddingTop: theme.spacing(1.5),
+  paddingBottom: theme.spacing(1.5),
   paddingRight: theme.spacing(2),
   paddingLeft: theme.spacing(2),
   borderRadius: theme.shape.borderRadius,
   gap: theme.spacing(1.5),
+  '&:hover': {
+    backgroundColor: (theme.vars || theme).palette.action.hover,
+  },
+  '&.Mui-focusVisible': {
+    outline: `2px solid ${(theme.vars || theme).palette.primary.main}`,
+    outlineOffset: -2,
+  },
   '&.Mui-selected': {
     backgroundColor: (theme.vars || theme).palette.action.selected,
     '&:hover': {
