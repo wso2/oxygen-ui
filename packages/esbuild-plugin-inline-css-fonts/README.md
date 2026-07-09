@@ -7,6 +7,7 @@ ESBuild plugin to inline CSS and embed fonts as base64 data URIs.
 - ✅ Resolves CSS `@import` statements (including from node_modules)
 - ✅ Converts font file references to base64 data URIs
 - ✅ Injects CSS as a `<style>` tag at runtime
+- ✅ CSP-compatible: applies a nonce to the injected style tag when available
 - ✅ Supports `.woff`, `.woff2`, `.ttf`, `.otf`, and `.eot` font formats
 - ✅ Zero configuration required
 - ✅ TypeScript support
@@ -63,6 +64,20 @@ esbuild.build({
 1. **CSS Resolution**: The plugin intercepts CSS imports and resolves `@import` statements recursively, including imports from `node_modules`
 2. **Font Embedding**: All font file references (`url(...)`) are converted to base64 data URIs
 3. **Runtime Injection**: The processed CSS is converted to JavaScript that creates and injects a `<style>` tag when the module loads
+
+## Content Security Policy (CSP)
+
+If the consuming application enforces a strict `style-src` CSP directive, the injected `<style>` tag needs a nonce. Because injection happens at module load time (before any framework renders), the nonce is resolved from well-known conventions, in order:
+
+1. The `__webpack_nonce__` global ([webpack convention](https://webpack.js.org/guides/csp/))
+2. A `<meta property="csp-nonce" nonce="...">` tag in the document ([Vite convention](https://vite.dev/guide/features.html#content-security-policy-csp))
+
+If neither is present, the style tag is injected without a nonce (unchanged behavior).
+
+```html
+<!-- Server-rendered HTML -->
+<meta property="csp-nonce" nonce="YOUR_SERVER_GENERATED_NONCE" />
+```
 
 ## Example
 

@@ -43,6 +43,8 @@ export interface InlineCSSFontsOptions {
  * - Resolves CSS imports (including @import statements)
  * - Converts font file references to base64 data URIs
  * - Injects CSS as a style tag at runtime
+ * - Applies a CSP nonce to the injected style tag when available, resolved
+ *   from `__webpack_nonce__` or `<meta property="csp-nonce" nonce="...">`
  * 
  * @example
  * ```ts
@@ -128,12 +130,32 @@ export function inlineCSSFontsPlugin(options: InlineCSSFontsOptions = {}): Plugi
           }
         });
 
-        // Convert CSS to JS that injects a style tag
+        // Convert CSS to JS that injects a style tag.
+        // For CSP (Content Security Policy) support, a nonce is resolved at
+        // injection time from the `__webpack_nonce__` global (webpack
+        // convention) or a `<meta property="csp-nonce" nonce="...">` tag
+        // (Vite convention) and applied to the style element.
         const jsCode = `
 (function() {
   if (typeof document !== 'undefined') {
     const style = document.createElement('style');
     style.setAttribute('${styleAttribute}', 'true');
+    let nonce;
+    try {
+      if (typeof __webpack_nonce__ !== 'undefined' && __webpack_nonce__) {
+        nonce = __webpack_nonce__;
+      } else {
+        const meta = document.querySelector('meta[property="csp-nonce"]');
+        if (meta) {
+          nonce = meta.nonce || meta.getAttribute('nonce');
+        }
+      }
+    } catch (e) {
+      // Nonce resolution must never break style injection
+    }
+    if (nonce) {
+      style.setAttribute('nonce', nonce);
+    }
     style.textContent = ${JSON.stringify(css)};
     document.head.appendChild(style);
   }
