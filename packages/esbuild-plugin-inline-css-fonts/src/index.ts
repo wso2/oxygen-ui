@@ -44,7 +44,8 @@ export interface InlineCSSFontsOptions {
  * - Converts font file references to base64 data URIs
  * - Injects CSS as a style tag at runtime
  * - Applies a CSP nonce to the injected style tag when available, resolved
- *   from `__webpack_nonce__` or `<meta property="csp-nonce" nonce="...">`
+ *   from `__webpack_nonce__`, `<meta property="csp-nonce">` (Vite), or
+ *   `<meta name="csp-nonce">` (MUI/Next)
  * 
  * @example
  * ```ts
@@ -132,9 +133,10 @@ export function inlineCSSFontsPlugin(options: InlineCSSFontsOptions = {}): Plugi
 
         // Convert CSS to JS that injects a style tag.
         // For CSP (Content Security Policy) support, a nonce is resolved at
-        // injection time from the `__webpack_nonce__` global (webpack
-        // convention) or a `<meta property="csp-nonce" nonce="...">` tag
-        // (Vite convention) and applied to the style element.
+        // injection time from well-known conventions (in order):
+        // 1. `__webpack_nonce__` (webpack)
+        // 2. `<meta property="csp-nonce">` (Vite)
+        // 3. `<meta name="csp-nonce">` (MUI/Next)
         const jsCode = `
 (function() {
   if (typeof document !== 'undefined') {
@@ -145,9 +147,15 @@ export function inlineCSSFontsPlugin(options: InlineCSSFontsOptions = {}): Plugi
       if (typeof __webpack_nonce__ !== 'undefined' && __webpack_nonce__) {
         nonce = __webpack_nonce__;
       } else {
-        const meta = document.querySelector('meta[property="csp-nonce"]');
-        if (meta) {
-          nonce = meta.nonce || meta.getAttribute('nonce');
+        const viteMeta = document.querySelector('meta[property="csp-nonce"]');
+        if (viteMeta) {
+          nonce = viteMeta.nonce || viteMeta.getAttribute('nonce') || viteMeta.getAttribute('content');
+        }
+        if (!nonce) {
+          const muiMeta = document.querySelector('meta[name="csp-nonce"]');
+          if (muiMeta) {
+            nonce = muiMeta.getAttribute('content');
+          }
         }
       }
     } catch (e) {

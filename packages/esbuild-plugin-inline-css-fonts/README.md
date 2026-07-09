@@ -67,16 +67,20 @@ esbuild.build({
 
 ## Content Security Policy (CSP)
 
-If the consuming application enforces a strict `style-src` CSP directive, the injected `<style>` tag needs a nonce. Because injection happens at module load time (before any framework renders), the nonce is resolved from well-known conventions, in order:
+If the consuming application enforces a strict `style-src` / `style-src-elem` CSP directive, the injected `<style>` tag needs a nonce. Because injection happens at module load time (before any framework renders), the nonce is resolved from well-known conventions, in order:
 
 1. The `__webpack_nonce__` global ([webpack convention](https://webpack.js.org/guides/csp/))
-2. A `<meta property="csp-nonce" nonce="...">` tag in the document ([Vite convention](https://vite.dev/guide/features.html#content-security-policy-csp))
+2. A `<meta property="csp-nonce" nonce="...">` tag in the document ([Vite convention](https://vite.dev/guide/features.html#content-security-policy-csp)); `content` is also accepted as a fallback
+3. A `<meta name="csp-nonce" content="...">` tag ([MUI / Next.js convention](https://mui.com/material-ui/guides/content-security-policy/))
 
-If neither is present, the style tag is injected without a nonce (unchanged behavior).
+If none are present, the style tag is injected without a nonce (unchanged behavior).
 
 ```html
-<!-- Server-rendered HTML -->
+<!-- Vite convention -->
 <meta property="csp-nonce" nonce="YOUR_SERVER_GENERATED_NONCE" />
+
+<!-- MUI / Next.js convention -->
+<meta name="csp-nonce" content="YOUR_SERVER_GENERATED_NONCE" />
 ```
 
 ## Example
