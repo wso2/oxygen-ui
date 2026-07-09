@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import React, { useMemo, useState } from 'react';
+import React, { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import {
   Box,
@@ -159,6 +159,8 @@ function buildIconCatalog(): IconEntry[] {
 
 const iconCatalog = buildIconCatalog();
 
+const PAGE_SIZE = 120;
+
 const gridSx = {
   display: 'grid',
   gridTemplateColumns: {
@@ -172,11 +174,15 @@ const gridSx = {
 
 function IconGalleryContent() {
   const [query, setQuery] = useState('');
+  const deferredQuery = useDeferredValue(query);
   const [selected, setSelected] = useState<IconEntry | null>(null);
   const [copied, setCopied] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
   const filteredIcons = useMemo(() => {
-    const trimmed = query.trim();
+    const trimmed = deferredQuery.trim();
     if (!trimmed) return iconCatalog;
 
     const lower = trimmed.toLowerCase();
@@ -189,7 +195,39 @@ function IconGalleryContent() {
         (tag) => tag.toLowerCase().includes(lower) || normalizeForSearch(tag).includes(normalized),
       );
     });
-  }, [query]);
+  }, [deferredQuery]);
+
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0;
+    }
+  }, [deferredQuery]);
+
+  const visibleIcons = useMemo(
+    () => filteredIcons.slice(0, visibleCount),
+    [filteredIcons, visibleCount],
+  );
+
+  const hasMore = visibleCount < filteredIcons.length;
+
+  useEffect(() => {
+    const sentinel = loadMoreRef.current;
+    const root = scrollContainerRef.current;
+    if (!sentinel || !root || !hasMore) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setVisibleCount((count) => Math.min(count + PAGE_SIZE, filteredIcons.length));
+        }
+      },
+      { root, rootMargin: '200px' },
+    );
+
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [hasMore, filteredIcons.length, visibleIcons.length]);
 
   const importSnippet = selected
     ? `import { ${selected.name} } from '@wso2/oxygen-ui-icons-react';`
@@ -243,7 +281,8 @@ function IconGalleryContent() {
           fullWidth
         />
         <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-          Showing {filteredIcons.length} of {iconCatalog.length} icons
+          Showing {visibleIcons.length} of {filteredIcons.length} matches ({iconCatalog.length}{' '}
+          total)
         </Typography>
       </Box>
 
@@ -254,57 +293,77 @@ function IconGalleryContent() {
           </Typography>
         </Box>
       ) : (
-        <Box sx={gridSx}>
-          {filteredIcons.map((entry) => {
-            const { Icon, name } = entry;
-            return (
-              <Tooltip key={name} title={name} arrow>
-                <Paper
-                  elevation={0}
-                  component="button"
-                  type="button"
-                  onClick={() => {
-                    setSelected(entry);
-                    setCopied(false);
-                  }}
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: 1,
-                    border: '1px solid',
-                    borderColor: 'divider',
-                    backgroundColor: 'background.paper',
-                    cursor: 'pointer',
-                    font: 'inherit',
-                    color: 'inherit',
-                    transition: 'all 0.2s',
-                    '&:hover': {
-                      borderColor: 'primary.main',
-                      backgroundColor: 'action.hover',
-                      transform: 'translateY(-2px)',
-                    },
-                  }}
-                >
-                  <Icon size={24} />
-                  <Typography
-                    variant="caption"
-                    align="center"
+        <Box
+          ref={scrollContainerRef}
+          sx={{
+            maxHeight: '60vh',
+            overflow: 'auto',
+            pr: 0.5,
+          }}
+        >
+          <Box sx={gridSx}>
+            {visibleIcons.map((entry) => {
+              const { Icon, name } = entry;
+              return (
+                <Tooltip key={name} title={name} arrow>
+                  <Paper
+                    elevation={0}
+                    component="button"
+                    type="button"
+                    onClick={() => {
+                      setSelected(entry);
+                      setCopied(false);
+                    }}
                     sx={{
-                      fontSize: '0.7rem',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                      width: '100%',
+                      p: 2,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: 1,
+                      border: '1px solid',
+                      borderColor: 'divider',
+                      backgroundColor: 'background.paper',
+                      cursor: 'pointer',
+                      font: 'inherit',
+                      color: 'inherit',
+                      transition: 'all 0.2s',
+                      '&:hover': {
+                        borderColor: 'primary.main',
+                        backgroundColor: 'action.hover',
+                        transform: 'translateY(-2px)',
+                      },
                     }}
                   >
-                    {name}
-                  </Typography>
-                </Paper>
-              </Tooltip>
-            );
-          })}
+                    <Icon size={24} />
+                    <Typography
+                      variant="caption"
+                      align="center"
+                      sx={{
+                        fontSize: '0.7rem',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        width: '100%',
+                      }}
+                    >
+                      {name}
+                    </Typography>
+                  </Paper>
+                </Tooltip>
+              );
+            })}
+          </Box>
+          {hasMore && (
+            <Box
+              ref={loadMoreRef}
+              sx={{ py: 2, textAlign: 'center' }}
+              aria-hidden
+            >
+              <Typography variant="caption" color="text.secondary">
+                Loading more icons…
+              </Typography>
+            </Box>
+          )}
         </Box>
       )}
 
