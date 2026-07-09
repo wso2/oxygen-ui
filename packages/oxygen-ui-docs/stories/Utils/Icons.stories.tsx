@@ -16,14 +16,27 @@
  * under the License.
  */
 
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Box, Typography, Paper, Tooltip, Button } from '@wso2/oxygen-ui';
-// lucide-react is a direct dependency of @wso2/oxygen-ui-icons-react; version is read from its installed package.json
+import {
+  Box,
+  Typography,
+  Paper,
+  Tooltip,
+  Button,
+  SearchBar,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Chip,
+  Stack,
+} from '@wso2/oxygen-ui';
 import lucideReactPkg from 'lucide-react/package.json';
+import lucideTags from 'lucide-static/tags.json';
+import * as OxygenIcons from '@wso2/oxygen-ui-icons-react';
 import {
   Home,
-  User,
   Settings,
   Search,
   Mail,
@@ -56,10 +69,8 @@ import {
   Info,
   CheckCircle,
   XCircle,
-  GitLab,
-  Bitbucket,
-  MCP,
 } from '@wso2/oxygen-ui-icons-react';
+import customKeywords from './icon-keywords.json';
 
 const meta: Meta = {
   title: 'Utils/Icons',
@@ -73,7 +84,10 @@ const meta: Meta = {
           '**Installation:**\n```bash\nnpm install @wso2/oxygen-ui-icons-react\n```\n\n' +
           '**Usage:**\n```tsx\nimport { Home, User, Settings } from "@wso2/oxygen-ui-icons-react";\n\n' +
           '<Home size={24} color="primary" />\n```\n\n' +
-          'For the complete list of available icons, visit [Lucide Icons](https://lucide.dev/icons/).',
+          'Use the **Icon Gallery** story below to search all icons by name or tags ' +
+          '(for example, searching `logout` finds `LogOut`). ' +
+          'Click an icon to see its import snippet and associated tags. ' +
+          'You can also browse the full Lucide set at [lucide.dev/icons](https://lucide.dev/icons/).',
       },
     },
   },
@@ -83,185 +97,291 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-declare const require: {
-  context(path: string, deep: boolean, filter: RegExp): { keys(): string[]; (id: string): any }
+type IconComponent = React.ComponentType<{ size?: number; color?: string; strokeWidth?: number }>;
+
+type IconEntry = {
+  Icon: IconComponent;
+  name: string;
+  tags: string[];
 };
 
-// NOTE: This only works with Storybook -> Webpack.
-// If we switch to Vite, we will need to change this to use dynamic imports instead.
-const iconModules = require.context(
-  '../../node_modules/@wso2/oxygen-ui-icons-react/dist/icons',
-  false,
-  /^\.\/[A-Z]\w+\.js$/
-);
+const NON_ICON_EXPORTS = new Set([
+  'Icon',
+  'createLucideIcon',
+  'icons',
+  'default',
+  'LucideProvider',
+  'DynamicIcon',
+]);
 
-const customIconsList: { Icon: React.ComponentType<any>; name: string }[] = iconModules
-  .keys()
-  .sort()
-  .map((key: string) => {
-    const name = key.replace(/^\.\//, '').replace(/\.js$/, '')
-    return { Icon: iconModules(key)[name], name }
-  });
+function kebabToPascal(kebab: string): string {
+  return kebab
+    .split('-')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join('');
+}
 
-const featuredBrandIcons = [
-  { Icon: GitLab, name: 'GitLab' },
-  { Icon: Bitbucket, name: 'Bitbucket' },
-  { Icon: MCP, name: 'MCP' },
-];
+function normalizeForSearch(value: string): string {
+  return value.toLowerCase().replace(/[-_\s]/g, '');
+}
 
-const iconsList = [
-  { Icon: Home, name: 'Home' },
-  { Icon: User, name: 'User' },
-  { Icon: Settings, name: 'Settings' },
-  { Icon: Search, name: 'Search' },
-  { Icon: Mail, name: 'Mail' },
-  { Icon: Bell, name: 'Bell' },
-]
+function buildTagMap(): Record<string, string[]> {
+  const map: Record<string, string[]> = {};
 
-export const IconGallery: Story = {
-  render: () => (
+  for (const [kebabName, tags] of Object.entries(lucideTags as Record<string, string[]>)) {
+    map[kebabToPascal(kebabName)] = tags;
+  }
+
+  for (const [name, tags] of Object.entries(customKeywords as Record<string, string[]>)) {
+    map[name] = [...new Set([...(map[name] ?? []), ...tags])];
+  }
+
+  return map;
+}
+
+const tagMap = buildTagMap();
+
+function buildIconCatalog(): IconEntry[] {
+  return Object.entries(OxygenIcons)
+    .filter(([name, value]) => {
+      if (!/^[A-Z]/.test(name)) return false;
+      if (name.endsWith('Icon')) return false;
+      if (NON_ICON_EXPORTS.has(name)) return false;
+      return typeof value === 'function' || (typeof value === 'object' && value !== null);
+    })
+    .map(([name, Icon]) => ({
+      Icon: Icon as IconComponent,
+      name,
+      tags: tagMap[name] ?? [],
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+const iconCatalog = buildIconCatalog();
+
+const gridSx = {
+  display: 'grid',
+  gridTemplateColumns: {
+    xs: 'repeat(2, 1fr)',
+    sm: 'repeat(3, 1fr)',
+    md: 'repeat(4, 1fr)',
+    lg: 'repeat(6, 1fr)',
+  },
+  gap: 2,
+} as const;
+
+function IconGalleryContent() {
+  const [query, setQuery] = useState('');
+  const [selected, setSelected] = useState<IconEntry | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  const filteredIcons = useMemo(() => {
+    const trimmed = query.trim();
+    if (!trimmed) return iconCatalog;
+
+    const lower = trimmed.toLowerCase();
+    const normalized = normalizeForSearch(trimmed);
+
+    return iconCatalog.filter(({ name, tags }) => {
+      if (name.toLowerCase().includes(lower)) return true;
+      if (normalizeForSearch(name).includes(normalized)) return true;
+      return tags.some(
+        (tag) => tag.toLowerCase().includes(lower) || normalizeForSearch(tag).includes(normalized),
+      );
+    });
+  }, [query]);
+
+  const importSnippet = selected
+    ? `import { ${selected.name} } from '@wso2/oxygen-ui-icons-react';`
+    : '';
+
+  const handleCopy = async () => {
+    if (!importSnippet) return;
+    try {
+      await navigator.clipboard.writeText(importSnippet);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  const handleClose = () => {
+    setSelected(null);
+    setCopied(false);
+  };
+
+  const SelectedIcon = selected?.Icon;
+
+  return (
     <Box>
       <Typography variant="h5" gutterBottom>
-        Icons from Lucide Library
+        Icon Gallery
       </Typography>
+      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+        Browse <strong>{iconCatalog.length}</strong> icons from{' '}
+        <strong>lucide-react v{lucideReactPkg.version}</strong> plus Oxygen UI custom icons. Search by
+        name or tags (e.g. <code>logout</code> finds <code>LogOut</code>).
+      </Typography>
+
       <Box
         sx={{
-          mb: 3,
-          px: 2,
+          position: 'sticky',
+          top: 0,
+          zIndex: 1,
+          bgcolor: 'background.paper',
           py: 1.5,
-          borderRadius: 1,
-          bgcolor: 'info.50',
-          border: '1px solid',
-          borderColor: 'info.light',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 1,
+          mb: 2,
+          borderBottom: '1px solid',
+          borderColor: 'divider',
         }}
       >
-        <Typography variant="body2" color="info.dark">
-          Showing <strong>{iconsList.length}</strong> popular icons from{' '}
-          <strong>lucide-react v{lucideReactPkg.version}</strong>. Visit{' '}
-          <a
-            href="https://lucide.dev/icons/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ color: 'inherit', fontWeight: 600, textDecoration: 'underline' }}
-          >
-            lucide.dev/icons
-          </a>{' '}
-          for the complete list of <strong>1000+ icons</strong>.
+        <SearchBar
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Search icons by name or tag…"
+          fullWidth
+        />
+        <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
+          Showing {filteredIcons.length} of {iconCatalog.length} icons
         </Typography>
-      </Box>
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: {
-            xs: 'repeat(2, 1fr)',
-            sm: 'repeat(3, 1fr)',
-            md: 'repeat(4, 1fr)',
-            lg: 'repeat(6, 1fr)',
-          },
-          gap: 2,
-        }}
-      >
-        {iconsList.map(({ Icon, name }) => (
-          <Tooltip key={name} title={name} arrow>
-            <Paper
-              elevation={0}
-              sx={{
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: 1,
-                border: '1px solid',
-                borderColor: 'divider',
-                transition: 'all 0.2s',
-                '&:hover': {
-                  borderColor: 'primary.main',
-                  backgroundColor: 'action.hover',
-                  transform: 'translateY(-2px)',
-                },
-              }}
-            >
-              <Icon size={24} />
-              <Typography
-                variant="caption"
-                align="center"
-                sx={{
-                  fontSize: '0.7rem',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  width: '100%',
-                }}
-              >
-                {name}
-              </Typography>
-            </Paper>
-          </Tooltip>
-        ))}
       </Box>
 
-      <Box sx={{ mt: 6 }}>
-        <Typography variant="h5" gutterBottom>
-          Custom Icons
-        </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-          Custom SVG icons bundled with Oxygen UI Icons React, not part of the Lucide library.
-        </Typography>
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: {
-              xs: 'repeat(2, 1fr)',
-              sm: 'repeat(3, 1fr)',
-              md: 'repeat(5, 1fr)',
-            },
-            gap: 2,
-          }}
-        >
-          {customIconsList.map(({ Icon, name }) => (
-            <Tooltip key={name} title={name} arrow>
-              <Paper
-                elevation={0}
-                sx={{
-                  p: 2,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: 1,
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  transition: 'all 0.2s',
-                  '&:hover': {
-                    borderColor: 'primary.main',
-                    backgroundColor: 'action.hover',
-                    transform: 'translateY(-2px)',
-                  },
-                }}
-              >
-                <Icon size={24} />
-                <Typography
-                  variant="caption"
-                  align="center"
+      {filteredIcons.length === 0 ? (
+        <Box sx={{ py: 8, textAlign: 'center' }}>
+          <Typography variant="body1" color="text.secondary">
+            No icons match &ldquo;{query.trim()}&rdquo;. Try a different name or tag.
+          </Typography>
+        </Box>
+      ) : (
+        <Box sx={gridSx}>
+          {filteredIcons.map((entry) => {
+            const { Icon, name } = entry;
+            return (
+              <Tooltip key={name} title={name} arrow>
+                <Paper
+                  elevation={0}
+                  component="button"
+                  type="button"
+                  onClick={() => {
+                    setSelected(entry);
+                    setCopied(false);
+                  }}
                   sx={{
-                    fontSize: '0.7rem',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    width: '100%',
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 1,
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    backgroundColor: 'background.paper',
+                    cursor: 'pointer',
+                    font: 'inherit',
+                    color: 'inherit',
+                    transition: 'all 0.2s',
+                    '&:hover': {
+                      borderColor: 'primary.main',
+                      backgroundColor: 'action.hover',
+                      transform: 'translateY(-2px)',
+                    },
                   }}
                 >
-                  {name}
-                </Typography>
-              </Paper>
-            </Tooltip>
-          ))}
+                  <Icon size={24} />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    sx={{
+                      fontSize: '0.7rem',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                      width: '100%',
+                    }}
+                  >
+                    {name}
+                  </Typography>
+                </Paper>
+              </Tooltip>
+            );
+          })}
         </Box>
-      </Box>
+      )}
+
+      <Dialog open={selected !== null} onClose={handleClose} maxWidth="sm" fullWidth>
+        {selected && SelectedIcon && (
+          <>
+            <DialogTitle>{selected.name}</DialogTitle>
+            <DialogContent dividers>
+              <Box sx={{ display: 'flex', justifyContent: 'center', py: 3 }}>
+                <SelectedIcon size={64} />
+              </Box>
+
+              <Typography variant="subtitle2" gutterBottom>
+                Import
+              </Typography>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                  mb: 3,
+                  p: 1.5,
+                  borderRadius: 1,
+                  bgcolor: 'action.hover',
+                  border: '1px solid',
+                  borderColor: 'divider',
+                }}
+              >
+                <Typography
+                  component="code"
+                  variant="body2"
+                  sx={{
+                    flex: 1,
+                    fontFamily: 'monospace',
+                    fontSize: '0.8rem',
+                    wordBreak: 'break-all',
+                  }}
+                >
+                  {importSnippet}
+                </Typography>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  startIcon={copied ? <Check size={16} /> : <Copy size={16} />}
+                  onClick={handleCopy}
+                >
+                  {copied ? 'Copied' : 'Copy'}
+                </Button>
+              </Box>
+
+              <Typography variant="subtitle2" gutterBottom>
+                Tags
+              </Typography>
+              {selected.tags.length > 0 ? (
+                <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
+                  {selected.tags.map((tag) => (
+                    <Chip key={tag} label={tag} size="small" variant="outlined" />
+                  ))}
+                </Stack>
+              ) : (
+                <Typography variant="body2" color="text.secondary">
+                  No tags available for this icon.
+                </Typography>
+              )}
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Close</Button>
+            </DialogActions>
+          </>
+        )}
+      </Dialog>
     </Box>
-  ),
+  );
+}
+
+export const IconGallery: Story = {
+  render: () => <IconGalleryContent />,
 };
 
 export const IconSizes: Story = {
