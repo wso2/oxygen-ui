@@ -235,6 +235,10 @@ interface OxygenUIThemeProviderProps {
    * (cache key, nonce, insertion point, stylis plugins, container, etc.).
    * Create one with `createEmotionCache` (re-exported from `@emotion/cache`).
    *
+   * Set `prepend: true` when creating the cache to preserve the previous
+   * `StyledEngineProvider injectFirst` cascade (application styles can override
+   * Oxygen UI styles). Omitting `prepend: true` changes style insertion order.
+   *
    * Takes precedence over the `nonce` prop.
    */
   emotionCache?: EmotionCache;

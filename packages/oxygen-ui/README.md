@@ -311,36 +311,48 @@ function MyComponent() {
 
 ## Content Security Policy (CSP)
 
-Oxygen UI (via MUI and Emotion) injects styles at runtime using `<style>` tags. If your application enforces a strict `style-src` CSP directive, pass a nonce so those tags are allowed.
+Oxygen UI (via MUI and Emotion) injects styles at runtime using `<style>` tags. If your application enforces a strict CSP, pass a nonce so those tags are allowed. Follow the same directives recommended in the [MUI Content Security Policy guide](https://mui.com/material-ui/guides/content-security-policy/):
+
+```text
+Content-Security-Policy:
+  default-src 'self';
+  style-src-elem 'self' 'nonce-<value>';
+  style-src-attr 'unsafe-inline';
+```
+
+- **`style-src-elem`** — Emotion injects `<style>` elements; each needs a matching nonce.
+- **`style-src-attr 'unsafe-inline'`** — MUI components apply dynamic inline `style` attributes (dimensions, CSS custom properties, positioning). Nonces cannot cover style attributes.
+- **`script-src 'nonce-...'`** — Only required if your app uses MUI's `InitColorSchemeScript`. Oxygen UI does not ship that script.
 
 ### Using the `nonce` prop
 
-Pass your server-generated nonce to `OxygenUIThemeProvider`. It is applied to every style tag injected by the styling engine (components, `CssBaseline`, theme styles):
+Pass your server-generated nonce to `OxygenUIThemeProvider`. It is applied to every style tag injected by the styling engine (components, `CssBaseline`, theme styles). The value must match the nonce in your CSP header:
 
 ```typescript
 import { OxygenUIThemeProvider } from '@wso2/oxygen-ui';
 
-function App() {
+// `serverNonce` is generated per request on the server and must match the CSP header.
+function App({ serverNonce }: { serverNonce: string }) {
   return (
-    <OxygenUIThemeProvider nonce={window.__MY_APP_NONCE__}>
+    <OxygenUIThemeProvider nonce={serverNonce}>
       <YourApp />
     </OxygenUIThemeProvider>
   );
 }
 ```
 
-The nonce must match the one in your CSP header, e.g. `Content-Security-Policy: style-src 'self' 'nonce-<value>'`.
-
 ### Using a custom Emotion cache
 
-For full control over style injection (cache key, insertion point, stylis plugins, shadow DOM containers, SSR caches), pass a custom Emotion cache. `createEmotionCache` is re-exported from `@emotion/cache` for convenience:
+For full control over style injection (cache key, insertion point, stylis plugins, shadow DOM containers, SSR caches), pass a custom Emotion cache. `createEmotionCache` is re-exported from `@emotion/cache` for convenience.
+
+Set `prepend: true` to preserve the previous `injectFirst` cascade (application styles can override Oxygen UI styles). Omitting it changes style order.
 
 ```typescript
 import { OxygenUIThemeProvider, createEmotionCache } from '@wso2/oxygen-ui';
 
 const cache = createEmotionCache({
   key: 'css',
-  nonce: window.__MY_APP_NONCE__,
+  nonce: serverNonce,
   prepend: true,
 });
 
@@ -355,16 +367,24 @@ function App() {
 
 `emotionCache` takes precedence over `nonce` if both are provided.
 
+### Server-side rendering (SSR)
+
+Generate a unique nonce per request on the server, include it in the CSP header, and pass the same value to `OxygenUIThemeProvider` via `nonce` or a shared `emotionCache` on both server and client. Keep server and client Emotion caches aligned (same key, nonce, and insertion options). See the [MUI CSP guide](https://mui.com/material-ui/guides/content-security-policy/) for framework-specific examples (Next.js, Vite, and Emotion SSR).
+
 ### Bundled fonts
 
 The Inter Variable font styles are injected as a separate `<style>` tag when the package is imported (before React renders), so the nonce for that tag is resolved from well-known conventions instead of a prop:
 
 1. The `__webpack_nonce__` global ([webpack convention](https://webpack.js.org/guides/csp/))
-2. A `<meta property="csp-nonce" nonce="...">` tag in the document ([Vite convention](https://vite.dev/guide/features.html#content-security-policy-csp))
+2. A `<meta property="csp-nonce" nonce="...">` tag ([Vite convention](https://vite.dev/guide/features.html#content-security-policy-csp)); `content` is also accepted as a fallback
+3. A `<meta name="csp-nonce" content="...">` tag ([MUI / Next.js convention](https://mui.com/material-ui/guides/content-security-policy/))
 
 ```html
-<!-- Server-rendered HTML -->
+<!-- Vite convention -->
 <meta property="csp-nonce" nonce="YOUR_SERVER_GENERATED_NONCE" />
+
+<!-- MUI / Next.js convention -->
+<meta name="csp-nonce" content="YOUR_SERVER_GENERATED_NONCE" />
 ```
 
 ### Known limitation: runtime theme loading
