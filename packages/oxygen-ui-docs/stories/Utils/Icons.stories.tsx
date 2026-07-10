@@ -104,6 +104,8 @@ type IconEntry = {
   tags: string[];
 };
 
+type CopyStatus = 'idle' | 'copied' | 'error';
+
 const NON_ICON_EXPORTS = new Set([
   'Icon',
   'createLucideIcon',
@@ -174,7 +176,7 @@ function IconGalleryContent() {
   const [query, setQuery] = useState('');
   const deferredQuery = useDeferredValue(query);
   const [selected, setSelected] = useState<IconEntry | null>(null);
-  const [copied, setCopied] = useState(false);
+  const [copyStatus, setCopyStatus] = useState<CopyStatus>('idle');
   const [containerWidth, setContainerWidth] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
   const [viewportHeight, setViewportHeight] = useState(0);
@@ -250,16 +252,17 @@ function IconGalleryContent() {
     if (!importSnippet) return;
     try {
       await navigator.clipboard.writeText(importSnippet);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2000);
+      setCopyStatus('copied');
+      window.setTimeout(() => setCopyStatus('idle'), 2000);
     } catch {
-      setCopied(false);
+      setCopyStatus('error');
+      window.setTimeout(() => setCopyStatus('idle'), 2000);
     }
   };
 
   const handleClose = () => {
     setSelected(null);
-    setCopied(false);
+    setCopyStatus('idle');
   };
 
   const SelectedIcon = selected?.Icon;
@@ -332,7 +335,7 @@ function IconGalleryContent() {
                   title={name}
                   onClick={() => {
                     setSelected(entry);
-                    setCopied(false);
+                    setCopyStatus('idle');
                   }}
                   sx={{
                     position: 'absolute',
@@ -420,10 +423,23 @@ function IconGalleryContent() {
                 <Button
                   size="small"
                   variant="outlined"
-                  startIcon={copied ? <Check size={16} /> : <Copy size={16} />}
+                  color={copyStatus === 'error' ? 'error' : 'primary'}
+                  startIcon={
+                    copyStatus === 'copied' ? (
+                      <Check size={16} />
+                    ) : copyStatus === 'error' ? (
+                      <X size={16} />
+                    ) : (
+                      <Copy size={16} />
+                    )
+                  }
                   onClick={handleCopy}
                 >
-                  {copied ? 'Copied' : 'Copy'}
+                  {copyStatus === 'copied'
+                    ? 'Copied'
+                    : copyStatus === 'error'
+                      ? 'Copy failed'
+                      : 'Copy'}
                 </Button>
               </Box>
 
