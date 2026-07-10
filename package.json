@@ -51,9 +51,6 @@
   "engines": {
     "node": ">=24.0.0"
   },
-  "pnpm": {
-    "overrides": {}
-  },
   "publishConfig": {
     "access": "restricted"
   }
