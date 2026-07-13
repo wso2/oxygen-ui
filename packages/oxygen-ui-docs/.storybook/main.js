@@ -30,13 +30,6 @@ export default {
   addons: [
     '@storybook/addon-docs',
     '@storybook/addon-links',
-    '@storybook/mdx2-csf',
-    {
-      name: '@storybook/addon-essentials',
-      options: {
-        controls: false,
-      },
-    },
   ],
   framework: {
     name: '@storybook/react-webpack5',
