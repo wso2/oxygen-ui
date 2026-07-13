@@ -43,6 +43,8 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "babel-loader": "10.0.0",
+    "lucide-react": "catalog:",
+    "lucide-static": "1.16.0",
     "react": "catalog:",
     "react-dom": "catalog:",
     "storybook": "10.4.6"

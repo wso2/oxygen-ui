@@ -1,0 +1,10 @@
+{
+  "Bitbucket": ["git", "vcs", "source control", "atlassian", "repository"],
+  "Facebook": ["social", "meta", "network", "login", "oauth"],
+  "GitHub": ["git", "vcs", "source control", "octocat", "repository", "microsoft"],
+  "GitLab": ["git", "vcs", "source control", "repository", "ci", "cd"],
+  "Google": ["search", "oauth", "login", "g suite", "workspace"],
+  "Lambda": ["aws", "serverless", "function", "cloud", "faas"],
+  "MCP": ["model context protocol", "ai", "agent", "tool", "llm"],
+  "WSO2": ["identity", "api", "enterprise", "open source", "asgardeo"]
+}
