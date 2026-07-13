@@ -1,5 +1,14 @@
 # @wso2/oxygen-ui
 
+## 0.12.1
+
+### Patch Changes
+
+- [#543](https://github.com/wso2/oxygen-ui/pull/543) [`c003132`](https://github.com/wso2/oxygen-ui/commit/c003132ee07d498a2355eb8450ff142ec9cfb009) Thanks [@ajirthan](https://github.com/ajirthan)! - Use distinct default icons in `HeaderToggle` for sidebar expand/collapse (`Menu` when collapsed, `PanelLeftClose` when expanded)
+
+- Updated dependencies []:
+  - @wso2/oxygen-ui-icons-react@0.12.1
+
 ## 0.12.0
 
 ### Minor Changes
