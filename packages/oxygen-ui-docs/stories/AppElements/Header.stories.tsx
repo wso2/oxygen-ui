@@ -126,6 +126,7 @@ export const Default: Story = {
 
 /**
  * Header with sidebar toggle button.
+ * The icon switches between Menu (collapsed) and PanelLeftClose (expanded).
  */
 export const WithToggle: Story = {
   render: () => {
