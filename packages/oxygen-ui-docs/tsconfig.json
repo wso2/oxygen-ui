@@ -2,11 +2,14 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "noEmit": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "module": "esnext",
+    "moduleResolution": "bundler"
   },
   "include": [
-    "stories/**/*"
-, "vite-env.d.ts"  ],
+    "stories/**/*",
+    "vite-env.d.ts"
+  ],
   "exclude": [
     "node_modules"
   ]
