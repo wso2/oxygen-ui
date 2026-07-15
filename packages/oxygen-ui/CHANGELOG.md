@@ -1,5 +1,19 @@
 # @wso2/oxygen-ui
 
+## 0.13.0
+
+### Minor Changes
+
+- [#546](https://github.com/wso2/oxygen-ui/pull/546) [`96c344e`](https://github.com/wso2/oxygen-ui/commit/96c344ee75041c6d68331ec6554ae0d9970998f1) Thanks [@ajirthan](https://github.com/ajirthan)! - Add CSP (Content Security Policy) compatibility (#523)
+  - `OxygenUIThemeProvider` now accepts a `nonce` prop that applies a CSP nonce to all style tags injected by the styling engine (Emotion), and an `emotionCache` prop as a full escape hatch for supplying a custom Emotion cache (cache key, insertion point, stylis plugins, containers, SSR caches).
+  - Re-export `createEmotionCache` and the `EmotionCache` type from `@emotion/cache` so consumers can build custom caches without an extra dependency.
+  - The bundled CSS injected at import time (Inter font styles and theme CSS) now resolves a nonce from the `__webpack_nonce__` global (webpack), a `<meta property="csp-nonce">` tag (Vite), or a `<meta name="csp-nonce" content="...">` tag (MUI/Next). The nonce source must be present before the app bundle executes. Since fonts are embedded as base64 data URIs, CSPs must also allow `font-src 'self' data:`.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wso2/oxygen-ui-icons-react@0.13.0
+
 ## 0.12.1
 
 ### Patch Changes
