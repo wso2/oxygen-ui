@@ -76,6 +76,19 @@ const customTheme = extendTheme({
   <YourApp />
 </OxygenUIThemeProvider>
 \`\`\`
+
+### Content Security Policy (CSP)
+For applications enforcing a strict CSP, pass a nonce (or a custom Emotion
+cache) so runtime-injected style tags are allowed. Pair with
+\`style-src-elem 'nonce-...'\` and \`style-src-attr 'unsafe-inline'\` as
+recommended by MUI, plus \`font-src 'self' data:\` because the bundled Inter
+font is embedded as base64 data URIs:
+
+\`\`\`tsx
+<OxygenUIThemeProvider nonce={serverNonce}>
+  <YourApp />
+</OxygenUIThemeProvider>
+\`\`\`
         `,
       },
     },
@@ -98,6 +111,17 @@ const customTheme = extendTheme({
       description: 'Callback function triggered after all themes are loaded. Receives an array of loaded themes with their key, label, and theme object. Useful for tracking when dynamically loaded theme files are ready.',
       table: {
         type: { summary: '(themes: LoadedTheme[]) => void' },
+      },
+    },
+    nonce: {
+      control: 'text',
+      description: 'CSP (Content Security Policy) nonce applied to all style tags injected by the styling engine (Emotion). Use with style-src-elem nonce and style-src-attr unsafe-inline as recommended by MUI. Ignored if `emotionCache` is provided.',
+    },
+    emotionCache: {
+      control: false,
+      description: 'A custom Emotion cache instance for full control over style injection (cache key, nonce, insertion point, stylis plugins, container). Create one with `createEmotionCache` and set `prepend: true` to preserve injectFirst cascade. Takes precedence over the `nonce` prop.',
+      table: {
+        type: { summary: 'EmotionCache' },
       },
     },
     children: {
@@ -248,6 +272,54 @@ function ThemeInfo() {
   );
 }`}
       />
+    </Stack>
+  ),
+};
+
+/**
+ * Make Oxygen UI compatible with a strict Content Security Policy (CSP)
+ * by passing a nonce or a custom Emotion cache.
+ */
+export const ContentSecurityPolicy: Story = {
+  render: () => (
+    <Stack spacing={2} sx={{ maxWidth: 600 }}>
+      <Typography variant="body2" color="text.secondary">
+        Pass your server-generated nonce so runtime-injected style tags satisfy
+        style-src-elem. Also allow style-src-attr &apos;unsafe-inline&apos; for MUI
+        inline style attributes, and font-src &apos;self&apos; data: because the
+        bundled Inter font is embedded as base64 data URIs. For full control over
+        style injection, pass a custom Emotion cache with prepend: true.
+      </Typography>
+      <CodeBlock 
+        language="tsx"
+        code={`import { OxygenUIThemeProvider, createEmotionCache } from "@wso2/oxygen-ui";
+
+// serverNonce is generated per request and must match the CSP header.
+// Option 1: simple - pass the nonce directly
+<OxygenUIThemeProvider nonce={serverNonce}>
+  <YourApp />
+</OxygenUIThemeProvider>
+
+// Option 2: advanced - pass a custom Emotion cache
+// (full control: key, nonce, insertion point, stylis plugins, ...)
+// prepend: true preserves the previous injectFirst cascade.
+const cache = createEmotionCache({
+  key: "css",
+  nonce: serverNonce,
+  prepend: true,
+});
+
+<OxygenUIThemeProvider emotionCache={cache}>
+  <YourApp />
+</OxygenUIThemeProvider>`}
+      />
+      <Typography variant="body2" color="text.secondary">
+        The bundled CSS (Inter font styles and theme CSS) is injected at import
+        time, so its nonce is resolved from the __webpack_nonce__ global
+        (webpack), a {' '}meta[property=&quot;csp-nonce&quot;] tag (Vite), or a
+        {' '}meta[name=&quot;csp-nonce&quot;] tag (MUI/Next) instead of a prop.
+        The meta tag (or global) must be present before the app bundle executes.
+      </Typography>
     </Stack>
   ),
 };

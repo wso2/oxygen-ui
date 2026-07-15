@@ -7,6 +7,7 @@ ESBuild plugin to inline CSS and embed fonts as base64 data URIs.
 - ✅ Resolves CSS `@import` statements (including from node_modules)
 - ✅ Converts font file references to base64 data URIs
 - ✅ Injects CSS as a `<style>` tag at runtime
+- ✅ CSP-compatible: applies a nonce to the injected style tag when available
 - ✅ Supports `.woff`, `.woff2`, `.ttf`, `.otf`, and `.eot` font formats
 - ✅ Zero configuration required
 - ✅ TypeScript support
@@ -63,6 +64,28 @@ esbuild.build({
 1. **CSS Resolution**: The plugin intercepts CSS imports and resolves `@import` statements recursively, including imports from `node_modules`
 2. **Font Embedding**: All font file references (`url(...)`) are converted to base64 data URIs
 3. **Runtime Injection**: The processed CSS is converted to JavaScript that creates and injects a `<style>` tag when the module loads
+
+## Content Security Policy (CSP)
+
+If the consuming application enforces a strict `style-src` / `style-src-elem` CSP directive, the injected `<style>` tag needs a nonce. Because injection happens at module load time (before any framework renders), the nonce is resolved from well-known conventions, in order:
+
+1. The `__webpack_nonce__` global ([webpack convention](https://webpack.js.org/guides/csp/))
+2. A `<meta property="csp-nonce" nonce="...">` tag in the document ([Vite convention](https://vite.dev/guide/features.html#content-security-policy-csp)); `content` is also accepted as a fallback
+3. A `<meta name="csp-nonce" content="...">` tag ([MUI / Next.js convention](https://mui.com/material-ui/guides/content-security-policy/))
+
+If none are present, the style tag is injected without a nonce (unchanged behavior).
+
+Because the nonce is read at module evaluation time, the meta tag (or the `__webpack_nonce__` assignment) must already be present in the document before the bundle executes — a meta tag added later from JavaScript results in a style tag without a nonce.
+
+```html
+<!-- Vite convention -->
+<meta property="csp-nonce" nonce="YOUR_SERVER_GENERATED_NONCE" />
+
+<!-- MUI / Next.js convention -->
+<meta name="csp-nonce" content="YOUR_SERVER_GENERATED_NONCE" />
+```
+
+Since fonts are embedded as base64 `data:` URIs, the CSP must also allow them via `font-src`, e.g. `font-src 'self' data:;` — otherwise `font-src` falls back to `default-src 'self'` and the browser blocks the embedded fonts even when the style tag itself is allowed.
 
 ## Example
 

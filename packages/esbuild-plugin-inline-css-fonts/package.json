@@ -18,7 +18,9 @@
   ],
   "scripts": {
     "build": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "keywords": [
     "esbuild",
@@ -35,6 +37,8 @@
   "devDependencies": {
     "@types/node": "catalog:",
     "esbuild": "catalog:",
-    "typescript": "catalog:"
+    "jsdom": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }

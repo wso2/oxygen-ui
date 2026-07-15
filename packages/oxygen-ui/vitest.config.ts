@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,11 +16,10 @@
  * under the License.
  */
 
-export { default as OxygenUIThemeProvider, useThemeSwitcher } from './OxygenUIThemeProvider/OxygenUIThemeProvider';
-export type { ThemeOption, ThemeSwitcherContextValue } from './OxygenUIThemeProvider/OxygenUIThemeProvider';
+import { defineConfig } from 'vitest/config';
 
-// Re-export Emotion cache utilities so consumers can create a custom cache
-// (e.g. for CSP nonces, custom insertion points, or shadow DOM containers)
-// without installing @emotion/cache themselves.
-export { default as createEmotionCache } from '@emotion/cache';
-export type { EmotionCache } from '@emotion/cache';
+export default defineConfig({
+  test: {
+    environment: 'jsdom',
+  },
+});
