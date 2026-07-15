@@ -33,7 +33,11 @@ export interface UserMenuUser {
   name: string;
   /** User email address */
   email: string;
-  /** Avatar text or initials */
+  /**
+   * Avatar image URL or initials text.
+   * Image-like values (`http(s):`, `/`, `data:`, `blob:`) are used as `src`.
+   * Other strings (e.g. `"JD"`) are shown as initials. If omitted, falls back to the first letter of `name`.
+   */
   avatar?: string;
   /** Role or plan badge (e.g., "Pro", "Admin") */
   role?: string;

@@ -22,6 +22,7 @@ import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
 import { styled } from '@mui/material/styles';
 import { useUserMenu } from './UserMenuContext';
+import { getUserMenuAvatarProps } from './getUserMenuAvatarProps';
 
 /**
  * Props for the UserMenu.Trigger component.
@@ -29,7 +30,11 @@ import { useUserMenu } from './UserMenuContext';
 export interface UserMenuTriggerProps {
   /** User display name */
   name: string;
-  /** Avatar image URL (if null, falls back to initials) */
+  /**
+   * Avatar image URL or initials text.
+   * Image-like values (`http(s):`, `/`, `data:`, `blob:`) are used as `src`.
+   * Other strings (e.g. `"JD"`) are shown as initials. If omitted, falls back to the first letter of `name`.
+   */
   avatar?: string | null;
   /** Whether to show the name text after the avatar */
   showName?: boolean;
@@ -87,6 +92,7 @@ const StyledNameText = styled('span', {
  */
 export const UserMenuTrigger: React.FC<UserMenuTriggerProps> = ({ name, avatar, showName = false }) => {
   const { open, handleOpen } = useUserMenu();
+  const avatarProps = getUserMenuAvatarProps(name, avatar);
 
   return (
     <Tooltip title="Account">
@@ -99,8 +105,8 @@ export const UserMenuTrigger: React.FC<UserMenuTriggerProps> = ({ name, avatar, 
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
       >
-        <StyledAvatar src={avatar || undefined} alt={name}>
-          {!avatar && name.charAt(0)}
+        <StyledAvatar src={avatarProps.src} alt={name}>
+          {avatarProps.children}
         </StyledAvatar>
         {showName && <StyledNameText>{name}</StyledNameText>}
       </StyledTrigger>
