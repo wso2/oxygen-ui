@@ -173,6 +173,20 @@ const OxygenThemeBase = extendTheme({
     },
   },
   components: {
+    MuiAccordionSummary: {
+      defaultProps: {
+        expandIcon: React.createElement(ChevronDown),
+      },
+      styleOverrides: {
+        root: ({ theme }) => ({
+          fontWeight: theme.typography.fontWeightMedium,
+          '&:hover:not(.Mui-disabled)': {
+            backgroundColor: (theme.vars || theme).palette.action.hover,
+            cursor: 'pointer',
+          },
+        }),
+      },
+    },
     MuiAutocomplete: {
       defaultProps: {
         popupIcon: React.createElement(ChevronDown),
