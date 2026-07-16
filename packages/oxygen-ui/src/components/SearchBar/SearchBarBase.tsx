@@ -26,7 +26,17 @@ export interface SearchBarBaseProps extends Omit<TextFieldProps, 'variant'> {
 }
 
 export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps>(function SearchBarBase(
-  { placeholder = 'Search', endAdornment, slotProps, sx, label, inputProps, ...props },
+  {
+    placeholder = 'Search',
+    endAdornment,
+    slotProps,
+    sx,
+    label,
+    inputProps,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    ...props
+  },
   ref,
 ) {
   const htmlInputSlotProps = slotProps?.htmlInput as
@@ -37,6 +47,8 @@ export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps
     | undefined;
   const hasAccessibleName =
     Boolean(label) ||
+    Boolean(ariaLabel) ||
+    Boolean(ariaLabelledBy) ||
     Boolean(htmlInputSlotProps?.['aria-label']) ||
     Boolean(htmlInputSlotProps?.['aria-labelledby']) ||
     Boolean(inputPropsAria?.['aria-label']) ||
@@ -44,15 +56,20 @@ export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps
   // Avoid an empty htmlInput slot: MUI merges it over inputProps and would
   // drop a consumer-provided accessible name.
   const shouldInjectPlaceholderLabel = !hasAccessibleName && Boolean(placeholder);
-  const htmlInput = shouldInjectPlaceholderLabel || slotProps?.htmlInput
-    ? {
-        // Placeholder alone is a weak accessible name; expose it as a label
-        // unless the consumer supplied their own labelling. Inject after
-        // consumer props so an empty aria-label="" cannot wipe the name.
-        ...slotProps?.htmlInput,
-        ...(shouldInjectPlaceholderLabel ? { 'aria-label': placeholder } : null),
-      }
-    : undefined;
+  // Apply top-level aria props on the input itself — TextField would otherwise
+  // put them on the root, which does not name the textbox.
+  const htmlInput =
+    shouldInjectPlaceholderLabel || slotProps?.htmlInput || ariaLabel || ariaLabelledBy
+      ? {
+          // Placeholder alone is a weak accessible name; expose it as a label
+          // unless the consumer supplied their own labelling. Inject after
+          // consumer props so an empty aria-label="" cannot wipe the name.
+          ...slotProps?.htmlInput,
+          ...(ariaLabelledBy ? { 'aria-labelledby': ariaLabelledBy } : null),
+          ...(ariaLabel ? { 'aria-label': ariaLabel } : null),
+          ...(shouldInjectPlaceholderLabel ? { 'aria-label': placeholder } : null),
+        }
+      : undefined;
 
   return (
     <TextField
@@ -60,6 +77,8 @@ export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps
       ref={ref}
       label={label}
       inputProps={inputProps}
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledBy}
       placeholder={placeholder}
       variant="outlined"
       size="small"

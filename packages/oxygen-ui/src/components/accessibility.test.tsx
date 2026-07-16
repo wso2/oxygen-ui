@@ -76,6 +76,11 @@ describe('SearchBar', () => {
     expect(screen.getByRole('textbox', { name: 'Find people' })).toBeDefined();
   });
 
+  it('respects a top-level aria-label over the placeholder', () => {
+    renderWithTheme(<SearchBar placeholder="Search users" aria-label="Find people" />);
+    expect(screen.getByRole('textbox', { name: 'Find people' })).toBeDefined();
+  });
+
   it('does not set an empty aria-label when placeholder is empty', () => {
     renderWithTheme(<SearchBar placeholder="" />);
     expect(screen.getByRole('textbox').getAttribute('aria-label')).not.toBe('');
