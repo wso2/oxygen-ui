@@ -26,13 +26,22 @@ export interface SearchBarBaseProps extends Omit<TextFieldProps, 'variant'> {
 }
 
 export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps>(function SearchBarBase(
-  { placeholder = 'Search', endAdornment, slotProps, sx, ...props },
+  { placeholder = 'Search', endAdornment, slotProps, sx, label, ...props },
   ref,
 ) {
+  const htmlInputSlotProps = slotProps?.htmlInput as
+    | { 'aria-label'?: string; 'aria-labelledby'?: string }
+    | undefined;
+  const hasAccessibleName =
+    Boolean(label) ||
+    Boolean(htmlInputSlotProps?.['aria-label']) ||
+    Boolean(htmlInputSlotProps?.['aria-labelledby']);
+
   return (
     <TextField
       {...props}
       ref={ref}
+      label={label}
       placeholder={placeholder}
       variant="outlined"
       size="small"
@@ -41,7 +50,7 @@ export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps
         htmlInput: {
           // Placeholder alone is a weak accessible name; expose it as a label
           // unless the consumer supplied their own labelling.
-          'aria-label': placeholder,
+          ...(!hasAccessibleName ? { 'aria-label': placeholder } : null),
           ...slotProps?.htmlInput,
         },
         input: {
