@@ -47,11 +47,11 @@ export default meta;
 type Story = StoryObj<typeof Checkbox>;
 
 export const Default: Story = {
-  render: () => <Checkbox />,
+  render: () => <Checkbox inputProps={{ 'aria-label': 'Select item' }} />,
 };
 
 export const Checked: Story = {
-  render: () => <Checkbox defaultChecked />,
+  render: () => <Checkbox defaultChecked inputProps={{ 'aria-label': 'Select item' }} />,
 };
 
 export const WithLabel: Story = {
@@ -73,7 +73,7 @@ export const Disabled: Story = {
 };
 
 export const Indeterminate: Story = {
-  render: () => <Checkbox indeterminate />,
+  render: () => <Checkbox indeterminate inputProps={{ 'aria-label': 'Select all items' }} />,
 };
 
 export const Colors: Story = {
