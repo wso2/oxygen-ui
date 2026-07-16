@@ -38,6 +38,21 @@ import {
 const meta: Meta = {
   title: 'Templates/Create Service Form',
   parameters: {
+    a11y: {
+      // Known WCAG AA exceptions:
+      // - color-contrast: the brand primary color (#FF7300) does not meet the
+      //   4.5:1 text-contrast requirement in the default themes. Tracked in
+      //   https://github.com/ajirthan/oxygen-ui/issues/1
+      // - nested-interactive: the build-preset cards use Form.CardButton,
+      //   which nests focusable controls inside a <button>. Tracked in
+      //   https://github.com/ajirthan/oxygen-ui/issues/6
+      options: {
+        rules: {
+          'color-contrast': { enabled: false },
+          'nested-interactive': { enabled: false },
+        },
+      },
+    },
     layout: 'padded',
   },
 }
@@ -128,7 +143,7 @@ export const Default: Story = {
                   input: {
                     endAdornment: (
                       <InputAdornment position="end">
-                        <IconButton size="small" edge="end">
+                        <IconButton size="small" edge="end" aria-label="Edit component directory">
                           <PencilIcon size={16} />
                         </IconButton>
                       </InputAdornment>
@@ -163,7 +178,7 @@ export const Default: Story = {
                   input: {
                     endAdornment: (
                       <InputAdornment position="end">
-                        <IconButton size="small">
+                        <IconButton size="small" aria-label="Name help">
                           <CircleQuestionMark size={16} />
                         </IconButton>
                       </InputAdornment>
