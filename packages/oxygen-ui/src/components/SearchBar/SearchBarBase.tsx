@@ -26,33 +26,45 @@ export interface SearchBarBaseProps extends Omit<TextFieldProps, 'variant'> {
 }
 
 export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps>(function SearchBarBase(
-  { placeholder = 'Search', endAdornment, slotProps, sx, label, ...props },
+  { placeholder = 'Search', endAdornment, slotProps, sx, label, inputProps, ...props },
   ref,
 ) {
   const htmlInputSlotProps = slotProps?.htmlInput as
     | { 'aria-label'?: string; 'aria-labelledby'?: string }
     | undefined;
+  const inputPropsAria = inputProps as
+    | { 'aria-label'?: string; 'aria-labelledby'?: string }
+    | undefined;
   const hasAccessibleName =
     Boolean(label) ||
     Boolean(htmlInputSlotProps?.['aria-label']) ||
-    Boolean(htmlInputSlotProps?.['aria-labelledby']);
+    Boolean(htmlInputSlotProps?.['aria-labelledby']) ||
+    Boolean(inputPropsAria?.['aria-label']) ||
+    Boolean(inputPropsAria?.['aria-labelledby']);
+  // Avoid an empty htmlInput slot: MUI merges it over inputProps and would
+  // drop a consumer-provided accessible name.
+  const shouldInjectPlaceholderLabel = !hasAccessibleName;
+  const htmlInput = shouldInjectPlaceholderLabel || slotProps?.htmlInput
+    ? {
+        // Placeholder alone is a weak accessible name; expose it as a label
+        // unless the consumer supplied their own labelling.
+        ...(shouldInjectPlaceholderLabel ? { 'aria-label': placeholder } : null),
+        ...slotProps?.htmlInput,
+      }
+    : undefined;
 
   return (
     <TextField
       {...props}
       ref={ref}
       label={label}
+      inputProps={inputProps}
       placeholder={placeholder}
       variant="outlined"
       size="small"
       slotProps={{
         ...slotProps,
-        htmlInput: {
-          // Placeholder alone is a weak accessible name; expose it as a label
-          // unless the consumer supplied their own labelling.
-          ...(!hasAccessibleName ? { 'aria-label': placeholder } : null),
-          ...slotProps?.htmlInput,
-        },
+        ...(htmlInput ? { htmlInput } : null),
         input: {
           ...slotProps?.input,
           startAdornment: (

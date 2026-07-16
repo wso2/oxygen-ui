@@ -69,6 +69,13 @@ describe('SearchBar', () => {
     expect(screen.getByRole('textbox', { name: 'Search users' })).toBeDefined();
   });
 
+  it('respects aria-label from inputProps over the placeholder', () => {
+    renderWithTheme(
+      <SearchBar placeholder="Search users" inputProps={{ 'aria-label': 'Find people' }} />,
+    );
+    expect(screen.getByRole('textbox', { name: 'Find people' })).toBeDefined();
+  });
+
   it('forwards refs and data attributes to the root', () => {
     const ref = React.createRef<HTMLDivElement>();
     renderWithTheme(<SearchBar ref={ref} data-testid="search-root" />);
