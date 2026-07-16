@@ -88,10 +88,10 @@ export const Overview: Story = {
 <IconButton aria-label="Delete user"><TrashIcon /></IconButton>
 
 // ComplexSelect without a label prop
-<ComplexSelect inputProps={{ 'aria-label': 'Organization' }} ... />
+<ComplexSelect slotProps={{ input: { 'aria-label': 'Organization' } }} ... />
 
 // Standalone Checkbox / Switch / Slider (no FormControlLabel)
-<Checkbox inputProps={{ 'aria-label': 'Select row' }} />
+<Checkbox slotProps={{ input: { 'aria-label': 'Select row' } }} />
 <Switch slotProps={{ input: { 'aria-label': 'Enable notifications' } }} />
 <Slider aria-label="Volume" />
 

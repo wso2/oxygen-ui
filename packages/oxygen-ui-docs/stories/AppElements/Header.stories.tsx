@@ -101,7 +101,7 @@ import { Header } from '@wso2/oxygen-ui';
 ### Accessibility
 - \`Header.Toggle\` is labeled from its \`expandLabel\`/\`collapseLabel\` props and exposes \`aria-expanded\`.
 - \`Header.Brand\` with an \`onClick\` renders a real button; pass \`aria-label\` to name it (e.g. "Go to home").
-- Header switcher selects need accessible names when they have no visible label: \`inputProps={{ 'aria-label': 'Organization' }}\`.
+- Header switcher selects need accessible names when they have no visible label: \`slotProps={{ input: { 'aria-label': 'Organization' } }}\`.
 `,
       },
     },

@@ -63,10 +63,12 @@ export const WithValidation: Story = {
     type: 'number',
     label: 'Age',
     defaultValue: 18,
-    inputProps: {
-      min: 0,
-      max: 120,
-      step: 1,
+    slotProps: {
+      htmlInput: {
+        min: 0,
+        max: 120,
+        step: 1,
+      },
     },
     helperText: 'Must be between 0 and 120',
   },
@@ -80,12 +82,14 @@ export const Decimal: Story = {
     type: 'number',
     label: 'Price',
     defaultValue: 99.99,
-    inputProps: {
-      min: 0,
-      step: 0.01,
-    },
-    InputProps: {
-      startAdornment: '$',
+    slotProps: {
+      htmlInput: {
+        min: 0,
+        step: 0.01,
+      },
+      input: {
+        startAdornment: '$',
+      },
     },
   },
 };
@@ -99,8 +103,10 @@ export const Required: Story = {
     label: 'Quantity',
     required: true,
     defaultValue: 1,
-    inputProps: {
-      min: 1,
+    slotProps: {
+      htmlInput: {
+        min: 1,
+      },
     },
   },
 };

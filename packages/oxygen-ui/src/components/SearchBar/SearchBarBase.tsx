@@ -32,7 +32,6 @@ export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps
     slotProps,
     sx,
     label,
-    inputProps,
     'aria-label': ariaLabel,
     'aria-labelledby': ariaLabelledBy,
     ...props
@@ -42,19 +41,12 @@ export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps
   const htmlInputSlotProps = slotProps?.htmlInput as
     | { 'aria-label'?: string; 'aria-labelledby'?: string }
     | undefined;
-  const inputPropsAria = inputProps as
-    | { 'aria-label'?: string; 'aria-labelledby'?: string }
-    | undefined;
   const hasAccessibleName =
     Boolean(label) ||
     Boolean(ariaLabel) ||
     Boolean(ariaLabelledBy) ||
     Boolean(htmlInputSlotProps?.['aria-label']) ||
-    Boolean(htmlInputSlotProps?.['aria-labelledby']) ||
-    Boolean(inputPropsAria?.['aria-label']) ||
-    Boolean(inputPropsAria?.['aria-labelledby']);
-  // Avoid an empty htmlInput slot: MUI merges it over inputProps and would
-  // drop a consumer-provided accessible name.
+    Boolean(htmlInputSlotProps?.['aria-labelledby']);
   const shouldInjectPlaceholderLabel = !hasAccessibleName && Boolean(placeholder);
   // Apply top-level aria props on the input itself — TextField would otherwise
   // put them on the root, which does not name the textbox.
@@ -76,7 +68,6 @@ export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps
       {...props}
       ref={ref}
       label={label}
-      inputProps={inputProps}
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledBy}
       placeholder={placeholder}

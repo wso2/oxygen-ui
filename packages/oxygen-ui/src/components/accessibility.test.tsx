@@ -70,9 +70,12 @@ describe('SearchBar', () => {
     expect(screen.getByRole('textbox', { name: 'Search users' })).toBeDefined();
   });
 
-  it('respects aria-label from inputProps over the placeholder', () => {
+  it('respects aria-label from slotProps.htmlInput over the placeholder', () => {
     renderWithTheme(
-      <SearchBar placeholder="Search users" inputProps={{ 'aria-label': 'Find people' }} />,
+      <SearchBar
+        placeholder="Search users"
+        slotProps={{ htmlInput: { 'aria-label': 'Find people' } }}
+      />,
     );
     expect(screen.getByRole('textbox', { name: 'Find people' })).toBeDefined();
   });
@@ -128,9 +131,13 @@ describe('ComplexSelect', () => {
     expect(screen.getByRole('combobox', { name: /organization/i })).toBeDefined();
   });
 
-  it('supports aria-label via inputProps when no label is provided', () => {
+  it('supports aria-label via slotProps.input when no label is provided', () => {
     renderWithTheme(
-      <ComplexSelect value="a" onChange={() => {}} inputProps={{ 'aria-label': 'Project' }}>
+      <ComplexSelect
+        value="a"
+        onChange={() => {}}
+        slotProps={{ input: { 'aria-label': 'Project' } }}
+      >
         <ComplexSelect.MenuItem value="a">Project A</ComplexSelect.MenuItem>
       </ComplexSelect>,
     );

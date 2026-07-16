@@ -500,7 +500,7 @@ export const Playground: Story = {
                 }}
                 size="small"
                 sx={{ minWidth: 180 }}
-                inputProps={{ 'aria-label': 'Organization' }}
+                slotProps={{ input: { 'aria-label': 'Organization' } }}
                 renderValue={() => (
                   <>
                     <ComplexSelect.MenuItem.Avatar>
@@ -526,7 +526,7 @@ export const Playground: Story = {
                 }}
                 size="small"
                 sx={{ minWidth: 160 }}
-                inputProps={{ 'aria-label': 'Project' }}
+                slotProps={{ input: { 'aria-label': 'Project' } }}
                 renderValue={() => (
                   <ComplexSelect.MenuItem.Text primary={selectedProject.name} />
                 )}

@@ -49,11 +49,11 @@
 
 ### Stories (documentation demonstrating accessible usage)
 
-- `Checkbox`, `Switch`, `Slider` — standalone controls now demonstrate `aria-label` / `inputProps`/`slotProps` labeling (axe `label` rule).
+- `Checkbox`, `Switch`, `Slider` — standalone controls now demonstrate `aria-label` / `slotProps` labeling (axe `label` rule).
 - `Select` — `InputLabel id` ↔ `Select labelId` linkage added to all variants (axe `aria-input-field-name`).
 - `Progress` — all `CircularProgress`/`LinearProgress` instances have `aria-label` (axe `aria-progressbar-name`).
 - `ImageList`, `useThemeContent` — fixed-height scrollable regions given `tabIndex={0}` and labels (axe `scrollable-region-focusable`); `warning.dark`-on-`warning.light` heading fixed.
-- `AppShell`, `ComplexSelect` stories — header switcher selects labeled via `inputProps={{ 'aria-label': … }}`.
+- `AppShell`, `ComplexSelect` stories — header switcher selects labeled via `slotProps={{ input: { 'aria-label': … } }}`.
 - `CreateServiceFormTemplate` — adornment icon buttons labeled (axe `button-name`).
 - The Storybook preview also dropped a broken `ChoreoTheme` import (not exported by the library).
 
