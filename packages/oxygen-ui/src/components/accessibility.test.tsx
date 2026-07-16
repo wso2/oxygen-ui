@@ -27,7 +27,7 @@
 
 import * as React from 'react';
 import { describe, it, expect, afterEach } from 'vitest';
-import { render, cleanup, screen } from '@testing-library/react';
+import { render, cleanup, screen, fireEvent } from '@testing-library/react';
 import { MenuItem, Select } from '@mui/material';
 import OxygenUIThemeProvider from '../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
 import ClassicTheme from '../styles/Themes/ClassicTheme';
@@ -40,6 +40,7 @@ import HeaderToggle from './Header/HeaderToggle';
 import HeaderBrand from './Header/HeaderBrand';
 import AppBreadcrumbs from './AppBreadcrumbs/AppBreadcrumbs';
 import ListingTableToolbar from './ListingTable/shared/ListingTableToolbar';
+import UserMenu from './UserMenu/UserMenu';
 
 const renderWithTheme = (ui: React.ReactElement) =>
   render(<OxygenUIThemeProvider>{ui}</OxygenUIThemeProvider>);
@@ -198,6 +199,25 @@ describe('Header', () => {
   it('renders a non-clickable brand without a button role', () => {
     renderWithTheme(<HeaderBrand>Brand</HeaderBrand>);
     expect(screen.queryByRole('button')).toBeNull();
+  });
+});
+
+describe('UserMenu.Trigger', () => {
+  it('keeps menu ARIA state after consumer props that try to override it', () => {
+    renderWithTheme(
+      <UserMenu>
+        <UserMenu.Trigger name="Ada Lovelace" aria-expanded="false" aria-label="" />
+      </UserMenu>,
+    );
+
+    const trigger = screen.getByRole('button', { name: 'Account' });
+    expect(trigger.getAttribute('aria-expanded')).toBeNull();
+
+    fireEvent.click(trigger);
+
+    expect(trigger.getAttribute('aria-expanded')).toBe('true');
+    expect(trigger.getAttribute('aria-controls')).toBe('user-menu');
+    expect(trigger.getAttribute('aria-label')).toBe('Account');
   });
 });
 

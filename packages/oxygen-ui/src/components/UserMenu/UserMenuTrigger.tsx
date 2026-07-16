@@ -91,13 +91,17 @@ const StyledNameText = styled('span', {
  * UserMenu.Trigger - Avatar button that opens the menu.
  */
 export const UserMenuTrigger = React.forwardRef<HTMLButtonElement, UserMenuTriggerProps>(
-  function UserMenuTrigger({ name, avatar, showName = false, onClick, ...props }, ref) {
+  function UserMenuTrigger({ name, avatar, showName = false, onClick, 'aria-label': ariaLabel, ...props }, ref) {
     const { open, handleOpen } = useUserMenu();
     const avatarProps = getUserMenuAvatarProps(name, avatar);
+    const defaultAriaLabel = showName ? name : 'Account';
+    const resolvedAriaLabel =
+      typeof ariaLabel === 'string' && ariaLabel.trim().length > 0 ? ariaLabel : defaultAriaLabel;
 
     return (
       <Tooltip title="Account">
         <StyledTrigger
+          {...props}
           ref={ref}
           onClick={(event) => {
             handleOpen(event);
@@ -105,11 +109,10 @@ export const UserMenuTrigger = React.forwardRef<HTMLButtonElement, UserMenuTrigg
           }}
           size="small"
           showName={showName}
-          aria-label={showName ? name : 'Account'}
+          aria-label={resolvedAriaLabel}
           aria-controls={open ? 'user-menu' : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
-          {...props}
         >
           <StyledAvatar src={avatarProps.src} alt={name}>
             {avatarProps.children}
