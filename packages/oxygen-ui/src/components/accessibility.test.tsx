@@ -100,6 +100,11 @@ describe('SearchBar', () => {
     expect(screen.getByRole('textbox', { name: 'Search users' })).toBeDefined();
   });
 
+  it('keeps the placeholder aria-label when aria-label is whitespace-only', () => {
+    renderWithTheme(<SearchBar placeholder="Search users" aria-label="   " />);
+    expect(screen.getByRole('textbox', { name: 'Search users' })).toBeDefined();
+  });
+
   it('forwards refs and data attributes to the root', () => {
     const ref = React.createRef<HTMLDivElement>();
     renderWithTheme(<SearchBar ref={ref} data-testid="search-root" />);

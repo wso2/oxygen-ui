@@ -25,6 +25,9 @@ export interface SearchBarBaseProps extends Omit<TextFieldProps, 'variant'> {
   endAdornment?: React.ReactNode
 }
 
+const hasMeaningfulAriaValue = (value?: string | null): boolean =>
+  typeof value === 'string' && value.trim().length > 0;
+
 export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps>(function SearchBarBase(
   {
     placeholder = 'Search',
@@ -43,22 +46,22 @@ export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps
     | undefined;
   const hasAccessibleName =
     Boolean(label) ||
-    Boolean(ariaLabel) ||
-    Boolean(ariaLabelledBy) ||
-    Boolean(htmlInputSlotProps?.['aria-label']) ||
-    Boolean(htmlInputSlotProps?.['aria-labelledby']);
-  const shouldInjectPlaceholderLabel = !hasAccessibleName && Boolean(placeholder);
+    hasMeaningfulAriaValue(ariaLabel) ||
+    hasMeaningfulAriaValue(ariaLabelledBy) ||
+    hasMeaningfulAriaValue(htmlInputSlotProps?.['aria-label']) ||
+    hasMeaningfulAriaValue(htmlInputSlotProps?.['aria-labelledby']);
+  const shouldInjectPlaceholderLabel = !hasAccessibleName && hasMeaningfulAriaValue(placeholder);
   // Apply top-level aria props on the input itself — TextField would otherwise
   // put them on the root, which does not name the textbox.
   const htmlInput =
-    shouldInjectPlaceholderLabel || slotProps?.htmlInput || ariaLabel || ariaLabelledBy
+    shouldInjectPlaceholderLabel || slotProps?.htmlInput || hasMeaningfulAriaValue(ariaLabel) || hasMeaningfulAriaValue(ariaLabelledBy)
       ? {
           // Placeholder alone is a weak accessible name; expose it as a label
           // unless the consumer supplied their own labelling. Inject after
-          // consumer props so an empty aria-label="" cannot wipe the name.
+          // consumer props so an empty/whitespace aria-label cannot wipe the name.
           ...slotProps?.htmlInput,
-          ...(ariaLabelledBy ? { 'aria-labelledby': ariaLabelledBy } : null),
-          ...(ariaLabel ? { 'aria-label': ariaLabel } : null),
+          ...(hasMeaningfulAriaValue(ariaLabelledBy) ? { 'aria-labelledby': ariaLabelledBy } : null),
+          ...(hasMeaningfulAriaValue(ariaLabel) ? { 'aria-label': ariaLabel } : null),
           ...(shouldInjectPlaceholderLabel ? { 'aria-label': placeholder } : null),
         }
       : undefined;
