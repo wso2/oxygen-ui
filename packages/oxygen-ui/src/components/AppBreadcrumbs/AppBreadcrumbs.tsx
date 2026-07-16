@@ -17,16 +17,14 @@
  */
 
 import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import MenuList from '@mui/material/MenuList';
-import Paper from '@mui/material/Paper';
-import Popper from '@mui/material/Popper';
 import Typography from '@mui/material/Typography';
 import {styled} from '@mui/material/styles';
 import type {SxProps, Theme} from '@mui/material';
 import {ChevronRight} from '@wso2/oxygen-ui-icons-react';
 import type {JSX, MouseEvent} from 'react';
-import {useEffect, useRef, useState} from 'react';
+import {useId, useState} from 'react';
 
 export interface BreadcrumbItem {
   key: string;
@@ -78,14 +76,18 @@ const AppBreadcrumbsItem = styled(Typography, {
       },
 );
 
-const AppBreadcrumbsEllipsis = styled(Typography, {
+// A native <button> so the overflow control is keyboard focusable and
+// announced as interactive (WCAG 2.1.1 / 4.1.2).
+const AppBreadcrumbsEllipsis = styled('button', {
   name: 'MuiAppBreadcrumbs',
   slot: 'Ellipsis',
 })<{ownerState: {active: boolean}}>(({theme, ownerState}) => ({
+  ...theme.typography.h5,
+  border: 0,
+  padding: theme.spacing(0, 0.5),
   cursor: 'pointer',
   whiteSpace: 'nowrap',
   userSelect: 'none',
-  px: 0.5,
   borderRadius: theme.shape.borderRadius,
   color: theme.vars?.palette.text.secondary ?? theme.palette.text.secondary,
   backgroundColor: ownerState.active ? theme.vars?.palette.action.hover ?? theme.palette.action.hover : 'transparent',
@@ -97,27 +99,10 @@ const AppBreadcrumbsEllipsis = styled(Typography, {
 export default function AppBreadcrumbs({items, maxItems = 4, sx, ...props}: AppBreadcrumbsProps): JSX.Element {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [ellipsisHovered, setEllipsisHovered] = useState(false);
-  const ellipsisRef = useRef<HTMLElement | null>(null);
-  const popperRef = useRef<HTMLDivElement | null>(null);
+  const menuId = useId();
   const open = Boolean(anchorEl);
 
-  useEffect(() => {
-    if (!open) return undefined;
-
-    const handleDocumentClick = (e: globalThis.MouseEvent) => {
-      const target = e.target as Node;
-      if (ellipsisRef.current?.contains(target) || popperRef.current?.contains(target)) {
-        return;
-      }
-      setAnchorEl(null);
-    };
-
-    document.addEventListener('click', handleDocumentClick);
-    return () => document.removeEventListener('click', handleDocumentClick);
-  }, [open]);
-
   const handleEllipsisClick = (e: MouseEvent<HTMLElement>) => {
-    ellipsisRef.current = e.currentTarget;
     setAnchorEl(open ? null : e.currentTarget);
   };
 
@@ -160,11 +145,15 @@ export default function AppBreadcrumbs({items, maxItems = 4, sx, ...props}: AppB
     breadcrumbChildren.push(
       <AppBreadcrumbsEllipsis
         key="__ellipsis__"
-        variant="h5"
+        type="button"
         ownerState={{active: ellipsisHovered || open}}
         onClick={handleEllipsisClick}
         onMouseEnter={() => setEllipsisHovered(true)}
         onMouseLeave={() => setEllipsisHovered(false)}
+        aria-label="Show hidden breadcrumbs"
+        aria-haspopup="menu"
+        aria-expanded={open || undefined}
+        aria-controls={open ? menuId : undefined}
       >
         ...
       </AppBreadcrumbsEllipsis>,
@@ -180,24 +169,27 @@ export default function AppBreadcrumbs({items, maxItems = 4, sx, ...props}: AppB
   return (
     <AppBreadcrumbsRoot sx={sx} {...props}>
       <Breadcrumbs
-        separator={<ChevronRight size={16} />}
+        separator={<ChevronRight size={16} aria-hidden="true" />}
         aria-label="breadcrumb"
         sx={{'& ol': {flexWrap: 'nowrap', alignItems: 'center'}}}
       >
         {breadcrumbChildren}
       </Breadcrumbs>
 
-      <Popper open={open} anchorEl={anchorEl} placement="bottom-start" sx={{zIndex: 1400}}>
-        <Paper ref={popperRef} elevation={3} sx={{minWidth: 160, mt: 0.5}}>
-          <MenuList dense>
-            {hiddenItems.map((item) => (
-              <MenuItem key={item.key} onClick={() => handleMenuItemClick(item)}>
-                <Typography variant="body2">{item.label}</Typography>
-              </MenuItem>
-            ))}
-          </MenuList>
-        </Paper>
-      </Popper>
+      <Menu
+        id={menuId}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={() => setAnchorEl(null)}
+        anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+        slotProps={{paper: {elevation: 3, sx: {minWidth: 160, mt: 0.5}}, list: {dense: true}}}
+      >
+        {hiddenItems.map((item) => (
+          <MenuItem key={item.key} onClick={() => handleMenuItemClick(item)}>
+            <Typography variant="body2">{item.label}</Typography>
+          </MenuItem>
+        ))}
+      </Menu>
     </AppBreadcrumbsRoot>
   );
 }

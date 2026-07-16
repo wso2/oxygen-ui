@@ -84,12 +84,20 @@ export const HeaderToggle: React.FC<HeaderToggleProps> = ({
 
   return (
     <Tooltip title={collapsed ? expandLabel : collapseLabel}>
-      <HeaderToggleRoot onClick={onToggle} size="small" sx={sx}>
-        {collapsed ? (
-          expandIcon || <Menu size={20} />
-        ) : (
-          collapseIcon || <PanelLeftClose size={20} />
-        )}
+      <HeaderToggleRoot
+        onClick={onToggle}
+        size="small"
+        sx={sx}
+        aria-label={collapsed ? expandLabel : collapseLabel}
+        aria-expanded={!collapsed}
+      >
+        <span aria-hidden="true" style={{ display: 'inline-flex' }}>
+          {collapsed ? (
+            expandIcon || <Menu size={20} />
+          ) : (
+            collapseIcon || <PanelLeftClose size={20} />
+          )}
+        </span>
       </HeaderToggleRoot>
     </Tooltip>
   );

@@ -27,7 +27,7 @@ import { getUserMenuAvatarProps } from './getUserMenuAvatarProps';
 /**
  * Props for the UserMenu.Trigger component.
  */
-export interface UserMenuTriggerProps {
+export interface UserMenuTriggerProps extends Omit<React.ComponentProps<typeof IconButton>, 'children'> {
   /** User display name */
   name: string;
   /**
@@ -90,28 +90,32 @@ const StyledNameText = styled('span', {
 /**
  * UserMenu.Trigger - Avatar button that opens the menu.
  */
-export const UserMenuTrigger: React.FC<UserMenuTriggerProps> = ({ name, avatar, showName = false }) => {
-  const { open, handleOpen } = useUserMenu();
-  const avatarProps = getUserMenuAvatarProps(name, avatar);
+export const UserMenuTrigger = React.forwardRef<HTMLButtonElement, UserMenuTriggerProps>(
+  function UserMenuTrigger({ name, avatar, showName = false, ...props }, ref) {
+    const { open, handleOpen } = useUserMenu();
+    const avatarProps = getUserMenuAvatarProps(name, avatar);
 
-  return (
-    <Tooltip title="Account">
-      <StyledTrigger
-        onClick={handleOpen}
-        size="small"
-        showName={showName}
-        aria-label={showName ? name : 'Account'}
-        aria-controls={open ? 'user-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-      >
-        <StyledAvatar src={avatarProps.src} alt={name}>
-          {avatarProps.children}
-        </StyledAvatar>
-        {showName && <StyledNameText>{name}</StyledNameText>}
-      </StyledTrigger>
-    </Tooltip>
-  );
-};
+    return (
+      <Tooltip title="Account">
+        <StyledTrigger
+          ref={ref}
+          onClick={handleOpen}
+          size="small"
+          showName={showName}
+          aria-label={showName ? name : 'Account'}
+          aria-controls={open ? 'user-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          {...props}
+        >
+          <StyledAvatar src={avatarProps.src} alt={name}>
+            {avatarProps.children}
+          </StyledAvatar>
+          {showName && <StyledNameText>{name}</StyledNameText>}
+        </StyledTrigger>
+      </Tooltip>
+    );
+  }
+);
 
 UserMenuTrigger.displayName = 'UserMenu.Trigger';

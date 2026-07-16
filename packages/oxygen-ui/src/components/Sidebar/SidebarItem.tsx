@@ -298,8 +298,12 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
     depth,
   };
 
-  const handleClick = () => {
-    if (hasNestedItems) {
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    if (collapsed && hasNestedItems) {
+      // Keyboard users can't hover: clicking (Enter/Space) the collapsed
+      // parent toggles the nested-items popover.
+      setPopoverAnchor(popoverAnchor ? null : event.currentTarget);
+    } else if (hasNestedItems) {
       onToggleExpand?.(id);
     } else {
       onSelect?.(id);
@@ -329,11 +333,14 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
       onClick={handleClick}
       ownerState={ownerState}
       sx={sx}
+      aria-label={collapsed ? tooltipLabel : undefined}
+      aria-expanded={hasNestedItems ? (collapsed ? popoverOpen : isExpanded) : undefined}
+      aria-haspopup={collapsed && hasNestedItems ? 'menu' : undefined}
     >
       <SidebarItemProvider value={contextValue}>
         {composableChildren}
         {!collapsed && hasNestedItems && (
-          <SidebarItemChevron>
+          <SidebarItemChevron aria-hidden="true">
             {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
           </SidebarItemChevron>
         )}
