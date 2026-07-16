@@ -76,6 +76,11 @@ describe('SearchBar', () => {
     expect(screen.getByRole('textbox', { name: 'Find people' })).toBeDefined();
   });
 
+  it('does not set an empty aria-label when placeholder is empty', () => {
+    renderWithTheme(<SearchBar placeholder="" />);
+    expect(screen.getByRole('textbox').getAttribute('aria-label')).not.toBe('');
+  });
+
   it('forwards refs and data attributes to the root', () => {
     const ref = React.createRef<HTMLDivElement>();
     renderWithTheme(<SearchBar ref={ref} data-testid="search-root" />);

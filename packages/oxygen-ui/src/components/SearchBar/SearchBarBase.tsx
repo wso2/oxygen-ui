@@ -43,7 +43,7 @@ export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps
     Boolean(inputPropsAria?.['aria-labelledby']);
   // Avoid an empty htmlInput slot: MUI merges it over inputProps and would
   // drop a consumer-provided accessible name.
-  const shouldInjectPlaceholderLabel = !hasAccessibleName;
+  const shouldInjectPlaceholderLabel = !hasAccessibleName && Boolean(placeholder);
   const htmlInput = shouldInjectPlaceholderLabel || slotProps?.htmlInput
     ? {
         // Placeholder alone is a weak accessible name; expose it as a label
