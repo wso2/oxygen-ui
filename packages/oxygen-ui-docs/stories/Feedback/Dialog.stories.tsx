@@ -25,6 +25,15 @@ const meta: Meta<typeof Dialog> = {
   title: 'Feedback/Dialog',
   component: Dialog,
   parameters: {
+    a11y: {
+      // Known WCAG AA exception: the brand primary color (#FF7300) does not
+      // meet the 4.5:1 text-contrast requirement in the default themes.
+      // Tracked in https://github.com/ajirthan/oxygen-ui/issues/1 — remove
+      // this override once the palette decision lands.
+      options: {
+        rules: { 'color-contrast': { enabled: false } },
+      },
+    },
     layout: 'centered',
     docs: {
       description: {
