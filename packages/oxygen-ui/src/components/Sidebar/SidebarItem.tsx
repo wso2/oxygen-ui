@@ -345,6 +345,11 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
       clearCloseTimeout();
       setPopoverAnchor(event.currentTarget);
       setPopoverOpenedByClick(false);
+      // Keep expandedMenus in sync so reopening the full sidebar reflects
+      // nested items the user already inspected via the hover popover.
+      if (!isExpanded) {
+        onToggleExpand?.(id);
+      }
     }
   };
 
