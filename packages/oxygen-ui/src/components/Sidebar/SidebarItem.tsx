@@ -309,8 +309,12 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
       setPopoverAnchor(nextAnchor);
       setPopoverOpenedByClick(Boolean(nextAnchor));
       // Keep expandedMenus in sync so reopening the full sidebar reflects
-      // what the user toggled while the rail was collapsed.
-      onToggleExpand?.(id);
+      // what the user toggled while the rail was collapsed — but only toggle
+      // when the current expand state does not already match the popover.
+      const shouldBeExpanded = Boolean(nextAnchor);
+      if (isExpanded !== shouldBeExpanded) {
+        onToggleExpand?.(id);
+      }
     } else if (hasNestedItems) {
       onToggleExpand?.(id);
     } else {
