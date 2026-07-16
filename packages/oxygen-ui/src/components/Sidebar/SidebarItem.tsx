@@ -23,6 +23,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import MenuList from '@mui/material/MenuList';
 import Collapse from '@mui/material/Collapse';
 import Tooltip from '@mui/material/Tooltip';
 import Popover from '@mui/material/Popover';
@@ -114,9 +115,9 @@ const SidebarItemPopover = styled(Popover, {
 });
 
 /**
- * Styled list container for popover nested items.
+ * Styled menu list for popover nested items (supports keyboard focus).
  */
-const SidebarItemPopoverList = styled(List, {
+const SidebarItemPopoverList = styled(MenuList, {
   name: 'MuiSidebar',
   slot: 'ItemPopoverList',
 })(({ theme }) => ({
@@ -287,7 +288,9 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
 
   // Popover state for collapsed mode with nested items
   const [popoverAnchor, setPopoverAnchor] = React.useState<HTMLElement | null>(null);
+  const [popoverOpenedByClick, setPopoverOpenedByClick] = React.useState(false);
   const popoverOpen = Boolean(popoverAnchor);
+  const popoverId = React.useId();
 
   // Create context value for child components
   const contextValue: SidebarItemContextValue = {
@@ -302,7 +305,9 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
     if (collapsed && hasNestedItems) {
       // Keyboard users can't hover: clicking (Enter/Space) the collapsed
       // parent toggles the nested-items popover.
-      setPopoverAnchor(popoverAnchor ? null : event.currentTarget);
+      const nextAnchor = popoverAnchor ? null : event.currentTarget;
+      setPopoverAnchor(nextAnchor);
+      setPopoverOpenedByClick(Boolean(nextAnchor));
       // Keep expandedMenus in sync so reopening the full sidebar reflects
       // what the user toggled while the rail was collapsed.
       onToggleExpand?.(id);
@@ -317,11 +322,13 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
   const handleMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
     if (collapsed && hasNestedItems) {
       setPopoverAnchor(event.currentTarget);
+      setPopoverOpenedByClick(false);
     }
   };
 
   const handleMouseLeave = () => {
     setPopoverAnchor(null);
+    setPopoverOpenedByClick(false);
   };
 
   const tooltipLabel = getTooltipLabel(children);
@@ -339,6 +346,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
       aria-label={collapsed ? tooltipLabel : undefined}
       aria-expanded={hasNestedItems ? (collapsed ? popoverOpen : isExpanded) : undefined}
       aria-haspopup={collapsed && hasNestedItems ? 'menu' : undefined}
+      aria-controls={popoverOpen ? popoverId : undefined}
     >
       <SidebarItemProvider value={contextValue}>
         {composableChildren}
@@ -370,6 +378,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
   const handlePopoverItemClick = (itemId: string) => {
     onSelect?.(itemId);
     setPopoverAnchor(null);
+    setPopoverOpenedByClick(false);
   };
 
   return (
@@ -401,7 +410,9 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
           anchorOrigin={{ vertical: 'center', horizontal: 'right' }}
           transformOrigin={{ vertical: 'center', horizontal: 'left' }}
           onClose={handleMouseLeave}
-          disableRestoreFocus
+          // Restore focus after Escape/close when opened via click/keyboard;
+          // hover-only open should not steal or restore focus.
+          disableRestoreFocus={!popoverOpenedByClick}
           slotProps={{
             paper: {
               onMouseEnter: () => setPopoverAnchor(popoverAnchor),
@@ -409,7 +420,11 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
             },
           }}
         >
-          <SidebarItemPopoverList disablePadding>
+          <SidebarItemPopoverList
+            id={popoverId}
+            autoFocusItem={popoverOpen && popoverOpenedByClick}
+            disablePadding
+          >
             {nestedItems.map((child, index) => {
               if (React.isValidElement<SidebarItemProps>(child)) {
                 const childProps = child.props as SidebarItemProps;
