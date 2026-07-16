@@ -36,7 +36,10 @@ interface ColorSchemeToggleProps extends IconButtonProps {
 type Mode = 'light' | 'dark' | 'system';
 
 export const ColorSchemeToggle = React.forwardRef<HTMLButtonElement, ColorSchemeToggleProps>(
-  function ColorSchemeToggle({ darkModeIcon, lightModeIcon, systemModeIcon, onClick, ...buttonProps }, ref) {
+  function ColorSchemeToggle(
+    { darkModeIcon, lightModeIcon, systemModeIcon, onClick, 'aria-label': ariaLabel, ...buttonProps },
+    ref,
+  ) {
     const { mode, setMode } = useColorScheme();
 
     if (!mode) {
@@ -50,6 +53,9 @@ export const ColorSchemeToggle = React.forwardRef<HTMLButtonElement, ColorScheme
     };
 
     const currentMode: Mode = mode ?? 'system';
+    const defaultAriaLabel = `Switch to ${nextMode(currentMode)} mode`;
+    const resolvedAriaLabel =
+      typeof ariaLabel === 'string' && ariaLabel.trim().length > 0 ? ariaLabel : defaultAriaLabel;
 
     const ColorSchemeIcon = () => {
       switch (currentMode) {
@@ -66,8 +72,8 @@ export const ColorSchemeToggle = React.forwardRef<HTMLButtonElement, ColorScheme
       <Tooltip title={`${currentMode.charAt(0).toUpperCase()}${currentMode.slice(1)} Mode`}>
         <IconButton
           ref={ref}
-          aria-label={`Switch to ${nextMode(currentMode)} mode`}
           {...buttonProps}
+          aria-label={resolvedAriaLabel}
           onClick={(event) => {
             setMode(nextMode(currentMode));
             onClick?.(event);
