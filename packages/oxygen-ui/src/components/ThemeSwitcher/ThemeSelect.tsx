@@ -83,7 +83,9 @@ export default function ThemeSelect({
         labelId={ labelId }
         value={ currentTheme }
         onChange={ handleChange }
-        label={ showLabel ? label : undefined }
+        // Keep label in sync with InputLabel so the outlined notch matches,
+        // even when the label is visually hidden.
+        label={ label }
       >
         { themes.map((themeOption) => (
           <MenuItem key={themeOption.key} value={themeOption.key}>
