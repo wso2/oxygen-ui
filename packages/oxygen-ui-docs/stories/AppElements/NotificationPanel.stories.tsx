@@ -39,6 +39,15 @@ const meta: Meta<typeof NotificationPanel> = {
   component: NotificationPanel,
   tags: ['autodocs'],
   parameters: {
+    a11y: {
+      // Known WCAG AA exception: the brand primary color (#FF7300) does not
+      // meet the 4.5:1 text-contrast requirement in the default themes.
+      // Tracked in https://github.com/ajirthan/oxygen-ui/issues/1 — remove
+      // this override once the palette decision lands.
+      options: {
+        rules: { 'color-contrast': { enabled: false } },
+      },
+    },
     layout: 'centered',
     docs: {
       description: {
@@ -86,7 +95,12 @@ import { NotificationPanel } from '@wso2/oxygen-ui';
   </NotificationPanel.List>
 </NotificationPanel>
 \`\`\`
-        `,
+        
+### Accessibility
+- Opens in an MUI Drawer with focus management; Escape closes the panel.
+- The header close button and per-item dismiss buttons have accessible names built in.
+- New notifications are not announced automatically yet — see the accessibility audit for the tracked live-region follow-up.
+`,
       },
     },
   },

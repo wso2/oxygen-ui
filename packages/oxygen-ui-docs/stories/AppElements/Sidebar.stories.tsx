@@ -83,7 +83,12 @@ import { Sidebar } from '@wso2/oxygen-ui';
   </Sidebar.Nav>
 </Sidebar>
 \`\`\`
-        `,
+        
+### Accessibility
+- Renders as an \`aside\` landmark with a \`nav\` region for items.
+- Items are keyboard operable; parents with nested items expose \`aria-expanded\`. When collapsed, items are labeled from their content and Enter/Space opens the nested-items popover (hover is not required).
+- Provide meaningful item labels — icon-only items derive their accessible name from the label content.
+`,
       },
     },
   },

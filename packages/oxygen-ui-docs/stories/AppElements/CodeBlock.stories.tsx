@@ -28,7 +28,11 @@ const meta: Meta<typeof CodeBlock> = {
   parameters: {
     docs: {
       description: {
-        component: 'A code block component with syntax highlighting powered by Prism.js. Supports multiple programming languages and automatically adapts to light/dark themes.',
+        component:
+          'A code block component with syntax highlighting powered by Prism.js. Supports multiple programming languages and automatically adapts to light/dark themes.\n\n' +
+          '### Accessibility\n' +
+          '- Default light and dark syntax colors meet the WCAG AA 4.5:1 contrast ratio against the code background.\n' +
+          '- Custom `syntax` theme tokens should preserve at least 4.5:1 contrast for all token colors.',
       },
     },
   },

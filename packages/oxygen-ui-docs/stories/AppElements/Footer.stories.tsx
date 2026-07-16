@@ -57,7 +57,11 @@ import { Footer } from '@wso2/oxygen-ui';
   <Footer.Link href="/docs">Documentation</Footer.Link>
 </Footer>
 \`\`\`
-        `,
+        
+### Accessibility
+- Renders as a semantic \`footer\` landmark.
+- \`Footer.Version\` uses \`text.secondary\` so the small version string keeps a WCAG AA contrast ratio.
+`,
       },
     },
   },
