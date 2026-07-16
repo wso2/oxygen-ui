@@ -47,10 +47,10 @@ const meta: Meta = {
       // Known WCAG AA exceptions:
       // - color-contrast: the brand primary color (#FF7300) does not meet the
       //   4.5:1 text-contrast requirement in the default themes. Tracked in
-      //   https://github.com/ajirthan/oxygen-ui/issues/1
+      //   https://github.com/wso2/oxygen-ui/issues/558
       // - nested-interactive: Form.CardButton renders the card as a <button>
       //   with focusable action buttons inside. Tracked in
-      //   https://github.com/ajirthan/oxygen-ui/issues/6
+      //   https://github.com/wso2/oxygen-ui/issues/562
       options: {
         rules: {
           'color-contrast': { enabled: false },

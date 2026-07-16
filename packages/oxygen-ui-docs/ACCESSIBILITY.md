@@ -61,25 +61,26 @@
 
 | Issue | Title | Severity |
 | --- | --- | --- |
-| [#5](https://github.com/ajirthan/oxygen-ui/issues/5) | **Epic:** Oxygen UI WCAG 2.1 AA Accessibility Audit | — |
-| [#1](https://github.com/ajirthan/oxygen-ui/issues/1) | Brand primary `#FF7300` fails WCAG AA 4.5:1 text contrast (Classic/WSO2 themes) | High (needs design decision) |
-| [#2](https://github.com/ajirthan/oxygen-ui/issues/2) | `forwardRef` + full prop forwarding rollout for remaining compound components | Medium |
-| [#3](https://github.com/ajirthan/oxygen-ui/issues/3) | NotificationPanel live-region announcements and drawer labeling | Medium |
-| [#4](https://github.com/ajirthan/oxygen-ui/issues/4) | Medium/low severity wrapper-audit follow-ups (SVG roles, landmark guidance, `aria-describedby` for form errors, hardcoded colors, decorative icons) | Medium/Low |
-| [#6](https://github.com/ajirthan/oxygen-ui/issues/6) | `Form.CardButton` nests interactive controls inside a `<button>` (`nested-interactive`) | High |
+| [#557](https://github.com/wso2/oxygen-ui/issues/557) | **Epic:** Ensure WCAG 2.2 AA compliance across Oxygen UI | — |
+| [#558](https://github.com/wso2/oxygen-ui/issues/558) | Brand primary `#FF7300` fails WCAG AA 4.5:1 text contrast (Classic/WSO2 themes) | High (needs design decision) |
+| [#559](https://github.com/wso2/oxygen-ui/issues/559) | `forwardRef` + full prop forwarding rollout for remaining compound components | Medium |
+| [#560](https://github.com/wso2/oxygen-ui/issues/560) | NotificationPanel live-region announcements and drawer labeling | Medium |
+| [#561](https://github.com/wso2/oxygen-ui/issues/561) | Medium/low severity wrapper-audit follow-ups (SVG roles, landmark guidance, `aria-describedby` for form errors, hardcoded colors, decorative icons) | Medium/Low |
+| [#562](https://github.com/wso2/oxygen-ui/issues/562) | `Form.CardButton` nests interactive controls inside a `<button>` (`nested-interactive`) | High |
+| [#563](https://github.com/wso2/oxygen-ui/issues/563) | Manual AT pass (VoiceOver/NVDA, zoom 200%/400%) | High |
 
 ## 5. Documented exceptions
 
 Stories that would otherwise fail carry a `parameters.a11y.options.rules` override with a comment linking the tracking issue. They remain visible in the Storybook a11y addon panel.
 
-- **`color-contrast` (34 stories)** — every occurrence traces to the brand primary `#FF7300` used by the default `Classic`/`WSO2` themes (2.61:1 as text on `#fafafa`, 2.72:1 with white text on orange). Changing the brand palette needs design sign-off → [#1](https://github.com/ajirthan/oxygen-ui/issues/1). The `Theming/Colors` stories are additionally excluded because they are raw Material palette swatch demos.
-- **`nested-interactive` (2 stories)** — `Form.CardButton` design flaw → [#6](https://github.com/ajirthan/oxygen-ui/issues/6).
+- **`color-contrast` (34 stories)** — every occurrence traces to the brand primary `#FF7300` used by the default `Classic`/`WSO2` themes (2.61:1 as text on `#fafafa`, 2.72:1 with white text on orange). Changing the brand palette needs design sign-off → [#558](https://github.com/wso2/oxygen-ui/issues/558). The `Theming/Colors` stories are additionally excluded because they are raw Material palette swatch demos.
+- **`nested-interactive` (2 stories)** — `Form.CardButton` design flaw → [#562](https://github.com/wso2/oxygen-ui/issues/562).
 
 ## 6. Remaining manual verification
 
-These require a human with real assistive technology and are part of the epic's acceptance:
+These require a human with real assistive technology and are tracked in [#563](https://github.com/wso2/oxygen-ui/issues/563):
 
-1. **Screen reader pass** (VoiceOver on macOS, NVDA on Windows) over: `AppShell` + `Sidebar` navigation, `UserMenu`, `NotificationPanel` (see [#3](https://github.com/ajirthan/oxygen-ui/issues/3)), `ListingTable` (table semantics and sort announcements), `ComplexSelect`, Form templates (error announcement flow — `aria-describedby` wiring is tracked in [#4](https://github.com/ajirthan/oxygen-ui/issues/4)).
+1. **Screen reader pass** (VoiceOver on macOS, NVDA on Windows) over: `AppShell` + `Sidebar` navigation, `UserMenu`, `NotificationPanel` (see [#560](https://github.com/wso2/oxygen-ui/issues/560)), `ListingTable` (table semantics and sort announcements), `ComplexSelect`, Form templates (error announcement flow — `aria-describedby` wiring is tracked in [#561](https://github.com/wso2/oxygen-ui/issues/561)).
 2. **Zoom/reflow** at 200% and 400% (WCAG 1.4.10) on `AppShell`, `Layout`, `Sidebar`, and the Templates stories.
 3. **Focus-indicator contrast** (≥ 3:1, WCAG 2.4.7/1.4.11) spot-checks per theme in both color schemes; the theme files do not suppress `:focus-visible` anywhere (verified by source audit), so MUI defaults apply.
 4. **Keyboard passes on themed MUI composites** (Dialog, Menu, Tabs, Accordion, Drawer, DataGrid) — expected to inherit MUI behavior; verify no theme override interferes.
