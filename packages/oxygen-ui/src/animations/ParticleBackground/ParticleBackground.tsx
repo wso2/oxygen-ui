@@ -187,6 +187,10 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
       }
     }
 
+    // Users who prefer reduced motion (WCAG 2.3.3) get a single static frame
+    // instead of the continuous animation.
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
     // Resize handler
     function resize() {
       DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
@@ -195,6 +199,11 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
       canvasEl.style.width = window.innerWidth + 'px';
       canvasEl.style.height = window.innerHeight + 'px';
       computeParticlesCount();
+      // Setting canvas width/height clears the bitmap; under reduced motion
+      // there is no animation loop to repaint, so redraw the static frame.
+      if (reducedMotionQuery.matches) {
+        drawStaticFrame();
+      }
     }
 
     function computeParticlesCount() {
@@ -213,6 +222,7 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
     const mouse = { x: null as number | null, y: null as number | null };
 
     const handleMouseMove = (e: MouseEvent) => {
+      if (reducedMotionQuery.matches) return;
       mouse.x = e.clientX * DPR;
       mouse.y = e.clientY * DPR;
     };
@@ -222,6 +232,7 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
     };
 
     const handleClick = (e: MouseEvent) => {
+      if (reducedMotionQuery.matches) return;
       const mx = e.clientX * DPR;
       const my = e.clientY * DPR;
       for (let i = 0; i < particles.length; i++) {
@@ -263,10 +274,6 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
       }
       context.globalAlpha = 1;
     }
-
-    // Users who prefer reduced motion (WCAG 2.3.3) get a single static frame
-    // instead of the continuous animation.
-    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     // Draw a single static frame (no particle movement)
     function drawStaticFrame() {
