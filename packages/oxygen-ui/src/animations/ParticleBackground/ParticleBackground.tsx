@@ -264,6 +264,19 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
       context.globalAlpha = 1;
     }
 
+    // Users who prefer reduced motion (WCAG 2.3.3) get a single static frame
+    // instead of the continuous animation.
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    // Draw a single static frame (no particle movement)
+    function drawStaticFrame() {
+      context.clearRect(0, 0, W, H);
+      drawLinks();
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].draw();
+      }
+    }
+
     // Animation loop
     function loop() {
       context.clearRect(0, 0, W, H);
@@ -282,6 +295,19 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
       animationFrameId = requestAnimationFrame(loop);
     }
 
+    function startRendering() {
+      cancelAnimationFrame(animationFrameId);
+      if (reducedMotionQuery.matches) {
+        drawStaticFrame();
+      } else {
+        loop();
+      }
+    }
+
+    const handleReducedMotionChange = () => {
+      startRendering();
+    };
+
     // Initialize
     resize();
     for (let i = 0; i < 120; i++) particles.push(new Particle());
@@ -292,9 +318,10 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('mouseleave', handleMouseLeave);
     window.addEventListener('click', handleClick);
+    reducedMotionQuery.addEventListener('change', handleReducedMotionChange);
 
-    // Start animation
-    loop();
+    // Start animation (or render a static frame under reduced motion)
+    startRendering();
 
     // Cleanup
     return () => {
@@ -302,6 +329,7 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);
       window.removeEventListener('click', handleClick);
+      reducedMotionQuery.removeEventListener('change', handleReducedMotionChange);
       cancelAnimationFrame(animationFrameId);
     };
   }, [baseDensity, maxSpeed, radius, linkDist, linkAlpha, mouseInfluence, repelStrength, clickBurst, mode]);
@@ -310,6 +338,7 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
     <canvas
       ref={canvasRef}
       id="particle-bg"
+      aria-hidden="true"
       style={{
         position: 'fixed',
         top: 0,

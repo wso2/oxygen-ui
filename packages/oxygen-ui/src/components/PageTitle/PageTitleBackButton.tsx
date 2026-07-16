@@ -108,7 +108,7 @@ const PageTitleBackButton: React.FC<PageTitleBackButtonProps> = ({
       }}
       {...props}
     >
-      <ArrowLeft size={20} />
+      <ArrowLeft size={20} aria-hidden="true" />
       <Typography variant="body2">{children}</Typography>
     </Button>
   );
