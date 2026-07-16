@@ -121,7 +121,7 @@ export const Standard: Story = {
  */
 export const WithTitleBar: Story = {
   render: () => (
-    <ImageList sx={{ width: 500, height: 450 }} cols={3}>
+    <ImageList sx={{ width: 500, height: 450 }} cols={3} tabIndex={0} aria-label="Photo gallery with titles">
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
           <img
@@ -157,6 +157,8 @@ export const Quilted: Story = {
         variant="quilted"
         cols={4}
         rowHeight={121}
+        tabIndex={0}
+        aria-label="Quilted photo gallery"
       >
         {itemData.map((item, index) => (
           <ImageListItem
@@ -181,7 +183,7 @@ export const Quilted: Story = {
  */
 export const Woven: Story = {
   render: () => (
-    <ImageList sx={{ width: 500, height: 450 }} variant="woven" cols={3} gap={8}>
+    <ImageList sx={{ width: 500, height: 450 }} variant="woven" cols={3} gap={8} tabIndex={0} aria-label="Woven photo gallery">
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
           <img
@@ -201,7 +203,7 @@ export const Woven: Story = {
  */
 export const Masonry: Story = {
   render: () => (
-    <ImageList sx={{ width: 500, height: 450 }} variant="masonry" cols={3} gap={8}>
+    <ImageList sx={{ width: 500, height: 450 }} variant="masonry" cols={3} gap={8} tabIndex={0} aria-label="Masonry photo gallery">
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
           <img
@@ -221,7 +223,7 @@ export const Masonry: Story = {
  */
 export const CustomBar: Story = {
   render: () => (
-    <ImageList sx={{ width: 500, height: 450 }} cols={3}>
+    <ImageList sx={{ width: 500, height: 450 }} cols={3} tabIndex={0} aria-label="Photo gallery with custom bars">
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
           <img
