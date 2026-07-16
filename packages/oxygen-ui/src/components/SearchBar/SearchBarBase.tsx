@@ -44,8 +44,11 @@ export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps
   const htmlInputSlotProps = slotProps?.htmlInput as
     | { 'aria-label'?: string; 'aria-labelledby'?: string }
     | undefined;
+  // String labels need trimmed content; non-string ReactNode labels count as present.
+  const hasMeaningfulLabel =
+    typeof label === 'string' ? hasMeaningfulAriaValue(label) : Boolean(label);
   const hasAccessibleName =
-    Boolean(label) ||
+    hasMeaningfulLabel ||
     hasMeaningfulAriaValue(ariaLabel) ||
     hasMeaningfulAriaValue(ariaLabelledBy) ||
     hasMeaningfulAriaValue(htmlInputSlotProps?.['aria-label']) ||
