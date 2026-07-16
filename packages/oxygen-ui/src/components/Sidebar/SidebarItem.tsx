@@ -303,6 +303,9 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
       // Keyboard users can't hover: clicking (Enter/Space) the collapsed
       // parent toggles the nested-items popover.
       setPopoverAnchor(popoverAnchor ? null : event.currentTarget);
+      // Keep expandedMenus in sync so reopening the full sidebar reflects
+      // what the user toggled while the rail was collapsed.
+      onToggleExpand?.(id);
     } else if (hasNestedItems) {
       onToggleExpand?.(id);
     } else {
