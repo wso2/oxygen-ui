@@ -100,7 +100,8 @@ const itemData = [
  */
 export const Standard: Story = {
   render: () => (
-    <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+    // Fixed-height image lists scroll, so they need to be keyboard focusable
+    <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164} tabIndex={0} aria-label="Photo gallery">
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
           <img
