@@ -81,6 +81,16 @@ describe('SearchBar', () => {
     expect(screen.getByRole('textbox').getAttribute('aria-label')).not.toBe('');
   });
 
+  it('keeps the placeholder aria-label when slotProps.htmlInput has an empty aria-label', () => {
+    renderWithTheme(
+      <SearchBar
+        placeholder="Search users"
+        slotProps={{ htmlInput: { 'aria-label': '' } }}
+      />,
+    );
+    expect(screen.getByRole('textbox', { name: 'Search users' })).toBeDefined();
+  });
+
   it('forwards refs and data attributes to the root', () => {
     const ref = React.createRef<HTMLDivElement>();
     renderWithTheme(<SearchBar ref={ref} data-testid="search-root" />);

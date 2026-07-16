@@ -47,9 +47,10 @@ export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps
   const htmlInput = shouldInjectPlaceholderLabel || slotProps?.htmlInput
     ? {
         // Placeholder alone is a weak accessible name; expose it as a label
-        // unless the consumer supplied their own labelling.
-        ...(shouldInjectPlaceholderLabel ? { 'aria-label': placeholder } : null),
+        // unless the consumer supplied their own labelling. Inject after
+        // consumer props so an empty aria-label="" cannot wipe the name.
         ...slotProps?.htmlInput,
+        ...(shouldInjectPlaceholderLabel ? { 'aria-label': placeholder } : null),
       }
     : undefined;
 
