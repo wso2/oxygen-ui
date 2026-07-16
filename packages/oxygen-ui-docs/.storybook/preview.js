@@ -29,7 +29,6 @@ import {
   useThemeSwitcher,
   AcrylicOrangeTheme,
   AcrylicPurpleTheme,
-  ChoreoTheme,
   ClassicTheme,
   HighContrastTheme,
   PaleGrayTheme,
@@ -134,7 +133,6 @@ const preview = {
       const themes = React.useMemo(() => [
         { key: 'acrylicOrange', label: 'Acrylic Orange', theme: AcrylicOrangeTheme },
         { key: 'acrylicPurple', label: 'Acrylic Purple', theme: AcrylicPurpleTheme },
-        { key: 'choreo', label: 'Choreo', theme: ChoreoTheme },
         { key: 'classic', label: 'Classic', theme: ClassicTheme },
         { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
         { key: 'paleGray', label: 'Pale Gray', theme: PaleGrayTheme },
@@ -164,6 +162,21 @@ const preview = {
   ],
 
   parameters: {
+    a11y: {
+      // Run axe against the WCAG 2.1 AA ruleset (plus its A prerequisites).
+      config: {},
+      options: {
+        runOnly: {
+          type: 'tag',
+          values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'],
+        },
+      },
+      // Violations fail the story when run via the test-runner / CI.
+      // Individual stories with known, tracked issues may override this
+      // with 'todo' and a comment linking to the follow-up issue.
+      test: 'error',
+    },
+
     backgrounds: {
       disable: true,
     },
@@ -173,6 +186,7 @@ const preview = {
           'Welcome',
           'Getting Started',
           'How To Contribute',
+          'Accessibility',
           'App Elements', [
             'App Shell',
             'App Breadcrumbs',

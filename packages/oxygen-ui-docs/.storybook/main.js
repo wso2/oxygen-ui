@@ -30,6 +30,7 @@ export default {
   addons: [
     '@storybook/addon-docs',
     '@storybook/addon-links',
+    '@storybook/addon-a11y',
   ],
   framework: {
     name: '@storybook/react-webpack5',
