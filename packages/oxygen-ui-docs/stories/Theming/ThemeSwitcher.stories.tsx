@@ -86,7 +86,11 @@ const themes = [
 ### ⚠️ Important
 ThemeSwitcher requires OxygenUIThemeProvider with the \`themes\` prop.
 It will not work with a single theme configuration.
-        `,
+        
+### Accessibility
+- The select always has an accessible name: the label is visually hidden when \`showLabel\` is false, but remains available to screen readers.
+- Standard MUI Select keyboard behavior applies (Arrow keys, Enter, Escape).
+`,
       },
     },
   },
