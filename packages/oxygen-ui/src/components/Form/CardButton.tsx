@@ -43,6 +43,7 @@ const StyledCardButton = styled(Card, {
   alignItems: alignItems,
   display: 'flex',
   textAlign: 'left',
+  overflow: 'hidden',
   transition: 'all 0.3s ease',
   cursor: 'pointer',
   "&.MuiCard-root": {
