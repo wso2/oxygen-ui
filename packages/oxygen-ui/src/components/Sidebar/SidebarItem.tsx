@@ -308,6 +308,15 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
 
   React.useEffect(() => () => clearCloseTimeout(), [clearCloseTimeout]);
 
+  // Expanding the sidebar unmounts the collapsed popover UI; clear leftover
+  // anchor state so collapsing again does not reopen the menu without a new
+  // hover or click.
+  React.useEffect(() => {
+    if (!collapsed) {
+      closePopover();
+    }
+  }, [collapsed, closePopover]);
+
   // Create context value for child components
   const contextValue: SidebarItemContextValue = {
     id,
