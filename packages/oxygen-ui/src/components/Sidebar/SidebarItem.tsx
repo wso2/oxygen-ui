@@ -289,8 +289,24 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
   // Popover state for collapsed mode with nested items
   const [popoverAnchor, setPopoverAnchor] = React.useState<HTMLElement | null>(null);
   const [popoverOpenedByClick, setPopoverOpenedByClick] = React.useState(false);
+  const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const popoverOpen = Boolean(popoverAnchor);
   const popoverId = React.useId();
+
+  const clearCloseTimeout = React.useCallback(() => {
+    if (closeTimeoutRef.current != null) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+  }, []);
+
+  const closePopover = React.useCallback(() => {
+    clearCloseTimeout();
+    setPopoverAnchor(null);
+    setPopoverOpenedByClick(false);
+  }, [clearCloseTimeout]);
+
+  React.useEffect(() => () => clearCloseTimeout(), [clearCloseTimeout]);
 
   // Create context value for child components
   const contextValue: SidebarItemContextValue = {
@@ -306,6 +322,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
       // Keyboard users can't hover: clicking (Enter/Space) the collapsed
       // parent toggles the nested-items popover.
       const nextAnchor = popoverAnchor ? null : event.currentTarget;
+      clearCloseTimeout();
       setPopoverAnchor(nextAnchor);
       setPopoverOpenedByClick(Boolean(nextAnchor));
       // Keep expandedMenus in sync so reopening the full sidebar reflects
@@ -325,14 +342,23 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
   // Hover handlers for collapsed state popover
   const handleMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
     if (collapsed && hasNestedItems) {
+      clearCloseTimeout();
       setPopoverAnchor(event.currentTarget);
       setPopoverOpenedByClick(false);
     }
   };
 
+  // Click/keyboard-opened menus stay open until Escape, backdrop, or item
+  // selection. Hover-opened menus use a short leave delay so the pointer can
+  // bridge the gap from the rail item to the sibling popover paper.
   const handleMouseLeave = () => {
-    setPopoverAnchor(null);
-    setPopoverOpenedByClick(false);
+    if (popoverOpenedByClick) {
+      return;
+    }
+    clearCloseTimeout();
+    closeTimeoutRef.current = setTimeout(() => {
+      closePopover();
+    }, 100);
   };
 
   const tooltipLabel = getTooltipLabel(children);
@@ -381,8 +407,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
   // Handler for clicking a nested item in the popover
   const handlePopoverItemClick = (itemId: string) => {
     onSelect?.(itemId);
-    setPopoverAnchor(null);
-    setPopoverOpenedByClick(false);
+    closePopover();
   };
 
   return (
@@ -413,13 +438,13 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
           anchorEl={popoverAnchor}
           anchorOrigin={{ vertical: 'center', horizontal: 'right' }}
           transformOrigin={{ vertical: 'center', horizontal: 'left' }}
-          onClose={handleMouseLeave}
+          onClose={closePopover}
           // Restore focus after Escape/close when opened via click/keyboard;
           // hover-only open should not steal or restore focus.
           disableRestoreFocus={!popoverOpenedByClick}
           slotProps={{
             paper: {
-              onMouseEnter: () => setPopoverAnchor(popoverAnchor),
+              onMouseEnter: clearCloseTimeout,
               onMouseLeave: handleMouseLeave,
             },
           }}
