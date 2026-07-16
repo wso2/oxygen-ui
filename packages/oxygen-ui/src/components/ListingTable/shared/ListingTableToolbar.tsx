@@ -144,7 +144,7 @@ export function ListingTableToolbar({
             maxWidth: searchMaxWidth,
           }}
           inputProps={{
-            'aria-label': searchPlaceholder,
+            'aria-label': searchPlaceholder || 'Search',
           }}
           InputProps={{
             startAdornment: (

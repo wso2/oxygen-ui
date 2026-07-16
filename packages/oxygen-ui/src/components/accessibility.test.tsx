@@ -39,6 +39,7 @@ import { ElementWrapper } from './Form/ElementWrapper';
 import HeaderToggle from './Header/HeaderToggle';
 import HeaderBrand from './Header/HeaderBrand';
 import AppBreadcrumbs from './AppBreadcrumbs/AppBreadcrumbs';
+import ListingTableToolbar from './ListingTable/shared/ListingTableToolbar';
 
 const renderWithTheme = (ui: React.ReactElement) =>
   render(<OxygenUIThemeProvider>{ui}</OxygenUIThemeProvider>);
@@ -100,6 +101,19 @@ describe('SearchBar', () => {
     const ref = React.createRef<HTMLDivElement>();
     renderWithTheme(<SearchBar ref={ref} data-testid="search-root" />);
     expect(ref.current).toBe(screen.getByTestId('search-root'));
+  });
+});
+
+describe('ListingTableToolbar', () => {
+  it('labels the search input from the placeholder by default', () => {
+    renderWithTheme(<ListingTableToolbar showSearch searchPlaceholder="Search users" />);
+    expect(screen.getByRole('textbox', { name: 'Search users' })).toBeDefined();
+  });
+
+  it('does not set an empty aria-label when searchPlaceholder is empty', () => {
+    renderWithTheme(<ListingTableToolbar showSearch searchPlaceholder="" />);
+    expect(screen.getByRole('textbox').getAttribute('aria-label')).not.toBe('');
+    expect(screen.getByRole('textbox', { name: 'Search' })).toBeDefined();
   });
 });
 
