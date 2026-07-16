@@ -16,7 +16,9 @@
  * under the License.
  */
 
+import { useId } from 'react';
 import { Select, MenuItem, FormControl, InputLabel, SelectChangeEvent } from '@mui/material';
+import { visuallyHidden } from '@mui/utils';
 import { useThemeSwitcher } from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
 
 export interface ThemeSelectProps {
@@ -64,6 +66,7 @@ export default function ThemeSelect({
   sx,
 }: ThemeSelectProps) {
   const { currentTheme, themes, setTheme } = useThemeSwitcher();
+  const labelId = useId();
 
   const handleChange = (event: SelectChangeEvent) => {
     setTheme(event.target.value);
@@ -71,9 +74,13 @@ export default function ThemeSelect({
 
   return (
     <FormControl size={size} variant={variant} sx={{ minWidth: 120, ...sx }}>
-      { showLabel && <InputLabel id="theme-select-label">{label}</InputLabel> }
+      {/* Keep the label visually hidden when showLabel is false so the
+          select still has an accessible name (WCAG 4.1.2). */}
+      <InputLabel id={labelId} sx={showLabel ? undefined : visuallyHidden}>
+        {label}
+      </InputLabel>
       <Select
-        labelId={ showLabel ? 'theme-select-label' : undefined }
+        labelId={ labelId }
         value={ currentTheme }
         onChange={ handleChange }
         label={ showLabel ? label : undefined }

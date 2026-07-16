@@ -16,6 +16,7 @@
  * under the License.
  */
 
+import * as React from 'react';
 import { useColorScheme } from '@mui/material/styles';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import { Moon, Monitor, Sun } from '@wso2/oxygen-ui-icons-react';
@@ -34,44 +35,46 @@ interface ColorSchemeToggleProps extends IconButtonProps {
 
 type Mode = 'light' | 'dark' | 'system';
 
-export const ColorSchemeToggle: React.FC<ColorSchemeToggleProps> = ({
-  darkModeIcon,
-  lightModeIcon,
-  systemModeIcon,
-  ...buttonProps
-}) => {
-  const { mode, setMode } = useColorScheme();
+export const ColorSchemeToggle = React.forwardRef<HTMLButtonElement, ColorSchemeToggleProps>(
+  function ColorSchemeToggle({ darkModeIcon, lightModeIcon, systemModeIcon, ...buttonProps }, ref) {
+    const { mode, setMode } = useColorScheme();
 
-  if (!mode) {
-    return null;
-  }
-
-  const nextMode = (currentMode: Mode): Mode => {
-    if (currentMode === 'light') return 'dark';
-    if (currentMode === 'dark') return 'system';
-    return 'light';
-  };
-
-  const currentMode: Mode = mode ?? 'system';
-
-  const ColorSchemeIcon = () => {
-    switch (currentMode) {
-      case 'light':
-        return lightModeIcon ?? <Sun />;
-      case 'dark':
-        return darkModeIcon ?? <Moon />;
-      default:
-        return systemModeIcon ?? <Monitor />;
+    if (!mode) {
+      return null;
     }
-  };
 
-  return (
-    <Tooltip title={`${currentMode.charAt(0).toUpperCase()}${currentMode.slice(1)} Mode`}>
-      <IconButton {...buttonProps} onClick={() => setMode(nextMode(currentMode))}>
-        <ColorSchemeIcon />
-      </IconButton>
-    </Tooltip>
-  );
-};
+    const nextMode = (currentMode: Mode): Mode => {
+      if (currentMode === 'light') return 'dark';
+      if (currentMode === 'dark') return 'system';
+      return 'light';
+    };
+
+    const currentMode: Mode = mode ?? 'system';
+
+    const ColorSchemeIcon = () => {
+      switch (currentMode) {
+        case 'light':
+          return lightModeIcon ?? <Sun />;
+        case 'dark':
+          return darkModeIcon ?? <Moon />;
+        default:
+          return systemModeIcon ?? <Monitor />;
+      }
+    };
+
+    return (
+      <Tooltip title={`${currentMode.charAt(0).toUpperCase()}${currentMode.slice(1)} Mode`}>
+        <IconButton
+          ref={ref}
+          aria-label={`Switch to ${nextMode(currentMode)} mode`}
+          {...buttonProps}
+          onClick={() => setMode(nextMode(currentMode))}
+        >
+          <ColorSchemeIcon />
+        </IconButton>
+      </Tooltip>
+    );
+  }
+);
 
 export default ColorSchemeToggle;

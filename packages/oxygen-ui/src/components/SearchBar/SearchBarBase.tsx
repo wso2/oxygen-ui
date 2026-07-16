@@ -25,26 +25,30 @@ export interface SearchBarBaseProps extends Omit<TextFieldProps, 'variant'> {
   endAdornment?: React.ReactNode
 }
 
-export function SearchBarBase({
-  placeholder = 'Search',
-  endAdornment,
-  slotProps,
-  sx,
-  ...props
-}: SearchBarBaseProps) {
+export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps>(function SearchBarBase(
+  { placeholder = 'Search', endAdornment, slotProps, sx, ...props },
+  ref,
+) {
   return (
     <TextField
       {...props}
+      ref={ref}
       placeholder={placeholder}
       variant="outlined"
       size="small"
       slotProps={{
         ...slotProps,
+        htmlInput: {
+          // Placeholder alone is a weak accessible name; expose it as a label
+          // unless the consumer supplied their own labelling.
+          'aria-label': placeholder,
+          ...slotProps?.htmlInput,
+        },
         input: {
           ...slotProps?.input,
           startAdornment: (
             <InputAdornment position="start">
-              <Search fontSize="small" />
+              <Search fontSize="small" aria-hidden="true" />
             </InputAdornment>
           ),
           endAdornment: endAdornment,
@@ -61,6 +65,6 @@ export function SearchBarBase({
       }}
     />
   )
-}
+})
 
 export default SearchBarBase
