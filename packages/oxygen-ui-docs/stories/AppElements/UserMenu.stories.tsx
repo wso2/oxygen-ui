@@ -43,7 +43,7 @@ The UserMenu is a compound component that provides a user profile dropdown menu 
 
 ### Features
 - Composable structure with Trigger, Header, Item, Logout, and Divider sub-components
-- User avatar button that opens dropdown (supports image URLs or text fallback)
+- User avatar button that opens dropdown (supports image URLs or initials text)
 - Option to show user name next to avatar with \`showName\` prop
 - User info header with name, email, and role badge
 - Customizable menu items for various actions
@@ -65,13 +65,13 @@ import { User, Settings, CreditCard, LogOut } from '@wso2/oxygen-ui-icons-react'
 <UserMenu>
   <UserMenu.Trigger 
     name="John Doe" 
-    avatar="/avatar.jpg"  // Image URL or null for initials
+    avatar="JD"  // Initials text, or an image URL like "/avatar.jpg"
     showName  // Optional: show name next to avatar
   />
   <UserMenu.Header 
     name="John Doe" 
     email="john@example.com" 
-    avatar="/avatar.jpg"
+    avatar="JD"
     role="Pro"  // Optional role badge
   />
   <UserMenu.Item
@@ -108,7 +108,7 @@ export const Composed: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
       <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
-        Composition Pattern - Click the avatar to open menu
+        Composition Pattern - Initials avatar on trigger and header
       </Typography>
       <UserMenu>
         <UserMenu.Trigger name="John Doe" avatar="JD" />
@@ -185,7 +185,7 @@ export const WithNameVisible: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
       <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
-        Avatar with name displayed
+        Initials avatar with name displayed
       </Typography>
       <UserMenu>
         <UserMenu.Trigger 
