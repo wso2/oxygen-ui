@@ -152,7 +152,7 @@ const AcrylicBaseTheme = {
       styleOverrides: {
         paper: ({ theme }: { theme: OxygenTheme }) => ({
           background: theme.vars!.palette.background.paper,
-          borderRight: `${theme.border.width} ${theme.border.style} ${theme.vars!.palette.divider}`,
+          borderRight: `${theme.border.width} ${theme.border.style} ${(theme.vars || theme).palette.divider}`,
         }),
       },
     },
@@ -224,7 +224,7 @@ const AcrylicBaseTheme = {
         root: ({ theme }: { theme: OxygenTheme }) => ({
           // More transparent for Card component
           backgroundColor: theme.vars!.palette.background.acrylic,
-          border: `${theme.border.width} ${theme.border.style} ${theme.vars!.palette.divider}`,
+          border: `${theme.border.width} ${theme.border.style} ${(theme.vars || theme).palette.divider}`,
         }),
       }
     },

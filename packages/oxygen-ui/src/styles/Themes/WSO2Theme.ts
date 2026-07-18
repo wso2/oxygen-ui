@@ -144,7 +144,7 @@ const WSO2ThemeConfig = {
           WebkitBackdropFilter: theme.blur.medium,
           backdropFilter: theme.blur.medium,
           backgroundImage: 'none',
-          border: `${theme.border.width} ${theme.border.style} ${theme.vars.palette.divider}`,
+          border: `${theme.border.width} ${theme.border.style} ${(theme.vars || theme).palette.divider}`,
         }),
       },
     },

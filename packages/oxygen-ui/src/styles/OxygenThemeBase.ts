@@ -183,21 +183,21 @@ const OxygenThemeBase = extendTheme({
     MuiPaper: {
       styleOverrides: {
         root: ({ theme }: { theme: OxygenTheme }) => ({
-          border: `${theme.border.width} ${theme.border.style} ${theme.vars.palette.divider}`,
+          border: `${theme.border.width} ${theme.border.style} ${(theme.vars || theme).palette.divider}`,
         }),
       },
     },
     MuiCard: {
       styleOverrides: {
         root: ({ theme }: { theme: OxygenTheme }) => ({
-          border: `${theme.border.width} ${theme.border.style} ${theme.vars.palette.divider}`,
+          border: `${theme.border.width} ${theme.border.style} ${(theme.vars || theme).palette.divider}`,
         }),
       },
     },
     MuiDrawer: {
       styleOverrides: {
         paper: ({ theme }: { theme: OxygenTheme }) => ({
-          borderRight: `${theme.border.width} ${theme.border.style} ${theme.vars.palette.divider}`,
+          borderRight: `${theme.border.width} ${theme.border.style} ${(theme.vars || theme).palette.divider}`,
         }),
       },
     },
