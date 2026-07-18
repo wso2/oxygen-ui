@@ -176,10 +176,10 @@ export function ListingTableDataGrid({
         color: (muiTheme.vars || muiTheme).palette.text.secondary,
         fontWeight: 600,
       },
-      // Card row: acrylic background + blur + rounded corners, no border
+      // Card row: acrylic background + blur + rounded corners, use theme divider border
       '& .MuiDataGrid-row': {
         borderRadius: '8px',
-        border: 'none',
+        border: `1px solid ${(muiTheme.vars || muiTheme).palette.divider} !important`,
         backgroundColor:
           muiTheme.vars?.palette.background.acrylic ??
           (muiTheme.vars || muiTheme).palette.background.paper,
@@ -189,7 +189,7 @@ export function ListingTableDataGrid({
           backgroundColor: (muiTheme.vars || muiTheme).palette.action.hover,
         },
         '&.Mui-selected': {
-          border: 'none',
+          border: `1px solid ${(muiTheme.vars || muiTheme).palette.divider} !important`,
           backgroundColor: (muiTheme.vars || muiTheme).palette.action.selected,
           '&:hover': {
             backgroundColor: alpha(

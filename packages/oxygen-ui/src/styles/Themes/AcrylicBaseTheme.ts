@@ -67,7 +67,7 @@ const AcrylicBaseTheme = {
           primary: '#efefef',
           secondary: '#D0D3E2',
         },
-        divider: '#ffffff16',
+        divider: '#ffffff2e',
       },
     },
   },
@@ -152,6 +152,7 @@ const AcrylicBaseTheme = {
       styleOverrides: {
         paper: ({ theme }: { theme: OxygenTheme }) => ({
           background: theme.vars!.palette.background.paper,
+          borderRight: `${theme.border.width} ${theme.border.style} ${theme.vars!.palette.divider}`,
         }),
       },
     },
@@ -223,6 +224,7 @@ const AcrylicBaseTheme = {
         root: ({ theme }: { theme: OxygenTheme }) => ({
           // More transparent for Card component
           backgroundColor: theme.vars!.palette.background.acrylic,
+          border: `${theme.border.width} ${theme.border.style} ${theme.vars!.palette.divider}`,
         }),
       }
     },

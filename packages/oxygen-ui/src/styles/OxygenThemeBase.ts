@@ -36,6 +36,12 @@ interface CustomThemeProperties {
   gradient: {
     primary: string;
   };
+  surfaceElevation: {
+    0: string;
+    1: string;
+    2: string;
+    3: string;
+  };
   paperTransparent: {
     light: string;
     dark: string;
@@ -169,10 +175,32 @@ const OxygenThemeBase = extendTheme({
           default: '#121212',
           paper: '#121212',
         },
+        divider: '#ffffff2e',
       },
     },
   },
   components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: ({ theme }: { theme: OxygenTheme }) => ({
+          border: `${theme.border.width} ${theme.border.style} ${theme.vars.palette.divider}`,
+        }),
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: ({ theme }: { theme: OxygenTheme }) => ({
+          border: `${theme.border.width} ${theme.border.style} ${theme.vars.palette.divider}`,
+        }),
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: ({ theme }: { theme: OxygenTheme }) => ({
+          borderRight: `${theme.border.width} ${theme.border.style} ${theme.vars.palette.divider}`,
+        }),
+      },
+    },
     MuiAutocomplete: {
       defaultProps: {
         popupIcon: React.createElement(ChevronDown),
@@ -256,6 +284,12 @@ const customProperties = {
   },
   gradient: {
     primary: 'linear-gradient(90deg, #F47B20 0%, #EF4223 100%)',
+  },
+  surfaceElevation: {
+    0: 'none',
+    1: '0px 2px 8px 0px rgba(0, 0, 0, 0.1)',
+    2: '0px 4px 16px 0px rgba(0, 0, 0, 0.1)',
+    3: '0px 8px 24px 0px rgba(0, 0, 0, 0.12)',
   },
   syntax: {
     light: {
