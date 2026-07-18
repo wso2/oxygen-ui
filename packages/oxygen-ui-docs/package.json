@@ -5,7 +5,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node ./scripts/copy-sample-to-storybook.js --watch & storybook dev -p 6006",
+    "dev": "node ./scripts/copy-sample-to-storybook.js && storybook dev -p 6006",
     "build": "node ./scripts/copy-sample-to-storybook.js && storybook build -o dist",
     "preview": "http-server dist"
   },
