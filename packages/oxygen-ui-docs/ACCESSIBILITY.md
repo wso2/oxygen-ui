@@ -82,8 +82,9 @@ These require a human with real assistive technology and are tracked in [#563](h
 
 1. **Screen reader pass** (VoiceOver on macOS, NVDA on Windows) over: `AppShell` + `Sidebar` navigation, `UserMenu`, `NotificationPanel` (see [#560](https://github.com/wso2/oxygen-ui/issues/560)), `ListingTable` (table semantics and sort announcements), `ComplexSelect`, Form templates (error announcement flow — `aria-describedby` wiring is tracked in [#561](https://github.com/wso2/oxygen-ui/issues/561)).
 2. **Zoom/reflow** at 200% and 400% (WCAG 1.4.10) on `AppShell`, `Layout`, `Sidebar`, and the Templates stories.
-3. **Focus-indicator contrast** (≥ 3:1, WCAG 2.4.7/1.4.11) spot-checks per theme in both color schemes; the theme files do not suppress `:focus-visible` anywhere (verified by source audit), so MUI defaults apply.
-4. **Keyboard passes on themed MUI composites** (Dialog, Menu, Tabs, Accordion, Drawer, DataGrid) — expected to inherit MUI behavior; verify no theme override interferes.
+3. **Focus visible** (WCAG 2.4.7) — confirm keyboard focus is visible; the theme files do not suppress `:focus-visible` anywhere (verified by source audit), so MUI defaults apply.
+4. **Focus-indicator contrast** (≥ 3:1, WCAG 1.4.11) — spot-checks per theme in both color schemes.
+5. **Keyboard passes on themed MUI composites** (Dialog, Menu, Tabs, Accordion, Drawer, DataGrid) — expected to inherit MUI behavior; verify no theme override interferes.
 
 ## 7. Ongoing workflow
 
