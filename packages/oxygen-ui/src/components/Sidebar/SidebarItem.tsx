@@ -453,8 +453,12 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
           anchorOrigin={{ vertical: 'center', horizontal: 'right' }}
           transformOrigin={{ vertical: 'center', horizontal: 'left' }}
           onClose={closePopover}
-          // Restore focus after Escape/close when opened via click/keyboard;
-          // hover-only open should not steal or restore focus.
+          // Click/keyboard-opened popovers keep menu semantics: autofocus,
+          // focus trapping, and focus restore on close. Hover-only popovers
+          // must not steal, trap, or restore focus — the pointer is just
+          // passing over the rail, so focus stays on the trigger.
+          disableAutoFocus={!popoverOpenedByClick}
+          disableEnforceFocus={!popoverOpenedByClick}
           disableRestoreFocus={!popoverOpenedByClick}
           slotProps={{
             paper: {
