@@ -23,6 +23,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Collapse from '@mui/material/Collapse';
 import Tooltip from '@mui/material/Tooltip';
@@ -126,9 +127,9 @@ const SidebarItemPopoverList = styled(MenuList, {
 }));
 
 /**
- * Styled button for popover menu items (always shows label, not icon-only).
+ * Styled menu item for popover nested items (always shows label, not icon-only).
  */
-const SidebarItemPopoverButton = styled(ListItemButton, {
+const SidebarItemPopoverButton = styled(MenuItem, {
   name: 'MuiSidebar',
   slot: 'ItemPopoverButton',
 })(({ theme }) => ({
