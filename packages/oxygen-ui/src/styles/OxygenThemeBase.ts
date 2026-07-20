@@ -180,6 +180,9 @@ const OxygenThemeBase = extendTheme({
       styleOverrides: {
         root: ({ theme }) => ({
           fontWeight: theme.typography.fontWeightMedium,
+          '& .MuiTypography-root': {
+            fontWeight: theme.typography.fontWeightMedium,
+          },
           '&:hover:not(.Mui-disabled)': {
             backgroundColor: (theme.vars || theme).palette.action.hover,
             cursor: 'pointer',
