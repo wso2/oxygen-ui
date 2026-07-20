@@ -74,8 +74,6 @@ export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps
       {...props}
       ref={ref}
       label={label}
-      aria-label={ariaLabel}
-      aria-labelledby={ariaLabelledBy}
       placeholder={placeholder}
       variant="outlined"
       size="small"
