@@ -17,8 +17,8 @@
 
 | Run | Failed stories | Notes |
 | --- | --- | --- |
-| Initial baseline | 48 / 533 | 36× `color-contrast`, 7× `aria-input-field-name`, 3× `label`, 1× `aria-progressbar-name`, 2× `scrollable-region-focusable` |
-| After remediation | 0 / 533 | 35 stories carry documented, issue-tracked rule exceptions (see §5) |
+| Initial baseline | 48 / 533 | Per-rule story counts (not mutually exclusive): 36 `color-contrast`, 7 `aria-input-field-name`, 3 `label`, 1 `aria-progressbar-name`, 2 `scrollable-region-focusable` (49 rule-hits across 48 stories) |
+| After remediation | 0 / 533 | 35 unique stories carry documented, issue-tracked rule exceptions (see §5; some stories disable more than one rule) |
 
 ## 3. Issues found and fixed
 
@@ -71,10 +71,10 @@
 
 ## 5. Documented exceptions
 
-Stories that would otherwise fail carry a `parameters.a11y.options.rules` override with a comment linking the tracking issue. They remain visible in the Storybook a11y addon panel.
+Counts below are CSF story modules with a meta-level `parameters.a11y.options.rules` override (same unit as the 35 unique stories in §2). Overrides carry a comment linking the tracking issue and remain visible in the Storybook a11y addon panel. Unique exception-bearing modules: **35**.
 
-- **`color-contrast` (34 stories)** — every occurrence traces to the brand primary `#FF7300` used by the default `Classic`/`WSO2` themes (2.61:1 as text on `#fafafa`, 2.72:1 with white text on orange). Changing the brand palette needs design sign-off → [#558](https://github.com/wso2/oxygen-ui/issues/558). The `Theming/Colors` stories are additionally excluded because they are raw Material palette swatch demos.
-- **`nested-interactive` (2 stories)** — `Form.CardButton` design flaw → [#562](https://github.com/wso2/oxygen-ui/issues/562).
+- **`color-contrast` (35 modules)** — 34 trace to the brand primary `#FF7300` used by the default `Classic`/`WSO2` themes (2.61:1 as text on `#fafafa`, 2.72:1 with white text on orange). Changing the brand palette needs design sign-off → [#558](https://github.com/wso2/oxygen-ui/issues/558). The `Theming/Colors` module is also excluded because it is a raw Material palette swatch demo.
+- **`nested-interactive` (2 modules)** — both also disable `color-contrast` (overlap; not additive with the 35). `Form.CardButton` design flaw → [#562](https://github.com/wso2/oxygen-ui/issues/562).
 
 ## 6. Remaining manual verification
 
