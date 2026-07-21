@@ -49,6 +49,7 @@ The UserMenu is a compound component that provides a user profile dropdown menu 
 - Customizable menu items for various actions
 - Dedicated Logout component with destructive styling
 - Role/plan badge display (e.g., "Pro", "Admin")
+- Optional chevron indicator (\`showChevron\`) for items that open a sub-menu or drill-down; omitted by default since most items navigate directly or trigger an immediate action
 
 ### Sub-components
 - \`UserMenu.Trigger\` - Avatar button with optional name display
@@ -208,6 +209,36 @@ export const WithNameVisible: Story = {
           icon={<Settings size={18} />}
           label="Settings"
           onClick={() => console.log('Settings clicked')}
+        />
+        <UserMenu.Divider />
+        <UserMenu.Logout
+          icon={<LogOut size={18} />}
+          onClick={() => console.log('Logout clicked')}
+        />
+      </UserMenu>
+    </Box>
+  ),
+};
+
+export const WithDrillDownItem: Story = {
+  render: () => (
+    <Box sx={{ p: 4 }}>
+      <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+        Only the drill-down item shows a chevron
+      </Typography>
+      <UserMenu>
+        <UserMenu.Trigger name="John Doe" avatar="JD" />
+        <UserMenu.Header name="John Doe" email="john@example.com" avatar="JD" role="Pro" />
+        <UserMenu.Item
+          icon={<ProfileIcon size={18} />}
+          label="Profile"
+          onClick={() => console.log('Profile clicked')}
+        />
+        <UserMenu.Item
+          icon={<Settings size={18} />}
+          label="Settings"
+          showChevron
+          onClick={() => console.log('Opens Settings sub-menu')}
         />
         <UserMenu.Divider />
         <UserMenu.Logout
