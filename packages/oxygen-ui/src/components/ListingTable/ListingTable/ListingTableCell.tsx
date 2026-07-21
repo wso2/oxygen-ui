@@ -43,10 +43,14 @@ const StyledTableCell = styled(MuiTableCell, {
     return !excludedProps.some((excluded) => excluded === prop);
   },
 })<StyledTableCellProps>(({ truncate, maxWidth }) => ({
+  overflowWrap: 'break-word',
+  wordBreak: 'break-word',
   ...(truncate && {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    overflowWrap: 'unset',
+    wordBreak: 'unset',
   }),
   ...(maxWidth && {
     maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,

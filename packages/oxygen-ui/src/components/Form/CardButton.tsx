@@ -17,9 +17,9 @@
  */
 
 import React from 'react';
-import { Card, ButtonBase, Box, styled, BoxProps } from '@mui/material';
+import { Card, Box, styled, BoxProps } from '@mui/material';
 
-export interface CardButtonProps extends CardProps {
+export interface CardButtonProps extends Omit<CardProps, 'component'> {
   alignItems?: 'flex-start' | 'center' | 'flex-end'
   children: React.ReactNode
   onClick?: () => void
@@ -43,6 +43,7 @@ const StyledCardButton = styled(Card, {
   alignItems: alignItems,
   display: 'flex',
   textAlign: 'left',
+  overflow: 'hidden',
   transition: 'all 0.3s ease',
   cursor: 'pointer',
   "&.MuiCard-root": {
@@ -62,15 +63,49 @@ const StyledCardButton = styled(Card, {
       boxShadow: theme.shadows[1],
     }),
   },
+  '&:focus-visible': {
+    outline: `2px solid ${theme.palette.primary.main}`,
+    outlineOffset: '2px',
+  },
 }));
 
+const isInteractiveDescendant = (target: HTMLElement, currentTarget: HTMLElement): boolean => {
+  const interactiveElement = target.closest(
+    'button, a, input, select, textarea, [role="button"], [role="link"]',
+  );
+  return !!interactiveElement && interactiveElement !== currentTarget;
+};
+
 export const CardButton = (props: CardButtonProps) => {
-  const { disabled, selected, alignItems = 'flex-start', ...rest } = props;
+  const { disabled, selected, alignItems = 'flex-start', onClick, onKeyDown, ...rest } = props;
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (disabled) return;
+    if (isInteractiveDescendant(event.target as HTMLElement, event.currentTarget)) return;
+
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      onClick?.();
+    }
+    onKeyDown?.(event);
+  };
+
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (disabled) return;
+    if (isInteractiveDescendant(event.target as HTMLElement, event.currentTarget)) return;
+    onClick?.();
+  };
 
   return (
     <StyledCardButton
       alignItems={alignItems}
-      component={ButtonBase}
+      component="div"
+      role="button"
+      tabIndex={disabled ? -1 : 0}
+      aria-pressed={selected}
+      aria-disabled={disabled}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
       selected={selected}
       disabled={disabled}
       {...rest}

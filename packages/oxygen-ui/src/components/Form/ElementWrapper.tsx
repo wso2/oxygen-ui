@@ -17,6 +17,7 @@
  */
 
 import { FormControl, FormLabel } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import React from 'react'
 
 export interface ElementWrapperProps {
@@ -25,11 +26,17 @@ export interface ElementWrapperProps {
   children?: React.ReactNode
 }
 
+const StyledFormLabel = styled(FormLabel)({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+})
+
 export const ElementWrapper = (props: ElementWrapperProps) => {
   const { label, name, children } = props
   return (
     <FormControl fullWidth>
-      <FormLabel htmlFor={name}>{label}</FormLabel>
+      <StyledFormLabel htmlFor={name}>{label}</StyledFormLabel>
       {children}
     </FormControl>
   )

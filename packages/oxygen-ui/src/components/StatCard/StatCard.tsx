@@ -80,9 +80,11 @@ const StatCard: React.FC<StatCardProps> = ({
               {icon}
             </Box>
           )}
-          <Box>
-            <Typography variant="h5">{value}</Typography>
-            <Typography variant="body2" color="text.secondary">
+          <Box sx={{ minWidth: 0 }}>
+            <Typography variant="h5" sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {value}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {label}
             </Typography>
           </Box>
