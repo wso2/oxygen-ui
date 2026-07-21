@@ -55,6 +55,8 @@ const SidebarItemLabelRoot = styled(ListItemText, {
   '& .MuiListItemText-primary': {
     fontSize: 14,
     fontWeight: ownerState.isActive ? 600 : 400,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 }));
 
