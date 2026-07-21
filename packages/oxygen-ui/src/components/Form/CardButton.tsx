@@ -69,14 +69,20 @@ const StyledCardButton = styled(Card, {
   },
 }));
 
-const isInteractiveElement = (element: HTMLElement): boolean =>
-  !!element.closest('button, a, input, select, textarea, [role="button"], [role="link"]');
+const isInteractiveDescendant = (target: HTMLElement, currentTarget: HTMLElement): boolean => {
+  const interactiveElement = target.closest(
+    'button, a, input, select, textarea, [role="button"], [role="link"]',
+  );
+  return !!interactiveElement && interactiveElement !== currentTarget;
+};
 
 export const CardButton = (props: CardButtonProps) => {
   const { disabled, selected, alignItems = 'flex-start', onClick, onKeyDown, ...rest } = props;
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (disabled) return;
+    if (isInteractiveDescendant(event.target as HTMLElement, event.currentTarget)) return;
+
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       onClick?.();
@@ -86,7 +92,7 @@ export const CardButton = (props: CardButtonProps) => {
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (disabled) return;
-    if (isInteractiveElement(event.target as HTMLElement)) return;
+    if (isInteractiveDescendant(event.target as HTMLElement, event.currentTarget)) return;
     onClick?.();
   };
 
