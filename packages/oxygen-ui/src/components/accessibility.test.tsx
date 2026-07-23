@@ -437,7 +437,7 @@ describe('NotificationPanel', () => {
     }
   });
 
-  it('restores an unchanged liveAnnouncement prop when the panel reopens', () => {
+  it('does not re-announce an unchanged liveAnnouncement prop when the panel reopens', () => {
     const Panel = ({ open }: { open: boolean }) => (
       <NotificationPanel open={open} onClose={() => {}} liveAnnouncement="1 new notification">
         <NotificationPanel.List>{listChild('1')}</NotificationPanel.List>
@@ -462,8 +462,56 @@ describe('NotificationPanel', () => {
       </OxygenUIThemeProvider>,
     );
 
-    expect(screen.getByTestId('notification-panel-live-region').textContent).toBe(
-      '1 new notification',
+    // Announcements are events while open; reopen with the same prop must not replay.
+    expect(screen.getByTestId('notification-panel-live-region').textContent).toBe('');
+  });
+
+  it('clears the live region when liveAnnouncement becomes undefined while open', () => {
+    const Panel = ({ status }: { status?: string }) => (
+      <NotificationPanel open onClose={() => {}} liveAnnouncement={status}>
+        <NotificationPanel.List>{listChild('1')}</NotificationPanel.List>
+      </NotificationPanel>
     );
+
+    const { rerender } = renderWithTheme(<Panel status="3 notifications synced" />);
+
+    expect(screen.getByTestId('notification-panel-live-region').textContent).toBe(
+      '3 notifications synced',
+    );
+
+    rerender(
+      <OxygenUIThemeProvider>
+        <Panel />
+      </OxygenUIThemeProvider>,
+    );
+
+    expect(screen.getByTestId('notification-panel-live-region').textContent).toBe('');
+  });
+
+  it('ignores setLiveAnnouncement while a persistent panel is closed', () => {
+    const AnnounceButton = () => {
+      const { setLiveAnnouncement } = useNotificationPanel();
+      return (
+        <button
+          type="button"
+          data-testid="announce-button"
+          onClick={() => setLiveAnnouncement('1 new notification')}
+        >
+          Announce
+        </button>
+      );
+    };
+
+    renderWithTheme(
+      <NotificationPanel open={false} onClose={() => {}} variant="persistent">
+        <AnnounceButton />
+        <NotificationPanel.List>{listChild('1')}</NotificationPanel.List>
+      </NotificationPanel>,
+    );
+
+    // Closed persistent drawers keep content mounted but hide it from the a11y tree.
+    fireEvent.click(screen.getByTestId('announce-button'));
+
+    expect(screen.getByTestId('notification-panel-live-region').textContent).toBe('');
   });
 });
