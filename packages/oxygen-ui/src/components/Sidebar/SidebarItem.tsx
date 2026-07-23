@@ -23,6 +23,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import MenuItem from '@mui/material/MenuItem';
+import MenuList from '@mui/material/MenuList';
 import Collapse from '@mui/material/Collapse';
 import Tooltip from '@mui/material/Tooltip';
 import Popover from '@mui/material/Popover';
@@ -114,9 +116,9 @@ const SidebarItemPopover = styled(Popover, {
 });
 
 /**
- * Styled list container for popover nested items.
+ * Styled menu list for popover nested items (supports keyboard focus).
  */
-const SidebarItemPopoverList = styled(List, {
+const SidebarItemPopoverList = styled(MenuList, {
   name: 'MuiSidebar',
   slot: 'ItemPopoverList',
 })(({ theme }) => ({
@@ -125,9 +127,9 @@ const SidebarItemPopoverList = styled(List, {
 }));
 
 /**
- * Styled button for popover menu items (always shows label, not icon-only).
+ * Styled menu item for popover nested items (always shows label, not icon-only).
  */
-const SidebarItemPopoverButton = styled(ListItemButton, {
+const SidebarItemPopoverButton = styled(MenuItem, {
   name: 'MuiSidebar',
   slot: 'ItemPopoverButton',
 })(({ theme }) => ({
@@ -287,7 +289,34 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
 
   // Popover state for collapsed mode with nested items
   const [popoverAnchor, setPopoverAnchor] = React.useState<HTMLElement | null>(null);
+  const [popoverOpenedByClick, setPopoverOpenedByClick] = React.useState(false);
+  const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const popoverOpen = Boolean(popoverAnchor);
+  const popoverId = React.useId();
+
+  const clearCloseTimeout = React.useCallback(() => {
+    if (closeTimeoutRef.current != null) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+  }, []);
+
+  const closePopover = React.useCallback(() => {
+    clearCloseTimeout();
+    setPopoverAnchor(null);
+    setPopoverOpenedByClick(false);
+  }, [clearCloseTimeout]);
+
+  React.useEffect(() => () => clearCloseTimeout(), [clearCloseTimeout]);
+
+  // Expanding the sidebar unmounts the collapsed popover UI; clear leftover
+  // anchor state so collapsing again does not reopen the menu without a new
+  // hover or click.
+  React.useEffect(() => {
+    if (!collapsed) {
+      closePopover();
+    }
+  }, [collapsed, closePopover]);
 
   // Create context value for child components
   const contextValue: SidebarItemContextValue = {
@@ -298,8 +327,22 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
     depth,
   };
 
-  const handleClick = () => {
-    if (hasNestedItems) {
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    if (collapsed && hasNestedItems) {
+      // Keyboard users can't hover: clicking (Enter/Space) the collapsed
+      // parent toggles the nested-items popover.
+      const nextAnchor = popoverAnchor ? null : event.currentTarget;
+      clearCloseTimeout();
+      setPopoverAnchor(nextAnchor);
+      setPopoverOpenedByClick(Boolean(nextAnchor));
+      // Keep expandedMenus in sync so reopening the full sidebar reflects
+      // what the user toggled while the rail was collapsed — but only toggle
+      // when the current expand state does not already match the popover.
+      const shouldBeExpanded = Boolean(nextAnchor);
+      if (isExpanded !== shouldBeExpanded) {
+        onToggleExpand?.(id);
+      }
+    } else if (hasNestedItems) {
       onToggleExpand?.(id);
     } else {
       onSelect?.(id);
@@ -309,12 +352,28 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
   // Hover handlers for collapsed state popover
   const handleMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
     if (collapsed && hasNestedItems) {
+      clearCloseTimeout();
       setPopoverAnchor(event.currentTarget);
+      setPopoverOpenedByClick(false);
+      // Keep expandedMenus in sync so reopening the full sidebar reflects
+      // nested items the user already inspected via the hover popover.
+      if (!isExpanded) {
+        onToggleExpand?.(id);
+      }
     }
   };
 
+  // Click/keyboard-opened menus stay open until Escape, backdrop, or item
+  // selection. Hover-opened menus use a short leave delay so the pointer can
+  // bridge the gap from the rail item to the sibling popover paper.
   const handleMouseLeave = () => {
-    setPopoverAnchor(null);
+    if (popoverOpenedByClick) {
+      return;
+    }
+    clearCloseTimeout();
+    closeTimeoutRef.current = setTimeout(() => {
+      closePopover();
+    }, 100);
   };
 
   const tooltipLabel = getTooltipLabel(children);
@@ -329,11 +388,15 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
       onClick={handleClick}
       ownerState={ownerState}
       sx={sx}
+      aria-label={collapsed && tooltipLabel ? tooltipLabel : undefined}
+      aria-expanded={hasNestedItems ? (collapsed ? popoverOpen : isExpanded) : undefined}
+      aria-haspopup={collapsed && hasNestedItems ? 'menu' : undefined}
+      aria-controls={popoverOpen ? popoverId : undefined}
     >
       <SidebarItemProvider value={contextValue}>
         {composableChildren}
         {!collapsed && hasNestedItems && (
-          <SidebarItemChevron>
+          <SidebarItemChevron aria-hidden="true">
             {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
           </SidebarItemChevron>
         )}
@@ -359,7 +422,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
   // Handler for clicking a nested item in the popover
   const handlePopoverItemClick = (itemId: string) => {
     onSelect?.(itemId);
-    setPopoverAnchor(null);
+    closePopover();
   };
 
   return (
@@ -390,16 +453,26 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
           anchorEl={popoverAnchor}
           anchorOrigin={{ vertical: 'center', horizontal: 'right' }}
           transformOrigin={{ vertical: 'center', horizontal: 'left' }}
-          onClose={handleMouseLeave}
-          disableRestoreFocus
+          onClose={closePopover}
+          // Click/keyboard-opened popovers keep menu semantics: autofocus,
+          // focus trapping, and focus restore on close. Hover-only popovers
+          // must not steal, trap, or restore focus — the pointer is just
+          // passing over the rail, so focus stays on the trigger.
+          disableAutoFocus={!popoverOpenedByClick}
+          disableEnforceFocus={!popoverOpenedByClick}
+          disableRestoreFocus={!popoverOpenedByClick}
           slotProps={{
             paper: {
-              onMouseEnter: () => setPopoverAnchor(popoverAnchor),
+              onMouseEnter: clearCloseTimeout,
               onMouseLeave: handleMouseLeave,
             },
           }}
         >
-          <SidebarItemPopoverList disablePadding>
+          <SidebarItemPopoverList
+            id={popoverId}
+            autoFocusItem={popoverOpen && popoverOpenedByClick}
+            disablePadding
+          >
             {nestedItems.map((child, index) => {
               if (React.isValidElement<SidebarItemProps>(child)) {
                 const childProps = child.props as SidebarItemProps;

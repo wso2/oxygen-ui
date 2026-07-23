@@ -42,6 +42,15 @@ const meta: Meta<typeof Drawer> = {
   title: 'Navigation/Drawer',
   component: Drawer,
   parameters: {
+    a11y: {
+      // Known WCAG AA exception: the brand primary color (#FF7300) does not
+      // meet the 4.5:1 text-contrast requirement in the default themes.
+      // Tracked in https://github.com/wso2/oxygen-ui/issues/558 — remove
+      // this override once the palette decision lands.
+      options: {
+        rules: { 'color-contrast': { enabled: false } },
+      },
+    },
     layout: 'centered',
     docs: {
       description: {

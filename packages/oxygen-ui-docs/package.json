@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "node ./scripts/copy-sample-to-storybook.js --watch & storybook dev -p 6006",
     "build": "node ./scripts/copy-sample-to-storybook.js && storybook build -o dist",
-    "preview": "http-server dist"
+    "preview": "http-server dist",
+    "test:storybook": "test-storybook",
+    "test:storybook:ci": "concurrently --kill-others --success first --names \"SERVE,TEST\" \"http-server dist --port 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && test-storybook --url http://127.0.0.1:6006 --maxWorkers=2\""
   },
   "keywords": [
     "wso2",
@@ -22,32 +24,38 @@
     "url": "https://github.com/wso2/oxygen-ui.git"
   },
   "dependencies": {
-    "@wso2/oxygen-ui": "workspace:^",
-    "@wso2/oxygen-ui-icons-react": "workspace:^",
-    "@wso2/oxygen-ui-charts-react": "workspace:^",
-    "react-hook-form": "7.62.0",
     "@hookform/resolvers": "5.2.1",
+    "@wso2/oxygen-ui": "workspace:^",
+    "@wso2/oxygen-ui-charts-react": "workspace:^",
+    "@wso2/oxygen-ui-icons-react": "workspace:^",
+    "react-hook-form": "7.62.0",
     "zod": "4.0.10"
   },
   "devDependencies": {
-    "@svgr/webpack": "8.1.0",
     "@babel/core": "7.28.5",
     "@babel/preset-env": "7.28.5",
     "@babel/preset-react": "7.28.5",
     "@babel/preset-typescript": "7.28.5",
     "@mdx-js/react": "3.1.1",
+    "@storybook/addon-a11y": "10.4.6",
     "@storybook/addon-docs": "10.4.6",
     "@storybook/addon-links": "10.4.6",
     "@storybook/react": "10.4.6",
     "@storybook/react-webpack5": "10.4.6",
+    "@storybook/test-runner": "^0.24.4",
+    "@svgr/webpack": "8.1.0",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "babel-loader": "10.0.0",
+    "concurrently": "^10.0.3",
+    "http-server": "^14.1.1",
     "lucide-react": "catalog:",
     "lucide-static": "1.16.0",
+    "playwright": "1.61.1",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "storybook": "10.4.6"
+    "storybook": "10.4.6",
+    "wait-on": "^9.0.10"
   },
   "publishConfig": {
     "access": "restricted"

@@ -82,11 +82,20 @@ export function ListingTableDensityControl({
   );
 
   return (
-    <ToggleButtonGroup value={value} exclusive onChange={handleChange} size={size} sx={sx}>
+    <ToggleButtonGroup
+      value={value}
+      exclusive
+      onChange={handleChange}
+      size={size}
+      sx={sx}
+      aria-label="Table density"
+    >
       {densityOptions.map((option) => (
-        <ToggleButton key={option.value} value={option.value}>
+        <ToggleButton key={option.value} value={option.value} aria-label={option.label}>
           <Tooltip title={option.label}>
-            <span style={{ display: 'flex', alignItems: 'center' }}>{option.icon}</span>
+            <span style={{ display: 'flex', alignItems: 'center' }} aria-hidden="true">
+              {option.icon}
+            </span>
           </Tooltip>
         </ToggleButton>
       ))}

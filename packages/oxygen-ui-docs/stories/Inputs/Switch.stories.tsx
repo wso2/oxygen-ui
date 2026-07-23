@@ -41,11 +41,11 @@ export default meta;
 type Story = StoryObj<typeof Switch>;
 
 export const Default: Story = {
-  render: () => <Switch />,
+  render: () => <Switch slotProps={{ input: { 'aria-label': 'Enable setting' } }} />,
 };
 
 export const Checked: Story = {
-  render: () => <Switch defaultChecked />,
+  render: () => <Switch defaultChecked slotProps={{ input: { 'aria-label': 'Enable setting' } }} />,
 };
 
 export const WithLabel: Story = {

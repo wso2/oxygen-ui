@@ -39,7 +39,12 @@ const meta: Meta<typeof ComplexSelect> = {
           '- `ComplexSelect.MenuItem.Text` - Primary and secondary text\n' +
           '- `ComplexSelect.Divider` - Visual separators\n\n' +
           'Read MUI documentation for base Select API: ' +
-          '[https://mui.com/material-ui/react-select/](https://mui.com/material-ui/react-select/)',
+          '[https://mui.com/material-ui/react-select/](https://mui.com/material-ui/react-select/)\n\n' +
+          '### Accessibility\n' +
+          '- With a `label`, the combobox is named in every `labelAnchor` mode (a visually hidden label is used for `inside`).\n' +
+          "- Without a `label`, provide a name: `slotProps={{ input: { 'aria-label': 'Organization' } }}`.\n" +
+          '- Standard MUI Select keyboard behavior applies: Enter/Space/Arrows open the list, Arrow keys navigate, Escape closes.\n' +
+          '- Mark purely decorative item icons with `aria-hidden`.',
       },
     },
   },
@@ -59,6 +64,7 @@ export const Default: Story = {
           value={role}
           onChange={(e) => setRole(e.target.value as string)}
           fullWidth
+          slotProps={{ input: { 'aria-label': 'User role' } }}
         >
           <ComplexSelect.ListHeader>User Roles</ComplexSelect.ListHeader>
           

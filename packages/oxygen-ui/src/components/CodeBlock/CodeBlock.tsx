@@ -85,12 +85,13 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
   const defaultColors = {
     background: isDark ? '#1e1e1e' : '#f5f5f5',
     text: isDark ? '#d4d4d4' : '#24292e',
-    comment: isDark ? '#6a9955' : '#6a737d',
-    keyword: isDark ? '#569cd6' : '#d73a49',
+    // Light-mode values darkened to meet WCAG AA 4.5:1 contrast on #f5f5f5
+    comment: isDark ? '#6a9955' : '#57606a',
+    keyword: isDark ? '#569cd6' : '#cf222e',
     string: isDark ? '#ce9178' : '#032f62',
     function: isDark ? '#dcdcaa' : '#6f42c1',
     number: isDark ? '#b5cea8' : '#005cc5',
-    operator: isDark ? '#d4d4d4' : '#d73a49',
+    operator: isDark ? '#d4d4d4' : '#cf222e',
   };
   
   const colors = (isDark ? theme.vars?.syntax?.dark : theme.vars?.syntax?.light) || defaultColors;

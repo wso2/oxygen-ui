@@ -31,7 +31,7 @@ import type { SxProps, Theme } from '@mui/material/styles';
 const NotificationBannerAlert = styled(Alert, {
   name: 'MuiNotificationBanner',
   slot: 'Root',
-})({
+})(({ theme }) => ({
   borderRadius: 0,
   '& .MuiAlert-message': {
     width: '100%',
@@ -45,7 +45,21 @@ const NotificationBannerAlert = styled(Alert, {
     paddingTop: 0,
     alignItems: 'center',
   },
-});
+  // MUI's light-mode filled Alert uses `info.main`/`warning.main` backgrounds,
+  // which fail WCAG AA (4.5:1) contrast with white text. Darken them so the
+  // banner text stays readable.
+  ...theme.applyStyles('light', {
+    '&.MuiAlert-filledInfo': {
+      backgroundColor: (theme.vars || theme).palette.info.dark,
+    },
+    '&.MuiAlert-filledWarning': {
+      color: '#000',
+      '& .MuiAlert-icon, & .MuiAlert-action': {
+        color: '#000',
+      },
+    },
+  }),
+}));
 
 /**
  * Styled content container.

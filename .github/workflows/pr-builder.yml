@@ -222,6 +222,14 @@ jobs:
         id: build-storybook
         run: pnpm build:storybook
 
+      - name: 🎭 Install Playwright Browsers
+        id: install-playwright
+        run: pnpm --filter @wso2/oxygen-ui-docs exec playwright install --with-deps chromium
+
+      - name: ♿ Run Storybook Accessibility Tests
+        id: storybook-a11y
+        run: pnpm --filter @wso2/oxygen-ui-docs test:storybook:ci
+
   build:
     name: 🚧 Build
     runs-on: ubuntu-latest

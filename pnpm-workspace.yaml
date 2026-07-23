@@ -6,6 +6,7 @@ allowBuilds:
   '@swc/core': false
   esbuild: true
   nx: true
+  unrs-resolver: false
 
 catalog:
   '@emotion/cache': 11.14.0

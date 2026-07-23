@@ -73,8 +73,13 @@ export const NotificationHeaderClose: React.FC<NotificationHeaderCloseProps> = (
   };
 
   return (
-    <NotificationHeaderCloseRoot onClick={handleClick} size="small" sx={sx}>
-      {children || <X size={20} />}
+    <NotificationHeaderCloseRoot
+      onClick={handleClick}
+      size="small"
+      sx={sx}
+      aria-label="Close notifications"
+    >
+      {children || <X size={20} aria-hidden="true" />}
     </NotificationHeaderCloseRoot>
   );
 };

@@ -40,7 +40,11 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'An animated particle network background that responds to mouse interactions and adapts to theme changes.',
+        component:
+          'An animated particle network background that responds to mouse interactions and adapts to theme changes.\n\n' +
+          '### Accessibility\n' +
+          '- The canvas is decorative and hidden from assistive technology (`aria-hidden`).\n' +
+          '- When the OS requests reduced motion (`prefers-reduced-motion: reduce`), a single static frame is rendered instead of the animation, and the component reacts live to preference changes.',
       },
       page: () => (
         <>

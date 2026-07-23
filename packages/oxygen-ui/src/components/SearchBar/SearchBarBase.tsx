@@ -25,26 +25,66 @@ export interface SearchBarBaseProps extends Omit<TextFieldProps, 'variant'> {
   endAdornment?: React.ReactNode
 }
 
-export function SearchBarBase({
-  placeholder = 'Search',
-  endAdornment,
-  slotProps,
-  sx,
-  ...props
-}: SearchBarBaseProps) {
+const hasMeaningfulAriaValue = (value?: string | null): boolean =>
+  typeof value === 'string' && value.trim().length > 0;
+
+export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps>(function SearchBarBase(
+  {
+    placeholder = 'Search',
+    endAdornment,
+    slotProps,
+    sx,
+    label,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    ...props
+  },
+  ref,
+) {
+  const htmlInputSlotProps = slotProps?.htmlInput as
+    | { 'aria-label'?: string; 'aria-labelledby'?: string }
+    | undefined;
+  // String labels need trimmed content; non-string ReactNode labels count as present.
+  const hasMeaningfulLabel =
+    typeof label === 'string' ? hasMeaningfulAriaValue(label) : Boolean(label);
+  const hasAccessibleName =
+    hasMeaningfulLabel ||
+    hasMeaningfulAriaValue(ariaLabel) ||
+    hasMeaningfulAriaValue(ariaLabelledBy) ||
+    hasMeaningfulAriaValue(htmlInputSlotProps?.['aria-label']) ||
+    hasMeaningfulAriaValue(htmlInputSlotProps?.['aria-labelledby']);
+  const shouldInjectPlaceholderLabel = !hasAccessibleName && hasMeaningfulAriaValue(placeholder);
+  // Apply top-level aria props on the input itself — TextField would otherwise
+  // put them on the root, which does not name the textbox.
+  const htmlInput =
+    shouldInjectPlaceholderLabel || slotProps?.htmlInput || hasMeaningfulAriaValue(ariaLabel) || hasMeaningfulAriaValue(ariaLabelledBy)
+      ? {
+          // Placeholder alone is a weak accessible name; expose it as a label
+          // unless the consumer supplied their own labelling. Inject after
+          // consumer props so an empty/whitespace aria-label cannot wipe the name.
+          ...slotProps?.htmlInput,
+          ...(hasMeaningfulAriaValue(ariaLabelledBy) ? { 'aria-labelledby': ariaLabelledBy } : null),
+          ...(hasMeaningfulAriaValue(ariaLabel) ? { 'aria-label': ariaLabel } : null),
+          ...(shouldInjectPlaceholderLabel ? { 'aria-label': placeholder } : null),
+        }
+      : undefined;
+
   return (
     <TextField
       {...props}
+      ref={ref}
+      label={label}
       placeholder={placeholder}
       variant="outlined"
       size="small"
       slotProps={{
         ...slotProps,
+        ...(htmlInput ? { htmlInput } : null),
         input: {
           ...slotProps?.input,
           startAdornment: (
             <InputAdornment position="start">
-              <Search fontSize="small" />
+              <Search fontSize="small" aria-hidden="true" />
             </InputAdornment>
           ),
           endAdornment: endAdornment,
@@ -61,6 +101,6 @@ export function SearchBarBase({
       }}
     />
   )
-}
+})
 
 export default SearchBarBase
