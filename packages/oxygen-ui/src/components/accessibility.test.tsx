@@ -436,4 +436,34 @@ describe('NotificationPanel', () => {
       expect(liveRegion.textContent).toBe('');
     }
   });
+
+  it('restores an unchanged liveAnnouncement prop when the panel reopens', () => {
+    const Panel = ({ open }: { open: boolean }) => (
+      <NotificationPanel open={open} onClose={() => {}} liveAnnouncement="1 new notification">
+        <NotificationPanel.List>{listChild('1')}</NotificationPanel.List>
+      </NotificationPanel>
+    );
+
+    const { rerender } = renderWithTheme(<Panel open />);
+
+    expect(screen.getByTestId('notification-panel-live-region').textContent).toBe(
+      '1 new notification',
+    );
+
+    rerender(
+      <OxygenUIThemeProvider>
+        <Panel open={false} />
+      </OxygenUIThemeProvider>,
+    );
+
+    rerender(
+      <OxygenUIThemeProvider>
+        <Panel open />
+      </OxygenUIThemeProvider>,
+    );
+
+    expect(screen.getByTestId('notification-panel-live-region').textContent).toBe(
+      '1 new notification',
+    );
+  });
 });
