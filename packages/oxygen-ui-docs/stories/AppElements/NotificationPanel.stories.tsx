@@ -98,8 +98,10 @@ import { NotificationPanel } from '@wso2/oxygen-ui';
         
 ### Accessibility
 - Opens in an MUI Drawer with focus management; Escape closes the panel.
+- The drawer is named \`Notifications\` by default (\`aria-label\`, overridable).
 - The header close button and per-item dismiss buttons have accessible names built in.
-- New notifications are not announced automatically yet — see the accessibility audit for the tracked live-region follow-up.
+- New arrivals are not inferred from list child count (filtering/tabs would false-positive). Publish via \`liveAnnouncement\` or \`useNotificationPanel().setLiveAnnouncement\` when items actually arrive.
+- Spreading custom \`aria-*\` onto Header/List/Item subcomponents is tracked in the prop-forwarding follow-up.
 `,
       },
     },
@@ -362,6 +364,87 @@ export const EmptyState: Story = {
             <NotificationPanel.HeaderClose />
           </NotificationPanel.Header>
           <NotificationPanel.EmptyState />
+        </NotificationPanel>
+      </Box>
+    );
+  },
+};
+
+/**
+ * Demonstrates consumer-driven polite live-region announcements.
+ * Useful for assistive-technology smoke checks (drawer name + status updates).
+ */
+export const LiveAnnouncements: Story = {
+  render: () => {
+    const [open, setOpen] = React.useState(true);
+    const [notifications, setNotifications] = React.useState(sampleNotifications.slice(0, 2));
+    const [liveAnnouncement, setLiveAnnouncement] = React.useState<string | undefined>(undefined);
+    const nextIdRef = React.useRef(100);
+
+    const handleAddNotification = () => {
+      const id = String(nextIdRef.current++);
+      setNotifications((prev) => [
+        {
+          id,
+          type: 'info' as const,
+          title: `New notification ${id}`,
+          message: 'Arrived while the panel was open — announced via the polite live region.',
+          timestamp: 'Just now',
+          avatar: 'N',
+          read: false,
+        },
+        ...prev,
+      ]);
+      // Publish explicitly when an item actually arrives (do not rely on list child count).
+      // Clear first so repeated identical messages still reach the panel (React state bailout).
+      setLiveAnnouncement('');
+      queueMicrotask(() => setLiveAnnouncement('1 new notification'));
+    };
+
+    const handleSyncStatus = () => {
+      setLiveAnnouncement(`${notifications.length} notifications synced`);
+    };
+
+    return (
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'flex-start' }}>
+        <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+          <Button variant="outlined" onClick={() => setOpen(true)}>
+            Open Notifications
+          </Button>
+          <Button variant="contained" onClick={handleAddNotification} disabled={!open}>
+            Add notification
+          </Button>
+          <Button variant="outlined" onClick={handleSyncStatus} disabled={!open}>
+            Sync status
+          </Button>
+        </Box>
+        <Typography variant="body2" color="text.secondary">
+          Open the panel, then use Add notification or Sync status to publish via the
+          `liveAnnouncement` prop. Check the Storybook Accessibility panel / a screen reader.
+        </Typography>
+        <NotificationPanel
+          open={open}
+          onClose={() => setOpen(false)}
+          liveAnnouncement={liveAnnouncement}
+        >
+          <NotificationPanel.Header>
+            <NotificationPanel.HeaderIcon><Bell size={20} /></NotificationPanel.HeaderIcon>
+            <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
+            <NotificationPanel.HeaderBadge>{notifications.length}</NotificationPanel.HeaderBadge>
+            <NotificationPanel.HeaderClose />
+          </NotificationPanel.Header>
+          <NotificationPanel.List>
+            {notifications.map((n) => (
+              <NotificationPanel.Item key={n.id} id={n.id} type={n.type}>
+                <NotificationPanel.ItemAvatar>
+                  <Avatar sx={{ width: 32, height: 32, fontSize: 12 }}>{n.avatar}</Avatar>
+                </NotificationPanel.ItemAvatar>
+                <NotificationPanel.ItemTitle>{n.title}</NotificationPanel.ItemTitle>
+                <NotificationPanel.ItemMessage>{n.message}</NotificationPanel.ItemMessage>
+                <NotificationPanel.ItemTimestamp>{n.timestamp}</NotificationPanel.ItemTimestamp>
+              </NotificationPanel.Item>
+            ))}
+          </NotificationPanel.List>
         </NotificationPanel>
       </Box>
     );

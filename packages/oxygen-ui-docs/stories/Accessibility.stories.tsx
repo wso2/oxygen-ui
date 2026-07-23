@@ -52,7 +52,7 @@ const keyboardMap: Array<{ component: string; interaction: string }> = [
   { component: 'AppBreadcrumbs', interaction: 'Tab reaches each crumb and the "…" overflow button; Enter/Space on "…" opens the hidden-crumbs menu (Arrow keys + Escape supported).' },
   { component: 'Sidebar', interaction: 'Tab/Arrow through items; Enter/Space activates or expands. When collapsed, Enter/Space on a parent opens the nested-items popover.' },
   { component: 'Header.Toggle', interaction: 'Enter/Space toggles the sidebar; the button exposes aria-expanded for the current state.' },
-  { component: 'NotificationPanel', interaction: 'Renders in an MUI Drawer: focus moves into the panel on open, Escape closes it. Tabs inside follow Arrow-key navigation.' },
+  { component: 'NotificationPanel', interaction: 'Named MUI Drawer (default aria-label "Notifications"); focus moves into the panel on open, Escape closes it. Tabs follow Arrow-key navigation. Consumers publish status via liveAnnouncement or useNotificationPanel().setLiveAnnouncement when items arrive (list child-count is not auto-announced).' },
   { component: 'ListingTable', interaction: 'Sort headers are focusable buttons (Enter/Space toggles sort). The DataGrid variant supports full MUI DataGrid keyboard navigation with a visible focus ring.' },
   { component: 'SearchBarWithAdvancedFilter', interaction: 'Filter button is labeled and opens an MUI Popover with focus management; Escape closes it.' },
 ];

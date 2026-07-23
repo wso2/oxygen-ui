@@ -50,6 +50,9 @@ export interface NotificationListProps {
  * NotificationList - Scrollable container for notification items.
  *
  * Renders a list of NotificationItem components with optional dividers.
+ * Does not auto-announce list changes (filtering/tabs can change child count
+ * without new arrivals). Consumers should publish via `liveAnnouncement` or
+ * `useNotificationPanel().setLiveAnnouncement` when items actually arrive.
  */
 export const NotificationList: React.FC<NotificationListProps> = ({
   children,
