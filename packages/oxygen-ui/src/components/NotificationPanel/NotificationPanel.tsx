@@ -209,18 +209,17 @@ const NotificationPanel: React.FC<NotificationPanelProps> & {
     setLiveAnnouncementNonce((n) => n + 1);
   }, []);
 
-  // Prop changes push into the shared display state so context publishes are not silenced.
-  React.useEffect(() => {
-    if (liveAnnouncementProp !== undefined) {
-      publishLiveAnnouncement(liveAnnouncementProp);
-    }
-  }, [liveAnnouncementProp, publishLiveAnnouncement]);
-
+  // Sync prop ↔ display state while open; clear on close. Re-publish on reopen even when
+  // the prop value is unchanged (deps would otherwise skip the prop-only effect).
   React.useEffect(() => {
     if (!open) {
       setLiveAnnouncementState('');
+      return;
     }
-  }, [open]);
+    if (liveAnnouncementProp !== undefined) {
+      publishLiveAnnouncement(liveAnnouncementProp);
+    }
+  }, [open, liveAnnouncementProp, publishLiveAnnouncement]);
 
   const contextValue = React.useMemo(
     () => ({ onClose, open, setLiveAnnouncement: publishLiveAnnouncement }),
