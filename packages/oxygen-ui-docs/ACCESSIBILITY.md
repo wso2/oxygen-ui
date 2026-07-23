@@ -37,7 +37,7 @@
 | `ListingTable.DataGrid` | Cell/header focus outlines were removed with no replacement. | 2.4.7 | `:focus-visible` outline restored using the theme primary color (mouse `:focus` stays clean). |
 | `ListingTable.Toolbar` | Clear-search icon button unlabeled; search input named only by placeholder; container had no toolbar semantics. | 4.1.2 | `aria-label="Clear search"`; input `aria-label`; `role="toolbar"` + label. |
 | `ListingTable.DensityControl` | Icon-only toggle buttons relied on tooltips. | 4.1.2 | `aria-label` per toggle and on the group; icons hidden. |
-| `NotificationPanel` | Header close and item dismiss icon buttons unlabeled. | 4.1.2 | `aria-label="Close notifications"` / `"Dismiss notification"`; icons hidden. |
+| `NotificationPanel` | Header close and item dismiss icon buttons unlabeled. Drawer had no accessible name; new items were not announced. | 4.1.2, 4.1.3 | `aria-label="Close notifications"` / `"Dismiss notification"`; icons hidden. Default drawer `aria-label="Notifications"` (overridable). Polite live region for consumer-published status (`liveAnnouncement` / `setLiveAnnouncement`); list child-count is not auto-announced (avoids filter/tab false positives). Subcomponent `aria-*` prop forwarding remains in [#559](https://github.com/wso2/oxygen-ui/issues/559). |
 | `NotificationBanner` | MUI light-mode filled `info`/`warning` Alerts fail 4.5:1 with white text (3.85:1 / 3.11:1). | 1.4.3 | Light mode: `info` uses `info.dark` background; `warning` switches to black text/icons. |
 | `CodeBlock` + theme `syntax` tokens | Light-mode syntax colors `#d73a49` (4.19:1) and `#6a737d` (4.41:1) fail on `#f5f5f5`. | 1.4.3 | Darkened to `#cf222e` (4.91:1) and `#57606a` (5.86:1) in both the theme tokens and component fallbacks. |
 | `Footer.Version` | `text.disabled` at 11px = 2.67:1 on white. | 1.4.3 | Uses `text.secondary`. |
@@ -64,7 +64,6 @@
 | [#557](https://github.com/wso2/oxygen-ui/issues/557) | **Epic:** Ensure WCAG 2.2 AA compliance across Oxygen UI | — |
 | [#558](https://github.com/wso2/oxygen-ui/issues/558) | Brand primary `#FF7300` fails WCAG AA 4.5:1 text contrast (Classic/WSO2 themes) | High (needs design decision) |
 | [#559](https://github.com/wso2/oxygen-ui/issues/559) | `forwardRef` + full prop forwarding rollout for remaining compound components | Medium |
-| [#560](https://github.com/wso2/oxygen-ui/issues/560) | NotificationPanel live-region announcements and drawer labeling | Medium |
 | [#561](https://github.com/wso2/oxygen-ui/issues/561) | Medium/low severity wrapper-audit follow-ups (SVG roles, landmark guidance, `aria-describedby` for form errors, hardcoded colors, decorative icons) | Medium/Low |
 | [#562](https://github.com/wso2/oxygen-ui/issues/562) | `Form.CardButton` nests interactive controls inside a `<button>` (`nested-interactive`) | High |
 | [#563](https://github.com/wso2/oxygen-ui/issues/563) | Manual AT pass (VoiceOver/NVDA, zoom 200%/400%) | High |
@@ -80,7 +79,7 @@ Counts below are CSF story modules with a meta-level `parameters.a11y.options.ru
 
 These require a human with real assistive technology and are tracked in [#563](https://github.com/wso2/oxygen-ui/issues/563):
 
-1. **Screen reader pass** (VoiceOver on macOS, NVDA on Windows) over: `AppShell` + `Sidebar` navigation, `UserMenu`, `NotificationPanel` (see [#560](https://github.com/wso2/oxygen-ui/issues/560)), `ListingTable` (table semantics and sort announcements), `ComplexSelect`, Form templates (error announcement flow — `aria-describedby` wiring is tracked in [#561](https://github.com/wso2/oxygen-ui/issues/561)).
+1. **Screen reader pass** (VoiceOver on macOS, NVDA on Windows) over: `AppShell` + `Sidebar` navigation, `UserMenu`, `NotificationPanel` (drawer name + consumer-published live region), `ListingTable` (table semantics and sort announcements), `ComplexSelect`, Form templates (error announcement flow — `aria-describedby` wiring is tracked in [#561](https://github.com/wso2/oxygen-ui/issues/561)).
 2. **Zoom/reflow** at 200% and 400% (WCAG 1.4.10) on `AppShell`, `Layout`, `Sidebar`, and the Templates stories.
 3. **Focus visible** (WCAG 2.4.7) — confirm keyboard focus is visible; the theme files do not suppress `:focus-visible` anywhere (verified by source audit), so MUI defaults apply.
 4. **Focus-indicator contrast** (≥ 3:1, WCAG 1.4.11) — spot-checks per theme in both color schemes.
