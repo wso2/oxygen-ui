@@ -203,20 +203,39 @@ const NotificationPanel: React.FC<NotificationPanelProps> & {
 
   const [liveAnnouncement, setLiveAnnouncementState] = React.useState('');
   const [liveAnnouncementNonce, setLiveAnnouncementNonce] = React.useState(0);
+  // Start undefined so the first open with a prop still publishes once.
+  const prevLiveAnnouncementPropRef = React.useRef<string | undefined>(undefined);
 
-  const publishLiveAnnouncement = React.useCallback((message: string) => {
-    setLiveAnnouncementState(message);
-    setLiveAnnouncementNonce((n) => n + 1);
-  }, []);
+  // Announcements are events while open only (persistent/permanent keep content mounted when closed).
+  const publishLiveAnnouncement = React.useCallback(
+    (message: string) => {
+      if (!open) return;
+      setLiveAnnouncementState(message);
+      setLiveAnnouncementNonce((n) => n + 1);
+    },
+    [open]
+  );
 
-  // Sync prop ↔ display state while open; clear on close. Re-publish on reopen even when
-  // the prop value is unchanged (deps would otherwise skip the prop-only effect).
+  // Clear on close; publish only when the prop *changes* while open (no reopen repeat).
+  // Clear stale text when the prop becomes undefined while open.
   React.useEffect(() => {
     if (!open) {
       setLiveAnnouncementState('');
+      prevLiveAnnouncementPropRef.current = liveAnnouncementProp;
       return;
     }
-    if (liveAnnouncementProp !== undefined) {
+
+    const prev = prevLiveAnnouncementPropRef.current;
+    prevLiveAnnouncementPropRef.current = liveAnnouncementProp;
+
+    if (liveAnnouncementProp === undefined) {
+      if (prev !== undefined) {
+        setLiveAnnouncementState('');
+      }
+      return;
+    }
+
+    if (liveAnnouncementProp !== prev) {
       publishLiveAnnouncement(liveAnnouncementProp);
     }
   }, [open, liveAnnouncementProp, publishLiveAnnouncement]);
