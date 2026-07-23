@@ -41,6 +41,8 @@ import HeaderBrand from './Header/HeaderBrand';
 import AppBreadcrumbs from './AppBreadcrumbs/AppBreadcrumbs';
 import ListingTableToolbar from './ListingTable/shared/ListingTableToolbar';
 import UserMenu from './UserMenu/UserMenu';
+import NotificationPanel from './NotificationPanel/NotificationPanel';
+import { useNotificationPanel } from './NotificationPanel/context';
 
 const renderWithTheme = (ui: React.ReactElement) =>
   render(<OxygenUIThemeProvider>{ui}</OxygenUIThemeProvider>);
@@ -239,5 +241,199 @@ describe('AppBreadcrumbs', () => {
   it('forwards aria and data attributes to the root', () => {
     renderWithTheme(<AppBreadcrumbs items={items} data-testid="crumbs" />);
     expect(screen.getByTestId('crumbs')).toBeDefined();
+  });
+});
+
+describe('NotificationPanel', () => {
+  const listChild = (id: string) => (
+    <div key={id} data-testid={`notification-${id}`}>
+      Notification {id}
+    </div>
+  );
+
+  it('names the open drawer dialog Notifications by default', () => {
+    renderWithTheme(
+      <NotificationPanel open onClose={() => {}}>
+        <NotificationPanel.Header>
+          <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
+          <NotificationPanel.HeaderClose />
+        </NotificationPanel.Header>
+      </NotificationPanel>,
+    );
+
+    expect(screen.getByRole('dialog', { name: 'Notifications' })).toBeDefined();
+  });
+
+  it('lets consumers override the drawer accessible name', () => {
+    renderWithTheme(
+      <NotificationPanel open onClose={() => {}} aria-label="Inbox">
+        <NotificationPanel.Header>
+          <NotificationPanel.HeaderTitle>Inbox</NotificationPanel.HeaderTitle>
+          <NotificationPanel.HeaderClose />
+        </NotificationPanel.Header>
+      </NotificationPanel>,
+    );
+
+    expect(screen.getByRole('dialog', { name: 'Inbox' })).toBeDefined();
+  });
+
+  it('falls back to Notifications when aria-label is empty or whitespace', () => {
+    renderWithTheme(
+      <NotificationPanel open onClose={() => {}} aria-label="   ">
+        <NotificationPanel.Header>
+          <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
+        </NotificationPanel.Header>
+      </NotificationPanel>,
+    );
+
+    expect(screen.getByRole('dialog', { name: 'Notifications' })).toBeDefined();
+  });
+
+  it('exposes a polite live region with status semantics', () => {
+    renderWithTheme(
+      <NotificationPanel open onClose={() => {}}>
+        <NotificationPanel.List>{listChild('1')}</NotificationPanel.List>
+      </NotificationPanel>,
+    );
+
+    const liveRegion = screen.getByTestId('notification-panel-live-region');
+    expect(liveRegion.getAttribute('role')).toBe('status');
+    expect(liveRegion.getAttribute('aria-live')).toBe('polite');
+    expect(liveRegion.getAttribute('aria-atomic')).toBe('true');
+  });
+
+  it('does not announce when list children are only rendered on open', () => {
+    renderWithTheme(
+      <NotificationPanel open onClose={() => {}}>
+        <NotificationPanel.List>
+          {listChild('1')}
+          {listChild('2')}
+        </NotificationPanel.List>
+      </NotificationPanel>,
+    );
+
+    expect(screen.getByTestId('notification-panel-live-region').textContent).toBe('');
+  });
+
+  it('does not auto-announce when the list child count increases', () => {
+    const Panel = ({ ids }: { ids: string[] }) => (
+      <NotificationPanel open onClose={() => {}}>
+        <NotificationPanel.List>{ids.map((id) => listChild(id))}</NotificationPanel.List>
+      </NotificationPanel>
+    );
+
+    const { rerender } = renderWithTheme(<Panel ids={['1']} />);
+
+    rerender(
+      <OxygenUIThemeProvider>
+        <Panel ids={['1', '2', '3']} />
+      </OxygenUIThemeProvider>,
+    );
+
+    expect(screen.getByTestId('notification-panel-live-region').textContent).toBe('');
+  });
+
+  it('surfaces a consumer liveAnnouncement in the polite live region', () => {
+    renderWithTheme(
+      <NotificationPanel open onClose={() => {}} liveAnnouncement="3 notifications synced">
+        <NotificationPanel.List>{listChild('1')}</NotificationPanel.List>
+      </NotificationPanel>,
+    );
+
+    expect(screen.getByTestId('notification-panel-live-region').textContent).toBe(
+      '3 notifications synced',
+    );
+  });
+
+  it('lets context setLiveAnnouncement publish after a liveAnnouncement prop was set', () => {
+    const AnnounceButton = () => {
+      const { setLiveAnnouncement } = useNotificationPanel();
+      return (
+        <button type="button" onClick={() => setLiveAnnouncement('1 new notification')}>
+          Announce
+        </button>
+      );
+    };
+
+    const Panel = ({ status }: { status?: string }) => (
+      <NotificationPanel open onClose={() => {}} liveAnnouncement={status}>
+        <AnnounceButton />
+        <NotificationPanel.List>{listChild('1')}</NotificationPanel.List>
+      </NotificationPanel>
+    );
+
+    const { rerender } = renderWithTheme(<Panel status="3 notifications synced" />);
+
+    expect(screen.getByTestId('notification-panel-live-region').textContent).toBe(
+      '3 notifications synced',
+    );
+
+    // Stop controlling via prop so subsequent context publishes are not overwritten.
+    rerender(
+      <OxygenUIThemeProvider>
+        <Panel />
+      </OxygenUIThemeProvider>,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Announce' }));
+
+    expect(screen.getByTestId('notification-panel-live-region').textContent).toBe(
+      '1 new notification',
+    );
+  });
+
+  it('re-publishes the same announcement text for repeated arrivals', () => {
+    const AnnounceButton = () => {
+      const { setLiveAnnouncement } = useNotificationPanel();
+      return (
+        <button type="button" onClick={() => setLiveAnnouncement('1 new notification')}>
+          Announce
+        </button>
+      );
+    };
+
+    renderWithTheme(
+      <NotificationPanel open onClose={() => {}}>
+        <AnnounceButton />
+      </NotificationPanel>,
+    );
+
+    const announce = () => fireEvent.click(screen.getByRole('button', { name: 'Announce' }));
+
+    announce();
+    const firstRegion = screen.getByTestId('notification-panel-live-region');
+    expect(firstRegion.textContent).toBe('1 new notification');
+
+    announce();
+    const secondRegion = screen.getByTestId('notification-panel-live-region');
+    expect(secondRegion.textContent).toBe('1 new notification');
+    // Nonce remounts the live region node so assistive tech can hear repeats.
+    expect(secondRegion).not.toBe(firstRegion);
+  });
+
+  it('clears the live region when the panel closes', () => {
+    const Panel = ({ open }: { open: boolean }) => (
+      <NotificationPanel open={open} onClose={() => {}} liveAnnouncement="1 new notification">
+        <NotificationPanel.List>{listChild('1')}</NotificationPanel.List>
+      </NotificationPanel>
+    );
+
+    const { rerender } = renderWithTheme(<Panel open />);
+
+    expect(screen.getByTestId('notification-panel-live-region').textContent).toBe(
+      '1 new notification',
+    );
+
+    rerender(
+      <OxygenUIThemeProvider>
+        <Panel open={false} />
+      </OxygenUIThemeProvider>,
+    );
+
+    // Temporary drawer unmounts content when closed; if present, it must be empty.
+    const liveRegion = screen.queryByTestId('notification-panel-live-region');
+    if (liveRegion) {
+      expect(liveRegion.textContent).toBe('');
+    }
   });
 });
