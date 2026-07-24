@@ -438,51 +438,33 @@ type MyGridColDef = typeof GridColDef;
 
 ## AI-Assisted Development
 
-Oxygen UI includes built-in documentation for AI assistants.
+Oxygen UI ships an agent **skill** that teaches coding agents to set up
+and build UIs with the design system — installing the right dependencies and versions,
+wiring up `OxygenUIThemeProvider`, and scaffolding pages/layouts that match the canonical
+sample app (`samples/oxygen-ui-test-app`).
 
-### Universal Setup (Works with any AI)
+The skill lives in this package at `.claude/skills/oxygen-ui/` (`SKILL.md` plus bundled
+`references/`). When `@wso2/oxygen-ui` is installed in the project, it prefers the package's
+version-matched references.
 
-```bash
-npx @wso2/oxygen-ui init
-```
-
-Creates:
-- `AGENTS.md` - Streamlined AI guide at project root
-- `.ai/oxygen-ui/` - Detailed documentation:
-  - `components.md` - Component API reference
-  - `patterns.md` - Common UI patterns
-  - `theming.md` - Theme customization
-  - `migration.md` - Migration guide
-
-### Claude Code Setup (Recommended for Claude)
+Install it with the [Vercel **skills** CLI](https://github.com/vercel-labs/skills) (Claude
+Code, Cursor, GitHub Copilot, and 15+ other agents):
 
 ```bash
-npx @wso2/oxygen-ui init --claude
+npx skills add wso2/oxygen-ui
 ```
 
-Creates:
-- `.claude/oxygen-ui/` - Claude-optimized documentation
-- `.claude/skills/` - Invokable skills:
-  - `/oxygen-component` - Generate Oxygen UI components
-  - `/oxygen-layout` - Generate app layouts
-  - `/oxygen-form` - Generate forms with validation
-  - `/oxygen-migrate` - Migrate MUI code
-- Updates root `CLAUDE.md` with reference
-
-### Updating After Upgrade
+Or vendor it by hand from the installed package:
 
 ```bash
-npx @wso2/oxygen-ui update           # Universal
-npx @wso2/oxygen-ui update --claude  # Claude-specific
+mkdir -p .claude/skills
+cp -r node_modules/@wso2/oxygen-ui/.claude/skills/oxygen-ui .claude/skills/
 ```
 
-### AI Documentation
-
-For detailed information, see the generated files:
-- Components: `.ai/oxygen-ui/components.md` or `.claude/oxygen-ui/components.md`
-- Patterns: `.ai/oxygen-ui/patterns.md` or `.claude/oxygen-ui/patterns.md`
-- Theming: `.ai/oxygen-ui/theming.md` or `.claude/oxygen-ui/theming.md`
-- Migration: `.ai/oxygen-ui/migration.md` or `.claude/oxygen-ui/migration.md`
+Then just ask your coding agent for UI work in your project ("add a users page with a
+searchable table", "scaffold an admin dashboard with a sidebar", "set up Oxygen UI in this
+app") and the skill handles the rest. See `.claude/skills/oxygen-ui/README.md` for setup and
+the recommended `CLAUDE.md` routing rule.
 
 ## License
 

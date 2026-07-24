@@ -442,7 +442,7 @@ import { Sidebar, SIDEBAR_WIDTH, COLLAPSED_SIDEBAR_WIDTH } from '@wso2/oxygen-ui
 ### Usage
 
 ```tsx
-import { HomeIcon, SettingsIcon } from '@wso2/oxygen-ui-icons-react';
+import { Home, Settings } from '@wso2/oxygen-ui-icons-react';
 
 <Sidebar
   collapsed={collapsed}
@@ -456,12 +456,12 @@ import { HomeIcon, SettingsIcon } from '@wso2/oxygen-ui-icons-react';
       <Sidebar.CategoryLabel>Main</Sidebar.CategoryLabel>
 
       <Sidebar.Item id="home">
-        <Sidebar.ItemIcon><HomeIcon size={20} /></Sidebar.ItemIcon>
+        <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
         <Sidebar.ItemLabel>Home</Sidebar.ItemLabel>
       </Sidebar.Item>
 
       <Sidebar.Item id="dashboard">
-        <Sidebar.ItemIcon><DashboardIcon size={20} /></Sidebar.ItemIcon>
+        <Sidebar.ItemIcon><LayoutDashboard size={20} /></Sidebar.ItemIcon>
         <Sidebar.ItemLabel>Dashboard</Sidebar.ItemLabel>
         <Sidebar.ItemBadge>5</Sidebar.ItemBadge>
       </Sidebar.Item>
@@ -470,7 +470,7 @@ import { HomeIcon, SettingsIcon } from '@wso2/oxygen-ui-icons-react';
 
   <Sidebar.Footer>
     <Sidebar.Item id="settings">
-      <Sidebar.ItemIcon><SettingsIcon size={20} /></Sidebar.ItemIcon>
+      <Sidebar.ItemIcon><Settings size={20} /></Sidebar.ItemIcon>
       <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
     </Sidebar.Item>
   </Sidebar.Footer>
@@ -1009,15 +1009,15 @@ interface UserMenuUser {
 
 ```tsx
 import { UserMenu } from '@wso2/oxygen-ui';
-import { UserIcon, SettingsIcon, LogOutIcon } from '@wso2/oxygen-ui-icons-react';
+import { User, Settings, LogOut } from '@wso2/oxygen-ui-icons-react';
 
 <UserMenu>
   <UserMenu.Trigger name="John Doe" avatar="/avatar.png" />
   <UserMenu.Header name="John Doe" email="john@example.com" role="Admin" />
-  <UserMenu.Item icon={<UserIcon size={20} />} label="Profile" onClick={() => {}} />
-  <UserMenu.Item icon={<SettingsIcon size={20} />} label="Settings" onClick={() => {}} />
+  <UserMenu.Item icon={<User size={20} />} label="Profile" onClick={() => {}} />
+  <UserMenu.Item icon={<Settings size={20} />} label="Settings" onClick={() => {}} />
   <UserMenu.Divider />
-  <UserMenu.Logout icon={<LogOutIcon size={20} />} onClick={() => signOut()} />
+  <UserMenu.Logout icon={<LogOut size={20} />} onClick={() => signOut()} />
 </UserMenu>
 ```
 
@@ -1027,9 +1027,10 @@ Page header with avatar and breadcrumb support.
 
 ```tsx
 import { PageTitle } from '@wso2/oxygen-ui';
+import { User } from '@wso2/oxygen-ui-icons-react';
 
 <PageTitle>
-  <PageTitle.Avatar><UserIcon /></PageTitle.Avatar>
+  <PageTitle.Avatar><User /></PageTitle.Avatar>
   <PageTitle.Header>Dashboard</PageTitle.Header>
   <PageTitle.SubHeader>Overview of your projects</PageTitle.SubHeader>
 </PageTitle>
@@ -1197,7 +1198,7 @@ function NotificationManager() {
 
   return (
     <Badge badgeContent={unreadCount}>
-      <NotificationIcon />
+      <Bell />
     </Badge>
   );
 }
