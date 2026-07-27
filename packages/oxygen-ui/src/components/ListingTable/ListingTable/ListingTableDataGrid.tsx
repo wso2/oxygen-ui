@@ -72,16 +72,21 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
       ),
     },
   },
-  // Remove default cell focus outline, rely on theme focus ring
   '& .MuiDataGrid-cell': {
     display: 'flex',
     alignItems: 'center',
   },
+  // Hide the default outline for mouse interactions but keep a clearly
+  // visible focus indicator for keyboard navigation (WCAG 2.4.7).
   '& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within': {
     outline: 'none',
   },
   '& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-columnHeader:focus-within': {
     outline: 'none',
+  },
+  '& .MuiDataGrid-cell:focus-visible, & .MuiDataGrid-columnHeader:focus-visible': {
+    outline: `2px solid ${(theme.vars || theme).palette.primary.main}`,
+    outlineOffset: -2,
   },
 })) as typeof DataGrid;
 

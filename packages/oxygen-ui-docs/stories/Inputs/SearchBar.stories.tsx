@@ -38,7 +38,12 @@ const meta: Meta<typeof SearchBar> = {
       description: {
         component:
           'SearchBar is a custom Oxygen UI input component with orange hover and focus states. ' +
-          'It also provides an advanced filter variant with a popover-based search.',
+          'It also provides an advanced filter variant with a popover-based search.\n\n' +
+          '### Accessibility\n' +
+          '- The input is labeled from the `placeholder` by default; override via ' +
+          "`slotProps={{ htmlInput: { 'aria-label': '…' } }}` when the placeholder is not a good name.\n" +
+          '- The search icon is decorative (`aria-hidden`); the advanced-filter button is labeled and opens a managed MUI Popover.\n' +
+          '- Refs are forwarded to the TextField root.',
       },
     },
   },

@@ -45,8 +45,9 @@ export const Default: Story = {
     const [value, setValue] = useState('');
     return (
       <FormControl sx={{ minWidth: 200 }}>
-        <InputLabel>Age</InputLabel>
-        <Select value={value} label="Age" onChange={(e) => setValue(e.target.value)}>
+        {/* Link the label to the select via id/labelId so the combobox has an accessible name */}
+        <InputLabel id="select-age-label">Age</InputLabel>
+        <Select labelId="select-age-label" value={value} label="Age" onChange={(e) => setValue(e.target.value)}>
           <MenuItem value={10}>Ten</MenuItem>
           <MenuItem value={20}>Twenty</MenuItem>
           <MenuItem value={30}>Thirty</MenuItem>
@@ -61,8 +62,13 @@ export const WithDefaultValue: Story = {
     const [value, setValue] = useState(20);
     return (
       <FormControl sx={{ minWidth: 200 }}>
-        <InputLabel>Age</InputLabel>
-        <Select value={value} label="Age" onChange={(e) => setValue(e.target.value as number)}>
+        <InputLabel id="select-default-value-label">Age</InputLabel>
+        <Select
+          labelId="select-default-value-label"
+          value={value}
+          label="Age"
+          onChange={(e) => setValue(e.target.value as number)}
+        >
           <MenuItem value={10}>Ten</MenuItem>
           <MenuItem value={20}>Twenty</MenuItem>
           <MenuItem value={30}>Thirty</MenuItem>
@@ -77,9 +83,10 @@ export const Multiple: Story = {
     const [values, setValues] = useState<string[]>([]);
     return (
       <FormControl sx={{ minWidth: 200 }}>
-        <InputLabel>Names</InputLabel>
+        <InputLabel id="select-multiple-label">Names</InputLabel>
         <Select
           multiple
+          labelId="select-multiple-label"
           value={values}
           label="Names"
           onChange={(e) => setValues(typeof e.target.value === 'string' ? e.target.value.split(',') : e.target.value)}

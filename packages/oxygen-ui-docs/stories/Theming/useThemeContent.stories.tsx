@@ -163,13 +163,13 @@ export const RequiredSetup: Story = {
   render: () => (
     <Paper elevation={3} sx={{ p: 3, maxWidth: 500, bgcolor: 'warning.light' }}>
       <Stack spacing={2}>
-        <Typography variant="h6" color="warning.dark">
+        <Typography variant="h6" sx={{ color: 'common.black' }}>
           ⚠️ Setup Required
         </Typography>
         <Typography variant="body2">
           <strong>useThemeContent</strong> must be used within <code>OxygenUIThemeProvider</code> with multiple themes configured.
         </Typography>
-        <Typography variant="body2" component="pre" sx={{ 
+        <Typography variant="body2" component="pre" tabIndex={0} sx={{ 
           bgcolor: 'background.paper', 
           p: 2, 
           borderRadius: 1,

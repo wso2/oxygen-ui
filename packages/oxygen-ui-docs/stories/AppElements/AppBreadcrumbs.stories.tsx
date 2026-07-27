@@ -56,6 +56,11 @@ const items = [
 
 <AppBreadcrumbs items={items} />
 \`\`\`
+
+### Accessibility
+- Renders an MUI Breadcrumbs \`nav\` landmark; separators are hidden from screen readers.
+- Non-current crumbs are keyboard operable (Enter/Space).
+- The "…" overflow control is a native button with \`aria-haspopup\`/\`aria-expanded\`; the hidden-crumbs menu supports Arrow keys and Escape with focus restoration.
         `,
       },
     },

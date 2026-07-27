@@ -143,19 +143,24 @@ export function ListingTableToolbar({
             minWidth: searchMinWidth,
             maxWidth: searchMaxWidth,
           }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search size={18} />
-              </InputAdornment>
-            ),
-            endAdornment: searchValue ? (
-              <InputAdornment position="end">
-                <IconButton size="small" onClick={handleClearSearch} edge="end">
-                  <X size={16} />
-                </IconButton>
-              </InputAdornment>
-            ) : null,
+          slotProps={{
+            htmlInput: {
+              'aria-label': searchPlaceholder || 'Search',
+            },
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search size={18} aria-hidden="true" />
+                </InputAdornment>
+              ),
+              endAdornment: searchValue ? (
+                <InputAdornment position="end">
+                  <IconButton size="small" onClick={handleClearSearch} edge="end" aria-label="Clear search">
+                    <X size={16} aria-hidden="true" />
+                  </IconButton>
+                </InputAdornment>
+              ) : null,
+            },
           }}
         />
       );
@@ -167,6 +172,8 @@ export function ListingTableToolbar({
 
   return (
     <Box
+      role="toolbar"
+      aria-label="Table toolbar"
       sx={{
         display: 'flex',
         alignItems: 'center',

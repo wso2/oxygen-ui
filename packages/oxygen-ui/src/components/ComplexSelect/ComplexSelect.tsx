@@ -16,12 +16,13 @@
  * under the License.
  */
 
-import { ReactNode, ReactElement, Children, isValidElement } from 'react';
+import { ReactNode, ReactElement, Children, isValidElement, useId } from 'react';
 import MuiSelect, { SelectProps, selectClasses } from '@mui/material/Select';
 import MuiFormControl from '@mui/material/FormControl';
 import MuiInputLabel from '@mui/material/InputLabel';
 import MuiTypography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
+import { visuallyHidden } from '@mui/utils';
 import ComplexSelectListHeader from './ComplexSelectListHeader';
 import ComplexSelectMenuItem from './ComplexSelectMenuItem';
 import ComplexSelectDivider from './ComplexSelectDivider';
@@ -96,6 +97,7 @@ const StyledInputLabel = styled(MuiInputLabel, {
 }));
 
 export function ComplexSelect({ children, sx, label, labelId, labelAnchor = 'inside', ...props }: ComplexSelectProps) {
+  const autoLabelId = useId();
   // Helper function to inject label into MenuItem content
   const injectLabelIntoContent = (content: ReactNode): ReactNode => {
     if (!label || labelAnchor !== 'inside') return content;
@@ -201,12 +203,20 @@ export function ComplexSelect({ children, sx, label, labelId, labelAnchor = 'ins
 
   // If label is provided, wrap with FormControl and InputLabel
   if (label) {
-    const generatedLabelId = labelId || `complex-select-label-${Math.random().toString(36).substr(2, 9)}`;
-    
+    const generatedLabelId = labelId || autoLabelId;
+
     return (
       <StyledFormControl fullWidth={props.fullWidth}>
-        {/* Only show InputLabel for outside and border modes */}
-        {labelAnchor !== 'inside' && (
+        {/*
+         * For 'inside' mode the label is rendered inside the select value, which
+         * is not exposed as the field's accessible name. Keep a visually hidden
+         * InputLabel so the combobox still has an accessible name (WCAG 4.1.2).
+         */}
+        {labelAnchor === 'inside' ? (
+          <StyledInputLabel id={generatedLabelId} labelAnchor={labelAnchor} sx={visuallyHidden}>
+            {label}
+          </StyledInputLabel>
+        ) : (
           <StyledInputLabel 
             id={generatedLabelId} 
             labelAnchor={labelAnchor}

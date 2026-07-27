@@ -35,6 +35,15 @@ const meta: Meta<typeof UserMenu> = {
   component: UserMenu,
   tags: ['autodocs'],
   parameters: {
+    a11y: {
+      // Known WCAG AA exception: the brand primary color (#FF7300) does not
+      // meet the 4.5:1 text-contrast requirement in the default themes.
+      // Tracked in https://github.com/wso2/oxygen-ui/issues/558 — remove
+      // this override once the palette decision lands.
+      options: {
+        rules: { 'color-contrast': { enabled: false } },
+      },
+    },
     layout: 'centered',
     docs: {
       description: {
@@ -92,7 +101,12 @@ import { User, Settings, CreditCard, LogOut } from '@wso2/oxygen-ui-icons-react'
   />
 </UserMenu>
 \`\`\`
-        `,
+        
+### Accessibility
+- The trigger is a labeled button ("Account", or the user's name when \`showName\` is set) exposing \`aria-haspopup\`, \`aria-expanded\`, and \`aria-controls\`.
+- The dropdown is an MUI Menu: focus moves into it on open, Arrow keys navigate, Escape closes and returns focus to the trigger.
+- Extra \`aria-*\` props and refs on \`UserMenu.Trigger\` are forwarded to the underlying button.
+`,
       },
     },
   },

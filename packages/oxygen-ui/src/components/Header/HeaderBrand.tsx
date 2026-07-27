@@ -18,6 +18,7 @@
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import ButtonBase from '@mui/material/ButtonBase';
 import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { HeaderBrandLogo } from './HeaderBrandLogo';
@@ -45,11 +46,27 @@ const HeaderBrandRoot = styled(Box, {
 }));
 
 /**
+ * Styled interactive container used when an onClick is provided, so the brand
+ * area is keyboard focusable and exposed as a button to assistive technology.
+ */
+const HeaderBrandButtonRoot = styled(ButtonBase, {
+  name: 'MuiHeader',
+  slot: 'BrandButton',
+})(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  marginLeft: theme.spacing(1),
+  borderRadius: theme.shape.borderRadius,
+}));
+
+/**
  * Props for HeaderBrand component.
  */
 export interface HeaderBrandProps {
   /** Click handler for brand area */
   onClick?: () => void;
+  /** Accessible name for the brand button when onClick is provided */
+  'aria-label'?: string;
   /** Child components (BrandLogo, BrandTitle) */
   children: React.ReactNode;
   /** Additional sx props */
@@ -69,11 +86,20 @@ export interface HeaderBrandProps {
  */
 export const HeaderBrand: React.FC<HeaderBrandProps> = ({
   onClick,
+  'aria-label': ariaLabel,
   children,
   sx,
 }) => {
+  if (onClick) {
+    return (
+      <HeaderBrandButtonRoot onClick={onClick} aria-label={ariaLabel} sx={sx}>
+        {children}
+      </HeaderBrandButtonRoot>
+    );
+  }
+
   return (
-    <HeaderBrandRoot onClick={onClick} clickable={!!onClick} sx={sx}>
+    <HeaderBrandRoot clickable={false} sx={sx}>
       {children}
     </HeaderBrandRoot>
   );
