@@ -1,5 +1,5 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import AppBreadcrumbs from './AppBreadcrumbs';
 import type { BreadcrumbItem } from './AppBreadcrumbs';
 
@@ -9,6 +9,10 @@ describe('AppBreadcrumbs', () => {
     { key: '2', label: 'Dashboard', onClick: vi.fn() },
     { key: '3', label: 'Settings' },
   ];
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
 
   it('renders default breadcrumb items correctly', () => {
     render(<AppBreadcrumbs items={defaultItems} />);
@@ -23,7 +27,7 @@ describe('AppBreadcrumbs', () => {
     
     const homeItem = screen.getByText('Home');
     fireEvent.click(homeItem);
-    expect(defaultItems[0].onClick).toHaveBeenCalled();
+    expect(defaultItems[0].onClick).toHaveBeenCalledTimes(1);
   });
 
   it('triggers onClick event on pressing Enter key', () => {
@@ -31,7 +35,7 @@ describe('AppBreadcrumbs', () => {
     
     const homeItem = screen.getByText('Home');
     fireEvent.keyDown(homeItem, { key: 'Enter', code: 'Enter' });
-    expect(defaultItems[0].onClick).toHaveBeenCalled();
+    expect(defaultItems[0].onClick).toHaveBeenCalledTimes(1);
   });
   
   it('triggers onClick event on pressing Space key', () => {
@@ -39,7 +43,7 @@ describe('AppBreadcrumbs', () => {
     
     const homeItem = screen.getByText('Home');
     fireEvent.keyDown(homeItem, { key: ' ', code: 'Space' });
-    expect(defaultItems[0].onClick).toHaveBeenCalled();
+    expect(defaultItems[0].onClick).toHaveBeenCalledTimes(1);
   });
 
   it('truncates items when items count exceeds maxItems', () => {
@@ -89,7 +93,7 @@ describe('AppBreadcrumbs', () => {
     
     // Click on the hidden item
     fireEvent.click(hiddenItem);
-    expect(manyItems[3].onClick).toHaveBeenCalled();
+    expect(manyItems[3].onClick).toHaveBeenCalledTimes(1);
   });
 
   it('has appropriate accessibility roles and attributes', () => {
