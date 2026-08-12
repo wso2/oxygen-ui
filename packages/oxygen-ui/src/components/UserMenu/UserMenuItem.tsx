@@ -36,6 +36,8 @@ export interface UserMenuItemProps {
   label: string;
   /** Optional badge/chip to display on the right */
   badge?: string;
+  /** Show a chevron indicator. Only use for items that open a sub-menu or drill-down; omit for items that navigate directly or trigger an immediate action. Defaults to false. */
+  showChevron?: boolean;
   /** Callback when item is clicked */
   onClick?: () => void;
 }
@@ -70,6 +72,7 @@ export const UserMenuItem: React.FC<UserMenuItemProps> = ({
   icon,
   label,
   badge,
+  showChevron = false,
   onClick,
 }) => {
   const { handleClose } = useUserMenu();
@@ -100,7 +103,13 @@ export const UserMenuItem: React.FC<UserMenuItemProps> = ({
             variant="outlined"
           />
         )}
-        <ChevronRight size={16} style={{ color: 'var(--mui-palette-text-secondary)' }} />
+        {showChevron && (
+          <ChevronRight
+            size={16}
+            aria-hidden="true"
+            style={{ color: 'var(--mui-palette-text-secondary)' }}
+          />
+        )}
       </Box>
     </StyledMenuItem>
   );
