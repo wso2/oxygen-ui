@@ -23,14 +23,12 @@ Migrating to Oxygen UI involves:
 ## Install Packages
 
 ```bash
-# Add Oxygen UI packages
-pnpm add @wso2/oxygen-ui @wso2/oxygen-ui-icons-react
+# Add Oxygen UI packages (latest). MUI, Emotion and date-fns are bundled
+# dependencies of @wso2/oxygen-ui — do NOT install @mui/* or @emotion/* yourself.
+pnpm add @wso2/oxygen-ui@latest @wso2/oxygen-ui-icons-react@latest
 
 # Add ESLint plugin (dev dependency)
 pnpm add -D @wso2/eslint-plugin-oxygen-ui
-
-# Ensure peer dependencies
-pnpm add @emotion/react @emotion/styled date-fns
 ```
 
 ---
@@ -207,11 +205,9 @@ const theme = createTheme({
 
 **After:**
 ```tsx
-import { extendTheme } from '@mui/material/styles';
-import { OxygenThemeBase, OxygenUIThemeProvider } from '@wso2/oxygen-ui';
+import { createOxygenTheme, OxygenUIThemeProvider } from '@wso2/oxygen-ui';
 
-const customTheme = extendTheme({
-  ...OxygenThemeBase,
+const customTheme = createOxygenTheme({
   colorSchemes: {
     light: {
       palette: { primary: { main: '#1976d2' } },
@@ -229,9 +225,9 @@ const customTheme = extendTheme({
 **Before:**
 ```tsx
 import IconButton from '@mui/material/IconButton';
-import SettingsIcon from '@mui/icons-material/Settings';
+import Settings from '@mui/icons-material/Settings';
 
-<IconButton><SettingsIcon /></IconButton>
+<IconButton><Settings /></IconButton>
 ```
 
 **After:**
@@ -269,8 +265,8 @@ const content = useThemeContent({
 
 ## Migration Checklist
 
-- [ ] Install `@wso2/oxygen-ui` and `@wso2/oxygen-ui-icons-react`
-- [ ] Install peer dependencies (`@emotion/react`, `@emotion/styled`, `date-fns`)
+- [ ] Install `@wso2/oxygen-ui@latest` and `@wso2/oxygen-ui-icons-react@latest`
+      (do NOT install `@mui/*`, `@emotion/*`, or `date-fns` — they are bundled)
 - [ ] Wrap root component with `OxygenUIThemeProvider`
 - [ ] Replace `@mui/material` imports with `@wso2/oxygen-ui`
 - [ ] Replace `@mui/icons-material` or `lucide-react` with `@wso2/oxygen-ui-icons-react`

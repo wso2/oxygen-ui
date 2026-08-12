@@ -1,0 +1,14 @@
+{
+  "name": "oxygen-ui",
+  "owner": {
+    "name": "WSO2 LLC",
+    "url": "https://github.com/wso2/oxygen-ui"
+  },
+  "plugins": [
+    {
+      "name": "oxygen-ui",
+      "source": "./packages/oxygen-ui/.claude/skills/oxygen-ui",
+      "description": "Build UIs with the WSO2 Oxygen UI design system: setup, components, layouts, forms, tables, theming, and MUI migration."
+    }
+  ]
+}

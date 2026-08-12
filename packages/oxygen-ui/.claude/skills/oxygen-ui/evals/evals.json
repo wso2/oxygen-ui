@@ -1,0 +1,33 @@
+{
+  "skill_name": "oxygen-ui",
+  "evals": [
+    {
+      "id": 0,
+      "name": "users-table",
+      "prompt": "Add a Users page to our React app (we use the Oxygen UI design system): a searchable table listing users with name, email, role and status columns, an edit and delete action on each row, and an 'Add user' button above the table. Give me the React component.",
+      "expected_output": "Uses ListingTable.* compound components (not raw MUI Table), imports from @wso2/oxygen-ui, icons from @wso2/oxygen-ui-icons-react, theme tokens via sx.",
+      "files": []
+    },
+    {
+      "id": 1,
+      "name": "dashboard-layout",
+      "prompt": "Scaffold an admin dashboard layout for our React app (we use Oxygen UI): a top app bar with the app title and a user account menu, a collapsible left side navigation with Home / Users / Settings items, and a main content area showing a few KPI metric cards. Give me the React component(s).",
+      "expected_output": "Uses AppShell + Header + Sidebar (+ UserMenu, StatCard), wrapped in OxygenUIThemeProvider; imports from @wso2/oxygen-ui; no hand-built Drawer/AppBar layout.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "signup-wizard",
+      "prompt": "Build a multi-step signup wizard for our React app (we use Oxygen UI) with three steps — Account, Profile, Review — including basic validation and a final submit. Give me the React component.",
+      "expected_output": "Uses Form.Wizard (or Form.Section/Form.Stack with Stepper); imports from @wso2/oxygen-ui; fields are TextField; no nonexistent Form.TextInput/Form.SelectInput.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "migrate-screen",
+      "prompt": "Convert this screen to our Oxygen UI design system. Here is the current file (it uses @mui/material and lucide-react):\n\n<see inputs/UserSettings.tsx>",
+      "expected_output": "Imports from @wso2/oxygen-ui instead of @mui/material; icons from @wso2/oxygen-ui-icons-react (Pencil/Trash2); table becomes ListingTable.*; theme via createOxygenTheme + OxygenUIThemeProvider; hardcoded px/hex replaced with theme tokens.",
+      "files": ["inputs/UserSettings.tsx"]
+    }
+  ]
+}
