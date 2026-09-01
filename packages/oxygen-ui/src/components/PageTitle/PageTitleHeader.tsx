@@ -38,6 +38,9 @@ const PageTitleHeaderStyled = styled(Typography, {
   slot: 'Header',
 })<TypographyProps>(({ theme }) => ({
   color: theme.vars?.palette.text.primary || theme.palette.text.primary,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
 }));
 
 /**
