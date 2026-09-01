@@ -49,7 +49,8 @@ type Story = StoryObj<typeof Slider>;
 export const Default: Story = {
   render: () => (
     <Box sx={{ width: 300 }}>
-      <Slider defaultValue={50} />
+      {/* Sliders without a visible label must provide an aria-label */}
+      <Slider defaultValue={50} aria-label="Volume" />
     </Box>
   ),
 };
@@ -57,8 +58,8 @@ export const Default: Story = {
 export const Sizes: Story = {
   render: () => (
     <Stack spacing={2} sx={{ width: 300 }}>
-      <Slider size="small" defaultValue={30} />
-      <Slider defaultValue={50} />
+      <Slider size="small" defaultValue={30} aria-label="Small volume" />
+      <Slider defaultValue={50} aria-label="Volume" />
     </Stack>
   ),
 };
@@ -73,6 +74,7 @@ export const Discrete: Story = {
         min={0}
         max={100}
         valueLabelDisplay="auto"
+        aria-label="Discrete volume"
       />
     </Box>
   ),
@@ -88,7 +90,7 @@ export const CustomMarks: Story = {
     ];
     return (
       <Box sx={{ width: 300 }}>
-        <Slider defaultValue={20} step={10} marks={marks} />
+        <Slider defaultValue={20} step={10} marks={marks} aria-label="Temperature" />
       </Box>
     );
   },
@@ -97,7 +99,7 @@ export const CustomMarks: Story = {
 export const Range: Story = {
   render: () => (
     <Box sx={{ width: 300 }}>
-      <Slider defaultValue={[20, 37]} valueLabelDisplay="auto" />
+      <Slider defaultValue={[20, 37]} valueLabelDisplay="auto" aria-label="Temperature range" />
     </Box>
   ),
 };
@@ -107,7 +109,7 @@ export const Controlled: Story = {
     const [value, setValue] = useState<number>(30);
     return (
       <Stack spacing={2} sx={{ width: 300 }}>
-        <Slider value={value} onChange={(e, newValue) => setValue(newValue as number)} />
+        <Slider value={value} onChange={(e, newValue) => setValue(newValue as number)} aria-label="Volume" />
         <Typography>Value: {value}</Typography>
       </Stack>
     );
@@ -117,7 +119,7 @@ export const Controlled: Story = {
 export const Disabled: Story = {
   render: () => (
     <Box sx={{ width: 300 }}>
-      <Slider disabled defaultValue={30} />
+      <Slider disabled defaultValue={30} aria-label="Volume" />
     </Box>
   ),
 };
@@ -125,11 +127,11 @@ export const Disabled: Story = {
 export const Colors: Story = {
   render: () => (
     <Stack spacing={2} sx={{ width: 300 }}>
-      <Slider defaultValue={30} color="primary" />
-      <Slider defaultValue={30} color="secondary" />
-      <Slider defaultValue={30} color="success" />
-      <Slider defaultValue={30} color="error" />
-      <Slider defaultValue={30} color="warning" />
+      <Slider defaultValue={30} color="primary" aria-label="Primary" />
+      <Slider defaultValue={30} color="secondary" aria-label="Secondary" />
+      <Slider defaultValue={30} color="success" aria-label="Success" />
+      <Slider defaultValue={30} color="error" aria-label="Error" />
+      <Slider defaultValue={30} color="warning" aria-label="Warning" />
     </Stack>
   ),
 };

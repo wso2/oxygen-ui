@@ -17,9 +17,11 @@
  */
 
 import * as React from 'react';
+import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
+import { visuallyHidden } from '@mui/utils';
 import { NotificationPanelContext } from './context';
 import { AppShellContext } from '../AppShell/context';
 import { NotificationHeader } from './NotificationHeader';
@@ -91,6 +93,17 @@ export interface NotificationPanelProps {
   anchor?: 'left' | 'right';
   /** Drawer variant (default: 'temporary') */
   variant?: 'permanent' | 'persistent' | 'temporary';
+  /**
+   * Accessible name for the drawer dialog (default: `"Notifications"`).
+   * Override when the visible header title differs.
+   */
+  'aria-label'?: string;
+  /**
+   * Polite live-region message for status updates (e.g. new arrivals or sync).
+   * List child-count changes are not announced automatically — publish here
+   * (or via `useNotificationPanel().setLiveAnnouncement`) when items arrive.
+   */
+  liveAnnouncement?: string;
   /** Additional sx props */
   sx?: SxProps<Theme>;
 }
@@ -168,6 +181,8 @@ const NotificationPanel: React.FC<NotificationPanelProps> & {
   width = 380,
   anchor = 'right',
   variant = 'temporary',
+  'aria-label': ariaLabelProp,
+  liveAnnouncement: liveAnnouncementProp,
   sx,
 }) => {
   // Try to consume AppShell context (optional - gracefully degrades if not available)
@@ -180,7 +195,55 @@ const NotificationPanel: React.FC<NotificationPanelProps> & {
     [onCloseProp, appShellContext?.actions.toggleNotificationPanel]
   );
 
-  const contextValue = React.useMemo(() => ({ onClose }), [onClose]);
+  // Empty/whitespace labels must not wipe the default accessible name.
+  const ariaLabel =
+    typeof ariaLabelProp === 'string' && ariaLabelProp.trim().length > 0
+      ? ariaLabelProp.trim()
+      : 'Notifications';
+
+  const [liveAnnouncement, setLiveAnnouncementState] = React.useState('');
+  const [liveAnnouncementNonce, setLiveAnnouncementNonce] = React.useState(0);
+  // Start undefined so the first open with a prop still publishes once.
+  const prevLiveAnnouncementPropRef = React.useRef<string | undefined>(undefined);
+
+  // Announcements are events while open only (persistent/permanent keep content mounted when closed).
+  const publishLiveAnnouncement = React.useCallback(
+    (message: string) => {
+      if (!open) return;
+      setLiveAnnouncementState(message);
+      setLiveAnnouncementNonce((n) => n + 1);
+    },
+    [open]
+  );
+
+  // Clear on close; publish only when the prop *changes* while open (no reopen repeat).
+  // Clear stale text when the prop becomes undefined while open.
+  React.useEffect(() => {
+    if (!open) {
+      setLiveAnnouncementState('');
+      prevLiveAnnouncementPropRef.current = liveAnnouncementProp;
+      return;
+    }
+
+    const prev = prevLiveAnnouncementPropRef.current;
+    prevLiveAnnouncementPropRef.current = liveAnnouncementProp;
+
+    if (liveAnnouncementProp === undefined) {
+      if (prev !== undefined) {
+        setLiveAnnouncementState('');
+      }
+      return;
+    }
+
+    if (liveAnnouncementProp !== prev) {
+      publishLiveAnnouncement(liveAnnouncementProp);
+    }
+  }, [open, liveAnnouncementProp, publishLiveAnnouncement]);
+
+  const contextValue = React.useMemo(
+    () => ({ onClose, open, setLiveAnnouncement: publishLiveAnnouncement }),
+    [onClose, open, publishLiveAnnouncement]
+  );
   const ownerState = { width };
 
   return (
@@ -192,7 +255,23 @@ const NotificationPanel: React.FC<NotificationPanelProps> & {
         ownerState={ownerState}
         sx={sx}
         variant={variant}
+        slotProps={{
+          paper: {
+            'aria-label': ariaLabel,
+          },
+        }}
       >
+        <Box
+          key={liveAnnouncementNonce}
+          component="div"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          sx={visuallyHidden}
+          data-testid="notification-panel-live-region"
+        >
+          {liveAnnouncement}
+        </Box>
         {children}
       </NotificationPanelRoot>
     </NotificationPanelContext.Provider>

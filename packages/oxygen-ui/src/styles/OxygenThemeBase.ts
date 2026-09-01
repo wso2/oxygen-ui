@@ -173,6 +173,37 @@ const OxygenThemeBase = extendTheme({
     },
   },
   components: {
+    MuiAccordionSummary: {
+      defaultProps: {
+        expandIcon: React.createElement(ChevronDown),
+      },
+      styleOverrides: {
+        root: ({ theme }) => ({
+          fontWeight: theme.typography.fontWeightMedium,
+          '& .MuiTypography-root': {
+            fontWeight: theme.typography.fontWeightMedium,
+          },
+          '&:hover:not(.Mui-disabled)': {
+            backgroundColor: (theme.vars || theme).palette.action.hover,
+            cursor: 'pointer',
+          },
+        }),
+      },
+    },
+    MuiCssBaseline: {
+      styleOverrides: {
+        // Honor the user's OS-level reduced-motion preference (WCAG 2.3.3):
+        // collapse all CSS animations/transitions to near-instant.
+        '@media (prefers-reduced-motion: reduce)': {
+          '*, *::before, *::after': {
+            animationDuration: '0.01ms !important',
+            animationIterationCount: '1 !important',
+            transitionDuration: '0.01ms !important',
+            scrollBehavior: 'auto !important',
+          },
+        },
+      },
+    },
     MuiAutocomplete: {
       defaultProps: {
         popupIcon: React.createElement(ChevronDown),
@@ -261,12 +292,13 @@ const customProperties = {
     light: {
       background: '#f5f5f5',
       text: '#24292e',
-      comment: '#6a737d',
-      keyword: '#d73a49',
+      // Darkened from GitHub-light defaults to meet WCAG AA 4.5:1 contrast on #f5f5f5
+      comment: '#57606a',
+      keyword: '#cf222e',
       string: '#032f62',
       function: '#6f42c1',
       number: '#005cc5',
-      operator: '#d73a49',
+      operator: '#cf222e',
     },
     dark: {
       background: '#1e1e1e',

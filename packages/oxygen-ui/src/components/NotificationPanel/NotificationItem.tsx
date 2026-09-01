@@ -219,12 +219,13 @@ export const NotificationItem: React.FC<NotificationItemProps> = ({
           onDismiss && (
             <NotificationItemDismiss
               size="small"
+              aria-label="Dismiss notification"
               onClick={(e) => {
                 e.stopPropagation();
                 onDismiss(id);
               }}
             >
-              <X size={16} />
+              <X size={16} aria-hidden="true" />
             </NotificationItemDismiss>
           )
         }

@@ -594,3 +594,84 @@ export const CreateCustomTheme: Story = {
     </CenterContentLayout>
   ),
 };
+
+/**
+ * Accessibility requirements for contributing components and stories.
+ */
+export const AccessibilityPolicy: Story = {
+  render: () => (
+    <CenterContentLayout>
+      <Stack spacing={3}>
+        <Box>
+          <Typography variant="h2" gutterBottom>
+            Accessibility Policy
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Oxygen UI targets WCAG 2.1 AA. Every story runs automated axe-core checks, locally in the
+            Accessibility addon panel and in CI on every pull request.
+          </Typography>
+        </Box>
+
+        <Divider />
+
+        <Box>
+          <Typography variant="h6" gutterBottom>
+            Rules for New Components and Stories
+          </Typography>
+          <Typography variant="body2" color="text.secondary" component="div">
+            <ul>
+              <li>All stories must pass the accessibility checks. CI fails on new violations.</li>
+              <li>Icon-only controls must have an accessible name (an <code>aria-label</code>, not just a tooltip).</li>
+              <li>Interactive elements must be real buttons/links — never a <code>div</code> or <code>span</code> with <code>onClick</code>.</li>
+              <li>Custom wrappers must spread <code>...props</code> to their root and forward refs, so consumers can pass <code>aria-*</code> attributes and anchor menus/popovers.</li>
+              <li>Decorative icons need <code>aria-hidden="true"</code>.</li>
+              <li>Animations must respect <code>prefers-reduced-motion</code> (the base theme handles CSS transitions globally; JS-driven animation needs explicit handling).</li>
+            </ul>
+          </Typography>
+        </Box>
+
+        <Box>
+          <Typography variant="h6" gutterBottom>
+            Running the Checks
+          </Typography>
+          <CodeBlock
+            language="bash"
+            code={`# Interactive: open the Accessibility panel in Storybook
+  pnpm storybook
+
+  # CI-equivalent: build Storybook, then run the full suite
+  pnpm build:storybook
+  pnpm --filter @wso2/oxygen-ui-docs test:storybook:ci`}
+          />
+        </Box>
+
+        <Box>
+          <Typography variant="h6" gutterBottom>
+            Documenting Exceptions
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            A story may only disable a rule when the violation is a known, tracked limitation. The override
+            must carry a comment explaining why and a link to the GitHub issue:
+          </Typography>
+          <CodeBlock
+            language="tsx"
+            code={`const meta: Meta = {
+    parameters: {
+      a11y: {
+        // Known WCAG AA exception: <reason>.
+        // Tracked in https://github.com/<org>/oxygen-ui/issues/<id>
+        options: {
+          rules: { 'color-contrast': { enabled: false } },
+        },
+      },
+    },
+  };`}
+          />
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+            The full audit report and open findings live in <code>packages/oxygen-ui-docs/ACCESSIBILITY.md</code>.
+          </Typography>
+        </Box>
+      </Stack>
+    </CenterContentLayout>
+  ),
+};

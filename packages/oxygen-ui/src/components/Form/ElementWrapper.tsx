@@ -34,11 +34,26 @@ const StyledFormLabel = styled(FormLabel)({
 
 export const ElementWrapper = (props: ElementWrapperProps) => {
   const { label, name, children } = props
+  const labelId = `${name}-label`
+
+  // MUI Select renders a non-labelable div[role="combobox"], so `htmlFor`
+  // alone doesn't give it an accessible name. Link Select children to the
+  // label via `labelId` (which MUI turns into aria-labelledby).
+  const enhancedChildren = React.Children.map(children, (child) => {
+    if (
+      React.isValidElement(child) &&
+      (child.type as { muiName?: string })?.muiName === 'Select' &&
+      !(child.props as { labelId?: string }).labelId
+    ) {
+      return React.cloneElement(child as React.ReactElement<{ labelId?: string }>, { labelId })
+    }
+    return child
+  })
+
   return (
     <FormControl fullWidth>
-      <StyledFormLabel htmlFor={name}>{label}</StyledFormLabel>
-      {children}
+      <StyledFormLabel id={labelId} htmlFor={name}>{label}</StyledFormLabel>
+      {enhancedChildren}
     </FormControl>
   )
 }
-

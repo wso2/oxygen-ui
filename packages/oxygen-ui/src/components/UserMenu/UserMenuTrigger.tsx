@@ -22,14 +22,19 @@ import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
 import { styled } from '@mui/material/styles';
 import { useUserMenu } from './UserMenuContext';
+import { getUserMenuAvatarProps } from './getUserMenuAvatarProps';
 
 /**
  * Props for the UserMenu.Trigger component.
  */
-export interface UserMenuTriggerProps {
+export interface UserMenuTriggerProps extends Omit<React.ComponentProps<typeof IconButton>, 'children'> {
   /** User display name */
   name: string;
-  /** Avatar image URL (if null, falls back to initials) */
+  /**
+   * Avatar image URL or initials text.
+   * Image-like values (`http(s):`, `/`, `data:`, `blob:`) are used as `src`.
+   * Other strings (e.g. `"JD"`) are shown as initials. If omitted, falls back to the first letter of `name`.
+   */
   avatar?: string | null;
   /** Whether to show the name text after the avatar */
   showName?: boolean;
@@ -85,27 +90,38 @@ const StyledNameText = styled('span', {
 /**
  * UserMenu.Trigger - Avatar button that opens the menu.
  */
-export const UserMenuTrigger: React.FC<UserMenuTriggerProps> = ({ name, avatar, showName = false }) => {
-  const { open, handleOpen } = useUserMenu();
+export const UserMenuTrigger = React.forwardRef<HTMLButtonElement, UserMenuTriggerProps>(
+  function UserMenuTrigger({ name, avatar, showName = false, onClick, 'aria-label': ariaLabel, ...props }, ref) {
+    const { open, handleOpen } = useUserMenu();
+    const avatarProps = getUserMenuAvatarProps(name, avatar);
+    const defaultAriaLabel = showName ? name : 'Account';
+    const resolvedAriaLabel =
+      typeof ariaLabel === 'string' && ariaLabel.trim().length > 0 ? ariaLabel : defaultAriaLabel;
 
-  return (
-    <Tooltip title="Account">
-      <StyledTrigger
-        onClick={handleOpen}
-        size="small"
-        showName={showName}
-        aria-label={showName ? name : 'Account'}
-        aria-controls={open ? 'user-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-      >
-        <StyledAvatar src={avatar || undefined} alt={name}>
-          {!avatar && name.charAt(0)}
-        </StyledAvatar>
-        {showName && <StyledNameText>{name}</StyledNameText>}
-      </StyledTrigger>
-    </Tooltip>
-  );
-};
+    return (
+      <Tooltip title="Account">
+        <StyledTrigger
+          {...props}
+          ref={ref}
+          onClick={(event) => {
+            handleOpen(event);
+            onClick?.(event);
+          }}
+          size="small"
+          showName={showName}
+          aria-label={resolvedAriaLabel}
+          aria-controls={open ? 'user-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+        >
+          <StyledAvatar src={avatarProps.src} alt={name}>
+            {avatarProps.children}
+          </StyledAvatar>
+          {showName && <StyledNameText>{name}</StyledNameText>}
+        </StyledTrigger>
+      </Tooltip>
+    );
+  }
+);
 
 UserMenuTrigger.displayName = 'UserMenu.Trigger';
