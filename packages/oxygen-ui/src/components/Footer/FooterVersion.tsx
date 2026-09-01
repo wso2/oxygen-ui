@@ -27,7 +27,9 @@ const StyledVersion = styled(Typography, {
   name: 'MuiFooter',
   slot: 'Version',
 })(({ theme }) => ({
-  color: (theme.vars || theme).palette.text.disabled,
+  // text.secondary (not text.disabled) so the version text keeps a
+  // WCAG AA compliant 4.5:1 contrast ratio at this small size.
+  color: (theme.vars || theme).palette.text.secondary,
   fontFamily: 'monospace',
   fontSize: 11,
 }));

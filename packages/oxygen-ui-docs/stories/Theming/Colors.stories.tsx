@@ -28,6 +28,15 @@ const meta: Meta = {
   title: 'Theming/Colors',
   tags: ['autodocs'],
   parameters: {
+    a11y: {
+      // Known exception: these stories are palette swatch demos that render
+      // every Material color with white/black text purely for reference —
+      // several mid-range shades intentionally fail 4.5:1. Contrast is
+      // audited on real components instead.
+      options: {
+        rules: { 'color-contrast': { enabled: false } },
+      },
+    },
     docs: {
       description: {
         component: `

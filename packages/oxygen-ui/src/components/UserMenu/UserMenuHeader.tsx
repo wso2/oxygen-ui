@@ -23,7 +23,7 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 import { styled } from '@mui/material/styles';
-import type { UserMenuUser } from './UserMenu';
+import { getUserMenuAvatarProps } from './getUserMenuAvatarProps';
 
 /**
  * Props for the UserMenu.Header component.
@@ -33,7 +33,11 @@ export interface UserMenuHeaderProps {
   name: string;
   /** User email address */
   email: string;
-  /** Avatar image URL (if null, falls back to initials) */
+  /**
+   * Avatar image URL or initials text.
+   * Image-like values (`http(s):`, `/`, `data:`, `blob:`) are used as `src`.
+   * Other strings (e.g. `"JD"`) are shown as initials. If omitted, falls back to the first letter of `name`.
+   */
   avatar?: string | null;
   /** Role or plan badge (e.g., "Pro", "Admin") */
   role?: string;
@@ -146,12 +150,14 @@ const StyledEmail = styled(Typography, {
  * UserMenu.Header - User info section with name, email, and role badge.
  */
 export const UserMenuHeader: React.FC<UserMenuHeaderProps> = ({ name, email, avatar, role }) => {
+  const avatarProps = getUserMenuAvatarProps(name, avatar);
+
   return (
     <>
       <StyledHeaderBox>
         <StyledHeaderContent>
-          <StyledHeaderAvatar src={avatar || undefined} alt={name}>
-            {!avatar && name.charAt(0)}
+          <StyledHeaderAvatar src={avatarProps.src} alt={name}>
+            {avatarProps.children}
           </StyledHeaderAvatar>
           <StyledUserInfo>
             <StyledNameRow>

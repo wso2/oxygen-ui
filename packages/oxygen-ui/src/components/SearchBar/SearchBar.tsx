@@ -16,22 +16,24 @@
  * under the License.
  */
 
+import * as React from 'react'
 import { TextFieldProps } from '@mui/material/TextField'
 import { SearchBarBase } from './SearchBarBase'
 
 export interface SearchBarProps extends Omit<TextFieldProps, 'variant'> {
 }
 
-export function SearchBar({
-  placeholder = 'Search',
-  ...props
-}: SearchBarProps) {
+export const SearchBar = React.forwardRef<HTMLDivElement, SearchBarProps>(function SearchBar(
+  { placeholder = 'Search', ...props },
+  ref,
+) {
   return (
     <SearchBarBase
       {...props}
+      ref={ref}
       placeholder={placeholder}
     />
   )
-}
+})
 
 export default SearchBar

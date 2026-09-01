@@ -49,10 +49,11 @@ type Story = StoryObj<typeof CircularProgress>;
 export const Circular: Story = {
   render: () => (
     <Stack direction="row" spacing={2}>
-      <CircularProgress />
-      <CircularProgress color="secondary" />
-      <CircularProgress color="success" />
-      <CircularProgress color="inherit" />
+      {/* Progress indicators need an accessible name for screen readers */}
+      <CircularProgress aria-label="Loading" />
+      <CircularProgress color="secondary" aria-label="Loading" />
+      <CircularProgress color="success" aria-label="Loading" />
+      <CircularProgress color="inherit" aria-label="Loading" />
     </Stack>
   ),
 };
@@ -60,10 +61,10 @@ export const Circular: Story = {
 export const CircularDeterminate: Story = {
   render: () => (
     <Stack direction="row" spacing={2}>
-      <CircularProgress variant="determinate" value={25} />
-      <CircularProgress variant="determinate" value={50} />
-      <CircularProgress variant="determinate" value={75} />
-      <CircularProgress variant="determinate" value={100} />
+      <CircularProgress variant="determinate" value={25} aria-label="25 percent complete" />
+      <CircularProgress variant="determinate" value={50} aria-label="50 percent complete" />
+      <CircularProgress variant="determinate" value={75} aria-label="75 percent complete" />
+      <CircularProgress variant="determinate" value={100} aria-label="100 percent complete" />
     </Stack>
   ),
 };
@@ -71,11 +72,11 @@ export const CircularDeterminate: Story = {
 export const CircularSizes: Story = {
   render: () => (
     <Stack direction="row" spacing={2} alignItems="center">
-      <CircularProgress size={20} />
-      <CircularProgress size={30} />
-      <CircularProgress />
-      <CircularProgress size={60} />
-      <CircularProgress size={80} />
+      <CircularProgress size={20} aria-label="Loading" />
+      <CircularProgress size={30} aria-label="Loading" />
+      <CircularProgress aria-label="Loading" />
+      <CircularProgress size={60} aria-label="Loading" />
+      <CircularProgress size={80} aria-label="Loading" />
     </Stack>
   ),
 };
@@ -84,10 +85,10 @@ export const Linear: Story = {
   render: () => (
     <Box sx={{ width: 400 }}>
       <Stack spacing={2}>
-        <LinearProgress />
-        <LinearProgress color="secondary" />
-        <LinearProgress color="success" />
-        <LinearProgress color="inherit" />
+        <LinearProgress aria-label="Loading" />
+        <LinearProgress color="secondary" aria-label="Loading" />
+        <LinearProgress color="success" aria-label="Loading" />
+        <LinearProgress color="inherit" aria-label="Loading" />
       </Stack>
     </Box>
   ),
@@ -97,10 +98,10 @@ export const LinearDeterminate: Story = {
   render: () => (
     <Box sx={{ width: 400 }}>
       <Stack spacing={2}>
-        <LinearProgress variant="determinate" value={25} />
-        <LinearProgress variant="determinate" value={50} />
-        <LinearProgress variant="determinate" value={75} />
-        <LinearProgress variant="determinate" value={100} />
+        <LinearProgress variant="determinate" value={25} aria-label="25 percent complete" />
+        <LinearProgress variant="determinate" value={50} aria-label="50 percent complete" />
+        <LinearProgress variant="determinate" value={75} aria-label="75 percent complete" />
+        <LinearProgress variant="determinate" value={100} aria-label="100 percent complete" />
       </Stack>
     </Box>
   ),
@@ -109,7 +110,7 @@ export const LinearDeterminate: Story = {
 export const LinearBuffer: Story = {
   render: () => (
     <Box sx={{ width: 400 }}>
-      <LinearProgress variant="buffer" value={60} valueBuffer={80} />
+      <LinearProgress variant="buffer" value={60} valueBuffer={80} aria-label="Buffering" />
     </Box>
   ),
 };

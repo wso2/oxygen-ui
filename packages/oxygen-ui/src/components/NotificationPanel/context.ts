@@ -24,6 +24,13 @@ import * as React from 'react';
 export interface NotificationPanelContextValue {
   /** Callback to close the panel */
   onClose: () => void;
+  /** Whether the panel drawer is open */
+  open: boolean;
+  /**
+   * Announce a status message via the panel's polite live region.
+   * Use when new notifications arrive (list child-count changes are not auto-announced).
+   */
+  setLiveAnnouncement: (message: string) => void;
 }
 
 /**

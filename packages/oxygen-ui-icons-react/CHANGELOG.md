@@ -1,5 +1,11 @@
 # @wso2/oxygen-ui-icons-react
 
+## 0.13.1
+
+### Patch Changes
+
+- [#570](https://github.com/wso2/oxygen-ui/pull/570) [`47e1c43`](https://github.com/wso2/oxygen-ui/commit/47e1c438ce4f7b1a81417d7f69eac7e7f147349f) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Improve AppBreadcrumbs and Header components
+
 ## 0.13.0
 
 ## 0.12.1

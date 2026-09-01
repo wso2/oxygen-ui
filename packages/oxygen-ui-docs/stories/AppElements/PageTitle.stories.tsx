@@ -56,7 +56,11 @@ import { Link as LinkIcon } from '@wso2/oxygen-ui-icons-react';
   <PageTitle.Link href="/docs" icon={<LinkIcon />}>View Documentation</PageTitle.Link>
 </PageTitle>
 \`\`\`
-        `,
+        
+### Accessibility
+- \`PageTitle.BackButton\` renders a labeled text button ("Back" by default) with the arrow icon hidden from screen readers.
+- Header/SubHeader render semantic heading content; extra \`aria-*\` props are forwarded to the root.
+`,
       },
     },
   },

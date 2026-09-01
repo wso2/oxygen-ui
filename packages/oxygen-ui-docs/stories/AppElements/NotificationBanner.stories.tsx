@@ -56,7 +56,12 @@ import { NotificationBanner } from '@wso2/oxygen-ui';
   onDismiss={() => setShowBanner(false)}
 />
 \`\`\`
-        `,
+        
+### Accessibility
+- Uses MUI Alert (\`role="alert"\`), so the message is announced when the banner appears.
+- Light-mode filled info/warning colors are adjusted to meet the WCAG AA 4.5:1 contrast ratio.
+- The dismiss button is labeled via MUI's close button defaults.
+`,
       },
     },
   },
