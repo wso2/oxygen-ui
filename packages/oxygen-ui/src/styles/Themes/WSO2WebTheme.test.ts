@@ -76,6 +76,34 @@ describe('WSO2WebTheme colour schemes', () => {
   });
 });
 
+describe('WSO2WebTheme type colour', () => {
+  it('applies the deep indigo to headings rather than inheriting body grey', () => {
+    const headings = WSO2WebTheme.components?.MuiTypography?.styleOverrides;
+
+    for (const level of ['h1', 'h2', 'h3'] as const) {
+      expect(headings?.[level]).toMatchObject({ color: '#02074B' });
+      expect(headings?.[level]).not.toMatchObject({
+        color: WSO2WebTheme.colorSchemes.light.palette.text.primary,
+      });
+    }
+  });
+
+  it('applies the deep indigo to links, with the orange-red hover', () => {
+    const root = WSO2WebTheme.components?.MuiLink?.styleOverrides?.root;
+    const resolved = (typeof root === 'function' ? root({ theme: WSO2WebTheme }) : root) as Record<
+      string,
+      { color?: string }
+    >;
+
+    expect(resolved).toMatchObject({ color: '#02074B' });
+    expect(resolved['&:hover']?.color).toContain('palette-primary-main');
+  });
+
+  it('keeps body copy on the grey text colour, not the heading indigo', () => {
+    expect(WSO2WebTheme.colorSchemes.light.palette.text.primary).toBe('#444444');
+  });
+});
+
 describe('WSO2WebTheme shape', () => {
   it('uses the design system card radius and pill buttons', () => {
     expect(WSO2WebTheme.shape.borderRadius).toBe(15);

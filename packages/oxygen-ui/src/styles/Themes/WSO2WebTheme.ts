@@ -83,6 +83,18 @@ const OPAQUE_SURFACE = {
   },
 } as const;
 
+/**
+ * The deep indigo type colour, applied to headings and links. Body copy stays on
+ * text.primary (#444444), matching the designs, where h1 and a are #02074B while p
+ * is #444444. Keyed off colorSchemeSelector because MUI has no heading text role.
+ */
+const HEADING_COLOR = {
+  color: '#02074B',
+  "html[data-color-scheme='dark'] &": {
+    color: '#FFFFFF',
+  },
+} as const;
+
 const WSO2WebThemeConfig = {
   colorSchemes: {
     light: {
@@ -282,16 +294,15 @@ const WSO2WebThemeConfig = {
     },
     MuiTypography: {
       styleOverrides: {
-        // Headings carry the deep indigo; body copy stays on text.primary (#444444)
-        h1: ({ theme }: { theme: OxygenTheme }) => ({ color: theme.vars.palette.text.primary }),
-        h2: ({ theme }: { theme: OxygenTheme }) => ({ color: theme.vars.palette.text.primary }),
-        h3: ({ theme }: { theme: OxygenTheme }) => ({ color: theme.vars.palette.text.primary }),
+        h1: { ...HEADING_COLOR },
+        h2: { ...HEADING_COLOR },
+        h3: { ...HEADING_COLOR },
       },
     },
     MuiLink: {
       styleOverrides: {
         root: ({ theme }: { theme: OxygenTheme }) => ({
-          color: theme.vars.palette.text.primary,
+          ...HEADING_COLOR, // a { color: #02074B }
           textDecoration: 'none',
           '&:hover': {
             color: theme.vars.palette.primary.main, // a:hover { color: #D32F00 }
