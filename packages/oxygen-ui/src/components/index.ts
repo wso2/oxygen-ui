@@ -55,6 +55,17 @@ export type {
   HeaderContextValue,
 } from './Header';
 
+export { AppSwitcher, useAppSwitcher } from './AppSwitcher';
+export type {
+  AppSwitcherProps,
+  AppSwitcherTriggerProps,
+  AppSwitcherSectionProps,
+  AppSwitcherAppProps,
+  AppSwitcherAppStatusColor,
+  AppSwitcherFooterProps,
+  AppSwitcherContextValue,
+} from './AppSwitcher';
+
 export { Sidebar, useSidebar } from './Sidebar';
 export type {
   SidebarProps,

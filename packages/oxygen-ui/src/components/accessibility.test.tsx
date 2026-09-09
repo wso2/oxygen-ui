@@ -26,7 +26,7 @@
  */
 
 import * as React from 'react';
-import { describe, it, expect, afterEach } from 'vitest';
+import { describe, it, expect, afterEach, vi } from 'vitest';
 import { render, cleanup, screen, fireEvent } from '@testing-library/react';
 import { MenuItem, Select } from '@mui/material';
 import OxygenUIThemeProvider from '../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
@@ -41,6 +41,7 @@ import HeaderBrand from './Header/HeaderBrand';
 import AppBreadcrumbs from './AppBreadcrumbs/AppBreadcrumbs';
 import ListingTableToolbar from './ListingTable/shared/ListingTableToolbar';
 import UserMenu from './UserMenu/UserMenu';
+import AppSwitcher from './AppSwitcher/AppSwitcher';
 import NotificationPanel from './NotificationPanel/NotificationPanel';
 import { useNotificationPanel } from './NotificationPanel/context';
 
@@ -220,6 +221,181 @@ describe('UserMenu.Trigger', () => {
     expect(trigger.getAttribute('aria-expanded')).toBe('true');
     expect(trigger.getAttribute('aria-controls')).toBe('user-menu');
     expect(trigger.getAttribute('aria-label')).toBe('Account');
+  });
+});
+
+describe('AppSwitcher', () => {
+  const renderSwitcher = (appProps: Record<string, unknown> = {}) =>
+    renderWithTheme(
+      <AppSwitcher>
+        <AppSwitcher.Trigger />
+        <AppSwitcher.Section label="Platforms">
+          <AppSwitcher.App name="API Management" {...appProps} />
+        </AppSwitcher.Section>
+        <AppSwitcher.Footer description="Manage billing" actionLabel="Cloud Console" href="/console" />
+      </AppSwitcher>,
+    );
+
+  it('exposes popover ARIA state on the trigger and opens on click', () => {
+    renderSwitcher();
+
+    const trigger = screen.getByRole('button', { name: 'Switch app' });
+    expect(trigger.getAttribute('aria-haspopup')).toBe('true');
+    expect(trigger.getAttribute('aria-expanded')).toBeNull();
+    expect(trigger.getAttribute('aria-controls')).toBeNull();
+
+    fireEvent.click(trigger);
+
+    expect(trigger.getAttribute('aria-expanded')).toBe('true');
+
+    // The popover surface the trigger points at must exist in the DOM.
+    const controls = trigger.getAttribute('aria-controls');
+    expect(controls).toBeTruthy();
+    expect(document.getElementById(controls as string)).not.toBeNull();
+    expect(screen.getByRole('list', { name: 'Platforms' })).toBeDefined();
+  });
+
+  it('matches the other header icon buttons in size so hover styling lines up', () => {
+    renderWithTheme(
+      <>
+        <ColorSchemeToggle />
+        <AppSwitcher>
+          <AppSwitcher.Trigger />
+        </AppSwitcher>
+      </>,
+    );
+
+    const toggle = screen.getByRole('button', { name: /switch to .* mode/i });
+    const trigger = screen.getByRole('button', { name: 'Switch app' });
+
+    // Both must resolve to the same IconButton size class; a mismatch changes
+    // the padding and therefore the diameter of the hover circle.
+    expect(trigger.className).toContain('MuiIconButton-sizeMedium');
+    expect(toggle.className).toContain('MuiIconButton-sizeMedium');
+  });
+
+  it('lets consumers override the button size', () => {
+    renderWithTheme(
+      <AppSwitcher>
+        <AppSwitcher.Trigger size="small" />
+      </AppSwitcher>,
+    );
+
+    expect(screen.getByRole('button', { name: 'Switch app' }).className).toContain(
+      'MuiIconButton-sizeSmall',
+    );
+  });
+
+  it('renders apps through a custom router component and forwards router props', () => {
+    // Stand-in for a router Link: the library must not depend on a router.
+    const RouterLink = React.forwardRef<
+      HTMLAnchorElement,
+      { to: string; children?: React.ReactNode }
+    >(function RouterLink({ to, children, ...rest }, linkRef) {
+      return (
+        <a ref={linkRef} href={to} data-router-link="true" {...rest}>
+          {children}
+        </a>
+      );
+    });
+
+    renderWithTheme(
+      <AppSwitcher>
+        <AppSwitcher.Trigger />
+        <AppSwitcher.Section label="Platforms">
+          <AppSwitcher.App name="API Management" component={RouterLink} to="/apim" />
+        </AppSwitcher.Section>
+      </AppSwitcher>,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+
+    const app = screen.getByRole('link', { name: 'API Management' });
+    expect(app.getAttribute('data-router-link')).toBe('true');
+    expect(app.getAttribute('href')).toBe('/apim');
+  });
+
+  it('renders the footer action through a custom router component', () => {
+    const RouterLink = React.forwardRef<
+      HTMLAnchorElement,
+      { to: string; children?: React.ReactNode }
+    >(function RouterLink({ to, children, ...rest }, linkRef) {
+      return (
+        <a ref={linkRef} href={to} data-router-link="true" {...rest}>
+          {children}
+        </a>
+      );
+    });
+
+    renderWithTheme(
+      <AppSwitcher>
+        <AppSwitcher.Trigger />
+        <AppSwitcher.Footer actionLabel="Cloud Console" component={RouterLink} to="/console" />
+      </AppSwitcher>,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+
+    const action = screen.getByRole('link', { name: /Cloud Console/ });
+    expect(action.getAttribute('data-router-link')).toBe('true');
+    expect(action.getAttribute('href')).toBe('/console');
+  });
+
+  it('keeps the default accessible name when a consumer passes a blank label', () => {
+    renderWithTheme(
+      <AppSwitcher>
+        <AppSwitcher.Trigger aria-label="" />
+      </AppSwitcher>,
+    );
+
+    expect(screen.getByRole('button', { name: 'Switch app' })).toBeDefined();
+  });
+
+  it('renders navigable apps as links and closes the popover on selection', () => {
+    const onClick = vi.fn();
+    renderSwitcher({ href: '/apim', onClick });
+
+    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+
+    const app = screen.getByRole('link', { name: 'API Management' });
+    expect(app.getAttribute('href')).toBe('/apim');
+
+    fireEvent.click(app);
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('marks the current app and blocks navigation for disabled apps', () => {
+    const onClick = vi.fn();
+    renderWithTheme(
+      <AppSwitcher>
+        <AppSwitcher.Trigger />
+        <AppSwitcher.Section label="Platforms">
+          <AppSwitcher.App name="Agent" current status="Current" />
+          <AppSwitcher.App name="Analytics" disabled onClick={onClick} />
+        </AppSwitcher.Section>
+      </AppSwitcher>,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+
+    expect(screen.getByText('Agent').closest('[aria-current="true"]')).not.toBeNull();
+
+    const disabledApp = screen.getByText('Analytics').closest('[aria-disabled="true"]');
+    expect(disabledApp).not.toBeNull();
+    fireEvent.click(disabledApp as HTMLElement);
+    expect(onClick).not.toHaveBeenCalled();
+
+    // Unavailable apps stay discoverable rather than dropping out of the tab order.
+    expect((disabledApp as HTMLElement).hasAttribute('disabled')).toBe(false);
+  });
+
+  it('groups apps in a labelled list', () => {
+    renderSwitcher();
+    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+
+    const list = screen.getByRole('list', { name: 'Platforms' });
+    expect(list).toBeDefined();
+    expect(screen.getAllByRole('listitem')).toHaveLength(1);
   });
 });
 
