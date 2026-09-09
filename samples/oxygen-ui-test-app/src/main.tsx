@@ -25,6 +25,7 @@ import {
   PaleGrayTheme,
   PaleIndigoTheme,
   WSO2Theme,
+  WSO2WebTheme,
   createOxygenTheme,
   type OxygenThemeType,
 } from '@wso2/oxygen-ui'
@@ -84,6 +85,7 @@ createRoot(document.getElementById('root')!).render(
         { key: 'paleGray', label: 'Pale Gray Theme', theme: PaleGrayTheme },
         { key: 'paleIndigo', label: 'Pale Indigo Theme', theme: PaleIndigoTheme },
         { key: 'wso2', label: 'WSO2 Theme', theme: WSO2Theme },
+        { key: 'wso2web', label: 'WSO2 Web Theme', theme: WSO2WebTheme },
         ...(APP_CONFIG.design?.themes?.map(
           (theme) => ({
             key: theme.key,
