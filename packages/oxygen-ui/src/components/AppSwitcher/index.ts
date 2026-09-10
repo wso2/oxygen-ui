@@ -16,21 +16,13 @@
  * under the License.
  */
 
+// The sub-components (Trigger, Section, App, Footer) are intentionally not
+// exported: the switcher's layout is fixed so it stays consistent across
+// products. Consumers describe the applications with `apps` instead.
 export { AppSwitcher, default } from './AppSwitcher';
-export type { AppSwitcherProps } from './AppSwitcher';
-
-// Export sub-components separately for direct import
-export { AppSwitcherTrigger } from './AppSwitcherTrigger';
-export type { AppSwitcherTriggerProps } from './AppSwitcherTrigger';
-
-export { AppSwitcherSection } from './AppSwitcherSection';
-export type { AppSwitcherSectionProps } from './AppSwitcherSection';
-
-export { AppSwitcherApp } from './AppSwitcherApp';
-export type { AppSwitcherAppProps, AppSwitcherAppStatusColor } from './AppSwitcherApp';
-
-export { AppSwitcherFooter } from './AppSwitcherFooter';
-export type { AppSwitcherFooterProps } from './AppSwitcherFooter';
-
-export { AppSwitcherContext, useAppSwitcher } from './context';
-export type { AppSwitcherContextValue } from './context';
+export type {
+  AppSwitcherProps,
+  AppSwitcherItem,
+  AppSwitcherFooterAction,
+} from './AppSwitcher';
+export type { AppSwitcherAppStatusColor } from './AppSwitcherApp';

@@ -18,6 +18,7 @@
 
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import type { AppSwitcherItem } from '@wso2/oxygen-ui';
 import {
   AppSwitcher,
   Box,
@@ -36,8 +37,8 @@ import {
 } from '@wso2/oxygen-ui-icons-react';
 
 /**
- * AppSwitcher is a compound component that lets users move between the WSO2 Cloud
- * applications from a grid icon button in the header.
+ * AppSwitcher lets users move between the WSO2 Cloud applications from a grid
+ * icon button in the header.
  */
 const meta: Meta<typeof AppSwitcher> = {
   title: 'App Elements/App Switcher',
@@ -59,18 +60,17 @@ const meta: Meta<typeof AppSwitcher> = {
         component: `
 The AppSwitcher pairs a grid icon button with a popover listing the platforms a user can switch to.
 
+### Fixed layout by design
+The switcher renders a **fixed layout** so it looks and behaves identically across every WSO2 product.
+Consumers describe the applications with the \`apps\` prop rather than composing markup, which means a
+product team cannot accidentally ship a switcher that differs from the rest of the platform.
+
 ### Features
-- Composable structure with Trigger, Section, App, and Footer sub-components
+- Consistent, non-composable layout across products
 - Grid icon button that matches the other header icon buttons, including hover styling
 - App cards render as real links when given an \`href\`, so middle-click and "open in new tab" keep working
 - Per-app \`current\`, \`disabled\`, and status chip states
 - Responsive popover: viewport-capped on mobile, fixed width from \`sm\` up
-
-### Sub-components
-- \`AppSwitcher.Trigger\` - Grid icon button that opens the popover
-- \`AppSwitcher.Section\` - Labelled grid of applications
-- \`AppSwitcher.App\` - Card button for a single application
-- \`AppSwitcher.Footer\` - Supporting text with a trailing link action
 
 ### Usage
 \`\`\`tsx
@@ -78,36 +78,29 @@ import { AppSwitcher, Header } from '@wso2/oxygen-ui';
 import { Bot, Braces } from '@wso2/oxygen-ui-icons-react';
 
 <Header.Actions>
-  <AppSwitcher>
-    <AppSwitcher.Trigger />
-    <AppSwitcher.Section label="Platforms">
-      <AppSwitcher.App
-        name="Agent"
-        icon={<Bot size={20} />}
-        status="Current"
-        current
-      />
-      <AppSwitcher.App
-        name="API Management"
-        icon={<Braces size={20} />}
-        status="Try Now"
-        href="/apim"
-      />
-    </AppSwitcher.Section>
-    <AppSwitcher.Footer
-      description="Manage Organization & Users, billing"
-      actionLabel="WSO2 Cloud Console"
-      href="https://console.wso2.com"
-    />
-  </AppSwitcher>
+  <AppSwitcher
+    apps={[
+      { key: 'agent', name: 'Agent', icon: <Bot size={20} />, status: 'Current', current: true },
+      { key: 'apim', name: 'API Management', icon: <Braces size={20} />, status: 'Try Now', href: '/apim' },
+    ]}
+    footer={{
+      description: 'Manage Organization & Users, billing',
+      label: 'WSO2 Cloud Console',
+      href: 'https://console.wso2.com',
+    }}
+  />
 </Header.Actions>
 \`\`\`
+
+### Routing
+The component takes no router dependency. Use \`href\` for cross-app navigation (separate deployments),
+\`component\` with a router \`Link\` for in-app routes, or \`onClick\` for programmatic navigation.
 
 ### Accessibility
 - The trigger is a labeled button ("Switch app" by default) exposing \`aria-haspopup\`, \`aria-expanded\`, and \`aria-controls\`.
 - Apps are grouped in a list labelled by the section heading, so the number of platforms is announced.
-- The current app is marked with \`aria-current\`, and unavailable apps with \`aria-disabled\`.
-- The popover is an MUI Popover: focus is trapped while open, Escape closes it and returns focus to the trigger.
+- The current app is marked with \`aria-current\`, and unavailable apps with \`aria-disabled\` (they stay focusable so they remain discoverable).
+- The popover is an MUI Popover with \`role="dialog"\`: focus is trapped while open, Escape closes it and returns focus to the trigger.
 `,
       },
     },
@@ -118,70 +111,73 @@ export default meta;
 type Story = StoryObj<typeof AppSwitcher>;
 
 /**
- * Platforms rendered as in the WSO2 Cloud design, with current, available,
+ * Platforms as shown in the WSO2 Cloud design, covering current, available,
  * expired, and coming-soon states.
  */
-const Platforms = () => (
-  <AppSwitcher.Section label="Platforms">
-    <AppSwitcher.App
-      name="Agent"
-      icon={<Bot size={20} />}
-      status="Current"
-      statusColor="primary"
-      current
-    />
-    <AppSwitcher.App
-      name="API Management"
-      icon={<Braces size={20} />}
-      status="Try Now"
-      onClick={() => console.log('API Management clicked')}
-    />
-    <AppSwitcher.App
-      name="Integration"
-      icon={<Waypoints size={20} />}
-      status="Try Now"
-      onClick={() => console.log('Integration clicked')}
-    />
-    <AppSwitcher.App
-      name="Identity"
-      icon={<ShieldCheck size={20} />}
-      status="Set up"
-      onClick={() => console.log('Identity clicked')}
-    />
-    <AppSwitcher.App
-      name="Engineering Platform"
-      icon={<Layers size={20} />}
-      status="Trial expired"
-      onClick={() => console.log('Engineering Platform clicked')}
-    />
-    <AppSwitcher.App
-      name="Analytics"
-      icon={<ChartColumn size={20} />}
-      status="Coming soon"
-      statusColor="warning"
-      disabled
-    />
-  </AppSwitcher.Section>
-);
+const PLATFORMS: AppSwitcherItem[] = [
+  {
+    key: 'agent',
+    name: 'Agent',
+    icon: <Bot size={20} />,
+    status: 'Current',
+    statusColor: 'primary',
+    current: true,
+  },
+  {
+    key: 'apim',
+    name: 'API Management',
+    icon: <Braces size={20} />,
+    status: 'Try Now',
+    onClick: () => console.log('API Management clicked'),
+  },
+  {
+    key: 'integration',
+    name: 'Integration',
+    icon: <Waypoints size={20} />,
+    status: 'Try Now',
+    onClick: () => console.log('Integration clicked'),
+  },
+  {
+    key: 'identity',
+    name: 'Identity',
+    icon: <ShieldCheck size={20} />,
+    status: 'Set up',
+    onClick: () => console.log('Identity clicked'),
+  },
+  {
+    key: 'engineering',
+    name: 'Engineering Platform',
+    icon: <Layers size={20} />,
+    status: 'Trial expired',
+    onClick: () => console.log('Engineering Platform clicked'),
+  },
+  {
+    key: 'analytics',
+    name: 'Analytics',
+    icon: <ChartColumn size={20} />,
+    status: 'Coming soon',
+    statusColor: 'warning',
+    disabled: true,
+  },
+];
+
+const FOOTER = {
+  description: 'Manage Organization & Users, billing',
+  label: 'WSO2 Cloud Console',
+  onClick: () => console.log('Cloud Console clicked'),
+};
 
 /**
  * Default app switcher. Click the grid icon to open the popover.
  */
 export const Default: Story = {
-  render: () => (
+  args: { apps: PLATFORMS, footer: FOOTER },
+  render: (args) => (
     <Box sx={{ p: 4 }}>
       <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
         Click the grid icon to switch between platforms
       </Typography>
-      <AppSwitcher>
-        <AppSwitcher.Trigger />
-        <Platforms />
-        <AppSwitcher.Footer
-          description="Manage Organization & Users, billing"
-          actionLabel="WSO2 Cloud Console"
-          onActionClick={() => console.log('Cloud Console clicked')}
-        />
-      </AppSwitcher>
+      <AppSwitcher {...args} />
     </Box>
   ),
 };
@@ -191,88 +187,63 @@ export const Default: Story = {
  * native browser affordances like middle-click and "open in new tab".
  */
 export const WithLinks: Story = {
-  render: () => (
+  args: {
+    apps: [
+      {
+        key: 'agent',
+        name: 'Agent',
+        icon: <Bot size={20} />,
+        status: 'Current',
+        statusColor: 'primary',
+        current: true,
+      },
+      {
+        key: 'apim',
+        name: 'API Management',
+        icon: <Braces size={20} />,
+        status: 'Try Now',
+        href: 'https://wso2.com',
+        target: '_blank',
+      },
+      {
+        key: 'integration',
+        name: 'Integration',
+        icon: <Waypoints size={20} />,
+        status: 'Try Now',
+        href: 'https://wso2.com',
+        target: '_blank',
+      },
+      {
+        key: 'identity',
+        name: 'Identity',
+        icon: <ShieldCheck size={20} />,
+        status: 'Set up',
+        href: 'https://wso2.com',
+        target: '_blank',
+      },
+    ],
+    footer: {
+      description: 'Manage Organization & Users, billing',
+      label: 'WSO2 Cloud Console',
+      href: 'https://console.wso2.com',
+      target: '_blank',
+    },
+  },
+  render: (args) => (
     <Box sx={{ p: 4 }}>
-      <AppSwitcher>
-        <AppSwitcher.Trigger />
-        <AppSwitcher.Section label="Platforms">
-          <AppSwitcher.App
-            name="Agent"
-            icon={<Bot size={20} />}
-            status="Current"
-            statusColor="primary"
-            current
-          />
-          <AppSwitcher.App
-            name="API Management"
-            icon={<Braces size={20} />}
-            status="Try Now"
-            href="https://wso2.com"
-            target="_blank"
-          />
-          <AppSwitcher.App
-            name="Integration"
-            icon={<Waypoints size={20} />}
-            status="Try Now"
-            href="https://wso2.com"
-            target="_blank"
-          />
-          <AppSwitcher.App
-            name="Identity"
-            icon={<ShieldCheck size={20} />}
-            status="Set up"
-            href="https://wso2.com"
-            target="_blank"
-          />
-        </AppSwitcher.Section>
-        <AppSwitcher.Footer
-          description="Manage Organization & Users, billing"
-          actionLabel="WSO2 Cloud Console"
-          href="https://console.wso2.com"
-          target="_blank"
-        />
-      </AppSwitcher>
+      <AppSwitcher {...args} />
     </Box>
   ),
 };
 
 /**
- * Apps with supporting descriptions, useful when names alone are ambiguous.
+ * Without a footer. Omitting `footer` hides the bottom row entirely.
  */
-export const WithDescriptions: Story = {
-  render: () => (
+export const WithoutFooter: Story = {
+  args: { apps: PLATFORMS },
+  render: (args) => (
     <Box sx={{ p: 4 }}>
-      <AppSwitcher width={520}>
-        <AppSwitcher.Trigger />
-        <AppSwitcher.Section label="Platforms">
-          <AppSwitcher.App
-            name="Agent"
-            description="Build and run AI agents"
-            icon={<Bot size={20} />}
-            status="Current"
-            statusColor="primary"
-            current
-          />
-          <AppSwitcher.App
-            name="API Management"
-            description="Design, publish and govern APIs"
-            icon={<Braces size={20} />}
-            status="Try Now"
-          />
-          <AppSwitcher.App
-            name="Integration"
-            description="Connect systems and automate flows"
-            icon={<Waypoints size={20} />}
-            status="Try Now"
-          />
-          <AppSwitcher.App
-            name="Identity"
-            description="Manage users, apps and access"
-            icon={<ShieldCheck size={20} />}
-            status="Set up"
-          />
-        </AppSwitcher.Section>
-      </AppSwitcher>
+      <AppSwitcher {...args} />
     </Box>
   ),
 };
@@ -281,22 +252,10 @@ export const WithDescriptions: Story = {
  * Single-column layout, suited to narrow popovers or short app lists.
  */
 export const SingleColumn: Story = {
-  render: () => (
+  args: { apps: PLATFORMS.slice(0, 3), columns: 1, width: 280 },
+  render: (args) => (
     <Box sx={{ p: 4 }}>
-      <AppSwitcher width={280}>
-        <AppSwitcher.Trigger />
-        <AppSwitcher.Section label="Platforms" columns={1}>
-          <AppSwitcher.App
-            name="Agent"
-            icon={<Bot size={20} />}
-            status="Current"
-            statusColor="primary"
-            current
-          />
-          <AppSwitcher.App name="API Management" icon={<Braces size={20} />} status="Try Now" />
-          <AppSwitcher.App name="Integration" icon={<Waypoints size={20} />} status="Try Now" />
-        </AppSwitcher.Section>
-      </AppSwitcher>
+      <AppSwitcher {...args} />
     </Box>
   ),
 };
@@ -306,23 +265,16 @@ export const SingleColumn: Story = {
  * header icon buttons and shares their hover styling.
  */
 export const InHeader: Story = {
+  args: { apps: PLATFORMS, footer: FOOTER },
   parameters: { layout: 'fullscreen' },
-  render: () => (
+  render: (args) => (
     <Header>
       <Header.Brand>
         <Header.BrandTitle>Agent</Header.BrandTitle>
       </Header.Brand>
       <Header.Spacer />
       <Header.Actions>
-        <AppSwitcher>
-          <AppSwitcher.Trigger />
-          <Platforms />
-          <AppSwitcher.Footer
-            description="Manage Organization & Users, billing"
-            actionLabel="WSO2 Cloud Console"
-            onActionClick={() => console.log('Cloud Console clicked')}
-          />
-        </AppSwitcher>
+        <AppSwitcher {...args} />
         <ColorSchemeToggle />
         <UserMenu>
           <UserMenu.Trigger name="John Doe" avatar="JD" />

@@ -1024,71 +1024,58 @@ import { UserIcon, SettingsIcon, LogOutIcon } from '@wso2/oxygen-ui-icons-react'
 
 ## AppSwitcher
 
-Popover for navigating between WSO2 Cloud applications. Compound component.
+Popover for navigating between WSO2 Cloud applications.
 
 ```tsx
 import { AppSwitcher } from '@wso2/oxygen-ui';
 ```
 
-### Sub-components
+### Fixed layout
 
-| Component | Description |
-|-----------|-------------|
-| `AppSwitcher.Trigger` | Grid icon button that opens the popover |
-| `AppSwitcher.Section` | Labelled grid of applications |
-| `AppSwitcher.App` | Card button for a single application |
-| `AppSwitcher.Footer` | Supporting text with a trailing link action |
+The switcher renders a **fixed layout** so it looks and behaves identically across every WSO2
+product. Consumers describe the applications with the `apps` prop rather than composing markup,
+so a product team cannot ship a switcher that differs from the rest of the platform. The internal
+building blocks are intentionally not exported.
 
 ### AppSwitcher Props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `children` | `ReactNode` | required | Trigger and popover content |
+| `apps` | `AppSwitcherItem[]` | required | Applications to switch between |
+| `label` | `string` | `'Platforms'` | Heading above the application grid |
+| `footer` | `AppSwitcherFooterAction` | - | Footer with supporting text and a link action; omit to hide |
+| `triggerLabel` | `string` | `'Switch app'` | Tooltip and accessible label for the trigger |
+| `triggerIcon` | `ReactNode` | `<Grip size={24} />` | Custom trigger icon |
 | `width` | `number` | `440` | Popover width (px) from the `sm` breakpoint up |
+| `columns` | `number` | `2` | Grid columns from the `sm` breakpoint up |
 | `aria-label` | `string` | `'Applications'` | Accessible name for the popover surface |
 
-### AppSwitcherTrigger Props
+### AppSwitcherItem Type
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `label` | `string` | `'Switch app'` | Tooltip and accessible label |
-| `icon` | `ReactNode` | `<Grip size={24} />` | Custom trigger icon |
-
-### AppSwitcherSection Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `ReactNode` | required | `AppSwitcher.App` elements |
-| `label` | `string` | - | Uppercase section heading (e.g. "Platforms") |
-| `columns` | `number` | `2` | Grid columns from the `sm` breakpoint up |
-
-### AppSwitcherApp Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `key` | `string` | required | Stable identifier, used as the React key |
 | `name` | `string` | required | Application name |
 | `icon` | `ReactNode` | - | Application icon (typically 20px) |
-| `description` | `string` | - | Supporting text under the name |
 | `status` | `string` | - | Status chip label (e.g. "Current", "Try Now") |
 | `statusColor` | `AppSwitcherAppStatusColor` | `'default'` | Status chip color |
-| `current` | `boolean` | `false` | Highlights the app the user is in |
+| `current` | `boolean` | `false` | Marks the app the user is in |
 | `disabled` | `boolean` | `false` | Blocks navigation (e.g. "Coming soon") |
-| `component` | `ElementType` | - | Custom root, e.g. a router `Link` (router props like `to` pass through) |
 | `href` | `string` | - | Destination URL; renders the card as an anchor |
 | `target` | `string` | - | Anchor target, used with `href` |
+| `component` | `ElementType` | - | Custom root, e.g. a router `Link` |
 | `onClick` | `(event) => void` | - | Click handler; the popover closes after it runs |
 
-### AppSwitcherFooter Props
+### AppSwitcherFooterAction Type
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
 | `description` | `ReactNode` | - | Supporting text on the left |
-| `actionLabel` | `string` | - | Label of the trailing action |
-| `component` | `ElementType` | - | Custom action component, e.g. a router `Link` |
+| `label` | `string` | - | Label of the trailing action |
 | `href` | `string` | - | Destination URL for the trailing action |
 | `target` | `string` | - | Anchor target, used with `href` |
-| `onActionClick` | `(event) => void` | - | Action handler; the popover closes after it runs |
-| `children` | `ReactNode` | - | Custom footer content, replacing the default layout |
+| `component` | `ElementType` | - | Custom action component, e.g. a router `Link` |
+| `onClick` | `(event) => void` | - | Action handler; the popover closes after it runs |
 
 ### Usage
 
@@ -1097,19 +1084,18 @@ import { AppSwitcher, Header } from '@wso2/oxygen-ui';
 import { Bot, Braces, Waypoints } from '@wso2/oxygen-ui-icons-react';
 
 <Header.Actions>
-  <AppSwitcher>
-    <AppSwitcher.Trigger />
-    <AppSwitcher.Section label="Platforms">
-      <AppSwitcher.App name="Agent" icon={<Bot size={20} />} status="Current" current />
-      <AppSwitcher.App name="API Management" icon={<Braces size={20} />} status="Try Now" href="/apim" />
-      <AppSwitcher.App name="Integration" icon={<Waypoints size={20} />} status="Try Now" href="/integration" />
-    </AppSwitcher.Section>
-    <AppSwitcher.Footer
-      description="Manage Organization & Users, billing"
-      actionLabel="WSO2 Cloud Console"
-      href="https://console.wso2.com"
-    />
-  </AppSwitcher>
+  <AppSwitcher
+    apps={[
+      { key: 'agent', name: 'Agent', icon: <Bot size={20} />, status: 'Current', current: true },
+      { key: 'apim', name: 'API Management', icon: <Braces size={20} />, status: 'Try Now', href: '/apim' },
+      { key: 'integration', name: 'Integration', icon: <Waypoints size={20} />, status: 'Try Now', href: '/integration' },
+    ]}
+    footer={{
+      description: 'Manage Organization & Users, billing',
+      label: 'WSO2 Cloud Console',
+      href: 'https://console.wso2.com',
+    }}
+  />
 </Header.Actions>
 ```
 
@@ -1121,18 +1107,17 @@ import { Bot, Braces, Waypoints } from '@wso2/oxygen-ui-icons-react';
 correct here; the card renders as a real anchor, so middle-click and "open in new tab" work.
 
 ```tsx
-<AppSwitcher.App name="API Management" href="https://apim.example.com" />
-<AppSwitcher.App name="Identity" href="https://identity.example.com" target="_blank" />
+{ key: 'apim', name: 'API Management', href: 'https://apim.example.com' }
+{ key: 'identity', name: 'Identity', href: 'https://identity.example.com', target: '_blank' }
 ```
 
 **In-app navigation (same SPA)** — pass a router `Link` via `component`. Router props such
-as `to` are forwarded through, keeping client-side routing intact.
+as `href` are forwarded through, keeping client-side routing intact.
 
 ```tsx
 import { Link } from 'react-router';
 
-<AppSwitcher.App name="Integration" component={Link} to="/integration" />
-<AppSwitcher.Footer actionLabel="WSO2 Cloud Console" component={Link} to="/console" />
+{ key: 'integration', name: 'Integration', component: Link, href: '/integration' }
 ```
 
 **Programmatic navigation** — use `onClick`. The popover closes automatically after the
@@ -1143,7 +1128,7 @@ import { useNavigate } from 'react-router';
 
 const navigate = useNavigate();
 
-<AppSwitcher.App name="Agent" onClick={() => navigate('/agent')} />
+{ key: 'agent', name: 'Agent', onClick: () => navigate('/agent') }
 ```
 
 Precedence: `component` wins over `href`; `disabled` blocks all navigation regardless.

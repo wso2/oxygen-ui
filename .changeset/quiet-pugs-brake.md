@@ -4,11 +4,12 @@
 
 Add `AppSwitcher` component for navigating between WSO2 Cloud applications
 
-A compound component that pairs a grid icon button in the header with a popover
-listing the available platforms.
+Renders a grid icon button in the header that opens a popover listing the
+available platforms. The layout is fixed by design so the switcher stays
+consistent across every product: consumers describe the applications with the
+`apps` prop rather than composing markup.
 
-- `AppSwitcher.Trigger` - grid icon button matching the other header icon buttons
-- `AppSwitcher.Section` - labelled, responsive grid of applications
-- `AppSwitcher.App` - card button supporting `current`, `disabled`, status chips,
-  and link rendering via `href` or a custom `component` (e.g. a router `Link`)
-- `AppSwitcher.Footer` - supporting text with a trailing link action
+- `apps` - name, icon, status chip, and `current`/`disabled` state per application
+- `footer` - optional supporting text with a trailing link action
+- Navigation via `href` (cross-app), a router `Link` through `component` (in-app),
+  or `onClick` (programmatic)

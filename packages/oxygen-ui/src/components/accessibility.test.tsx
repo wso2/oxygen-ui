@@ -225,16 +225,11 @@ describe('UserMenu.Trigger', () => {
 });
 
 describe('AppSwitcher', () => {
-  const renderSwitcher = (appProps: Record<string, unknown> = {}) =>
-    renderWithTheme(
-      <AppSwitcher>
-        <AppSwitcher.Trigger />
-        <AppSwitcher.Section label="Platforms">
-          <AppSwitcher.App name="API Management" {...appProps} />
-        </AppSwitcher.Section>
-        <AppSwitcher.Footer description="Manage billing" actionLabel="Cloud Console" href="/console" />
-      </AppSwitcher>,
-    );
+  const APPS = [{ key: 'apim', name: 'API Management' }];
+  const FOOTER = { description: 'Manage billing', label: 'Cloud Console', href: '/console' };
+
+  const renderSwitcher = (props: Record<string, unknown> = {}) =>
+    renderWithTheme(<AppSwitcher apps={APPS} footer={FOOTER} {...props} />);
 
   it('exposes popover ARIA state on the trigger and opens on click', () => {
     renderSwitcher();
@@ -255,92 +250,6 @@ describe('AppSwitcher', () => {
     expect(screen.getByRole('list', { name: 'Platforms' })).toBeDefined();
   });
 
-  it('matches the other header icon buttons in size so hover styling lines up', () => {
-    renderWithTheme(
-      <>
-        <ColorSchemeToggle />
-        <AppSwitcher>
-          <AppSwitcher.Trigger />
-        </AppSwitcher>
-      </>,
-    );
-
-    const toggle = screen.getByRole('button', { name: /switch to .* mode/i });
-    const trigger = screen.getByRole('button', { name: 'Switch app' });
-
-    // Both must resolve to the same IconButton size class; a mismatch changes
-    // the padding and therefore the diameter of the hover circle.
-    expect(trigger.className).toContain('MuiIconButton-sizeMedium');
-    expect(toggle.className).toContain('MuiIconButton-sizeMedium');
-  });
-
-  it('lets consumers override the button size', () => {
-    renderWithTheme(
-      <AppSwitcher>
-        <AppSwitcher.Trigger size="small" />
-      </AppSwitcher>,
-    );
-
-    expect(screen.getByRole('button', { name: 'Switch app' }).className).toContain(
-      'MuiIconButton-sizeSmall',
-    );
-  });
-
-  it('renders apps through a custom router component and forwards router props', () => {
-    // Stand-in for a router Link: the library must not depend on a router.
-    const RouterLink = React.forwardRef<
-      HTMLAnchorElement,
-      { to: string; children?: React.ReactNode }
-    >(function RouterLink({ to, children, ...rest }, linkRef) {
-      return (
-        <a ref={linkRef} href={to} data-router-link="true" {...rest}>
-          {children}
-        </a>
-      );
-    });
-
-    renderWithTheme(
-      <AppSwitcher>
-        <AppSwitcher.Trigger />
-        <AppSwitcher.Section label="Platforms">
-          <AppSwitcher.App name="API Management" component={RouterLink} to="/apim" />
-        </AppSwitcher.Section>
-      </AppSwitcher>,
-    );
-
-    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
-
-    const app = screen.getByRole('link', { name: 'API Management' });
-    expect(app.getAttribute('data-router-link')).toBe('true');
-    expect(app.getAttribute('href')).toBe('/apim');
-  });
-
-  it('renders the footer action through a custom router component', () => {
-    const RouterLink = React.forwardRef<
-      HTMLAnchorElement,
-      { to: string; children?: React.ReactNode }
-    >(function RouterLink({ to, children, ...rest }, linkRef) {
-      return (
-        <a ref={linkRef} href={to} data-router-link="true" {...rest}>
-          {children}
-        </a>
-      );
-    });
-
-    renderWithTheme(
-      <AppSwitcher>
-        <AppSwitcher.Trigger />
-        <AppSwitcher.Footer actionLabel="Cloud Console" component={RouterLink} to="/console" />
-      </AppSwitcher>,
-    );
-
-    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
-
-    const action = screen.getByRole('link', { name: /Cloud Console/ });
-    expect(action.getAttribute('data-router-link')).toBe('true');
-    expect(action.getAttribute('href')).toBe('/console');
-  });
-
   it('names the popover surface as a dialog', () => {
     renderSwitcher();
     fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
@@ -358,55 +267,91 @@ describe('AppSwitcher', () => {
     expect(screen.getByRole('list', { name: 'Platforms' }).getAttribute('role')).toBe('list');
   });
 
-  it('forwards footer data attributes to the root, not the action button', () => {
+  it('renders the fixed layout from data alone', () => {
+    renderSwitcher();
+    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+
+    // Section heading, one card per app, and the footer action are all present
+    // without the consumer composing any markup.
+    expect(screen.getByRole('list', { name: 'Platforms' })).toBeDefined();
+    expect(screen.getAllByRole('listitem')).toHaveLength(1);
+    expect(screen.getByText('API Management')).toBeDefined();
+    expect(screen.getByRole('link', { name: /Cloud Console/ })).toBeDefined();
+  });
+
+  it('omits the footer when none is supplied', () => {
+    renderWithTheme(<AppSwitcher apps={APPS} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+
+    expect(screen.queryByRole('link', { name: /Cloud Console/ })).toBeNull();
+    expect(screen.getByText('API Management')).toBeDefined();
+  });
+
+  it('lets consumers relabel the section heading', () => {
+    renderSwitcher({ label: 'Products' });
+    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+
+    expect(screen.getByRole('list', { name: 'Products' })).toBeDefined();
+  });
+
+  it('matches the other header icon buttons in size so hover styling lines up', () => {
     renderWithTheme(
-      <AppSwitcher>
-        <AppSwitcher.Trigger />
-        <AppSwitcher.Footer
-          data-testid="switcher-footer"
-          description="Manage billing"
-          actionLabel="Cloud Console"
-          href="/console"
-        />
-      </AppSwitcher>,
+      <>
+        <ColorSchemeToggle />
+        <AppSwitcher apps={APPS} />
+      </>,
+    );
+
+    const toggle = screen.getByRole('button', { name: /switch to .* mode/i });
+    const trigger = screen.getByRole('button', { name: 'Switch app' });
+
+    // Both must resolve to the same IconButton size class; a mismatch changes
+    // the padding and therefore the diameter of the hover circle.
+    expect(trigger.className).toContain('MuiIconButton-sizeMedium');
+    expect(toggle.className).toContain('MuiIconButton-sizeMedium');
+  });
+
+  it('lets consumers relabel the trigger', () => {
+    renderSwitcher({ triggerLabel: 'Switch platform' });
+    expect(screen.getByRole('button', { name: 'Switch platform' })).toBeDefined();
+  });
+
+  it('renders apps through a custom router component and forwards router props', () => {
+    // Stand-in for a router Link: the library must not depend on a router.
+    const RouterLink = React.forwardRef<
+      HTMLAnchorElement,
+      { to: string; children?: React.ReactNode }
+    >(function RouterLink({ to, children, ...rest }, linkRef) {
+      return (
+        <a ref={linkRef} href={to} data-router-link="true" {...rest}>
+          {children}
+        </a>
+      );
+    });
+
+    renderWithTheme(
+      <AppSwitcher
+        apps={[
+          {
+            key: 'apim',
+            name: 'API Management',
+            component: RouterLink,
+            href: '/apim',
+          },
+        ]}
+      />,
     );
 
     fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
 
-    const footer = screen.getByTestId('switcher-footer');
-    expect(footer.tagName).not.toBe('BUTTON');
-    expect(footer.querySelector('a')).not.toBeNull();
-  });
-
-  it('keeps footer data attributes on the root when using custom children', () => {
-    renderWithTheme(
-      <AppSwitcher>
-        <AppSwitcher.Trigger />
-        <AppSwitcher.Footer data-testid="custom-footer">
-          <span>Custom content</span>
-        </AppSwitcher.Footer>
-      </AppSwitcher>,
-    );
-
-    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
-
-    expect(screen.getByTestId('custom-footer')).toBeDefined();
-    expect(screen.getByText('Custom content')).toBeDefined();
-  });
-
-  it('keeps the default accessible name when a consumer passes a blank label', () => {
-    renderWithTheme(
-      <AppSwitcher>
-        <AppSwitcher.Trigger aria-label="" />
-      </AppSwitcher>,
-    );
-
-    expect(screen.getByRole('button', { name: 'Switch app' })).toBeDefined();
+    const app = screen.getByRole('link', { name: 'API Management' });
+    expect(app.getAttribute('data-router-link')).toBe('true');
+    expect(app.getAttribute('href')).toBe('/apim');
   });
 
   it('renders navigable apps as links and closes the popover on selection', () => {
     const onClick = vi.fn();
-    renderSwitcher({ href: '/apim', onClick });
+    renderSwitcher({ apps: [{ key: 'apim', name: 'API Management', href: '/apim', onClick }] });
 
     fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
 
@@ -420,13 +365,12 @@ describe('AppSwitcher', () => {
   it('marks the current app and blocks navigation for disabled apps', () => {
     const onClick = vi.fn();
     renderWithTheme(
-      <AppSwitcher>
-        <AppSwitcher.Trigger />
-        <AppSwitcher.Section label="Platforms">
-          <AppSwitcher.App name="Agent" current status="Current" />
-          <AppSwitcher.App name="Analytics" disabled onClick={onClick} />
-        </AppSwitcher.Section>
-      </AppSwitcher>,
+      <AppSwitcher
+        apps={[
+          { key: 'agent', name: 'Agent', current: true, status: 'Current' },
+          { key: 'analytics', name: 'Analytics', disabled: true, onClick },
+        ]}
+      />,
     );
 
     fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
