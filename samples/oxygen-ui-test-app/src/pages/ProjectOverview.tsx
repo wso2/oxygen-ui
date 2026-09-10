@@ -32,8 +32,8 @@ import {
   PageContent,
   ListingTable,
   Chip,
-  DataGrid,
 } from '@wso2/oxygen-ui'
+import type { GridColDef, GridRenderCellParams } from '@wso2/oxygen-ui/data-grid'
 import { LineChart } from '@wso2/oxygen-ui-charts-react'
 import { Clock, Plus, RefreshCw, Info, Link as LinkIcon } from '@wso2/oxygen-ui-icons-react'
 import type { JSX } from 'react'
@@ -187,7 +187,7 @@ export default function ProjectOverview(): JSX.Element {
                         headerName: 'Name',
                         flex: 1.5,
                         minWidth: 220,
-                        renderCell: ({ row }: DataGrid.GridRenderCellParams<Component>) => (
+                        renderCell: ({ row }: GridRenderCellParams<Component>) => (
                           <ListingTable.CellIcon
                             sx={{ width: '100%' }}
                             icon={
@@ -229,7 +229,7 @@ export default function ProjectOverview(): JSX.Element {
                         field: 'type',
                         headerName: 'Type',
                         width: 120,
-                        renderCell: ({ row }: DataGrid.GridRenderCellParams<Component>) => (
+                        renderCell: ({ row }: GridRenderCellParams<Component>) => (
                           <Chip label={row.type ?? 'HTTP'} size="small" variant="outlined" />
                         ),
                       },
@@ -239,11 +239,11 @@ export default function ProjectOverview(): JSX.Element {
                         width: 150,
                         headerAlign: 'left',
                         align: 'left',
-                        renderCell: ({ row }: DataGrid.GridRenderCellParams<Component>) => (
+                        renderCell: ({ row }: GridRenderCellParams<Component>) => (
                           <LastUpdatedCell value={row.lastModified} />
                         ),
                       },
-                    ] as DataGrid.GridColDef<Component>[]}
+                    ] as GridColDef<Component>[]}
                     onRowClick={params => navigate(`components/${(params.row as Component).id}`)}
                     disableRowSelectionOnClick
                     hideFooter
