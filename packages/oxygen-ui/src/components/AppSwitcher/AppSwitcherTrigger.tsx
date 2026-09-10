@@ -27,12 +27,12 @@ import { useAppSwitcher } from './context';
  * Theme tokens used in this component:
  *
  * Colors:
- * - `text.secondary` - Resting icon color
  * - `text.primary` - Icon color while open
  * - `action.selected` - Background while the popover is open
  *
- * Hover styling is inherited from the theme's `IconButton` defaults so the
- * trigger matches the other icon buttons in the header.
+ * The resting color and hover styling are inherited from the theme's
+ * `IconButton` defaults (`action.active`), so the trigger matches the other
+ * icon buttons in the header.
  */
 
 /**
@@ -42,7 +42,6 @@ const AppSwitcherTriggerRoot = styled(IconButton, {
   name: 'MuiAppSwitcher',
   slot: 'Trigger',
 })(({ theme }) => ({
-  color: (theme.vars || theme).palette.text.secondary,
   '&[aria-expanded="true"]': {
     backgroundColor: (theme.vars || theme).palette.action.selected,
     color: (theme.vars || theme).palette.text.primary,

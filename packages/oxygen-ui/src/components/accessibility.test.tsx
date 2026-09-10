@@ -311,6 +311,22 @@ describe('AppSwitcher', () => {
     expect(toggle.className).toContain('MuiIconButton-sizeMedium');
   });
 
+  it('inherits the same resting icon color as the other header icon buttons', () => {
+    const toggle = renderWithTheme(<ColorSchemeToggle />);
+    const switcher = renderWithTheme(<AppSwitcher apps={APPS} />);
+
+    // The trigger must not pin its own color; a different token renders visibly
+    // darker or lighter than the adjacent ColorSchemeToggle.
+    const toggleColor = getComputedStyle(
+      toggle.container.querySelector('button') as HTMLElement,
+    ).color;
+    const triggerColor = getComputedStyle(
+      switcher.container.querySelector('button') as HTMLElement,
+    ).color;
+
+    expect(triggerColor).toBe(toggleColor);
+  });
+
   it('lets consumers relabel the trigger', () => {
     renderSwitcher({ triggerLabel: 'Switch platform' });
     expect(screen.getByRole('button', { name: 'Switch platform' })).toBeDefined();
