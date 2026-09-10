@@ -1139,6 +1139,8 @@ import { Link } from 'react-router';
 handler runs.
 
 ```tsx
+import { useNavigate } from 'react-router';
+
 const navigate = useNavigate();
 
 <AppSwitcher.App name="Agent" onClick={() => navigate('/agent')} />

@@ -341,6 +341,59 @@ describe('AppSwitcher', () => {
     expect(action.getAttribute('href')).toBe('/console');
   });
 
+  it('names the popover surface as a dialog', () => {
+    renderSwitcher();
+    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+
+    // MUI gives the paper slot no role, so the role must be set explicitly for
+    // `aria-label` to establish an accessible name.
+    expect(screen.getByRole('dialog', { name: 'Applications' })).toBeDefined();
+  });
+
+  it('keeps list semantics explicit for VoiceOver', () => {
+    renderSwitcher();
+    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+
+    // `list-style: none` can strip implicit list semantics in Safari/VoiceOver.
+    expect(screen.getByRole('list', { name: 'Platforms' }).getAttribute('role')).toBe('list');
+  });
+
+  it('forwards footer data attributes to the root, not the action button', () => {
+    renderWithTheme(
+      <AppSwitcher>
+        <AppSwitcher.Trigger />
+        <AppSwitcher.Footer
+          data-testid="switcher-footer"
+          description="Manage billing"
+          actionLabel="Cloud Console"
+          href="/console"
+        />
+      </AppSwitcher>,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+
+    const footer = screen.getByTestId('switcher-footer');
+    expect(footer.tagName).not.toBe('BUTTON');
+    expect(footer.querySelector('a')).not.toBeNull();
+  });
+
+  it('keeps footer data attributes on the root when using custom children', () => {
+    renderWithTheme(
+      <AppSwitcher>
+        <AppSwitcher.Trigger />
+        <AppSwitcher.Footer data-testid="custom-footer">
+          <span>Custom content</span>
+        </AppSwitcher.Footer>
+      </AppSwitcher>,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+
+    expect(screen.getByTestId('custom-footer')).toBeDefined();
+    expect(screen.getByText('Custom content')).toBeDefined();
+  });
+
   it('keeps the default accessible name when a consumer passes a blank label', () => {
     renderWithTheme(
       <AppSwitcher>

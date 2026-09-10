@@ -63,6 +63,27 @@ const AppSwitcherFooterText = styled(Typography, {
 }));
 
 /**
+ * Splits leftover props into those that describe the footer element itself
+ * (`data-*`) and those intended for the trailing action (e.g. a router's `to`).
+ */
+const splitFooterProps = (
+  props: Record<string, unknown>
+): { rootProps: Record<string, unknown>; actionProps: Record<string, unknown> } => {
+  const rootProps: Record<string, unknown> = {};
+  const actionProps: Record<string, unknown> = {};
+
+  Object.entries(props).forEach(([key, value]) => {
+    if (key.startsWith('data-')) {
+      rootProps[key] = value;
+    } else {
+      actionProps[key] = value;
+    }
+  });
+
+  return { rootProps, actionProps };
+};
+
+/**
  * Props for the AppSwitcher.Footer component.
  */
 export interface AppSwitcherFooterProps
@@ -112,6 +133,8 @@ export const AppSwitcherFooter: React.FC<AppSwitcherFooterProps> = ({
   onActionClick,
   children,
   sx,
+  className,
+  id,
   ...props
 }) => {
   const { handleClose } = useAppSwitcher();
@@ -121,19 +144,27 @@ export const AppSwitcherFooter: React.FC<AppSwitcherFooterProps> = ({
     handleClose();
   };
 
+  // `className`, `id` and `data-*` describe the footer itself, so they belong on
+  // the root; anything else (e.g. a router's `to`) is meant for the action.
+  const { rootProps, actionProps } = splitFooterProps(props);
+
   if (children) {
-    return <AppSwitcherFooterRoot sx={sx}>{children}</AppSwitcherFooterRoot>;
+    return (
+      <AppSwitcherFooterRoot sx={sx} className={className} id={id} {...rootProps}>
+        {children}
+      </AppSwitcherFooterRoot>
+    );
   }
 
   return (
-    <AppSwitcherFooterRoot sx={sx}>
+    <AppSwitcherFooterRoot sx={sx} className={className} id={id} {...rootProps}>
       {description && <AppSwitcherFooterText>{description}</AppSwitcherFooterText>}
       {actionLabel && (
         <Button
           size="small"
           color="primary"
           endIcon={<ChevronRight size={16} aria-hidden="true" />}
-          {...props}
+          {...actionProps}
           {...(component && { component })}
           {...(href
             ? {

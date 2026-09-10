@@ -160,7 +160,7 @@ const AppSwitcher: React.FC<AppSwitcherProps> & {
         onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        slotProps={{ paper: { 'aria-label': ariaLabel } }}
+        slotProps={{ paper: { role: 'dialog', 'aria-label': ariaLabel } }}
         sx={sx}
       >
         {popoverChildren}

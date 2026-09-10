@@ -118,6 +118,7 @@ export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
       {label && <AppSwitcherSectionLabel id={labelId}>{label}</AppSwitcherSectionLabel>}
       <AppSwitcherSectionGrid
         ownerState={{ columns }}
+        role="list"
         aria-labelledby={label ? labelId : undefined}
       >
         {React.Children.map(children, (child) =>
