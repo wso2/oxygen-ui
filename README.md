@@ -61,14 +61,14 @@ Refer to [Material-UI documentation](https://mui.com/material-ui/all-components/
 
 ## Using MUI X Components
 
-For DataGrid and DatePickers, use namespace imports:
+Import Data Grid, Date Pickers, and Tree View from Oxygen subpaths. They are not on the main `@wso2/oxygen-ui` entry, so a `Table`-only app does not evaluate that code.
 
 ```jsx
-import { DataGrid } from '@wso2/oxygen-ui';
+import { DataGrid } from '@wso2/oxygen-ui/data-grid';
 
 function MyDataGrid() {
   return (
-    <DataGrid.DataGrid
+    <DataGrid
       rows={rows}
       columns={columns}
     />
