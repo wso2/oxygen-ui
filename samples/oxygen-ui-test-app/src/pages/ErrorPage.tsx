@@ -136,7 +136,7 @@ export default function ErrorPage(): JSX.Element {
         </Typography>
 
         {/* Error Title */}
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: 600 }}>
+        <Typography variant="h4" sx={{ mb: '0.35em', fontWeight: 600 }}>
           {error.title}
         </Typography>
 
@@ -178,7 +178,7 @@ export default function ErrorPage(): JSX.Element {
         {/* Help Card */}
         <Card variant="outlined">
           <CardContent>
-            <Typography variant="subtitle2" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
               Need Help?
             </Typography>
             <Typography
@@ -199,7 +199,7 @@ export default function ErrorPage(): JSX.Element {
         {import.meta.env.DEV && (
           <Card variant="outlined" sx={{ mt: 2, textAlign: 'left' }}>
             <CardContent>
-              <Typography variant="caption" gutterBottom sx={{
+              <Typography variant="caption" sx={{ mb: '0.35em',
                 color: "text.secondary"
               }}>
                 Debug Information (Development Only)

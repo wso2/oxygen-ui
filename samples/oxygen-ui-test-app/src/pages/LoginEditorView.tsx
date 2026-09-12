@@ -331,7 +331,7 @@ export default function LoginEditorView(): JSX.Element {
           >
             <Card sx={{ width: '100%', maxWidth: 450, m: 3 }}>
               <CardContent sx={{ p: 4 }}>
-                <Typography variant="h1" gutterBottom>
+                <Typography sx={{ mb: '0.35em' }} variant="h1">
                   {formConfig.title}
                 </Typography>
                 <Typography

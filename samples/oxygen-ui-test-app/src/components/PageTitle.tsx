@@ -29,7 +29,7 @@ export default function PageTitle({ title, description, action }: PageTitleProps
   return (
     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
       <Box>
-        <Typography variant="h4" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h4">
           {title}
         </Typography>
         {description && (

@@ -81,7 +81,7 @@ export default function LoginPage(): JSX.Element {
             <Stack key={item.title} direction="row" sx={{gap: 2}}>
               {item.icon}
               <div>
-                <Typography gutterBottom sx={{fontWeight: 'medium'}}>
+                <Typography sx={{ mb: '0.35em',fontWeight: 'medium'}}>
                   {item.title}
                 </Typography>
               </div>
@@ -102,7 +102,7 @@ export default function LoginPage(): JSX.Element {
             <Stack key={item.title} direction="row" sx={{gap: 2}}>
               {item.icon}
               <div>
-                <Typography gutterBottom sx={{fontWeight: 'medium'}}>
+                <Typography sx={{ mb: '0.35em',fontWeight: 'medium'}}>
                   {item.title}
                 </Typography>
               </div>
@@ -123,7 +123,7 @@ export default function LoginPage(): JSX.Element {
             <Stack key={item.title} direction="row" sx={{gap: 2}}>
               {item.icon}
               <div>
-                <Typography gutterBottom sx={{fontWeight: 'medium'}}>
+                <Typography sx={{ mb: '0.35em',fontWeight: 'medium'}}>
                   {item.title}
                 </Typography>
               </div>

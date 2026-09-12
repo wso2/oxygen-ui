@@ -152,14 +152,14 @@ export default function SettingsPage(): JSX.Element {
           {activeTab === 0 && (
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
+                <Typography variant="h5" sx={{ mb: 2 }}>
                   Organization Information
                 </Typography>
                 <Divider sx={{ mb: 4 }} />
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                   <Box>
-                    <Typography variant="body1" gutterBottom sx={{ mb: 2 }}>
+                    <Typography variant="body1" sx={{ mb: 2 }}>
                       Organization Logo
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -289,7 +289,7 @@ export default function SettingsPage(): JSX.Element {
           {activeTab === 1 && (
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
+                <Typography variant="h5" sx={{ mb: 2 }}>
                   Appearance Settings
                 </Typography>
                 <Divider sx={{ mb: 3 }} />
@@ -378,7 +378,7 @@ export default function SettingsPage(): JSX.Element {
           {activeTab === 2 && (
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
+                <Typography variant="h5" sx={{ mb: 2 }}>
                   Notification Settings
                 </Typography>
                 <Divider sx={{ mb: 3 }} />
@@ -546,7 +546,7 @@ export default function SettingsPage(): JSX.Element {
           {activeTab === 3 && (
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
+                <Typography variant="h5" sx={{ mb: 2 }}>
                   Security Settings
                 </Typography>
                 <Divider sx={{ mb: 3 }} />
@@ -641,7 +641,7 @@ export default function SettingsPage(): JSX.Element {
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                  <Typography variant="h5" gutterBottom>Team Members</Typography>
+                  <Typography sx={{ mb: '0.35em' }} variant="h5">Team Members</Typography>
                   <Button variant="contained" size="small" startIcon={<Users size={18} />}>
                     Invite Member
                   </Button>
@@ -730,7 +730,7 @@ export default function SettingsPage(): JSX.Element {
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                  <Typography variant="h5" gutterBottom>API Keys</Typography>
+                  <Typography sx={{ mb: '0.35em' }} variant="h5">API Keys</Typography>
                   <Button variant="contained" size="small">
                     Generate New Key
                   </Button>
@@ -809,14 +809,14 @@ export default function SettingsPage(): JSX.Element {
           {activeTab === 6 && (
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
+                <Typography variant="h5" sx={{ mb: 2 }}>
                   Billing & Subscription
                 </Typography>
                 <Divider sx={{ mb: 3 }} />
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                   <Box>
-                    <Typography variant="subtitle1" gutterBottom>
+                    <Typography sx={{ mb: '0.35em' }} variant="subtitle1">
                       Current Plan
                     </Typography>
                     <Box
@@ -853,7 +853,7 @@ export default function SettingsPage(): JSX.Element {
                   </Box>
 
                   <Box>
-                    <Typography variant="subtitle1" gutterBottom>
+                    <Typography sx={{ mb: '0.35em' }} variant="subtitle1">
                       Payment Method
                     </Typography>
                     <Box
@@ -885,7 +885,7 @@ export default function SettingsPage(): JSX.Element {
                   </Box>
 
                   <Box>
-                    <Typography variant="subtitle1" gutterBottom>
+                    <Typography sx={{ mb: '0.35em' }} variant="subtitle1">
                       Billing History
                     </Typography>
                     <List sx={{ border: 1, borderColor: 'divider', borderRadius: 1 }}>
@@ -926,7 +926,7 @@ export default function SettingsPage(): JSX.Element {
           {activeTab === 7 && (
             <Card variant="outlined" sx={{ borderColor: 'error.main' }}>
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="h5" gutterBottom sx={{ mb: 2 }} color="error">
+                <Typography variant="h5" sx={{ mb: 2 }} color="error">
                   Danger Zone
                 </Typography>
                 <Divider sx={{ mb: 3 }} />
@@ -939,7 +939,7 @@ export default function SettingsPage(): JSX.Element {
                   </Alert>
 
                   <Box>
-                    <Typography variant="subtitle1" gutterBottom>
+                    <Typography sx={{ mb: '0.35em' }} variant="subtitle1">
                       Transfer Organization Ownership
                     </Typography>
                     <Typography
@@ -958,7 +958,7 @@ export default function SettingsPage(): JSX.Element {
                   <Divider />
 
                   <Box>
-                    <Typography variant="subtitle1" gutterBottom>
+                    <Typography sx={{ mb: '0.35em' }} variant="subtitle1">
                       Delete Organization
                     </Typography>
                     <Typography

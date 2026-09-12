@@ -119,7 +119,7 @@ export default function Organizations(): JSX.Element {
       {filteredOrganizations.length === 0 ? (
         <Box sx={{ textAlign: 'center', py: 8 }}>
           <Folder size={48} style={{ opacity: 0.3, marginBottom: 16 }} />
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             No organizations found
           </Typography>
           <Typography
