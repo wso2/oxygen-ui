@@ -126,10 +126,84 @@ function findRemovedPropUses(source: string, file: string): string[] {
   return findings;
 }
 
+const REMOVED_ALERT_CLASSES = [
+  'MuiAlert-filledSuccess',
+  'MuiAlert-filledInfo',
+  'MuiAlert-filledWarning',
+  'MuiAlert-filledError',
+  'MuiAlert-outlinedSuccess',
+  'MuiAlert-outlinedInfo',
+  'MuiAlert-outlinedWarning',
+  'MuiAlert-outlinedError',
+  'MuiAlert-standardSuccess',
+  'MuiAlert-standardInfo',
+  'MuiAlert-standardWarning',
+  'MuiAlert-standardError',
+];
+
+const REMOVED_SPEED_DIAL_ACTION_PROPS = ['tooltipTitle', 'tooltipOpen'];
+
+function findRemovedSpeedDialActionProps(source: string, file: string): string[] {
+  const findings: string[] = [];
+  const tagRe = /<SpeedDialAction\b/g;
+  let match: RegExpExecArray | null;
+  while ((match = tagRe.exec(source)) !== null) {
+    const rest = source.slice(match.index);
+    const endRel = rest.search(/\/?>/);
+    if (endRel === -1) {
+      continue;
+    }
+    const openTag = rest.slice(0, endRel);
+    const line = source.slice(0, match.index).split('\n').length;
+    const loc = `${relative(repoRoot, file)}:${line}`;
+    for (const prop of REMOVED_SPEED_DIAL_ACTION_PROPS) {
+      if (new RegExp(`\\b${prop}(?:\\s*=|\\s|/|>|$)`).test(openTag)) {
+        findings.push(`${loc} ${prop}`);
+      }
+    }
+  }
+  return findings;
+}
+
+function findRemovedAlertClasses(source: string, file: string): string[] {
+  const findings: string[] = [];
+  for (const className of REMOVED_ALERT_CLASSES) {
+    if (!source.includes(className)) {
+      continue;
+    }
+    source.split('\n').forEach((line, index) => {
+      if (line.includes(className)) {
+        findings.push(`${relative(repoRoot, file)}:${index + 1} ${className}`);
+      }
+    });
+  }
+  return findings;
+}
+
 describe('Material 9-removed props', () => {
   it('are not used on Box, Stack, Typography, Link, Grid, or DialogContentText', () => {
     const findings = SCAN_ROOTS.flatMap((root) =>
       collectSourceFiles(root).flatMap((file) => findRemovedPropUses(readFileSync(file, 'utf8'), file)),
+    );
+
+    expect(findings).toEqual([]);
+  });
+
+  it('are not used as removed Alert compound class names', () => {
+    const findings = SCAN_ROOTS.flatMap((root) =>
+      collectSourceFiles(root).flatMap((file) =>
+        findRemovedAlertClasses(readFileSync(file, 'utf8'), file),
+      ),
+    );
+
+    expect(findings).toEqual([]);
+  });
+
+  it('are not used as removed SpeedDialAction props', () => {
+    const findings = SCAN_ROOTS.flatMap((root) =>
+      collectSourceFiles(root).flatMap((file) =>
+        findRemovedSpeedDialActionProps(readFileSync(file, 'utf8'), file),
+      ),
     );
 
     expect(findings).toEqual([]);
