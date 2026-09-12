@@ -43,6 +43,7 @@ import ListingTableToolbar from './ListingTable/shared/ListingTableToolbar';
 import UserMenu from './UserMenu/UserMenu';
 import NotificationPanel from './NotificationPanel/NotificationPanel';
 import { useNotificationPanel } from './NotificationPanel/context';
+import NotificationBanner from './NotificationBanner/NotificationBanner';
 
 const renderWithTheme = (ui: React.ReactElement) =>
   render(<OxygenUIThemeProvider>{ui}</OxygenUIThemeProvider>);
@@ -513,5 +514,18 @@ describe('NotificationPanel', () => {
     fireEvent.click(screen.getByTestId('announce-button'));
 
     expect(screen.getByTestId('notification-panel-live-region').textContent).toBe('');
+  });
+});
+
+describe('NotificationBanner', () => {
+  it('uses filled and colorInfo classes so the light-mode contrast override applies', () => {
+    renderWithTheme(
+      <NotificationBanner message="A new version of the application is available." />,
+    );
+
+    const alert = screen.getByRole('alert');
+    expect(alert.className).toMatch(/MuiAlert-filled/);
+    expect(alert.className).toMatch(/MuiAlert-colorInfo/);
+    expect(alert.className).not.toMatch(/MuiAlert-filledInfo/);
   });
 });
