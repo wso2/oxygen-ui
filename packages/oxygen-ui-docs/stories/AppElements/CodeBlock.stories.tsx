@@ -140,7 +140,7 @@ export const JSON: Story = {
   "version": "1.0.0",
   "description": "A design system built on MUI",
   "dependencies": {
-    "@mui/material": "^7.3.4",
+    "@mui/material": "^9.4.0",
     "react": "^19.2.0"
   }
 }`,
