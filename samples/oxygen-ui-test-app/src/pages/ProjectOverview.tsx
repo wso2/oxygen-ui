@@ -117,13 +117,16 @@ function LastUpdatedCell({ value }: { value: string }): JSX.Element {
       <Clock size={16} />
       <Typography
         variant="caption"
-        color="text.secondary"
-        sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
-      >
+        sx={{
+          color: "text.secondary",
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap'
+        }}>
         {value}
       </Typography>
     </Box>
-  )
+  );
 }
 
 export default function ProjectOverview(): JSX.Element {
@@ -153,7 +156,9 @@ export default function ProjectOverview(): JSX.Element {
 
         <Divider sx={{ mt: 2 }} />
 
-        <Grid container spacing={3} mt={2}>
+        <Grid container spacing={3} sx={{
+          mt: 2
+        }}>
           <Grid size={{ xs: 12, lg: 8 }}>
             <Grid container spacing={2} sx={{ mb: 2 }}>
               <Grid size={{ xs: 12, md: 10 }}>
@@ -214,13 +219,12 @@ export default function ProjectOverview(): JSX.Element {
                         renderCell: () => (
                           <Typography
                             variant="caption"
-                            color="text.secondary"
                             sx={{
+                              color: "text.secondary",
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap',
-                            }}
-                          >
+                              whiteSpace: 'nowrap'
+                            }}>
                             This is a sample proxy that manages a list of reading items.
                           </Typography>
                         ),
@@ -301,14 +305,13 @@ export default function ProjectOverview(): JSX.Element {
                         <ListingTable.Cell>
                           <Typography
                             variant="caption"
-                            color="text.secondary"
                             sx={{
+                              color: "text.secondary",
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',
                               whiteSpace: 'nowrap',
-                              maxWidth: 420,
-                            }}
-                          >
+                              maxWidth: 420
+                            }}>
                             This is a sample proxy that manages a list of reading items.
                           </Typography>
                         </ListingTable.Cell>
@@ -381,7 +384,9 @@ export default function ProjectOverview(): JSX.Element {
 
                   <Stack spacing={1}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <Typography variant="caption" color="text.secondary">
+                      <Typography variant="caption" sx={{
+                        color: "text.secondary"
+                      }}>
                         HTTP
                       </Typography>
                       <Typography variant="caption">4</Typography>
@@ -390,7 +395,9 @@ export default function ProjectOverview(): JSX.Element {
                     <Divider />
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <Typography variant="caption" color="text.secondary">
+                      <Typography variant="caption" sx={{
+                        color: "text.secondary"
+                      }}>
                         Service
                       </Typography>
                       <Typography variant="caption">1</Typography>
@@ -403,7 +410,9 @@ export default function ProjectOverview(): JSX.Element {
                     </Typography>
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <Typography variant="caption" color="text.secondary">
+                      <Typography variant="caption" sx={{
+                        color: "text.secondary"
+                      }}>
                         MCP Servers
                       </Typography>
                       <Typography variant="caption">3</Typography>
@@ -442,5 +451,5 @@ export default function ProjectOverview(): JSX.Element {
         </Grid>
       </Box>
     </PageContent>
-  )
+  );
 }

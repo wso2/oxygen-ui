@@ -33,12 +33,14 @@ export default function PageTitle({ title, description, action }: PageTitleProps
           {title}
         </Typography>
         {description && (
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{
+            color: "text.secondary"
+          }}>
             {description}
           </Typography>
         )}
       </Box>
       {action && <Box>{action}</Box>}
     </Box>
-  )
+  );
 }
