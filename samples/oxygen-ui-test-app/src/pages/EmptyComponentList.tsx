@@ -107,7 +107,7 @@ export default function EmptyComponentList(): JSX.Element {
           <FileText size={60} style={{ opacity: 0.5 }} />
         </Box>
 
-        <Typography variant="h5" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h5">
           No Components Yet
         </Typography>
         <Typography
@@ -135,7 +135,7 @@ export default function EmptyComponentList(): JSX.Element {
 
       {/* Quick Start Cards */}
       <Box>
-        <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
+        <Typography variant="h6" sx={{ mb: 3 }}>
           Quick Start
         </Typography>
 
@@ -167,7 +167,7 @@ export default function EmptyComponentList(): JSX.Element {
                   >
                     {card.icon}
                   </Box>
-                  <Typography variant="h6" gutterBottom>
+                  <Typography sx={{ mb: '0.35em' }} variant="h6">
                     {card.title}
                   </Typography>
                   <Typography
@@ -195,7 +195,7 @@ export default function EmptyComponentList(): JSX.Element {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <BookOpen size={24} />
             <Box sx={{ flexGrow: 1 }}>
-              <Typography variant="subtitle1" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="subtitle1">
                 Need Help Getting Started?
               </Typography>
               <Typography variant="body2" sx={{
