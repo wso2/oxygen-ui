@@ -134,7 +134,7 @@ export const Default: Story = {
           zIndex: 1,
         }}
       >
-        <Typography variant="h2" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h2">
           Interactive Particle Background
         </Typography>
         <Typography variant="body1" sx={{
@@ -171,7 +171,7 @@ export const Subtle: Story = {
           zIndex: 1,
         }}
       >
-        <Typography variant="h3" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h3">
           Subtle Animation
         </Typography>
         <Typography variant="body2" sx={{
@@ -208,7 +208,7 @@ export const Energetic: Story = {
           zIndex: 1,
         }}
       >
-        <Typography variant="h3" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h3">
           Energetic Animation
         </Typography>
         <Typography variant="body2" sx={{

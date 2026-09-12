@@ -93,7 +93,7 @@ export const Default: Story = {
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Card>
               <CardContent>
-                <Typography variant="subtitle2" gutterBottom sx={{
+                <Typography variant="subtitle2" sx={{ mb: '0.35em',
                   color: "text.secondary"
                 }}>
                   Total Users
@@ -111,7 +111,7 @@ export const Default: Story = {
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Card>
               <CardContent>
-                <Typography variant="subtitle2" gutterBottom sx={{
+                <Typography variant="subtitle2" sx={{ mb: '0.35em',
                   color: "text.secondary"
                 }}>
                   Active Sessions
@@ -129,7 +129,7 @@ export const Default: Story = {
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Card>
               <CardContent>
-                <Typography variant="subtitle2" gutterBottom sx={{
+                <Typography variant="subtitle2" sx={{ mb: '0.35em',
                   color: "text.secondary"
                 }}>
                   Total Revenue
@@ -147,7 +147,7 @@ export const Default: Story = {
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Card>
               <CardContent>
-                <Typography variant="subtitle2" gutterBottom sx={{
+                <Typography variant="subtitle2" sx={{ mb: '0.35em',
                   color: "text.secondary"
                 }}>
                   Conversion Rate
@@ -166,7 +166,7 @@ export const Default: Story = {
           <Grid size={{ xs: 12, md: 8 }}>
             <Card>
               <CardContent>
-                <Typography variant="h5" gutterBottom>
+                <Typography sx={{ mb: '0.35em' }} variant="h5">
                   Recent Activity
                 </Typography>
                 <Divider sx={{ marginY: 2 }} />
@@ -204,7 +204,7 @@ export const Default: Story = {
           <Grid size={{ xs: 12, md: 4 }}>
             <Card>
               <CardContent>
-                <Typography variant="h6" gutterBottom>
+                <Typography sx={{ mb: '0.35em' }} variant="h6">
                   Quick Actions
                 </Typography>
                 <Divider sx={{ marginY: 2 }} />
@@ -226,7 +226,7 @@ export const Default: Story = {
 
                 <Divider sx={{ marginY: 3 }} />
 
-                <Typography variant="h6" gutterBottom>
+                <Typography sx={{ mb: '0.35em' }} variant="h6">
                   Recent Notifications
                 </Typography>
                 <Stack spacing={1.5} sx={{ marginTop: 2 }}>

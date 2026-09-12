@@ -64,7 +64,7 @@ export const Installation: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Installation
           </Typography>
           <Typography variant="body2" sx={{
@@ -85,7 +85,7 @@ export const Installation: Story = {
               alignItems: "center",
               mb: 1
             }}>
-            <Typography variant="h6" gutterBottom sx={{ mb: 0 }}>
+            <Typography variant="h6" sx={{ mb: 0 }}>
               Core — <code>@wso2/oxygen-ui</code>
             </Typography>
             <Chip label="required" size="small" color="primary" variant="outlined" />
@@ -99,7 +99,7 @@ export const Installation: Story = {
             Components, themes, layouts, hooks, and utilities — everything built on top of MUI v9.
           </Typography>
 
-          <Typography variant="subtitle2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
             npm
           </Typography>
           <CodeBlock
@@ -107,7 +107,7 @@ export const Installation: Story = {
             code="npm install @wso2/oxygen-ui"
           />
 
-          <Typography variant="subtitle2" gutterBottom sx={{ mt: 2 }}>
+          <Typography variant="subtitle2" sx={{ mb: '0.35em', mt: 2 }}>
             pnpm
           </Typography>
           <CodeBlock
@@ -115,7 +115,7 @@ export const Installation: Story = {
             code="pnpm add @wso2/oxygen-ui"
           />
 
-          <Typography variant="subtitle2" gutterBottom sx={{ mt: 2 }}>
+          <Typography variant="subtitle2" sx={{ mb: '0.35em', mt: 2 }}>
             yarn
           </Typography>
           <CodeBlock
@@ -135,7 +135,7 @@ export const Installation: Story = {
               alignItems: "center",
               mb: 1
             }}>
-            <Typography variant="h6" gutterBottom sx={{ mb: 0 }}>
+            <Typography variant="h6" sx={{ mb: 0 }}>
               Icons — <code>@wso2/oxygen-ui-icons-react</code>
             </Typography>
             <Chip label="recommended" size="small" color="success" variant="outlined" />
@@ -184,7 +184,7 @@ export const Installation: Story = {
               alignItems: "center",
               mb: 1
             }}>
-            <Typography variant="h6" gutterBottom sx={{ mb: 0 }}>
+            <Typography variant="h6" sx={{ mb: 0 }}>
               Charts — <code>@wso2/oxygen-ui-charts-react</code>
             </Typography>
             <Chip label="optional" size="small" variant="outlined" />
@@ -231,7 +231,7 @@ export const Integrate: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Integrate
           </Typography>
           <Typography variant="body2" sx={{
@@ -246,7 +246,7 @@ export const Integrate: Story = {
 
         {/* Step 1: Provider */}
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Step 1 — Wrap your app with the Theme Provider
           </Typography>
           <Typography
@@ -276,7 +276,7 @@ export const Integrate: Story = {
   );`}
           />
           <Paper variant="outlined" sx={{ p: 2, mt: 2 }}>
-            <Typography variant="subtitle2" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
               Available built-in themes
             </Typography>
             <Stack spacing={0.5}>
@@ -311,7 +311,7 @@ export const Integrate: Story = {
 
         {/* Step 2: AppShell */}
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Step 2 — Scaffold your layout with AppShell
           </Typography>
           <Typography
@@ -408,7 +408,7 @@ export const UseAIToGenerateUIs: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Use AI to Generate UIs
           </Typography>
           <Typography variant="body2" sx={{
@@ -424,7 +424,7 @@ export const UseAIToGenerateUIs: Story = {
 
         {/* Init command */}
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Step 1 — Run the init command
           </Typography>
           <Typography
@@ -452,7 +452,7 @@ export const UseAIToGenerateUIs: Story = {
           </Typography>
           <Stack spacing={1}>
             <Box>
-              <Typography variant="subtitle2" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
                 Claude Code (recommended — includes invokable skills)
               </Typography>
               <CodeBlock
@@ -461,7 +461,7 @@ export const UseAIToGenerateUIs: Story = {
               />
             </Box>
             <Box>
-              <Typography variant="subtitle2" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
                 Any other AI assistant (Copilot, Cursor, Windsurf, etc.)
               </Typography>
               <CodeBlock
@@ -476,7 +476,7 @@ export const UseAIToGenerateUIs: Story = {
 
         {/* What gets installed */}
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Step 2 — What gets installed
           </Typography>
           <Typography
@@ -491,7 +491,7 @@ export const UseAIToGenerateUIs: Story = {
 
           <Stack spacing={2}>
             <Paper variant="outlined" sx={{ p: 2 }}>
-              <Typography variant="subtitle2" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
                 Universal mode (<code>AGENTS.md</code> / <code>.ai/</code>)
               </Typography>
               <Stack spacing={0.5}>
@@ -519,7 +519,7 @@ export const UseAIToGenerateUIs: Story = {
             </Paper>
 
             <Paper variant="outlined" sx={{ p: 2 }}>
-              <Typography variant="subtitle2" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
                 Claude Code mode (above + invokable skills in <code>.claude/</code>)
               </Typography>
               <Stack spacing={0.5}>
@@ -552,7 +552,7 @@ export const UseAIToGenerateUIs: Story = {
 
         {/* Example prompts */}
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Step 3 — Ask your AI to build UIs
           </Typography>
           <Typography

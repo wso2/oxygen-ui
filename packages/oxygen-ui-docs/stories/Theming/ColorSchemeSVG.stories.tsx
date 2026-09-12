@@ -309,7 +309,7 @@ export const AllColorValues: Story = {
         <Stack spacing={3}>
           {/* Theme Colors */}
           <Box>
-            <Typography variant="subtitle2" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
               Theme Colors
             </Typography>
             <ColorSchemeSVG width="100%" height={60}>
@@ -336,7 +336,7 @@ export const AllColorValues: Story = {
 
           {/* Status Colors */}
           <Box>
-            <Typography variant="subtitle2" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
               Status Colors
             </Typography>
             <ColorSchemeSVG width="100%" height={60}>
@@ -363,7 +363,7 @@ export const AllColorValues: Story = {
 
           {/* Text Colors */}
           <Box>
-            <Typography variant="subtitle2" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
               Text Colors
             </Typography>
             <ColorSchemeSVG width="100%" height={60}>
@@ -384,7 +384,7 @@ export const AllColorValues: Story = {
 
           {/* Stroke Variants */}
           <Box>
-            <Typography variant="subtitle2" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
               Stroke Variants
             </Typography>
             <ColorSchemeSVG width="100%" height={60}>

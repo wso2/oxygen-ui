@@ -139,7 +139,7 @@ export const Default: Story = {
                   <Stack key={item.title} direction="row" sx={{gap: 2}}>
                     {item.icon}
                     <div>
-                      <Typography gutterBottom sx={{fontWeight: 'medium'}}>
+                      <Typography sx={{ mb: '0.35em',fontWeight: 'medium'}}>
                         {item.title}
                       </Typography>
                       <Typography variant="body2" sx={{color: 'text.secondary'}}>
@@ -166,7 +166,7 @@ export const Default: Story = {
             }}>
               <form method="POST" action="">
                 <Box sx={{ mb: 6 }}>
-                  <Typography variant="h3" gutterBottom>
+                  <Typography sx={{ mb: '0.35em' }} variant="h3">
                     Login to Account
                   </Typography>
 

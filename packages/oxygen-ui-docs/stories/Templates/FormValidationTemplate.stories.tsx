@@ -287,7 +287,7 @@ export const Default: Story = {
           {/* Display submitted data */}
           {submittedData && (
             <Alert severity="success">
-              <Typography variant="h6" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="h6">
                 Form Submitted Successfully!
               </Typography>
               <Typography variant="body2" component="pre" sx={{ mt: 1 }}>

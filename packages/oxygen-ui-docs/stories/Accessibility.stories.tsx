@@ -62,7 +62,7 @@ export const Overview: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Accessibility
           </Typography>
           <Typography variant="body2" sx={{
@@ -78,7 +78,7 @@ export const Overview: Story = {
         <Divider />
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Accessible Names You Must Provide
           </Typography>
           <Typography variant="body2" sx={{
@@ -118,7 +118,7 @@ export const Overview: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Keyboard Interactions
           </Typography>
           <TableContainer component={Paper} variant="outlined">
@@ -144,7 +144,7 @@ export const Overview: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Color Contrast and Themes
           </Typography>
           <Typography variant="body2" component="div" sx={{
@@ -170,7 +170,7 @@ export const Overview: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Reduced Motion
           </Typography>
           <Typography variant="body2" sx={{
@@ -183,7 +183,7 @@ export const Overview: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Forms and Validation
           </Typography>
           <Typography variant="body2" sx={{
@@ -197,7 +197,7 @@ export const Overview: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Audit and Workflow
           </Typography>
           <Typography variant="body2" sx={{

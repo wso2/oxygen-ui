@@ -66,7 +66,7 @@ export const Default: Story = {
           borderColor: 'divider',
         }}
       >
-        <Typography variant="h4" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h4">
           Analytics
         </Typography>
       </Box>
@@ -99,7 +99,7 @@ export const Default: Story = {
           <Grid size={12}>
             <Card>
               <CardContent>
-                <Typography variant="h6" gutterBottom>
+                <Typography sx={{ mb: '0.35em' }} variant="h6">
                   Overview Analytics
                 </Typography>
                 <Typography variant="body2" sx={{

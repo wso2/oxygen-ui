@@ -54,7 +54,7 @@ export const CreateNewComponent: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Creating a Custom Component
           </Typography>
           <Typography variant="body2" sx={{
@@ -67,7 +67,7 @@ export const CreateNewComponent: Story = {
         <Divider />
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Step 1: Create Sub components
           </Typography>
           <Typography variant="body2" sx={{
@@ -76,7 +76,7 @@ export const CreateNewComponent: Story = {
             Create separate files for each subcomponent using <code>styled()</code> from MUI.
           </Typography>
           
-          <Typography variant="subtitle2" gutterBottom sx={{ mt: 2 }}>
+          <Typography variant="subtitle2" sx={{ mb: '0.35em', mt: 2 }}>
             CustomCardTitle.tsx
           </Typography>
           <CodeBlock
@@ -107,7 +107,7 @@ export const CreateNewComponent: Story = {
   export default CustomCardTitle;`}
           />
 
-          <Typography variant="subtitle2" gutterBottom sx={{ mt: 2 }}>
+          <Typography variant="subtitle2" sx={{ mb: '0.35em', mt: 2 }}>
             CustomCardDescription.tsx
           </Typography>
           <CodeBlock
@@ -131,13 +131,13 @@ export const CreateNewComponent: Story = {
   CustomCardDescription.displayName = 'CustomCard.Description';
   CustomCardDescription.defaultProps = {
     variant: 'body2',
-    paragraph: true,
+    sx: { mb: '0.35em' },
   };
 
   export default CustomCardDescription;`}
           />
 
-          <Typography variant="subtitle2" gutterBottom sx={{ mt: 2 }}>
+          <Typography variant="subtitle2" sx={{ mb: '0.35em', mt: 2 }}>
             CustomCardActions.tsx
           </Typography>
           <CodeBlock
@@ -167,7 +167,7 @@ export const CreateNewComponent: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Step 2: Create the Main Component
           </Typography>
           <Typography variant="body2" sx={{
@@ -220,7 +220,7 @@ export const CreateNewComponent: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Step 3: Export Everything
           </Typography>
           <Typography variant="body2" sx={{
@@ -240,7 +240,7 @@ export const CreateNewComponent: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Step 4: Use the Component
           </Typography>
           <Typography variant="body2" sx={{
@@ -285,7 +285,7 @@ export const CreateStory: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Adding a Storybook Story
           </Typography>
           <Typography variant="body2" sx={{
@@ -298,7 +298,7 @@ export const CreateStory: Story = {
         <Divider />
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Step 1: Create the Story File
           </Typography>
           <Typography variant="body2" sx={{
@@ -367,7 +367,7 @@ export const CreateStory: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Step 2: Add Story Examples
           </Typography>
           <Typography variant="body2" sx={{
@@ -490,7 +490,7 @@ export const CreateCustomTheme: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Creating a Custom Theme
           </Typography>
           <Typography variant="body2" sx={{
@@ -503,7 +503,7 @@ export const CreateCustomTheme: Story = {
         <Divider />
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Complete Custom Theme Example
           </Typography>
           <Typography variant="body2" sx={{
@@ -593,7 +593,7 @@ export const CreateCustomTheme: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Using the Custom Theme
           </Typography>
           <CodeBlock
@@ -623,7 +623,7 @@ export const AccessibilityPolicy: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Accessibility Policy
           </Typography>
           <Typography variant="body2" sx={{
@@ -637,7 +637,7 @@ export const AccessibilityPolicy: Story = {
         <Divider />
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Rules for New Components and Stories
           </Typography>
           <Typography variant="body2" component="div" sx={{
@@ -655,7 +655,7 @@ export const AccessibilityPolicy: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Running the Checks
           </Typography>
           <CodeBlock
@@ -670,7 +670,7 @@ export const AccessibilityPolicy: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Documenting Exceptions
           </Typography>
           <Typography variant="body2" sx={{

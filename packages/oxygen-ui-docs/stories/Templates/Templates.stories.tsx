@@ -142,7 +142,7 @@ const TemplatePreview = ({ template }: { template: TemplateCard }) => {
   return (
     <Box>
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h4" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h4">
           {template.title}
         </Typography>
         <Typography
@@ -214,7 +214,7 @@ export const ListTemplates: Story = {
   render: () => (
     <Box sx={{ padding: 4 }}>
       <Box sx={{ marginBottom: 4 }}>
-        <Typography variant="h3" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h3">
           Templates
         </Typography>
         <Typography variant="body1" sx={{

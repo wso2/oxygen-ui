@@ -70,7 +70,7 @@ export const ReadMode: Story = {
 
     return (
       <Box sx={{p: 2, textAlign: 'center'}}>
-        <Typography variant="body2" gutterBottom sx={{
+        <Typography variant="body2" sx={{ mb: '0.35em',
           color: "text.secondary"
         }}>
           Current mode
@@ -96,7 +96,7 @@ export const SetMode: Story = {
 
     return (
       <Box sx={{p: 2}}>
-        <Typography variant="body2" gutterBottom sx={{
+        <Typography variant="body2" sx={{ mb: '0.35em',
           color: "text.secondary"
         }}>
           Active mode: <strong>{mode ?? 'system'}</strong>

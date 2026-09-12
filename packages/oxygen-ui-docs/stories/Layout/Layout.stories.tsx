@@ -159,7 +159,7 @@ export const Playground: Story = {
             </Layout.Header>
           )}
           <Box sx={{ p: 3 }}>
-            <Typography variant="h4" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="h4">
               {args.contentTitle}
             </Typography>
             <Typography sx={{ mb: 2 }}>{args.contentDescription}</Typography>
@@ -191,7 +191,7 @@ export const BasicLayout = () => (
     </Layout.Sidebar>
     <Layout.Content>
       <Box sx={{ p: 3 }}>
-        <Typography variant="h4" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h4">
           Main Content
         </Typography>
         <Typography sx={{ mb: 2 }}>
@@ -231,7 +231,7 @@ export const WithNavbar = () => (
       </Layout.Sidebar>
       <Layout.Content>
         <Box sx={{ p: 3 }}>
-          <Typography variant="h4" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h4">
             Layout with Top Navigation
           </Typography>
           <Typography sx={{ mb: 2 }}>
@@ -326,7 +326,7 @@ export const FullFeaturedLayout = () => (
           <Typography variant="h5">Dashboard Overview</Typography>
         </Layout.Header>
         <Box sx={{ p: 3 }}>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Content Area
           </Typography>
           <Typography sx={{ mb: 2 }}>
@@ -347,7 +347,7 @@ export const ContentOnly = () => (
   <Layout sx={{ height: '100vh' }}>
     <Layout.Content>
       <Box sx={{ p: 3 }}>
-        <Typography variant="h4" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h4">
           Simple Content Layout
         </Typography>
         <Typography sx={{ mb: 2 }}>

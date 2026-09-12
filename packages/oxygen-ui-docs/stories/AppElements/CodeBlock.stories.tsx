@@ -174,7 +174,7 @@ export const MultipleLanguages: Story = {
   render: () => (
     <Stack spacing={3}>
       <div>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           TypeScript Component
         </Typography>
         <CodeBlock
@@ -192,7 +192,7 @@ function App() {
       </div>
 
       <div>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Installation Command
         </Typography>
         <CodeBlock
@@ -202,7 +202,7 @@ function App() {
       </div>
 
       <div>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Configuration JSON
         </Typography>
         <CodeBlock

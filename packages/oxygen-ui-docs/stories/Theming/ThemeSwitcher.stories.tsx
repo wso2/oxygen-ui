@@ -183,21 +183,21 @@ export const Variants: Story = {
     <OxygenUIThemeProvider themes={exampleThemes}>
       <Stack spacing={3} sx={{ minWidth: 300 }}>
         <Box>
-          <Typography variant="subtitle2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
             Outlined
           </Typography>
           <ThemeSwitcher variant="outlined" showLabel />
         </Box>
         
         <Box>
-          <Typography variant="subtitle2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
             Filled
           </Typography>
           <ThemeSwitcher variant="filled" showLabel />
         </Box>
         
         <Box>
-          <Typography variant="subtitle2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
             Standard
           </Typography>
           <ThemeSwitcher variant="standard" showLabel />
@@ -212,14 +212,14 @@ export const DifferentSizes: Story = {
     <OxygenUIThemeProvider themes={exampleThemes}>
       <Stack spacing={3} sx={{ minWidth: 300 }}>
         <Box>
-          <Typography variant="subtitle2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
             Small
           </Typography>
           <ThemeSwitcher size="small" showLabel />
         </Box>
         
         <Box>
-          <Typography variant="subtitle2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
             Medium (Default)
           </Typography>
           <ThemeSwitcher size="medium" showLabel />

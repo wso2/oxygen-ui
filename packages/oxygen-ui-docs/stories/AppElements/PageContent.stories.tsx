@@ -112,7 +112,7 @@ export const Default: Story = {
       <PageContent>
         <Card>
           <CardContent>
-            <Typography variant="h5" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="h5">
               Default Page Content
             </Typography>
             <Typography variant="body1" sx={{
@@ -137,7 +137,7 @@ export const CustomMaxWidth: Story = {
       <PageContent maxWidth="800px">
         <Card>
           <CardContent>
-            <Typography variant="h5" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="h5">
               Custom Max Width
             </Typography>
             <Typography variant="body1" sx={{
@@ -162,7 +162,7 @@ export const FullWidth: Story = {
       <PageContent fullWidth>
         <Card>
           <CardContent>
-            <Typography variant="h5" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="h5">
               Full Width Content
             </Typography>
             <Typography variant="body1" sx={{
@@ -187,7 +187,7 @@ export const NotCentered: Story = {
       <PageContent centered={false} maxWidth="600px">
         <Card>
           <CardContent>
-            <Typography variant="h5" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="h5">
               Not Centered
             </Typography>
             <Typography variant="body1" sx={{
@@ -213,7 +213,7 @@ export const MultipleBlocks: Story = {
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
           <Card>
             <CardContent>
-              <Typography variant="h5" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="h5">
                 Section 1
               </Typography>
               <Typography variant="body1" sx={{
@@ -226,7 +226,7 @@ export const MultipleBlocks: Story = {
 
           <Card>
             <CardContent>
-              <Typography variant="h5" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="h5">
                 Section 2
               </Typography>
               <Typography variant="body1" sx={{
@@ -239,7 +239,7 @@ export const MultipleBlocks: Story = {
 
           <Card>
             <CardContent>
-              <Typography variant="h5" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="h5">
                 Section 3
               </Typography>
               <Typography variant="body1" sx={{
