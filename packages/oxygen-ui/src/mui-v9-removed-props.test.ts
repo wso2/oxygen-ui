@@ -107,6 +107,10 @@ function findRemovedPropUses(source: string, file: string): string[] {
       findings.push(`${loc} paragraph`);
     }
 
+    if (/\bTypography\b/.test(match[0]) && /\bgutterBottom(?:\s|=|\/|$)/.test(openTag)) {
+      findings.push(`${loc} gutterBottom`);
+    }
+
     if (/\bTypography\b/.test(match[0]) && /color=["'][^"']*\./.test(openTag)) {
       findings.push(`${loc} color`);
     }
