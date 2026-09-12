@@ -261,7 +261,9 @@ export default function LogView(): JSX.Element {
         <CardContent sx={{ p: 0 }}>
           {filteredLogs.length === 0 ? (
             <Box sx={{ textAlign: 'center', py: 8 }}>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{
+                color: "text.secondary"
+              }}>
                 No logs found matching your filters
               </Typography>
             </Box>
@@ -286,12 +288,16 @@ export default function LogView(): JSX.Element {
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
                           <Chip label={log.level} size="small" color={getLevelColor(log.level)} />
                           <Chip label={log.component} size="small" variant="outlined" />
-                          <Typography variant="caption" color="text.secondary">
+                          <Typography variant="caption" sx={{
+                            color: "text.secondary"
+                          }}>
                             {log.timestamp}
                           </Typography>
                         </Box>
 
-                        <Typography variant="body2" fontWeight={500}>
+                        <Typography variant="body2" sx={{
+                          fontWeight: 500
+                        }}>
                           {log.message}
                         </Typography>
 
@@ -322,10 +328,12 @@ export default function LogView(): JSX.Element {
 
       {/* Stats Footer */}
       <Box sx={{ mt: 2, display: 'flex', gap: 2, justifyContent: 'center' }}>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" sx={{
+          color: "text.secondary"
+        }}>
           Showing {filteredLogs.length} of {mockLogs.length} logs
         </Typography>
       </Box>
     </PageContent>
-  )
+  );
 }

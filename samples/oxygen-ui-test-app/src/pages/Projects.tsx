@@ -114,7 +114,12 @@ export default function Projects(): JSX.Element {
           <Typography variant="h6" gutterBottom>
             No projects found
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "text.secondary",
+              mb: 2
+            }}>
             {searchQuery ? 'Try adjusting your search' : 'Create your first project to get started'}
           </Typography>
           {!searchQuery && (
@@ -175,17 +180,16 @@ export default function Projects(): JSX.Element {
                   </Box>
                   <Typography
                     variant="body1"
-                    color="text.secondary"
                     sx={{
+                      color: "text.secondary",
                       mb: 3,
                       minHeight: 40,
                       display: '-webkit-box',
                       WebkitLineClamp: 2,
                       WebkitBoxOrient: 'vertical',
                       overflow: 'hidden',
-                      lineHeight: 1.6,
-                    }}
-                  >
+                      lineHeight: 1.6
+                    }}>
                     {project.description ?? 'No description'}
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 1, mb: 2, flexWrap: 'wrap' }}>
@@ -204,9 +208,13 @@ export default function Projects(): JSX.Element {
                   </Box>
                   <Typography
                     variant="caption"
-                    color="text.secondary"
-                    sx={{ display: 'flex', alignItems: 'center', gap: 0.5, fontWeight: 500 }}
-                  >
+                    sx={{
+                      color: "text.secondary",
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 0.5,
+                      fontWeight: 500
+                    }}>
                     Updated {project.lastUpdated}
                   </Typography>
                 </CardContent>
@@ -229,5 +237,5 @@ export default function Projects(): JSX.Element {
         </Grid>
       )}
     </PageContent>
-  )
+  );
 }

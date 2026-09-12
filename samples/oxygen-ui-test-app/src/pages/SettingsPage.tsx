@@ -178,7 +178,12 @@ export default function SettingsPage(): JSX.Element {
                         <Button variant="outlined" size="small" sx={{ mb: 1 }}>
                           Change Logo
                         </Button>
-                        <Typography variant="caption" display="block" color="text.secondary">
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            display: "block",
+                            color: "text.secondary"
+                          }}>
                           Recommended: Square image, at least 200x200px
                         </Typography>
                       </Box>
@@ -358,7 +363,9 @@ export default function SettingsPage(): JSX.Element {
                   </FormControl>
 
                   <Box sx={{ p: 2, bgcolor: 'action.hover', borderRadius: 1 }}>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{
+                      color: "text.secondary"
+                    }}>
                       These preferences will be applied across your organization for all members.
                     </Typography>
                   </Box>
@@ -392,7 +399,13 @@ export default function SettingsPage(): JSX.Element {
                     }
                     label="Email Notifications"
                   />
-                  <Typography variant="body2" color="text.secondary" sx={{ ml: 5, mt: -1 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "text.secondary",
+                      ml: 5,
+                      mt: -1
+                    }}>
                     Receive email notifications for organization events
                   </Typography>
 
@@ -411,7 +424,13 @@ export default function SettingsPage(): JSX.Element {
                     }
                     label="Slack Notifications"
                   />
-                  <Typography variant="body2" color="text.secondary" sx={{ ml: 5, mt: -1 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "text.secondary",
+                      ml: 5,
+                      mt: -1
+                    }}>
                     Send notifications to your Slack workspace
                   </Typography>
 
@@ -434,7 +453,13 @@ export default function SettingsPage(): JSX.Element {
                     }
                     label="Security Alerts"
                   />
-                  <Typography variant="body2" color="text.secondary" sx={{ ml: 5, mt: -1 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "text.secondary",
+                      ml: 5,
+                      mt: -1
+                    }}>
                     Get notified about security events and suspicious activities
                   </Typography>
 
@@ -453,7 +478,13 @@ export default function SettingsPage(): JSX.Element {
                     }
                     label="Billing Alerts"
                   />
-                  <Typography variant="body2" color="text.secondary" sx={{ ml: 5, mt: -1 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "text.secondary",
+                      ml: 5,
+                      mt: -1
+                    }}>
                     Receive alerts about billing and subscription changes
                   </Typography>
 
@@ -472,7 +503,13 @@ export default function SettingsPage(): JSX.Element {
                     }
                     label="Weekly Reports"
                   />
-                  <Typography variant="body2" color="text.secondary" sx={{ ml: 5, mt: -1 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "text.secondary",
+                      ml: 5,
+                      mt: -1
+                    }}>
                     Get weekly summary reports of organization activity
                   </Typography>
 
@@ -491,7 +528,13 @@ export default function SettingsPage(): JSX.Element {
                     }
                     label="Product Updates"
                   />
-                  <Typography variant="body2" color="text.secondary" sx={{ ml: 5, mt: -1 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "text.secondary",
+                      ml: 5,
+                      mt: -1
+                    }}>
                     Stay informed about new features and improvements
                   </Typography>
                 </Box>
@@ -525,7 +568,12 @@ export default function SettingsPage(): JSX.Element {
                       }
                       label="Require Two-Factor Authentication"
                     />
-                    <Typography variant="body2" color="text.secondary" sx={{ ml: 5 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "text.secondary",
+                        ml: 5
+                      }}>
                       Require all members to enable 2FA for enhanced security
                     </Typography>
                   </Box>
@@ -556,7 +604,12 @@ export default function SettingsPage(): JSX.Element {
                       }
                       label="Enable IP Whitelist"
                     />
-                    <Typography variant="body2" color="text.secondary" sx={{ ml: 5 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "text.secondary",
+                        ml: 5
+                      }}>
                       Restrict access to specific IP addresses
                     </Typography>
                   </Box>
@@ -697,7 +750,9 @@ export default function SettingsPage(): JSX.Element {
                       primary="Production API Key"
                       secondary={
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1 }}>
-                          <Typography variant="body2" fontFamily="monospace">
+                          <Typography variant="body2" sx={{
+                            fontFamily: "monospace"
+                          }}>
                             sk_prod_••••••••••••••••
                           </Typography>
                           <Chip label="Active" size="small" color="success" />
@@ -723,7 +778,9 @@ export default function SettingsPage(): JSX.Element {
                       primary="Development API Key"
                       secondary={
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1 }}>
-                          <Typography variant="body2" fontFamily="monospace">
+                          <Typography variant="body2" sx={{
+                            fontFamily: "monospace"
+                          }}>
                             sk_dev_••••••••••••••••
                           </Typography>
                           <Chip label="Active" size="small" color="success" />
@@ -774,7 +831,9 @@ export default function SettingsPage(): JSX.Element {
                       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Box>
                           <Typography variant="h6">Enterprise Plan</Typography>
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography variant="body2" sx={{
+                            color: "text.secondary"
+                          }}>
                             For large organizations with advanced needs
                           </Typography>
                         </Box>
@@ -784,7 +843,9 @@ export default function SettingsPage(): JSX.Element {
                       </Box>
                       <Box sx={{ mt: 2 }}>
                         <Chip label="Active" color="success" size="small" sx={{ mr: 1 }} />
-                        <Typography variant="caption" color="text.secondary">
+                        <Typography variant="caption" sx={{
+                          color: "text.secondary"
+                        }}>
                           Next billing date: January 1, 2026
                         </Typography>
                       </Box>
@@ -810,7 +871,9 @@ export default function SettingsPage(): JSX.Element {
                         <CreditCard size={24} />
                         <Box>
                           <Typography variant="body1">•••• •••• •••• 4242</Typography>
-                          <Typography variant="caption" color="text.secondary">
+                          <Typography variant="caption" sx={{
+                            color: "text.secondary"
+                          }}>
                             Expires 12/2026
                           </Typography>
                         </Box>
@@ -879,7 +942,12 @@ export default function SettingsPage(): JSX.Element {
                     <Typography variant="subtitle1" gutterBottom>
                       Transfer Organization Ownership
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "text.secondary",
+                        mb: 2
+                      }}>
                       Transfer ownership of this organization to another member
                     </Typography>
                     <Button variant="outlined" color="warning">
@@ -893,7 +961,12 @@ export default function SettingsPage(): JSX.Element {
                     <Typography variant="subtitle1" gutterBottom>
                       Delete Organization
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "text.secondary",
+                        mb: 2
+                      }}>
                       Permanently delete this organization and all its data, including all projects, members,
                       and settings. This action cannot be undone.
                     </Typography>
@@ -914,5 +987,5 @@ export default function SettingsPage(): JSX.Element {
         </Box>
       </Box>
     </PageContent>
-  )
+  );
 }

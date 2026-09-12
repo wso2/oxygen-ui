@@ -47,8 +47,7 @@ export default function HomePage(): JSX.Element {
           </Badge>
           <br /><br />
         </p>
-      </div>
-      Run <pre><code>pnpm storybook</code></pre>
+      </div>Run <pre><code>pnpm storybook</code></pre>
       <p className="read-the-docs">
         <Lightbulb size={18} /> Click the icon on top right corner to change color mode
       </p>
@@ -59,9 +58,10 @@ export default function HomePage(): JSX.Element {
           direction="row"
           spacing={2}
           divider={<Divider orientation="vertical" flexItem />}
-          justifyContent="center"
-          alignItems="center"
-        >       
+          sx={{
+            justifyContent: "center",
+            alignItems: "center"
+          }}>       
           {appRoutes
             .flatMap((route) => route.children || [])
             .filter((child) => child.showInNav)
