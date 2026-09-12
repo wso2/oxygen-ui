@@ -51,7 +51,7 @@ const WelcomeContent = () => (
   <CenterContentLayout>
     <Box>
       <Box sx={{ mb: 6 }}>
-        <Typography variant="h2" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h2">
           Welcome to Oxygen UI
         </Typography>
 
@@ -76,7 +76,7 @@ const WelcomeContent = () => (
       <Stack spacing={3} sx={{ mb: 4 }}>
         <Stack direction={{ xs: 'column', md: 'row' }} spacing={3}>
           <Paper sx={{ p: 3, flex: 1 }}>
-            <Typography variant="h5" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="h5">
               🎨 Theme System
             </Typography>
             <Typography
@@ -91,7 +91,7 @@ const WelcomeContent = () => (
           </Paper>
 
           <Paper sx={{ p: 3, flex: 1 }}>
-            <Typography variant="h5" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="h5">
               🧩 Component Library
             </Typography>
             <Typography
@@ -108,7 +108,7 @@ const WelcomeContent = () => (
 
         <Stack direction={{ xs: 'column', md: 'row' }} spacing={3}>
           <Paper sx={{ p: 3, flex: 1 }}>
-            <Typography variant="h5" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="h5">
               🎭 Animations
             </Typography>
             <Typography
@@ -123,7 +123,7 @@ const WelcomeContent = () => (
           </Paper>
 
           <Paper sx={{ p: 3, flex: 1 }}>
-            <Typography variant="h5" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="h5">
               🔧 Developer Tools
             </Typography>
             <Typography
@@ -139,7 +139,7 @@ const WelcomeContent = () => (
       </Stack>
 
       <Paper sx={{ p: 3, mb: 4 }}>
-        <Typography variant="h5" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h5">
           Getting Started
         </Typography>
         <Typography variant="body2" sx={{ mb: 2 }}>
@@ -166,7 +166,7 @@ const WelcomeContent = () => (
       </Paper>
 
       <Paper sx={{ p: 3, mb: 4 }}>
-        <Typography variant="h5" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h5">
           AI-Assisted Development
         </Typography>
         <Typography variant="body2" sx={{ mb: 2 }}>

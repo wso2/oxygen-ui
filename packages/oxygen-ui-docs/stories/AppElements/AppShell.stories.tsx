@@ -201,7 +201,7 @@ interface AppShellArgs {
  */
 const SampleContent: React.FC = () => (
   <Box sx={{ p: 3 }}>
-    <Typography variant="h4" gutterBottom sx={{ fontWeight: 600 }}>
+    <Typography variant="h4" sx={{ mb: '0.35em', fontWeight: 600 }}>
       Dashboard
     </Typography>
     <Typography variant="body1" sx={{ color: 'text.secondary', mb: 3 }}>
@@ -1020,7 +1020,7 @@ export const WithConfirmDialog: Story = {
 
         <AppShell.Main>
           <Box sx={{ p: 3 }}>
-            <Typography variant="h5" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="h5">
               Confirmation Dialog Example
             </Typography>
             <Typography sx={{ color: 'text.secondary', mb: 3 }}>
@@ -1085,7 +1085,7 @@ export const MobileResponsive: Story = {
 
       return (
         <Box sx={{ p: 3 }}>
-          <Typography variant="h5" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h5">
             Mobile-Responsive Sidebar
           </Typography>
           <Typography sx={{ color: 'text.secondary', mb: 3 }}>
@@ -1204,7 +1204,7 @@ export const CustomSidebarWidth: Story = {
 
       return (
         <Box sx={{ p: 3 }}>
-          <Typography variant="h5" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h5">
             Custom Sidebar Width
           </Typography>
           <Typography sx={{ color: 'text.secondary', mb: 3 }}>

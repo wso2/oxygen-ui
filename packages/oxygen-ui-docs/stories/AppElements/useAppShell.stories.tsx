@@ -127,7 +127,7 @@ const StatusDisplay: React.FC = () => {
   return (
     <Card>
       <CardContent>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Shell State (from useAppShell)
         </Typography>
         <Stack spacing={1.5}>
@@ -187,18 +187,12 @@ const ControlPanel: React.FC = () => {
   return (
     <Card>
       <CardContent>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Shell Controls (using useAppShell actions)
         </Typography>
         <Stack spacing={2}>
           <Box>
-            <Typography
-              variant="body2"
-              gutterBottom
-              sx={{
-                color: 'text.secondary',
-              }}
-            >
+            <Typography variant="body2" sx={{ mb: '0.35em', color: 'text.secondary' }}>
               Sidebar Controls:
             </Typography>
             <Stack
@@ -222,13 +216,7 @@ const ControlPanel: React.FC = () => {
           </Box>
 
           <Box>
-            <Typography
-              variant="body2"
-              gutterBottom
-              sx={{
-                color: 'text.secondary',
-              }}
-            >
+            <Typography variant="body2" sx={{ mb: '0.35em', color: 'text.secondary' }}>
               Active Menu Item:
             </Typography>
             <Stack
@@ -264,13 +252,7 @@ const ControlPanel: React.FC = () => {
           </Box>
 
           <Box>
-            <Typography
-              variant="body2"
-              gutterBottom
-              sx={{
-                color: 'text.secondary',
-              }}
-            >
+            <Typography variant="body2" sx={{ mb: '0.35em', color: 'text.secondary' }}>
               Notification Panel:
             </Typography>
             <Stack
@@ -342,7 +324,7 @@ export const ConsumeContext: Story = {
 
         <AppShell.Main>
           <Box sx={{ p: 3 }}>
-            <Typography variant="h5" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="h5">
               Consume Context Mode
             </Typography>
             <Typography
@@ -410,7 +392,7 @@ export const CreateMode: Story = {
 
       return (
         <Box sx={{ p: 3 }}>
-          <Typography variant="h5" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h5">
             Create Mode
           </Typography>
           <Typography
@@ -425,7 +407,7 @@ export const CreateMode: Story = {
 
           <Card sx={{ mt: 3 }}>
             <CardContent>
-              <Typography variant="h6" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="h6">
                 Shell State
               </Typography>
               <Stack spacing={1.5}>
@@ -472,13 +454,7 @@ export const CreateMode: Story = {
               </Stack>
 
               <Box sx={{ mt: 3 }}>
-                <Typography
-                  variant="body2"
-                  gutterBottom
-                  sx={{
-                    color: 'text.secondary',
-                  }}
-                >
+                <Typography variant="body2" sx={{ mb: '0.35em', color: 'text.secondary' }}>
                   Actions:
                 </Typography>
                 <Stack

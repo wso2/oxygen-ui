@@ -85,13 +85,7 @@ export const Default: Story = {
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Card>
               <CardContent>
-                <Typography
-                  variant="subtitle2"
-                  gutterBottom
-                  sx={{
-                    color: 'text.secondary',
-                  }}
-                >
+                <Typography variant="subtitle2" sx={{ mb: '0.35em', color: 'text.secondary' }}>
                   Total Users
                 </Typography>
                 <Typography variant="h4">2,543</Typography>
@@ -110,13 +104,7 @@ export const Default: Story = {
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Card>
               <CardContent>
-                <Typography
-                  variant="subtitle2"
-                  gutterBottom
-                  sx={{
-                    color: 'text.secondary',
-                  }}
-                >
+                <Typography variant="subtitle2" sx={{ mb: '0.35em', color: 'text.secondary' }}>
                   Active Sessions
                 </Typography>
                 <Typography variant="h4">1,823</Typography>
@@ -135,13 +123,7 @@ export const Default: Story = {
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Card>
               <CardContent>
-                <Typography
-                  variant="subtitle2"
-                  gutterBottom
-                  sx={{
-                    color: 'text.secondary',
-                  }}
-                >
+                <Typography variant="subtitle2" sx={{ mb: '0.35em', color: 'text.secondary' }}>
                   Total Revenue
                 </Typography>
                 <Typography variant="h4">$45.2K</Typography>
@@ -160,13 +142,7 @@ export const Default: Story = {
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Card>
               <CardContent>
-                <Typography
-                  variant="subtitle2"
-                  gutterBottom
-                  sx={{
-                    color: 'text.secondary',
-                  }}
-                >
+                <Typography variant="subtitle2" sx={{ mb: '0.35em', color: 'text.secondary' }}>
                   Conversion Rate
                 </Typography>
                 <Typography variant="h4">3.24%</Typography>
@@ -186,7 +162,7 @@ export const Default: Story = {
           <Grid size={{ xs: 12, md: 8 }}>
             <Card>
               <CardContent>
-                <Typography variant="h5" gutterBottom>
+                <Typography sx={{ mb: '0.35em' }} variant="h5">
                   Recent Activity
                 </Typography>
                 <Divider sx={{ marginY: 2 }} />
@@ -228,7 +204,7 @@ export const Default: Story = {
           <Grid size={{ xs: 12, md: 4 }}>
             <Card>
               <CardContent>
-                <Typography variant="h6" gutterBottom>
+                <Typography sx={{ mb: '0.35em' }} variant="h6">
                   Quick Actions
                 </Typography>
                 <Divider sx={{ marginY: 2 }} />
@@ -250,7 +226,7 @@ export const Default: Story = {
 
                 <Divider sx={{ marginY: 3 }} />
 
-                <Typography variant="h6" gutterBottom>
+                <Typography sx={{ mb: '0.35em' }} variant="h6">
                   Recent Notifications
                 </Typography>
                 <Stack spacing={1.5} sx={{ marginTop: 2 }}>

@@ -115,14 +115,16 @@ export const Alignment: Story = {
   ),
 }
 
-export const Gutters: Story = {
+export const BottomMargin: Story = {
   render: () => (
     <Stack spacing={0}>
-      <Typography gutterBottom>Paragraph with gutterBottom. Lorem ipsum dolor sit amet.</Typography>
-      <Typography gutterBottom>
-        Another paragraph with gutterBottom. Consectetur adipiscing elit.
+      <Typography sx={{ mb: '0.35em' }}>
+        Paragraph with bottom margin. Lorem ipsum dolor sit amet.
       </Typography>
-      <Typography>Paragraph without gutterBottom. Sed do eiusmod tempor.</Typography>
+      <Typography sx={{ mb: '0.35em' }}>
+        Another paragraph with bottom margin. Consectetur adipiscing elit.
+      </Typography>
+      <Typography>Paragraph without extra bottom margin. Sed do eiusmod tempor.</Typography>
     </Stack>
   ),
 }

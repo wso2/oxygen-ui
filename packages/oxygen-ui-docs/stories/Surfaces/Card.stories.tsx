@@ -44,7 +44,7 @@ export const Default: Story = {
   render: () => (
     <Card sx={{ maxWidth: 345 }}>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography sx={{ mb: '0.35em' }} variant="h5" component="div">
           Card Title
         </Typography>
         <Typography
@@ -65,7 +65,7 @@ export const WithActions: Story = {
   render: () => (
     <Card sx={{ maxWidth: 345 }}>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography sx={{ mb: '0.35em' }} variant="h5" component="div">
           Card with Actions
         </Typography>
         <Typography
@@ -95,7 +95,7 @@ export const WithMedia: Story = {
         alt="Card image"
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography sx={{ mb: '0.35em' }} variant="h5" component="div">
           Card with Image
         </Typography>
         <Typography
@@ -119,7 +119,7 @@ export const Outlined: Story = {
   render: () => (
     <Card variant="outlined" sx={{ maxWidth: 345 }}>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography sx={{ mb: '0.35em' }} variant="h5" component="div">
           Outlined Card
         </Typography>
         <Typography
@@ -139,7 +139,7 @@ export const Elevated: Story = {
   render: () => (
     <Card sx={{ maxWidth: 345 }} elevation={8}>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography sx={{ mb: '0.35em' }} variant="h5" component="div">
           Elevated Card
         </Typography>
         <Typography

@@ -75,7 +75,7 @@ export const WithTheme: Story = {
 
     return (
       <Box sx={{ p: 2 }}>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Current Breakpoint Matches:
         </Typography>
         <Typography>XS (0px+): {matchesXS ? '✅' : '❌'}</Typography>
@@ -100,7 +100,7 @@ export const ResponsiveDesign: Story = {
 
     return (
       <Box sx={{ p: 2, minWidth: 300 }}>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Device Type Detection
         </Typography>
         {isMobile && <Typography>📱 Mobile View (0-600px)</Typography>}
@@ -121,7 +121,7 @@ export const Orientation: Story = {
 
     return (
       <Box sx={{ p: 2 }}>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Screen Orientation
         </Typography>
         {isPortrait && <Typography>📱 Portrait Mode</Typography>}
@@ -141,7 +141,7 @@ export const PrefersDarkMode: Story = {
 
     return (
       <Box sx={{ p: 2 }}>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Color Scheme Preference
         </Typography>
         {prefersDarkMode && <Typography>🌙 Prefers Dark Mode</Typography>}
@@ -162,7 +162,7 @@ export const CustomQueries: Story = {
 
     return (
       <Box sx={{ p: 2 }}>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Advanced Media Queries
         </Typography>
         <Typography>Retina Display: {isRetina ? '✅' : '❌'}</Typography>

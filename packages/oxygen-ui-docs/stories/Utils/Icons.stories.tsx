@@ -269,7 +269,7 @@ function IconGalleryContent() {
 
   return (
     <Box>
-      <Typography variant="h5" gutterBottom>
+      <Typography sx={{ mb: '0.35em' }} variant="h5">
         Icon Gallery
       </Typography>
       <Typography
@@ -410,7 +410,7 @@ function IconGalleryContent() {
                 <SelectedIcon size={64} />
               </Box>
 
-              <Typography variant="subtitle2" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
                 Import
               </Typography>
               <Box
@@ -461,7 +461,7 @@ function IconGalleryContent() {
                 </Button>
               </Box>
 
-              <Typography variant="subtitle2" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
                 Tags
               </Typography>
               {selected.tags.length > 0 ? (
@@ -700,7 +700,7 @@ export const IconCategories: Story = {
   render: () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
       <Box>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Navigation & UI
         </Typography>
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
@@ -715,7 +715,7 @@ export const IconCategories: Story = {
       </Box>
 
       <Box>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Communication
         </Typography>
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
@@ -729,7 +729,7 @@ export const IconCategories: Story = {
       </Box>
 
       <Box>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Actions
         </Typography>
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
@@ -744,7 +744,7 @@ export const IconCategories: Story = {
       </Box>
 
       <Box>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Status & Alerts
         </Typography>
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
@@ -759,7 +759,7 @@ export const IconCategories: Story = {
       </Box>
 
       <Box>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Development
         </Typography>
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>

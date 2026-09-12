@@ -92,8 +92,8 @@ export const Default: Story = {
             <Typography
               variant="h5"
               component="div"
-              gutterBottom
               sx={{
+                mb: '0.35em',
                 textOverflow: 'ellipsis',
                 overflow: 'hidden',
                 whiteSpace: 'nowrap',
