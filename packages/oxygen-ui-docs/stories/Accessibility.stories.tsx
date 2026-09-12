@@ -110,11 +110,13 @@ export const Overview: Story = {
           <Typography variant="h2" gutterBottom>
             Accessibility
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Oxygen UI builds on Material UI and targets WCAG 2.1 AA. Wrapper components preserve
-            MUI's keyboard and screen reader behavior, and every story in this Storybook is checked
-            with axe-core (see the Accessibility panel below any story). This page documents what
-            the library guarantees and what your application must provide.
+          <Typography variant="body2" sx={{
+            color: "text.secondary"
+          }}>
+            Oxygen UI builds on Material UI and targets WCAG 2.1 AA. Wrapper components preserve MUI's
+            keyboard and screen reader behavior, and every story in this Storybook is checked with
+            axe-core (see the Accessibility panel below any story). This page documents what the library
+            guarantees and what your application must provide.
           </Typography>
         </Box>
 
@@ -124,9 +126,10 @@ export const Overview: Story = {
           <Typography variant="h6" gutterBottom>
             Accessible Names You Must Provide
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Components with visible text label themselves. Icon-only or label-less usage needs a
-            name from you:
+          <Typography variant="body2" sx={{
+            color: "text.secondary"
+          }}>
+            Components with visible text label themselves. Icon-only or label-less usage needs a name from you:
           </Typography>
           <CodeBlock
             language="tsx"
@@ -147,11 +150,15 @@ export const Overview: Story = {
 // Clickable Header.Brand
 <Header.Brand onClick={goHome} aria-label="Go to home">...</Header.Brand>`}
           />
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-            <code>ColorSchemeToggle</code>, <code>Header.Toggle</code>,{' '}
-            <code>UserMenu.Trigger</code>, notification close/dismiss buttons, and{' '}
-            <code>SearchBar</code> ship with sensible default labels that you can override via{' '}
-            <code>aria-label</code> props.
+          <Typography
+            variant="body2"
+            sx={{
+              color: "text.secondary",
+              mt: 1
+            }}>
+            <code>ColorSchemeToggle</code>, <code>Header.Toggle</code>, <code>UserMenu.Trigger</code>,
+            notification close/dismiss buttons, and <code>SearchBar</code> ship with sensible default
+            labels that you can override via <code>aria-label</code> props.
           </Typography>
         </Box>
 
@@ -185,7 +192,9 @@ export const Overview: Story = {
           <Typography variant="h6" gutterBottom>
             Color Contrast and Themes
           </Typography>
-          <Typography variant="body2" color="text.secondary" component="div">
+          <Typography variant="body2" component="div" sx={{
+            color: "text.secondary"
+          }}>
             <ul>
               <li>
                 All shipped themes define light and dark color schemes.{' '}
@@ -211,10 +220,11 @@ export const Overview: Story = {
           <Typography variant="h6" gutterBottom>
             Reduced Motion
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            When the operating system requests reduced motion (
-            <code>prefers-reduced-motion: reduce</code>), the base theme collapses all CSS
-            transitions and animations, and <code>ParticleBackground</code>
+          <Typography variant="body2" sx={{
+            color: "text.secondary"
+          }}>
+            When the operating system requests reduced motion (<code>prefers-reduced-motion: reduce</code>),
+            the base theme collapses all CSS transitions and animations, and <code>ParticleBackground</code>
             renders a single static frame instead of animating. No configuration is required.
           </Typography>
         </Box>
@@ -223,12 +233,13 @@ export const Overview: Story = {
           <Typography variant="h6" gutterBottom>
             Forms and Validation
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            <code>Form.ElementWrapper</code> links its label to the wrapped field automatically —
-            including MUI <code>Select</code>, which cannot be labeled with <code>htmlFor</code>{' '}
-            alone. For error messages, use the field's <code>error</code> and{' '}
-            <code>helperText</code> props so the message is associated via{' '}
-            <code>aria-describedby</code> and announced when the field is focused.
+          <Typography variant="body2" sx={{
+            color: "text.secondary"
+          }}>
+            <code>Form.ElementWrapper</code> links its label to the wrapped field automatically — including
+            MUI <code>Select</code>, which cannot be labeled with <code>htmlFor</code> alone. For error
+            messages, use the field's <code>error</code> and <code>helperText</code> props so the message is
+            associated via <code>aria-describedby</code> and announced when the field is focused.
           </Typography>
         </Box>
 
@@ -236,10 +247,12 @@ export const Overview: Story = {
           <Typography variant="h6" gutterBottom>
             Audit and Workflow
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            The complete WCAG 2.1 AA audit report, tracked findings, and the CI accessibility gate
-            are documented in <code>packages/oxygen-ui-docs/ACCESSIBILITY.md</code> in the
-            repository. Contributors should read the Accessibility Policy under "How To Contribute".
+          <Typography variant="body2" sx={{
+            color: "text.secondary"
+          }}>
+            The complete WCAG 2.1 AA audit report, tracked findings, and the CI accessibility gate are
+            documented in <code>packages/oxygen-ui-docs/ACCESSIBILITY.md</code> in the repository. Contributors should
+            read the Accessibility Policy under "How To Contribute".
           </Typography>
         </Box>
       </Stack>

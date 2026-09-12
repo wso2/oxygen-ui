@@ -67,7 +67,9 @@ export const Default: Story = {
 export const Placements: Story = {
   render: () => (
     <Stack spacing={2}>
-      <Stack direction="row" spacing={1} justifyContent="center">
+      <Stack direction="row" spacing={1} sx={{
+        justifyContent: "center"
+      }}>
         <Tooltip title="Top Start" placement="top-start">
           <Button>Top Start</Button>
         </Tooltip>
@@ -78,7 +80,9 @@ export const Placements: Story = {
           <Button>Top End</Button>
         </Tooltip>
       </Stack>
-      <Stack direction="row" spacing={1} justifyContent="space-between">
+      <Stack direction="row" spacing={1} sx={{
+        justifyContent: "space-between"
+      }}>
         <Tooltip title="Left" placement="left">
           <Button>Left</Button>
         </Tooltip>
@@ -86,7 +90,9 @@ export const Placements: Story = {
           <Button>Right</Button>
         </Tooltip>
       </Stack>
-      <Stack direction="row" spacing={1} justifyContent="center">
+      <Stack direction="row" spacing={1} sx={{
+        justifyContent: "center"
+      }}>
         <Tooltip title="Bottom Start" placement="bottom-start">
           <Button>Bottom Start</Button>
         </Tooltip>

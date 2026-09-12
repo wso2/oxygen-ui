@@ -129,11 +129,12 @@ export const Default: Story = {
           <Box>
             <Stack
               direction="column"
-              alignItems="start"
-              gap={5}
-              maxWidth={580}
-              display={{ xs: 'none', md: 'flex' }}
-            >
+              sx={{
+                alignItems: "start",
+                gap: 5,
+                maxWidth: 580,
+                display: {xs: 'none', md: 'flex'}
+              }}>
               <ColorSchemeImage
                 src={{
                   light: `oxygen-ui-logo.svg`,
@@ -214,8 +215,18 @@ export const Default: Story = {
                   </Alert>
                 )}
 
-                <Box display="flex" flexDirection="column" gap={2}>
-                  <Box display="flex" flexDirection="column" gap={0.5}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2
+                  }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 0.5
+                    }}>
                     <InputLabel htmlFor="username">Username</InputLabel>
                     <OutlinedInput
                       type="text"
@@ -226,7 +237,12 @@ export const Default: Story = {
                       required
                     />
                   </Box>
-                  <Box display="flex" flexDirection="column" gap={0.5}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 0.5
+                    }}>
                     <InputLabel htmlFor="password">Password</InputLabel>
                     <OutlinedInput
                       type="password"
@@ -268,7 +284,13 @@ export const Default: Story = {
                 <Typography sx={{ textAlign: 'center' }}>
                   © Copyright {new Date().getFullYear()}
                 </Typography>
-                <Stack direction="row" justifyContent="center" sx={{ mt: 2 }} spacing={1}>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  sx={{
+                    justifyContent: "center",
+                    mt: 2
+                  }}>
                   <Link>Privacy Policy</Link>
                   <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />
                   <Link>Terms of Use</Link>

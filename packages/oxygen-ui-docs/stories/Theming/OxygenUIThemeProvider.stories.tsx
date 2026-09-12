@@ -153,7 +153,9 @@ type Story = StoryObj<typeof OxygenUIThemeProvider>
 export const Default: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="body2" sx={{
+        color: "text.secondary"
+      }}>
         The simplest setup - wraps your app with the default Oxygen theme.
       </Typography>
       <CodeBlock
@@ -178,7 +180,9 @@ function App() {
 export const CustomTheme: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="body2" sx={{
+        color: "text.secondary"
+      }}>
         Extend the default theme with your own colors and typography.
       </Typography>
       <CodeBlock
@@ -219,7 +223,9 @@ const customTheme = extendTheme({
 export const MultipleThemes: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="body2" sx={{
+        color: "text.secondary"
+      }}>
         Enable theme switching by providing an array of themes.
       </Typography>
       <CodeBlock
@@ -258,7 +264,9 @@ const themes = [
 export const UsingHook: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="body2" sx={{
+        color: "text.secondary"
+      }}>
         Access theme state and switch themes programmatically.
       </Typography>
       <CodeBlock
@@ -296,11 +304,14 @@ function ThemeInfo() {
 export const ContentSecurityPolicy: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" color="text.secondary">
-        Pass your server-generated nonce so runtime-injected style tags satisfy style-src-elem. Also
-        allow style-src-attr &apos;unsafe-inline&apos; for MUI inline style attributes, and font-src
-        &apos;self&apos; data: because the bundled Inter font is embedded as base64 data URIs. For
-        full control over style injection, pass a custom Emotion cache with prepend: true.
+      <Typography variant="body2" sx={{
+        color: "text.secondary"
+      }}>
+        Pass your server-generated nonce so runtime-injected style tags satisfy
+        style-src-elem. Also allow style-src-attr &apos;unsafe-inline&apos; for MUI
+        inline style attributes, and font-src &apos;self&apos; data: because the
+        bundled Inter font is embedded as base64 data URIs. For full control over
+        style injection, pass a custom Emotion cache with prepend: true.
       </Typography>
       <CodeBlock
         language="tsx"
@@ -325,12 +336,14 @@ const cache = createEmotionCache({
   <YourApp />
 </OxygenUIThemeProvider>`}
       />
-      <Typography variant="body2" color="text.secondary">
-        The bundled CSS (Inter font styles and theme CSS) is injected at import time, so its nonce
-        is resolved from the __webpack_nonce__ global (webpack), a{' '}
-        meta[property=&quot;csp-nonce&quot;] tag (Vite), or a meta[name=&quot;csp-nonce&quot;] tag
-        (MUI/Next) instead of a prop. The meta tag (or global) must be present before the app bundle
-        executes.
+      <Typography variant="body2" sx={{
+        color: "text.secondary"
+      }}>
+        The bundled CSS (Inter font styles and theme CSS) is injected at import
+        time, so its nonce is resolved from the __webpack_nonce__ global
+        (webpack), a {' '}meta[property=&quot;csp-nonce&quot;] tag (Vite), or a
+        {' '}meta[name=&quot;csp-nonce&quot;] tag (MUI/Next) instead of a prop.
+        The meta tag (or global) must be present before the app bundle executes.
       </Typography>
     </Stack>
   ),
@@ -343,7 +356,9 @@ const cache = createEmotionCache({
 export const OnThemesLoadedCallback: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="body2" sx={{
+        color: "text.secondary"
+      }}>
         Get notified when all themes (including dynamically loaded ones) are ready.
       </Typography>
       <CodeBlock

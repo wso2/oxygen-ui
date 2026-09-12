@@ -67,7 +67,9 @@ export const Installation: Story = {
           <Typography variant="h2" gutterBottom>
             Installation
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{
+            color: "text.secondary"
+          }}>
             Oxygen UI is split into focused packages. Install only what your project needs.
           </Typography>
         </Box>
@@ -76,13 +78,24 @@ export const Installation: Story = {
 
         {/* Core */}
         <Box>
-          <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{
+              alignItems: "center",
+              mb: 1
+            }}>
             <Typography variant="h6" gutterBottom sx={{ mb: 0 }}>
               Core — <code>@wso2/oxygen-ui</code>
             </Typography>
             <Chip label="required" size="small" color="primary" variant="outlined" />
           </Stack>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "text.secondary",
+              mb: 2
+            }}>
             Components, themes, layouts, hooks, and utilities — everything built on top of MUI v7.
           </Typography>
 
@@ -106,13 +119,24 @@ export const Installation: Story = {
 
         {/* Icons */}
         <Box>
-          <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{
+              alignItems: "center",
+              mb: 1
+            }}>
             <Typography variant="h6" gutterBottom sx={{ mb: 0 }}>
               Icons — <code>@wso2/oxygen-ui-icons-react</code>
             </Typography>
             <Chip label="recommended" size="small" color="success" variant="outlined" />
           </Stack>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "text.secondary",
+              mb: 2
+            }}>
             A curated icon set powered by Lucide. Used throughout Oxygen UI components for
             navigation, actions, and status indicators.
           </Typography>
@@ -122,7 +146,12 @@ export const Installation: Story = {
   # or
   pnpm add @wso2/oxygen-ui-icons-react`}
           />
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "text.secondary",
+              mt: 2
+            }}>
             Import icons directly by name:
           </Typography>
           <CodeBlock
@@ -139,15 +168,26 @@ export const Installation: Story = {
 
         {/* Charts */}
         <Box>
-          <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{
+              alignItems: "center",
+              mb: 1
+            }}>
             <Typography variant="h6" gutterBottom sx={{ mb: 0 }}>
               Charts — <code>@wso2/oxygen-ui-charts-react</code>
             </Typography>
             <Chip label="optional" size="small" variant="outlined" />
           </Stack>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Theme-aware chart components built on Recharts. Includes bar, line, area, pie, radar,
-            and radial bar charts that automatically inherit your Oxygen UI theme.
+          <Typography
+            variant="body2"
+            sx={{
+              color: "text.secondary",
+              mb: 2
+            }}>
+            Theme-aware chart components built on Recharts. Includes bar, line, area, pie,
+            radar, and radial bar charts that automatically inherit your Oxygen UI theme.
           </Typography>
           <CodeBlock
             language="bash"
@@ -155,7 +195,12 @@ export const Installation: Story = {
   # or
   pnpm add @wso2/oxygen-ui-charts-react`}
           />
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "text.secondary",
+              mt: 2
+            }}>
             Import chart components:
           </Typography>
           <CodeBlock
@@ -180,7 +225,9 @@ export const Integrate: Story = {
           <Typography variant="h2" gutterBottom>
             Integrate
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{
+            color: "text.secondary"
+          }}>
             Two steps: add the theme provider, then optionally scaffold the app layout with
             <code> AppShell</code>.
           </Typography>
@@ -193,7 +240,12 @@ export const Integrate: Story = {
           <Typography variant="h6" gutterBottom>
             Step 1 — Wrap your app with the Theme Provider
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "text.secondary",
+              mb: 2
+            }}>
             <code>OxygenUIThemeProvider</code> applies the design system globally. Place it at your
             application root — it handles theme injection, CSS baseline reset, and color scheme
             management.
@@ -229,11 +281,15 @@ export const Integrate: Story = {
                 ['PaleGrayTheme', 'Soft neutral gray palette'],
                 ['PaleIndigoTheme', 'Muted indigo tones'],
               ].map(([name, description]) => (
-                <Stack key={name} direction="row" spacing={1} alignItems="baseline">
+                <Stack key={name} direction="row" spacing={1} sx={{
+                  alignItems: "baseline"
+                }}>
                   <Typography variant="body2" component="code" sx={{ minWidth: 180 }}>
                     {name}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{
+                    color: "text.secondary"
+                  }}>
                     {description}
                   </Typography>
                 </Stack>
@@ -249,10 +305,15 @@ export const Integrate: Story = {
           <Typography variant="h6" gutterBottom>
             Step 2 — Scaffold your layout with AppShell
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            <code>AppShell</code> is a compound component that composes a full application shell —
-            collapsible sidebar, top navigation bar, and main content area — with a children-only
-            API. No prop drilling required.
+          <Typography
+            variant="body2"
+            sx={{
+              color: "text.secondary",
+              mb: 2
+            }}>
+            <code>AppShell</code> is a compound component that composes a full application
+            shell — collapsible sidebar, top navigation bar, and main content area — with a
+            children-only API. No prop drilling required.
           </Typography>
           <CodeBlock
             language="tsx"
@@ -302,7 +363,7 @@ export const Integrate: Story = {
         <AppShell.Content>
           <Box sx={{ p: 3 }}>
             <Typography variant="h4">Hello, Oxygen UI 👋</Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ mt: 1 }}>
+            <Typography variant="body1" sx={{ mt: 1, color: 'text.secondary' }}>
               Your application content goes here.
             </Typography>
           </Box>
@@ -311,10 +372,15 @@ export const Integrate: Story = {
     );
   }`}
           />
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-            Browse the <strong>App Elements → App Shell</strong> story for an interactive playground
-            with the full compound component API, including notifications, user menus, context
-            switchers, and footers.
+          <Typography
+            variant="body2"
+            sx={{
+              color: "text.secondary",
+              mt: 2
+            }}>
+            Browse the <strong>App Elements → App Shell</strong> story for an interactive
+            playground with the full compound component API, including notifications,
+            user menus, context switchers, and footers.
           </Typography>
         </Box>
       </Stack>
@@ -336,10 +402,12 @@ export const UseAIToGenerateUIs: Story = {
           <Typography variant="h2" gutterBottom>
             Use AI to Generate UIs
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Oxygen UI packages AI documentation and invokable skills alongside the library. A single{' '}
-            <code>init</code> command wires them into your project so any AI assistant can generate
-            accurate, theme-aware Oxygen UI code immediately.
+          <Typography variant="body2" sx={{
+            color: "text.secondary"
+          }}>
+            Oxygen UI packages AI documentation and invokable skills alongside the library.
+            A single <code>init</code> command wires them into your project so any AI assistant
+            can generate accurate, theme-aware Oxygen UI code immediately.
           </Typography>
         </Box>
 
@@ -350,13 +418,24 @@ export const UseAIToGenerateUIs: Story = {
           <Typography variant="h6" gutterBottom>
             Step 1 — Run the init command
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Run this once from your project root. The interactive prompt will ask which AI assistant
-            you use and copy the right documentation to your workspace.
+          <Typography
+            variant="body2"
+            sx={{
+              color: "text.secondary",
+              mb: 2
+            }}>
+            Run this once from your project root. The interactive prompt will ask which AI
+            assistant you use and copy the right documentation to your workspace.
           </Typography>
           <CodeBlock language="bash" code="npx @wso2/oxygen-ui init" />
 
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 2, mb: 1 }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "text.secondary",
+              mt: 2,
+              mb: 1
+            }}>
             Or pass a flag to skip the prompt:
           </Typography>
           <Stack spacing={1}>
@@ -382,9 +461,14 @@ export const UseAIToGenerateUIs: Story = {
           <Typography variant="h6" gutterBottom>
             Step 2 — What gets installed
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            The command copies AI-optimised documentation into your project so your AI assistant
-            picks it up automatically.
+          <Typography
+            variant="body2"
+            sx={{
+              color: "text.secondary",
+              mb: 2
+            }}>
+            The command copies AI-optimised documentation into your project so your AI
+            assistant picks it up automatically.
           </Typography>
 
           <Stack spacing={2}>
@@ -400,11 +484,15 @@ export const UseAIToGenerateUIs: Story = {
                   ['.ai/oxygen-ui/migration.md', 'Upgrade and migration notes'],
                   ['AGENTS.md', 'Root import reference for AI agents'],
                 ].map(([file, desc]) => (
-                  <Stack key={file} direction="row" spacing={1} alignItems="baseline">
+                  <Stack key={file} direction="row" spacing={1} sx={{
+                    alignItems: "baseline"
+                  }}>
                     <Typography variant="body2" component="code" sx={{ minWidth: 230 }}>
                       {file}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{
+                      color: "text.secondary"
+                    }}>
                       {desc}
                     </Typography>
                   </Stack>
@@ -424,11 +512,15 @@ export const UseAIToGenerateUIs: Story = {
                   ['.claude/skills/oxygen-migrate/', 'Migrate from MUI to Oxygen UI'],
                   ['.claude/skills/oxygen-sync/', 'Sync docs to latest package version'],
                 ].map(([skill, desc]) => (
-                  <Stack key={skill} direction="row" spacing={1} alignItems="baseline">
+                  <Stack key={skill} direction="row" spacing={1} sx={{
+                    alignItems: "baseline"
+                  }}>
                     <Typography variant="body2" component="code" sx={{ minWidth: 230 }}>
                       {skill}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{
+                      color: "text.secondary"
+                    }}>
                       {desc}
                     </Typography>
                   </Stack>
@@ -445,9 +537,14 @@ export const UseAIToGenerateUIs: Story = {
           <Typography variant="h6" gutterBottom>
             Step 3 — Ask your AI to build UIs
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Once the documentation is in place, your AI assistant knows the full Oxygen UI API. Try
-            prompts like these:
+          <Typography
+            variant="body2"
+            sx={{
+              color: "text.secondary",
+              mb: 2
+            }}>
+            Once the documentation is in place, your AI assistant knows the full Oxygen UI API.
+            Try prompts like these:
           </Typography>
 
           <Stack spacing={1.5}>
@@ -473,7 +570,12 @@ export const UseAIToGenerateUIs: Story = {
             ))}
           </Stack>
 
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "text.secondary",
+              mt: 2
+            }}>
             For Claude Code users, skills can also be invoked directly — for example{' '}
             <Typography
               component="code"

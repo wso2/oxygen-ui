@@ -189,12 +189,14 @@ type Story = StoryObj<typeof ColorSchemeSVG>
 
 export const Default: Story = {
   render: () => (
-    <Stack spacing={3} sx={{ alignItems: 'center' }}>
+    <Stack spacing={3} sx={{alignItems: 'center'}}>
       <Typography
         variant="body2"
-        color="text.secondary"
-        sx={{ textAlign: 'center', maxWidth: 400 }}
-      >
+        sx={{
+          color: "text.secondary",
+          textAlign: 'center',
+          maxWidth: 400
+        }}>
         Toggle the color scheme to see the SVG colors adapt
       </Typography>
       <Paper elevation={2} sx={{ p: 3, bgcolor: 'background.paper' }}>
@@ -234,12 +236,14 @@ export const WithRelativeSVGFile: Story = {
     },
   },
   render: () => (
-    <Stack spacing={3} sx={{ alignItems: 'center' }}>
+    <Stack spacing={3} sx={{alignItems: 'center'}}>
       <Typography
         variant="body2"
-        color="text.secondary"
-        sx={{ textAlign: 'center', maxWidth: 400 }}
-      >
+        sx={{
+          color: "text.secondary",
+          textAlign: 'center',
+          maxWidth: 400
+        }}>
         Dashboard illustration using an imported relative SVG file with theme color attributes
       </Typography>
       <Paper elevation={2} sx={{ p: 3, bgcolor: 'background.paper' }}>
@@ -266,14 +270,15 @@ export const WithModeAwareSVGComponents: Story = {
     },
   },
   render: () => (
-    <Stack spacing={3} sx={{ alignItems: 'center' }}>
+    <Stack spacing={3} sx={{alignItems: 'center'}}>
       <Typography
         variant="body2"
-        color="text.secondary"
-        sx={{ textAlign: 'center', maxWidth: 420 }}
-      >
-        Relative light and dark SVG files can swap entire SVGs while still using theme-aware fills
-        and strokes.
+        sx={{
+          color: "text.secondary",
+          textAlign: 'center',
+          maxWidth: 420
+        }}>
+        Relative light and dark SVG files can swap entire SVGs while still using theme-aware fills and strokes.
       </Typography>
       <Paper elevation={2} sx={{ p: 3, bgcolor: 'background.paper' }}>
         <ColorSchemeSVG
@@ -308,12 +313,14 @@ export function Example() {
     },
   },
   render: () => (
-    <Stack spacing={3} sx={{ alignItems: 'center' }}>
+    <Stack spacing={3} sx={{alignItems: 'center'}}>
       <Typography
         variant="body2"
-        color="text.secondary"
-        sx={{ textAlign: 'center', maxWidth: 400 }}
-      >
+        sx={{
+          color: "text.secondary",
+          textAlign: 'center',
+          maxWidth: 400
+        }}>
         Dashboard illustration using an inline React SVG component passed to the svg prop
       </Typography>
       <Paper elevation={2} sx={{ p: 3, bgcolor: 'background.paper' }}>
@@ -329,7 +336,12 @@ export const AllColorValues: Story = {
       <Typography variant="h5" sx={{ fontWeight: 600 }}>
         Available Color Values
       </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>
+      <Typography
+        variant="body2"
+        sx={{
+          color: "text.secondary",
+          textAlign: 'center'
+        }}>
         Toggle between light and dark mode to see all available color values
       </Typography>
 
@@ -438,12 +450,14 @@ export const AllColorValues: Story = {
 
 export const ComplexIllustration: Story = {
   render: () => (
-    <Stack spacing={3} sx={{ alignItems: 'center' }}>
+    <Stack spacing={3} sx={{alignItems: 'center'}}>
       <Typography
         variant="body2"
-        color="text.secondary"
-        sx={{ textAlign: 'center', maxWidth: 500 }}
-      >
+        sx={{
+          color: "text.secondary",
+          textAlign: 'center',
+          maxWidth: 500
+        }}>
         A more complex example showing how multiple color classes work together
       </Typography>
       <Paper elevation={2} sx={{ p: 4, bgcolor: 'background.paper' }}>

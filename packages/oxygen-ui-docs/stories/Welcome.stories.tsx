@@ -61,11 +61,11 @@ const WelcomeContent = () => (
         >
           <GitHub /> Version {packageJson.version}
         </Typography>
-
-        <Typography variant="body1" paragraph sx={{ fontSize: '1.1rem', mb: 4 }}>
-          Oxygen UI is a design system built on MUI (Material-UI) v7, providing a comprehensive set
-          of customizable composite components, themes, and utilities in addition to what MUI
-          provides for building unified React applications in the WSO2 ecosystem.
+        
+        <Typography variant="body1" sx={{ fontSize: '1.1rem', mb: 4 }}>
+          Oxygen UI is a design system built on MUI (Material-UI) v7, providing a comprehensive set of 
+          customizable composite components, themes, and utilities in addition to what MUI provides for building 
+          unified React applications in the WSO2 ecosystem.
         </Typography>
 
         <Link href="./sample/index.html" target="_blank" rel="noopener" variant="h6">
@@ -79,9 +79,11 @@ const WelcomeContent = () => (
             <Typography variant="h5" gutterBottom>
               🎨 Theme System
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Built-in light/dark mode support with customizable themes. Easy theme switching and
-              theme-aware components.
+            <Typography variant="body2" sx={{
+              color: "text.secondary"
+            }}>
+              Built-in light/dark mode support with customizable themes. Easy theme switching 
+              and theme-aware components.
             </Typography>
           </Paper>
 
@@ -89,9 +91,11 @@ const WelcomeContent = () => (
             <Typography variant="h5" gutterBottom>
               🧩 Component Library
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Extended MUI components with additional features and custom components for common use
-              cases.
+            <Typography variant="body2" sx={{
+              color: "text.secondary"
+            }}>
+              Extended MUI components with additional features and custom components for 
+              common use cases.
             </Typography>
           </Paper>
         </Stack>
@@ -101,9 +105,11 @@ const WelcomeContent = () => (
             <Typography variant="h5" gutterBottom>
               🎭 Animations
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Interactive animations like ParticleBackground for adding visual appeal to your
-              applications.
+            <Typography variant="body2" sx={{
+              color: "text.secondary"
+            }}>
+              Interactive animations like ParticleBackground for adding visual appeal to 
+              your applications.
             </Typography>
           </Paper>
 
@@ -111,7 +117,9 @@ const WelcomeContent = () => (
             <Typography variant="h5" gutterBottom>
               🔧 Developer Tools
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" sx={{
+              color: "text.secondary"
+            }}>
               Hooks and utilities for common tasks like theme-aware content and theme switching.
             </Typography>
           </Paper>
@@ -122,11 +130,14 @@ const WelcomeContent = () => (
         <Typography variant="h5" gutterBottom>
           Getting Started
         </Typography>
-        <Typography variant="body2" paragraph>
+        <Typography variant="body2" sx={{ mb: 2 }}>
           Install Oxygen UI in your project:
         </Typography>
-        <CodeBlock language="bash" code="npm install @wso2/oxygen-ui" />
-        <Typography variant="body2" paragraph>
+        <CodeBlock
+          language="bash"
+          code="npm install @wso2/oxygen-ui"
+        />
+        <Typography variant="body2" sx={{ mb: 2 }}>
           Wrap your app with the OxygenUIThemeProvider:
         </Typography>
         <CodeBlock
@@ -149,9 +160,9 @@ const WelcomeContent = () => (
         <Typography variant="h5" gutterBottom>
           AI-Assisted Development
         </Typography>
-        <Typography variant="body2" paragraph>
-          Oxygen UI includes built-in documentation for AI assistants like Claude Code, Cursor, and
-          Copilot. Set up AI-optimized docs in your project with a single command:
+        <Typography variant="body2" sx={{ mb: 2 }}>
+          Oxygen UI includes built-in documentation for AI assistants like Claude Code, Cursor, and Copilot.
+          Set up AI-optimized docs in your project with a single command:
         </Typography>
         <CodeBlock language="bash" code="npx @wso2/oxygen-ui init" />
         <Typography variant="body2" sx={{ mt: 2 }}>
@@ -177,10 +188,17 @@ const WelcomeContent = () => (
       </Paper>
 
       <Box sx={{ textAlign: 'left' }}>
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="body1" sx={{
+          color: "text.secondary"
+        }}>
           Browse the sidebar to explore all available components, animations, and utilities.
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+        <Typography
+          variant="body2"
+          sx={{
+            color: "text.secondary",
+            mt: 2
+          }}>
           <Link href="https://github.com/wso2/oxygen-ui" target="_blank" rel="noopener">
             View on GitHub
           </Link>

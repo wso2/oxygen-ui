@@ -47,7 +47,7 @@ export const Default: Story = {
       {
         label: 'Select Campaign Type',
         component: (
-          <Form.Stack spacing={2} flexGrow={1}>
+          <Form.Stack spacing={2} sx={{ flexGrow: 1 }}>
             <Form.Header>Select Campaign Type</Form.Header>
             <Form.Body>Choose the type of campaign you want to create</Form.Body>
             <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
@@ -74,7 +74,7 @@ export const Default: Story = {
       {
         label: 'Campaign Details',
         component: (
-          <Form.Stack spacing={2} flexGrow={1}>
+          <Form.Stack spacing={2} sx={{ flexGrow: 1 }}>
             <Form.Header>Campaign Details</Form.Header>
             <Form.ElementWrapper label="Campaign Name" name="campaignName">
               <TextField id="campaignName" placeholder="Enter campaign name" fullWidth />
@@ -94,7 +94,7 @@ export const Default: Story = {
       {
         label: 'Review & Launch',
         component: (
-          <Form.Stack spacing={2} flexGrow={1}>
+          <Form.Stack spacing={2} sx={{ flexGrow: 1 }}>
             <Form.Header>Review & Launch</Form.Header>
             <Form.Body>Review your campaign details before launching</Form.Body>
             <Alert severity="success">
@@ -111,7 +111,7 @@ export const Default: Story = {
           steps={steps}
           activeStep={activeStep}
           actions={
-            <Form.Stack direction="row" spacing={2} justifyContent="flex-end" sx={{ mt: 3 }}>
+            <Form.Stack direction="row" spacing={2} sx={{ mt: 3, justifyContent: 'flex-end' }}>
               <Button
                 variant="text"
                 onClick={() => setActiveStep(prev => prev - 1)}
