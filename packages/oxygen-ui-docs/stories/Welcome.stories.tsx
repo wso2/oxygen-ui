@@ -60,7 +60,7 @@ const WelcomeContent = () => (
         </Typography>
         
         <Typography variant="body1" sx={{ fontSize: '1.1rem', mb: 4 }}>
-          Oxygen UI is a design system built on MUI (Material-UI) v7, providing a comprehensive set of 
+          Oxygen UI is a design system built on MUI (Material-UI) v9, providing a comprehensive set of 
           customizable composite components, themes, and utilities in addition to what MUI provides for building 
           unified React applications in the WSO2 ecosystem.
         </Typography>

@@ -96,7 +96,7 @@ export const Installation: Story = {
               color: "text.secondary",
               mb: 2
             }}>
-            Components, themes, layouts, hooks, and utilities — everything built on top of MUI v7.
+            Components, themes, layouts, hooks, and utilities — everything built on top of MUI v9.
           </Typography>
 
           <Typography variant="subtitle2" gutterBottom>
