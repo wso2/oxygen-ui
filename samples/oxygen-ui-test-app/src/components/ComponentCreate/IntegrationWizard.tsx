@@ -195,8 +195,7 @@ export default function IntegrationWizard(): JSX.Element {
                   <Form.Stack
                     direction="row"
                     spacing={2}
-                    justifyContent="center"
-                    alignItems="center"
+                    sx={{ justifyContent: 'center', alignItems: 'center' }}
                   >
                     <BoxIcon size={32} />
                     <Form.Body>{preset.label}</Form.Body>

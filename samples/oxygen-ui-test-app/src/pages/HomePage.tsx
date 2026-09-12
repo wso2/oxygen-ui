@@ -59,9 +59,10 @@ export default function HomePage(): JSX.Element {
           direction="row"
           spacing={2}
           divider={<Divider orientation="vertical" flexItem />}
-          justifyContent="center"
-          alignItems="center"
-        >       
+          sx={{
+            justifyContent: "center",
+            alignItems: "center"
+          }}>       
           {appRoutes
             .flatMap((route) => route.children || [])
             .filter((child) => child.showInNav)

@@ -134,10 +134,12 @@ export const Default: Story = {
           zIndex: 1,
         }}
       >
-        <Typography variant="h2" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h2">
           Interactive Particle Background
         </Typography>
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="body1" sx={{
+          color: "text.secondary"
+        }}>
           Move your mouse to repel particles • Click to create a burst effect
         </Typography>
       </Box>
@@ -169,10 +171,12 @@ export const Subtle: Story = {
           zIndex: 1,
         }}
       >
-        <Typography variant="h3" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h3">
           Subtle Animation
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" sx={{
+          color: "text.secondary"
+        }}>
           Lower density and opacity for a more subtle effect
         </Typography>
       </Box>
@@ -204,10 +208,12 @@ export const Energetic: Story = {
           zIndex: 1,
         }}
       >
-        <Typography variant="h3" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h3">
           Energetic Animation
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" sx={{
+          color: "text.secondary"
+        }}>
           Higher density and speed for a more dynamic effect
         </Typography>
       </Box>

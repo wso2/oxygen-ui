@@ -269,10 +269,15 @@ function IconGalleryContent() {
 
   return (
     <Box>
-      <Typography variant="h5" gutterBottom>
+      <Typography sx={{ mb: '0.35em' }} variant="h5">
         Icon Gallery
       </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+      <Typography
+        variant="body2"
+        sx={{
+          color: "text.secondary",
+          mb: 2
+        }}>
         Browse <strong>{iconCatalog.length}</strong> icons from{' '}
         <strong>lucide-react v{lucideReactPkg.version}</strong> plus Oxygen UI custom icons. Search by
         name or tags (e.g. <code>logout</code> finds <code>LogOut</code>).
@@ -296,14 +301,22 @@ function IconGalleryContent() {
           placeholder="Search icons by name or tag…"
           fullWidth
         />
-        <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
+        <Typography
+          variant="caption"
+          sx={{
+            color: "text.secondary",
+            mt: 1,
+            display: 'block'
+          }}>
           Showing {filteredIcons.length} of {iconCatalog.length} icons
         </Typography>
       </Box>
 
       {filteredIcons.length === 0 ? (
         <Box sx={{ py: 8, textAlign: 'center' }}>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body1" sx={{
+            color: "text.secondary"
+          }}>
             No icons match &ldquo;{query.trim()}&rdquo;. Try a different name or tag.
           </Typography>
         </Box>
@@ -392,7 +405,7 @@ function IconGalleryContent() {
                 <SelectedIcon size={64} />
               </Box>
 
-              <Typography variant="subtitle2" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
                 Import
               </Typography>
               <Box
@@ -443,7 +456,7 @@ function IconGalleryContent() {
                 </Button>
               </Box>
 
-              <Typography variant="subtitle2" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
                 Tags
               </Typography>
               {selected.tags.length > 0 ? (
@@ -453,7 +466,9 @@ function IconGalleryContent() {
                   ))}
                 </Stack>
               ) : (
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{
+                  color: "text.secondary"
+                }}>
                   No tags available for this icon.
                 </Typography>
               )}
@@ -477,31 +492,56 @@ export const IconSizes: Story = {
     <Box sx={{ display: 'flex', gap: 3, alignItems: 'flex-end' }}>
       <Box sx={{ textAlign: 'center' }}>
         <Home size={16} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: "block",
+            mt: 1
+          }}>
           16px
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Home size={24} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: "block",
+            mt: 1
+          }}>
           24px (default)
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Home size={32} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: "block",
+            mt: 1
+          }}>
           32px
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Home size={48} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: "block",
+            mt: 1
+          }}>
           48px
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Home size={64} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: "block",
+            mt: 1
+          }}>
           64px
         </Typography>
       </Box>
@@ -514,31 +554,56 @@ export const IconColors: Story = {
     <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap', alignItems: 'center' }}>
       <Box sx={{ textAlign: 'center' }}>
         <Star size={32} color="currentColor" />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: "block",
+            mt: 1
+          }}>
           Current Color
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Star size={32} color="#ff7400" />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: "block",
+            mt: 1
+          }}>
           Custom Hex
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Star size={32} color="rgb(74, 41, 165)" />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: "block",
+            mt: 1
+          }}>
           RGB
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center', color: 'error.main' }}>
         <Star size={32} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: "block",
+            mt: 1
+          }}>
           Inherit (Error)
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center', color: 'success.main' }}>
         <Star size={32} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: "block",
+            mt: 1
+          }}>
           Inherit (Success)
         </Typography>
       </Box>
@@ -551,31 +616,56 @@ export const IconStrokeWidth: Story = {
     <Box sx={{ display: 'flex', gap: 3, alignItems: 'center' }}>
       <Box sx={{ textAlign: 'center' }}>
         <Settings size={32} strokeWidth={1} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: "block",
+            mt: 1
+          }}>
           Thin (1)
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Settings size={32} strokeWidth={1.5} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: "block",
+            mt: 1
+          }}>
           Light (1.5)
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Settings size={32} strokeWidth={2} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: "block",
+            mt: 1
+          }}>
           Regular (2)
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Settings size={32} strokeWidth={2.5} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: "block",
+            mt: 1
+          }}>
           Medium (2.5)
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Settings size={32} strokeWidth={3} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: "block",
+            mt: 1
+          }}>
           Bold (3)
         </Typography>
       </Box>
@@ -587,7 +677,7 @@ export const IconCategories: Story = {
   render: () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
       <Box>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Navigation & UI
         </Typography>
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
@@ -602,7 +692,7 @@ export const IconCategories: Story = {
       </Box>
 
       <Box>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Communication
         </Typography>
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
@@ -616,7 +706,7 @@ export const IconCategories: Story = {
       </Box>
 
       <Box>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Actions
         </Typography>
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
@@ -631,7 +721,7 @@ export const IconCategories: Story = {
       </Box>
 
       <Box>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Status & Alerts
         </Typography>
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
@@ -646,7 +736,7 @@ export const IconCategories: Story = {
       </Box>
 
       <Box>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Development
         </Typography>
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>

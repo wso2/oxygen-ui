@@ -81,7 +81,9 @@ export default function EmptyComponentList(): JSX.Element {
         </IconButton>
         <Box sx={{ flexGrow: 1 }}>
           <Typography variant="h4">Components</Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{
+            color: "text.secondary"
+          }}>
             No components yet in this project
           </Typography>
         </Box>
@@ -105,10 +107,17 @@ export default function EmptyComponentList(): JSX.Element {
           <FileText size={60} style={{ opacity: 0.5 }} />
         </Box>
 
-        <Typography variant="h5" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h5">
           No Components Yet
         </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 4, maxWidth: 600, mx: 'auto' }}>
+        <Typography
+          variant="body1"
+          sx={{
+            color: "text.secondary",
+            mb: 4,
+            maxWidth: 600,
+            mx: 'auto'
+          }}>
           Components are the building blocks of your authentication flows. Create your first component to start
           building secure authentication experiences for your users.
         </Typography>
@@ -126,7 +135,7 @@ export default function EmptyComponentList(): JSX.Element {
 
       {/* Quick Start Cards */}
       <Box>
-        <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
+        <Typography variant="h6" sx={{ mb: 3 }}>
           Quick Start
         </Typography>
 
@@ -158,10 +167,16 @@ export default function EmptyComponentList(): JSX.Element {
                   >
                     {card.icon}
                   </Box>
-                  <Typography variant="h6" gutterBottom>
+                  <Typography sx={{ mb: '0.35em' }} variant="h6">
                     {card.title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2, minHeight: 40 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "text.secondary",
+                      mb: 2,
+                      minHeight: 40
+                    }}>
                     {card.description}
                   </Typography>
                   <Button size="small" variant="text">
@@ -180,10 +195,12 @@ export default function EmptyComponentList(): JSX.Element {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <BookOpen size={24} />
             <Box sx={{ flexGrow: 1 }}>
-              <Typography variant="subtitle1" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="subtitle1">
                 Need Help Getting Started?
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{
+                color: "text.secondary"
+              }}>
                 Check out our comprehensive guides and tutorials to learn more about building authentication
                 components.
               </Typography>
@@ -193,5 +210,5 @@ export default function EmptyComponentList(): JSX.Element {
         </CardContent>
       </Card>
     </Box>
-  )
+  );
 }

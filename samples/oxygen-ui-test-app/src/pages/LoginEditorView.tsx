@@ -133,7 +133,9 @@ export default function LoginEditorView(): JSX.Element {
           </IconButton>
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="h4">Login Flow Editor</Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" sx={{
+              color: "text.secondary"
+            }}>
               Basic Login Flow
             </Typography>
           </Box>
@@ -329,10 +331,15 @@ export default function LoginEditorView(): JSX.Element {
           >
             <Card sx={{ width: '100%', maxWidth: 450, m: 3 }}>
               <CardContent sx={{ p: 4 }}>
-                <Typography variant="h1" gutterBottom>
+                <Typography sx={{ mb: '0.35em' }} variant="h1">
                   {formConfig.title}
                 </Typography>
-                <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 3 }}>
+                <Typography
+                  variant="subtitle2"
+                  sx={{
+                    color: "text.secondary",
+                    mb: 3
+                  }}>
                   {formConfig.subtitle}
                 </Typography>
 
@@ -368,7 +375,9 @@ export default function LoginEditorView(): JSX.Element {
                   {formConfig.enableSocialLogin && (
                     <>
                       <Divider sx={{ my: 1 }}>
-                        <Typography variant="caption" color="text.secondary">
+                        <Typography variant="caption" sx={{
+                          color: "text.secondary"
+                        }}>
                           OR
                         </Typography>
                       </Divider>
@@ -390,7 +399,9 @@ export default function LoginEditorView(): JSX.Element {
 
                   {formConfig.allowSignUp && (
                     <Box sx={{ textAlign: 'center', mt: 2 }}>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{
+                        color: "text.secondary"
+                      }}>
                         Don't have an account?{' '}
                         <Button variant="text" size="small">
                           Sign up
@@ -419,15 +430,19 @@ export default function LoginEditorView(): JSX.Element {
         >
           <Box sx={{ display: 'flex', gap: 2 }}>
             <Chip label="Unsaved changes" size="small" color="warning" />
-            <Typography variant="caption" color="text.secondary">
+            <Typography variant="caption" sx={{
+              color: "text.secondary"
+            }}>
               Last saved: 2 minutes ago
             </Typography>
           </Box>
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" sx={{
+            color: "text.secondary"
+          }}>
             Ready
           </Typography>
         </Box>
       </Box>
     </PageContent>
-  )
+  );
 }

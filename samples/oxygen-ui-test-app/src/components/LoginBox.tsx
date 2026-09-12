@@ -60,7 +60,7 @@ export default function LoginBox(): JSX.Element {
   return (
     <form onSubmit={handleLogin}>
       <Box sx={{ mb: 6 }}>
-        <Typography variant="h1" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h1">
           Login to Account
         </Typography>
 
@@ -74,7 +74,7 @@ export default function LoginBox(): JSX.Element {
           You are about to access a non-secure site. Proceed with caution!
         </Alert>
       }
-          
+
       <Box>
         <Button
           fullWidth
@@ -98,8 +98,18 @@ export default function LoginBox(): JSX.Element {
 
       <Divider sx={{ my: 3 }}>or</Divider>
 
-      <Box display="flex" flexDirection="column" gap={2}>
-        <Box display="flex" flexDirection="column" gap={0.5}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2
+        }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 0.5
+          }}>
           <InputLabel htmlFor="username">Username</InputLabel>
           <OutlinedInput
             type="text"
@@ -112,7 +122,12 @@ export default function LoginBox(): JSX.Element {
             required
           />
         </Box>
-        <Box display="flex" flexDirection="column" gap={0.5}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 0.5
+          }}>
           <InputLabel htmlFor="password">Password</InputLabel>
           <OutlinedInput
             type={showPassword ? 'text' : 'password'}
@@ -161,5 +176,5 @@ export default function LoginBox(): JSX.Element {
         </Button>
       </Box>
     </form>
-  )
+  );
 }

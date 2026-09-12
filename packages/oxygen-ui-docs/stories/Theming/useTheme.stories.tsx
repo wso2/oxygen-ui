@@ -27,15 +27,23 @@ function ThemeInspector() {
   return (
     <Paper elevation={3} sx={{ p: 3, maxWidth: 800 }}>
       <Stack spacing={3}>
-        <Typography variant="h5" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h5">
           Current Theme Configuration
         </Typography>
 
         <Box>
-          <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+          <Typography variant="subtitle2" sx={{ mb: '0.35em',
+            color: "text.secondary"
+          }}>
             Breakpoints
           </Typography>
-          <Stack direction="row" spacing={1} flexWrap="wrap" sx={{ gap: 1 }}>
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{
+              flexWrap: "wrap",
+              gap: 1
+            }}>
             {Object.entries(theme.breakpoints.values).map(([key, value]) => (
               <Chip key={key} label={`${key}: ${value}px`} size="small" />
             ))}
@@ -43,7 +51,9 @@ function ThemeInspector() {
         </Box>
 
         <Box>
-          <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+          <Typography variant="subtitle2" sx={{ mb: '0.35em',
+            color: "text.secondary"
+          }}>
             Spacing Unit
           </Typography>
           <Typography variant="body2">
@@ -55,7 +65,9 @@ function ThemeInspector() {
         </Box>
 
         <Box>
-          <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+          <Typography variant="subtitle2" sx={{ mb: '0.35em',
+            color: "text.secondary"
+          }}>
             Shape (Border Radius)
           </Typography>
           <Typography variant="body2">
@@ -64,7 +76,9 @@ function ThemeInspector() {
         </Box>
 
         <Box>
-          <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+          <Typography variant="subtitle2" sx={{ mb: '0.35em',
+            color: "text.secondary"
+          }}>
             Typography
           </Typography>
           <Typography variant="body2">
@@ -95,14 +109,14 @@ function PaletteDemo() {
   return (
     <Paper elevation={3} sx={{ p: 3, maxWidth: 800 }}>
       <Stack spacing={3}>
-        <Typography variant="h5" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h5">
           Theme Palette Colors
         </Typography>
 
         <Stack spacing={2}>
           {colorCategories.map((category) => (
             <Box key={category.name}>
-              <Typography variant="subtitle2" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
                 {category.name}
               </Typography>
               <Stack direction="row" spacing={1}>
@@ -151,7 +165,13 @@ function PaletteDemo() {
                   <Typography variant="caption">Dark</Typography>
                 </Box>
               </Stack>
-              <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5, display: 'block' }}>
+              <Typography
+                variant="caption"
+                sx={{
+                  color: "text.secondary",
+                  mt: 0.5,
+                  display: 'block'
+                }}>
                 Main: {category.color.main}
               </Typography>
             </Box>
@@ -169,7 +189,7 @@ function ResponsiveDemo() {
   return (
     <Paper elevation={3} sx={{ p: 3, maxWidth: 800 }}>
       <Stack spacing={2}>
-        <Typography variant="h5" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h5">
           Responsive Styling with Breakpoints
         </Typography>
 
@@ -200,7 +220,7 @@ function ResponsiveDemo() {
         </Box>
 
         <Paper variant="outlined" sx={{ p: 2, bgcolor: 'background.default' }}>
-          <Typography variant="subtitle2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
             Code Example
           </Typography>
           <Typography
@@ -239,7 +259,7 @@ function CustomStyling() {
   return (
     <Paper elevation={3} sx={{ p: 3, maxWidth: 800 }}>
       <Stack spacing={2}>
-        <Typography variant="h5" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h5">
           Custom Styling with Theme Tokens
         </Typography>
 
@@ -265,7 +285,7 @@ function CustomStyling() {
         </Box>
 
         <Paper variant="outlined" sx={{ p: 2, bgcolor: 'background.default' }}>
-          <Typography variant="subtitle2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
             Code Example
           </Typography>
           <Typography
@@ -372,16 +392,22 @@ export const BasicUsage: Story = {
 
       return (
         <Box sx={{ p: 3, maxWidth: 400 }}>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Basic useTheme Example
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{
+            color: "text.secondary"
+          }}>
             Primary Color: {theme.palette.primary.main}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{
+            color: "text.secondary"
+          }}>
             Spacing Unit: {theme.spacing(1)}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{
+            color: "text.secondary"
+          }}>
             Border Radius: {theme.shape.borderRadius}px
           </Typography>
           <Box

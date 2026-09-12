@@ -62,10 +62,12 @@ export const Overview: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Accessibility
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{
+            color: "text.secondary"
+          }}>
             Oxygen UI builds on Material UI and targets WCAG 2.1 AA. Wrapper components preserve MUI's
             keyboard and screen reader behavior, and every story in this Storybook is checked with
             axe-core (see the Accessibility panel below any story). This page documents what the library
@@ -76,10 +78,12 @@ export const Overview: Story = {
         <Divider />
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Accessible Names You Must Provide
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{
+            color: "text.secondary"
+          }}>
             Components with visible text label themselves. Icon-only or label-less usage needs a name from you:
           </Typography>
           <CodeBlock
@@ -101,7 +105,12 @@ export const Overview: Story = {
 // Clickable Header.Brand
 <Header.Brand onClick={goHome} aria-label="Go to home">...</Header.Brand>`}
           />
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "text.secondary",
+              mt: 1
+            }}>
             <code>ColorSchemeToggle</code>, <code>Header.Toggle</code>, <code>UserMenu.Trigger</code>,
             notification close/dismiss buttons, and <code>SearchBar</code> ship with sensible default
             labels that you can override via <code>aria-label</code> props.
@@ -109,7 +118,7 @@ export const Overview: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Keyboard Interactions
           </Typography>
           <TableContainer component={Paper} variant="outlined">
@@ -135,10 +144,12 @@ export const Overview: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Color Contrast and Themes
           </Typography>
-          <Typography variant="body2" color="text.secondary" component="div">
+          <Typography variant="body2" component="div" sx={{
+            color: "text.secondary"
+          }}>
             <ul>
               <li>
                 All shipped themes define light and dark color schemes. <code>HighContrastTheme</code> provides
@@ -159,10 +170,12 @@ export const Overview: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Reduced Motion
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{
+            color: "text.secondary"
+          }}>
             When the operating system requests reduced motion (<code>prefers-reduced-motion: reduce</code>),
             the base theme collapses all CSS transitions and animations, and <code>ParticleBackground</code>
             renders a single static frame instead of animating. No configuration is required.
@@ -170,10 +183,12 @@ export const Overview: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Forms and Validation
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{
+            color: "text.secondary"
+          }}>
             <code>Form.ElementWrapper</code> links its label to the wrapped field automatically — including
             MUI <code>Select</code>, which cannot be labeled with <code>htmlFor</code> alone. For error
             messages, use the field's <code>error</code> and <code>helperText</code> props so the message is
@@ -182,10 +197,12 @@ export const Overview: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Audit and Workflow
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{
+            color: "text.secondary"
+          }}>
             The complete WCAG 2.1 AA audit report, tracked findings, and the CI accessibility gate are
             documented in <code>packages/oxygen-ui-docs/ACCESSIBILITY.md</code> in the repository. Contributors should
             read the Accessibility Policy under "How To Contribute".

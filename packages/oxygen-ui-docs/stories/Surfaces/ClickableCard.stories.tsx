@@ -81,16 +81,18 @@ export const Default: Story = {
     <Form.CardButton>
       <Form.CardHeader
         title={
-          <Stack direction="row" spacing={1} alignItems="center">
+          <Stack direction="row" spacing={1} sx={{
+            alignItems: "center"
+          }}>
             <WSO2 size={24} />
             <Typography
               variant="h5"
               component="div"
-              gutterBottom
-              textOverflow="ellipsis"
-              overflow="hidden"
-              whiteSpace="nowrap"
-            >
+              sx={{ mb: '0.35em',
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+                whiteSpace: "nowrap"
+              }}>
               Service
             </Typography>
             <Form.DisappearingCardButtonContent>
@@ -123,17 +125,22 @@ export const WithMultipleActions: Story = {
     <Form.CardButton>
       <CardHeader
         title={
-          <Stack direction="row" spacing={1} alignItems="center">
+          <Stack direction="row" spacing={1} sx={{
+            alignItems: "center"
+          }}>
             <Calculator size={48} />
             <Stack direction="column">
-              <Stack direction="row" spacing={1} alignItems="center">
+              <Stack direction="row" spacing={1} sx={{
+                alignItems: "center"
+              }}>
                 <Typography
                   variant="h5"
-                  textOverflow="ellipsis"
-                  overflow="hidden"
-                  whiteSpace="nowrap"
-                  maxWidth="70%"
-                >
+                  sx={{
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    maxWidth: "70%"
+                  }}>
                   Reading List REST Service in Go
                 </Typography>
                 <Form.DisappearingCardButtonContent>

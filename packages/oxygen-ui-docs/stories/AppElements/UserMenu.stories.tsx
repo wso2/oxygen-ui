@@ -121,7 +121,13 @@ type Story = StoryObj<typeof UserMenu>;
 export const Composed: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
-      <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+      <Typography
+        variant="caption"
+        sx={{
+          color: "text.secondary",
+          mb: 2,
+          display: 'block'
+        }}>
         Composition Pattern - Initials avatar on trigger and header
       </Typography>
       <UserMenu>
@@ -158,7 +164,13 @@ export const Composed: Story = {
 export const WithAvatarImage: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
-      <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+      <Typography
+        variant="caption"
+        sx={{
+          color: "text.secondary",
+          mb: 2,
+          display: 'block'
+        }}>
         Avatar with image URL
       </Typography>
       <UserMenu>
@@ -198,7 +210,13 @@ export const WithAvatarImage: Story = {
 export const WithNameVisible: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
-      <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+      <Typography
+        variant="caption"
+        sx={{
+          color: "text.secondary",
+          mb: 2,
+          display: 'block'
+        }}>
         Initials avatar with name displayed
       </Typography>
       <UserMenu>
@@ -239,7 +257,13 @@ export const WithNameVisible: Story = {
 export const MinimalMenu: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
-      <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+      <Typography
+        variant="caption"
+        sx={{
+          color: "text.secondary",
+          mb: 2,
+          display: 'block'
+        }}>
         Minimal menu with custom items
       </Typography>
       <UserMenu>
@@ -267,7 +291,13 @@ export const MinimalMenu: Story = {
 export const AdminMenu: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
-      <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+      <Typography
+        variant="caption"
+        sx={{
+          color: "text.secondary",
+          mb: 2,
+          display: 'block'
+        }}>
         Admin menu with additional options
       </Typography>
       <UserMenu>
@@ -305,7 +335,13 @@ export const MultipleUsers: Story = {
   render: () => (
     <Box sx={{ p: 4, display: 'flex', gap: 4 }}>
       <Box sx={{ textAlign: 'center' }}>
-        <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: 'block' }}>
+        <Typography
+          variant="caption"
+          sx={{
+            color: "text.secondary",
+            mb: 1,
+            display: 'block'
+          }}>
           Free User
         </Typography>
         <UserMenu>
@@ -324,7 +360,13 @@ export const MultipleUsers: Story = {
         </UserMenu>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
-        <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: 'block' }}>
+        <Typography
+          variant="caption"
+          sx={{
+            color: "text.secondary",
+            mb: 1,
+            display: 'block'
+          }}>
           Pro User
         </Typography>
         <UserMenu>
@@ -348,7 +390,13 @@ export const MultipleUsers: Story = {
         </UserMenu>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
-        <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: 'block' }}>
+        <Typography
+          variant="caption"
+          sx={{
+            color: "text.secondary",
+            mb: 1,
+            display: 'block'
+          }}>
           Enterprise
         </Typography>
         <UserMenu>
@@ -386,7 +434,13 @@ export const MultipleUsers: Story = {
 export const WithoutCustomAvatar: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
-      <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+      <Typography
+        variant="caption"
+        sx={{
+          color: "text.secondary",
+          mb: 2,
+          display: 'block'
+        }}>
         Avatar uses first letter of name
       </Typography>
       <UserMenu>
@@ -413,7 +467,13 @@ export const WithoutCustomAvatar: Story = {
 export const LongEmail: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
-      <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+      <Typography
+        variant="caption"
+        sx={{
+          color: "text.secondary",
+          mb: 2,
+          display: 'block'
+        }}>
         Long email gets truncated
       </Typography>
       <UserMenu>
