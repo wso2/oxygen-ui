@@ -141,12 +141,22 @@ export default function ErrorPage(): JSX.Element {
         </Typography>
 
         {/* Error Message */}
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 1 }}>
+        <Typography
+          variant="body1"
+          sx={{
+            color: "text.secondary",
+            mb: 1
+          }}>
           {error.message}
         </Typography>
 
         {/* Suggestion */}
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
+        <Typography
+          variant="body2"
+          sx={{
+            color: "text.secondary",
+            mb: 4
+          }}>
           {error.suggestion}
         </Typography>
 
@@ -171,7 +181,12 @@ export default function ErrorPage(): JSX.Element {
             <Typography variant="subtitle2" gutterBottom>
               Need Help?
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            <Typography
+              variant="body2"
+              sx={{
+                color: "text.secondary",
+                mb: 2
+              }}>
               If you continue to experience issues, please contact our support team.
             </Typography>
             <Button variant="text" size="small">
@@ -184,7 +199,9 @@ export default function ErrorPage(): JSX.Element {
         {import.meta.env.DEV && (
           <Card variant="outlined" sx={{ mt: 2, textAlign: 'left' }}>
             <CardContent>
-              <Typography variant="caption" color="text.secondary" gutterBottom>
+              <Typography variant="caption" gutterBottom sx={{
+                color: "text.secondary"
+              }}>
                 Debug Information (Development Only)
               </Typography>
               <Box
@@ -206,5 +223,5 @@ export default function ErrorPage(): JSX.Element {
         )}
       </Box>
     </Box>
-  )
+  );
 }

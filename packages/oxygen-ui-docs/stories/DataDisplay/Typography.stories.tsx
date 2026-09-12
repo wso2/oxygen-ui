@@ -75,9 +75,15 @@ export const Colors: Story = {
       <Typography color="error">Error color</Typography>
       <Typography color="warning">Warning color</Typography>
       <Typography color="info">Info color</Typography>
-      <Typography color="text.primary">Text primary</Typography>
-      <Typography color="text.secondary">Text secondary</Typography>
-      <Typography color="text.disabled">Text disabled</Typography>
+      <Typography sx={{
+        color: "text.primary"
+      }}>Text primary</Typography>
+      <Typography sx={{
+        color: "text.secondary"
+      }}>Text secondary</Typography>
+      <Typography sx={{
+        color: "text.disabled"
+      }}>Text disabled</Typography>
     </Stack>
   ),
 };

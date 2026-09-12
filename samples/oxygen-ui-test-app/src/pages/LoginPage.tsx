@@ -197,11 +197,12 @@ export default function LoginPage(): JSX.Element {
           <Box>
             <Stack
               direction="column"
-              alignItems="start"
-              gap={2}
-              maxWidth={580}
-              display={{xs: 'none', md: 'flex'}}
-            >
+              sx={{
+                alignItems: "start",
+                gap: 2,
+                maxWidth: 580,
+                display: {xs: 'none', md: 'flex'}
+              }}>
               <Box sx={{ my: 3 }}>
                 <Logo height={35} />
               </Box>
@@ -238,10 +239,11 @@ export default function LoginPage(): JSX.Element {
                 </Typography>
                 <Stack
                   direction="row"
-                  justifyContent="center"
-                  sx={{ mt: 2 }}
                   spacing={1}
-                >
+                  sx={{
+                    justifyContent: "center",
+                    mt: 2
+                  }}>
                   <Link>Privacy Policy</Link>
                   <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />
                   <Link>Terms of Use</Link>

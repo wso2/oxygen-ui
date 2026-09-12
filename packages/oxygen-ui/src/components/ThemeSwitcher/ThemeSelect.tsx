@@ -76,7 +76,7 @@ export default function ThemeSelect({
     <FormControl size={size} variant={variant} sx={{ minWidth: 120, ...sx }}>
       {/* Keep the label visually hidden when showLabel is false so the
           select still has an accessible name (WCAG 4.1.2). */}
-      <InputLabel id={labelId} sx={showLabel ? undefined : visuallyHidden}>
+      <InputLabel id={labelId} sx={showLabel ? undefined : { ...visuallyHidden }}>
         {label}
       </InputLabel>
       <Select
