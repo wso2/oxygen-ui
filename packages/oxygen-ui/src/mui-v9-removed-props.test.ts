@@ -89,17 +89,62 @@ function collectSourceFiles(root: string): string[] {
   return files;
 }
 
+/**
+ * Slice from `<` to the matching tag `>`, skipping quoted strings and `{...}`.
+ * A regex `/\/?>/` stops at the `>` in `=>`, so `<Box sx={(t) => ({})} mt={1} />`
+ * would miss `mt`.
+ */
+function openTagSlice(source: string, start: number): string | null {
+  let i = start;
+  let quote: '"' | "'" | '`' | null = null;
+  let brace = 0;
+  while (i < source.length) {
+    const ch = source[i];
+    if (quote) {
+      if (ch === '\\') {
+        i += 2;
+        continue;
+      }
+      if (ch === quote) {
+        quote = null;
+      }
+      i += 1;
+      continue;
+    }
+    if (ch === '"' || ch === "'" || ch === '`') {
+      quote = ch;
+      i += 1;
+      continue;
+    }
+    if (ch === '{') {
+      brace += 1;
+      i += 1;
+      continue;
+    }
+    if (ch === '}') {
+      if (brace > 0) {
+        brace -= 1;
+      }
+      i += 1;
+      continue;
+    }
+    if (brace === 0 && ch === '>') {
+      return source.slice(start, i);
+    }
+    i += 1;
+  }
+  return null;
+}
+
 function findRemovedPropUses(source: string, file: string): string[] {
   const findings: string[] = [];
   const tagRe = new RegExp(`<(?:Form\\.)?(?:${SYSTEM_PROP_COMPONENTS})\\b`, 'g');
   let match: RegExpExecArray | null;
   while ((match = tagRe.exec(source)) !== null) {
-    const rest = source.slice(match.index);
-    const endRel = rest.search(/\/?>/);
-    if (endRel === -1) {
+    const openTag = openTagSlice(source, match.index);
+    if (openTag === null) {
       continue;
     }
-    const openTag = rest.slice(0, endRel);
     const line = source.slice(0, match.index).split('\n').length;
     const loc = `${relative(repoRoot, file)}:${line}`;
 
@@ -148,12 +193,10 @@ function findRemovedSpeedDialActionProps(source: string, file: string): string[]
   const tagRe = /<SpeedDialAction\b/g;
   let match: RegExpExecArray | null;
   while ((match = tagRe.exec(source)) !== null) {
-    const rest = source.slice(match.index);
-    const endRel = rest.search(/\/?>/);
-    if (endRel === -1) {
+    const openTag = openTagSlice(source, match.index);
+    if (openTag === null) {
       continue;
     }
-    const openTag = rest.slice(0, endRel);
     const line = source.slice(0, match.index).split('\n').length;
     const loc = `${relative(repoRoot, file)}:${line}`;
     for (const prop of REMOVED_SPEED_DIAL_ACTION_PROPS) {
@@ -181,6 +224,18 @@ function findRemovedAlertClasses(source: string, file: string): string[] {
 }
 
 describe('Material 9-removed props', () => {
+  it('still finds system props after an arrow-function attribute', () => {
+    const file = join(repoRoot, 'synthetic.tsx');
+    const source = '<Box sx={(theme) => ({ p: 1 })} mt={2} />\n';
+    expect(findRemovedPropUses(source, file)).toEqual(['synthetic.tsx:1 mt']);
+  });
+
+  it('still finds SpeedDialAction props after an arrow-function attribute', () => {
+    const file = join(repoRoot, 'synthetic.tsx');
+    const source = '<SpeedDialAction slotProps={{ tooltip: { title: "x" } }} tooltipTitle="Copy" />\n';
+    expect(findRemovedSpeedDialActionProps(source, file)).toEqual(['synthetic.tsx:1 tooltipTitle']);
+  });
+
   it('are not used on Box, Stack, Typography, Link, Grid, or DialogContentText', () => {
     const findings = SCAN_ROOTS.flatMap((root) =>
       collectSourceFiles(root).flatMap((file) => findRemovedPropUses(readFileSync(file, 'utf8'), file)),
