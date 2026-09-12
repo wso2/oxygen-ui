@@ -418,7 +418,9 @@ export const LiveAnnouncements: Story = {
             Sync status
           </Button>
         </Box>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" sx={{
+          color: "text.secondary"
+        }}>
           Open the panel, then use Add notification or Sync status to publish via the
           `liveAnnouncement` prop. Check the Storybook Accessibility panel / a screen reader.
         </Typography>

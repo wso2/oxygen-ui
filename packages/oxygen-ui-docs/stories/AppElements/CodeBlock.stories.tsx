@@ -284,7 +284,7 @@ const UserList: React.FC = () => {
           <Card key={user.id}>
             <CardContent>
               <Typography variant="h6">{user.name}</Typography>
-              <Typography color="text.secondary">{user.email}</Typography>
+              <Typography sx={{ color: 'text.secondary' }}>{user.email}</Typography>
             </CardContent>
           </Card>
         ))}

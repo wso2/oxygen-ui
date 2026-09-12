@@ -121,9 +121,16 @@ type Story = StoryObj<typeof ThemeSwitcher>;
 export const Default: Story = {
   render: () => (
     <OxygenUIThemeProvider themes={exampleThemes}>
-      <Stack spacing={2} alignItems="center" sx={{ minWidth: 250 }}>
+      <Stack
+        spacing={2}
+        sx={{
+          alignItems: "center",
+          minWidth: 250
+        }}>
         <ThemeSwitcher />
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" sx={{
+          color: "text.secondary"
+        }}>
           Try switching themes to see the changes
         </Typography>
       </Stack>
@@ -134,9 +141,16 @@ export const Default: Story = {
 export const WithLabel: Story = {
   render: () => (
     <OxygenUIThemeProvider themes={exampleThemes}>
-      <Stack spacing={2} alignItems="center" sx={{ minWidth: 250 }}>
+      <Stack
+        spacing={2}
+        sx={{
+          alignItems: "center",
+          minWidth: 250
+        }}>
         <ThemeSwitcher showLabel />
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" sx={{
+          color: "text.secondary"
+        }}>
           With a label showing "Theme"
         </Typography>
       </Stack>
@@ -147,9 +161,16 @@ export const WithLabel: Story = {
 export const CustomLabel: Story = {
   render: () => (
     <OxygenUIThemeProvider themes={exampleThemes}>
-      <Stack spacing={2} alignItems="center" sx={{ minWidth: 250 }}>
+      <Stack
+        spacing={2}
+        sx={{
+          alignItems: "center",
+          minWidth: 250
+        }}>
         <ThemeSwitcher showLabel label="Choose Theme" />
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" sx={{
+          color: "text.secondary"
+        }}>
           With a custom label text
         </Typography>
       </Stack>

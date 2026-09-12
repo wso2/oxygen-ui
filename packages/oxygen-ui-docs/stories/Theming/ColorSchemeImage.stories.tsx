@@ -58,8 +58,16 @@ type Story = StoryObj<typeof ColorSchemeImage>;
 
 export const Default: Story = {
   render: () => (
-    <Stack spacing={3} alignItems="center">
-      <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', maxWidth: 400 }}>
+    <Stack spacing={3} sx={{
+      alignItems: "center"
+    }}>
+      <Typography
+        variant="body2"
+        sx={{
+          color: "text.secondary",
+          textAlign: 'center',
+          maxWidth: 400
+        }}>
         Toggle the color scheme to see the illustration change
       </Typography>
       <Paper elevation={2} sx={{ p: 3, bgcolor: 'background.paper' }}>

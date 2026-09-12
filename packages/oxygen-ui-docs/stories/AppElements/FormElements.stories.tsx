@@ -348,7 +348,7 @@ export const CardButtonBasic: Story = {
         <Form.CardButton onClick={() => setSelected(!selected)} selected={selected}>
           <Form.CardHeader
             title={
-              <Form.Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
+              <Form.Stack direction="row" spacing={2} sx={{ justifyContent: 'center', alignItems: 'center' }}>
                 <BoxIcon size={32} />
                 <Form.Body>Python</Form.Body>
               </Form.Stack>
@@ -384,7 +384,7 @@ export const CardButtonGrid: Story = {
           >
             <Form.CardHeader
               title={
-                <Form.Stack direction="row" spacing={1} justifyContent="center" alignItems="center">
+                <Form.Stack direction="row" spacing={1} sx={{ justifyContent: 'center', alignItems: 'center' }}>
                   <BoxIcon size={24} />
                   <Form.Body>{option.label}</Form.Body>
                 </Form.Stack>
