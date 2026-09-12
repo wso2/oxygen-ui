@@ -47,7 +47,8 @@ export default function HomePage(): JSX.Element {
           </Badge>
           <br /><br />
         </p>
-      </div>Run <pre><code>pnpm storybook</code></pre>
+      </div>
+      Run <pre><code>pnpm storybook</code></pre>
       <p className="read-the-docs">
         <Lightbulb size={18} /> Click the icon on top right corner to change color mode
       </p>
