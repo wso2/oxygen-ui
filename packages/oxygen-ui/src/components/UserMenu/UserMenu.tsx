@@ -64,7 +64,7 @@ export interface UserMenuProps {
  *   <UserMenu.Item icon={<UserIcon />} label="Profile" onClick={...} />
  *   <UserMenu.Item icon={<Settings />} label="Settings" onClick={...} />
  *   <UserMenu.Divider />
- *   <UserMenu.Item icon={<LogOut />} label="Log out" destructive onClick={...} />
+ *   <UserMenu.Logout icon={<LogOut />} label="Log out" onClick={...} />
  * </UserMenu>
  * ```
  */

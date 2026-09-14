@@ -56,14 +56,14 @@ The UserMenu is a compound component that provides a user profile dropdown menu 
 - Option to show user name next to avatar with \`showName\` prop
 - User info header with name, email, and role badge
 - Customizable menu items for various actions
-- Dedicated Logout component with destructive styling
+- Dedicated Logout component with the same colour and hover as other menu items
 - Role/plan badge display (e.g., "Pro", "Admin")
 
 ### Sub-components
 - \`UserMenu.Trigger\` - Avatar button with optional name display
 - \`UserMenu.Header\` - User info header (name, email, role badge)
 - \`UserMenu.Item\` - Regular menu item with icon and label
-- \`UserMenu.Logout\` - Destructive menu item for logout action
+- \`UserMenu.Logout\` - Menu item for the sign-out action
 - \`UserMenu.Divider\` - Visual separator between menu sections
 
 ### Usage
