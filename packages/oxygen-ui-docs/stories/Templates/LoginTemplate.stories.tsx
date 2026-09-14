@@ -130,7 +130,7 @@ export const Default: Story = {
             <Stack
               direction="column"
               sx={{
-                alignItems: "start",
+                alignItems: 'start',
                 gap: 5,
                 maxWidth: 580,
                 display: {xs: 'none', md: 'flex'}
@@ -217,14 +217,14 @@ export const Default: Story = {
 
                 <Box
                   sx={{
-                    display: "flex",
-                    flexDirection: "column",
+                    display: 'flex',
+                    flexDirection: 'column',
                     gap: 2
                   }}>
                   <Box
                     sx={{
-                      display: "flex",
-                      flexDirection: "column",
+                      display: 'flex',
+                      flexDirection: 'column',
                       gap: 0.5
                     }}>
                     <InputLabel htmlFor="username">Username</InputLabel>
@@ -239,8 +239,8 @@ export const Default: Story = {
                   </Box>
                   <Box
                     sx={{
-                      display: "flex",
-                      flexDirection: "column",
+                      display: 'flex',
+                      flexDirection: 'column',
                       gap: 0.5
                     }}>
                     <InputLabel htmlFor="password">Password</InputLabel>
@@ -288,7 +288,7 @@ export const Default: Story = {
                   direction="row"
                   spacing={1}
                   sx={{
-                    justifyContent: "center",
+                    justifyContent: 'center',
                     mt: 2
                   }}>
                   <Link>Privacy Policy</Link>

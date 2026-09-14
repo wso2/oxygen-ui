@@ -36,8 +36,8 @@ export default function SampleIntegrationsSection({
       <Form.Body>{description}</Form.Body>
       <Box
         sx={{
-          display: "flex",
-          flexWrap: "wrap",
+          display: 'flex',
+          flexWrap: 'wrap',
           gap: 2
         }}>
         {children}

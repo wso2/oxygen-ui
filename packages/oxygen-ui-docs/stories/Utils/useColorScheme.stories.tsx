@@ -71,7 +71,7 @@ export const ReadMode: Story = {
     return (
       <Box sx={{p: 2, textAlign: 'center'}}>
         <Typography variant="body2" gutterBottom sx={{
-          color: "text.secondary"
+          color: 'text.secondary'
         }}>
           Current mode
         </Typography>
@@ -105,7 +105,7 @@ export const SetMode: Story = {
     return (
       <Box sx={{p: 2}}>
         <Typography variant="body2" gutterBottom sx={{
-          color: "text.secondary"
+          color: 'text.secondary'
         }}>
           Active mode: <strong>{mode ?? 'system'}</strong>
         </Typography>
@@ -167,7 +167,7 @@ export const ConditionalRendering: Story = {
         <Typography
           variant="body2"
           sx={{
-            color: "text.secondary",
+            color: 'text.secondary',
             mt: 0.5
           }}>
           Switch the Storybook theme in the toolbar to see this update.

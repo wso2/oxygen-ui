@@ -58,7 +58,7 @@ export const CreateNewComponent: Story = {
             Creating a Custom Component
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Use the Box component as a foundation to create custom styled components with full theme support.
           </Typography>
@@ -71,7 +71,7 @@ export const CreateNewComponent: Story = {
             Step 1: Create Sub components
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Create separate files for each subcomponent using <code>styled()</code> from MUI.
           </Typography>
@@ -171,7 +171,7 @@ export const CreateNewComponent: Story = {
             Step 2: Create the Main Component
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Import sub components and attach them as static properties using <code>Object.assign()</code>.
           </Typography>
@@ -224,7 +224,7 @@ export const CreateNewComponent: Story = {
             Step 3: Export Everything
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Create an index file to export the component and all its types.
           </Typography>
@@ -244,7 +244,7 @@ export const CreateNewComponent: Story = {
             Step 4: Use the Component
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Compose the card using the compound component pattern for flexible layouts.
           </Typography>
@@ -289,7 +289,7 @@ export const CreateStory: Story = {
             Adding a Storybook Story
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Create interactive documentation for your component with Storybook stories.
           </Typography>
@@ -302,7 +302,7 @@ export const CreateStory: Story = {
             Step 1: Create the Story File
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Create a .stories.tsx file alongside your component.
           </Typography>
@@ -371,7 +371,7 @@ export const CreateStory: Story = {
             Step 2: Add Story Examples
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Create different story variations to showcase your component's features.
           </Typography>
@@ -494,7 +494,7 @@ export const CreateCustomTheme: Story = {
             Creating a Custom Theme
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Build a fully customized theme with component style overrides and custom properties.
           </Typography>
@@ -507,7 +507,7 @@ export const CreateCustomTheme: Story = {
             Complete Custom Theme Example
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             This example includes custom colors, typography, component overrides, and custom theme properties.
           </Typography>
@@ -627,7 +627,7 @@ export const AccessibilityPolicy: Story = {
             Accessibility Policy
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Oxygen UI targets WCAG 2.1 AA. Every story runs automated axe-core checks, locally in the
             Accessibility addon panel and in CI on every pull request.
@@ -641,7 +641,7 @@ export const AccessibilityPolicy: Story = {
             Rules for New Components and Stories
           </Typography>
           <Typography variant="body2" component="div" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             <ul>
               <li>All stories must pass the accessibility checks. CI fails on new violations.</li>
@@ -688,7 +688,7 @@ export const AccessibilityPolicy: Story = {
             Documenting Exceptions
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             A story may only disable a rule when the violation is a known, tracked limitation. The override
             must carry a comment explaining why and a link to the GitHub issue:
@@ -710,7 +710,7 @@ export const AccessibilityPolicy: Story = {
           <Typography
             variant="body2"
             sx={{
-              color: "text.secondary",
+              color: 'text.secondary',
               mt: 1
             }}>
             The full audit report and open findings live in <code>packages/oxygen-ui-docs/ACCESSIBILITY.md</code>.

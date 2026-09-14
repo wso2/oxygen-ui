@@ -123,7 +123,7 @@ export const Sizes: Story = {
     const [alignment, setAlignment] = useState('left')
     return (
       <Stack spacing={2} sx={{
-        alignItems: "flex-start"
+        alignItems: 'flex-start'
       }}>
         <ToggleButtonGroup
           size="small"

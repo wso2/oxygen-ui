@@ -44,8 +44,8 @@ export default function ComponentCreate(): JSX.Element {
         <Stack
           spacing={2}
           sx={{
-            maxWidth: "xl",
-            mx: "auto"
+            maxWidth: 'xl',
+            mx: 'auto'
           }}>
           <Stack direction="row" spacing={2}>
             <Form.Stack direction="row" sx={{ width: 'md' }}>

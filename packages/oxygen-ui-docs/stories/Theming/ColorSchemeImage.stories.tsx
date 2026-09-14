@@ -59,12 +59,12 @@ type Story = StoryObj<typeof ColorSchemeImage>
 export const Default: Story = {
   render: () => (
     <Stack spacing={3} sx={{
-      alignItems: "center"
+      alignItems: 'center'
     }}>
       <Typography
         variant="body2"
         sx={{
-          color: "text.secondary",
+          color: 'text.secondary',
           textAlign: 'center',
           maxWidth: 400
         }}>

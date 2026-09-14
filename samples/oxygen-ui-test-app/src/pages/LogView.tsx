@@ -262,7 +262,7 @@ export default function LogView(): JSX.Element {
           {filteredLogs.length === 0 ? (
             <Box sx={{ textAlign: 'center', py: 8 }}>
               <Typography variant="body2" sx={{
-                color: "text.secondary"
+                color: 'text.secondary'
               }}>
                 No logs found matching your filters
               </Typography>
@@ -289,7 +289,7 @@ export default function LogView(): JSX.Element {
                           <Chip label={log.level} size="small" color={getLevelColor(log.level)} />
                           <Chip label={log.component} size="small" variant="outlined" />
                           <Typography variant="caption" sx={{
-                            color: "text.secondary"
+                            color: 'text.secondary'
                           }}>
                             {log.timestamp}
                           </Typography>
@@ -329,7 +329,7 @@ export default function LogView(): JSX.Element {
       {/* Stats Footer */}
       <Box sx={{ mt: 2, display: 'flex', gap: 2, justifyContent: 'center' }}>
         <Typography variant="body2" sx={{
-          color: "text.secondary"
+          color: 'text.secondary'
         }}>
           Showing {filteredLogs.length} of {mockLogs.length} logs
         </Typography>

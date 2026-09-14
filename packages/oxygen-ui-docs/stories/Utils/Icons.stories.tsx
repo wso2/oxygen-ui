@@ -275,7 +275,7 @@ function IconGalleryContent() {
       <Typography
         variant="body2"
         sx={{
-          color: "text.secondary",
+          color: 'text.secondary',
           mb: 2
         }}>
         Browse <strong>{iconCatalog.length}</strong> icons from{' '}
@@ -304,7 +304,7 @@ function IconGalleryContent() {
         <Typography
           variant="caption"
           sx={{
-            color: "text.secondary",
+            color: 'text.secondary',
             mt: 1,
             display: 'block'
           }}>
@@ -315,7 +315,7 @@ function IconGalleryContent() {
       {filteredIcons.length === 0 ? (
         <Box sx={{ py: 8, textAlign: 'center' }}>
           <Typography variant="body1" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             No icons match &ldquo;{query.trim()}&rdquo;. Try a different name or tag.
           </Typography>
@@ -467,7 +467,7 @@ function IconGalleryContent() {
                 </Stack>
               ) : (
                 <Typography variant="body2" sx={{
-                  color: "text.secondary"
+                  color: 'text.secondary'
                 }}>
                   No tags available for this icon.
                 </Typography>
@@ -495,7 +495,7 @@ export const IconSizes: Story = {
         <Typography
           variant="caption"
           sx={{
-            display: "block",
+            display: 'block',
             mt: 1
           }}>
           16px
@@ -506,7 +506,7 @@ export const IconSizes: Story = {
         <Typography
           variant="caption"
           sx={{
-            display: "block",
+            display: 'block',
             mt: 1
           }}>
           24px (default)
@@ -517,7 +517,7 @@ export const IconSizes: Story = {
         <Typography
           variant="caption"
           sx={{
-            display: "block",
+            display: 'block',
             mt: 1
           }}>
           32px
@@ -528,7 +528,7 @@ export const IconSizes: Story = {
         <Typography
           variant="caption"
           sx={{
-            display: "block",
+            display: 'block',
             mt: 1
           }}>
           48px
@@ -539,7 +539,7 @@ export const IconSizes: Story = {
         <Typography
           variant="caption"
           sx={{
-            display: "block",
+            display: 'block',
             mt: 1
           }}>
           64px
@@ -557,7 +557,7 @@ export const IconColors: Story = {
         <Typography
           variant="caption"
           sx={{
-            display: "block",
+            display: 'block',
             mt: 1
           }}>
           Current Color
@@ -568,7 +568,7 @@ export const IconColors: Story = {
         <Typography
           variant="caption"
           sx={{
-            display: "block",
+            display: 'block',
             mt: 1
           }}>
           Custom Hex
@@ -579,7 +579,7 @@ export const IconColors: Story = {
         <Typography
           variant="caption"
           sx={{
-            display: "block",
+            display: 'block',
             mt: 1
           }}>
           RGB
@@ -590,7 +590,7 @@ export const IconColors: Story = {
         <Typography
           variant="caption"
           sx={{
-            display: "block",
+            display: 'block',
             mt: 1
           }}>
           Inherit (Error)
@@ -601,7 +601,7 @@ export const IconColors: Story = {
         <Typography
           variant="caption"
           sx={{
-            display: "block",
+            display: 'block',
             mt: 1
           }}>
           Inherit (Success)
@@ -619,7 +619,7 @@ export const IconStrokeWidth: Story = {
         <Typography
           variant="caption"
           sx={{
-            display: "block",
+            display: 'block',
             mt: 1
           }}>
           Thin (1)
@@ -630,7 +630,7 @@ export const IconStrokeWidth: Story = {
         <Typography
           variant="caption"
           sx={{
-            display: "block",
+            display: 'block',
             mt: 1
           }}>
           Light (1.5)
@@ -641,7 +641,7 @@ export const IconStrokeWidth: Story = {
         <Typography
           variant="caption"
           sx={{
-            display: "block",
+            display: 'block',
             mt: 1
           }}>
           Regular (2)
@@ -652,7 +652,7 @@ export const IconStrokeWidth: Story = {
         <Typography
           variant="caption"
           sx={{
-            display: "block",
+            display: 'block',
             mt: 1
           }}>
           Medium (2.5)
@@ -663,7 +663,7 @@ export const IconStrokeWidth: Story = {
         <Typography
           variant="caption"
           sx={{
-            display: "block",
+            display: 'block',
             mt: 1
           }}>
           Bold (3)

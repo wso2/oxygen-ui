@@ -95,7 +95,7 @@ export const Default: Story = {
                   Overview Analytics
                 </Typography>
                 <Typography variant="body2" sx={{
-                  color: "text.secondary",
+                  color: 'text.secondary',
                   mb: 2
                 }}>
                   This section displays comprehensive analytics data for your application.
@@ -112,7 +112,7 @@ export const Default: Story = {
                   }}
                 >
                   <Typography variant="h6" sx={{
-                    color: "text.secondary"
+                    color: 'text.secondary'
                   }}>
                     Chart Visualization Area
                   </Typography>

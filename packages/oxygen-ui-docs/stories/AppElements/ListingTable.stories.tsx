@@ -2451,7 +2451,7 @@ export const BuiltInSearch: Story = {
                 <ListingTable.Cell colSpan={4}>
                   <Box sx={{ textAlign: 'center', py: 4 }}>
                     <Typography sx={{
-                      color: "text.secondary"
+                      color: 'text.secondary'
                     }}>No components match your search criteria.</Typography>
                   </Box>
                 </ListingTable.Cell>
@@ -2566,7 +2566,7 @@ export const CustomSearchComponent: Story = {
                   <ListingTable.Cell colSpan={4}>
                     <Box sx={{ textAlign: 'center', py: 4 }}>
                       <Typography sx={{
-                        color: "text.secondary"
+                        color: 'text.secondary'
                       }}>No components match your search criteria.</Typography>
                     </Box>
                   </ListingTable.Cell>
@@ -2699,7 +2699,7 @@ export const UseListingTableHook: Story = {
                   <ListingTable.Cell colSpan={4}>
                     <Box sx={{ textAlign: 'center', py: 4 }}>
                       <Typography sx={{
-                        color: "text.secondary"
+                        color: 'text.secondary'
                       }}>No components match your filter.</Typography>
                     </Box>
                   </ListingTable.Cell>

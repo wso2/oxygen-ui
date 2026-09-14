@@ -109,7 +109,7 @@ export const States: Story = {
     return (
       <Stack direction="column" spacing={3}>
         <Stack direction="row" spacing={2} sx={{
-          alignItems: "center"
+          alignItems: 'center'
         }}>
           <Button variant="contained">Default</Button>
           <Button variant="contained" disabled>
@@ -125,7 +125,7 @@ export const States: Story = {
         </Stack>
 
         <Stack direction="row" spacing={2} sx={{
-          alignItems: "center"
+          alignItems: 'center'
         }}>
           <Button variant="outlined">Default</Button>
           <Button variant="outlined" disabled>
@@ -141,7 +141,7 @@ export const States: Story = {
         </Stack>
 
         <Stack direction="row" spacing={2} sx={{
-          alignItems: "center"
+          alignItems: 'center'
         }}>
           <Button variant="text">Default</Button>
           <Button variant="text" disabled>

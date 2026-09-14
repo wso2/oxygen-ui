@@ -83,8 +83,8 @@ export default function Organizations(): JSX.Element {
         <PageTitle.Header>Organizations</PageTitle.Header>
         <Box
           sx={{
-            display: "flex",
-            alignItems: "center"
+            display: 'flex',
+            alignItems: 'center'
           }}>
           <PageTitle.SubHeader>
             Create and manage organizations
@@ -125,7 +125,7 @@ export default function Organizations(): JSX.Element {
           <Typography
             variant="body2"
             sx={{
-              color: "text.secondary",
+              color: 'text.secondary',
               mb: 2
             }}>
             {searchValue
@@ -157,15 +157,15 @@ export default function Organizations(): JSX.Element {
                   <ListingTable.Cell>
                     <Box
                       sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
                         gap: 2
                       }}>
                       <Box
                         sx={{
-                          display: "flex",
-                          alignItems: "center",
+                          display: 'flex',
+                          alignItems: 'center',
                           gap: 2,
                           minWidth: 0
                         }}>
@@ -190,8 +190,8 @@ export default function Organizations(): JSX.Element {
                         }}>
                           <Box
                             sx={{
-                              display: "flex",
-                              alignItems: "center",
+                              display: 'flex',
+                              alignItems: 'center',
                               gap: 1,
                               minWidth: 0
                             }}>
@@ -211,14 +211,14 @@ export default function Organizations(): JSX.Element {
 
                           <Box
                             sx={{
-                              display: "flex",
-                              alignItems: "center",
+                              display: 'flex',
+                              alignItems: 'center',
                               gap: 1,
                               mt: 0.5,
-                              flexWrap: "wrap"
+                              flexWrap: 'wrap'
                             }}>
                             <Typography variant="body2" sx={{
-                              color: "text.secondary"
+                              color: 'text.secondary'
                             }}>
                               Organization Id:
                             </Typography>
@@ -229,8 +229,8 @@ export default function Organizations(): JSX.Element {
 
                       <Box
                         sx={{
-                          display: "flex",
-                          alignItems: "center",
+                          display: 'flex',
+                          alignItems: 'center',
                           gap: 0.5,
                           flexShrink: 0
                         }}>
@@ -312,8 +312,8 @@ export default function Organizations(): JSX.Element {
                 <Grid key={section.id} size={{ xs: 12, md: 4 }}>
                   <Box
                     sx={{
-                      display: "flex",
-                      alignItems: "flex-start",
+                      display: 'flex',
+                      alignItems: 'flex-start',
                       gap: 2
                     }}>
                     <Box sx={{ color: 'primary.main', mt: 0.25 }}>

@@ -63,7 +63,7 @@ export const Variants: Story = {
 export const Colors: Story = {
   render: () => (
     <Stack direction="row" spacing={1} sx={{
-      flexWrap: "wrap"
+      flexWrap: 'wrap'
     }}>
       <Chip label="Primary" color="primary" />
       <Chip label="Secondary" color="secondary" />
@@ -78,7 +78,7 @@ export const Colors: Story = {
 export const Sizes: Story = {
   render: () => (
     <Stack direction="row" spacing={1} sx={{
-      alignItems: "center"
+      alignItems: 'center'
     }}>
       <Chip label="Small" size="small" />
       <Chip label="Medium" />

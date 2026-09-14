@@ -40,12 +40,12 @@ export default function IntegrationTypeCard({
     <Form.CardButton
       alignItems="center"
       onClick={onClick}
-      sx={{ width: "50%" }}
+      sx={{ width: '50%' }}
     >
       <Form.CardHeader
         title={
           <Stack direction="row" spacing={1} sx={{
-            alignItems: "center"
+            alignItems: 'center'
           }}>
             <Form.Subheader noWrap>{title}</Form.Subheader>
             {tooltipText && (
@@ -61,17 +61,17 @@ export default function IntegrationTypeCard({
       <Form.CardContent>
         <Box
           sx={{
-            display: "flex",
+            display: 'flex',
             py: 2,
-            justifyContent: "center",
-            alignItems: "center"
+            justifyContent: 'center',
+            alignItems: 'center'
           }}>
           <Icon size={140} className="integration-type-card-icon" />
         </Box>
         <Box
           sx={{
-            textAlign: "center",
-            width: "100%"
+            textAlign: 'center',
+            width: '100%'
           }}>
           <Typography
             variant="caption"

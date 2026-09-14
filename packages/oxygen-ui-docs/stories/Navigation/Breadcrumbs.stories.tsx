@@ -57,7 +57,7 @@ export const Default: Story = {
         Catalog
       </Link>
       <Typography sx={{
-        color: "text.primary"
+        color: 'text.primary'
       }}>Products</Typography>
     </Breadcrumbs>
   ),
@@ -74,7 +74,7 @@ export const CustomSeparator: Story = {
           Catalog
         </Link>
         <Typography sx={{
-          color: "text.primary"
+          color: 'text.primary'
         }}>Products</Typography>
       </Breadcrumbs>
       <Breadcrumbs separator="-">
@@ -85,7 +85,7 @@ export const CustomSeparator: Story = {
           Catalog
         </Link>
         <Typography sx={{
-          color: "text.primary"
+          color: 'text.primary'
         }}>Products</Typography>
       </Breadcrumbs>
       <Breadcrumbs separator="/">
@@ -96,7 +96,7 @@ export const CustomSeparator: Story = {
           Catalog
         </Link>
         <Typography sx={{
-          color: "text.primary"
+          color: 'text.primary'
         }}>Products</Typography>
       </Breadcrumbs>
     </Stack>
@@ -119,7 +119,7 @@ export const MaxItems: Story = {
         Subcategory
       </Link>
       <Typography sx={{
-        color: "text.primary"
+        color: 'text.primary'
       }}>Products</Typography>
     </Breadcrumbs>
   ),
@@ -141,7 +141,7 @@ export const Collapsed: Story = {
         Level 3
       </Link>
       <Typography sx={{
-        color: "text.primary"
+        color: 'text.primary'
       }}>Current Page</Typography>
     </Breadcrumbs>
   ),

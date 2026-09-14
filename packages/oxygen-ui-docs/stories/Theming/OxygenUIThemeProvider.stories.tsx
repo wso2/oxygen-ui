@@ -154,7 +154,7 @@ export const Default: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
       <Typography variant="body2" sx={{
-        color: "text.secondary"
+        color: 'text.secondary'
       }}>
         The simplest setup - wraps your app with the default Oxygen theme.
       </Typography>
@@ -181,7 +181,7 @@ export const CustomTheme: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
       <Typography variant="body2" sx={{
-        color: "text.secondary"
+        color: 'text.secondary'
       }}>
         Extend the default theme with your own colors and typography.
       </Typography>
@@ -224,7 +224,7 @@ export const MultipleThemes: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
       <Typography variant="body2" sx={{
-        color: "text.secondary"
+        color: 'text.secondary'
       }}>
         Enable theme switching by providing an array of themes.
       </Typography>
@@ -265,7 +265,7 @@ export const UsingHook: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
       <Typography variant="body2" sx={{
-        color: "text.secondary"
+        color: 'text.secondary'
       }}>
         Access theme state and switch themes programmatically.
       </Typography>
@@ -305,7 +305,7 @@ export const ContentSecurityPolicy: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
       <Typography variant="body2" sx={{
-        color: "text.secondary"
+        color: 'text.secondary'
       }}>
         Pass your server-generated nonce so runtime-injected style tags satisfy
         style-src-elem. Also allow style-src-attr &apos;unsafe-inline&apos; for MUI
@@ -337,7 +337,7 @@ const cache = createEmotionCache({
 </OxygenUIThemeProvider>`}
       />
       <Typography variant="body2" sx={{
-        color: "text.secondary"
+        color: 'text.secondary'
       }}>
         The bundled CSS (Inter font styles and theme CSS) is injected at import
         time, so its nonce is resolved from the __webpack_nonce__ global
@@ -357,7 +357,7 @@ export const OnThemesLoadedCallback: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
       <Typography variant="body2" sx={{
-        color: "text.secondary"
+        color: 'text.secondary'
       }}>
         Get notified when all themes (including dynamically loaded ones) are ready.
       </Typography>

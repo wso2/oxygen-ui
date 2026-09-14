@@ -118,7 +118,7 @@ function LastUpdatedCell({ value }: { value: string }): JSX.Element {
       <Typography
         variant="caption"
         sx={{
-          color: "text.secondary",
+          color: 'text.secondary',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap'
@@ -220,7 +220,7 @@ export default function ProjectOverview(): JSX.Element {
                           <Typography
                             variant="caption"
                             sx={{
-                              color: "text.secondary",
+                              color: 'text.secondary',
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',
                               whiteSpace: 'nowrap'
@@ -306,7 +306,7 @@ export default function ProjectOverview(): JSX.Element {
                           <Typography
                             variant="caption"
                             sx={{
-                              color: "text.secondary",
+                              color: 'text.secondary',
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',
                               whiteSpace: 'nowrap',
@@ -385,7 +385,7 @@ export default function ProjectOverview(): JSX.Element {
                   <Stack spacing={1}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Typography variant="caption" sx={{
-                        color: "text.secondary"
+                        color: 'text.secondary'
                       }}>
                         HTTP
                       </Typography>
@@ -396,7 +396,7 @@ export default function ProjectOverview(): JSX.Element {
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Typography variant="caption" sx={{
-                        color: "text.secondary"
+                        color: 'text.secondary'
                       }}>
                         Service
                       </Typography>
@@ -411,7 +411,7 @@ export default function ProjectOverview(): JSX.Element {
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Typography variant="caption" sx={{
-                        color: "text.secondary"
+                        color: 'text.secondary'
                       }}>
                         MCP Servers
                       </Typography>

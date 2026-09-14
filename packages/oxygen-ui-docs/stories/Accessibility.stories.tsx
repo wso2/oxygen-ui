@@ -111,7 +111,7 @@ export const Overview: Story = {
             Accessibility
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Oxygen UI builds on Material UI and targets WCAG 2.1 AA. Wrapper components preserve MUI's
             keyboard and screen reader behavior, and every story in this Storybook is checked with
@@ -127,7 +127,7 @@ export const Overview: Story = {
             Accessible Names You Must Provide
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Components with visible text label themselves. Icon-only or label-less usage needs a name from you:
           </Typography>
@@ -153,7 +153,7 @@ export const Overview: Story = {
           <Typography
             variant="body2"
             sx={{
-              color: "text.secondary",
+              color: 'text.secondary',
               mt: 1
             }}>
             <code>ColorSchemeToggle</code>, <code>Header.Toggle</code>, <code>UserMenu.Trigger</code>,
@@ -193,7 +193,7 @@ export const Overview: Story = {
             Color Contrast and Themes
           </Typography>
           <Typography variant="body2" component="div" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             <ul>
               <li>
@@ -221,7 +221,7 @@ export const Overview: Story = {
             Reduced Motion
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             When the operating system requests reduced motion (<code>prefers-reduced-motion: reduce</code>),
             the base theme collapses all CSS transitions and animations, and <code>ParticleBackground</code>
@@ -234,7 +234,7 @@ export const Overview: Story = {
             Forms and Validation
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             <code>Form.ElementWrapper</code> links its label to the wrapped field automatically — including
             MUI <code>Select</code>, which cannot be labeled with <code>htmlFor</code> alone. For error
@@ -248,7 +248,7 @@ export const Overview: Story = {
             Audit and Workflow
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             The complete WCAG 2.1 AA audit report, tracked findings, and the CI accessibility gate are
             documented in <code>packages/oxygen-ui-docs/ACCESSIBILITY.md</code> in the repository. Contributors should

@@ -133,7 +133,7 @@ const StatusDisplay: React.FC = () => {
         <Stack spacing={1.5}>
           <Box>
             <Typography variant="body2" sx={{
-              color: "text.secondary"
+              color: 'text.secondary'
             }}>
               Sidebar Collapsed:
             </Typography>
@@ -145,7 +145,7 @@ const StatusDisplay: React.FC = () => {
           </Box>
           <Box>
             <Typography variant="body2" sx={{
-              color: "text.secondary"
+              color: 'text.secondary'
             }}>
               Active Menu Item:
             </Typography>
@@ -153,7 +153,7 @@ const StatusDisplay: React.FC = () => {
           </Box>
           <Box>
             <Typography variant="body2" sx={{
-              color: "text.secondary"
+              color: 'text.secondary'
             }}>
               Notification Panel:
             </Typography>
@@ -184,12 +184,12 @@ const ControlPanel: React.FC = () => {
         <Stack spacing={2}>
           <Box>
             <Typography variant="body2" gutterBottom sx={{
-              color: "text.secondary"
+              color: 'text.secondary'
             }}>
               Sidebar Controls:
             </Typography>
             <Stack direction="row" spacing={1} useFlexGap sx={{
-              flexWrap: "wrap"
+              flexWrap: 'wrap'
             }}>
               <Button
                 variant="outlined"
@@ -209,12 +209,12 @@ const ControlPanel: React.FC = () => {
 
           <Box>
             <Typography variant="body2" gutterBottom sx={{
-              color: "text.secondary"
+              color: 'text.secondary'
             }}>
               Active Menu Item:
             </Typography>
             <Stack direction="row" spacing={1} useFlexGap sx={{
-              flexWrap: "wrap"
+              flexWrap: 'wrap'
             }}>
               <Button
                 variant="outlined"
@@ -242,12 +242,12 @@ const ControlPanel: React.FC = () => {
 
           <Box>
             <Typography variant="body2" gutterBottom sx={{
-              color: "text.secondary"
+              color: 'text.secondary'
             }}>
               Notification Panel:
             </Typography>
             <Stack direction="row" spacing={1} useFlexGap sx={{
-              flexWrap: "wrap"
+              flexWrap: 'wrap'
             }}>
               <Button
                 variant="outlined"
@@ -318,7 +318,7 @@ export const ConsumeContext: Story = {
               Consume Context Mode
             </Typography>
             <Typography variant="body2" sx={{
-              color: "text.secondary",
+              color: 'text.secondary',
               mb: 2
             }}>
               These components use <code>useAppShell()</code> to consume the context created by{' '}
@@ -344,7 +344,7 @@ export const ConsumeContext: Story = {
             <NotificationPanel.List>
               <Box sx={{ p: 3, textAlign: 'center' }}>
                 <Typography variant="body2" sx={{
-                  color: "text.secondary"
+                  color: 'text.secondary'
                 }}>
                   Use the controls in the main area to toggle this panel.
                 </Typography>
@@ -380,7 +380,7 @@ export const CreateMode: Story = {
             Create Mode
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary",
+            color: 'text.secondary',
             mb: 2
           }}>
             Using <code>useAppShell(options)</code> to create shell state directly.
@@ -394,7 +394,7 @@ export const CreateMode: Story = {
               <Stack spacing={1.5}>
                 <Box>
                   <Typography variant="body2" sx={{
-                    color: "text.secondary"
+                    color: 'text.secondary'
                   }}>
                     Sidebar Collapsed:
                   </Typography>
@@ -406,7 +406,7 @@ export const CreateMode: Story = {
                 </Box>
                 <Box>
                   <Typography variant="body2" sx={{
-                    color: "text.secondary"
+                    color: 'text.secondary'
                   }}>
                     Active Menu Item:
                   </Typography>
@@ -414,7 +414,7 @@ export const CreateMode: Story = {
                 </Box>
                 <Box>
                   <Typography variant="body2" sx={{
-                    color: "text.secondary"
+                    color: 'text.secondary'
                   }}>
                     Sidebar Width:
                   </Typography>
@@ -427,12 +427,12 @@ export const CreateMode: Story = {
 
               <Box sx={{ mt: 3 }}>
                 <Typography variant="body2" gutterBottom sx={{
-                  color: "text.secondary"
+                  color: 'text.secondary'
                 }}>
                   Actions:
                 </Typography>
                 <Stack direction="row" spacing={1} useFlexGap sx={{
-                  flexWrap: "wrap"
+                  flexWrap: 'wrap'
                 }}>
                   <Button
                     variant="outlined"
@@ -464,7 +464,7 @@ export const CreateMode: Story = {
           <Card sx={{ mt: 2, bgcolor: 'info.50', borderColor: 'info.main' }} variant="outlined">
             <CardContent>
               <Typography variant="body2" sx={{
-                color: "info.dark"
+                color: 'info.dark'
               }}>
                 <strong>💡 Tip:</strong> In most cases, you should use the Consume Context pattern
                 by wrapping your app with <code>&lt;AppShell&gt;</code> and calling{' '}

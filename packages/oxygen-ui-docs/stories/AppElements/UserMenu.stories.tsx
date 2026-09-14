@@ -119,7 +119,7 @@ export const Composed: Story = {
       <Typography
         variant="caption"
         sx={{
-          color: "text.secondary",
+          color: 'text.secondary',
           mb: 2,
           display: 'block'
         }}>
@@ -162,7 +162,7 @@ export const WithAvatarImage: Story = {
       <Typography
         variant="caption"
         sx={{
-          color: "text.secondary",
+          color: 'text.secondary',
           mb: 2,
           display: 'block'
         }}>
@@ -205,7 +205,7 @@ export const WithNameVisible: Story = {
       <Typography
         variant="caption"
         sx={{
-          color: "text.secondary",
+          color: 'text.secondary',
           mb: 2,
           display: 'block'
         }}>
@@ -243,7 +243,7 @@ export const MinimalMenu: Story = {
       <Typography
         variant="caption"
         sx={{
-          color: "text.secondary",
+          color: 'text.secondary',
           mb: 2,
           display: 'block'
         }}>
@@ -277,7 +277,7 @@ export const AdminMenu: Story = {
       <Typography
         variant="caption"
         sx={{
-          color: "text.secondary",
+          color: 'text.secondary',
           mb: 2,
           display: 'block'
         }}>
@@ -321,7 +321,7 @@ export const MultipleUsers: Story = {
         <Typography
           variant="caption"
           sx={{
-            color: "text.secondary",
+            color: 'text.secondary',
             mb: 1,
             display: 'block'
           }}>
@@ -346,7 +346,7 @@ export const MultipleUsers: Story = {
         <Typography
           variant="caption"
           sx={{
-            color: "text.secondary",
+            color: 'text.secondary',
             mb: 1,
             display: 'block'
           }}>
@@ -376,7 +376,7 @@ export const MultipleUsers: Story = {
         <Typography
           variant="caption"
           sx={{
-            color: "text.secondary",
+            color: 'text.secondary',
             mb: 1,
             display: 'block'
           }}>
@@ -425,7 +425,7 @@ export const WithoutCustomAvatar: Story = {
       <Typography
         variant="caption"
         sx={{
-          color: "text.secondary",
+          color: 'text.secondary',
           mb: 2,
           display: 'block'
         }}>
@@ -458,7 +458,7 @@ export const LongEmail: Story = {
       <Typography
         variant="caption"
         sx={{
-          color: "text.secondary",
+          color: 'text.secondary',
           mb: 2,
           display: 'block'
         }}>

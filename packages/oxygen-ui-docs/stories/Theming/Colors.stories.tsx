@@ -97,7 +97,7 @@ export const PrimaryColors: Story = {
         Primary Color Palette
       </Typography>
       <Stack direction="row" spacing={2} useFlexGap sx={{
-        flexWrap: "wrap"
+        flexWrap: 'wrap'
       }}>
         {[
           { name: 'Red', color: colors.red[500] },
@@ -153,7 +153,7 @@ export const ColorShades: Story = {
         Blue Color Shades
       </Typography>
       <Stack direction="row" spacing={1} useFlexGap sx={{
-        flexWrap: "wrap"
+        flexWrap: 'wrap'
       }}>
         {[
           { shade: '50', color: colors.blue[50] },
@@ -184,15 +184,15 @@ export const ColorShades: Story = {
             <Typography
               variant="body2"
               sx={{
-                fontWeight: "inherit",
-                color: "inherit"
+                fontWeight: 'inherit',
+                color: 'inherit'
               }}>
               {shade}
             </Typography>
             <Typography
               variant="caption"
               sx={{
-                color: "inherit",
+                color: 'inherit',
                 opacity: 0.8
               }}>
               {color}

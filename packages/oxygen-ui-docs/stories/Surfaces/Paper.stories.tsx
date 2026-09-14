@@ -54,7 +54,7 @@ export const Default: Story = {
 export const Elevations: Story = {
   render: () => (
     <Stack direction="row" spacing={2} sx={{
-      flexWrap: "wrap"
+      flexWrap: 'wrap'
     }}>
       <Paper elevation={0} sx={{ p: 2, width: 100, height: 100 }}>elevation=0</Paper>
       <Paper elevation={1} sx={{ p: 2, width: 100, height: 100 }}>elevation=1</Paper>

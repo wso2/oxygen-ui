@@ -48,7 +48,7 @@ export const Default: Story = {
           Card Title
         </Typography>
         <Typography variant="body2" sx={{
-          color: "text.secondary"
+          color: 'text.secondary'
         }}>
           This is a basic card with some content. Cards contain content and actions about a single subject.
         </Typography>
@@ -65,7 +65,7 @@ export const WithActions: Story = {
           Card with Actions
         </Typography>
         <Typography variant="body2" sx={{
-          color: "text.secondary"
+          color: 'text.secondary'
         }}>
           Cards can include actions like buttons at the bottom.
         </Typography>
@@ -92,7 +92,7 @@ export const WithMedia: Story = {
           Card with Image
         </Typography>
         <Typography variant="body2" sx={{
-          color: "text.secondary"
+          color: 'text.secondary'
         }}>
           Cards can include media like images or videos.
         </Typography>
@@ -113,7 +113,7 @@ export const Outlined: Story = {
           Outlined Card
         </Typography>
         <Typography variant="body2" sx={{
-          color: "text.secondary"
+          color: 'text.secondary'
         }}>
           This card has an outlined variant with a border.
         </Typography>
@@ -130,7 +130,7 @@ export const Elevated: Story = {
           Elevated Card
         </Typography>
         <Typography variant="body2" sx={{
-          color: "text.secondary"
+          color: 'text.secondary'
         }}>
           This card has a higher elevation for more prominent shadow.
         </Typography>

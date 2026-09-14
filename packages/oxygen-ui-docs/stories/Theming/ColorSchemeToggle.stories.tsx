@@ -51,10 +51,10 @@ type Story = StoryObj<typeof ColorSchemeToggle>
 export const Default: Story = {
   render: () => (
     <Stack spacing={2} sx={{
-      alignItems: "center"
+      alignItems: 'center'
     }}>
       <Typography variant="body2" sx={{
-        color: "text.secondary"
+        color: 'text.secondary'
       }}>
         Click to cycle through: Light → Dark → System
       </Typography>
@@ -66,26 +66,26 @@ export const Default: Story = {
 export const DifferentSizes: Story = {
   render: () => (
     <Stack spacing={3} sx={{
-      alignItems: "center"
+      alignItems: 'center'
     }}>
       <Typography variant="h6">Size Variants</Typography>
       <Stack direction="row" spacing={2} sx={{
-        alignItems: "center"
+        alignItems: 'center'
       }}>
         <Stack spacing={1} sx={{
-          alignItems: "center"
+          alignItems: 'center'
         }}>
           <ColorSchemeToggle size="small" />
           <Typography variant="caption">Small</Typography>
         </Stack>
         <Stack spacing={1} sx={{
-          alignItems: "center"
+          alignItems: 'center'
         }}>
           <ColorSchemeToggle size="medium" />
           <Typography variant="caption">Medium</Typography>
         </Stack>
         <Stack spacing={1} sx={{
-          alignItems: "center"
+          alignItems: 'center'
         }}>
           <ColorSchemeToggle size="large" />
           <Typography variant="caption">Large</Typography>
@@ -98,7 +98,7 @@ export const DifferentSizes: Story = {
 export const WithColors: Story = {
   render: () => (
     <Stack spacing={3} sx={{
-      alignItems: "center"
+      alignItems: 'center'
     }}>
       <Typography variant="h6">Color Variants</Typography>
       <Stack direction="row" spacing={2}>
@@ -128,10 +128,10 @@ export const InToolbar: Story = {
     >
       <Typography variant="h6">Application Header</Typography>
       <Stack direction="row" spacing={1} sx={{
-        alignItems: "center"
+        alignItems: 'center'
       }}>
         <Typography variant="body2" sx={{
-          color: "text.secondary"
+          color: 'text.secondary'
         }}>
           Theme:
         </Typography>
@@ -144,10 +144,10 @@ export const InToolbar: Story = {
 export const Disabled: Story = {
   render: () => (
     <Stack spacing={2} sx={{
-      alignItems: "center"
+      alignItems: 'center'
     }}>
       <Typography variant="body2" sx={{
-        color: "text.secondary"
+        color: 'text.secondary'
       }}>
         Disabled state
       </Typography>

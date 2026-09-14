@@ -198,7 +198,7 @@ export default function LoginPage(): JSX.Element {
             <Stack
               direction="column"
               sx={{
-                alignItems: "start",
+                alignItems: 'start',
                 gap: 2,
                 maxWidth: 580,
                 display: {xs: 'none', md: 'flex'}
@@ -241,7 +241,7 @@ export default function LoginPage(): JSX.Element {
                   direction="row"
                   spacing={1}
                   sx={{
-                    justifyContent: "center",
+                    justifyContent: 'center',
                     mt: 2
                   }}>
                   <Link>Privacy Policy</Link>

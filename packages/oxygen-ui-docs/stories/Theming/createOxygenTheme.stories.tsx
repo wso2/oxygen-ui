@@ -77,7 +77,7 @@ export const BasicUsage: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
       <Typography variant="body2" sx={{
-        color: "text.secondary"
+        color: 'text.secondary'
       }}>
         The simplest way to create a custom theme with your brand colors.
       </Typography>
@@ -116,7 +116,7 @@ export const LightAndDarkModes: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
       <Typography variant="body2" sx={{
-        color: "text.secondary"
+        color: 'text.secondary'
       }}>
         Define different colors for light and dark color schemes.
       </Typography>
@@ -160,7 +160,7 @@ export const CustomTypography: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
       <Typography variant="body2" sx={{
-        color: "text.secondary"
+        color: 'text.secondary'
       }}>
         Beyond colors - customize typography, spacing, and more.
       </Typography>
@@ -179,11 +179,11 @@ const theme = createOxygenTheme({
   typography: {
     fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
-      fontSize: "3rem",
+      fontSize: '3rem',
       fontWeight: 700,
     },
     body1: {
-      fontSize: "1rem",
+      fontSize: '1rem',
       lineHeight: 1.6,
     }
   },
@@ -204,7 +204,7 @@ export const RuntimeConfiguration: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
       <Typography variant="body2" sx={{
-        color: "text.secondary"
+        color: 'text.secondary'
       }}>
         Convert runtime configuration objects to theme instances.
       </Typography>
@@ -245,7 +245,7 @@ export const MultiThemeSupport: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
       <Typography variant="body2" sx={{
-        color: "text.secondary"
+        color: 'text.secondary'
       }}>
         Create multiple themes and let users switch between them.
       </Typography>
@@ -299,7 +299,7 @@ export const MixedThemeSources: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
       <Typography variant="body2" sx={{
-        color: "text.secondary"
+        color: 'text.secondary'
       }}>
         Handle themes from multiple sources (objects, files, pre-built themes).
       </Typography>
@@ -358,7 +358,7 @@ export const OxygenSpecificFeatures: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
       <Typography variant="body2" sx={{
-        color: "text.secondary"
+        color: 'text.secondary'
       }}>
         Use Oxygen-specific theme extensions like blur effects and acrylic backgrounds.
       </Typography>

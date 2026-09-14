@@ -74,7 +74,7 @@ export const Variants: Story = {
 export const Sizes: Story = {
   render: () => (
     <Stack direction="row" spacing={2} sx={{
-      alignItems: "center"
+      alignItems: 'center'
     }}>
       <Avatar sx={{ width: 24, height: 24, fontSize: '0.75rem' }}>S</Avatar>
       <Avatar>M</Avatar>

@@ -138,7 +138,7 @@ export const Default: Story = {
           Interactive Particle Background
         </Typography>
         <Typography variant="body1" sx={{
-          color: "text.secondary"
+          color: 'text.secondary'
         }}>
           Move your mouse to repel particles • Click to create a burst effect
         </Typography>
@@ -175,7 +175,7 @@ export const Subtle: Story = {
           Subtle Animation
         </Typography>
         <Typography variant="body2" sx={{
-          color: "text.secondary"
+          color: 'text.secondary'
         }}>
           Lower density and opacity for a more subtle effect
         </Typography>
@@ -212,7 +212,7 @@ export const Energetic: Story = {
           Energetic Animation
         </Typography>
         <Typography variant="body2" sx={{
-          color: "text.secondary"
+          color: 'text.secondary'
         }}>
           Higher density and speed for a more dynamic effect
         </Typography>

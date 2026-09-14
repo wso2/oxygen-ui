@@ -152,7 +152,7 @@ const TemplatePreview = ({ template }: { template: TemplateCard }) => {
         <Typography
           variant="body2"
           sx={{
-            color: "text.secondary",
+            color: 'text.secondary',
             minHeight: '48px'
           }}>
           {template.description}
@@ -228,7 +228,7 @@ export const ListTemplates: Story = {
           Templates
         </Typography>
         <Typography variant="body1" sx={{
-          color: "text.secondary"
+          color: 'text.secondary'
         }}>
           Explore our collection of ready-to-use templates for common UI patterns and layouts.
           Hover over any template to see the preview blur effect and click to view the live version.

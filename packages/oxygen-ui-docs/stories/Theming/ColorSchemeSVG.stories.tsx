@@ -193,7 +193,7 @@ export const Default: Story = {
       <Typography
         variant="body2"
         sx={{
-          color: "text.secondary",
+          color: 'text.secondary',
           textAlign: 'center',
           maxWidth: 400
         }}>
@@ -240,7 +240,7 @@ export const WithRelativeSVGFile: Story = {
       <Typography
         variant="body2"
         sx={{
-          color: "text.secondary",
+          color: 'text.secondary',
           textAlign: 'center',
           maxWidth: 400
         }}>
@@ -274,7 +274,7 @@ export const WithModeAwareSVGComponents: Story = {
       <Typography
         variant="body2"
         sx={{
-          color: "text.secondary",
+          color: 'text.secondary',
           textAlign: 'center',
           maxWidth: 420
         }}>
@@ -317,7 +317,7 @@ export function Example() {
       <Typography
         variant="body2"
         sx={{
-          color: "text.secondary",
+          color: 'text.secondary',
           textAlign: 'center',
           maxWidth: 400
         }}>
@@ -339,7 +339,7 @@ export const AllColorValues: Story = {
       <Typography
         variant="body2"
         sx={{
-          color: "text.secondary",
+          color: 'text.secondary',
           textAlign: 'center'
         }}>
         Toggle between light and dark mode to see all available color values
@@ -454,7 +454,7 @@ export const ComplexIllustration: Story = {
       <Typography
         variant="body2"
         sx={{
-          color: "text.secondary",
+          color: 'text.secondary',
           textAlign: 'center',
           maxWidth: 500
         }}>

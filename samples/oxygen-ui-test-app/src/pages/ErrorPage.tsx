@@ -144,7 +144,7 @@ export default function ErrorPage(): JSX.Element {
         <Typography
           variant="body1"
           sx={{
-            color: "text.secondary",
+            color: 'text.secondary',
             mb: 1
           }}>
           {error.message}
@@ -154,7 +154,7 @@ export default function ErrorPage(): JSX.Element {
         <Typography
           variant="body2"
           sx={{
-            color: "text.secondary",
+            color: 'text.secondary',
             mb: 4
           }}>
           {error.suggestion}
@@ -184,7 +184,7 @@ export default function ErrorPage(): JSX.Element {
             <Typography
               variant="body2"
               sx={{
-                color: "text.secondary",
+                color: 'text.secondary',
                 mb: 2
               }}>
               If you continue to experience issues, please contact our support team.
@@ -200,7 +200,7 @@ export default function ErrorPage(): JSX.Element {
           <Card variant="outlined" sx={{ mt: 2, textAlign: 'left' }}>
             <CardContent>
               <Typography variant="caption" gutterBottom sx={{
-                color: "text.secondary"
+                color: 'text.secondary'
               }}>
                 Debug Information (Development Only)
               </Typography>

@@ -80,7 +80,7 @@ const WelcomeContent = () => (
               🎨 Theme System
             </Typography>
             <Typography variant="body2" sx={{
-              color: "text.secondary"
+              color: 'text.secondary'
             }}>
               Built-in light/dark mode support with customizable themes. Easy theme switching 
               and theme-aware components.
@@ -92,7 +92,7 @@ const WelcomeContent = () => (
               🧩 Component Library
             </Typography>
             <Typography variant="body2" sx={{
-              color: "text.secondary"
+              color: 'text.secondary'
             }}>
               Extended MUI components with additional features and custom components for 
               common use cases.
@@ -106,7 +106,7 @@ const WelcomeContent = () => (
               🎭 Animations
             </Typography>
             <Typography variant="body2" sx={{
-              color: "text.secondary"
+              color: 'text.secondary'
             }}>
               Interactive animations like ParticleBackground for adding visual appeal to 
               your applications.
@@ -118,7 +118,7 @@ const WelcomeContent = () => (
               🔧 Developer Tools
             </Typography>
             <Typography variant="body2" sx={{
-              color: "text.secondary"
+              color: 'text.secondary'
             }}>
               Hooks and utilities for common tasks like theme-aware content and theme switching.
             </Typography>
@@ -189,14 +189,14 @@ const WelcomeContent = () => (
 
       <Box sx={{ textAlign: 'left' }}>
         <Typography variant="body1" sx={{
-          color: "text.secondary"
+          color: 'text.secondary'
         }}>
           Browse the sidebar to explore all available components, animations, and utilities.
         </Typography>
         <Typography
           variant="body2"
           sx={{
-            color: "text.secondary",
+            color: 'text.secondary',
             mt: 2
           }}>
           <Link href="https://github.com/wso2/oxygen-ui" target="_blank" rel="noopener">

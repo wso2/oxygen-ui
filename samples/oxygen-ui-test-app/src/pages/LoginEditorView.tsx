@@ -134,7 +134,7 @@ export default function LoginEditorView(): JSX.Element {
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="h4">Login Flow Editor</Typography>
             <Typography variant="body2" sx={{
-              color: "text.secondary"
+              color: 'text.secondary'
             }}>
               Basic Login Flow
             </Typography>
@@ -337,7 +337,7 @@ export default function LoginEditorView(): JSX.Element {
                 <Typography
                   variant="subtitle2"
                   sx={{
-                    color: "text.secondary",
+                    color: 'text.secondary',
                     mb: 3
                   }}>
                   {formConfig.subtitle}
@@ -376,7 +376,7 @@ export default function LoginEditorView(): JSX.Element {
                     <>
                       <Divider sx={{ my: 1 }}>
                         <Typography variant="caption" sx={{
-                          color: "text.secondary"
+                          color: 'text.secondary'
                         }}>
                           OR
                         </Typography>
@@ -400,7 +400,7 @@ export default function LoginEditorView(): JSX.Element {
                   {formConfig.allowSignUp && (
                     <Box sx={{ textAlign: 'center', mt: 2 }}>
                       <Typography variant="body2" sx={{
-                        color: "text.secondary"
+                        color: 'text.secondary'
                       }}>
                         Don't have an account?{' '}
                         <Button variant="text" size="small">
@@ -431,13 +431,13 @@ export default function LoginEditorView(): JSX.Element {
           <Box sx={{ display: 'flex', gap: 2 }}>
             <Chip label="Unsaved changes" size="small" color="warning" />
             <Typography variant="caption" sx={{
-              color: "text.secondary"
+              color: 'text.secondary'
             }}>
               Last saved: 2 minutes ago
             </Typography>
           </Box>
           <Typography variant="caption" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Ready
           </Typography>

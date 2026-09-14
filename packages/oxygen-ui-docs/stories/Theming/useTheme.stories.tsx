@@ -33,7 +33,7 @@ function ThemeInspector() {
 
         <Box>
           <Typography variant="subtitle2" gutterBottom sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Breakpoints
           </Typography>
@@ -41,7 +41,7 @@ function ThemeInspector() {
             direction="row"
             spacing={1}
             sx={{
-              flexWrap: "wrap",
+              flexWrap: 'wrap',
               gap: 1
             }}>
             {Object.entries(theme.breakpoints.values).map(([key, value]) => (
@@ -52,7 +52,7 @@ function ThemeInspector() {
 
         <Box>
           <Typography variant="subtitle2" gutterBottom sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Spacing Unit
           </Typography>
@@ -64,7 +64,7 @@ function ThemeInspector() {
 
         <Box>
           <Typography variant="subtitle2" gutterBottom sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Shape (Border Radius)
           </Typography>
@@ -73,7 +73,7 @@ function ThemeInspector() {
 
         <Box>
           <Typography variant="subtitle2" gutterBottom sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Typography
           </Typography>
@@ -160,7 +160,7 @@ function PaletteDemo() {
               <Typography
                 variant="caption"
                 sx={{
-                  color: "text.secondary",
+                  color: 'text.secondary',
                   mt: 0.5,
                   display: 'block'
                 }}>
@@ -387,17 +387,17 @@ export const BasicUsage: Story = {
             Basic useTheme Example
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Primary Color: {theme.palette.primary.main}
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Spacing Unit: {theme.spacing(1)}
           </Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             Border Radius: {theme.shape.borderRadius}px
           </Typography>

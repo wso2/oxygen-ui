@@ -82,7 +82,7 @@ export default function EmptyComponentList(): JSX.Element {
         <Box sx={{ flexGrow: 1 }}>
           <Typography variant="h4">Components</Typography>
           <Typography variant="body2" sx={{
-            color: "text.secondary"
+            color: 'text.secondary'
           }}>
             No components yet in this project
           </Typography>
@@ -113,7 +113,7 @@ export default function EmptyComponentList(): JSX.Element {
         <Typography
           variant="body1"
           sx={{
-            color: "text.secondary",
+            color: 'text.secondary',
             mb: 4,
             maxWidth: 600,
             mx: 'auto'
@@ -173,7 +173,7 @@ export default function EmptyComponentList(): JSX.Element {
                   <Typography
                     variant="body2"
                     sx={{
-                      color: "text.secondary",
+                      color: 'text.secondary',
                       mb: 2,
                       minHeight: 40
                     }}>
@@ -199,7 +199,7 @@ export default function EmptyComponentList(): JSX.Element {
                 Need Help Getting Started?
               </Typography>
               <Typography variant="body2" sx={{
-                color: "text.secondary"
+                color: 'text.secondary'
               }}>
                 Check out our comprehensive guides and tutorials to learn more about building authentication
                 components.

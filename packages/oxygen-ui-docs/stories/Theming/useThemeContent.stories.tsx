@@ -213,7 +213,7 @@ export const WithStrings: Story = {
       <Stack
         spacing={3}
         sx={{
-          alignItems: "center",
+          alignItems: 'center',
           minWidth: 400
         }}>
         <ThemeSwitcher showLabel />
@@ -221,7 +221,7 @@ export const WithStrings: Story = {
           <ThemeGreeting />
         </Paper>
         <Typography variant="caption" sx={{
-          color: "text.secondary"
+          color: 'text.secondary'
         }}>
           The greeting text changes based on the selected theme
         </Typography>
@@ -234,16 +234,16 @@ export const WithComponents: Story = {
   render: () => (
     <OxygenUIThemeProvider themes={exampleThemes}>
       <Stack spacing={3} sx={{
-        alignItems: "center"
+        alignItems: 'center'
       }}>
         <ThemeSwitcher showLabel />
         <Paper elevation={2} sx={{ p: 4, bgcolor: 'background.paper' }}>
           <Stack spacing={2} sx={{
-            alignItems: "center"
+            alignItems: 'center'
           }}>
             <ThemeIcon />
             <Typography variant="body2" sx={{
-              color: "text.secondary"
+              color: 'text.secondary'
             }}>
               Icon changes with theme
             </Typography>
@@ -260,7 +260,7 @@ export const WithObjects: Story = {
       <Stack
         spacing={3}
         sx={{
-          alignItems: "center",
+          alignItems: 'center',
           minWidth: 350
         }}>
         <ThemeSwitcher showLabel />
@@ -268,7 +268,7 @@ export const WithObjects: Story = {
           <ThemeConfig />
         </Paper>
         <Typography variant="caption" sx={{
-          color: "text.secondary"
+          color: 'text.secondary'
         }}>
           Complex objects with multiple properties
         </Typography>
@@ -312,11 +312,11 @@ export const RealWorldExample: Story = {
                 direction="row"
                 spacing={2}
                 sx={{
-                  alignItems: "center",
-                  justifyContent: "space-between"
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
                 }}>
                 <Stack direction="row" spacing={2} sx={{
-                  alignItems: "center"
+                  alignItems: 'center'
                 }}>
                   <Avatar sx={{ bgcolor: 'primary.main' }}>
                     {cardConfig.avatar}
@@ -324,7 +324,7 @@ export const RealWorldExample: Story = {
                   <Box>
                     <Typography variant="h6">{cardConfig.title}</Typography>
                     <Typography variant="body2" sx={{
-                      color: "text.secondary"
+                      color: 'text.secondary'
                     }}>
                       {cardConfig.description}
                     </Typography>
@@ -341,14 +341,14 @@ export const RealWorldExample: Story = {
     return (
       <OxygenUIThemeProvider themes={exampleThemes}>
         <Stack spacing={3} sx={{
-          alignItems: "center"
+          alignItems: 'center'
         }}>
           <ThemeSwitcher showLabel />
           <DashboardCard />
           <Typography
             variant="caption"
             sx={{
-              color: "text.secondary",
+              color: 'text.secondary',
               maxWidth: 400,
               textAlign: 'center'
             }}>
@@ -383,7 +383,7 @@ export const WithFallback: Story = {
         <Stack
           spacing={3}
           sx={{
-            alignItems: "center",
+            alignItems: 'center',
             minWidth: 450
           }}>
           <ThemeSwitcher showLabel />
@@ -391,7 +391,7 @@ export const WithFallback: Story = {
           <Typography
             variant="caption"
             sx={{
-              color: "text.secondary",
+              color: 'text.secondary',
               textAlign: 'center'
             }}>
             Try switching to Purple or Green theme to see the fallback

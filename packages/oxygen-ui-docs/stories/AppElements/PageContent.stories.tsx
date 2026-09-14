@@ -116,7 +116,7 @@ export const Default: Story = {
               Default Page Content
             </Typography>
             <Typography variant="body1" sx={{
-              color: "text.secondary"
+              color: 'text.secondary'
             }}>
               This content is centered with a maximum width of 1400px and has vertical padding of theme.spacing(5).
               The PageContent component provides consistent spacing and layout for your page content.
@@ -141,7 +141,7 @@ export const CustomMaxWidth: Story = {
               Custom Max Width
             </Typography>
             <Typography variant="body1" sx={{
-              color: "text.secondary"
+              color: 'text.secondary'
             }}>
               This content has a custom max-width of 800px, making it ideal for article-style layouts
               or forms where you want to limit the line length for better readability.
@@ -166,7 +166,7 @@ export const FullWidth: Story = {
               Full Width Content
             </Typography>
             <Typography variant="body1" sx={{
-              color: "text.secondary"
+              color: 'text.secondary'
             }}>
               This content stretches to the full width of the viewport. Perfect for dashboards,
               data tables, or any content that benefits from maximum horizontal space.
@@ -191,7 +191,7 @@ export const NotCentered: Story = {
               Not Centered
             </Typography>
             <Typography variant="body1" sx={{
-              color: "text.secondary"
+              color: 'text.secondary'
             }}>
               This content is not centered and aligns to the left with a max-width of 600px.
               Useful for specific layout requirements where left alignment is preferred.
@@ -217,7 +217,7 @@ export const MultipleBlocks: Story = {
                 Section 1
               </Typography>
               <Typography variant="body1" sx={{
-                color: "text.secondary"
+                color: 'text.secondary'
               }}>
                 First content block with some information.
               </Typography>
@@ -230,7 +230,7 @@ export const MultipleBlocks: Story = {
                 Section 2
               </Typography>
               <Typography variant="body1" sx={{
-                color: "text.secondary"
+                color: 'text.secondary'
               }}>
                 Second content block with additional details.
               </Typography>
@@ -243,7 +243,7 @@ export const MultipleBlocks: Story = {
                 Section 3
               </Typography>
               <Typography variant="body1" sx={{
-                color: "text.secondary"
+                color: 'text.secondary'
               }}>
                 Third content block demonstrating consistent spacing.
               </Typography>

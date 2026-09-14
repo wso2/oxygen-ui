@@ -181,8 +181,8 @@ export default function SettingsPage(): JSX.Element {
                         <Typography
                           variant="caption"
                           sx={{
-                            display: "block",
-                            color: "text.secondary"
+                            display: 'block',
+                            color: 'text.secondary'
                           }}>
                           Recommended: Square image, at least 200x200px
                         </Typography>
@@ -364,7 +364,7 @@ export default function SettingsPage(): JSX.Element {
 
                   <Box sx={{ p: 2, bgcolor: 'action.hover', borderRadius: 1 }}>
                     <Typography variant="body2" sx={{
-                      color: "text.secondary"
+                      color: 'text.secondary'
                     }}>
                       These preferences will be applied across your organization for all members.
                     </Typography>
@@ -402,7 +402,7 @@ export default function SettingsPage(): JSX.Element {
                   <Typography
                     variant="body2"
                     sx={{
-                      color: "text.secondary",
+                      color: 'text.secondary',
                       ml: 5,
                       mt: -1
                     }}>
@@ -427,7 +427,7 @@ export default function SettingsPage(): JSX.Element {
                   <Typography
                     variant="body2"
                     sx={{
-                      color: "text.secondary",
+                      color: 'text.secondary',
                       ml: 5,
                       mt: -1
                     }}>
@@ -456,7 +456,7 @@ export default function SettingsPage(): JSX.Element {
                   <Typography
                     variant="body2"
                     sx={{
-                      color: "text.secondary",
+                      color: 'text.secondary',
                       ml: 5,
                       mt: -1
                     }}>
@@ -481,7 +481,7 @@ export default function SettingsPage(): JSX.Element {
                   <Typography
                     variant="body2"
                     sx={{
-                      color: "text.secondary",
+                      color: 'text.secondary',
                       ml: 5,
                       mt: -1
                     }}>
@@ -506,7 +506,7 @@ export default function SettingsPage(): JSX.Element {
                   <Typography
                     variant="body2"
                     sx={{
-                      color: "text.secondary",
+                      color: 'text.secondary',
                       ml: 5,
                       mt: -1
                     }}>
@@ -531,7 +531,7 @@ export default function SettingsPage(): JSX.Element {
                   <Typography
                     variant="body2"
                     sx={{
-                      color: "text.secondary",
+                      color: 'text.secondary',
                       ml: 5,
                       mt: -1
                     }}>
@@ -571,7 +571,7 @@ export default function SettingsPage(): JSX.Element {
                     <Typography
                       variant="body2"
                       sx={{
-                        color: "text.secondary",
+                        color: 'text.secondary',
                         ml: 5
                       }}>
                       Require all members to enable 2FA for enhanced security
@@ -607,7 +607,7 @@ export default function SettingsPage(): JSX.Element {
                     <Typography
                       variant="body2"
                       sx={{
-                        color: "text.secondary",
+                        color: 'text.secondary',
                         ml: 5
                       }}>
                       Restrict access to specific IP addresses
@@ -832,7 +832,7 @@ export default function SettingsPage(): JSX.Element {
                         <Box>
                           <Typography variant="h6">Enterprise Plan</Typography>
                           <Typography variant="body2" sx={{
-                            color: "text.secondary"
+                            color: 'text.secondary'
                           }}>
                             For large organizations with advanced needs
                           </Typography>
@@ -844,7 +844,7 @@ export default function SettingsPage(): JSX.Element {
                       <Box sx={{ mt: 2 }}>
                         <Chip label="Active" color="success" size="small" sx={{ mr: 1 }} />
                         <Typography variant="caption" sx={{
-                          color: "text.secondary"
+                          color: 'text.secondary'
                         }}>
                           Next billing date: January 1, 2026
                         </Typography>
@@ -872,7 +872,7 @@ export default function SettingsPage(): JSX.Element {
                         <Box>
                           <Typography variant="body1">•••• •••• •••• 4242</Typography>
                           <Typography variant="caption" sx={{
-                            color: "text.secondary"
+                            color: 'text.secondary'
                           }}>
                             Expires 12/2026
                           </Typography>
@@ -945,7 +945,7 @@ export default function SettingsPage(): JSX.Element {
                     <Typography
                       variant="body2"
                       sx={{
-                        color: "text.secondary",
+                        color: 'text.secondary',
                         mb: 2
                       }}>
                       Transfer ownership of this organization to another member
@@ -964,7 +964,7 @@ export default function SettingsPage(): JSX.Element {
                     <Typography
                       variant="body2"
                       sx={{
-                        color: "text.secondary",
+                        color: 'text.secondary',
                         mb: 2
                       }}>
                       Permanently delete this organization and all its data, including all projects, members,

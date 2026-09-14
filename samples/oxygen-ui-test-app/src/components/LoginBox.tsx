@@ -100,14 +100,14 @@ export default function LoginBox(): JSX.Element {
 
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
+          display: 'flex',
+          flexDirection: 'column',
           gap: 2
         }}>
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
+            display: 'flex',
+            flexDirection: 'column',
             gap: 0.5
           }}>
           <InputLabel htmlFor="username">Username</InputLabel>
@@ -124,8 +124,8 @@ export default function LoginBox(): JSX.Element {
         </Box>
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
+            display: 'flex',
+            flexDirection: 'column',
             gap: 0.5
           }}>
           <InputLabel htmlFor="password">Password</InputLabel>

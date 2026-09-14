@@ -152,7 +152,7 @@ export const Playground: Story = {
             >
               <Typography variant="h5">{args.contentTitle}</Typography>
               <Typography variant="body2" sx={{
-                color: "text.secondary"
+                color: 'text.secondary'
               }}>
                 Page header section
               </Typography>
@@ -275,7 +275,7 @@ export const WithContentHeader = () => (
       >
         <Typography variant="h5">Page Title</Typography>
         <Typography variant="body2" sx={{
-          color: "text.secondary"
+          color: 'text.secondary'
         }}>
           Subtitle or description
         </Typography>

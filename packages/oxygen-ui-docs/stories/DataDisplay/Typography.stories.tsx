@@ -77,13 +77,13 @@ export const Colors: Story = {
       <Typography color="warning">Warning color</Typography>
       <Typography color="info">Info color</Typography>
       <Typography sx={{
-        color: "text.primary"
+        color: 'text.primary'
       }}>Text primary</Typography>
       <Typography sx={{
-        color: "text.secondary"
+        color: 'text.secondary'
       }}>Text secondary</Typography>
       <Typography sx={{
-        color: "text.disabled"
+        color: 'text.disabled'
       }}>Text disabled</Typography>
     </Stack>
   ),

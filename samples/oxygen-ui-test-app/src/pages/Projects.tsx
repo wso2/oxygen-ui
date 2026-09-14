@@ -117,7 +117,7 @@ export default function Projects(): JSX.Element {
           <Typography
             variant="body2"
             sx={{
-              color: "text.secondary",
+              color: 'text.secondary',
               mb: 2
             }}>
             {searchQuery ? 'Try adjusting your search' : 'Create your first project to get started'}
@@ -181,7 +181,7 @@ export default function Projects(): JSX.Element {
                   <Typography
                     variant="body1"
                     sx={{
-                      color: "text.secondary",
+                      color: 'text.secondary',
                       mb: 3,
                       minHeight: 40,
                       display: '-webkit-box',
@@ -209,7 +209,7 @@ export default function Projects(): JSX.Element {
                   <Typography
                     variant="caption"
                     sx={{
-                      color: "text.secondary",
+                      color: 'text.secondary',
                       display: 'flex',
                       alignItems: 'center',
                       gap: 0.5,

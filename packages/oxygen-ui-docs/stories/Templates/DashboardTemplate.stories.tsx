@@ -61,8 +61,8 @@ export const Default: Story = {
         <Stack
           direction="row"
           sx={{
-            justifyContent: "space-between",
-            alignItems: "center"
+            justifyContent: 'space-between',
+            alignItems: 'center'
           }}>
           <Typography variant="h4">Dashboard</Typography>
           <Button variant="contained" color="primary">
@@ -85,13 +85,13 @@ export const Default: Story = {
             <Card>
               <CardContent>
                 <Typography variant="subtitle2" gutterBottom sx={{
-                  color: "text.secondary"
+                  color: 'text.secondary'
                 }}>
                   Total Users
                 </Typography>
                 <Typography variant="h4">2,543</Typography>
                 <Typography variant="caption" sx={{
-                  color: "success.main"
+                  color: 'success.main'
                 }}>
                   +12.5% from last month
                 </Typography>
@@ -103,13 +103,13 @@ export const Default: Story = {
             <Card>
               <CardContent>
                 <Typography variant="subtitle2" gutterBottom sx={{
-                  color: "text.secondary"
+                  color: 'text.secondary'
                 }}>
                   Active Sessions
                 </Typography>
                 <Typography variant="h4">1,823</Typography>
                 <Typography variant="caption" sx={{
-                  color: "success.main"
+                  color: 'success.main'
                 }}>
                   +8.2% from last month
                 </Typography>
@@ -121,13 +121,13 @@ export const Default: Story = {
             <Card>
               <CardContent>
                 <Typography variant="subtitle2" gutterBottom sx={{
-                  color: "text.secondary"
+                  color: 'text.secondary'
                 }}>
                   Total Revenue
                 </Typography>
                 <Typography variant="h4">$45.2K</Typography>
                 <Typography variant="caption" sx={{
-                  color: "error.main"
+                  color: 'error.main'
                 }}>
                   -3.1% from last month
                 </Typography>
@@ -139,13 +139,13 @@ export const Default: Story = {
             <Card>
               <CardContent>
                 <Typography variant="subtitle2" gutterBottom sx={{
-                  color: "text.secondary"
+                  color: 'text.secondary'
                 }}>
                   Conversion Rate
                 </Typography>
                 <Typography variant="h4">3.24%</Typography>
                 <Typography variant="caption" sx={{
-                  color: "success.main"
+                  color: 'success.main'
                 }}>
                   +0.8% from last month
                 </Typography>
@@ -168,13 +168,13 @@ export const Default: Story = {
                       <Stack
                         direction="row"
                         sx={{
-                          justifyContent: "space-between",
-                          alignItems: "center"
+                          justifyContent: 'space-between',
+                          alignItems: 'center'
                         }}>
                         <Box>
                           <Typography variant="body1">User Action {item}</Typography>
                           <Typography variant="caption" sx={{
-                            color: "text.secondary"
+                            color: 'text.secondary'
                           }}>
                             {item} hour{item > 1 ? 's' : ''} ago
                           </Typography>
@@ -227,7 +227,7 @@ export const Default: Story = {
                         Notification message {item}
                       </Typography>
                       <Typography variant="caption" sx={{
-                        color: "text.secondary"
+                        color: 'text.secondary'
                       }}>
                         {item * 5} minutes ago
                       </Typography>

@@ -82,7 +82,7 @@ export const Default: Story = {
       <Form.CardHeader
         title={
           <Stack direction="row" spacing={1} sx={{
-            alignItems: "center"
+            alignItems: 'center'
           }}>
             <WSO2 size={24} />
             <Typography
@@ -127,12 +127,12 @@ export const WithMultipleActions: Story = {
       <CardHeader
         title={
           <Stack direction="row" spacing={1} sx={{
-            alignItems: "center"
+            alignItems: 'center'
           }}>
             <Calculator size={48} />
             <Stack direction="column">
               <Stack direction="row" spacing={1} sx={{
-                alignItems: "center"
+                alignItems: 'center'
               }}>
                 <Typography
                   variant="h5"
@@ -140,7 +140,7 @@ export const WithMultipleActions: Story = {
                     textOverflow: "ellipsis",
                     overflow: "hidden",
                     whiteSpace: "nowrap",
-                    maxWidth: "70%"
+                    maxWidth: '70%'
                   }}>
                   Reading List REST Service in Go
                 </Typography>

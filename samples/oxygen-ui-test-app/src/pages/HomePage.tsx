@@ -60,8 +60,8 @@ export default function HomePage(): JSX.Element {
           spacing={2}
           divider={<Divider orientation="vertical" flexItem />}
           sx={{
-            justifyContent: "center",
-            alignItems: "center"
+            justifyContent: 'center',
+            alignItems: 'center'
           }}>       
           {appRoutes
             .flatMap((route) => route.children || [])
