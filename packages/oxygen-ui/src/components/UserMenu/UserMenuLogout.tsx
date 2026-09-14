@@ -36,7 +36,7 @@ export interface UserMenuLogoutProps {
 }
 
 /**
- * Styled logout menu item with destructive styling.
+ * Styled logout menu item. Colour and hover match UserMenu.Item.
  */
 const StyledLogoutItem = styled(MenuItem, {
   name: 'MuiUserMenu',
@@ -44,18 +44,10 @@ const StyledLogoutItem = styled(MenuItem, {
 })(({ theme }) => ({
   paddingTop: theme.spacing(1.5),
   paddingBottom: theme.spacing(1.5),
-  color: (theme.vars || theme).palette.error.main,
-  '&:hover': {
-    backgroundColor: (theme.vars || theme).palette.error.main,
-    color: (theme.vars || theme).palette.error.contrastText,
-    '& .MuiListItemIcon-root': {
-      color: (theme.vars || theme).palette.error.contrastText,
-    },
-  },
 }));
 
 /**
- * UserMenu.Logout - Destructive menu item for logout action.
+ * UserMenu.Logout - Menu item for the sign-out action.
  */
 export const UserMenuLogout: React.FC<UserMenuLogoutProps> = ({
   icon,
