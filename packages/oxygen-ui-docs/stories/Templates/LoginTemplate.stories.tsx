@@ -133,8 +133,9 @@ export const Default: Story = {
                 alignItems: 'start',
                 gap: 5,
                 maxWidth: 580,
-                display: {xs: 'none', md: 'flex'}
-              }}>
+                display: { xs: 'none', md: 'flex' },
+              }}
+            >
               <ColorSchemeImage
                 src={{
                   light: `oxygen-ui-logo.svg`,
@@ -219,14 +220,16 @@ export const Default: Story = {
                   sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 2
-                  }}>
+                    gap: 2,
+                  }}
+                >
                   <Box
                     sx={{
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: 0.5
-                    }}>
+                      gap: 0.5,
+                    }}
+                  >
                     <InputLabel htmlFor="username">Username</InputLabel>
                     <OutlinedInput
                       type="text"
@@ -241,8 +244,9 @@ export const Default: Story = {
                     sx={{
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: 0.5
-                    }}>
+                      gap: 0.5,
+                    }}
+                  >
                     <InputLabel htmlFor="password">Password</InputLabel>
                     <OutlinedInput
                       type="password"
@@ -289,8 +293,9 @@ export const Default: Story = {
                   spacing={1}
                   sx={{
                     justifyContent: 'center',
-                    mt: 2
-                  }}>
+                    mt: 2,
+                  }}
+                >
                   <Link>Privacy Policy</Link>
                   <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />
                   <Link>Terms of Use</Link>

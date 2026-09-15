@@ -76,9 +76,12 @@ type Story = StoryObj
 export const BasicUsage: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" sx={{
-        color: 'text.secondary'
-      }}>
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+        }}
+      >
         The simplest way to create a custom theme with your brand colors.
       </Typography>
       <CodeBlock
@@ -115,9 +118,12 @@ function App() {
 export const LightAndDarkModes: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" sx={{
-        color: 'text.secondary'
-      }}>
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+        }}
+      >
         Define different colors for light and dark color schemes.
       </Typography>
       <CodeBlock
@@ -159,9 +165,12 @@ const theme = createOxygenTheme({
 export const CustomTypography: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" sx={{
-        color: 'text.secondary'
-      }}>
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+        }}
+      >
         Beyond colors - customize typography, spacing, and more.
       </Typography>
       <CodeBlock
@@ -203,9 +212,12 @@ const theme = createOxygenTheme({
 export const RuntimeConfiguration: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" sx={{
-        color: 'text.secondary'
-      }}>
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+        }}
+      >
         Convert runtime configuration objects to theme instances.
       </Typography>
       <CodeBlock
@@ -244,9 +256,12 @@ function App() {
 export const MultiThemeSupport: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" sx={{
-        color: 'text.secondary'
-      }}>
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+        }}
+      >
         Create multiple themes and let users switch between them.
       </Typography>
       <CodeBlock
@@ -298,9 +313,12 @@ const themes = [
 export const MixedThemeSources: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" sx={{
-        color: 'text.secondary'
-      }}>
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+        }}
+      >
         Handle themes from multiple sources (objects, files, pre-built themes).
       </Typography>
       <CodeBlock
@@ -357,9 +375,12 @@ const config = window.__APP_RUNTIME_CONFIG__;
 export const OxygenSpecificFeatures: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" sx={{
-        color: 'text.secondary'
-      }}>
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+        }}
+      >
         Use Oxygen-specific theme extensions like blur effects and acrylic backgrounds.
       </Typography>
       <CodeBlock

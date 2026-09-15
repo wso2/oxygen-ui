@@ -69,10 +69,14 @@ export const ReadMode: Story = {
     const { mode } = useColorScheme()
 
     return (
-      <Box sx={{p: 2, textAlign: 'center'}}>
-        <Typography variant="body2" gutterBottom sx={{
-          color: 'text.secondary'
-        }}>
+      <Box sx={{ p: 2, textAlign: 'center' }}>
+        <Typography
+          variant="body2"
+          gutterBottom
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           Current mode
         </Typography>
         <Chip
@@ -103,10 +107,14 @@ export const SetMode: Story = {
     const { mode, setMode } = useColorScheme()
 
     return (
-      <Box sx={{p: 2}}>
-        <Typography variant="body2" gutterBottom sx={{
-          color: 'text.secondary'
-        }}>
+      <Box sx={{ p: 2 }}>
+        <Typography
+          variant="body2"
+          gutterBottom
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           Active mode: <strong>{mode ?? 'system'}</strong>
         </Typography>
         <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
@@ -168,8 +176,9 @@ export const ConditionalRendering: Story = {
           variant="body2"
           sx={{
             color: 'text.secondary',
-            mt: 0.5
-          }}>
+            mt: 0.5,
+          }}
+        >
           Switch the Storybook theme in the toolbar to see this update.
         </Typography>
       </Box>

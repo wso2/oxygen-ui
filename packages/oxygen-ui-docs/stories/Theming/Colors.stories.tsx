@@ -96,9 +96,14 @@ export const PrimaryColors: Story = {
       <Typography variant="h6" gutterBottom>
         Primary Color Palette
       </Typography>
-      <Stack direction="row" spacing={2} useFlexGap sx={{
-        flexWrap: 'wrap'
-      }}>
+      <Stack
+        direction="row"
+        spacing={2}
+        useFlexGap
+        sx={{
+          flexWrap: 'wrap',
+        }}
+      >
         {[
           { name: 'Red', color: colors.red[500] },
           { name: 'Pink', color: colors.pink[500] },
@@ -152,9 +157,14 @@ export const ColorShades: Story = {
       <Typography variant="h6" gutterBottom>
         Blue Color Shades
       </Typography>
-      <Stack direction="row" spacing={1} useFlexGap sx={{
-        flexWrap: 'wrap'
-      }}>
+      <Stack
+        direction="row"
+        spacing={1}
+        useFlexGap
+        sx={{
+          flexWrap: 'wrap',
+        }}
+      >
         {[
           { shade: '50', color: colors.blue[50] },
           { shade: '100', color: colors.blue[100] },
@@ -185,16 +195,18 @@ export const ColorShades: Story = {
               variant="body2"
               sx={{
                 fontWeight: 'inherit',
-                color: 'inherit'
-              }}>
+                color: 'inherit',
+              }}
+            >
               {shade}
             </Typography>
             <Typography
               variant="caption"
               sx={{
                 color: 'inherit',
-                opacity: 0.8
-              }}>
+                opacity: 0.8,
+              }}
+            >
               {color}
             </Typography>
           </Paper>
@@ -232,9 +244,13 @@ export const AccentColors: Story = {
         { name: 'Deep Orange', palette: colors.deepOrange },
       ].map(({ name, palette }) => (
         <Box key={name}>
-          <Typography variant="body2" gutterBottom sx={{
-            fontWeight: 600
-          }}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            sx={{
+              fontWeight: 600,
+            }}
+          >
             {name}
           </Typography>
           <Stack direction="row" spacing={1}>
@@ -274,9 +290,13 @@ export const PracticalExamples: Story = {
 
       {/* Background Colors */}
       <Box>
-        <Typography variant="body2" gutterBottom sx={{
-          fontWeight: 600
-        }}>
+        <Typography
+          variant="body2"
+          gutterBottom
+          sx={{
+            fontWeight: 600,
+          }}
+        >
           Background Colors (Light Shades)
         </Typography>
         <Stack direction="row" spacing={2}>
@@ -294,9 +314,13 @@ export const PracticalExamples: Story = {
 
       {/* Text Colors */}
       <Box>
-        <Typography variant="body2" gutterBottom sx={{
-          fontWeight: 600
-        }}>
+        <Typography
+          variant="body2"
+          gutterBottom
+          sx={{
+            fontWeight: 600,
+          }}
+        >
           Text Colors (Dark Shades)
         </Typography>
         <Stack spacing={1}>
@@ -308,9 +332,13 @@ export const PracticalExamples: Story = {
 
       {/* Button-like Elements */}
       <Box>
-        <Typography variant="body2" gutterBottom sx={{
-          fontWeight: 600
-        }}>
+        <Typography
+          variant="body2"
+          gutterBottom
+          sx={{
+            fontWeight: 600,
+          }}
+        >
           Button Colors
         </Typography>
         <Stack direction="row" spacing={2}>
@@ -352,9 +380,13 @@ export const PracticalExamples: Story = {
 
       {/* Borders */}
       <Box>
-        <Typography variant="body2" gutterBottom sx={{
-          fontWeight: 600
-        }}>
+        <Typography
+          variant="body2"
+          gutterBottom
+          sx={{
+            fontWeight: 600,
+          }}
+        >
           Border Colors
         </Typography>
         <Stack direction="row" spacing={2}>

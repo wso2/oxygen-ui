@@ -108,9 +108,13 @@ export const States: Story = {
 
     return (
       <Stack direction="column" spacing={3}>
-        <Stack direction="row" spacing={2} sx={{
-          alignItems: 'center'
-        }}>
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{
+            alignItems: 'center',
+          }}
+        >
           <Button variant="contained">Default</Button>
           <Button variant="contained" disabled>
             Disabled
@@ -124,9 +128,13 @@ export const States: Story = {
           </Button>
         </Stack>
 
-        <Stack direction="row" spacing={2} sx={{
-          alignItems: 'center'
-        }}>
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{
+            alignItems: 'center',
+          }}
+        >
           <Button variant="outlined">Default</Button>
           <Button variant="outlined" disabled>
             Disabled
@@ -140,9 +148,13 @@ export const States: Story = {
           </Button>
         </Stack>
 
-        <Stack direction="row" spacing={2} sx={{
-          alignItems: 'center'
-        }}>
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{
+            alignItems: 'center',
+          }}
+        >
           <Button variant="text">Default</Button>
           <Button variant="text" disabled>
             Disabled

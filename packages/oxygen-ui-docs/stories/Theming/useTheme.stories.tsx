@@ -32,9 +32,13 @@ function ThemeInspector() {
         </Typography>
 
         <Box>
-          <Typography variant="subtitle2" gutterBottom sx={{
-            color: 'text.secondary'
-          }}>
+          <Typography
+            variant="subtitle2"
+            gutterBottom
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
             Breakpoints
           </Typography>
           <Stack
@@ -42,8 +46,9 @@ function ThemeInspector() {
             spacing={1}
             sx={{
               flexWrap: 'wrap',
-              gap: 1
-            }}>
+              gap: 1,
+            }}
+          >
             {Object.entries(theme.breakpoints.values).map(([key, value]) => (
               <Chip key={key} label={`${key}: ${value}px`} size="small" />
             ))}
@@ -51,9 +56,13 @@ function ThemeInspector() {
         </Box>
 
         <Box>
-          <Typography variant="subtitle2" gutterBottom sx={{
-            color: 'text.secondary'
-          }}>
+          <Typography
+            variant="subtitle2"
+            gutterBottom
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
             Spacing Unit
           </Typography>
           <Typography variant="body2">Base unit: {theme.spacing(1)} (theme.spacing(1))</Typography>
@@ -63,18 +72,26 @@ function ThemeInspector() {
         </Box>
 
         <Box>
-          <Typography variant="subtitle2" gutterBottom sx={{
-            color: 'text.secondary'
-          }}>
+          <Typography
+            variant="subtitle2"
+            gutterBottom
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
             Shape (Border Radius)
           </Typography>
           <Typography variant="body2">Default: {theme.shape.borderRadius}px</Typography>
         </Box>
 
         <Box>
-          <Typography variant="subtitle2" gutterBottom sx={{
-            color: 'text.secondary'
-          }}>
+          <Typography
+            variant="subtitle2"
+            gutterBottom
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
             Typography
           </Typography>
           <Typography variant="body2">Font Family: {theme.typography.fontFamily}</Typography>
@@ -162,8 +179,9 @@ function PaletteDemo() {
                 sx={{
                   color: 'text.secondary',
                   mt: 0.5,
-                  display: 'block'
-                }}>
+                  display: 'block',
+                }}
+              >
                 Main: {category.color.main}
               </Typography>
             </Box>
@@ -386,19 +404,28 @@ export const BasicUsage: Story = {
           <Typography variant="h6" gutterBottom>
             Basic useTheme Example
           </Typography>
-          <Typography variant="body2" sx={{
-            color: 'text.secondary'
-          }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
             Primary Color: {theme.palette.primary.main}
           </Typography>
-          <Typography variant="body2" sx={{
-            color: 'text.secondary'
-          }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
             Spacing Unit: {theme.spacing(1)}
           </Typography>
-          <Typography variant="body2" sx={{
-            color: 'text.secondary'
-          }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
             Border Radius: {theme.shape.borderRadius}px
           </Typography>
           <Box

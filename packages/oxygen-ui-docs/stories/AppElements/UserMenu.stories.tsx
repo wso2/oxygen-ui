@@ -121,8 +121,9 @@ export const Composed: Story = {
         sx={{
           color: 'text.secondary',
           mb: 2,
-          display: 'block'
-        }}>
+          display: 'block',
+        }}
+      >
         Composition Pattern - Initials avatar on trigger and header
       </Typography>
       <UserMenu>
@@ -164,8 +165,9 @@ export const WithAvatarImage: Story = {
         sx={{
           color: 'text.secondary',
           mb: 2,
-          display: 'block'
-        }}>
+          display: 'block',
+        }}
+      >
         Avatar with image URL
       </Typography>
       <UserMenu>
@@ -207,8 +209,9 @@ export const WithNameVisible: Story = {
         sx={{
           color: 'text.secondary',
           mb: 2,
-          display: 'block'
-        }}>
+          display: 'block',
+        }}
+      >
         Initials avatar with name displayed
       </Typography>
       <UserMenu>
@@ -245,8 +248,9 @@ export const MinimalMenu: Story = {
         sx={{
           color: 'text.secondary',
           mb: 2,
-          display: 'block'
-        }}>
+          display: 'block',
+        }}
+      >
         Minimal menu with custom items
       </Typography>
       <UserMenu>
@@ -279,8 +283,9 @@ export const AdminMenu: Story = {
         sx={{
           color: 'text.secondary',
           mb: 2,
-          display: 'block'
-        }}>
+          display: 'block',
+        }}
+      >
         Admin menu with additional options
       </Typography>
       <UserMenu>
@@ -323,8 +328,9 @@ export const MultipleUsers: Story = {
           sx={{
             color: 'text.secondary',
             mb: 1,
-            display: 'block'
-          }}>
+            display: 'block',
+          }}
+        >
           Free User
         </Typography>
         <UserMenu>
@@ -348,8 +354,9 @@ export const MultipleUsers: Story = {
           sx={{
             color: 'text.secondary',
             mb: 1,
-            display: 'block'
-          }}>
+            display: 'block',
+          }}
+        >
           Pro User
         </Typography>
         <UserMenu>
@@ -378,8 +385,9 @@ export const MultipleUsers: Story = {
           sx={{
             color: 'text.secondary',
             mb: 1,
-            display: 'block'
-          }}>
+            display: 'block',
+          }}
+        >
           Enterprise
         </Typography>
         <UserMenu>
@@ -427,8 +435,9 @@ export const WithoutCustomAvatar: Story = {
         sx={{
           color: 'text.secondary',
           mb: 2,
-          display: 'block'
-        }}>
+          display: 'block',
+        }}
+      >
         Avatar uses first letter of name
       </Typography>
       <UserMenu>
@@ -460,8 +469,9 @@ export const LongEmail: Story = {
         sx={{
           color: 'text.secondary',
           mb: 2,
-          display: 'block'
-        }}>
+          display: 'block',
+        }}
+      >
         Long email gets truncated
       </Typography>
       <UserMenu>

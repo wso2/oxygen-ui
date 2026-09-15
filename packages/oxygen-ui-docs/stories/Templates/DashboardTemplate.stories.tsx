@@ -62,8 +62,9 @@ export const Default: Story = {
           direction="row"
           sx={{
             justifyContent: 'space-between',
-            alignItems: 'center'
-          }}>
+            alignItems: 'center',
+          }}
+        >
           <Typography variant="h4">Dashboard</Typography>
           <Button variant="contained" color="primary">
             New Item
@@ -84,15 +85,22 @@ export const Default: Story = {
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Card>
               <CardContent>
-                <Typography variant="subtitle2" gutterBottom sx={{
-                  color: 'text.secondary'
-                }}>
+                <Typography
+                  variant="subtitle2"
+                  gutterBottom
+                  sx={{
+                    color: 'text.secondary',
+                  }}
+                >
                   Total Users
                 </Typography>
                 <Typography variant="h4">2,543</Typography>
-                <Typography variant="caption" sx={{
-                  color: 'success.main'
-                }}>
+                <Typography
+                  variant="caption"
+                  sx={{
+                    color: 'success.main',
+                  }}
+                >
                   +12.5% from last month
                 </Typography>
               </CardContent>
@@ -102,15 +110,22 @@ export const Default: Story = {
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Card>
               <CardContent>
-                <Typography variant="subtitle2" gutterBottom sx={{
-                  color: 'text.secondary'
-                }}>
+                <Typography
+                  variant="subtitle2"
+                  gutterBottom
+                  sx={{
+                    color: 'text.secondary',
+                  }}
+                >
                   Active Sessions
                 </Typography>
                 <Typography variant="h4">1,823</Typography>
-                <Typography variant="caption" sx={{
-                  color: 'success.main'
-                }}>
+                <Typography
+                  variant="caption"
+                  sx={{
+                    color: 'success.main',
+                  }}
+                >
                   +8.2% from last month
                 </Typography>
               </CardContent>
@@ -120,15 +135,22 @@ export const Default: Story = {
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Card>
               <CardContent>
-                <Typography variant="subtitle2" gutterBottom sx={{
-                  color: 'text.secondary'
-                }}>
+                <Typography
+                  variant="subtitle2"
+                  gutterBottom
+                  sx={{
+                    color: 'text.secondary',
+                  }}
+                >
                   Total Revenue
                 </Typography>
                 <Typography variant="h4">$45.2K</Typography>
-                <Typography variant="caption" sx={{
-                  color: 'error.main'
-                }}>
+                <Typography
+                  variant="caption"
+                  sx={{
+                    color: 'error.main',
+                  }}
+                >
                   -3.1% from last month
                 </Typography>
               </CardContent>
@@ -138,15 +160,22 @@ export const Default: Story = {
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Card>
               <CardContent>
-                <Typography variant="subtitle2" gutterBottom sx={{
-                  color: 'text.secondary'
-                }}>
+                <Typography
+                  variant="subtitle2"
+                  gutterBottom
+                  sx={{
+                    color: 'text.secondary',
+                  }}
+                >
                   Conversion Rate
                 </Typography>
                 <Typography variant="h4">3.24%</Typography>
-                <Typography variant="caption" sx={{
-                  color: 'success.main'
-                }}>
+                <Typography
+                  variant="caption"
+                  sx={{
+                    color: 'success.main',
+                  }}
+                >
                   +0.8% from last month
                 </Typography>
               </CardContent>
@@ -169,13 +198,17 @@ export const Default: Story = {
                         direction="row"
                         sx={{
                           justifyContent: 'space-between',
-                          alignItems: 'center'
-                        }}>
+                          alignItems: 'center',
+                        }}
+                      >
                         <Box>
                           <Typography variant="body1">User Action {item}</Typography>
-                          <Typography variant="caption" sx={{
-                            color: 'text.secondary'
-                          }}>
+                          <Typography
+                            variant="caption"
+                            sx={{
+                              color: 'text.secondary',
+                            }}
+                          >
                             {item} hour{item > 1 ? 's' : ''} ago
                           </Typography>
                         </Box>
@@ -223,12 +256,13 @@ export const Default: Story = {
                 <Stack spacing={1.5} sx={{ marginTop: 2 }}>
                   {[1, 2, 3].map(item => (
                     <Box key={item}>
-                      <Typography variant="body2">
-                        Notification message {item}
-                      </Typography>
-                      <Typography variant="caption" sx={{
-                        color: 'text.secondary'
-                      }}>
+                      <Typography variant="body2">Notification message {item}</Typography>
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          color: 'text.secondary',
+                        }}
+                      >
                         {item * 5} minutes ago
                       </Typography>
                     </Box>

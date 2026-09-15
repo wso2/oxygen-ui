@@ -59,7 +59,7 @@ const actionSlotProps = (name: string, tooltipOpen = false) => ({
     title: name,
     ...(tooltipOpen ? { open: true } : {}),
   },
-});
+})
 
 /**
  * Basic speed dial
@@ -72,7 +72,7 @@ export const Basic: Story = {
         sx={{ position: 'absolute', bottom: 16, right: 16 }}
         icon={<SpeedDialIcon />}
       >
-        {actions.map((action) => (
+        {actions.map(action => (
           <SpeedDialAction
             key={action.name}
             icon={action.icon}
@@ -95,7 +95,7 @@ export const CustomIcon: Story = {
         sx={{ position: 'absolute', bottom: 16, right: 16 }}
         icon={<Zap />}
       >
-        {actions.map((action) => (
+        {actions.map(action => (
           <SpeedDialAction
             key={action.name}
             icon={action.icon}
@@ -119,7 +119,7 @@ export const Directions: Story = {
         icon={<SpeedDialIcon />}
         direction="up"
       >
-        {actions.map((action) => (
+        {actions.map(action => (
           <SpeedDialAction
             key={action.name}
             icon={action.icon}
@@ -133,7 +133,7 @@ export const Directions: Story = {
         icon={<SpeedDialIcon />}
         direction="right"
       >
-        {actions.map((action) => (
+        {actions.map(action => (
           <SpeedDialAction
             key={action.name}
             icon={action.icon}
@@ -147,7 +147,7 @@ export const Directions: Story = {
         icon={<SpeedDialIcon />}
         direction="down"
       >
-        {actions.map((action) => (
+        {actions.map(action => (
           <SpeedDialAction
             key={action.name}
             icon={action.icon}
@@ -161,7 +161,7 @@ export const Directions: Story = {
         icon={<SpeedDialIcon />}
         direction="left"
       >
-        {actions.map((action) => (
+        {actions.map(action => (
           <SpeedDialAction
             key={action.name}
             icon={action.icon}

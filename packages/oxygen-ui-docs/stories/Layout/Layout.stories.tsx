@@ -151,9 +151,12 @@ export const Playground: Story = {
               sx={{ p: 2, borderBottom: 1, borderColor: 'divider', bgcolor: 'background.paper' }}
             >
               <Typography variant="h5">{args.contentTitle}</Typography>
-              <Typography variant="body2" sx={{
-                color: 'text.secondary'
-              }}>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
                 Page header section
               </Typography>
             </Layout.Header>
@@ -274,9 +277,12 @@ export const WithContentHeader = () => (
         }}
       >
         <Typography variant="h5">Page Title</Typography>
-        <Typography variant="body2" sx={{
-          color: 'text.secondary'
-        }}>
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           Subtitle or description
         </Typography>
       </Layout.Header>

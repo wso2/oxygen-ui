@@ -153,8 +153,9 @@ const TemplatePreview = ({ template }: { template: TemplateCard }) => {
           variant="body2"
           sx={{
             color: 'text.secondary',
-            minHeight: '48px'
-          }}>
+            minHeight: '48px',
+          }}
+        >
           {template.description}
         </Typography>
       </Box>
@@ -227,18 +228,25 @@ export const ListTemplates: Story = {
         <Typography variant="h3" gutterBottom>
           Templates
         </Typography>
-        <Typography variant="body1" sx={{
-          color: 'text.secondary'
-        }}>
-          Explore our collection of ready-to-use templates for common UI patterns and layouts.
-          Hover over any template to see the preview blur effect and click to view the live version.
+        <Typography
+          variant="body1"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
+          Explore our collection of ready-to-use templates for common UI patterns and layouts. Hover
+          over any template to see the preview blur effect and click to view the live version.
         </Typography>
       </Box>
 
-      <Grid container spacing={1} sx={{
-        gap: 4
-      }}>
-        {templates.map((template) => (
+      <Grid
+        container
+        spacing={1}
+        sx={{
+          gap: 4,
+        }}
+      >
+        {templates.map(template => (
           <Grid size={5}>
             <TemplatePreview template={template} />
           </Grid>

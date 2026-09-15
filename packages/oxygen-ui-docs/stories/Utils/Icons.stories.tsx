@@ -276,8 +276,9 @@ function IconGalleryContent() {
         variant="body2"
         sx={{
           color: 'text.secondary',
-          mb: 2
-        }}>
+          mb: 2,
+        }}
+      >
         Browse <strong>{iconCatalog.length}</strong> icons from{' '}
         <strong>lucide-react v{lucideReactPkg.version}</strong> plus Oxygen UI custom icons. Search
         by name or tags (e.g. <code>logout</code> finds <code>LogOut</code>).
@@ -306,17 +307,21 @@ function IconGalleryContent() {
           sx={{
             color: 'text.secondary',
             mt: 1,
-            display: 'block'
-          }}>
+            display: 'block',
+          }}
+        >
           Showing {filteredIcons.length} of {iconCatalog.length} icons
         </Typography>
       </Box>
 
       {filteredIcons.length === 0 ? (
         <Box sx={{ py: 8, textAlign: 'center' }}>
-          <Typography variant="body1" sx={{
-            color: 'text.secondary'
-          }}>
+          <Typography
+            variant="body1"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
             No icons match &ldquo;{query.trim()}&rdquo;. Try a different name or tag.
           </Typography>
         </Box>
@@ -466,9 +471,12 @@ function IconGalleryContent() {
                   ))}
                 </Stack>
               ) : (
-                <Typography variant="body2" sx={{
-                  color: 'text.secondary'
-                }}>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: 'text.secondary',
+                  }}
+                >
                   No tags available for this icon.
                 </Typography>
               )}
@@ -496,8 +504,9 @@ export const IconSizes: Story = {
           variant="caption"
           sx={{
             display: 'block',
-            mt: 1
-          }}>
+            mt: 1,
+          }}
+        >
           16px
         </Typography>
       </Box>
@@ -507,8 +516,9 @@ export const IconSizes: Story = {
           variant="caption"
           sx={{
             display: 'block',
-            mt: 1
-          }}>
+            mt: 1,
+          }}
+        >
           24px (default)
         </Typography>
       </Box>
@@ -518,8 +528,9 @@ export const IconSizes: Story = {
           variant="caption"
           sx={{
             display: 'block',
-            mt: 1
-          }}>
+            mt: 1,
+          }}
+        >
           32px
         </Typography>
       </Box>
@@ -529,8 +540,9 @@ export const IconSizes: Story = {
           variant="caption"
           sx={{
             display: 'block',
-            mt: 1
-          }}>
+            mt: 1,
+          }}
+        >
           48px
         </Typography>
       </Box>
@@ -540,8 +552,9 @@ export const IconSizes: Story = {
           variant="caption"
           sx={{
             display: 'block',
-            mt: 1
-          }}>
+            mt: 1,
+          }}
+        >
           64px
         </Typography>
       </Box>
@@ -558,8 +571,9 @@ export const IconColors: Story = {
           variant="caption"
           sx={{
             display: 'block',
-            mt: 1
-          }}>
+            mt: 1,
+          }}
+        >
           Current Color
         </Typography>
       </Box>
@@ -569,8 +583,9 @@ export const IconColors: Story = {
           variant="caption"
           sx={{
             display: 'block',
-            mt: 1
-          }}>
+            mt: 1,
+          }}
+        >
           Custom Hex
         </Typography>
       </Box>
@@ -580,8 +595,9 @@ export const IconColors: Story = {
           variant="caption"
           sx={{
             display: 'block',
-            mt: 1
-          }}>
+            mt: 1,
+          }}
+        >
           RGB
         </Typography>
       </Box>
@@ -591,8 +607,9 @@ export const IconColors: Story = {
           variant="caption"
           sx={{
             display: 'block',
-            mt: 1
-          }}>
+            mt: 1,
+          }}
+        >
           Inherit (Error)
         </Typography>
       </Box>
@@ -602,8 +619,9 @@ export const IconColors: Story = {
           variant="caption"
           sx={{
             display: 'block',
-            mt: 1
-          }}>
+            mt: 1,
+          }}
+        >
           Inherit (Success)
         </Typography>
       </Box>
@@ -620,8 +638,9 @@ export const IconStrokeWidth: Story = {
           variant="caption"
           sx={{
             display: 'block',
-            mt: 1
-          }}>
+            mt: 1,
+          }}
+        >
           Thin (1)
         </Typography>
       </Box>
@@ -631,8 +650,9 @@ export const IconStrokeWidth: Story = {
           variant="caption"
           sx={{
             display: 'block',
-            mt: 1
-          }}>
+            mt: 1,
+          }}
+        >
           Light (1.5)
         </Typography>
       </Box>
@@ -642,8 +662,9 @@ export const IconStrokeWidth: Story = {
           variant="caption"
           sx={{
             display: 'block',
-            mt: 1
-          }}>
+            mt: 1,
+          }}
+        >
           Regular (2)
         </Typography>
       </Box>
@@ -653,8 +674,9 @@ export const IconStrokeWidth: Story = {
           variant="caption"
           sx={{
             display: 'block',
-            mt: 1
-          }}>
+            mt: 1,
+          }}
+        >
           Medium (2.5)
         </Typography>
       </Box>
@@ -664,8 +686,9 @@ export const IconStrokeWidth: Story = {
           variant="caption"
           sx={{
             display: 'block',
-            mt: 1
-          }}>
+            mt: 1,
+          }}
+        >
           Bold (3)
         </Typography>
       </Box>

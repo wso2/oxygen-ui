@@ -133,12 +133,16 @@ export const Default: Story = {
         spacing={2}
         sx={{
           alignItems: 'center',
-          minWidth: 250
-        }}>
+          minWidth: 250,
+        }}
+      >
         <ThemeSwitcher />
-        <Typography variant="body2" sx={{
-          color: 'text.secondary'
-        }}>
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           Try switching themes to see the changes
         </Typography>
       </Stack>
@@ -153,12 +157,16 @@ export const WithLabel: Story = {
         spacing={2}
         sx={{
           alignItems: 'center',
-          minWidth: 250
-        }}>
+          minWidth: 250,
+        }}
+      >
         <ThemeSwitcher showLabel />
-        <Typography variant="body2" sx={{
-          color: 'text.secondary'
-        }}>
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           With a label showing "Theme"
         </Typography>
       </Stack>
@@ -173,12 +181,16 @@ export const CustomLabel: Story = {
         spacing={2}
         sx={{
           alignItems: 'center',
-          minWidth: 250
-        }}>
+          minWidth: 250,
+        }}
+      >
         <ThemeSwitcher showLabel label="Choose Theme" />
-        <Typography variant="body2" sx={{
-          color: 'text.secondary'
-        }}>
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           With a custom label text
         </Typography>
       </Stack>

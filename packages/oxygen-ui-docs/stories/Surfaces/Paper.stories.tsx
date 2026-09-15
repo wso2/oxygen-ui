@@ -53,19 +53,43 @@ export const Default: Story = {
 
 export const Elevations: Story = {
   render: () => (
-    <Stack direction="row" spacing={2} sx={{
-      flexWrap: 'wrap'
-    }}>
-      <Paper elevation={0} sx={{ p: 2, width: 100, height: 100 }}>elevation=0</Paper>
-      <Paper elevation={1} sx={{ p: 2, width: 100, height: 100 }}>elevation=1</Paper>
-      <Paper elevation={2} sx={{ p: 2, width: 100, height: 100 }}>elevation=2</Paper>
-      <Paper elevation={3} sx={{ p: 2, width: 100, height: 100 }}>elevation=3</Paper>
-      <Paper elevation={4} sx={{ p: 2, width: 100, height: 100 }}>elevation=4</Paper>
-      <Paper elevation={6} sx={{ p: 2, width: 100, height: 100 }}>elevation=6</Paper>
-      <Paper elevation={8} sx={{ p: 2, width: 100, height: 100 }}>elevation=8</Paper>
-      <Paper elevation={12} sx={{ p: 2, width: 100, height: 100 }}>elevation=12</Paper>
-      <Paper elevation={16} sx={{ p: 2, width: 100, height: 100 }}>elevation=16</Paper>
-      <Paper elevation={24} sx={{ p: 2, width: 100, height: 100 }}>elevation=24</Paper>
+    <Stack
+      direction="row"
+      spacing={2}
+      sx={{
+        flexWrap: 'wrap',
+      }}
+    >
+      <Paper elevation={0} sx={{ p: 2, width: 100, height: 100 }}>
+        elevation=0
+      </Paper>
+      <Paper elevation={1} sx={{ p: 2, width: 100, height: 100 }}>
+        elevation=1
+      </Paper>
+      <Paper elevation={2} sx={{ p: 2, width: 100, height: 100 }}>
+        elevation=2
+      </Paper>
+      <Paper elevation={3} sx={{ p: 2, width: 100, height: 100 }}>
+        elevation=3
+      </Paper>
+      <Paper elevation={4} sx={{ p: 2, width: 100, height: 100 }}>
+        elevation=4
+      </Paper>
+      <Paper elevation={6} sx={{ p: 2, width: 100, height: 100 }}>
+        elevation=6
+      </Paper>
+      <Paper elevation={8} sx={{ p: 2, width: 100, height: 100 }}>
+        elevation=8
+      </Paper>
+      <Paper elevation={12} sx={{ p: 2, width: 100, height: 100 }}>
+        elevation=12
+      </Paper>
+      <Paper elevation={16} sx={{ p: 2, width: 100, height: 100 }}>
+        elevation=16
+      </Paper>
+      <Paper elevation={24} sx={{ p: 2, width: 100, height: 100 }}>
+        elevation=24
+      </Paper>
     </Stack>
   ),
 }

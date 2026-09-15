@@ -47,10 +47,14 @@ export const Default: Story = {
         <Typography gutterBottom variant="h5" component="div">
           Card Title
         </Typography>
-        <Typography variant="body2" sx={{
-          color: 'text.secondary'
-        }}>
-          This is a basic card with some content. Cards contain content and actions about a single subject.
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
+          This is a basic card with some content. Cards contain content and actions about a single
+          subject.
         </Typography>
       </CardContent>
     </Card>
@@ -64,9 +68,12 @@ export const WithActions: Story = {
         <Typography gutterBottom variant="h5" component="div">
           Card with Actions
         </Typography>
-        <Typography variant="body2" sx={{
-          color: 'text.secondary'
-        }}>
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           Cards can include actions like buttons at the bottom.
         </Typography>
       </CardContent>
@@ -91,9 +98,12 @@ export const WithMedia: Story = {
         <Typography gutterBottom variant="h5" component="div">
           Card with Image
         </Typography>
-        <Typography variant="body2" sx={{
-          color: 'text.secondary'
-        }}>
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           Cards can include media like images or videos.
         </Typography>
       </CardContent>
@@ -112,9 +122,12 @@ export const Outlined: Story = {
         <Typography gutterBottom variant="h5" component="div">
           Outlined Card
         </Typography>
-        <Typography variant="body2" sx={{
-          color: 'text.secondary'
-        }}>
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           This card has an outlined variant with a border.
         </Typography>
       </CardContent>
@@ -129,9 +142,12 @@ export const Elevated: Story = {
         <Typography gutterBottom variant="h5" component="div">
           Elevated Card
         </Typography>
-        <Typography variant="body2" sx={{
-          color: 'text.secondary'
-        }}>
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           This card has a higher elevation for more prominent shadow.
         </Typography>
       </CardContent>

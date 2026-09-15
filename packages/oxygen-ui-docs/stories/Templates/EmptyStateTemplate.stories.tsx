@@ -62,8 +62,9 @@ export const Default: Story = {
           direction="row"
           sx={{
             justifyContent: 'space-between',
-            alignItems: 'center'
-          }}>
+            alignItems: 'center',
+          }}
+        >
           <Typography variant="h4">Projects</Typography>
           <Button variant="contained" color="primary">
             New Project
@@ -86,13 +87,18 @@ export const Default: Story = {
           sx={{
             alignItems: 'center',
             maxWidth: 400,
-            textAlign: 'center'
-          }}>
+            textAlign: 'center',
+          }}
+        >
           <Typography variant="h5">No projects yet</Typography>
-          <Typography variant="body1" sx={{
-            color: 'text.secondary'
-          }}>
-            Get started by creating your first project. Projects help you organize and manage your work effectively.
+          <Typography
+            variant="body1"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
+            Get started by creating your first project. Projects help you organize and manage your
+            work effectively.
           </Typography>
           <Button variant="contained" color="primary" size="large">
             Create Your First Project

@@ -56,9 +56,13 @@ export const Default: Story = {
       <Link underline="hover" color="inherit" href="#">
         Catalog
       </Link>
-      <Typography sx={{
-        color: 'text.primary'
-      }}>Products</Typography>
+      <Typography
+        sx={{
+          color: 'text.primary',
+        }}
+      >
+        Products
+      </Typography>
     </Breadcrumbs>
   ),
 }
@@ -73,9 +77,13 @@ export const CustomSeparator: Story = {
         <Link underline="hover" color="inherit" href="#">
           Catalog
         </Link>
-        <Typography sx={{
-          color: 'text.primary'
-        }}>Products</Typography>
+        <Typography
+          sx={{
+            color: 'text.primary',
+          }}
+        >
+          Products
+        </Typography>
       </Breadcrumbs>
       <Breadcrumbs separator="-">
         <Link underline="hover" color="inherit" href="#">
@@ -84,9 +92,13 @@ export const CustomSeparator: Story = {
         <Link underline="hover" color="inherit" href="#">
           Catalog
         </Link>
-        <Typography sx={{
-          color: 'text.primary'
-        }}>Products</Typography>
+        <Typography
+          sx={{
+            color: 'text.primary',
+          }}
+        >
+          Products
+        </Typography>
       </Breadcrumbs>
       <Breadcrumbs separator="/">
         <Link underline="hover" color="inherit" href="#">
@@ -95,9 +107,13 @@ export const CustomSeparator: Story = {
         <Link underline="hover" color="inherit" href="#">
           Catalog
         </Link>
-        <Typography sx={{
-          color: 'text.primary'
-        }}>Products</Typography>
+        <Typography
+          sx={{
+            color: 'text.primary',
+          }}
+        >
+          Products
+        </Typography>
       </Breadcrumbs>
     </Stack>
   ),
@@ -118,9 +134,13 @@ export const MaxItems: Story = {
       <Link underline="hover" color="inherit" href="#">
         Subcategory
       </Link>
-      <Typography sx={{
-        color: 'text.primary'
-      }}>Products</Typography>
+      <Typography
+        sx={{
+          color: 'text.primary',
+        }}
+      >
+        Products
+      </Typography>
     </Breadcrumbs>
   ),
 }
@@ -140,9 +160,13 @@ export const Collapsed: Story = {
       <Link underline="hover" color="inherit" href="#">
         Level 3
       </Link>
-      <Typography sx={{
-        color: 'text.primary'
-      }}>Current Page</Typography>
+      <Typography
+        sx={{
+          color: 'text.primary',
+        }}
+      >
+        Current Page
+      </Typography>
     </Breadcrumbs>
   ),
 }
