@@ -16,10 +16,17 @@
  * under the License.
  */
 
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@wso2/oxygen-ui';
-import { useState } from 'react';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+} from '@wso2/oxygen-ui'
+import { useState } from 'react'
 
 const meta: Meta<typeof Dialog> = {
   title: 'Feedback/Dialog',
@@ -37,21 +44,22 @@ const meta: Meta<typeof Dialog> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI dialog component is a direct import of MUI dialog component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-dialog/](https://mui.com/material-ui/react-dialog/)',
+        component:
+          'Oxygen UI dialog component is a direct import of MUI dialog component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-dialog/](https://mui.com/material-ui/react-dialog/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Dialog>;
+export default meta
+type Story = StoryObj<typeof Dialog>
 
 export const Default: Story = {
   render: () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     return (
       <>
         <Button variant="outlined" onClick={() => setOpen(true)}>
@@ -65,20 +73,22 @@ export const Default: Story = {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button variant="outlined" onClick={() => setOpen(false)}>Cancel</Button>
+            <Button variant="outlined" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
             <Button variant="contained" onClick={() => setOpen(false)}>
               Confirm
             </Button>
           </DialogActions>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}
 
 export const Alert: Story = {
   render: () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     return (
       <>
         <Button variant="outlined" color="error" onClick={() => setOpen(true)}>
@@ -92,20 +102,22 @@ export const Alert: Story = {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setOpen(false)} variant="outlined">Cancel</Button>
+            <Button onClick={() => setOpen(false)} variant="outlined">
+              Cancel
+            </Button>
             <Button onClick={() => setOpen(false)} variant="contained" color="error">
               Delete
             </Button>
           </DialogActions>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}
 
 export const FullScreen: Story = {
   render: () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     return (
       <>
         <Button variant="outlined" onClick={() => setOpen(true)}>
@@ -123,13 +135,13 @@ export const FullScreen: Story = {
           </DialogActions>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}
 
 export const MaxWidth: Story = {
   render: () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     return (
       <>
         <Button variant="outlined" onClick={() => setOpen(true)}>
@@ -147,13 +159,13 @@ export const MaxWidth: Story = {
           </DialogActions>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}
 
 export const ScrollablePaper: Story = {
   render: () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     return (
       <>
         <Button variant="outlined" onClick={() => setOpen(true)}>
@@ -164,9 +176,7 @@ export const ScrollablePaper: Story = {
           <DialogContent dividers>
             <DialogContentText>
               {[...Array(50)].map((_, index) => (
-                <p key={index}>
-                  This is line {index + 1} of scrollable content inside the dialog.
-                </p>
+                <p key={index}>This is line {index + 1} of scrollable content inside the dialog.</p>
               ))}
             </DialogContentText>
           </DialogContent>
@@ -175,6 +185,6 @@ export const ScrollablePaper: Story = {
           </DialogActions>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}

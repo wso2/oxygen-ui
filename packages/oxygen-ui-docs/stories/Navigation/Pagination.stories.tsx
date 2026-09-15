@@ -16,14 +16,14 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Pagination, Stack } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Pagination, Stack } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * The Pagination component enables the user to select a specific page from a range of pages.
- * 
- * This is a direct import of MUI pagination component. 
+ *
+ * This is a direct import of MUI pagination component.
  * Read more at: https://mui.com/material-ui/react-pagination/
  */
 const meta: Meta<typeof Pagination> = {
@@ -33,23 +33,22 @@ const meta: Meta<typeof Pagination> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI pagination component is a direct import of MUI pagination component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-pagination/](https://mui.com/material-ui/react-pagination/)',
+        component:
+          'Oxygen UI pagination component is a direct import of MUI pagination component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-pagination/](https://mui.com/material-ui/react-pagination/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Pagination>;
+export default meta
+type Story = StoryObj<typeof Pagination>
 
 export const Default: Story = {
-  render: () => (
-    <Pagination count={10} />
-  ),
-};
+  render: () => <Pagination count={10} />,
+}
 
 export const Colors: Story = {
   render: () => (
@@ -59,7 +58,7 @@ export const Colors: Story = {
       <Pagination count={10} color="standard" />
     </Stack>
   ),
-};
+}
 
 export const Variants: Story = {
   render: () => (
@@ -68,7 +67,7 @@ export const Variants: Story = {
       <Pagination count={10} variant="outlined" />
     </Stack>
   ),
-};
+}
 
 export const Sizes: Story = {
   render: () => (
@@ -78,7 +77,7 @@ export const Sizes: Story = {
       <Pagination count={10} size="large" />
     </Stack>
   ),
-};
+}
 
 export const Shapes: Story = {
   render: () => (
@@ -87,7 +86,7 @@ export const Shapes: Story = {
       <Pagination count={10} shape="circular" />
     </Stack>
   ),
-};
+}
 
 export const WithSiblingBoundary: Story = {
   render: () => (
@@ -97,7 +96,7 @@ export const WithSiblingBoundary: Story = {
       <Pagination count={11} defaultPage={6} siblingCount={2} />
     </Stack>
   ),
-};
+}
 
 export const WithButtons: Story = {
   render: () => (
@@ -106,10 +105,8 @@ export const WithButtons: Story = {
       <Pagination count={10} hidePrevButton hideNextButton />
     </Stack>
   ),
-};
+}
 
 export const Disabled: Story = {
-  render: () => (
-    <Pagination count={10} disabled />
-  ),
-};
+  render: () => <Pagination count={10} disabled />,
+}

@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Stack, Paper, Divider } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Stack, Paper, Divider } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
- * The Stack component manages the layout of immediate children along the vertical or horizontal axis 
+ * The Stack component manages the layout of immediate children along the vertical or horizontal axis
  * with optional spacing and dividers between each child.
- * 
- * This is a direct import of MUI stack component. 
+ *
+ * This is a direct import of MUI stack component.
  * Read more at: https://mui.com/material-ui/react-stack/
  */
 const meta: Meta<typeof Stack> = {
@@ -34,17 +34,18 @@ const meta: Meta<typeof Stack> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI stack component is a direct import of MUI stack component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-stack/](https://mui.com/material-ui/react-stack/)',
+        component:
+          'Oxygen UI stack component is a direct import of MUI stack component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-stack/](https://mui.com/material-ui/react-stack/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Stack>;
+export default meta
+type Story = StoryObj<typeof Stack>
 
 export const Vertical: Story = {
   render: () => (
@@ -54,7 +55,7 @@ export const Vertical: Story = {
       <Paper sx={{ p: 2 }}>Item 3</Paper>
     </Stack>
   ),
-};
+}
 
 export const Horizontal: Story = {
   render: () => (
@@ -64,7 +65,7 @@ export const Horizontal: Story = {
       <Paper sx={{ p: 2 }}>Item 3</Paper>
     </Stack>
   ),
-};
+}
 
 export const Spacing: Story = {
   render: () => (
@@ -86,31 +87,24 @@ export const Spacing: Story = {
       </Stack>
     </>
   ),
-};
+}
 
 export const WithDividers: Story = {
   render: () => (
-    <Stack
-      direction="row"
-      spacing={2}
-      divider={<Divider orientation="vertical" flexItem />}
-    >
+    <Stack direction="row" spacing={2} divider={<Divider orientation="vertical" flexItem />}>
       <Paper sx={{ p: 2 }}>Item 1</Paper>
       <Paper sx={{ p: 2 }}>Item 2</Paper>
       <Paper sx={{ p: 2 }}>Item 3</Paper>
     </Stack>
   ),
-};
+}
 
 export const ResponsiveDirection: Story = {
   render: () => (
-    <Stack
-      direction={{ xs: 'column', sm: 'row' }}
-      spacing={{ xs: 1, sm: 2, md: 4 }}
-    >
+    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
       <Paper sx={{ p: 2 }}>Item 1</Paper>
       <Paper sx={{ p: 2 }}>Item 2</Paper>
       <Paper sx={{ p: 2 }}>Item 3</Paper>
     </Stack>
   ),
-};
+}

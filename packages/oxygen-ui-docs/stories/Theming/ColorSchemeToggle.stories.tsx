@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { ColorSchemeToggle, Stack, Typography, Paper } from '@wso2/oxygen-ui';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { ColorSchemeToggle, Stack, Typography, Paper } from '@wso2/oxygen-ui'
 
 const meta: Meta<typeof ColorSchemeToggle> = {
   title: 'Theming/ColorSchemeToggle',
@@ -29,7 +29,7 @@ const meta: Meta<typeof ColorSchemeToggle> = {
       description: {
         component:
           'A toggle button component that cycles through light, dark, and system color schemes. ' +
-          'Built on top of MUI\'s `useColorScheme` hook with automatic icon switching.\n\n' +
+          "Built on top of MUI's `useColorScheme` hook with automatic icon switching.\n\n" +
           '**Features:**\n' +
           '- Three modes: Light, Dark, and System (follows OS preference)\n' +
           '- Automatic icon updates based on current mode\n' +
@@ -43,10 +43,10 @@ const meta: Meta<typeof ColorSchemeToggle> = {
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof ColorSchemeToggle>;
+export default meta
+type Story = StoryObj<typeof ColorSchemeToggle>
 
 export const Default: Story = {
   render: () => (
@@ -57,7 +57,7 @@ export const Default: Story = {
       <ColorSchemeToggle />
     </Stack>
   ),
-};
+}
 
 export const DifferentSizes: Story = {
   render: () => (
@@ -79,7 +79,7 @@ export const DifferentSizes: Story = {
       </Stack>
     </Stack>
   ),
-};
+}
 
 export const WithColors: Story = {
   render: () => (
@@ -96,18 +96,18 @@ export const WithColors: Story = {
       </Stack>
     </Stack>
   ),
-};
+}
 
 export const InToolbar: Story = {
   render: () => (
-    <Paper 
-      elevation={2} 
-      sx={{ 
-        p: 2, 
-        display: 'flex', 
-        alignItems: 'center', 
+    <Paper
+      elevation={2}
+      sx={{
+        p: 2,
+        display: 'flex',
+        alignItems: 'center',
         justifyContent: 'space-between',
-        minWidth: 400
+        minWidth: 400,
       }}
     >
       <Typography variant="h6">Application Header</Typography>
@@ -119,7 +119,7 @@ export const InToolbar: Story = {
       </Stack>
     </Paper>
   ),
-};
+}
 
 export const Disabled: Story = {
   render: () => (
@@ -130,4 +130,4 @@ export const Disabled: Story = {
       <ColorSchemeToggle disabled />
     </Stack>
   ),
-};
+}

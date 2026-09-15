@@ -16,12 +16,12 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Box, Typography, Paper, Stack, Link, CodeBlock } from '@wso2/oxygen-ui';
-import { GitHub } from '@wso2/oxygen-ui-icons-react';
-import React from 'react';
-import packageJson from '../../oxygen-ui/package.json';
-import CenterContentLayout from '../layouts/CenterContentLayout';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Box, Typography, Paper, Stack, Link, CodeBlock } from '@wso2/oxygen-ui'
+import { GitHub } from '@wso2/oxygen-ui-icons-react'
+import React from 'react'
+import packageJson from '../../oxygen-ui/package.json'
+import CenterContentLayout from '../layouts/CenterContentLayout'
 
 const meta = {
   title: 'Welcome',
@@ -40,12 +40,12 @@ const meta = {
       description: {
         component: 'Welcome to Oxygen UI - A comprehensive design system built on MUI',
       },
-    }
+    },
   },
-} satisfies Meta<{}>;
+} satisfies Meta<{}>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 const WelcomeContent = () => (
   <CenterContentLayout>
@@ -55,14 +55,17 @@ const WelcomeContent = () => (
           Welcome to Oxygen UI
         </Typography>
 
-        <Typography variant="body2" sx={{ mt: 2, mb: 4, display: 'flex', alignItems: 'center', gap: 1 }}>
+        <Typography
+          variant="body2"
+          sx={{ mt: 2, mb: 4, display: 'flex', alignItems: 'center', gap: 1 }}
+        >
           <GitHub /> Version {packageJson.version}
         </Typography>
-        
+
         <Typography variant="body1" paragraph sx={{ fontSize: '1.1rem', mb: 4 }}>
-          Oxygen UI is a design system built on MUI (Material-UI) v7, providing a comprehensive set of 
-          customizable composite components, themes, and utilities in addition to what MUI provides for building 
-          unified React applications in the WSO2 ecosystem.
+          Oxygen UI is a design system built on MUI (Material-UI) v7, providing a comprehensive set
+          of customizable composite components, themes, and utilities in addition to what MUI
+          provides for building unified React applications in the WSO2 ecosystem.
         </Typography>
 
         <Link href="./sample/index.html" target="_blank" rel="noopener" variant="h6">
@@ -77,33 +80,33 @@ const WelcomeContent = () => (
               🎨 Theme System
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Built-in light/dark mode support with customizable themes. Easy theme switching 
-              and theme-aware components.
+              Built-in light/dark mode support with customizable themes. Easy theme switching and
+              theme-aware components.
             </Typography>
           </Paper>
-          
+
           <Paper sx={{ p: 3, flex: 1 }}>
             <Typography variant="h5" gutterBottom>
               🧩 Component Library
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Extended MUI components with additional features and custom components for 
-              common use cases.
+              Extended MUI components with additional features and custom components for common use
+              cases.
             </Typography>
           </Paper>
         </Stack>
-        
+
         <Stack direction={{ xs: 'column', md: 'row' }} spacing={3}>
           <Paper sx={{ p: 3, flex: 1 }}>
             <Typography variant="h5" gutterBottom>
               🎭 Animations
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Interactive animations like ParticleBackground for adding visual appeal to 
-              your applications.
+              Interactive animations like ParticleBackground for adding visual appeal to your
+              applications.
             </Typography>
           </Paper>
-          
+
           <Paper sx={{ p: 3, flex: 1 }}>
             <Typography variant="h5" gutterBottom>
               🔧 Developer Tools
@@ -122,10 +125,7 @@ const WelcomeContent = () => (
         <Typography variant="body2" paragraph>
           Install Oxygen UI in your project:
         </Typography>
-        <CodeBlock
-          language="bash"
-          code="npm install @wso2/oxygen-ui"
-        />
+        <CodeBlock language="bash" code="npm install @wso2/oxygen-ui" />
         <Typography variant="body2" paragraph>
           Wrap your app with the OxygenUIThemeProvider:
         </Typography>
@@ -150,22 +150,27 @@ const WelcomeContent = () => (
           AI-Assisted Development
         </Typography>
         <Typography variant="body2" paragraph>
-          Oxygen UI includes built-in documentation for AI assistants like Claude Code, Cursor, and Copilot.
-          Set up AI-optimized docs in your project with a single command:
+          Oxygen UI includes built-in documentation for AI assistants like Claude Code, Cursor, and
+          Copilot. Set up AI-optimized docs in your project with a single command:
         </Typography>
-        <CodeBlock
-          language="bash"
-          code="npx @wso2/oxygen-ui init"
-        />
+        <CodeBlock language="bash" code="npx @wso2/oxygen-ui init" />
         <Typography variant="body2" sx={{ mt: 2 }}>
           For Claude Code users, run{' '}
-          <Typography component="code" variant="body2" sx={{ bgcolor: 'action.hover', px: 0.5, borderRadius: 0.5 }}>
+          <Typography
+            component="code"
+            variant="body2"
+            sx={{ bgcolor: 'action.hover', px: 0.5, borderRadius: 0.5 }}
+          >
             npx @wso2/oxygen-ui init --claude
-          </Typography>
-          {' '}to also get invokable skills and Claude-optimized documentation.
+          </Typography>{' '}
+          to also get invokable skills and Claude-optimized documentation.
         </Typography>
         <Typography variant="body2" sx={{ mt: 1 }}>
-          <Link href="https://github.com/wso2/oxygen-ui#ai-assisted-development" target="_blank" rel="noopener">
+          <Link
+            href="https://github.com/wso2/oxygen-ui#ai-assisted-development"
+            target="_blank"
+            rel="noopener"
+          >
             View full AI documentation &rarr;
           </Link>
         </Typography>
@@ -183,8 +188,8 @@ const WelcomeContent = () => (
       </Box>
     </Box>
   </CenterContentLayout>
-);
+)
 
 export const Welcome: Story = {
   render: () => <WelcomeContent />,
-};
+}

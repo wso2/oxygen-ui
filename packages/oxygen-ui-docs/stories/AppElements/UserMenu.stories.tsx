@@ -16,15 +16,10 @@
  * under the License.
  */
 
-import * as React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { UserMenu, Box, Typography } from '@wso2/oxygen-ui';
-import {
-  User as ProfileIcon,
-  Settings,
-  CreditCard,
-  LogOut,
-} from '@wso2/oxygen-ui-icons-react';
+import * as React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { UserMenu, Box, Typography } from '@wso2/oxygen-ui'
+import { User as ProfileIcon, Settings, CreditCard, LogOut } from '@wso2/oxygen-ui-icons-react'
 
 /**
  * UserMenu is a compound component for displaying user profile dropdown menu
@@ -110,10 +105,10 @@ import { User, Settings, CreditCard, LogOut } from '@wso2/oxygen-ui-icons-react'
       },
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof UserMenu>;
+export default meta
+type Story = StoryObj<typeof UserMenu>
 
 /**
  * Default composition pattern example with all menu items.
@@ -150,7 +145,7 @@ export const Composed: Story = {
       </UserMenu>
     </Box>
   ),
-};
+}
 
 /**
  * Menu with avatar image URL.
@@ -162,15 +157,12 @@ export const WithAvatarImage: Story = {
         Avatar with image URL
       </Typography>
       <UserMenu>
-        <UserMenu.Trigger 
-          name="Sarah Wilson" 
+        <UserMenu.Trigger name="Sarah Wilson" avatar="https://i.pravatar.cc/150?img=47" />
+        <UserMenu.Header
+          name="Sarah Wilson"
+          email="sarah@example.com"
           avatar="https://i.pravatar.cc/150?img=47"
-        />
-        <UserMenu.Header 
-          name="Sarah Wilson" 
-          email="sarah@example.com" 
-          avatar="https://i.pravatar.cc/150?img=47"
-          role="Enterprise" 
+          role="Enterprise"
         />
         <UserMenu.Item
           icon={<ProfileIcon size={18} />}
@@ -190,7 +182,7 @@ export const WithAvatarImage: Story = {
       </UserMenu>
     </Box>
   ),
-};
+}
 
 /**
  * Trigger with name displayed next to avatar.
@@ -202,17 +194,8 @@ export const WithNameVisible: Story = {
         Initials avatar with name displayed
       </Typography>
       <UserMenu>
-        <UserMenu.Trigger 
-          name="Alex Morgan" 
-          avatar="AM"
-          showName
-        />
-        <UserMenu.Header 
-          name="Alex Morgan" 
-          email="alex@example.com" 
-          avatar="AM"
-          role="Admin" 
-        />
+        <UserMenu.Trigger name="Alex Morgan" avatar="AM" showName />
+        <UserMenu.Header name="Alex Morgan" email="alex@example.com" avatar="AM" role="Admin" />
         <UserMenu.Item
           icon={<ProfileIcon size={18} />}
           label="Profile"
@@ -231,7 +214,7 @@ export const WithNameVisible: Story = {
       </UserMenu>
     </Box>
   ),
-};
+}
 
 /**
  * Custom menu items with only profile and logout.
@@ -259,7 +242,7 @@ export const MinimalMenu: Story = {
       </UserMenu>
     </Box>
   ),
-};
+}
 
 /**
  * Admin user with more menu options.
@@ -296,7 +279,7 @@ export const AdminMenu: Story = {
       </UserMenu>
     </Box>
   ),
-};
+}
 
 /**
  * Multiple user menus showing different user roles.
@@ -353,7 +336,12 @@ export const MultipleUsers: Story = {
         </Typography>
         <UserMenu>
           <UserMenu.Trigger name="Enterprise" avatar="EN" />
-          <UserMenu.Header name="Enterprise" email="enterprise@example.com" avatar="EN" role="Enterprise" />
+          <UserMenu.Header
+            name="Enterprise"
+            email="enterprise@example.com"
+            avatar="EN"
+            role="Enterprise"
+          />
           <UserMenu.Item
             icon={<ProfileIcon size={18} />}
             label="Profile"
@@ -378,7 +366,7 @@ export const MultipleUsers: Story = {
       </Box>
     </Box>
   ),
-};
+}
 
 /**
  * User without custom avatar - uses first letter of name.
@@ -405,7 +393,7 @@ export const WithoutCustomAvatar: Story = {
       </UserMenu>
     </Box>
   ),
-};
+}
 
 /**
  * Long email that gets truncated in the header.
@@ -418,11 +406,11 @@ export const LongEmail: Story = {
       </Typography>
       <UserMenu>
         <UserMenu.Trigger name="Enterprise User" avatar="EU" />
-        <UserMenu.Header 
-          name="Enterprise User" 
-          email="enterprise.user.with.very.long.email@corporation.example.com" 
-          avatar="EU" 
-          role="Enterprise" 
+        <UserMenu.Header
+          name="Enterprise User"
+          email="enterprise.user.with.very.long.email@corporation.example.com"
+          avatar="EU"
+          role="Enterprise"
         />
         <UserMenu.Item
           icon={<ProfileIcon size={18} />}
@@ -442,4 +430,4 @@ export const LongEmail: Story = {
       </UserMenu>
     </Box>
   ),
-};
+}

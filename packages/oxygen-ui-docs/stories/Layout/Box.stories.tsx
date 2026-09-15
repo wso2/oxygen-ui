@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Box, Stack } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Box, Stack } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * The Box component serves as a wrapper component for most CSS utility needs.
  * It provides a convenient way to apply styling through the sx prop.
- * 
- * This is a direct import of MUI box component. 
+ *
+ * This is a direct import of MUI box component.
  * Read more at: https://mui.com/material-ui/react-box/
  */
 const meta: Meta<typeof Box> = {
@@ -34,17 +34,18 @@ const meta: Meta<typeof Box> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI box component is a direct import of MUI box component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-box/](https://mui.com/material-ui/react-box/)',
+        component:
+          'Oxygen UI box component is a direct import of MUI box component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-box/](https://mui.com/material-ui/react-box/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Box>;
+export default meta
+type Story = StoryObj<typeof Box>
 
 export const Default: Story = {
   render: () => (
@@ -52,7 +53,7 @@ export const Default: Story = {
       Box with primary background
     </Box>
   ),
-};
+}
 
 export const WithStyling: Story = {
   render: () => (
@@ -68,7 +69,7 @@ export const WithStyling: Story = {
       </Box>
     </Stack>
   ),
-};
+}
 
 export const AsComponent: Story = {
   render: () => (
@@ -84,23 +85,17 @@ export const AsComponent: Story = {
       </Box>
     </Stack>
   ),
-};
+}
 
 export const WithFlexbox: Story = {
   render: () => (
     <Box sx={{ display: 'flex', gap: 2, p: 2, border: '1px solid grey' }}>
-      <Box sx={{ p: 2, bgcolor: 'primary.main', color: 'primary.contrastText' }}>
-        Item 1
-      </Box>
-      <Box sx={{ p: 2, bgcolor: 'secondary.main', color: 'secondary.contrastText' }}>
-        Item 2
-      </Box>
-      <Box sx={{ p: 2, bgcolor: 'success.main', color: 'success.contrastText' }}>
-        Item 3
-      </Box>
+      <Box sx={{ p: 2, bgcolor: 'primary.main', color: 'primary.contrastText' }}>Item 1</Box>
+      <Box sx={{ p: 2, bgcolor: 'secondary.main', color: 'secondary.contrastText' }}>Item 2</Box>
+      <Box sx={{ p: 2, bgcolor: 'success.main', color: 'success.contrastText' }}>Item 3</Box>
     </Box>
   ),
-};
+}
 
 export const WithGrid: Story = {
   render: () => (
@@ -121,4 +116,4 @@ export const WithGrid: Story = {
       <Box sx={{ p: 2, bgcolor: 'info.light' }}>Grid Item 6</Box>
     </Box>
   ),
-};
+}

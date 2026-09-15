@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Breadcrumbs, Link, Typography, Stack } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Breadcrumbs, Link, Typography, Stack } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * The Breadcrumbs component displays the current location within a navigational hierarchy.
  * It helps users understand where they are and navigate back to previous levels.
- * 
- * This is a direct import of MUI breadcrumbs component. 
+ *
+ * This is a direct import of MUI breadcrumbs component.
  * Read more at: https://mui.com/material-ui/react-breadcrumbs/
  */
 const meta: Meta<typeof Breadcrumbs> = {
@@ -34,17 +34,18 @@ const meta: Meta<typeof Breadcrumbs> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI breadcrumbs component is a direct import of MUI breadcrumbs component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-breadcrumbs/](https://mui.com/material-ui/react-breadcrumbs/)',
+        component:
+          'Oxygen UI breadcrumbs component is a direct import of MUI breadcrumbs component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-breadcrumbs/](https://mui.com/material-ui/react-breadcrumbs/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Breadcrumbs>;
+export default meta
+type Story = StoryObj<typeof Breadcrumbs>
 
 export const Default: Story = {
   render: () => (
@@ -58,7 +59,7 @@ export const Default: Story = {
       <Typography color="text.primary">Products</Typography>
     </Breadcrumbs>
   ),
-};
+}
 
 export const CustomSeparator: Story = {
   render: () => (
@@ -92,7 +93,7 @@ export const CustomSeparator: Story = {
       </Breadcrumbs>
     </Stack>
   ),
-};
+}
 
 export const MaxItems: Story = {
   render: () => (
@@ -112,7 +113,7 @@ export const MaxItems: Story = {
       <Typography color="text.primary">Products</Typography>
     </Breadcrumbs>
   ),
-};
+}
 
 export const Collapsed: Story = {
   render: () => (
@@ -132,4 +133,4 @@ export const Collapsed: Story = {
       <Typography color="text.primary">Current Page</Typography>
     </Breadcrumbs>
   ),
-};
+}
