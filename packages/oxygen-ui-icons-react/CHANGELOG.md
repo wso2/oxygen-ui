@@ -1,5 +1,7 @@
 # @wso2/oxygen-ui-icons-react
 
+## 0.13.2
+
 ## 0.13.1
 
 ### Patch Changes

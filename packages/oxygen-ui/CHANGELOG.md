@@ -1,5 +1,14 @@
 # @wso2/oxygen-ui
 
+## 0.13.2
+
+### Patch Changes
+
+- [#594](https://github.com/wso2/oxygen-ui/pull/594) [`cb9d92e`](https://github.com/wso2/oxygen-ui/commit/cb9d92e5425d8785f2d45f85ec4fb7980a073145) Thanks [@ajirthan](https://github.com/ajirthan)! - Stop treating `UserMenu.Logout` as a destructive action — match `UserMenu.Item` colour and hover
+
+- Updated dependencies []:
+  - @wso2/oxygen-ui-icons-react@0.13.2
+
 ## 0.13.1
 
 ### Patch Changes
