@@ -25,3 +25,4 @@ export { default as PaleBaseTheme } from './PaleBaseTheme';
 export { default as PaleGrayTheme } from './PaleGray';
 export { default as PaleIndigoTheme } from './PaleIndigo';
 export { default as WSO2Theme } from './WSO2Theme';
+export { default as WSO2WebTheme } from './WSO2WebTheme';
