@@ -49,7 +49,9 @@ jobs:
     strategy:
       matrix:
         node-version: [lts/*]
-        pnpm-version: [latest]
+        # 11.20.0 last published 0.13.1. `latest` floated to pnpm 12 and
+        # changeset publish returns npm 404.
+        pnpm-version: ["11.20.0"]
 
     steps:
       - name: ⬇️ Checkout
