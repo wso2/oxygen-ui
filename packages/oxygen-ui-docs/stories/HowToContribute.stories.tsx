@@ -596,6 +596,19 @@ export const CreateCustomTheme: Story = {
 };
 
 /**
+ * Unit-test contract for first-party composites.
+ */
+export const TestingContract: Story = {
+  render: () => (
+    <CenterContentLayout>
+      <Typography variant="body2" color="text.secondary">
+        Colocated unit tests follow <code>packages/oxygen-ui/TESTING.md</code>.
+      </Typography>
+    </CenterContentLayout>
+  ),
+};
+
+/**
  * Accessibility requirements for contributing components and stories.
  */
 export const AccessibilityPolicy: Story = {
