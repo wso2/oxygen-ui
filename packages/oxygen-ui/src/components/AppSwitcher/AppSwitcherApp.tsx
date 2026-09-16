@@ -37,6 +37,14 @@ import { useAppSwitcher } from './context';
  *
  * Elevation:
  * - `shadows[1]` - Hover elevation, matching `Form.CardButton`
+ *
+ * Typography / sizing:
+ * - `typography.body1` / `typography.body2` - Name and description text
+ * - `spacing()` / `shape.borderRadius` - Icon tile dimensions
+ *
+ * The status chip keeps a compact height so a chip never out-weighs the app name
+ * it sits beside, but takes its type scale from `typography.caption` rather than
+ * a hardcoded size.
  */
 
 /**
@@ -96,7 +104,11 @@ const AppSwitcherAppRoot = styled(Card, {
       ? (theme.vars || theme).palette.primary.main
       : (theme.vars || theme).palette.divider,
     backgroundColor: ownerState.current
-      ? alpha(theme.palette.primary.main, 0.06)
+      ? // `mainChannel` keeps the tint on the CSS variable, so it follows a
+        // color-scheme switch; `alpha()` would bake in the light-mode value.
+        theme.vars
+        ? `rgba(${theme.vars.palette.primary.mainChannel} / 0.06)`
+        : alpha(theme.palette.primary.main, 0.06)
       : (theme.vars || theme).palette.background.paper,
   },
   ...(ownerState.disabled && {
@@ -108,7 +120,9 @@ const AppSwitcherAppRoot = styled(Card, {
       boxShadow: theme.shadows[1],
     }),
   },
-  '&.Mui-focusVisible': {
+  // MUI only adds `.Mui-focusVisible` on ButtonBase; anchors and consumer
+  // components need the native selector to get the same ring.
+  '&.Mui-focusVisible, &:focus-visible': {
     outline: `2px solid ${(theme.vars || theme).palette.primary.main}`,
     outlineOffset: 2,
   },
@@ -138,8 +152,8 @@ const AppSwitcherAppIcon = styled(Box, {
   alignItems: 'center',
   justifyContent: 'center',
   flexShrink: 0,
-  width: 36,
-  height: 36,
+  width: theme.spacing(4.5),
+  height: theme.spacing(4.5),
   borderRadius: theme.shape.borderRadius,
   backgroundColor: (theme.vars || theme).palette.action.hover,
   color: (theme.vars || theme).palette.text.primary,
@@ -150,14 +164,23 @@ const AppSwitcherAppIcon = styled(Box, {
 
 /**
  * Styled status chip shown at the top-right of the card.
+ *
+ * MUI's `size="small"` chip is 24px tall, which crowds the 36px icon tile and
+ * competes with the app name. The compact height keeps the chip secondary.
  */
 const AppSwitcherAppStatus = styled(Chip, {
   name: 'MuiAppSwitcher',
   slot: 'AppStatus',
-})({
-  height: 20,
-  fontSize: 11,
-});
+})(({ theme }) => ({
+  height: theme.spacing(2.5),
+  fontSize: theme.typography.caption.fontSize,
+  // The default small-chip padding is tuned for a 24px chip and looks
+  // off-center once the height is reduced.
+  '& .MuiChip-label': {
+    paddingLeft: theme.spacing(0.75),
+    paddingRight: theme.spacing(0.75),
+  },
+}));
 
 /**
  * Styled application name.
@@ -167,12 +190,15 @@ const AppSwitcherAppName = styled(Typography, {
   slot: 'AppName',
   shouldForwardProp: (prop) => prop !== 'ownerState',
 })<{ ownerState: AppSwitcherAppOwnerState }>(({ theme, ownerState }) => ({
-  fontSize: 14,
+  fontSize: theme.typography.body1.fontSize,
   fontWeight: theme.typography.fontWeightMedium,
   lineHeight: 1.35,
   color: ownerState.disabled
     ? (theme.vars || theme).palette.text.disabled
     : (theme.vars || theme).palette.text.primary,
+  // `minmax(0, 1fr)` grid tracks still let a long unbroken name push the card
+  // wider, so wrap rather than overflow.
+  overflowWrap: 'anywhere',
 }));
 
 /**
@@ -182,10 +208,16 @@ const AppSwitcherAppDescription = styled(Typography, {
   name: 'MuiAppSwitcher',
   slot: 'AppDescription',
 })(({ theme }) => ({
-  fontSize: 12,
+  fontSize: theme.typography.body2.fontSize,
   lineHeight: 1.4,
   color: (theme.vars || theme).palette.text.secondary,
   marginTop: theme.spacing(0.25),
+  // Descriptions are optional supporting text; cap them at two lines so one
+  // long entry cannot stretch its row and misalign the grid.
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: 2,
+  overflow: 'hidden',
 }));
 
 /**
@@ -215,6 +247,11 @@ export interface AppSwitcherAppProps
    * component={Link} to="/apim"
    */
   component?: React.ElementType;
+  /**
+   * Extra props forwarded to `component`, for routers that use their own
+   * navigation prop instead of `href` (e.g. React Router's `to`).
+   */
+  componentProps?: Record<string, unknown>;
   /** Destination URL. When set, the card renders as an anchor. */
   href?: string;
   /** Anchor target, only applied together with `href` */
@@ -253,6 +290,7 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
       current = false,
       disabled = false,
       component,
+      componentProps,
       href,
       target,
       onClick,
@@ -282,18 +320,30 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
     const linkProps = {
       ...(href && { href }),
       ...(target && { target }),
-      ...(target === '_blank' && { rel: 'noopener noreferrer' }),
     };
+    // Keep the reverse-tabnabbing guard out of the overridable props below so
+    // `componentProps` cannot drop it on a `_blank` target.
+    const relProps = target === '_blank' ? { rel: 'noopener noreferrer' } : {};
     const anchorProps =
       component && !disabled
-        ? { component, ...linkProps }
+        ? { component, ...linkProps, ...componentProps, ...relProps }
         : renderAsLink
-          ? { component: 'a' as React.ElementType, ...linkProps }
+          ? { component: 'a' as React.ElementType, ...linkProps, ...relProps }
           : { component: ButtonBase as React.ElementType };
 
     // Unavailable apps stay focusable so they remain discoverable to screen
     // reader users; `aria-disabled` plus the click guard convey the state
-    // without dropping the card out of the tab order.
+    // without dropping the card out of the tab order. A disabled card falls
+    // through to the ButtonBase branch above, so it is a real `<button>` and
+    // keeps its own `tabIndex` and keyboard activation.
+    //
+    // Space on a button also scrolls the popover unless it is swallowed here;
+    // the resulting click is already blocked by `handleClick`.
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+      if (disabled && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+      }
+    };
 
     return (
       <AppSwitcherAppRoot
@@ -303,15 +353,15 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
         ownerState={ownerState}
         variant="outlined"
         onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        data-app-switcher-app=""
         aria-current={current ? 'true' : undefined}
         aria-disabled={disabled ? 'true' : undefined}
         sx={sx}
       >
         <AppSwitcherAppHeader>
           {icon && <AppSwitcherAppIcon aria-hidden="true">{icon}</AppSwitcherAppIcon>}
-          {status && (
-            <AppSwitcherAppStatus label={status} size="small" color={statusColor} />
-          )}
+          {status && <AppSwitcherAppStatus label={status} size="small" color={statusColor} />}
         </AppSwitcherAppHeader>
         <Box>
           <AppSwitcherAppName ownerState={ownerState}>{name}</AppSwitcherAppName>

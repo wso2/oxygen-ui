@@ -99,8 +99,21 @@ The component takes no router dependency. Use \`href\` for cross-app navigation 
 ### Accessibility
 - The trigger is a labeled button ("Switch app" by default) exposing \`aria-haspopup\`, \`aria-expanded\`, and \`aria-controls\`.
 - Apps are grouped in a list labelled by the section heading, so the number of platforms is announced.
-- The current app is marked with \`aria-current\`, and unavailable apps with \`aria-disabled\` (they stay focusable so they remain discoverable).
+- The current app is marked with \`aria-current\`, and unavailable apps with \`aria-disabled\` (they stay focusable so they remain discoverable, but never navigate).
 - The popover is an MUI Popover with \`role="dialog"\`: focus is trapped while open, Escape closes it and returns focus to the trigger.
+
+### Keyboard
+Arrow keys move between app cards so the grid is not a long Tab sequence:
+
+| Key | Behavior |
+| --- | --- |
+| \`Tab\` | Moves into and through the app cards |
+| \`←\` / \`→\` | Previous / next app card |
+| \`↑\` / \`↓\` | One grid row at a time |
+| \`Home\` / \`End\` | First / last app card |
+| \`Esc\` | Closes the popover, returning focus to the trigger |
+
+Focus clamps at the ends of the grid instead of wrapping.
 `,
       },
     },
@@ -253,6 +266,56 @@ export const WithoutFooter: Story = {
  */
 export const SingleColumn: Story = {
   args: { apps: PLATFORMS.slice(0, 3), columns: 1, width: 280 },
+  render: (args) => (
+    <Box sx={{ p: 4 }}>
+      <AppSwitcher {...args} />
+    </Box>
+  ),
+};
+
+/**
+ * With descriptions, and stress-testing the text handling: descriptions clamp to
+ * two lines and long names wrap, so a verbose entry cannot stretch its row or
+ * push the grid wider.
+ */
+export const WithDescriptions: Story = {
+  args: {
+    apps: [
+      {
+        key: 'agent',
+        name: 'Agent',
+        description: 'Build and run AI agents',
+        icon: <Bot size={20} />,
+        status: 'Current',
+        statusColor: 'primary',
+        current: true,
+      },
+      {
+        key: 'apim',
+        name: 'API Management',
+        description: 'Design, publish and govern APIs across every environment you operate',
+        icon: <Braces size={20} />,
+        status: 'Try Now',
+      },
+      {
+        key: 'engineering',
+        name: 'Engineering Platform for Internal Developer Experience',
+        description: 'Internal developer platform',
+        icon: <Layers size={20} />,
+        status: 'Trial expired',
+      },
+      {
+        key: 'analytics',
+        name: 'Analytics',
+        description: 'Dashboards and insights',
+        icon: <ChartColumn size={20} />,
+        status: 'Coming soon',
+        statusColor: 'warning',
+        disabled: true,
+      },
+    ],
+    footer: FOOTER,
+  },
   render: (args) => (
     <Box sx={{ p: 4 }}>
       <AppSwitcher {...args} />

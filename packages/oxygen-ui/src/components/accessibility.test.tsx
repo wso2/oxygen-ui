@@ -365,6 +365,182 @@ describe('AppSwitcher', () => {
     expect(app.getAttribute('href')).toBe('/apim');
   });
 
+  it('forwards componentProps to router components that require their own nav prop', () => {
+    // React Router's Link takes `to`, not `href`, so the data-driven API must
+    // carry router props through instead of relying on `href`.
+    const RouterLink = React.forwardRef<
+      HTMLAnchorElement,
+      { to: string; children?: React.ReactNode }
+    >(function RouterLink({ to, children, ...rest }, linkRef) {
+      return (
+        <a ref={linkRef} href={to} data-router-link="true" {...rest}>
+          {children}
+        </a>
+      );
+    });
+
+    renderWithTheme(
+      <AppSwitcher
+        apps={[
+          {
+            key: 'apim',
+            name: 'API Management',
+            component: RouterLink,
+            componentProps: { to: '/apim' },
+          },
+        ]}
+        footer={{
+          label: 'Cloud Console',
+          component: RouterLink,
+          componentProps: { to: '/console' },
+        }}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+
+    const app = screen.getByRole('link', { name: 'API Management' });
+    expect(app.getAttribute('data-router-link')).toBe('true');
+    expect(app.getAttribute('href')).toBe('/apim');
+
+    // The Cloud Console link is required in every product, so it must survive
+    // the footer's prop mapping.
+    const console_ = screen.getByRole('link', { name: /Cloud Console/ });
+    expect(console_.getAttribute('data-router-link')).toBe('true');
+    expect(console_.getAttribute('href')).toBe('/console');
+  });
+
+  it('moves focus between app cards with the arrow keys', () => {
+    // A grid of links is tedious to traverse with Tab alone, and the visual
+    // layout implies arrow-key movement.
+    renderSwitcher({
+      apps: [
+        { key: 'a', name: 'Agent', href: '/agent' },
+        { key: 'b', name: 'API Management', href: '/apim' },
+        { key: 'c', name: 'Integration', href: '/integration' },
+      ],
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+
+    const first = screen.getByRole('link', { name: 'Agent' });
+    const second = screen.getByRole('link', { name: 'API Management' });
+    const third = screen.getByRole('link', { name: 'Integration' });
+
+    first.focus();
+    fireEvent.keyDown(first, { key: 'ArrowRight' });
+    expect(document.activeElement).toBe(second);
+
+    fireEvent.keyDown(second, { key: 'ArrowLeft' });
+    expect(document.activeElement).toBe(first);
+
+    fireEvent.keyDown(first, { key: 'End' });
+    expect(document.activeElement).toBe(third);
+
+    fireEvent.keyDown(third, { key: 'Home' });
+    expect(document.activeElement).toBe(first);
+  });
+
+  it('does not wrap focus past the ends of the app grid', () => {
+    // Clamping avoids a vertical step landing somewhere unrelated.
+    renderSwitcher({ apps: [{ key: 'a', name: 'Agent', href: '/agent' }] });
+    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+
+    const only = screen.getByRole('link', { name: 'Agent' });
+    only.focus();
+    fireEvent.keyDown(only, { key: 'ArrowLeft' });
+    expect(document.activeElement).toBe(only);
+
+    fireEvent.keyDown(only, { key: 'ArrowRight' });
+    expect(document.activeElement).toBe(only);
+  });
+
+  it('steps a whole row with the up and down arrows', () => {
+    // jsdom gives every element a zero-sized rect, so the row stride has to be
+    // driven by stubbed geometry: a 2-column grid of four cards.
+    renderSwitcher({
+      apps: [
+        { key: 'a', name: 'Agent', href: '/a' },
+        { key: 'b', name: 'Bee', href: '/b' },
+        { key: 'c', name: 'Cee', href: '/c' },
+        { key: 'd', name: 'Dee', href: '/d' },
+      ],
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+
+    const cards = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-app-switcher-app]'),
+    );
+    expect(cards).toHaveLength(4);
+
+    // Rows of two: cards 0,1 on the first row and 2,3 on the second.
+    const tops = [0, 0, 100, 100];
+    cards.forEach((card, index) => {
+      vi.spyOn(card, 'getBoundingClientRect').mockReturnValue({
+        top: tops[index],
+      } as DOMRect);
+    });
+
+    cards[0].focus();
+    fireEvent.keyDown(cards[0], { key: 'ArrowDown' });
+    expect(document.activeElement).toBe(cards[2]);
+
+    fireEvent.keyDown(cards[2], { key: 'ArrowUp' });
+    expect(document.activeElement).toBe(cards[0]);
+
+    // Stepping down from the last row has nowhere to go and must not wrap.
+    cards[3].focus();
+    fireEvent.keyDown(cards[3], { key: 'ArrowDown' });
+    expect(document.activeElement).toBe(cards[3]);
+  });
+
+  it('keeps unavailable apps focusable and inert', () => {
+    // Disabled cards stay discoverable to screen reader users, but must not
+    // navigate or close the popover.
+    const onClick = vi.fn();
+    renderSwitcher({
+      apps: [{ key: 'analytics', name: 'Analytics', disabled: true, href: '/analytics', onClick }],
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+
+    const card = screen.getByText('Analytics').closest('[data-app-switcher-app]') as HTMLElement;
+    expect(card.getAttribute('aria-disabled')).toBe('true');
+    // A disabled app must not become a link, or it would still navigate.
+    expect(card.tagName).toBe('BUTTON');
+    expect(card.getAttribute('href')).toBeNull();
+
+    card.focus();
+    expect(document.activeElement).toBe(card);
+
+    fireEvent.click(card);
+    expect(onClick).not.toHaveBeenCalled();
+    // The popover stays open because nothing was selected.
+    expect(screen.getByRole('dialog', { name: 'Applications' })).toBeDefined();
+  });
+
+  it('keeps the reverse-tabnabbing guard even when componentProps sets rel', () => {
+    // `componentProps` is consumer-controlled, so it must not be able to strip
+    // the `rel` guard from a `_blank` link.
+    renderWithTheme(
+      <AppSwitcher
+        apps={[
+          {
+            key: 'apim',
+            name: 'API Management',
+            href: 'https://example.com',
+            target: '_blank',
+            component: 'a',
+            componentProps: { rel: '' },
+          },
+        ]}
+      />,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+
+    expect(screen.getByRole('link', { name: 'API Management' }).getAttribute('rel')).toBe(
+      'noopener noreferrer',
+    );
+  });
+
   it('renders navigable apps as links and closes the popover on selection', () => {
     const onClick = vi.fn();
     renderSwitcher({ apps: [{ key: 'apim', name: 'API Management', href: '/apim', onClick }] });

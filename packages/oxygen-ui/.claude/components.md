@@ -1064,6 +1064,7 @@ building blocks are intentionally not exported.
 | `href` | `string` | - | Destination URL; renders the card as an anchor |
 | `target` | `string` | - | Anchor target, used with `href` |
 | `component` | `ElementType` | - | Custom root, e.g. a router `Link` |
+| `componentProps` | `Record<string, unknown>` | - | Extra props for `component` (e.g. React Router's `to`) |
 | `onClick` | `(event) => void` | - | Click handler; the popover closes after it runs |
 
 ### AppSwitcherFooterAction Type
@@ -1075,6 +1076,7 @@ building blocks are intentionally not exported.
 | `href` | `string` | - | Destination URL for the trailing action |
 | `target` | `string` | - | Anchor target, used with `href` |
 | `component` | `ElementType` | - | Custom action component, e.g. a router `Link` |
+| `componentProps` | `Record<string, unknown>` | - | Extra props for `component` (e.g. React Router's `to`) |
 | `onClick` | `(event) => void` | - | Action handler; the popover closes after it runs |
 
 ### Usage
@@ -1111,13 +1113,31 @@ correct here; the card renders as a real anchor, so middle-click and "open in ne
 { key: 'identity', name: 'Identity', href: 'https://identity.example.com', target: '_blank' }
 ```
 
-**In-app navigation (same SPA)** — pass a router `Link` via `component`. Router props such
-as `href` are forwarded through, keeping client-side routing intact.
+**In-app navigation (same SPA)** — pass a router `Link` via `component`, and give it the
+router's own navigation prop through `componentProps`. React Router's `Link` takes `to`,
+not `href`, so `href` alone would not navigate.
 
 ```tsx
 import { Link } from 'react-router';
 
-{ key: 'integration', name: 'Integration', component: Link, href: '/integration' }
+{
+  key: 'integration',
+  name: 'Integration',
+  component: Link,
+  componentProps: { to: '/integration' },
+}
+```
+
+`componentProps` works the same way on `footer`, which matters for the Cloud Console link
+every product ships:
+
+```tsx
+footer={{
+  description: 'Manage Organization & Users, billing',
+  label: 'WSO2 Cloud Console',
+  component: Link,
+  componentProps: { to: '/console' },
+}}
 ```
 
 **Programmatic navigation** — use `onClick`. The popover closes automatically after the
@@ -1132,6 +1152,27 @@ const navigate = useNavigate();
 ```
 
 Precedence: `component` wins over `href`; `disabled` blocks all navigation regardless.
+
+A `_blank` target always keeps `rel="noopener noreferrer"`; `componentProps` cannot
+override it.
+
+### Keyboard & Accessibility
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` | Moves into and through the app cards |
+| `←` / `→` | Moves to the previous/next app card |
+| `↑` / `↓` | Moves one grid row at a time (a single step in the mobile single-column layout) |
+| `Home` / `End` | Moves to the first/last app card |
+| `Esc` | Closes the popover and returns focus to the trigger |
+
+Arrow keys clamp at the ends of the grid rather than wrapping, so a step off the last
+row does not jump somewhere unrelated.
+
+- The trigger exposes `aria-haspopup`, `aria-expanded`, and `aria-controls`.
+- Apps are grouped in a list labelled by the section heading, so the count is announced.
+- The current app is marked `aria-current`; unavailable apps are marked `aria-disabled`
+  and stay focusable so they remain discoverable, but do not navigate or close the popover.
 
 ### PageTitle
 

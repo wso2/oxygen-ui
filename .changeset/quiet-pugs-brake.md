@@ -11,5 +11,7 @@ consistent across every product: consumers describe the applications with the
 
 - `apps` - name, icon, status chip, and `current`/`disabled` state per application
 - `footer` - optional supporting text with a trailing link action
-- Navigation via `href` (cross-app), a router `Link` through `component` (in-app),
-  or `onClick` (programmatic)
+- Navigation via `href` (cross-app), a router `Link` through `component` plus
+  `componentProps` (in-app), or `onClick` (programmatic)
+- Arrow-key navigation across the app grid, with `Home`/`End` and focus that
+  clamps at the ends rather than wrapping

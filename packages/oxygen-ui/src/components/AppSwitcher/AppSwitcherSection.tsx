@@ -30,6 +30,9 @@ import type { SxProps, Theme } from '@mui/material/styles';
  *
  * Spacing:
  * - `spacing(2)` / `spacing(1.5)` - Padding and grid gap
+ *
+ * Typography:
+ * - `typography.caption` - Section label size
  */
 
 /**
@@ -50,7 +53,7 @@ const AppSwitcherSectionLabel = styled(Typography, {
   slot: 'SectionLabel',
 })(({ theme }) => ({
   color: (theme.vars || theme).palette.text.secondary,
-  fontSize: 11,
+  fontSize: theme.typography.caption.fontSize,
   fontWeight: theme.typography.fontWeightBold,
   letterSpacing: '0.08em',
   textTransform: 'uppercase',
@@ -112,14 +115,87 @@ export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
   sx,
 }) => {
   const labelId = React.useId();
+  const gridRef = React.useRef<HTMLUListElement>(null);
+
+  /**
+   * Moves focus between app cards with the arrow keys.
+   *
+   * A grid of links is tedious to traverse with Tab alone, and the visual
+   * layout implies arrow-key movement. Left/Right step through the cards and
+   * Up/Down jump by a row; Home/End go to the first/last card. Disabled cards
+   * stay in the sequence because they remain focusable and discoverable.
+   */
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLUListElement>) => {
+    const keys = ['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp', 'Home', 'End'];
+    if (!keys.includes(event.key)) {
+      return;
+    }
+
+    const cards = Array.from(
+      gridRef.current?.querySelectorAll<HTMLElement>('[data-app-switcher-app]') ?? []
+    );
+    if (cards.length === 0) {
+      return;
+    }
+
+    const currentIndex = cards.indexOf(document.activeElement as HTMLElement);
+    if (currentIndex === -1) {
+      return;
+    }
+
+    // The single-column layout below `sm` makes horizontal steps equivalent to
+    // vertical ones, so derive the row stride from the rendered geometry rather
+    // than the `columns` prop.
+    const firstTop = cards[0].getBoundingClientRect().top;
+    const perRow = Math.max(
+      1,
+      cards.filter((card) => card.getBoundingClientRect().top === firstTop).length
+    );
+
+    let nextIndex = currentIndex;
+    switch (event.key) {
+      case 'ArrowRight':
+        nextIndex = currentIndex + 1;
+        break;
+      case 'ArrowLeft':
+        nextIndex = currentIndex - 1;
+        break;
+      case 'ArrowDown':
+        nextIndex = currentIndex + perRow;
+        break;
+      case 'ArrowUp':
+        nextIndex = currentIndex - perRow;
+        break;
+      case 'Home':
+        nextIndex = 0;
+        break;
+      case 'End':
+        nextIndex = cards.length - 1;
+        break;
+      default:
+        break;
+    }
+
+    // Clamp instead of wrapping: a vertical step off the last row would
+    // otherwise land somewhere unrelated.
+    if (nextIndex < 0 || nextIndex >= cards.length) {
+      return;
+    }
+
+    // Stop the popover from also scrolling on arrow keys.
+    event.preventDefault();
+    cards[nextIndex].focus();
+  };
 
   return (
     <AppSwitcherSectionRoot sx={sx}>
       {label && <AppSwitcherSectionLabel id={labelId}>{label}</AppSwitcherSectionLabel>}
       <AppSwitcherSectionGrid
+        ref={gridRef}
         ownerState={{ columns }}
         role="list"
         aria-labelledby={label ? labelId : undefined}
+        onKeyDown={handleKeyDown}
       >
         {React.Children.map(children, (child) =>
           React.isValidElement(child) ? <li>{child}</li> : child

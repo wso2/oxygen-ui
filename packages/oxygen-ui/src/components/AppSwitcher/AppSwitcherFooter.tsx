@@ -58,7 +58,7 @@ const AppSwitcherFooterText = styled(Typography, {
   name: 'MuiAppSwitcher',
   slot: 'FooterText',
 })(({ theme }) => ({
-  fontSize: 13,
+  fontSize: theme.typography.body2.fontSize,
   color: (theme.vars || theme).palette.text.secondary,
 }));
 
@@ -97,6 +97,11 @@ export interface AppSwitcherFooterProps
    * Router-specific props such as `to` are forwarded through.
    */
   component?: React.ElementType;
+  /**
+   * Extra props forwarded to `component`, for routers that use their own
+   * navigation prop instead of `href` (e.g. React Router's `to`).
+   */
+  componentProps?: Record<string, unknown>;
   /** Destination URL for the trailing action */
   href?: string;
   /** Anchor target, only applied together with `href` */
@@ -128,6 +133,7 @@ export const AppSwitcherFooter: React.FC<AppSwitcherFooterProps> = ({
   description,
   actionLabel,
   component,
+  componentProps,
   href,
   target,
   onActionClick,
@@ -148,6 +154,10 @@ export const AppSwitcherFooter: React.FC<AppSwitcherFooterProps> = ({
   // the root; anything else (e.g. a router's `to`) is meant for the action.
   const { rootProps, actionProps } = splitFooterProps(props);
 
+  // Applied after `componentProps` so a consumer cannot drop the
+  // reverse-tabnabbing guard on a `_blank` target.
+  const relProps = target === '_blank' ? { rel: 'noopener noreferrer' } : {};
+
   if (children) {
     return (
       <AppSwitcherFooterRoot sx={sx} className={className} id={id} {...rootProps}>
@@ -166,13 +176,9 @@ export const AppSwitcherFooter: React.FC<AppSwitcherFooterProps> = ({
           endIcon={<ChevronRight size={16} aria-hidden="true" />}
           {...actionProps}
           {...(component && { component })}
-          {...(href
-            ? {
-                href,
-                target,
-                ...(target === '_blank' && { rel: 'noopener noreferrer' }),
-              }
-            : {})}
+          {...(href ? { href, target } : {})}
+          {...componentProps}
+          {...relProps}
           onClick={handleClick}
         >
           {actionLabel}

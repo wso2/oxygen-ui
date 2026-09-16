@@ -80,6 +80,14 @@ export interface AppSwitcherItem {
   target?: string;
   /** Custom root component, e.g. a router `Link`, for client-side navigation */
   component?: React.ElementType;
+  /**
+   * Extra props forwarded to `component`, for routers that use their own
+   * navigation prop instead of `href` (e.g. React Router's `to`).
+   *
+   * @example
+   * { component: Link, componentProps: { to: '/apim' } }
+   */
+  componentProps?: Record<string, unknown>;
   /** Click handler. The popover closes automatically after it runs. */
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 }
@@ -98,6 +106,14 @@ export interface AppSwitcherFooterAction {
   target?: string;
   /** Custom component for the action, e.g. a router `Link` */
   component?: React.ElementType;
+  /**
+   * Extra props forwarded to `component`, for routers that use their own
+   * navigation prop instead of `href` (e.g. React Router's `to`).
+   *
+   * @example
+   * { component: Link, componentProps: { to: '/console' } }
+   */
+  componentProps?: Record<string, unknown>;
   /** Click handler. The popover closes automatically after it runs. */
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 }
@@ -217,6 +233,7 @@ export const AppSwitcher: React.FC<AppSwitcherProps> = ({
             href={footer.href}
             target={footer.target}
             component={footer.component}
+            componentProps={footer.componentProps}
             onActionClick={footer.onClick}
           />
         )}
