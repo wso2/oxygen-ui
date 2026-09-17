@@ -18,7 +18,7 @@
 
 import {Description, Primary, Subtitle, Title} from '@storybook/addon-docs/blocks';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Stack, Typography, CodeBlock, Box, Divider } from '@wso2/oxygen-ui';
+import { Stack, Typography, CodeBlock, Box, Divider, Link } from '@wso2/oxygen-ui';
 import React from 'react';
 import CenterContentLayout from '../layouts/CenterContentLayout';
 
@@ -591,6 +591,27 @@ export const CreateCustomTheme: Story = {
           />
         </Box>
       </Stack>
+    </CenterContentLayout>
+  ),
+};
+
+/**
+ * Unit-test contract for first-party composites.
+ */
+export const TestingContract: Story = {
+  render: () => (
+    <CenterContentLayout>
+      <Typography variant="body2" color="text.secondary">
+        Colocated unit tests follow{' '}
+        <Link
+          href="https://github.com/wso2/oxygen-ui/blob/main/packages/oxygen-ui/TESTING.md"
+          target="_blank"
+          rel="noopener"
+        >
+          <code>packages/oxygen-ui/TESTING.md</code>
+        </Link>
+        .
+      </Typography>
     </CenterContentLayout>
   ),
 };
