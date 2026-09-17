@@ -12,6 +12,26 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
+    "./data-grid": {
+      "types": "./dist/data-grid.d.ts",
+      "import": "./dist/data-grid.js",
+      "require": "./dist/data-grid.cjs"
+    },
+    "./date-pickers": {
+      "types": "./dist/date-pickers.d.ts",
+      "import": "./dist/date-pickers.js",
+      "require": "./dist/date-pickers.cjs"
+    },
+    "./date-pickers/*": {
+      "types": "./dist/date-pickers/*.d.ts",
+      "import": "./dist/date-pickers/*.js",
+      "require": "./dist/date-pickers/*.cjs"
+    },
+    "./tree-view": {
+      "types": "./dist/tree-view.d.ts",
+      "import": "./dist/tree-view.js",
+      "require": "./dist/tree-view.cjs"
+    },
     "./*": {
       "types": "./dist/*.d.ts",
       "import": "./dist/*.js",
