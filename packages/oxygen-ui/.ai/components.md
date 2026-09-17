@@ -12,6 +12,7 @@ Complete API reference for custom Oxygen UI components. For MUI components, refe
 - [Sidebar](#sidebar)
 - [Footer](#footer)
 - [UserMenu](#usermenu)
+- [AppSwitcher](#appswitcher)
 - [Form](#form)
 - [NotificationPanel](#notificationpanel)
 - [NotificationBanner](#notificationbanner)
@@ -1020,6 +1021,225 @@ import { UserIcon, SettingsIcon, LogOutIcon } from '@wso2/oxygen-ui-icons-react'
   <UserMenu.Logout icon={<LogOutIcon size={20} />} onClick={() => signOut()} />
 </UserMenu>
 ```
+
+## AppSwitcher
+
+Popover for navigating between WSO2 Cloud platforms.
+
+```tsx
+import { AppSwitcher } from '@wso2/oxygen-ui';
+```
+
+### Fixed layout
+
+The switcher renders a **fixed layout** so it looks and behaves identically across every WSO2
+product. Consumers describe the destinations with the `apps` and `footer` props rather than
+composing markup, so a product team cannot ship a switcher that differs from the rest of the
+platform. The internal building blocks are intentionally not exported.
+
+The popover has two sections: a grid of platform cards, and a `Manage` section linking to the
+WSO2 Cloud tabs (organizations, users, billing).
+
+### AppSwitcher Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `apps` | `AppSwitcherItem[]` | required | Platforms to switch between |
+| `label` | `string` | `'Platforms'` | Heading above the platform grid |
+| `footer` | `AppSwitcherFooterAction` | - | Manage section beneath the platforms; omit to hide |
+| `triggerLabel` | `string` | `'Switch Platforms'` | Tooltip and accessible label for the trigger |
+| `triggerIcon` | `ReactNode` | `<Grip size={24} />` | Custom trigger icon |
+| `width` | `number` | `460` | Popover width (px) from the `sm` breakpoint up |
+| `columns` | `number` | `3` | Platform grid columns from the `sm` breakpoint up |
+| `aria-label` | `string` | `'Applications'` | Accessible name for the popover surface |
+| `sx` | `SxProps<Theme>` | - | Additional styles applied to the popover |
+
+### AppSwitcherItem Type
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `key` | `string` | required | Stable identifier, used as the React key |
+| `name` | `string` | required | Platform name (e.g. "API Platform") |
+| `url` | `string` | - | Destination URL; renders the card as an anchor |
+| `icon` | `ReactNode` | WSO2 mark | Mark shown above the name |
+| `target` | `string` | `'_blank'` | Anchor target; platforms open in a new tab by default |
+| `disabled` | `boolean` | `false` | Blocks navigation (e.g. a platform not yet available) |
+| `tooltip` | `ReactNode` | - | Tooltip on hover/focus, e.g. `"Coming soon"` on an unavailable platform |
+| `component` | `ElementType` | - | Custom root, e.g. a router `Link` |
+| `componentProps` | `Record<string, unknown>` | - | Extra props for `component` (e.g. React Router's `to`) |
+| `onClick` | `(event) => void` | - | Click handler; the popover stays open after it runs |
+
+### AppSwitcherFooterAction Type
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `links` | `AppSwitcherFooterLink[]` | required | WSO2 Cloud destinations, rendered as cards |
+| `label` | `string` | `'Manage'` | Heading above the links |
+| `columns` | `number` | `3` | Grid columns from the `sm` breakpoint up |
+
+### AppSwitcherFooterLink Type
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `key` | `string` | required | Stable identifier, used as the React key |
+| `name` | `string` | required | Link name (e.g. "Users & roles") |
+| `url` | `string` | - | Destination URL; renders the card as an anchor |
+| `icon` | `ReactNode` | WSO2 mark | Mark shown above the name |
+| `target` | `string` | `'_blank'` | Anchor target |
+| `disabled` | `boolean` | `false` | Blocks navigation |
+| `tooltip` | `ReactNode` | - | Tooltip on hover/focus |
+| `component` | `ElementType` | - | Custom root, e.g. a router `Link` |
+| `componentProps` | `Record<string, unknown>` | - | Extra props for `component` |
+| `onClick` | `(event) => void` | - | Click handler; the popover stays open after it runs |
+
+### Usage
+
+```tsx
+import { AppSwitcher, Header } from '@wso2/oxygen-ui';
+import { Building2, CreditCard, UserRoundPlus } from '@wso2/oxygen-ui-icons-react';
+
+<Header.Actions>
+  <AppSwitcher
+    apps={[
+      { key: 'agent', name: 'Agent Manager', url: 'https://agent.wso2.com' },
+      { key: 'identity', name: 'Identity Platform', url: 'https://identity.wso2.com' },
+      { key: 'api', name: 'API Platform', url: 'https://api.wso2.com' },
+      { key: 'analytics', name: 'Analytics Platform', disabled: true },
+    ]}
+    footer={{
+      links: [
+        { key: 'orgs', name: 'Organizations', url: 'https://console.wso2.com/organizations',
+          icon: <Building2 size={18} /> },
+        { key: 'users', name: 'Users & roles', url: 'https://console.wso2.com/users',
+          icon: <UserRoundPlus size={18} /> },
+        { key: 'billing', name: 'Billing', url: 'https://console.wso2.com/billing',
+          icon: <CreditCard size={18} /> },
+      ],
+    }}
+  />
+</Header.Actions>
+```
+
+### The platform mark
+
+Every platform card carries the WSO2 mark, the `WSO2` icon from `@wso2/oxygen-ui-icons-react`,
+supplied by the component. Products do not pick their own artwork, so the grid stays uniform
+across the cloud. Pass `icon` only when a destination genuinely needs different artwork — the
+manage links do, which is why they take neutral glyphs.
+
+### Card states
+
+A card is a name under a mark. Every card in a section is a fixed,
+identical size, so a name that wraps to two lines does not make its card taller than its
+neighbours; a name longer than two lines is clamped rather than spilling past the border.
+
+- **Navigable** — resting card on the paper surface with a divider border. On hover it lifts
+  2px, gains an accent border and `shadows[2]`. The lift is suppressed under
+  `prefers-reduced-motion`; the border and shadow still carry the state.
+- **Unavailable** (`disabled`) — the same solid border as any other card, with an
+  `action.hover` background, a faded mark and a muted label.
+  The card never navigates, but stays focusable so it remains discoverable. Pass `tooltip` to
+  explain why, e.g. `tooltip="Coming soon"`. Because unavailable cards carry `aria-disabled`
+  rather than the native `disabled` attribute, they still receive pointer events, so the
+  tooltip fires; a natively disabled button would swallow it. The tooltip *describes* the card
+  rather than renaming it, so the platform name stays its accessible name.
+
+### Dismissing the popover
+
+Selecting a card does **not** close the popover. Cards open in a new tab, so the current tab
+does not navigate and dismissing would look like the switcher had closed itself for no reason.
+This matches other app-grid switchers. The popover closes on:
+
+- a second click of the grid trigger,
+- a click outside it,
+- `Esc`.
+
+### Routing
+
+`AppSwitcher` does not depend on a router. Choose the pattern that matches the destination:
+
+**Cross-app navigation (different origin/deployment)** — use `url`. The card renders as a real
+anchor, so middle-click and "open in new tab" work. Cards target `_blank` by default, since each
+platform is its own deployment; pass `target: '_self'` to navigate in place.
+
+```tsx
+{ key: 'api', name: 'API Platform', url: 'https://api.wso2.com' }
+{ key: 'agent', name: 'Agent Manager', url: '/agent', target: '_self' }
+```
+
+**In-app navigation (same SPA)** — pass a router `Link` via `component`, and give it the
+router's own navigation prop through `componentProps`. React Router's `Link` takes `to`,
+not `href`, so `url` alone would not navigate.
+
+```tsx
+import { Link } from 'react-router';
+
+{
+  key: 'integration',
+  name: 'Integration Platform',
+  component: Link,
+  componentProps: { to: '/integration' },
+}
+```
+
+`componentProps` works the same way on the manage links:
+
+```tsx
+footer={{
+  links: [
+    { key: 'billing', name: 'Billing', component: Link, componentProps: { to: '/billing' } },
+  ],
+}}
+```
+
+**Programmatic navigation** — use `onClick`. The popover stays open after the handler runs,
+so a handler that navigates in the current tab should dismiss it itself if needed.
+
+```tsx
+import { useNavigate } from 'react-router';
+
+const navigate = useNavigate();
+
+{ key: 'agent', name: 'Agent Manager', onClick: () => navigate('/agent') }
+```
+
+Precedence: `component` wins over `url`; `disabled` blocks all navigation regardless.
+
+A `_blank` target always keeps `rel="noopener noreferrer"`; `componentProps` cannot
+override it.
+
+### Brand color
+
+The switcher is WSO2 Cloud chrome, so it uses the brand orange (`#FF7300`) even in a product
+running a different palette: the WSO2 mark, the hover border and the focus ring are all brand
+orange rather than `palette.primary`. There is no variant to opt out of this.
+
+**Contrast:** `#FF7300` is 2.73:1 on white. It is used only for the mark, borders and focus
+rings — never for text, so the switcher has no brand-colored text to fail WCAG AA. The 2.73:1
+mark and focus ring do fall under the 3:1 bar WCAG 2.1 SC 1.4.11 sets for non-text UI
+components; this is a property of the brand palette rather than of this component (the standard
+card border, `#E0E0E0`, is 1.32:1), and is tracked in
+https://github.com/wso2/oxygen-ui/issues/558.
+
+### Keyboard & Accessibility
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` | Moves into and through the cards |
+| `←` / `→` | Moves to the previous/next card |
+| `↑` / `↓` | Moves one grid row at a time (a single step in the mobile single-column layout) |
+| `Home` / `End` | Moves to the first/last card in the section |
+| `Esc` | Closes the popover and returns focus to the trigger |
+
+Arrow keys clamp at the ends of a grid rather than wrapping, so a step off the last row does
+not jump somewhere unrelated. Each section is its own grid, so arrow keys do not cross from
+the platforms into the manage links.
+
+- The trigger exposes `aria-haspopup`, `aria-expanded`, and `aria-controls`.
+- Platforms and manage links are each grouped in a list labelled by their section heading, so
+  the count is announced.
+- Unavailable platforms are marked `aria-disabled` and stay focusable so they remain
+  discoverable, but do not navigate or close the popover.
 
 ### PageTitle
 
