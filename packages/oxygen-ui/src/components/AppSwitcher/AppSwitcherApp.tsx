@@ -19,54 +19,49 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import Chip from '@mui/material/Chip';
 import ButtonBase from '@mui/material/ButtonBase';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { styled, alpha } from '@mui/material/styles';
-import type { SxProps, Theme } from '@mui/material/styles';
-import { useAppSwitcher } from './context';
+import { styled } from '@mui/material/styles';
+import { APP_SWITCHER_BRAND } from './brand';
+import { WSO2 } from '@wso2/oxygen-ui-icons-react';
 
 /**
  * Theme tokens used in this component:
  *
  * Colors:
- * - `background.paper` / `action.hover` - Card surfaces
- * - `primary.main` - Selected (current) border, tint and focus ring
+ * - `background.paper` / `action.hover` - Card and tile surfaces
  * - `divider` - Resting card border
  * - `text.primary` / `text.secondary` / `text.disabled` - Typography
  *
  * Elevation:
- * - `shadows[1]` - Hover elevation, matching `Form.CardButton`
+ * - `shadows[2]` - Hover elevation
  *
  * Typography / sizing:
- * - `typography.body1` / `typography.body2` - Name and description text
- * - `spacing()` / `shape.borderRadius` - Icon tile dimensions
+ * - `typography.body2` - Name text
+ * - `spacing()` / `shape.borderRadius` - Card and tile dimensions
  *
- * The status chip keeps a compact height so a chip never out-weighs the app name
- * it sits beside, but takes its type scale from `typography.caption` rather than
- * a hardcoded size.
+ * Layout follows the agreed WSO2 Cloud design: the mark sits centered above a
+ * centered name. A card is a destination, so its whole
+ * surface is the hit target.
  */
 
 /**
- * Status chip variants supported by an app card.
+ * Visual treatments a card can take.
+ *
+ * - `platform` - Large brand-colored mark, used for the platform grid
+ * - `manage`   - Smaller neutral mark on a grey disc, used for the manage row
  */
-export type AppSwitcherAppStatusColor =
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | 'error'
-  | 'info'
-  | 'success'
-  | 'warning';
+export type AppSwitcherAppTone = 'platform' | 'manage';
 
 interface AppSwitcherAppOwnerState {
-  current: boolean;
   disabled: boolean;
+  tone: AppSwitcherAppTone;
 }
 
 /**
  * Props for the styled root, which renders polymorphically as either an anchor
- * or a `ButtonBase` depending on whether `href` is supplied.
+ * or a `ButtonBase` depending on whether `url` is supplied.
  */
 interface AppSwitcherAppRootProps extends Omit<React.ComponentProps<typeof Card>, 'component'> {
   ownerState: AppSwitcherAppOwnerState;
@@ -79,108 +74,122 @@ interface AppSwitcherAppRootProps extends Omit<React.ComponentProps<typeof Card>
 /**
  * Styled card button for an application entry.
  *
- * Hover and focus styling mirrors `Form.CardButton` so app cards feel
- * consistent with the rest of the design system.
+ * The card lifts slightly on hover and gains a shadow, so a pointer user gets
+ * the same "this is clickable" signal the design shows without relying on color
+ * alone. The lift is suppressed under `prefers-reduced-motion`.
  */
 const AppSwitcherAppRoot = styled(Card, {
   name: 'MuiAppSwitcher',
   slot: 'App',
   shouldForwardProp: (prop) => prop !== 'ownerState',
-})<AppSwitcherAppRootProps>(({ theme, ownerState }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'stretch',
-  justifyContent: 'flex-start',
-  gap: theme.spacing(1.5),
-  width: '100%',
-  height: '100%',
-  padding: theme.spacing(1.5),
-  textAlign: 'left',
-  transition: theme.transitions.create(['border-color', 'box-shadow', 'background-color'], {
-    duration: theme.transitions.duration.shorter,
-  }),
-  '&.MuiCard-root': {
-    borderColor: ownerState.current
-      ? (theme.vars || theme).palette.primary.main
-      : (theme.vars || theme).palette.divider,
-    backgroundColor: ownerState.current
-      ? // `mainChannel` keeps the tint on the CSS variable, so it follows a
-        // color-scheme switch; `alpha()` would bake in the light-mode value.
-        theme.vars
-        ? `rgba(${theme.vars.palette.primary.mainChannel} / 0.06)`
-        : alpha(theme.palette.primary.main, 0.06)
-      : (theme.vars || theme).palette.background.paper,
-  },
-  ...(ownerState.disabled && {
-    cursor: 'not-allowed',
-  }),
-  '&:hover': {
-    ...(!ownerState.disabled && {
-      borderColor: (theme.vars || theme).palette.primary.main,
-      boxShadow: theme.shadows[1],
+})<AppSwitcherAppRootProps>(({ theme, ownerState }) => {
+  // The switcher is WSO2 Cloud chrome, so its accent is the brand orange even
+  // when the surrounding product runs a different palette.
+  const accent = APP_SWITCHER_BRAND.main;
+  const manage = ownerState.tone === 'manage';
+
+  return {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    // The manage row is a denser, secondary version of the same card: a smaller
+    // mark, tighter gap and less height, so it reads as settings rather than as
+    // another row of products.
+    gap: theme.spacing(manage ? 0.75 : 1.25),
+    width: '100%',
+    // A fixed height rather than a floor, so every card in the switcher is the
+    // same size whether its name runs to one line or two. The name itself is
+    // clamped to two lines, so nothing can outgrow the box.
+    height: theme.spacing(manage ? 9 : 13),
+    padding: manage ? theme.spacing(1, 1) : theme.spacing(1.25, 1),
+    textAlign: 'center',
+    // A navigable card renders as an `<a>`, which underlines its text by
+    // default. The card is the link target, not the words, so the underline is
+    // cleared here rather than on the name alone.
+    textDecoration: 'none',
+    transition: theme.transitions.create(
+      ['border-color', 'box-shadow', 'background-color', 'transform'],
+      { duration: theme.transitions.duration.shorter },
+    ),
+    '&.MuiCard-root': {
+      borderColor: (theme.vars || theme).palette.divider,
+      backgroundColor: (theme.vars || theme).palette.background.paper,
+    },
+    // An unavailable platform is drawn as a dashed, faded outline rather than a
+    // chip, matching the design: the card itself says "not yet".
+    ...(ownerState.disabled && {
+      cursor: 'not-allowed',
+      '&.MuiCard-root': {
+        borderStyle: 'dashed',
+        borderColor: (theme.vars || theme).palette.divider,
+        backgroundColor: (theme.vars || theme).palette.action.hover,
+      },
     }),
-  },
-  // MUI only adds `.Mui-focusVisible` on ButtonBase; anchors and consumer
-  // components need the native selector to get the same ring.
-  '&.Mui-focusVisible, &:focus-visible': {
-    outline: `2px solid ${(theme.vars || theme).palette.primary.main}`,
-    outlineOffset: 2,
-  },
-}));
+    '&:hover': {
+      ...(!ownerState.disabled && {
+        borderColor: accent,
+        boxShadow: theme.shadows[2],
+        transform: 'translateY(-2px)',
+      }),
+    },
+    // MUI only adds `.Mui-focusVisible` on ButtonBase; anchors and consumer
+    // components need the native selector to get the same ring.
+    '&.Mui-focusVisible, &:focus-visible': {
+      outline: `2px solid ${accent}`,
+      outlineOffset: 2,
+    },
+    // Motion is decoration here; the border and shadow still carry the state.
+    '@media (prefers-reduced-motion: reduce)': {
+      transition: 'none',
+      '&:hover': {
+        transform: 'none',
+      },
+    },
+  };
+});
 
 /**
- * Styled top row holding the app icon and the status chip.
- */
-const AppSwitcherAppHeader = styled(Box, {
-  name: 'MuiAppSwitcher',
-  slot: 'AppHeader',
-})(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'flex-start',
-  justifyContent: 'space-between',
-  gap: theme.spacing(1),
-}));
-
-/**
- * Styled tinted square holding the app icon.
+ * Styled holder for the app mark.
+ *
+ * Platform marks are the WSO2 logo and carry no backplate, matching the
+ * design; manage marks sit on a neutral disc so the two rows read as different
+ * kinds of destination.
  */
 const AppSwitcherAppIcon = styled(Box, {
   name: 'MuiAppSwitcher',
   slot: 'AppIcon',
-})(({ theme }) => ({
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flexShrink: 0,
-  width: theme.spacing(4.5),
-  height: theme.spacing(4.5),
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: (theme.vars || theme).palette.action.hover,
-  color: (theme.vars || theme).palette.text.primary,
-  '& svg': {
-    display: 'block',
-  },
-}));
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<{ ownerState: AppSwitcherAppOwnerState }>(({ theme, ownerState }) => {
+  const manage = ownerState.tone === 'manage';
 
-/**
- * Styled status chip shown at the top-right of the card.
- *
- * MUI's `size="small"` chip is 24px tall, which crowds the 36px icon tile and
- * competes with the app name. The compact height keeps the chip secondary.
- */
-const AppSwitcherAppStatus = styled(Chip, {
-  name: 'MuiAppSwitcher',
-  slot: 'AppStatus',
-})(({ theme }) => ({
-  height: theme.spacing(2.5),
-  fontSize: theme.typography.caption.fontSize,
-  // The default small-chip padding is tuned for a 24px chip and looks
-  // off-center once the height is reduced.
-  '& .MuiChip-label': {
-    paddingLeft: theme.spacing(0.75),
-    paddingRight: theme.spacing(0.75),
-  },
-}));
+  return {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+    // The manage glyph sits on a fixed disc. The platform mark is the artwork
+    // itself with no backplate, so it is sized by the icon rather than by a box.
+    ...(manage && {
+      width: theme.spacing(3.5),
+      height: theme.spacing(3.5),
+    }),
+    borderRadius: '50%',
+    backgroundColor: manage ? (theme.vars || theme).palette.action.hover : 'transparent',
+    // The WSO2 mark is brand artwork rather than a themed accent, so it stays
+    // orange; manage glyphs are neutral so they read as settings.
+    color: manage ? (theme.vars || theme).palette.text.secondary : APP_SWITCHER_BRAND.main,
+    // A faded mark is the only tint an unavailable platform keeps.
+    ...(ownerState.disabled && {
+      color: manage
+        ? (theme.vars || theme).palette.text.disabled
+        : APP_SWITCHER_BRAND.surfaceMark,
+    }),
+    '& svg': {
+      display: 'block',
+    },
+  };
+});
 
 /**
  * Styled application name.
@@ -190,61 +199,56 @@ const AppSwitcherAppName = styled(Typography, {
   slot: 'AppName',
   shouldForwardProp: (prop) => prop !== 'ownerState',
 })<{ ownerState: AppSwitcherAppOwnerState }>(({ theme, ownerState }) => ({
-  fontSize: theme.typography.body1.fontSize,
-  fontWeight: theme.typography.fontWeightMedium,
+  // Both rows take the same size; the manage row stays secondary through its
+  // lighter weight and smaller mark rather than through a smaller label.
+  fontSize: theme.typography.body2.fontSize,
+  fontWeight:
+    ownerState.tone === 'manage'
+      ? theme.typography.fontWeightRegular
+      : theme.typography.fontWeightMedium,
   lineHeight: 1.35,
+  // Grey rather than full-strength text: the mark carries the card, and the
+  // names sit a step back from it.
   color: ownerState.disabled
     ? (theme.vars || theme).palette.text.disabled
-    : (theme.vars || theme).palette.text.primary,
+    : (theme.vars || theme).palette.text.secondary,
   // `minmax(0, 1fr)` grid tracks still let a long unbroken name push the card
   // wider, so wrap rather than overflow.
   overflowWrap: 'anywhere',
-}));
-
-/**
- * Styled optional description shown under the app name.
- */
-const AppSwitcherAppDescription = styled(Typography, {
-  name: 'MuiAppSwitcher',
-  slot: 'AppDescription',
-})(({ theme }) => ({
-  fontSize: theme.typography.body2.fontSize,
-  lineHeight: 1.4,
-  color: (theme.vars || theme).palette.text.secondary,
-  marginTop: theme.spacing(0.25),
-  // Descriptions are optional supporting text; cap them at two lines so one
-  // long entry cannot stretch its row and misalign the grid.
+  // The card is a fixed height, so a long name is clamped instead of spilling
+  // past the border. The manage row is sized for a single line, the platform
+  // row for two.
   display: '-webkit-box',
   WebkitBoxOrient: 'vertical',
-  WebkitLineClamp: 2,
+  WebkitLineClamp: ownerState.tone === 'manage' ? 1 : 2,
   overflow: 'hidden',
 }));
 
 /**
  * Props for the AppSwitcher.App component.
  */
-export interface AppSwitcherAppProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, 'children' | 'onClick'> {
-  /** Application name (e.g. `"API Management"`) */
+export interface AppSwitcherAppProps {
+  /** Application name (e.g. `"API Platform"`) */
   name: string;
-  /** Application icon, typically a 20px icon element */
+  /** Destination URL. The card renders as an anchor pointing at it. */
+  url?: string;
+  /** Mark shown above the name (default: the WSO2 logo) */
   icon?: React.ReactNode;
-  /** Optional supporting text shown under the name */
-  description?: string;
-  /** Status label rendered as a chip (e.g. `"Current"`, `"Try Now"`, `"Coming soon"`) */
-  status?: string;
-  /** Color of the status chip (default: `"default"`) */
-  statusColor?: AppSwitcherAppStatusColor;
-  /** Marks the app the user is currently in, highlighting the card */
-  current?: boolean;
-  /** Disables navigation, e.g. for apps that are not yet available */
+  /** Visual treatment (default: `"platform"`) */
+  tone?: AppSwitcherAppTone;
+  /** Disables navigation, e.g. for platforms that are not yet available */
   disabled?: boolean;
+  /**
+   * Tooltip shown on hover and focus, typically explaining why a card is
+   * unavailable (e.g. `"Coming soon"`). Omit for no tooltip.
+   */
+  tooltip?: React.ReactNode;
   /**
    * Custom root component, e.g. a router `Link`, for client-side navigation.
    * Router-specific props such as `to` are forwarded through.
    *
    * @example
-   * component={Link} to="/apim"
+   * component={Link} componentProps={{ to: '/apim' }}
    */
   component?: React.ElementType;
   /**
@@ -252,73 +256,69 @@ export interface AppSwitcherAppProps
    * navigation prop instead of `href` (e.g. React Router's `to`).
    */
   componentProps?: Record<string, unknown>;
-  /** Destination URL. When set, the card renders as an anchor. */
-  href?: string;
-  /** Anchor target, only applied together with `href` */
+  /** Anchor target (default: `"_blank"`, so platforms open in a new tab) */
   target?: string;
-  /** Click handler. The popover closes automatically after it runs. */
+  /** Click handler. The popover stays open after it runs. */
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-  /** Additional sx props */
-  sx?: SxProps<Theme>;
 }
 
 /**
- * AppSwitcher.App - Card button for a single application in the switcher.
+ * AppSwitcher.App - Card button for a single destination in the switcher.
  *
- * Renders as an anchor when `href` is provided and as a button otherwise, so
+ * Renders as an anchor when `url` is provided and as a button otherwise, so
  * links keep native browser affordances (middle-click, open in new tab).
- * Selecting an app closes the popover.
+ * Selecting a card leaves the popover open, since the card opens in a new tab.
+ *
+ * A `tooltip` explains a card's state on hover and focus — most often why an
+ * unavailable platform cannot be opened. Because unavailable cards carry
+ * `aria-disabled` rather than the native `disabled` attribute, they still
+ * receive pointer events, so the tooltip works on them.
  *
  * @example
  * ```tsx
- * <AppSwitcher.App
- *   name="API Management"
- *   icon={<Braces size={20} />}
- *   status="Try Now"
- *   href="https://console.example.com/apim"
- * />
+ * <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
+ * <AppSwitcher.App name="Analytics Platform" disabled tooltip="Coming soon" />
  * ```
  */
 export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>(
   function AppSwitcherApp(
     {
       name,
+      url,
       icon,
-      description,
-      status,
-      statusColor = 'default',
-      current = false,
+      tone = 'platform',
       disabled = false,
+      tooltip,
       component,
       componentProps,
-      href,
-      target,
+      target = '_blank',
       onClick,
-      sx,
-      ...props
     },
-    ref
+    ref,
   ) {
-    const { handleClose } = useAppSwitcher();
 
+    // Selecting a card deliberately leaves the popover open: cards open in a new
+    // tab, so the current tab does not navigate and closing would look like the
+    // switcher had dismissed itself for no reason. This matches the behavior of
+    // other app-grid switchers, where only the trigger, an outside click or
+    // Escape dismisses the popover.
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
       if (disabled) {
         event.preventDefault();
         return;
       }
       onClick?.(event);
-      handleClose();
     };
 
-    const ownerState = { current, disabled };
+    const ownerState = { disabled, tone };
 
     // A consumer-supplied `component` (typically a router Link) wins, so
     // client-side navigation works without the library depending on a router.
     // Otherwise render a real anchor when navigable, so middle-click and
     // "open in new tab" keep working. `rel` guards against reverse tabnabbing.
-    const renderAsLink = Boolean(href) && !disabled;
+    const renderAsLink = Boolean(url) && !disabled;
     const linkProps = {
-      ...(href && { href }),
+      ...(url && { href: url }),
       ...(target && { target }),
     };
     // Keep the reverse-tabnabbing guard out of the overridable props below so
@@ -345,9 +345,8 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
       }
     };
 
-    return (
+    const card = (
       <AppSwitcherAppRoot
-        {...props}
         {...anchorProps}
         ref={ref as React.Ref<HTMLDivElement>}
         ownerState={ownerState}
@@ -355,21 +354,25 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         data-app-switcher-app=""
-        aria-current={current ? 'true' : undefined}
         aria-disabled={disabled ? 'true' : undefined}
-        sx={sx}
       >
-        <AppSwitcherAppHeader>
-          {icon && <AppSwitcherAppIcon aria-hidden="true">{icon}</AppSwitcherAppIcon>}
-          {status && <AppSwitcherAppStatus label={status} size="small" color={statusColor} />}
-        </AppSwitcherAppHeader>
-        <Box>
-          <AppSwitcherAppName ownerState={ownerState}>{name}</AppSwitcherAppName>
-          {description && <AppSwitcherAppDescription>{description}</AppSwitcherAppDescription>}
-        </Box>
+        <AppSwitcherAppIcon ownerState={ownerState} aria-hidden="true">
+          {icon ?? <WSO2 size={tone === 'manage' ? 16 : 32} />}
+        </AppSwitcherAppIcon>
+        <AppSwitcherAppName ownerState={ownerState}>{name}</AppSwitcherAppName>
       </AppSwitcherAppRoot>
     );
-  }
+
+    // `describeChild` because the card already has its own accessible name from
+    // the platform name: the tooltip describes it rather than replacing it.
+    return tooltip ? (
+      <Tooltip title={tooltip} describeChild>
+        {card}
+      </Tooltip>
+    ) : (
+      card
+    );
+  },
 );
 
 AppSwitcherApp.displayName = 'AppSwitcher.App';

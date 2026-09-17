@@ -225,8 +225,10 @@ describe('UserMenu.Trigger', () => {
 });
 
 describe('AppSwitcher', () => {
-  const APPS = [{ key: 'apim', name: 'API Management' }];
-  const FOOTER = { description: 'Manage billing', label: 'Cloud Console', href: '/console' };
+  const APPS = [{ key: 'api', name: 'API Platform', url: 'https://api.wso2.com' }];
+  const FOOTER = {
+    links: [{ key: 'billing', name: 'Billing', url: 'https://console.wso2.com/billing' }],
+  };
 
   const renderSwitcher = (props: Record<string, unknown> = {}) =>
     renderWithTheme(<AppSwitcher apps={APPS} footer={FOOTER} {...props} />);
@@ -234,7 +236,7 @@ describe('AppSwitcher', () => {
   it('exposes popover ARIA state on the trigger and opens on click', () => {
     renderSwitcher();
 
-    const trigger = screen.getByRole('button', { name: 'Switch app' });
+    const trigger = screen.getByRole('button', { name: 'Switch Platforms' });
     expect(trigger.getAttribute('aria-haspopup')).toBe('true');
     expect(trigger.getAttribute('aria-expanded')).toBeNull();
     expect(trigger.getAttribute('aria-controls')).toBeNull();
@@ -252,7 +254,7 @@ describe('AppSwitcher', () => {
 
   it('names the popover surface as a dialog', () => {
     renderSwitcher();
-    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
     // MUI gives the paper slot no role, so the role must be set explicitly for
     // `aria-label` to establish an accessible name.
@@ -261,7 +263,7 @@ describe('AppSwitcher', () => {
 
   it('keeps list semantics explicit for VoiceOver', () => {
     renderSwitcher();
-    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
     // `list-style: none` can strip implicit list semantics in Safari/VoiceOver.
     expect(screen.getByRole('list', { name: 'Platforms' }).getAttribute('role')).toBe('list');
@@ -269,29 +271,110 @@ describe('AppSwitcher', () => {
 
   it('renders the fixed layout from data alone', () => {
     renderSwitcher();
-    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
-    // Section heading, one card per app, and the footer action are all present
-    // without the consumer composing any markup.
+    // Platform grid and manage grid are both present without the consumer
+    // composing any markup.
     expect(screen.getByRole('list', { name: 'Platforms' })).toBeDefined();
-    expect(screen.getAllByRole('listitem')).toHaveLength(1);
-    expect(screen.getByText('API Management')).toBeDefined();
-    expect(screen.getByRole('link', { name: /Cloud Console/ })).toBeDefined();
+    expect(screen.getByRole('list', { name: 'Manage' })).toBeDefined();
+    expect(screen.getByRole('link', { name: 'API Platform' })).toBeDefined();
+    expect(screen.getByRole('link', { name: 'Billing' })).toBeDefined();
   });
 
-  it('omits the footer when none is supplied', () => {
+  it('carries the pulse mark on a platform card without a consumer icon', () => {
+    // The mark is supplied by the component so the grid stays uniform across
+    // products; a product must not have to pass artwork to get the design.
+    renderSwitcher();
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    const card = screen.getByRole('link', { name: 'API Platform' });
+    expect(card.querySelector('svg')).not.toBeNull();
+  });
+
+  it('opens platforms in a new tab with the reverse-tabnabbing guard', () => {
+    // Platforms are separate deployments, so the design opens each in its own
+    // tab; `rel` must come along or `window.opener` leaks.
+    renderSwitcher();
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    const app = screen.getByRole('link', { name: 'API Platform' });
+    expect(app.getAttribute('href')).toBe('https://api.wso2.com');
+    expect(app.getAttribute('target')).toBe('_blank');
+    expect(app.getAttribute('rel')).toBe('noopener noreferrer');
+  });
+
+  it('lets a platform opt out of opening in a new tab', () => {
+    renderSwitcher({
+      apps: [{ key: 'api', name: 'API Platform', url: '/apim', target: '_self' }],
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    const app = screen.getByRole('link', { name: 'API Platform' });
+    expect(app.getAttribute('target')).toBe('_self');
+    expect(app.getAttribute('rel')).toBeNull();
+  });
+
+  it('links the manage section to the WSO2 Cloud tabs in a new tab', () => {
+    renderSwitcher({
+      footer: {
+        links: [
+          { key: 'orgs', name: 'Organizations', url: 'https://console.wso2.com/organizations' },
+          { key: 'users', name: 'Users & roles', url: 'https://console.wso2.com/users' },
+          { key: 'billing', name: 'Billing', url: 'https://console.wso2.com/billing' },
+        ],
+      },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    const manage = screen.getByRole('list', { name: 'Manage' });
+    const links = Array.from(manage.querySelectorAll('a'));
+    expect(links.map((link) => link.getAttribute('href'))).toEqual([
+      'https://console.wso2.com/organizations',
+      'https://console.wso2.com/users',
+      'https://console.wso2.com/billing',
+    ]);
+    links.forEach((link) => {
+      expect(link.getAttribute('target')).toBe('_blank');
+      expect(link.getAttribute('rel')).toBe('noopener noreferrer');
+    });
+  });
+
+  it('keeps the popover open when a manage link is selected', () => {
+    // Manage links open in a new tab too, so the current tab does not navigate
+    // and the popover must survive the click.
+    const onClick = vi.fn();
+    renderSwitcher({
+      footer: { links: [{ key: 'billing', name: 'Billing', url: '/billing', onClick }] },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    fireEvent.click(screen.getByRole('link', { name: 'Billing' }));
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole('dialog', { name: 'Applications' })).toBeDefined();
+  });
+
+  it('omits the manage section when no footer is supplied', () => {
     renderWithTheme(<AppSwitcher apps={APPS} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
-    expect(screen.queryByRole('link', { name: /Cloud Console/ })).toBeNull();
-    expect(screen.getByText('API Management')).toBeDefined();
+    expect(screen.queryByRole('list', { name: 'Manage' })).toBeNull();
+    expect(screen.getByRole('link', { name: 'API Platform' })).toBeDefined();
   });
 
-  it('lets consumers relabel the section heading', () => {
-    renderSwitcher({ label: 'Products' });
-    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+  it('omits the manage section when the links array is empty', () => {
+    // An empty array must not leave a bare separator and background behind.
+    renderSwitcher({ footer: { links: [] } });
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    expect(screen.queryByRole('list', { name: 'Manage' })).toBeNull();
+  });
+
+  it('lets consumers relabel the section headings', () => {
+    renderSwitcher({ label: 'Products', footer: { ...FOOTER, label: 'Administration' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
     expect(screen.getByRole('list', { name: 'Products' })).toBeDefined();
+    expect(screen.getByRole('list', { name: 'Administration' })).toBeDefined();
   });
 
   it('matches the other header icon buttons in size so hover styling lines up', () => {
@@ -303,7 +386,7 @@ describe('AppSwitcher', () => {
     );
 
     const toggle = screen.getByRole('button', { name: /switch to .* mode/i });
-    const trigger = screen.getByRole('button', { name: 'Switch app' });
+    const trigger = screen.getByRole('button', { name: 'Switch Platforms' });
 
     // Both must resolve to the same IconButton size class; a mismatch changes
     // the padding and therefore the diameter of the hover circle.
@@ -349,25 +432,25 @@ describe('AppSwitcher', () => {
       <AppSwitcher
         apps={[
           {
-            key: 'apim',
-            name: 'API Management',
+            key: 'api',
+            name: 'API Platform',
             component: RouterLink,
-            href: '/apim',
+            url: '/apim',
           },
         ]}
       />,
     );
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
-    const app = screen.getByRole('link', { name: 'API Management' });
+    const app = screen.getByRole('link', { name: 'API Platform' });
     expect(app.getAttribute('data-router-link')).toBe('true');
     expect(app.getAttribute('href')).toBe('/apim');
   });
 
   it('forwards componentProps to router components that require their own nav prop', () => {
     // React Router's Link takes `to`, not `href`, so the data-driven API must
-    // carry router props through instead of relying on `href`.
+    // carry router props through instead of relying on `url`.
     const RouterLink = React.forwardRef<
       HTMLAnchorElement,
       { to: string; children?: React.ReactNode }
@@ -383,31 +466,69 @@ describe('AppSwitcher', () => {
       <AppSwitcher
         apps={[
           {
-            key: 'apim',
-            name: 'API Management',
+            key: 'api',
+            name: 'API Platform',
             component: RouterLink,
             componentProps: { to: '/apim' },
           },
         ]}
         footer={{
-          label: 'Cloud Console',
-          component: RouterLink,
-          componentProps: { to: '/console' },
+          links: [
+            {
+              key: 'billing',
+              name: 'Billing',
+              component: RouterLink,
+              componentProps: { to: '/billing' },
+            },
+          ],
         }}
       />,
     );
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
-    const app = screen.getByRole('link', { name: 'API Management' });
+    const app = screen.getByRole('link', { name: 'API Platform' });
     expect(app.getAttribute('data-router-link')).toBe('true');
     expect(app.getAttribute('href')).toBe('/apim');
 
-    // The Cloud Console link is required in every product, so it must survive
-    // the footer's prop mapping.
-    const console_ = screen.getByRole('link', { name: /Cloud Console/ });
-    expect(console_.getAttribute('data-router-link')).toBe('true');
-    expect(console_.getAttribute('href')).toBe('/console');
+    // The manage links are required in every product, so they must survive the
+    // footer's prop mapping too.
+    const billing = screen.getByRole('link', { name: 'Billing' });
+    expect(billing.getAttribute('data-router-link')).toBe('true');
+    expect(billing.getAttribute('href')).toBe('/billing');
+  });
+
+  it('paints platform marks in WSO2 orange whatever the product theme', () => {
+    // The switcher is WSO2 Cloud chrome, so the pulse is brand artwork rather
+    // than a themed accent and must not follow `palette.primary`.
+    renderSwitcher();
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    const tile = screen.getByRole('link', { name: 'API Platform' }).querySelector('svg')
+      ?.parentElement as HTMLElement;
+    expect(getComputedStyle(tile).color).toBe('rgb(255, 115, 0)');
+  });
+
+  it('keeps manage marks neutral so they stay secondary to the platforms', () => {
+    renderSwitcher();
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    const tile = screen.getByRole('link', { name: 'Billing' }).querySelector('svg')
+      ?.parentElement as HTMLElement;
+    expect(getComputedStyle(tile).color).not.toBe('rgb(255, 115, 0)');
+  });
+
+  it('draws an unavailable platform as a faded dashed card rather than a chip', () => {
+    renderWithTheme(
+      <AppSwitcher apps={[{ key: 'analytics', name: 'Analytics Platform', disabled: true }]} />,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    const card = document.querySelector('[data-app-switcher-app]') as HTMLElement;
+    expect(getComputedStyle(card).borderStyle).toBe('dashed');
+
+    const tile = card.querySelector('svg')?.parentElement as HTMLElement;
+    expect(getComputedStyle(tile).color).not.toBe('rgb(255, 115, 0)');
   });
 
   it('moves focus between app cards with the arrow keys', () => {
@@ -415,16 +536,16 @@ describe('AppSwitcher', () => {
     // layout implies arrow-key movement.
     renderSwitcher({
       apps: [
-        { key: 'a', name: 'Agent', href: '/agent' },
-        { key: 'b', name: 'API Management', href: '/apim' },
-        { key: 'c', name: 'Integration', href: '/integration' },
+        { key: 'a', name: 'Agent Manager', url: '/agent' },
+        { key: 'b', name: 'API Platform', url: '/apim' },
+        { key: 'c', name: 'Integration Platform', url: '/integration' },
       ],
     });
-    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
-    const first = screen.getByRole('link', { name: 'Agent' });
-    const second = screen.getByRole('link', { name: 'API Management' });
-    const third = screen.getByRole('link', { name: 'Integration' });
+    const first = screen.getByRole('link', { name: 'Agent Manager' });
+    const second = screen.getByRole('link', { name: 'API Platform' });
+    const third = screen.getByRole('link', { name: 'Integration Platform' });
 
     first.focus();
     fireEvent.keyDown(first, { key: 'ArrowRight' });
@@ -440,12 +561,32 @@ describe('AppSwitcher', () => {
     expect(document.activeElement).toBe(first);
   });
 
+  it('keeps arrow-key navigation within a section', () => {
+    // Platforms and manage links are separate grids; End in one must not jump
+    // the caret into the other.
+    renderSwitcher({
+      apps: [
+        { key: 'a', name: 'Agent Manager', url: '/agent' },
+        { key: 'b', name: 'API Platform', url: '/apim' },
+      ],
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    const lastPlatform = screen.getByRole('link', { name: 'API Platform' });
+    lastPlatform.focus();
+    fireEvent.keyDown(lastPlatform, { key: 'End' });
+    expect(document.activeElement).toBe(lastPlatform);
+
+    fireEvent.keyDown(lastPlatform, { key: 'ArrowRight' });
+    expect(document.activeElement).toBe(lastPlatform);
+  });
+
   it('does not wrap focus past the ends of the app grid', () => {
     // Clamping avoids a vertical step landing somewhere unrelated.
-    renderSwitcher({ apps: [{ key: 'a', name: 'Agent', href: '/agent' }] });
-    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+    renderSwitcher({ apps: [{ key: 'a', name: 'Agent Manager', url: '/agent' }] });
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
-    const only = screen.getByRole('link', { name: 'Agent' });
+    const only = screen.getByRole('link', { name: 'Agent Manager' });
     only.focus();
     fireEvent.keyDown(only, { key: 'ArrowLeft' });
     expect(document.activeElement).toBe(only);
@@ -457,15 +598,17 @@ describe('AppSwitcher', () => {
   it('steps a whole row with the up and down arrows', () => {
     // jsdom gives every element a zero-sized rect, so the row stride has to be
     // driven by stubbed geometry: a 2-column grid of four cards.
-    renderSwitcher({
-      apps: [
-        { key: 'a', name: 'Agent', href: '/a' },
-        { key: 'b', name: 'Bee', href: '/b' },
-        { key: 'c', name: 'Cee', href: '/c' },
-        { key: 'd', name: 'Dee', href: '/d' },
-      ],
-    });
-    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+    renderWithTheme(
+      <AppSwitcher
+        apps={[
+          { key: 'a', name: 'Agent', url: '/a' },
+          { key: 'b', name: 'Bee', url: '/b' },
+          { key: 'c', name: 'Cee', url: '/c' },
+          { key: 'd', name: 'Dee', url: '/d' },
+        ]}
+      />,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
     const cards = Array.from(
       document.querySelectorAll<HTMLElement>('[data-app-switcher-app]'),
@@ -493,16 +636,96 @@ describe('AppSwitcher', () => {
     expect(document.activeElement).toBe(cards[3]);
   });
 
+  it('gives every platform card the same height whatever its name length', () => {
+    // A fixed height rather than a floor: a name that wraps to two lines must
+    // not make its card taller than a one-word neighbour.
+    renderSwitcher({
+      apps: [
+        { key: 'a', name: 'Agent Manager', url: '/a' },
+        { key: 'b', name: 'API', url: '/b' },
+      ],
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    const cards = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-app-switcher-app]'),
+    );
+    const heights = cards.map((card) => getComputedStyle(card).height);
+    expect(heights[0]).toBe(heights[1]);
+    // And it is a real fixed height, not `auto` left to the content.
+    expect(heights[0]).not.toBe('auto');
+  });
+
+  it('does not underline a card that renders as a link', () => {
+    // A navigable card is an `<a>`, which underlines its text by default. The
+    // card is the link target, not the words, so the underline must be cleared.
+    renderSwitcher();
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    const card = screen.getByRole('link', { name: 'API Platform' });
+    expect(getComputedStyle(card).textDecoration).toContain('none');
+  });
+
+  it('shows a custom tooltip on an unavailable platform', async () => {
+    // `aria-disabled` rather than the native `disabled` attribute is what makes
+    // this possible: a natively disabled button swallows pointer events and MUI
+    // would never fire the tooltip.
+    renderSwitcher({
+      apps: [{ key: 'analytics', name: 'Analytics Platform', disabled: true, tooltip: 'Coming soon' }],
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    const card = screen
+      .getByText('Analytics Platform')
+      .closest('[data-app-switcher-app]') as HTMLElement;
+
+    fireEvent.mouseOver(card);
+    expect((await screen.findByRole('tooltip')).textContent).toBe('Coming soon');
+  });
+
+  it('describes rather than renames a card that has a tooltip', async () => {
+    // `describeChild` keeps the platform name as the accessible name; without it
+    // MUI would label the card "Coming soon" and lose the platform name.
+    renderSwitcher({
+      apps: [
+        { key: 'analytics', name: 'Analytics Platform', disabled: true, tooltip: 'Coming soon' },
+      ],
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    const card = screen
+      .getByText('Analytics Platform')
+      .closest('[data-app-switcher-app]') as HTMLElement;
+
+    fireEvent.mouseOver(card);
+    await screen.findByRole('tooltip');
+    expect(card.getAttribute('aria-label')).toBeNull();
+    expect(screen.getByRole('button', { name: /Analytics Platform/ })).toBeDefined();
+  });
+
+  it('renders no tooltip wrapper when no tooltip is supplied', () => {
+    renderSwitcher({ apps: [{ key: 'api', name: 'API Platform', url: '/apim' }] });
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    const card = screen.getByRole('link', { name: 'API Platform' });
+    fireEvent.mouseOver(card);
+    expect(screen.queryByRole('tooltip')).toBeNull();
+  });
+
   it('keeps unavailable apps focusable and inert', () => {
     // Disabled cards stay discoverable to screen reader users, but must not
     // navigate or close the popover.
     const onClick = vi.fn();
     renderSwitcher({
-      apps: [{ key: 'analytics', name: 'Analytics', disabled: true, href: '/analytics', onClick }],
+      apps: [
+        { key: 'analytics', name: 'Analytics Platform', disabled: true, url: '/analytics', onClick },
+      ],
     });
-    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
-    const card = screen.getByText('Analytics').closest('[data-app-switcher-app]') as HTMLElement;
+    const card = screen
+      .getByText('Analytics Platform')
+      .closest('[data-app-switcher-app]') as HTMLElement;
     expect(card.getAttribute('aria-disabled')).toBe('true');
     // A disabled app must not become a link, or it would still navigate.
     expect(card.tagName).toBe('BUTTON');
@@ -524,67 +747,74 @@ describe('AppSwitcher', () => {
       <AppSwitcher
         apps={[
           {
-            key: 'apim',
-            name: 'API Management',
-            href: 'https://example.com',
-            target: '_blank',
+            key: 'api',
+            name: 'API Platform',
+            url: 'https://example.com',
             component: 'a',
             componentProps: { rel: '' },
           },
         ]}
       />,
     );
-    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
-    expect(screen.getByRole('link', { name: 'API Management' }).getAttribute('rel')).toBe(
+    expect(screen.getByRole('link', { name: 'API Platform' }).getAttribute('rel')).toBe(
       'noopener noreferrer',
     );
   });
 
-  it('renders navigable apps as links and closes the popover on selection', () => {
+  it('renders navigable apps as links and keeps the popover open on selection', () => {
+    // Cards open in a new tab, so the current tab stays put. Dismissing the
+    // popover would look like the switcher had closed itself for no reason.
     const onClick = vi.fn();
-    renderSwitcher({ apps: [{ key: 'apim', name: 'API Management', href: '/apim', onClick }] });
+    renderSwitcher({ apps: [{ key: 'api', name: 'API Platform', url: '/apim', onClick }] });
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
-    const app = screen.getByRole('link', { name: 'API Management' });
+    const app = screen.getByRole('link', { name: 'API Platform' });
     expect(app.getAttribute('href')).toBe('/apim');
 
     fireEvent.click(app);
     expect(onClick).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole('dialog', { name: 'Applications' })).toBeDefined();
   });
 
-  it('marks the current app and blocks navigation for disabled apps', () => {
-    const onClick = vi.fn();
-    renderWithTheme(
-      <AppSwitcher
-        apps={[
-          { key: 'agent', name: 'Agent', current: true, status: 'Current' },
-          { key: 'analytics', name: 'Analytics', disabled: true, onClick },
-        ]}
-      />,
-    );
+  it('closes the popover when the trigger is clicked again', () => {
+    // The grid icon toggles, so a second click dismisses an open switcher
+    // rather than re-anchoring it.
+    renderSwitcher();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+    const trigger = screen.getByRole('button', { name: 'Switch Platforms' });
+    fireEvent.click(trigger);
+    expect(screen.getByRole('dialog', { name: 'Applications' })).toBeDefined();
+    expect(trigger.getAttribute('aria-expanded')).toBe('true');
 
-    expect(screen.getByText('Agent').closest('[aria-current="true"]')).not.toBeNull();
+    fireEvent.click(trigger);
+    expect(trigger.getAttribute('aria-expanded')).toBeNull();
+  });
 
-    const disabledApp = screen.getByText('Analytics').closest('[aria-disabled="true"]');
-    expect(disabledApp).not.toBeNull();
-    fireEvent.click(disabledApp as HTMLElement);
-    expect(onClick).not.toHaveBeenCalled();
+  it('closes the popover on an outside click', () => {
+    // Clicking away is the other dismissal route; MUI's Popover backdrop drives
+    // this, so it must keep working now that cards no longer close it.
+    renderSwitcher();
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
-    // Unavailable apps stay discoverable rather than dropping out of the tab order.
-    expect((disabledApp as HTMLElement).hasAttribute('disabled')).toBe(false);
+    const backdrop = document.querySelector('.MuiBackdrop-root, [data-testid="sentinelStart"]')
+      ?.parentElement?.querySelector('.MuiModal-backdrop') as HTMLElement | null;
+    fireEvent.click(backdrop ?? document.body);
+
+    expect(
+      screen.getByRole('button', { name: 'Switch Platforms' }).getAttribute('aria-expanded'),
+    ).toBeNull();
   });
 
   it('groups apps in a labelled list', () => {
     renderSwitcher();
-    fireEvent.click(screen.getByRole('button', { name: 'Switch app' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
     const list = screen.getByRole('list', { name: 'Platforms' });
     expect(list).toBeDefined();
-    expect(screen.getAllByRole('listitem')).toHaveLength(1);
+    expect(list.querySelectorAll('li')).toHaveLength(1);
   });
 });
 

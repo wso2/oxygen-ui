@@ -18,21 +18,47 @@
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
-import type { SxProps, Theme } from '@mui/material/styles';
-import { ChevronRight } from '@wso2/oxygen-ui-icons-react';
-import { useAppSwitcher } from './context';
+import { alpha, styled } from '@mui/material/styles';
+import { AppSwitcherSection } from './AppSwitcherSection';
+import { AppSwitcherApp } from './AppSwitcherApp';
 
 /**
  * Theme tokens used in this component:
  *
  * Colors:
  * - `divider` - Top separator
- * - `action.hover` - Footer background
- * - `text.secondary` - Description text
+ * - A 2% wash of the foreground color - Footer background, setting the manage
+ *   row apart from the platform grid above it without reading as a grey block
  */
+
+/**
+ * A single WSO2 Cloud destination in the footer.
+ */
+export interface AppSwitcherFooterLink {
+  /** Stable identifier, used as the React key */
+  key: string;
+  /** Link name (e.g. `"Users & roles"`) */
+  name: string;
+  /** Destination URL. Renders the card as an anchor. */
+  url?: string;
+  /** Mark shown above the name (default: the WSO2 logo) */
+  icon?: React.ReactNode;
+  /** Anchor target (default: `"_blank"`) */
+  target?: string;
+  /** Blocks navigation, e.g. for a tab the user cannot reach */
+  disabled?: boolean;
+  /** Tooltip shown on hover and focus, e.g. explaining a disabled link */
+  tooltip?: React.ReactNode;
+  /** Custom root component, e.g. a router `Link`, for client-side navigation */
+  component?: React.ElementType;
+  /**
+   * Extra props forwarded to `component`, for routers that use their own
+   * navigation prop instead of `href` (e.g. React Router's `to`).
+   */
+  componentProps?: Record<string, unknown>;
+  /** Click handler. The popover stays open after it runs. */
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+}
 
 /**
  * Styled footer container.
@@ -41,149 +67,60 @@ const AppSwitcherFooterRoot = styled(Box, {
   name: 'MuiAppSwitcher',
   slot: 'Footer',
 })(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  flexWrap: 'wrap',
-  gap: theme.spacing(1),
-  padding: theme.spacing(1.5, 2),
   borderTop: `1px solid ${(theme.vars || theme).palette.divider}`,
-  backgroundColor: (theme.vars || theme).palette.action.hover,
+  // A wash rather than a fill: the divider already separates the manage row, so
+  // the tint only needs to hint that it is a different kind of destination.
+  // `action.hover` at full strength reads as a grey block behind the cards.
+  backgroundColor: theme.vars
+    ? `rgba(${theme.vars.palette.common.onBackgroundChannel} / 0.02)`
+    : alpha(theme.palette.text.primary, 0.02),
 }));
-
-/**
- * Styled footer description text.
- */
-const AppSwitcherFooterText = styled(Typography, {
-  name: 'MuiAppSwitcher',
-  slot: 'FooterText',
-})(({ theme }) => ({
-  fontSize: theme.typography.body2.fontSize,
-  color: (theme.vars || theme).palette.text.secondary,
-}));
-
-/**
- * Splits leftover props into those that describe the footer element itself
- * (`data-*`) and those intended for the trailing action (e.g. a router's `to`).
- */
-const splitFooterProps = (
-  props: Record<string, unknown>
-): { rootProps: Record<string, unknown>; actionProps: Record<string, unknown> } => {
-  const rootProps: Record<string, unknown> = {};
-  const actionProps: Record<string, unknown> = {};
-
-  Object.entries(props).forEach(([key, value]) => {
-    if (key.startsWith('data-')) {
-      rootProps[key] = value;
-    } else {
-      actionProps[key] = value;
-    }
-  });
-
-  return { rootProps, actionProps };
-};
 
 /**
  * Props for the AppSwitcher.Footer component.
  */
-export interface AppSwitcherFooterProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, 'children' | 'color'> {
-  /** Supporting text on the left (e.g. `"Manage Organization & Users, billing"`) */
-  description?: React.ReactNode;
-  /** Label of the trailing action (e.g. `"WSO2 Cloud Console"`) */
-  actionLabel?: string;
-  /**
-   * Custom component for the trailing action, e.g. a router `Link`.
-   * Router-specific props such as `to` are forwarded through.
-   */
-  component?: React.ElementType;
-  /**
-   * Extra props forwarded to `component`, for routers that use their own
-   * navigation prop instead of `href` (e.g. React Router's `to`).
-   */
-  componentProps?: Record<string, unknown>;
-  /** Destination URL for the trailing action */
-  href?: string;
-  /** Anchor target, only applied together with `href` */
-  target?: string;
-  /** Click handler for the trailing action. The popover closes after it runs. */
-  onActionClick?: (event: React.MouseEvent<HTMLElement>) => void;
-  /** Custom footer content, replacing the description/action layout */
-  children?: React.ReactNode;
-  /** Additional sx props */
-  sx?: SxProps<Theme>;
+export interface AppSwitcherFooterProps {
+  /** WSO2 Cloud destinations rendered as cards */
+  links?: AppSwitcherFooterLink[];
+  /** Heading above the links (default: `"Manage"`) */
+  label?: string;
+  /** Number of grid columns from the `sm` breakpoint up (default: 3) */
+  columns?: number;
 }
 
 /**
- * AppSwitcher.Footer - Bottom row of the app switcher popover.
+ * AppSwitcher.Footer - Bottom section of the app switcher popover.
  *
- * Pairs supporting text with a trailing link action, typically pointing at the
- * cloud console. Pass `children` to render fully custom footer content instead.
+ * Holds the WSO2 Cloud destinations (organizations, users, billing) as a
+ * labelled grid of cards, using the same card as the platform grid so both rows
+ * behave identically. The neutral mark and lighter type keep them visually
+ * secondary to the platforms above.
  *
  * @example
  * ```tsx
  * <AppSwitcher.Footer
- *   description="Manage Organization & Users, billing"
- *   actionLabel="WSO2 Cloud Console"
- *   href="https://console.wso2.com"
+ *   label="Manage"
+ *   links={[{ key: 'billing', name: 'Billing', url: 'https://console.wso2.com/billing' }]}
  * />
  * ```
  */
 export const AppSwitcherFooter: React.FC<AppSwitcherFooterProps> = ({
-  description,
-  actionLabel,
-  component,
-  componentProps,
-  href,
-  target,
-  onActionClick,
-  children,
-  sx,
-  className,
-  id,
-  ...props
+  links,
+  label = 'Manage',
+  columns = 3,
 }) => {
-  const { handleClose } = useAppSwitcher();
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    onActionClick?.(event);
-    handleClose();
-  };
-
-  // `className`, `id` and `data-*` describe the footer itself, so they belong on
-  // the root; anything else (e.g. a router's `to`) is meant for the action.
-  const { rootProps, actionProps } = splitFooterProps(props);
-
-  // Applied after `componentProps` so a consumer cannot drop the
-  // reverse-tabnabbing guard on a `_blank` target.
-  const relProps = target === '_blank' ? { rel: 'noopener noreferrer' } : {};
-
-  if (children) {
-    return (
-      <AppSwitcherFooterRoot sx={sx} className={className} id={id} {...rootProps}>
-        {children}
-      </AppSwitcherFooterRoot>
-    );
+  // An empty list must not leave a bare separator and background behind.
+  if (!links || links.length === 0) {
+    return null;
   }
 
   return (
-    <AppSwitcherFooterRoot sx={sx} className={className} id={id} {...rootProps}>
-      {description && <AppSwitcherFooterText>{description}</AppSwitcherFooterText>}
-      {actionLabel && (
-        <Button
-          size="small"
-          color="primary"
-          endIcon={<ChevronRight size={16} aria-hidden="true" />}
-          {...actionProps}
-          {...(component && { component })}
-          {...(href ? { href, target } : {})}
-          {...componentProps}
-          {...relProps}
-          onClick={handleClick}
-        >
-          {actionLabel}
-        </Button>
-      )}
+    <AppSwitcherFooterRoot>
+      <AppSwitcherSection label={label} columns={columns}>
+        {links.map(({ key, ...link }) => (
+          <AppSwitcherApp key={key} tone="manage" {...link} />
+        ))}
+      </AppSwitcherSection>
     </AppSwitcherFooterRoot>
   );
 };

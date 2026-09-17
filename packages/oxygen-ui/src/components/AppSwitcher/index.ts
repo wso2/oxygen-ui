@@ -25,4 +25,4 @@ export type {
   AppSwitcherItem,
   AppSwitcherFooterAction,
 } from './AppSwitcher';
-export type { AppSwitcherAppStatusColor } from './AppSwitcherApp';
+export type { AppSwitcherFooterLink } from './AppSwitcherFooter';

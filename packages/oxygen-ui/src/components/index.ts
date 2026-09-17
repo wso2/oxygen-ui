@@ -60,7 +60,7 @@ export type {
   AppSwitcherProps,
   AppSwitcherItem,
   AppSwitcherFooterAction,
-  AppSwitcherAppStatusColor,
+  AppSwitcherFooterLink,
 } from './AppSwitcher';
 
 export { Sidebar, useSidebar } from './Sidebar';

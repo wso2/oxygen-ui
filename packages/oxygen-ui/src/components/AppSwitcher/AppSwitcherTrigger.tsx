@@ -42,9 +42,14 @@ const AppSwitcherTriggerRoot = styled(IconButton, {
   name: 'MuiAppSwitcher',
   slot: 'Trigger',
 })(({ theme }) => ({
+  // The trigger stays a pointer once the popover is open: it is still a live
+  // control, and a second click dismisses the switcher. Stated explicitly so a
+  // future `aria-expanded` style cannot drop it back to the default arrow.
+  cursor: 'pointer',
   '&[aria-expanded="true"]': {
     backgroundColor: (theme.vars || theme).palette.action.selected,
     color: (theme.vars || theme).palette.text.primary,
+    cursor: 'pointer',
   },
 }));
 
@@ -53,7 +58,7 @@ const AppSwitcherTriggerRoot = styled(IconButton, {
  */
 export interface AppSwitcherTriggerProps
   extends Omit<React.ComponentProps<typeof IconButton>, 'children'> {
-  /** Tooltip and accessible label for the trigger (default: `"Switch app"`) */
+  /** Tooltip and accessible label for the trigger (default: `"Switch Platforms"`) */
   label?: string;
   /** Custom icon replacing the default grid icon */
   icon?: React.ReactNode;
@@ -75,7 +80,7 @@ export interface AppSwitcherTriggerProps
  */
 export const AppSwitcherTrigger = React.forwardRef<HTMLButtonElement, AppSwitcherTriggerProps>(
   function AppSwitcherTrigger(
-    { label = 'Switch app', icon, onClick, 'aria-label': ariaLabel, ...props },
+    { label = 'Switch Platforms', icon, onClick, 'aria-label': ariaLabel, ...props },
     ref
   ) {
     const { open, popoverId, handleOpen } = useAppSwitcher();

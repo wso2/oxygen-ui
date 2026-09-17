@@ -20,7 +20,6 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import type { SxProps, Theme } from '@mui/material/styles';
 
 /**
  * Theme tokens used in this component:
@@ -29,7 +28,9 @@ import type { SxProps, Theme } from '@mui/material/styles';
  * - `text.secondary` - Section label color
  *
  * Spacing:
- * - `spacing(2)` / `spacing(1.5)` - Padding and grid gap
+ * - `spacing(2.5)` - Section padding
+ * - `spacing(1.5)` - Gap between the heading and its grid
+ * - `spacing(1.5)` - Grid gap
  *
  * Typography:
  * - `typography.caption` - Section label size
@@ -55,7 +56,8 @@ const AppSwitcherSectionLabel = styled(Typography, {
   color: (theme.vars || theme).palette.text.secondary,
   fontSize: theme.typography.caption.fontSize,
   fontWeight: theme.typography.fontWeightBold,
-  letterSpacing: '0.08em',
+  // Wide tracking so the headings read as quiet labels rather than as titles.
+  letterSpacing: '0.1em',
   textTransform: 'uppercase',
   marginBottom: theme.spacing(1.5),
 }));
@@ -87,10 +89,8 @@ export interface AppSwitcherSectionProps {
   children: React.ReactNode;
   /** Section heading, rendered as an uppercase label (e.g. `"Platforms"`) */
   label?: string;
-  /** Number of grid columns from the `sm` breakpoint up (default: 2) */
+  /** Number of grid columns from the `sm` breakpoint up (default: 3) */
   columns?: number;
-  /** Additional sx props */
-  sx?: SxProps<Theme>;
 }
 
 /**
@@ -103,16 +103,15 @@ export interface AppSwitcherSectionProps {
  * @example
  * ```tsx
  * <AppSwitcher.Section label="Platforms">
- *   <AppSwitcher.App name="Agent" icon={<Bot />} status="Current" current />
- *   <AppSwitcher.App name="API Management" icon={<Braces />} status="Try Now" />
+ *   <AppSwitcher.App name="Agent Manager" url="https://agent.wso2.com" />
+ *   <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
  * </AppSwitcher.Section>
  * ```
  */
 export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
   children,
   label,
-  columns = 2,
-  sx,
+  columns = 3,
 }) => {
   const labelId = React.useId();
   const gridRef = React.useRef<HTMLUListElement>(null);
@@ -188,7 +187,7 @@ export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
   };
 
   return (
-    <AppSwitcherSectionRoot sx={sx}>
+    <AppSwitcherSectionRoot>
       {label && <AppSwitcherSectionLabel id={labelId}>{label}</AppSwitcherSectionLabel>}
       <AppSwitcherSectionGrid
         ref={gridRef}

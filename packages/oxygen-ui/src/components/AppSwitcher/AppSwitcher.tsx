@@ -25,7 +25,7 @@ import { AppSwitcherTrigger } from './AppSwitcherTrigger';
 import { AppSwitcherSection } from './AppSwitcherSection';
 import { AppSwitcherApp } from './AppSwitcherApp';
 import { AppSwitcherFooter } from './AppSwitcherFooter';
-import type { AppSwitcherAppStatusColor } from './AppSwitcherApp';
+import type { AppSwitcherFooterLink } from './AppSwitcherFooter';
 
 /**
  * Theme tokens used in this component:
@@ -62,60 +62,45 @@ const AppSwitcherRoot = styled(Popover, {
 export interface AppSwitcherItem {
   /** Stable identifier, used as the React key */
   key: string;
-  /** Application name (e.g. `"API Management"`) */
+  /** Application name (e.g. `"API Platform"`) */
   name: string;
-  /** Application icon, typically a 20px icon element */
+  /** Destination URL. The card renders as an anchor pointing at it. */
+  url?: string;
+  /** Mark shown above the name (default: the WSO2 logo) */
   icon?: React.ReactNode;
-  /** Status chip label (e.g. `"Current"`, `"Try Now"`, `"Coming soon"`) */
-  status?: string;
-  /** Color of the status chip (default: `"default"`) */
-  statusColor?: AppSwitcherAppStatusColor;
-  /** Marks the app the user is currently in */
-  current?: boolean;
-  /** Blocks navigation, e.g. for apps that are not yet available */
+  /** Blocks navigation, e.g. for platforms that are not yet available */
   disabled?: boolean;
-  /** Destination URL. Renders the card as an anchor. */
-  href?: string;
-  /** Anchor target, only applied together with `href` */
+  /**
+   * Tooltip shown on hover and focus, typically explaining why a platform is
+   * unavailable (e.g. `"Coming soon"`). Omit for no tooltip.
+   */
+  tooltip?: React.ReactNode;
+  /** Anchor target (default: `"_blank"`, so platforms open in a new tab) */
   target?: string;
   /** Custom root component, e.g. a router `Link`, for client-side navigation */
   component?: React.ElementType;
   /**
    * Extra props forwarded to `component`, for routers that use their own
-   * navigation prop instead of `href` (e.g. React Router's `to`).
+   * navigation prop instead of `url` (e.g. React Router's `to`).
    *
    * @example
    * { component: Link, componentProps: { to: '/apim' } }
    */
   componentProps?: Record<string, unknown>;
-  /** Click handler. The popover closes automatically after it runs. */
+  /** Click handler. The popover stays open after it runs. */
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 /**
- * The footer action shown beneath the applications.
+ * The manage section shown beneath the platforms.
  */
 export interface AppSwitcherFooterAction {
-  /** Supporting text on the left (e.g. `"Manage Organization & Users, billing"`) */
-  description?: React.ReactNode;
-  /** Label of the trailing action (e.g. `"WSO2 Cloud Console"`) */
+  /** Heading above the links (default: `"Manage"`) */
   label?: string;
-  /** Destination URL for the trailing action */
-  href?: string;
-  /** Anchor target, only applied together with `href` */
-  target?: string;
-  /** Custom component for the action, e.g. a router `Link` */
-  component?: React.ElementType;
-  /**
-   * Extra props forwarded to `component`, for routers that use their own
-   * navigation prop instead of `href` (e.g. React Router's `to`).
-   *
-   * @example
-   * { component: Link, componentProps: { to: '/console' } }
-   */
-  componentProps?: Record<string, unknown>;
-  /** Click handler. The popover closes automatically after it runs. */
-  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  /** WSO2 Cloud destinations, rendered as cards */
+  links: AppSwitcherFooterLink[];
+  /** Number of grid columns from the `sm` breakpoint up (default: 3) */
+  columns?: number;
 }
 
 /**
@@ -126,15 +111,15 @@ export interface AppSwitcherProps {
   apps: AppSwitcherItem[];
   /** Heading above the application grid (default: `"Platforms"`) */
   label?: string;
-  /** Footer with supporting text and a link action. Omit to hide the footer. */
+  /** Manage section beneath the platforms. Omit to hide it. */
   footer?: AppSwitcherFooterAction;
-  /** Tooltip and accessible label for the trigger (default: `"Switch app"`) */
+  /** Tooltip and accessible label for the trigger (default: `"Switch Platforms"`) */
   triggerLabel?: string;
   /** Custom trigger icon, replacing the default grid icon */
   triggerIcon?: React.ReactNode;
-  /** Popover width in pixels from the `sm` breakpoint up (default: 440) */
+  /** Popover width in pixels from the `sm` breakpoint up (default: 460) */
   width?: number;
-  /** Number of grid columns from the `sm` breakpoint up (default: 2) */
+  /** Number of grid columns from the `sm` breakpoint up (default: 3) */
   columns?: number;
   /** Accessible name for the popover surface (default: `"Applications"`) */
   'aria-label'?: string;
@@ -152,22 +137,27 @@ export interface AppSwitcherProps {
  *
  * Features:
  * - Fixed, consistent layout across products
- * - Card buttons that render as links when given an `href`
- * - Current, disabled and status-chip states per application
+ * - Card buttons that render as links when given a `url`, opening in a new tab
+ * - Hover lift and accent border on every navigable card
+ * - A manage section linking to the WSO2 Cloud tabs
  * - Responsive popover width (viewport-capped on mobile, fixed on desktop)
+ *
+ * Selecting a card leaves the popover open, since cards open in a new tab. Only
+ * the trigger, an outside click or Escape dismisses it.
  *
  * @example
  * ```tsx
  * <Header.Actions>
  *   <AppSwitcher
  *     apps={[
- *       { key: 'agent', name: 'Agent', icon: <Bot size={20} />, status: 'Current', current: true },
- *       { key: 'apim', name: 'API Management', icon: <Braces size={20} />, status: 'Try Now', href: '/apim' },
+ *       { key: 'agent', name: 'Agent Manager', url: 'https://agent.wso2.com' },
+ *       { key: 'apim', name: 'API Platform', url: 'https://api.wso2.com' },
  *     ]}
  *     footer={{
- *       description: 'Manage Organization & Users, billing',
- *       label: 'WSO2 Cloud Console',
- *       href: 'https://console.wso2.com',
+ *       links: [
+ *         { key: 'orgs', name: 'Organizations', url: 'https://console.wso2.com/organizations' },
+ *         { key: 'billing', name: 'Billing', url: 'https://console.wso2.com/billing' },
+ *       ],
  *     }}
  *   />
  * </Header.Actions>
@@ -179,8 +169,8 @@ export const AppSwitcher: React.FC<AppSwitcherProps> = ({
   footer,
   triggerLabel,
   triggerIcon,
-  width = 440,
-  columns = 2,
+  width = 460,
+  columns = 3,
   'aria-label': ariaLabelProp,
   sx,
 }) => {
@@ -188,8 +178,12 @@ export const AppSwitcher: React.FC<AppSwitcherProps> = ({
   const open = Boolean(anchorEl);
   const popoverId = React.useId();
 
+  // Clicking the trigger toggles: a second click on the grid icon dismisses the
+  // popover rather than re-anchoring it, which is what an already-open switcher
+  // leads a user to expect.
   const handleOpen = React.useCallback((event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+    const target = event.currentTarget;
+    setAnchorEl((current) => (current ? null : target));
   }, []);
 
   const handleClose = React.useCallback(() => {
@@ -228,13 +222,9 @@ export const AppSwitcher: React.FC<AppSwitcherProps> = ({
         </AppSwitcherSection>
         {footer && (
           <AppSwitcherFooter
-            description={footer.description}
-            actionLabel={footer.label}
-            href={footer.href}
-            target={footer.target}
-            component={footer.component}
-            componentProps={footer.componentProps}
-            onActionClick={footer.onClick}
+            label={footer.label}
+            links={footer.links}
+            columns={footer.columns}
           />
         )}
       </AppSwitcherRoot>
