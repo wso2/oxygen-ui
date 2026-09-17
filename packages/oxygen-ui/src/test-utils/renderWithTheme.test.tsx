@@ -21,6 +21,7 @@ import { describe, it, expect, afterEach } from 'vitest';
 import { cleanup, screen } from '@testing-library/react';
 import { createTheme, useTheme } from '@mui/material/styles';
 import { renderWithTheme } from './renderWithTheme';
+import defaultTheme from '../styles/Themes/AcrylicBaseTheme';
 
 const overrideTheme = createTheme({
   palette: { primary: { main: 'rgb(1, 2, 3)' } },
@@ -37,9 +38,16 @@ afterEach(() => {
 
 describe('renderWithTheme', () => {
   it('renders children inside the Oxygen theme provider by default', () => {
-    renderWithTheme(<div>hello</div>);
+    renderWithTheme(<ThemeProbe />);
 
-    expect(screen.getByText('hello')).toBeDefined();
+    // Without the provider, useTheme() falls back to MUI's default theme
+    // (primary.main '#1976d2'), so matching the default Oxygen theme value
+    // proves the default-provider branch was applied. The expected value is
+    // read from the default theme module instead of hardcoding the brand
+    // hex, so a brand refresh does not break this helper-mechanics test.
+    expect(screen.getByTestId('theme-probe').textContent).toBe(
+      defaultTheme.palette.primary.main,
+    );
   });
 
   it('accepts an optional theme override instead of a global setup', () => {
