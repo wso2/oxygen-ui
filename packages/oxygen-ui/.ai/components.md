@@ -1136,7 +1136,8 @@ neighbours; a name longer than two lines is clamped rather than spilling past th
 - **Navigable** — resting card on the paper surface with a divider border. On hover it lifts
   2px, gains an accent border and `shadows[2]`. The lift is suppressed under
   `prefers-reduced-motion`; the border and shadow still carry the state.
-- **Unavailable** (`disabled`) — dashed border, `action.hover` background and a faded mark.
+- **Unavailable** (`disabled`) — the same solid border as any other card, with an
+  `action.hover` background, a faded mark and a muted label.
   The card never navigates, but stays focusable so it remains discoverable. Pass `tooltip` to
   explain why, e.g. `tooltip="Coming soon"`. Because unavailable cards carry `aria-disabled`
   rather than the native `disabled` attribute, they still receive pointer events, so the

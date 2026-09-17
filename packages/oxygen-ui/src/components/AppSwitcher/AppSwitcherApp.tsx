@@ -116,12 +116,11 @@ const AppSwitcherAppRoot = styled(Card, {
       borderColor: (theme.vars || theme).palette.divider,
       backgroundColor: (theme.vars || theme).palette.background.paper,
     },
-    // An unavailable platform is drawn as a dashed, faded outline rather than a
-    // chip, matching the design: the card itself says "not yet".
+    // An unavailable platform keeps the same solid outline as every other card
+    // and is set apart by its faded mark, muted label and tinted surface.
     ...(ownerState.disabled && {
       cursor: 'not-allowed',
       '&.MuiCard-root': {
-        borderStyle: 'dashed',
         borderColor: (theme.vars || theme).palette.divider,
         backgroundColor: (theme.vars || theme).palette.action.hover,
       },

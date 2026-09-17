@@ -518,14 +518,16 @@ describe('AppSwitcher', () => {
     expect(getComputedStyle(tile).color).not.toBe('rgb(255, 115, 0)');
   });
 
-  it('draws an unavailable platform as a faded dashed card rather than a chip', () => {
+  it('fades the mark of an unavailable platform without breaking its outline', () => {
+    // The card keeps the same solid border as every other card; the faded mark,
+    // muted label and tinted surface carry the state instead.
     renderWithTheme(
       <AppSwitcher apps={[{ key: 'analytics', name: 'Analytics Platform', disabled: true }]} />,
     );
     fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
     const card = document.querySelector('[data-app-switcher-app]') as HTMLElement;
-    expect(getComputedStyle(card).borderStyle).toBe('dashed');
+    expect(getComputedStyle(card).borderStyle).not.toBe('dashed');
 
     const tile = card.querySelector('svg')?.parentElement as HTMLElement;
     expect(getComputedStyle(tile).color).not.toBe('rgb(255, 115, 0)');

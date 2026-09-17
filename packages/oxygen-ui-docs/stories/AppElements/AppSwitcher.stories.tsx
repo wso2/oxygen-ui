@@ -98,7 +98,7 @@ trigger, a click outside, or \`Esc\` closes it.
 ### Accessibility
 - The trigger is a labeled button ("Switch Platforms" by default) exposing \`aria-haspopup\`, \`aria-expanded\`, and \`aria-controls\`.
 - Platforms and manage links are each grouped in a list labelled by their section heading.
-- Unavailable platforms are marked \`aria-disabled\` and drawn with a dashed, faded card; they stay focusable so they remain discoverable, but never navigate.
+- Unavailable platforms are marked \`aria-disabled\` and drawn with a faded mark and muted label; they stay focusable so they remain discoverable, but never navigate.
 - The popover is an MUI Popover with \`role="dialog"\`: focus is trapped while open, Escape closes it and returns focus to the trigger.
 - The hover lift is suppressed under \`prefers-reduced-motion\`; the border and shadow still carry the state.
 
@@ -125,8 +125,8 @@ type Story = StoryObj<typeof AppSwitcher>;
 
 /**
  * Platforms as shown in the WSO2 Cloud design. Analytics is not yet available,
- * so it renders as a dashed, faded card and explains itself with a "Coming
- * soon" tooltip on hover.
+ * so it renders faded and explains itself with a "Coming soon" tooltip on
+ * hover.
  *
  * Every card points at wso2.com here purely to demo the navigation: cards open
  * in a new tab, so selecting one leaves Storybook intact.
