@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { Stack, Typography, CodeBlock, createOxygenTheme } from '@wso2/oxygen-ui';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { Stack, Typography, CodeBlock, createOxygenTheme } from '@wso2/oxygen-ui'
 
 /**
  * createOxygenTheme is a utility function for creating custom Oxygen UI themes.
@@ -65,10 +65,10 @@ function createOxygenTheme(
       },
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 /**
  * Basic usage - create a theme with custom primary color.
@@ -79,7 +79,7 @@ export const BasicUsage: Story = {
       <Typography variant="body2" color="text.secondary">
         The simplest way to create a custom theme with your brand colors.
       </Typography>
-      <CodeBlock 
+      <CodeBlock
         language="tsx"
         code={`import { createOxygenTheme, OxygenUIThemeProvider } from "@wso2/oxygen-ui";
 
@@ -105,7 +105,7 @@ function App() {
       />
     </Stack>
   ),
-};
+}
 
 /**
  * Create a theme with custom colors for both light and dark modes.
@@ -116,7 +116,7 @@ export const LightAndDarkModes: Story = {
       <Typography variant="body2" color="text.secondary">
         Define different colors for light and dark color schemes.
       </Typography>
-      <CodeBlock 
+      <CodeBlock
         language="tsx"
         code={`import { createOxygenTheme } from "@wso2/oxygen-ui";
 
@@ -147,7 +147,7 @@ const theme = createOxygenTheme({
       />
     </Stack>
   ),
-};
+}
 
 /**
  * Customize typography, spacing, and other theme properties.
@@ -158,7 +158,7 @@ export const CustomTypography: Story = {
       <Typography variant="body2" color="text.secondary">
         Beyond colors - customize typography, spacing, and more.
       </Typography>
-      <CodeBlock 
+      <CodeBlock
         language="tsx"
         code={`import { createOxygenTheme } from "@wso2/oxygen-ui";
 
@@ -189,7 +189,7 @@ const theme = createOxygenTheme({
       />
     </Stack>
   ),
-};
+}
 
 /**
  * Use createOxygenTheme for runtime theme configuration.
@@ -200,7 +200,7 @@ export const RuntimeConfiguration: Story = {
       <Typography variant="body2" color="text.secondary">
         Convert runtime configuration objects to theme instances.
       </Typography>
-      <CodeBlock 
+      <CodeBlock
         language="tsx"
         code={`import { createOxygenTheme, OxygenUIThemeProvider } from "@wso2/oxygen-ui";
 
@@ -228,7 +228,7 @@ function App() {
       />
     </Stack>
   ),
-};
+}
 
 /**
  * Use with OxygenUIThemeProvider's themes array for multi-theme support.
@@ -239,7 +239,7 @@ export const MultiThemeSupport: Story = {
       <Typography variant="body2" color="text.secondary">
         Create multiple themes and let users switch between them.
       </Typography>
-      <CodeBlock 
+      <CodeBlock
         language="tsx"
         code={`import { createOxygenTheme, OxygenUIThemeProvider } from "@wso2/oxygen-ui";
 
@@ -280,7 +280,7 @@ const themes = [
       />
     </Stack>
   ),
-};
+}
 
 /**
  * Convert inline theme objects to theme instances for mixed configurations.
@@ -291,7 +291,7 @@ export const MixedThemeSources: Story = {
       <Typography variant="body2" color="text.secondary">
         Handle themes from multiple sources (objects, files, pre-built themes).
       </Typography>
-      <CodeBlock 
+      <CodeBlock
         language="tsx"
         code={`import { 
   createOxygenTheme, 
@@ -337,7 +337,7 @@ const config = window.__APP_RUNTIME_CONFIG__;
       />
     </Stack>
   ),
-};
+}
 
 /**
  * Advanced usage - custom theme with Oxygen-specific features.
@@ -348,7 +348,7 @@ export const OxygenSpecificFeatures: Story = {
       <Typography variant="body2" color="text.secondary">
         Use Oxygen-specific theme extensions like blur effects and acrylic backgrounds.
       </Typography>
-      <CodeBlock 
+      <CodeBlock
         language="tsx"
         code={`import { createOxygenTheme } from "@wso2/oxygen-ui";
 
@@ -387,4 +387,4 @@ const theme = createOxygenTheme({
       />
     </Stack>
   ),
-};
+}

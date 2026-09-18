@@ -16,11 +16,11 @@
  * under the License.
  */
 
-import {Description, Primary, Subtitle, Title} from '@storybook/addon-docs/blocks';
-import type { Meta, StoryObj } from '@storybook/react';
-import { Stack, Typography, CodeBlock, Box, Divider, Paper, Chip } from '@wso2/oxygen-ui';
-import React from 'react';
-import CenterContentLayout from '../layouts/CenterContentLayout';
+import { Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks'
+import type { Meta, StoryObj } from '@storybook/react'
+import { Stack, Typography, CodeBlock, Box, Divider, Paper, Chip } from '@wso2/oxygen-ui'
+import React from 'react'
+import CenterContentLayout from '../layouts/CenterContentLayout'
 
 /**
  * Everything you need to install, integrate, and start building with Oxygen UI — including
@@ -50,10 +50,10 @@ const meta: Meta = {
       ),
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 /**
  * Install the Oxygen UI packages you need. The core library ships components and themes.
@@ -89,26 +89,17 @@ export const Installation: Story = {
           <Typography variant="subtitle2" gutterBottom>
             npm
           </Typography>
-          <CodeBlock
-            language="bash"
-            code="npm install @wso2/oxygen-ui"
-          />
+          <CodeBlock language="bash" code="npm install @wso2/oxygen-ui" />
 
           <Typography variant="subtitle2" gutterBottom sx={{ mt: 2 }}>
             pnpm
           </Typography>
-          <CodeBlock
-            language="bash"
-            code="pnpm add @wso2/oxygen-ui"
-          />
+          <CodeBlock language="bash" code="pnpm add @wso2/oxygen-ui" />
 
           <Typography variant="subtitle2" gutterBottom sx={{ mt: 2 }}>
             yarn
           </Typography>
-          <CodeBlock
-            language="bash"
-            code="yarn add @wso2/oxygen-ui"
-          />
+          <CodeBlock language="bash" code="yarn add @wso2/oxygen-ui" />
         </Box>
 
         <Divider />
@@ -155,8 +146,8 @@ export const Installation: Story = {
             <Chip label="optional" size="small" variant="outlined" />
           </Stack>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Theme-aware chart components built on Recharts. Includes bar, line, area, pie,
-            radar, and radial bar charts that automatically inherit your Oxygen UI theme.
+            Theme-aware chart components built on Recharts. Includes bar, line, area, pie, radar,
+            and radial bar charts that automatically inherit your Oxygen UI theme.
           </Typography>
           <CodeBlock
             language="bash"
@@ -175,7 +166,7 @@ export const Installation: Story = {
       </Stack>
     </CenterContentLayout>
   ),
-};
+}
 
 /**
  * Get up and running in minutes. Wrap your app with `OxygenUIThemeProvider` and compose
@@ -259,9 +250,9 @@ export const Integrate: Story = {
             Step 2 — Scaffold your layout with AppShell
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            <code>AppShell</code> is a compound component that composes a full application
-            shell — collapsible sidebar, top navigation bar, and main content area — with a
-            children-only API. No prop drilling required.
+            <code>AppShell</code> is a compound component that composes a full application shell —
+            collapsible sidebar, top navigation bar, and main content area — with a children-only
+            API. No prop drilling required.
           </Typography>
           <CodeBlock
             language="tsx"
@@ -321,15 +312,15 @@ export const Integrate: Story = {
   }`}
           />
           <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-            Browse the <strong>App Elements → App Shell</strong> story for an interactive
-            playground with the full compound component API, including notifications,
-            user menus, context switchers, and footers.
+            Browse the <strong>App Elements → App Shell</strong> story for an interactive playground
+            with the full compound component API, including notifications, user menus, context
+            switchers, and footers.
           </Typography>
         </Box>
       </Stack>
     </CenterContentLayout>
   ),
-};
+}
 
 /**
  * Oxygen UI ships built-in documentation for AI coding assistants. Run a single command
@@ -346,9 +337,9 @@ export const UseAIToGenerateUIs: Story = {
             Use AI to Generate UIs
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Oxygen UI packages AI documentation and invokable skills alongside the library.
-            A single <code>init</code> command wires them into your project so any AI assistant
-            can generate accurate, theme-aware Oxygen UI code immediately.
+            Oxygen UI packages AI documentation and invokable skills alongside the library. A single{' '}
+            <code>init</code> command wires them into your project so any AI assistant can generate
+            accurate, theme-aware Oxygen UI code immediately.
           </Typography>
         </Box>
 
@@ -360,13 +351,10 @@ export const UseAIToGenerateUIs: Story = {
             Step 1 — Run the init command
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Run this once from your project root. The interactive prompt will ask which AI
-            assistant you use and copy the right documentation to your workspace.
+            Run this once from your project root. The interactive prompt will ask which AI assistant
+            you use and copy the right documentation to your workspace.
           </Typography>
-          <CodeBlock
-            language="bash"
-            code="npx @wso2/oxygen-ui init"
-          />
+          <CodeBlock language="bash" code="npx @wso2/oxygen-ui init" />
 
           <Typography variant="body2" color="text.secondary" sx={{ mt: 2, mb: 1 }}>
             Or pass a flag to skip the prompt:
@@ -376,19 +364,13 @@ export const UseAIToGenerateUIs: Story = {
               <Typography variant="subtitle2" gutterBottom>
                 Claude Code (recommended — includes invokable skills)
               </Typography>
-              <CodeBlock
-                language="bash"
-                code="npx @wso2/oxygen-ui init --claude"
-              />
+              <CodeBlock language="bash" code="npx @wso2/oxygen-ui init --claude" />
             </Box>
             <Box>
               <Typography variant="subtitle2" gutterBottom>
                 Any other AI assistant (Copilot, Cursor, Windsurf, etc.)
               </Typography>
-              <CodeBlock
-                language="bash"
-                code="npx @wso2/oxygen-ui init --agents"
-              />
+              <CodeBlock language="bash" code="npx @wso2/oxygen-ui init --agents" />
             </Box>
           </Stack>
         </Box>
@@ -401,8 +383,8 @@ export const UseAIToGenerateUIs: Story = {
             Step 2 — What gets installed
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            The command copies AI-optimised documentation into your project so your AI
-            assistant picks it up automatically.
+            The command copies AI-optimised documentation into your project so your AI assistant
+            picks it up automatically.
           </Typography>
 
           <Stack spacing={2}>
@@ -464,8 +446,8 @@ export const UseAIToGenerateUIs: Story = {
             Step 3 — Ask your AI to build UIs
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Once the documentation is in place, your AI assistant knows the full Oxygen UI API.
-            Try prompts like these:
+            Once the documentation is in place, your AI assistant knows the full Oxygen UI API. Try
+            prompts like these:
           </Typography>
 
           <Stack spacing={1.5}>
@@ -506,4 +488,4 @@ export const UseAIToGenerateUIs: Story = {
       </Stack>
     </CenterContentLayout>
   ),
-};
+}

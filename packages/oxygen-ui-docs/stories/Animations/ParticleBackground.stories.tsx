@@ -16,16 +16,16 @@
  * under the License.
  */
 
-import { Controls, Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks';
-import type { Meta, StoryObj } from '@storybook/react';
-import { ParticleBackground, Box, Typography } from '@wso2/oxygen-ui';
-import React from 'react';
+import { Controls, Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks'
+import type { Meta, StoryObj } from '@storybook/react'
+import { ParticleBackground, Box, Typography } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * ParticleBackground is an animated canvas component that renders an interactive particle network.
  * The particles respond to mouse movements and clicks, creating an engaging visual effect.
  * Perfect for hero sections, backgrounds, or any area where you want to add subtle animation.
- * 
+ *
  * Features:
  * - Automatically adapts to light/dark theme
  * - Responsive to screen size
@@ -115,13 +115,13 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof ParticleBackground>;
+} satisfies Meta<typeof ParticleBackground>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  render: (args) => (
+  render: args => (
     <Box sx={{ position: 'relative', width: '100%', height: '100vh' }}>
       <ParticleBackground {...args} />
       <Box
@@ -153,10 +153,10 @@ export const Default: Story = {
     repelStrength: 0.35,
     clickBurst: 120,
   },
-};
+}
 
 export const Subtle: Story = {
-  render: (args) => (
+  render: args => (
     <Box sx={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}>
       <ParticleBackground {...args} />
       <Box
@@ -188,10 +188,10 @@ export const Subtle: Story = {
     repelStrength: 0.35,
     clickBurst: 120,
   },
-};
+}
 
 export const Energetic: Story = {
-  render: (args) => (
+  render: args => (
     <Box sx={{ position: 'relative', width: '100vw', height: '100vh' }}>
       <ParticleBackground {...args} />
       <Box
@@ -223,4 +223,4 @@ export const Energetic: Story = {
     repelStrength: 0.5,
     clickBurst: 200,
   },
-};
+}

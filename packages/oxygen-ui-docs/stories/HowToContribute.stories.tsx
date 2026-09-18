@@ -16,11 +16,11 @@
  * under the License.
  */
 
-import {Description, Primary, Subtitle, Title} from '@storybook/addon-docs/blocks';
-import type { Meta, StoryObj } from '@storybook/react';
-import { Stack, Typography, CodeBlock, Box, Divider } from '@wso2/oxygen-ui';
-import React from 'react';
-import CenterContentLayout from '../layouts/CenterContentLayout';
+import { Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks'
+import type { Meta, StoryObj } from '@storybook/react'
+import { Stack, Typography, CodeBlock, Box, Divider } from '@wso2/oxygen-ui'
+import React from 'react'
+import CenterContentLayout from '../layouts/CenterContentLayout'
 
 /**
  * Practical guides for common tasks in Oxygen UI.
@@ -41,10 +41,10 @@ const meta: Meta = {
       ),
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 /**
  * Learn how to create a custom component using the Box component as a base.
@@ -58,7 +58,8 @@ export const CreateNewComponent: Story = {
             Creating a Custom Component
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Use the Box component as a foundation to create custom styled components with full theme support.
+            Use the Box component as a foundation to create custom styled components with full theme
+            support.
           </Typography>
         </Box>
 
@@ -71,7 +72,7 @@ export const CreateNewComponent: Story = {
           <Typography variant="body2" color="text.secondary">
             Create separate files for each subcomponent using <code>styled()</code> from MUI.
           </Typography>
-          
+
           <Typography variant="subtitle2" gutterBottom sx={{ mt: 2 }}>
             CustomCardTitle.tsx
           </Typography>
@@ -167,7 +168,8 @@ export const CreateNewComponent: Story = {
             Step 2: Create the Main Component
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Import sub components and attach them as static properties using <code>Object.assign()</code>.
+            Import sub components and attach them as static properties using{' '}
+            <code>Object.assign()</code>.
           </Typography>
           <CodeBlock
             language="tsx"
@@ -265,7 +267,7 @@ export const CreateNewComponent: Story = {
       </Stack>
     </CenterContentLayout>
   ),
-};
+}
 
 /**
  * Learn how to add your component to Storybook with interactive examples.
@@ -464,7 +466,7 @@ export const CreateStory: Story = {
       </Stack>
     </CenterContentLayout>
   ),
-};
+}
 
 /**
  * Learn how to create a completely custom theme with component overrides.
@@ -489,7 +491,8 @@ export const CreateCustomTheme: Story = {
             Complete Custom Theme Example
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            This example includes custom colors, typography, component overrides, and custom theme properties.
+            This example includes custom colors, typography, component overrides, and custom theme
+            properties.
           </Typography>
           <CodeBlock
             language="tsx"
@@ -593,7 +596,7 @@ export const CreateCustomTheme: Story = {
       </Stack>
     </CenterContentLayout>
   ),
-};
+}
 
 /**
  * Accessibility requirements for contributing components and stories.
@@ -607,8 +610,8 @@ export const AccessibilityPolicy: Story = {
             Accessibility Policy
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Oxygen UI targets WCAG 2.1 AA. Every story runs automated axe-core checks, locally in the
-            Accessibility addon panel and in CI on every pull request.
+            Oxygen UI targets WCAG 2.1 AA. Every story runs automated axe-core checks, locally in
+            the Accessibility addon panel and in CI on every pull request.
           </Typography>
         </Box>
 
@@ -621,11 +624,25 @@ export const AccessibilityPolicy: Story = {
           <Typography variant="body2" color="text.secondary" component="div">
             <ul>
               <li>All stories must pass the accessibility checks. CI fails on new violations.</li>
-              <li>Icon-only controls must have an accessible name (an <code>aria-label</code>, not just a tooltip).</li>
-              <li>Interactive elements must be real buttons/links — never a <code>div</code> or <code>span</code> with <code>onClick</code>.</li>
-              <li>Custom wrappers must spread <code>...props</code> to their root and forward refs, so consumers can pass <code>aria-*</code> attributes and anchor menus/popovers.</li>
-              <li>Decorative icons need <code>aria-hidden="true"</code>.</li>
-              <li>Animations must respect <code>prefers-reduced-motion</code> (the base theme handles CSS transitions globally; JS-driven animation needs explicit handling).</li>
+              <li>
+                Icon-only controls must have an accessible name (an <code>aria-label</code>, not
+                just a tooltip).
+              </li>
+              <li>
+                Interactive elements must be real buttons/links — never a <code>div</code> or{' '}
+                <code>span</code> with <code>onClick</code>.
+              </li>
+              <li>
+                Custom wrappers must spread <code>...props</code> to their root and forward refs, so
+                consumers can pass <code>aria-*</code> attributes and anchor menus/popovers.
+              </li>
+              <li>
+                Decorative icons need <code>aria-hidden="true"</code>.
+              </li>
+              <li>
+                Animations must respect <code>prefers-reduced-motion</code> (the base theme handles
+                CSS transitions globally; JS-driven animation needs explicit handling).
+              </li>
             </ul>
           </Typography>
         </Box>
@@ -650,8 +667,8 @@ export const AccessibilityPolicy: Story = {
             Documenting Exceptions
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            A story may only disable a rule when the violation is a known, tracked limitation. The override
-            must carry a comment explaining why and a link to the GitHub issue:
+            A story may only disable a rule when the violation is a known, tracked limitation. The
+            override must carry a comment explaining why and a link to the GitHub issue:
           </Typography>
           <CodeBlock
             language="tsx"
@@ -668,10 +685,11 @@ export const AccessibilityPolicy: Story = {
   };`}
           />
           <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-            The full audit report and open findings live in <code>packages/oxygen-ui-docs/ACCESSIBILITY.md</code>.
+            The full audit report and open findings live in{' '}
+            <code>packages/oxygen-ui-docs/ACCESSIBILITY.md</code>.
           </Typography>
         </Box>
       </Stack>
     </CenterContentLayout>
   ),
-};
+}

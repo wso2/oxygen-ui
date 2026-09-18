@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import * as React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { Footer, Box } from '@wso2/oxygen-ui';
+import * as React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { Footer, Box } from '@wso2/oxygen-ui'
 
 /**
  * Footer is a compound component for displaying application footer with copyright,
@@ -65,10 +65,10 @@ import { Footer } from '@wso2/oxygen-ui';
       },
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Footer>;
+export default meta
+type Story = StoryObj<typeof Footer>
 
 /**
  * Basic footer with copyright and legal links.
@@ -78,13 +78,15 @@ export const Default: Story = {
     <Box sx={{ minHeight: 200, display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ flex: 1 }} />
       <Footer>
-        <Footer.Copyright>© {new Date().getFullYear()} Your Company. All rights reserved.</Footer.Copyright>
+        <Footer.Copyright>
+          © {new Date().getFullYear()} Your Company. All rights reserved.
+        </Footer.Copyright>
         <Footer.Link href="#terms">Terms & Conditions</Footer.Link>
         <Footer.Link href="#privacy">Privacy Policy</Footer.Link>
       </Footer>
     </Box>
   ),
-};
+}
 
 /**
  * Footer with version number.
@@ -94,7 +96,9 @@ export const WithVersion: Story = {
     <Box sx={{ minHeight: 200, display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ flex: 1 }} />
       <Footer>
-        <Footer.Copyright>© {new Date().getFullYear()} Oxygen UI. All rights reserved.</Footer.Copyright>
+        <Footer.Copyright>
+          © {new Date().getFullYear()} Oxygen UI. All rights reserved.
+        </Footer.Copyright>
         <Footer.Divider />
         <Footer.Version>v2.1.0</Footer.Version>
         <Footer.Link href="#terms">Terms & Conditions</Footer.Link>
@@ -102,7 +106,7 @@ export const WithVersion: Story = {
       </Footer>
     </Box>
   ),
-};
+}
 
 /**
  * Footer with custom links.
@@ -112,7 +116,9 @@ export const WithCustomLinks: Story = {
     <Box sx={{ minHeight: 200, display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ flex: 1 }} />
       <Footer>
-        <Footer.Copyright>© {new Date().getFullYear()} Acme Corporation. All rights reserved.</Footer.Copyright>
+        <Footer.Copyright>
+          © {new Date().getFullYear()} Acme Corporation. All rights reserved.
+        </Footer.Copyright>
         <Footer.Link href="/terms">Terms & Conditions</Footer.Link>
         <Footer.Link href="/privacy">Privacy Policy</Footer.Link>
         <Footer.Link href="/docs">Documentation</Footer.Link>
@@ -121,7 +127,7 @@ export const WithCustomLinks: Story = {
       </Footer>
     </Box>
   ),
-};
+}
 
 /**
  * Complete footer with all options.
@@ -131,7 +137,9 @@ export const Complete: Story = {
     <Box sx={{ minHeight: 200, display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ flex: 1 }} />
       <Footer>
-        <Footer.Copyright>© {new Date().getFullYear()} WSO2 LLC. All rights reserved.</Footer.Copyright>
+        <Footer.Copyright>
+          © {new Date().getFullYear()} WSO2 LLC. All rights reserved.
+        </Footer.Copyright>
         <Footer.Divider />
         <Footer.Version>v3.0.0-beta.1</Footer.Version>
         <Footer.Link href="https://wso2.com/terms">Terms & Conditions</Footer.Link>
@@ -141,7 +149,7 @@ export const Complete: Story = {
       </Footer>
     </Box>
   ),
-};
+}
 
 /**
  * Minimal footer with just copyright.
@@ -155,7 +163,7 @@ export const Minimal: Story = {
       </Footer>
     </Box>
   ),
-};
+}
 
 /**
  * Footer without divider.
@@ -165,11 +173,13 @@ export const WithoutDivider: Story = {
     <Box sx={{ minHeight: 200, display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ flex: 1 }} />
       <Footer>
-        <Footer.Copyright>© {new Date().getFullYear()} Your Company. All rights reserved.</Footer.Copyright>
+        <Footer.Copyright>
+          © {new Date().getFullYear()} Your Company. All rights reserved.
+        </Footer.Copyright>
         <Footer.Version>v2.1.0</Footer.Version>
         <Footer.Link href="#terms">Terms & Conditions</Footer.Link>
         <Footer.Link href="#privacy">Privacy Policy</Footer.Link>
       </Footer>
     </Box>
   ),
-};
+}

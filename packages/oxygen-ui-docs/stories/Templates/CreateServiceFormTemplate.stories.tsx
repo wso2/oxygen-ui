@@ -28,12 +28,7 @@ import {
   Select,
   MenuItem,
 } from '@wso2/oxygen-ui'
-import {
-  CircleQuestionMark,
-  PencilIcon,
-  GitBranchIcon,
-  BoxIcon,
-} from '@wso2/oxygen-ui-icons-react'
+import { CircleQuestionMark, PencilIcon, GitBranchIcon, BoxIcon } from '@wso2/oxygen-ui-icons-react'
 
 const meta: Meta = {
   title: 'Templates/Create Service Form',

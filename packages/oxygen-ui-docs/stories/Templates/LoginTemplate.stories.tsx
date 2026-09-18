@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react'
 import {
   Box,
   Typography,
@@ -34,9 +34,16 @@ import {
   Paper,
   ColorSchemeImage,
   ParticleBackground,
-} from '@wso2/oxygen-ui';
-import {Cloud, GitHub, Google, ShieldCheck, TerminalSquare, Zap} from '@wso2/oxygen-ui-icons-react';
-import React, {type JSX} from 'react';
+} from '@wso2/oxygen-ui'
+import {
+  Cloud,
+  GitHub,
+  Google,
+  ShieldCheck,
+  TerminalSquare,
+  Zap,
+} from '@wso2/oxygen-ui-icons-react'
+import React, { type JSX } from 'react'
 
 const meta: Meta = {
   title: 'Templates/Login',
@@ -52,13 +59,13 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
-const StyledPaper = styled(Paper)(({theme}) => ({
+const StyledPaper = styled(Paper)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignSelf: 'center',
@@ -69,22 +76,24 @@ const StyledPaper = styled(Paper)(({theme}) => ({
   [theme.breakpoints.up('sm')]: {
     width: '85%',
   },
-}));
+}))
 
 const items: {
-  icon: JSX.Element;
-  title: string;
-  description: string;
+  icon: JSX.Element
+  title: string
+  description: string
 }[] = [
   {
     icon: <Cloud className="text-muted-foreground" />,
     title: 'Flexible Identity Platform',
-    description: 'Centralizes identity management for both on-prem and cloud environments—no protocol lock-in.',
+    description:
+      'Centralizes identity management for both on-prem and cloud environments—no protocol lock-in.',
   },
   {
     icon: <ShieldCheck className="text-muted-foreground" />,
     title: 'Zero-trust Security',
-    description: 'Leverage adaptive authentication, OIDC, and OAuth 2.0 to protect every login and session.',
+    description:
+      'Leverage adaptive authentication, OIDC, and OAuth 2.0 to protect every login and session.',
   },
   {
     icon: <TerminalSquare className="text-muted-foreground" />,
@@ -94,11 +103,12 @@ const items: {
   {
     icon: <Zap className="text-muted-foreground" />,
     title: 'Extensible & Enterprise-ready',
-    description: 'Built for scale, integrates with your stack and CI/CD pipelines, and ready for any cloud.',
+    description:
+      'Built for scale, integrates with your stack and CI/CD pipelines, and ready for any cloud.',
   },
-];
+]
 
-const hasError = false;
+const hasError = false
 
 export const Default: Story = {
   render: () => (
@@ -122,26 +132,26 @@ export const Default: Story = {
               alignItems="start"
               gap={5}
               maxWidth={580}
-              display={{xs: 'none', md: 'flex'}}
+              display={{ xs: 'none', md: 'flex' }}
             >
               <ColorSchemeImage
                 src={{
                   light: `oxygen-ui-logo.svg`,
                   dark: `oxygen-ui-logo-inverted.svg`,
                 }}
-                alt={{light: 'Logo (Light)', dark: 'Logo (Dark)'}}
+                alt={{ light: 'Logo (Light)', dark: 'Logo (Dark)' }}
                 height={50}
                 width="auto"
               />
-              <Stack sx={{flexDirection: 'column', alignSelf: 'center', gap: 4}}>
-                {items.map((item) => (
-                  <Stack key={item.title} direction="row" sx={{gap: 2}}>
+              <Stack sx={{ flexDirection: 'column', alignSelf: 'center', gap: 4 }}>
+                {items.map(item => (
+                  <Stack key={item.title} direction="row" sx={{ gap: 2 }}>
                     {item.icon}
                     <div>
-                      <Typography gutterBottom sx={{fontWeight: 'medium'}}>
+                      <Typography gutterBottom sx={{ fontWeight: 'medium' }}>
                         {item.title}
                       </Typography>
-                      <Typography variant="body2" sx={{color: 'text.secondary'}}>
+                      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                         {item.description}
                       </Typography>
                     </div>
@@ -161,8 +171,9 @@ export const Default: Story = {
                 padding: 2,
                 width: '100%',
                 maxWidth: 500,
-                margin: 'auto'
-            }}>
+                margin: 'auto',
+              }}
+            >
               <form method="POST" action="">
                 <Box sx={{ mb: 6 }}>
                   <Typography variant="h3" gutterBottom>
@@ -173,7 +184,7 @@ export const Default: Story = {
                     Don&apos;t have an account <Link href="">Sign up!</Link>
                   </Typography>
                 </Box>
-                    
+
                 <Box>
                   <Button
                     fullWidth
@@ -197,11 +208,11 @@ export const Default: Story = {
 
                 <Divider sx={{ my: 3 }}>or</Divider>
 
-                { hasError &&
+                {hasError && (
                   <Alert severity="error" sx={{ my: 2 }}>
                     You have entered either a wrong username or password!
                   </Alert>
-                }
+                )}
 
                 <Box display="flex" flexDirection="column" gap={2}>
                   <Box display="flex" flexDirection="column" gap={0.5}>
@@ -242,7 +253,13 @@ export const Default: Story = {
                   </Box>
 
                   <input type="hidden" id="sessionDataKey" name="sessionDataKey" value="" />
-                  <Button variant="contained" color="primary" type="submit" fullWidth sx={{ mt: 2 }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    fullWidth
+                    sx={{ mt: 2 }}
+                  >
                     Sign In
                   </Button>
                 </Box>
@@ -251,12 +268,7 @@ export const Default: Story = {
                 <Typography sx={{ textAlign: 'center' }}>
                   © Copyright {new Date().getFullYear()}
                 </Typography>
-                <Stack
-                  direction="row"
-                  justifyContent="center"
-                  sx={{ mt: 2 }}
-                  spacing={1}
-                >
+                <Stack direction="row" justifyContent="center" sx={{ mt: 2 }} spacing={1}>
                   <Link>Privacy Policy</Link>
                   <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />
                   <Link>Terms of Use</Link>
@@ -268,4 +280,4 @@ export const Default: Story = {
       </Grid>
     </Box>
   ),
-};
+}

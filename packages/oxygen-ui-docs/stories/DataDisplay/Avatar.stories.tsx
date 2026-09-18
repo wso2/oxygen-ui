@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Avatar, AvatarGroup, Stack } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Avatar, AvatarGroup, Stack } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * The Avatar component displays user profile pictures, icons, or initials.
  * It supports different sizes, variants, and can be grouped together.
- * 
- * This is a direct import of MUI avatar component. 
+ *
+ * This is a direct import of MUI avatar component.
  * Read more at: https://mui.com/material-ui/react-avatar/
  */
 const meta: Meta<typeof Avatar> = {
@@ -34,21 +34,22 @@ const meta: Meta<typeof Avatar> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI avatar component is a direct import of MUI avatar component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-avatar/](https://mui.com/material-ui/react-avatar/)',
+        component:
+          'Oxygen UI avatar component is a direct import of MUI avatar component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-avatar/](https://mui.com/material-ui/react-avatar/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Avatar>;
+export default meta
+type Story = StoryObj<typeof Avatar>
 
 export const Default: Story = {
   render: () => <Avatar>A</Avatar>,
-};
+}
 
 export const WithInitials: Story = {
   render: () => (
@@ -58,7 +59,7 @@ export const WithInitials: Story = {
       <Avatar>AB</Avatar>
     </Stack>
   ),
-};
+}
 
 export const Variants: Story = {
   render: () => (
@@ -68,7 +69,7 @@ export const Variants: Story = {
       <Avatar variant="square">JD</Avatar>
     </Stack>
   ),
-};
+}
 
 export const Sizes: Story = {
   render: () => (
@@ -79,7 +80,7 @@ export const Sizes: Story = {
       <Avatar sx={{ width: 72, height: 72, fontSize: '2rem' }}>XL</Avatar>
     </Stack>
   ),
-};
+}
 
 export const Colors: Story = {
   render: () => (
@@ -91,7 +92,7 @@ export const Colors: Story = {
       <Avatar sx={{ bgcolor: 'warning.main' }}>W</Avatar>
     </Stack>
   ),
-};
+}
 
 export const Group: Story = {
   render: () => (
@@ -112,4 +113,4 @@ export const Group: Story = {
       </AvatarGroup>
     </Stack>
   ),
-};
+}
