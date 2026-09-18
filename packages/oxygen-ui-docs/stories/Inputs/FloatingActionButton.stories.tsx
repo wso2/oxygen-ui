@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Fab, Stack, Box } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Fab, Stack, Box } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * The Floating Action Button (FAB) performs the primary action on a screen.
  * It appears in front of all screen content and is typically circular with an icon.
- * 
- * This is a direct import of MUI floating action button component. 
+ *
+ * This is a direct import of MUI floating action button component.
  * Read more at: https://mui.com/material-ui/react-floating-action-button/
  */
 const meta: Meta<typeof Fab> = {
@@ -34,21 +34,22 @@ const meta: Meta<typeof Fab> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI floating action button component is a direct import of MUI floating action button component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-floating-action-button/](https://mui.com/material-ui/react-floating-action-button/)',
+        component:
+          'Oxygen UI floating action button component is a direct import of MUI floating action button component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-floating-action-button/](https://mui.com/material-ui/react-floating-action-button/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Fab>;
+export default meta
+type Story = StoryObj<typeof Fab>
 
 export const Default: Story = {
   render: () => <Fab color="primary">+</Fab>,
-};
+}
 
 export const Colors: Story = {
   render: () => (
@@ -61,30 +62,50 @@ export const Colors: Story = {
       <Fab color="info">+</Fab>
     </Stack>
   ),
-};
+}
 
 export const Sizes: Story = {
   render: () => (
-    <Stack direction="row" spacing={2} alignItems="center">
-      <Fab size="small" color="primary">+</Fab>
-      <Fab size="medium" color="primary">+</Fab>
-      <Fab size="large" color="primary">+</Fab>
+    <Stack
+      direction="row"
+      spacing={2}
+      sx={{
+        alignItems: 'center',
+      }}
+    >
+      <Fab size="small" color="primary">
+        +
+      </Fab>
+      <Fab size="medium" color="primary">
+        +
+      </Fab>
+      <Fab size="large" color="primary">
+        +
+      </Fab>
     </Stack>
   ),
-};
+}
 
 export const Variants: Story = {
   render: () => (
     <Stack direction="row" spacing={2}>
-      <Fab variant="circular" color="primary">+</Fab>
+      <Fab variant="circular" color="primary">
+        +
+      </Fab>
       <Fab variant="extended" color="primary">
-        <Box component="span" sx={{ mr: 1 }}>+</Box>
+        <Box component="span" sx={{ mr: 1 }}>
+          +
+        </Box>
         Extended
       </Fab>
     </Stack>
   ),
-};
+}
 
 export const Disabled: Story = {
-  render: () => <Fab disabled color="primary">+</Fab>,
-};
+  render: () => (
+    <Fab disabled color="primary">
+      +
+    </Fab>
+  ),
+}

@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import * as React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { NotificationBanner, Box, Button } from '@wso2/oxygen-ui';
+import * as React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { NotificationBanner, Box, Button } from '@wso2/oxygen-ui'
 
 /**
  * NotificationBanner is a dismissible system alert banner for displaying
@@ -65,10 +65,10 @@ import { NotificationBanner } from '@wso2/oxygen-ui';
       },
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof NotificationBanner>;
+export default meta
+type Story = StoryObj<typeof NotificationBanner>
 
 /**
  * Info banner (default).
@@ -81,7 +81,7 @@ export const Info: Story = {
       onDismiss={() => console.log('Dismissed')}
     />
   ),
-};
+}
 
 /**
  * Info banner with title.
@@ -95,7 +95,7 @@ export const InfoWithTitle: Story = {
       onDismiss={() => console.log('Dismissed')}
     />
   ),
-};
+}
 
 /**
  * Warning banner.
@@ -109,7 +109,7 @@ export const Warning: Story = {
       onDismiss={() => console.log('Dismissed')}
     />
   ),
-};
+}
 
 /**
  * Error banner.
@@ -123,7 +123,7 @@ export const Error: Story = {
       onDismiss={() => console.log('Dismissed')}
     />
   ),
-};
+}
 
 /**
  * Success banner.
@@ -137,7 +137,7 @@ export const Success: Story = {
       onDismiss={() => console.log('Dismissed')}
     />
   ),
-};
+}
 
 /**
  * Banner with action button.
@@ -153,14 +153,14 @@ export const WithAction: Story = {
       onDismiss={() => console.log('Dismissed')}
     />
   ),
-};
+}
 
 /**
  * Controllable banner with visibility toggle.
  */
 export const Controllable: Story = {
   render: () => {
-    const [visible, setVisible] = React.useState(true);
+    const [visible, setVisible] = React.useState(true)
 
     return (
       <Box>
@@ -181,17 +181,17 @@ export const Controllable: Story = {
           )}
         </Box>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Multiple banners stacked.
  */
 export const MultipleBanners: Story = {
   render: () => {
-    const [showInfo, setShowInfo] = React.useState(true);
-    const [showWarning, setShowWarning] = React.useState(true);
+    const [showInfo, setShowInfo] = React.useState(true)
+    const [showWarning, setShowWarning] = React.useState(true)
 
     return (
       <Box>
@@ -213,8 +213,8 @@ export const MultipleBanners: Story = {
           <Button
             variant="outlined"
             onClick={() => {
-              setShowInfo(true);
-              setShowWarning(true);
+              setShowInfo(true)
+              setShowWarning(true)
             }}
             disabled={showInfo && showWarning}
           >
@@ -222,9 +222,9 @@ export const MultipleBanners: Story = {
           </Button>
         </Box>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Simple message without title.
@@ -237,4 +237,4 @@ export const SimpleMessage: Story = {
       onDismiss={() => console.log('Dismissed')}
     />
   ),
-};
+}

@@ -16,10 +16,10 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { CodeBlock } from '@wso2/oxygen-ui';
-import { Stack, Typography } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { CodeBlock } from '@wso2/oxygen-ui'
+import { Stack, Typography } from '@wso2/oxygen-ui'
+import React from 'react'
 
 const meta: Meta<typeof CodeBlock> = {
   title: 'App Elements/Code Block',
@@ -51,10 +51,10 @@ const meta: Meta<typeof CodeBlock> = {
       control: 'boolean',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof CodeBlock>;
+export default meta
+type Story = StoryObj<typeof CodeBlock>
 
 /**
  * TypeScript/TSX code example with React component
@@ -73,7 +73,7 @@ function App() {
   );
 }`,
   },
-};
+}
 
 /**
  * JavaScript code example
@@ -88,7 +88,7 @@ export const JavaScript: Story = {
 
 console.log(fibonacci(10)); // 55`,
   },
-};
+}
 
 /**
  * CSS code example
@@ -110,7 +110,7 @@ export const CSS: Story = {
   background-color: #0056b3;
 }`,
   },
-};
+}
 
 /**
  * Bash/Shell command example
@@ -127,7 +127,7 @@ npm run dev
 # Build for production
 npm run build`,
   },
-};
+}
 
 /**
  * JSON data example
@@ -140,12 +140,12 @@ export const JSON: Story = {
   "version": "1.0.0",
   "description": "A design system built on MUI",
   "dependencies": {
-    "@mui/material": "^7.3.4",
+    "@mui/material": "^9.4.0",
     "react": "^19.2.0"
   }
 }`,
   },
-};
+}
 
 /**
  * HTML markup example
@@ -165,7 +165,7 @@ export const HTML: Story = {
 </body>
 </html>`,
   },
-};
+}
 
 /**
  * Multiple code blocks showing different languages
@@ -174,7 +174,7 @@ export const MultipleLanguages: Story = {
   render: () => (
     <Stack spacing={3}>
       <div>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           TypeScript Component
         </Typography>
         <CodeBlock
@@ -192,17 +192,14 @@ function App() {
       </div>
 
       <div>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Installation Command
         </Typography>
-        <CodeBlock
-          language="bash"
-          code="npm install @wso2/oxygen-ui"
-        />
+        <CodeBlock language="bash" code="npm install @wso2/oxygen-ui" />
       </div>
 
       <div>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Configuration JSON
         </Typography>
         <CodeBlock
@@ -216,7 +213,7 @@ function App() {
       </div>
     </Stack>
   ),
-};
+}
 
 /**
  * Long code example with scrolling
@@ -284,7 +281,7 @@ const UserList: React.FC = () => {
           <Card key={user.id}>
             <CardContent>
               <Typography variant="h6">{user.name}</Typography>
-              <Typography color="text.secondary">{user.email}</Typography>
+              <Typography sx={{ color: 'text.secondary' }}>{user.email}</Typography>
             </CardContent>
           </Card>
         ))}
@@ -295,4 +292,4 @@ const UserList: React.FC = () => {
 
 export default UserList;`,
   },
-};
+}

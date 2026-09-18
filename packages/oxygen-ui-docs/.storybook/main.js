@@ -16,51 +16,59 @@
  * under the License.
  */
 
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from 'path'
+import { fileURLToPath } from 'url'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 export default {
-  stories: [
-    '../stories/**/*.stories.@(js|jsx|ts|tsx|mdx)'
-  ],
+  stories: ['../stories/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
   staticDirs: ['public'],
-  addons: [
-    '@storybook/addon-docs',
-    '@storybook/addon-links',
-    '@storybook/addon-a11y',
-  ],
+  addons: ['@storybook/addon-docs', '@storybook/addon-links', '@storybook/addon-a11y'],
   framework: {
     name: '@storybook/react-webpack5',
-    options: {}
+    options: {},
   },
   docs: {
     autodocs: true,
   },
   typescript: {
-    reactDocgen: "react-docgen-typescript"
+    reactDocgen: 'react-docgen-typescript',
   },
-  webpackFinal: async (config) => {
-    config.resolve = config.resolve || {};
+  webpackFinal: async config => {
+    config.resolve = config.resolve || {}
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
       '@wso2/oxygen-ui': path.resolve(__dirname, '../../oxygen-ui/dist/index.js'),
-      '@wso2/oxygen-ui-icons-react': path.resolve(__dirname, '../../oxygen-ui-icons-react/dist/index.js'),
-      '@wso2/oxygen-ui-charts-react': path.resolve(__dirname, '../../oxygen-ui-charts-react/dist/index.js'),
-    };
+      '@wso2/oxygen-ui-icons-react': path.resolve(
+        __dirname,
+        '../../oxygen-ui-icons-react/dist/index.js'
+      ),
+      '@wso2/oxygen-ui-charts-react': path.resolve(
+        __dirname,
+        '../../oxygen-ui-charts-react/dist/index.js'
+      ),
+    }
 
-    config.module.rules = (config.module.rules || []).map((rule) => {
-      if (rule && typeof rule === 'object' && rule.test instanceof RegExp && rule.test.test('.svg')) {
+    config.module.rules = (config.module.rules || []).map(rule => {
+      if (
+        rule &&
+        typeof rule === 'object' &&
+        rule.test instanceof RegExp &&
+        rule.test.test('.svg')
+      ) {
         return {
           ...rule,
-          exclude: [/\.svg$/i, ...(Array.isArray(rule.exclude) ? rule.exclude : rule.exclude ? [rule.exclude] : [])],
-        };
+          exclude: [
+            /\.svg$/i,
+            ...(Array.isArray(rule.exclude) ? rule.exclude : rule.exclude ? [rule.exclude] : []),
+          ],
+        }
       }
 
-      return rule;
-    });
+      return rule
+    })
 
     config.module.rules.push({
       test: /\.svg$/i,
@@ -73,7 +81,7 @@ export default {
           },
         },
       ],
-    });
+    })
 
     // Handle workspace packages - allow transpiling @wso2 packages
     config.module.rules.push({
@@ -82,15 +90,11 @@ export default {
       use: {
         loader: 'babel-loader',
         options: {
-          presets: [
-            '@babel/preset-env',
-            '@babel/preset-react',
-            '@babel/preset-typescript',
-          ],
+          presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
         },
       },
-    });
-    
-    return config;
-  }
+    })
+
+    return config
+  },
 }

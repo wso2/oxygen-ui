@@ -213,7 +213,7 @@ export function ComplexSelect({ children, sx, label, labelId, labelAnchor = 'ins
          * InputLabel so the combobox still has an accessible name (WCAG 4.1.2).
          */}
         {labelAnchor === 'inside' ? (
-          <StyledInputLabel id={generatedLabelId} labelAnchor={labelAnchor} sx={visuallyHidden}>
+          <StyledInputLabel id={generatedLabelId} labelAnchor={labelAnchor} sx={{ ...visuallyHidden }}>
             {label}
           </StyledInputLabel>
         ) : (

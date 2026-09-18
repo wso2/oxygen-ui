@@ -16,17 +16,9 @@
  * under the License.
  */
 
-import { Meta, StoryObj } from '@storybook/react';
-import {
-  Box,
-  Typography,
-  Button,
-  Card,
-  CardContent,
-  Grid,
-  Stack,
-} from '@wso2/oxygen-ui';
-import React from 'react';
+import { Meta, StoryObj } from '@storybook/react'
+import { Box, Typography, Button, Card, CardContent, Grid, Stack } from '@wso2/oxygen-ui'
+import React from 'react'
 
 const meta: Meta = {
   title: 'Templates/Tabbed Content',
@@ -42,11 +34,11 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   render: () => (
@@ -66,7 +58,7 @@ export const Default: Story = {
           borderColor: 'divider',
         }}
       >
-        <Typography variant="h4" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h4">
           Analytics
         </Typography>
       </Box>
@@ -99,12 +91,18 @@ export const Default: Story = {
           <Grid size={12}>
             <Card>
               <CardContent>
-                <Typography variant="h6" gutterBottom>
+                <Typography sx={{ mb: '0.35em' }} variant="h6">
                   Overview Analytics
                 </Typography>
-                <Typography variant="body2" color="text.secondary" paragraph>
-                  This section displays comprehensive analytics data for your application.
-                  Switch between tabs to view different metrics and insights.
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: 'text.secondary',
+                    mb: 2,
+                  }}
+                >
+                  This section displays comprehensive analytics data for your application. Switch
+                  between tabs to view different metrics and insights.
                 </Typography>
                 <Box
                   sx={{
@@ -116,7 +114,12 @@ export const Default: Story = {
                     borderRadius: 2,
                   }}
                 >
-                  <Typography variant="h6" color="text.secondary">
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: 'text.secondary',
+                    }}
+                  >
                     Chart Visualization Area
                   </Typography>
                 </Box>
@@ -127,4 +130,4 @@ export const Default: Story = {
       </Box>
     </Box>
   ),
-};
+}

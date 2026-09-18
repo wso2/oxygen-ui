@@ -16,14 +16,25 @@
  * under the License.
  */
 
-import React, { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { BottomNavigation, BottomNavigationAction, Paper } from '@wso2/oxygen-ui';
-import { History, Star, Archive, Home, Search, User, Settings, Bell, Mail, MapPin } from '@wso2/oxygen-ui-icons-react';
+import React, { useState } from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { BottomNavigation, BottomNavigationAction, Paper } from '@wso2/oxygen-ui'
+import {
+  History,
+  Star,
+  Archive,
+  Home,
+  Search,
+  User,
+  Settings,
+  Bell,
+  Mail,
+  MapPin,
+} from '@wso2/oxygen-ui-icons-react'
 
 /**
  * Bottom Navigation allows users to navigate between top-level views in a single tap.
- * 
+ *
  * Read more at: https://mui.com/material-ui/react-bottom-navigation/
  */
 const meta: Meta<typeof BottomNavigation> = {
@@ -42,24 +53,25 @@ const meta: Meta<typeof BottomNavigation> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI Bottom Navigation is a direct import of MUI Bottom Navigation. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-bottom-navigation/](https://mui.com/material-ui/react-bottom-navigation/)',
+        component:
+          'Oxygen UI Bottom Navigation is a direct import of MUI Bottom Navigation. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-bottom-navigation/](https://mui.com/material-ui/react-bottom-navigation/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof BottomNavigation>;
+export default meta
+type Story = StoryObj<typeof BottomNavigation>
 
 /**
  * Basic bottom navigation
  */
 export const Basic: Story = {
   render: () => {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(0)
 
     return (
       <Paper sx={{ position: 'relative', width: 500 }} elevation={3}>
@@ -67,7 +79,7 @@ export const Basic: Story = {
           showLabels
           value={value}
           onChange={(_event, newValue) => {
-            setValue(newValue);
+            setValue(newValue)
           }}
         >
           <BottomNavigationAction label="Recents" icon={<History />} />
@@ -75,23 +87,23 @@ export const Basic: Story = {
           <BottomNavigationAction label="Archive" icon={<Archive />} />
         </BottomNavigation>
       </Paper>
-    );
+    )
   },
-};
+}
 
 /**
  * Bottom navigation without labels
  */
 export const WithoutLabels: Story = {
   render: () => {
-    const [value, setValue] = useState(1);
+    const [value, setValue] = useState(1)
 
     return (
       <Paper sx={{ position: 'relative', width: 500 }} elevation={3}>
         <BottomNavigation
           value={value}
           onChange={(_event, newValue) => {
-            setValue(newValue);
+            setValue(newValue)
           }}
         >
           <BottomNavigationAction icon={<Home />} />
@@ -100,16 +112,16 @@ export const WithoutLabels: Story = {
           <BottomNavigationAction icon={<Settings />} />
         </BottomNavigation>
       </Paper>
-    );
+    )
   },
-};
+}
 
 /**
  * Bottom navigation with multiple actions
  */
 export const MultipleActions: Story = {
   render: () => {
-    const [value, setValue] = useState('home');
+    const [value, setValue] = useState('home')
 
     return (
       <Paper sx={{ position: 'relative', width: 600 }} elevation={3}>
@@ -117,7 +129,7 @@ export const MultipleActions: Story = {
           showLabels
           value={value}
           onChange={(_event, newValue) => {
-            setValue(newValue);
+            setValue(newValue)
           }}
         >
           <BottomNavigationAction label="Home" value="home" icon={<Home />} />
@@ -127,16 +139,16 @@ export const MultipleActions: Story = {
           <BottomNavigationAction label="Profile" value="profile" icon={<User />} />
         </BottomNavigation>
       </Paper>
-    );
+    )
   },
-};
+}
 
 /**
  * Bottom navigation with conditional rendering
  */
 export const Conditional: Story = {
   render: () => {
-    const [value, setValue] = useState('recents');
+    const [value, setValue] = useState('recents')
 
     return (
       <Paper sx={{ position: 'relative', width: 500 }} elevation={3}>
@@ -144,7 +156,7 @@ export const Conditional: Story = {
           showLabels
           value={value}
           onChange={(_event, newValue) => {
-            setValue(newValue);
+            setValue(newValue)
           }}
         >
           <BottomNavigationAction label="Recents" value="recents" icon={<History />} />
@@ -152,6 +164,6 @@ export const Conditional: Story = {
           <BottomNavigationAction label="Nearby" value="nearby" icon={<MapPin />} />
         </BottomNavigation>
       </Paper>
-    );
+    )
   },
-};
+}

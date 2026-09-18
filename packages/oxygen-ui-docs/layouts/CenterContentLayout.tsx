@@ -16,16 +16,12 @@
  * under the License.
  */
 
-import {Box} from "@wso2/oxygen-ui";
-import React from 'react';
-import type {JSX} from "react";
+import { Box } from '@wso2/oxygen-ui'
+import React from 'react'
+import type { JSX } from 'react'
 
-function CenterContentLayout({children}: {children: JSX.Element}): JSX.Element {
-  return (
-    <Box sx={{ p: 4, my: 10, maxWidth: 1200, mx: 'auto' }}>
-      {children}
-    </Box>
-  );
+function CenterContentLayout({ children }: { children: JSX.Element }): JSX.Element {
+  return <Box sx={{ p: 4, my: 10, maxWidth: 1200, mx: 'auto' }}>{children}</Box>
 }
 
-export default CenterContentLayout;
+export default CenterContentLayout

@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Alert, AlertTitle, Stack, Button } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Alert, AlertTitle, Stack, Button } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * The Alert component displays important messages to the user.
  * It supports different severity levels and can include actions.
- * 
- * This is a direct import of MUI alert component. 
+ *
+ * This is a direct import of MUI alert component.
  * Read more at: https://mui.com/material-ui/react-alert/
  */
 const meta: Meta<typeof Alert> = {
@@ -34,17 +34,18 @@ const meta: Meta<typeof Alert> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI alert component is a direct import of MUI alert component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-alert/](https://mui.com/material-ui/react-alert/)',
+        component:
+          'Oxygen UI alert component is a direct import of MUI alert component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-alert/](https://mui.com/material-ui/react-alert/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Alert>;
+export default meta
+type Story = StoryObj<typeof Alert>
 
 export const Severities: Story = {
   render: () => (
@@ -55,7 +56,7 @@ export const Severities: Story = {
       <Alert severity="success">This is a success alert — check it out!</Alert>
     </Stack>
   ),
-};
+}
 
 export const Variants: Story = {
   render: () => (
@@ -71,7 +72,7 @@ export const Variants: Story = {
       </Alert>
     </Stack>
   ),
-};
+}
 
 export const WithTitle: Story = {
   render: () => (
@@ -86,12 +87,12 @@ export const WithTitle: Story = {
       </Alert>
     </Stack>
   ),
-};
+}
 
 export const WithActions: Story = {
   render: () => (
     <Stack sx={{ width: '100%' }} spacing={2}>
-      <Alert 
+      <Alert
         severity="warning"
         action={
           <Button color="inherit" size="small">
@@ -101,23 +102,28 @@ export const WithActions: Story = {
       >
         This is a warning alert with an action button.
       </Alert>
-      <Alert 
-        severity="info"
-        onClose={() => alert('Close clicked!')}
-      >
+      <Alert severity="info" onClose={() => alert('Close clicked!')}>
         This is an info alert with a close button.
       </Alert>
     </Stack>
   ),
-};
+}
 
 export const Colors: Story = {
   render: () => (
     <Stack sx={{ width: '100%' }} spacing={2}>
-      <Alert severity="error" color="error">Error severity</Alert>
-      <Alert severity="warning" color="warning">Warning severity</Alert>
-      <Alert severity="info" color="info">Info severity</Alert>
-      <Alert severity="success" color="success">Success severity</Alert>
+      <Alert severity="error" color="error">
+        Error severity
+      </Alert>
+      <Alert severity="warning" color="warning">
+        Warning severity
+      </Alert>
+      <Alert severity="info" color="info">
+        Info severity
+      </Alert>
+      <Alert severity="success" color="success">
+        Success severity
+      </Alert>
     </Stack>
   ),
-};
+}

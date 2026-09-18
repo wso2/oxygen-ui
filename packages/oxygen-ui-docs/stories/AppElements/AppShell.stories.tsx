@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import * as React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import * as React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
 import {
   Box,
   Typography,
@@ -47,7 +47,7 @@ import {
   useAppShell,
   useNotifications,
   type NotificationItem,
-} from '@wso2/oxygen-ui';
+} from '@wso2/oxygen-ui'
 import {
   Zap,
   Bell,
@@ -71,31 +71,31 @@ import {
   UserRoundIcon,
   CreditCard,
   LogOut,
-} from '@wso2/oxygen-ui-icons-react';
+} from '@wso2/oxygen-ui-icons-react'
 
 // =============================================================================
 // TYPES
 // =============================================================================
 
 interface Organization {
-  id: string;
-  name: string;
-  avatar?: string;
-  description?: string;
+  id: string
+  name: string
+  avatar?: string
+  description?: string
 }
 
 interface Project {
-  id: string;
-  name: string;
-  description?: string;
-  color?: string;
+  id: string
+  name: string
+  description?: string
+  color?: string
 }
 
 interface User {
-  name: string;
-  email: string;
-  avatar?: string;
-  role?: string;
+  name: string
+  email: string
+  avatar?: string
+  role?: string
 }
 
 // =============================================================================
@@ -156,39 +156,44 @@ const mockNotifications: NotificationItem[] = [
     timestamp: new Date(Date.now() - 1000 * 60 * 60 * 48),
     read: true,
   },
-];
+]
 
 const mockOrganizations: Organization[] = [
   { id: 'org-1', name: 'Acme Corporation', avatar: 'AC', description: 'Primary organization' },
   { id: 'org-2', name: 'Beta Industries', avatar: 'BI', description: 'Partner organization' },
   { id: 'org-3', name: 'Gamma Labs', avatar: 'GL', description: 'Research division' },
-];
+]
 
 const mockProjects: Project[] = [
   { id: 'proj-1', name: 'Main Platform', description: 'Production application', color: '#1976d2' },
   { id: 'proj-2', name: 'Mobile App', description: 'iOS and Android app', color: '#9c27b0' },
   { id: 'proj-3', name: 'API Services', description: 'Backend microservices', color: '#2e7d32' },
-  { id: 'proj-4', name: 'Analytics Dashboard', description: 'Internal analytics', color: '#ed6c02' },
-];
+  {
+    id: 'proj-4',
+    name: 'Analytics Dashboard',
+    description: 'Internal analytics',
+    color: '#ed6c02',
+  },
+]
 
 const mockUser: User = {
   name: 'John Doe',
   email: 'john.doe@example.com',
   avatar: 'JD',
   role: 'Pro',
-};
+}
 
 /**
  * Storybook args interface for the App Shell.
  */
 interface AppShellArgs {
-  sidebarCollapsed: boolean;
-  showNotificationBanner: boolean;
-  bannerSeverity: 'info' | 'warning' | 'error' | 'success';
-  bannerMessage: string;
-  showFooter: boolean;
-  notificationCount: number;
-  minimal: boolean;
+  sidebarCollapsed: boolean
+  showNotificationBanner: boolean
+  bannerSeverity: 'info' | 'warning' | 'error' | 'success'
+  bannerMessage: string
+  showFooter: boolean
+  notificationCount: number
+  minimal: boolean
 }
 
 /**
@@ -196,12 +201,12 @@ interface AppShellArgs {
  */
 const SampleContent: React.FC = () => (
   <Box sx={{ p: 3 }}>
-    <Typography variant="h4" gutterBottom sx={{ fontWeight: 600 }}>
+    <Typography variant="h4" sx={{ mb: '0.35em', fontWeight: 600 }}>
       Dashboard
     </Typography>
     <Typography variant="body1" sx={{ color: 'text.secondary', mb: 3 }}>
-      Welcome to your application dashboard. This is a sample content area
-      demonstrating how to use the App Shell layout.
+      Welcome to your application dashboard. This is a sample content area demonstrating how to use
+      the App Shell layout.
     </Typography>
 
     <Grid container spacing={3}>
@@ -223,10 +228,7 @@ const SampleContent: React.FC = () => (
               <Typography variant="h4" sx={{ fontWeight: 600, my: 1 }}>
                 {stat.value}
               </Typography>
-              <Typography
-                variant="caption"
-                sx={{ color: 'success.main', fontWeight: 600 }}
-              >
+              <Typography variant="caption" sx={{ color: 'success.main', fontWeight: 600 }}>
                 {stat.change}
               </Typography>
             </CardContent>
@@ -235,7 +237,7 @@ const SampleContent: React.FC = () => (
       ))}
     </Grid>
   </Box>
-);
+)
 
 /**
  * Logo component for the header.
@@ -255,14 +257,14 @@ const Logo: React.FC = () => (
   >
     <Zap size={20} />
   </Box>
-);
+)
 
 /**
  * Notification button that consumes AppShell context.
  */
 const NotificationButton: React.FC<{ count: number }> = ({ count }) => {
-  const { actions } = useAppShell();
-  
+  const { actions } = useAppShell()
+
   return (
     <Tooltip title="Notifications">
       <IconButton
@@ -270,18 +272,13 @@ const NotificationButton: React.FC<{ count: number }> = ({ count }) => {
         size="small"
         sx={{ color: 'text.secondary' }}
       >
-        <Badge
-          badgeContent={count}
-          color="error"
-          max={99}
-          invisible={count === 0}
-        >
+        <Badge badgeContent={count} color="error" max={99} invisible={count === 0}>
           <Bell size={20} />
         </Badge>
       </IconButton>
     </Tooltip>
-  );
-};
+  )
+}
 
 /**
  * The App Shell template demonstrates a complete application layout pattern
@@ -427,16 +424,16 @@ application shell with:
     notificationCount: 2,
     minimal: false,
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<AppShellArgs>;
+export default meta
+type Story = StoryObj<AppShellArgs>
 
 /**
  * Interactive playground with compound component API.
  */
 export const Playground: Story = {
-  render: (args) => {
+  render: args => {
     // Notification state (separate concern)
     const {
       notifications,
@@ -445,28 +442,26 @@ export const Playground: Story = {
       unreadNotifications,
     } = useNotifications({
       initialNotifications: [...mockNotifications],
-    });
+    })
 
     // App-specific state managed locally
-    const [selectedOrg, setOrganization] = React.useState<Organization>(mockOrganizations[0]);
-    const [selectedProject, setProject] = React.useState<Project>(mockProjects[0]);
-    const [confirmDialogOpen, setConfirmDialogOpen] = React.useState(false);
+    const [selectedOrg, setOrganization] = React.useState<Organization>(mockOrganizations[0])
+    const [selectedProject, setProject] = React.useState<Project>(mockProjects[0])
+    const [confirmDialogOpen, setConfirmDialogOpen] = React.useState(false)
 
-    const [tabIndex, setTabIndex] = React.useState(0);
-    const alertNotifications = notifications.filter(
-      (n) => n.type === 'warning' || n.type === 'error'
-    );
+    const [tabIndex, setTabIndex] = React.useState(0)
+    const alertNotifications = notifications.filter(n => n.type === 'warning' || n.type === 'error')
 
     const getFilteredNotifications = () => {
       switch (tabIndex) {
         case 1:
-          return unreadNotifications;
+          return unreadNotifications
         case 2:
-          return alertNotifications;
+          return alertNotifications
         default:
-          return notifications;
+          return notifications
       }
-    };
+    }
 
     return (
       <AppShell
@@ -488,15 +483,17 @@ export const Playground: Story = {
           <Header minimal={args.minimal}>
             <Header.Toggle />
             <Header.Brand>
-              <Header.BrandLogo><Logo /></Header.BrandLogo>
+              <Header.BrandLogo>
+                <Logo />
+              </Header.BrandLogo>
               <Header.BrandTitle>Oxygen UI</Header.BrandTitle>
             </Header.Brand>
             <Header.Switchers>
               <ComplexSelect
                 value={selectedOrg.id}
-                onChange={(e) => {
-                  const org = mockOrganizations.find((o) => o.id === e.target.value);
-                  if (org) setOrganization(org);
+                onChange={e => {
+                  const org = mockOrganizations.find(o => o.id === e.target.value)
+                  if (org) setOrganization(org)
                 }}
                 size="small"
                 sx={{ minWidth: 180 }}
@@ -511,7 +508,7 @@ export const Playground: Story = {
                 )}
               >
                 <ComplexSelect.ListHeader>Organizations</ComplexSelect.ListHeader>
-                {mockOrganizations.map((org) => (
+                {mockOrganizations.map(org => (
                   <ComplexSelect.MenuItem key={org.id} value={org.id}>
                     <ComplexSelect.MenuItem.Avatar>{org.avatar}</ComplexSelect.MenuItem.Avatar>
                     <ComplexSelect.MenuItem.Text primary={org.name} secondary={org.description} />
@@ -520,21 +517,22 @@ export const Playground: Story = {
               </ComplexSelect>
               <ComplexSelect
                 value={selectedProject.id}
-                onChange={(e) => {
-                  const project = mockProjects.find((p) => p.id === e.target.value);
-                  if (project) setProject(project);
+                onChange={e => {
+                  const project = mockProjects.find(p => p.id === e.target.value)
+                  if (project) setProject(project)
                 }}
                 size="small"
                 sx={{ minWidth: 160 }}
                 slotProps={{ input: { 'aria-label': 'Project' } }}
-                renderValue={() => (
-                  <ComplexSelect.MenuItem.Text primary={selectedProject.name} />
-                )}
+                renderValue={() => <ComplexSelect.MenuItem.Text primary={selectedProject.name} />}
               >
                 <ComplexSelect.ListHeader>Projects</ComplexSelect.ListHeader>
-                {mockProjects.map((project) => (
+                {mockProjects.map(project => (
                   <ComplexSelect.MenuItem key={project.id} value={project.id}>
-                    <ComplexSelect.MenuItem.Text primary={project.name} secondary={project.description} />
+                    <ComplexSelect.MenuItem.Text
+                      primary={project.name}
+                      secondary={project.description}
+                    />
                   </ComplexSelect.MenuItem>
                 ))}
               </ComplexSelect>
@@ -559,10 +557,10 @@ export const Playground: Story = {
               />
               <UserMenu>
                 <UserMenu.Trigger name={mockUser.name} avatar={mockUser.avatar} />
-                <UserMenu.Header 
-                  name={mockUser.name} 
-                  email={mockUser.email} 
-                  avatar={mockUser.avatar} 
+                <UserMenu.Header
+                  name={mockUser.name}
+                  email={mockUser.email}
+                  avatar={mockUser.avatar}
                   role={mockUser.role}
                 />
                 <UserMenu.Item
@@ -581,10 +579,7 @@ export const Playground: Story = {
                   onClick={() => console.log('Billing clicked')}
                 />
                 <UserMenu.Divider />
-                <UserMenu.Logout
-                  icon={<LogOut />}
-                  onClick={() => setConfirmDialogOpen(true)}
-                />
+                <UserMenu.Logout icon={<LogOut />} onClick={() => setConfirmDialogOpen(true)} />
               </UserMenu>
             </Header.Actions>
           </Header>
@@ -596,26 +591,38 @@ export const Playground: Story = {
               {/* Main Navigation */}
               <Sidebar.Category>
                 <Sidebar.Item id="dashboard">
-                  <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Home size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Dashboard</Sidebar.ItemLabel>
                 </Sidebar.Item>
                 <Sidebar.Item id="analytics">
-                  <Sidebar.ItemIcon><BarChart3 size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <BarChart3 size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Analytics</Sidebar.ItemLabel>
                   <Sidebar.Item id="analytics-overview">
-                    <Sidebar.ItemIcon><PieChart size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemIcon>
+                      <PieChart size={20} />
+                    </Sidebar.ItemIcon>
                     <Sidebar.ItemLabel>Overview</Sidebar.ItemLabel>
                   </Sidebar.Item>
                   <Sidebar.Item id="analytics-reports">
-                    <Sidebar.ItemIcon><FileText size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemIcon>
+                      <FileText size={20} />
+                    </Sidebar.ItemIcon>
                     <Sidebar.ItemLabel>Reports</Sidebar.ItemLabel>
                   </Sidebar.Item>
                   <Sidebar.Item id="analytics-realtime">
-                    <Sidebar.ItemIcon><Activity size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemIcon>
+                      <Activity size={20} />
+                    </Sidebar.ItemIcon>
                     <Sidebar.ItemLabel>Real-time</Sidebar.ItemLabel>
                   </Sidebar.Item>
                   <Sidebar.Item id="analytics-trends">
-                    <Sidebar.ItemIcon><TrendingUp size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemIcon>
+                      <TrendingUp size={20} />
+                    </Sidebar.ItemIcon>
                     <Sidebar.ItemLabel>Trends</Sidebar.ItemLabel>
                   </Sidebar.Item>
                 </Sidebar.Item>
@@ -625,28 +632,40 @@ export const Playground: Story = {
               <Sidebar.Category>
                 <Sidebar.CategoryLabel>Management</Sidebar.CategoryLabel>
                 <Sidebar.Item id="users">
-                  <Sidebar.ItemIcon><Users size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Users size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Users</Sidebar.ItemLabel>
                   <Sidebar.ItemBadge>3</Sidebar.ItemBadge>
                   <Sidebar.Item id="users-list">
-                    <Sidebar.ItemIcon><Users size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemIcon>
+                      <Users size={20} />
+                    </Sidebar.ItemIcon>
                     <Sidebar.ItemLabel>All Users</Sidebar.ItemLabel>
                   </Sidebar.Item>
                   <Sidebar.Item id="users-roles">
-                    <Sidebar.ItemIcon><UserCog size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemIcon>
+                      <UserCog size={20} />
+                    </Sidebar.ItemIcon>
                     <Sidebar.ItemLabel>Roles</Sidebar.ItemLabel>
                   </Sidebar.Item>
                   <Sidebar.Item id="users-permissions">
-                    <Sidebar.ItemIcon><Lock size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemIcon>
+                      <Lock size={20} />
+                    </Sidebar.ItemIcon>
                     <Sidebar.ItemLabel>Permissions</Sidebar.ItemLabel>
                   </Sidebar.Item>
                 </Sidebar.Item>
                 <Sidebar.Item id="projects">
-                  <Sidebar.ItemIcon><FolderOpen size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <FolderOpen size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Projects</Sidebar.ItemLabel>
                 </Sidebar.Item>
                 <Sidebar.Item id="integrations">
-                  <Sidebar.ItemIcon><Layers size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Layers size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Integrations</Sidebar.ItemLabel>
                 </Sidebar.Item>
               </Sidebar.Category>
@@ -655,23 +674,33 @@ export const Playground: Story = {
               <Sidebar.Category>
                 <Sidebar.CategoryLabel>Infrastructure</Sidebar.CategoryLabel>
                 <Sidebar.Item id="security">
-                  <Sidebar.ItemIcon><Shield size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Shield size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Security</Sidebar.ItemLabel>
                   <Sidebar.Item id="security-overview">
-                    <Sidebar.ItemIcon><Shield size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemIcon>
+                      <Shield size={20} />
+                    </Sidebar.ItemIcon>
                     <Sidebar.ItemLabel>Overview</Sidebar.ItemLabel>
                   </Sidebar.Item>
                   <Sidebar.Item id="security-api-keys">
-                    <Sidebar.ItemIcon><Key size={20} /></Sidebar.ItemIcon>
+                    <Sidebar.ItemIcon>
+                      <Key size={20} />
+                    </Sidebar.ItemIcon>
                     <Sidebar.ItemLabel>API Keys</Sidebar.ItemLabel>
                   </Sidebar.Item>
                 </Sidebar.Item>
                 <Sidebar.Item id="databases">
-                  <Sidebar.ItemIcon><Database size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Database size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Databases</Sidebar.ItemLabel>
                 </Sidebar.Item>
                 <Sidebar.Item id="domains">
-                  <Sidebar.ItemIcon><Globe size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Globe size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Domains</Sidebar.ItemLabel>
                 </Sidebar.Item>
               </Sidebar.Category>
@@ -681,15 +710,21 @@ export const Playground: Story = {
             <Sidebar.Footer>
               <Sidebar.Category>
                 <Sidebar.Item id="settings">
-                  <Sidebar.ItemIcon><Settings size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Settings size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
                 </Sidebar.Item>
                 <Sidebar.Item id="notifications-settings">
-                  <Sidebar.ItemIcon><Bell size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Bell size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Notifications</Sidebar.ItemLabel>
                 </Sidebar.Item>
                 <Sidebar.Item id="help">
-                  <Sidebar.ItemIcon><HelpCircle size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <HelpCircle size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Help & Support</Sidebar.ItemLabel>
                 </Sidebar.Item>
               </Sidebar.Category>
@@ -704,7 +739,9 @@ export const Playground: Story = {
         {args.showFooter && (
           <AppShell.Footer>
             <Footer>
-              <Footer.Copyright>© {new Date().getFullYear()} WSO2 LLC. All rights reserved.</Footer.Copyright>
+              <Footer.Copyright>
+                © {new Date().getFullYear()} WSO2 LLC. All rights reserved.
+              </Footer.Copyright>
               <Footer.Divider />
               <Footer.Version>oxygen-ui-v1.0.0</Footer.Version>
               <Footer.Link href="#terms">Terms & Conditions</Footer.Link>
@@ -716,9 +753,13 @@ export const Playground: Story = {
         <AppShell.NotificationPanel>
           <NotificationPanel>
             <NotificationPanel.Header>
-              <NotificationPanel.HeaderIcon><Bell size={20} /></NotificationPanel.HeaderIcon>
+              <NotificationPanel.HeaderIcon>
+                <Bell size={20} />
+              </NotificationPanel.HeaderIcon>
               <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
-              {unreadCount > 0 && <NotificationPanel.HeaderBadge>{unreadCount}</NotificationPanel.HeaderBadge>}
+              {unreadCount > 0 && (
+                <NotificationPanel.HeaderBadge>{unreadCount}</NotificationPanel.HeaderBadge>
+              )}
               <NotificationPanel.HeaderClose />
             </NotificationPanel.Header>
             <NotificationPanel.Tabs
@@ -743,13 +784,13 @@ export const Playground: Story = {
                   tabIndex === 0
                     ? 'No notifications'
                     : tabIndex === 1
-                    ? 'No unread notifications'
-                    : 'No alerts'
+                      ? 'No unread notifications'
+                      : 'No alerts'
                 }
               />
             ) : (
               <NotificationPanel.List>
-                {getFilteredNotifications().map((notification) => (
+                {getFilteredNotifications().map(notification => (
                   <NotificationPanel.Item
                     key={notification.id}
                     id={notification.id}
@@ -758,12 +799,20 @@ export const Playground: Story = {
                     onMarkRead={notifActions.markRead}
                     onDismiss={notifActions.dismiss}
                   >
-                    <NotificationPanel.ItemAvatar>{notification.avatar}</NotificationPanel.ItemAvatar>
+                    <NotificationPanel.ItemAvatar>
+                      {notification.avatar}
+                    </NotificationPanel.ItemAvatar>
                     <NotificationPanel.ItemTitle>{notification.title}</NotificationPanel.ItemTitle>
-                    <NotificationPanel.ItemMessage>{notification.message}</NotificationPanel.ItemMessage>
-                    <NotificationPanel.ItemTimestamp>{formatRelativeTime(notification.timestamp)}</NotificationPanel.ItemTimestamp>
+                    <NotificationPanel.ItemMessage>
+                      {notification.message}
+                    </NotificationPanel.ItemMessage>
+                    <NotificationPanel.ItemTimestamp>
+                      {formatRelativeTime(notification.timestamp)}
+                    </NotificationPanel.ItemTimestamp>
                     {notification.actionLabel && (
-                      <NotificationPanel.ItemAction>{notification.actionLabel}</NotificationPanel.ItemAction>
+                      <NotificationPanel.ItemAction>
+                        {notification.actionLabel}
+                      </NotificationPanel.ItemAction>
                     )}
                   </NotificationPanel.Item>
                 ))}
@@ -785,12 +834,14 @@ export const Playground: Story = {
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button variant="outlined" onClick={() => setConfirmDialogOpen(false)}>Cancel</Button>
+              <Button variant="outlined" onClick={() => setConfirmDialogOpen(false)}>
+                Cancel
+              </Button>
               <Button
                 variant="contained"
                 onClick={() => {
-                  console.log('Signed out');
-                  setConfirmDialogOpen(false);
+                  console.log('Signed out')
+                  setConfirmDialogOpen(false)
                 }}
               >
                 Sign Out
@@ -799,9 +850,9 @@ export const Playground: Story = {
           </Dialog>
         </AppShell.NotificationPanel>
       </AppShell>
-    );
+    )
   },
-};
+}
 
 /**
  * Complete App Shell with all features visible.
@@ -814,7 +865,7 @@ export const Complete: Story = {
     showFooter: true,
   },
   render: Playground.render,
-};
+}
 
 /**
  * App Shell with collapsed sidebar showing icon-only navigation.
@@ -826,7 +877,7 @@ export const WithCollapsedSidebar: Story = {
     showFooter: true,
   },
   render: Playground.render,
-};
+}
 
 /**
  * App Shell with notification banner displayed.
@@ -840,7 +891,7 @@ export const WithNotificationBanner: Story = {
     showFooter: true,
   },
   render: Playground.render,
-};
+}
 
 /**
  * App Shell with error notification banner.
@@ -854,7 +905,7 @@ export const WithErrorBanner: Story = {
     showFooter: true,
   },
   render: Playground.render,
-};
+}
 
 /**
  * Minimal header showing only essential elements.
@@ -867,7 +918,7 @@ export const MinimalHeader: Story = {
     minimal: true,
   },
   render: Playground.render,
-};
+}
 
 /**
  * App Shell without footer.
@@ -879,7 +930,7 @@ export const WithoutFooter: Story = {
     showFooter: false,
   },
   render: Playground.render,
-};
+}
 
 /**
  * App Shell demonstrating the notification panel.
@@ -893,7 +944,7 @@ export const WithNotificationPanel: Story = {
     notificationCount: 3,
   },
   render: Playground.render,
-};
+}
 
 /**
  * App Shell demonstrating the confirmation dialog.
@@ -905,18 +956,18 @@ export const WithConfirmDialog: Story = {
     showNotificationBanner: false,
     showFooter: true,
   },
-  render: (args) => {
-    const [dialogOpen, setDialogOpen] = React.useState(false);
-    const [loading, setLoading] = React.useState(false);
+  render: args => {
+    const [dialogOpen, setDialogOpen] = React.useState(false)
+    const [loading, setLoading] = React.useState(false)
 
     const handleConfirm = () => {
-      setLoading(true);
+      setLoading(true)
       setTimeout(() => {
-        setLoading(false);
-        setDialogOpen(false);
-        console.log('Action confirmed');
-      }, 1500);
-    };
+        setLoading(false)
+        setDialogOpen(false)
+        console.log('Action confirmed')
+      }, 1500)
+    }
 
     return (
       <AppShell initialCollapsed={args.sidebarCollapsed}>
@@ -924,7 +975,9 @@ export const WithConfirmDialog: Story = {
           <Header minimal>
             <Header.Toggle />
             <Header.Brand>
-              <Header.BrandLogo><Logo /></Header.BrandLogo>
+              <Header.BrandLogo>
+                <Logo />
+              </Header.BrandLogo>
               <Header.BrandTitle>Oxygen UI</Header.BrandTitle>
             </Header.Brand>
             <Header.Spacer />
@@ -932,10 +985,10 @@ export const WithConfirmDialog: Story = {
               <ColorSchemeToggle />
               <UserMenu>
                 <UserMenu.Trigger name={mockUser.name} avatar={mockUser.avatar} />
-                <UserMenu.Header 
-                  name={mockUser.name} 
-                  email={mockUser.email} 
-                  avatar={mockUser.avatar} 
+                <UserMenu.Header
+                  name={mockUser.name}
+                  email={mockUser.email}
+                  avatar={mockUser.avatar}
                   role={mockUser.role}
                 />
                 <UserMenu.Logout onClick={() => setDialogOpen(true)} />
@@ -949,11 +1002,15 @@ export const WithConfirmDialog: Story = {
             <Sidebar.Nav>
               <Sidebar.Category>
                 <Sidebar.Item id="dashboard">
-                  <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Home size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Dashboard</Sidebar.ItemLabel>
                 </Sidebar.Item>
                 <Sidebar.Item id="settings">
-                  <Sidebar.ItemIcon><Settings size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Settings size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
                 </Sidebar.Item>
               </Sidebar.Category>
@@ -963,18 +1020,14 @@ export const WithConfirmDialog: Story = {
 
         <AppShell.Main>
           <Box sx={{ p: 3 }}>
-            <Typography variant="h5" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="h5">
               Confirmation Dialog Example
             </Typography>
             <Typography sx={{ color: 'text.secondary', mb: 3 }}>
-              This story demonstrates the confirmation dialog pattern. The dialog
-              is shown by default. Click "Confirm Delete" to see the loading state.
+              This story demonstrates the confirmation dialog pattern. The dialog is shown by
+              default. Click "Confirm Delete" to see the loading state.
             </Typography>
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() => setDialogOpen(true)}
-            >
+            <Button variant="contained" color="error" onClick={() => setDialogOpen(true)}>
               Open Delete Dialog
             </Button>
           </Box>
@@ -990,41 +1043,33 @@ export const WithConfirmDialog: Story = {
             <DialogTitle>Delete Project</DialogTitle>
             <DialogContent>
               <DialogContentText>
-                This will permanently delete the project and all associated data. This action cannot be undone.
+                This will permanently delete the project and all associated data. This action cannot
+                be undone.
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button
-                variant="outlined"
-                onClick={() => setDialogOpen(false)}
-                disabled={loading}
-              >
+              <Button variant="outlined" onClick={() => setDialogOpen(false)} disabled={loading}>
                 Cancel
               </Button>
-              <Button
-                variant="contained"
-                color="error"
-                onClick={handleConfirm}
-                disabled={loading}
-              >
+              <Button variant="contained" color="error" onClick={handleConfirm} disabled={loading}>
                 {loading ? 'Deleting...' : 'Delete Project'}
               </Button>
             </DialogActions>
           </Dialog>
         </AppShell.NotificationPanel>
       </AppShell>
-    );
+    )
   },
-};
+}
 
 /**
  * App Shell with mobile-responsive sidebar behavior.
  * Demonstrates auto-collapse features for mobile devices.
- * 
+ *
  * Features:
  * - collapseOnSelectOnMobile: Sidebar automatically collapses after selecting a menu item on mobile
  * - collapseOnMobile: Sidebar starts collapsed on page load when in mobile view
- * 
+ *
  * Resize your browser window to mobile size (<900px) to see the behavior.
  */
 export const MobileResponsive: Story = {
@@ -1033,46 +1078,47 @@ export const MobileResponsive: Story = {
     showNotificationBanner: false,
     showFooter: true,
   },
-  render: (args) => {
+  render: args => {
     // MobileInfo component that uses context to display state
     const MobileInfo: React.FC = () => {
-      const { state } = useAppShell();
-      
+      const { state } = useAppShell()
+
       return (
         <Box sx={{ p: 3 }}>
-          <Typography variant="h5" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h5">
             Mobile-Responsive Sidebar
           </Typography>
           <Typography sx={{ color: 'text.secondary', mb: 3 }}>
-            This example demonstrates mobile-responsive sidebar behavior. 
-            Resize your browser to mobile width (&lt;900px) to see:
+            This example demonstrates mobile-responsive sidebar behavior. Resize your browser to
+            mobile width (&lt;900px) to see:
           </Typography>
           <Box component="ul" sx={{ color: 'text.secondary', mb: 3 }}>
             <li>Sidebar starts collapsed on page load (collapseOnMobile: true)</li>
-            <li>Sidebar auto-collapses after selecting a menu item (collapseOnSelectOnMobile: true)</li>
+            <li>
+              Sidebar auto-collapses after selecting a menu item (collapseOnSelectOnMobile: true)
+            </li>
             <li>On desktop, sidebar remains open by default</li>
           </Box>
           <Typography sx={{ color: 'text.secondary' }}>
-            Current sidebar state: <strong>{state.sidebarCollapsed ? 'Collapsed' : 'Expanded'}</strong>
+            Current sidebar state:{' '}
+            <strong>{state.sidebarCollapsed ? 'Collapsed' : 'Expanded'}</strong>
           </Typography>
           <Typography sx={{ color: 'text.secondary' }}>
             Active menu item: <strong>{state.activeMenuItem}</strong>
           </Typography>
         </Box>
-      );
-    };
+      )
+    }
 
     return (
-      <AppShell
-        initialCollapsed={false}
-        collapseOnSelectOnMobile={true}
-        collapseOnMobile={true}
-      >
+      <AppShell initialCollapsed={false} collapseOnSelectOnMobile={true} collapseOnMobile={true}>
         <AppShell.Navbar>
           <Header>
             <Header.Toggle />
             <Header.Brand>
-              <Header.BrandLogo><Logo /></Header.BrandLogo>
+              <Header.BrandLogo>
+                <Logo />
+              </Header.BrandLogo>
               <Header.BrandTitle>Mobile Demo</Header.BrandTitle>
             </Header.Brand>
             <Header.Spacer />
@@ -1088,19 +1134,27 @@ export const MobileResponsive: Story = {
               <Sidebar.Category>
                 <Sidebar.CategoryLabel>Navigation</Sidebar.CategoryLabel>
                 <Sidebar.Item id="dashboard">
-                  <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Home size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Dashboard</Sidebar.ItemLabel>
                 </Sidebar.Item>
                 <Sidebar.Item id="analytics">
-                  <Sidebar.ItemIcon><BarChart3 size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <BarChart3 size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Analytics</Sidebar.ItemLabel>
                 </Sidebar.Item>
                 <Sidebar.Item id="users">
-                  <Sidebar.ItemIcon><Users size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Users size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Users</Sidebar.ItemLabel>
                 </Sidebar.Item>
                 <Sidebar.Item id="settings">
-                  <Sidebar.ItemIcon><Settings size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Settings size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
                 </Sidebar.Item>
               </Sidebar.Category>
@@ -1123,18 +1177,18 @@ export const MobileResponsive: Story = {
           </AppShell.Footer>
         )}
       </AppShell>
-    );
+    )
   },
-};
+}
 
 /**
  * App Shell with custom sidebar width configuration.
  * Demonstrates how to customize the expanded and collapsed sidebar widths.
- * 
+ *
  * Features:
  * - sidebarWidth: Custom width when sidebar is expanded (default: 250px)
  * - sidebarCollapsedWidth: Custom width when sidebar is collapsed (default: 64px)
- * 
+ *
  * This example uses 300px expanded width and 80px collapsed width.
  */
 export const CustomSidebarWidth: Story = {
@@ -1143,14 +1197,14 @@ export const CustomSidebarWidth: Story = {
     showNotificationBanner: false,
     showFooter: true,
   },
-  render: (args) => {
+  render: args => {
     // WidthInfo component that uses context and actions
     const WidthInfo: React.FC = () => {
-      const { state, actions } = useAppShell();
-      
+      const { state, actions } = useAppShell()
+
       return (
         <Box sx={{ p: 3 }}>
-          <Typography variant="h5" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h5">
             Custom Sidebar Width
           </Typography>
           <Typography sx={{ color: 'text.secondary', mb: 3 }}>
@@ -1161,7 +1215,12 @@ export const CustomSidebarWidth: Story = {
             <li>Collapsed width: 80px (default is 64px)</li>
           </Box>
           <Typography sx={{ color: 'text.secondary' }}>
-            Current width: <strong>{state.sidebarCollapsed ? `${state.sidebarCollapsedWidth}px` : `${state.sidebarWidth}px`}</strong>
+            Current width:{' '}
+            <strong>
+              {state.sidebarCollapsed
+                ? `${state.sidebarCollapsedWidth}px`
+                : `${state.sidebarWidth}px`}
+            </strong>
           </Typography>
           <Typography sx={{ color: 'text.secondary' }}>
             Sidebar state: <strong>{state.sidebarCollapsed ? 'Collapsed' : 'Expanded'}</strong>
@@ -1172,20 +1231,18 @@ export const CustomSidebarWidth: Story = {
             </Button>
           </Box>
         </Box>
-      );
-    };
+      )
+    }
 
     return (
-      <AppShell
-        initialCollapsed={false}
-        sidebarWidth={300}
-        sidebarCollapsedWidth={80}
-      >
+      <AppShell initialCollapsed={false} sidebarWidth={300} sidebarCollapsedWidth={80}>
         <AppShell.Navbar>
           <Header>
             <Header.Toggle />
             <Header.Brand>
-              <Header.BrandLogo><Logo /></Header.BrandLogo>
+              <Header.BrandLogo>
+                <Logo />
+              </Header.BrandLogo>
               <Header.BrandTitle>Custom Width Demo</Header.BrandTitle>
             </Header.Brand>
             <Header.Spacer />
@@ -1201,19 +1258,27 @@ export const CustomSidebarWidth: Story = {
               <Sidebar.Category>
                 <Sidebar.CategoryLabel>Navigation</Sidebar.CategoryLabel>
                 <Sidebar.Item id="dashboard">
-                  <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Home size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Dashboard</Sidebar.ItemLabel>
                 </Sidebar.Item>
                 <Sidebar.Item id="analytics">
-                  <Sidebar.ItemIcon><BarChart3 size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <BarChart3 size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Analytics</Sidebar.ItemLabel>
                 </Sidebar.Item>
                 <Sidebar.Item id="users">
-                  <Sidebar.ItemIcon><Users size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Users size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Users</Sidebar.ItemLabel>
                 </Sidebar.Item>
                 <Sidebar.Item id="settings">
-                  <Sidebar.ItemIcon><Settings size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Settings size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
                 </Sidebar.Item>
               </Sidebar.Category>
@@ -1236,6 +1301,6 @@ export const CustomSidebarWidth: Story = {
           </AppShell.Footer>
         )}
       </AppShell>
-    );
+    )
   },
-};
+}

@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { AppBar, Toolbar, Typography, Button, IconButton, Box } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { AppBar, Toolbar, Typography, Button, IconButton, Box } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * The AppBar component displays information and actions at the top of the screen.
  * It's commonly used for branding, navigation, and actions.
- * 
- * This is a direct import of MUI app bar component. 
+ *
+ * This is a direct import of MUI app bar component.
  * Read more at: https://mui.com/material-ui/react-app-bar/
  */
 const meta: Meta<typeof AppBar> = {
@@ -43,17 +43,18 @@ const meta: Meta<typeof AppBar> = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Oxygen UI app bar component is a direct import of MUI app bar component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-app-bar/](https://mui.com/material-ui/react-app-bar/)',
+        component:
+          'Oxygen UI app bar component is a direct import of MUI app bar component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-app-bar/](https://mui.com/material-ui/react-app-bar/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof AppBar>;
+export default meta
+type Story = StoryObj<typeof AppBar>
 
 export const Default: Story = {
   render: () => (
@@ -71,7 +72,7 @@ export const Default: Story = {
       </AppBar>
     </Box>
   ),
-};
+}
 
 export const Colors: Story = {
   render: () => (
@@ -98,7 +99,7 @@ export const Colors: Story = {
       </AppBar>
     </Box>
   ),
-};
+}
 
 export const WithMenu: Story = {
   render: () => (
@@ -119,7 +120,7 @@ export const WithMenu: Story = {
       </AppBar>
     </Box>
   ),
-};
+}
 
 export const Dense: Story = {
   render: () => (
@@ -137,4 +138,4 @@ export const Dense: Story = {
       </AppBar>
     </Box>
   ),
-};
+}
