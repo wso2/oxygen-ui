@@ -16,14 +16,14 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Box, Button, Stepper, Step, StepLabel, StepContent, Typography } from '@wso2/oxygen-ui';
-import React, { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Box, Button, Stepper, Step, StepLabel, StepContent, Typography } from '@wso2/oxygen-ui'
+import React, { useState } from 'react'
 
 /**
  * Steppers convey progress through numbered steps. It provides a wizard-like workflow.
- * 
- * This is a direct import of MUI stepper component. 
+ *
+ * This is a direct import of MUI stepper component.
  * Read more at: https://mui.com/material-ui/react-stepper/
  */
 const meta: Meta<typeof Stepper> = {
@@ -42,40 +42,41 @@ const meta: Meta<typeof Stepper> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI stepper component is a direct import of MUI stepper component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-stepper/](https://mui.com/material-ui/react-stepper/)',
+        component:
+          'Oxygen UI stepper component is a direct import of MUI stepper component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-stepper/](https://mui.com/material-ui/react-stepper/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Stepper>;
+export default meta
+type Story = StoryObj<typeof Stepper>
 
-const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad']
 
 export const Horizontal: Story = {
   render: () => {
-    const [activeStep, setActiveStep] = useState(0);
+    const [activeStep, setActiveStep] = useState(0)
 
     const handleNext = () => {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
+      setActiveStep(prevActiveStep => prevActiveStep + 1)
+    }
 
     const handleBack = () => {
-      setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
+      setActiveStep(prevActiveStep => prevActiveStep - 1)
+    }
 
     const handleReset = () => {
-      setActiveStep(0);
-    };
+      setActiveStep(0)
+    }
 
     return (
       <Box sx={{ width: '100%', minWidth: 600 }}>
         <Stepper activeStep={activeStep}>
-          {steps.map((label) => (
+          {steps.map(label => (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
             </Step>
@@ -102,25 +103,25 @@ export const Horizontal: Story = {
           )}
         </Box>
       </Box>
-    );
+    )
   },
-};
+}
 
 export const Vertical: Story = {
   render: () => {
-    const [activeStep, setActiveStep] = useState(0);
+    const [activeStep, setActiveStep] = useState(0)
 
     const handleNext = () => {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
+      setActiveStep(prevActiveStep => prevActiveStep + 1)
+    }
 
     const handleBack = () => {
-      setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
+      setActiveStep(prevActiveStep => prevActiveStep - 1)
+    }
 
     const handleReset = () => {
-      setActiveStep(0);
-    };
+      setActiveStep(0)
+    }
 
     return (
       <Box sx={{ minWidth: 400 }}>
@@ -151,15 +152,15 @@ export const Vertical: Story = {
           </Box>
         )}
       </Box>
-    );
+    )
   },
-};
+}
 
 export const AlternativeLabel: Story = {
   render: () => (
     <Box sx={{ width: '100%', minWidth: 600 }}>
       <Stepper activeStep={1} alternativeLabel>
-        {steps.map((label) => (
+        {steps.map(label => (
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
           </Step>
@@ -167,48 +168,48 @@ export const AlternativeLabel: Story = {
       </Stepper>
     </Box>
   ),
-};
+}
 
 export const NonLinear: Story = {
   render: () => {
-    const [activeStep, setActiveStep] = useState(0);
-    const [completed, setCompleted] = useState<{ [k: number]: boolean }>({});
+    const [activeStep, setActiveStep] = useState(0)
+    const [completed, setCompleted] = useState<{ [k: number]: boolean }>({})
 
-    const totalSteps = () => steps.length;
+    const totalSteps = () => steps.length
 
-    const completedSteps = () => Object.keys(completed).length;
+    const completedSteps = () => Object.keys(completed).length
 
-    const isLastStep = () => activeStep === totalSteps() - 1;
+    const isLastStep = () => activeStep === totalSteps() - 1
 
-    const allStepsCompleted = () => completedSteps() === totalSteps();
+    const allStepsCompleted = () => completedSteps() === totalSteps()
 
     const handleNext = () => {
       const newActiveStep =
         isLastStep() && !allStepsCompleted()
           ? steps.findIndex((step, i) => !(i in completed))
-          : activeStep + 1;
-      setActiveStep(newActiveStep);
-    };
+          : activeStep + 1
+      setActiveStep(newActiveStep)
+    }
 
     const handleBack = () => {
-      setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
+      setActiveStep(prevActiveStep => prevActiveStep - 1)
+    }
 
     const handleStep = (step: number) => () => {
-      setActiveStep(step);
-    };
+      setActiveStep(step)
+    }
 
     const handleComplete = () => {
-      const newCompleted = completed;
-      newCompleted[activeStep] = true;
-      setCompleted(newCompleted);
-      handleNext();
-    };
+      const newCompleted = completed
+      newCompleted[activeStep] = true
+      setCompleted(newCompleted)
+      handleNext()
+    }
 
     const handleReset = () => {
-      setActiveStep(0);
-      setCompleted({});
-    };
+      setActiveStep(0)
+      setCompleted({})
+    }
 
     return (
       <Box sx={{ width: '100%', minWidth: 600 }}>
@@ -252,6 +253,6 @@ export const NonLinear: Story = {
           )}
         </Box>
       </Box>
-    );
+    )
   },
-};
+}

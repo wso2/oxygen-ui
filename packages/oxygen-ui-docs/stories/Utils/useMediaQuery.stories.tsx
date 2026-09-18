@@ -16,13 +16,13 @@
  * under the License.
  */
 
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { useMediaQuery, useTheme, Typography, Box } from '@wso2/oxygen-ui';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { useMediaQuery, useTheme, Typography, Box } from '@wso2/oxygen-ui'
 
 /**
  * useMediaQuery is a CSS media query hook for React.
- * 
+ *
  * Read more at: https://mui.com/material-ui/react-use-media-query/
  */
 const meta: Meta = {
@@ -31,24 +31,25 @@ const meta: Meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI useMediaQuery is a direct import of MUI useMediaQuery hook. This hook listens for matches to a CSS media query and returns true or false based on whether the query matches. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-use-media-query/](https://mui.com/material-ui/react-use-media-query/)',
+        component:
+          'Oxygen UI useMediaQuery is a direct import of MUI useMediaQuery hook. This hook listens for matches to a CSS media query and returns true or false based on whether the query matches. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-use-media-query/](https://mui.com/material-ui/react-use-media-query/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 /**
  * Basic media query
  */
 export const Basic: Story = {
   render: () => {
-    const matches = useMediaQuery('(min-width:600px)');
+    const matches = useMediaQuery('(min-width:600px)')
 
     return (
       <Box sx={{ p: 2 }}>
@@ -56,21 +57,21 @@ export const Basic: Story = {
           {matches ? 'Screen is 600px or wider' : 'Screen is narrower than 600px'}
         </Typography>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Using theme breakpoints
  */
 export const WithTheme: Story = {
   render: () => {
-    const theme = useTheme();
-    const matchesXS = useMediaQuery(theme.breakpoints.up('xs'));
-    const matchesSM = useMediaQuery(theme.breakpoints.up('sm'));
-    const matchesMD = useMediaQuery(theme.breakpoints.up('md'));
-    const matchesLG = useMediaQuery(theme.breakpoints.up('lg'));
-    const matchesXL = useMediaQuery(theme.breakpoints.up('xl'));
+    const theme = useTheme()
+    const matchesXS = useMediaQuery(theme.breakpoints.up('xs'))
+    const matchesSM = useMediaQuery(theme.breakpoints.up('sm'))
+    const matchesMD = useMediaQuery(theme.breakpoints.up('md'))
+    const matchesLG = useMediaQuery(theme.breakpoints.up('lg'))
+    const matchesXL = useMediaQuery(theme.breakpoints.up('xl'))
 
     return (
       <Box sx={{ p: 2 }}>
@@ -83,19 +84,19 @@ export const WithTheme: Story = {
         <Typography>LG (1200px+): {matchesLG ? '✅' : '❌'}</Typography>
         <Typography>XL (1536px+): {matchesXL ? '✅' : '❌'}</Typography>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Responsive design example
  */
 export const ResponsiveDesign: Story = {
   render: () => {
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-    const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-    const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+    const theme = useTheme()
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+    const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'))
+    const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
 
     return (
       <Box sx={{ p: 2, minWidth: 300 }}>
@@ -106,17 +107,17 @@ export const ResponsiveDesign: Story = {
         {isTablet && <Typography>📱 Tablet View (600-900px)</Typography>}
         {isDesktop && <Typography>🖥️ Desktop View (900px+)</Typography>}
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Orientation detection
  */
 export const Orientation: Story = {
   render: () => {
-    const isPortrait = useMediaQuery('(orientation: portrait)');
-    const isLandscape = useMediaQuery('(orientation: landscape)');
+    const isPortrait = useMediaQuery('(orientation: portrait)')
+    const isLandscape = useMediaQuery('(orientation: landscape)')
 
     return (
       <Box sx={{ p: 2 }}>
@@ -126,17 +127,17 @@ export const Orientation: Story = {
         {isPortrait && <Typography>📱 Portrait Mode</Typography>}
         {isLandscape && <Typography>🖥️ Landscape Mode</Typography>}
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Dark mode preference detection
  */
 export const PrefersDarkMode: Story = {
   render: () => {
-    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-    const prefersLightMode = useMediaQuery('(prefers-color-scheme: light)');
+    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
+    const prefersLightMode = useMediaQuery('(prefers-color-scheme: light)')
 
     return (
       <Box sx={{ p: 2 }}>
@@ -146,18 +147,18 @@ export const PrefersDarkMode: Story = {
         {prefersDarkMode && <Typography>🌙 Prefers Dark Mode</Typography>}
         {prefersLightMode && <Typography>☀️ Prefers Light Mode</Typography>}
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Custom media queries
  */
 export const CustomQueries: Story = {
   render: () => {
-    const isRetina = useMediaQuery('(min-resolution: 2dppx)');
-    const isPrint = useMediaQuery('print');
-    const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+    const isRetina = useMediaQuery('(min-resolution: 2dppx)')
+    const isPrint = useMediaQuery('print')
+    const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
 
     return (
       <Box sx={{ p: 2 }}>
@@ -168,6 +169,6 @@ export const CustomQueries: Story = {
         <Typography>Print Mode: {isPrint ? '✅' : '❌'}</Typography>
         <Typography>Prefers Reduced Motion: {prefersReducedMotion ? '✅' : '❌'}</Typography>
       </Box>
-    );
+    )
   },
-};
+}

@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Link, Stack, Typography } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Link, Stack, Typography } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * The Link component allows users to navigate to different pages or resources.
  * It extends the Typography component with link-specific styling.
- * 
- * This is a direct import of MUI link component. 
+ *
+ * This is a direct import of MUI link component.
  * Read more at: https://mui.com/material-ui/react-link/
  */
 const meta: Meta<typeof Link> = {
@@ -43,46 +43,63 @@ const meta: Meta<typeof Link> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI link component is a direct import of MUI link component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-link/](https://mui.com/material-ui/react-link/)',
+        component:
+          'Oxygen UI link component is a direct import of MUI link component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-link/](https://mui.com/material-ui/react-link/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Link>;
+export default meta
+type Story = StoryObj<typeof Link>
 
 export const Default: Story = {
-  render: () => (
-    <Link href="#">Default Link</Link>
-  ),
-};
+  render: () => <Link href="#">Default Link</Link>,
+}
 
 export const Underline: Story = {
   render: () => (
     <Stack spacing={2}>
-      <Link href="#" underline="none">Underline: none</Link>
-      <Link href="#" underline="hover">Underline: hover</Link>
-      <Link href="#" underline="always">Underline: always</Link>
+      <Link href="#" underline="none">
+        Underline: none
+      </Link>
+      <Link href="#" underline="hover">
+        Underline: hover
+      </Link>
+      <Link href="#" underline="always">
+        Underline: always
+      </Link>
     </Stack>
   ),
-};
+}
 
 export const Colors: Story = {
   render: () => (
     <Stack spacing={1}>
-      <Link href="#" color="primary">Primary color</Link>
-      <Link href="#" color="secondary">Secondary color</Link>
-      <Link href="#" color="success">Success color</Link>
-      <Link href="#" color="error">Error color</Link>
-      <Link href="#" color="warning">Warning color</Link>
-      <Link href="#" color="inherit">Inherit color</Link>
+      <Link href="#" color="primary">
+        Primary color
+      </Link>
+      <Link href="#" color="secondary">
+        Secondary color
+      </Link>
+      <Link href="#" color="success">
+        Success color
+      </Link>
+      <Link href="#" color="error">
+        Error color
+      </Link>
+      <Link href="#" color="warning">
+        Warning color
+      </Link>
+      <Link href="#" color="inherit">
+        Inherit color
+      </Link>
     </Stack>
   ),
-};
+}
 
 export const AsButton: Story = {
   render: () => (
@@ -99,7 +116,7 @@ export const AsButton: Story = {
       </Typography>
     </Stack>
   ),
-};
+}
 
 export const WithTypography: Story = {
   render: () => (
@@ -115,4 +132,4 @@ export const WithTypography: Story = {
       </Typography>
     </Stack>
   ),
-};
+}

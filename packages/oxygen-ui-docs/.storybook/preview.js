@@ -16,14 +16,8 @@
  * under the License.
  */
 
-import {
-  Title,
-  Subtitle,
-  Description,
-  Controls,
-  Stories,
-} from '@storybook/addon-docs/blocks';
-import React from "react";
+import { Title, Subtitle, Description, Controls, Stories } from '@storybook/addon-docs/blocks'
+import React from 'react'
 import {
   OxygenUIThemeProvider,
   useThemeSwitcher,
@@ -35,8 +29,8 @@ import {
   PaleIndigoTheme,
   WSO2Theme,
   useColorScheme,
-} from "@wso2/oxygen-ui";
-import './docs.css';
+} from '@wso2/oxygen-ui'
+import './docs.css'
 
 /**
  * Component to sync the Storybook toolbar color scheme with MUI's internal state.
@@ -44,49 +38,49 @@ import './docs.css';
  * Syncs both ways: toolbar -> component and component -> toolbar.
  */
 function ColorSchemeSyncer({ mode, resolvedMode }) {
-  const { mode: currentMode, setMode } = useColorScheme();
-  const isSyncingRef = React.useRef(false);
+  const { mode: currentMode, setMode } = useColorScheme()
+  const isSyncingRef = React.useRef(false)
 
   // Update document attributes immediately when resolved mode changes
   React.useLayoutEffect(() => {
-    document.documentElement.setAttribute('data-color-scheme', resolvedMode);
-    document.body.setAttribute('data-color-scheme', resolvedMode);
-    document.documentElement.style.colorScheme = resolvedMode;
-  }, [resolvedMode]);
+    document.documentElement.setAttribute('data-color-scheme', resolvedMode)
+    document.body.setAttribute('data-color-scheme', resolvedMode)
+    document.documentElement.style.colorScheme = resolvedMode
+  }, [resolvedMode])
 
   // Sync toolbar mode to MUI (when toolbar changes)
   React.useEffect(() => {
     if (mode !== currentMode && !isSyncingRef.current) {
-      isSyncingRef.current = true;
-      setMode(mode);
+      isSyncingRef.current = true
+      setMode(mode)
       requestAnimationFrame(() => {
-        isSyncingRef.current = false;
-      });
+        isSyncingRef.current = false
+      })
     }
-  }, [mode, currentMode, setMode]);
+  }, [mode, currentMode, setMode])
 
-  return null;
+  return null
 }
 
 /**
  * Component to sync the Storybook toolbar theme with OxygenUI's theme state.
  */
 function ThemeSyncer({ themeKey }) {
-  const { currentTheme, setTheme } = useThemeSwitcher();
-  const isSyncingRef = React.useRef(false);
+  const { currentTheme, setTheme } = useThemeSwitcher()
+  const isSyncingRef = React.useRef(false)
 
   // Sync toolbar theme to OxygenUI (when toolbar changes)
   React.useEffect(() => {
     if (themeKey !== currentTheme && !isSyncingRef.current) {
-      isSyncingRef.current = true;
-      setTheme(themeKey);
+      isSyncingRef.current = true
+      setTheme(themeKey)
       requestAnimationFrame(() => {
-        isSyncingRef.current = false;
-      });
+        isSyncingRef.current = false
+      })
     }
-  }, [themeKey, currentTheme, setTheme]);
+  }, [themeKey, currentTheme, setTheme])
 
-  return null;
+  return null
 }
 
 const preview = {
@@ -127,37 +121,40 @@ const preview = {
 
   decorators: [
     (Story, context) => {
-      const mode = context.globals.colorScheme ?? 'dark';
-      const themeKey = context.globals.theme ?? 'wso2';
+      const mode = context.globals.colorScheme ?? 'dark'
+      const themeKey = context.globals.theme ?? 'wso2'
 
-      const themes = React.useMemo(() => [
-        { key: 'acrylicOrange', label: 'Acrylic Orange', theme: AcrylicOrangeTheme },
-        { key: 'acrylicPurple', label: 'Acrylic Purple', theme: AcrylicPurpleTheme },
-        { key: 'classic', label: 'Classic', theme: ClassicTheme },
-        { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
-        { key: 'paleGray', label: 'Pale Gray', theme: PaleGrayTheme },
-        { key: 'paleIndigo', label: 'Pale Indigo', theme: PaleIndigoTheme },
-        { key: 'wso2', label: 'WSO2', theme: WSO2Theme },
-      ], []);
+      const themes = React.useMemo(
+        () => [
+          { key: 'acrylicOrange', label: 'Acrylic Orange', theme: AcrylicOrangeTheme },
+          { key: 'acrylicPurple', label: 'Acrylic Purple', theme: AcrylicPurpleTheme },
+          { key: 'classic', label: 'Classic', theme: ClassicTheme },
+          { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
+          { key: 'paleGray', label: 'Pale Gray', theme: PaleGrayTheme },
+          { key: 'paleIndigo', label: 'Pale Indigo', theme: PaleIndigoTheme },
+          { key: 'wso2', label: 'WSO2', theme: WSO2Theme },
+        ],
+        []
+      )
 
       // Resolve system mode to actual light/dark based on OS preference
-      const resolvedMode = React.useMemo(() => 
-        mode === 'system' 
-          ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-          : mode,
+      const resolvedMode = React.useMemo(
+        () =>
+          mode === 'system'
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light'
+            : mode,
         [mode]
-      );
+      )
 
       return (
-        <OxygenUIThemeProvider
-          themes={themes}
-          initialTheme={themeKey}
-        >
+        <OxygenUIThemeProvider themes={themes} initialTheme={themeKey}>
           <ColorSchemeSyncer mode={mode} resolvedMode={resolvedMode} />
           <ThemeSyncer themeKey={themeKey} />
           <Story />
         </OxygenUIThemeProvider>
-      );
+      )
     },
   ],
 
@@ -187,7 +184,8 @@ const preview = {
           'Getting Started',
           'How To Contribute',
           'Accessibility',
-          'App Elements', [
+          'App Elements',
+          [
             'App Shell',
             'App Breadcrumbs',
             'Header',
@@ -203,21 +201,14 @@ const preview = {
           'Inputs',
           'Data Display',
           '*',
-          'Theming', [
-            '*',
-            'useTheme',
-            'useThemeContent',
-          ],
+          'Theming',
+          ['*', 'useTheme', 'useThemeContent'],
           'Animations',
-          'Templates', [
-            'Overview',
-            '*',
-          ],
-          'Utils', [
-            '*',
-            'useMediaQuery',
-          ],
-          'MUI X'
+          'Templates',
+          ['Overview', '*'],
+          'Utils',
+          ['*', 'useMediaQuery'],
+          'MUI X',
         ],
       },
     },
@@ -242,6 +233,6 @@ const preview = {
       ),
     },
   },
-};
+}
 
-export default preview;
+export default preview

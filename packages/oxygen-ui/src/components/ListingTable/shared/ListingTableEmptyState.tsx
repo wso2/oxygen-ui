@@ -89,7 +89,7 @@ export function ListingTableEmptyState({
         {title}
       </Typography>
       {description && (
-        <Typography variant="body2" color="text.secondary" sx={{ mb: action ? 2 : 0, maxWidth: 400 }}>
+        <Typography variant="body2" sx={{ mb: action ? 2 : 0, maxWidth: 400, color: 'text.secondary' }}>
           {description}
         </Typography>
       )}

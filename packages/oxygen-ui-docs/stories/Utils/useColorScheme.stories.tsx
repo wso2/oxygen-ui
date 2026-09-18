@@ -16,10 +16,10 @@
  * under the License.
  */
 
-import React from 'react';
-import type {Meta, StoryObj} from '@storybook/react';
-import {useColorScheme, Box, Button, Chip, Stack, Typography} from '@wso2/oxygen-ui';
-import {Moon, Sun, Monitor} from '@wso2/oxygen-ui-icons-react';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { useColorScheme, Box, Button, Chip, Stack, Typography } from '@wso2/oxygen-ui'
+import { Moon, Sun, Monitor } from '@wso2/oxygen-ui-icons-react'
 
 /**
  * `useColorScheme` is a hook that reads and controls the active color scheme (light / dark / system).
@@ -56,33 +56,47 @@ const meta: Meta = {
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 /**
  * Reads the current color scheme mode and displays it as a chip.
  */
 export const ReadMode: Story = {
   render: () => {
-    const {mode} = useColorScheme();
+    const { mode } = useColorScheme()
 
     return (
-      <Box sx={{p: 2, textAlign: 'center'}}>
-        <Typography variant="body2" color="text.secondary" gutterBottom>
+      <Box sx={{ p: 2, textAlign: 'center' }}>
+        <Typography
+          variant="body2"
+          gutterBottom
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           Current mode
         </Typography>
         <Chip
-          icon={mode === 'dark' ? <Moon size={14} /> : mode === 'light' ? <Sun size={14} /> : <Monitor size={14} />}
+          icon={
+            mode === 'dark' ? (
+              <Moon size={14} />
+            ) : mode === 'light' ? (
+              <Sun size={14} />
+            ) : (
+              <Monitor size={14} />
+            )
+          }
           label={mode ?? 'system'}
           color="primary"
           variant="outlined"
         />
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Uses `setMode` to switch between light, dark, and system modes at runtime.
@@ -90,14 +104,20 @@ export const ReadMode: Story = {
  */
 export const SetMode: Story = {
   render: () => {
-    const {mode, setMode} = useColorScheme();
+    const { mode, setMode } = useColorScheme()
 
     return (
-      <Box sx={{p: 2}}>
-        <Typography variant="body2" color="text.secondary" gutterBottom>
+      <Box sx={{ p: 2 }}>
+        <Typography
+          variant="body2"
+          gutterBottom
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           Active mode: <strong>{mode ?? 'system'}</strong>
         </Typography>
-        <Stack direction="row" spacing={1} sx={{mt: 1}}>
+        <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
           <Button
             size="small"
             variant={mode === 'light' ? 'contained' : 'outlined'}
@@ -124,17 +144,17 @@ export const SetMode: Story = {
           </Button>
         </Stack>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Conditionally renders content based on the active color scheme.
  */
 export const ConditionalRendering: Story = {
   render: () => {
-    const {mode} = useColorScheme();
-    const isDark = mode === 'dark';
+    const { mode } = useColorScheme()
+    const isDark = mode === 'dark'
 
     return (
       <Box
@@ -149,13 +169,19 @@ export const ConditionalRendering: Story = {
         }}
       >
         {isDark ? <Moon size={28} /> : <Sun size={28} />}
-        <Typography variant="body1" sx={{mt: 1}}>
+        <Typography variant="body1" sx={{ mt: 1 }}>
           {isDark ? 'Dark mode is active' : 'Light mode is active'}
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{mt: 0.5}}>
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+            mt: 0.5,
+          }}
+        >
           Switch the Storybook theme in the toolbar to see this update.
         </Typography>
       </Box>
-    );
+    )
   },
-};
+}

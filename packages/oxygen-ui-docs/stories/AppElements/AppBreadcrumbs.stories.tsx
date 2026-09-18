@@ -16,10 +16,10 @@
  * under the License.
  */
 
-import type {Meta, StoryObj} from '@storybook/react';
-import {AppBreadcrumbs} from '@wso2/oxygen-ui';
-import type {BreadcrumbItem} from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { AppBreadcrumbs } from '@wso2/oxygen-ui'
+import type { BreadcrumbItem } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * AppBreadcrumbs displays a breadcrumb trail for page navigation.
@@ -66,42 +66,42 @@ const items = [
     },
   },
   argTypes: {
-    items: {control: false},
-    maxItems: {control: {type: 'number', min: 2, max: 10}},
+    items: { control: false },
+    maxItems: { control: { type: 'number', min: 2, max: 10 } },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof AppBreadcrumbs>;
+export default meta
+type Story = StoryObj<typeof AppBreadcrumbs>
 
 const threeItems: BreadcrumbItem[] = [
-  {key: 'home', label: 'Home', onClick: () => {}},
-  {key: 'settings', label: 'Settings', onClick: () => {}},
-  {key: 'profile', label: 'Profile'},
-];
+  { key: 'home', label: 'Home', onClick: () => {} },
+  { key: 'settings', label: 'Settings', onClick: () => {} },
+  { key: 'profile', label: 'Profile' },
+]
 
 const sixItems: BreadcrumbItem[] = [
-  {key: 'home', label: 'Home', onClick: () => {}},
-  {key: 'org', label: 'Organization', onClick: () => {}},
-  {key: 'project', label: 'Project', onClick: () => {}},
-  {key: 'environment', label: 'Environment', onClick: () => {}},
-  {key: 'settings', label: 'Settings', onClick: () => {}},
-  {key: 'advanced', label: 'Advanced'},
-];
+  { key: 'home', label: 'Home', onClick: () => {} },
+  { key: 'org', label: 'Organization', onClick: () => {} },
+  { key: 'project', label: 'Project', onClick: () => {} },
+  { key: 'environment', label: 'Environment', onClick: () => {} },
+  { key: 'settings', label: 'Settings', onClick: () => {} },
+  { key: 'advanced', label: 'Advanced' },
+]
 
 /**
  * Basic three-item breadcrumb trail.
  */
 export const Default: Story = {
   render: () => <AppBreadcrumbs items={threeItems} />,
-};
+}
 
 /**
  * Single item — just the current page label with no clickable ancestors.
  */
 export const SingleItem: Story = {
-  render: () => <AppBreadcrumbs items={[{key: 'home', label: 'Home'}]} />,
-};
+  render: () => <AppBreadcrumbs items={[{ key: 'home', label: 'Home' }]} />,
+}
 
 /**
  * When items exceed `maxItems` (default 4), middle items collapse into an ellipsis.
@@ -109,14 +109,14 @@ export const SingleItem: Story = {
  */
 export const WithTruncation: Story = {
   render: () => <AppBreadcrumbs items={sixItems} />,
-};
+}
 
 /**
  * Override `maxItems` to control when truncation kicks in.
  */
 export const CustomMaxItems: Story = {
   render: () => <AppBreadcrumbs items={sixItems} maxItems={5} />,
-};
+}
 
 /**
  * Demonstrates a breadcrumb with a middle item that has no `onClick` handler.
@@ -126,14 +126,14 @@ export const MiddleItemNoLink: Story = {
   render: () => (
     <AppBreadcrumbs
       items={[
-        {key: 'home', label: 'Home', onClick: () => {}},
-        {key: 'organization', label: 'Organization'},
-        {key: 'project', label: 'Project', onClick: () => {}},
-        {key: 'settings', label: 'Settings'},
+        { key: 'home', label: 'Home', onClick: () => {} },
+        { key: 'organization', label: 'Organization' },
+        { key: 'project', label: 'Project', onClick: () => {} },
+        { key: 'settings', label: 'Settings' },
       ]}
     />
   ),
-};
+}
 
 /**
  * Use the `sx` prop for custom container styling.
@@ -142,7 +142,7 @@ export const WithSxProp: Story = {
   render: () => (
     <AppBreadcrumbs
       items={threeItems}
-      sx={{px: 2, py: 1, bgcolor: 'action.hover', borderRadius: 1}}
+      sx={{ px: 2, py: 1, bgcolor: 'action.hover', borderRadius: 1 }}
     />
   ),
-};
+}
