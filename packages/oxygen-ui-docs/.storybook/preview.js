@@ -190,6 +190,7 @@ const preview = {
           'App Elements', [
             'App Shell',
             'App Breadcrumbs',
+            'App Switcher',
             'Header',
             'User Menu',
             'Sidebar',
