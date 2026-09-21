@@ -58,9 +58,13 @@ export type {
 export { AppSwitcher } from './AppSwitcher';
 export type {
   AppSwitcherProps,
-  AppSwitcherItem,
-  AppSwitcherFooterAction,
+  AppSwitcherTriggerProps,
+  AppSwitcherSectionProps,
+  AppSwitcherAppProps,
+  AppSwitcherAppTone,
+  AppSwitcherFooterProps,
   AppSwitcherFooterLink,
+  AppSwitcherContextValue,
 } from './AppSwitcher';
 
 export { Sidebar, useSidebar } from './Sidebar';

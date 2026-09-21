@@ -18,7 +18,7 @@
 
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import type { AppSwitcherFooterLink, AppSwitcherItem } from '@wso2/oxygen-ui';
+import type { AppSwitcherFooterLink } from '@wso2/oxygen-ui';
 import {
   AppSwitcher,
   Box,
@@ -45,13 +45,14 @@ const meta: Meta<typeof AppSwitcher> = {
 The AppSwitcher pairs a grid icon button with a popover listing the platforms a user can switch to,
 plus a manage section linking to the WSO2 Cloud tabs.
 
-### Fixed layout by design
-The switcher renders a **fixed layout** so it looks and behaves identically across every WSO2 product.
-Consumers describe the destinations with the \`apps\` and \`footer\` props rather than composing markup,
-which means a product team cannot accidentally ship a switcher that differs from the rest of the platform.
+### Compound component
+The switcher is composed from sub-components — \`AppSwitcher.Trigger\`, \`AppSwitcher.Section\`,
+\`AppSwitcher.App\` and \`AppSwitcher.Footer\` — matching \`Header\`, \`Sidebar\` and \`UserMenu\`. The
+trigger renders in place; every other child goes inside the popover. Sections own their own grid and
+arrow-key navigation, so the layout stays consistent while products keep control of the destinations.
 
 ### Features
-- Consistent, non-composable layout across products
+- Compound component pattern, matching the other app-shell components
 - Grid icon button that matches the other header icon buttons, including hover styling
 - Each platform is a card with the WSO2 mark above its name; giving it a \`url\` renders a real link
 - A card given a \`url\` opens in a new tab by default; every enabled card lifts with an accent border on hover
@@ -65,18 +66,20 @@ which means a product team cannot accidentally ship a switcher that differs from
 import { AppSwitcher, Header } from '@wso2/oxygen-ui';
 
 <Header.Actions>
-  <AppSwitcher
-    apps={[
-      { key: 'agent', name: 'Agent Manager', url: 'https://agent.wso2.com' },
-      { key: 'api', name: 'API Platform', url: 'https://api.wso2.com' },
-    ]}
-    footer={{
-      links: [
+  <AppSwitcher>
+    <AppSwitcher.Trigger />
+    <AppSwitcher.Section label="Platforms">
+      <AppSwitcher.App name="Agent Manager" url="https://agent.wso2.com" />
+      <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
+      <AppSwitcher.App name="Analytics Platform" disabled tooltip="Coming soon" />
+    </AppSwitcher.Section>
+    <AppSwitcher.Footer
+      links={[
         { key: 'orgs', name: 'Organizations', url: 'https://console.wso2.com/organizations' },
         { key: 'billing', name: 'Billing', url: 'https://console.wso2.com/billing' },
-      ],
-    }}
-  />
+      ]}
+    />
+  </AppSwitcher>
 </Header.Actions>
 \`\`\`
 
@@ -125,22 +128,6 @@ export default meta;
 type Story = StoryObj<typeof AppSwitcher>;
 
 /**
- * Platforms as shown in the WSO2 Cloud design. Analytics is not yet available,
- * so it renders faded and explains itself with a "Coming soon" tooltip on
- * hover.
- *
- * Every card points at wso2.com here purely to demo the navigation: cards open
- * in a new tab, so selecting one leaves Storybook intact.
- */
-const PLATFORMS: AppSwitcherItem[] = [
-  { key: 'agent', name: 'Agent Manager', url: 'https://wso2.com' },
-  { key: 'identity', name: 'Identity Platform', url: 'https://wso2.com' },
-  { key: 'integration', name: 'Integration Platform', url: 'https://wso2.com' },
-  { key: 'api', name: 'API Platform', url: 'https://wso2.com' },
-  { key: 'analytics', name: 'Analytics Platform', disabled: true, tooltip: 'Coming soon' },
-];
-
-/**
  * The WSO2 Cloud tabs. These take their own glyphs rather than the WSO2 mark,
  * so they read as settings rather than as products. They point at wso2.com here
  * only so the demo links resolve; a product passes its own console URLs.
@@ -166,7 +153,22 @@ const MANAGE_LINKS: AppSwitcherFooterLink[] = [
   },
 ];
 
-const FOOTER = { label: 'Manage', links: MANAGE_LINKS };
+/**
+ * The platform cards, as shown in the WSO2 Cloud design. Analytics is not yet
+ * available, so it renders faded and explains itself with a tooltip.
+ *
+ * Every card points at wso2.com purely to demo the navigation: cards open in a
+ * new tab, so selecting one leaves Storybook intact.
+ */
+const Platforms = () => (
+  <>
+    <AppSwitcher.App name="Agent Manager" url="https://wso2.com" />
+    <AppSwitcher.App name="Identity Platform" url="https://wso2.com" />
+    <AppSwitcher.App name="Integration Platform" url="https://wso2.com" />
+    <AppSwitcher.App name="API Platform" url="https://wso2.com" />
+    <AppSwitcher.App name="Analytics Platform" disabled tooltip="Coming soon" />
+  </>
+);
 
 /**
  * Default app switcher, matching the agreed design. Click the grid icon to open
@@ -174,13 +176,18 @@ const FOOTER = { label: 'Manage', links: MANAGE_LINKS };
  * popover open. Click the grid icon again, or outside, to dismiss it.
  */
 export const Default: Story = {
-  args: { apps: PLATFORMS, footer: FOOTER },
-  render: (args) => (
+  render: () => (
     <Box sx={{ p: 4 }}>
       <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
         Click the grid icon to switch between platforms
       </Typography>
-      <AppSwitcher {...args} />
+      <AppSwitcher>
+        <AppSwitcher.Trigger />
+        <AppSwitcher.Section label="Platforms">
+          <Platforms />
+        </AppSwitcher.Section>
+        <AppSwitcher.Footer label="Manage" links={MANAGE_LINKS} />
+      </AppSwitcher>
     </Box>
   ),
 };
@@ -191,13 +198,15 @@ export const Default: Story = {
  * as everywhere else, with the manage section below it.
  */
 export const SinglePlatform: Story = {
-  args: {
-    apps: [{ key: 'api', name: 'API Platform', url: 'https://wso2.com' }],
-    footer: FOOTER,
-  },
-  render: (args) => (
+  render: () => (
     <Box sx={{ p: 4 }}>
-      <AppSwitcher {...args} />
+      <AppSwitcher>
+        <AppSwitcher.Trigger />
+        <AppSwitcher.Section label="Platforms">
+          <AppSwitcher.App name="API Platform" url="https://wso2.com" />
+        </AppSwitcher.Section>
+        <AppSwitcher.Footer label="Manage" links={MANAGE_LINKS} />
+      </AppSwitcher>
     </Box>
   ),
 };
@@ -209,16 +218,21 @@ export const SinglePlatform: Story = {
  * platform; the grid icon, an outside click or `Esc` dismisses it.
  */
 export const InHeader: Story = {
-  args: { apps: PLATFORMS, footer: FOOTER },
   parameters: { layout: 'fullscreen' },
-  render: (args) => (
+  render: () => (
     <Header>
       <Header.Brand>
         <Header.BrandTitle>Agent Manager</Header.BrandTitle>
       </Header.Brand>
       <Header.Spacer />
       <Header.Actions>
-        <AppSwitcher {...args} />
+        <AppSwitcher>
+          <AppSwitcher.Trigger />
+          <AppSwitcher.Section label="Platforms">
+            <Platforms />
+          </AppSwitcher.Section>
+          <AppSwitcher.Footer label="Manage" links={MANAGE_LINKS} />
+        </AppSwitcher>
         <ColorSchemeToggle />
         <UserMenu>
           <UserMenu.Trigger name="John Doe" avatar="JD" />

@@ -25,7 +25,6 @@ import { AppSwitcherTrigger } from './AppSwitcherTrigger';
 import { AppSwitcherSection } from './AppSwitcherSection';
 import { AppSwitcherApp } from './AppSwitcherApp';
 import { AppSwitcherFooter } from './AppSwitcherFooter';
-import type { AppSwitcherFooterLink } from './AppSwitcherFooter';
 
 /**
  * Theme tokens used in this component:
@@ -57,70 +56,13 @@ const AppSwitcherRoot = styled(Popover, {
 }));
 
 /**
- * A single application shown in the switcher.
- */
-export interface AppSwitcherItem {
-  /** Stable identifier, used as the React key */
-  key: string;
-  /** Application name (e.g. `"API Platform"`) */
-  name: string;
-  /** Destination URL. The card renders as an anchor pointing at it. */
-  url?: string;
-  /** Mark shown above the name (default: the WSO2 logo) */
-  icon?: React.ReactNode;
-  /** Blocks navigation, e.g. for platforms that are not yet available */
-  disabled?: boolean;
-  /**
-   * Tooltip shown on hover and focus, typically explaining why a platform is
-   * unavailable (e.g. `"Coming soon"`). Omit for no tooltip.
-   */
-  tooltip?: React.ReactNode;
-  /** Anchor target (default: `"_blank"`, so platforms open in a new tab) */
-  target?: string;
-  /** Custom root component, e.g. a router `Link`, for client-side navigation */
-  component?: React.ElementType;
-  /**
-   * Extra props forwarded to `component`, for routers that use their own
-   * navigation prop instead of `url` (e.g. React Router's `to`).
-   *
-   * @example
-   * { component: Link, componentProps: { to: '/apim' } }
-   */
-  componentProps?: Record<string, unknown>;
-  /** Click handler. The popover stays open after it runs. */
-  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-}
-
-/**
- * The manage section shown beneath the platforms.
- */
-export interface AppSwitcherFooterAction {
-  /** Heading above the links (default: `"Manage"`) */
-  label?: string;
-  /** WSO2 Cloud destinations, rendered as cards */
-  links: AppSwitcherFooterLink[];
-  /** Number of grid columns from the `sm` breakpoint up (default: 3) */
-  columns?: number;
-}
-
-/**
  * Props for the AppSwitcher component.
  */
 export interface AppSwitcherProps {
-  /** Applications to switch between */
-  apps: AppSwitcherItem[];
-  /** Heading above the application grid (default: `"Platforms"`) */
-  label?: string;
-  /** Manage section beneath the platforms. Omit to hide it. */
-  footer?: AppSwitcherFooterAction;
-  /** Tooltip and accessible label for the trigger (default: `"Switch Platforms"`) */
-  triggerLabel?: string;
-  /** Custom trigger icon, replacing the default grid icon */
-  triggerIcon?: React.ReactNode;
+  /** Switcher content (Trigger, Section, App, Footer) */
+  children: React.ReactNode;
   /** Popover width in pixels from the `sm` breakpoint up (default: 460) */
   width?: number;
-  /** Number of grid columns from the `sm` breakpoint up (default: 3) */
-  columns?: number;
   /** Accessible name for the popover surface (default: `"Applications"`) */
   'aria-label'?: string;
   /** Additional sx props applied to the popover */
@@ -130,57 +72,53 @@ export interface AppSwitcherProps {
 /**
  * AppSwitcher - Popover for navigating between WSO2 Cloud applications.
  *
- * Renders a grid icon button in the header that opens a popover listing the
- * available platforms. The layout is fixed by design so the switcher looks and
- * behaves identically across every product, and consumers supply data rather
- * than markup.
+ * A compound component pairing a grid icon button in the header with a popover
+ * listing the available platforms. The trigger renders in place; every other
+ * child goes inside the popover.
  *
  * Features:
- * - Fixed, consistent layout across products
- * - Card buttons that render as links when given a `url`, opening in a new tab
- * - Hover lift and accent border on every navigable card
- * - A manage section linking to the WSO2 Cloud tabs
+ * - Compound component pattern for maximum flexibility
+ * - Context-based open/close state sharing
+ * - Card buttons that render as links when given a `url`
+ * - Arrow-key navigation within each section grid
  * - Responsive popover width (viewport-capped on mobile, fixed on desktop)
  *
- * Selecting a card leaves the popover open, since cards open in a new tab. Only
- * the trigger, an outside click or Escape dismisses it.
+ * Selecting a card leaves the popover open, since cards open in a new tab, so
+ * the current tab never navigates. The trigger, an outside click or Escape
+ * dismisses it.
  *
  * @example
  * ```tsx
  * <Header.Actions>
- *   <AppSwitcher
- *     apps={[
- *       { key: 'agent', name: 'Agent Manager', url: 'https://agent.wso2.com' },
- *       { key: 'apim', name: 'API Platform', url: 'https://api.wso2.com' },
- *     ]}
- *     footer={{
- *       links: [
+ *   <AppSwitcher>
+ *     <AppSwitcher.Trigger />
+ *     <AppSwitcher.Section label="Platforms">
+ *       <AppSwitcher.App name="Agent Manager" url="https://agent.wso2.com" />
+ *       <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
+ *       <AppSwitcher.App name="Analytics" disabled tooltip="Coming soon" />
+ *     </AppSwitcher.Section>
+ *     <AppSwitcher.Footer
+ *       links={[
  *         { key: 'orgs', name: 'Organizations', url: 'https://console.wso2.com/organizations' },
  *         { key: 'billing', name: 'Billing', url: 'https://console.wso2.com/billing' },
- *       ],
- *     }}
- *   />
+ *       ]}
+ *     />
+ *   </AppSwitcher>
  * </Header.Actions>
  * ```
  */
-export const AppSwitcher: React.FC<AppSwitcherProps> = ({
-  apps,
-  label = 'Platforms',
-  footer,
-  triggerLabel,
-  triggerIcon,
-  width = 460,
-  columns = 3,
-  'aria-label': ariaLabelProp,
-  sx,
-}) => {
+export const AppSwitcher: React.FC<AppSwitcherProps> & {
+  Trigger: typeof AppSwitcherTrigger;
+  Section: typeof AppSwitcherSection;
+  App: typeof AppSwitcherApp;
+  Footer: typeof AppSwitcherFooter;
+} = ({ children, width = 460, 'aria-label': ariaLabelProp, sx }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const open = Boolean(anchorEl);
   const popoverId = React.useId();
 
-  // Clicking the trigger toggles: a second click on the grid icon dismisses the
-  // popover rather than re-anchoring it, which is what an already-open switcher
-  // leads a user to expect.
+  // Toggle rather than re-anchor: a second click on an open switcher is read as
+  // "close this", not "reopen it here".
   const handleOpen = React.useCallback((event: React.MouseEvent<HTMLElement>) => {
     const target = event.currentTarget;
     setAnchorEl((current) => (current ? null : target));
@@ -201,9 +139,16 @@ export const AppSwitcher: React.FC<AppSwitcherProps> = ({
     [open, anchorEl, popoverId, handleOpen, handleClose]
   );
 
+  // Separate trigger from popover content
+  const childrenArray = React.Children.toArray(children);
+  const triggerChild = childrenArray.find(
+    (child) => React.isValidElement(child) && child.type === AppSwitcherTrigger
+  );
+  const popoverChildren = childrenArray.filter((child) => child !== triggerChild);
+
   return (
     <AppSwitcherContext.Provider value={contextValue}>
-      <AppSwitcherTrigger label={triggerLabel} icon={triggerIcon} />
+      {triggerChild}
       <AppSwitcherRoot
         id={popoverId}
         ownerState={{ width }}
@@ -215,23 +160,25 @@ export const AppSwitcher: React.FC<AppSwitcherProps> = ({
         slotProps={{ paper: { role: 'dialog', 'aria-label': ariaLabel } }}
         sx={sx}
       >
-        <AppSwitcherSection label={label} columns={columns}>
-          {apps.map(({ key, ...app }) => (
-            <AppSwitcherApp key={key} {...app} />
-          ))}
-        </AppSwitcherSection>
-        {footer && (
-          <AppSwitcherFooter
-            label={footer.label}
-            links={footer.links}
-            columns={footer.columns}
-          />
-        )}
+        {popoverChildren}
       </AppSwitcherRoot>
     </AppSwitcherContext.Provider>
   );
 };
 
+/**
+ * AppSwitcher compound component with attached sub-components.
+ *
+ * Sub-components:
+ * - `AppSwitcher.Trigger` - Grid icon button that opens the popover
+ * - `AppSwitcher.Section` - Labelled grid of application cards
+ * - `AppSwitcher.App` - Card button for a single destination
+ * - `AppSwitcher.Footer` - Manage section beneath the platforms
+ */
+AppSwitcher.Trigger = AppSwitcherTrigger;
+AppSwitcher.Section = AppSwitcherSection;
+AppSwitcher.App = AppSwitcherApp;
+AppSwitcher.Footer = AppSwitcherFooter;
 AppSwitcher.displayName = 'AppSwitcher';
 
 export default AppSwitcher;

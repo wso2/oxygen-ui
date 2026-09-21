@@ -42,6 +42,9 @@ import AppBreadcrumbs from './AppBreadcrumbs/AppBreadcrumbs';
 import ListingTableToolbar from './ListingTable/shared/ListingTableToolbar';
 import UserMenu from './UserMenu/UserMenu';
 import AppSwitcher from './AppSwitcher/AppSwitcher';
+import type { AppSwitcherProps } from './AppSwitcher/AppSwitcher';
+import type { AppSwitcherAppProps } from './AppSwitcher/AppSwitcherApp';
+import type { AppSwitcherFooterProps } from './AppSwitcher/AppSwitcherFooter';
 import NotificationPanel from './NotificationPanel/NotificationPanel';
 import { useNotificationPanel } from './NotificationPanel/context';
 
@@ -225,13 +228,44 @@ describe('UserMenu.Trigger', () => {
 });
 
 describe('AppSwitcher', () => {
-  const APPS = [{ key: 'api', name: 'API Platform', url: 'https://api.wso2.com' }];
-  const FOOTER = {
+  type AppEntry = AppSwitcherAppProps & { key: string };
+  type SwitcherConfig = Partial<AppSwitcherProps> & {
+    apps?: AppEntry[];
+    footer?: AppSwitcherFooterProps | null;
+    label?: string;
+    triggerLabel?: string;
+    columns?: number;
+  };
+
+  const APPS: AppEntry[] = [{ key: 'api', name: 'API Platform', url: 'https://api.wso2.com' }];
+  const FOOTER: AppSwitcherFooterProps = {
     links: [{ key: 'billing', name: 'Billing', url: 'https://console.wso2.com/billing' }],
   };
 
-  const renderSwitcher = (props: Record<string, unknown> = {}) =>
-    renderWithTheme(<AppSwitcher apps={APPS} footer={FOOTER} {...props} />);
+  // Most cases vary one part of an otherwise standard switcher, so they pass a
+  // description of it rather than repeating the whole tree. `footer: null`
+  // drops the manage row for the cases that count cards.
+
+  const buildSwitcher = ({
+    apps = APPS,
+    footer = FOOTER,
+    label = 'Platforms',
+    triggerLabel,
+    columns,
+    ...switcherProps
+  }: SwitcherConfig = {}) => (
+    <AppSwitcher {...switcherProps}>
+      <AppSwitcher.Trigger label={triggerLabel} />
+      <AppSwitcher.Section label={label} columns={columns}>
+        {apps.map(({ key, ...app }) => (
+          <AppSwitcher.App key={key} {...app} />
+        ))}
+      </AppSwitcher.Section>
+      {footer && <AppSwitcher.Footer {...footer} />}
+    </AppSwitcher>
+  );
+
+  const renderSwitcher = (props: SwitcherConfig = {}) => renderWithTheme(buildSwitcher(props));
 
   it('exposes popover ARIA state on the trigger and opens on click', () => {
     renderSwitcher();
@@ -356,7 +390,7 @@ describe('AppSwitcher', () => {
   });
 
   it('omits the manage section when no footer is supplied', () => {
-    renderWithTheme(<AppSwitcher apps={APPS} />);
+    renderWithTheme(buildSwitcher({ footer: null }));
     fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
     expect(screen.queryByRole('list', { name: 'Manage' })).toBeNull();
@@ -383,7 +417,7 @@ describe('AppSwitcher', () => {
     renderWithTheme(
       <>
         <ColorSchemeToggle />
-        <AppSwitcher apps={APPS} />
+        {buildSwitcher({ footer: null })}
       </>,
     );
 
@@ -398,7 +432,7 @@ describe('AppSwitcher', () => {
 
   it('inherits the same resting icon color as the other header icon buttons', () => {
     const toggle = renderWithTheme(<ColorSchemeToggle />);
-    const switcher = renderWithTheme(<AppSwitcher apps={APPS} />);
+    const switcher = renderWithTheme(buildSwitcher({ footer: null }));
 
     // The trigger must not pin its own color; a different token renders visibly
     // darker or lighter than the adjacent ColorSchemeToggle.
@@ -431,16 +465,16 @@ describe('AppSwitcher', () => {
     });
 
     renderWithTheme(
-      <AppSwitcher
-        apps={[
+      buildSwitcher({
+        apps: [
           {
             key: 'api',
             name: 'API Platform',
             component: RouterLink,
             url: '/apim',
           },
-        ]}
-      />,
+        ],
+      }),
     );
 
     fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
@@ -465,16 +499,16 @@ describe('AppSwitcher', () => {
     });
 
     renderWithTheme(
-      <AppSwitcher
-        apps={[
+      buildSwitcher({
+        apps: [
           {
             key: 'api',
             name: 'API Platform',
             component: RouterLink,
             componentProps: { to: '/apim' },
           },
-        ]}
-        footer={{
+        ],
+        footer: {
           links: [
             {
               key: 'billing',
@@ -483,8 +517,8 @@ describe('AppSwitcher', () => {
               componentProps: { to: '/billing' },
             },
           ],
-        }}
-      />,
+        },
+      }),
     );
 
     fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
@@ -524,7 +558,10 @@ describe('AppSwitcher', () => {
     // The card keeps the same solid border as every other card; the faded mark,
     // muted label and tinted surface carry the state instead.
     renderWithTheme(
-      <AppSwitcher apps={[{ key: 'analytics', name: 'Analytics Platform', disabled: true }]} />,
+      buildSwitcher({
+        apps: [{ key: 'analytics', name: 'Analytics Platform', disabled: true }],
+        footer: null,
+      }),
     );
     fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
@@ -603,14 +640,17 @@ describe('AppSwitcher', () => {
     // jsdom gives every element a zero-sized rect, so the row stride has to be
     // driven by stubbed geometry: a 2-column grid of four cards.
     renderWithTheme(
-      <AppSwitcher
-        apps={[
+      buildSwitcher({
+        apps: [
           { key: 'a', name: 'Agent', url: '/a' },
           { key: 'b', name: 'Bee', url: '/b' },
           { key: 'c', name: 'Cee', url: '/c' },
           { key: 'd', name: 'Dee', url: '/d' },
-        ]}
-      />,
+        ],
+        // The row-stride assertion below counts cards, so the manage row must
+        // not add a fifth.
+        footer: null,
+      }),
     );
     fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
@@ -748,8 +788,8 @@ describe('AppSwitcher', () => {
     // `componentProps` is consumer-controlled, so it must not be able to strip
     // the `rel` guard from a `_blank` link.
     renderWithTheme(
-      <AppSwitcher
-        apps={[
+      buildSwitcher({
+        apps: [
           {
             key: 'api',
             name: 'API Platform',
@@ -757,8 +797,8 @@ describe('AppSwitcher', () => {
             component: 'a',
             componentProps: { rel: '' },
           },
-        ]}
-      />,
+        ],
+      }),
     );
     fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
@@ -771,8 +811,8 @@ describe('AppSwitcher', () => {
     // The top-level `target` is not the only source: a consumer can set it on
     // the forwarded props, and that link still needs the tabnabbing guard.
     renderWithTheme(
-      <AppSwitcher
-        apps={[
+      buildSwitcher({
+        apps: [
           {
             key: 'api',
             name: 'API Platform',
@@ -781,8 +821,8 @@ describe('AppSwitcher', () => {
             component: 'a',
             componentProps: { target: '_blank' },
           },
-        ]}
-        footer={{
+        ],
+        footer: {
           links: [
             {
               key: 'billing',
@@ -793,8 +833,8 @@ describe('AppSwitcher', () => {
               componentProps: { target: '_blank' },
             },
           ],
-        }}
-      />,
+        },
+      }),
     );
     fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
@@ -805,10 +845,45 @@ describe('AppSwitcher', () => {
     }
   });
 
+  it('composes from sub-components and keeps sections independent', () => {
+    // The compound surface is the public API, so a consumer-shaped tree must
+    // render the trigger in place and everything else inside the popover.
+    renderWithTheme(
+      <AppSwitcher>
+        <AppSwitcher.Trigger />
+        <AppSwitcher.Section label="Platforms">
+          <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
+        </AppSwitcher.Section>
+        <AppSwitcher.Footer
+          label="Administration"
+          links={[{ key: 'billing', name: 'Billing', url: '/billing' }]}
+        />
+      </AppSwitcher>,
+    );
+
+    // The trigger is outside the popover, so it exists before opening.
+    const trigger = screen.getByRole('button', { name: 'Switch Platforms' });
+    expect(screen.queryByRole('dialog')).toBeNull();
+
+    fireEvent.click(trigger);
+
+    expect(screen.getByRole('dialog', { name: 'Applications' })).toBeDefined();
+    expect(screen.getByRole('list', { name: 'Platforms' })).toBeDefined();
+    expect(screen.getByRole('list', { name: 'Administration' })).toBeDefined();
+    expect(screen.getByRole('link', { name: 'API Platform' })).toBeDefined();
+    expect(screen.getByRole('link', { name: 'Billing' })).toBeDefined();
+  });
+
   it('falls back to the default label when label is only whitespace', () => {
     // The parameter default only covers `undefined`, so a blank string must not
     // leave the icon button without a usable accessible name.
-    renderWithTheme(<AppSwitcher triggerLabel=" " apps={[{ key: 'api', name: 'API Platform' }]} />);
+    renderWithTheme(
+      buildSwitcher({
+        triggerLabel: ' ',
+        apps: [{ key: 'api', name: 'API Platform' }],
+        footer: null,
+      }),
+    );
 
     expect(screen.getByRole('button', { name: 'Switch Platforms' })).toBeDefined();
   });

@@ -1030,35 +1030,49 @@ Popover for navigating between WSO2 Cloud platforms.
 import { AppSwitcher } from '@wso2/oxygen-ui';
 ```
 
-### Fixed layout
+### Compound component
 
-The switcher renders a **fixed layout** so it looks and behaves identically across every WSO2
-product. Consumers describe the destinations with the `apps` and `footer` props rather than
-composing markup, so a product team cannot ship a switcher that differs from the rest of the
-platform. The internal building blocks are intentionally not exported.
+The switcher is composed from sub-components, matching `Header`, `Sidebar` and `UserMenu`:
 
-The popover has two sections: a grid of platform cards, and a `Manage` section linking to the
-WSO2 Cloud tabs (organizations, users, billing).
+- `AppSwitcher.Trigger` — the grid icon button; rendered in place, in the header
+- `AppSwitcher.Section` — a labelled grid of cards, owning its own arrow-key navigation
+- `AppSwitcher.App` — a single destination card
+- `AppSwitcher.Footer` — the `Manage` section beneath the platforms
+
+The trigger renders where it sits; every other child goes inside the popover. A typical switcher
+has two sections: a grid of platform cards, and a `Manage` section linking to the WSO2 Cloud tabs
+(organizations, users, billing).
 
 ### AppSwitcher Props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `apps` | `AppSwitcherItem[]` | required | Platforms to switch between |
-| `label` | `string` | `'Platforms'` | Heading above the platform grid |
-| `footer` | `AppSwitcherFooterAction` | - | Manage section beneath the platforms; omit to hide |
-| `triggerLabel` | `string` | `'Switch Platforms'` | Tooltip and accessible label for the trigger |
-| `triggerIcon` | `ReactNode` | `<Grip size={24} />` | Custom trigger icon |
+| `children` | `ReactNode` | required | Trigger, sections and footer |
 | `width` | `number` | `460` | Popover width (px) from the `sm` breakpoint up |
-| `columns` | `number` | `3` | Platform grid columns from the `sm` breakpoint up |
 | `aria-label` | `string` | `'Applications'` | Accessible name for the popover surface |
 | `sx` | `SxProps<Theme>` | - | Additional styles applied to the popover |
 
-### AppSwitcherItem Type
+### AppSwitcher.Trigger Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | `'Switch Platforms'` | Tooltip and accessible label |
+| `icon` | `ReactNode` | `<Grip size={24} />` | Custom trigger icon |
+
+Extra props, including `aria-*` attributes and `ref`, are forwarded to the underlying button.
+
+### AppSwitcher.Section Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | required | `AppSwitcher.App` cards |
+| `label` | `string` | - | Heading above the grid; also labels the list |
+| `columns` | `number` | `3` | Grid columns from the `sm` breakpoint up |
+
+### AppSwitcher.App Props
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `key` | `string` | required | Stable identifier, used as the React key |
 | `name` | `string` | required | Platform name (e.g. "API Platform") |
 | `url` | `string` | - | Destination URL; renders the card as an anchor |
 | `icon` | `ReactNode` | WSO2 mark | Mark shown above the name |
@@ -1068,12 +1082,13 @@ WSO2 Cloud tabs (organizations, users, billing).
 | `component` | `ElementType` | - | Custom root, e.g. a router `Link` |
 | `componentProps` | `Record<string, unknown>` | - | Extra props for `component` (e.g. React Router's `to`) |
 | `onClick` | `(event) => void` | - | Click handler; the popover stays open after it runs |
+| `tone` | `'platform' \| 'manage'` | `'platform'` | Visual treatment; the footer sets `manage` itself |
 
-### AppSwitcherFooterAction Type
+### AppSwitcher.Footer Props
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `links` | `AppSwitcherFooterLink[]` | required | WSO2 Cloud destinations, rendered as cards |
+| `links` | `AppSwitcherFooterLink[]` | - | WSO2 Cloud destinations; the footer renders nothing when empty |
 | `label` | `string` | `'Manage'` | Heading above the links |
 | `columns` | `number` | `3` | Grid columns from the `sm` breakpoint up |
 
@@ -1099,24 +1114,25 @@ import { AppSwitcher, Header } from '@wso2/oxygen-ui';
 import { Building2, CreditCard, UserRoundPlus } from '@wso2/oxygen-ui-icons-react';
 
 <Header.Actions>
-  <AppSwitcher
-    apps={[
-      { key: 'agent', name: 'Agent Manager', url: 'https://agent.wso2.com' },
-      { key: 'identity', name: 'Identity Platform', url: 'https://identity.wso2.com' },
-      { key: 'api', name: 'API Platform', url: 'https://api.wso2.com' },
-      { key: 'analytics', name: 'Analytics Platform', disabled: true },
-    ]}
-    footer={{
-      links: [
+  <AppSwitcher>
+    <AppSwitcher.Trigger />
+    <AppSwitcher.Section label="Platforms">
+      <AppSwitcher.App name="Agent Manager" url="https://agent.wso2.com" />
+      <AppSwitcher.App name="Identity Platform" url="https://identity.wso2.com" />
+      <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
+      <AppSwitcher.App name="Analytics Platform" disabled tooltip="Coming soon" />
+    </AppSwitcher.Section>
+    <AppSwitcher.Footer
+      links={[
         { key: 'orgs', name: 'Organizations', url: 'https://console.wso2.com/organizations',
           icon: <Building2 size={18} /> },
         { key: 'users', name: 'Users & roles', url: 'https://console.wso2.com/users',
           icon: <UserRoundPlus size={18} /> },
         { key: 'billing', name: 'Billing', url: 'https://console.wso2.com/billing',
           icon: <CreditCard size={18} /> },
-      ],
-    }}
-  />
+      ]}
+    />
+  </AppSwitcher>
 </Header.Actions>
 ```
 
@@ -1163,8 +1179,8 @@ anchor, so middle-click and "open in new tab" work. Cards target `_blank` by def
 platform is its own deployment; pass `target: '_self'` to navigate in place.
 
 ```tsx
-{ key: 'api', name: 'API Platform', url: 'https://api.wso2.com' }
-{ key: 'agent', name: 'Agent Manager', url: '/agent', target: '_self' }
+<AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
+<AppSwitcher.App name="Agent Manager" url="/agent" target="_self" />
 ```
 
 **In-app navigation (same SPA)** — pass a router `Link` via `component`, and give it the
@@ -1174,22 +1190,21 @@ not `href`, so `url` alone would not navigate.
 ```tsx
 import { Link } from 'react-router';
 
-{
-  key: 'integration',
-  name: 'Integration Platform',
-  component: Link,
-  componentProps: { to: '/integration' },
-}
+<AppSwitcher.App
+  name="Integration Platform"
+  component={Link}
+  componentProps={{ to: '/integration' }}
+/>
 ```
 
 `componentProps` works the same way on the manage links:
 
 ```tsx
-footer={{
-  links: [
+<AppSwitcher.Footer
+  links={[
     { key: 'billing', name: 'Billing', component: Link, componentProps: { to: '/billing' } },
-  ],
-}}
+  ]}
+/>
 ```
 
 **Programmatic navigation** — use `onClick`. The popover stays open after the handler runs,
@@ -1200,7 +1215,7 @@ import { useNavigate } from 'react-router';
 
 const navigate = useNavigate();
 
-{ key: 'agent', name: 'Agent Manager', onClick: () => navigate('/agent') }
+<AppSwitcher.App name="Agent Manager" onClick={() => navigate('/agent')} />
 ```
 
 Precedence: `component` wins over `url`; `disabled` blocks all navigation regardless.
@@ -1214,11 +1229,12 @@ The switcher is WSO2 Cloud chrome, so it uses the brand orange (`#FF7300`) even 
 running a different palette: the WSO2 mark, the hover border and the focus ring are all brand
 orange rather than `palette.primary`. There is no variant to opt out of this.
 
-**Contrast:** `#FF7300` is 2.73:1 on white. It is used only for the mark, borders and focus
-rings — never for text, so the switcher has no brand-colored text to fail WCAG AA. The 2.73:1
-mark and focus ring do fall under the 3:1 bar WCAG 2.1 SC 1.4.11 sets for non-text UI
-components; this is a property of the brand palette rather than of this component (the standard
-card border, `#E0E0E0`, is 1.32:1), and is tracked in
+**Contrast:** `#FF7300` is 2.73:1 on white. It is used only for the mark and the hover border —
+never for text, so the switcher has no brand-colored text to fail WCAG AA. The focus ring is
+author-defined, which WCAG 2.1 SC 1.4.11 holds to 3:1, so it uses a darker brand token
+(`#E56800`, 3.33:1 on the light card and 5.63:1 on the dark one) rather than `main`. The 2.73:1
+mark and hover border still fall under 3:1; that is a property of the brand palette rather than
+of this component (the standard card border, `#E0E0E0`, is 1.32:1), and is tracked in
 https://github.com/wso2/oxygen-ui/issues/558.
 
 ### Keyboard & Accessibility
