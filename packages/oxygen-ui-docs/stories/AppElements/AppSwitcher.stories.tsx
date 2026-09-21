@@ -54,7 +54,7 @@ which means a product team cannot accidentally ship a switcher that differs from
 - Consistent, non-composable layout across products
 - Grid icon button that matches the other header icon buttons, including hover styling
 - Each platform is a card with the WSO2 mark above its name; giving it a \`url\` renders a real link
-- Cards open in a new tab by default, and lift with an accent border on hover
+- A card given a \`url\` opens in a new tab by default; every enabled card lifts with an accent border on hover
 - Selecting a card leaves the popover open; only the trigger, an outside click or \`Esc\` dismisses it
 - An unavailable platform can carry a \`tooltip\` (e.g. "Coming soon") explaining why
 - A \`Manage\` section for the WSO2 Cloud tabs (organizations, users, billing)
@@ -91,9 +91,10 @@ The component takes no router dependency. Use \`url\` for cross-app navigation (
 \`component\` with a router \`Link\` for in-app routes, or \`onClick\` for programmatic navigation.
 
 ### Dismissing the popover
-Selecting a card does not close the popover: cards open in a new tab, so the current tab does not
-navigate and dismissing would look like the switcher had closed itself. A second click of the grid
-trigger, a click outside, or \`Esc\` closes it.
+Selecting a card does not close the popover: an enabled \`url\` card opens in a new tab, so the current
+tab does not navigate and dismissing would look like the switcher had closed itself. The same applies
+to the other modes — \`component\` and \`onClick\` cards leave dismissal to the consumer, and a disabled
+card does nothing at all. A second click of the grid trigger, a click outside, or \`Esc\` closes it.
 
 ### Accessibility
 - The trigger is a labeled button ("Switch Platforms" by default) exposing \`aria-haspopup\`, \`aria-expanded\`, and \`aria-controls\`.

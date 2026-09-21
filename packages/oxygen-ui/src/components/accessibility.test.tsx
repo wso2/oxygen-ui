@@ -238,7 +238,9 @@ describe('AppSwitcher', () => {
 
     const trigger = screen.getByRole('button', { name: 'Switch Platforms' });
     expect(trigger.getAttribute('aria-haspopup')).toBe('true');
-    expect(trigger.getAttribute('aria-expanded')).toBeNull();
+    // The trigger always controls the popover, so the closed state is reported
+    // as "false" rather than by dropping the attribute.
+    expect(trigger.getAttribute('aria-expanded')).toBe('false');
     expect(trigger.getAttribute('aria-controls')).toBeNull();
 
     fireEvent.click(trigger);
@@ -765,6 +767,52 @@ describe('AppSwitcher', () => {
     );
   });
 
+  it('guards a _blank target that arrives through componentProps', () => {
+    // The top-level `target` is not the only source: a consumer can set it on
+    // the forwarded props, and that link still needs the tabnabbing guard.
+    renderWithTheme(
+      <AppSwitcher
+        apps={[
+          {
+            key: 'api',
+            name: 'API Platform',
+            url: 'https://example.com',
+            target: '_self',
+            component: 'a',
+            componentProps: { target: '_blank' },
+          },
+        ]}
+        footer={{
+          links: [
+            {
+              key: 'billing',
+              name: 'Billing',
+              url: 'https://example.com/billing',
+              target: '_self',
+              component: 'a',
+              componentProps: { target: '_blank' },
+            },
+          ],
+        }}
+      />,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    for (const name of ['API Platform', 'Billing']) {
+      const link = screen.getByRole('link', { name });
+      expect(link.getAttribute('target')).toBe('_blank');
+      expect(link.getAttribute('rel')).toBe('noopener noreferrer');
+    }
+  });
+
+  it('falls back to the default label when label is only whitespace', () => {
+    // The parameter default only covers `undefined`, so a blank string must not
+    // leave the icon button without a usable accessible name.
+    renderWithTheme(<AppSwitcher triggerLabel=" " apps={[{ key: 'api', name: 'API Platform' }]} />);
+
+    expect(screen.getByRole('button', { name: 'Switch Platforms' })).toBeDefined();
+  });
+
   it('renders navigable apps as links and keeps the popover open on selection', () => {
     // Cards open in a new tab, so the current tab stays put. Dismissing the
     // popover would look like the switcher had closed itself for no reason.
@@ -792,7 +840,9 @@ describe('AppSwitcher', () => {
     expect(trigger.getAttribute('aria-expanded')).toBe('true');
 
     fireEvent.click(trigger);
-    expect(trigger.getAttribute('aria-expanded')).toBeNull();
+    // The trigger still controls the popover once closed, so it keeps
+    // `aria-expanded` and reports "false" rather than dropping the attribute.
+    expect(trigger.getAttribute('aria-expanded')).toBe('false');
   });
 
   it('closes the popover on an outside click', () => {
@@ -807,7 +857,7 @@ describe('AppSwitcher', () => {
 
     expect(
       screen.getByRole('button', { name: 'Switch Platforms' }).getAttribute('aria-expanded'),
-    ).toBeNull();
+    ).toBe('false');
   });
 
   it('groups apps in a labelled list', () => {

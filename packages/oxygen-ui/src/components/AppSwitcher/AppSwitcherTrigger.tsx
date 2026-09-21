@@ -35,6 +35,9 @@ import { useAppSwitcher } from './context';
  * icon buttons in the header.
  */
 
+/** Tooltip and accessible name used when no usable `label` is supplied. */
+const DEFAULT_LABEL = 'Switch Platforms';
+
 /**
  * Styled trigger button for the app switcher.
  */
@@ -80,17 +83,20 @@ export interface AppSwitcherTriggerProps
  */
 export const AppSwitcherTrigger = React.forwardRef<HTMLButtonElement, AppSwitcherTriggerProps>(
   function AppSwitcherTrigger(
-    { label = 'Switch Platforms', icon, onClick, 'aria-label': ariaLabel, ...props },
+    { label = DEFAULT_LABEL, icon, onClick, 'aria-label': ariaLabel, ...props },
     ref
   ) {
     const { open, popoverId, handleOpen } = useAppSwitcher();
 
-    // Empty/whitespace labels must not wipe the default accessible name.
+    // Empty/whitespace labels must not wipe the default accessible name. The
+    // parameter default only covers `undefined`, so `label=" "` still has to
+    // fall back here rather than leaving the button without a usable name.
+    const resolvedLabel = label.trim().length > 0 ? label : DEFAULT_LABEL;
     const resolvedAriaLabel =
-      typeof ariaLabel === 'string' && ariaLabel.trim().length > 0 ? ariaLabel : label;
+      typeof ariaLabel === 'string' && ariaLabel.trim().length > 0 ? ariaLabel : resolvedLabel;
 
     return (
-      <Tooltip title={label}>
+      <Tooltip title={resolvedLabel}>
         <AppSwitcherTriggerRoot
           {...props}
           ref={ref}
@@ -101,7 +107,7 @@ export const AppSwitcherTrigger = React.forwardRef<HTMLButtonElement, AppSwitche
           aria-label={resolvedAriaLabel}
           aria-controls={open ? popoverId : undefined}
           aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
+          aria-expanded={open}
         >
           <span aria-hidden="true" style={{ display: 'inline-flex' }}>
             {icon || <Grip size={24} />}

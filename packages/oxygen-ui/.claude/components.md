@@ -1062,7 +1062,7 @@ WSO2 Cloud tabs (organizations, users, billing).
 | `name` | `string` | required | Platform name (e.g. "API Platform") |
 | `url` | `string` | - | Destination URL; renders the card as an anchor |
 | `icon` | `ReactNode` | WSO2 mark | Mark shown above the name |
-| `target` | `string` | `'_blank'` | Anchor target; platforms open in a new tab by default |
+| `target` | `string` | `'_blank'` | Anchor target for a card with a `url`; such platforms open in a new tab by default |
 | `disabled` | `boolean` | `false` | Blocks navigation (e.g. a platform not yet available) |
 | `tooltip` | `ReactNode` | - | Tooltip on hover/focus, e.g. `"Coming soon"` on an unavailable platform |
 | `component` | `ElementType` | - | Custom root, e.g. a router `Link` |
@@ -1146,7 +1146,7 @@ neighbours; a name longer than two lines is clamped rather than spilling past th
 
 ### Dismissing the popover
 
-Selecting a card does **not** close the popover. Cards open in a new tab, so the current tab
+Selecting a card does **not** close the popover. An enabled `url` card opens in a new tab, so the current tab
 does not navigate and dismissing would look like the switcher had closed itself for no reason.
 This matches other app-grid switchers. The popover closes on:
 

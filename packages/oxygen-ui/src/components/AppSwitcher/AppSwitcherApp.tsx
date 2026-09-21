@@ -135,7 +135,9 @@ const AppSwitcherAppRoot = styled(Card, {
     // MUI only adds `.Mui-focusVisible` on ButtonBase; anchors and consumer
     // components need the native selector to get the same ring.
     '&.Mui-focusVisible, &:focus-visible': {
-      outline: `2px solid ${accent}`,
+      // The focus ring uses the darker brand token so it clears the 3:1 that
+      // WCAG 2.1 SC 1.4.11 asks of an author-defined focus indicator.
+      outline: `2px solid ${APP_SWITCHER_BRAND.focus}`,
       outlineOffset: 2,
     },
     // Motion is decoration here; the border and shadow still carry the state.
@@ -316,16 +318,21 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
     // Otherwise render a real anchor when navigable, so middle-click and
     // "open in new tab" keep working. `rel` guards against reverse tabnabbing.
     const renderAsLink = Boolean(url) && !disabled;
+    // `componentProps` may carry its own `target`, so the guard below is derived
+    // from whichever target actually reaches the rendered element rather than
+    // from the `target` prop alone.
+    const effectiveTarget =
+      typeof componentProps?.target === 'string' ? componentProps.target : target;
     const linkProps = {
       ...(url && { href: url }),
-      ...(target && { target }),
+      ...(effectiveTarget && { target: effectiveTarget }),
     };
     // Keep the reverse-tabnabbing guard out of the overridable props below so
     // `componentProps` cannot drop it on a `_blank` target.
-    const relProps = target === '_blank' ? { rel: 'noopener noreferrer' } : {};
+    const relProps = effectiveTarget === '_blank' ? { rel: 'noopener noreferrer' } : {};
     const anchorProps =
       component && !disabled
-        ? { component, ...linkProps, ...componentProps, ...relProps }
+        ? { component, ...componentProps, ...linkProps, ...relProps }
         : renderAsLink
           ? { component: 'a' as React.ElementType, ...linkProps, ...relProps }
           : { component: ButtonBase as React.ElementType };
