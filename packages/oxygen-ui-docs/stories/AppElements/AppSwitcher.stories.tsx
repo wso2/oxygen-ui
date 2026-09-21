@@ -18,7 +18,6 @@
 
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import type { AppSwitcherFooterLink } from '@wso2/oxygen-ui';
 import {
   AppSwitcher,
   Box,
@@ -73,12 +72,10 @@ import { AppSwitcher, Header } from '@wso2/oxygen-ui';
       <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
       <AppSwitcher.App name="Analytics Platform" disabled tooltip="Coming soon" />
     </AppSwitcher.Section>
-    <AppSwitcher.Footer
-      links={[
-        { key: 'orgs', name: 'Organizations', url: 'https://console.wso2.com/organizations' },
-        { key: 'billing', name: 'Billing', url: 'https://console.wso2.com/billing' },
-      ]}
-    />
+    <AppSwitcher.Footer label="Manage">
+      <AppSwitcher.App name="Organizations" url="https://console.wso2.com/organizations" />
+      <AppSwitcher.App name="Billing" url="https://console.wso2.com/billing" />
+    </AppSwitcher.Footer>
   </AppSwitcher>
 </Header.Actions>
 \`\`\`
@@ -132,26 +129,13 @@ type Story = StoryObj<typeof AppSwitcher>;
  * so they read as settings rather than as products. They point at wso2.com here
  * only so the demo links resolve; a product passes its own console URLs.
  */
-const MANAGE_LINKS: AppSwitcherFooterLink[] = [
-  {
-    key: 'organizations',
-    name: 'Organizations',
-    url: 'https://wso2.com',
-    icon: <Building2 size={16} />,
-  },
-  {
-    key: 'users',
-    name: 'Users & roles',
-    url: 'https://wso2.com',
-    icon: <UserRoundPlus size={16} />,
-  },
-  {
-    key: 'billing',
-    name: 'Billing',
-    url: 'https://wso2.com',
-    icon: <CreditCard size={16} />,
-  },
-];
+const ManageLinks = () => (
+  <>
+    <AppSwitcher.App name="Organizations" url="https://wso2.com" icon={<Building2 size={16} />} />
+    <AppSwitcher.App name="Users & roles" url="https://wso2.com" icon={<UserRoundPlus size={16} />} />
+    <AppSwitcher.App name="Billing" url="https://wso2.com" icon={<CreditCard size={16} />} />
+  </>
+);
 
 /**
  * The platform cards, as shown in the WSO2 Cloud design. Analytics is not yet
@@ -186,7 +170,9 @@ export const Default: Story = {
         <AppSwitcher.Section label="Platforms">
           <Platforms />
         </AppSwitcher.Section>
-        <AppSwitcher.Footer label="Manage" links={MANAGE_LINKS} />
+        <AppSwitcher.Footer label="Manage">
+          <ManageLinks />
+        </AppSwitcher.Footer>
       </AppSwitcher>
     </Box>
   ),
@@ -205,7 +191,9 @@ export const SinglePlatform: Story = {
         <AppSwitcher.Section label="Platforms">
           <AppSwitcher.App name="API Platform" url="https://wso2.com" />
         </AppSwitcher.Section>
-        <AppSwitcher.Footer label="Manage" links={MANAGE_LINKS} />
+        <AppSwitcher.Footer label="Manage">
+          <ManageLinks />
+        </AppSwitcher.Footer>
       </AppSwitcher>
     </Box>
   ),
@@ -231,7 +219,9 @@ export const InHeader: Story = {
           <AppSwitcher.Section label="Platforms">
             <Platforms />
           </AppSwitcher.Section>
-          <AppSwitcher.Footer label="Manage" links={MANAGE_LINKS} />
+          <AppSwitcher.Footer label="Manage">
+          <ManageLinks />
+        </AppSwitcher.Footer>
         </AppSwitcher>
         <ColorSchemeToggle />
         <UserMenu>

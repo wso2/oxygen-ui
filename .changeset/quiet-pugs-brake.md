@@ -18,7 +18,8 @@ renders in place and every other child goes inside the popover.
   component, so the grid stays uniform across products; `disabled` marks a
   platform that is not yet available
 - `AppSwitcher.Footer` - the `Manage` section, a labelled grid of WSO2 Cloud
-  links (organizations, users, billing) using the same card with a neutral mark
+  destinations (organizations, users, billing); its cards take the neutral
+  `manage` mark automatically, and it also accepts `links` as data
 - An enabled card given a `url` opens its platform in a new tab by default;
   every enabled card lifts with an accent border on hover, suppressed under
   `prefers-reduced-motion`

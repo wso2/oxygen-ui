@@ -845,6 +845,59 @@ describe('AppSwitcher', () => {
     }
   });
 
+  it('composes footer cards as children and gives them the manage treatment', () => {
+    // A composed manage card must match a `links`-driven one, so the footer
+    // supplies the tone rather than every card repeating it.
+    renderWithTheme(
+      <AppSwitcher>
+        <AppSwitcher.Trigger />
+        <AppSwitcher.Section label="Platforms">
+          <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
+        </AppSwitcher.Section>
+        <AppSwitcher.Footer label="Manage">
+          <AppSwitcher.App name="Billing" url="/billing" />
+        </AppSwitcher.Footer>
+      </AppSwitcher>,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    expect(screen.getByRole('list', { name: 'Manage' })).toBeDefined();
+
+    // The manage tone renders a shorter card than the platform tone; comparing
+    // the two is what proves the context reached the child.
+    const platform = screen.getByRole('link', { name: 'API Platform' });
+    const manage = screen.getByRole('link', { name: 'Billing' });
+    expect(manage.className).not.toEqual(platform.className);
+  });
+
+  it('renders nothing for a footer with no cards to show', () => {
+    // An empty manage row would otherwise leave a bare separator and wash. A
+    // `{cond && <App />}` child yields `false` when the condition is off, so
+    // that has to count as empty too.
+    const showBilling = false;
+    renderWithTheme(
+      <AppSwitcher>
+        <AppSwitcher.Trigger />
+        <AppSwitcher.Section label="Platforms">
+          <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
+        </AppSwitcher.Section>
+        <AppSwitcher.Footer label="Manage">
+          {showBilling && <AppSwitcher.App name="Billing" url="/billing" />}
+        </AppSwitcher.Footer>
+      </AppSwitcher>,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    expect(screen.queryByRole('list', { name: 'Manage' })).toBeNull();
+  });
+
+  it('renders nothing for a footer given an empty links array', () => {
+    renderSwitcher({ footer: { links: [] } });
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    expect(screen.queryByRole('list', { name: 'Manage' })).toBeNull();
+  });
+
   it('composes from sub-components and keeps sections independent', () => {
     // The compound surface is the public API, so a consumer-shaped tree must
     // render the trigger in place and everything else inside the popover.

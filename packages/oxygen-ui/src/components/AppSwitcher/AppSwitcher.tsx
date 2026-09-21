@@ -97,12 +97,10 @@ export interface AppSwitcherProps {
  *       <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
  *       <AppSwitcher.App name="Analytics" disabled tooltip="Coming soon" />
  *     </AppSwitcher.Section>
- *     <AppSwitcher.Footer
- *       links={[
- *         { key: 'orgs', name: 'Organizations', url: 'https://console.wso2.com/organizations' },
- *         { key: 'billing', name: 'Billing', url: 'https://console.wso2.com/billing' },
- *       ]}
- *     />
+ *     <AppSwitcher.Footer label="Manage">
+ *       <AppSwitcher.App name="Organizations" url="https://console.wso2.com/organizations" />
+ *       <AppSwitcher.App name="Billing" url="https://console.wso2.com/billing" />
+ *     </AppSwitcher.Footer>
  *   </AppSwitcher>
  * </Header.Actions>
  * ```
@@ -173,7 +171,7 @@ export const AppSwitcher: React.FC<AppSwitcherProps> & {
  * - `AppSwitcher.Trigger` - Grid icon button that opens the popover
  * - `AppSwitcher.Section` - Labelled grid of application cards
  * - `AppSwitcher.App` - Card button for a single destination
- * - `AppSwitcher.Footer` - Manage section beneath the platforms
+ * - `AppSwitcher.Footer` - Manage section; its cards take the `manage` tone
  */
 AppSwitcher.Trigger = AppSwitcherTrigger;
 AppSwitcher.Section = AppSwitcherSection;

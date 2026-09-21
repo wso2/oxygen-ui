@@ -52,3 +52,13 @@ export const useAppSwitcher = (): AppSwitcherContextValue => {
 };
 
 AppSwitcherContext.displayName = 'AppSwitcher.Context';
+
+/**
+ * Context marking the subtree inside `AppSwitcher.Footer`.
+ *
+ * Lets a composed `AppSwitcher.App` pick up the footer's `manage` treatment
+ * without every card repeating `tone="manage"`.
+ */
+export const AppSwitcherFooterContext = React.createContext(false);
+
+AppSwitcherFooterContext.displayName = 'AppSwitcher.FooterContext';

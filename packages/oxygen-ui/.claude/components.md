@@ -1037,7 +1037,7 @@ The switcher is composed from sub-components, matching `Header`, `Sidebar` and `
 - `AppSwitcher.Trigger` — the grid icon button; rendered in place, in the header
 - `AppSwitcher.Section` — a labelled grid of cards, owning its own arrow-key navigation
 - `AppSwitcher.App` — a single destination card
-- `AppSwitcher.Footer` — the `Manage` section beneath the platforms
+- `AppSwitcher.Footer` — the `Manage` section; its cards take the `manage` tone automatically
 
 The trigger renders where it sits; every other child goes inside the popover. A typical switcher
 has two sections: a grid of platform cards, and a `Manage` section linking to the WSO2 Cloud tabs
@@ -1082,15 +1082,18 @@ Extra props, including `aria-*` attributes and `ref`, are forwarded to the under
 | `component` | `ElementType` | - | Custom root, e.g. a router `Link` |
 | `componentProps` | `Record<string, unknown>` | - | Extra props for `component` (e.g. React Router's `to`) |
 | `onClick` | `(event) => void` | - | Click handler; the popover stays open after it runs |
-| `tone` | `'platform' \| 'manage'` | `'platform'` | Visual treatment; the footer sets `manage` itself |
+| `tone` | `'platform' \| 'manage'` | `'manage'` in the footer, else `'platform'` | Visual treatment |
 
 ### AppSwitcher.Footer Props
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `links` | `AppSwitcherFooterLink[]` | - | WSO2 Cloud destinations; the footer renders nothing when empty |
+| `children` | `ReactNode` | - | Manage cards; they take the `manage` tone automatically |
+| `links` | `AppSwitcherFooterLink[]` | - | Destinations as data, as an alternative to `children` |
 | `label` | `string` | `'Manage'` | Heading above the links |
 | `columns` | `number` | `3` | Grid columns from the `sm` breakpoint up |
+
+The footer renders nothing when it has neither children nor links.
 
 ### AppSwitcherFooterLink Type
 
@@ -1122,16 +1125,14 @@ import { Building2, CreditCard, UserRoundPlus } from '@wso2/oxygen-ui-icons-reac
       <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
       <AppSwitcher.App name="Analytics Platform" disabled tooltip="Coming soon" />
     </AppSwitcher.Section>
-    <AppSwitcher.Footer
-      links={[
-        { key: 'orgs', name: 'Organizations', url: 'https://console.wso2.com/organizations',
-          icon: <Building2 size={18} /> },
-        { key: 'users', name: 'Users & roles', url: 'https://console.wso2.com/users',
-          icon: <UserRoundPlus size={18} /> },
-        { key: 'billing', name: 'Billing', url: 'https://console.wso2.com/billing',
-          icon: <CreditCard size={18} /> },
-      ]}
-    />
+    <AppSwitcher.Footer label="Manage">
+      <AppSwitcher.App name="Organizations" url="https://console.wso2.com/organizations"
+        icon={<Building2 size={18} />} />
+      <AppSwitcher.App name="Users & roles" url="https://console.wso2.com/users"
+        icon={<UserRoundPlus size={18} />} />
+      <AppSwitcher.App name="Billing" url="https://console.wso2.com/billing"
+        icon={<CreditCard size={18} />} />
+    </AppSwitcher.Footer>
   </AppSwitcher>
 </Header.Actions>
 ```
@@ -1200,11 +1201,9 @@ import { Link } from 'react-router';
 `componentProps` works the same way on the manage links:
 
 ```tsx
-<AppSwitcher.Footer
-  links={[
-    { key: 'billing', name: 'Billing', component: Link, componentProps: { to: '/billing' } },
-  ]}
-/>
+<AppSwitcher.Footer>
+  <AppSwitcher.App name="Billing" component={Link} componentProps={{ to: '/billing' }} />
+</AppSwitcher.Footer>
 ```
 
 **Programmatic navigation** — use `onClick`. The popover stays open after the handler runs,

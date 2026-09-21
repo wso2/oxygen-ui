@@ -21,6 +21,7 @@ import Box from '@mui/material/Box';
 import { alpha, styled } from '@mui/material/styles';
 import { AppSwitcherSection } from './AppSwitcherSection';
 import { AppSwitcherApp } from './AppSwitcherApp';
+import { AppSwitcherFooterContext } from './context';
 
 /**
  * Theme tokens used in this component:
@@ -80,7 +81,9 @@ const AppSwitcherFooterRoot = styled(Box, {
  * Props for the AppSwitcher.Footer component.
  */
 export interface AppSwitcherFooterProps {
-  /** WSO2 Cloud destinations rendered as cards */
+  /** Manage cards (typically `AppSwitcher.App` elements) */
+  children?: React.ReactNode;
+  /** WSO2 Cloud destinations rendered as cards, as an alternative to `children` */
   links?: AppSwitcherFooterLink[];
   /** Heading above the links (default: `"Manage"`) */
   label?: string;
@@ -96,31 +99,39 @@ export interface AppSwitcherFooterProps {
  * behave identically. The neutral mark and lighter type keep them visually
  * secondary to the platforms above.
  *
+ * Cards composed as children pick up the `manage` treatment automatically, so
+ * they do not need to repeat `tone="manage"`.
+ *
  * @example
  * ```tsx
- * <AppSwitcher.Footer
- *   label="Manage"
- *   links={[{ key: 'billing', name: 'Billing', url: 'https://console.wso2.com/billing' }]}
- * />
+ * <AppSwitcher.Footer label="Manage">
+ *   <AppSwitcher.App name="Organizations" url="https://console.wso2.com/organizations" />
+ *   <AppSwitcher.App name="Billing" url="https://console.wso2.com/billing" />
+ * </AppSwitcher.Footer>
  * ```
  */
 export const AppSwitcherFooter: React.FC<AppSwitcherFooterProps> = ({
+  children,
   links,
   label = 'Manage',
   columns = 3,
 }) => {
-  // An empty list must not leave a bare separator and background behind.
-  if (!links || links.length === 0) {
+  const cards = children ?? links?.map(({ key, ...link }) => <AppSwitcherApp key={key} {...link} />);
+
+  // An empty manage row must not leave a bare separator and wash behind.
+  // `toArray` drops the nulls and booleans a `{cond && <App />}` child yields,
+  // so a footer whose cards are all conditioned off renders nothing.
+  if (React.Children.toArray(cards).length === 0) {
     return null;
   }
 
   return (
     <AppSwitcherFooterRoot>
-      <AppSwitcherSection label={label} columns={columns}>
-        {links.map(({ key, ...link }) => (
-          <AppSwitcherApp key={key} tone="manage" {...link} />
-        ))}
-      </AppSwitcherSection>
+      <AppSwitcherFooterContext.Provider value={true}>
+        <AppSwitcherSection label={label} columns={columns}>
+          {cards}
+        </AppSwitcherSection>
+      </AppSwitcherFooterContext.Provider>
     </AppSwitcherFooterRoot>
   );
 };

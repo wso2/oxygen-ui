@@ -24,6 +24,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { APP_SWITCHER_BRAND } from './brand';
+import { AppSwitcherFooterContext } from './context';
 import { WSO2 } from '@wso2/oxygen-ui-icons-react';
 
 /**
@@ -235,7 +236,7 @@ export interface AppSwitcherAppProps {
   url?: string;
   /** Mark shown above the name (default: the WSO2 logo) */
   icon?: React.ReactNode;
-  /** Visual treatment (default: `"platform"`) */
+  /** Visual treatment (default: `"manage"` inside the footer, `"platform"` elsewhere) */
   tone?: AppSwitcherAppTone;
   /** Disables navigation, e.g. for platforms that are not yet available */
   disabled?: boolean;
@@ -287,7 +288,7 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
       name,
       url,
       icon,
-      tone = 'platform',
+      tone: toneProp,
       disabled = false,
       tooltip,
       component,
@@ -297,6 +298,10 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
     },
     ref,
   ) {
+    // The footer's cards take the manage treatment by default, so a composed
+    // card matches a `links`-driven one without repeating `tone`.
+    const inFooter = React.useContext(AppSwitcherFooterContext);
+    const tone = toneProp ?? (inFooter ? 'manage' : 'platform');
 
     // Selecting a card deliberately leaves the popover open: cards open in a new
     // tab, so the current tab does not navigate and closing would look like the
