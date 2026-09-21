@@ -79,6 +79,9 @@ const AppSwitcherSectionGrid = styled('ul', {
   [theme.breakpoints.up('sm')]: {
     gridTemplateColumns: `repeat(${ownerState.columns}, minmax(0, 1fr))`,
   },
+  '& > li': {
+    display: 'contents',
+  },
 }));
 
 /**

@@ -129,13 +129,11 @@ type Story = StoryObj<typeof AppSwitcher>;
  * so they read as settings rather than as products. They point at wso2.com here
  * only so the demo links resolve; a product passes its own console URLs.
  */
-const ManageLinks = () => (
-  <>
-    <AppSwitcher.App name="Organizations" url="https://wso2.com" icon={<Building2 size={16} />} />
-    <AppSwitcher.App name="Users & roles" url="https://wso2.com" icon={<UserRoundPlus size={16} />} />
-    <AppSwitcher.App name="Billing" url="https://wso2.com" icon={<CreditCard size={16} />} />
-  </>
-);
+const manageLinks = [
+  <AppSwitcher.App key="orgs" name="Organizations" url="https://wso2.com" icon={<Building2 size={16} />} />,
+  <AppSwitcher.App key="users" name="Users & roles" url="https://wso2.com" icon={<UserRoundPlus size={16} />} />,
+  <AppSwitcher.App key="billing" name="Billing" url="https://wso2.com" icon={<CreditCard size={16} />} />,
+];
 
 /**
  * The platform cards, as shown in the WSO2 Cloud design. Analytics is not yet
@@ -144,15 +142,13 @@ const ManageLinks = () => (
  * Every card points at wso2.com purely to demo the navigation: cards open in a
  * new tab, so selecting one leaves Storybook intact.
  */
-const Platforms = () => (
-  <>
-    <AppSwitcher.App name="Agent Manager" url="https://wso2.com" />
-    <AppSwitcher.App name="Identity Platform" url="https://wso2.com" />
-    <AppSwitcher.App name="Integration Platform" url="https://wso2.com" />
-    <AppSwitcher.App name="API Platform" url="https://wso2.com" />
-    <AppSwitcher.App name="Analytics Platform" disabled tooltip="Coming soon" />
-  </>
-);
+const platforms = [
+  <AppSwitcher.App key="agent" name="Agent Manager" url="https://wso2.com" />,
+  <AppSwitcher.App key="identity" name="Identity Platform" url="https://wso2.com" />,
+  <AppSwitcher.App key="integration" name="Integration Platform" url="https://wso2.com" />,
+  <AppSwitcher.App key="api" name="API Platform" url="https://wso2.com" />,
+  <AppSwitcher.App key="analytics" name="Analytics Platform" disabled tooltip="Coming soon" />,
+];
 
 /**
  * Default app switcher, matching the agreed design. Click the grid icon to open
@@ -168,10 +164,10 @@ export const Default: Story = {
       <AppSwitcher>
         <AppSwitcher.Trigger />
         <AppSwitcher.Section label="Platforms">
-          <Platforms />
+          {platforms}
         </AppSwitcher.Section>
         <AppSwitcher.Footer label="Manage">
-          <ManageLinks />
+          {manageLinks}
         </AppSwitcher.Footer>
       </AppSwitcher>
     </Box>
@@ -192,7 +188,7 @@ export const SinglePlatform: Story = {
           <AppSwitcher.App name="API Platform" url="https://wso2.com" />
         </AppSwitcher.Section>
         <AppSwitcher.Footer label="Manage">
-          <ManageLinks />
+          {manageLinks}
         </AppSwitcher.Footer>
       </AppSwitcher>
     </Box>
@@ -217,10 +213,10 @@ export const InHeader: Story = {
         <AppSwitcher>
           <AppSwitcher.Trigger />
           <AppSwitcher.Section label="Platforms">
-            <Platforms />
+            {platforms}
           </AppSwitcher.Section>
           <AppSwitcher.Footer label="Manage">
-          <ManageLinks />
+          {manageLinks}
         </AppSwitcher.Footer>
         </AppSwitcher>
         <ColorSchemeToggle />

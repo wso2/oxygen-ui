@@ -845,6 +845,32 @@ describe('AppSwitcher', () => {
     }
   });
 
+  it('gives each card its own grid cell when grouped in a fragment', () => {
+    // Cards are often grouped in a component or fragment. Wrapping the group in
+    // one <li> would collapse the grid to a single column.
+    const Group = () => (
+      <>
+        <AppSwitcher.App name="One" url="/1" />
+        <AppSwitcher.App name="Two" url="/2" />
+      </>
+    );
+    renderWithTheme(
+      <AppSwitcher>
+        <AppSwitcher.Trigger />
+        <AppSwitcher.Section label="Platforms">
+          <Group />
+        </AppSwitcher.Section>
+      </AppSwitcher>,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
+
+    // Both cards must reach the grid. The <li> wrappers are `display: contents`
+    // so the cards themselves are the grid items, whatever groups them.
+    expect(screen.getAllByRole('link')).toHaveLength(2);
+    const grid = screen.getByRole('list', { name: 'Platforms' });
+    expect(grid.querySelectorAll('[data-app-switcher-app]')).toHaveLength(2);
+  });
+
   it('composes footer cards as children and gives them the manage treatment', () => {
     // A composed manage card must match a `links`-driven one, so the footer
     // supplies the tone rather than every card repeating it.
