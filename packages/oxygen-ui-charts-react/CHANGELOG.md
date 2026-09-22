@@ -1,5 +1,16 @@
 # @wso2/oxygen-ui-charts-react
 
+## 0.14.0
+
+### Minor Changes
+
+- [#623](https://github.com/wso2/oxygen-ui/pull/623) [`1350b42`](https://github.com/wso2/oxygen-ui/commit/1350b42eba709dfef73f93f4d3f0153bbafd31af) Thanks [@aruniw](https://github.com/aruniw)! - Add appswitcher component
+
+### Patch Changes
+
+- Updated dependencies [[`1350b42`](https://github.com/wso2/oxygen-ui/commit/1350b42eba709dfef73f93f4d3f0153bbafd31af), [`744a211`](https://github.com/wso2/oxygen-ui/commit/744a2111c4877e197dbbebcc568545b4ff97f2e2)]:
+  - @wso2/oxygen-ui@0.14.0
+
 ## 0.13.2
 
 ### Patch Changes
