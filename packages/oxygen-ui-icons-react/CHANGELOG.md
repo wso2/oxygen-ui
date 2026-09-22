@@ -1,5 +1,11 @@
 # @wso2/oxygen-ui-icons-react
 
+## 0.14.0
+
+### Minor Changes
+
+- [#623](https://github.com/wso2/oxygen-ui/pull/623) [`1350b42`](https://github.com/wso2/oxygen-ui/commit/1350b42eba709dfef73f93f4d3f0153bbafd31af) Thanks [@aruniw](https://github.com/aruniw)! - Add appswitcher component
+
 ## 0.13.2
 
 ## 0.13.1
