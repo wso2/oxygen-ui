@@ -291,6 +291,7 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
       if (selectedValue === optionValue) {
         return;
       }
+      collapseFrom(id);
       onChange(selectLevel(levelIds, value, id, optionValue));
     };
 
