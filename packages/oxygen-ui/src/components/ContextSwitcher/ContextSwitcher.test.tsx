@@ -302,6 +302,20 @@ describe('ContextSwitcher panel', () => {
     expect(screen.queryByRole('button', { name: /Component/ })).toBeNull();
   });
 
+  it('does not bring back a level that was picked and then cleared by its parent', () => {
+    render(<Harness initial={{ organization: 'wso2' }} />);
+
+    show('Project');
+    fireEvent.click(screen.getByRole('option', { name: 'Finance Web' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Organization: WSO2' }));
+    fireEvent.click(screen.getByRole('option', { name: 'Demo Organization' }));
+
+    expect(screen.getByRole('button', { name: 'Organization: Demo Organization' })).toBeDefined();
+    expect(screen.queryByRole('button', { name: 'Project' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Hide Project' })).toBeNull();
+    expect(screen.getByRole('button', { name: 'Show Project' })).toBeDefined();
+  });
+
   it('does not report a change when the current option is picked again', () => {
     const onChange = vi.fn();
     render(
