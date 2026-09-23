@@ -38,7 +38,7 @@ that level's panel: a search box, then ungrouped options and groups. Search filt
 the option text. A pick, Escape, an outside click, or a second click on the field
 closes the panel. The next empty field stays closed until the user opens it.
 
-The close button on a selected level clears that level and every level under it.
+The close button on every level after the first clears that level and every level under it.
 The first level has no close button unless \`clearable\` is set. Changing a parent
 clears the levels under it. The product routes from \`onChange\`.
 
@@ -115,5 +115,59 @@ export const InHeader: Story = {
       </Header.Switchers>
       <Header.Spacer />
     </Header>
+  ),
+};
+
+const OpenOnMount = ({ name, children }: { name: string; children: React.ReactNode }) => {
+  const rootRef = React.useRef<HTMLDivElement>(null);
+  React.useLayoutEffect(() => {
+    rootRef.current?.querySelector<HTMLButtonElement>(`button[aria-label="${name}"]`)?.click();
+  }, [name]);
+  return <div ref={rootRef}>{children}</div>;
+};
+
+/**
+ * Search, groups, and the current option, open on first paint so automated
+ * checks see the panel.
+ */
+export const OpenPanel: Story = {
+  parameters: { layout: 'padded' },
+  render: () => (
+    <OpenOnMount name="Organization: WSO2">
+      <Chain />
+    </OpenOnMount>
+  ),
+};
+
+/**
+ * A level with nothing to pick.
+ */
+export const NoOptions: Story = {
+  parameters: { layout: 'padded' },
+  render: () => (
+    <OpenOnMount name="Organization">
+      <ContextSwitcher value={{}} onChange={() => undefined}>
+        <ContextSwitcher.Level id="organization" label="Organization" />
+      </ContextSwitcher>
+    </OpenOnMount>
+  ),
+};
+
+/**
+ * A level whose options are still loading.
+ */
+export const Loading: Story = {
+  parameters: { layout: 'padded' },
+  render: () => (
+    <OpenOnMount name="Project">
+      <ContextSwitcher value={{ organization: 'wso2' }} onChange={() => undefined}>
+        <ContextSwitcher.Level id="organization" label="Organization">
+          <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+        </ContextSwitcher.Level>
+        <ContextSwitcher.Level id="project" label="Project" loading>
+          <ContextSwitcher.Option value="finance-web">Finance Web</ContextSwitcher.Option>
+        </ContextSwitcher.Level>
+      </ContextSwitcher>
+    </OpenOnMount>
   ),
 };
