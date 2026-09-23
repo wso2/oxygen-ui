@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Chip, Stack, Avatar } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Chip, Stack, Avatar } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * The Chip component represents small blocks of information.
  * Chips are used for tags, categories, or compact representations of data.
- * 
- * This is a direct import of MUI chip component. 
+ *
+ * This is a direct import of MUI chip component.
  * Read more at: https://mui.com/material-ui/react-chip/
  */
 const meta: Meta<typeof Chip> = {
@@ -34,21 +34,22 @@ const meta: Meta<typeof Chip> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI chip component is a direct import of MUI chip component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-chip/](https://mui.com/material-ui/react-chip/)',
+        component:
+          'Oxygen UI chip component is a direct import of MUI chip component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-chip/](https://mui.com/material-ui/react-chip/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Chip>;
+export default meta
+type Story = StoryObj<typeof Chip>
 
 export const Default: Story = {
   render: () => <Chip label="Chip" />,
-};
+}
 
 export const Variants: Story = {
   render: () => (
@@ -57,11 +58,17 @@ export const Variants: Story = {
       <Chip label="Outlined" variant="outlined" />
     </Stack>
   ),
-};
+}
 
 export const Colors: Story = {
   render: () => (
-    <Stack direction="row" spacing={1} flexWrap="wrap">
+    <Stack
+      direction="row"
+      spacing={1}
+      sx={{
+        flexWrap: 'wrap',
+      }}
+    >
       <Chip label="Primary" color="primary" />
       <Chip label="Secondary" color="secondary" />
       <Chip label="Success" color="success" />
@@ -70,16 +77,22 @@ export const Colors: Story = {
       <Chip label="Info" color="info" />
     </Stack>
   ),
-};
+}
 
 export const Sizes: Story = {
   render: () => (
-    <Stack direction="row" spacing={1} alignItems="center">
+    <Stack
+      direction="row"
+      spacing={1}
+      sx={{
+        alignItems: 'center',
+      }}
+    >
       <Chip label="Small" size="small" />
       <Chip label="Medium" />
     </Stack>
   ),
-};
+}
 
 export const Clickable: Story = {
   render: () => (
@@ -88,7 +101,7 @@ export const Clickable: Story = {
       <Chip label="Clickable" variant="outlined" onClick={() => alert('Clicked!')} />
     </Stack>
   ),
-};
+}
 
 export const Deletable: Story = {
   render: () => (
@@ -97,7 +110,7 @@ export const Deletable: Story = {
       <Chip label="Deletable" variant="outlined" onDelete={() => alert('Delete clicked!')} />
     </Stack>
   ),
-};
+}
 
 export const WithAvatar: Story = {
   render: () => (
@@ -106,7 +119,7 @@ export const WithAvatar: Story = {
       <Chip avatar={<Avatar>M</Avatar>} label="With Avatar" variant="outlined" />
     </Stack>
   ),
-};
+}
 
 export const Disabled: Story = {
   render: () => (
@@ -115,4 +128,4 @@ export const Disabled: Story = {
       <Chip label="Disabled" disabled onDelete={() => {}} />
     </Stack>
   ),
-};
+}

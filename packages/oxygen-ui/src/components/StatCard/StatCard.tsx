@@ -85,7 +85,7 @@ const StatCard: React.FC<StatCardProps> = ({
           )}
           <Box>
             <Typography variant="h5">{value}</Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               {label}
             </Typography>
           </Box>

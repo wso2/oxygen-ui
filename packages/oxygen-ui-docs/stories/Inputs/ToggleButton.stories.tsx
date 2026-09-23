@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { ToggleButton, ToggleButtonGroup, Stack } from '@wso2/oxygen-ui';
-import React, { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { ToggleButton, ToggleButtonGroup, Stack } from '@wso2/oxygen-ui'
+import React, { useState } from 'react'
 
 /**
  * The Toggle Button component allows users to toggle between different states or options.
  * It can be used individually or grouped together for multiple selections.
- * 
- * This is a direct import of MUI toggle button component. 
+ *
+ * This is a direct import of MUI toggle button component.
  * Read more at: https://mui.com/material-ui/react-toggle-button/
  */
 const meta: Meta<typeof ToggleButtonGroup> = {
@@ -34,21 +34,22 @@ const meta: Meta<typeof ToggleButtonGroup> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI toggle button component is a direct import of MUI toggle button component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-toggle-button/](https://mui.com/material-ui/react-toggle-button/)',
+        component:
+          'Oxygen UI toggle button component is a direct import of MUI toggle button component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-toggle-button/](https://mui.com/material-ui/react-toggle-button/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof ToggleButtonGroup>;
+export default meta
+type Story = StoryObj<typeof ToggleButtonGroup>
 
 export const Default: Story = {
   render: () => {
-    const [alignment, setAlignment] = useState('left');
+    const [alignment, setAlignment] = useState('left')
     return (
       <ToggleButtonGroup
         value={alignment}
@@ -60,29 +61,29 @@ export const Default: Story = {
         <ToggleButton value="right">Right</ToggleButton>
         <ToggleButton value="justify">Justify</ToggleButton>
       </ToggleButtonGroup>
-    );
+    )
   },
-};
+}
 
 export const Multiple: Story = {
   render: () => {
-    const [formats, setFormats] = useState<string[]>(['bold']);
+    const [formats, setFormats] = useState<string[]>(['bold'])
     const handleFormat = (event: React.MouseEvent<HTMLElement>, newFormats: string[]) => {
-      setFormats(newFormats);
-    };
+      setFormats(newFormats)
+    }
     return (
       <ToggleButtonGroup value={formats} onChange={handleFormat}>
         <ToggleButton value="bold">Bold</ToggleButton>
         <ToggleButton value="italic">Italic</ToggleButton>
         <ToggleButton value="underlined">Underlined</ToggleButton>
       </ToggleButtonGroup>
-    );
+    )
   },
-};
+}
 
 export const Colors: Story = {
   render: () => {
-    const [alignment, setAlignment] = useState('left');
+    const [alignment, setAlignment] = useState('left')
     return (
       <Stack spacing={2}>
         <ToggleButtonGroup
@@ -113,15 +114,20 @@ export const Colors: Story = {
           <ToggleButton value="center">Success</ToggleButton>
         </ToggleButtonGroup>
       </Stack>
-    );
+    )
   },
-};
+}
 
 export const Sizes: Story = {
   render: () => {
-    const [alignment, setAlignment] = useState('left');
+    const [alignment, setAlignment] = useState('left')
     return (
-      <Stack spacing={2} alignItems="flex-start">
+      <Stack
+        spacing={2}
+        sx={{
+          alignItems: 'flex-start',
+        }}
+      >
         <ToggleButtonGroup
           size="small"
           value={alignment}
@@ -150,13 +156,13 @@ export const Sizes: Story = {
           <ToggleButton value="center">Large</ToggleButton>
         </ToggleButtonGroup>
       </Stack>
-    );
+    )
   },
-};
+}
 
 export const Vertical: Story = {
   render: () => {
-    const [alignment, setAlignment] = useState('left');
+    const [alignment, setAlignment] = useState('left')
     return (
       <ToggleButtonGroup
         orientation="vertical"
@@ -168,9 +174,9 @@ export const Vertical: Story = {
         <ToggleButton value="center">Center</ToggleButton>
         <ToggleButton value="right">Right</ToggleButton>
       </ToggleButtonGroup>
-    );
+    )
   },
-};
+}
 
 export const Disabled: Story = {
   render: () => (
@@ -180,4 +186,4 @@ export const Disabled: Story = {
       <ToggleButton value="right">Disabled</ToggleButton>
     </ToggleButtonGroup>
   ),
-};
+}

@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Modal, Box, Button, Paper, Typography } from '@wso2/oxygen-ui';
-import React, { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Modal, Box, Button, Paper, Typography } from '@wso2/oxygen-ui'
+import React, { useState } from 'react'
 
 /**
  * The Modal component provides a solid foundation for creating dialogs, popovers, lightboxes, or whatever else.
  * It renders its children node in front of a backdrop component.
- * 
- * This is a direct import of MUI modal component. 
+ *
+ * This is a direct import of MUI modal component.
  * Read more at: https://mui.com/material-ui/react-modal/
  */
 const meta: Meta<typeof Modal> = {
@@ -43,17 +43,18 @@ const meta: Meta<typeof Modal> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI modal component is a direct import of MUI modal component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-modal/](https://mui.com/material-ui/react-modal/)',
+        component:
+          'Oxygen UI modal component is a direct import of MUI modal component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-modal/](https://mui.com/material-ui/react-modal/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Modal>;
+export default meta
+type Story = StoryObj<typeof Modal>
 
 const modalStyle = {
   position: 'absolute' as const,
@@ -65,11 +66,11 @@ const modalStyle = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
-};
+}
 
 export const Default: Story = {
   render: () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
       <>
@@ -90,13 +91,13 @@ export const Default: Story = {
           </Paper>
         </Modal>
       </>
-    );
+    )
   },
-};
+}
 
 export const WithActions: Story = {
   render: () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
       <>
@@ -115,7 +116,9 @@ export const WithActions: Story = {
               Are you sure you want to proceed with this action?
             </Typography>
             <Box sx={{ mt: 3, display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
-              <Button variant="outlined" onClick={() => setOpen(false)}>Cancel</Button>
+              <Button variant="outlined" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
               <Button variant="contained" onClick={() => setOpen(false)}>
                 Confirm
               </Button>
@@ -123,30 +126,24 @@ export const WithActions: Story = {
           </Paper>
         </Modal>
       </>
-    );
+    )
   },
-};
+}
 
 export const Nested: Story = {
   render: () => {
-    const [open, setOpen] = useState(false);
-    const [childOpen, setChildOpen] = useState(false);
+    const [open, setOpen] = useState(false)
+    const [childOpen, setChildOpen] = useState(false)
 
     return (
       <>
         <Button onClick={() => setOpen(true)}>Open Modal</Button>
-        <Modal
-          open={open}
-          onClose={() => setOpen(false)}
-          aria-labelledby="parent-modal-title"
-        >
+        <Modal open={open} onClose={() => setOpen(false)} aria-labelledby="parent-modal-title">
           <Paper sx={modalStyle}>
             <Typography id="parent-modal-title" variant="h6" component="h2">
               Parent Modal
             </Typography>
-            <Typography sx={{ mt: 2 }}>
-              This is the parent modal content.
-            </Typography>
+            <Typography sx={{ mt: 2 }}>This is the parent modal content.</Typography>
             <Button onClick={() => setChildOpen(true)} sx={{ mt: 2 }}>
               Open Child Modal
             </Button>
@@ -159,9 +156,7 @@ export const Nested: Story = {
                 <Typography id="child-modal-title" variant="h6" component="h2">
                   Child Modal
                 </Typography>
-                <Typography sx={{ mt: 2 }}>
-                  This is a nested modal.
-                </Typography>
+                <Typography sx={{ mt: 2 }}>This is a nested modal.</Typography>
                 <Button onClick={() => setChildOpen(false)} sx={{ mt: 2 }}>
                   Close
                 </Button>
@@ -170,6 +165,6 @@ export const Nested: Story = {
           </Paper>
         </Modal>
       </>
-    );
+    )
   },
-};
+}

@@ -16,10 +16,10 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { PageTitle, colors, Box } from '@wso2/oxygen-ui';
-import { Link as LinkIcon, User, Folder } from '@wso2/oxygen-ui-icons-react';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { PageTitle, colors, Box } from '@wso2/oxygen-ui'
+import { Link as LinkIcon, User, Folder } from '@wso2/oxygen-ui-icons-react'
+import React from 'react'
 
 /**
  * PageTitle is a compound component for displaying page headers with optional subheaders.
@@ -70,10 +70,10 @@ import { Link as LinkIcon } from '@wso2/oxygen-ui-icons-react';
       description: 'The content of the PageTitle (typically Header and SubHeader components)',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof PageTitle>;
+export default meta
+type Story = StoryObj<typeof PageTitle>
 
 /**
  * Basic usage with both header and subheader.
@@ -85,7 +85,7 @@ export const Default: Story = {
       <PageTitle.SubHeader>Overview of your workspace and recent activity</PageTitle.SubHeader>
     </PageTitle>
   ),
-};
+}
 
 /**
  * Page title with avatar on the left side.
@@ -98,7 +98,7 @@ export const WithAvatar: Story = {
       <PageTitle.SubHeader>Software Engineer</PageTitle.SubHeader>
     </PageTitle>
   ),
-};
+}
 
 /**
  * Page title with avatar using an icon.
@@ -113,7 +113,7 @@ export const WithAvatarIcon: Story = {
       <PageTitle.SubHeader>Manage your account settings</PageTitle.SubHeader>
     </PageTitle>
   ),
-};
+}
 
 /**
  * Page title with a link below the subheader.
@@ -128,7 +128,7 @@ export const WithLink: Story = {
       </PageTitle.Link>
     </PageTitle>
   ),
-};
+}
 
 /**
  * Complete example with avatar, header, subheader, and link.
@@ -146,7 +146,7 @@ export const Complete: Story = {
       </PageTitle.Link>
     </PageTitle>
   ),
-};
+}
 
 /**
  * Page title with custom styling using the sx prop.
@@ -155,13 +155,15 @@ export const WithSxProp: Story = {
   render: () => (
     <PageTitle sx={{ mb: 4, p: 2, bgcolor: 'action.hover', borderRadius: 1 }}>
       <PageTitle.Header>Activity Logs</PageTitle.Header>
-      <PageTitle.SubHeader>View and monitor authentication events and system activities</PageTitle.SubHeader>
+      <PageTitle.SubHeader>
+        View and monitor authentication events and system activities
+      </PageTitle.SubHeader>
       <PageTitle.Link href="#" icon={<LinkIcon size={14} />}>
         View detailed logs
       </PageTitle.Link>
     </PageTitle>
   ),
-};
+}
 
 /**
  * Full example with BackButton, Avatar, Header, SubHeader, Link, and Actions.
@@ -170,24 +172,33 @@ export const FullExample: Story = {
   render: () => (
     <PageTitle>
       <PageTitle.BackButton component={<a href="#" />} />
-      <PageTitle.Avatar sx={{ bgcolor: colors.deepPurple[500] }}>
-        E
-      </PageTitle.Avatar>
+      <PageTitle.Avatar sx={{ bgcolor: colors.deepPurple[500] }}>E</PageTitle.Avatar>
       <PageTitle.Header>E-Commerce Platform</PageTitle.Header>
-      <PageTitle.SubHeader>Complete authentication and user management system for e-commerce</PageTitle.SubHeader>
+      <PageTitle.SubHeader>
+        Complete authentication and user management system for e-commerce
+      </PageTitle.SubHeader>
       <PageTitle.Link href="#" icon={<LinkIcon size={14} />}>
         Link a Repository
       </PageTitle.Link>
       <PageTitle.Actions>
         <Box sx={{ display: 'flex', gap: 1 }}>
-          <button style={{ padding: '8px 16px', borderRadius: '4px', border: 'none', backgroundColor: '#1976d2', color: 'white', cursor: 'pointer' }}>
+          <button
+            style={{
+              padding: '8px 16px',
+              borderRadius: '4px',
+              border: 'none',
+              backgroundColor: '#1976d2',
+              color: 'white',
+              cursor: 'pointer',
+            }}
+          >
             Create
           </button>
         </Box>
       </PageTitle.Actions>
     </PageTitle>
   ),
-};
+}
 
 /**
  * Page title with custom styling on the container.
@@ -202,4 +213,4 @@ export const CustomStyling: Story = {
       </PageTitle.Link>
     </PageTitle>
   ),
-};
+}
