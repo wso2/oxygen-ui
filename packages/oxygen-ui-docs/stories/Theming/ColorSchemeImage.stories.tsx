@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { ColorSchemeImage, ColorSchemeToggle, Stack, Typography, Paper, Box } from '@wso2/oxygen-ui';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { ColorSchemeImage, ColorSchemeToggle, Stack, Typography, Paper, Box } from '@wso2/oxygen-ui'
 
 const meta: Meta<typeof ColorSchemeImage> = {
   title: 'Theming/ColorSchemeImage',
@@ -51,21 +51,34 @@ const meta: Meta<typeof ColorSchemeImage> = {
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof ColorSchemeImage>;
+export default meta
+type Story = StoryObj<typeof ColorSchemeImage>
 
 export const Default: Story = {
   render: () => (
-    <Stack spacing={3} alignItems="center">
-      <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', maxWidth: 400 }}>
+    <Stack
+      spacing={3}
+      sx={{
+        alignItems: 'center',
+      }}
+    >
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+          textAlign: 'center',
+          maxWidth: 400,
+        }}
+      >
         Toggle the color scheme to see the illustration change
       </Typography>
       <Paper elevation={2} sx={{ p: 3, bgcolor: 'background.paper' }}>
         <ColorSchemeImage
           src={{
-            light: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjVGNUY1Ii8+CjxjaXJjbGUgY3g9IjYwIiBjeT0iNDAiIHI9IjI1IiBmaWxsPSIjRkZENTREIi8+CjxwYXRoIGQ9Ik0wIDIwMFExNTAgMTIwIDMwMCAyMDBWMjAwSDBaIiBmaWxsPSIjNEZBRjZGIi8+CjxwYXRoIGQ9Ik0wIDE4MFExNTAgMTAwIDMwMCAxODBWMjAwSDBWMTgwWiIgZmlsbD0iIzY2QkI2QSIvPgo8cmVjdCB4PSI4MCIgeT0iMTYwIiB3aWR0aD0iMTAiIGhlaWdodD0iNDAiIGZpbGw9IiM4RDZFNjMiLz4KPGNpcmNsZSBjeD0iODUiIGN5PSIxNDUiIHI9IjIwIiBmaWxsPSIjNjZCQjZBIi8+CjxyZWN0IHg9IjE4MCIgeT0iMTUwIiB3aWR0aD0iMTAiIGhlaWdodD0iNTAiIGZpbGw9IiM4RDZFNjMiLz4KPGNpcmNsZSBjeD0iMTg1IiBjeT0iMTM1IiByPSIyNSIgZmlsbD0iIzZDQjc1NCIvPgo8dGV4dCB4PSIxNTAiIHk9IjcwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiMzMzMiIGZvbnQtd2VpZ2h0PSJib2xkIj5MaWdodCBNb2RlPC90ZXh0Pgo8L3N2Zz4=',
+            light:
+              'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjVGNUY1Ii8+CjxjaXJjbGUgY3g9IjYwIiBjeT0iNDAiIHI9IjI1IiBmaWxsPSIjRkZENTREIi8+CjxwYXRoIGQ9Ik0wIDIwMFExNTAgMTIwIDMwMCAyMDBWMjAwSDBaIiBmaWxsPSIjNEZBRjZGIi8+CjxwYXRoIGQ9Ik0wIDE4MFExNTAgMTAwIDMwMCAxODBWMjAwSDBWMTgwWiIgZmlsbD0iIzY2QkI2QSIvPgo8cmVjdCB4PSI4MCIgeT0iMTYwIiB3aWR0aD0iMTAiIGhlaWdodD0iNDAiIGZpbGw9IiM4RDZFNjMiLz4KPGNpcmNsZSBjeD0iODUiIGN5PSIxNDUiIHI9IjIwIiBmaWxsPSIjNjZCQjZBIi8+CjxyZWN0IHg9IjE4MCIgeT0iMTUwIiB3aWR0aD0iMTAiIGhlaWdodD0iNTAiIGZpbGw9IiM4RDZFNjMiLz4KPGNpcmNsZSBjeD0iMTg1IiBjeT0iMTM1IiByPSIyNSIgZmlsbD0iIzZDQjc1NCIvPgo8dGV4dCB4PSIxNTAiIHk9IjcwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiMzMzMiIGZvbnQtd2VpZ2h0PSJib2xkIj5MaWdodCBNb2RlPC90ZXh0Pgo8L3N2Zz4=',
             dark: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMUUxRTFFIi8+CjxjaXJjbGUgY3g9IjI0MCIgY3k9IjQwIiByPSIyMCIgZmlsbD0iI0YwRjBGMCIvPgo8Y2lyY2xlIGN4PSIyNDUiIGN5PSI0NSIgcj0iMTgiIGZpbGw9IiMxRTFFMUUiLz4KPGNpcmNsZSBjeD0iNTAiIGN5PSI2MCIgcj0iMiIgZmlsbD0iI0YwRjBGMCIvPgo8Y2lyY2xlIGN4PSIxMDAiIGN5PSI0MCIgcj0iMSIgZmlsbD0iI0YwRjBGMCIvPgo8Y2lyY2xlIGN4PSIyNzAiIGN5PSI5MCIgcj0iMS41IiBmaWxsPSIjRjBGMEYwIi8+CjxjaXJjbGUgY3g9IjIwIiBjeT0iMzAiIHI9IjEiIGZpbGw9IiNGMEYwRjAiLz4KPHBhdGggZD0iTTAgMjAwUTE1MCAxMjAgMzAwIDIwMFYyMDBIMFoiIGZpbGw9IiMyQzJDNTQiLz4KPHBhdGggZD0iTTAgMTgwUTE1MCAxMDAgMzAwIDE4MFYyMDBIMFYxODBaIiBmaWxsPSIjMzQzNDY0Ii8+CjxyZWN0IHg9IjgwIiB5PSIxNjAiIHdpZHRoPSIxMCIgaGVpZ2h0PSI0MCIgZmlsbD0iIzRBNEE0QSIvPgo8Y2lyY2xlIGN4PSI4NSIgY3k9IjE0NSIgcj0iMjAiIGZpbGw9IiMzNDM0NjQiLz4KPHJlY3QgeD0iMTgwIiB5PSIxNTAiIHdpZHRoPSIxMCIgaGVpZ2h0PSI1MCIgZmlsbD0iIzRBNEE0QSIvPgo8Y2lyY2xlIGN4PSIxODUiIGN5PSIxMzUiIHI9IjI1IiBmaWxsPSIjMkMyQzU0Ii8+Cjx0ZXh0IHg9IjE1MCIgeT0iNzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iI0YwRjBGMCIgZm9udC13ZWlnaHQ9ImJvbGQiPkRhcmsgTW9kZTwvdGV4dD4KPC9zdmc+',
           }}
           alt="Theme-aware landscape illustration"
@@ -76,4 +89,4 @@ export const Default: Story = {
       <ColorSchemeToggle />
     </Stack>
   ),
-};
+}

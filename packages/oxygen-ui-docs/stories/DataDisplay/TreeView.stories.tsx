@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { TreeView } from '@wso2/oxygen-ui';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { TreeView } from '@wso2/oxygen-ui'
 
-const { SimpleTreeView, TreeItem } = TreeView;
+const { SimpleTreeView, TreeItem } = TreeView
 
 /**
  * MUI X Tree View provides components for displaying hierarchical data.
- * 
+ *
  * Read more at: https://mui.com/x/react-tree-view/
  */
 const meta: Meta<typeof SimpleTreeView> = {
@@ -34,17 +34,18 @@ const meta: Meta<typeof SimpleTreeView> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI tree view components are direct imports of MUI X Tree View. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/x/react-tree-view/](https://mui.com/x/react-tree-view/)',
+        component:
+          'Oxygen UI tree view components are direct imports of MUI X Tree View. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/x/react-tree-view/](https://mui.com/x/react-tree-view/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof SimpleTreeView>;
+export default meta
+type Story = StoryObj<typeof SimpleTreeView>
 
 export const BasicTreeView: Story = {
   render: () => (
@@ -60,7 +61,7 @@ export const BasicTreeView: Story = {
       </TreeItem>
     </SimpleTreeView>
   ),
-};
+}
 
 export const ExpandedTreeView: Story = {
   render: () => (
@@ -76,7 +77,7 @@ export const ExpandedTreeView: Story = {
       </TreeItem>
     </SimpleTreeView>
   ),
-};
+}
 
 export const FileSystemTree: Story = {
   render: () => (
@@ -103,7 +104,7 @@ export const FileSystemTree: Story = {
       </TreeItem>
     </SimpleTreeView>
   ),
-};
+}
 
 export const SelectedTreeView: Story = {
   render: () => (
@@ -118,4 +119,4 @@ export const SelectedTreeView: Story = {
       </TreeItem>
     </SimpleTreeView>
   ),
-};
+}

@@ -16,13 +16,22 @@
  * under the License.
  */
 
-import React, { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { List, ListItem, ListItemText, Checkbox, Button, Paper, Box, ListItemIcon } from '@wso2/oxygen-ui';
+import React, { useState } from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import {
+  List,
+  ListItem,
+  ListItemText,
+  Checkbox,
+  Button,
+  Paper,
+  Box,
+  ListItemIcon,
+} from '@wso2/oxygen-ui'
 
 /**
  * Transfer List allows users to move items between two lists.
- * 
+ *
  * Read more at: https://mui.com/material-ui/react-transfer-list/
  */
 const meta: Meta = {
@@ -31,28 +40,29 @@ const meta: Meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Transfer List is a compound component pattern using MUI List, Button, and Checkbox components. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-transfer-list/](https://mui.com/material-ui/react-transfer-list/)',
+        component:
+          'Transfer List is a compound component pattern using MUI List, Button, and Checkbox components. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-transfer-list/](https://mui.com/material-ui/react-transfer-list/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 function not(a: readonly number[], b: readonly number[]) {
-  return a.filter((value) => b.indexOf(value) === -1);
+  return a.filter(value => b.indexOf(value) === -1)
 }
 
 function intersection(a: readonly number[], b: readonly number[]) {
-  return a.filter((value) => b.indexOf(value) !== -1);
+  return a.filter(value => b.indexOf(value) !== -1)
 }
 
 function union(a: readonly number[], b: readonly number[]) {
-  return [...a, ...not(b, a)];
+  return [...a, ...not(b, a)]
 }
 
 /**
@@ -60,47 +70,47 @@ function union(a: readonly number[], b: readonly number[]) {
  */
 export const Basic: Story = {
   render: () => {
-    const [checked, setChecked] = useState<readonly number[]>([]);
-    const [left, setLeft] = useState<readonly number[]>([0, 1, 2, 3]);
-    const [right, setRight] = useState<readonly number[]>([4, 5, 6, 7]);
+    const [checked, setChecked] = useState<readonly number[]>([])
+    const [left, setLeft] = useState<readonly number[]>([0, 1, 2, 3])
+    const [right, setRight] = useState<readonly number[]>([4, 5, 6, 7])
 
-    const leftChecked = intersection(checked, left);
-    const rightChecked = intersection(checked, right);
+    const leftChecked = intersection(checked, left)
+    const rightChecked = intersection(checked, right)
 
     const handleToggle = (value: number) => () => {
-      const currentIndex = checked.indexOf(value);
-      const newChecked = [...checked];
+      const currentIndex = checked.indexOf(value)
+      const newChecked = [...checked]
 
       if (currentIndex === -1) {
-        newChecked.push(value);
+        newChecked.push(value)
       } else {
-        newChecked.splice(currentIndex, 1);
+        newChecked.splice(currentIndex, 1)
       }
 
-      setChecked(newChecked);
-    };
+      setChecked(newChecked)
+    }
 
-    const numberOfChecked = (items: readonly number[]) => intersection(checked, items).length;
+    const numberOfChecked = (items: readonly number[]) => intersection(checked, items).length
 
     const handleToggleAll = (items: readonly number[]) => () => {
       if (numberOfChecked(items) === items.length) {
-        setChecked(not(checked, items));
+        setChecked(not(checked, items))
       } else {
-        setChecked(union(checked, items));
+        setChecked(union(checked, items))
       }
-    };
+    }
 
     const handleCheckedRight = () => {
-      setRight(right.concat(leftChecked));
-      setLeft(not(left, leftChecked));
-      setChecked(not(checked, leftChecked));
-    };
+      setRight(right.concat(leftChecked))
+      setLeft(not(left, leftChecked))
+      setChecked(not(checked, leftChecked))
+    }
 
     const handleCheckedLeft = () => {
-      setLeft(left.concat(rightChecked));
-      setRight(not(right, rightChecked));
-      setChecked(not(checked, rightChecked));
-    };
+      setLeft(left.concat(rightChecked))
+      setRight(not(right, rightChecked))
+      setChecked(not(checked, rightChecked))
+    }
 
     const customList = (title: React.ReactNode, items: readonly number[]) => (
       <Paper sx={{ width: 200, height: 230, overflow: 'auto' }}>
@@ -124,7 +134,7 @@ export const Basic: Story = {
             <ListItemText primary={title} />
           </ListItem>
           {items.map((value: number) => {
-            const labelId = `transfer-list-all-item-${value}-label`;
+            const labelId = `transfer-list-all-item-${value}-label`
 
             return (
               <ListItem key={value} role="listitem" onClick={handleToggle(value)}>
@@ -142,11 +152,11 @@ export const Basic: Story = {
                 </ListItemIcon>
                 <ListItemText id={labelId} primary={`Item ${value + 1}`} />
               </ListItem>
-            );
+            )
           })}
         </List>
       </Paper>
-    );
+    )
 
     return (
       <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', alignItems: 'center' }}>
@@ -175,62 +185,62 @@ export const Basic: Story = {
         </Box>
         <Box>{customList('Chosen', right)}</Box>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Enhanced transfer list with search
  */
 export const Enhanced: Story = {
   render: () => {
-    const [checked, setChecked] = useState<readonly number[]>([]);
-    const [left, setLeft] = useState<readonly number[]>([0, 1, 2, 3, 4, 5, 6]);
-    const [right, setRight] = useState<readonly number[]>([7, 8, 9, 10]);
+    const [checked, setChecked] = useState<readonly number[]>([])
+    const [left, setLeft] = useState<readonly number[]>([0, 1, 2, 3, 4, 5, 6])
+    const [right, setRight] = useState<readonly number[]>([7, 8, 9, 10])
 
-    const leftChecked = intersection(checked, left);
-    const rightChecked = intersection(checked, right);
+    const leftChecked = intersection(checked, left)
+    const rightChecked = intersection(checked, right)
 
     const handleToggle = (value: number) => () => {
-      const currentIndex = checked.indexOf(value);
-      const newChecked = [...checked];
+      const currentIndex = checked.indexOf(value)
+      const newChecked = [...checked]
 
       if (currentIndex === -1) {
-        newChecked.push(value);
+        newChecked.push(value)
       } else {
-        newChecked.splice(currentIndex, 1);
+        newChecked.splice(currentIndex, 1)
       }
 
-      setChecked(newChecked);
-    };
+      setChecked(newChecked)
+    }
 
     const handleAllRight = () => {
-      setRight(right.concat(left));
-      setLeft([]);
-    };
+      setRight(right.concat(left))
+      setLeft([])
+    }
 
     const handleCheckedRight = () => {
-      setRight(right.concat(leftChecked));
-      setLeft(not(left, leftChecked));
-      setChecked(not(checked, leftChecked));
-    };
+      setRight(right.concat(leftChecked))
+      setLeft(not(left, leftChecked))
+      setChecked(not(checked, leftChecked))
+    }
 
     const handleCheckedLeft = () => {
-      setLeft(left.concat(rightChecked));
-      setRight(not(right, rightChecked));
-      setChecked(not(checked, rightChecked));
-    };
+      setLeft(left.concat(rightChecked))
+      setRight(not(right, rightChecked))
+      setChecked(not(checked, rightChecked))
+    }
 
     const handleAllLeft = () => {
-      setLeft(left.concat(right));
-      setRight([]);
-    };
+      setLeft(left.concat(right))
+      setRight([])
+    }
 
     const customList = (items: readonly number[]) => (
       <Paper sx={{ width: 200, height: 230, overflow: 'auto' }}>
         <List dense component="div" role="list">
           {items.map((value: number) => {
-            const labelId = `transfer-list-item-${value}-label`;
+            const labelId = `transfer-list-item-${value}-label`
 
             return (
               <ListItem key={value} role="listitem" onClick={handleToggle(value)}>
@@ -248,11 +258,11 @@ export const Enhanced: Story = {
                 </ListItemIcon>
                 <ListItemText id={labelId} primary={`List item ${value + 1}`} />
               </ListItem>
-            );
+            )
           })}
         </List>
       </Paper>
-    );
+    )
 
     return (
       <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', alignItems: 'center' }}>
@@ -301,6 +311,6 @@ export const Enhanced: Story = {
         </Box>
         <Box>{customList(right)}</Box>
       </Box>
-    );
+    )
   },
-};
+}

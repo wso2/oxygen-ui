@@ -16,11 +16,11 @@
  * under the License.
  */
 
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { Stack, Typography, CodeBlock, Box, Divider } from '@wso2/oxygen-ui';
-import {Description, Primary, Subtitle, Title} from '@storybook/addon-docs/blocks';
-import CenterContentLayout from '../layouts/CenterContentLayout';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { Stack, Typography, CodeBlock, Box, Divider } from '@wso2/oxygen-ui'
+import { Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks'
+import CenterContentLayout from '../layouts/CenterContentLayout'
 
 /**
  * A comprehensive guide to adding runtime theme support to your application.
@@ -41,10 +41,10 @@ const meta: Meta = {
       ),
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 /**
  * Introduction to runtime theme support in Oxygen UI.
@@ -58,9 +58,16 @@ export const Overview: Story = {
           <Typography variant="h2" gutterBottom>
             Runtime Theme Support
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-            This guide demonstrates how to implement runtime theme support in your Oxygen UI application. 
-            Runtime themes allow you to configure and modify themes without rebuilding your application.
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+              mt: 2,
+            }}
+          >
+            This guide demonstrates how to implement runtime theme support in your Oxygen UI
+            application. Runtime themes allow you to configure and modify themes without rebuilding
+            your application.
           </Typography>
         </Box>
 
@@ -72,34 +79,74 @@ export const Overview: Story = {
           </Typography>
           <Stack spacing={2} sx={{ pl: 2 }}>
             <Box>
-              <Typography variant="body2" fontWeight="medium">
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 'medium',
+                }}
+              >
                 📝 Configure themes via external configuration files
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
                 Define themes in a config.js file that can be modified after deployment
               </Typography>
             </Box>
             <Box>
-              <Typography variant="body2" fontWeight="medium">
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 'medium',
+                }}
+              >
                 📂 Load themes from relative paths without rebuilding
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
                 Place theme files in your public folder and reference them by path
               </Typography>
             </Box>
             <Box>
-              <Typography variant="body2" fontWeight="medium">
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 'medium',
+                }}
+              >
                 🔄 Support both inline theme objects and external theme files
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
                 Mix inline configurations with file-based themes for flexibility
               </Typography>
             </Box>
             <Box>
-              <Typography variant="body2" fontWeight="medium">
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 'medium',
+                }}
+              >
                 🎨 Enable theme switching without code changes
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
                 Users can switch between all configured themes at runtime
               </Typography>
             </Box>
@@ -114,34 +161,74 @@ export const Overview: Story = {
           </Typography>
           <Stack spacing={2} sx={{ pl: 2 }}>
             <Box>
-              <Typography variant="body2" fontWeight="medium">
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 'medium',
+                }}
+              >
                 1. config.js
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
                 Runtime configuration loaded via script tag before app initialization
               </Typography>
             </Box>
             <Box>
-              <Typography variant="body2" fontWeight="medium">
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 'medium',
+                }}
+              >
                 2. index.html
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
                 Loads config.js before your app bundle
               </Typography>
             </Box>
             <Box>
-              <Typography variant="body2" fontWeight="medium">
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 'medium',
+                }}
+              >
                 3. main.tsx
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
                 App setup with theme loading and initialization logic
               </Typography>
             </Box>
             <Box>
-              <Typography variant="body2" fontWeight="medium">
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 'medium',
+                }}
+              >
                 4. Theme Files
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
                 External .js files with theme configurations (optional)
               </Typography>
             </Box>
@@ -154,24 +241,48 @@ export const Overview: Story = {
           <Typography variant="h4" gutterBottom>
             🔒 Security
           </Typography>
-          <Typography variant="body2" paragraph>
+          <Typography variant="body2" sx={{ mb: 2 }}>
             For security, only same-origin theme files are allowed:
           </Typography>
           <Stack spacing={1} sx={{ pl: 2 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Typography variant="body2" fontWeight="medium" color="success.main">✅</Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 'medium',
+                  color: 'success.main',
+                }}
+              >
+                ✅
+              </Typography>
               <Typography variant="body2">
                 <strong>Relative paths</strong> - <code>"themes/CustomTheme.js"</code>
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Typography variant="body2" fontWeight="medium" color="success.main">✅</Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 'medium',
+                  color: 'success.main',
+                }}
+              >
+                ✅
+              </Typography>
               <Typography variant="body2">
                 <strong>Absolute same-origin paths</strong> - <code>"/themes/CustomTheme.js"</code>
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Typography variant="body2" fontWeight="medium" color="error.main">❌</Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 'medium',
+                  color: 'error.main',
+                }}
+              >
+                ❌
+              </Typography>
               <Typography variant="body2">
                 <strong>External/cross-origin URLs</strong> - Blocked for security
               </Typography>
@@ -194,20 +305,24 @@ export const Overview: Story = {
         </Box>
 
         <Box sx={{ bgcolor: 'info.main', p: 2, borderRadius: 1, mt: 2 }}>
-          <Typography variant="body2" fontWeight="medium" gutterBottom>
+          <Typography
+            variant="body2"
+            gutterBottom
+            sx={{
+              fontWeight: 'medium',
+            }}
+          >
             📖 Follow the Steps Below
           </Typography>
           <Typography variant="body2">
-            This guide walks through the complete implementation process step by step.
-            Start with Step 1 to create your runtime configuration file.
+            This guide walks through the complete implementation process step by step. Start with
+            Step 1 to create your runtime configuration file.
           </Typography>
         </Box>
       </Stack>
     </CenterContentLayout>
   ),
-};
-
-
+}
 
 /**
  * Step 1: Create the runtime configuration file (config.js).
@@ -221,14 +336,21 @@ export const Step1_ConfigFile: Story = {
           <Typography variant="h2" gutterBottom>
             Step 1: Create config.js
           </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
-          Create a <code>public/config.js</code> file in your project root. This file will be loaded at runtime.
-        </Typography>
-      </Box>
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+              mb: 2,
+            }}
+          >
+            Create a <code>public/config.js</code> file in your project root. This file will be
+            loaded at runtime.
+          </Typography>
+        </Box>
 
-      <CodeBlock 
-        language="javascript"
-        code={`// public/config.js
+        <CodeBlock
+          language="javascript"
+          code={`// public/config.js
 /* eslint-disable no-undef */
 window.__APP_RUNTIME_CONFIG__ = {
   design: {
@@ -270,25 +392,38 @@ window.__APP_RUNTIME_CONFIG__ = {
     ]
   }
 };`}
-      />
+        />
 
-      <Box sx={{ bgcolor: 'background.paper', p: 2, borderRadius: 1 }}>
-        <Typography variant="body2" color="primary" fontWeight="medium">
-          💡 Key Points
-        </Typography>
-        <Typography variant="body2" component="ul" sx={{ mt: 1, pl: 2 }}>
-          <li>Use <code>window.__APP_RUNTIME_CONFIG__</code> as the global variable</li>
-          <li>Themes can be inline objects or string paths to same-origin files</li>
-          <li>Both relative (<code>"themes/Theme.js"</code>) and absolute (<code>"/themes/Theme.js"</code>) paths are supported</li>
-          <li>External/cross-origin URLs are blocked for security</li>
-          <li>Set <code>initialTheme</code> to specify which theme loads by default</li>
-          <li>This file can be modified after deployment without rebuilding</li>
-        </Typography>
-      </Box>
+        <Box sx={{ bgcolor: 'background.paper', p: 2, borderRadius: 1 }}>
+          <Typography
+            variant="body2"
+            color="primary"
+            sx={{
+              fontWeight: 'medium',
+            }}
+          >
+            💡 Key Points
+          </Typography>
+          <Typography variant="body2" component="ul" sx={{ mt: 1, pl: 2 }}>
+            <li>
+              Use <code>window.__APP_RUNTIME_CONFIG__</code> as the global variable
+            </li>
+            <li>Themes can be inline objects or string paths to same-origin files</li>
+            <li>
+              Both relative (<code>"themes/Theme.js"</code>) and absolute (
+              <code>"/themes/Theme.js"</code>) paths are supported
+            </li>
+            <li>External/cross-origin URLs are blocked for security</li>
+            <li>
+              Set <code>initialTheme</code> to specify which theme loads by default
+            </li>
+            <li>This file can be modified after deployment without rebuilding</li>
+          </Typography>
+        </Box>
       </Stack>
     </CenterContentLayout>
   ),
-};
+}
 
 /**
  * Step 2: Create an external theme file.
@@ -302,14 +437,20 @@ export const Step2_ExternalThemeFile: Story = {
           <Typography variant="h2" gutterBottom>
             Step 2: Create External Theme File (Optional)
           </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
-          Create <code>public/themes/CorporateTheme.js</code> for externally loaded themes.
-        </Typography>
-      </Box>
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+              mb: 2,
+            }}
+          >
+            Create <code>public/themes/CorporateTheme.js</code> for externally loaded themes.
+          </Typography>
+        </Box>
 
-      <CodeBlock 
-        language="javascript"
-        code={`// public/themes/CorporateTheme.js
+        <CodeBlock
+          language="javascript"
+          code={`// public/themes/CorporateTheme.js
 const corporateThemeConfig = {
   colorSchemes: {
     light: {
@@ -358,23 +499,33 @@ const corporateThemeConfig = {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports.default = corporateThemeConfig;
 }`}
-      />
+        />
 
-      <Box sx={{ bgcolor: 'background.paper', p: 2, borderRadius: 1 }}>
-        <Typography variant="body2" color="primary" fontWeight="medium">
-          💡 File Requirements
-        </Typography>
-        <Typography variant="body2" component="ul" sx={{ mt: 1, pl: 2 }}>
-          <li>Must export via <code>module.exports.default</code></li>
-          <li>Export a plain configuration object (not a Theme instance)</li>
-          <li>File will be loaded via fetch() and evaluated at runtime</li>
-          <li>Configuration will be converted to a theme using <code>createOxygenTheme()</code></li>
-        </Typography>
-      </Box>
+        <Box sx={{ bgcolor: 'background.paper', p: 2, borderRadius: 1 }}>
+          <Typography
+            variant="body2"
+            color="primary"
+            sx={{
+              fontWeight: 'medium',
+            }}
+          >
+            💡 File Requirements
+          </Typography>
+          <Typography variant="body2" component="ul" sx={{ mt: 1, pl: 2 }}>
+            <li>
+              Must export via <code>module.exports.default</code>
+            </li>
+            <li>Export a plain configuration object (not a Theme instance)</li>
+            <li>File will be loaded via fetch() and evaluated at runtime</li>
+            <li>
+              Configuration will be converted to a theme using <code>createOxygenTheme()</code>
+            </li>
+          </Typography>
+        </Box>
       </Stack>
     </CenterContentLayout>
   ),
-};
+}
 
 /**
  * Step 3: Load config.js in your HTML file.
@@ -388,14 +539,20 @@ export const Step3_IndexHTML: Story = {
           <Typography variant="h2" gutterBottom>
             Step 3: Load Config in index.html
           </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
-          Add a script tag to load <code>config.js</code> before your app bundle.
-        </Typography>
-      </Box>
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+              mb: 2,
+            }}
+          >
+            Add a script tag to load <code>config.js</code> before your app bundle.
+          </Typography>
+        </Box>
 
-      <CodeBlock 
-        language="html"
-        code={`<!doctype html>
+        <CodeBlock
+          language="html"
+          code={`<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -412,21 +569,26 @@ export const Step3_IndexHTML: Story = {
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>`}
-      />
+        />
 
-      <Box sx={{ bgcolor: 'warning.main', p: 2, borderRadius: 1 }}>
-        <Typography variant="body2" fontWeight="medium">
-          ⚠️ Load Order is Critical
-        </Typography>
-        <Typography variant="body2" sx={{ mt: 1 }}>
-          The config.js script must be loaded <strong>before</strong> your app bundle to ensure{' '}
-          <code>window.__APP_RUNTIME_CONFIG__</code> is available when your app initializes.
-        </Typography>
-      </Box>
+        <Box sx={{ bgcolor: 'warning.main', p: 2, borderRadius: 1 }}>
+          <Typography
+            variant="body2"
+            sx={{
+              fontWeight: 'medium',
+            }}
+          >
+            ⚠️ Load Order is Critical
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            The config.js script must be loaded <strong>before</strong> your app bundle to ensure{' '}
+            <code>window.__APP_RUNTIME_CONFIG__</code> is available when your app initializes.
+          </Typography>
+        </Box>
       </Stack>
     </CenterContentLayout>
   ),
-};
+}
 
 /**
  * Step 4: Set up your main application file.
@@ -440,14 +602,20 @@ export const Step4_MainSetup: Story = {
           <Typography variant="h2" gutterBottom>
             Step 4: Setup main.tsx
           </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
-          Configure TypeScript types and implement the config loader.
-        </Typography>
-      </Box>
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+              mb: 2,
+            }}
+          >
+            Configure TypeScript types and implement the config loader.
+          </Typography>
+        </Box>
 
-      <CodeBlock 
-        language="tsx"
-        code={`// src/main.tsx
+        <CodeBlock
+          language="tsx"
+          code={`// src/main.tsx
 import {
   OxygenUIThemeProvider,
   createOxygenTheme,
@@ -496,11 +664,11 @@ function loadConfig() {
 }
 
 const APP_CONFIG = loadConfig();`}
-      />
+        />
       </Stack>
     </CenterContentLayout>
   ),
-};
+}
 
 /**
  * Step 5: Initialize OxygenUIThemeProvider with runtime themes.
@@ -514,14 +682,20 @@ export const Step5_ThemeProvider: Story = {
           <Typography variant="h2" gutterBottom>
             Step 5: Initialize Theme Provider
           </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
-          Combine built-in themes with runtime-loaded themes in OxygenUIThemeProvider.
-        </Typography>
-      </Box>
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+              mb: 2,
+            }}
+          >
+            Combine built-in themes with runtime-loaded themes in OxygenUIThemeProvider.
+          </Typography>
+        </Box>
 
-      <CodeBlock 
-        language="tsx"
-        code={`// src/main.tsx (continued)
+        <CodeBlock
+          language="tsx"
+          code={`// src/main.tsx (continued)
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -559,23 +733,39 @@ createRoot(document.getElementById('root')!).render(
     </OxygenUIThemeProvider>
   </StrictMode>
 );`}
-      />
+        />
 
-      <Box sx={{ bgcolor: 'background.paper', p: 2, borderRadius: 1 }}>
-        <Typography variant="body2" color="primary" fontWeight="medium">
-          💡 How It Works
-        </Typography>
-        <Typography variant="body2" component="ul" sx={{ mt: 1, pl: 2 }}>
-          <li>String paths (e.g., <code>"/themes/CorporateTheme.js"</code>) are loaded asynchronously by the provider</li>
-          <li>Inline objects are converted to theme instances using <code>createOxygenTheme()</code></li>
-          <li><code>onThemesLoaded</code> callback fires when all themes (including external files) are ready</li>
-          <li>Users can switch between all themes via <code>ThemeSwitcher</code> component</li>
-        </Typography>
-      </Box>
+        <Box sx={{ bgcolor: 'background.paper', p: 2, borderRadius: 1 }}>
+          <Typography
+            variant="body2"
+            color="primary"
+            sx={{
+              fontWeight: 'medium',
+            }}
+          >
+            💡 How It Works
+          </Typography>
+          <Typography variant="body2" component="ul" sx={{ mt: 1, pl: 2 }}>
+            <li>
+              String paths (e.g., <code>"/themes/CorporateTheme.js"</code>) are loaded
+              asynchronously by the provider
+            </li>
+            <li>
+              Inline objects are converted to theme instances using <code>createOxygenTheme()</code>
+            </li>
+            <li>
+              <code>onThemesLoaded</code> callback fires when all themes (including external files)
+              are ready
+            </li>
+            <li>
+              Users can switch between all themes via <code>ThemeSwitcher</code> component
+            </li>
+          </Typography>
+        </Box>
       </Stack>
     </CenterContentLayout>
   ),
-};
+}
 
 /**
  * Step 6: Security Information.
@@ -589,45 +779,94 @@ export const Step6_Security: Story = {
           <Typography variant="h2" gutterBottom>
             Step 6: Security Information
           </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
-          OxygenUIThemeProvider includes built-in security validation that only allows 
-          same-origin theme files for your protection.
-        </Typography>
-      </Box>
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+              mb: 2,
+            }}
+          >
+            OxygenUIThemeProvider includes built-in security validation that only allows same-origin
+            theme files for your protection.
+          </Typography>
+        </Box>
 
-      <Box sx={{ bgcolor: 'success.main', p: 2, borderRadius: 1, mb: 2 }}>
-        <Typography variant="body2" fontWeight="medium" gutterBottom>
-          ✅ Allowed (Same-Origin Only)
-        </Typography>
-        <Typography variant="body2" component="ul" sx={{ pl: 2 }}>
-          <li><strong>Relative paths</strong> - <code>"themes/CustomTheme.js"</code></li>
-          <li><strong>Absolute paths</strong> - <code>"/themes/CustomTheme.js"</code></li>
-          <li><strong>Full same-origin URLs</strong> - <code>https://your-app.com/themes/theme.js</code></li>
-          <li><strong>Inline objects</strong> - No file loading, always safe</li>
-        </Typography>
-      </Box>
+        <Box sx={{ bgcolor: 'success.main', p: 2, borderRadius: 1, mb: 2 }}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            sx={{
+              fontWeight: 'medium',
+            }}
+          >
+            ✅ Allowed (Same-Origin Only)
+          </Typography>
+          <Typography variant="body2" component="ul" sx={{ pl: 2 }}>
+            <li>
+              <strong>Relative paths</strong> - <code>"themes/CustomTheme.js"</code>
+            </li>
+            <li>
+              <strong>Absolute paths</strong> - <code>"/themes/CustomTheme.js"</code>
+            </li>
+            <li>
+              <strong>Full same-origin URLs</strong> -{' '}
+              <code>https://your-app.com/themes/theme.js</code>
+            </li>
+            <li>
+              <strong>Inline objects</strong> - No file loading, always safe
+            </li>
+          </Typography>
+        </Box>
 
-      <Box sx={{ bgcolor: 'error.main', p: 2, borderRadius: 1, mb: 2 }}>
-        <Typography variant="body2" fontWeight="medium" gutterBottom>
-          🚫 Blocked for Security
-        </Typography>
-        <Typography variant="body2" component="ul" sx={{ pl: 2 }}>
-          <li><strong>External/cross-origin URLs</strong> - <code>https://cdn.example.com/theme.js</code></li>
-          <li><strong>javascript: URLs</strong> - Always blocked</li>
-          <li><strong>data: URLs</strong> - Always blocked</li>
-          <li><strong>Invalid protocols</strong> - Non-http/https blocked</li>
-          <li><strong>Files with eval()</strong> - Rejected during load</li>
-          <li><strong>Files with Function()</strong> - Rejected during load</li>
-          <li><strong>Files over 500KB</strong> - Rejected (DoS prevention)</li>
-        </Typography>
-      </Box>
+        <Box sx={{ bgcolor: 'error.main', p: 2, borderRadius: 1, mb: 2 }}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            sx={{
+              fontWeight: 'medium',
+            }}
+          >
+            🚫 Blocked for Security
+          </Typography>
+          <Typography variant="body2" component="ul" sx={{ pl: 2 }}>
+            <li>
+              <strong>External/cross-origin URLs</strong> -{' '}
+              <code>https://cdn.example.com/theme.js</code>
+            </li>
+            <li>
+              <strong>javascript: URLs</strong> - Always blocked
+            </li>
+            <li>
+              <strong>data: URLs</strong> - Always blocked
+            </li>
+            <li>
+              <strong>Invalid protocols</strong> - Non-http/https blocked
+            </li>
+            <li>
+              <strong>Files with eval()</strong> - Rejected during load
+            </li>
+            <li>
+              <strong>Files with Function()</strong> - Rejected during load
+            </li>
+            <li>
+              <strong>Files over 500KB</strong> - Rejected (DoS prevention)
+            </li>
+          </Typography>
+        </Box>
 
-      <Typography variant="subtitle2" fontWeight="bold" gutterBottom sx={{ mt: 3 }}>
-        Example: Valid Theme Configurations
-      </Typography>
-      <CodeBlock 
-        language="tsx"
-        code={`<OxygenUIThemeProvider 
+        <Typography
+          variant="subtitle2"
+          gutterBottom
+          sx={{
+            fontWeight: 'bold',
+            mt: 3,
+          }}
+        >
+          Example: Valid Theme Configurations
+        </Typography>
+        <CodeBlock
+          language="tsx"
+          code={`<OxygenUIThemeProvider 
   themes={[
     // ✅ Inline theme object
     {
@@ -657,44 +896,56 @@ export const Step6_Security: Story = {
 >
   <App />
 </OxygenUIThemeProvider>`}
-      />
+        />
 
-      <Box sx={{ bgcolor: 'info.main', p: 2, borderRadius: 1, mt: 3 }}>
-        <Typography variant="body2" fontWeight="medium" gutterBottom>
-          🔒 Security Features
-        </Typography>
-        <Typography variant="body2" component="ul" sx={{ pl: 2 }}>
-          <li>Automatic same-origin validation for all theme URLs</li>
-          <li>Protocol validation (http/https only)</li>
-          <li>Content-Type header validation for loaded files</li>
-          <li>Code size limits to prevent DoS attacks</li>
-          <li>Static code analysis blocking dangerous patterns</li>
-          <li>Safe module evaluation without arbitrary code execution</li>
-        </Typography>
-      </Box>
+        <Box sx={{ bgcolor: 'info.main', p: 2, borderRadius: 1, mt: 3 }}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            sx={{
+              fontWeight: 'medium',
+            }}
+          >
+            🔒 Security Features
+          </Typography>
+          <Typography variant="body2" component="ul" sx={{ pl: 2 }}>
+            <li>Automatic same-origin validation for all theme URLs</li>
+            <li>Protocol validation (http/https only)</li>
+            <li>Content-Type header validation for loaded files</li>
+            <li>Code size limits to prevent DoS attacks</li>
+            <li>Static code analysis blocking dangerous patterns</li>
+            <li>Safe module evaluation without arbitrary code execution</li>
+          </Typography>
+        </Box>
 
-      <Box sx={{ bgcolor: 'background.paper', p: 2, borderRadius: 1, mt: 3 }}>
-        <Typography variant="body2" fontWeight="medium" gutterBottom>
-          💡 Why Same-Origin Only?
-        </Typography>
-        <Typography variant="body2" sx={{ mt: 1 }}>
-          Theme files contain JavaScript code that runs in your application context. 
-          Allowing external URLs would create security risks:
-        </Typography>
-        <Typography variant="body2" component="ul" sx={{ pl: 2, mt: 1 }}>
-          <li>Malicious code injection from compromised CDNs</li>
-          <li>Data theft through theme code execution</li>
-          <li>Supply chain attacks via third-party themes</li>
-        </Typography>
-        <Typography variant="body2" sx={{ mt: 1 }}>
-          By restricting to same-origin, themes must be deployed with your application,
-          ensuring they go through your security review and deployment process.
-        </Typography>
-      </Box>
+        <Box sx={{ bgcolor: 'background.paper', p: 2, borderRadius: 1, mt: 3 }}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            sx={{
+              fontWeight: 'medium',
+            }}
+          >
+            💡 Why Same-Origin Only?
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            Theme files contain JavaScript code that runs in your application context. Allowing
+            external URLs would create security risks:
+          </Typography>
+          <Typography variant="body2" component="ul" sx={{ pl: 2, mt: 1 }}>
+            <li>Malicious code injection from compromised CDNs</li>
+            <li>Data theft through theme code execution</li>
+            <li>Supply chain attacks via third-party themes</li>
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            By restricting to same-origin, themes must be deployed with your application, ensuring
+            they go through your security review and deployment process.
+          </Typography>
+        </Box>
       </Stack>
     </CenterContentLayout>
   ),
-};
+}
 
 /**
  * Complete example showing all files together.
@@ -707,20 +958,32 @@ export const CompleteExample: Story = {
           <Typography variant="h2" gutterBottom>
             Complete Implementation
           </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
-          All files together in one view.
-        </Typography>
-      </Box>
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+              mb: 2,
+            }}
+          >
+            All files together in one view.
+          </Typography>
+        </Box>
 
-      <Divider />
+        <Divider />
 
-      <Box>
-        <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
-          📁 Project Structure
-        </Typography>
-        <CodeBlock 
-          language="bash"
-          code={`my-app/
+        <Box>
+          <Typography
+            variant="subtitle1"
+            gutterBottom
+            sx={{
+              fontWeight: 'bold',
+            }}
+          >
+            📁 Project Structure
+          </Typography>
+          <CodeBlock
+            language="bash"
+            code={`my-app/
 ├── public/
 │   ├── config.js              # Runtime configuration
 │   └── themes/
@@ -730,77 +993,148 @@ export const CompleteExample: Story = {
 │   ├── main.tsx               # App entry point
 │   └── App.tsx                # Your app components
 └── index.html                 # HTML template`}
-        />
-      </Box>
+          />
+        </Box>
 
-      <Divider />
+        <Divider />
 
-      <Box>
-        <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
-          🎨 Benefits of This Approach
-        </Typography>
-        <Stack spacing={2} sx={{ pl: 2 }}>
-          <Box>
-            <Typography variant="body2" fontWeight="medium">
-              ✅ No Rebuild Required
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Update themes by modifying config.js - no compilation needed
-            </Typography>
-          </Box>
-          
-          <Box>
-            <Typography variant="body2" fontWeight="medium">
-              ✅ Environment-Specific Themes
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Different config.js for dev, staging, production
-            </Typography>
-          </Box>
-          
-          <Box>
-            <Typography variant="body2" fontWeight="medium">
-              ✅ Customer Customization
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Each customer deployment can have unique themes
-            </Typography>
-          </Box>
-          
-          <Box>
-            <Typography variant="body2" fontWeight="medium">
-              ✅ Secure by Default
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Same-origin restriction ensures themes go through your deployment process
-            </Typography>
-          </Box>
-          
-          <Box>
-            <Typography variant="body2" fontWeight="medium">
-              ✅ Mix Built-in and Custom Themes
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Combine Oxygen's built-in themes with your custom ones
-            </Typography>
-          </Box>
-        </Stack>
-      </Box>
+        <Box>
+          <Typography
+            variant="subtitle1"
+            gutterBottom
+            sx={{
+              fontWeight: 'bold',
+            }}
+          >
+            🎨 Benefits of This Approach
+          </Typography>
+          <Stack spacing={2} sx={{ pl: 2 }}>
+            <Box>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 'medium',
+                }}
+              >
+                ✅ No Rebuild Required
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
+                Update themes by modifying config.js - no compilation needed
+              </Typography>
+            </Box>
 
-      <Divider />
+            <Box>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 'medium',
+                }}
+              >
+                ✅ Environment-Specific Themes
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
+                Different config.js for dev, staging, production
+              </Typography>
+            </Box>
 
-      <Box sx={{ bgcolor: 'info.main', p: 2, borderRadius: 1 }}>
-        <Typography variant="body2" fontWeight="medium" gutterBottom>
-          🚀 Next Steps
-        </Typography>
-        <Typography variant="body2" component="ol" sx={{ pl: 2 }}>
-          <li>Add <code>ThemeSwitcher</code> component to let users switch themes</li>
-          <li>Implement theme persistence using localStorage</li>
-          <li>Add color scheme toggle for light/dark mode switching</li>
-          <li>Create theme preview components for theme selection UI</li>
-        </Typography>
-      </Box>
+            <Box>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 'medium',
+                }}
+              >
+                ✅ Customer Customization
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
+                Each customer deployment can have unique themes
+              </Typography>
+            </Box>
+
+            <Box>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 'medium',
+                }}
+              >
+                ✅ Secure by Default
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
+                Same-origin restriction ensures themes go through your deployment process
+              </Typography>
+            </Box>
+
+            <Box>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 'medium',
+                }}
+              >
+                ✅ Mix Built-in and Custom Themes
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
+                Combine Oxygen's built-in themes with your custom ones
+              </Typography>
+            </Box>
+          </Stack>
+        </Box>
+
+        <Box>
+          <Typography variant="body2" fontWeight="medium">
+            ✅ Environment-Specific Themes
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Different config.js for dev, staging, production
+          </Typography>
+        </Box>
+
+        <Box sx={{ bgcolor: 'info.main', p: 2, borderRadius: 1 }}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            sx={{
+              fontWeight: 'medium',
+            }}
+          >
+            🚀 Next Steps
+          </Typography>
+          <Typography variant="body2" component="ol" sx={{ pl: 2 }}>
+            <li>
+              Add <code>ThemeSwitcher</code> component to let users switch themes
+            </li>
+            <li>Implement theme persistence using localStorage</li>
+            <li>Add color scheme toggle for light/dark mode switching</li>
+            <li>Create theme preview components for theme selection UI</li>
+          </Typography>
+        </Box>
       </Stack>
     </CenterContentLayout>
   ),
-};
+}
