@@ -20,7 +20,12 @@ import * as React from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import OxygenUIThemeProvider from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
-import { ContextSwitcher } from './index';
+import {
+  ContextSwitcher,
+  ContextSwitcherGroup,
+  ContextSwitcherLevel,
+  ContextSwitcherOption,
+} from './index';
 import type { ContextSwitcherValue } from './context';
 
 const Harness = ({
@@ -625,5 +630,290 @@ describe('ContextSwitcher accessibility', () => {
     expect(screen.queryByRole('button', { name: 'Project' })).toBeNull();
     expect(screen.getByRole('button', { name: 'Show Project' })).toBeDefined();
     expect(screen.queryByRole('button', { name: /Component/ })).toBeNull();
+  });
+});
+
+describe('ContextSwitcher', () => {
+  it('offers no show control while the first level is empty', () => {
+    render(<Harness />);
+
+    expect(screen.queryByRole('button', { name: /Show / })).toBeNull();
+  });
+
+  it('reads levels wrapped in a fragment', () => {
+    render(
+      <OxygenUIThemeProvider>
+        <ContextSwitcher value={{ organization: 'wso2' }} onChange={() => undefined}>
+          <>
+            <ContextSwitcherLevel id="organization" label="Organization">
+              <ContextSwitcherOption value="wso2">WSO2</ContextSwitcherOption>
+            </ContextSwitcherLevel>
+            <ContextSwitcherLevel id="project" label="Project">
+              <ContextSwitcherOption value="finance-web">Finance Web</ContextSwitcherOption>
+            </ContextSwitcherLevel>
+          </>
+        </ContextSwitcher>
+      </OxygenUIThemeProvider>
+    );
+
+    expect(screen.getByRole('button', { name: 'Organization: WSO2' })).toBeDefined();
+    expect(screen.getByRole('button', { name: 'Show Project' })).toBeDefined();
+  });
+
+  it('ignores a level that is wrapped in another component', () => {
+    const Wrapped = () => (
+      <ContextSwitcherLevel id="organization" label="Organization">
+        <ContextSwitcherOption value="wso2">WSO2</ContextSwitcherOption>
+      </ContextSwitcherLevel>
+    );
+
+    render(
+      <OxygenUIThemeProvider>
+        <ContextSwitcher value={{}} onChange={() => undefined}>
+          <Wrapped />
+        </ContextSwitcher>
+      </OxygenUIThemeProvider>
+    );
+
+    expect(screen.queryByRole('button', { name: 'Organization' })).toBeNull();
+  });
+
+  it('treats an empty-string selection as no selection', () => {
+    render(<Harness initial={{ organization: '' }} />);
+
+    expect(screen.getByRole('button', { name: 'Organization' })).toBeDefined();
+    expect(screen.queryByRole('button', { name: 'Show Project' })).toBeNull();
+  });
+
+  it('drops a value that does not belong to a level', () => {
+    const onChange = vi.fn();
+    render(
+      <OxygenUIThemeProvider>
+        <ContextSwitcher value={{ organization: 'wso2', extra: 'nope' }} onChange={onChange}>
+          <ContextSwitcherLevel id="organization" label="Organization">
+            <ContextSwitcherOption value="personal">Personal</ContextSwitcherOption>
+          </ContextSwitcherLevel>
+        </ContextSwitcher>
+      </OxygenUIThemeProvider>
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Organization: wso2' }));
+    fireEvent.click(screen.getByRole('option', { name: 'Personal' }));
+
+    expect(onChange).toHaveBeenCalledWith({ organization: 'personal' });
+  });
+
+  it('closes a deeper panel when that level leaves the chain', () => {
+    render(
+      <Harness initial={{ organization: 'wso2', project: 'finance-web', component: 'mis-arr' }} />
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Component: MIS ARR Backend' }));
+    expect(screen.getByRole('dialog', { name: 'Component' })).toBeDefined();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Organization: WSO2' }));
+    fireEvent.click(screen.getByRole('option', { name: 'Demo Organization' }));
+
+    expect(screen.queryByRole('dialog')).toBeNull();
+    expect(screen.queryByRole('button', { name: /Component/ })).toBeNull();
+  });
+
+  it('hides the show control icon from assistive tech', () => {
+    render(<Harness initial={{ organization: 'wso2' }} />);
+    const showProject = screen.getByRole('button', { name: 'Show Project' });
+
+    expect(showProject.querySelector('svg')?.getAttribute('aria-hidden')).toBe('true');
+  });
+});
+
+describe('ContextSwitcher.Level', () => {
+  it('must be rendered inside the chain', () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    expect(() =>
+      render(
+        <OxygenUIThemeProvider>
+          <ContextSwitcherLevel id="organization" label="Organization" />
+        </OxygenUIThemeProvider>
+      )
+    ).toThrow('ContextSwitcher.Level must be rendered inside ContextSwitcher');
+
+    consoleError.mockRestore();
+  });
+
+  it('shows the raw value when no option has that value', () => {
+    render(
+      <OxygenUIThemeProvider>
+        <ContextSwitcher value={{ organization: 'retired' }} onChange={() => undefined}>
+          <ContextSwitcherLevel id="organization" label="Organization">
+            <ContextSwitcherOption value="wso2">WSO2</ContextSwitcherOption>
+          </ContextSwitcherLevel>
+        </ContextSwitcher>
+      </OxygenUIThemeProvider>
+    );
+
+    expect(screen.getByRole('button', { name: 'Organization: retired' })).toBeDefined();
+  });
+
+  it('closes an empty revealed level without changing the selection', () => {
+    const onChange = vi.fn();
+    render(<Harness initial={{ organization: 'wso2' }} onChange={onChange} />);
+
+    show('Project');
+    fireEvent.click(screen.getByRole('button', { name: 'Close Project' }));
+
+    expect(onChange).toHaveBeenCalledWith({ organization: 'wso2' });
+    expect(screen.queryByRole('dialog')).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Project' })).toBeNull();
+    expect(screen.getByRole('button', { name: 'Show Project' })).toBeDefined();
+  });
+
+  it('moves between enabled options with Home, End, and the arrow keys', () => {
+    render(
+      <OxygenUIThemeProvider>
+        <ContextSwitcher value={{}} onChange={() => undefined}>
+          <ContextSwitcherLevel id="organization" label="Organization">
+            <ContextSwitcherOption value="personal">Personal</ContextSwitcherOption>
+            <ContextSwitcherOption value="wso2">WSO2</ContextSwitcherOption>
+          </ContextSwitcherLevel>
+        </ContextSwitcher>
+      </OxygenUIThemeProvider>
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Organization' }));
+    const search = screen.getByRole('textbox', { name: 'Search Organization' });
+    const personal = screen.getByRole('option', { name: 'Personal' });
+    const wso2 = screen.getByRole('option', { name: 'WSO2' });
+
+    fireEvent.keyDown(search, { key: 'Home' });
+    expect(document.activeElement).toBe(personal);
+
+    fireEvent.keyDown(personal, { key: 'ArrowDown' });
+    expect(document.activeElement).toBe(wso2);
+
+    fireEvent.keyDown(wso2, { key: 'ArrowDown' });
+    expect(document.activeElement).toBe(wso2);
+
+    fireEvent.keyDown(wso2, { key: 'ArrowUp' });
+    expect(document.activeElement).toBe(personal);
+
+    search.focus();
+    fireEvent.keyDown(search, { key: 'ArrowUp' });
+    expect(document.activeElement).toBe(wso2);
+
+    search.focus();
+    fireEvent.keyDown(search, { key: 'End' });
+    expect(document.activeElement).toBe(wso2);
+  });
+});
+
+describe('ContextSwitcher.Group', () => {
+  it('must be rendered inside a level', () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    expect(() =>
+      render(
+        <ContextSwitcherGroup label="Invited organizations">
+          <ContextSwitcherOption value="wso2">WSO2</ContextSwitcherOption>
+        </ContextSwitcherGroup>
+      )
+    ).toThrow('ContextSwitcher.Option and ContextSwitcher.Group must be rendered inside a level');
+
+    consoleError.mockRestore();
+  });
+
+  it('keeps the group when one of its options still matches', () => {
+    render(<Harness />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Organization' }));
+    fireEvent.change(screen.getByRole('textbox', { name: 'Search Organization' }), {
+      target: { value: 'wso' },
+    });
+
+    expect(screen.getByRole('group', { name: 'Invited organizations' })).toBeDefined();
+    expect(screen.getByRole('option', { name: 'WSO2' })).toBeDefined();
+    expect(screen.queryByRole('option', { name: 'Demo Organization' })).toBeNull();
+    expect(screen.queryByRole('option', { name: 'Personal' })).toBeNull();
+  });
+
+  it('omits a group that contains no options', () => {
+    render(
+      <OxygenUIThemeProvider>
+        <ContextSwitcher value={{}} onChange={() => undefined}>
+          <ContextSwitcherLevel id="organization" label="Organization">
+            <ContextSwitcherGroup label="Notes">
+              <span>Not a choice</span>
+            </ContextSwitcherGroup>
+            <ContextSwitcherOption value="personal">Personal</ContextSwitcherOption>
+          </ContextSwitcherLevel>
+        </ContextSwitcher>
+      </OxygenUIThemeProvider>
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Organization' }));
+
+    expect(screen.queryByRole('group', { name: 'Notes' })).toBeNull();
+    expect(screen.queryByText('Not a choice')).toBeNull();
+    expect(screen.getByRole('option', { name: 'Personal' })).toBeDefined();
+  });
+});
+
+describe('ContextSwitcher.Option', () => {
+  it('must be rendered inside a level', () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    expect(() => render(<ContextSwitcherOption value="wso2">WSO2</ContextSwitcherOption>)).toThrow(
+      'ContextSwitcher.Option and ContextSwitcher.Group must be rendered inside a level'
+    );
+
+    consoleError.mockRestore();
+  });
+
+  it('uses the nested label for search and for the field name', () => {
+    const onChange = vi.fn();
+    render(
+      <OxygenUIThemeProvider>
+        <ContextSwitcher value={{}} onChange={onChange}>
+          <ContextSwitcherLevel id="organization" label="Organization">
+            <ContextSwitcherOption value="wso2">
+              <em>WSO2</em> Cloud
+            </ContextSwitcherOption>
+          </ContextSwitcherLevel>
+        </ContextSwitcher>
+      </OxygenUIThemeProvider>
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Organization' }));
+    fireEvent.change(screen.getByRole('textbox', { name: 'Search Organization' }), {
+      target: { value: 'cloud' },
+    });
+    fireEvent.click(screen.getByRole('option', { name: 'WSO2 Cloud' }));
+
+    expect(onChange).toHaveBeenCalledWith({ organization: 'wso2' });
+  });
+
+  it('stays out of the tab order and is unmarked when it can be picked', () => {
+    render(<Harness />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Organization' }));
+    const personal = screen.getByRole('option', { name: 'Personal' });
+
+    expect(personal.getAttribute('tabindex')).toBe('-1');
+    expect(personal.getAttribute('aria-disabled')).toBeNull();
+    expect(personal.getAttribute('aria-selected')).toBe('false');
+  });
+
+  it('ignores Enter and Space when the option is disabled', () => {
+    const onChange = vi.fn();
+    render(<Harness initial={{ organization: 'wso2' }} onChange={onChange} />);
+
+    show('Project');
+    const sales = screen.getByRole('option', { name: 'Sales' });
+    fireEvent.keyDown(sales, { key: 'Enter' });
+    fireEvent.keyDown(sales, { key: ' ' });
+
+    expect(onChange).not.toHaveBeenCalled();
+    expect(screen.getByRole('dialog', { name: 'Project' })).toBeDefined();
+    expect(screen.getByRole('button', { name: 'Project' })).toBeDefined();
   });
 });
