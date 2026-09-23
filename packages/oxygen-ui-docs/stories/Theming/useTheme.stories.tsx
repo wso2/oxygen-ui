@@ -16,13 +16,13 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { useTheme, Paper, Typography, Stack, Box, Chip } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { useTheme, Paper, Typography, Stack, Box, Chip } from '@wso2/oxygen-ui'
+import React from 'react'
 
 // Demonstration component using useTheme hook
 function ThemeInspector() {
-  const theme = useTheme();
+  const theme = useTheme()
 
   return (
     <Paper elevation={3} sx={{ p: 3, maxWidth: 800 }}>
@@ -46,9 +46,7 @@ function ThemeInspector() {
           <Typography variant="subtitle2" color="text.secondary" gutterBottom>
             Spacing Unit
           </Typography>
-          <Typography variant="body2">
-            Base unit: {theme.spacing(1)} (theme.spacing(1))
-          </Typography>
+          <Typography variant="body2">Base unit: {theme.spacing(1)} (theme.spacing(1))</Typography>
           <Typography variant="body2">
             Double unit: {theme.spacing(2)} (theme.spacing(2))
           </Typography>
@@ -58,30 +56,24 @@ function ThemeInspector() {
           <Typography variant="subtitle2" color="text.secondary" gutterBottom>
             Shape (Border Radius)
           </Typography>
-          <Typography variant="body2">
-            Default: {theme.shape.borderRadius}px
-          </Typography>
+          <Typography variant="body2">Default: {theme.shape.borderRadius}px</Typography>
         </Box>
 
         <Box>
           <Typography variant="subtitle2" color="text.secondary" gutterBottom>
             Typography
           </Typography>
-          <Typography variant="body2">
-            Font Family: {theme.typography.fontFamily}
-          </Typography>
-          <Typography variant="body2">
-            Base Font Size: {theme.typography.fontSize}px
-          </Typography>
+          <Typography variant="body2">Font Family: {theme.typography.fontFamily}</Typography>
+          <Typography variant="body2">Base Font Size: {theme.typography.fontSize}px</Typography>
         </Box>
       </Stack>
     </Paper>
-  );
+  )
 }
 
 // Component demonstrating palette access
 function PaletteDemo() {
-  const theme = useTheme();
+  const theme = useTheme()
 
   const colorCategories = [
     { name: 'Primary', color: theme.palette.primary },
@@ -90,7 +82,7 @@ function PaletteDemo() {
     { name: 'Warning', color: theme.palette.warning },
     { name: 'Info', color: theme.palette.info },
     { name: 'Success', color: theme.palette.success },
-  ];
+  ]
 
   return (
     <Paper elevation={3} sx={{ p: 3, maxWidth: 800 }}>
@@ -100,7 +92,7 @@ function PaletteDemo() {
         </Typography>
 
         <Stack spacing={2}>
-          {colorCategories.map((category) => (
+          {colorCategories.map(category => (
             <Box key={category.name}>
               <Typography variant="subtitle2" gutterBottom>
                 {category.name}
@@ -151,7 +143,11 @@ function PaletteDemo() {
                   <Typography variant="caption">Dark</Typography>
                 </Box>
               </Stack>
-              <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5, display: 'block' }}>
+              <Typography
+                variant="caption"
+                color="text.secondary"
+                sx={{ mt: 0.5, display: 'block' }}
+              >
                 Main: {category.color.main}
               </Typography>
             </Box>
@@ -159,12 +155,12 @@ function PaletteDemo() {
         </Stack>
       </Stack>
     </Paper>
-  );
+  )
 }
 
 // Component demonstrating responsive styling with breakpoints
 function ResponsiveDemo() {
-  const theme = useTheme();
+  const theme = useTheme()
 
   return (
     <Paper elevation={3} sx={{ p: 3, maxWidth: 800 }}>
@@ -191,9 +187,7 @@ function ResponsiveDemo() {
             },
           }}
         >
-          <Typography variant="body1">
-            Resize your browser to see different colors:
-          </Typography>
+          <Typography variant="body1">Resize your browser to see different colors:</Typography>
           <Typography variant="body2" sx={{ mt: 1 }}>
             Red (xs) → Orange (sm) → Green (md+)
           </Typography>
@@ -229,12 +223,12 @@ sx={{
         </Paper>
       </Stack>
     </Paper>
-  );
+  )
 }
 
 // Component demonstrating custom styling with theme tokens
 function CustomStyling() {
-  const theme = useTheme();
+  const theme = useTheme()
 
   return (
     <Paper elevation={3} sx={{ p: 3, maxWidth: 800 }}>
@@ -246,7 +240,10 @@ function CustomStyling() {
         <Box
           sx={{
             p: theme.spacing(3),
-            borderRadius: typeof theme.shape.borderRadius === 'number' ? theme.shape.borderRadius * 2 : theme.shape.borderRadius,
+            borderRadius:
+              typeof theme.shape.borderRadius === 'number'
+                ? theme.shape.borderRadius * 2
+                : theme.shape.borderRadius,
             bgcolor: theme.palette.primary.main,
             color: theme.palette.primary.contrastText,
             boxShadow: theme.shadows[4],
@@ -259,9 +256,7 @@ function CustomStyling() {
             },
           }}
         >
-          <Typography variant="body1">
-            Hover over this box to see smooth transitions
-          </Typography>
+          <Typography variant="body1">Hover over this box to see smooth transitions</Typography>
         </Box>
 
         <Paper variant="outlined" sx={{ p: 2, bgcolor: 'background.default' }}>
@@ -294,7 +289,7 @@ sx={{
         </Paper>
       </Stack>
     </Paper>
-  );
+  )
 }
 
 const meta: Meta = {
@@ -304,7 +299,7 @@ const meta: Meta = {
     docs: {
       description: {
         component:
-          'MUI\'s `useTheme` hook provides access to the complete theme object, including palette, typography, spacing, breakpoints, and more. ' +
+          "MUI's `useTheme` hook provides access to the complete theme object, including palette, typography, spacing, breakpoints, and more. " +
           'This is useful when you need direct access to theme tokens for custom styling or logic.\n\n' +
           '**Key Features:**\n' +
           '- Access all theme tokens (palette, typography, spacing, etc.)\n' +
@@ -329,38 +324,38 @@ const meta: Meta = {
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 /**
  * Inspect the current theme configuration including breakpoints, spacing, shape, and typography.
  */
 export const ThemeConfiguration: Story = {
   render: () => <ThemeInspector />,
-};
+}
 
 /**
  * Access and display theme palette colors including primary, secondary, error, warning, info, and success.
  */
 export const PaletteAccess: Story = {
   render: () => <PaletteDemo />,
-};
+}
 
 /**
  * Use theme breakpoints for responsive styling that adapts to different screen sizes.
  */
 export const ResponsiveStyling: Story = {
   render: () => <ResponsiveDemo />,
-};
+}
 
 /**
  * Apply custom styling using theme tokens like spacing, border radius, shadows, and transitions.
  */
 export const CustomStylingExample: Story = {
   render: () => <CustomStyling />,
-};
+}
 
 /**
  * Minimal example showing basic theme access and usage.
@@ -368,7 +363,7 @@ export const CustomStylingExample: Story = {
 export const BasicUsage: Story = {
   render: () => {
     function BasicExample() {
-      const theme = useTheme();
+      const theme = useTheme()
 
       return (
         <Box sx={{ p: 3, maxWidth: 400 }}>
@@ -396,9 +391,9 @@ export const BasicUsage: Story = {
             Styled with theme tokens
           </Box>
         </Box>
-      );
+      )
     }
 
-    return <BasicExample />;
+    return <BasicExample />
   },
-};
+}

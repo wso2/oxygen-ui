@@ -248,7 +248,9 @@ export const Default: Story = {
                           value={value}
                           onChange={(_, newValue) => onChange(newValue)}
                           multiple
-                          renderInput={params => <TextField {...params} placeholder="Select frameworks" />}
+                          renderInput={params => (
+                            <TextField {...params} placeholder="Select frameworks" />
+                          )}
                           fullWidth
                         />
                       </Form.ElementWrapper>

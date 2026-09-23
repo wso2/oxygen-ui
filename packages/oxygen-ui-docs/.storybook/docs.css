@@ -19,35 +19,35 @@
 /* Storybook Docs Page Theme Overrides */
 html[data-color-scheme='light'],
 html[data-color-scheme='light'] body {
-    color-scheme: light;
-    --background: #ffffff;
+  color-scheme: light;
+  --background: #ffffff;
 }
 
 html[data-color-scheme='dark'],
 html[data-color-scheme='dark'] body {
-    color-scheme: dark;
-    --background: #000000;
+  color-scheme: dark;
+  --background: #000000;
 }
 
 .sidebar-container,
 #storybook-preview-wrapper {
-    background-color: var(--background) !important;
+  background-color: var(--background) !important;
 }
 
 /* Ensure Storybook docs page respects the theme background */
 #storybook-docs,
 .sbdocs,
 .docs-story {
-    background: transparent !important;
+  background: transparent !important;
 }
 
 body[data-color-scheme='dark'] .docs-story > div {
-    background: transparent !important;
+  background: transparent !important;
 }
 
 body[data-color-scheme='dark'] .docblock-code-toggle,
 body[data-color-scheme='dark'] .sb-bar {
-    background-color: #11111178 !important;
+  background-color: #11111178 !important;
 }
 
 /* Dark mode text colors for Storybook docs */
@@ -66,35 +66,35 @@ body[data-color-scheme='dark'] .docblock-code-toggle,
 body[data-color-scheme='dark'] .docblock-argstable,
 body[data-color-scheme='dark'] .docblock-argstable td,
 body[data-color-scheme='dark'] .docblock-argstable th {
-    color: #ededed !important;
+  color: #ededed !important;
 }
 
 body[data-color-scheme='dark'] .sbdocs-content tbody > tr > * {
-    background-color: #11111178 !important;
+  background-color: #11111178 !important;
 }
 
 body[data-color-scheme='dark'] .sbdocs .toc-list-item > a.is-active-link {
-    color: #009cfd !important;
+  color: #009cfd !important;
 }
 
 body[data-color-scheme='dark'] .sbdocs-content tbody > tr textarea {
-    background-color: #222222 !important;
-    color: #ededed !important;
+  background-color: #222222 !important;
+  color: #ededed !important;
 }
 
 /* Light mode - ensure proper contrast */
 body[data-color-scheme='light'] .sbdocs,
 body[data-color-scheme='light'] .sbdocs-content {
-    color: #171717 !important;
+  color: #171717 !important;
 }
 
 body[data-color-scheme='light'] .docblock-code-toggle,
 body[data-color-scheme='light'] .sb-bar {
-    background: rgb(255 255 255 / 41%);
+  background: rgb(255 255 255 / 41%);
 }
 
 @media (prefers-color-scheme: dark) {
-    html {
-        color-scheme: dark;
-    }
+  html {
+    color-scheme: dark;
+  }
 }

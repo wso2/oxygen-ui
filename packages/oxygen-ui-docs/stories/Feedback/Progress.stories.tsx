@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { CircularProgress, LinearProgress, Stack, Box } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { CircularProgress, LinearProgress, Stack, Box } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * Progress indicators inform users about the status of ongoing processes, such as loading an app,
  * submitting a form, or saving updates.
- * 
- * This is a direct import of MUI progress components. 
+ *
+ * This is a direct import of MUI progress components.
  * Read more at: https://mui.com/material-ui/react-progress/
  */
 const meta: Meta<typeof CircularProgress> = {
@@ -34,17 +34,18 @@ const meta: Meta<typeof CircularProgress> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI progress components are direct imports of MUI progress components. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-progress/](https://mui.com/material-ui/react-progress/)',
+        component:
+          'Oxygen UI progress components are direct imports of MUI progress components. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-progress/](https://mui.com/material-ui/react-progress/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof CircularProgress>;
+export default meta
+type Story = StoryObj<typeof CircularProgress>
 
 export const Circular: Story = {
   render: () => (
@@ -56,7 +57,7 @@ export const Circular: Story = {
       <CircularProgress color="inherit" aria-label="Loading" />
     </Stack>
   ),
-};
+}
 
 export const CircularDeterminate: Story = {
   render: () => (
@@ -67,7 +68,7 @@ export const CircularDeterminate: Story = {
       <CircularProgress variant="determinate" value={100} aria-label="100 percent complete" />
     </Stack>
   ),
-};
+}
 
 export const CircularSizes: Story = {
   render: () => (
@@ -79,7 +80,7 @@ export const CircularSizes: Story = {
       <CircularProgress size={80} aria-label="Loading" />
     </Stack>
   ),
-};
+}
 
 export const Linear: Story = {
   render: () => (
@@ -92,7 +93,7 @@ export const Linear: Story = {
       </Stack>
     </Box>
   ),
-};
+}
 
 export const LinearDeterminate: Story = {
   render: () => (
@@ -105,7 +106,7 @@ export const LinearDeterminate: Story = {
       </Stack>
     </Box>
   ),
-};
+}
 
 export const LinearBuffer: Story = {
   render: () => (
@@ -113,4 +114,4 @@ export const LinearBuffer: Story = {
       <LinearProgress variant="buffer" value={60} valueBuffer={80} aria-label="Buffering" />
     </Box>
   ),
-};
+}
