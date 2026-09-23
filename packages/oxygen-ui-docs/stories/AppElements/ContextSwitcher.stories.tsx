@@ -19,6 +19,8 @@
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { ContextSwitcher, Header, type ContextSwitcherValue } from '@wso2/oxygen-ui';
+// Storybook's indexer fails to parse a JSX tag named `WSO2`.
+import { WSO2 as Wso2Logo } from '@wso2/oxygen-ui-icons-react';
 
 /**
  * ContextSwitcher is a chain of labeled fields for selecting through a hierarchy
@@ -101,13 +103,16 @@ const Chain = () => {
 };
 
 /**
- * The chain in the header, beside the product name. Open a field to search and
- * pick. Close a level to clear it and everything under it.
+ * The chain in the header, beside the product name and the WSO2 mark. Open a
+ * field to search and pick. Close a level to clear it and everything under it.
  */
 export const InHeader: Story = {
   render: () => (
     <Header>
       <Header.Brand>
+        <Header.BrandLogo>
+          <Wso2Logo size={28} aria-label="WSO2" />
+        </Header.BrandLogo>
         <Header.BrandTitle>Developer Platform</Header.BrandTitle>
       </Header.Brand>
       <Header.Switchers>
