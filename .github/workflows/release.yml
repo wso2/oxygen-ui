@@ -29,7 +29,9 @@ on:
       - 'LICENSE'
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# GITHUB_TOKEN permissions. Version commits are pushed with UI_BOT_TOKEN.
+# pages: write deploys the docs site after a publish.
+# IMPORTANT: DO NOT REMOVE. `id-token` is required for OIDC publishing to npm.
 permissions:
   contents: read
   pages: write
@@ -39,7 +41,6 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 env:
   GH_TOKEN: ${{ secrets.UI_BOT_TOKEN }}
-  NPM_TOKEN: ${{ secrets.WSO2_NPM_TOKEN }}
 
 jobs:
   release:
@@ -69,10 +70,18 @@ jobs:
 
       - name: 🟢 Setup node
         id: setup-node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node-version }}
+          registry-url: 'https://registry.npmjs.org'
           cache: 'pnpm'
+
+      - name: 🔐 Remove npm auth token so publish uses OIDC
+        run: |
+          npmrc="${NPM_CONFIG_USERCONFIG:-$HOME/.npmrc}"
+          if [ -f "$npmrc" ]; then
+            sed -i '/_authToken=/d' "$npmrc"
+          fi
 
       - name: 🧩 Install Dependencies
         id: install-dependencies
@@ -84,14 +93,13 @@ jobs:
 
       - name: 📣 Create Release Pull Request or Publish to npm
         id: changesets
-        uses: changesets/action@v1.4.9
+        uses: changesets/action@v1.7.0
         with:
           title: '[Release] [GitHub Action] Update package versions'
           publish: pnpm publish:packages
           version: pnpm version:packages
           commit: "[WSO2 Release] [GitHub Action] [Release] [${{ github.ref_name }}] [skip ci] update package versions"
         env:
-          NPM_TOKEN: ${{ env.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ env.GH_TOKEN }}
 
       - name: ⚙️ Setup Pages to Deploy Documentation
