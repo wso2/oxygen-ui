@@ -20,7 +20,7 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { matchesQuery, nodeText } from './model';
 import { useLevelPanel } from './context';
-import { ContextSwitcherOption, type ContextSwitcherOptionProps } from './ContextSwitcherOption';
+import { isContextSwitcherOption } from './ContextSwitcherOption';
 
 /**
  * Theme tokens used in this component:
@@ -46,41 +46,45 @@ const GroupLabel = styled('span', {
 /**
  * Props for a labelled cluster of options.
  */
-export interface ContextSwitcherGroupProps {
+export interface ContextSwitcherGroupProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> {
   /** Accessible name of the group. */
   label: string;
   /** Options in this group. */
   children: React.ReactNode;
 }
 
-const isOption = (
-  child: React.ReactNode
-): child is React.ReactElement<ContextSwitcherOptionProps> =>
-  React.isValidElement<ContextSwitcherOptionProps>(child) && child.type === ContextSwitcherOption;
-
 /**
  * ContextSwitcher.Group - A labelled cluster of options inside a level panel.
  *
+ * The visible label is hidden from assistive tech. The group itself is named
+ * with `aria-label` and owns only options, which is what a listbox group may own.
  * The group is omitted when every option is filtered out by search.
  */
-export const ContextSwitcherGroup: React.FC<ContextSwitcherGroupProps> = ({ label, children }) => {
-  const { query } = useLevelPanel();
-  const labelId = React.useId();
-  const visible = React.Children.toArray(children).some(
-    (child) => isOption(child) && matchesQuery(nodeText(child.props.children), query)
-  );
+export const isContextSwitcherGroup = (
+  child: React.ReactNode
+): child is React.ReactElement<ContextSwitcherGroupProps> =>
+  React.isValidElement<ContextSwitcherGroupProps>(child) && child.type === ContextSwitcherGroup;
 
-  if (!visible) {
-    return null;
+export const ContextSwitcherGroup = React.forwardRef<HTMLDivElement, ContextSwitcherGroupProps>(
+  function ContextSwitcherGroup({ label, children, ...rest }, ref) {
+    const { query } = useLevelPanel();
+    const visible = React.Children.toArray(children).some(
+      (child) => isContextSwitcherOption(child) && matchesQuery(nodeText(child.props.children), query)
+    );
+
+    if (!visible) {
+      return null;
+    }
+
+    return (
+      <div {...rest} ref={ref} role="group" aria-label={label}>
+        <GroupLabel aria-hidden="true">{label}</GroupLabel>
+        {children}
+      </div>
+    );
   }
-
-  return (
-    <div role="group" aria-labelledby={labelId}>
-      <GroupLabel id={labelId}>{label}</GroupLabel>
-      {children}
-    </div>
-  );
-};
+);
 
 ContextSwitcherGroup.displayName = 'ContextSwitcher.Group';
 

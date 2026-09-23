@@ -42,6 +42,7 @@ import AppBreadcrumbs from './AppBreadcrumbs/AppBreadcrumbs';
 import ListingTableToolbar from './ListingTable/shared/ListingTableToolbar';
 import UserMenu from './UserMenu/UserMenu';
 import AppSwitcher from './AppSwitcher/AppSwitcher';
+import { ContextSwitcher } from './ContextSwitcher';
 import type { AppSwitcherProps } from './AppSwitcher/AppSwitcher';
 import type { AppSwitcherAppProps } from './AppSwitcher/AppSwitcherApp';
 import type { AppSwitcherFooterProps } from './AppSwitcher/AppSwitcherFooter';
@@ -1314,5 +1315,43 @@ describe('NotificationPanel', () => {
     fireEvent.click(screen.getByTestId('announce-button'));
 
     expect(screen.getByTestId('notification-panel-live-region').textContent).toBe('');
+  });
+});
+
+describe('ContextSwitcher', () => {
+  it('forwards refs and data attributes to the chain, level, group, and option', () => {
+    const rootRef = React.createRef<HTMLDivElement>();
+    const levelRef = React.createRef<HTMLDivElement>();
+    const groupRef = React.createRef<HTMLDivElement>();
+    const optionRef = React.createRef<HTMLDivElement>();
+
+    renderWithTheme(
+      <ContextSwitcher ref={rootRef} data-testid="chain" value={{}} onChange={() => undefined}>
+        <ContextSwitcher.Level
+          ref={levelRef}
+          id="organization"
+          label="Organization"
+          data-testid="level"
+        >
+          <ContextSwitcher.Group ref={groupRef} label="Invited organizations" data-testid="group">
+            <ContextSwitcher.Option ref={optionRef} value="wso2" data-testid="option">
+              WSO2
+            </ContextSwitcher.Option>
+          </ContextSwitcher.Group>
+        </ContextSwitcher.Level>
+      </ContextSwitcher>
+    );
+
+    expect(rootRef.current).toBe(screen.getByTestId('chain'));
+    expect(levelRef.current).toBe(screen.getByTestId('level'));
+    expect(levelRef.current?.contains(screen.getByRole('button', { name: 'Organization' }))).toBe(
+      true
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Organization' }));
+
+    expect(groupRef.current).toBe(screen.getByTestId('group'));
+    expect(optionRef.current).toBe(screen.getByTestId('option'));
+    expect(screen.getByRole('group', { name: 'Invited organizations' })).toBe(groupRef.current);
   });
 });
