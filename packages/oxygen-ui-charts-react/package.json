@@ -38,6 +38,10 @@
   ],
   "author": "WSO2 LLC",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wso2/oxygen-ui.git"
+  },
   "dependencies": {
     "recharts": "3.3.0"
   },
