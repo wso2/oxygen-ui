@@ -62,7 +62,8 @@ const OptionRoot = styled('div', {
 /**
  * Props for a single choice in a level.
  */
-export interface ContextSwitcherOptionProps {
+export interface ContextSwitcherOptionProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onClick' | 'onKeyDown'> {
   /** Value written into the context map when this option is picked. */
   value: string;
   /** Shown, but cannot be picked. */
@@ -72,12 +73,21 @@ export interface ContextSwitcherOptionProps {
 }
 
 /**
+ * A listbox option is an owned `role="option"` node. A button cannot fill that
+ * role, so the option is a div that handles click and Enter/Space.
+ */
+export const isContextSwitcherOption = (
+  child: React.ReactNode
+): child is React.ReactElement<ContextSwitcherOptionProps> =>
+  React.isValidElement<ContextSwitcherOptionProps>(child) && child.type === ContextSwitcherOption;
+
+/**
  * ContextSwitcher.Option - One choice in a level's panel.
  *
  * Renders nothing while the level's search query does not match its text.
  */
 export const ContextSwitcherOption = React.forwardRef<HTMLDivElement, ContextSwitcherOptionProps>(
-  function ContextSwitcherOption({ value, disabled = false, children }, ref) {
+  function ContextSwitcherOption({ value, disabled = false, children, ...rest }, ref) {
     const { query, selectedValue, onSelect } = useLevelPanel();
     const text = nodeText(children);
 
@@ -93,6 +103,7 @@ export const ContextSwitcherOption = React.forwardRef<HTMLDivElement, ContextSwi
 
     return (
       <OptionRoot
+        {...rest}
         ref={ref}
         role="option"
         aria-selected={selectedValue === value}

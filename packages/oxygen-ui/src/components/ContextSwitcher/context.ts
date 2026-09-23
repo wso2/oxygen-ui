@@ -30,6 +30,8 @@ export interface ContextSwitcherContextValue {
   openId: string | null;
   setOpenId: (id: string | null) => void;
   onChange: (value: ContextSwitcherValue) => void;
+  /** Hides a level that was revealed by the expand toggle. */
+  collapseFrom: (levelId: string) => void;
 }
 
 export const ContextSwitcherContext = React.createContext<ContextSwitcherContextValue | null>(null);

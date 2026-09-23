@@ -28,8 +28,8 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { ChevronDown, X } from '@wso2/oxygen-ui-icons-react';
 import { LevelPanelContext, useContextSwitcher } from './context';
-import { ContextSwitcherGroup, type ContextSwitcherGroupProps } from './ContextSwitcherGroup';
-import { ContextSwitcherOption, type ContextSwitcherOptionProps } from './ContextSwitcherOption';
+import { isContextSwitcherGroup } from './ContextSwitcherGroup';
+import { isContextSwitcherOption } from './ContextSwitcherOption';
 import { clearFrom, matchesQuery, nodeText, selectLevel } from './model';
 
 /**
@@ -37,14 +37,23 @@ import { clearFrom, matchesQuery, nodeText, selectLevel } from './model';
  *
  * Colors:
  * - `background.paper` - Field surface
- * - `divider` - Field border at rest
- * - `primary.main` - Field border while the panel is open, and focus outline
+ * - `divider` - Field border
+ * - `primary.main` - Ring around the whole field while it is open or focused
  * - `text.secondary` - Level label and empty-state copy
  * - `text.primary` - Selected value
  *
  * The value truncates. The field's accessible name keeps the full
  * "Label: value" text.
  */
+
+const LevelFrame = styled(Box, {
+  name: 'MuiContextSwitcher',
+  slot: 'Frame',
+})({
+  display: 'inline-flex',
+  minWidth: 0,
+  position: 'relative',
+});
 
 interface LevelOwnerState {
   open: boolean;
@@ -54,19 +63,26 @@ const FieldRoot = styled(Box, {
   name: 'MuiContextSwitcher',
   slot: 'Level',
   shouldForwardProp: (prop) => prop !== 'ownerState',
-})<{ ownerState: LevelOwnerState }>(({ theme, ownerState }) => ({
-  alignItems: 'center',
-  backgroundColor: (theme.vars || theme).palette.background.paper,
-  border: '1px solid',
-  borderColor: ownerState.open
-    ? (theme.vars || theme).palette.primary.main
-    : (theme.vars || theme).palette.divider,
-  borderRadius: theme.shape.borderRadius,
-  display: 'inline-flex',
-  maxWidth: 220,
-  minHeight: 48,
-  minWidth: 0,
-}));
+})<{ ownerState: LevelOwnerState }>(({ theme, ownerState }) => {
+  // One ring around the label and the close button. An outline on the label
+  // button alone leaves the close control outside the highlight.
+  const ring = `0 0 0 2px ${(theme.vars || theme).palette.primary.main}`;
+  return {
+    alignItems: 'center',
+    backgroundColor: (theme.vars || theme).palette.background.paper,
+    border: '1px solid',
+    borderColor: (theme.vars || theme).palette.divider,
+    borderRadius: theme.shape.borderRadius,
+    boxShadow: ownerState.open ? ring : 'none',
+    display: 'inline-flex',
+    maxWidth: 220,
+    minHeight: 48,
+    minWidth: 0,
+    '&:focus-within': {
+      boxShadow: ring,
+    },
+  };
+});
 
 const FieldButton = styled('button', {
   name: 'MuiContextSwitcher',
@@ -85,9 +101,8 @@ const FieldButton = styled('button', {
   minWidth: 0,
   padding: theme.spacing(0.5, 1),
   textAlign: 'left',
-  '&:focus-visible': {
-    outline: `2px solid ${(theme.vars || theme).palette.primary.main}`,
-    outlineOffset: -2,
+  '&:focus, &:focus-visible': {
+    outline: 'none',
   },
 }));
 
@@ -143,8 +158,12 @@ const OptionList = styled('div', {
   gap: theme.spacing(0.25),
   margin: 0,
   maxHeight: 240,
+  outline: 'none',
   overflow: 'auto',
   padding: 0,
+  '&:focus, &:focus-visible': {
+    outline: 'none',
+  },
 }));
 
 const PanelBody = styled(Box, {
@@ -161,13 +180,14 @@ const PanelBody = styled(Box, {
 /**
  * Props for one step in the chain.
  */
-export interface ContextSwitcherLevelProps {
+export interface ContextSwitcherLevelProps
+  extends Omit<React.ComponentPropsWithoutRef<'div'>, 'id' | 'children' | 'onChange'> {
   /** Key used in the context value. */
   id: string;
   /** Name shown on the field, such as Organization. */
   label: string;
   /**
-   * Whether the field shows a close button once it has a selection.
+   * Whether the field shows a close button.
    * Defaults to false for the first level and true for every level after it.
    */
   clearable?: boolean;
@@ -177,16 +197,6 @@ export interface ContextSwitcherLevelProps {
   children?: React.ReactNode;
 }
 
-const isOption = (
-  child: React.ReactNode
-): child is React.ReactElement<ContextSwitcherOptionProps> =>
-  React.isValidElement<ContextSwitcherOptionProps>(child) && child.type === ContextSwitcherOption;
-
-const isGroup = (
-  child: React.ReactNode
-): child is React.ReactElement<ContextSwitcherGroupProps> =>
-  React.isValidElement<ContextSwitcherGroupProps>(child) && child.type === ContextSwitcherGroup;
-
 interface OptionEntry {
   value: string;
   text: string;
@@ -195,11 +205,11 @@ interface OptionEntry {
 const collectOptions = (children: React.ReactNode): OptionEntry[] => {
   const options: OptionEntry[] = [];
   React.Children.forEach(children, (child) => {
-    if (isOption(child)) {
+    if (isContextSwitcherOption(child)) {
       options.push({ value: child.props.value, text: nodeText(child.props.children) });
       return;
     }
-    if (isGroup(child)) {
+    if (isContextSwitcherGroup(child)) {
       options.push(...collectOptions(child.props.children));
     }
   });
@@ -212,27 +222,27 @@ const focusableOptions = (root: HTMLElement): HTMLElement[] =>
 /**
  * ContextSwitcher.Level - A labeled field in the chain, and the panel that picks its value.
  */
-export const ContextSwitcherLevel = React.forwardRef<HTMLButtonElement, ContextSwitcherLevelProps>(
-  function ContextSwitcherLevel({ id, label, clearable, loading = false, children }, ref) {
-    const { value, levelIds, openId, setOpenId, onChange } = useContextSwitcher();
+export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwitcherLevelProps>(
+  function ContextSwitcherLevel({ id, label, clearable, loading = false, children, ...rest }, ref) {
+    const { value, levelIds, openId, setOpenId, onChange, collapseFrom } = useContextSwitcher();
     const buttonRef = React.useRef<HTMLButtonElement>(null);
+    const fieldRef = React.useRef<HTMLDivElement>(null);
     const panelRef = React.useRef<HTMLDivElement>(null);
     const searchRef = React.useRef<HTMLInputElement>(null);
+    const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
     const [query, setQuery] = React.useState('');
     const popoverId = React.useId();
     const open = openId === id;
     const wasOpen = React.useRef(false);
 
-    React.useImperativeHandle(ref, () => buttonRef.current as HTMLButtonElement);
-
     const selectedValue = value[id];
     const options = React.useMemo(() => collectOptions(children), [children]);
     const selectedText = options.find((option) => option.value === selectedValue)?.text ?? selectedValue;
-    const canClear = (clearable ?? levelIds[0] !== id) && Boolean(selectedValue);
+    const canClear = clearable ?? levelIds[0] !== id;
     const matches = options.filter((option) => matchesQuery(option.text, query));
     const childList = React.Children.toArray(children);
-    const ungroupedOptions = childList.filter(isOption);
-    const groups = childList.filter(isGroup);
+    const ungroupedOptions = childList.filter(isContextSwitcherOption);
+    const groups = childList.filter(isContextSwitcherGroup);
 
     React.useEffect(() => {
       if (!open) {
@@ -240,14 +250,33 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLButtonElement, ContextS
       }
     }, [open]);
 
-    React.useEffect(() => {
-      if (open) {
+    React.useLayoutEffect(() => {
+      setAnchorEl((current) => (current === fieldRef.current ? current : fieldRef.current));
+    });
+
+    React.useLayoutEffect(() => {
+      if (open && anchorEl) {
         searchRef.current?.focus();
-      } else if (wasOpen.current) {
+      } else if (!open && wasOpen.current && openId === null) {
         buttonRef.current?.focus();
       }
       wasOpen.current = open;
-    }, [open]);
+    }, [open, openId, anchorEl]);
+
+    React.useEffect(() => {
+      if (!open) {
+        return undefined;
+      }
+      const onKeyDown = (event: KeyboardEvent) => {
+        if (event.key !== 'Escape') {
+          return;
+        }
+        event.preventDefault();
+        setOpenId(null);
+      };
+      document.addEventListener('keydown', onKeyDown);
+      return () => document.removeEventListener('keydown', onKeyDown);
+    }, [open, setOpenId]);
 
     const closePanel = () => {
       setOpenId(null);
@@ -268,15 +297,35 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLButtonElement, ContextS
     const onClear = (event: React.MouseEvent) => {
       event.stopPropagation();
       setOpenId(openId === id ? null : openId);
+      collapseFrom(id);
       onChange(clearFrom(levelIds, value, id));
     };
 
     const onPanelKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === 'Enter' && event.target instanceof HTMLInputElement) {
-        event.preventDefault();
+      if (!panelRef.current) {
         return;
       }
-      if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key) || !panelRef.current) {
+      if (event.key === 'Tab') {
+        const tabbable = Array.from(
+          panelRef.current.querySelectorAll<HTMLElement>('input, button, [tabindex="0"]')
+        ).filter((element) => !element.hasAttribute('disabled') && element.tabIndex >= 0);
+        if (tabbable.length === 0) {
+          event.preventDefault();
+          return;
+        }
+        const first = tabbable[0];
+        const last = tabbable[tabbable.length - 1];
+        const active = document.activeElement;
+        if (event.shiftKey && active === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && active === last) {
+          event.preventDefault();
+          first.focus();
+        }
+        return;
+      }
+      if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
         return;
       }
       const items = focusableOptions(panelRef.current);
@@ -315,49 +364,69 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLButtonElement, ContextS
         touchEvent="onTouchStart"
         onClickAway={onClickAway}
       >
-        <FieldRoot ownerState={{ open }}>
-          <FieldButton
-            ref={buttonRef}
-            type="button"
-            aria-label={accessibleName}
-            aria-haspopup="dialog"
-            aria-expanded={open}
-            aria-controls={open ? popoverId : undefined}
-            onClick={togglePanel}
+        <LevelFrame>
+          <FieldRoot
+            ownerState={{ open }}
+            {...rest}
+            ref={(node: HTMLDivElement | null) => {
+              fieldRef.current = node;
+              if (typeof ref === 'function') {
+                ref(node);
+              } else if (ref) {
+                ref.current = node;
+              }
+            }}
           >
-            <FieldText>
-              <FieldLabel>{label}</FieldLabel>
-              {selectedText ? <FieldValue>{selectedText}</FieldValue> : null}
-            </FieldText>
-            <ChevronDown size={16} aria-hidden="true" />
-          </FieldButton>
-          {canClear ? (
-            <IconButton size="small" aria-label={`Close ${label}`} onClick={onClear}>
-              <X size={14} aria-hidden="true" />
-            </IconButton>
-          ) : null}
+            <FieldButton
+              ref={buttonRef}
+              type="button"
+              aria-label={accessibleName}
+              aria-haspopup="dialog"
+              aria-expanded={open}
+              aria-controls={open ? popoverId : undefined}
+              onClick={togglePanel}
+            >
+              <FieldText>
+                <FieldLabel>{label}</FieldLabel>
+                {selectedText ? <FieldValue>{selectedText}</FieldValue> : null}
+              </FieldText>
+              <ChevronDown size={16} aria-hidden="true" />
+            </FieldButton>
+            {canClear ? (
+              <IconButton size="small" aria-label={`Close ${label}`} onClick={onClear}>
+                <X size={14} aria-hidden="true" />
+              </IconButton>
+            ) : null}
+          </FieldRoot>
           <Popper
-            open={open}
-            anchorEl={buttonRef.current}
+            open={open && anchorEl !== null}
+            anchorEl={anchorEl}
             placement="bottom-start"
+            disablePortal
+            popperOptions={{ strategy: 'absolute' }}
+            modifiers={[
+              { name: 'offset', options: { offset: [0, 8] } },
+              {
+                name: 'preventOverflow',
+                options: { altBoundary: false, rootBoundary: 'viewport' },
+              },
+            ]}
             sx={{ zIndex: (theme) => theme.zIndex.modal }}
           >
             <Paper
               id={popoverId}
               role="dialog"
               aria-label={label}
+              aria-modal="true"
+              tabIndex={-1}
               ref={panelRef}
               elevation={8}
               onMouseDown={(event) => event.stopPropagation()}
-              onKeyDown={(event) => {
-                if (event.key === 'Escape') {
-                  event.stopPropagation();
-                  closePanel();
-                  return;
-                }
-                onPanelKeyDown(event);
+              onKeyDown={onPanelKeyDown}
+              sx={{
+                outline: 'none',
+                '&:focus, &:focus-visible': { outline: 'none' },
               }}
-              sx={{ mt: 0.5 }}
             >
               <PanelBody>
                 <OutlinedInput
@@ -381,7 +450,7 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLButtonElement, ContextS
                 ) : null}
                 {!loading && matches.length > 0 ? (
                   <LevelPanelContext.Provider value={{ query, selectedValue, onSelect }}>
-                    <OptionList role="listbox" aria-label={label}>
+                    <OptionList role="listbox" aria-label={label} tabIndex={0}>
                       {ungroupedOptions}
                       {groups}
                     </OptionList>
@@ -390,7 +459,7 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLButtonElement, ContextS
               </PanelBody>
             </Paper>
           </Popper>
-        </FieldRoot>
+        </LevelFrame>
       </ClickAwayListener>
     );
   }

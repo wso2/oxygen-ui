@@ -39,14 +39,14 @@ export const nodeText = (node: React.ReactNode): string => {
 };
 
 /**
- * Case-insensitive substring match. An empty query matches everything.
+ * Case-insensitive substring match. Only a query with no characters matches
+ * everything. Spaces are characters, so a whitespace-only query does not.
  */
 export const matchesQuery = (text: string, query: string): boolean => {
-  const needle = query.trim().toLowerCase();
-  if (needle.length === 0) {
+  if (query.length === 0) {
     return true;
   }
-  return text.toLowerCase().includes(needle);
+  return text.toLowerCase().includes(query.toLowerCase());
 };
 
 /**
@@ -69,20 +69,36 @@ export const normalizeValue = (
 };
 
 /**
- * How many levels to show: every selected level, plus the next empty one.
+ * How many levels have a selection, stopping at the first empty level.
  */
-export const visibleLevelCount = (
+export const selectedLevelCount = (
   levelIds: readonly string[],
   value: ContextSwitcherValue
 ): number => {
   let count = 0;
   for (const id of levelIds) {
-    count += 1;
     if (!value[id]) {
       break;
     }
+    count += 1;
   }
   return count;
+};
+
+/** Selections that come before `index`, in level order. */
+const selectionsBefore = (
+  levelIds: readonly string[],
+  value: ContextSwitcherValue,
+  index: number
+): ContextSwitcherValue => {
+  const next: ContextSwitcherValue = {};
+  for (let i = 0; i < index; i += 1) {
+    const id = levelIds[i];
+    if (value[id]) {
+      next[id] = value[id];
+    }
+  }
+  return next;
 };
 
 /**
@@ -92,17 +108,7 @@ export const clearFrom = (
   levelIds: readonly string[],
   value: ContextSwitcherValue,
   levelId: string
-): ContextSwitcherValue => {
-  const index = levelIds.indexOf(levelId);
-  const next: ContextSwitcherValue = {};
-  for (let i = 0; i < index; i += 1) {
-    const id = levelIds[i];
-    if (value[id]) {
-      next[id] = value[id];
-    }
-  }
-  return next;
-};
+): ContextSwitcherValue => selectionsBefore(levelIds, value, levelIds.indexOf(levelId));
 
 /**
  * Sets a level and drops every level after it. Earlier levels stay.
@@ -112,15 +118,7 @@ export const selectLevel = (
   value: ContextSwitcherValue,
   levelId: string,
   optionValue: string
-): ContextSwitcherValue => {
-  const index = levelIds.indexOf(levelId);
-  const next: ContextSwitcherValue = {};
-  for (let i = 0; i < index; i += 1) {
-    const id = levelIds[i];
-    if (value[id]) {
-      next[id] = value[id];
-    }
-  }
-  next[levelId] = optionValue;
-  return next;
-};
+): ContextSwitcherValue => ({
+  ...selectionsBefore(levelIds, value, levelIds.indexOf(levelId)),
+  [levelId]: optionValue,
+});
