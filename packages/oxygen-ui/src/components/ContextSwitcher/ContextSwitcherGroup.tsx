@@ -1,0 +1,87 @@
+/**
+ * Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com).
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import { matchesQuery, nodeText } from './model';
+import { useLevelPanel } from './context';
+import { ContextSwitcherOption, type ContextSwitcherOptionProps } from './ContextSwitcherOption';
+
+/**
+ * Theme tokens used in this component:
+ *
+ * Colors:
+ * - `text.secondary` - Group label
+ *
+ * Typography:
+ * - `typography.caption` - Group label size
+ */
+
+const GroupLabel = styled('span', {
+  name: 'MuiContextSwitcher',
+  slot: 'GroupLabel',
+})(({ theme }) => ({
+  color: (theme.vars || theme).palette.text.secondary,
+  display: 'block',
+  fontSize: theme.typography.caption.fontSize,
+  fontWeight: theme.typography.fontWeightMedium,
+  padding: theme.spacing(1, 1.5, 0.5),
+}));
+
+/**
+ * Props for a labelled cluster of options.
+ */
+export interface ContextSwitcherGroupProps {
+  /** Accessible name of the group. */
+  label: string;
+  /** Options in this group. */
+  children: React.ReactNode;
+}
+
+const isOption = (
+  child: React.ReactNode
+): child is React.ReactElement<ContextSwitcherOptionProps> =>
+  React.isValidElement<ContextSwitcherOptionProps>(child) && child.type === ContextSwitcherOption;
+
+/**
+ * ContextSwitcher.Group - A labelled cluster of options inside a level panel.
+ *
+ * The group is omitted when every option is filtered out by search.
+ */
+export const ContextSwitcherGroup: React.FC<ContextSwitcherGroupProps> = ({ label, children }) => {
+  const { query } = useLevelPanel();
+  const labelId = React.useId();
+  const visible = React.Children.toArray(children).some(
+    (child) => isOption(child) && matchesQuery(nodeText(child.props.children), query)
+  );
+
+  if (!visible) {
+    return null;
+  }
+
+  return (
+    <div role="group" aria-labelledby={labelId}>
+      <GroupLabel id={labelId}>{label}</GroupLabel>
+      {children}
+    </div>
+  );
+};
+
+ContextSwitcherGroup.displayName = 'ContextSwitcher.Group';
+
+export default ContextSwitcherGroup;

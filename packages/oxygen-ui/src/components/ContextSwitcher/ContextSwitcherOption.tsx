@@ -1,0 +1,117 @@
+/**
+ * Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com).
+ *
+ * WSO2 LLC. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import { matchesQuery, nodeText } from './model';
+import { useLevelPanel } from './context';
+
+/**
+ * Theme tokens used in this component:
+ *
+ * Colors:
+ * - `action.selected` - Background of the current option
+ * - `action.hover` - Background while hovering an enabled option
+ * - `text.primary` - Option label
+ */
+
+const OptionRoot = styled('div', {
+  name: 'MuiContextSwitcher',
+  slot: 'Option',
+})(({ theme }) => ({
+  borderRadius: theme.shape.borderRadius,
+  color: (theme.vars || theme).palette.text.primary,
+  cursor: 'pointer',
+  fontSize: theme.typography.body2.fontSize,
+  lineHeight: 1.4,
+  padding: theme.spacing(1, 1.5),
+  '&:hover': {
+    backgroundColor: (theme.vars || theme).palette.action.hover,
+  },
+  '&[aria-selected="true"]': {
+    backgroundColor: (theme.vars || theme).palette.action.selected,
+  },
+  '&[aria-disabled="true"]': {
+    cursor: 'not-allowed',
+    opacity: 0.5,
+  },
+  '&[aria-disabled="true"]:hover': {
+    backgroundColor: 'transparent',
+  },
+  '&:focus-visible': {
+    outline: `2px solid ${(theme.vars || theme).palette.primary.main}`,
+    outlineOffset: -2,
+  },
+}));
+
+/**
+ * Props for a single choice in a level.
+ */
+export interface ContextSwitcherOptionProps {
+  /** Value written into the context map when this option is picked. */
+  value: string;
+  /** Shown, but cannot be picked. */
+  disabled?: boolean;
+  /** Label. This text is what search filters. */
+  children: React.ReactNode;
+}
+
+/**
+ * ContextSwitcher.Option - One choice in a level's panel.
+ *
+ * Renders nothing while the level's search query does not match its text.
+ */
+export const ContextSwitcherOption = React.forwardRef<HTMLDivElement, ContextSwitcherOptionProps>(
+  function ContextSwitcherOption({ value, disabled = false, children }, ref) {
+    const { query, selectedValue, onSelect } = useLevelPanel();
+    const text = nodeText(children);
+
+    if (!matchesQuery(text, query)) {
+      return null;
+    }
+
+    const pick = () => {
+      if (!disabled) {
+        onSelect(value);
+      }
+    };
+
+    return (
+      <OptionRoot
+        ref={ref}
+        role="option"
+        aria-selected={selectedValue === value}
+        aria-disabled={disabled || undefined}
+        tabIndex={-1}
+        onClick={pick}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            pick();
+          }
+        }}
+      >
+        {children}
+      </OptionRoot>
+    );
+  }
+);
+
+ContextSwitcherOption.displayName = 'ContextSwitcher.Option';
+
+export default ContextSwitcherOption;
