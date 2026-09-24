@@ -19,7 +19,7 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { matchesQuery, nodeText } from './model';
-import { isTruncated, OverflowTooltip, tooltipLabel, TruncatedText } from './OverflowTooltip';
+import { isTruncated, OverflowTooltip, tooltipLabel } from './OverflowTooltip';
 import { useLevelPanel } from './context';
 
 /**
@@ -59,6 +59,17 @@ const OptionRoot = styled('div', {
     outlineOffset: -2,
   },
 }));
+
+const OptionLabel = styled('span', {
+  name: 'MuiContextSwitcher',
+  slot: 'OptionLabel',
+})({
+  display: 'block',
+  minWidth: 0,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+});
 
 /**
  * Props for a single choice in a level.
@@ -154,7 +165,7 @@ export const ContextSwitcherOption = React.forwardRef<HTMLDivElement, ContextSwi
           onClose={hideNameTooltip}
           placement="right-start"
         >
-          <TruncatedText ref={textRef}>{children}</TruncatedText>
+          <OptionLabel ref={textRef}>{children}</OptionLabel>
         </OverflowTooltip>
       </OptionRoot>
     );
