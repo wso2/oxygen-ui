@@ -230,7 +230,7 @@ const focusableOptions = (root: HTMLElement): HTMLElement[] =>
  */
 export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwitcherLevelProps>(
   function ContextSwitcherLevel({ id, label, clearable, loading = false, children, ...rest }, ref) {
-    const { value, levelIds, openId, setOpenId, onChange, collapseFrom } = useContextSwitcher();
+    const { value, levelIds, openId, setOpenId, onChange, collapseFrom, restoreFocus } = useContextSwitcher();
     const buttonRef = React.useRef<HTMLButtonElement>(null);
     const labelRef = React.useRef<HTMLSpanElement>(null);
     const valueRef = React.useRef<HTMLSpanElement>(null);
@@ -293,6 +293,7 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
       event.stopPropagation();
       setOpenId(openId === id ? null : openId);
       collapseFrom(id);
+      restoreFocus();
       onChange(clearFrom(levelIds, value, id));
     };
 

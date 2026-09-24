@@ -256,6 +256,27 @@ describe('ContextSwitcher close', () => {
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 
+  it('moves focus to Show Project after that level is closed', () => {
+    render(<Harness initial={{ organization: 'wso2', project: 'finance-web' }} />);
+    const close = screen.getByRole('button', { name: 'Close Project' });
+
+    close.focus();
+    fireEvent.click(close);
+
+    expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Show Project' }));
+  });
+
+  it('moves focus to Show Project after an empty level is hidden', () => {
+    render(<Harness initial={{ organization: 'wso2' }} />);
+    show('Project');
+    const hide = screen.getByRole('button', { name: 'Hide Project' });
+
+    hide.focus();
+    fireEvent.click(hide);
+
+    expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Show Project' }));
+  });
+
   it('lets a product keep a later level required and clear the first level', () => {
     const onChange = vi.fn();
     render(
