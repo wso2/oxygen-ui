@@ -19,6 +19,7 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { matchesQuery, nodeText } from './model';
+import { isTruncated, OverflowTooltip, tooltipLabel } from './OverflowTooltip';
 import { useLevelPanel } from './context';
 import { isContextSwitcherOption } from './ContextSwitcherOption';
 
@@ -40,7 +41,11 @@ const GroupLabel = styled('span', {
   display: 'block',
   fontSize: theme.typography.caption.fontSize,
   fontWeight: theme.typography.fontWeightMedium,
+  minWidth: 0,
+  overflow: 'hidden',
   padding: theme.spacing(1, 1.5, 0.5),
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
 }));
 
 /**
@@ -60,6 +65,7 @@ export interface ContextSwitcherGroupProps
  * The visible label is hidden from assistive tech. The group itself is named
  * with `aria-label` and owns only options, which is what a listbox group may own.
  * The group is omitted when every option is filtered out by search.
+ * A label that does not fit is cut with an ellipsis. Hovering it shows the full text.
  */
 export const isContextSwitcherGroup = (
   child: React.ReactNode
@@ -69,6 +75,8 @@ export const isContextSwitcherGroup = (
 export const ContextSwitcherGroup = React.forwardRef<HTMLDivElement, ContextSwitcherGroupProps>(
   function ContextSwitcherGroup({ label, children, ...rest }, ref) {
     const { query } = useLevelPanel();
+    const labelRef = React.useRef<HTMLSpanElement>(null);
+    const [nameTooltipOpen, setNameTooltipOpen] = React.useState(false);
     const visible = React.Children.toArray(children).some(
       (child) => isContextSwitcherOption(child) && matchesQuery(nodeText(child.props.children), query)
     );
@@ -77,9 +85,30 @@ export const ContextSwitcherGroup = React.forwardRef<HTMLDivElement, ContextSwit
       return null;
     }
 
+    const showNameTooltip = () => {
+      setNameTooltipOpen(isTruncated(labelRef.current));
+    };
+    const hideNameTooltip = () => {
+      setNameTooltipOpen(false);
+    };
+
     return (
       <div {...rest} ref={ref} role="group" aria-label={label}>
-        <GroupLabel aria-hidden="true">{label}</GroupLabel>
+        <OverflowTooltip
+          title={tooltipLabel(label)}
+          open={nameTooltipOpen}
+          onClose={hideNameTooltip}
+          placement="right-start"
+        >
+          <GroupLabel
+            ref={labelRef}
+            aria-hidden="true"
+            onMouseEnter={showNameTooltip}
+            onMouseLeave={hideNameTooltip}
+          >
+            {label}
+          </GroupLabel>
+        </OverflowTooltip>
         {children}
       </div>
     );

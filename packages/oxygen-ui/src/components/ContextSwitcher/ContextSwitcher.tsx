@@ -98,7 +98,9 @@ const levelElements = (
  * The chain shows each selected level. A chevron shows the next level, and
  * shows it again to hide that level while it is empty. Choosing a field
  * opens that level's panel: a search box and the level's options. A pick, Escape,
- * an outside click, or a second click on the field closes the panel. The product
+ * an outside click, or a second click on the field closes the panel. A name that
+ * does not fit stays on one line and ends in an ellipsis. Hovering it shows the
+ * full text, and focusing an option does the same. The product
  * places the chain, usually in `Header.Switchers`, and routes from `onChange`.
  *
  * @example
