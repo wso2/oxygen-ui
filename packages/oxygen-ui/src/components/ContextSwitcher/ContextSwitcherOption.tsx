@@ -19,6 +19,7 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { matchesQuery, nodeText } from './model';
+import { isTruncated, OverflowTooltip, tooltipLabel, TruncatedText } from './OverflowTooltip';
 import { useLevelPanel } from './context';
 
 /**
@@ -75,6 +76,8 @@ export interface ContextSwitcherOptionProps
 /**
  * A listbox option is an owned `role="option"` node. A button cannot fill that
  * role, so the option is a div that handles click and Enter/Space.
+ * The label stays on one line. Hovering or focusing a cut-off label shows
+ * the full text.
  */
 export const isContextSwitcherOption = (
   child: React.ReactNode
@@ -87,9 +90,14 @@ export const isContextSwitcherOption = (
  * Renders nothing while the level's search query does not match its text.
  */
 export const ContextSwitcherOption = React.forwardRef<HTMLDivElement, ContextSwitcherOptionProps>(
-  function ContextSwitcherOption({ value, disabled = false, children, ...rest }, ref) {
+  function ContextSwitcherOption(
+    { value, disabled = false, children, onMouseEnter, onMouseLeave, onFocus, onBlur, ...rest },
+    ref
+  ) {
     const { query, selectedValue, onSelect } = useLevelPanel();
     const text = nodeText(children);
+    const textRef = React.useRef<HTMLSpanElement>(null);
+    const [nameTooltipOpen, setNameTooltipOpen] = React.useState(false);
 
     if (!matchesQuery(text, query)) {
       return null;
@@ -101,6 +109,13 @@ export const ContextSwitcherOption = React.forwardRef<HTMLDivElement, ContextSwi
       }
     };
 
+    const showNameTooltip = () => {
+      setNameTooltipOpen(isTruncated(textRef.current));
+    };
+    const hideNameTooltip = () => {
+      setNameTooltipOpen(false);
+    };
+
     return (
       <OptionRoot
         {...rest}
@@ -110,6 +125,22 @@ export const ContextSwitcherOption = React.forwardRef<HTMLDivElement, ContextSwi
         aria-disabled={disabled || undefined}
         tabIndex={-1}
         onClick={pick}
+        onMouseEnter={(event) => {
+          onMouseEnter?.(event);
+          showNameTooltip();
+        }}
+        onMouseLeave={(event) => {
+          onMouseLeave?.(event);
+          hideNameTooltip();
+        }}
+        onFocus={(event) => {
+          onFocus?.(event);
+          showNameTooltip();
+        }}
+        onBlur={(event) => {
+          onBlur?.(event);
+          hideNameTooltip();
+        }}
         onKeyDown={(event) => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
@@ -117,7 +148,14 @@ export const ContextSwitcherOption = React.forwardRef<HTMLDivElement, ContextSwi
           }
         }}
       >
-        {children}
+        <OverflowTooltip
+          title={tooltipLabel(text)}
+          open={nameTooltipOpen}
+          onClose={hideNameTooltip}
+          placement="right-start"
+        >
+          <TruncatedText ref={textRef}>{children}</TruncatedText>
+        </OverflowTooltip>
       </OptionRoot>
     );
   }

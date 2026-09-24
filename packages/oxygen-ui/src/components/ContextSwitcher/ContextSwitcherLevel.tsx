@@ -30,6 +30,7 @@ import { ChevronDown, X } from '@wso2/oxygen-ui-icons-react';
 import { LevelPanelContext, useContextSwitcher } from './context';
 import { isContextSwitcherGroup } from './ContextSwitcherGroup';
 import { isContextSwitcherOption } from './ContextSwitcherOption';
+import { isTruncated, OverflowTooltip, tooltipLabel } from './OverflowTooltip';
 import { clearFrom, matchesQuery, nodeText, selectLevel } from './model';
 
 /**
@@ -42,8 +43,9 @@ import { clearFrom, matchesQuery, nodeText, selectLevel } from './model';
  * - `text.secondary` - Level label and empty-state copy
  * - `text.primary` - Selected value
  *
- * The value truncates. The field's accessible name keeps the full
- * "Label: value" text.
+ * The label and the value each stay on one line and truncate. Hovering the
+ * field shows the full "Label: value" text when either line is cut. The
+ * field's accessible name keeps that full text.
  */
 
 const LevelFrame = styled(Box, {
@@ -122,7 +124,9 @@ const FieldLabel = styled('span', {
 })(({ theme }) => ({
   color: (theme.vars || theme).palette.text.secondary,
   fontSize: theme.typography.caption.fontSize,
+  display: 'block',
   lineHeight: 1.2,
+  minWidth: 0,
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
@@ -134,7 +138,9 @@ const FieldValue = styled('span', {
 })(({ theme }) => ({
   color: (theme.vars || theme).palette.text.primary,
   fontSize: theme.typography.body2.fontSize,
+  display: 'block',
   lineHeight: 1.3,
+  minWidth: 0,
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
@@ -226,11 +232,14 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
   function ContextSwitcherLevel({ id, label, clearable, loading = false, children, ...rest }, ref) {
     const { value, levelIds, openId, setOpenId, onChange, collapseFrom } = useContextSwitcher();
     const buttonRef = React.useRef<HTMLButtonElement>(null);
+    const labelRef = React.useRef<HTMLSpanElement>(null);
+    const valueRef = React.useRef<HTMLSpanElement>(null);
     const fieldRef = React.useRef<HTMLDivElement>(null);
     const panelRef = React.useRef<HTMLDivElement>(null);
     const searchRef = React.useRef<HTMLInputElement>(null);
     const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
     const [query, setQuery] = React.useState('');
+    const [nameTooltipOpen, setNameTooltipOpen] = React.useState(false);
     const popoverId = React.useId();
     const open = openId === id;
     const wasOpen = React.useRef(false);
@@ -347,6 +356,12 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
     };
 
     const accessibleName = selectedText ? `${label}: ${selectedText}` : label;
+    const showNameTooltip = () => {
+      setNameTooltipOpen(isTruncated(labelRef.current) || isTruncated(valueRef.current));
+    };
+    const hideNameTooltip = () => {
+      setNameTooltipOpen(false);
+    };
 
     const onClickAway = (event: MouseEvent | TouchEvent) => {
       if (!open) {
@@ -378,21 +393,29 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
               }
             }}
           >
-            <FieldButton
-              ref={buttonRef}
-              type="button"
-              aria-label={accessibleName}
-              aria-haspopup="dialog"
-              aria-expanded={open}
-              aria-controls={open ? popoverId : undefined}
-              onClick={togglePanel}
+            <OverflowTooltip
+              title={tooltipLabel(accessibleName)}
+              open={nameTooltipOpen}
+              onClose={hideNameTooltip}
             >
-              <FieldText>
-                <FieldLabel>{label}</FieldLabel>
-                {selectedText ? <FieldValue>{selectedText}</FieldValue> : null}
-              </FieldText>
-              <ChevronDown size={16} aria-hidden="true" />
-            </FieldButton>
+              <FieldButton
+                ref={buttonRef}
+                type="button"
+                aria-label={accessibleName}
+                aria-haspopup="dialog"
+                aria-expanded={open}
+                aria-controls={open ? popoverId : undefined}
+                onClick={togglePanel}
+                onMouseEnter={showNameTooltip}
+                onMouseLeave={hideNameTooltip}
+              >
+                <FieldText>
+                  <FieldLabel ref={labelRef}>{label}</FieldLabel>
+                  {selectedText ? <FieldValue ref={valueRef}>{selectedText}</FieldValue> : null}
+                </FieldText>
+                <ChevronDown size={16} aria-hidden="true" />
+              </FieldButton>
+            </OverflowTooltip>
             {canClear ? (
               <IconButton size="small" aria-label={`Close ${label}`} onClick={onClear}>
                 <X size={14} aria-hidden="true" />
@@ -403,6 +426,7 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
             open={open && anchorEl !== null}
             anchorEl={anchorEl}
             placement="bottom-start"
+            role="presentation"
             disablePortal
             popperOptions={{ strategy: 'absolute' }}
             modifiers={[

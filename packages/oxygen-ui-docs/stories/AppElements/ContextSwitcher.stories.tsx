@@ -38,7 +38,9 @@ const meta: Meta<typeof ContextSwitcher> = {
 The chain shows each selected level. A chevron reveals and opens the next empty level. Choosing a field opens
 that level's panel: a search box, then ungrouped options and groups. Search filters
 the option text. A pick, Escape, an outside click, or a second click on the field
-closes the panel.
+closes the panel. A label, value, group name, or option that does not fit stays on one
+line and ends in an ellipsis. Hovering it shows the full text. Focusing an option
+does the same.
 
 The close button on every level after the first clears that level and every level under it.
 The first level has no close button unless \`clearable\` is set. Changing a parent
@@ -85,6 +87,9 @@ const Chain = () => {
         <ContextSwitcher.Group label="Invited organizations">
           <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
           <ContextSwitcher.Option value="demo">Demo Organization</ContextSwitcher.Option>
+          <ContextSwitcher.Option value="north-america">
+            North American Enterprise Organization
+          </ContextSwitcher.Option>
         </ContextSwitcher.Group>
       </ContextSwitcher.Level>
       <ContextSwitcher.Level id="project" label="Project">

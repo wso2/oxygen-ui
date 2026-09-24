@@ -18,7 +18,7 @@
 
 import * as React from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import OxygenUIThemeProvider from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
 import {
   ContextSwitcher,
@@ -128,6 +128,102 @@ describe('ContextSwitcher chain', () => {
     expect(
       screen.getByRole('button', { name: 'Organization: North American Enterprise Organization' })
     ).toBeDefined();
+  });
+});
+
+const mockTextWidth = (scroll: number, client: number) => {
+  const scrollWidth = vi.spyOn(HTMLElement.prototype, 'scrollWidth', 'get').mockReturnValue(scroll);
+  const clientWidth = vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(client);
+  return () => {
+    scrollWidth.mockRestore();
+    clientWidth.mockRestore();
+  };
+};
+
+const longOrganization = (value: ContextSwitcherValue = { organization: 'long' }) => (
+  <OxygenUIThemeProvider>
+    <ContextSwitcher value={value} onChange={() => undefined}>
+      <ContextSwitcher.Level id="organization" label="Organization">
+        <ContextSwitcher.Group label="North American enterprise organizations">
+          <ContextSwitcher.Option value="long">
+            North American Enterprise Organization
+          </ContextSwitcher.Option>
+        </ContextSwitcher.Group>
+      </ContextSwitcher.Level>
+    </ContextSwitcher>
+  </OxygenUIThemeProvider>
+);
+
+describe('ContextSwitcher truncated names', () => {
+  it('shows the full field name when the value is cut off', () => {
+    const restore = mockTextWidth(320, 80);
+    try {
+      render(longOrganization());
+      fireEvent.mouseEnter(
+        screen.getByRole('button', { name: 'Organization: North American Enterprise Organization' })
+      );
+
+      expect(screen.getByRole('tooltip').textContent).toBe(
+        'Organization: North American Enterprise Organization'
+      );
+    } finally {
+      restore();
+    }
+  });
+
+  it('stays quiet when the field name fits', () => {
+    const restore = mockTextWidth(80, 80);
+    try {
+      render(<Harness initial={{ organization: 'wso2' }} />);
+      fireEvent.mouseEnter(screen.getByRole('button', { name: 'Organization: WSO2' }));
+
+      expect(screen.queryByRole('tooltip')).toBeNull();
+    } finally {
+      restore();
+    }
+  });
+
+  it('shows the full option name when the option is cut off', async () => {
+    const restore = mockTextWidth(320, 80);
+    try {
+      render(longOrganization({}));
+      fireEvent.click(screen.getByRole('button', { name: 'Organization' }));
+      const option = screen.getByRole('option', { name: 'North American Enterprise Organization' });
+
+      fireEvent.mouseEnter(option);
+      expect(screen.getByRole('tooltip').textContent).toBe('North American Enterprise Organization');
+
+      fireEvent.mouseLeave(option);
+      await waitFor(() => {
+        expect(screen.queryByRole('tooltip')).toBeNull();
+      });
+
+      fireEvent.focus(option);
+      expect(screen.getByRole('tooltip').textContent).toBe('North American Enterprise Organization');
+      expect(option.getAttribute('aria-label')).toBeNull();
+    } finally {
+      restore();
+    }
+  });
+
+  it('shows the full group name when the group label is cut off', () => {
+    const restore = mockTextWidth(320, 80);
+    try {
+      render(longOrganization({}));
+      fireEvent.click(screen.getByRole('button', { name: 'Organization' }));
+      fireEvent.mouseEnter(
+        screen.getByText('North American enterprise organizations', { selector: 'span' })
+      );
+
+      expect(screen.getByRole('tooltip').textContent).toBe(
+        'North American enterprise organizations'
+      );
+      expect(
+        screen.getByRole('group', { name: 'North American enterprise organizations' })
+      ).toBeDefined();
+    } finally {
+      restore();
+    }
   });
 });
 
