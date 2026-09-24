@@ -602,6 +602,21 @@ describe('ContextSwitcher dismissal', () => {
 
     expect(document.activeElement).toBe(organization);
   });
+
+  it('keeps Escape from also dismissing a parent dialog', () => {
+    const onParentKeyDown = vi.fn();
+    render(
+      <div onKeyDown={onParentKeyDown}>
+        <Harness />
+      </div>
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Organization' }));
+    fireEvent.keyDown(screen.getByRole('textbox', { name: 'Search Organization' }), { key: 'Escape' });
+
+    expect(screen.queryByRole('dialog')).toBeNull();
+    expect(onParentKeyDown).not.toHaveBeenCalled();
+  });
 });
 
 describe('ContextSwitcher visibility', () => {
@@ -680,7 +695,7 @@ describe('ContextSwitcher keyboard', () => {
 });
 
 describe('ContextSwitcher accessibility', () => {
-  it('points the open field at its dialog and marks that dialog modal', () => {
+  it('points the open field at its dialog', () => {
     render(<Harness />);
     const organization = screen.getByRole('button', { name: 'Organization' });
 
@@ -693,7 +708,7 @@ describe('ContextSwitcher accessibility', () => {
     const dialog = screen.getByRole('dialog', { name: 'Organization' });
     expect(organization.getAttribute('aria-expanded')).toBe('true');
     expect(organization.getAttribute('aria-controls')).toBe(dialog.id);
-    expect(dialog.getAttribute('aria-modal')).toBe('true');
+    expect(dialog.getAttribute('aria-modal')).toBeNull();
   });
 
   it('names a group once and hides the visible label from assistive tech', () => {

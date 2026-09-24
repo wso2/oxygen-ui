@@ -272,21 +272,6 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
       wasOpen.current = open;
     }, [open, openId, anchorEl]);
 
-    React.useEffect(() => {
-      if (!open) {
-        return undefined;
-      }
-      const onKeyDown = (event: KeyboardEvent) => {
-        if (event.key !== 'Escape') {
-          return;
-        }
-        event.preventDefault();
-        setOpenId(null);
-      };
-      document.addEventListener('keydown', onKeyDown);
-      return () => document.removeEventListener('keydown', onKeyDown);
-    }, [open, setOpenId]);
-
     const closePanel = () => {
       setOpenId(null);
     };
@@ -312,6 +297,12 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
     };
 
     const onPanelKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        event.stopPropagation();
+        setOpenId(null);
+        return;
+      }
       if (!panelRef.current) {
         return;
       }
@@ -442,7 +433,6 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
               id={popoverId}
               role="dialog"
               aria-label={label}
-              aria-modal="true"
               tabIndex={-1}
               ref={panelRef}
               elevation={8}
