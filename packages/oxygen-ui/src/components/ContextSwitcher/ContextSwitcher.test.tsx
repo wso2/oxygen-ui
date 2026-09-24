@@ -645,19 +645,30 @@ describe('ContextSwitcher visibility', () => {
 });
 
 describe('ContextSwitcher keyboard', () => {
-  it('wraps Tab between the search box and the option list', () => {
-    render(<Harness />);
+  it('lets Tab leave the panel', () => {
+    render(
+      <>
+        <Harness />
+        <button type="button">After the chain</button>
+      </>
+    );
 
     fireEvent.click(screen.getByRole('button', { name: 'Organization' }));
     const search = screen.getByRole('textbox', { name: 'Search Organization' });
     const list = screen.getByRole('listbox', { name: 'Organization' });
+    const after = screen.getByRole('button', { name: 'After the chain' });
 
     list.focus();
-    fireEvent.keyDown(list, { key: 'Tab' });
+    expect(fireEvent.keyDown(list, { key: 'Tab' })).toBe(true);
+    expect(document.activeElement).toBe(list);
+
+    search.focus();
+    expect(fireEvent.keyDown(search, { key: 'Tab', shiftKey: true })).toBe(true);
     expect(document.activeElement).toBe(search);
 
-    fireEvent.keyDown(search, { key: 'Tab', shiftKey: true });
-    expect(document.activeElement).toBe(list);
+    expect(list.compareDocumentPosition(after) & Node.DOCUMENT_POSITION_FOLLOWING).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING
+    );
   });
 
   it('moves to the last enabled option with End and skips a disabled option', () => {
