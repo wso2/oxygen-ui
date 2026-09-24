@@ -119,6 +119,9 @@ const levelElements = (
  */
 export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherProps>(
   function ContextSwitcher({ value, onChange, children, ...rest }, ref) {
+    const chainRef = React.useRef<HTMLDivElement>(null);
+    const showToggleRef = React.useRef<HTMLButtonElement>(null);
+    const restoreFocusRef = React.useRef(false);
     const [openId, setOpenId] = React.useState<string | null>(null);
     const [revealedId, setRevealedId] = React.useState<string | null>(null);
     const levels = levelElements(children);
@@ -152,9 +155,28 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
       }
     }, [openId, visibleKey]);
 
+    const restoreFocus = React.useCallback(() => {
+      restoreFocusRef.current = true;
+    }, []);
+
+    React.useLayoutEffect(() => {
+      if (!restoreFocusRef.current) {
+        return;
+      }
+      restoreFocusRef.current = false;
+      if (showToggleRef.current) {
+        showToggleRef.current.focus();
+        return;
+      }
+      const fields = chainRef.current?.querySelectorAll<HTMLButtonElement>(
+        'button[aria-haspopup="dialog"]'
+      );
+      fields?.[fields.length - 1]?.focus();
+    });
+
     const contextValue = React.useMemo(
-      () => ({ value: normalized, levelIds, openId, setOpenId, onChange, collapseFrom }),
-      [normalized, levelIds, openId, onChange, collapseFrom]
+      () => ({ value: normalized, levelIds, openId, setOpenId, onChange, collapseFrom, restoreFocus }),
+      [normalized, levelIds, openId, onChange, collapseFrom, restoreFocus]
     );
 
     const hiddenLevel = levels[visibleCount];
@@ -162,10 +184,21 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
 
     return (
       <ContextSwitcherContext.Provider value={contextValue}>
-        <ChainRoot ref={ref} {...rest}>
+        <ChainRoot
+          ref={(node: HTMLDivElement | null) => {
+            chainRef.current = node;
+            if (typeof ref === 'function') {
+              ref(node);
+            } else if (ref) {
+              ref.current = node;
+            }
+          }}
+          {...rest}
+        >
           {visible}
           {hiddenLevel && normalized[visible[visible.length - 1]?.props.id ?? ''] && !showingNext ? (
             <ToggleButton
+              ref={showToggleRef}
               aria-label={`Show ${hiddenLevel.props.label}`}
               onClick={() => {
                 setRevealedId(hiddenLevel.props.id);
@@ -181,6 +214,7 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
               onClick={() => {
                 setRevealedId(null);
                 setOpenId(null);
+                restoreFocus();
               }}
             >
               <ChevronLeft size={18} aria-hidden="true" />
