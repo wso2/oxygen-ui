@@ -306,26 +306,6 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
       if (!panelRef.current) {
         return;
       }
-      if (event.key === 'Tab') {
-        const tabbable = Array.from(
-          panelRef.current.querySelectorAll<HTMLElement>('input, button, [tabindex="0"]')
-        ).filter((element) => !element.hasAttribute('disabled') && element.tabIndex >= 0);
-        if (tabbable.length === 0) {
-          event.preventDefault();
-          return;
-        }
-        const first = tabbable[0];
-        const last = tabbable[tabbable.length - 1];
-        const active = document.activeElement;
-        if (event.shiftKey && active === first) {
-          event.preventDefault();
-          last.focus();
-        } else if (!event.shiftKey && active === last) {
-          event.preventDefault();
-          first.focus();
-        }
-        return;
-      }
       if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
         return;
       }
