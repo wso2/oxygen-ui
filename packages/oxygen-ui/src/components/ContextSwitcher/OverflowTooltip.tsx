@@ -18,21 +18,6 @@
 
 import * as React from 'react';
 import Tooltip, { type TooltipProps } from '@mui/material/Tooltip';
-import { styled } from '@mui/material/styles';
-
-/**
- * One line, cut with an ellipsis when the container is narrower than the text.
- */
-export const TruncatedText = styled('span', {
-  name: 'MuiContextSwitcher',
-  slot: 'TruncatedText',
-})({
-  display: 'block',
-  minWidth: 0,
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-});
 
 /** True when the element is clipping its text. */
 export const isTruncated = (node: HTMLElement | null): boolean =>
@@ -61,7 +46,7 @@ export const OverflowTooltip = ({
   onClose,
   placement = 'bottom-start',
   children,
-}: OverflowTooltipProps) => {
+}: OverflowTooltipProps): React.ReactElement => {
   if (title.length === 0) {
     return children;
   }
