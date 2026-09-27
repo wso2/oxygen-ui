@@ -83,8 +83,8 @@ const levelElements = (
 /**
  * ContextSwitcher - A chain of labeled fields for selecting through a hierarchy.
  *
- * The chain shows each selected level and the next empty one. Choosing a field,
- * or pressing ArrowDown or ArrowUp on it, opens that level's panel: a search box
+ * The chain shows each selected level. A level with no value stays hidden until its
+ * parent option is chosen. Choosing a field, or pressing ArrowDown or ArrowUp on it, opens that level's panel: a search box
  * and the level's options. ArrowLeft and ArrowRight move between fields. Inside
  * the panel, those arrows stay in the search box and move the highlighted option.
  * Enter picks it and leaves the field. Escape closes the panel and returns focus
@@ -118,6 +118,7 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
     const memoryRef = React.useRef<ContextSwitcherValue | null>(null);
     const [openId, setOpenId] = React.useState<string | null>(null);
     const [collapsedId, setCollapsedId] = React.useState<string | null>(null);
+    const [revealedId, setRevealedId] = React.useState<string | null>(null);
     const levels = levelElements(children);
     const levelIds = levels.map((level) => level.props.id);
     const levelKey = levelIds.join('\0');
@@ -127,9 +128,14 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
     );
     const selectedCount = selectedLevelCount(levelIds, normalized);
     const collapsedIndex = collapsedId === null ? -1 : levelIds.indexOf(collapsedId);
-    const baseVisible = Math.min(levels.length, selectedCount + (levels.length === 0 ? 0 : 1));
-    const visibleCount =
-      collapsedIndex >= 0 ? Math.min(baseVisible, collapsedIndex) : baseVisible;
+    const revealedIndex = revealedId === null ? -1 : levelIds.indexOf(revealedId);
+    let visibleCount = levels.length === 0 ? 0 : Math.max(selectedCount, 1);
+    if (revealedIndex === selectedCount && revealedId !== null && !normalized[revealedId]) {
+      visibleCount = Math.min(levels.length, selectedCount + 1);
+    }
+    if (collapsedIndex >= 0) {
+      visibleCount = Math.min(visibleCount, collapsedIndex);
+    }
     const visible = levels.slice(0, visibleCount);
     const visibleKey = visible.map((level) => level.props.id).join('\0');
 
@@ -167,6 +173,7 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
         }
         memoryRef.current = { ...normalized };
         setCollapsedId(levelId);
+        setRevealedId(null);
         onChange(clearFrom(levelIds, normalized, levelId));
       },
       [levelIds, normalized, onChange]
@@ -179,10 +186,13 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
         const memory = memoryRef.current;
         const pickingHiddenParent = parentId === levelId && memory !== null;
 
+        const nextId = levelIds[levelIds.indexOf(levelId) + 1] ?? null;
+
         if (pickingHiddenParent && memory[levelId] === optionValue && normalized[levelId] === optionValue) {
           onChange(normalizeValue(levelIds, memory));
           memoryRef.current = null;
           setCollapsedId(null);
+          setRevealedId(null);
           return;
         }
 
@@ -192,9 +202,11 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
         }
 
         if (normalized[levelId] === optionValue) {
+          setRevealedId(nextId);
           return;
         }
         onChange(selectLevel(levelIds, normalized, levelId, optionValue));
+        setRevealedId(nextId);
       },
       [collapsedId, levelIds, normalized, onChange]
     );
