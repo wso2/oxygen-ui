@@ -27,6 +27,7 @@ import {
   ContextSwitcherOption,
 } from './index';
 import type { ContextSwitcherValue } from './context';
+import { optionDomId } from './model';
 
 const Harness = ({
   initial = {},
@@ -93,6 +94,15 @@ const openLevel = (label: string) => {
     fireEvent.click(button);
   }
 };
+
+describe('optionDomId', () => {
+  it('keeps distinct values on distinct ids', () => {
+    const ids = ['org.1', 'org 1', 'org_1'].map((value) => optionDomId('list', value));
+
+    expect(new Set(ids).size).toBe(3);
+    expect(ids.every((id) => id.startsWith('list-'))).toBe(true);
+  });
+});
 
 describe('ContextSwitcher chain', () => {
   it('shows the first level when nothing is selected', () => {
@@ -651,11 +661,15 @@ describe('ContextSwitcher dismissal', () => {
   });
 
   it('keeps only one panel open', () => {
-    render(<Harness initial={{ organization: 'wso2' }} />);
+    render(<Harness initial={{ organization: 'wso2', project: 'finance-web' }} />);
 
-    openLevel('Project');
+    fireEvent.click(screen.getByRole('button', { name: 'Project: Finance Web' }));
     fireEvent.click(screen.getByRole('button', { name: 'Organization: WSO2' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Project' }));
+
+    expect(screen.queryByRole('dialog', { name: 'Project' })).toBeNull();
+    expect(screen.getByRole('dialog', { name: 'Organization' })).toBeDefined();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Project: Finance Web' }));
 
     expect(screen.queryByRole('dialog', { name: 'Organization' })).toBeNull();
     expect(screen.getByRole('dialog', { name: 'Project' })).toBeDefined();
@@ -964,8 +978,9 @@ describe('ContextSwitcher', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Organization: WSO2' }));
     fireEvent.click(screen.getByRole('option', { name: 'Demo Organization' }));
 
-    expect(screen.queryByRole('dialog')).toBeNull();
+    expect(screen.queryByRole('dialog', { name: 'Component' })).toBeNull();
     expect(screen.queryByRole('button', { name: /Component/ })).toBeNull();
+    expect(screen.getByRole('dialog', { name: 'Project' })).toBeDefined();
   });
 
 });
