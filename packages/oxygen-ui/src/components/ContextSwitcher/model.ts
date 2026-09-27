@@ -122,3 +122,7 @@ export const selectLevel = (
   ...selectionsBefore(levelIds, value, levelIds.indexOf(levelId)),
   [levelId]: optionValue,
 });
+
+/** DOM id for an option, safe to use in aria-activedescendant. */
+export const optionDomId = (listId: string, value: string): string =>
+  `${listId}-${value.replace(/[^A-Za-z0-9_-]/g, '_')}`;

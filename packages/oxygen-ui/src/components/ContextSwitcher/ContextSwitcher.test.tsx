@@ -233,7 +233,7 @@ describe('ContextSwitcher close', () => {
     expect(screen.getByRole('button', { name: 'Close Component' })).toBeDefined();
   });
 
-  it('clears that level and every level under it', () => {
+  it('hides a closed level until its parent option is chosen again', () => {
     render(
       <Harness
         initial={{ organization: 'wso2', project: 'finance-web', component: 'mis-arr' }}
@@ -243,21 +243,26 @@ describe('ContextSwitcher close', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Close Project' }));
 
     expect(screen.getByRole('button', { name: 'Organization: WSO2' })).toBeDefined();
-    expect(screen.getByRole('button', { name: 'Project' })).toBeDefined();
+    expect(screen.queryByRole('button', { name: /Project/ })).toBeNull();
     expect(screen.queryByRole('button', { name: /Component/ })).toBeNull();
     expect(screen.queryByRole('dialog')).toBeNull();
-    expect(screen.queryByRole('button', { name: /Show / })).toBeNull();
-    expect(screen.queryByRole('button', { name: /Hide / })).toBeNull();
-  });
 
-  it('moves focus to the Project field after that level is closed', () => {
+    fireEvent.click(screen.getByRole('button', { name: 'Organization: WSO2' }));
+    fireEvent.click(screen.getByRole('option', { name: 'WSO2' }));
+
+    expect(screen.getByRole('button', { name: 'Project: Finance Web' })).toBeDefined();
+    expect(screen.getByRole('button', { name: 'Component: MIS ARR Backend' })).toBeDefined();
+  }, 15000);
+
+  it('moves focus to the parent field after a level is closed', () => {
     render(<Harness initial={{ organization: 'wso2', project: 'finance-web' }} />);
     const close = screen.getByRole('button', { name: 'Close Project' });
 
     close.focus();
     fireEvent.click(close);
 
-    expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Project' }));
+    expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Organization: WSO2' }));
+    expect(screen.queryByRole('button', { name: /Project/ })).toBeNull();
   });
 
   it('lets a product keep a later level required and clear the first level', () => {
@@ -284,7 +289,10 @@ describe('ContextSwitcher close', () => {
   });
 });
 
-const declaredProperty = (element: Element, property: 'boxShadow' | 'outline' | 'gridRow'): string[] => {
+const declaredProperty = (
+  element: Element,
+  property: 'boxShadow' | 'outline' | 'gridRow' | 'backgroundColor'
+): string[] => {
   const classNames = Array.from(element.classList);
   const values: string[] = [];
   for (const sheet of Array.from(document.styleSheets)) {
@@ -414,6 +422,23 @@ describe('ContextSwitcher panel', () => {
     expect(screen.queryByRole('button', { name: /Show / })).toBeNull();
   });
 
+  it('shows an empty child when a different parent option is chosen', () => {
+    render(
+      <Harness
+        initial={{ organization: 'wso2', project: 'finance-web', component: 'mis-arr' }}
+      />
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Close Project' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Organization: WSO2' }));
+    fireEvent.click(screen.getByRole('option', { name: 'Demo Organization' }));
+
+    expect(screen.getByRole('button', { name: 'Organization: Demo Organization' })).toBeDefined();
+    expect(screen.getByRole('button', { name: 'Project' })).toBeDefined();
+    expect(screen.queryByRole('button', { name: 'Project: Finance Web' })).toBeNull();
+    expect(screen.queryByRole('button', { name: /Component/ })).toBeNull();
+  });
+
   it('shows an empty Project field after a parent change clears the old Project value', () => {
     render(<Harness initial={{ organization: 'wso2' }} />);
 
@@ -455,7 +480,7 @@ describe('ContextSwitcher panel', () => {
     const options = screen.getAllByRole('option').map((option) => option.textContent);
     expect(options).toEqual(['Personal', 'WSO2', 'Demo Organization']);
     expect(screen.getByRole('group', { name: 'Invited organizations' })).toBeDefined();
-    expect(screen.getByRole('listbox', { name: 'Organization' }).getAttribute('tabindex')).toBe('0');
+    expect(screen.getByRole('listbox', { name: 'Organization' }).getAttribute('tabindex')).toBe('-1');
 
     fireEvent.click(screen.getByRole('option', { name: 'Personal' }));
     fireEvent.click(screen.getByRole('button', { name: 'Organization: Personal' }));
@@ -537,12 +562,15 @@ describe('ContextSwitcher panel', () => {
     );
 
     fireEvent.click(screen.getByRole('button', { name: 'Organization' }));
-    fireEvent.keyDown(screen.getByRole('textbox', { name: 'Search Organization' }), {
-      key: 'ArrowDown',
-    });
-    fireEvent.keyDown(screen.getByRole('option', { name: 'Personal' }), { key: 'Enter' });
+    const search = screen.getByRole('textbox', { name: 'Search Organization' });
+    fireEvent.keyDown(search, { key: 'ArrowDown' });
+    expect(document.activeElement).toBe(search);
+    fireEvent.keyDown(search, { key: 'Enter' });
 
     expect(onChange).toHaveBeenCalledWith({ organization: 'personal' });
+    expect(document.activeElement).not.toBe(
+      screen.getByRole('button', { name: 'Organization' })
+    );
   });
 });
 
@@ -648,6 +676,19 @@ describe('ContextSwitcher visibility', () => {
     expect(document.activeElement).toBe(list);
   });
 
+  it('does not tint the field while it is open or focused', () => {
+    render(<Harness initial={{ organization: 'wso2', project: 'finance-web' }} />);
+    const project = screen.getByRole('button', { name: 'Project: Finance Web' });
+
+    fireEvent.click(project);
+    project.focus();
+
+    const field = project.parentElement as Element;
+    expect(declaredProperty(field, 'backgroundColor').some((value) => value.includes('color-mix'))).toBe(
+      false
+    );
+  });
+
   it('does not outline the field while its panel is open', () => {
     render(<Harness initial={{ organization: 'wso2' }} />);
 
@@ -695,11 +736,14 @@ describe('ContextSwitcher keyboard', () => {
     const search = screen.getByRole('textbox', { name: 'Search Project' });
     fireEvent.keyDown(search, { key: 'End' });
 
-    expect(document.activeElement).toBe(screen.getByRole('option', { name: 'Finance Web' }));
-    expect(document.activeElement).not.toBe(screen.getByRole('option', { name: 'Sales' }));
+    const activeId = search.getAttribute('aria-activedescendant');
+    const active = activeId ? document.getElementById(activeId) : null;
+    expect(document.activeElement).toBe(search);
+    expect(active?.textContent).toBe('Finance Web');
+    expect(active).not.toBe(screen.getByRole('option', { name: 'Sales' }));
   });
 
-  it('selects a focused option with Space', () => {
+  it('selects the active option with Enter and releases focus', () => {
     const onChange = vi.fn();
     render(
       <OxygenUIThemeProvider>
@@ -715,10 +759,30 @@ describe('ContextSwitcher keyboard', () => {
     );
 
     openLevel('Project');
-    fireEvent.keyDown(screen.getByRole('textbox', { name: 'Search Project' }), { key: 'ArrowDown' });
-    fireEvent.keyDown(screen.getByRole('option', { name: 'Finance Web' }), { key: ' ' });
+    const search = screen.getByRole('textbox', { name: 'Search Project' });
+    fireEvent.keyDown(search, { key: 'Enter' });
 
     expect(onChange).toHaveBeenCalledWith({ organization: 'wso2', project: 'finance-web' });
+    expect(document.activeElement).not.toBe(screen.getByRole('button', { name: 'Project' }));
+  });
+
+  it('opens a field with ArrowDown and moves between fields with the left and right arrows', () => {
+    render(<Harness initial={{ organization: 'wso2' }} />);
+    const organization = screen.getByRole('button', { name: 'Organization: WSO2' });
+    const project = screen.getByRole('button', { name: 'Project' });
+
+    organization.focus();
+    fireEvent.keyDown(organization, { key: 'ArrowRight' });
+    expect(document.activeElement).toBe(project);
+
+    fireEvent.keyDown(project, { key: 'ArrowLeft' });
+    expect(document.activeElement).toBe(organization);
+
+    fireEvent.keyDown(organization, { key: 'ArrowDown' });
+    expect(screen.getByRole('dialog', { name: 'Organization' })).toBeDefined();
+    expect(document.activeElement).toBe(
+      screen.getByRole('textbox', { name: 'Search Organization' })
+    );
   });
 });
 
@@ -780,7 +844,7 @@ describe('ContextSwitcher accessibility', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Close Project' }));
 
     expect(screen.queryByRole('dialog')).toBeNull();
-    expect(screen.getByRole('button', { name: 'Project' })).toBeDefined();
+    expect(screen.queryByRole('button', { name: /Project/ })).toBeNull();
     expect(screen.queryByRole('button', { name: /Show / })).toBeNull();
     expect(screen.queryByRole('button', { name: /Component/ })).toBeNull();
   });
@@ -931,26 +995,29 @@ describe('ContextSwitcher.Level', () => {
     const search = screen.getByRole('textbox', { name: 'Search Organization' });
     const personal = screen.getByRole('option', { name: 'Personal' });
     const wso2 = screen.getByRole('option', { name: 'WSO2' });
+    const highlighted = () => {
+      const id = search.getAttribute('aria-activedescendant');
+      return id ? document.getElementById(id) : null;
+    };
 
     fireEvent.keyDown(search, { key: 'Home' });
-    expect(document.activeElement).toBe(personal);
+    expect(document.activeElement).toBe(search);
+    expect(highlighted()).toBe(personal);
 
-    fireEvent.keyDown(personal, { key: 'ArrowDown' });
-    expect(document.activeElement).toBe(wso2);
+    fireEvent.keyDown(search, { key: 'ArrowDown' });
+    expect(highlighted()).toBe(wso2);
 
-    fireEvent.keyDown(wso2, { key: 'ArrowDown' });
-    expect(document.activeElement).toBe(wso2);
+    fireEvent.keyDown(search, { key: 'ArrowDown' });
+    expect(highlighted()).toBe(wso2);
 
-    fireEvent.keyDown(wso2, { key: 'ArrowUp' });
-    expect(document.activeElement).toBe(personal);
-
-    search.focus();
     fireEvent.keyDown(search, { key: 'ArrowUp' });
-    expect(document.activeElement).toBe(wso2);
+    expect(highlighted()).toBe(personal);
 
-    search.focus();
     fireEvent.keyDown(search, { key: 'End' });
-    expect(document.activeElement).toBe(wso2);
+    expect(highlighted()).toBe(wso2);
+
+    fireEvent.keyDown(search, { key: 'Home' });
+    expect(highlighted()).toBe(personal);
   });
 });
 

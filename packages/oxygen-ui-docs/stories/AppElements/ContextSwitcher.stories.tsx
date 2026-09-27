@@ -42,10 +42,11 @@ closes the panel. A label, value, group name, or option that does not fit stays 
 line and ends in an ellipsis. Hovering it shows the full text. Focusing an option
 does the same.
 
-The close button stays inside the field and clears that level and every level under it.
-It appears only when the level is clearable and has a selection. The first level has no
-close button unless \`clearable\` is set. Changing a parent clears the levels under it.
-The product routes from \`onChange\`.
+The close button stays inside the field. Closing a level hides that level and every level under it.
+Choosing the parent's current option again shows them with the same selection. Choosing a different
+option shows an empty child instead. The button appears only when the level is clearable and has a
+selection. The first level has no close button unless \`clearable\` is set. Changing a parent clears
+the levels under it. The product routes from \`onChange\`.
 
 Place the chain in \`Header.Switchers\`. That slot is visible from the \`md\` breakpoint
 up, and hidden on smaller widths and in a minimal header.

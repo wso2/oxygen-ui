@@ -35,6 +35,15 @@ export interface ContextSwitcherContextValue {
    * visible field button.
    */
   restoreFocus: () => void;
+  /** Move focus to the neighboring field. Stays put at either end of the chain. */
+  moveFocus: (levelId: string, direction: -1 | 1) => void;
+  /** Hides a level and the levels under it, and remembers their selection. */
+  collapse: (levelId: string) => void;
+  /**
+   * Applies a pick. Choosing the parent of a hidden level again restores that
+   * selection. Choosing a different option forgets it.
+   */
+  applyPick: (levelId: string, optionValue: string) => void;
 }
 
 export const ContextSwitcherContext = React.createContext<ContextSwitcherContextValue | null>(null);
@@ -50,6 +59,10 @@ export const useContextSwitcher = (): ContextSwitcherContextValue => {
 export interface LevelPanelContextValue {
   query: string;
   selectedValue: string | undefined;
+  /** Option value highlighted for the keyboard, if any. */
+  activeValue: string | null;
+  /** Prefix used to build option element ids. */
+  listId: string;
   onSelect: (optionValue: string) => void;
 }
 
