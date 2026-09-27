@@ -31,17 +31,16 @@ import { LevelPanelContext, useContextSwitcher } from './context';
 import { isContextSwitcherGroup } from './ContextSwitcherGroup';
 import { isContextSwitcherOption } from './ContextSwitcherOption';
 import { isTruncated, OverflowTooltip, tooltipLabel } from './OverflowTooltip';
-import { clearFrom, matchesQuery, nodeText, selectLevel } from './model';
+import { matchesQuery, nodeText, optionDomId } from './model';
 
 /**
  * Theme tokens used in this component:
  *
  * Colors:
- * - `background.paper` - Resting field surface
- * - `divider` - Field border, including while the field is open or focused
- * - `primary.main` - Light wash on the field while it is open or focused
+ * - `background.paper` - Field surface
+ * - `divider` - Field border
  * - `text.secondary` - Level label and empty-state copy
- * - `text.primary` - Selected value
+ * - `text.primary` - Selected value, and the keyboard focus outline
  *
  * The label and the value each stay on one line and truncate. Hovering the
  * field shows the full "Label: value" text when either line is cut. The
@@ -57,46 +56,30 @@ const LevelFrame = styled(Box, {
   position: 'relative',
 });
 
-interface LevelOwnerState {
-  open: boolean;
-}
-
 const FieldRoot = styled(Box, {
   name: 'MuiContextSwitcher',
   slot: 'Level',
-  shouldForwardProp: (prop) => prop !== 'ownerState',
-})<{ ownerState: LevelOwnerState }>(({ theme, ownerState }) => {
-  // The wash covers the label and the close button. A highlight on the label
-  // button alone leaves the close control outside it.
-  const palette = (theme.vars || theme).palette;
-  const tint = `color-mix(in srgb, ${palette.primary.main} 12%, ${palette.background.paper})`;
-  const active = {
-    backgroundColor: tint,
-  };
-  return {
-    alignItems: 'center',
-    backgroundColor: palette.background.paper,
-    border: '1px solid',
-    borderColor: palette.divider,
-    borderRadius: theme.shape.borderRadius,
-    boxShadow: 'none',
-    columnGap: theme.spacing(0.5),
-    display: 'inline-grid',
-    gridTemplateColumns: 'minmax(0, 1fr) auto',
-    gridTemplateRows: 'auto auto',
-    maxWidth: 220,
-    minHeight: 48,
-    minWidth: 0,
-    padding: theme.spacing(0.5, 0.75, 0.5, 1),
-    ...(ownerState.open ? active : null),
-    '&:focus-within': active,
-  };
-});
+})(({ theme }) => ({
+  alignItems: 'center',
+  backgroundColor: (theme.vars || theme).palette.background.paper,
+  border: '1px solid',
+  borderColor: (theme.vars || theme).palette.divider,
+  borderRadius: theme.shape.borderRadius,
+  boxShadow: 'none',
+  columnGap: theme.spacing(0.5),
+  display: 'inline-grid',
+  gridTemplateColumns: 'minmax(0, 1fr) auto',
+  gridTemplateRows: 'auto auto',
+  maxWidth: 220,
+  minHeight: 48,
+  minWidth: 0,
+  padding: theme.spacing(0.5, 0.75, 0.5, 1),
+}));
 
 const FieldButton = styled('button', {
   name: 'MuiContextSwitcher',
   slot: 'LevelButton',
-})({
+})(({ theme }) => ({
   alignItems: 'center',
   appearance: 'none',
   background: 'transparent',
@@ -112,10 +95,14 @@ const FieldButton = styled('button', {
   minWidth: 0,
   padding: 0,
   textAlign: 'left',
-  '&:focus, &:focus-visible': {
+  '&:focus': {
     outline: 'none',
   },
-});
+  '&:focus-visible': {
+    outline: `2px solid ${(theme.vars || theme).palette.text.primary}`,
+    outlineOffset: 2,
+  },
+}));
 
 interface ChevronOwnerState {
   besideValue: boolean;
@@ -138,7 +125,7 @@ const ChevronMark = styled('span', {
 const CloseButton = styled(IconButton, {
   name: 'MuiContextSwitcher',
   slot: 'Close',
-})({
+})(({ theme }) => ({
   alignSelf: 'center',
   border: 0,
   color: 'inherit',
@@ -150,7 +137,12 @@ const CloseButton = styled(IconButton, {
   padding: 0,
   width: 16,
   zIndex: 1,
-});
+  '&.Mui-focusVisible': {
+    backgroundColor: 'transparent',
+    outline: `2px solid ${(theme.vars || theme).palette.text.primary}`,
+    outlineOffset: 2,
+  },
+}));
 
 const FieldText = styled('span', {
   name: 'MuiContextSwitcher',
@@ -251,13 +243,18 @@ export interface ContextSwitcherLevelProps
 interface OptionEntry {
   value: string;
   text: string;
+  disabled: boolean;
 }
 
 const collectOptions = (children: React.ReactNode): OptionEntry[] => {
   const options: OptionEntry[] = [];
   React.Children.forEach(children, (child) => {
     if (isContextSwitcherOption(child)) {
-      options.push({ value: child.props.value, text: nodeText(child.props.children) });
+      options.push({
+        value: child.props.value,
+        text: nodeText(child.props.children),
+        disabled: Boolean(child.props.disabled),
+      });
       return;
     }
     if (isContextSwitcherGroup(child)) {
@@ -267,15 +264,13 @@ const collectOptions = (children: React.ReactNode): OptionEntry[] => {
   return options;
 };
 
-const focusableOptions = (root: HTMLElement): HTMLElement[] =>
-  Array.from(root.querySelectorAll<HTMLElement>('[role="option"]:not([aria-disabled="true"])'));
-
 /**
  * ContextSwitcher.Level - A labeled field in the chain, and the panel that picks its value.
  */
 export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwitcherLevelProps>(
   function ContextSwitcherLevel({ id, label, clearable, loading = false, children, ...rest }, ref) {
-    const { value, levelIds, openId, setOpenId, onChange, restoreFocus } = useContextSwitcher();
+    const { value, levelIds, openId, setOpenId, restoreFocus, moveFocus, collapse, applyPick } =
+      useContextSwitcher();
     const buttonRef = React.useRef<HTMLButtonElement>(null);
     const labelRef = React.useRef<HTMLSpanElement>(null);
     const valueRef = React.useRef<HTMLSpanElement>(null);
@@ -284,16 +279,26 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
     const searchRef = React.useRef<HTMLInputElement>(null);
     const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
     const [query, setQuery] = React.useState('');
+    const [activeValue, setActiveValue] = React.useState<string | null>(null);
     const [nameTooltipOpen, setNameTooltipOpen] = React.useState(false);
     const popoverId = React.useId();
+    const listId = `${popoverId}-list`;
     const open = openId === id;
     const wasOpen = React.useRef(false);
+    const releaseFocusRef = React.useRef(false);
 
     const selectedValue = value[id];
     const options = React.useMemo(() => collectOptions(children), [children]);
     const selectedText = options.find((option) => option.value === selectedValue)?.text ?? selectedValue;
     const canClear = (clearable ?? levelIds[0] !== id) && Boolean(selectedValue);
-    const matches = options.filter((option) => matchesQuery(option.text, query));
+    const matches = React.useMemo(
+      () => options.filter((option) => matchesQuery(option.text, query)),
+      [options, query]
+    );
+    const enabledMatches = React.useMemo(
+      () => matches.filter((option) => !option.disabled),
+      [matches]
+    );
     const childList = React.Children.toArray(children);
     const ungroupedOptions = childList.filter(isContextSwitcherOption);
     const groups = childList.filter(isContextSwitcherGroup);
@@ -301,8 +306,23 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
     React.useEffect(() => {
       if (!open) {
         setQuery('');
+        setActiveValue(null);
+        return;
       }
-    }, [open]);
+      setActiveValue((current) => {
+        if (current && enabledMatches.some((option) => option.value === current)) {
+          return current;
+        }
+        return enabledMatches[0]?.value ?? null;
+      });
+    }, [open, enabledMatches]);
+
+    React.useLayoutEffect(() => {
+      if (!open || !activeValue) {
+        return;
+      }
+      document.getElementById(optionDomId(listId, activeValue))?.scrollIntoView?.({ block: 'nearest' });
+    }, [open, activeValue, listId]);
 
     React.useLayoutEffect(() => {
       setAnchorEl((current) => (current === fieldRef.current ? current : fieldRef.current));
@@ -312,7 +332,15 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
       if (open && anchorEl) {
         searchRef.current?.focus();
       } else if (!open && wasOpen.current && openId === null) {
-        buttonRef.current?.focus();
+        if (releaseFocusRef.current) {
+          releaseFocusRef.current = false;
+          const active = document.activeElement;
+          if (active instanceof HTMLElement && fieldRef.current?.contains(active)) {
+            active.blur();
+          }
+        } else {
+          buttonRef.current?.focus();
+        }
       }
       wasOpen.current = open;
     }, [open, openId, anchorEl]);
@@ -326,18 +354,44 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
     };
 
     const onSelect = (optionValue: string) => {
+      releaseFocusRef.current = true;
       setOpenId(null);
-      if (selectedValue === optionValue) {
-        return;
-      }
-      onChange(selectLevel(levelIds, value, id, optionValue));
+      applyPick(id, optionValue);
     };
 
     const onClear = (event: React.MouseEvent) => {
       event.stopPropagation();
       setOpenId(openId === id ? null : openId);
       restoreFocus();
-      onChange(clearFrom(levelIds, value, id));
+      collapse(id);
+    };
+
+    const moveActive = (key: string) => {
+      if (enabledMatches.length === 0) {
+        return;
+      }
+      const index = enabledMatches.findIndex((option) => option.value === activeValue);
+      let next = 0;
+      if (key === 'ArrowDown') {
+        next = index < 0 ? 0 : Math.min(index + 1, enabledMatches.length - 1);
+      } else if (key === 'ArrowUp') {
+        next = index < 0 ? enabledMatches.length - 1 : Math.max(index - 1, 0);
+      } else if (key === 'End') {
+        next = enabledMatches.length - 1;
+      }
+      setActiveValue(enabledMatches[next]?.value ?? null);
+    };
+
+    const onFieldKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        setOpenId(id);
+        return;
+      }
+      if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+        event.preventDefault();
+        moveFocus(id, event.key === 'ArrowRight' ? 1 : -1);
+      }
     };
 
     const onPanelKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -347,27 +401,18 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
         setOpenId(null);
         return;
       }
-      if (!panelRef.current) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        if (activeValue) {
+          onSelect(activeValue);
+        }
         return;
       }
       if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
         return;
       }
-      const items = focusableOptions(panelRef.current);
-      if (items.length === 0) {
-        return;
-      }
       event.preventDefault();
-      const current = items.indexOf(document.activeElement as HTMLElement);
-      let next = 0;
-      if (event.key === 'ArrowDown') {
-        next = current < 0 ? 0 : Math.min(current + 1, items.length - 1);
-      } else if (event.key === 'ArrowUp') {
-        next = current < 0 ? items.length - 1 : Math.max(current - 1, 0);
-      } else if (event.key === 'End') {
-        next = items.length - 1;
-      }
-      items[next]?.focus();
+      moveActive(event.key);
     };
 
     const accessibleName = selectedText ? `${label}: ${selectedText}` : label;
@@ -397,7 +442,6 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
       >
         <LevelFrame>
           <FieldRoot
-            ownerState={{ open }}
             {...rest}
             ref={(node: HTMLDivElement | null) => {
               fieldRef.current = node;
@@ -416,11 +460,13 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
               <FieldButton
                 ref={buttonRef}
                 type="button"
+                data-level-id={id}
                 aria-label={accessibleName}
                 aria-haspopup="dialog"
                 aria-expanded={open}
                 aria-controls={open ? popoverId : undefined}
                 onClick={togglePanel}
+                onKeyDown={onFieldKeyDown}
                 onMouseEnter={showNameTooltip}
                 onMouseLeave={hideNameTooltip}
               >
@@ -478,7 +524,14 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
                   fullWidth
                   size="small"
                   autoComplete="off"
-                  slotProps={{ input: { 'aria-label': `Search ${label}` } }}
+                  slotProps={{
+                    input: {
+                      'aria-label': `Search ${label}`,
+                      'aria-autocomplete': 'list',
+                      'aria-controls': listId,
+                      'aria-activedescendant': activeValue ? optionDomId(listId, activeValue) : undefined,
+                    },
+                  }}
                 />
                 {loading ? (
                   <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
@@ -490,8 +543,10 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
                   <EmptyCopy>No matches</EmptyCopy>
                 ) : null}
                 {!loading && matches.length > 0 ? (
-                  <LevelPanelContext.Provider value={{ query, selectedValue, onSelect }}>
-                    <OptionList role="listbox" aria-label={label} tabIndex={0}>
+                  <LevelPanelContext.Provider
+                    value={{ query, selectedValue, activeValue, listId, onSelect }}
+                  >
+                    <OptionList id={listId} role="listbox" aria-label={label} tabIndex={-1}>
                       {ungroupedOptions}
                       {groups}
                     </OptionList>

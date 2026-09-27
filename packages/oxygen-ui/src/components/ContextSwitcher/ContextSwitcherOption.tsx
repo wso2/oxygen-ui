@@ -18,7 +18,7 @@
 
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import { matchesQuery, nodeText } from './model';
+import { matchesQuery, nodeText, optionDomId } from './model';
 import { isTruncated, OverflowTooltip, tooltipLabel } from './OverflowTooltip';
 import { useLevelPanel } from './context';
 
@@ -28,7 +28,7 @@ import { useLevelPanel } from './context';
  * Colors:
  * - `action.selected` - Background of the current option
  * - `action.hover` - Background while hovering an enabled option
- * - `text.primary` - Option label
+ * - `text.primary` - Option label, and the keyboard cursor
  */
 
 const OptionRoot = styled('div', {
@@ -54,8 +54,11 @@ const OptionRoot = styled('div', {
   '&[aria-disabled="true"]:hover': {
     backgroundColor: 'transparent',
   },
+  '&[data-active="true"]': {
+    boxShadow: `inset 0 0 0 2px ${(theme.vars || theme).palette.text.primary}`,
+  },
   '&:focus-visible': {
-    outline: `2px solid ${(theme.vars || theme).palette.primary.main}`,
+    outline: `2px solid ${(theme.vars || theme).palette.text.primary}`,
     outlineOffset: -2,
   },
 }));
@@ -105,7 +108,7 @@ export const ContextSwitcherOption = React.forwardRef<HTMLDivElement, ContextSwi
     { value, disabled = false, children, onMouseEnter, onMouseLeave, onFocus, onBlur, ...rest },
     ref
   ) {
-    const { query, selectedValue, onSelect } = useLevelPanel();
+    const { query, selectedValue, activeValue, listId, onSelect } = useLevelPanel();
     const text = nodeText(children);
     const textRef = React.useRef<HTMLSpanElement>(null);
     const [nameTooltipOpen, setNameTooltipOpen] = React.useState(false);
@@ -131,9 +134,11 @@ export const ContextSwitcherOption = React.forwardRef<HTMLDivElement, ContextSwi
       <OptionRoot
         {...rest}
         ref={ref}
+        id={optionDomId(listId, value)}
         role="option"
         aria-selected={selectedValue === value}
         aria-disabled={disabled || undefined}
+        data-active={activeValue === value ? 'true' : undefined}
         tabIndex={-1}
         onClick={pick}
         onMouseEnter={(event) => {
@@ -155,6 +160,7 @@ export const ContextSwitcherOption = React.forwardRef<HTMLDivElement, ContextSwi
         onKeyDown={(event) => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
+            event.stopPropagation();
             pick();
           }
         }}

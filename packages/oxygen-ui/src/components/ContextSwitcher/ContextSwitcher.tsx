@@ -23,7 +23,7 @@ import { ContextSwitcherContext, type ContextSwitcherValue } from './context';
 import { ContextSwitcherLevel, type ContextSwitcherLevelProps } from './ContextSwitcherLevel';
 import { ContextSwitcherGroup } from './ContextSwitcherGroup';
 import { ContextSwitcherOption } from './ContextSwitcherOption';
-import { normalizeValue, selectedLevelCount } from './model';
+import { normalizeValue, selectedLevelCount, clearFrom, selectLevel } from './model';
 
 /**
  * Theme tokens used in this component:
@@ -83,13 +83,19 @@ const levelElements = (
 /**
  * ContextSwitcher - A chain of labeled fields for selecting through a hierarchy.
  *
- * The chain shows each selected level and the next empty one. Choosing a field
- * opens that level's panel: a search box and the level's options. A pick, Escape,
- * an outside click, or a second click on the field closes the panel. The close
- * button stays inside the field and clears that level and every level under it.
- * A name that does not fit stays on one line and ends in an ellipsis. Hovering it
- * shows the full text, and focusing an option does the same. The product
- * places the chain, usually in `Header.Switchers`, and routes from `onChange`.
+ * The chain shows each selected level and the next empty one. Choosing a field,
+ * or pressing ArrowDown or ArrowUp on it, opens that level's panel: a search box
+ * and the level's options. ArrowLeft and ArrowRight move between fields. Inside
+ * the panel, those arrows stay in the search box and move the highlighted option.
+ * Enter picks it and leaves the field. Escape closes the panel and returns focus
+ * to the field. Closing a level hides that level and every level under it, and
+ * keeps the selection aside. Choosing the parent's current option again shows
+ * them with that selection. Choosing a different option shows an empty child
+ * instead. An outside click or a second click on the field also closes the
+ * panel. The close button stays inside the field. A name that does not fit
+ * stays on one line and ends in an ellipsis. Hovering it shows the full text.
+ * The product places the chain, usually in `Header.Switchers`, and routes from
+ * `onChange`.
  *
  * @example
  * ```tsx
@@ -109,7 +115,9 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
   function ContextSwitcher({ value, onChange, children, ...rest }, ref) {
     const chainRef = React.useRef<HTMLDivElement>(null);
     const restoreFocusRef = React.useRef(false);
+    const memoryRef = React.useRef<ContextSwitcherValue | null>(null);
     const [openId, setOpenId] = React.useState<string | null>(null);
+    const [collapsedId, setCollapsedId] = React.useState<string | null>(null);
     const levels = levelElements(children);
     const levelIds = levels.map((level) => level.props.id);
     const levelKey = levelIds.join('\0');
@@ -118,7 +126,10 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
       [levelKey, value]
     );
     const selectedCount = selectedLevelCount(levelIds, normalized);
-    const visibleCount = Math.min(levels.length, selectedCount + 1);
+    const collapsedIndex = collapsedId === null ? -1 : levelIds.indexOf(collapsedId);
+    const baseVisible = Math.min(levels.length, selectedCount + (levels.length === 0 ? 0 : 1));
+    const visibleCount =
+      collapsedIndex >= 0 ? Math.min(baseVisible, collapsedIndex) : baseVisible;
     const visible = levels.slice(0, visibleCount);
     const visibleKey = visible.map((level) => level.props.id).join('\0');
 
@@ -133,6 +144,61 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
       restoreFocusRef.current = true;
     }, []);
 
+    const moveFocus = React.useCallback((levelId: string, direction: -1 | 1) => {
+      const fields = chainRef.current?.querySelectorAll<HTMLButtonElement>(
+        'button[aria-haspopup="dialog"]'
+      );
+      if (!fields) {
+        return;
+      }
+      const list = Array.from(fields);
+      const index = list.findIndex((field) => field.dataset.levelId === levelId);
+      list[index + direction]?.focus();
+    }, []);
+
+    const collapse = React.useCallback(
+      (levelId: string) => {
+        const index = levelIds.indexOf(levelId);
+        if (index <= 0) {
+          memoryRef.current = null;
+          setCollapsedId(null);
+          onChange(clearFrom(levelIds, normalized, levelId));
+          return;
+        }
+        memoryRef.current = { ...normalized };
+        setCollapsedId(levelId);
+        onChange(clearFrom(levelIds, normalized, levelId));
+      },
+      [levelIds, normalized, onChange]
+    );
+
+    const applyPick = React.useCallback(
+      (levelId: string, optionValue: string) => {
+        const index = collapsedId === null ? -1 : levelIds.indexOf(collapsedId);
+        const parentId = index > 0 ? levelIds[index - 1] : undefined;
+        const memory = memoryRef.current;
+        const pickingHiddenParent = parentId === levelId && memory !== null;
+
+        if (pickingHiddenParent && memory[levelId] === optionValue && normalized[levelId] === optionValue) {
+          onChange(normalizeValue(levelIds, memory));
+          memoryRef.current = null;
+          setCollapsedId(null);
+          return;
+        }
+
+        if (index >= 0 && levelIds.indexOf(levelId) < index) {
+          memoryRef.current = null;
+          setCollapsedId(null);
+        }
+
+        if (normalized[levelId] === optionValue) {
+          return;
+        }
+        onChange(selectLevel(levelIds, normalized, levelId, optionValue));
+      },
+      [collapsedId, levelIds, normalized, onChange]
+    );
+
     React.useLayoutEffect(() => {
       if (!restoreFocusRef.current) {
         return;
@@ -145,8 +211,18 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
     });
 
     const contextValue = React.useMemo(
-      () => ({ value: normalized, levelIds, openId, setOpenId, onChange, restoreFocus }),
-      [normalized, levelIds, openId, onChange, restoreFocus]
+      () => ({
+        value: normalized,
+        levelIds,
+        openId,
+        setOpenId,
+        onChange,
+        restoreFocus,
+        moveFocus,
+        collapse,
+        applyPick,
+      }),
+      [normalized, levelIds, openId, onChange, restoreFocus, moveFocus, collapse, applyPick]
     );
 
     return (
