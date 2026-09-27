@@ -35,18 +35,11 @@ const meta: Meta<typeof ContextSwitcher> = {
     docs: {
       description: {
         component: `
-The chain shows each selected level. A level with no value stays hidden until its parent option is chosen, which also opens that child's panel. Choosing a field opens
-that level's panel: a search box, then ungrouped options and groups. Search filters
-the option text. A pick, Escape, an outside click, or a second click on the field
-closes the panel. A label, value, group name, or option that does not fit stays on one
-line and ends in an ellipsis. Hovering it shows the full text. Focusing an option
-does the same.
+The chain shows each selected level. A level with no value stays hidden until its parent option is chosen. That choice opens the child panel and moves focus into its search. Dismissing the panel without a choice hides the empty level again.
 
-The close button stays inside the field. Closing a level hides that level and every level under it.
-Choosing the parent's current option again shows them with the same selection. Choosing a different
-option opens an empty child, and dismissing that panel without a choice hides it again. The button appears only when the level is clearable and has a
-selection. The first level has no close button unless \`clearable\` is set. Changing a parent clears
-the levels under it. The product routes from \`onChange\`.
+Choosing a field opens its panel: a search box, then ungrouped options and groups. Search filters the option text. Arrow keys move the highlight and leave the cursor in the search box. Enter picks the highlighted option. Escape, an outside click, or a second click on the field closes the panel. A label, value, group name, or option that does not fit stays on one line and ends in an ellipsis. Hovering it shows the full text.
+
+The close control sits inside the field, above the chevron. Closing a level hides that level and every level under it, and remembers the selection. Choosing the parent's current option again shows them with that selection. Choosing a different option opens an empty child. The close control appears only when the level is clearable and has a selection. The first level has no close control unless \`clearable\` is set. Changing a parent clears the levels under it. The product routes from \`onChange\`.
 
 Place the chain in \`Header.Switchers\`. That slot is visible from the \`md\` breakpoint
 up, and hidden on smaller widths and in a minimal header.
@@ -76,11 +69,14 @@ import { ContextSwitcher, Header } from '@wso2/oxygen-ui';
 export default meta;
 type Story = StoryObj<typeof ContextSwitcher>;
 
-const Chain = () => {
-  const [value, setValue] = React.useState<ContextSwitcherValue>({
-    organization: 'wso2',
-    project: 'finance-web',
-  });
+const filledValue: ContextSwitcherValue = {
+  organization: 'wso2',
+  project: 'sales',
+  component: 'salesforce-sync',
+};
+
+const Chain = ({ initial = { organization: 'wso2', project: 'finance-web' } }: { initial?: ContextSwitcherValue }) => {
+  const [value, setValue] = React.useState<ContextSwitcherValue>(initial);
 
   return (
     <ContextSwitcher value={value} onChange={setValue}>
@@ -103,32 +99,43 @@ const Chain = () => {
       </ContextSwitcher.Level>
       <ContextSwitcher.Level id="component" label="Component">
         <ContextSwitcher.Option value="mis-arr">MIS ARR Backend</ContextSwitcher.Option>
+        <ContextSwitcher.Option value="salesforce-sync">Salesforce Sync</ContextSwitcher.Option>
         <ContextSwitcher.Option value="collections">Collections Sync</ContextSwitcher.Option>
       </ContextSwitcher.Level>
     </ContextSwitcher>
   );
 };
 
+const HeaderChain = ({ initial }: { initial?: ContextSwitcherValue }) => (
+  <Header>
+    <Header.Brand>
+      <Header.BrandLogo>
+        <Wso2Logo size={28} aria-label="WSO2" />
+      </Header.BrandLogo>
+      <Header.BrandTitle>Developer Platform</Header.BrandTitle>
+    </Header.Brand>
+    <Header.Switchers>
+      <Chain initial={initial} />
+    </Header.Switchers>
+    <Header.Spacer />
+  </Header>
+);
+
 /**
- * The chain in the header, beside the product name and the WSO2 mark. Open a
- * field to search and pick. A level with no value stays hidden unless its panel
- * is open. Close a level to hide it until the parent option is chosen again.
+ * The chain in the header, beside the product name and the WSO2 mark. Only
+ * levels with a selection are shown. Component stays hidden until a Project
+ * option is chosen.
  */
 export const InHeader: Story = {
-  render: () => (
-    <Header>
-      <Header.Brand>
-        <Header.BrandLogo>
-          <Wso2Logo size={28} aria-label="WSO2" />
-        </Header.BrandLogo>
-        <Header.BrandTitle>Developer Platform</Header.BrandTitle>
-      </Header.Brand>
-      <Header.Switchers>
-        <Chain />
-      </Header.Switchers>
-      <Header.Spacer />
-    </Header>
-  ),
+  render: () => <HeaderChain />,
+};
+
+/**
+ * Organization, Project, and Component selected. The close control sits above
+ * the chevron inside Project and Component.
+ */
+export const Selected: Story = {
+  render: () => <HeaderChain initial={filledValue} />,
 };
 
 const OpenOnMount = ({ name, children }: { name: string; children: React.ReactNode }) => {
