@@ -123,6 +123,6 @@ export const selectLevel = (
   [levelId]: optionValue,
 });
 
-/** DOM id for an option, safe to use in aria-activedescendant. */
+/** DOM id for an option. Distinct values stay distinct, including symbols. */
 export const optionDomId = (listId: string, value: string): string =>
-  `${listId}-${value.replace(/[^A-Za-z0-9_-]/g, '_')}`;
+  `${listId}-${value.replace(/[^A-Za-z0-9-]/g, (ch) => `_${ch.codePointAt(0)!.toString(16)}_`)}`;
