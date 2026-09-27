@@ -88,7 +88,10 @@ const openLevel = (label: string) => {
       fireEvent.click(option);
     }
   }
-  fireEvent.click(screen.getByRole('button', { name: label }));
+  const button = screen.getByRole('button', { name: label });
+  if (button.getAttribute('aria-expanded') !== 'true') {
+    fireEvent.click(button);
+  }
 };
 
 describe('ContextSwitcher chain', () => {
@@ -113,6 +116,8 @@ describe('ContextSwitcher chain', () => {
     expect(screen.getByRole('button', { name: 'Project' })).toBeDefined();
     expect(screen.queryByRole('button', { name: 'Component' })).toBeNull();
     expect(screen.queryByRole('button', { name: 'Close Project' })).toBeNull();
+    expect(screen.getByRole('button', { name: 'Project' }).getAttribute('aria-expanded')).toBe('true');
+    expect(document.activeElement).toBe(screen.getByRole('textbox', { name: 'Search Project' }));
   });
 
   it('ignores a value whose parent level is empty', () => {
@@ -414,14 +419,10 @@ describe('ContextSwitcher panel', () => {
 
     fireEvent.click(screen.getByRole('option', { name: 'Finance Web' }));
 
-    expect(screen.queryByRole('dialog')).toBeNull();
+    expect(screen.queryByRole('dialog', { name: 'Project' })).toBeNull();
     expect(screen.getByRole('button', { name: 'Project: Finance Web' })).toBeDefined();
-    expect(screen.getByRole('button', { name: 'Component' })).toBeDefined();
-    expect(screen.queryByRole('button', { name: /Show / })).toBeNull();
-    expect(screen.queryByRole('button', { name: /Hide / })).toBeNull();
-
-    openLevel('Component');
-    expect(screen.getByRole('dialog', { name: 'Component' })).toBeDefined();
+    expect(screen.getByRole('button', { name: 'Component' }).getAttribute('aria-expanded')).toBe('true');
+    expect(document.activeElement).toBe(screen.getByRole('textbox', { name: 'Search Component' }));
   });
 
   it('clears deeper levels when a parent option changes', () => {
