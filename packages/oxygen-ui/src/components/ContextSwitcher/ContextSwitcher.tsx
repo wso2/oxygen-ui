@@ -84,7 +84,8 @@ const levelElements = (
  * ContextSwitcher - A chain of labeled fields for selecting through a hierarchy.
  *
  * The chain shows each selected level. A level with no value stays hidden until its
- * parent option is chosen. Choosing a field, or pressing ArrowDown or ArrowUp on it, opens that level's panel: a search box
+ * parent option is chosen, and that child's panel opens with focus in its search.
+ * Choosing a field, or pressing ArrowDown or ArrowUp on it, opens that level's panel: a search box
  * and the level's options. ArrowLeft and ArrowRight move between fields. Inside
  * the panel, those arrows stay in the search box and move the highlighted option.
  * Enter picks it and leaves the field. Escape closes the panel and returns focus
@@ -193,6 +194,9 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
           memoryRef.current = null;
           setCollapsedId(null);
           setRevealedId(null);
+          if (nextId) {
+            setOpenId(nextId);
+          }
           return;
         }
 
@@ -203,10 +207,16 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
 
         if (normalized[levelId] === optionValue) {
           setRevealedId(nextId);
+          if (nextId) {
+            setOpenId(nextId);
+          }
           return;
         }
         onChange(selectLevel(levelIds, normalized, levelId, optionValue));
         setRevealedId(nextId);
+        if (nextId) {
+          setOpenId(nextId);
+        }
       },
       [collapsedId, levelIds, normalized, onChange]
     );
