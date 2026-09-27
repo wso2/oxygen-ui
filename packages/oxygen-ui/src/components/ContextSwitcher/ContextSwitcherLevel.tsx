@@ -37,9 +37,9 @@ import { clearFrom, matchesQuery, nodeText, selectLevel } from './model';
  * Theme tokens used in this component:
  *
  * Colors:
- * - `background.paper` - Field surface
- * - `divider` - Field border
- * - `primary.main` - Ring around the whole field while it is open or focused
+ * - `background.paper` - Resting field surface
+ * - `divider` - Resting field border
+ * - `primary.main` - Border and ring around the whole field while it is open or focused
  * - `text.secondary` - Level label and empty-state copy
  * - `text.primary` - Selected value
  *
@@ -68,21 +68,27 @@ const FieldRoot = styled(Box, {
 })<{ ownerState: LevelOwnerState }>(({ theme, ownerState }) => {
   // One ring around the label and the close button. An outline on the label
   // button alone leaves the close control outside the highlight.
-  const ring = `0 0 0 2px ${(theme.vars || theme).palette.primary.main}`;
+  const palette = (theme.vars || theme).palette;
+  const ring = `0 0 0 2px ${palette.primary.main}`;
+  const tint = `color-mix(in srgb, ${palette.primary.main} 12%, ${palette.background.paper})`;
+  const active = {
+    backgroundColor: tint,
+    borderColor: palette.primary.main,
+    boxShadow: ring,
+  };
   return {
     alignItems: 'center',
-    backgroundColor: (theme.vars || theme).palette.background.paper,
+    backgroundColor: palette.background.paper,
     border: '1px solid',
-    borderColor: (theme.vars || theme).palette.divider,
+    borderColor: palette.divider,
     borderRadius: theme.shape.borderRadius,
-    boxShadow: ownerState.open ? ring : 'none',
+    boxShadow: 'none',
     display: 'inline-flex',
     maxWidth: 220,
     minHeight: 48,
     minWidth: 0,
-    '&:focus-within': {
-      boxShadow: ring,
-    },
+    ...(ownerState.open ? active : null),
+    '&:focus-within': active,
   };
 });
 
@@ -230,7 +236,7 @@ const focusableOptions = (root: HTMLElement): HTMLElement[] =>
  */
 export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwitcherLevelProps>(
   function ContextSwitcherLevel({ id, label, clearable, loading = false, children, ...rest }, ref) {
-    const { value, levelIds, openId, setOpenId, onChange, collapseFrom, restoreFocus } = useContextSwitcher();
+    const { value, levelIds, openId, setOpenId, onChange, restoreFocus } = useContextSwitcher();
     const buttonRef = React.useRef<HTMLButtonElement>(null);
     const labelRef = React.useRef<HTMLSpanElement>(null);
     const valueRef = React.useRef<HTMLSpanElement>(null);
@@ -247,7 +253,7 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
     const selectedValue = value[id];
     const options = React.useMemo(() => collectOptions(children), [children]);
     const selectedText = options.find((option) => option.value === selectedValue)?.text ?? selectedValue;
-    const canClear = clearable ?? levelIds[0] !== id;
+    const canClear = (clearable ?? levelIds[0] !== id) && Boolean(selectedValue);
     const matches = options.filter((option) => matchesQuery(option.text, query));
     const childList = React.Children.toArray(children);
     const ungroupedOptions = childList.filter(isContextSwitcherOption);
@@ -285,14 +291,12 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
       if (selectedValue === optionValue) {
         return;
       }
-      collapseFrom(id);
       onChange(selectLevel(levelIds, value, id, optionValue));
     };
 
     const onClear = (event: React.MouseEvent) => {
       event.stopPropagation();
       setOpenId(openId === id ? null : openId);
-      collapseFrom(id);
       restoreFocus();
       onChange(clearFrom(levelIds, value, id));
     };
@@ -389,7 +393,12 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
               </FieldButton>
             </OverflowTooltip>
             {canClear ? (
-              <IconButton size="small" aria-label={`Close ${label}`} onClick={onClear}>
+              <IconButton
+                size="small"
+                aria-label={`Close ${label}`}
+                onClick={onClear}
+                sx={{ p: 0.5, mr: 0.5, border: 0 }}
+              >
                 <X size={14} aria-hidden="true" />
               </IconButton>
             ) : null}

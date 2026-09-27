@@ -18,9 +18,7 @@
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
-import { ChevronLeft, ChevronRight } from '@wso2/oxygen-ui-icons-react';
 import { ContextSwitcherContext, type ContextSwitcherValue } from './context';
 import { ContextSwitcherLevel, type ContextSwitcherLevelProps } from './ContextSwitcherLevel';
 import { ContextSwitcherGroup } from './ContextSwitcherGroup';
@@ -33,16 +31,6 @@ import { normalizeValue, selectedLevelCount } from './model';
  * Spacing:
  * - `spacing(1)` - Gap between level fields
  */
-
-const ToggleButton = styled(IconButton, {
-  name: 'MuiContextSwitcher',
-  slot: 'Toggle',
-})(({ theme }) => ({
-  border: `1px solid ${(theme.vars || theme).palette.divider}`,
-  borderRadius: theme.shape.borderRadius,
-  height: 48,
-  width: 40,
-}));
 
 const ChainRoot = styled(Box, {
   name: 'MuiContextSwitcher',
@@ -95,12 +83,12 @@ const levelElements = (
 /**
  * ContextSwitcher - A chain of labeled fields for selecting through a hierarchy.
  *
- * The chain shows each selected level. A chevron shows the next level, and
- * shows it again to hide that level while it is empty. Choosing a field
+ * The chain shows each selected level and the next empty one. Choosing a field
  * opens that level's panel: a search box and the level's options. A pick, Escape,
- * an outside click, or a second click on the field closes the panel. A name that
- * does not fit stays on one line and ends in an ellipsis. Hovering it shows the
- * full text, and focusing an option does the same. The product
+ * an outside click, or a second click on the field closes the panel. The close
+ * button stays inside the field and clears that level and every level under it.
+ * A name that does not fit stays on one line and ends in an ellipsis. Hovering it
+ * shows the full text, and focusing an option does the same. The product
  * places the chain, usually in `Header.Switchers`, and routes from `onChange`.
  *
  * @example
@@ -120,10 +108,8 @@ const levelElements = (
 export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherProps>(
   function ContextSwitcher({ value, onChange, children, ...rest }, ref) {
     const chainRef = React.useRef<HTMLDivElement>(null);
-    const showToggleRef = React.useRef<HTMLButtonElement>(null);
     const restoreFocusRef = React.useRef(false);
     const [openId, setOpenId] = React.useState<string | null>(null);
-    const [revealedId, setRevealedId] = React.useState<string | null>(null);
     const levels = levelElements(children);
     const levelIds = levels.map((level) => level.props.id);
     const levelKey = levelIds.join('\0');
@@ -132,21 +118,9 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
       [levelKey, value]
     );
     const selectedCount = selectedLevelCount(levelIds, normalized);
-    const baseCount = levels.length === 0 ? 0 : Math.max(selectedCount, 1);
-    const nextId = levelIds[selectedCount];
-    const showingNext = Boolean(nextId) && revealedId === nextId && selectedCount > 0;
-    const visibleCount = Math.min(levels.length, baseCount + (showingNext ? 1 : 0));
+    const visibleCount = Math.min(levels.length, selectedCount + 1);
     const visible = levels.slice(0, visibleCount);
     const visibleKey = visible.map((level) => level.props.id).join('\0');
-
-    const collapseFrom = React.useCallback(
-      (levelId: string) => {
-        if (revealedId === levelId) {
-          setRevealedId(null);
-        }
-      },
-      [revealedId]
-    );
 
     React.useEffect(() => {
       const visibleIds = visibleKey.length === 0 ? [] : visibleKey.split('\0');
@@ -164,10 +138,6 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
         return;
       }
       restoreFocusRef.current = false;
-      if (showToggleRef.current) {
-        showToggleRef.current.focus();
-        return;
-      }
       const fields = chainRef.current?.querySelectorAll<HTMLButtonElement>(
         'button[aria-haspopup="dialog"]'
       );
@@ -175,12 +145,9 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
     });
 
     const contextValue = React.useMemo(
-      () => ({ value: normalized, levelIds, openId, setOpenId, onChange, collapseFrom, restoreFocus }),
-      [normalized, levelIds, openId, onChange, collapseFrom, restoreFocus]
+      () => ({ value: normalized, levelIds, openId, setOpenId, onChange, restoreFocus }),
+      [normalized, levelIds, openId, onChange, restoreFocus]
     );
-
-    const hiddenLevel = levels[visibleCount];
-    const revealedLevel = showingNext ? levels[visibleCount - 1] : null;
 
     return (
       <ContextSwitcherContext.Provider value={contextValue}>
@@ -196,30 +163,6 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
           {...rest}
         >
           {visible}
-          {hiddenLevel && normalized[visible[visible.length - 1]?.props.id ?? ''] && !showingNext ? (
-            <ToggleButton
-              ref={showToggleRef}
-              aria-label={`Show ${hiddenLevel.props.label}`}
-              onClick={() => {
-                setRevealedId(hiddenLevel.props.id);
-                setOpenId(hiddenLevel.props.id);
-              }}
-            >
-              <ChevronRight size={18} aria-hidden="true" />
-            </ToggleButton>
-          ) : null}
-          {revealedLevel && !normalized[revealedLevel.props.id] && hiddenLevel ? (
-            <ToggleButton
-              aria-label={`Hide ${revealedLevel.props.label}`}
-              onClick={() => {
-                setRevealedId(null);
-                setOpenId(null);
-                restoreFocus();
-              }}
-            >
-              <ChevronLeft size={18} aria-hidden="true" />
-            </ToggleButton>
-          ) : null}
         </ChainRoot>
       </ContextSwitcherContext.Provider>
     );
