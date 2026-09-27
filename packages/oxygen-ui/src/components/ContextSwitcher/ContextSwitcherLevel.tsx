@@ -38,8 +38,8 @@ import { clearFrom, matchesQuery, nodeText, selectLevel } from './model';
  *
  * Colors:
  * - `background.paper` - Resting field surface
- * - `divider` - Resting field border
- * - `primary.main` - Border and ring around the whole field while it is open or focused
+ * - `divider` - Field border, including while the field is open or focused
+ * - `primary.main` - Light wash on the field while it is open or focused
  * - `text.secondary` - Level label and empty-state copy
  * - `text.primary` - Selected value
  *
@@ -66,15 +66,12 @@ const FieldRoot = styled(Box, {
   slot: 'Level',
   shouldForwardProp: (prop) => prop !== 'ownerState',
 })<{ ownerState: LevelOwnerState }>(({ theme, ownerState }) => {
-  // One ring around the label and the close button. An outline on the label
-  // button alone leaves the close control outside the highlight.
+  // The wash covers the label and the close button. A highlight on the label
+  // button alone leaves the close control outside it.
   const palette = (theme.vars || theme).palette;
-  const ring = `0 0 0 2px ${palette.primary.main}`;
   const tint = `color-mix(in srgb, ${palette.primary.main} 12%, ${palette.background.paper})`;
   const active = {
     backgroundColor: tint,
-    borderColor: palette.primary.main,
-    boxShadow: ring,
   };
   return {
     alignItems: 'center',
@@ -83,10 +80,14 @@ const FieldRoot = styled(Box, {
     borderColor: palette.divider,
     borderRadius: theme.shape.borderRadius,
     boxShadow: 'none',
-    display: 'inline-flex',
+    columnGap: theme.spacing(0.5),
+    display: 'inline-grid',
+    gridTemplateColumns: 'minmax(0, 1fr) auto',
+    gridTemplateRows: 'auto auto',
     maxWidth: 220,
     minHeight: 48,
     minWidth: 0,
+    padding: theme.spacing(0.5, 0.75, 0.5, 1),
     ...(ownerState.open ? active : null),
     '&:focus-within': active,
   };
@@ -95,33 +96,67 @@ const FieldRoot = styled(Box, {
 const FieldButton = styled('button', {
   name: 'MuiContextSwitcher',
   slot: 'LevelButton',
-})(({ theme }) => ({
+})({
   alignItems: 'center',
   appearance: 'none',
   background: 'transparent',
   border: 0,
   color: 'inherit',
   cursor: 'pointer',
-  display: 'flex',
-  flex: 1,
+  display: 'grid',
   font: 'inherit',
-  gap: theme.spacing(1),
+  gridColumn: '1 / -1',
+  gridRow: '1 / -1',
+  gridTemplateColumns: 'subgrid',
+  gridTemplateRows: 'subgrid',
   minWidth: 0,
-  padding: theme.spacing(0.5, 1),
+  padding: 0,
   textAlign: 'left',
   '&:focus, &:focus-visible': {
     outline: 'none',
   },
+});
+
+interface ChevronOwnerState {
+  besideValue: boolean;
+}
+
+// Close sits on the label row. The chevron sits on the value row, in the same column.
+const ChevronMark = styled('span', {
+  name: 'MuiContextSwitcher',
+  slot: 'Chevron',
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<{ ownerState: ChevronOwnerState }>(({ ownerState }) => ({
+  alignItems: 'center',
+  display: 'inline-flex',
+  gridColumn: 2,
+  gridRow: ownerState.besideValue ? 2 : 1,
+  justifyContent: 'center',
+  lineHeight: 0,
 }));
+
+const CloseButton = styled(IconButton, {
+  name: 'MuiContextSwitcher',
+  slot: 'Close',
+})({
+  alignSelf: 'center',
+  border: 0,
+  color: 'inherit',
+  gridColumn: 2,
+  gridRow: 1,
+  height: 16,
+  justifySelf: 'center',
+  minWidth: 16,
+  padding: 0,
+  width: 16,
+  zIndex: 1,
+});
 
 const FieldText = styled('span', {
   name: 'MuiContextSwitcher',
   slot: 'LevelText',
 })({
-  display: 'flex',
-  flex: 1,
-  flexDirection: 'column',
-  minWidth: 0,
+  display: 'contents',
 });
 
 const FieldLabel = styled('span', {
@@ -131,6 +166,8 @@ const FieldLabel = styled('span', {
   color: (theme.vars || theme).palette.text.secondary,
   fontSize: theme.typography.caption.fontSize,
   display: 'block',
+  gridColumn: 1,
+  gridRow: 1,
   lineHeight: 1.2,
   minWidth: 0,
   overflow: 'hidden',
@@ -145,6 +182,8 @@ const FieldValue = styled('span', {
   color: (theme.vars || theme).palette.text.primary,
   fontSize: theme.typography.body2.fontSize,
   display: 'block',
+  gridColumn: 1,
+  gridRow: 2,
   lineHeight: 1.3,
   minWidth: 0,
   overflow: 'hidden',
@@ -389,18 +428,15 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
                   <FieldLabel ref={labelRef}>{label}</FieldLabel>
                   {selectedText ? <FieldValue ref={valueRef}>{selectedText}</FieldValue> : null}
                 </FieldText>
-                <ChevronDown size={16} aria-hidden="true" />
+                <ChevronMark ownerState={{ besideValue: Boolean(selectedText) }}>
+                  <ChevronDown size={16} aria-hidden="true" />
+                </ChevronMark>
               </FieldButton>
             </OverflowTooltip>
             {canClear ? (
-              <IconButton
-                size="small"
-                aria-label={`Close ${label}`}
-                onClick={onClear}
-                sx={{ p: 0.5, mr: 0.5, border: 0 }}
-              >
-                <X size={14} aria-hidden="true" />
-              </IconButton>
+              <CloseButton aria-label={`Close ${label}`} onClick={onClear}>
+                <X size={16} aria-hidden="true" />
+              </CloseButton>
             ) : null}
           </FieldRoot>
           <Popper

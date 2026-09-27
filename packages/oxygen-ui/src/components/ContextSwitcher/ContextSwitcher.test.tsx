@@ -284,7 +284,7 @@ describe('ContextSwitcher close', () => {
   });
 });
 
-const declaredProperty = (element: Element, property: 'boxShadow' | 'outline'): string[] => {
+const declaredProperty = (element: Element, property: 'boxShadow' | 'outline' | 'gridRow'): string[] => {
   const classNames = Array.from(element.classList);
   const values: string[] = [];
   for (const sheet of Array.from(document.styleSheets)) {
@@ -313,7 +313,7 @@ const declaredProperty = (element: Element, property: 'boxShadow' | 'outline'): 
 const boxShadowsFor = (element: Element): string[] => declaredProperty(element, 'boxShadow');
 
 describe('ContextSwitcher panel', () => {
-  it('draws the open ring around the field and its close button', () => {
+  it('keeps the close button inside the open field without an outline', () => {
     render(<Harness initial={{ organization: 'wso2', project: 'finance-web' }} />);
 
     fireEvent.click(screen.getByRole('button', { name: 'Project: Finance Web' }));
@@ -322,7 +322,20 @@ describe('ContextSwitcher panel', () => {
     const field = close.parentElement;
     expect(field).not.toBeNull();
     expect(field?.contains(screen.getByRole('button', { name: 'Project: Finance Web' }))).toBe(true);
-    expect(boxShadowsFor(field as Element).some((shadow) => shadow.includes('2px'))).toBe(true);
+    expect(boxShadowsFor(field as Element).some((shadow) => shadow.includes('2px'))).toBe(false);
+  });
+
+  it('stacks the close button above the chevron', () => {
+    render(<Harness initial={{ organization: 'wso2', project: 'finance-web' }} />);
+
+    const close = screen.getByRole('button', { name: 'Close Project' });
+    const project = screen.getByRole('button', { name: 'Project: Finance Web' });
+    const chevron = project.querySelector('svg')?.parentElement;
+
+    expect(close.parentElement).toBe(project.parentElement);
+    expect(declaredProperty(close, 'gridRow')).toContain('1');
+    expect(chevron).not.toBeNull();
+    expect(declaredProperty(chevron as Element, 'gridRow')).toContain('2');
   });
 
   it('keeps the open panel outside the field it is anchored to', () => {
@@ -635,7 +648,7 @@ describe('ContextSwitcher visibility', () => {
     expect(document.activeElement).toBe(list);
   });
 
-  it('keeps the field ring while the option list is focused', () => {
+  it('does not outline the field while its panel is open', () => {
     render(<Harness initial={{ organization: 'wso2' }} />);
 
     openLevel('Project');
@@ -644,7 +657,7 @@ describe('ContextSwitcher visibility', () => {
     expect(screen.queryByRole('button', { name: 'Close Project' })).toBeNull();
     const field = screen.getByRole('button', { name: 'Project' }).parentElement;
     expect(field).not.toBeNull();
-    expect(boxShadowsFor(field as Element).some((shadow) => shadow.includes('2px'))).toBe(true);
+    expect(boxShadowsFor(field as Element).some((shadow) => shadow.includes('2px'))).toBe(false);
   });
 });
 
