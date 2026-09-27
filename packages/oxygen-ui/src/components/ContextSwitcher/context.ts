@@ -30,11 +30,9 @@ export interface ContextSwitcherContextValue {
   openId: string | null;
   setOpenId: (id: string | null) => void;
   onChange: (value: ContextSwitcherValue) => void;
-  /** Hides a level that was revealed by the expand toggle. */
-  collapseFrom: (levelId: string) => void;
   /**
-   * After hide or close unmounts the focused control, move focus to the
-   * Show toggle, or to the last field if that toggle is not rendered.
+   * After close unmounts the focused control, move focus to the last
+   * visible field button.
    */
   restoreFocus: () => void;
 }
