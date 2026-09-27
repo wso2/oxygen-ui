@@ -35,16 +35,17 @@ const meta: Meta<typeof ContextSwitcher> = {
     docs: {
       description: {
         component: `
-The chain shows each selected level. A chevron reveals and opens the next empty level. Choosing a field opens
+The chain shows each selected level and the next empty one. Choosing a field opens
 that level's panel: a search box, then ungrouped options and groups. Search filters
 the option text. A pick, Escape, an outside click, or a second click on the field
 closes the panel. A label, value, group name, or option that does not fit stays on one
 line and ends in an ellipsis. Hovering it shows the full text. Focusing an option
 does the same.
 
-The close button on every level after the first clears that level and every level under it.
-The first level has no close button unless \`clearable\` is set. Changing a parent
-clears the levels under it. The product routes from \`onChange\`.
+The close button stays inside the field and clears that level and every level under it.
+It appears only when the level is clearable and has a selection. The first level has no
+close button unless \`clearable\` is set. Changing a parent clears the levels under it.
+The product routes from \`onChange\`.
 
 Place the chain in \`Header.Switchers\`. That slot is visible from the \`md\` breakpoint
 up, and hidden on smaller widths and in a minimal header.
@@ -169,7 +170,7 @@ export const NoOptions: Story = {
 export const Loading: Story = {
   parameters: { layout: 'padded' },
   render: () => (
-    <OpenOnMount name="Show Project">
+    <OpenOnMount name="Project">
       <ContextSwitcher value={{ organization: 'wso2' }} onChange={() => undefined}>
         <ContextSwitcher.Level id="organization" label="Organization">
           <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
