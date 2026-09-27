@@ -44,7 +44,7 @@ does the same.
 
 The close button stays inside the field. Closing a level hides that level and every level under it.
 Choosing the parent's current option again shows them with the same selection. Choosing a different
-option shows an empty child instead. The button appears only when the level is clearable and has a
+option opens an empty child, and dismissing that panel without a choice hides it again. The button appears only when the level is clearable and has a
 selection. The first level has no close button unless \`clearable\` is set. Changing a parent clears
 the levels under it. The product routes from \`onChange\`.
 
@@ -111,7 +111,8 @@ const Chain = () => {
 
 /**
  * The chain in the header, beside the product name and the WSO2 mark. Open a
- * field to search and pick. Close a level to clear it and everything under it.
+ * field to search and pick. A level with no value stays hidden unless its panel
+ * is open. Close a level to hide it until the parent option is chosen again.
  */
 export const InHeader: Story = {
   render: () => (
