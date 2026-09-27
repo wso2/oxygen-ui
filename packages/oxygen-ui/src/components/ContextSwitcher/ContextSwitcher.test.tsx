@@ -118,6 +118,10 @@ describe('ContextSwitcher chain', () => {
     expect(screen.queryByRole('button', { name: 'Close Project' })).toBeNull();
     expect(screen.getByRole('button', { name: 'Project' }).getAttribute('aria-expanded')).toBe('true');
     expect(document.activeElement).toBe(screen.getByRole('textbox', { name: 'Search Project' }));
+
+    fireEvent.keyDown(screen.getByRole('dialog', { name: 'Project' }), { key: 'Escape' });
+
+    expect(screen.queryByRole('button', { name: 'Project' })).toBeNull();
   });
 
   it('ignores a value whose parent level is empty', () => {

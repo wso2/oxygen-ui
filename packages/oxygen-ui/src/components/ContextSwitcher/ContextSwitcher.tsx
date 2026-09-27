@@ -91,9 +91,9 @@ const levelElements = (
  * Enter picks it and leaves the field. Escape closes the panel and returns focus
  * to the field. Closing a level hides that level and every level under it, and
  * keeps the selection aside. Choosing the parent's current option again shows
- * them with that selection. Choosing a different option shows an empty child
- * instead. An outside click or a second click on the field also closes the
- * panel. The close button stays inside the field. A name that does not fit
+ * them with that selection. Choosing a different option opens an empty child. Dismissing
+ * that panel without a choice hides the empty level again. An outside click or a
+ * second click on the field also closes the panel. The close button stays inside the field. A name that does not fit
  * stays on one line and ends in an ellipsis. Hovering it shows the full text.
  * The product places the chain, usually in `Header.Switchers`, and routes from
  * `onChange`.
@@ -146,6 +146,13 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
         setOpenId(null);
       }
     }, [openId, visibleKey]);
+
+    React.useEffect(() => {
+      if (!revealedId || normalized[revealedId] || openId === revealedId) {
+        return;
+      }
+      setRevealedId(null);
+    }, [openId, revealedId, normalized]);
 
     const restoreFocus = React.useCallback(() => {
       restoreFocusRef.current = true;
