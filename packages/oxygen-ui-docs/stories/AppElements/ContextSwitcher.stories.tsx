@@ -35,7 +35,7 @@ const meta: Meta<typeof ContextSwitcher> = {
     docs: {
       description: {
         component: `
-The chain shows each selected level and the next empty one. Choosing a field opens
+The chain shows each selected level. A level with no value stays hidden until its parent option is chosen. Choosing a field opens
 that level's panel: a search box, then ungrouped options and groups. Search filters
 the option text. A pick, Escape, an outside click, or a second click on the field
 closes the panel. A label, value, group name, or option that does not fit stays on one
@@ -171,8 +171,8 @@ export const NoOptions: Story = {
 export const Loading: Story = {
   parameters: { layout: 'padded' },
   render: () => (
-    <OpenOnMount name="Project">
-      <ContextSwitcher value={{ organization: 'wso2' }} onChange={() => undefined}>
+    <OpenOnMount name="Project: Finance Web">
+      <ContextSwitcher value={{ organization: 'wso2', project: 'finance-web' }} onChange={() => undefined}>
         <ContextSwitcher.Level id="organization" label="Organization">
           <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
         </ContextSwitcher.Level>

@@ -73,6 +73,21 @@ afterEach(() => {
 });
 
 const openLevel = (label: string) => {
+  if (!screen.queryByRole('button', { name: label })) {
+    const fields = screen
+      .getAllByRole('button')
+      .filter((button) => button.getAttribute('aria-haspopup') === 'dialog');
+    const parent = fields[fields.length - 1];
+    fireEvent.click(parent);
+    const accessibleName = parent.getAttribute('aria-label') ?? '';
+    const optionName = accessibleName.includes(': ')
+      ? accessibleName.slice(accessibleName.indexOf(': ') + 2)
+      : accessibleName;
+    const option = screen.queryByRole('option', { name: optionName });
+    if (option) {
+      fireEvent.click(option);
+    }
+  }
   fireEvent.click(screen.getByRole('button', { name: label }));
 };
 
@@ -85,14 +100,18 @@ describe('ContextSwitcher chain', () => {
     expect(screen.queryByRole('button', { name: /Close/ })).toBeNull();
   });
 
-  it('shows the next empty level once the previous level has a selection', () => {
+  it('hides a level with no value until its parent option is chosen', () => {
     render(<Harness initial={{ organization: 'wso2' }} />);
 
     expect(screen.getByRole('button', { name: 'Organization: WSO2' })).toBeDefined();
+    expect(screen.queryByRole('button', { name: 'Project' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Component' })).toBeNull();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Organization: WSO2' }));
+    fireEvent.click(screen.getByRole('option', { name: 'WSO2' }));
+
     expect(screen.getByRole('button', { name: 'Project' })).toBeDefined();
     expect(screen.queryByRole('button', { name: 'Component' })).toBeNull();
-    expect(screen.queryByRole('button', { name: /Show / })).toBeNull();
-    expect(screen.queryByRole('button', { name: /Hide / })).toBeNull();
     expect(screen.queryByRole('button', { name: 'Close Project' })).toBeNull();
   });
 
@@ -100,7 +119,7 @@ describe('ContextSwitcher chain', () => {
     render(<Harness initial={{ organization: 'wso2', component: 'mis-arr' }} />);
 
     expect(screen.getByRole('button', { name: 'Organization: WSO2' })).toBeDefined();
-    expect(screen.getByRole('button', { name: 'Project' })).toBeDefined();
+    expect(screen.queryByRole('button', { name: 'Project' })).toBeNull();
     expect(screen.queryByRole('button', { name: /Component/ })).toBeNull();
     expect(screen.queryByRole('button', { name: /Show / })).toBeNull();
   });
@@ -389,7 +408,6 @@ describe('ContextSwitcher panel', () => {
   it('picks an option, closes, and offers the next level', () => {
     render(<Harness initial={{ organization: 'wso2' }} />);
 
-    expect(screen.getByRole('button', { name: 'Project' })).toBeDefined();
     openLevel('Project');
     expect(screen.getByRole('dialog', { name: 'Project' })).toBeDefined();
     expect(screen.getByRole('textbox', { name: 'Search Project' })).toBeDefined();
@@ -763,11 +781,15 @@ describe('ContextSwitcher keyboard', () => {
     fireEvent.keyDown(search, { key: 'Enter' });
 
     expect(onChange).toHaveBeenCalledWith({ organization: 'wso2', project: 'finance-web' });
-    expect(document.activeElement).not.toBe(screen.getByRole('button', { name: 'Project' }));
+    expect(document.activeElement).not.toBe(
+      screen.getByRole('button', { name: 'Organization: WSO2' })
+    );
   });
 
   it('opens a field with ArrowDown and moves between fields with the left and right arrows', () => {
     render(<Harness initial={{ organization: 'wso2' }} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Organization: WSO2' }));
+    fireEvent.click(screen.getByRole('option', { name: 'WSO2' }));
     const organization = screen.getByRole('button', { name: 'Organization: WSO2' });
     const project = screen.getByRole('button', { name: 'Project' });
 
@@ -876,6 +898,8 @@ describe('ContextSwitcher', () => {
     );
 
     expect(screen.getByRole('button', { name: 'Organization: WSO2' })).toBeDefined();
+    fireEvent.click(screen.getByRole('button', { name: 'Organization: WSO2' }));
+    fireEvent.click(screen.getByRole('option', { name: 'WSO2' }));
     expect(screen.getByRole('button', { name: 'Project' })).toBeDefined();
     expect(screen.queryByRole('button', { name: 'Show Project' })).toBeNull();
   });
@@ -970,9 +994,12 @@ describe('ContextSwitcher.Level', () => {
     expect(screen.getByRole('button', { name: 'Organization: retired' })).toBeDefined();
   });
 
-  it('shows no close button on the next empty level and does not change the selection', () => {
+  it('shows no close button on a level that has no value', () => {
     const onChange = vi.fn();
     render(<Harness initial={{ organization: 'wso2' }} onChange={onChange} />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Organization: WSO2' }));
+    fireEvent.click(screen.getByRole('option', { name: 'WSO2' }));
 
     expect(screen.getByRole('button', { name: 'Project' })).toBeDefined();
     expect(screen.queryByRole('button', { name: 'Close Project' })).toBeNull();
