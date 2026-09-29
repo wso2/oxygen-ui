@@ -194,13 +194,13 @@ describe('AppSwitcher current app', () => {
     expect(trigger.getAttribute('aria-expanded')).toBe('false');
   });
 
-  it('gives the current app a persistent border that is not color alone', () => {
+  it('gives the current app a persistent brand border', () => {
     renderSwitcher({ currentAppId: 'agent-manager' });
     openSwitcher();
 
-    // The inset ring doubles the border weight, a cue that survives without hue.
-    expect(getComputedStyle(cardFor('Agent Manager')).boxShadow).toContain('inset');
-    expect(getComputedStyle(cardFor('Identity Platform')).boxShadow).not.toContain('inset');
+    const brand = 'rgb(229, 104, 0)';
+    expect(getComputedStyle(cardFor('Agent Manager')).borderColor).toBe(brand);
+    expect(getComputedStyle(cardFor('Identity Platform')).borderColor).not.toBe(brand);
   });
 });
 

@@ -104,9 +104,6 @@ const AppSwitcherAppRoot = styled(Card, {
   // when the surrounding product runs a different palette.
   const accent = APP_SWITCHER_BRAND.main;
   const manage = ownerState.tone === 'manage';
-  // An inset ring doubles the border without changing the fixed card height,
-  // so the current app is marked by weight, not hue alone.
-  const currentRing = `inset 0 0 0 1px ${APP_SWITCHER_BRAND.focus}`;
   const interactive = !ownerState.disabled && !ownerState.busy;
 
   return {
@@ -151,7 +148,6 @@ const AppSwitcherAppRoot = styled(Card, {
       '&.MuiCard-root': {
         borderColor: APP_SWITCHER_BRAND.focus,
       },
-      boxShadow: currentRing,
     }),
     // Tells the user why clicks are ignored.
     ...(ownerState.busy && {
@@ -161,7 +157,7 @@ const AppSwitcherAppRoot = styled(Card, {
       ...(interactive && {
         // Keep the current border on hover; `accent` would lower its contrast.
         borderColor: ownerState.current ? APP_SWITCHER_BRAND.focus : accent,
-        boxShadow: ownerState.current ? `${theme.shadows[2]}, ${currentRing}` : theme.shadows[2],
+        boxShadow: theme.shadows[2],
         transform: 'translateY(-2px)',
       }),
     },

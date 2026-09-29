@@ -99,7 +99,7 @@ not fetch anything; the console fetches the list and passes it in.
 \`\`\`
 
 - **Current app.** The card whose \`id\` matches \`currentAppId\` (or that sets \`current\`) opens in the
-  same tab, closes the popover on selection, carries \`aria-current="page"\` and keeps a doubled brand border.
+  same tab, closes the popover on selection, carries \`aria-current="page"\` and keeps a brand border.
   A \`target\` on the item still wins.
 - **Unavailable apps.** An app with \`url: null\` (or, in \`apps\`, no \`url\`) and no \`onClick\` or
   \`component\` has no action to offer, so it renders disabled with a "Coming soon" tooltip explaining why.
@@ -135,7 +135,7 @@ card does nothing at all. A second click of the grid trigger, a click outside, o
 - Platforms and manage links are each grouped in a list labelled by their section heading.
 - Platforms marked \`disabled\` carry \`aria-disabled\` and are drawn with a faded mark and muted label; they stay focusable so they remain discoverable, but never navigate.
 - "Coming soon" platforms (no \`url\`) are disabled cards like the above, and their tooltip is read as the card's description.
-- The current app is marked \`aria-current="page"\`; its border is doubled, not only recolored, and uses the darker brand token for 3:1 contrast.
+- The current app is marked \`aria-current="page"\`; its border uses the darker brand token for 3:1 contrast.
 - A loading grid is marked \`aria-busy\`, and so is a busy card.
 - The popover is an MUI Popover with \`role="dialog"\`: focus is trapped while open, Escape closes it and returns focus to the trigger.
 - The hover lift is suppressed under \`prefers-reduced-motion\`; the border and shadow still carry the state.
