@@ -109,7 +109,8 @@ not fetch anything; the console fetches the list and passes it in.
 - **Loading.** \`loading\` swaps the cards for placeholders of the same height (one row by default,
   \`loadingCount\` to change it) and marks the grid \`aria-busy\`.
 - **Busy cards.** \`busy\` shows a progress indicator in place of the mark and ignores clicks while an
-  action runs, e.g. granting access before opening the platform. The card stays focusable.
+  action runs, e.g. granting access before opening the platform. The card stays focusable. While busy it
+  renders as a button rather than a link, so it cannot be opened from the context menu either.
 - **Safe links.** Only \`http:\`, \`https:\` and relative URLs reach \`href\`. Anything else, such as
   \`javascript:\` or \`data:\`, renders the card disabled and logs a warning.
 

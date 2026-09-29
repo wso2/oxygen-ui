@@ -417,11 +417,6 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
       }
     };
 
-    // A middle-click opens a link without firing `click`.
-    const handleAuxClick = busy
-      ? (event: React.MouseEvent<HTMLElement>) => event.preventDefault()
-      : undefined;
-
     const ownerState = { disabled, tone, current, busy };
     const markSize = tone === 'manage' ? 16 : 32;
 
@@ -429,7 +424,11 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
     // client-side navigation works without the library depending on a router.
     // Otherwise render a real anchor when navigable, so middle-click and
     // "open in new tab" keep working. `rel` guards against reverse tabnabbing.
-    const renderAsLink = Boolean(safeUrl) && !disabled;
+    //
+    // A busy card renders as a button, so the context menu or a middle-click
+    // cannot open it past the click guard.
+    const canNavigate = !disabled && !busy;
+    const renderAsLink = Boolean(safeUrl) && canNavigate;
     const linkProps = {
       ...(safeUrl && { href: safeUrl }),
       ...(effectiveTarget && { target: effectiveTarget }),
@@ -438,7 +437,7 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
     // `componentProps` cannot drop it on a `_blank` target.
     const relProps = effectiveTarget === '_blank' ? { rel: 'noopener noreferrer' } : {};
     const anchorProps =
-      component && !disabled
+      component && canNavigate
         ? { component, ...componentProps, ...linkProps, ...relProps }
         : renderAsLink
           ? { component: 'a' as React.ElementType, ...linkProps, ...relProps }
@@ -468,7 +467,6 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
         variant="outlined"
         onClick={handleClick}
         onKeyDown={handleKeyDown}
-        onAuxClick={handleAuxClick}
         data-app-switcher-app=""
         aria-disabled={disabled ? 'true' : undefined}
         aria-busy={busy ? 'true' : undefined}

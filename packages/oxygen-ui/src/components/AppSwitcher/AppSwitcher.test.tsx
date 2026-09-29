@@ -429,7 +429,7 @@ describe('AppSwitcher busy card', () => {
     });
     const trigger = openSwitcher();
 
-    const card = screen.getByRole('link', { name: 'API Platform' });
+    const card = cardFor('API Platform');
     expect(card.getAttribute('aria-busy')).toBe('true');
     expect(card.querySelector('.MuiCircularProgress-root')).not.toBeNull();
 
@@ -443,15 +443,22 @@ describe('AppSwitcher busy card', () => {
     expect(trigger.getAttribute('aria-expanded')).toBe('true');
   });
 
-  it('ignores a middle-click while busy', () => {
+  it('exposes no link while busy, so the context menu cannot open it', () => {
     renderSwitcher({
-      apps: [{ id: 'api', name: 'API Platform', url: 'https://api.example.com', busy: true }],
+      apps: [
+        { id: 'api', name: 'API Platform', url: 'https://api.example.com', busy: true },
+        { id: 'routed', name: 'Routed', component: 'a', componentProps: { href: '/routed' }, busy: true },
+      ],
     });
     openSwitcher();
 
-    const auxClick = new MouseEvent('auxclick', { bubbles: true, cancelable: true, button: 1 });
-    screen.getByRole('link', { name: 'API Platform' }).dispatchEvent(auxClick);
-    expect(auxClick.defaultPrevented).toBe(true);
+    for (const name of ['API Platform', 'Routed']) {
+      const card = cardFor(name);
+      expect(card.tagName).toBe('BUTTON');
+      expect(card.getAttribute('href')).toBeNull();
+      expect(card.getAttribute('target')).toBeNull();
+    }
+    expect(screen.queryByRole('link', { name: 'API Platform' })).toBeNull();
   });
 
   it('shows no progress and runs its action when not busy', () => {
