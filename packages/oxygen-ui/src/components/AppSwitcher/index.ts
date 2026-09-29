@@ -24,7 +24,7 @@ export type { AppSwitcherTriggerProps } from './AppSwitcherTrigger';
 export { AppSwitcherSection } from './AppSwitcherSection';
 export type { AppSwitcherSectionProps } from './AppSwitcherSection';
 export { AppSwitcherApp } from './AppSwitcherApp';
-export type { AppSwitcherAppProps, AppSwitcherAppTone } from './AppSwitcherApp';
+export type { AppSwitcherAppProps, AppSwitcherAppItem, AppSwitcherAppTone } from './AppSwitcherApp';
 export { AppSwitcherFooter } from './AppSwitcherFooter';
 export type { AppSwitcherFooterProps, AppSwitcherFooterLink } from './AppSwitcherFooter';
 export { AppSwitcherContext, useAppSwitcher } from './context';

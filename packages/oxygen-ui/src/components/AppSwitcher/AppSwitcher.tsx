@@ -67,6 +67,10 @@ export interface AppSwitcherProps {
   'aria-label'?: string;
   /** Additional sx props applied to the popover */
   sx?: SxProps<Theme>;
+  /** Id of the app the user is in. Its card opens in the same tab and is marked `aria-current`. */
+  currentAppId?: string;
+  /** Label on unavailable cards, e.g. for localisation (default: `"Coming soon"`) */
+  unavailableLabel?: React.ReactNode;
 }
 
 /**
@@ -85,7 +89,17 @@ export interface AppSwitcherProps {
  *
  * Selecting a card leaves the popover open, since cards open in a new tab, so
  * the current tab never navigates. The trigger, an outside click or Escape
- * dismisses it.
+ * dismisses it. The current app (`currentAppId`) is the exception: it opens
+ * in the same tab, so selecting it closes the popover.
+ *
+ * @example
+ * ```tsx
+ * <AppSwitcher currentAppId="agent-manager">
+ *   <AppSwitcher.Trigger label="Switch platforms" />
+ *   <AppSwitcher.Section label="Platforms" apps={platforms} loading={isLoading} />
+ *   <AppSwitcher.Footer label="Manage" links={manage} loading={isLoading} />
+ * </AppSwitcher>
+ * ```
  *
  * @example
  * ```tsx
@@ -110,7 +124,14 @@ export const AppSwitcher: React.FC<AppSwitcherProps> & {
   Section: typeof AppSwitcherSection;
   App: typeof AppSwitcherApp;
   Footer: typeof AppSwitcherFooter;
-} = ({ children, width = 460, 'aria-label': ariaLabelProp, sx }) => {
+} = ({
+  children,
+  width = 460,
+  'aria-label': ariaLabelProp,
+  sx,
+  currentAppId,
+  unavailableLabel,
+}) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const open = Boolean(anchorEl);
   const popoverId = React.useId();
@@ -133,8 +154,16 @@ export const AppSwitcher: React.FC<AppSwitcherProps> & {
       : 'Applications';
 
   const contextValue = React.useMemo(
-    () => ({ open, anchorEl, popoverId, handleOpen, handleClose }),
-    [open, anchorEl, popoverId, handleOpen, handleClose]
+    () => ({
+      open,
+      anchorEl,
+      popoverId,
+      handleOpen,
+      handleClose,
+      currentAppId,
+      unavailableLabel,
+    }),
+    [open, anchorEl, popoverId, handleOpen, handleClose, currentAppId, unavailableLabel]
   );
 
   // Separate trigger from popover content

@@ -61,6 +61,7 @@ export type {
   AppSwitcherTriggerProps,
   AppSwitcherSectionProps,
   AppSwitcherAppProps,
+  AppSwitcherAppItem,
   AppSwitcherAppTone,
   AppSwitcherFooterProps,
   AppSwitcherFooterLink,
