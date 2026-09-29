@@ -69,7 +69,7 @@ export interface AppSwitcherProps {
   sx?: SxProps<Theme>;
   /** Id of the app the user is in. Its card opens in the same tab and is marked `aria-current`. */
   currentAppId?: string;
-  /** Label on unavailable cards, e.g. for localisation (default: `"Coming soon"`) */
+  /** Tooltip on unavailable cards, e.g. for localisation (default: `"Coming soon"`) */
   unavailableLabel?: React.ReactNode;
 }
 

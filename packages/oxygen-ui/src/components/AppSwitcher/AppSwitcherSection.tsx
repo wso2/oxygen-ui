@@ -133,7 +133,7 @@ export interface AppSwitcherSectionProps {
   children?: React.ReactNode;
   /**
    * Apps rendered as cards, as an alternative to `children`. An app with no
-   * `url`, `onClick` or `component` renders as unavailable.
+   * `url`, `onClick` or `component` renders disabled.
    */
   apps?: AppSwitcherAppItem[];
   /** Section heading, rendered as an uppercase label (e.g. `"Platforms"`) */
@@ -183,8 +183,7 @@ export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
    * A grid of links is tedious to traverse with Tab alone, and the visual
    * layout implies arrow-key movement. Left/Right step through the cards and
    * Up/Down jump by a row; Home/End go to the first/last card. Disabled cards
-   * stay in the sequence because they remain focusable and discoverable;
-   * "Coming soon" cards have no action and are skipped.
+   * stay in the sequence because they remain focusable and discoverable.
    */
   const handleKeyDown = (event: React.KeyboardEvent<HTMLUListElement>) => {
     const keys = ['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp', 'Home', 'End'];
@@ -213,32 +212,33 @@ export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
       cards.filter((card) => card.getBoundingClientRect().top === firstTop).length
     );
 
-    // Start position and step per key, so unavailable cards can be skipped
-    // in the direction of travel.
-    const moves: Record<string, [start: number, step: number]> = {
-      ArrowRight: [currentIndex + 1, 1],
-      ArrowLeft: [currentIndex - 1, -1],
-      ArrowDown: [currentIndex + perRow, perRow],
-      ArrowUp: [currentIndex - perRow, -perRow],
-      Home: [0, 1],
-      End: [cards.length - 1, -1],
-    };
-    const [start, step] = moves[event.key];
-
-    // Unavailable cards are not focusable. They still count in `perRow` so
-    // rows match the screen.
-    let nextIndex = start;
-    while (
-      nextIndex >= 0 &&
-      nextIndex < cards.length &&
-      cards[nextIndex].hasAttribute('data-app-switcher-unavailable')
-    ) {
-      nextIndex += step;
+    let nextIndex = currentIndex;
+    switch (event.key) {
+      case 'ArrowRight':
+        nextIndex = currentIndex + 1;
+        break;
+      case 'ArrowLeft':
+        nextIndex = currentIndex - 1;
+        break;
+      case 'ArrowDown':
+        nextIndex = currentIndex + perRow;
+        break;
+      case 'ArrowUp':
+        nextIndex = currentIndex - perRow;
+        break;
+      case 'Home':
+        nextIndex = 0;
+        break;
+      case 'End':
+        nextIndex = cards.length - 1;
+        break;
+      default:
+        break;
     }
 
     // Clamp instead of wrapping: a vertical step off the last row would
     // otherwise land somewhere unrelated.
-    if (nextIndex < 0 || nextIndex >= cards.length || nextIndex === currentIndex) {
+    if (nextIndex < 0 || nextIndex >= cards.length) {
       return;
     }
 

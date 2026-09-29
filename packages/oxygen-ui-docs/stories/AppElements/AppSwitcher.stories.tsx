@@ -102,16 +102,16 @@ not fetch anything; the console fetches the list and passes it in.
   same tab, closes the popover on selection, carries \`aria-current="page"\` and keeps a doubled brand border.
   A \`target\` on the item still wins.
 - **Unavailable apps.** An app with \`url: null\` (or, in \`apps\`, no \`url\`) and no \`onClick\` or
-  \`component\` has no action to offer, so it renders as a static, faded card with a visible "Coming soon"
-  label. It is not a button or link and is not focusable. Localise the label with \`unavailableLabel\` on
-  \`<AppSwitcher>\`, or override it per item with \`unavailableLabel\`. A footer link with no \`url\` at all
-  keeps its previous behavior; pass \`url: null\` to mark it unavailable.
+  \`component\` has no action to offer, so it renders disabled with a "Coming soon" tooltip explaining why.
+  Localise the tooltip with \`unavailableLabel\` on \`<AppSwitcher>\`, or override it per item with
+  \`tooltip\`. A footer link with no \`url\` at all keeps its previous behavior; pass \`url: null\` to mark
+  it unavailable.
 - **Loading.** \`loading\` swaps the cards for placeholders of the same height (one row by default,
   \`loadingCount\` to change it) and marks the grid \`aria-busy\`.
 - **Busy cards.** \`busy\` shows a progress indicator in place of the mark and ignores clicks while an
   action runs, e.g. granting access before opening the platform. The card stays focusable.
 - **Safe links.** Only \`http:\`, \`https:\` and relative URLs reach \`href\`. Anything else, such as
-  \`javascript:\` or \`data:\`, renders the card disabled and logs a warning in development.
+  \`javascript:\` or \`data:\`, renders the card disabled and logs a warning.
 
 ### The platform mark
 Every platform card carries the WSO2 mark, the \`WSO2\` icon from \`@wso2/oxygen-ui-icons-react\`. It is
@@ -133,7 +133,7 @@ card does nothing at all. A second click of the grid trigger, a click outside, o
 - The trigger is a labeled button ("Switch Platforms" by default) exposing \`aria-haspopup\`, \`aria-expanded\`, and \`aria-controls\`.
 - Platforms and manage links are each grouped in a list labelled by their section heading.
 - Platforms marked \`disabled\` carry \`aria-disabled\` and are drawn with a faded mark and muted label; they stay focusable so they remain discoverable, but never navigate.
-- "Coming soon" platforms (no \`url\`) are plain content, not controls: the label is visible text, read with the name, and arrow keys step over them.
+- "Coming soon" platforms (no \`url\`) are disabled cards like the above, and their tooltip is read as the card's description.
 - The current app is marked \`aria-current="page"\`; its border is doubled, not only recolored, and uses the darker brand token for 3:1 contrast.
 - A loading grid is marked \`aria-busy\`, and so is a busy card.
 - The popover is an MUI Popover with \`role="dialog"\`: focus is trapped while open, Escape closes it and returns focus to the trigger.
@@ -289,7 +289,7 @@ const manageData: AppSwitcherFooterLink[] = [
  * Driven from data, as every console does with the shared platform list. The
  * user is in Agent Manager, so its card carries the current-app border, opens
  * in the same tab and closes the popover. API Analytics has no URL here, so it
- * renders as a static "Coming soon" card with no action.
+ * renders disabled with a "Coming soon" tooltip.
  */
 export const DataDriven: Story = {
   render: () => (

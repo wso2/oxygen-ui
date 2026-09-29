@@ -34,7 +34,7 @@ export interface AppSwitcherContextValue {
   handleClose: () => void;
   /** Id of the app the user is in */
   currentAppId?: string;
-  /** Label on unavailable cards */
+  /** Tooltip on unavailable cards */
   unavailableLabel?: React.ReactNode;
 }
 

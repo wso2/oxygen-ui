@@ -74,7 +74,6 @@ interface AppSwitcherAppOwnerState {
   tone: AppSwitcherAppTone;
   current: boolean;
   busy: boolean;
-  unavailable: boolean;
 }
 
 /**
@@ -146,10 +145,6 @@ const AppSwitcherAppRoot = styled(Card, {
         borderColor: (theme.vars || theme).palette.divider,
         backgroundColor: (theme.vars || theme).palette.action.hover,
       },
-    }),
-    // Not a control, so no "not-allowed" cursor.
-    ...(ownerState.unavailable && {
-      cursor: 'default',
     }),
     // `focus` rather than `main`, so the state indicator meets WCAG 3:1.
     ...(ownerState.current && {
@@ -224,10 +219,6 @@ const AppSwitcherAppIcon = styled(Box, {
         ? (theme.vars || theme).palette.text.disabled
         : APP_SWITCHER_BRAND.surfaceMark,
     }),
-    // No room for both the disc and the label on a manage card.
-    ...(manage && ownerState.unavailable && {
-      display: 'none',
-    }),
     '& svg': {
       display: 'block',
     },
@@ -263,23 +254,8 @@ const AppSwitcherAppName = styled(Typography, {
   // row for two.
   display: '-webkit-box',
   WebkitBoxOrient: 'vertical',
-  // Leave the second line for the unavailable label.
-  WebkitLineClamp: ownerState.tone === 'manage' || ownerState.unavailable ? 1 : 2,
+  WebkitLineClamp: ownerState.tone === 'manage' ? 1 : 2,
   overflow: 'hidden',
-}));
-
-/**
- * Styled "Coming soon" label. Visible text rather than a tooltip, since the
- * card is not focusable and a tooltip would miss keyboard and touch users.
- */
-const AppSwitcherAppUnavailableLabel = styled(Typography, {
-  name: 'MuiAppSwitcher',
-  slot: 'AppUnavailableLabel',
-})(({ theme }) => ({
-  fontSize: theme.typography.caption.fontSize,
-  lineHeight: 1.35,
-  // Not `text.disabled`, so the reason stays readable on a faded card.
-  color: (theme.vars || theme).palette.text.secondary,
 }));
 
 /**
@@ -294,8 +270,8 @@ export interface AppSwitcherAppProps {
    * Destination URL. The card renders as an anchor pointing at it.
    *
    * `null` marks the app as unavailable: without `onClick` or `component` it
-   * renders as a static "Coming soon" card. Only `http:`, `https:` and relative
-   * URLs are used; any other scheme renders the card disabled.
+   * renders disabled with a "Coming soon" tooltip. Only `http:`, `https:` and
+   * relative URLs are used; any other scheme renders the card disabled.
    */
   url?: string | null;
   /** Mark shown above the name (default: the WSO2 logo) */
@@ -324,8 +300,6 @@ export interface AppSwitcherAppProps {
   componentProps?: Record<string, unknown>;
   /** Anchor target (default: `"_self"` for the current app, `"_blank"` otherwise) */
   target?: string;
-  /** Label for an unavailable card, overriding the switcher's `unavailableLabel` */
-  unavailableLabel?: React.ReactNode;
   /** Marks this card as the current app, overriding the `currentAppId` match */
   current?: boolean;
   /** Shows progress and ignores clicks while an action runs, e.g. granting access */
@@ -357,7 +331,7 @@ const isModifiedClick = (event: React.MouseEvent<HTMLElement>) =>
  * receive pointer events, so the tooltip works on them.
  *
  * An app with `url: null` and no `onClick` or `component` has nothing to
- * offer, so it renders as a static "Coming soon" card, not a control.
+ * offer, so it renders disabled with a "Coming soon" tooltip.
  *
  * The current app (`current`, or `id` matching `currentAppId`) opens in the
  * same tab, so selecting it closes the popover.
@@ -384,7 +358,6 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
       target: targetProp,
       current: currentProp,
       busy = false,
-      unavailableLabel,
       onClick,
     },
     ref,
@@ -413,8 +386,10 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
 
     const unavailable = url === null && !onClick && !component;
     const disabled = disabledProp || unavailable || unsafeUrl;
-    // The card is not focusable, so a tooltip would only reach pointer users.
-    const tooltip = unavailable ? undefined : tooltipProp;
+    // Tell the user why the card is disabled.
+    const tooltip =
+      tooltipProp ??
+      (unavailable ? (switcher?.unavailableLabel ?? DEFAULT_UNAVAILABLE_LABEL) : undefined);
 
     // Opening the current app in a new tab would duplicate it.
     const target = targetProp ?? (current ? '_self' : '_blank');
@@ -447,7 +422,7 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
       ? (event: React.MouseEvent<HTMLElement>) => event.preventDefault()
       : undefined;
 
-    const ownerState = { disabled, tone, current, busy, unavailable };
+    const ownerState = { disabled, tone, current, busy };
     const markSize = tone === 'manage' ? 16 : 32;
 
     // A consumer-supplied `component` (typically a router Link) wins, so
@@ -484,29 +459,6 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
         event.preventDefault();
       }
     };
-
-    if (unavailable) {
-      // A plain element, so screen readers do not announce a dead control.
-      return (
-        <AppSwitcherAppRoot
-          ref={ref as React.Ref<HTMLDivElement>}
-          ownerState={ownerState}
-          variant="outlined"
-          data-app-switcher-app=""
-          data-app-switcher-unavailable=""
-        >
-          <AppSwitcherAppIcon ownerState={ownerState} aria-hidden="true">
-            {icon ?? <WSO2 size={markSize} />}
-          </AppSwitcherAppIcon>
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 0 }}>
-            <AppSwitcherAppName ownerState={ownerState}>{name}</AppSwitcherAppName>
-            <AppSwitcherAppUnavailableLabel>
-              {unavailableLabel ?? switcher?.unavailableLabel ?? DEFAULT_UNAVAILABLE_LABEL}
-            </AppSwitcherAppUnavailableLabel>
-          </Box>
-        </AppSwitcherAppRoot>
-      );
-    }
 
     const card = (
       <AppSwitcherAppRoot

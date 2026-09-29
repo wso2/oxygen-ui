@@ -76,8 +76,7 @@ const openSwitcher = () => {
   return trigger;
 };
 
-/** The card's name, without the "Coming soon" label an unavailable card adds. */
-const nameOf = (card: Element) => card.querySelector('p')?.textContent;
+const nameOf = (card: Element) => card.textContent;
 
 const cardFor = (name: string) =>
   screen.getByText(name).closest('[data-app-switcher-app]') as HTMLElement;
@@ -257,81 +256,56 @@ describe('AppSwitcher data-driven sections', () => {
 });
 
 describe('AppSwitcher unavailable apps', () => {
-  it('renders an app whose url is null as a static "Coming soon" card', () => {
+  it('renders an app whose url is null as a disabled card with a "Coming soon" tooltip', async () => {
     renderSwitcher();
     openSwitcher();
 
     const card = cardFor('API Analytics');
-    // Not a control: no button or link semantics, no href, no tab stop.
-    expect(card.tagName).toBe('DIV');
-    expect(card.hasAttribute('data-app-switcher-unavailable')).toBe(true);
+    expect(card.tagName).toBe('BUTTON');
     expect(card.getAttribute('href')).toBeNull();
-    expect(card.getAttribute('role')).toBeNull();
-    expect(card.getAttribute('tabindex')).toBeNull();
-    expect(screen.queryByRole('button', { name: /API Analytics/ })).toBeNull();
-    expect(screen.queryByRole('link', { name: /API Analytics/ })).toBeNull();
+    expect(card.getAttribute('aria-disabled')).toBe('true');
+    // No visible label; the reason lives in the tooltip.
+    expect(card.textContent).toBe('API Analytics');
 
-    // The reason is visible text, so it reaches keyboard and touch users too.
-    expect(card.textContent).toBe('API AnalyticsComing soon');
+    fireEvent.mouseOver(card);
+    expect((await screen.findByRole('tooltip')).textContent).toBe('Coming soon');
   });
 
-  it('shows no tooltip on a "Coming soon" card', () => {
-    renderSwitcher({
-      apps: [{ id: 'analytics', name: 'API Analytics', url: null, tooltip: 'Ignored' }],
-    });
+  it('keeps an unavailable card focusable so the tooltip reaches keyboard users', () => {
+    renderSwitcher();
     openSwitcher();
 
-    fireEvent.mouseOver(cardFor('API Analytics'));
-    expect(screen.queryByRole('tooltip')).toBeNull();
+    const card = cardFor('API Analytics');
+    card.focus();
+    expect(document.activeElement).toBe(card);
   });
 
   it('treats an app with no url like one whose url is null', () => {
     renderSwitcher({ apps: [{ id: 'integration', name: 'Integration Platform' }] });
     openSwitcher();
 
-    expect(cardFor('Integration Platform').hasAttribute('data-app-switcher-unavailable')).toBe(true);
-    expect(screen.getByText('Coming soon')).toBeDefined();
+    expect(cardFor('Integration Platform').getAttribute('aria-disabled')).toBe('true');
   });
 
-  it('lets the switcher localise the unavailable label', () => {
+  it('lets the switcher localise the tooltip', async () => {
     renderSwitcher({ unavailableLabel: 'Bientôt disponible' });
     openSwitcher();
 
-    expect(cardFor('API Analytics').textContent).toContain('Bientôt disponible');
+    fireEvent.mouseOver(cardFor('API Analytics'));
+    expect((await screen.findByRole('tooltip')).textContent).toBe('Bientôt disponible');
   });
 
-  it('lets an item override the unavailable label', () => {
+  it('lets an item tooltip override the default', async () => {
     renderSwitcher({
-      unavailableLabel: 'Bientôt disponible',
-      apps: [{ id: 'analytics', name: 'API Analytics', url: null, unavailableLabel: 'Not in this region' }],
+      apps: [{ id: 'analytics', name: 'API Analytics', url: null, tooltip: 'Not in this region' }],
     });
     openSwitcher();
 
-    expect(cardFor('API Analytics').textContent).toContain('Not in this region');
+    fireEvent.mouseOver(cardFor('API Analytics'));
+    expect((await screen.findByRole('tooltip')).textContent).toBe('Not in this region');
   });
 
-  it('steps over "Coming soon" cards with the arrow keys', () => {
-    renderSwitcher({
-      apps: [
-        PLATFORMS[0],
-        { id: 'analytics', name: 'API Analytics', url: null },
-        PLATFORMS[2],
-      ],
-    });
-    openSwitcher();
-
-    const first = screen.getByRole('link', { name: 'Agent Manager' });
-    const last = screen.getByRole('link', { name: 'API Platform' });
-    first.focus();
-
-    fireEvent.keyDown(first, { key: 'ArrowRight' });
-    expect(document.activeElement).toBe(last);
-
-    fireEvent.keyDown(last, { key: 'ArrowLeft' });
-    expect(document.activeElement).toBe(first);
-  });
-
-  it('keeps focus in place when only "Coming soon" cards lie ahead', () => {
+  it('keeps unavailable cards in the arrow-key sequence', () => {
     renderSwitcher({
       apps: [PLATFORMS[0], { id: 'analytics', name: 'API Analytics', url: null }],
     });
@@ -339,8 +313,8 @@ describe('AppSwitcher unavailable apps', () => {
 
     const first = screen.getByRole('link', { name: 'Agent Manager' });
     first.focus();
-    fireEvent.keyDown(first, { key: 'End' });
-    expect(document.activeElement).toBe(first);
+    fireEvent.keyDown(first, { key: 'ArrowRight' });
+    expect(document.activeElement).toBe(cardFor('API Analytics'));
   });
 
   it('keeps an app with an onClick but no url enabled', () => {
@@ -370,22 +344,11 @@ describe('AppSwitcher unavailable apps', () => {
     expect(card.getAttribute('aria-disabled')).toBeNull();
   });
 
-  it('renders a footer link whose url is null as a "Coming soon" card', () => {
+  it('renders a footer link whose url is null as disabled', () => {
     renderSwitcher({ links: [{ id: 'billing', name: 'Billing', url: null }] });
     openSwitcher();
 
-    const card = cardFor('Billing');
-    expect(card.hasAttribute('data-app-switcher-unavailable')).toBe(true);
-    expect(card.textContent).toContain('Coming soon');
-  });
-
-  it('keeps a "Coming soon" card at the fixed card height', () => {
-    renderSwitcher();
-    openSwitcher();
-
-    expect(getComputedStyle(cardFor('API Analytics')).height).toBe(
-      getComputedStyle(cardFor('Agent Manager')).height,
-    );
+    expect(cardFor('Billing').getAttribute('aria-disabled')).toBe('true');
   });
 });
 
