@@ -134,7 +134,7 @@ card does nothing at all. A second click of the grid trigger, a click outside, o
 - The trigger is a labeled button ("Switch Platforms" by default) exposing \`aria-haspopup\`, \`aria-expanded\`, and \`aria-controls\`.
 - Platforms and manage links are each grouped in a list labelled by their section heading.
 - Platforms marked \`disabled\` carry \`aria-disabled\` and are drawn with a faded mark and muted label; they stay focusable so they remain discoverable, but never navigate.
-- "Coming soon" platforms (no \`url\`) are disabled cards like the above, and their tooltip is read as the card's description.
+- "Coming soon" platforms are disabled cards like the above, and their tooltip is read as the card's description. A card is one when its \`url\` is \`null\` or blank and it has no \`onClick\` or \`component\`; in a section's \`apps\`, an omitted \`url\` counts too.
 - The current app is marked \`aria-current="page"\`; its border uses the darker brand token for 3:1 contrast.
 - A loading grid is marked \`aria-busy\`, and so is a busy card.
 - The popover is an MUI Popover with \`role="dialog"\`: focus is trapped while open, Escape closes it and returns focus to the trigger.
