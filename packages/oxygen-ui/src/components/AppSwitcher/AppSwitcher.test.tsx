@@ -271,6 +271,19 @@ describe('AppSwitcher unavailable apps', () => {
     expect((await screen.findByRole('tooltip')).textContent).toBe('Coming soon');
   });
 
+  it('treats a blank url like null', async () => {
+    renderSwitcher({ apps: [{ id: 'analytics', name: 'API Analytics', url: '  ' }] });
+    openSwitcher();
+
+    const card = cardFor('API Analytics');
+    expect(card.tagName).toBe('BUTTON');
+    expect(card.getAttribute('href')).toBeNull();
+    expect(card.getAttribute('aria-disabled')).toBe('true');
+
+    fireEvent.mouseOver(card);
+    expect((await screen.findByRole('tooltip')).textContent).toBe('Coming soon');
+  });
+
   it('keeps an unavailable card focusable so the tooltip reaches keyboard users', () => {
     renderSwitcher();
     openSwitcher();

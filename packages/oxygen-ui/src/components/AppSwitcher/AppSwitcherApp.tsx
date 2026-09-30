@@ -265,9 +265,10 @@ export interface AppSwitcherAppProps {
   /**
    * Destination URL. The card renders as an anchor pointing at it.
    *
-   * `null` marks the app as unavailable: without `onClick` or `component` it
-   * renders disabled with a "Coming soon" tooltip. Only `http:`, `https:` and
-   * relative URLs are used; any other scheme renders the card disabled.
+   * `null` or a blank string marks the app as unavailable: without `onClick`
+   * or `component` it renders disabled with a "Coming soon" tooltip. Only
+   * `http:`, `https:` and relative URLs are used; any other scheme renders the
+   * card disabled.
    */
   url?: string | null;
   /** Mark shown above the name (default: the WSO2 logo) */
@@ -326,8 +327,8 @@ const isModifiedClick = (event: React.MouseEvent<HTMLElement>) =>
  * `aria-disabled` rather than the native `disabled` attribute, they still
  * receive pointer events, so the tooltip works on them.
  *
- * An app with `url: null` and no `onClick` or `component` has nothing to
- * offer, so it renders disabled with a "Coming soon" tooltip.
+ * An app with `url: null` (or a blank `url`) and no `onClick` or `component`
+ * has nothing to offer, so it renders disabled with a "Coming soon" tooltip.
  *
  * The current app (`current`, or `id` matching `currentAppId`) opens in the
  * same tab, so selecting it closes the popover.
@@ -367,9 +368,13 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
     const switcher = React.useContext(AppSwitcherContext);
     const current = currentProp ?? (id !== undefined && id === switcher?.currentAppId);
 
+    // Fetched data may send a blank string for an app with no destination yet,
+    // so treat it like `null`.
+    const normalizedUrl = typeof url === 'string' && url.trim() === '' ? null : url;
+
     // URLs may come from fetched data, so block `javascript:` and the like.
-    const unsafeUrl = Boolean(url) && !isSafeAppUrl(url as string);
-    const safeUrl = unsafeUrl ? undefined : url || undefined;
+    const unsafeUrl = Boolean(normalizedUrl) && !isSafeAppUrl(normalizedUrl as string);
+    const safeUrl = unsafeUrl ? undefined : normalizedUrl || undefined;
 
     React.useEffect(() => {
       if (unsafeUrl) {
@@ -380,7 +385,7 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
       }
     }, [unsafeUrl, name]);
 
-    const unavailable = url === null && !onClick && !component;
+    const unavailable = normalizedUrl === null && !onClick && !component;
     const disabled = disabledProp || unavailable || unsafeUrl;
     // Tell the user why the card is disabled.
     const tooltip =
