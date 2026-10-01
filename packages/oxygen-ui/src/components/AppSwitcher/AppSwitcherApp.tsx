@@ -20,11 +20,13 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import ButtonBase from '@mui/material/ButtonBase';
+import CircularProgress from '@mui/material/CircularProgress';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { APP_SWITCHER_BRAND } from './brand';
-import { AppSwitcherFooterContext } from './context';
+import { AppSwitcherContext, AppSwitcherFooterContext } from './context';
+import { isSafeAppUrl } from './url';
 import { WSO2 } from '@wso2/oxygen-ui-icons-react';
 
 /**
@@ -37,6 +39,10 @@ import { WSO2 } from '@wso2/oxygen-ui-icons-react';
  *
  * Elevation:
  * - `shadows[2]` - Hover elevation
+ *
+ * Brand (see `brand.ts`):
+ * - `APP_SWITCHER_BRAND.main` - Hover border
+ * - `APP_SWITCHER_BRAND.focus` - Focus ring and the current app's border
  *
  * Typography / sizing:
  * - `typography.body2` - Name text
@@ -55,9 +61,19 @@ import { WSO2 } from '@wso2/oxygen-ui-icons-react';
  */
 export type AppSwitcherAppTone = 'platform' | 'manage';
 
+const DEFAULT_UNAVAILABLE_LABEL = 'Coming soon';
+
+/** Card height per tone, in `theme.spacing` units. Shared with the loading placeholders. */
+export const APP_CARD_HEIGHT: Record<AppSwitcherAppTone, number> = {
+  platform: 13,
+  manage: 9,
+};
+
 interface AppSwitcherAppOwnerState {
   disabled: boolean;
   tone: AppSwitcherAppTone;
+  current: boolean;
+  busy: boolean;
 }
 
 /**
@@ -88,6 +104,7 @@ const AppSwitcherAppRoot = styled(Card, {
   // when the surrounding product runs a different palette.
   const accent = APP_SWITCHER_BRAND.main;
   const manage = ownerState.tone === 'manage';
+  const interactive = !ownerState.disabled && !ownerState.busy;
 
   return {
     display: 'flex',
@@ -102,7 +119,7 @@ const AppSwitcherAppRoot = styled(Card, {
     // A fixed height rather than a floor, so every card in the switcher is the
     // same size whether its name runs to one line or two. The name itself is
     // clamped to two lines, so nothing can outgrow the box.
-    height: theme.spacing(manage ? 9 : 13),
+    height: theme.spacing(APP_CARD_HEIGHT[ownerState.tone]),
     padding: manage ? theme.spacing(1, 1) : theme.spacing(1.25, 1),
     textAlign: 'center',
     // A navigable card renders as an `<a>`, which underlines its text by
@@ -126,9 +143,20 @@ const AppSwitcherAppRoot = styled(Card, {
         backgroundColor: (theme.vars || theme).palette.action.hover,
       },
     }),
+    // `focus` rather than `main`, so the state indicator meets WCAG 3:1.
+    ...(ownerState.current && {
+      '&.MuiCard-root': {
+        borderColor: APP_SWITCHER_BRAND.focus,
+      },
+    }),
+    // Tells the user why clicks are ignored.
+    ...(ownerState.busy && {
+      cursor: 'progress',
+    }),
     '&:hover': {
-      ...(!ownerState.disabled && {
-        borderColor: accent,
+      ...(interactive && {
+        // Keep the current border on hover; `accent` would lower its contrast.
+        borderColor: ownerState.current ? APP_SWITCHER_BRAND.focus : accent,
         boxShadow: theme.shadows[2],
         transform: 'translateY(-2px)',
       }),
@@ -230,10 +258,19 @@ const AppSwitcherAppName = styled(Typography, {
  * Props for the AppSwitcher.App component.
  */
 export interface AppSwitcherAppProps {
+  /** Identifier matched against the switcher's `currentAppId`. Not set as the DOM `id`. */
+  id?: string;
   /** Application name (e.g. `"API Platform"`) */
   name: string;
-  /** Destination URL. The card renders as an anchor pointing at it. */
-  url?: string;
+  /**
+   * Destination URL. The card renders as an anchor pointing at it.
+   *
+   * `null` or a blank string marks the app as unavailable: without `onClick`
+   * or `component` it renders disabled with a "Coming soon" tooltip. Only
+   * `http:`, `https:` and relative URLs are used; any other scheme renders the
+   * card disabled.
+   */
+  url?: string | null;
   /** Mark shown above the name (default: the WSO2 logo) */
   icon?: React.ReactNode;
   /** Visual treatment (default: `"manage"` inside the footer, `"platform"` elsewhere) */
@@ -258,11 +295,25 @@ export interface AppSwitcherAppProps {
    * navigation prop instead of `href` (e.g. React Router's `to`).
    */
   componentProps?: Record<string, unknown>;
-  /** Anchor target (default: `"_blank"`, so platforms open in a new tab) */
+  /** Anchor target (default: `"_self"` for the current app, `"_blank"` otherwise) */
   target?: string;
-  /** Click handler. The popover stays open after it runs. */
+  /** Marks this card as the current app, overriding the `currentAppId` match */
+  current?: boolean;
+  /** Shows progress and ignores clicks while an action runs, e.g. granting access */
+  busy?: boolean;
+  /** Click handler. The popover stays open after it runs, except on the current app. */
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 }
+
+/** A card described as data, for `AppSwitcher.Section`'s `apps`. */
+export interface AppSwitcherAppItem extends Omit<AppSwitcherAppProps, 'id'> {
+  /** Stable identifier, used as the React key and to match `currentAppId` */
+  id: string;
+}
+
+/** A modified click opens a new tab, so this tab is not navigating. */
+const isModifiedClick = (event: React.MouseEvent<HTMLElement>) =>
+  event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
 
 /**
  * AppSwitcher.App - Card button for a single destination in the switcher.
@@ -276,24 +327,34 @@ export interface AppSwitcherAppProps {
  * `aria-disabled` rather than the native `disabled` attribute, they still
  * receive pointer events, so the tooltip works on them.
  *
+ * An app with `url: null` (or a blank `url`) and no `onClick` or `component`
+ * has nothing to offer, so it renders disabled with a "Coming soon" tooltip.
+ *
+ * The current app (`current`, or `id` matching `currentAppId`) opens in the
+ * same tab, so selecting it closes the popover.
+ *
  * @example
  * ```tsx
  * <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
  * <AppSwitcher.App name="Analytics Platform" disabled tooltip="Coming soon" />
+ * <AppSwitcher.App id="agent-manager" name="Agent Manager" url="https://agent.wso2.com" />
  * ```
  */
 export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>(
   function AppSwitcherApp(
     {
+      id,
       name,
       url,
       icon,
       tone: toneProp,
-      disabled = false,
-      tooltip,
+      disabled: disabledProp = false,
+      tooltip: tooltipProp,
       component,
       componentProps,
-      target = '_blank',
+      target: targetProp,
+      current: currentProp,
+      busy = false,
       onClick,
     },
     ref,
@@ -303,40 +364,81 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
     const inFooter = React.useContext(AppSwitcherFooterContext);
     const tone = toneProp ?? (inFooter ? 'manage' : 'platform');
 
-    // Selecting a card deliberately leaves the popover open: cards open in a new
-    // tab, so the current tab does not navigate and closing would look like the
-    // switcher had dismissed itself for no reason. This matches the behavior of
-    // other app-grid switchers, where only the trigger, an outside click or
-    // Escape dismisses the popover.
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-      if (disabled) {
-        event.preventDefault();
-        return;
+    // Not `useAppSwitcher`, which throws, so a standalone card still renders.
+    const switcher = React.useContext(AppSwitcherContext);
+    const current = currentProp ?? (id !== undefined && id === switcher?.currentAppId);
+
+    // Fetched data may send a blank string for an app with no destination yet,
+    // so treat it like `null`.
+    const normalizedUrl = typeof url === 'string' && url.trim() === '' ? null : url;
+
+    // URLs may come from fetched data, so block `javascript:` and the like.
+    const unsafeUrl = Boolean(normalizedUrl) && !isSafeAppUrl(normalizedUrl as string);
+    const safeUrl = unsafeUrl ? undefined : normalizedUrl || undefined;
+
+    React.useEffect(() => {
+      if (unsafeUrl) {
+        console.warn(
+          `AppSwitcher.App: ignored the url of "${name}" because only http:, https: and ` +
+            'relative URLs are allowed. The card renders disabled.',
+        );
       }
-      onClick?.(event);
-    };
+    }, [unsafeUrl, name]);
 
-    const ownerState = { disabled, tone };
+    const unavailable = normalizedUrl === null && !onClick && !component;
+    const disabled = disabledProp || unavailable || unsafeUrl;
+    // Tell the user why the card is disabled.
+    const tooltip =
+      tooltipProp ??
+      (unavailable ? (switcher?.unavailableLabel ?? DEFAULT_UNAVAILABLE_LABEL) : undefined);
 
-    // A consumer-supplied `component` (typically a router Link) wins, so
-    // client-side navigation works without the library depending on a router.
-    // Otherwise render a real anchor when navigable, so middle-click and
-    // "open in new tab" keep working. `rel` guards against reverse tabnabbing.
-    const renderAsLink = Boolean(url) && !disabled;
+    // Opening the current app in a new tab would duplicate it.
+    const target = targetProp ?? (current ? '_self' : '_blank');
     // `componentProps` may carry its own `target`, so the guard below is derived
     // from whichever target actually reaches the rendered element rather than
     // from the `target` prop alone.
     const effectiveTarget =
       typeof componentProps?.target === 'string' ? componentProps.target : target;
+
+    // Selecting a card deliberately leaves the popover open: cards open in a new
+    // tab, so the current tab does not navigate and closing would look like the
+    // switcher had dismissed itself for no reason. This matches the behavior of
+    // other app-grid switchers, where only the trigger, an outside click or
+    // Escape dismisses the popover.
+    //
+    // The current app navigates this tab, so there the popover closes.
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+      if (disabled || busy) {
+        event.preventDefault();
+        return;
+      }
+      onClick?.(event);
+      if (current && effectiveTarget !== '_blank' && !isModifiedClick(event)) {
+        switcher?.handleClose();
+      }
+    };
+
+    const ownerState = { disabled, tone, current, busy };
+    const markSize = tone === 'manage' ? 16 : 32;
+
+    // A consumer-supplied `component` (typically a router Link) wins, so
+    // client-side navigation works without the library depending on a router.
+    // Otherwise render a real anchor when navigable, so middle-click and
+    // "open in new tab" keep working. `rel` guards against reverse tabnabbing.
+    //
+    // A busy card renders as a button, so the context menu or a middle-click
+    // cannot open it past the click guard.
+    const canNavigate = !disabled && !busy;
+    const renderAsLink = Boolean(safeUrl) && canNavigate;
     const linkProps = {
-      ...(url && { href: url }),
+      ...(safeUrl && { href: safeUrl }),
       ...(effectiveTarget && { target: effectiveTarget }),
     };
     // Keep the reverse-tabnabbing guard out of the overridable props below so
     // `componentProps` cannot drop it on a `_blank` target.
     const relProps = effectiveTarget === '_blank' ? { rel: 'noopener noreferrer' } : {};
     const anchorProps =
-      component && !disabled
+      component && canNavigate
         ? { component, ...componentProps, ...linkProps, ...relProps }
         : renderAsLink
           ? { component: 'a' as React.ElementType, ...linkProps, ...relProps }
@@ -350,8 +452,10 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
     //
     // Space on a button also scrolls the popover unless it is swallowed here;
     // the resulting click is already blocked by `handleClick`.
+    //
+    // A busy card swallows activation so its action cannot start twice.
     const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
-      if (disabled && (event.key === 'Enter' || event.key === ' ')) {
+      if ((disabled || busy) && (event.key === 'Enter' || event.key === ' ')) {
         event.preventDefault();
       }
     };
@@ -366,9 +470,16 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
         onKeyDown={handleKeyDown}
         data-app-switcher-app=""
         aria-disabled={disabled ? 'true' : undefined}
+        aria-busy={busy ? 'true' : undefined}
+        aria-current={current ? 'page' : undefined}
       >
         <AppSwitcherAppIcon ownerState={ownerState} aria-hidden="true">
-          {icon ?? <WSO2 size={tone === 'manage' ? 16 : 32} />}
+          {busy ? (
+            // Same size as the mark, so the card does not reflow.
+            <CircularProgress color="inherit" size={markSize} thickness={5} />
+          ) : (
+            (icon ?? <WSO2 size={markSize} />)
+          )}
         </AppSwitcherAppIcon>
         <AppSwitcherAppName ownerState={ownerState}>{name}</AppSwitcherAppName>
       </AppSwitcherAppRoot>

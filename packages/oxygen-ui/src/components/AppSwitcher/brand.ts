@@ -31,7 +31,7 @@
  * The focus indicator is author-defined, so WCAG 2.1 SC 1.4.11 holds it to
  * 3:1 against the adjacent surface. `main` misses that, so `focus` (#E56800)
  * carries the ring instead: 3.33:1 on the light card (#FFFFFF) and 5.63:1 on
- * the dark one (#121212).
+ * the dark one (#121212). The current app's border needs the same 3:1.
  *
  * See https://github.com/wso2/oxygen-ui/issues/558 for the palette-wide
  * contrast discussion.
@@ -40,8 +40,9 @@ export const APP_SWITCHER_BRAND = {
   /** Full-strength WSO2 orange. Decorative surfaces only. */
   main: '#FF7300',
   /**
-   * Darker orange reserved for the focus ring, where 3:1 against the card
-   * surface is required. Do not swap it back to `main`.
+   * Darker orange reserved for the focus ring and the current app's border,
+   * where 3:1 against the card surface is required. Do not swap it back to
+   * `main`.
    */
   focus: '#E56800',
   /** Faded orange for the mark of a platform that is not yet available. */

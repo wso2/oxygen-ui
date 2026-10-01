@@ -18,8 +18,12 @@
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
+import { APP_CARD_HEIGHT, AppSwitcherApp } from './AppSwitcherApp';
+import type { AppSwitcherAppItem, AppSwitcherAppTone } from './AppSwitcherApp';
+import { AppSwitcherFooterContext } from './context';
 
 /**
  * Theme tokens used in this component:
@@ -85,15 +89,61 @@ const AppSwitcherSectionGrid = styled('ul', {
 }));
 
 /**
+ * Styled loading placeholder, sized like a card so the grid does not jump
+ * when the real cards arrive.
+ */
+const AppSwitcherAppSkeleton = styled(Skeleton, {
+  name: 'MuiAppSwitcher',
+  slot: 'AppSkeleton',
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<{ ownerState: { tone: AppSwitcherAppTone } }>(({ theme, ownerState }) => ({
+  width: '100%',
+  height: theme.spacing(APP_CARD_HEIGHT[ownerState.tone]),
+  // The pulse is decoration; the placeholder alone signals loading.
+  '@media (prefers-reduced-motion: reduce)': {
+    animation: 'none',
+  },
+}));
+
+/**
+ * Renders data items as cards.
+ *
+ * `missingUrlIsUnavailable` treats an omitted `url` as `null`. The footer's
+ * older `links` turn it off so existing links without a `url` do not change.
+ *
+ * @internal
+ */
+export const renderAppItems = (
+  items: ReadonlyArray<Omit<AppSwitcherAppItem, 'id'> & { id?: string; key?: string }>,
+  { missingUrlIsUnavailable }: { missingUrlIsUnavailable: boolean },
+): React.ReactNode =>
+  items.map(({ key, url, ...item }, index) => (
+    <AppSwitcherApp
+      key={item.id ?? key ?? index}
+      {...item}
+      url={url === undefined && missingUrlIsUnavailable ? null : url}
+    />
+  ));
+
+/**
  * Props for the AppSwitcher.Section component.
  */
 export interface AppSwitcherSectionProps {
   /** App cards (typically `AppSwitcher.App` elements) */
-  children: React.ReactNode;
+  children?: React.ReactNode;
+  /**
+   * Apps rendered as cards, as an alternative to `children`. An app with no
+   * `url`, `onClick` or `component` renders disabled.
+   */
+  apps?: AppSwitcherAppItem[];
   /** Section heading, rendered as an uppercase label (e.g. `"Platforms"`) */
   label?: string;
   /** Number of grid columns from the `sm` breakpoint up (default: 3) */
   columns?: number;
+  /** Shows placeholder cards, e.g. while the apps are fetched */
+  loading?: boolean;
+  /** Number of placeholder cards while `loading` (default: one row, `columns`) */
+  loadingCount?: number;
 }
 
 /**
@@ -109,14 +159,22 @@ export interface AppSwitcherSectionProps {
  *   <AppSwitcher.App name="Agent Manager" url="https://agent.wso2.com" />
  *   <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
  * </AppSwitcher.Section>
+ *
+ * <AppSwitcher.Section label="Platforms" apps={platforms} loading={isLoading} />
  * ```
  */
 export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
   children,
+  apps,
   label,
   columns = 3,
+  loading = false,
+  loadingCount,
 }) => {
   const labelId = React.useId();
+  // Placeholders in the footer match its shorter cards.
+  const inFooter = React.useContext(AppSwitcherFooterContext);
+  const tone: AppSwitcherAppTone = inFooter ? 'manage' : 'platform';
   const gridRef = React.useRef<HTMLUListElement>(null);
 
   /**
@@ -189,6 +247,18 @@ export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
     cards[nextIndex].focus();
   };
 
+  const content = loading
+    ? Array.from({ length: loadingCount ?? columns }, (_, index) => (
+        <AppSwitcherAppSkeleton
+          key={index}
+          ownerState={{ tone }}
+          variant="rounded"
+          aria-hidden="true"
+          data-app-switcher-skeleton=""
+        />
+      ))
+    : (children ?? (apps && renderAppItems(apps, { missingUrlIsUnavailable: true })));
+
   return (
     <AppSwitcherSectionRoot>
       {label && <AppSwitcherSectionLabel id={labelId}>{label}</AppSwitcherSectionLabel>}
@@ -197,9 +267,10 @@ export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
         ownerState={{ columns }}
         role="list"
         aria-labelledby={label ? labelId : undefined}
+        aria-busy={loading ? 'true' : undefined}
         onKeyDown={handleKeyDown}
       >
-        {React.Children.map(children, (child) =>
+        {React.Children.map(content, (child) =>
           React.isValidElement(child) ? <li>{child}</li> : child
         )}
       </AppSwitcherSectionGrid>

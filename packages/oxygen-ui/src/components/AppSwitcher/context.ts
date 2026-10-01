@@ -32,6 +32,10 @@ export interface AppSwitcherContextValue {
   handleOpen: (event: React.MouseEvent<HTMLElement>) => void;
   /** Closes the popover */
   handleClose: () => void;
+  /** Id of the app the user is in */
+  currentAppId?: string;
+  /** Tooltip on unavailable cards */
+  unavailableLabel?: React.ReactNode;
 }
 
 /**

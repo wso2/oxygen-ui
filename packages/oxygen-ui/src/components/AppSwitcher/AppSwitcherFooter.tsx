@@ -19,8 +19,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { alpha, styled } from '@mui/material/styles';
-import { AppSwitcherSection } from './AppSwitcherSection';
-import { AppSwitcherApp } from './AppSwitcherApp';
+import { AppSwitcherSection, renderAppItems } from './AppSwitcherSection';
+import type { AppSwitcherAppItem } from './AppSwitcherApp';
 import { AppSwitcherFooterContext } from './context';
 
 /**
@@ -34,31 +34,16 @@ import { AppSwitcherFooterContext } from './context';
 
 /**
  * A single WSO2 Cloud destination in the footer.
+ *
+ * Same shape as `AppSwitcherAppItem`, but `id` is optional since existing
+ * links use `key`. A missing `url` keeps its old behavior, so existing
+ * footers do not change; pass `url: null` to mark a link unavailable.
  */
-export interface AppSwitcherFooterLink {
-  /** Stable identifier, used as the React key */
-  key: string;
-  /** Link name (e.g. `"Users & roles"`) */
-  name: string;
-  /** Destination URL. Renders the card as an anchor. */
-  url?: string;
-  /** Mark shown above the name (default: the WSO2 logo) */
-  icon?: React.ReactNode;
-  /** Anchor target (default: `"_blank"`) */
-  target?: string;
-  /** Blocks navigation, e.g. for a tab the user cannot reach */
-  disabled?: boolean;
-  /** Tooltip shown on hover and focus, e.g. explaining a disabled link */
-  tooltip?: React.ReactNode;
-  /** Custom root component, e.g. a router `Link`, for client-side navigation */
-  component?: React.ElementType;
-  /**
-   * Extra props forwarded to `component`, for routers that use their own
-   * navigation prop instead of `href` (e.g. React Router's `to`).
-   */
-  componentProps?: Record<string, unknown>;
-  /** Click handler. The popover stays open after it runs. */
-  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+export interface AppSwitcherFooterLink extends Omit<AppSwitcherAppItem, 'id'> {
+  /** Stable identifier, used as the React key and to match `currentAppId` */
+  id?: string;
+  /** React key. Kept for existing links; prefer `id`. */
+  key?: string;
 }
 
 /**
@@ -89,6 +74,10 @@ export interface AppSwitcherFooterProps {
   label?: string;
   /** Number of grid columns from the `sm` breakpoint up (default: 3) */
   columns?: number;
+  /** Shows placeholder cards, e.g. while the links are fetched */
+  loading?: boolean;
+  /** Number of placeholder cards while `loading` (default: one row, `columns`) */
+  loadingCount?: number;
 }
 
 /**
@@ -115,20 +104,29 @@ export const AppSwitcherFooter: React.FC<AppSwitcherFooterProps> = ({
   links,
   label = 'Manage',
   columns = 3,
+  loading = false,
+  loadingCount,
 }) => {
-  const cards = children ?? links?.map(({ key, ...link }) => <AppSwitcherApp key={key} {...link} />);
+  const cards =
+    children ?? (links && renderAppItems(links, { missingUrlIsUnavailable: false }));
 
   // An empty manage row must not leave a bare separator and wash behind.
   // `toArray` drops the nulls and booleans a `{cond && <App />}` child yields,
-  // so a footer whose cards are all conditioned off renders nothing.
-  if (React.Children.toArray(cards).length === 0) {
+  // so a footer whose cards are all conditioned off renders nothing. While
+  // loading, keep the row so it does not collapse and reappear.
+  if (!loading && React.Children.toArray(cards).length === 0) {
     return null;
   }
 
   return (
     <AppSwitcherFooterRoot>
       <AppSwitcherFooterContext.Provider value={true}>
-        <AppSwitcherSection label={label} columns={columns}>
+        <AppSwitcherSection
+          label={label}
+          columns={columns}
+          loading={loading}
+          loadingCount={loadingCount}
+        >
           {cards}
         </AppSwitcherSection>
       </AppSwitcherFooterContext.Provider>
