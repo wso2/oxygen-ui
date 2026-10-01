@@ -1,5 +1,16 @@
 # @wso2/oxygen-ui-charts-react
 
+## 0.15.0
+
+### Minor Changes
+
+- [#627](https://github.com/wso2/oxygen-ui/pull/627) [`dc04d64`](https://github.com/wso2/oxygen-ui/commit/dc04d64dd3679b2edbccc353297d51209c7fb634) Thanks [@aruniw](https://github.com/aruniw)! - Let product consoles drive `AppSwitcher` from shared data: `currentAppId` marks the app the user is in (same-tab navigation, `aria-current`, closes the popover), `AppSwitcher.Section` takes `apps` and both `Section` and `Footer` take `loading`, apps with no URL render disabled with a "Coming soon" tooltip (localisable via `unavailableLabel`), cards take `busy`, and only `http:`, `https:` and relative URLs are used as card links.
+
+### Patch Changes
+
+- Updated dependencies [[`dc04d64`](https://github.com/wso2/oxygen-ui/commit/dc04d64dd3679b2edbccc353297d51209c7fb634)]:
+  - @wso2/oxygen-ui@0.15.0
+
 ## 0.14.0
 
 ### Minor Changes
