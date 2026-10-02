@@ -16,10 +16,10 @@
  * under the License.
  */
 
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { Switch, FormControlLabel, FormGroup } from '@wso2/oxygen-ui';
-import { useState } from 'react';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { Switch, FormControlLabel, FormGroup } from '@wso2/oxygen-ui'
+import { useState } from 'react'
 
 const meta: Meta<typeof Switch> = {
   title: 'Inputs/Switch',
@@ -28,34 +28,32 @@ const meta: Meta<typeof Switch> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI switch component is a direct import of MUI switch component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-switch/](https://mui.com/material-ui/react-switch/)',
+        component:
+          'Oxygen UI switch component is a direct import of MUI switch component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-switch/](https://mui.com/material-ui/react-switch/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Switch>;
+export default meta
+type Story = StoryObj<typeof Switch>
 
 export const Default: Story = {
   render: () => <Switch slotProps={{ input: { 'aria-label': 'Enable setting' } }} />,
-};
+}
 
 export const Checked: Story = {
   render: () => <Switch defaultChecked slotProps={{ input: { 'aria-label': 'Enable setting' } }} />,
-};
+}
 
 export const WithLabel: Story = {
   render: () => (
-    <FormControlLabel
-      control={<Switch defaultChecked />}
-      label="Enable notifications"
-    />
+    <FormControlLabel control={<Switch defaultChecked />} label="Enable notifications" />
   ),
-};
+}
 
 export const Disabled: Story = {
   render: () => (
@@ -64,7 +62,7 @@ export const Disabled: Story = {
       <FormControlLabel control={<Switch disabled checked />} label="Disabled checked" />
     </FormGroup>
   ),
-};
+}
 
 export const Colors: Story = {
   render: () => (
@@ -76,19 +74,19 @@ export const Colors: Story = {
       <FormControlLabel control={<Switch defaultChecked color="warning" />} label="Warning" />
     </FormGroup>
   ),
-};
+}
 
 export const Controlled: Story = {
   render: () => {
-    const [checked, setChecked] = useState(true);
+    const [checked, setChecked] = useState(true)
     return (
       <FormControlLabel
-        control={<Switch checked={checked} onChange={(e) => setChecked(e.target.checked)} />}
+        control={<Switch checked={checked} onChange={e => setChecked(e.target.checked)} />}
         label={checked ? 'On' : 'Off'}
       />
-    );
+    )
   },
-};
+}
 
 export const Sizes: Story = {
   render: () => (
@@ -97,7 +95,7 @@ export const Sizes: Story = {
       <FormControlLabel control={<Switch />} label="Medium (default)" />
     </FormGroup>
   ),
-};
+}
 
 export const LabelPlacement: Story = {
   render: () => (
@@ -108,4 +106,4 @@ export const LabelPlacement: Story = {
       <FormControlLabel control={<Switch />} label="Bottom" labelPlacement="bottom" />
     </FormGroup>
   ),
-};
+}

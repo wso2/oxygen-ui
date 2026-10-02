@@ -16,16 +16,16 @@
  * under the License.
  */
 
-import { Meta, StoryObj } from '@storybook/react';
-import { Box, Typography, Card, CardContent, Grid, Link } from '@wso2/oxygen-ui';
-import React, { useState } from 'react';
-import { Default as DashboardTemplate } from './DashboardTemplate.stories';
-import { Default as EmptyStateTemplate } from './EmptyStateTemplate.stories';
-import { Default as TabbedContentTemplate } from './TabbedContentTemplate.stories';
-import { Default as LoginTemplate } from './LoginTemplate.stories';
-import { Default as CreateServiceFormTemplate } from './CreateServiceFormTemplate.stories';
-import { Default as WizardTemplate } from './WizardTemplate.stories';
-import { Default as FormValidationTemplate } from './FormValidationTemplate.stories';
+import { Meta, StoryObj } from '@storybook/react'
+import { Box, Typography, Card, CardContent, Grid, Link } from '@wso2/oxygen-ui'
+import React, { useState } from 'react'
+import { Default as DashboardTemplate } from './DashboardTemplate.stories'
+import { Default as EmptyStateTemplate } from './EmptyStateTemplate.stories'
+import { Default as TabbedContentTemplate } from './TabbedContentTemplate.stories'
+import { Default as LoginTemplate } from './LoginTemplate.stories'
+import { Default as CreateServiceFormTemplate } from './CreateServiceFormTemplate.stories'
+import { Default as WizardTemplate } from './WizardTemplate.stories'
+import { Default as FormValidationTemplate } from './FormValidationTemplate.stories'
 
 const meta: Meta = {
   title: 'Templates',
@@ -44,19 +44,19 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
 interface TemplateCard {
-  id: string;
-  title: string;
-  description: string;
-  previewUrl: string;
-  liveUrl: string;
-  component?: any;
+  id: string
+  title: string
+  description: string
+  previewUrl: string
+  liveUrl: string
+  component?: any
 }
 
 const templates: TemplateCard[] = [
@@ -79,7 +79,8 @@ const templates: TemplateCard[] = [
   {
     id: 'empty-state',
     title: 'Empty State',
-    description: 'A clean empty state template with centered call-to-action for new projects or features',
+    description:
+      'A clean empty state template with centered call-to-action for new projects or features',
     previewUrl: '/templates/empty-state',
     liveUrl: '/story/templates-empty-state--default',
     component: EmptyStateTemplate,
@@ -95,7 +96,8 @@ const templates: TemplateCard[] = [
   {
     id: 'create-service-form',
     title: 'Create Service Form',
-    description: 'A comprehensive multi-section form for service creation with repository details, component configuration, and build preset selection',
+    description:
+      'A comprehensive multi-section form for service creation with repository details, component configuration, and build preset selection',
     previewUrl: '/templates/create-service-form',
     liveUrl: '/story/templates-create-service-form--default',
     component: CreateServiceFormTemplate,
@@ -103,7 +105,8 @@ const templates: TemplateCard[] = [
   {
     id: 'wizard',
     title: 'Wizard',
-    description: 'A multi-step wizard template for guided workflows like campaign creation with step navigation and progress tracking',
+    description:
+      'A multi-step wizard template for guided workflows like campaign creation with step navigation and progress tracking',
     previewUrl: '/templates/wizard',
     liveUrl: '/story/templates-wizard--default',
     component: WizardTemplate,
@@ -111,33 +114,34 @@ const templates: TemplateCard[] = [
   {
     id: 'form-validation',
     title: 'Form Validation',
-    description: 'A registration form with React Hook Form and Zod validation, demonstrating real-time validation and error handling',
+    description:
+      'A registration form with React Hook Form and Zod validation, demonstrating real-time validation and error handling',
     previewUrl: '/templates/form-validation',
     liveUrl: '/story/templates-form-validation--default',
     component: FormValidationTemplate,
   },
-];
+]
 
 const TemplatePreview = ({ template }: { template: TemplateCard }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(false)
 
   // Preserve current query parameters when navigating
   const getLiveUrl = () => {
-    const currentParams = new URLSearchParams(window.location.search);
-    const newParams = new URLSearchParams();
-    
+    const currentParams = new URLSearchParams(window.location.search)
+    const newParams = new URLSearchParams()
+
     // Set the new path
-    newParams.set('path', template.liveUrl);
-    
+    newParams.set('path', template.liveUrl)
+
     // Preserve all other existing params
     currentParams.forEach((value, key) => {
       if (key !== 'path') {
-        newParams.set(key, value);
+        newParams.set(key, value)
       }
-    });
-    
-    return '?' + newParams.toString();
-  };
+    })
+
+    return '?' + newParams.toString()
+  }
 
   return (
     <Box>
@@ -149,8 +153,14 @@ const TemplatePreview = ({ template }: { template: TemplateCard }) => {
           {template.description}
         </Typography>
       </Box>
-      <Card 
-        sx={{ height: '400px', width: '100%', maxWidth: 600, position: 'relative', overflow: 'hidden' }}
+      <Card
+        sx={{
+          height: '400px',
+          width: '100%',
+          maxWidth: 600,
+          position: 'relative',
+          overflow: 'hidden',
+        }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -185,7 +195,7 @@ const TemplatePreview = ({ template }: { template: TemplateCard }) => {
           )}
           <Box
             sx={{
-              width: '250%', /* 100 / 0.4 */
+              width: '250%' /* 100 / 0.4 */,
               transform: 'scale(0.4)',
               position: 'relative',
               top: 0,
@@ -202,8 +212,8 @@ const TemplatePreview = ({ template }: { template: TemplateCard }) => {
         </CardContent>
       </Card>
     </Box>
-  );
-};
+  )
+}
 
 export const ListTemplates: Story = {
   render: () => (
@@ -213,13 +223,13 @@ export const ListTemplates: Story = {
           Templates
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          Explore our collection of ready-to-use templates for common UI patterns and layouts.
-          Hover over any template to see the preview blur effect and click to view the live version.
+          Explore our collection of ready-to-use templates for common UI patterns and layouts. Hover
+          over any template to see the preview blur effect and click to view the live version.
         </Typography>
       </Box>
 
       <Grid container spacing={1} gap={4}>
-        {templates.map((template) => (
+        {templates.map(template => (
           <Grid size={5}>
             <TemplatePreview template={template} />
           </Grid>
@@ -227,4 +237,4 @@ export const ListTemplates: Story = {
       </Grid>
     </Box>
   ),
-};
+}

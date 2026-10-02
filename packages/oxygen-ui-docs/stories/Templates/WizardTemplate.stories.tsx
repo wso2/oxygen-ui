@@ -18,14 +18,7 @@
 
 import React, { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import {
-  Button,
-  Box,
-  Alert,
-  Form,
-  TextField,
-  Typography,
-} from '@wso2/oxygen-ui'
+import { Button, Box, Alert, Form, TextField, Typography } from '@wso2/oxygen-ui'
 
 const meta: Meta = {
   title: 'Templates/Wizard',

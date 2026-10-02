@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { DatePickers, AdapterDateFns, OxygenUIThemeProvider } from '@wso2/oxygen-ui';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { DatePickers, AdapterDateFns, OxygenUIThemeProvider } from '@wso2/oxygen-ui'
 
-const { LocalizationProvider, DatePicker, TimePicker, DateTimePicker } = DatePickers;
+const { LocalizationProvider, DatePicker, TimePicker, DateTimePicker } = DatePickers
 
 /**
  * MUI X Date and Time Pickers provide components for selecting dates and times.
- * 
+ *
  * Read more at: https://mui.com/x/react-date-pickers/
  */
 const meta: Meta<typeof DatePicker> = {
@@ -34,17 +34,18 @@ const meta: Meta<typeof DatePicker> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI date picker components are direct imports of MUI X Date Pickers. These components require the `date-fns` library (installed as a dev dependency) and `AdapterDateFns` for date manipulation. The `LocalizationProvider` wrapper is required to provide the date adapter context to all picker components.\n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/x/react-date-pickers/](https://mui.com/x/react-date-pickers/)',
+        component:
+          'Oxygen UI date picker components are direct imports of MUI X Date Pickers. These components require the `date-fns` library (installed as a dev dependency) and `AdapterDateFns` for date manipulation. The `LocalizationProvider` wrapper is required to provide the date adapter context to all picker components.\n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/x/react-date-pickers/](https://mui.com/x/react-date-pickers/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof DatePicker>;
+export default meta
+type Story = StoryObj<typeof DatePicker>
 
 export const DatePickerExample: Story = {
   render: () => (
@@ -54,7 +55,7 @@ export const DatePickerExample: Story = {
       </LocalizationProvider>
     </OxygenUIThemeProvider>
   ),
-};
+}
 
 export const TimePickerExample: Story = {
   render: () => (
@@ -64,7 +65,7 @@ export const TimePickerExample: Story = {
       </LocalizationProvider>
     </OxygenUIThemeProvider>
   ),
-};
+}
 
 export const DateTimePickerExample: Story = {
   render: () => (
@@ -74,7 +75,7 @@ export const DateTimePickerExample: Story = {
       </LocalizationProvider>
     </OxygenUIThemeProvider>
   ),
-};
+}
 
 export const MultiplePickers: Story = {
   render: () => (
@@ -89,4 +90,4 @@ export const MultiplePickers: Story = {
       </LocalizationProvider>
     </OxygenUIThemeProvider>
   ),
-};
+}

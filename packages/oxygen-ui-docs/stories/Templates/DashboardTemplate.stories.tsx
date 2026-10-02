@@ -16,18 +16,9 @@
  * under the License.
  */
 
-import { Meta, StoryObj } from '@storybook/react';
-import {
-  Box,
-  Typography,
-  Button,
-  Card,
-  CardContent,
-  Grid,
-  Stack,
-  Divider,
-} from '@wso2/oxygen-ui';
-import React from 'react';
+import { Meta, StoryObj } from '@storybook/react'
+import { Box, Typography, Button, Card, CardContent, Grid, Stack, Divider } from '@wso2/oxygen-ui'
+import React from 'react'
 
 const meta: Meta = {
   title: 'Templates/Dashboard',
@@ -43,11 +34,11 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   render: () => (
@@ -149,9 +140,9 @@ export const Default: Story = {
                   Recent Activity
                 </Typography>
                 <Divider sx={{ marginY: 2 }} />
-                
+
                 <Stack spacing={2}>
-                  {[1, 2, 3, 4, 5].map((item) => (
+                  {[1, 2, 3, 4, 5].map(item => (
                     <Box key={item}>
                       <Stack direction="row" justifyContent="space-between" alignItems="center">
                         <Box>
@@ -180,7 +171,7 @@ export const Default: Story = {
                   Quick Actions
                 </Typography>
                 <Divider sx={{ marginY: 2 }} />
-                
+
                 <Stack spacing={2}>
                   <Button fullWidth variant="outlined">
                     Create New User
@@ -202,11 +193,9 @@ export const Default: Story = {
                   Recent Notifications
                 </Typography>
                 <Stack spacing={1.5} sx={{ marginTop: 2 }}>
-                  {[1, 2, 3].map((item) => (
+                  {[1, 2, 3].map(item => (
                     <Box key={item}>
-                      <Typography variant="body2">
-                        Notification message {item}
-                      </Typography>
+                      <Typography variant="body2">Notification message {item}</Typography>
                       <Typography variant="caption" color="text.secondary">
                         {item * 5} minutes ago
                       </Typography>
@@ -220,4 +209,4 @@ export const Default: Story = {
       </Box>
     </Box>
   ),
-};
+}

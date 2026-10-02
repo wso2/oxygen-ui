@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { Card, CardContent, CardActions, CardMedia, Button, Typography } from '@wso2/oxygen-ui';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { Card, CardContent, CardActions, CardMedia, Button, Typography } from '@wso2/oxygen-ui'
 
 const meta: Meta<typeof Card> = {
   title: 'Surfaces/Card',
@@ -27,17 +27,18 @@ const meta: Meta<typeof Card> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI card component is a direct import of MUI card component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-card/](https://mui.com/material-ui/react-card/)',
+        component:
+          'Oxygen UI card component is a direct import of MUI card component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-card/](https://mui.com/material-ui/react-card/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Card>;
+export default meta
+type Story = StoryObj<typeof Card>
 
 export const Default: Story = {
   render: () => (
@@ -47,12 +48,13 @@ export const Default: Story = {
           Card Title
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          This is a basic card with some content. Cards contain content and actions about a single subject.
+          This is a basic card with some content. Cards contain content and actions about a single
+          subject.
         </Typography>
       </CardContent>
     </Card>
   ),
-};
+}
 
 export const WithActions: Story = {
   render: () => (
@@ -71,7 +73,7 @@ export const WithActions: Story = {
       </CardActions>
     </Card>
   ),
-};
+}
 
 export const WithMedia: Story = {
   render: () => (
@@ -96,7 +98,7 @@ export const WithMedia: Story = {
       </CardActions>
     </Card>
   ),
-};
+}
 
 export const Outlined: Story = {
   render: () => (
@@ -111,7 +113,7 @@ export const Outlined: Story = {
       </CardContent>
     </Card>
   ),
-};
+}
 
 export const Elevated: Story = {
   render: () => (
@@ -126,4 +128,4 @@ export const Elevated: Story = {
       </CardContent>
     </Card>
   ),
-};
+}

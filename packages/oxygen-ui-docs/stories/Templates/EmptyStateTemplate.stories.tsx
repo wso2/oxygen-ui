@@ -16,14 +16,9 @@
  * under the License.
  */
 
-import { Meta, StoryObj } from '@storybook/react';
-import {
-  Box,
-  Typography,
-  Button,
-  Stack,
-} from '@wso2/oxygen-ui';
-import React from 'react';
+import { Meta, StoryObj } from '@storybook/react'
+import { Box, Typography, Button, Stack } from '@wso2/oxygen-ui'
+import React from 'react'
 
 const meta: Meta = {
   title: 'Templates/Empty State',
@@ -39,11 +34,11 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   render: () => (
@@ -84,7 +79,8 @@ export const Default: Story = {
         <Stack spacing={3} alignItems="center" sx={{ maxWidth: 400, textAlign: 'center' }}>
           <Typography variant="h5">No projects yet</Typography>
           <Typography variant="body1" color="text.secondary">
-            Get started by creating your first project. Projects help you organize and manage your work effectively.
+            Get started by creating your first project. Projects help you organize and manage your
+            work effectively.
           </Typography>
           <Button variant="contained" color="primary" size="large">
             Create Your First Project
@@ -93,4 +89,4 @@ export const Default: Story = {
       </Box>
     </Box>
   ),
-};
+}

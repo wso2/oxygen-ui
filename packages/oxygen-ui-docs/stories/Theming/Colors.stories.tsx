@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Box, Typography, Paper, Stack, colors, CodeBlock } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Box, Typography, Paper, Stack, colors, CodeBlock } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * Colors from Material-UI are re-exported through Oxygen UI for easy access.
@@ -82,10 +82,10 @@ Each color comes with 10 shades (except black and white):
       },
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 /**
  * Display all primary Material Design colors with their main shade (500).
@@ -139,7 +139,7 @@ export const PrimaryColors: Story = {
       </Stack>
     </Stack>
   ),
-};
+}
 
 /**
  * Display different shades of a single color (Blue) from lightest to darkest.
@@ -188,7 +188,7 @@ export const ColorShades: Story = {
       </Stack>
     </Stack>
   ),
-};
+}
 
 /**
  * Display accent colors (A100, A200, A400, A700) for a color palette.
@@ -222,7 +222,7 @@ export const AccentColors: Story = {
             {name}
           </Typography>
           <Stack direction="row" spacing={1}>
-            {['A100', 'A200', 'A400', 'A700'].map((shade) => (
+            {['A100', 'A200', 'A400', 'A700'].map(shade => (
               <Paper
                 key={shade}
                 sx={{
@@ -244,7 +244,7 @@ export const AccentColors: Story = {
       ))}
     </Stack>
   ),
-};
+}
 
 /**
  * Practical examples of using colors in components.
@@ -347,7 +347,7 @@ export const PracticalExamples: Story = {
       </Box>
     </Stack>
   ),
-};
+}
 
 /**
  * Code examples showing how to use colors in your application.
@@ -404,4 +404,4 @@ import { colors, Box, Typography } from '@wso2/oxygen-ui';
       />
     </Stack>
   ),
-};
+}

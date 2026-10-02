@@ -16,11 +16,11 @@
  * under the License.
  */
 
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { DataGrid } from '@wso2/oxygen-ui';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { DataGrid } from '@wso2/oxygen-ui'
 
-const { DataGrid: DataGridComponent } = DataGrid;
+const { DataGrid: DataGridComponent } = DataGrid
 
 const meta: Meta<typeof DataGridComponent> = {
   title: 'Data Display/DataGrid',
@@ -29,17 +29,18 @@ const meta: Meta<typeof DataGridComponent> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI data grid component is a direct import of MUI X DataGrid. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/x/react-data-grid/](https://mui.com/x/react-data-grid/)',
+        component:
+          'Oxygen UI data grid component is a direct import of MUI X DataGrid. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/x/react-data-grid/](https://mui.com/x/react-data-grid/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof DataGridComponent>;
+export default meta
+type Story = StoryObj<typeof DataGridComponent>
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
@@ -57,10 +58,10 @@ const columns = [
     description: 'This column is not sortable.',
     sortable: false,
     width: 160,
-    valueGetter: (_value: unknown, row: { firstName?: string | null; lastName?: string | null }) => 
+    valueGetter: (_value: unknown, row: { firstName?: string | null; lastName?: string | null }) =>
       `${row.firstName || ''} ${row.lastName || ''}`,
   },
-];
+]
 
 const rows = [
   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
@@ -72,7 +73,7 @@ const rows = [
   { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
   { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
+]
 
 export const Default: Story = {
   render: () => (
@@ -80,19 +81,15 @@ export const Default: Story = {
       <DataGridComponent rows={rows} columns={columns} />
     </div>
   ),
-};
+}
 
 export const WithCheckboxSelection: Story = {
   render: () => (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGridComponent
-        rows={rows}
-        columns={columns}
-        checkboxSelection
-      />
+      <DataGridComponent rows={rows} columns={columns} checkboxSelection />
     </div>
   ),
-};
+}
 
 export const WithPagination: Story = {
   render: () => (
@@ -109,7 +106,7 @@ export const WithPagination: Story = {
       />
     </div>
   ),
-};
+}
 
 export const Sortable: Story = {
   render: () => (
@@ -125,28 +122,20 @@ export const Sortable: Story = {
       />
     </div>
   ),
-};
+}
 
 export const DisableRowSelectionOnClick: Story = {
   render: () => (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGridComponent
-        rows={rows}
-        columns={columns}
-        disableRowSelectionOnClick
-      />
+      <DataGridComponent rows={rows} columns={columns} disableRowSelectionOnClick />
     </div>
   ),
-};
+}
 
 export const Loading: Story = {
   render: () => (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGridComponent
-        rows={[]}
-        columns={columns}
-        loading
-      />
+      <DataGridComponent rows={[]} columns={columns} loading />
     </div>
   ),
-};
+}

@@ -6,11 +6,6 @@
     "module": "esnext",
     "moduleResolution": "bundler"
   },
-  "include": [
-    "stories/**/*",
-    "vite-env.d.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["stories/**/*", "vite-env.d.ts"],
+  "exclude": ["node_modules"]
 }

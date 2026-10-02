@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import * as React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { NotificationPanel, Box, Button, Avatar, Typography } from '@wso2/oxygen-ui';
+import * as React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { NotificationPanel, Box, Button, Avatar, Typography } from '@wso2/oxygen-ui'
 import {
   Bell,
   AlertTriangle,
@@ -27,7 +27,7 @@ import {
   MessageSquare,
   User,
   Settings,
-} from '@wso2/oxygen-ui-icons-react';
+} from '@wso2/oxygen-ui-icons-react'
 
 /**
  * NotificationPanel is a compound component for building notification drawers.
@@ -106,10 +106,10 @@ import { NotificationPanel } from '@wso2/oxygen-ui';
       },
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof NotificationPanel>;
+export default meta
+type Story = StoryObj<typeof NotificationPanel>
 
 // Sample notification data
 const sampleNotifications = [
@@ -149,14 +149,14 @@ const sampleNotifications = [
     avatar: 'BF',
     read: true,
   },
-];
+]
 
 /**
  * Basic notification panel with header and list.
  */
 export const Default: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(false)
 
     return (
       <Box>
@@ -165,13 +165,15 @@ export const Default: Story = {
         </Button>
         <NotificationPanel open={open} onClose={() => setOpen(false)}>
           <NotificationPanel.Header>
-            <NotificationPanel.HeaderIcon><Bell size={20} /></NotificationPanel.HeaderIcon>
+            <NotificationPanel.HeaderIcon>
+              <Bell size={20} />
+            </NotificationPanel.HeaderIcon>
             <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
             <NotificationPanel.HeaderBadge>4</NotificationPanel.HeaderBadge>
             <NotificationPanel.HeaderClose />
           </NotificationPanel.Header>
           <NotificationPanel.List>
-            {sampleNotifications.map((n) => (
+            {sampleNotifications.map(n => (
               <NotificationPanel.Item key={n.id} id={n.id} type={n.type}>
                 <NotificationPanel.ItemAvatar>
                   <Avatar sx={{ width: 32, height: 32, fontSize: 12 }}>{n.avatar}</Avatar>
@@ -184,31 +186,33 @@ export const Default: Story = {
           </NotificationPanel.List>
         </NotificationPanel>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Notification panel with tabs for filtering.
  */
 export const WithTabs: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(false);
-    const [tabIndex, setTabIndex] = React.useState(0);
+    const [open, setOpen] = React.useState(false)
+    const [tabIndex, setTabIndex] = React.useState(0)
 
-    const unreadNotifications = sampleNotifications.filter((n) => !n.read);
-    const alertNotifications = sampleNotifications.filter((n) => n.type === 'warning' || n.type === 'error');
+    const unreadNotifications = sampleNotifications.filter(n => !n.read)
+    const alertNotifications = sampleNotifications.filter(
+      n => n.type === 'warning' || n.type === 'error'
+    )
 
     const getFilteredNotifications = () => {
       switch (tabIndex) {
         case 1:
-          return unreadNotifications;
+          return unreadNotifications
         case 2:
-          return alertNotifications;
+          return alertNotifications
         default:
-          return sampleNotifications;
+          return sampleNotifications
       }
-    };
+    }
 
     return (
       <Box>
@@ -217,9 +221,13 @@ export const WithTabs: Story = {
         </Button>
         <NotificationPanel open={open} onClose={() => setOpen(false)}>
           <NotificationPanel.Header>
-            <NotificationPanel.HeaderIcon><Bell size={20} /></NotificationPanel.HeaderIcon>
+            <NotificationPanel.HeaderIcon>
+              <Bell size={20} />
+            </NotificationPanel.HeaderIcon>
             <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
-            <NotificationPanel.HeaderBadge>{sampleNotifications.length}</NotificationPanel.HeaderBadge>
+            <NotificationPanel.HeaderBadge>
+              {sampleNotifications.length}
+            </NotificationPanel.HeaderBadge>
             <NotificationPanel.HeaderClose />
           </NotificationPanel.Header>
           <NotificationPanel.Tabs
@@ -232,7 +240,7 @@ export const WithTabs: Story = {
             onChange={setTabIndex}
           />
           <NotificationPanel.List>
-            {getFilteredNotifications().map((n) => (
+            {getFilteredNotifications().map(n => (
               <NotificationPanel.Item key={n.id} id={n.id} type={n.type}>
                 <NotificationPanel.ItemAvatar>
                   <Avatar sx={{ width: 32, height: 32, fontSize: 12 }}>{n.avatar}</Avatar>
@@ -245,27 +253,27 @@ export const WithTabs: Story = {
           </NotificationPanel.List>
         </NotificationPanel>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Notification panel with action buttons.
  */
 export const WithActions: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(false);
-    const [notifications, setNotifications] = React.useState(sampleNotifications);
+    const [open, setOpen] = React.useState(false)
+    const [notifications, setNotifications] = React.useState(sampleNotifications)
 
-    const hasUnread = notifications.some((n) => !n.read);
+    const hasUnread = notifications.some(n => !n.read)
 
     const handleMarkAllRead = () => {
-      setNotifications(notifications.map((n) => ({ ...n, read: true })));
-    };
+      setNotifications(notifications.map(n => ({ ...n, read: true })))
+    }
 
     const handleClearAll = () => {
-      setNotifications([]);
-    };
+      setNotifications([])
+    }
 
     return (
       <Box>
@@ -274,7 +282,9 @@ export const WithActions: Story = {
         </Button>
         <NotificationPanel open={open} onClose={() => setOpen(false)}>
           <NotificationPanel.Header>
-            <NotificationPanel.HeaderIcon><Bell size={20} /></NotificationPanel.HeaderIcon>
+            <NotificationPanel.HeaderIcon>
+              <Bell size={20} />
+            </NotificationPanel.HeaderIcon>
             <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
             <NotificationPanel.HeaderBadge>{notifications.length}</NotificationPanel.HeaderBadge>
             <NotificationPanel.HeaderClose />
@@ -288,7 +298,7 @@ export const WithActions: Story = {
             <NotificationPanel.EmptyState />
           ) : (
             <NotificationPanel.List>
-              {notifications.map((n) => (
+              {notifications.map(n => (
                 <NotificationPanel.Item key={n.id} id={n.id} type={n.type}>
                   <NotificationPanel.ItemAvatar>
                     <Avatar sx={{ width: 32, height: 32, fontSize: 12 }}>{n.avatar}</Avatar>
@@ -302,16 +312,16 @@ export const WithActions: Story = {
           )}
         </NotificationPanel>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Notification items with action buttons.
  */
 export const WithItemActions: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(false)
 
     return (
       <Box>
@@ -320,12 +330,14 @@ export const WithItemActions: Story = {
         </Button>
         <NotificationPanel open={open} onClose={() => setOpen(false)}>
           <NotificationPanel.Header>
-            <NotificationPanel.HeaderIcon><Bell size={20} /></NotificationPanel.HeaderIcon>
+            <NotificationPanel.HeaderIcon>
+              <Bell size={20} />
+            </NotificationPanel.HeaderIcon>
             <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
             <NotificationPanel.HeaderClose />
           </NotificationPanel.Header>
           <NotificationPanel.List>
-            {sampleNotifications.map((n) => (
+            {sampleNotifications.map(n => (
               <NotificationPanel.Item key={n.id} id={n.id} type={n.type}>
                 <NotificationPanel.ItemAvatar>
                   <Avatar sx={{ width: 32, height: 32, fontSize: 12 }}>{n.avatar}</Avatar>
@@ -341,16 +353,16 @@ export const WithItemActions: Story = {
           </NotificationPanel.List>
         </NotificationPanel>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Empty notification panel.
  */
 export const EmptyState: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(false)
 
     return (
       <Box>
@@ -359,16 +371,18 @@ export const EmptyState: Story = {
         </Button>
         <NotificationPanel open={open} onClose={() => setOpen(false)}>
           <NotificationPanel.Header>
-            <NotificationPanel.HeaderIcon><Bell size={20} /></NotificationPanel.HeaderIcon>
+            <NotificationPanel.HeaderIcon>
+              <Bell size={20} />
+            </NotificationPanel.HeaderIcon>
             <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
             <NotificationPanel.HeaderClose />
           </NotificationPanel.Header>
           <NotificationPanel.EmptyState />
         </NotificationPanel>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Demonstrates consumer-driven polite live-region announcements.
@@ -376,14 +390,14 @@ export const EmptyState: Story = {
  */
 export const LiveAnnouncements: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(true);
-    const [notifications, setNotifications] = React.useState(sampleNotifications.slice(0, 2));
-    const [liveAnnouncement, setLiveAnnouncement] = React.useState<string | undefined>(undefined);
-    const nextIdRef = React.useRef(100);
+    const [open, setOpen] = React.useState(true)
+    const [notifications, setNotifications] = React.useState(sampleNotifications.slice(0, 2))
+    const [liveAnnouncement, setLiveAnnouncement] = React.useState<string | undefined>(undefined)
+    const nextIdRef = React.useRef(100)
 
     const handleAddNotification = () => {
-      const id = String(nextIdRef.current++);
-      setNotifications((prev) => [
+      const id = String(nextIdRef.current++)
+      setNotifications(prev => [
         {
           id,
           type: 'info' as const,
@@ -394,16 +408,16 @@ export const LiveAnnouncements: Story = {
           read: false,
         },
         ...prev,
-      ]);
+      ])
       // Publish explicitly when an item actually arrives (do not rely on list child count).
       // Clear first so repeated identical messages still reach the panel (React state bailout).
-      setLiveAnnouncement('');
-      queueMicrotask(() => setLiveAnnouncement('1 new notification'));
-    };
+      setLiveAnnouncement('')
+      queueMicrotask(() => setLiveAnnouncement('1 new notification'))
+    }
 
     const handleSyncStatus = () => {
-      setLiveAnnouncement(`${notifications.length} notifications synced`);
-    };
+      setLiveAnnouncement(`${notifications.length} notifications synced`)
+    }
 
     return (
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'flex-start' }}>
@@ -428,13 +442,15 @@ export const LiveAnnouncements: Story = {
           liveAnnouncement={liveAnnouncement}
         >
           <NotificationPanel.Header>
-            <NotificationPanel.HeaderIcon><Bell size={20} /></NotificationPanel.HeaderIcon>
+            <NotificationPanel.HeaderIcon>
+              <Bell size={20} />
+            </NotificationPanel.HeaderIcon>
             <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
             <NotificationPanel.HeaderBadge>{notifications.length}</NotificationPanel.HeaderBadge>
             <NotificationPanel.HeaderClose />
           </NotificationPanel.Header>
           <NotificationPanel.List>
-            {notifications.map((n) => (
+            {notifications.map(n => (
               <NotificationPanel.Item key={n.id} id={n.id} type={n.type}>
                 <NotificationPanel.ItemAvatar>
                   <Avatar sx={{ width: 32, height: 32, fontSize: 12 }}>{n.avatar}</Avatar>
@@ -447,16 +463,16 @@ export const LiveAnnouncements: Story = {
           </NotificationPanel.List>
         </NotificationPanel>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Left-anchored notification panel.
  */
 export const LeftAnchored: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(false)
 
     return (
       <Box>
@@ -465,13 +481,15 @@ export const LeftAnchored: Story = {
         </Button>
         <NotificationPanel open={open} onClose={() => setOpen(false)} anchor="left">
           <NotificationPanel.Header>
-            <NotificationPanel.HeaderIcon><Bell size={20} /></NotificationPanel.HeaderIcon>
+            <NotificationPanel.HeaderIcon>
+              <Bell size={20} />
+            </NotificationPanel.HeaderIcon>
             <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
             <NotificationPanel.HeaderBadge>4</NotificationPanel.HeaderBadge>
             <NotificationPanel.HeaderClose />
           </NotificationPanel.Header>
           <NotificationPanel.List>
-            {sampleNotifications.map((n) => (
+            {sampleNotifications.map(n => (
               <NotificationPanel.Item key={n.id} id={n.id} type={n.type}>
                 <NotificationPanel.ItemAvatar>
                   <Avatar sx={{ width: 32, height: 32, fontSize: 12 }}>{n.avatar}</Avatar>
@@ -484,6 +502,6 @@ export const LeftAnchored: Story = {
           </NotificationPanel.List>
         </NotificationPanel>
       </Box>
-    );
+    )
   },
-};
+}

@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import * as React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import * as React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
 import {
   Box,
   Typography,
@@ -34,8 +34,8 @@ import {
   Badge,
   Tooltip,
   useAppShell,
-} from '@wso2/oxygen-ui';
-import { Home, Settings, Users, Menu, Bell } from '@wso2/oxygen-ui-icons-react';
+} from '@wso2/oxygen-ui'
+import { Home, Settings, Users, Menu, Bell } from '@wso2/oxygen-ui-icons-react'
 
 const meta: Meta = {
   title: 'App Elements/useAppShell',
@@ -92,17 +92,17 @@ const { state, actions } = useAppShell();
       },
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 /**
  * NotificationButton component that consumes AppShell context to toggle notification panel.
  */
 const NotificationButton: React.FC = () => {
-  const { state, actions } = useAppShell();
-  
+  const { state, actions } = useAppShell()
+
   return (
     <Tooltip title="Notifications">
       <IconButton
@@ -110,23 +110,19 @@ const NotificationButton: React.FC = () => {
         size="small"
         sx={{ color: 'text.secondary' }}
       >
-        <Badge
-          badgeContent={state.notificationPanelOpen ? 1 : 0}
-          color="primary"
-          variant="dot"
-        >
+        <Badge badgeContent={state.notificationPanelOpen ? 1 : 0} color="primary" variant="dot">
           <Bell size={20} />
         </Badge>
       </IconButton>
     </Tooltip>
-  );
-};
+  )
+}
 
 /**
  * StatusDisplay component that consumes AppShell context.
  */
 const StatusDisplay: React.FC = () => {
-  const { state } = useAppShell();
+  const { state } = useAppShell()
 
   return (
     <Card>
@@ -149,11 +145,7 @@ const StatusDisplay: React.FC = () => {
             <Typography variant="body2" color="text.secondary">
               Active Menu Item:
             </Typography>
-            <Chip
-              label={state.activeMenuItem || 'None'}
-              color="primary"
-              size="small"
-            />
+            <Chip label={state.activeMenuItem || 'None'} color="primary" size="small" />
           </Box>
           <Box>
             <Typography variant="body2" color="text.secondary">
@@ -168,14 +160,14 @@ const StatusDisplay: React.FC = () => {
         </Stack>
       </CardContent>
     </Card>
-  );
-};
+  )
+}
 
 /**
  * ControlPanel component that consumes AppShell context to control shell state.
  */
 const ControlPanel: React.FC = () => {
-  const { actions } = useAppShell();
+  const { actions } = useAppShell()
 
   return (
     <Card>
@@ -189,30 +181,18 @@ const ControlPanel: React.FC = () => {
               Sidebar Controls:
             </Typography>
             <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-              <Button
-                variant="outlined"
-                size="small"
-                onClick={actions.toggleSidebar}
-              >
+              <Button variant="outlined" size="small" onClick={actions.toggleSidebar}>
                 Toggle Sidebar
               </Button>
-              <Button
-                variant="outlined"
-                size="small"
-                onClick={actions.expandSidebar}
-              >
+              <Button variant="outlined" size="small" onClick={actions.expandSidebar}>
                 Expand
               </Button>
-              <Button
-                variant="outlined"
-                size="small"
-                onClick={actions.collapseSidebar}
-              >
+              <Button variant="outlined" size="small" onClick={actions.collapseSidebar}>
                 Collapse
               </Button>
             </Stack>
           </Box>
-          
+
           <Box>
             <Typography variant="body2" color="text.secondary" gutterBottom>
               Active Menu Item:
@@ -247,11 +227,7 @@ const ControlPanel: React.FC = () => {
               Notification Panel:
             </Typography>
             <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-              <Button
-                variant="outlined"
-                size="small"
-                onClick={actions.toggleNotificationPanel}
-              >
+              <Button variant="outlined" size="small" onClick={actions.toggleNotificationPanel}>
                 Toggle Panel
               </Button>
             </Stack>
@@ -259,8 +235,8 @@ const ControlPanel: React.FC = () => {
         </Stack>
       </CardContent>
     </Card>
-  );
-};
+  )
+}
 
 /**
  * Demonstrates consuming AppShell context using useAppShell() with no parameters.
@@ -288,15 +264,21 @@ export const ConsumeContext: Story = {
             <Sidebar.Nav>
               <Sidebar.Category>
                 <Sidebar.Item id="dashboard">
-                  <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Home size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Dashboard</Sidebar.ItemLabel>
                 </Sidebar.Item>
                 <Sidebar.Item id="users">
-                  <Sidebar.ItemIcon><Users size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Users size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Users</Sidebar.ItemLabel>
                 </Sidebar.Item>
                 <Sidebar.Item id="settings">
-                  <Sidebar.ItemIcon><Settings size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Settings size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
                 </Sidebar.Item>
               </Sidebar.Category>
@@ -313,7 +295,7 @@ export const ConsumeContext: Story = {
               These components use <code>useAppShell()</code> to consume the context created by{' '}
               <code>&lt;AppShell&gt;</code>.
             </Typography>
-            
+
             <Stack spacing={3} sx={{ mt: 3 }}>
               <StatusDisplay />
               <ControlPanel />
@@ -324,7 +306,9 @@ export const ConsumeContext: Story = {
         <AppShell.NotificationPanel>
           <NotificationPanel>
             <NotificationPanel.Header>
-              <NotificationPanel.HeaderIcon><Bell size={20} /></NotificationPanel.HeaderIcon>
+              <NotificationPanel.HeaderIcon>
+                <Bell size={20} />
+              </NotificationPanel.HeaderIcon>
               <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
               <NotificationPanel.HeaderClose />
             </NotificationPanel.Header>
@@ -338,14 +322,14 @@ export const ConsumeContext: Story = {
           </NotificationPanel>
         </AppShell.NotificationPanel>
       </AppShell>
-    );
+    )
   },
-};
+}
 
 /**
  * Demonstrates using useAppShell in Create Mode by passing options.
  * This pattern is useful when you need shell state without using the AppShell component.
- * 
+ *
  * Note: This is less common than Consume Mode since AppShell component handles this automatically.
  */
 export const CreateMode: Story = {
@@ -357,7 +341,7 @@ export const CreateMode: Story = {
         collapseOnSelectOnMobile: true,
         sidebarWidth: 280,
         sidebarCollapsedWidth: 72,
-      });
+      })
 
       return (
         <Box sx={{ p: 3 }}>
@@ -388,11 +372,7 @@ export const CreateMode: Story = {
                   <Typography variant="body2" color="text.secondary">
                     Active Menu Item:
                   </Typography>
-                  <Chip
-                    label={shell.state.activeMenuItem || 'None'}
-                    color="primary"
-                    size="small"
-                  />
+                  <Chip label={shell.state.activeMenuItem || 'None'} color="primary" size="small" />
                 </Box>
                 <Box>
                   <Typography variant="body2" color="text.secondary">
@@ -448,9 +428,9 @@ export const CreateMode: Story = {
             </CardContent>
           </Card>
         </Box>
-      );
-    };
+      )
+    }
 
-    return <CustomShellManager />;
+    return <CustomShellManager />
   },
-};
+}

@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Stack } from '@wso2/oxygen-ui';
-import React, { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Stack } from '@wso2/oxygen-ui'
+import React, { useState } from 'react'
 
 /**
  * The Radio Group component allows users to select one option from a set.
  * Radio buttons should be used when only one choice is permitted.
- * 
- * This is a direct import of MUI radio component. 
+ *
+ * This is a direct import of MUI radio component.
  * Read more at: https://mui.com/material-ui/react-radio-button/
  */
 const meta: Meta<typeof RadioGroup> = {
@@ -34,17 +34,18 @@ const meta: Meta<typeof RadioGroup> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI radio group component is a direct import of MUI radio component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-radio-button/](https://mui.com/material-ui/react-radio-button/)',
+        component:
+          'Oxygen UI radio group component is a direct import of MUI radio component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-radio-button/](https://mui.com/material-ui/react-radio-button/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof RadioGroup>;
+export default meta
+type Story = StoryObj<typeof RadioGroup>
 
 export const Default: Story = {
   render: () => (
@@ -57,7 +58,7 @@ export const Default: Story = {
       </RadioGroup>
     </FormControl>
   ),
-};
+}
 
 export const Row: Story = {
   render: () => (
@@ -70,7 +71,7 @@ export const Row: Story = {
       </RadioGroup>
     </FormControl>
   ),
-};
+}
 
 export const Colors: Story = {
   render: () => (
@@ -98,7 +99,7 @@ export const Colors: Story = {
       </FormControl>
     </Stack>
   ),
-};
+}
 
 export const Disabled: Story = {
   render: () => (
@@ -111,7 +112,7 @@ export const Disabled: Story = {
       </RadioGroup>
     </FormControl>
   ),
-};
+}
 
 export const Sizes: Story = {
   render: () => (
@@ -122,20 +123,20 @@ export const Sizes: Story = {
       </RadioGroup>
     </Stack>
   ),
-};
+}
 
 export const Controlled: Story = {
   render: () => {
-    const [value, setValue] = useState('female');
+    const [value, setValue] = useState('female')
     return (
       <FormControl>
         <FormLabel>Gender (Controlled)</FormLabel>
-        <RadioGroup value={value} onChange={(e) => setValue(e.target.value)}>
+        <RadioGroup value={value} onChange={e => setValue(e.target.value)}>
           <FormControlLabel value="female" control={<Radio />} label="Female" />
           <FormControlLabel value="male" control={<Radio />} label="Male" />
           <FormControlLabel value="other" control={<Radio />} label="Other" />
         </RadioGroup>
       </FormControl>
-    );
+    )
   },
-};
+}

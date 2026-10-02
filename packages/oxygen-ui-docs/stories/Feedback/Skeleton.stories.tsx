@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Skeleton, Stack, Box } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Skeleton, Stack, Box } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * Display a placeholder preview of content before the data gets loaded to reduce load-time frustration.
  * The Skeleton component provides a low fidelity UI that can improve perceived performance.
- * 
- * This is a direct import of MUI skeleton component. 
+ *
+ * This is a direct import of MUI skeleton component.
  * Read more at: https://mui.com/material-ui/react-skeleton/
  */
 const meta: Meta<typeof Skeleton> = {
@@ -34,17 +34,18 @@ const meta: Meta<typeof Skeleton> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI skeleton component is a direct import of MUI skeleton component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-skeleton/](https://mui.com/material-ui/react-skeleton/)',
+        component:
+          'Oxygen UI skeleton component is a direct import of MUI skeleton component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-skeleton/](https://mui.com/material-ui/react-skeleton/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Skeleton>;
+export default meta
+type Story = StoryObj<typeof Skeleton>
 
 export const Variants: Story = {
   render: () => (
@@ -55,7 +56,7 @@ export const Variants: Story = {
       <Skeleton variant="rounded" width={210} height={60} />
     </Stack>
   ),
-};
+}
 
 export const Animations: Story = {
   render: () => (
@@ -65,7 +66,7 @@ export const Animations: Story = {
       <Skeleton animation={false} />
     </Stack>
   ),
-};
+}
 
 export const CardSkeleton: Story = {
   render: () => (
@@ -77,7 +78,7 @@ export const CardSkeleton: Story = {
       </Box>
     </Box>
   ),
-};
+}
 
 export const ListSkeleton: Story = {
   render: () => (
@@ -93,4 +94,4 @@ export const ListSkeleton: Story = {
       ))}
     </Stack>
   ),
-};
+}

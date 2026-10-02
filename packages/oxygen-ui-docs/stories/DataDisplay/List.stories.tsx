@@ -16,16 +16,23 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { List, ListItem, ListItemButton, ListItemText, ListItemIcon, Divider } from '@wso2/oxygen-ui';
-import { Mail, FileText, Send } from '@wso2/oxygen-ui-icons-react';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  ListItemIcon,
+  Divider,
+} from '@wso2/oxygen-ui'
+import { Mail, FileText, Send } from '@wso2/oxygen-ui-icons-react'
+import React from 'react'
 
 /**
  * The List component displays a continuous group of text or images.
  * It's commonly used for navigation menus, settings, or any list of items.
- * 
- * This is a direct import of MUI list component. 
+ *
+ * This is a direct import of MUI list component.
  * Read more at: https://mui.com/material-ui/react-list/
  */
 const meta: Meta<typeof List> = {
@@ -35,17 +42,18 @@ const meta: Meta<typeof List> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI list component is a direct import of MUI list component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-list/](https://mui.com/material-ui/react-list/)',
+        component:
+          'Oxygen UI list component is a direct import of MUI list component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-list/](https://mui.com/material-ui/react-list/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof List>;
+export default meta
+type Story = StoryObj<typeof List>
 
 export const Default: Story = {
   render: () => (
@@ -61,7 +69,7 @@ export const Default: Story = {
       </ListItem>
     </List>
   ),
-};
+}
 
 export const WithButtons: Story = {
   render: () => (
@@ -77,53 +85,59 @@ export const WithButtons: Story = {
       </ListItemButton>
     </List>
   ),
-};
+}
 
 export const WithIcons: Story = {
   render: () => (
     <List sx={{ width: 300, bgcolor: 'background.paper' }}>
       <ListItem>
-        <ListItemIcon><Mail /></ListItemIcon>
+        <ListItemIcon>
+          <Mail />
+        </ListItemIcon>
         <ListItemText primary="Inbox" />
       </ListItem>
       <ListItem>
-        <ListItemIcon><FileText /></ListItemIcon>
+        <ListItemIcon>
+          <FileText />
+        </ListItemIcon>
         <ListItemText primary="Drafts" />
       </ListItem>
       <ListItem>
-        <ListItemIcon><Send /></ListItemIcon>
+        <ListItemIcon>
+          <Send />
+        </ListItemIcon>
         <ListItemText primary="Sent" />
       </ListItem>
     </List>
   ),
-};
+}
 
 export const WithSecondaryText: Story = {
   render: () => (
     <List sx={{ width: 300, bgcolor: 'background.paper' }}>
       <ListItem>
-        <ListItemText 
-          primary="Brunch this weekend?" 
-          secondary="Ali Connors — I'll be in your neighborhood doing errands this…" 
+        <ListItemText
+          primary="Brunch this weekend?"
+          secondary="Ali Connors — I'll be in your neighborhood doing errands this…"
         />
       </ListItem>
       <Divider />
       <ListItem>
-        <ListItemText 
-          primary="Summer BBQ" 
-          secondary="to Scott, Alex, Jennifer — Wish I could come, but I'm out of town this…" 
+        <ListItemText
+          primary="Summer BBQ"
+          secondary="to Scott, Alex, Jennifer — Wish I could come, but I'm out of town this…"
         />
       </ListItem>
       <Divider />
       <ListItem>
-        <ListItemText 
-          primary="Oui Oui" 
-          secondary="Sandra Adams — Do you have Paris recommendations? Have you ever…" 
+        <ListItemText
+          primary="Oui Oui"
+          secondary="Sandra Adams — Do you have Paris recommendations? Have you ever…"
         />
       </ListItem>
     </List>
   ),
-};
+}
 
 export const Dense: Story = {
   render: () => (
@@ -142,4 +156,4 @@ export const Dense: Story = {
       </ListItemButton>
     </List>
   ),
-};
+}

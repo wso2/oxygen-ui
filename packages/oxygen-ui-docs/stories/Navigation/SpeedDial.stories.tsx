@@ -16,14 +16,14 @@
  * under the License.
  */
 
-import React, { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { SpeedDial, SpeedDialAction, SpeedDialIcon, Box, Backdrop } from '@wso2/oxygen-ui';
-import { Copy, Save, Printer, Share, Zap } from '@wso2/oxygen-ui-icons-react';
+import React, { useState } from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { SpeedDial, SpeedDialAction, SpeedDialIcon, Box, Backdrop } from '@wso2/oxygen-ui'
+import { Copy, Save, Printer, Share, Zap } from '@wso2/oxygen-ui-icons-react'
 
 /**
  * Speed Dial displays a floating action button that reveals related actions.
- * 
+ *
  * Read more at: https://mui.com/material-ui/react-speed-dial/
  */
 const meta: Meta<typeof SpeedDial> = {
@@ -33,24 +33,25 @@ const meta: Meta<typeof SpeedDial> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI Speed Dial is a direct import of MUI Speed Dial. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-speed-dial/](https://mui.com/material-ui/react-speed-dial/)',
+        component:
+          'Oxygen UI Speed Dial is a direct import of MUI Speed Dial. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-speed-dial/](https://mui.com/material-ui/react-speed-dial/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof SpeedDial>;
+export default meta
+type Story = StoryObj<typeof SpeedDial>
 
 const actions = [
   { icon: <Copy />, name: 'Copy' },
   { icon: <Save />, name: 'Save' },
   { icon: <Printer />, name: 'Print' },
   { icon: <Share />, name: 'Share' },
-];
+]
 
 /**
  * Basic speed dial
@@ -63,17 +64,13 @@ export const Basic: Story = {
         sx={{ position: 'absolute', bottom: 16, right: 16 }}
         icon={<SpeedDialIcon />}
       >
-        {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name}
-          />
+        {actions.map(action => (
+          <SpeedDialAction key={action.name} icon={action.icon} tooltipTitle={action.name} />
         ))}
       </SpeedDial>
     </Box>
   ),
-};
+}
 
 /**
  * Speed dial with custom icon
@@ -86,17 +83,13 @@ export const CustomIcon: Story = {
         sx={{ position: 'absolute', bottom: 16, right: 16 }}
         icon={<Zap />}
       >
-        {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name}
-          />
+        {actions.map(action => (
+          <SpeedDialAction key={action.name} icon={action.icon} tooltipTitle={action.name} />
         ))}
       </SpeedDial>
     </Box>
   ),
-};
+}
 
 /**
  * Speed dial with different directions
@@ -110,12 +103,8 @@ export const Directions: Story = {
         icon={<SpeedDialIcon />}
         direction="up"
       >
-        {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name}
-          />
+        {actions.map(action => (
+          <SpeedDialAction key={action.name} icon={action.icon} tooltipTitle={action.name} />
         ))}
       </SpeedDial>
       <SpeedDial
@@ -124,12 +113,8 @@ export const Directions: Story = {
         icon={<SpeedDialIcon />}
         direction="right"
       >
-        {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name}
-          />
+        {actions.map(action => (
+          <SpeedDialAction key={action.name} icon={action.icon} tooltipTitle={action.name} />
         ))}
       </SpeedDial>
       <SpeedDial
@@ -138,12 +123,8 @@ export const Directions: Story = {
         icon={<SpeedDialIcon />}
         direction="down"
       >
-        {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name}
-          />
+        {actions.map(action => (
+          <SpeedDialAction key={action.name} icon={action.icon} tooltipTitle={action.name} />
         ))}
       </SpeedDial>
       <SpeedDial
@@ -152,24 +133,20 @@ export const Directions: Story = {
         icon={<SpeedDialIcon />}
         direction="left"
       >
-        {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name}
-          />
+        {actions.map(action => (
+          <SpeedDialAction key={action.name} icon={action.icon} tooltipTitle={action.name} />
         ))}
       </SpeedDial>
     </Box>
   ),
-};
+}
 
 /**
  * Speed dial with controlled open state
  */
 export const Controlled: Story = {
   render: () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
       <Box sx={{ height: 320, position: 'relative', width: 320 }}>
@@ -182,7 +159,7 @@ export const Controlled: Story = {
           onOpen={() => setOpen(true)}
           open={open}
         >
-          {actions.map((action) => (
+          {actions.map(action => (
             <SpeedDialAction
               key={action.name}
               icon={action.icon}
@@ -192,9 +169,9 @@ export const Controlled: Story = {
           ))}
         </SpeedDial>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Speed dial with tooltip placement
@@ -207,7 +184,7 @@ export const TooltipPlacement: Story = {
         sx={{ position: 'absolute', bottom: 16, right: 16 }}
         icon={<SpeedDialIcon />}
       >
-        {actions.map((action) => (
+        {actions.map(action => (
           <SpeedDialAction
             key={action.name}
             icon={action.icon}
@@ -218,4 +195,4 @@ export const TooltipPlacement: Story = {
       </SpeedDial>
     </Box>
   ),
-};
+}

@@ -16,15 +16,30 @@
  * under the License.
  */
 
-import React from 'react';
-import type {Meta, StoryObj} from '@storybook/react';
-import {ColorSchemeSVG, ColorSchemeToggle, Stack, Typography, Paper, Box, Divider} from '@wso2/oxygen-ui';
-import DashboardIllustration from './assets/dashboard-illustration.svg?react';
-import DashboardIllustrationLight from './assets/dashboard-illustration-light.svg?react';
-import DashboardIllustrationDark from './assets/dashboard-illustration-dark.svg?react';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import {
+  ColorSchemeSVG,
+  ColorSchemeToggle,
+  Stack,
+  Typography,
+  Paper,
+  Box,
+  Divider,
+} from '@wso2/oxygen-ui'
+import DashboardIllustration from './assets/dashboard-illustration.svg?react'
+import DashboardIllustrationLight from './assets/dashboard-illustration-light.svg?react'
+import DashboardIllustrationDark from './assets/dashboard-illustration-dark.svg?react'
 
 const InlineDashboardIllustration = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg width="400" height="250" viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="400"
+    height="250"
+    viewBox="0 0 400 250"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <rect fill="background" width="400" height="250" rx="8" />
     <rect fill="primary" width="400" height="50" rx="8" />
     <circle fill="surface" cx="30" cy="25" r="12" />
@@ -49,10 +64,17 @@ const InlineDashboardIllustration = (props: React.SVGProps<SVGSVGElement>) => (
     <circle stroke="primary" strokeWidth="2" fill="none" cx="350" cy="215" r="12" />
     <circle stroke="error" strokeWidth="2" fill="none" cx="320" cy="215" r="12" />
   </svg>
-);
+)
 
 const InlineDashboardIllustrationLight = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg width="400" height="250" viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="400"
+    height="250"
+    viewBox="0 0 400 250"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <rect fill="background" width="400" height="250" rx="8" />
     <rect fill="primary" width="400" height="50" rx="8" />
     <circle fill="surface" cx="30" cy="25" r="12" />
@@ -63,10 +85,17 @@ const InlineDashboardIllustrationLight = (props: React.SVGProps<SVGSVGElement>) 
     <rect fill="text-secondary" x="80" y="92" width="80" height="8" rx="4" />
     <rect fill="text-disabled" x="80" y="105" width="60" height="6" rx="3" />
   </svg>
-);
+)
 
 const InlineDashboardIllustrationDark = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg width="400" height="250" viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="400"
+    height="250"
+    viewBox="0 0 400 250"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <rect fill="background" width="400" height="250" rx="8" />
     <rect fill="secondary" width="400" height="50" rx="8" />
     <circle fill="surface" cx="30" cy="25" r="12" />
@@ -77,7 +106,7 @@ const InlineDashboardIllustrationDark = (props: React.SVGProps<SVGSVGElement>) =
     <rect fill="text-secondary" x="80" y="92" width="80" height="8" rx="4" />
     <rect fill="text-disabled" x="80" y="105" width="60" height="6" rx="3" />
   </svg>
-);
+)
 
 const meta: Meta<typeof ColorSchemeSVG> = {
   title: 'Theming/ColorSchemeSVG',
@@ -153,32 +182,43 @@ const meta: Meta<typeof ColorSchemeSVG> = {
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof ColorSchemeSVG>;
+export default meta
+type Story = StoryObj<typeof ColorSchemeSVG>
 
 export const Default: Story = {
   render: () => (
-    <Stack spacing={3} sx={{alignItems: 'center'}}>
-      <Typography variant="body2" color="text.secondary" sx={{textAlign: 'center', maxWidth: 400}}>
+    <Stack spacing={3} sx={{ alignItems: 'center' }}>
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        sx={{ textAlign: 'center', maxWidth: 400 }}
+      >
         Toggle the color scheme to see the SVG colors adapt
       </Typography>
-      <Paper elevation={2} sx={{p: 3, bgcolor: 'background.paper'}}>
+      <Paper elevation={2} sx={{ p: 3, bgcolor: 'background.paper' }}>
         <ColorSchemeSVG width={400} height={200} viewBox="0 0 400 200">
           <rect fill="background" width="400" height="200" />
           <circle fill="primary" cx="100" cy="100" r="40" />
           <rect fill="secondary" x="180" y="60" width="80" height="80" />
           <path fill="accent" d="M300 100 L340 60 L340 140 Z" />
           <circle stroke="primary" strokeWidth="3" fill="none" cx="100" cy="100" r="45" />
-          <text fill="text-primary" x="200" y="180" textAnchor="middle" fontSize="14" fontWeight="bold">
+          <text
+            fill="text-primary"
+            x="200"
+            y="180"
+            textAnchor="middle"
+            fontSize="14"
+            fontWeight="bold"
+          >
             Theme-aware SVG
           </text>
         </ColorSchemeSVG>
       </Paper>
     </Stack>
   ),
-};
+}
 
 export const WithRelativeSVGFile: Story = {
   parameters: {
@@ -194,16 +234,20 @@ export const WithRelativeSVGFile: Story = {
     },
   },
   render: () => (
-    <Stack spacing={3} sx={{alignItems: 'center'}}>
-      <Typography variant="body2" color="text.secondary" sx={{textAlign: 'center', maxWidth: 400}}>
+    <Stack spacing={3} sx={{ alignItems: 'center' }}>
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        sx={{ textAlign: 'center', maxWidth: 400 }}
+      >
         Dashboard illustration using an imported relative SVG file with theme color attributes
       </Typography>
-      <Paper elevation={2} sx={{p: 3, bgcolor: 'background.paper'}}>
+      <Paper elevation={2} sx={{ p: 3, bgcolor: 'background.paper' }}>
         <ColorSchemeSVG svg={DashboardIllustration} height={250} width={400} />
       </Paper>
     </Stack>
   ),
-};
+}
 
 export const WithModeAwareSVGComponents: Story = {
   parameters: {
@@ -222,16 +266,25 @@ export const WithModeAwareSVGComponents: Story = {
     },
   },
   render: () => (
-    <Stack spacing={3} sx={{alignItems: 'center'}}>
-      <Typography variant="body2" color="text.secondary" sx={{textAlign: 'center', maxWidth: 420}}>
-        Relative light and dark SVG files can swap entire SVGs while still using theme-aware fills and strokes.
+    <Stack spacing={3} sx={{ alignItems: 'center' }}>
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        sx={{ textAlign: 'center', maxWidth: 420 }}
+      >
+        Relative light and dark SVG files can swap entire SVGs while still using theme-aware fills
+        and strokes.
       </Typography>
-      <Paper elevation={2} sx={{p: 3, bgcolor: 'background.paper'}}>
-        <ColorSchemeSVG svg={{light: DashboardIllustrationLight, dark: DashboardIllustrationDark}} height={250} width={400} />
+      <Paper elevation={2} sx={{ p: 3, bgcolor: 'background.paper' }}>
+        <ColorSchemeSVG
+          svg={{ light: DashboardIllustrationLight, dark: DashboardIllustrationDark }}
+          height={250}
+          width={400}
+        />
       </Paper>
     </Stack>
   ),
-};
+}
 
 export const WithInlineSVGComponent: Story = {
   parameters: {
@@ -255,28 +308,32 @@ export function Example() {
     },
   },
   render: () => (
-    <Stack spacing={3} sx={{alignItems: 'center'}}>
-      <Typography variant="body2" color="text.secondary" sx={{textAlign: 'center', maxWidth: 400}}>
+    <Stack spacing={3} sx={{ alignItems: 'center' }}>
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        sx={{ textAlign: 'center', maxWidth: 400 }}
+      >
         Dashboard illustration using an inline React SVG component passed to the svg prop
       </Typography>
-      <Paper elevation={2} sx={{p: 3, bgcolor: 'background.paper'}}>
+      <Paper elevation={2} sx={{ p: 3, bgcolor: 'background.paper' }}>
         <ColorSchemeSVG svg={InlineDashboardIllustration} height={250} width={400} />
       </Paper>
     </Stack>
   ),
-};
+}
 
 export const AllColorValues: Story = {
   render: () => (
-    <Stack spacing={3} sx={{alignItems: 'center', width: '100%', maxWidth: 800}}>
-      <Typography variant="h5" sx={{fontWeight: 600}}>
+    <Stack spacing={3} sx={{ alignItems: 'center', width: '100%', maxWidth: 800 }}>
+      <Typography variant="h5" sx={{ fontWeight: 600 }}>
         Available Color Values
       </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{textAlign: 'center'}}>
+      <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>
         Toggle between light and dark mode to see all available color values
       </Typography>
 
-      <Paper elevation={2} sx={{p: 3, bgcolor: 'background.paper', width: '100%'}}>
+      <Paper elevation={2} sx={{ p: 3, bgcolor: 'background.paper', width: '100%' }}>
         <Stack spacing={3}>
           {/* Theme Colors */}
           <Box>
@@ -377,15 +434,19 @@ export const AllColorValues: Story = {
       </Paper>
     </Stack>
   ),
-};
+}
 
 export const ComplexIllustration: Story = {
   render: () => (
-    <Stack spacing={3} sx={{alignItems: 'center'}}>
-      <Typography variant="body2" color="text.secondary" sx={{textAlign: 'center', maxWidth: 500}}>
+    <Stack spacing={3} sx={{ alignItems: 'center' }}>
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        sx={{ textAlign: 'center', maxWidth: 500 }}
+      >
         A more complex example showing how multiple color classes work together
       </Typography>
-      <Paper elevation={2} sx={{p: 4, bgcolor: 'background.paper'}}>
+      <Paper elevation={2} sx={{ p: 4, bgcolor: 'background.paper' }}>
         <ColorSchemeSVG width={500} height={300} viewBox="0 0 500 300">
           {/* Sky/Background */}
           <rect fill="background" width="500" height="300" />
@@ -415,11 +476,18 @@ export const ComplexIllustration: Story = {
           <rect fill="info" x="385" y="215" width="15" height="15" />
 
           {/* Title */}
-          <text fill="text-primary" x="250" y="280" textAnchor="middle" fontSize="16" fontWeight="bold">
+          <text
+            fill="text-primary"
+            x="250"
+            y="280"
+            textAnchor="middle"
+            fontSize="16"
+            fontWeight="bold"
+          >
             Theme-Aware Scene
           </text>
         </ColorSchemeSVG>
       </Paper>
     </Stack>
   ),
-};
+}

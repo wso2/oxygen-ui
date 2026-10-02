@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Container, Box } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Container, Box } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * The Container component centers content horizontally and provides max-width constraints.
  * It's the most basic layout element in Material-UI.
- * 
- * This is a direct import of MUI container component. 
+ *
+ * This is a direct import of MUI container component.
  * Read more at: https://mui.com/material-ui/react-container/
  */
 const meta: Meta<typeof Container> = {
@@ -43,17 +43,18 @@ const meta: Meta<typeof Container> = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Oxygen UI container component is a direct import of MUI container component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-container/](https://mui.com/material-ui/react-container/)',
+        component:
+          'Oxygen UI container component is a direct import of MUI container component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-container/](https://mui.com/material-ui/react-container/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Container>;
+export default meta
+type Story = StoryObj<typeof Container>
 
 export const Default: Story = {
   render: () => (
@@ -63,7 +64,7 @@ export const Default: Story = {
       </Box>
     </Container>
   ),
-};
+}
 
 export const MaxWidth: Story = {
   render: () => (
@@ -95,7 +96,7 @@ export const MaxWidth: Story = {
       </Container>
     </>
   ),
-};
+}
 
 export const Fixed: Story = {
   render: () => (
@@ -105,7 +106,7 @@ export const Fixed: Story = {
       </Box>
     </Container>
   ),
-};
+}
 
 export const DisableGutters: Story = {
   render: () => (
@@ -115,4 +116,4 @@ export const DisableGutters: Story = {
       </Box>
     </Container>
   ),
-};
+}

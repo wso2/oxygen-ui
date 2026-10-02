@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import React, { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import React, { useState } from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
 import {
   Collapse,
   Fade,
@@ -29,12 +29,12 @@ import {
   Paper,
   Switch,
   FormControlLabel,
-} from '@wso2/oxygen-ui';
-import { Package } from '@wso2/oxygen-ui-icons-react';
+} from '@wso2/oxygen-ui'
+import { Package } from '@wso2/oxygen-ui-icons-react'
 
 /**
  * Transitions help to make a UI expressive and easy to use.
- * 
+ *
  * Read more at: https://mui.com/material-ui/transitions/
  */
 const meta: Meta = {
@@ -43,17 +43,18 @@ const meta: Meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI Transitions are direct imports of MUI Transitions. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/transitions/](https://mui.com/material-ui/transitions/)',
+        component:
+          'Oxygen UI Transitions are direct imports of MUI Transitions. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/transitions/](https://mui.com/material-ui/transitions/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 const icon = (
   <Paper sx={{ m: 1, width: 100, height: 100 }} elevation={4}>
@@ -61,14 +62,14 @@ const icon = (
       <Package size={48} />
     </Box>
   </Paper>
-);
+)
 
 /**
  * Collapse transition
  */
 export const CollapseTransition: Story = {
   render: () => {
-    const [checked, setChecked] = useState(false);
+    const [checked, setChecked] = useState(false)
 
     return (
       <Box sx={{ height: 180 }}>
@@ -80,16 +81,16 @@ export const CollapseTransition: Story = {
           <Collapse in={checked}>{icon}</Collapse>
         </Box>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Fade transition
  */
 export const FadeTransition: Story = {
   render: () => {
-    const [checked, setChecked] = useState(false);
+    const [checked, setChecked] = useState(false)
 
     return (
       <Box sx={{ height: 180 }}>
@@ -101,16 +102,16 @@ export const FadeTransition: Story = {
           <Fade in={checked}>{icon}</Fade>
         </Box>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Grow transition
  */
 export const GrowTransition: Story = {
   render: () => {
-    const [checked, setChecked] = useState(false);
+    const [checked, setChecked] = useState(false)
 
     return (
       <Box sx={{ height: 180 }}>
@@ -122,16 +123,16 @@ export const GrowTransition: Story = {
           <Grow in={checked}>{icon}</Grow>
         </Box>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Slide transition
  */
 export const SlideTransition: Story = {
   render: () => {
-    const [checked, setChecked] = useState(false);
+    const [checked, setChecked] = useState(false)
 
     return (
       <Box sx={{ height: 180 }}>
@@ -145,16 +146,16 @@ export const SlideTransition: Story = {
           </Slide>
         </Box>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Zoom transition
  */
 export const ZoomTransition: Story = {
   render: () => {
-    const [checked, setChecked] = useState(false);
+    const [checked, setChecked] = useState(false)
 
     return (
       <Box sx={{ height: 180 }}>
@@ -166,16 +167,16 @@ export const ZoomTransition: Story = {
           <Zoom in={checked}>{icon}</Zoom>
         </Box>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * All transitions comparison
  */
 export const AllTransitions: Story = {
   render: () => {
-    const [checked, setChecked] = useState(false);
+    const [checked, setChecked] = useState(false)
 
     return (
       <Box sx={{ width: 600 }}>
@@ -208,6 +209,6 @@ export const AllTransitions: Story = {
           </Box>
         </Box>
       </Box>
-    );
+    )
   },
-};
+}

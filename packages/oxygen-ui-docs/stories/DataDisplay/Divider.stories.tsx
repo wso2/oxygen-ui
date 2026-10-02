@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Divider, Box, Chip, Stack } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Divider, Box, Chip, Stack } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * The Divider component creates a thin line to separate content in lists and layouts.
  * It can be horizontal or vertical with various styling options.
- * 
- * This is a direct import of MUI divider component. 
+ *
+ * This is a direct import of MUI divider component.
  * Read more at: https://mui.com/material-ui/react-divider/
  */
 const meta: Meta<typeof Divider> = {
@@ -34,17 +34,18 @@ const meta: Meta<typeof Divider> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI divider component is a direct import of MUI divider component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-divider/](https://mui.com/material-ui/react-divider/)',
+        component:
+          'Oxygen UI divider component is a direct import of MUI divider component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-divider/](https://mui.com/material-ui/react-divider/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Divider>;
+export default meta
+type Story = StoryObj<typeof Divider>
 
 export const Default: Story = {
   render: () => (
@@ -54,7 +55,7 @@ export const Default: Story = {
       Content below
     </Box>
   ),
-};
+}
 
 export const Vertical: Story = {
   render: () => (
@@ -64,7 +65,7 @@ export const Vertical: Story = {
       Right content
     </Box>
   ),
-};
+}
 
 export const WithText: Story = {
   render: () => (
@@ -74,7 +75,7 @@ export const WithText: Story = {
       <Divider textAlign="right">RIGHT</Divider>
     </Stack>
   ),
-};
+}
 
 export const WithChips: Story = {
   render: () => (
@@ -84,7 +85,7 @@ export const WithChips: Story = {
       </Divider>
     </Box>
   ),
-};
+}
 
 export const Variants: Story = {
   render: () => (
@@ -94,4 +95,4 @@ export const Variants: Story = {
       <Divider variant="middle">MIDDLE</Divider>
     </Stack>
   ),
-};
+}

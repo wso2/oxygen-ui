@@ -16,13 +16,13 @@
  * under the License.
  */
 
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { TextField } from '@wso2/oxygen-ui';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { TextField } from '@wso2/oxygen-ui'
 
 /**
  * Number Field is a TextField with type="number" for numeric input.
- * 
+ *
  * Read more at: https://mui.com/material-ui/react-number-field/
  */
 const meta: Meta<typeof TextField> = {
@@ -32,17 +32,18 @@ const meta: Meta<typeof TextField> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI Number Field is a direct import of MUI TextField with type="number". \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-number-field/](https://mui.com/material-ui/react-number-field/)',
+        component:
+          'Oxygen UI Number Field is a direct import of MUI TextField with type="number". \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-number-field/](https://mui.com/material-ui/react-number-field/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof TextField>;
+export default meta
+type Story = StoryObj<typeof TextField>
 
 /**
  * Basic number field
@@ -53,7 +54,7 @@ export const Basic: Story = {
     label: 'Number',
     defaultValue: 0,
   },
-};
+}
 
 /**
  * Number field with validation
@@ -72,7 +73,7 @@ export const WithValidation: Story = {
     },
     helperText: 'Must be between 0 and 120',
   },
-};
+}
 
 /**
  * Number field with decimal
@@ -92,7 +93,7 @@ export const Decimal: Story = {
       },
     },
   },
-};
+}
 
 /**
  * Required number field
@@ -109,7 +110,7 @@ export const Required: Story = {
       },
     },
   },
-};
+}
 
 /**
  * Disabled number field
@@ -121,7 +122,7 @@ export const Disabled: Story = {
     defaultValue: 42,
     disabled: true,
   },
-};
+}
 
 /**
  * Number field variants
@@ -134,4 +135,4 @@ export const Variants: Story = {
       <TextField type="number" label="Standard" variant="standard" defaultValue={0} />
     </div>
   ),
-};
+}

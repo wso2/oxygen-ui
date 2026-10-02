@@ -16,9 +16,17 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { ThemeSwitcher, Stack, Typography, Box, OxygenUIThemeProvider, extendTheme, CodeBlock } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import {
+  ThemeSwitcher,
+  Stack,
+  Typography,
+  Box,
+  OxygenUIThemeProvider,
+  extendTheme,
+  CodeBlock,
+} from '@wso2/oxygen-ui'
+import React from 'react'
 
 // Define example themes for stories
 const defaultTheme = extendTheme({
@@ -26,27 +34,27 @@ const defaultTheme = extendTheme({
     light: { palette: { primary: { main: '#1976d2' } } },
     dark: { palette: { primary: { main: '#90caf9' } } },
   },
-});
+})
 
 const purpleTheme = extendTheme({
   colorSchemes: {
     light: { palette: { primary: { main: '#9c27b0' } } },
     dark: { palette: { primary: { main: '#ce93d8' } } },
   },
-});
+})
 
 const greenTheme = extendTheme({
   colorSchemes: {
     light: { palette: { primary: { main: '#2e7d32' } } },
     dark: { palette: { primary: { main: '#66bb6a' } } },
   },
-});
+})
 
 const exampleThemes = [
   { key: 'default', label: 'Default (Blue)', theme: defaultTheme },
   { key: 'purple', label: 'Purple', theme: purpleTheme },
   { key: 'green', label: 'Green', theme: greenTheme },
-];
+]
 
 /**
  * ThemeSwitcher allows users to switch between multiple theme configurations.
@@ -113,10 +121,10 @@ It will not work with a single theme configuration.
       table: { defaultValue: { summary: 'small' } },
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof ThemeSwitcher>;
+export default meta
+type Story = StoryObj<typeof ThemeSwitcher>
 
 export const Default: Story = {
   render: () => (
@@ -129,7 +137,7 @@ export const Default: Story = {
       </Stack>
     </OxygenUIThemeProvider>
   ),
-};
+}
 
 export const WithLabel: Story = {
   render: () => (
@@ -142,7 +150,7 @@ export const WithLabel: Story = {
       </Stack>
     </OxygenUIThemeProvider>
   ),
-};
+}
 
 export const CustomLabel: Story = {
   render: () => (
@@ -155,7 +163,7 @@ export const CustomLabel: Story = {
       </Stack>
     </OxygenUIThemeProvider>
   ),
-};
+}
 
 export const Variants: Story = {
   render: () => (
@@ -167,14 +175,14 @@ export const Variants: Story = {
           </Typography>
           <ThemeSwitcher variant="outlined" showLabel />
         </Box>
-        
+
         <Box>
           <Typography variant="subtitle2" gutterBottom>
             Filled
           </Typography>
           <ThemeSwitcher variant="filled" showLabel />
         </Box>
-        
+
         <Box>
           <Typography variant="subtitle2" gutterBottom>
             Standard
@@ -184,7 +192,7 @@ export const Variants: Story = {
       </Stack>
     </OxygenUIThemeProvider>
   ),
-};
+}
 
 export const DifferentSizes: Story = {
   render: () => (
@@ -196,7 +204,7 @@ export const DifferentSizes: Story = {
           </Typography>
           <ThemeSwitcher size="small" showLabel />
         </Box>
-        
+
         <Box>
           <Typography variant="subtitle2" gutterBottom>
             Medium (Default)
@@ -206,14 +214,14 @@ export const DifferentSizes: Story = {
       </Stack>
     </OxygenUIThemeProvider>
   ),
-};
+}
 
 export const UsageExample: Story = {
   render: () => (
     <Stack spacing={3} sx={{ minWidth: 350, maxWidth: 600 }}>
       <Typography variant="h6">Complete Usage Example</Typography>
-      
-      <CodeBlock 
+
+      <CodeBlock
         language="tsx"
         code={`import { OxygenUIThemeProvider, ThemeSwitcher, extendTheme } from "@wso2/oxygen-ui";
 
@@ -246,4 +254,4 @@ function App() {
       />
     </Stack>
   ),
-};
+}
