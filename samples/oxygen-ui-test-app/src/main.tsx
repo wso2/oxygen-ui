@@ -96,6 +96,8 @@ createRoot(document.getElementById('root')!).render(
       onThemesLoaded={(loadedThemes: LoadedTheme[]) => {
         console.log('Themes loaded:', loadedThemes);
       }}
+      // Client-rendered, so read the stored color scheme on the first render.
+      noSsr
     >
       <Router>
         <App />

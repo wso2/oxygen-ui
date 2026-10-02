@@ -17,6 +17,7 @@
  */
 
 import { ThemeProvider, StyledEngineProvider, Theme } from '@mui/material/styles';
+import type { ThemeProviderProps } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
@@ -195,8 +196,29 @@ async function loadThemeFile(themeUrl: string): Promise<Theme | null> {
   }
 }
 
-interface OxygenUIThemeProviderProps {
+/**
+ * MUI `ThemeProvider` color-scheme options passed through as-is. MUI's own
+ * defaults apply when they are omitted.
+ */
+type ColorSchemeOptions = Pick<
+  ThemeProviderProps,
+  'defaultMode' | 'modeStorageKey' | 'colorSchemeStorageKey' | 'disableTransitionOnChange' | 'storageManager'
+>;
+
+interface OxygenUIThemeProviderProps extends ColorSchemeOptions {
   children: ReactNode;
+  /**
+   * Read the stored color scheme on the first render rather than after mount.
+   *
+   * By default MUI's first render ignores the stored mode, so that a
+   * server-rendered page matches it; the light scheme applies until an effect
+   * switches it. In a client-rendered app that shows as a light frame on every
+   * page load in dark mode. Set this in client-rendered apps. Server-rendered
+   * apps should leave it off and use MUI's `InitColorSchemeScript` instead.
+   *
+   * @default false
+   */
+  noSsr?: boolean;
   /**
    * Optional single theme object. If provided, theme switching will be disabled.
    * Use this for simple single-theme applications.
@@ -257,6 +279,12 @@ interface OxygenUIThemeProviderProps {
  * Policy nonce to Emotion-injected style tags, or supply a fully custom
  * Emotion cache via `emotionCache` (takes precedence over `nonce`).
  *
+ * Client-rendered apps should pass `noSsr`, so that a page load in dark mode
+ * does not paint the light scheme first. MUI's other color-scheme options
+ * (`defaultMode`, `modeStorageKey`, `colorSchemeStorageKey`,
+ * `disableTransitionOnChange`, `storageManager`) are passed through to its
+ * `ThemeProvider` unchanged.
+ *
  * @param props - Provider configuration
  * @param props.children - Application content to theme
  * @param props.theme - Optional single theme (disables switching)
@@ -265,6 +293,7 @@ interface OxygenUIThemeProviderProps {
  * @param props.onThemesLoaded - Callback when themes finish resolving
  * @param props.nonce - CSP nonce for Emotion style tags
  * @param props.emotionCache - Custom Emotion cache (overrides `nonce`)
+ * @param props.noSsr - Read the stored color scheme on the first render
  */
 export default function OxygenUIThemeProvider({
   children,
@@ -274,6 +303,7 @@ export default function OxygenUIThemeProvider({
   onThemesLoaded,
   nonce,
   emotionCache,
+  ...colorSchemeOptions
 }: OxygenUIThemeProviderProps) {
   // State for managing dynamically loaded themes
   const [resolvedThemes, setResolvedThemes] = useState<ThemeOption[]>([]);
@@ -407,7 +437,7 @@ export default function OxygenUIThemeProvider({
   }
 
   const themedContent = (
-    <ThemeProvider theme={resolvedTheme}>
+    <ThemeProvider theme={resolvedTheme} {...colorSchemeOptions}>
       <CssBaseline enableColorScheme />
       {children}
     </ThemeProvider>
