@@ -18,7 +18,7 @@
 
 import {Description, Primary, Subtitle, Title} from '@storybook/addon-docs/blocks';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Stack, Typography, CodeBlock, Box, Divider } from '@wso2/oxygen-ui';
+import { Stack, Typography, CodeBlock, Box, Divider, Link } from '@wso2/oxygen-ui';
 import React from 'react';
 import CenterContentLayout from '../layouts/CenterContentLayout';
 
@@ -669,6 +669,30 @@ export const AccessibilityPolicy: Story = {
           />
           <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
             The full audit report and open findings live in <code>packages/oxygen-ui-docs/ACCESSIBILITY.md</code>.
+          </Typography>
+        </Box>
+      </Stack>
+    </CenterContentLayout>
+  ),
+};
+
+/**
+ * Pointer to the colocated unit-test contract. Do not copy the contract here.
+ */
+export const UnitTests: Story = {
+  render: () => (
+    <CenterContentLayout>
+      <Stack spacing={3}>
+        <Box>
+          <Typography variant="h2" gutterBottom>
+            Unit Tests
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Colocated first-party unit tests follow{' '}
+            <Link href="https://github.com/wso2/oxygen-ui/blob/main/packages/oxygen-ui/TESTING.md">
+              packages/oxygen-ui/TESTING.md
+            </Link>
+            .
           </Typography>
         </Box>
       </Stack>
