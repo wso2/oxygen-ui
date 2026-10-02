@@ -16,13 +16,13 @@
  * under the License.
  */
 
-import React, { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { Popper, Button, Box, Fade, Paper, Typography } from '@wso2/oxygen-ui';
+import React, { useState } from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { Popper, Button, Box, Fade, Paper, Typography } from '@wso2/oxygen-ui'
 
 /**
  * Popper is a utility component for positioning content relative to an anchor element.
- * 
+ *
  * Read more at: https://mui.com/material-ui/react-popper/
  */
 const meta: Meta<typeof Popper> = {
@@ -41,31 +41,32 @@ const meta: Meta<typeof Popper> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI Popper is a direct import of MUI Popper. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-popper/](https://mui.com/material-ui/react-popper/)',
+        component:
+          'Oxygen UI Popper is a direct import of MUI Popper. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-popper/](https://mui.com/material-ui/react-popper/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Popper>;
+export default meta
+type Story = StoryObj<typeof Popper>
 
 /**
  * Basic popper
  */
 export const Basic: Story = {
   render: () => {
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-      setAnchorEl(anchorEl ? null : event.currentTarget);
-    };
+      setAnchorEl(anchorEl ? null : event.currentTarget)
+    }
 
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popper' : undefined;
+    const open = Boolean(anchorEl)
+    const id = open ? 'simple-popper' : undefined
 
     return (
       <div>
@@ -78,24 +79,24 @@ export const Basic: Story = {
           </Box>
         </Popper>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Popper with transitions
  */
 export const WithTransitions: Story = {
   render: () => {
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const [open, setOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+    const [open, setOpen] = useState(false)
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-      setAnchorEl(event.currentTarget);
-      setOpen((previousOpen) => !previousOpen);
-    };
+      setAnchorEl(event.currentTarget)
+      setOpen(previousOpen => !previousOpen)
+    }
 
-    const id = open ? 'transitions-popper' : undefined;
+    const id = open ? 'transitions-popper' : undefined
 
     return (
       <div>
@@ -112,26 +113,26 @@ export const WithTransitions: Story = {
           )}
         </Popper>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Popper with different placements
  */
 export const Placement: Story = {
   render: () => {
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const [placement, setPlacement] = useState<'top' | 'bottom' | 'left' | 'right'>('bottom');
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+    const [placement, setPlacement] = useState<'top' | 'bottom' | 'left' | 'right'>('bottom')
 
-    const handleClick = (newPlacement: 'top' | 'bottom' | 'left' | 'right') => (
-      event: React.MouseEvent<HTMLElement>,
-    ) => {
-      setAnchorEl(event.currentTarget);
-      setPlacement(newPlacement);
-    };
+    const handleClick =
+      (newPlacement: 'top' | 'bottom' | 'left' | 'right') =>
+      (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget)
+        setPlacement(newPlacement)
+      }
 
-    const open = Boolean(anchorEl);
+    const open = Boolean(anchorEl)
 
     return (
       <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
@@ -143,24 +144,24 @@ export const Placement: Story = {
           <Paper sx={{ p: 1 }}>Popper content - {placement}</Paper>
         </Popper>
       </Box>
-    );
+    )
   },
-};
+}
 
 /**
  * Popper with arrow
  */
 export const WithArrow: Story = {
   render: () => {
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const [arrowRef, setArrowRef] = useState<HTMLElement | null>(null);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+    const [arrowRef, setArrowRef] = useState<HTMLElement | null>(null)
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-      setAnchorEl(anchorEl ? null : event.currentTarget);
-    };
+      setAnchorEl(anchorEl ? null : event.currentTarget)
+    }
 
-    const open = Boolean(anchorEl);
-    const id = open ? 'arrow-popper' : undefined;
+    const open = Boolean(anchorEl)
+    const id = open ? 'arrow-popper' : undefined
 
     return (
       <div>
@@ -206,36 +207,34 @@ export const WithArrow: Story = {
           </Box>
         </Popper>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Positioned popper
  */
 export const Positioned: Story = {
   render: () => {
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-      setAnchorEl(anchorEl ? null : event.currentTarget);
-    };
+      setAnchorEl(anchorEl ? null : event.currentTarget)
+    }
 
-    const open = Boolean(anchorEl);
+    const open = Boolean(anchorEl)
 
     return (
       <Box sx={{ width: 500 }}>
         <Popper open={open} anchorEl={anchorEl} placement="bottom-start">
           <Paper sx={{ p: 2, maxWidth: 300 }}>
-            <Typography>
-              This popper is positioned at the bottom-start of the button.
-            </Typography>
+            <Typography>This popper is positioned at the bottom-start of the button.</Typography>
           </Paper>
         </Popper>
         <Button variant="contained" onClick={handleClick}>
           Bottom Start Popper
         </Button>
       </Box>
-    );
+    )
   },
-};
+}

@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Popover, Button, Typography, Box } from '@wso2/oxygen-ui';
-import React, { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Popover, Button, Typography, Box } from '@wso2/oxygen-ui'
+import React, { useState } from 'react'
 
 /**
  * A Popover can be used to display some content on top of another.
  * It's an alternative to inline modals or in-place messages.
- * 
- * This is a direct import of MUI popover component. 
+ *
+ * This is a direct import of MUI popover component.
  * Read more at: https://mui.com/material-ui/react-popover/
  */
 const meta: Meta<typeof Popover> = {
@@ -43,31 +43,32 @@ const meta: Meta<typeof Popover> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI popover component is a direct import of MUI popover component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-popover/](https://mui.com/material-ui/react-popover/)',
+        component:
+          'Oxygen UI popover component is a direct import of MUI popover component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-popover/](https://mui.com/material-ui/react-popover/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Popover>;
+export default meta
+type Story = StoryObj<typeof Popover>
 
 export const Default: Story = {
   render: () => {
-    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-      setAnchorEl(event.currentTarget);
-    };
+      setAnchorEl(event.currentTarget)
+    }
 
     const handleClose = () => {
-      setAnchorEl(null);
-    };
+      setAnchorEl(null)
+    }
 
-    const open = Boolean(anchorEl);
+    const open = Boolean(anchorEl)
 
     return (
       <>
@@ -86,67 +87,65 @@ export const Default: Story = {
           </Box>
         </Popover>
       </>
-    );
+    )
   },
-};
+}
 
 export const AnchorOrigin: Story = {
   render: () => {
-    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-    const [origin, setOrigin] = useState<{ vertical: 'top' | 'bottom'; horizontal: 'left' | 'right' }>({
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+    const [origin, setOrigin] = useState<{
+      vertical: 'top' | 'bottom'
+      horizontal: 'left' | 'right'
+    }>({
       vertical: 'bottom',
       horizontal: 'left',
-    });
+    })
 
     const handleClick = (
       event: React.MouseEvent<HTMLButtonElement>,
       vert: 'top' | 'bottom',
       horiz: 'left' | 'right'
     ) => {
-      setAnchorEl(event.currentTarget);
-      setOrigin({ vertical: vert, horizontal: horiz });
-    };
+      setAnchorEl(event.currentTarget)
+      setOrigin({ vertical: vert, horizontal: horiz })
+    }
 
     const handleClose = () => {
-      setAnchorEl(null);
-    };
+      setAnchorEl(null)
+    }
 
-    const open = Boolean(anchorEl);
+    const open = Boolean(anchorEl)
 
     return (
       <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-        <Button onClick={(e) => handleClick(e, 'top', 'left')}>Top-Left</Button>
-        <Button onClick={(e) => handleClick(e, 'top', 'right')}>Top-Right</Button>
-        <Button onClick={(e) => handleClick(e, 'bottom', 'left')}>Bottom-Left</Button>
-        <Button onClick={(e) => handleClick(e, 'bottom', 'right')}>Bottom-Right</Button>
-        <Popover
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={origin}
-        >
+        <Button onClick={e => handleClick(e, 'top', 'left')}>Top-Left</Button>
+        <Button onClick={e => handleClick(e, 'top', 'right')}>Top-Right</Button>
+        <Button onClick={e => handleClick(e, 'bottom', 'left')}>Bottom-Left</Button>
+        <Button onClick={e => handleClick(e, 'bottom', 'right')}>Bottom-Right</Button>
+        <Popover open={open} anchorEl={anchorEl} onClose={handleClose} anchorOrigin={origin}>
           <Box sx={{ p: 2 }}>
             <Typography>Popover content</Typography>
           </Box>
         </Popover>
       </Box>
-    );
+    )
   },
-};
+}
 
 export const MouseOver: Story = {
   render: () => {
-    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
 
     const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
-      setAnchorEl(event.currentTarget);
-    };
+      setAnchorEl(event.currentTarget)
+    }
 
     const handlePopoverClose = () => {
-      setAnchorEl(null);
-    };
+      setAnchorEl(null)
+    }
 
-    const open = Boolean(anchorEl);
+    const open = Boolean(anchorEl)
 
     return (
       <>
@@ -181,6 +180,6 @@ export const MouseOver: Story = {
           </Box>
         </Popover>
       </>
-    );
+    )
   },
-};
+}

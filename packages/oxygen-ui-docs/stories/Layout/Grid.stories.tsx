@@ -16,14 +16,14 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Paper, Box } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Paper, Box } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * Grid layouts using CSS Grid provide a responsive layout system.
  * This example demonstrates building responsive grids using Box component with CSS Grid properties.
- * 
+ *
  * For more complex grid layouts, you can also use MUI's Grid component.
  * Read more at: https://mui.com/material-ui/react-grid/
  */
@@ -34,17 +34,18 @@ const meta: Meta<typeof Box> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Grid layouts using CSS Grid (via Box component) or MUI Grid component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-grid/](https://mui.com/material-ui/react-grid/)',
+        component:
+          'Grid layouts using CSS Grid (via Box component) or MUI Grid component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-grid/](https://mui.com/material-ui/react-grid/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Box>;
+export default meta
+type Story = StoryObj<typeof Box>
 
 export const BasicGrid: Story = {
   render: () => (
@@ -65,7 +66,7 @@ export const BasicGrid: Story = {
       </Box>
     </Box>
   ),
-};
+}
 
 export const Spacing: Story = {
   render: () => (
@@ -84,7 +85,7 @@ export const Spacing: Story = {
       </Box>
     </Box>
   ),
-};
+}
 
 export const ResponsiveGrid: Story = {
   render: () => (
@@ -108,7 +109,7 @@ export const ResponsiveGrid: Story = {
       </Box>
     </Box>
   ),
-};
+}
 
 export const AutoGrid: Story = {
   render: () => (
@@ -120,7 +121,7 @@ export const AutoGrid: Story = {
       </Box>
     </Box>
   ),
-};
+}
 
 export const NestedGrid: Story = {
   render: () => (
@@ -140,4 +141,4 @@ export const NestedGrid: Story = {
       </Box>
     </Box>
   ),
-};
+}

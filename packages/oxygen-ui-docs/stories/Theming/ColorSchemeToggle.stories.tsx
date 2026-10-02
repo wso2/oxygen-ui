@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { ColorSchemeToggle, Stack, Typography, Paper } from '@wso2/oxygen-ui';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { ColorSchemeToggle, Stack, Typography, Paper } from '@wso2/oxygen-ui'
 
 const meta: Meta<typeof ColorSchemeToggle> = {
   title: 'Theming/ColorSchemeToggle',
@@ -29,7 +29,7 @@ const meta: Meta<typeof ColorSchemeToggle> = {
       description: {
         component:
           'A toggle button component that cycles through light, dark, and system color schemes. ' +
-          'Built on top of MUI\'s `useColorScheme` hook with automatic icon switching.\n\n' +
+          "Built on top of MUI's `useColorScheme` hook with automatic icon switching.\n\n" +
           '**Features:**\n' +
           '- Three modes: Light, Dark, and System (follows OS preference)\n' +
           '- Automatic icon updates based on current mode\n' +
@@ -43,47 +43,88 @@ const meta: Meta<typeof ColorSchemeToggle> = {
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof ColorSchemeToggle>;
+export default meta
+type Story = StoryObj<typeof ColorSchemeToggle>
 
 export const Default: Story = {
   render: () => (
-    <Stack spacing={2} alignItems="center">
-      <Typography variant="body2" color="text.secondary">
+    <Stack
+      spacing={2}
+      sx={{
+        alignItems: 'center',
+      }}
+    >
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+        }}
+      >
         Click to cycle through: Light → Dark → System
       </Typography>
       <ColorSchemeToggle />
     </Stack>
   ),
-};
+}
 
 export const DifferentSizes: Story = {
   render: () => (
-    <Stack spacing={3} alignItems="center">
+    <Stack
+      spacing={3}
+      sx={{
+        alignItems: 'center',
+      }}
+    >
       <Typography variant="h6">Size Variants</Typography>
-      <Stack direction="row" spacing={2} alignItems="center">
-        <Stack spacing={1} alignItems="center">
+      <Stack
+        direction="row"
+        spacing={2}
+        sx={{
+          alignItems: 'center',
+        }}
+      >
+        <Stack
+          spacing={1}
+          sx={{
+            alignItems: 'center',
+          }}
+        >
           <ColorSchemeToggle size="small" />
           <Typography variant="caption">Small</Typography>
         </Stack>
-        <Stack spacing={1} alignItems="center">
+        <Stack
+          spacing={1}
+          sx={{
+            alignItems: 'center',
+          }}
+        >
           <ColorSchemeToggle size="medium" />
           <Typography variant="caption">Medium</Typography>
         </Stack>
-        <Stack spacing={1} alignItems="center">
+        <Stack
+          spacing={1}
+          sx={{
+            alignItems: 'center',
+          }}
+        >
           <ColorSchemeToggle size="large" />
           <Typography variant="caption">Large</Typography>
         </Stack>
       </Stack>
     </Stack>
   ),
-};
+}
 
 export const WithColors: Story = {
   render: () => (
-    <Stack spacing={3} alignItems="center">
+    <Stack
+      spacing={3}
+      sx={{
+        alignItems: 'center',
+      }}
+    >
       <Typography variant="h6">Color Variants</Typography>
       <Stack direction="row" spacing={2}>
         <ColorSchemeToggle color="default" />
@@ -96,38 +137,59 @@ export const WithColors: Story = {
       </Stack>
     </Stack>
   ),
-};
+}
 
 export const InToolbar: Story = {
   render: () => (
-    <Paper 
-      elevation={2} 
-      sx={{ 
-        p: 2, 
-        display: 'flex', 
-        alignItems: 'center', 
+    <Paper
+      elevation={2}
+      sx={{
+        p: 2,
+        display: 'flex',
+        alignItems: 'center',
         justifyContent: 'space-between',
-        minWidth: 400
+        minWidth: 400,
       }}
     >
       <Typography variant="h6">Application Header</Typography>
-      <Stack direction="row" spacing={1} alignItems="center">
-        <Typography variant="body2" color="text.secondary">
+      <Stack
+        direction="row"
+        spacing={1}
+        sx={{
+          alignItems: 'center',
+        }}
+      >
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           Theme:
         </Typography>
         <ColorSchemeToggle />
       </Stack>
     </Paper>
   ),
-};
+}
 
 export const Disabled: Story = {
   render: () => (
-    <Stack spacing={2} alignItems="center">
-      <Typography variant="body2" color="text.secondary">
+    <Stack
+      spacing={2}
+      sx={{
+        alignItems: 'center',
+      }}
+    >
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+        }}
+      >
         Disabled state
       </Typography>
       <ColorSchemeToggle disabled />
     </Stack>
   ),
-};
+}

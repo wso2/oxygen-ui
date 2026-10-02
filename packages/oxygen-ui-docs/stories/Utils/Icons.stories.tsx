@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import React, { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import React, { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
 import {
   Box,
   Typography,
@@ -30,10 +30,10 @@ import {
   DialogActions,
   Chip,
   Stack,
-} from '@wso2/oxygen-ui';
-import lucideReactPkg from 'lucide-react/package.json';
-import lucideTags from 'lucide-static/tags.json';
-import * as OxygenIcons from '@wso2/oxygen-ui-icons-react';
+} from '@wso2/oxygen-ui'
+import lucideReactPkg from 'lucide-react/package.json'
+import lucideTags from 'lucide-static/tags.json'
+import * as OxygenIcons from '@wso2/oxygen-ui-icons-react'
 import {
   Home,
   Settings,
@@ -68,8 +68,8 @@ import {
   Info,
   CheckCircle,
   XCircle,
-} from '@wso2/oxygen-ui-icons-react';
-import customKeywords from './icon-keywords.json';
+} from '@wso2/oxygen-ui-icons-react'
+import customKeywords from './icon-keywords.json'
 
 const meta: Meta = {
   title: 'Utils/Icons',
@@ -91,20 +91,20 @@ const meta: Meta = {
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
-type IconComponent = React.ComponentType<{ size?: number; color?: string; strokeWidth?: number }>;
+type IconComponent = React.ComponentType<{ size?: number; color?: string; strokeWidth?: number }>
 
 type IconEntry = {
-  Icon: IconComponent;
-  name: string;
-  tags: string[];
-};
+  Icon: IconComponent
+  name: string
+  tags: string[]
+}
 
-type CopyStatus = 'idle' | 'copied' | 'error';
+type CopyStatus = 'idle' | 'copied' | 'error'
 
 const NON_ICON_EXPORTS = new Set([
   'Icon',
@@ -113,169 +113,175 @@ const NON_ICON_EXPORTS = new Set([
   'default',
   'LucideProvider',
   'DynamicIcon',
-]);
+])
 
 function kebabToPascal(kebab: string): string {
   return kebab
     .split('-')
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join('');
+    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+    .join('')
 }
 
 function normalizeForSearch(value: string): string {
-  return value.toLowerCase().replace(/[-_\s]/g, '');
+  return value.toLowerCase().replace(/[-_\s]/g, '')
 }
 
 function buildTagMap(): Record<string, string[]> {
-  const map: Record<string, string[]> = {};
+  const map: Record<string, string[]> = {}
 
   for (const [kebabName, tags] of Object.entries(lucideTags as Record<string, string[]>)) {
-    map[kebabToPascal(kebabName)] = tags;
+    map[kebabToPascal(kebabName)] = tags
   }
 
   for (const [name, tags] of Object.entries(customKeywords as Record<string, string[]>)) {
-    map[name] = [...new Set([...(map[name] ?? []), ...tags])];
+    map[name] = [...new Set([...(map[name] ?? []), ...tags])]
   }
 
-  return map;
+  return map
 }
 
-const tagMap = buildTagMap();
+const tagMap = buildTagMap()
 
 function buildIconCatalog(): IconEntry[] {
   return Object.entries(OxygenIcons)
     .filter(([name, value]) => {
-      if (!/^[A-Z]/.test(name)) return false;
-      if (name.endsWith('Icon')) return false;
-      if (NON_ICON_EXPORTS.has(name)) return false;
-      return typeof value === 'function' || (typeof value === 'object' && value !== null);
+      if (!/^[A-Z]/.test(name)) return false
+      if (name.endsWith('Icon')) return false
+      if (NON_ICON_EXPORTS.has(name)) return false
+      return typeof value === 'function' || (typeof value === 'object' && value !== null)
     })
     .map(([name, Icon]) => ({
       Icon: Icon as IconComponent,
       name,
       tags: tagMap[name] ?? [],
     }))
-    .sort((a, b) => a.name.localeCompare(b.name));
+    .sort((a, b) => a.name.localeCompare(b.name))
 }
 
-const iconCatalog = buildIconCatalog();
+const iconCatalog = buildIconCatalog()
 
 /** Matches MUI default breakpoints used by the previous CSS grid. */
-const GAP_PX = 16;
-const ROW_HEIGHT_PX = 96;
-const OVERSCAN_ROWS = 2;
+const GAP_PX = 16
+const ROW_HEIGHT_PX = 96
+const OVERSCAN_ROWS = 2
 
 function getColumnCount(width: number): number {
-  if (width >= 1200) return 6;
-  if (width >= 900) return 4;
-  if (width >= 600) return 3;
-  return 2;
+  if (width >= 1200) return 6
+  if (width >= 900) return 4
+  if (width >= 600) return 3
+  return 2
 }
 
 function IconGalleryContent() {
-  const [query, setQuery] = useState('');
-  const deferredQuery = useDeferredValue(query);
-  const [selected, setSelected] = useState<IconEntry | null>(null);
-  const [copyStatus, setCopyStatus] = useState<CopyStatus>('idle');
-  const [containerWidth, setContainerWidth] = useState(0);
-  const [scrollTop, setScrollTop] = useState(0);
-  const [viewportHeight, setViewportHeight] = useState(0);
-  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const [query, setQuery] = useState('')
+  const deferredQuery = useDeferredValue(query)
+  const [selected, setSelected] = useState<IconEntry | null>(null)
+  const [copyStatus, setCopyStatus] = useState<CopyStatus>('idle')
+  const [containerWidth, setContainerWidth] = useState(0)
+  const [scrollTop, setScrollTop] = useState(0)
+  const [viewportHeight, setViewportHeight] = useState(0)
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null)
 
   const filteredIcons = useMemo(() => {
-    const trimmed = deferredQuery.trim();
-    if (!trimmed) return iconCatalog;
+    const trimmed = deferredQuery.trim()
+    if (!trimmed) return iconCatalog
 
-    const lower = trimmed.toLowerCase();
-    const normalized = normalizeForSearch(trimmed);
+    const lower = trimmed.toLowerCase()
+    const normalized = normalizeForSearch(trimmed)
 
     return iconCatalog.filter(({ name, tags }) => {
-      if (name.toLowerCase().includes(lower)) return true;
-      if (normalizeForSearch(name).includes(normalized)) return true;
+      if (name.toLowerCase().includes(lower)) return true
+      if (normalizeForSearch(name).includes(normalized)) return true
       return tags.some(
-        (tag) => tag.toLowerCase().includes(lower) || normalizeForSearch(tag).includes(normalized),
-      );
-    });
-  }, [deferredQuery]);
+        tag => tag.toLowerCase().includes(lower) || normalizeForSearch(tag).includes(normalized)
+      )
+    })
+  }, [deferredQuery])
 
   useEffect(() => {
-    setScrollTop(0);
+    setScrollTop(0)
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTop = 0;
+      scrollContainerRef.current.scrollTop = 0
     }
-  }, [deferredQuery]);
+  }, [deferredQuery])
 
   useEffect(() => {
-    const el = scrollContainerRef.current;
-    if (!el) return undefined;
+    const el = scrollContainerRef.current
+    if (!el) return undefined
 
     const updateSize = () => {
-      setContainerWidth(el.clientWidth);
-      setViewportHeight(el.clientHeight);
-    };
+      setContainerWidth(el.clientWidth)
+      setViewportHeight(el.clientHeight)
+    }
 
-    updateSize();
-    const observer = new ResizeObserver(updateSize);
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [filteredIcons.length]);
+    updateSize()
+    const observer = new ResizeObserver(updateSize)
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [filteredIcons.length])
 
-  const columnCount = containerWidth > 0 ? getColumnCount(containerWidth) : 6;
-  const rowCount = Math.ceil(filteredIcons.length / columnCount);
-  const totalHeight = rowCount * ROW_HEIGHT_PX;
+  const columnCount = containerWidth > 0 ? getColumnCount(containerWidth) : 6
+  const rowCount = Math.ceil(filteredIcons.length / columnCount)
+  const totalHeight = rowCount * ROW_HEIGHT_PX
 
-  const startRow = Math.max(0, Math.floor(scrollTop / ROW_HEIGHT_PX) - OVERSCAN_ROWS);
+  const startRow = Math.max(0, Math.floor(scrollTop / ROW_HEIGHT_PX) - OVERSCAN_ROWS)
   const endRow = Math.min(
     rowCount,
-    Math.ceil((scrollTop + viewportHeight) / ROW_HEIGHT_PX) + OVERSCAN_ROWS,
-  );
+    Math.ceil((scrollTop + viewportHeight) / ROW_HEIGHT_PX) + OVERSCAN_ROWS
+  )
 
   const visibleCells = useMemo(() => {
-    const cells: { entry: IconEntry; row: number; col: number }[] = [];
+    const cells: { entry: IconEntry; row: number; col: number }[] = []
     for (let row = startRow; row < endRow; row += 1) {
       for (let col = 0; col < columnCount; col += 1) {
-        const index = row * columnCount + col;
-        if (index >= filteredIcons.length) break;
-        cells.push({ entry: filteredIcons[index], row, col });
+        const index = row * columnCount + col
+        if (index >= filteredIcons.length) break
+        cells.push({ entry: filteredIcons[index], row, col })
       }
     }
-    return cells;
-  }, [startRow, endRow, columnCount, filteredIcons]);
+    return cells
+  }, [startRow, endRow, columnCount, filteredIcons])
 
-  const cellWidthPercent = 100 / columnCount;
+  const cellWidthPercent = 100 / columnCount
 
   const importSnippet = selected
     ? `import { ${selected.name} } from '@wso2/oxygen-ui-icons-react';`
-    : '';
+    : ''
 
   const handleCopy = async () => {
-    if (!importSnippet) return;
+    if (!importSnippet) return
     try {
-      await navigator.clipboard.writeText(importSnippet);
-      setCopyStatus('copied');
-      window.setTimeout(() => setCopyStatus('idle'), 2000);
+      await navigator.clipboard.writeText(importSnippet)
+      setCopyStatus('copied')
+      window.setTimeout(() => setCopyStatus('idle'), 2000)
     } catch {
-      setCopyStatus('error');
-      window.setTimeout(() => setCopyStatus('idle'), 2000);
+      setCopyStatus('error')
+      window.setTimeout(() => setCopyStatus('idle'), 2000)
     }
-  };
+  }
 
   const handleClose = () => {
-    setSelected(null);
-    setCopyStatus('idle');
-  };
+    setSelected(null)
+    setCopyStatus('idle')
+  }
 
-  const SelectedIcon = selected?.Icon;
+  const SelectedIcon = selected?.Icon
 
   return (
     <Box>
       <Typography variant="h5" gutterBottom>
         Icon Gallery
       </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+          mb: 2,
+        }}
+      >
         Browse <strong>{iconCatalog.length}</strong> icons from{' '}
-        <strong>lucide-react v{lucideReactPkg.version}</strong> plus Oxygen UI custom icons. Search by
-        name or tags (e.g. <code>logout</code> finds <code>LogOut</code>).
+        <strong>lucide-react v{lucideReactPkg.version}</strong> plus Oxygen UI custom icons. Search
+        by name or tags (e.g. <code>logout</code> finds <code>LogOut</code>).
       </Typography>
 
       <Box
@@ -292,25 +298,37 @@ function IconGalleryContent() {
       >
         <SearchBar
           value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={event => setQuery(event.target.value)}
           placeholder="Search icons by name or tag…"
           fullWidth
         />
-        <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
+        <Typography
+          variant="caption"
+          sx={{
+            color: 'text.secondary',
+            mt: 1,
+            display: 'block',
+          }}
+        >
           Showing {filteredIcons.length} of {iconCatalog.length} icons
         </Typography>
       </Box>
 
       {filteredIcons.length === 0 ? (
         <Box sx={{ py: 8, textAlign: 'center' }}>
-          <Typography variant="body1" color="text.secondary">
+          <Typography
+            variant="body1"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
             No icons match &ldquo;{query.trim()}&rdquo;. Try a different name or tag.
           </Typography>
         </Box>
       ) : (
         <Box
           ref={scrollContainerRef}
-          onScroll={(event) => setScrollTop(event.currentTarget.scrollTop)}
+          onScroll={event => setScrollTop(event.currentTarget.scrollTop)}
           sx={{
             maxHeight: '60vh',
             overflow: 'auto',
@@ -325,7 +343,7 @@ function IconGalleryContent() {
             }}
           >
             {visibleCells.map(({ entry, row, col }) => {
-              const { Icon, name } = entry;
+              const { Icon, name } = entry
               return (
                 <Paper
                   key={name}
@@ -334,8 +352,8 @@ function IconGalleryContent() {
                   type="button"
                   title={name}
                   onClick={() => {
-                    setSelected(entry);
-                    setCopyStatus('idle');
+                    setSelected(entry)
+                    setCopyStatus('idle')
                   }}
                   sx={{
                     position: 'absolute',
@@ -377,7 +395,7 @@ function IconGalleryContent() {
                     {name}
                   </Typography>
                 </Paper>
-              );
+              )
             })}
           </Box>
         </Box>
@@ -448,12 +466,17 @@ function IconGalleryContent() {
               </Typography>
               {selected.tags.length > 0 ? (
                 <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
-                  {selected.tags.map((tag) => (
+                  {selected.tags.map(tag => (
                     <Chip key={tag} label={tag} size="small" variant="outlined" />
                   ))}
                 </Stack>
               ) : (
-                <Typography variant="body2" color="text.secondary">
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: 'text.secondary',
+                  }}
+                >
                   No tags available for this icon.
                 </Typography>
               )}
@@ -465,123 +488,213 @@ function IconGalleryContent() {
         )}
       </Dialog>
     </Box>
-  );
+  )
 }
 
 export const IconGallery: Story = {
   render: () => <IconGalleryContent />,
-};
+}
 
 export const IconSizes: Story = {
   render: () => (
     <Box sx={{ display: 'flex', gap: 3, alignItems: 'flex-end' }}>
       <Box sx={{ textAlign: 'center' }}>
         <Home size={16} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: 'block',
+            mt: 1,
+          }}
+        >
           16px
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Home size={24} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: 'block',
+            mt: 1,
+          }}
+        >
           24px (default)
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Home size={32} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: 'block',
+            mt: 1,
+          }}
+        >
           32px
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Home size={48} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: 'block',
+            mt: 1,
+          }}
+        >
           48px
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Home size={64} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: 'block',
+            mt: 1,
+          }}
+        >
           64px
         </Typography>
       </Box>
     </Box>
   ),
-};
+}
 
 export const IconColors: Story = {
   render: () => (
     <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap', alignItems: 'center' }}>
       <Box sx={{ textAlign: 'center' }}>
         <Star size={32} color="currentColor" />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: 'block',
+            mt: 1,
+          }}
+        >
           Current Color
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Star size={32} color="#ff7400" />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: 'block',
+            mt: 1,
+          }}
+        >
           Custom Hex
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Star size={32} color="rgb(74, 41, 165)" />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: 'block',
+            mt: 1,
+          }}
+        >
           RGB
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center', color: 'error.main' }}>
         <Star size={32} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: 'block',
+            mt: 1,
+          }}
+        >
           Inherit (Error)
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center', color: 'success.main' }}>
         <Star size={32} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: 'block',
+            mt: 1,
+          }}
+        >
           Inherit (Success)
         </Typography>
       </Box>
     </Box>
   ),
-};
+}
 
 export const IconStrokeWidth: Story = {
   render: () => (
     <Box sx={{ display: 'flex', gap: 3, alignItems: 'center' }}>
       <Box sx={{ textAlign: 'center' }}>
         <Settings size={32} strokeWidth={1} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: 'block',
+            mt: 1,
+          }}
+        >
           Thin (1)
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Settings size={32} strokeWidth={1.5} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: 'block',
+            mt: 1,
+          }}
+        >
           Light (1.5)
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Settings size={32} strokeWidth={2} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: 'block',
+            mt: 1,
+          }}
+        >
           Regular (2)
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Settings size={32} strokeWidth={2.5} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: 'block',
+            mt: 1,
+          }}
+        >
           Medium (2.5)
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Settings size={32} strokeWidth={3} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: 'block',
+            mt: 1,
+          }}
+        >
           Bold (3)
         </Typography>
       </Box>
     </Box>
   ),
-};
+}
 
 export const IconCategories: Story = {
   render: () => (
@@ -659,4 +772,4 @@ export const IconCategories: Story = {
       </Box>
     </Box>
   ),
-};
+}

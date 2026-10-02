@@ -47,12 +47,13 @@ const NotificationBannerAlert = styled(Alert, {
   },
   // MUI's light-mode filled Alert uses `info.main`/`warning.main` backgrounds,
   // which fail WCAG AA (4.5:1) contrast with white text. Darken them so the
-  // banner text stays readable.
+  // banner text stays readable. Material 9 dropped `filledInfo`/`filledWarning`
+  // in favor of `filled` + `colorInfo` / `colorWarning`.
   ...theme.applyStyles('light', {
-    '&.MuiAlert-filledInfo': {
+    '&.MuiAlert-filled.MuiAlert-colorInfo': {
       backgroundColor: (theme.vars || theme).palette.info.dark,
     },
-    '&.MuiAlert-filledWarning': {
+    '&.MuiAlert-filled.MuiAlert-colorWarning': {
       color: '#000',
       '& .MuiAlert-icon, & .MuiAlert-action': {
         color: '#000',

@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Tabs, Tab, Box, Typography } from '@wso2/oxygen-ui';
-import React, { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Tabs, Tab, Box, Typography } from '@wso2/oxygen-ui'
+import React, { useState } from 'react'
 
 /**
  * The Tabs component organizes content into separate views where only one view is visible at a time.
  * Users can switch between views by selecting different tabs.
- * 
- * This is a direct import of MUI tabs component. 
+ *
+ * This is a direct import of MUI tabs component.
  * Read more at: https://mui.com/material-ui/react-tabs/
  */
 const meta: Meta<typeof Tabs> = {
@@ -43,36 +43,41 @@ const meta: Meta<typeof Tabs> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI tabs component is a direct import of MUI tabs component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-tabs/](https://mui.com/material-ui/react-tabs/)',
+        component:
+          'Oxygen UI tabs component is a direct import of MUI tabs component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-tabs/](https://mui.com/material-ui/react-tabs/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Tabs>;
+export default meta
+type Story = StoryObj<typeof Tabs>
 
 interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
+  children?: React.ReactNode
+  index: number
+  value: number
 }
 
 function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props
   return (
     <div role="tabpanel" hidden={value !== index} {...other}>
-      {value === index && <Box sx={{ p: 3 }}><Typography>{children}</Typography></Box>}
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
     </div>
-  );
+  )
 }
 
 export const Default: Story = {
   render: () => {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(0)
     return (
       <Box sx={{ width: '100%' }}>
         <Tabs value={value} onChange={(e, newValue) => setValue(newValue)}>
@@ -90,28 +95,33 @@ export const Default: Story = {
           Content for Item Three
         </TabPanel>
       </Box>
-    );
+    )
   },
-};
+}
 
 export const Colors: Story = {
   render: () => {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(0)
     return (
       <Box sx={{ width: '100%' }}>
-        <Tabs value={value} onChange={(e, newValue) => setValue(newValue)} textColor="secondary" indicatorColor="secondary">
+        <Tabs
+          value={value}
+          onChange={(e, newValue) => setValue(newValue)}
+          textColor="secondary"
+          indicatorColor="secondary"
+        >
           <Tab label="Secondary" />
           <Tab label="Tab Two" />
           <Tab label="Tab Three" />
         </Tabs>
       </Box>
-    );
+    )
   },
-};
+}
 
 export const Centered: Story = {
   render: () => {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(0)
     return (
       <Box sx={{ width: '100%' }}>
         <Tabs value={value} onChange={(e, newValue) => setValue(newValue)} centered>
@@ -120,16 +130,21 @@ export const Centered: Story = {
           <Tab label="Item Three" />
         </Tabs>
       </Box>
-    );
+    )
   },
-};
+}
 
 export const Scrollable: Story = {
   render: () => {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(0)
     return (
       <Box sx={{ width: 400 }}>
-        <Tabs value={value} onChange={(e, newValue) => setValue(newValue)} variant="scrollable" scrollButtons="auto">
+        <Tabs
+          value={value}
+          onChange={(e, newValue) => setValue(newValue)}
+          variant="scrollable"
+          scrollButtons="auto"
+        >
           <Tab label="Item One" />
           <Tab label="Item Two" />
           <Tab label="Item Three" />
@@ -139,19 +154,19 @@ export const Scrollable: Story = {
           <Tab label="Item Seven" />
         </Tabs>
       </Box>
-    );
+    )
   },
-};
+}
 
 export const Disabled: Story = {
   render: () => {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(0)
     return (
       <Tabs value={value} onChange={(e, newValue) => setValue(newValue)}>
         <Tab label="Active" />
         <Tab label="Disabled" disabled />
         <Tab label="Active" />
       </Tabs>
-    );
+    )
   },
-};
+}

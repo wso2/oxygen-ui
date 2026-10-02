@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Slider, Stack, Typography, Box } from '@wso2/oxygen-ui';
-import React, { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Slider, Stack, Typography, Box } from '@wso2/oxygen-ui'
+import React, { useState } from 'react'
 
 /**
  * The Slider component allows users to select a value or range of values along a bar.
  * It supports continuous and discrete values, custom marks, and various orientations.
- * 
- * This is a direct import of MUI slider component. 
+ *
+ * This is a direct import of MUI slider component.
  * Read more at: https://mui.com/material-ui/react-slider/
  */
 const meta: Meta<typeof Slider> = {
@@ -34,17 +34,18 @@ const meta: Meta<typeof Slider> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI slider component is a direct import of MUI slider component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-slider/](https://mui.com/material-ui/react-slider/)',
+        component:
+          'Oxygen UI slider component is a direct import of MUI slider component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-slider/](https://mui.com/material-ui/react-slider/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Slider>;
+export default meta
+type Story = StoryObj<typeof Slider>
 
 export const Default: Story = {
   render: () => (
@@ -53,7 +54,7 @@ export const Default: Story = {
       <Slider defaultValue={50} aria-label="Volume" />
     </Box>
   ),
-};
+}
 
 export const Sizes: Story = {
   render: () => (
@@ -62,7 +63,7 @@ export const Sizes: Story = {
       <Slider defaultValue={50} aria-label="Volume" />
     </Stack>
   ),
-};
+}
 
 export const Discrete: Story = {
   render: () => (
@@ -78,7 +79,7 @@ export const Discrete: Story = {
       />
     </Box>
   ),
-};
+}
 
 export const CustomMarks: Story = {
   render: () => {
@@ -87,14 +88,14 @@ export const CustomMarks: Story = {
       { value: 20, label: '20°C' },
       { value: 37, label: '37°C' },
       { value: 100, label: '100°C' },
-    ];
+    ]
     return (
       <Box sx={{ width: 300 }}>
         <Slider defaultValue={20} step={10} marks={marks} aria-label="Temperature" />
       </Box>
-    );
+    )
   },
-};
+}
 
 export const Range: Story = {
   render: () => (
@@ -102,19 +103,23 @@ export const Range: Story = {
       <Slider defaultValue={[20, 37]} valueLabelDisplay="auto" aria-label="Temperature range" />
     </Box>
   ),
-};
+}
 
 export const Controlled: Story = {
   render: () => {
-    const [value, setValue] = useState<number>(30);
+    const [value, setValue] = useState<number>(30)
     return (
       <Stack spacing={2} sx={{ width: 300 }}>
-        <Slider value={value} onChange={(e, newValue) => setValue(newValue as number)} aria-label="Volume" />
+        <Slider
+          value={value}
+          onChange={(e, newValue) => setValue(newValue as number)}
+          aria-label="Volume"
+        />
         <Typography>Value: {value}</Typography>
       </Stack>
-    );
+    )
   },
-};
+}
 
 export const Disabled: Story = {
   render: () => (
@@ -122,7 +127,7 @@ export const Disabled: Story = {
       <Slider disabled defaultValue={30} aria-label="Volume" />
     </Box>
   ),
-};
+}
 
 export const Colors: Story = {
   render: () => (
@@ -134,4 +139,4 @@ export const Colors: Story = {
       <Slider defaultValue={30} color="warning" aria-label="Warning" />
     </Stack>
   ),
-};
+}

@@ -16,26 +16,34 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react'
 import {
-    Box,
-    Button,
-    Drawer,
-    Divider,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText
-} from '@wso2/oxygen-ui';
-import { Inbox, Star, Send, FileText, Mail, Trash2, TriangleAlert } from '@wso2/oxygen-ui-icons-react';
-import React, { useState } from 'react';
+  Box,
+  Button,
+  Drawer,
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from '@wso2/oxygen-ui'
+import {
+  Inbox,
+  Star,
+  Send,
+  FileText,
+  Mail,
+  Trash2,
+  TriangleAlert,
+} from '@wso2/oxygen-ui-icons-react'
+import React, { useState } from 'react'
 
 /**
- * The Drawer component is a panel that slides in from the edge of the screen. 
+ * The Drawer component is a panel that slides in from the edge of the screen.
  * It can be used for navigation, menus, or temporary content.
- * 
- * This is a direct import of MUI drawer component. 
+ *
+ * This is a direct import of MUI drawer component.
  * Read more at: https://mui.com/material-ui/react-drawer/
  */
 const meta: Meta<typeof Drawer> = {
@@ -54,48 +62,47 @@ const meta: Meta<typeof Drawer> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI drawer component is a direct import of MUI drawer component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-drawer/](https://mui.com/material-ui/react-drawer/)',
+        component:
+          'Oxygen UI drawer component is a direct import of MUI drawer component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-drawer/](https://mui.com/material-ui/react-drawer/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Drawer>;
+export default meta
+type Story = StoryObj<typeof Drawer>
 
 const getIconForItem = (text: string) => {
   switch (text) {
     case 'Inbox':
-      return <Inbox />;
+      return <Inbox />
     case 'Starred':
-      return <Star />;
+      return <Star />
     case 'Send email':
-      return <Send />;
+      return <Send />
     case 'Drafts':
-      return <FileText />;
+      return <FileText />
     case 'All mail':
-      return <Mail />;
+      return <Mail />
     case 'Trash':
-      return <Trash2 />;
+      return <Trash2 />
     case 'Spam':
-      return <TriangleAlert />;
+      return <TriangleAlert />
     default:
-      return <Mail />;
+      return <Mail />
   }
-};
+}
 
 const DrawerList = () => (
   <Box sx={{ width: 250 }} role="presentation">
     <List>
-      {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text) => (
+      {['Inbox', 'Starred', 'Send email', 'Drafts'].map(text => (
         <ListItem key={text} disablePadding>
           <ListItemButton>
-            <ListItemIcon>
-              {getIconForItem(text)}
-            </ListItemIcon>
+            <ListItemIcon>{getIconForItem(text)}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItemButton>
         </ListItem>
@@ -103,27 +110,25 @@ const DrawerList = () => (
     </List>
     <Divider />
     <List>
-      {['All mail', 'Trash', 'Spam'].map((text) => (
+      {['All mail', 'Trash', 'Spam'].map(text => (
         <ListItem key={text} disablePadding>
           <ListItemButton>
-            <ListItemIcon>
-              {getIconForItem(text)}
-            </ListItemIcon>
+            <ListItemIcon>{getIconForItem(text)}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItemButton>
         </ListItem>
       ))}
     </List>
   </Box>
-);
+)
 
 export const TemporaryLeft: Story = {
   render: () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     const toggleDrawer = (newOpen: boolean) => () => {
-      setOpen(newOpen);
-    };
+      setOpen(newOpen)
+    }
 
     return (
       <div>
@@ -134,9 +139,9 @@ export const TemporaryLeft: Story = {
           </Box>
         </Drawer>
       </div>
-    );
+    )
   },
-};
+}
 
 export const Anchors: Story = {
   render: () => {
@@ -145,37 +150,30 @@ export const Anchors: Story = {
       left: false,
       bottom: false,
       right: false,
-    });
+    })
 
     const toggleDrawer = (anchor: 'top' | 'left' | 'bottom' | 'right', open: boolean) => () => {
-      setState({ ...state, [anchor]: open });
-    };
+      setState({ ...state, [anchor]: open })
+    }
 
     return (
       <div>
-        {(['left', 'right', 'top', 'bottom'] as const).map((anchor) => (
+        {(['left', 'right', 'top', 'bottom'] as const).map(anchor => (
           <React.Fragment key={anchor}>
             <Button onClick={toggleDrawer(anchor, true)} sx={{ mr: 1, mb: 1 }}>
               {anchor}
             </Button>
-            <Drawer
-              anchor={anchor}
-              open={state[anchor]}
-              onClose={toggleDrawer(anchor, false)}
-            >
-              <Box
-                onClick={toggleDrawer(anchor, false)}
-                onKeyDown={toggleDrawer(anchor, false)}
-              >
+            <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+              <Box onClick={toggleDrawer(anchor, false)} onKeyDown={toggleDrawer(anchor, false)}>
                 <DrawerList />
               </Box>
             </Drawer>
           </React.Fragment>
         ))}
       </div>
-    );
+    )
   },
-};
+}
 
 export const Permanent: Story = {
   render: () => (
@@ -199,19 +197,19 @@ export const Permanent: Story = {
       </Box>
     </Box>
   ),
-};
+}
 
 export const Persistent: Story = {
   render: () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     const handleDrawerOpen = () => {
-      setOpen(true);
-    };
+      setOpen(true)
+    }
 
     const handleDrawerClose = () => {
-      setOpen(false);
-    };
+      setOpen(false)
+    }
 
     return (
       <Box sx={{ display: 'flex' }}>
@@ -243,6 +241,6 @@ export const Persistent: Story = {
           <Box>Main content area</Box>
         </Box>
       </Box>
-    );
+    )
   },
-};
+}

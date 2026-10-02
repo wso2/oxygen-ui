@@ -1,11 +1,11 @@
 # WSO2 Oxygen-UI
 
-**WSO2 Oxygen-UI** is the official design system and React component library for WSO2 products, built on top of [Material-UI v7](https://mui.com/material-ui/). It provides a consistent, modern, and accessible user experience across all WSO2 applications, enabling rapid development and seamless integration with the latest frontend technologies.
+**WSO2 Oxygen-UI** is the official design system and React component library for WSO2 products, built on top of [Material-UI v9](https://mui.com/material-ui/). It provides a consistent, modern, and accessible user experience across all WSO2 applications, enabling rapid development and seamless integration with the latest frontend technologies.
 
 Oxygen-UI delivers:
 
 - A comprehensive set of ready-to-use UI components + icons, themed for WSO2 brand and product needs
-- Full compatibility with Material-UI v7.3.5 and its ecosystem
+- Full compatibility with Material-UI v9.4.0 and its ecosystem
 - Full compatibility with Lucide v0.553
 - Support for custom WSO2 components, icons and design patterns
 - Easy integration with Vite, Nx, and modern React workflows

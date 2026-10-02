@@ -16,10 +16,10 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Accordion, AccordionSummary, AccordionDetails, Typography, Stack } from '@wso2/oxygen-ui';
-import { ChevronDown, Minus, Plus } from '@wso2/oxygen-ui-icons-react';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Accordion, AccordionSummary, AccordionDetails, Typography, Stack } from '@wso2/oxygen-ui'
+import { ChevronDown, Minus, Plus } from '@wso2/oxygen-ui-icons-react'
+import React from 'react'
 
 /**
  * The Accordion component allows users to show and hide sections of content.
@@ -48,19 +48,16 @@ const meta: Meta<typeof Accordion> = {
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Accordion>;
+export default meta
+type Story = StoryObj<typeof Accordion>
 
 export const Default: Story = {
   render: () => (
     <div style={{ width: 400 }}>
       <Accordion>
-        <AccordionSummary
-          id="panel1-header"
-          aria-controls="panel1-content"
-        >
+        <AccordionSummary id="panel1-header" aria-controls="panel1-content">
           <Typography>Accordion 1</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -71,10 +68,7 @@ export const Default: Story = {
         </AccordionDetails>
       </Accordion>
       <Accordion>
-        <AccordionSummary
-          id="panel2-header"
-          aria-controls="panel2-content"
-        >
+        <AccordionSummary id="panel2-header" aria-controls="panel2-content">
           <Typography>Accordion 2</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -86,16 +80,13 @@ export const Default: Story = {
       </Accordion>
     </div>
   ),
-};
+}
 
 export const Expanded: Story = {
   render: () => (
     <div style={{ width: 400 }}>
       <Accordion defaultExpanded>
-        <AccordionSummary
-          id="expanded-header"
-          aria-controls="expanded-content"
-        >
+        <AccordionSummary id="expanded-header" aria-controls="expanded-content">
           <Typography>Expanded by Default</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -106,16 +97,13 @@ export const Expanded: Story = {
       </Accordion>
     </div>
   ),
-};
+}
 
 export const Disabled: Story = {
   render: () => (
     <div style={{ width: 400 }}>
       <Accordion disabled>
-        <AccordionSummary
-          id="disabled-header"
-          aria-controls="disabled-content"
-        >
+        <AccordionSummary id="disabled-header" aria-controls="disabled-content">
           <Typography>Disabled Accordion</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -126,53 +114,38 @@ export const Disabled: Story = {
       </Accordion>
     </div>
   ),
-};
+}
 
 export const Multiple: Story = {
   render: () => (
     <Stack spacing={0} sx={{ width: 400 }}>
       <Accordion>
-        <AccordionSummary
-          id="general-header"
-          aria-controls="general-content"
-        >
+        <AccordionSummary id="general-header" aria-controls="general-content">
           <Typography>General Settings</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Configure general application settings here.
-          </Typography>
+          <Typography>Configure general application settings here.</Typography>
         </AccordionDetails>
       </Accordion>
       <Accordion>
-        <AccordionSummary
-          id="security-header"
-          aria-controls="security-content"
-        >
+        <AccordionSummary id="security-header" aria-controls="security-content">
           <Typography>Security</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Manage security and privacy settings.
-          </Typography>
+          <Typography>Manage security and privacy settings.</Typography>
         </AccordionDetails>
       </Accordion>
       <Accordion>
-        <AccordionSummary
-          id="advanced-header"
-          aria-controls="advanced-content"
-        >
+        <AccordionSummary id="advanced-header" aria-controls="advanced-content">
           <Typography>Advanced</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Advanced configuration options for power users.
-          </Typography>
+          <Typography>Advanced configuration options for power users.</Typography>
         </AccordionDetails>
       </Accordion>
     </Stack>
   ),
-};
+}
 
 export const ExpandIcon: Story = {
   parameters: {
@@ -196,25 +169,22 @@ export const ExpandIcon: Story = {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            Same disclosure icon as the theme default, passed explicitly via expandIcon.
-            MUI rotates the chevron 180° when expanded.
+            Same disclosure icon as the theme default, passed explicitly via expandIcon. MUI rotates
+            the chevron 180° when expanded.
           </Typography>
         </AccordionDetails>
       </Accordion>
     </div>
   ),
-};
+}
 
 export const CustomExpandIcon: Story = {
   render: function CustomExpandIconStory() {
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = React.useState(false)
 
     return (
       <div style={{ width: 400 }}>
-        <Accordion
-          expanded={expanded}
-          onChange={(_, isExpanded) => setExpanded(isExpanded)}
-        >
+        <Accordion expanded={expanded} onChange={(_, isExpanded) => setExpanded(isExpanded)}>
           <AccordionSummary
             id="custom-icon-header"
             aria-controls="custom-icon-content"
@@ -229,12 +199,12 @@ export const CustomExpandIcon: Story = {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              Non-chevron icons should swap by expanded state (Plus/Minus) and disable
-              MUI&apos;s 180° expand-icon rotation.
+              Non-chevron icons should swap by expanded state (Plus/Minus) and disable MUI&apos;s
+              180° expand-icon rotation.
             </Typography>
           </AccordionDetails>
         </Accordion>
       </div>
-    );
+    )
   },
-};
+}

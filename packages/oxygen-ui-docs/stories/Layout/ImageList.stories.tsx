@@ -16,13 +16,13 @@
  * under the License.
  */
 
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { ImageList, ImageListItem, ImageListItemBar } from '@wso2/oxygen-ui';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { ImageList, ImageListItem, ImageListItemBar } from '@wso2/oxygen-ui'
 
 /**
  * Image List displays a collection of images in an organized grid.
- * 
+ *
  * Read more at: https://mui.com/material-ui/react-image-list/
  */
 const meta: Meta<typeof ImageList> = {
@@ -32,17 +32,18 @@ const meta: Meta<typeof ImageList> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI Image List is a direct import of MUI Image List. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-image-list/](https://mui.com/material-ui/react-image-list/)',
+        component:
+          'Oxygen UI Image List is a direct import of MUI Image List. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-image-list/](https://mui.com/material-ui/react-image-list/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof ImageList>;
+export default meta
+type Story = StoryObj<typeof ImageList>
 
 const itemData = [
   {
@@ -93,7 +94,7 @@ const itemData = [
     img: 'https://images.unsplash.com/photo-1589118949245-7d38baf380d6?w=248&fit=crop&auto=format',
     title: 'Bike',
   },
-];
+]
 
 /**
  * Standard image list
@@ -101,41 +102,42 @@ const itemData = [
 export const Standard: Story = {
   render: () => (
     // Fixed-height image lists scroll, so they need to be keyboard focusable
-    <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164} tabIndex={0} aria-label="Photo gallery">
-      {itemData.map((item) => (
+    <ImageList
+      sx={{ width: 500, height: 450 }}
+      cols={3}
+      rowHeight={164}
+      tabIndex={0}
+      aria-label="Photo gallery"
+    >
+      {itemData.map(item => (
         <ImageListItem key={item.img}>
-          <img
-            srcSet={`${item.img}&dpr=2 2x`}
-            src={item.img}
-            alt={item.title}
-            loading="lazy"
-          />
+          <img srcSet={`${item.img}&dpr=2 2x`} src={item.img} alt={item.title} loading="lazy" />
         </ImageListItem>
       ))}
     </ImageList>
   ),
-};
+}
 
 /**
  * Image list with title bars
  */
 export const WithTitleBar: Story = {
   render: () => (
-    <ImageList sx={{ width: 500, height: 450 }} cols={3} tabIndex={0} aria-label="Photo gallery with titles">
-      {itemData.map((item) => (
+    <ImageList
+      sx={{ width: 500, height: 450 }}
+      cols={3}
+      tabIndex={0}
+      aria-label="Photo gallery with titles"
+    >
+      {itemData.map(item => (
         <ImageListItem key={item.img}>
-          <img
-            srcSet={`${item.img}&dpr=2 2x`}
-            src={item.img}
-            alt={item.title}
-            loading="lazy"
-          />
+          <img srcSet={`${item.img}&dpr=2 2x`} src={item.img} alt={item.title} loading="lazy" />
           <ImageListItemBar title={item.title} />
         </ImageListItem>
       ))}
     </ImageList>
   ),
-};
+}
 
 /**
  * Quilted image list
@@ -145,10 +147,8 @@ export const Quilted: Story = {
     function srcset(image: string, size: number, rows = 1, cols = 1) {
       return {
         src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
-        srcSet: `${image}?w=${size * cols}&h=${
-          size * rows
-        }&fit=crop&auto=format&dpr=2 2x`,
-      };
+        srcSet: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format&dpr=2 2x`,
+      }
     }
 
     return (
@@ -174,70 +174,71 @@ export const Quilted: Story = {
           </ImageListItem>
         ))}
       </ImageList>
-    );
+    )
   },
-};
+}
 
 /**
  * Woven image list
  */
 export const Woven: Story = {
   render: () => (
-    <ImageList sx={{ width: 500, height: 450 }} variant="woven" cols={3} gap={8} tabIndex={0} aria-label="Woven photo gallery">
-      {itemData.map((item) => (
+    <ImageList
+      sx={{ width: 500, height: 450 }}
+      variant="woven"
+      cols={3}
+      gap={8}
+      tabIndex={0}
+      aria-label="Woven photo gallery"
+    >
+      {itemData.map(item => (
         <ImageListItem key={item.img}>
-          <img
-            srcSet={`${item.img}&dpr=2 2x`}
-            src={item.img}
-            alt={item.title}
-            loading="lazy"
-          />
+          <img srcSet={`${item.img}&dpr=2 2x`} src={item.img} alt={item.title} loading="lazy" />
         </ImageListItem>
       ))}
     </ImageList>
   ),
-};
+}
 
 /**
  * Masonry image list
  */
 export const Masonry: Story = {
   render: () => (
-    <ImageList sx={{ width: 500, height: 450 }} variant="masonry" cols={3} gap={8} tabIndex={0} aria-label="Masonry photo gallery">
-      {itemData.map((item) => (
+    <ImageList
+      sx={{ width: 500, height: 450 }}
+      variant="masonry"
+      cols={3}
+      gap={8}
+      tabIndex={0}
+      aria-label="Masonry photo gallery"
+    >
+      {itemData.map(item => (
         <ImageListItem key={item.img}>
-          <img
-            srcSet={`${item.img}&dpr=2 2x`}
-            src={item.img}
-            alt={item.title}
-            loading="lazy"
-          />
+          <img srcSet={`${item.img}&dpr=2 2x`} src={item.img} alt={item.title} loading="lazy" />
         </ImageListItem>
       ))}
     </ImageList>
   ),
-};
+}
 
 /**
  * Image list with custom bar position
  */
 export const CustomBar: Story = {
   render: () => (
-    <ImageList sx={{ width: 500, height: 450 }} cols={3} tabIndex={0} aria-label="Photo gallery with custom bars">
-      {itemData.map((item) => (
+    <ImageList
+      sx={{ width: 500, height: 450 }}
+      cols={3}
+      tabIndex={0}
+      aria-label="Photo gallery with custom bars"
+    >
+      {itemData.map(item => (
         <ImageListItem key={item.img}>
-          <img
-            srcSet={`${item.img}&dpr=2 2x`}
-            src={item.img}
-            alt={item.title}
-            loading="lazy"
-          />
-          <ImageListItemBar
-            title={item.title}
-            position="below"
-          />
+          <img srcSet={`${item.img}&dpr=2 2x`} src={item.img} alt={item.title} loading="lazy" />
+          <ImageListItemBar title={item.title} position="below" />
         </ImageListItem>
       ))}
     </ImageList>
   ),
-};
+}

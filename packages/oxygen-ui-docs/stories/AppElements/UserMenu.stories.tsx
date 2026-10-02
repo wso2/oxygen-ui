@@ -16,15 +16,10 @@
  * under the License.
  */
 
-import * as React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { UserMenu, Box, Typography } from '@wso2/oxygen-ui';
-import {
-  User as ProfileIcon,
-  Settings,
-  CreditCard,
-  LogOut,
-} from '@wso2/oxygen-ui-icons-react';
+import * as React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { UserMenu, Box, Typography } from '@wso2/oxygen-ui'
+import { User as ProfileIcon, Settings, CreditCard, LogOut } from '@wso2/oxygen-ui-icons-react'
 
 /**
  * UserMenu is a compound component for displaying user profile dropdown menu
@@ -110,10 +105,10 @@ import { User, Settings, CreditCard, LogOut } from '@wso2/oxygen-ui-icons-react'
       },
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof UserMenu>;
+export default meta
+type Story = StoryObj<typeof UserMenu>
 
 /**
  * Default composition pattern example with all menu items.
@@ -121,7 +116,14 @@ type Story = StoryObj<typeof UserMenu>;
 export const Composed: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
-      <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+      <Typography
+        variant="caption"
+        sx={{
+          color: 'text.secondary',
+          mb: 2,
+          display: 'block',
+        }}
+      >
         Composition Pattern - Initials avatar on trigger and header
       </Typography>
       <UserMenu>
@@ -150,7 +152,7 @@ export const Composed: Story = {
       </UserMenu>
     </Box>
   ),
-};
+}
 
 /**
  * Menu with avatar image URL.
@@ -158,19 +160,23 @@ export const Composed: Story = {
 export const WithAvatarImage: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
-      <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+      <Typography
+        variant="caption"
+        sx={{
+          color: 'text.secondary',
+          mb: 2,
+          display: 'block',
+        }}
+      >
         Avatar with image URL
       </Typography>
       <UserMenu>
-        <UserMenu.Trigger 
-          name="Sarah Wilson" 
+        <UserMenu.Trigger name="Sarah Wilson" avatar="https://i.pravatar.cc/150?img=47" />
+        <UserMenu.Header
+          name="Sarah Wilson"
+          email="sarah@example.com"
           avatar="https://i.pravatar.cc/150?img=47"
-        />
-        <UserMenu.Header 
-          name="Sarah Wilson" 
-          email="sarah@example.com" 
-          avatar="https://i.pravatar.cc/150?img=47"
-          role="Enterprise" 
+          role="Enterprise"
         />
         <UserMenu.Item
           icon={<ProfileIcon size={18} />}
@@ -190,7 +196,7 @@ export const WithAvatarImage: Story = {
       </UserMenu>
     </Box>
   ),
-};
+}
 
 /**
  * Trigger with name displayed next to avatar.
@@ -198,21 +204,19 @@ export const WithAvatarImage: Story = {
 export const WithNameVisible: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
-      <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+      <Typography
+        variant="caption"
+        sx={{
+          color: 'text.secondary',
+          mb: 2,
+          display: 'block',
+        }}
+      >
         Initials avatar with name displayed
       </Typography>
       <UserMenu>
-        <UserMenu.Trigger 
-          name="Alex Morgan" 
-          avatar="AM"
-          showName
-        />
-        <UserMenu.Header 
-          name="Alex Morgan" 
-          email="alex@example.com" 
-          avatar="AM"
-          role="Admin" 
-        />
+        <UserMenu.Trigger name="Alex Morgan" avatar="AM" showName />
+        <UserMenu.Header name="Alex Morgan" email="alex@example.com" avatar="AM" role="Admin" />
         <UserMenu.Item
           icon={<ProfileIcon size={18} />}
           label="Profile"
@@ -231,7 +235,7 @@ export const WithNameVisible: Story = {
       </UserMenu>
     </Box>
   ),
-};
+}
 
 /**
  * Custom menu items with only profile and logout.
@@ -239,7 +243,14 @@ export const WithNameVisible: Story = {
 export const MinimalMenu: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
-      <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+      <Typography
+        variant="caption"
+        sx={{
+          color: 'text.secondary',
+          mb: 2,
+          display: 'block',
+        }}
+      >
         Minimal menu with custom items
       </Typography>
       <UserMenu>
@@ -259,7 +270,7 @@ export const MinimalMenu: Story = {
       </UserMenu>
     </Box>
   ),
-};
+}
 
 /**
  * Admin user with more menu options.
@@ -267,7 +278,14 @@ export const MinimalMenu: Story = {
 export const AdminMenu: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
-      <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+      <Typography
+        variant="caption"
+        sx={{
+          color: 'text.secondary',
+          mb: 2,
+          display: 'block',
+        }}
+      >
         Admin menu with additional options
       </Typography>
       <UserMenu>
@@ -296,7 +314,7 @@ export const AdminMenu: Story = {
       </UserMenu>
     </Box>
   ),
-};
+}
 
 /**
  * Multiple user menus showing different user roles.
@@ -305,7 +323,14 @@ export const MultipleUsers: Story = {
   render: () => (
     <Box sx={{ p: 4, display: 'flex', gap: 4 }}>
       <Box sx={{ textAlign: 'center' }}>
-        <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: 'block' }}>
+        <Typography
+          variant="caption"
+          sx={{
+            color: 'text.secondary',
+            mb: 1,
+            display: 'block',
+          }}
+        >
           Free User
         </Typography>
         <UserMenu>
@@ -324,7 +349,14 @@ export const MultipleUsers: Story = {
         </UserMenu>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
-        <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: 'block' }}>
+        <Typography
+          variant="caption"
+          sx={{
+            color: 'text.secondary',
+            mb: 1,
+            display: 'block',
+          }}
+        >
           Pro User
         </Typography>
         <UserMenu>
@@ -348,12 +380,24 @@ export const MultipleUsers: Story = {
         </UserMenu>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
-        <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: 'block' }}>
+        <Typography
+          variant="caption"
+          sx={{
+            color: 'text.secondary',
+            mb: 1,
+            display: 'block',
+          }}
+        >
           Enterprise
         </Typography>
         <UserMenu>
           <UserMenu.Trigger name="Enterprise" avatar="EN" />
-          <UserMenu.Header name="Enterprise" email="enterprise@example.com" avatar="EN" role="Enterprise" />
+          <UserMenu.Header
+            name="Enterprise"
+            email="enterprise@example.com"
+            avatar="EN"
+            role="Enterprise"
+          />
           <UserMenu.Item
             icon={<ProfileIcon size={18} />}
             label="Profile"
@@ -378,7 +422,7 @@ export const MultipleUsers: Story = {
       </Box>
     </Box>
   ),
-};
+}
 
 /**
  * User without custom avatar - uses first letter of name.
@@ -386,7 +430,14 @@ export const MultipleUsers: Story = {
 export const WithoutCustomAvatar: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
-      <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+      <Typography
+        variant="caption"
+        sx={{
+          color: 'text.secondary',
+          mb: 2,
+          display: 'block',
+        }}
+      >
         Avatar uses first letter of name
       </Typography>
       <UserMenu>
@@ -405,7 +456,7 @@ export const WithoutCustomAvatar: Story = {
       </UserMenu>
     </Box>
   ),
-};
+}
 
 /**
  * Long email that gets truncated in the header.
@@ -413,16 +464,23 @@ export const WithoutCustomAvatar: Story = {
 export const LongEmail: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
-      <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+      <Typography
+        variant="caption"
+        sx={{
+          color: 'text.secondary',
+          mb: 2,
+          display: 'block',
+        }}
+      >
         Long email gets truncated
       </Typography>
       <UserMenu>
         <UserMenu.Trigger name="Enterprise User" avatar="EU" />
-        <UserMenu.Header 
-          name="Enterprise User" 
-          email="enterprise.user.with.very.long.email@corporation.example.com" 
-          avatar="EU" 
-          role="Enterprise" 
+        <UserMenu.Header
+          name="Enterprise User"
+          email="enterprise.user.with.very.long.email@corporation.example.com"
+          avatar="EU"
+          role="Enterprise"
         />
         <UserMenu.Item
           icon={<ProfileIcon size={18} />}
@@ -442,4 +500,4 @@ export const LongEmail: Story = {
       </UserMenu>
     </Box>
   ),
-};
+}
