@@ -94,13 +94,24 @@ font is embedded as base64 data URIs:
 By default the first render ignores the stored color scheme, so that a
 server-rendered page matches it, and a page load in dark mode paints the light
 scheme for a frame. Client-rendered apps (Vite, Create React App) should pass
-\`noSsr\` to use the stored scheme from the first render. Server-rendered apps
-should leave it off and use MUI's \`InitColorSchemeScript\` instead.
+\`noSsr\` to use the stored scheme from the first render.
 
 \`\`\`tsx
 <OxygenUIThemeProvider noSsr>
   <YourApp />
 </OxygenUIThemeProvider>
+\`\`\`
+
+Server-rendered apps should leave \`noSsr\` off and render MUI's
+\`InitColorSchemeScript\` with \`attribute="data-color-scheme"\`, Oxygen's
+selector. MUI's default attribute, \`data-mui-color-scheme\`, isn't read by
+Oxygen's styles. If you pass \`defaultMode\`, \`modeStorageKey\` or
+\`colorSchemeStorageKey\` to the provider, pass the same values to the script:
+
+\`\`\`tsx
+import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
+
+<InitColorSchemeScript attribute="data-color-scheme" />
 \`\`\`
 
 MUI's other color-scheme options (\`defaultMode\`, \`modeStorageKey\`,

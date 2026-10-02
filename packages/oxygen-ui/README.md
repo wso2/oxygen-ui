@@ -319,7 +319,13 @@ By default the first render ignores the stored color scheme, so that a server-re
 </OxygenUIThemeProvider>
 ```
 
-Server-rendered apps should leave `noSsr` off and use MUI's `InitColorSchemeScript` instead.
+Server-rendered apps should leave `noSsr` off and render MUI's `InitColorSchemeScript` with `attribute="data-color-scheme"`, Oxygen's selector. MUI's default attribute, `data-mui-color-scheme`, isn't read by Oxygen's styles. If you pass `defaultMode`, `modeStorageKey` or `colorSchemeStorageKey` to the provider, pass the same values to the script:
+
+```typescript
+import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
+
+<InitColorSchemeScript attribute="data-color-scheme" />
+```
 
 MUI's other color-scheme options (`defaultMode`, `modeStorageKey`, `colorSchemeStorageKey`, `disableTransitionOnChange`, `storageManager`) are passed through to its `ThemeProvider` as well.
 

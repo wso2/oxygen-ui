@@ -213,8 +213,13 @@ interface OxygenUIThemeProviderProps extends ColorSchemeOptions {
    * By default MUI's first render ignores the stored mode, so that a
    * server-rendered page matches it; the light scheme applies until an effect
    * switches it. In a client-rendered app that shows as a light frame on every
-   * page load in dark mode. Set this in client-rendered apps. Server-rendered
-   * apps should leave it off and use MUI's `InitColorSchemeScript` instead.
+   * page load in dark mode. Set this in client-rendered apps.
+   *
+   * Server-rendered apps should leave it off and render MUI's
+   * `InitColorSchemeScript` with `attribute="data-color-scheme"`, Oxygen's
+   * selector (MUI's default, `data-mui-color-scheme`, isn't read by Oxygen's
+   * styles). Any `defaultMode`, `modeStorageKey` or `colorSchemeStorageKey`
+   * passed here must be passed to the script too.
    *
    * @default false
    */
