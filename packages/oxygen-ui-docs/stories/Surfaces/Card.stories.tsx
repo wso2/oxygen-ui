@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { Card, CardContent, CardActions, CardMedia, Button, Typography } from '@wso2/oxygen-ui';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { Card, CardContent, CardActions, CardMedia, Button, Typography } from '@wso2/oxygen-ui'
 
 const meta: Meta<typeof Card> = {
   title: 'Surfaces/Card',
@@ -27,41 +27,53 @@ const meta: Meta<typeof Card> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI card component is a direct import of MUI card component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-card/](https://mui.com/material-ui/react-card/)',
+        component:
+          'Oxygen UI card component is a direct import of MUI card component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-card/](https://mui.com/material-ui/react-card/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Card>;
+export default meta
+type Story = StoryObj<typeof Card>
 
 export const Default: Story = {
   render: () => (
     <Card sx={{ maxWidth: 345 }}>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography sx={{ mb: '0.35em' }} variant="h5" component="div">
           Card Title
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          This is a basic card with some content. Cards contain content and actions about a single subject.
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
+          This is a basic card with some content. Cards contain content and actions about a single
+          subject.
         </Typography>
       </CardContent>
     </Card>
   ),
-};
+}
 
 export const WithActions: Story = {
   render: () => (
     <Card sx={{ maxWidth: 345 }}>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography sx={{ mb: '0.35em' }} variant="h5" component="div">
           Card with Actions
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           Cards can include actions like buttons at the bottom.
         </Typography>
       </CardContent>
@@ -71,7 +83,7 @@ export const WithActions: Story = {
       </CardActions>
     </Card>
   ),
-};
+}
 
 export const WithMedia: Story = {
   render: () => (
@@ -83,10 +95,15 @@ export const WithMedia: Story = {
         alt="Card image"
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography sx={{ mb: '0.35em' }} variant="h5" component="div">
           Card with Image
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           Cards can include media like images or videos.
         </Typography>
       </CardContent>
@@ -96,34 +113,44 @@ export const WithMedia: Story = {
       </CardActions>
     </Card>
   ),
-};
+}
 
 export const Outlined: Story = {
   render: () => (
     <Card variant="outlined" sx={{ maxWidth: 345 }}>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography sx={{ mb: '0.35em' }} variant="h5" component="div">
           Outlined Card
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           This card has an outlined variant with a border.
         </Typography>
       </CardContent>
     </Card>
   ),
-};
+}
 
 export const Elevated: Story = {
   render: () => (
     <Card sx={{ maxWidth: 345 }} elevation={8}>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography sx={{ mb: '0.35em' }} variant="h5" component="div">
           Elevated Card
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           This card has a higher elevation for more prominent shadow.
         </Typography>
       </CardContent>
     </Card>
   ),
-};
+}

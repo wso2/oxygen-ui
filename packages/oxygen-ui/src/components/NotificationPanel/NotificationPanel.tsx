@@ -267,7 +267,7 @@ const NotificationPanel: React.FC<NotificationPanelProps> & {
           role="status"
           aria-live="polite"
           aria-atomic="true"
-          sx={visuallyHidden}
+          sx={{ ...visuallyHidden }}
           data-testid="notification-panel-live-region"
         >
           {liveAnnouncement}

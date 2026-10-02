@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Typography, Stack } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Typography, Stack } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * The Typography component presents content clearly and efficiently.
  * It supports different variants, colors, and alignment options.
- * 
- * This is a direct import of MUI typography component. 
+ *
+ * This is a direct import of MUI typography component.
  * Read more at: https://mui.com/material-ui/react-typography/
  */
 const meta: Meta<typeof Typography> = {
@@ -34,17 +34,18 @@ const meta: Meta<typeof Typography> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI typography component is a direct import of MUI typography component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-typography/](https://mui.com/material-ui/react-typography/)',
+        component:
+          'Oxygen UI typography component is a direct import of MUI typography component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-typography/](https://mui.com/material-ui/react-typography/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Typography>;
+export default meta
+type Story = StoryObj<typeof Typography>
 
 export const Variants: Story = {
   render: () => (
@@ -64,7 +65,7 @@ export const Variants: Story = {
       <Typography variant="overline">overline text</Typography>
     </Stack>
   ),
-};
+}
 
 export const Colors: Story = {
   render: () => (
@@ -75,12 +76,30 @@ export const Colors: Story = {
       <Typography color="error">Error color</Typography>
       <Typography color="warning">Warning color</Typography>
       <Typography color="info">Info color</Typography>
-      <Typography color="text.primary">Text primary</Typography>
-      <Typography color="text.secondary">Text secondary</Typography>
-      <Typography color="text.disabled">Text disabled</Typography>
+      <Typography
+        sx={{
+          color: 'text.primary',
+        }}
+      >
+        Text primary
+      </Typography>
+      <Typography
+        sx={{
+          color: 'text.secondary',
+        }}
+      >
+        Text secondary
+      </Typography>
+      <Typography
+        sx={{
+          color: 'text.disabled',
+        }}
+      >
+        Text disabled
+      </Typography>
     </Stack>
   ),
-};
+}
 
 export const Alignment: Story = {
   render: () => (
@@ -89,28 +108,26 @@ export const Alignment: Story = {
       <Typography align="center">Center aligned text</Typography>
       <Typography align="right">Right aligned text</Typography>
       <Typography align="justify">
-        Justified text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Justified text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
       </Typography>
     </Stack>
   ),
-};
+}
 
-export const Gutters: Story = {
+export const BottomMargin: Story = {
   render: () => (
     <Stack spacing={0}>
-      <Typography gutterBottom>
-        Paragraph with gutterBottom. Lorem ipsum dolor sit amet.
+      <Typography sx={{ mb: '0.35em' }}>
+        Paragraph with bottom margin. Lorem ipsum dolor sit amet.
       </Typography>
-      <Typography gutterBottom>
-        Another paragraph with gutterBottom. Consectetur adipiscing elit.
+      <Typography sx={{ mb: '0.35em' }}>
+        Another paragraph with bottom margin. Consectetur adipiscing elit.
       </Typography>
-      <Typography>
-        Paragraph without gutterBottom. Sed do eiusmod tempor.
-      </Typography>
+      <Typography>Paragraph without extra bottom margin. Sed do eiusmod tempor.</Typography>
     </Stack>
   ),
-};
+}
 
 export const NoWrap: Story = {
   render: () => (
@@ -123,4 +140,4 @@ export const NoWrap: Story = {
       </Typography>
     </Stack>
   ),
-};
+}

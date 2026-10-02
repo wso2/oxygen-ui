@@ -16,9 +16,18 @@
  * under the License.
  */
 
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { Stack, Typography, Box, CodeBlock, Paper, Button, OxygenUIThemeProvider, extendTheme } from '@wso2/oxygen-ui';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import {
+  Stack,
+  Typography,
+  Box,
+  CodeBlock,
+  Paper,
+  Button,
+  OxygenUIThemeProvider,
+  extendTheme,
+} from '@wso2/oxygen-ui'
 
 /**
  * OxygenUIThemeProvider is the root theme provider component for Oxygen UI applications.
@@ -100,7 +109,8 @@ font is embedded as base64 data URIs:
     },
     themes: {
       control: false,
-      description: 'Array of theme options for multi-theme support. Each theme can have a `theme` property that is either a Theme object or a string path to a JavaScript file that exports the theme configuration.',
+      description:
+        'Array of theme options for multi-theme support. Each theme can have a `theme` property that is either a Theme object or a string path to a JavaScript file that exports the theme configuration.',
     },
     initialTheme: {
       control: 'text',
@@ -108,18 +118,21 @@ font is embedded as base64 data URIs:
     },
     onThemesLoaded: {
       control: false,
-      description: 'Callback function triggered after all themes are loaded. Receives an array of loaded themes with their key, label, and theme object. Useful for tracking when dynamically loaded theme files are ready.',
+      description:
+        'Callback function triggered after all themes are loaded. Receives an array of loaded themes with their key, label, and theme object. Useful for tracking when dynamically loaded theme files are ready.',
       table: {
         type: { summary: '(themes: LoadedTheme[]) => void' },
       },
     },
     nonce: {
       control: 'text',
-      description: 'CSP (Content Security Policy) nonce applied to all style tags injected by the styling engine (Emotion). Use with style-src-elem nonce and style-src-attr unsafe-inline as recommended by MUI. Ignored if `emotionCache` is provided.',
+      description:
+        'CSP (Content Security Policy) nonce applied to all style tags injected by the styling engine (Emotion). Use with style-src-elem nonce and style-src-attr unsafe-inline as recommended by MUI. Ignored if `emotionCache` is provided.',
     },
     emotionCache: {
       control: false,
-      description: 'A custom Emotion cache instance for full control over style injection (cache key, nonce, insertion point, stylis plugins, container). Create one with `createEmotionCache` and set `prepend: true` to preserve injectFirst cascade. Takes precedence over the `nonce` prop.',
+      description:
+        'A custom Emotion cache instance for full control over style injection (cache key, nonce, insertion point, stylis plugins, container). Create one with `createEmotionCache` and set `prepend: true` to preserve injectFirst cascade. Takes precedence over the `nonce` prop.',
       table: {
         type: { summary: 'EmotionCache' },
       },
@@ -129,10 +142,10 @@ font is embedded as base64 data URIs:
       description: 'Your application components',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof OxygenUIThemeProvider>;
+export default meta
+type Story = StoryObj<typeof OxygenUIThemeProvider>
 
 /**
  * Basic setup using the default Oxygen theme with built-in light/dark color schemes.
@@ -140,10 +153,15 @@ type Story = StoryObj<typeof OxygenUIThemeProvider>;
 export const Default: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" color="text.secondary">
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+        }}
+      >
         The simplest setup - wraps your app with the default Oxygen theme.
       </Typography>
-      <CodeBlock 
+      <CodeBlock
         language="tsx"
         code={`import { OxygenUIThemeProvider } from "@wso2/oxygen-ui";
 
@@ -157,7 +175,7 @@ function App() {
       />
     </Stack>
   ),
-};
+}
 
 /**
  * Create and use a custom theme with your brand colors and preferences.
@@ -165,10 +183,15 @@ function App() {
 export const CustomTheme: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" color="text.secondary">
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+        }}
+      >
         Extend the default theme with your own colors and typography.
       </Typography>
-      <CodeBlock 
+      <CodeBlock
         language="tsx"
         code={`import { OxygenUIThemeProvider, extendTheme } from "@wso2/oxygen-ui";
 
@@ -198,7 +221,7 @@ const customTheme = extendTheme({
       />
     </Stack>
   ),
-};
+}
 
 /**
  * Provide multiple themes and let users switch between them.
@@ -206,10 +229,15 @@ const customTheme = extendTheme({
 export const MultipleThemes: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" color="text.secondary">
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+        }}
+      >
         Enable theme switching by providing an array of themes.
       </Typography>
-      <CodeBlock 
+      <CodeBlock
         language="tsx"
         code={`import { OxygenUIThemeProvider, ThemeSwitcher, extendTheme } from "@wso2/oxygen-ui";
 
@@ -237,7 +265,7 @@ const themes = [
       />
     </Stack>
   ),
-};
+}
 
 /**
  * Programmatically access and control themes using the useThemeSwitcher hook.
@@ -245,10 +273,15 @@ const themes = [
 export const UsingHook: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" color="text.secondary">
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+        }}
+      >
         Access theme state and switch themes programmatically.
       </Typography>
-      <CodeBlock 
+      <CodeBlock
         language="tsx"
         code={`import { useThemeSwitcher } from "@wso2/oxygen-ui";
 
@@ -274,7 +307,7 @@ function ThemeInfo() {
       />
     </Stack>
   ),
-};
+}
 
 /**
  * Make Oxygen UI compatible with a strict Content Security Policy (CSP)
@@ -283,14 +316,18 @@ function ThemeInfo() {
 export const ContentSecurityPolicy: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" color="text.secondary">
-        Pass your server-generated nonce so runtime-injected style tags satisfy
-        style-src-elem. Also allow style-src-attr &apos;unsafe-inline&apos; for MUI
-        inline style attributes, and font-src &apos;self&apos; data: because the
-        bundled Inter font is embedded as base64 data URIs. For full control over
-        style injection, pass a custom Emotion cache with prepend: true.
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+        }}
+      >
+        Pass your server-generated nonce so runtime-injected style tags satisfy style-src-elem. Also
+        allow style-src-attr &apos;unsafe-inline&apos; for MUI inline style attributes, and font-src
+        &apos;self&apos; data: because the bundled Inter font is embedded as base64 data URIs. For
+        full control over style injection, pass a custom Emotion cache with prepend: true.
       </Typography>
-      <CodeBlock 
+      <CodeBlock
         language="tsx"
         code={`import { OxygenUIThemeProvider, createEmotionCache } from "@wso2/oxygen-ui";
 
@@ -313,16 +350,21 @@ const cache = createEmotionCache({
   <YourApp />
 </OxygenUIThemeProvider>`}
       />
-      <Typography variant="body2" color="text.secondary">
-        The bundled CSS (Inter font styles and theme CSS) is injected at import
-        time, so its nonce is resolved from the __webpack_nonce__ global
-        (webpack), a {' '}meta[property=&quot;csp-nonce&quot;] tag (Vite), or a
-        {' '}meta[name=&quot;csp-nonce&quot;] tag (MUI/Next) instead of a prop.
-        The meta tag (or global) must be present before the app bundle executes.
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+        }}
+      >
+        The bundled CSS (Inter font styles and theme CSS) is injected at import time, so its nonce
+        is resolved from the __webpack_nonce__ global (webpack), a{' '}
+        meta[property=&quot;csp-nonce&quot;] tag (Vite), or a meta[name=&quot;csp-nonce&quot;] tag
+        (MUI/Next) instead of a prop. The meta tag (or global) must be present before the app bundle
+        executes.
       </Typography>
     </Stack>
   ),
-};
+}
 
 /**
  * Track when themes are loaded using the onThemesLoaded callback.
@@ -331,10 +373,15 @@ const cache = createEmotionCache({
 export const OnThemesLoadedCallback: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="body2" color="text.secondary">
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+        }}
+      >
         Get notified when all themes (including dynamically loaded ones) are ready.
       </Typography>
-      <CodeBlock 
+      <CodeBlock
         language="tsx"
         code={`import { OxygenUIThemeProvider, createOxygenTheme } from "@wso2/oxygen-ui";
 
@@ -386,4 +433,4 @@ function App() {
       />
     </Stack>
   ),
-};
+}

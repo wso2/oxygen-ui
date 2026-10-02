@@ -17,50 +17,50 @@
  */
 
 // Import from storybook internals for Storybook 10
-import { addons } from 'storybook/internal/manager-api';
-import { themes } from 'storybook/internal/theming';
+import { addons } from 'storybook/internal/manager-api'
+import { themes } from 'storybook/internal/theming'
 
 const getThemeMode = () => {
   try {
-    return localStorage.getItem('mui-mode') === 'light' ? 'light' : 'dark';
+    return localStorage.getItem('mui-mode') === 'light' ? 'light' : 'dark'
   } catch {
-    return 'dark';
+    return 'dark'
   }
-};
+}
 
-const applyTheme = (mode) => {
+const applyTheme = mode => {
   addons.setConfig({
     theme: {
       ...(mode === 'light' ? themes.light : themes.dark),
-      appBg: (mode === 'light' ? '#ffffff' : '#000000'),
-      barBg: (mode === 'light' ? '#f0f0f0' : '#000000'),
+      appBg: mode === 'light' ? '#ffffff' : '#000000',
+      barBg: mode === 'light' ? '#f0f0f0' : '#000000',
       brandTitle: 'WSO2 Oxygen UI',
       brandUrl: 'https://github.com/wso2/oxygen-ui',
-      brandImage: (mode === 'light' ? './oxygen-ui-logo.svg' : './oxygen-ui-logo-inverted.svg')
-    }
-  });
-};
+      brandImage: mode === 'light' ? './oxygen-ui-logo.svg' : './oxygen-ui-logo-inverted.svg',
+    },
+  })
+}
 
 // Apply initial theme
-let currentMode = getThemeMode();
-applyTheme(currentMode);
+let currentMode = getThemeMode()
+applyTheme(currentMode)
 
 // Poll for changes in localStorage (checks every 500ms)
 setInterval(() => {
-  const newMode = getThemeMode();
+  const newMode = getThemeMode()
   if (newMode !== currentMode) {
-    currentMode = newMode;
-    applyTheme(currentMode);
+    currentMode = newMode
+    applyTheme(currentMode)
   }
-}, 500);
+}, 500)
 
 // Also listen for storage events (works across tabs)
-window.addEventListener('storage', (e) => {
+window.addEventListener('storage', e => {
   if (e.key === 'mui-mode') {
-    const newMode = getThemeMode();
+    const newMode = getThemeMode()
     if (newMode !== currentMode) {
-      currentMode = newMode;
-      applyTheme(currentMode);
+      currentMode = newMode
+      applyTheme(currentMode)
     }
   }
-});
+})

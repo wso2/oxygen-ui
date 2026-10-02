@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { PageContent, Card, CardContent, Typography, Box } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { PageContent, Card, CardContent, Typography, Box } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * PageContent is a layout component for containing page content with consistent spacing and max-width.
@@ -98,10 +98,10 @@ import { PageContent } from '@wso2/oxygen-ui';
       description: 'The content to be displayed',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof PageContent>;
+export default meta
+type Story = StoryObj<typeof PageContent>
 
 /**
  * Default usage with centered content and default max-width (1400px).
@@ -112,19 +112,25 @@ export const Default: Story = {
       <PageContent>
         <Card>
           <CardContent>
-            <Typography variant="h5" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="h5">
               Default Page Content
             </Typography>
-            <Typography variant="body1" color="text.secondary">
-              This content is centered with a maximum width of 1400px and has vertical padding of theme.spacing(5).
-              The PageContent component provides consistent spacing and layout for your page content.
+            <Typography
+              variant="body1"
+              sx={{
+                color: 'text.secondary',
+              }}
+            >
+              This content is centered with a maximum width of 1400px and has vertical padding of
+              theme.spacing(5). The PageContent component provides consistent spacing and layout for
+              your page content.
             </Typography>
           </CardContent>
         </Card>
       </PageContent>
     </Box>
   ),
-};
+}
 
 /**
  * Custom max-width example with a narrower container.
@@ -135,19 +141,24 @@ export const CustomMaxWidth: Story = {
       <PageContent maxWidth="800px">
         <Card>
           <CardContent>
-            <Typography variant="h5" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="h5">
               Custom Max Width
             </Typography>
-            <Typography variant="body1" color="text.secondary">
-              This content has a custom max-width of 800px, making it ideal for article-style layouts
-              or forms where you want to limit the line length for better readability.
+            <Typography
+              variant="body1"
+              sx={{
+                color: 'text.secondary',
+              }}
+            >
+              This content has a custom max-width of 800px, making it ideal for article-style
+              layouts or forms where you want to limit the line length for better readability.
             </Typography>
           </CardContent>
         </Card>
       </PageContent>
     </Box>
   ),
-};
+}
 
 /**
  * Full width example that stretches edge-to-edge.
@@ -158,19 +169,24 @@ export const FullWidth: Story = {
       <PageContent fullWidth>
         <Card>
           <CardContent>
-            <Typography variant="h5" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="h5">
               Full Width Content
             </Typography>
-            <Typography variant="body1" color="text.secondary">
-              This content stretches to the full width of the viewport. Perfect for dashboards,
-              data tables, or any content that benefits from maximum horizontal space.
+            <Typography
+              variant="body1"
+              sx={{
+                color: 'text.secondary',
+              }}
+            >
+              This content stretches to the full width of the viewport. Perfect for dashboards, data
+              tables, or any content that benefits from maximum horizontal space.
             </Typography>
           </CardContent>
         </Card>
       </PageContent>
     </Box>
   ),
-};
+}
 
 /**
  * Content without automatic centering.
@@ -181,19 +197,24 @@ export const NotCentered: Story = {
       <PageContent centered={false} maxWidth="600px">
         <Card>
           <CardContent>
-            <Typography variant="h5" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="h5">
               Not Centered
             </Typography>
-            <Typography variant="body1" color="text.secondary">
-              This content is not centered and aligns to the left with a max-width of 600px.
-              Useful for specific layout requirements where left alignment is preferred.
+            <Typography
+              variant="body1"
+              sx={{
+                color: 'text.secondary',
+              }}
+            >
+              This content is not centered and aligns to the left with a max-width of 600px. Useful
+              for specific layout requirements where left alignment is preferred.
             </Typography>
           </CardContent>
         </Card>
       </PageContent>
     </Box>
   ),
-};
+}
 
 /**
  * Multiple content blocks example showing typical page layout.
@@ -205,10 +226,15 @@ export const MultipleBlocks: Story = {
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
           <Card>
             <CardContent>
-              <Typography variant="h5" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="h5">
                 Section 1
               </Typography>
-              <Typography variant="body1" color="text.secondary">
+              <Typography
+                variant="body1"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
                 First content block with some information.
               </Typography>
             </CardContent>
@@ -216,10 +242,15 @@ export const MultipleBlocks: Story = {
 
           <Card>
             <CardContent>
-              <Typography variant="h5" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="h5">
                 Section 2
               </Typography>
-              <Typography variant="body1" color="text.secondary">
+              <Typography
+                variant="body1"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
                 Second content block with additional details.
               </Typography>
             </CardContent>
@@ -227,10 +258,15 @@ export const MultipleBlocks: Story = {
 
           <Card>
             <CardContent>
-              <Typography variant="h5" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="h5">
                 Section 3
               </Typography>
-              <Typography variant="body1" color="text.secondary">
+              <Typography
+                variant="body1"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
                 Third content block demonstrating consistent spacing.
               </Typography>
             </CardContent>
@@ -239,4 +275,4 @@ export const MultipleBlocks: Story = {
       </PageContent>
     </Box>
   ),
-};
+}

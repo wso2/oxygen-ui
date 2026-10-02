@@ -4,7 +4,7 @@ This document outlines the design system architecture, design tool integration, 
 
 ## Overview
 
-Oxygen UI is WSO2's design system built on top of Material-UI v7. It provides a unified visual language and component library that ensures consistency across all WSO2 products.
+Oxygen UI is WSO2's design system built on top of Material-UI v9. It provides a unified visual language and component library that ensures consistency across all WSO2 products.
 
 ## Design Tools Integration
 

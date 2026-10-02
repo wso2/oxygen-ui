@@ -16,23 +16,23 @@
  * under the License.
  */
 
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
 import {
-    OxygenUIThemeProvider,
-    useThemeContent,
-    Stack,
-    Typography,
-    Paper,
-    Box,
-    ThemeSwitcher,
-    Card,
-    CardContent,
-    Avatar,
-    Chip,
-    extendTheme
-} from '@wso2/oxygen-ui';
-import { Smartphone, Settings, Plus } from '@wso2/oxygen-ui-icons-react';
+  OxygenUIThemeProvider,
+  useThemeContent,
+  Stack,
+  Typography,
+  Paper,
+  Box,
+  ThemeSwitcher,
+  Card,
+  CardContent,
+  Avatar,
+  Chip,
+  extendTheme,
+} from '@wso2/oxygen-ui'
+import { Smartphone, Settings, Plus } from '@wso2/oxygen-ui-icons-react'
 
 // Define example themes for stories
 const defaultTheme = extendTheme({
@@ -48,7 +48,7 @@ const defaultTheme = extendTheme({
       },
     },
   },
-});
+})
 
 const purpleTheme = extendTheme({
   colorSchemes: {
@@ -63,7 +63,7 @@ const purpleTheme = extendTheme({
       },
     },
   },
-});
+})
 
 const greenTheme = extendTheme({
   colorSchemes: {
@@ -78,13 +78,13 @@ const greenTheme = extendTheme({
       },
     },
   },
-});
+})
 
 const exampleThemes = [
   { key: 'default', label: 'Default (Blue)', theme: defaultTheme },
   { key: 'purple', label: 'Purple', theme: purpleTheme },
   { key: 'green', label: 'Green', theme: greenTheme },
-];
+]
 
 // Dummy component using the hook
 function ThemeGreeting() {
@@ -92,9 +92,9 @@ function ThemeGreeting() {
     default: 'Welcome to the Default Theme!',
     purple: 'Welcome to the Purple Theme!',
     green: 'Welcome to the Green Theme!',
-  });
+  })
 
-  return <Typography variant="h5">{greeting}</Typography>;
+  return <Typography variant="h5">{greeting}</Typography>
 }
 
 function ThemeIcon() {
@@ -102,9 +102,9 @@ function ThemeIcon() {
     default: Smartphone,
     purple: Settings,
     green: Plus,
-  });
+  })
 
-  return <Icon style={{ fontSize: 48, color: '#1976d2' }} />;
+  return <Icon style={{ fontSize: 48, color: '#1976d2' }} />
 }
 
 function ThemeConfig() {
@@ -112,7 +112,7 @@ function ThemeConfig() {
     default: { icon: '🔵', message: 'Clean and professional', color: '#1976d2' },
     purple: { icon: '🟣', message: 'Creative and bold', color: '#9c27b0' },
     green: { icon: '🟢', message: 'Natural and fresh', color: '#2e7d32' },
-  });
+  })
 
   return (
     <Box sx={{ textAlign: 'center' }}>
@@ -121,7 +121,7 @@ function ThemeConfig() {
         {config.message}
       </Typography>
     </Box>
-  );
+  )
 }
 
 const meta: Meta = {
@@ -154,10 +154,10 @@ const meta: Meta = {
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 export const RequiredSetup: Story = {
   render: () => (
@@ -167,16 +167,22 @@ export const RequiredSetup: Story = {
           ⚠️ Setup Required
         </Typography>
         <Typography variant="body2">
-          <strong>useThemeContent</strong> must be used within <code>OxygenUIThemeProvider</code> with multiple themes configured.
+          <strong>useThemeContent</strong> must be used within <code>OxygenUIThemeProvider</code>{' '}
+          with multiple themes configured.
         </Typography>
-        <Typography variant="body2" component="pre" tabIndex={0} sx={{ 
-          bgcolor: 'background.paper', 
-          p: 2, 
-          borderRadius: 1,
-          overflow: 'auto',
-          fontSize: '0.75rem'
-        }}>
-{`import { OxygenUIThemeProvider, useThemeContent } from "@wso2/oxygen-ui";
+        <Typography
+          variant="body2"
+          component="pre"
+          tabIndex={0}
+          sx={{
+            bgcolor: 'background.paper',
+            p: 2,
+            borderRadius: 1,
+            overflow: 'auto',
+            fontSize: '0.75rem',
+          }}
+        >
+          {`import { OxygenUIThemeProvider, useThemeContent } from "@wso2/oxygen-ui";
 
 const themes = [
   { key: "default", label: "Default", theme: defaultTheme },
@@ -199,33 +205,59 @@ function MyComponent() {
       </Stack>
     </Paper>
   ),
-};
+}
 
 export const WithStrings: Story = {
   render: () => (
     <OxygenUIThemeProvider themes={exampleThemes}>
-      <Stack spacing={3} alignItems="center" sx={{ minWidth: 400 }}>
+      <Stack
+        spacing={3}
+        sx={{
+          alignItems: 'center',
+          minWidth: 400,
+        }}
+      >
         <ThemeSwitcher showLabel />
         <Paper elevation={2} sx={{ p: 3, bgcolor: 'background.paper', width: '100%' }}>
           <ThemeGreeting />
         </Paper>
-        <Typography variant="caption" color="text.secondary">
+        <Typography
+          variant="caption"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           The greeting text changes based on the selected theme
         </Typography>
       </Stack>
     </OxygenUIThemeProvider>
   ),
-};
+}
 
 export const WithComponents: Story = {
   render: () => (
     <OxygenUIThemeProvider themes={exampleThemes}>
-      <Stack spacing={3} alignItems="center">
+      <Stack
+        spacing={3}
+        sx={{
+          alignItems: 'center',
+        }}
+      >
         <ThemeSwitcher showLabel />
         <Paper elevation={2} sx={{ p: 4, bgcolor: 'background.paper' }}>
-          <Stack spacing={2} alignItems="center">
+          <Stack
+            spacing={2}
+            sx={{
+              alignItems: 'center',
+            }}
+          >
             <ThemeIcon />
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              sx={{
+                color: 'text.secondary',
+              }}
+            >
               Icon changes with theme
             </Typography>
           </Stack>
@@ -233,23 +265,34 @@ export const WithComponents: Story = {
       </Stack>
     </OxygenUIThemeProvider>
   ),
-};
+}
 
 export const WithObjects: Story = {
   render: () => (
     <OxygenUIThemeProvider themes={exampleThemes}>
-      <Stack spacing={3} alignItems="center" sx={{ minWidth: 350 }}>
+      <Stack
+        spacing={3}
+        sx={{
+          alignItems: 'center',
+          minWidth: 350,
+        }}
+      >
         <ThemeSwitcher showLabel />
         <Paper elevation={2} sx={{ p: 4, bgcolor: 'background.paper', width: '100%' }}>
           <ThemeConfig />
         </Paper>
-        <Typography variant="caption" color="text.secondary">
+        <Typography
+          variant="caption"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           Complex objects with multiple properties
         </Typography>
       </Stack>
     </OxygenUIThemeProvider>
   ),
-};
+}
 
 export const RealWorldExample: Story = {
   render: () => {
@@ -276,20 +319,36 @@ export const RealWorldExample: Story = {
           badge: 'Green',
           badgeColor: 'success' as const,
         },
-      });
+      })
 
       return (
         <Card sx={{ maxWidth: 400 }}>
           <CardContent>
             <Stack spacing={2}>
-              <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
-                <Stack direction="row" spacing={2} alignItems="center">
-                  <Avatar sx={{ bgcolor: 'primary.main' }}>
-                    {cardConfig.avatar}
-                  </Avatar>
+              <Stack
+                direction="row"
+                spacing={2}
+                sx={{
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{
+                    alignItems: 'center',
+                  }}
+                >
+                  <Avatar sx={{ bgcolor: 'primary.main' }}>{cardConfig.avatar}</Avatar>
                   <Box>
                     <Typography variant="h6">{cardConfig.title}</Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: 'text.secondary',
+                      }}
+                    >
                       {cardConfig.description}
                     </Typography>
                   </Box>
@@ -299,22 +358,34 @@ export const RealWorldExample: Story = {
             </Stack>
           </CardContent>
         </Card>
-      );
+      )
     }
 
     return (
       <OxygenUIThemeProvider themes={exampleThemes}>
-        <Stack spacing={3} alignItems="center">
+        <Stack
+          spacing={3}
+          sx={{
+            alignItems: 'center',
+          }}
+        >
           <ThemeSwitcher showLabel />
           <DashboardCard />
-          <Typography variant="caption" color="text.secondary" sx={{ maxWidth: 400, textAlign: 'center' }}>
+          <Typography
+            variant="caption"
+            sx={{
+              color: 'text.secondary',
+              maxWidth: 400,
+              textAlign: 'center',
+            }}
+          >
             All content (title, description, avatar, badge) changes based on theme
           </Typography>
         </Stack>
       </OxygenUIThemeProvider>
-    );
+    )
   },
-};
+}
 
 export const WithFallback: Story = {
   render: () => {
@@ -325,25 +396,37 @@ export const WithFallback: Story = {
           default: 'This is the default theme message',
         },
         'Fallback message for themes without specific content'
-      );
+      )
 
       return (
         <Paper elevation={2} sx={{ p: 3, bgcolor: 'background.paper' }}>
           <Typography variant="body1">{message}</Typography>
         </Paper>
-      );
+      )
     }
 
     return (
       <OxygenUIThemeProvider themes={exampleThemes}>
-        <Stack spacing={3} alignItems="center" sx={{ minWidth: 450 }}>
+        <Stack
+          spacing={3}
+          sx={{
+            alignItems: 'center',
+            minWidth: 450,
+          }}
+        >
           <ThemeSwitcher showLabel />
           <FallbackExample />
-          <Typography variant="caption" color="text.secondary" sx={{ textAlign: 'center' }}>
+          <Typography
+            variant="caption"
+            sx={{
+              color: 'text.secondary',
+              textAlign: 'center',
+            }}
+          >
             Try switching to Purple or Green theme to see the fallback
           </Typography>
         </Stack>
       </OxygenUIThemeProvider>
-    );
+    )
   },
-};
+}

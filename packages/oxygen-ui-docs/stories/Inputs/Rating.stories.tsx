@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Rating, Stack, Typography } from '@wso2/oxygen-ui';
-import React, { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Rating, Stack, Typography } from '@wso2/oxygen-ui'
+import React, { useState } from 'react'
 
 /**
  * The Rating component provides users with a way to rate content using a set of icons.
  * It supports different precision levels, custom icons, and read-only modes.
- * 
- * This is a direct import of MUI rating component. 
+ *
+ * This is a direct import of MUI rating component.
  * Read more at: https://mui.com/material-ui/react-rating/
  */
 const meta: Meta<typeof Rating> = {
@@ -34,29 +34,30 @@ const meta: Meta<typeof Rating> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI rating component is a direct import of MUI rating component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-rating/](https://mui.com/material-ui/react-rating/)',
+        component:
+          'Oxygen UI rating component is a direct import of MUI rating component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-rating/](https://mui.com/material-ui/react-rating/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Rating>;
+export default meta
+type Story = StoryObj<typeof Rating>
 
 export const Default: Story = {
   render: () => <Rating name="simple-controlled" defaultValue={2.5} />,
-};
+}
 
 export const ReadOnly: Story = {
   render: () => <Rating name="read-only" value={3.5} readOnly />,
-};
+}
 
 export const Disabled: Story = {
   render: () => <Rating name="disabled" value={2} disabled />,
-};
+}
 
 export const Sizes: Story = {
   render: () => (
@@ -66,7 +67,7 @@ export const Sizes: Story = {
       <Rating name="size-large" defaultValue={2} size="large" />
     </Stack>
   ),
-};
+}
 
 export const Precision: Story = {
   render: () => (
@@ -77,25 +78,25 @@ export const Precision: Story = {
       <Rating name="full-rating" defaultValue={2} precision={1} />
     </Stack>
   ),
-};
+}
 
 export const Controlled: Story = {
   render: () => {
-    const [value, setValue] = useState<number | null>(2);
+    const [value, setValue] = useState<number | null>(2)
     return (
       <Stack spacing={1}>
         <Rating
           name="controlled-rating"
           value={value}
           onChange={(event, newValue) => {
-            setValue(newValue);
+            setValue(newValue)
           }}
         />
         <Typography>Current value: {value}</Typography>
       </Stack>
-    );
+    )
   },
-};
+}
 
 export const MaxRating: Story = {
   render: () => (
@@ -104,4 +105,4 @@ export const MaxRating: Story = {
       <Rating name="7-stars" defaultValue={3} max={7} />
     </Stack>
   ),
-};
+}

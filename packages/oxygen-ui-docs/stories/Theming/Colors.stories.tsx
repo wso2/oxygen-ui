@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Box, Typography, Paper, Stack, colors, CodeBlock } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Box, Typography, Paper, Stack, colors, CodeBlock } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * Colors from Material-UI are re-exported through Oxygen UI for easy access.
@@ -82,10 +82,10 @@ Each color comes with 10 shades (except black and white):
       },
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 /**
  * Display all primary Material Design colors with their main shade (500).
@@ -93,10 +93,17 @@ type Story = StoryObj;
 export const PrimaryColors: Story = {
   render: () => (
     <Stack spacing={2}>
-      <Typography variant="h6" gutterBottom>
+      <Typography sx={{ mb: '0.35em' }} variant="h6">
         Primary Color Palette
       </Typography>
-      <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
+      <Stack
+        direction="row"
+        spacing={2}
+        useFlexGap
+        sx={{
+          flexWrap: 'wrap',
+        }}
+      >
         {[
           { name: 'Red', color: colors.red[500] },
           { name: 'Pink', color: colors.pink[500] },
@@ -139,7 +146,7 @@ export const PrimaryColors: Story = {
       </Stack>
     </Stack>
   ),
-};
+}
 
 /**
  * Display different shades of a single color (Blue) from lightest to darkest.
@@ -147,10 +154,17 @@ export const PrimaryColors: Story = {
 export const ColorShades: Story = {
   render: () => (
     <Stack spacing={2}>
-      <Typography variant="h6" gutterBottom>
+      <Typography sx={{ mb: '0.35em' }} variant="h6">
         Blue Color Shades
       </Typography>
-      <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+      <Stack
+        direction="row"
+        spacing={1}
+        useFlexGap
+        sx={{
+          flexWrap: 'wrap',
+        }}
+      >
         {[
           { shade: '50', color: colors.blue[50] },
           { shade: '100', color: colors.blue[100] },
@@ -177,10 +191,22 @@ export const ColorShades: Story = {
               fontWeight: 600,
             }}
           >
-            <Typography variant="body2" fontWeight="inherit" color="inherit">
+            <Typography
+              variant="body2"
+              sx={{
+                fontWeight: 'inherit',
+                color: 'inherit',
+              }}
+            >
               {shade}
             </Typography>
-            <Typography variant="caption" color="inherit" sx={{ opacity: 0.8 }}>
+            <Typography
+              variant="caption"
+              sx={{
+                color: 'inherit',
+                opacity: 0.8,
+              }}
+            >
               {color}
             </Typography>
           </Paper>
@@ -188,7 +214,7 @@ export const ColorShades: Story = {
       </Stack>
     </Stack>
   ),
-};
+}
 
 /**
  * Display accent colors (A100, A200, A400, A700) for a color palette.
@@ -196,7 +222,7 @@ export const ColorShades: Story = {
 export const AccentColors: Story = {
   render: () => (
     <Stack spacing={3}>
-      <Typography variant="h6" gutterBottom>
+      <Typography sx={{ mb: '0.35em' }} variant="h6">
         Accent Colors
       </Typography>
       {[
@@ -218,11 +244,11 @@ export const AccentColors: Story = {
         { name: 'Deep Orange', palette: colors.deepOrange },
       ].map(({ name, palette }) => (
         <Box key={name}>
-          <Typography variant="body2" gutterBottom fontWeight={600}>
+          <Typography variant="body2" sx={{ mb: '0.35em', fontWeight: 600 }}>
             {name}
           </Typography>
           <Stack direction="row" spacing={1}>
-            {['A100', 'A200', 'A400', 'A700'].map((shade) => (
+            {['A100', 'A200', 'A400', 'A700'].map(shade => (
               <Paper
                 key={shade}
                 sx={{
@@ -244,7 +270,7 @@ export const AccentColors: Story = {
       ))}
     </Stack>
   ),
-};
+}
 
 /**
  * Practical examples of using colors in components.
@@ -252,13 +278,13 @@ export const AccentColors: Story = {
 export const PracticalExamples: Story = {
   render: () => (
     <Stack spacing={3}>
-      <Typography variant="h6" gutterBottom>
+      <Typography sx={{ mb: '0.35em' }} variant="h6">
         Practical Color Usage
       </Typography>
 
       {/* Background Colors */}
       <Box>
-        <Typography variant="body2" gutterBottom fontWeight={600}>
+        <Typography variant="body2" sx={{ mb: '0.35em', fontWeight: 600 }}>
           Background Colors (Light Shades)
         </Typography>
         <Stack direction="row" spacing={2}>
@@ -276,7 +302,7 @@ export const PracticalExamples: Story = {
 
       {/* Text Colors */}
       <Box>
-        <Typography variant="body2" gutterBottom fontWeight={600}>
+        <Typography variant="body2" sx={{ mb: '0.35em', fontWeight: 600 }}>
           Text Colors (Dark Shades)
         </Typography>
         <Stack spacing={1}>
@@ -288,7 +314,7 @@ export const PracticalExamples: Story = {
 
       {/* Button-like Elements */}
       <Box>
-        <Typography variant="body2" gutterBottom fontWeight={600}>
+        <Typography variant="body2" sx={{ mb: '0.35em', fontWeight: 600 }}>
           Button Colors
         </Typography>
         <Stack direction="row" spacing={2}>
@@ -330,7 +356,7 @@ export const PracticalExamples: Story = {
 
       {/* Borders */}
       <Box>
-        <Typography variant="body2" gutterBottom fontWeight={600}>
+        <Typography variant="body2" sx={{ mb: '0.35em', fontWeight: 600 }}>
           Border Colors
         </Typography>
         <Stack direction="row" spacing={2}>
@@ -347,7 +373,7 @@ export const PracticalExamples: Story = {
       </Box>
     </Stack>
   ),
-};
+}
 
 /**
  * Code examples showing how to use colors in your application.
@@ -355,7 +381,7 @@ export const PracticalExamples: Story = {
 export const CodeExamples: Story = {
   render: () => (
     <Stack spacing={2} sx={{ maxWidth: 600 }}>
-      <Typography variant="h6" gutterBottom>
+      <Typography sx={{ mb: '0.35em' }} variant="h6">
         Code Examples
       </Typography>
       <CodeBlock
@@ -404,4 +430,4 @@ import { colors, Box, Typography } from '@wso2/oxygen-ui';
       />
     </Stack>
   ),
-};
+}

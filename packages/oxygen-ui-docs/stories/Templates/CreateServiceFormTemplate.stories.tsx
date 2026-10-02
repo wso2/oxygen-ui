@@ -28,12 +28,7 @@ import {
   Select,
   MenuItem,
 } from '@wso2/oxygen-ui'
-import {
-  CircleQuestionMark,
-  PencilIcon,
-  GitBranchIcon,
-  BoxIcon,
-} from '@wso2/oxygen-ui-icons-react'
+import { CircleQuestionMark, PencilIcon, GitBranchIcon, BoxIcon } from '@wso2/oxygen-ui-icons-react'
 
 const meta: Meta = {
   title: 'Templates/Create Service Form',
@@ -219,8 +214,7 @@ export const Default: Story = {
                       <Form.Stack
                         direction="row"
                         spacing={2}
-                        justifyContent="center"
-                        alignItems="center"
+                        sx={{ justifyContent: 'center', alignItems: 'center' }}
                       >
                         {preset.icon}
                         <Form.Body>{preset.label}</Form.Body>

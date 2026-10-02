@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Button, ButtonGroup, Stack } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Button, ButtonGroup, Stack } from '@wso2/oxygen-ui'
+import React from 'react'
 
 /**
  * The ButtonGroup component groups related buttons together.
  * It supports different variants, colors, and orientations.
- * 
- * This is a direct import of MUI button group component. 
+ *
+ * This is a direct import of MUI button group component.
  * Read more at: https://mui.com/material-ui/react-button-group/
  */
 const meta: Meta<typeof ButtonGroup> = {
@@ -43,17 +43,18 @@ const meta: Meta<typeof ButtonGroup> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI button group component is a direct import of MUI button group component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-button-group/](https://mui.com/material-ui/react-button-group/)',
+        component:
+          'Oxygen UI button group component is a direct import of MUI button group component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-button-group/](https://mui.com/material-ui/react-button-group/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof ButtonGroup>;
+export default meta
+type Story = StoryObj<typeof ButtonGroup>
 
 export const Default: Story = {
   render: () => (
@@ -63,7 +64,7 @@ export const Default: Story = {
       <Button>Three</Button>
     </ButtonGroup>
   ),
-};
+}
 
 export const Variants: Story = {
   render: () => (
@@ -85,7 +86,7 @@ export const Variants: Story = {
       </ButtonGroup>
     </Stack>
   ),
-};
+}
 
 export const Colors: Story = {
   render: () => (
@@ -107,11 +108,17 @@ export const Colors: Story = {
       </ButtonGroup>
     </Stack>
   ),
-};
+}
 
 export const Sizes: Story = {
   render: () => (
-    <Stack direction="column" spacing={2} alignItems="center">
+    <Stack
+      direction="column"
+      spacing={2}
+      sx={{
+        alignItems: 'center',
+      }}
+    >
       <ButtonGroup size="small" variant="contained">
         <Button>Small</Button>
         <Button>Small</Button>
@@ -129,7 +136,7 @@ export const Sizes: Story = {
       </ButtonGroup>
     </Stack>
   ),
-};
+}
 
 export const Vertical: Story = {
   render: () => (
@@ -139,7 +146,7 @@ export const Vertical: Story = {
       <Button>Three</Button>
     </ButtonGroup>
   ),
-};
+}
 
 export const Disabled: Story = {
   render: () => (
@@ -149,4 +156,4 @@ export const Disabled: Story = {
       <Button>Three</Button>
     </ButtonGroup>
   ),
-};
+}

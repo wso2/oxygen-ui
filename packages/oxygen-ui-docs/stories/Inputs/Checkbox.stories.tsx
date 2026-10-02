@@ -16,15 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { Checkbox, FormControlLabel, FormGroup } from '@wso2/oxygen-ui';
-import React, { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Checkbox, FormControlLabel, FormGroup } from '@wso2/oxygen-ui'
+import React, { useState } from 'react'
 
 /**
  * The Checkbox component allows users to select one or more options from a set.
  * It supports different states such as checked, unchecked, and indeterminate.
- * 
- * This is a direct import of MUI checkbox component. 
+ *
+ * This is a direct import of MUI checkbox component.
  * Read more at: https://mui.com/material-ui/react-checkbox/
  */
 const meta: Meta<typeof Checkbox> = {
@@ -34,36 +34,32 @@ const meta: Meta<typeof Checkbox> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI checkbox component is a direct import of MUI checkbox component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-checkbox/](https://mui.com/material-ui/react-checkbox/)',
+        component:
+          'Oxygen UI checkbox component is a direct import of MUI checkbox component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-checkbox/](https://mui.com/material-ui/react-checkbox/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Checkbox>;
+export default meta
+type Story = StoryObj<typeof Checkbox>
 
 export const Default: Story = {
   render: () => <Checkbox slotProps={{ input: { 'aria-label': 'Select item' } }} />,
-};
+}
 
 export const Checked: Story = {
-  render: () => (
-    <Checkbox defaultChecked slotProps={{ input: { 'aria-label': 'Select item' } }} />
-  ),
-};
+  render: () => <Checkbox defaultChecked slotProps={{ input: { 'aria-label': 'Select item' } }} />,
+}
 
 export const WithLabel: Story = {
   render: () => (
-    <FormControlLabel
-      control={<Checkbox defaultChecked />}
-      label="Accept terms and conditions"
-    />
+    <FormControlLabel control={<Checkbox defaultChecked />} label="Accept terms and conditions" />
   ),
-};
+}
 
 export const Disabled: Story = {
   render: () => (
@@ -72,13 +68,13 @@ export const Disabled: Story = {
       <FormControlLabel control={<Checkbox disabled checked />} label="Disabled checked" />
     </FormGroup>
   ),
-};
+}
 
 export const Indeterminate: Story = {
   render: () => (
     <Checkbox indeterminate slotProps={{ input: { 'aria-label': 'Select all items' } }} />
   ),
-};
+}
 
 export const Colors: Story = {
   render: () => (
@@ -90,19 +86,19 @@ export const Colors: Story = {
       <FormControlLabel control={<Checkbox defaultChecked color="warning" />} label="Warning" />
     </FormGroup>
   ),
-};
+}
 
 export const Controlled: Story = {
   render: () => {
-    const [checked, setChecked] = useState(true);
+    const [checked, setChecked] = useState(true)
     return (
       <FormControlLabel
-        control={<Checkbox checked={checked} onChange={(e) => setChecked(e.target.checked)} />}
+        control={<Checkbox checked={checked} onChange={e => setChecked(e.target.checked)} />}
         label={checked ? 'Checked' : 'Unchecked'}
       />
-    );
+    )
   },
-};
+}
 
 export const Sizes: Story = {
   render: () => (
@@ -112,4 +108,4 @@ export const Sizes: Story = {
       <FormControlLabel control={<Checkbox size="large" />} label="Large" />
     </FormGroup>
   ),
-};
+}
