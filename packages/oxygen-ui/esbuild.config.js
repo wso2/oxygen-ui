@@ -22,19 +22,30 @@ import { inlineCSSFontsPlugin } from '@wso2/esbuild-plugin-inline-css-fonts';
 
 const pkg = JSON.parse(readFileSync('./package.json', 'utf8'));
 
-esbuild.build({
+const shared = {
   entryPoints: [
     'src/index.ts',
+    'src/data-grid.ts',
+    'src/date-pickers.ts',
+    'src/tree-view.ts',
+    'src/date-pickers/AdapterDateFns.ts',
+    'src/date-pickers/AdapterDateFnsJalali.ts',
+    'src/date-pickers/AdapterDateFnsJalaliV2.ts',
+    'src/date-pickers/AdapterDateFnsV2.ts',
+    'src/date-pickers/AdapterDayjs.ts',
+    'src/date-pickers/AdapterLuxon.ts',
+    'src/date-pickers/AdapterMoment.ts',
+    'src/date-pickers/AdapterMomentHijri.ts',
+    'src/date-pickers/AdapterMomentJalaali.ts',
   ],
   platform: 'browser',
   outdir: 'dist',
   bundle: true,
-  format: 'esm',
   splitting: false,
   sourcemap: true,
   minify: false,
   target: ['es2017'],
-  plugins: [ 
+  plugins: [
     inlineCSSFontsPlugin({
       styleAttribute: 'data-oxygen-fonts'
     })
@@ -51,7 +62,19 @@ esbuild.build({
     ...Object.keys(pkg.peerDependencies || {})
   ],
   preserveSymlinks: true,
-}).catch((err) => {
+};
+
+Promise.all([
+  esbuild.build({
+    ...shared,
+    format: 'esm',
+  }),
+  esbuild.build({
+    ...shared,
+    format: 'cjs',
+    outExtension: { '.js': '.cjs' },
+  }),
+]).catch((err) => {
   console.error(err);
   process.exit(1);
 });

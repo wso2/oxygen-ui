@@ -18,9 +18,9 @@
 
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { DatePickers, AdapterDateFns, OxygenUIThemeProvider } from '@wso2/oxygen-ui';
-
-const { LocalizationProvider, DatePicker, TimePicker, DateTimePicker } = DatePickers;
+import { DatePicker, DateTimePicker, LocalizationProvider, TimePicker } from '@wso2/oxygen-ui/date-pickers';
+import { AdapterDateFns } from '@wso2/oxygen-ui/date-pickers/AdapterDateFns';
+import { OxygenUIThemeProvider } from '@wso2/oxygen-ui';
 
 /**
  * MUI X Date and Time Pickers provide components for selecting dates and times.

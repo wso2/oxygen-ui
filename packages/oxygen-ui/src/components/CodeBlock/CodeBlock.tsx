@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2025-2026, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -18,15 +18,27 @@
 
 import React, { useEffect } from 'react';
 import { Box, useTheme } from '@mui/material';
-import Prism from 'prismjs';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-typescript';
-import 'prismjs/components/prism-jsx';
-import 'prismjs/components/prism-tsx';
-import 'prismjs/components/prism-css';
-import 'prismjs/components/prism-bash';
-import 'prismjs/components/prism-json';
-import 'prismjs/components/prism-markup';
+import type PrismType from 'prismjs';
+
+let prismPromise: Promise<typeof PrismType> | undefined;
+
+function loadPrism(): Promise<typeof PrismType> {
+  prismPromise ??= (async () => {
+    const { default: Prism } = await import('prismjs');
+    // Language files register on the Prism singleton and some depend on
+    // earlier ones (tsx needs jsx + typescript). Load in that order.
+    await import('prismjs/components/prism-javascript');
+    await import('prismjs/components/prism-typescript');
+    await import('prismjs/components/prism-jsx');
+    await import('prismjs/components/prism-tsx');
+    await import('prismjs/components/prism-css');
+    await import('prismjs/components/prism-bash');
+    await import('prismjs/components/prism-json');
+    await import('prismjs/components/prism-markup');
+    return Prism;
+  })();
+  return prismPromise;
+}
 
 export interface CodeBlockProps {
   /**
@@ -78,7 +90,22 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
   }, [theme.palette.mode]);
 
   useEffect(() => {
-    Prism.highlightAll();
+    let cancelled = false;
+    void loadPrism()
+      .then((Prism) => {
+        if (!cancelled) {
+          Prism.highlightAll();
+        }
+      })
+      .catch((error: unknown) => {
+        prismPromise = undefined;
+        if (!cancelled) {
+          console.error('Failed to load prismjs for CodeBlock', error);
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [code, language]);
 
   // Get syntax colors from theme with fallback
@@ -157,6 +184,9 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
       <Box
         component="pre"
         className={showLineNumbers ? 'line-numbers' : ''}
+        tabIndex={0}
+        role="region"
+        aria-label="Code sample"
       >
         <code className={`language-${language}`}>
           {code}

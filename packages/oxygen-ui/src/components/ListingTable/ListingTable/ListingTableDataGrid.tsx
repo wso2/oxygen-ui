@@ -16,9 +16,10 @@
  * under the License.
  */
 
-import { ReactElement, useCallback } from 'react';
-import { DataGrid, DataGridProps, GridDensity, GridRowSpacingParams } from '@mui/x-data-grid';
-import { styled, alpha } from '@mui/material/styles';
+import { ReactElement, useCallback, useEffect, useState, type ComponentType } from 'react';
+import type { DataGridProps, GridDensity, GridRowSpacingParams } from '@mui/x-data-grid';
+import Box from '@mui/material/Box';
+import { styled, alpha, type Theme } from '@mui/material/styles';
 import { useListingTable } from '../context';
 import { ListingTableDensity, densityStyles } from '../shared/types';
 import type { OxygenTheme } from '../../../styles/OxygenThemeBase';
@@ -33,7 +34,7 @@ export interface ListingTableDataGridProps extends Omit<DataGridProps, 'density'
   density?: ListingTableDensity;
 }
 
-const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
+const dataGridStyles = ({ theme }: { theme: Theme }) => ({
   // Remove outer border for seamless integration within ListingTable.Container
   border: 'none',
   // Ensure the grid fills its container
@@ -88,7 +89,21 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
     outline: `2px solid ${(theme.vars || theme).palette.primary.main}`,
     outlineOffset: -2,
   },
-})) as typeof DataGrid;
+});
+
+let styledDataGridPromise: Promise<ComponentType<DataGridProps>> | undefined;
+
+function loadStyledDataGrid(): Promise<ComponentType<DataGridProps>> {
+  styledDataGridPromise ??= import('@mui/x-data-grid')
+    .then(({ DataGrid }) =>
+      styled(DataGrid)(dataGridStyles) as ComponentType<DataGridProps>,
+    )
+    .catch((error: unknown) => {
+      styledDataGridPromise = undefined;
+      throw error;
+    });
+  return styledDataGridPromise;
+}
 
 /**
  * A `ListingTable` variant that renders an MUI DataGrid instead of a traditional HTML table.
@@ -132,6 +147,24 @@ export function ListingTableDataGrid({
   sx,
   ...props
 }: ListingTableDataGridProps): ReactElement {
+  const [StyledDataGrid, setStyledDataGrid] = useState<ComponentType<DataGridProps> | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    void loadStyledDataGrid()
+      .then((Grid) => {
+        if (!cancelled) {
+          setStyledDataGrid(() => Grid);
+        }
+      })
+      .catch((error: unknown) => {
+        console.error('Failed to load @mui/x-data-grid for ListingTable.DataGrid', error);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const context = useListingTable();
 
   // Explicit props take priority over context values
@@ -231,8 +264,19 @@ export function ListingTableDataGrid({
 
   const mergedSx =
     variant === 'card'
-      ? [cardSx as Parameters<typeof StyledDataGrid>[0]['sx'], densitySx, ...(Array.isArray(sx) ? sx : [sx])]
+      ? [cardSx, densitySx, ...(Array.isArray(sx) ? sx : [sx])]
       : [densitySx, ...(Array.isArray(sx) ? sx : [sx])];
+
+  if (!StyledDataGrid) {
+    return (
+      <Box
+        role="status"
+        aria-busy="true"
+        aria-label="Loading data grid"
+        sx={{ width: '100%' }}
+      />
+    );
+  }
 
   return (
     <StyledDataGrid
