@@ -54,11 +54,8 @@ const StyledTableRow = styled(MuiTableRow, {
     }),
     // Card variant specific styles
     ...(variant === 'card' && (() => {
-      // Border color - more visible in dark mode for better contrast
-      const borderColor = alpha(
-        isDarkMode ? theme.palette.common.white : theme.palette.common.black,
-        isDarkMode ? 0.3 : 0.12
-      );
+      // Border color - use the theme divider which adapts to color scheme
+      const borderColor = (theme.vars || theme).palette.divider;
 
       return {
         // Use acrylic background for glassmorphism effect, consistent with MuiCard/MuiPaper
