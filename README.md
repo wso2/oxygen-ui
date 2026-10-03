@@ -104,7 +104,7 @@ To build the project and all packages:
 pnpm build
 ```
 
-To see view the usage instructions:
+To view the usage instructions:
 
 ```sh
 pnpm storybook
@@ -189,7 +189,7 @@ See the [@wso2/oxygen-ui README](./packages/oxygen-ui/README.md#ai-assisted-deve
 
 # License
 
-Licenses this source under the Apache License, Version 2.0 ([LICENSE](LICENSE)), You may not use this file except in compliance with the License.
+This project is licensed under the Apache License, Version 2.0 ([LICENSE](LICENSE)). You may not use this file except in compliance with the License.
 
 ---
 
