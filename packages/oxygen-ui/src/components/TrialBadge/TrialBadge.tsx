@@ -16,14 +16,14 @@
  * under the License.
  */
 
-import React from 'react';
-import { Box, CircularProgress, Typography } from '@mui/material';
-import type { BoxProps } from '@mui/material';
+import React from 'react'
+import { Box, CircularProgress, Typography } from '@mui/material'
+import type { BoxProps } from '@mui/material'
 
 /**
  * Visual status of a trial, derived from the days remaining.
  */
-export type TrialBadgeStatus = 'active' | 'ending-soon' | 'critical' | 'expired';
+export type TrialBadgeStatus = 'active' | 'ending-soon' | 'critical' | 'expired'
 
 /**
  * Props for the TrialBadge component
@@ -32,57 +32,57 @@ export interface TrialBadgeProps extends Omit<BoxProps, 'children'> {
   /**
    * Number of days left in the trial. Values below 0 are treated as 0 (expired).
    */
-  daysLeft: number;
+  daysLeft: number
   /**
    * Total length of the trial in days. Used to compute the progress ring.
    * @default 14
    */
-  totalDays?: number;
+  totalDays?: number
   /**
    * Days left at or below which the badge switches to the "ending soon" state.
    * @default 7
    */
-  endingSoonThreshold?: number;
+  endingSoonThreshold?: number
   /**
    * Days left at or below which the badge switches to the "critical" state
    * and shows the upgrade link.
    * @default 3
    */
-  criticalThreshold?: number;
+  criticalThreshold?: number
   /**
    * Called when the badge is clicked. When set (or when `upgradeHref` is set) the whole
    * badge is rendered as a button.
    */
-  onUpgrade?: React.MouseEventHandler<HTMLElement>;
+  onUpgrade?: React.MouseEventHandler<HTMLElement>
   /**
    * When set, the whole badge renders as an anchor pointing to this URL.
    */
-  upgradeHref?: string;
+  upgradeHref?: string
   /**
    * Whether to show the "Upgrade now" text in the critical and expired states.
    * @default true
    */
-  showUpgrade?: boolean;
+  showUpgrade?: boolean
   /**
    * Primary line while the trial is running. Receives the days left.
    * @default (days) => `${days} day(s) left`
    */
-  getTitle?: (daysLeft: number) => React.ReactNode;
+  getTitle?: (daysLeft: number) => React.ReactNode
   /**
    * Primary line once the trial has expired.
    * @default 'Trial expired'
    */
-  expiredLabel?: React.ReactNode;
+  expiredLabel?: React.ReactNode
   /**
    * Secondary line while no upgrade prompt is shown.
    * @default 'of free trial'
    */
-  subtitle?: React.ReactNode;
+  subtitle?: React.ReactNode
   /**
    * Text of the upgrade link.
    * @default 'Upgrade now'
    */
-  upgradeLabel?: React.ReactNode;
+  upgradeLabel?: React.ReactNode
 }
 
 /**
@@ -91,12 +91,12 @@ export interface TrialBadgeProps extends Omit<BoxProps, 'children'> {
 export function getTrialBadgeStatus(
   daysLeft: number,
   endingSoonThreshold = 7,
-  criticalThreshold = 3,
+  criticalThreshold = 3
 ): TrialBadgeStatus {
-  if (daysLeft <= 0) return 'expired';
-  if (daysLeft <= criticalThreshold) return 'critical';
-  if (daysLeft <= endingSoonThreshold) return 'ending-soon';
-  return 'active';
+  if (daysLeft <= 0) return 'expired'
+  if (daysLeft <= criticalThreshold) return 'critical'
+  if (daysLeft <= endingSoonThreshold) return 'ending-soon'
+  return 'active'
 }
 
 const STATUS_COLOR = {
@@ -104,10 +104,10 @@ const STATUS_COLOR = {
   'ending-soon': 'warning',
   critical: 'error',
   expired: 'error',
-} as const;
+} as const
 
-const RING_SIZE = 36;
-const RING_THICKNESS = 3.5;
+const RING_SIZE = 36
+const RING_THICKNESS = 3.5
 
 /**
  * TrialBadge component - A compact pill showing the remaining days of a free trial.
@@ -132,37 +132,33 @@ const TrialBadge: React.FC<TrialBadgeProps> = ({
   onUpgrade,
   upgradeHref,
   showUpgrade = true,
-  getTitle = (days) => `${days} ${days === 1 ? 'day' : 'days'} left`,
+  getTitle = days => `${days} ${days === 1 ? 'day' : 'days'} left`,
   expiredLabel = 'Trial expired',
   subtitle = 'of free trial',
   upgradeLabel = 'Upgrade now',
   sx,
   ...props
 }) => {
-  const days = Math.max(0, Math.floor(Number.isFinite(daysLeft) ? daysLeft : 0));
-  const status = getTrialBadgeStatus(days, endingSoonThreshold, criticalThreshold);
-  const color = STATUS_COLOR[status];
-  const isExpired = status === 'expired';
-  const upgradeVisible = showUpgrade && (status === 'critical' || isExpired);
-  const progress =
-    totalDays > 0 ? Math.min(100, Math.max(0, (days / totalDays) * 100)) : 0;
+  const days = Math.max(0, Math.floor(Number.isFinite(daysLeft) ? daysLeft : 0))
+  const status = getTrialBadgeStatus(days, endingSoonThreshold, criticalThreshold)
+  const color = STATUS_COLOR[status]
+  const isExpired = status === 'expired'
+  const upgradeVisible = showUpgrade && (status === 'critical' || isExpired)
+  const progress = totalDays > 0 ? Math.min(100, Math.max(0, (days / totalDays) * 100)) : 0
 
-  const interactive = Boolean(onUpgrade || upgradeHref);
+  const interactive = Boolean(onUpgrade || upgradeHref)
   const interactiveProps = interactive
     ? upgradeHref
       ? { component: 'a', href: upgradeHref, onClick: onUpgrade }
       : { component: 'button', type: 'button', onClick: onUpgrade }
-    : { role: 'group' };
+    : { role: 'group' }
 
   return (
     <Box
       {...interactiveProps}
       data-status={status}
-      aria-label={
-        interactive ? undefined : isExpired ? 'Trial expired' : `${days} days left of free trial`
-      }
       sx={[
-        (theme) => ({
+        theme => ({
           display: 'inline-flex',
           alignItems: 'center',
           gap: 1.25,
@@ -194,10 +190,7 @@ const TrialBadge: React.FC<TrialBadgeProps> = ({
       ]}
       {...props}
     >
-      <Box
-        aria-hidden="true"
-        sx={{ position: 'relative', display: 'inline-flex', flexShrink: 0 }}
-      >
+      <Box aria-hidden="true" sx={{ position: 'relative', display: 'inline-flex', flexShrink: 0 }}>
         <CircularProgress
           variant="determinate"
           value={100}
@@ -244,9 +237,9 @@ const TrialBadge: React.FC<TrialBadgeProps> = ({
         </Typography>
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-TrialBadge.displayName = 'TrialBadge';
+TrialBadge.displayName = 'TrialBadge'
 
-export default TrialBadge;
+export default TrialBadge
