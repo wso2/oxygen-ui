@@ -21,7 +21,7 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
-import { Menu, ChevronLeft } from '@wso2/oxygen-ui-icons-react';
+import { Menu } from '@wso2/oxygen-ui-icons-react';
 import { AppShellContext } from '../AppShell/context';
 
 /**
@@ -57,11 +57,11 @@ export interface HeaderToggleProps {
 /**
  * HeaderToggle - Sidebar toggle button for the header.
  *
- * Displays an icon that indicates the current sidebar state
+ * Displays a hamburger icon; state is conveyed via tooltip and `aria-expanded`
  * and toggles between expanded/collapsed states.
  *
  * Custom icons can be provided via `expandIcon` and `collapseIcon` props.
- * Defaults: `Menu` when collapsed (expand), `PanelLeftClose` when expanded (collapse).
+ * Defaults to `Menu` in both states.
  *
  * Theme tokens used:
  * - `text.secondary` - Icon color
@@ -95,7 +95,7 @@ export const HeaderToggle: React.FC<HeaderToggleProps> = ({
           {collapsed ? (
             expandIcon || <Menu size={20} />
           ) : (
-            collapseIcon || <ChevronLeft size={20} />
+            collapseIcon || <Menu size={20} />
           )}
         </span>
       </HeaderToggleRoot>
