@@ -190,6 +190,27 @@ const OxygenThemeBase = extendTheme({
         }),
       },
     },
+    MuiBreadcrumbs: {
+      styleOverrides: {
+        // Only the current (last) level is highlighted; parent levels are muted.
+        li: ({ theme }) => ({
+          color: (theme.vars || theme).palette.text.secondary,
+          // Opacity, not just text.secondary: some themes (e.g. Acrylic) use nearly
+          // identical primary and secondary text colors.
+          '&:not(:last-child)': {
+            opacity: 0.6,
+          },
+          '&:last-child': {
+            color: (theme.vars || theme).palette.text.primary,
+            fontWeight: theme.typography.fontWeightMedium,
+          },
+        }),
+        separator: ({ theme }) => ({
+          color: (theme.vars || theme).palette.text.disabled,
+          opacity: 0.8,
+        }),
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: {
         // Honor the user's OS-level reduced-motion preference (WCAG 2.3.3):
