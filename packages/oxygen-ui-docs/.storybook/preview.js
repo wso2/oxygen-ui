@@ -186,8 +186,10 @@ const preview = {
           'Welcome',
           'Getting Started',
           'How To Contribute',
-          'Accessibility',
-          'Guides',
+          'Guides', [
+            'Accessibility',
+            '*',
+          ],
           'App Elements', [
             'App Shell',
             'App Breadcrumbs',

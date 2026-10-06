@@ -22,7 +22,7 @@ description: Generate application layouts with AppShell, Header, and Sidebar. Us
 
 ## Browser Tab Title
 
-Every page must set `document.title` in this format, so users can tell tabs, bookmarks, and history entries apart:
+Every page must set a browser tab title in this format, so users can tell tabs, bookmarks, and history entries apart. Render a React 19 `<title>` element in the page component rather than assigning `document.title`:
 
 ```text
 [Specific page/resource] | [Product]
@@ -32,12 +32,27 @@ Examples:
 
 ```text
 All Projects | Acme Console
-Environments | Acme Cloud
+Environments | Acme Console
 ```
 
 - Put the specific page or resource first and the product name last
 - Separate them with ` | ` (space, pipe, space)
 - Use the same product name on every page
+- On the product home or landing page, use the product name only: `Acme Console`
+- For nested resources, go from most to least specific: `Environments | Payments API | Acme Console`
+- For dynamic names, use the resource name once it loads; until then show the page type (`Project | Acme Console`), never `Loading...`
+- On error pages, name the error: `Page Not Found | Acme Console`
+
+```tsx
+function ProjectsPage() {
+  return (
+    <>
+      <title>All Projects | Acme Console</title>
+      {/* page content */}
+    </>
+  );
+}
+```
 
 ## Complete App Shell Layout
 
@@ -61,6 +76,16 @@ import {
   UsersIcon,
   FileIcon,
 } from '@wso2/oxygen-ui-icons-react';
+
+function ProjectsPage() {
+  return (
+    <>
+      <title>All Projects | My Application</title>
+      {/* Page content goes here */}
+      <h1>All Projects</h1>
+    </>
+  );
+}
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -136,8 +161,7 @@ function App() {
 
         <AppShell.Main>
           <Box sx={{ p: 3 }}>
-            {/* Page content goes here */}
-            <h1>Welcome</h1>
+            <ProjectsPage />
           </Box>
         </AppShell.Main>
 

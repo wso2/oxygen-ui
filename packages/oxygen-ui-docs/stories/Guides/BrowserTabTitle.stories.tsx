@@ -65,7 +65,7 @@ export const Overview: Story = {
           <Typography variant="h6" gutterBottom>
             Format
           </Typography>
-          <CodeBlock language="text" code={`[Specific page/resource] | [Product]`} />
+          <CodeBlock language="markup" code={`[Specific page/resource] | [Product]`} />
         </Box>
 
         <Box>
@@ -73,10 +73,25 @@ export const Overview: Story = {
             Examples
           </Typography>
           <CodeBlock
-            language="text"
+            language="markup"
             code={`All Projects | Acme Console
-Environments | Acme Cloud`}
+Environments | Acme Console`}
           />
+        </Box>
+
+        <Box>
+          <Typography variant="h6" gutterBottom>
+            Rules
+          </Typography>
+          <Box component="ul" sx={{ pl: 3, m: 0 }}>
+            <li><Typography variant="body2">Put the specific page or resource first and the product name last.</Typography></li>
+            <li><Typography variant="body2">Separate them with <code> | </code> (space, pipe, space).</Typography></li>
+            <li><Typography variant="body2">Use the same product name on every page.</Typography></li>
+            <li><Typography variant="body2">On the product home or landing page, use the product name only: <code>Acme Console</code>.</Typography></li>
+            <li><Typography variant="body2">For nested resources, go from most to least specific: <code>Environments | Payments API | Acme Console</code>.</Typography></li>
+            <li><Typography variant="body2">For dynamic names, use the resource name once it loads; until then show the page type (<code>Project | Acme Console</code>), never <code>Loading...</code>.</Typography></li>
+            <li><Typography variant="body2">On error pages, name the error: <code>Page Not Found | Acme Console</code>.</Typography></li>
+          </Box>
         </Box>
       </Stack>
     </CenterContentLayout>
