@@ -195,19 +195,21 @@ const OxygenThemeBase = extendTheme({
         // Only the current (last) level is highlighted; parent levels are muted.
         li: ({ theme }) => ({
           color: (theme.vars || theme).palette.text.secondary,
-          // Opacity, not just text.secondary: some themes (e.g. Acrylic) use nearly
-          // identical primary and secondary text colors.
-          '&:not(:last-child)': {
-            opacity: 0.6,
-          },
           '&:last-child': {
             color: (theme.vars || theme).palette.text.primary,
-            fontWeight: theme.typography.fontWeightMedium,
+            fontWeight: theme.typography.fontWeightBold,
           },
+          // Some themes (e.g. Acrylic) use nearly identical primary and secondary
+          // text colors, so dim the parents further. Dark mode only: in light mode
+          // any opacity drops parent links below the 4.5:1 contrast minimum.
+          ...theme.applyStyles('dark', {
+            '&:not(:last-child)': {
+              opacity: 0.7,
+            },
+          }),
         }),
         separator: ({ theme }) => ({
           color: (theme.vars || theme).palette.text.disabled,
-          opacity: 0.8,
         }),
       },
     },
