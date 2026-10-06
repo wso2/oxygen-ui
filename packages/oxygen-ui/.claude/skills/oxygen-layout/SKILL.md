@@ -18,6 +18,26 @@ description: Generate application layouts with AppShell, Header, and Sidebar. Us
 - Use compound component pattern for `AppShell`, `Header`, `Sidebar`
 - Import icons from `@wso2/oxygen-ui-icons-react`
 - Use theme tokens for all styling
+- Set a browser tab title on every page using `[Specific page/resource] | [Product]` (see below)
+
+## Browser Tab Title
+
+Every page must set `document.title` in this format, so users can tell tabs, bookmarks, and history entries apart:
+
+```text
+[Specific page/resource] | [Product]
+```
+
+Examples:
+
+```text
+All Projects | Acme Console
+Environments | Acme Cloud
+```
+
+- Put the specific page or resource first and the product name last
+- Separate them with ` | ` (space, pipe, space)
+- Use the same product name on every page
 
 ## Complete App Shell Layout
 
