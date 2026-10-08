@@ -127,7 +127,7 @@ const RelativeTime: React.FC<RelativeTimeProps> = ({
   }
 
   return (
-    <Tooltip title={tooltip}>
+    <Tooltip title={tooltip} describeChild>
       {/* tabIndex makes the tooltip reachable for keyboard users */}
       <Box component="span" tabIndex={0} sx={{ display: 'inline-flex' }}>
         {content}

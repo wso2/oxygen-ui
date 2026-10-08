@@ -60,4 +60,12 @@ describe('RelativeTime', () => {
     );
     expect(container.querySelector('[tabindex="0"]')).not.toBeNull();
   });
+
+  it('keeps the visible time as the accessible label when a tooltip is provided', () => {
+    const { container } = renderWithTheme(
+      <RelativeTime action="Updated" time="2 days ago" tooltip="October 6, 2026, 9:00 AM" />,
+    );
+    const trigger = container.querySelector('[tabindex="0"]');
+    expect(trigger?.getAttribute('aria-label')).toBeNull();
+  });
 });
