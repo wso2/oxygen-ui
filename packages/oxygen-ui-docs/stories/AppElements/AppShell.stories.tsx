@@ -37,6 +37,7 @@ import {
   UserMenu,
   NotificationBanner,
   Footer,
+  TrialBadge,
   ComplexSelect,
   Dialog,
   DialogTitle,
@@ -189,6 +190,7 @@ interface AppShellArgs {
   showFooter: boolean;
   notificationCount: number;
   minimal: boolean;
+  trialDaysLeft?: number;
 }
 
 /**
@@ -417,6 +419,10 @@ application shell with:
       control: 'boolean',
       description: 'Use minimal header (hides switchers)',
     },
+    trialDaysLeft: {
+      control: { type: 'number', min: 0, max: 30 },
+      description: 'Days left in the free trial. When set, a TrialBadge is shown in the header actions',
+    },
   },
   args: {
     sidebarCollapsed: false,
@@ -541,6 +547,12 @@ export const Playground: Story = {
             </Header.Switchers>
             <Header.Spacer />
             <Header.Actions>
+              {args.trialDaysLeft !== undefined && (
+                <TrialBadge
+                  daysLeft={args.trialDaysLeft}
+                  onUpgrade={() => console.log('Upgrade clicked')}
+                />
+              )}
               <ColorSchemeToggle />
               <Tooltip title="Help & Support">
                 <IconButton
@@ -865,6 +877,47 @@ export const MinimalHeader: Story = {
     showNotificationBanner: false,
     showFooter: true,
     minimal: true,
+  },
+  render: Playground.render,
+};
+
+/**
+ * App Shell with a TrialBadge in the header actions, placed before the color scheme toggle
+ * and user menu. Change `trialDaysLeft` in the controls to see the badge change state.
+ */
+export const WithTrialBadge: Story = {
+  args: {
+    sidebarCollapsed: false,
+    showNotificationBanner: false,
+    showFooter: true,
+    trialDaysLeft: 12,
+  },
+  render: Playground.render,
+};
+
+/**
+ * TrialBadge in the header during the last days of the trial. The whole badge is clickable
+ * and shows the "Upgrade now" prompt.
+ */
+export const WithTrialEndingSoon: Story = {
+  args: {
+    sidebarCollapsed: false,
+    showNotificationBanner: false,
+    showFooter: true,
+    trialDaysLeft: 2,
+  },
+  render: Playground.render,
+};
+
+/**
+ * TrialBadge in the header after the trial has expired.
+ */
+export const WithTrialExpired: Story = {
+  args: {
+    sidebarCollapsed: false,
+    showNotificationBanner: false,
+    showFooter: true,
+    trialDaysLeft: 0,
   },
   render: Playground.render,
 };
