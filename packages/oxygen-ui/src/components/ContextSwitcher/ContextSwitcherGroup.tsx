@@ -18,7 +18,7 @@
 
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import { matchesQuery, nodeText } from './model';
+import { flattenElements, matchesQuery, nodeText } from './model';
 import { isTruncated, OverflowTooltip, tooltipLabel } from './OverflowTooltip';
 import { useLevelPanel } from './context';
 import { isContextSwitcherOption } from './ContextSwitcherOption';
@@ -77,9 +77,19 @@ export const ContextSwitcherGroup = React.forwardRef<HTMLDivElement, ContextSwit
     const { query } = useLevelPanel();
     const labelRef = React.useRef<HTMLSpanElement>(null);
     const [nameTooltipOpen, setNameTooltipOpen] = React.useState(false);
-    const visible = React.Children.toArray(children).some(
-      (child) => isContextSwitcherOption(child) && matchesQuery(nodeText(child.props.children), query)
-    );
+    const elements = flattenElements(children);
+    const options = elements.filter(isContextSwitcherOption);
+    const visible = options.some((option) => matchesQuery(nodeText(option.props.children), query));
+
+    React.useEffect(() => {
+      const nested = flattenElements(children);
+      if (nested.every(isContextSwitcherOption)) {
+        return;
+      }
+      console.warn(
+        'ContextSwitcher.Group only renders ContextSwitcher.Option children. Other children are ignored.'
+      );
+    }, [children]);
 
     if (!visible) {
       return null;
@@ -109,7 +119,7 @@ export const ContextSwitcherGroup = React.forwardRef<HTMLDivElement, ContextSwit
             {label}
           </GroupLabel>
         </OverflowTooltip>
-        {children}
+        {options}
       </div>
     );
   }

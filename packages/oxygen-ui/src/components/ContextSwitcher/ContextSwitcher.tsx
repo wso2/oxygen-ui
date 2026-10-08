@@ -23,7 +23,7 @@ import { ContextSwitcherContext, type ContextSwitcherValue } from './context';
 import { ContextSwitcherLevel, type ContextSwitcherLevelProps } from './ContextSwitcherLevel';
 import { ContextSwitcherGroup } from './ContextSwitcherGroup';
 import { ContextSwitcherOption } from './ContextSwitcherOption';
-import { normalizeValue, selectedLevelCount, clearFrom, selectLevel } from './model';
+import { normalizeValue, selectedLevelCount, clearFrom, selectLevel, sameSelection } from './model';
 
 /**
  * Theme tokens used in this component:
@@ -90,7 +90,9 @@ const levelElements = (
  * the panel, those arrows stay in the search box and move the highlighted option.
  * Enter picks it and leaves the field. Escape closes the panel and returns focus
  * to the field. Closing a level hides that level and every level under it, and
- * keeps the selection aside. Choosing the parent's current option again shows
+ * keeps the selection aside. The fields follow `value`. If that value still
+ * includes the closed level, or the product sets it again later, the level stays
+ * visible and the remembered selection is dropped. Choosing the parent's current option again shows
  * them with that selection. Choosing a different option opens an empty child. Dismissing
  * that panel without a choice hides the empty level again. An outside click or a
  * second click on the field also closes the panel. The close button stays inside the field. A name that does not fit
@@ -117,28 +119,53 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
     const chainRef = React.useRef<HTMLDivElement>(null);
     const restoreFocusRef = React.useRef(false);
     const memoryRef = React.useRef<ContextSwitcherValue | null>(null);
+    const emittedRef = React.useRef<ContextSwitcherValue | null>(null);
     const [openId, setOpenId] = React.useState<string | null>(null);
     const [collapsedId, setCollapsedId] = React.useState<string | null>(null);
     const [revealedId, setRevealedId] = React.useState<string | null>(null);
     const levels = levelElements(children);
-    const levelIds = levels.map((level) => level.props.id);
-    const levelKey = levelIds.join('\0');
-    const normalized = React.useMemo(
-      () => normalizeValue(levelKey.length === 0 ? [] : levelKey.split('\0'), value),
-      [levelKey, value]
+    const levelKey = levels.map((level) => level.props.id).join('\0');
+    const levelIds = React.useMemo(
+      () => (levelKey.length === 0 ? [] : levelKey.split('\0')),
+      [levelKey]
     );
+    const normalized = React.useMemo(() => normalizeValue(levelIds, value), [levelIds, value]);
+    const committedRef = React.useRef(normalized);
     const selectedCount = selectedLevelCount(levelIds, normalized);
-    const collapsedIndex = collapsedId === null ? -1 : levelIds.indexOf(collapsedId);
     const revealedIndex = revealedId === null ? -1 : levelIds.indexOf(revealedId);
     let visibleCount = levels.length === 0 ? 0 : Math.max(selectedCount, 1);
     if (revealedIndex === selectedCount && revealedId !== null && !normalized[revealedId]) {
       visibleCount = Math.min(levels.length, selectedCount + 1);
     }
-    if (collapsedIndex >= 0) {
-      visibleCount = Math.min(visibleCount, collapsedIndex);
-    }
     const visible = levels.slice(0, visibleCount);
     const visibleKey = visible.map((level) => level.props.id).join('\0');
+
+    const emit = React.useCallback(
+      (next: ContextSwitcherValue) => {
+        emittedRef.current = next;
+        onChange(next);
+      },
+      [onChange]
+    );
+
+    React.useEffect(() => {
+      const emitted = emittedRef.current;
+      if (emitted && sameSelection(emitted, normalized)) {
+        emittedRef.current = null;
+        committedRef.current = normalized;
+        return;
+      }
+      if (emitted && sameSelection(committedRef.current, normalized)) {
+        return;
+      }
+      if (!sameSelection(committedRef.current, normalized)) {
+        emittedRef.current = null;
+        memoryRef.current = null;
+        setCollapsedId(null);
+        setRevealedId(null);
+        committedRef.current = normalized;
+      }
+    }, [normalized]);
 
     React.useEffect(() => {
       const visibleIds = visibleKey.length === 0 ? [] : visibleKey.split('\0');
@@ -176,15 +203,15 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
         if (index <= 0) {
           memoryRef.current = null;
           setCollapsedId(null);
-          onChange(clearFrom(levelIds, normalized, levelId));
+          emit(clearFrom(levelIds, normalized, levelId));
           return;
         }
         memoryRef.current = { ...normalized };
         setCollapsedId(levelId);
         setRevealedId(null);
-        onChange(clearFrom(levelIds, normalized, levelId));
+        emit(clearFrom(levelIds, normalized, levelId));
       },
-      [levelIds, normalized, onChange]
+      [levelIds, normalized, emit]
     );
 
     const applyPick = React.useCallback(
@@ -197,7 +224,7 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
         const nextId = levelIds[levelIds.indexOf(levelId) + 1] ?? null;
 
         if (pickingHiddenParent && memory[levelId] === optionValue && normalized[levelId] === optionValue) {
-          onChange(normalizeValue(levelIds, memory));
+          emit(normalizeValue(levelIds, memory));
           memoryRef.current = null;
           setCollapsedId(null);
           setRevealedId(null);
@@ -219,13 +246,13 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
           }
           return;
         }
-        onChange(selectLevel(levelIds, normalized, levelId, optionValue));
+        emit(selectLevel(levelIds, normalized, levelId, optionValue));
         setRevealedId(nextId);
         if (nextId) {
           setOpenId(nextId);
         }
       },
-      [collapsedId, levelIds, normalized, onChange]
+      [collapsedId, levelIds, normalized, emit]
     );
 
     React.useLayoutEffect(() => {
