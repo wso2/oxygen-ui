@@ -20,6 +20,25 @@ import * as React from 'react';
 import type { ContextSwitcherValue } from './context';
 
 /**
+ * Elements in child order. A fragment is transparent. Text and empty slots are skipped.
+ */
+export const flattenElements = (children: React.ReactNode): React.ReactElement[] => {
+  const elements: React.ReactElement[] = [];
+  React.Children.forEach(children, (child) => {
+    if (!React.isValidElement(child)) {
+      return;
+    }
+    if (child.type === React.Fragment) {
+      const fragment = child.props as { children?: React.ReactNode };
+      elements.push(...flattenElements(fragment.children));
+      return;
+    }
+    elements.push(child);
+  });
+  return elements;
+};
+
+/**
  * Visible text of a React node, used to name an option and to filter it.
  */
 export const nodeText = (node: React.ReactNode): string => {
@@ -126,3 +145,15 @@ export const selectLevel = (
 /** DOM id for an option. Distinct values stay distinct, including symbols. */
 export const optionDomId = (listId: string, value: string): string =>
   `${listId}-${value.replace(/[^A-Za-z0-9-]/g, (ch) => `_${ch.codePointAt(0)!.toString(16)}_`)}`;
+
+/** True when both maps select the same option for every level id. */
+export const sameSelection = (
+  left: ContextSwitcherValue,
+  right: ContextSwitcherValue
+): boolean => {
+  const leftKeys = Object.keys(left);
+  const rightKeys = Object.keys(right);
+  return (
+    leftKeys.length === rightKeys.length && leftKeys.every((key) => left[key] === right[key])
+  );
+};

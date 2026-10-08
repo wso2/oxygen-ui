@@ -32,10 +32,12 @@ import { optionDomId } from './model';
 const Harness = ({
   initial = {},
   loading = false,
+  loadingLabel,
   onChange,
 }: {
   initial?: ContextSwitcherValue;
   loading?: boolean;
+  loadingLabel?: string;
   onChange?: (value: ContextSwitcherValue) => void;
 }) => {
   const [value, setValue] = React.useState(initial);
@@ -61,7 +63,7 @@ const Harness = ({
             Sales
           </ContextSwitcher.Option>
         </ContextSwitcher.Level>
-        <ContextSwitcher.Level id="component" label="Component" loading={loading}>
+        <ContextSwitcher.Level id="component" label="Component" loading={loading} loadingLabel={loadingLabel}>
           <ContextSwitcher.Option value="mis-arr">MIS ARR Backend</ContextSwitcher.Option>
         </ContextSwitcher.Level>
       </ContextSwitcher>
@@ -325,6 +327,68 @@ describe('ContextSwitcher close', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Close Organization' }));
     expect(onChange).toHaveBeenCalledWith({});
   });
+
+  it('shows a level the product sets after that level was closed', () => {
+    const Controlled = () => {
+      const [value, setValue] = React.useState<ContextSwitcherValue>({
+        organization: 'wso2',
+        project: 'finance-web',
+      });
+      return (
+        <OxygenUIThemeProvider>
+          <button
+            type="button"
+            onClick={() => setValue({ organization: 'wso2', project: 'sales' })}
+          >
+            Route to Sales
+          </button>
+          <ContextSwitcher value={value} onChange={setValue}>
+            <ContextSwitcher.Level id="organization" label="Organization">
+              <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+            </ContextSwitcher.Level>
+            <ContextSwitcher.Level id="project" label="Project">
+              <ContextSwitcher.Option value="finance-web">Finance Web</ContextSwitcher.Option>
+              <ContextSwitcher.Option value="sales">Sales</ContextSwitcher.Option>
+            </ContextSwitcher.Level>
+          </ContextSwitcher>
+        </OxygenUIThemeProvider>
+      );
+    };
+
+    render(<Controlled />);
+    fireEvent.click(screen.getByRole('button', { name: 'Close Project' }));
+    expect(screen.queryByRole('button', { name: /Project/ })).toBeNull();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Route to Sales' }));
+    expect(screen.getByRole('button', { name: 'Project: Sales' })).toBeDefined();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Organization: WSO2' }));
+    fireEvent.click(screen.getByRole('option', { name: 'WSO2' }));
+    expect(screen.getByRole('button', { name: 'Project: Sales' })).toBeDefined();
+    expect(screen.queryByRole('button', { name: 'Project: Finance Web' })).toBeNull();
+  });
+
+  it('keeps a level when the product ignores the close', () => {
+    render(
+      <OxygenUIThemeProvider>
+        <ContextSwitcher
+          value={{ organization: 'wso2', project: 'finance-web' }}
+          onChange={() => undefined}
+        >
+          <ContextSwitcher.Level id="organization" label="Organization">
+            <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+          </ContextSwitcher.Level>
+          <ContextSwitcher.Level id="project" label="Project">
+            <ContextSwitcher.Option value="finance-web">Finance Web</ContextSwitcher.Option>
+          </ContextSwitcher.Level>
+        </ContextSwitcher>
+      </OxygenUIThemeProvider>
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Close Project' }));
+
+    expect(screen.getByRole('button', { name: 'Project: Finance Web' })).toBeDefined();
+  });
 });
 
 const declaredProperty = (
@@ -506,14 +570,25 @@ describe('ContextSwitcher panel', () => {
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 
-  it('lists ungrouped options before groups and marks the current option', () => {
+  it('lists options in source order and marks the current option', () => {
     render(<Harness />);
 
     fireEvent.click(screen.getByRole('button', { name: 'Organization' }));
-    const options = screen.getAllByRole('option').map((option) => option.textContent);
-    expect(options).toEqual(['Personal', 'WSO2', 'Demo Organization']);
+    const options = screen.getAllByRole('option');
+    expect(options.map((option) => option.textContent)).toEqual([
+      'WSO2',
+      'Demo Organization',
+      'Personal',
+    ]);
     expect(screen.getByRole('group', { name: 'Invited organizations' })).toBeDefined();
-    expect(screen.getByRole('listbox', { name: 'Organization' }).getAttribute('tabindex')).toBe('-1');
+    expect(screen.getByRole('listbox', { name: 'Organization' }).getAttribute('tabindex')).toBe(
+      '-1'
+    );
+
+    const search = screen.getByRole('textbox', { name: 'Search Organization' });
+    expect(search.getAttribute('aria-activedescendant')).toBe(options[0].id);
+    fireEvent.keyDown(search, { key: 'ArrowDown' });
+    expect(search.getAttribute('aria-activedescendant')).toBe(options[1].id);
 
     fireEvent.click(screen.getByRole('option', { name: 'Personal' }));
     fireEvent.click(screen.getByRole('button', { name: 'Organization: Personal' }));
@@ -580,6 +655,31 @@ describe('ContextSwitcher panel', () => {
 
     expect(screen.getByRole('progressbar', { name: 'Loading Component' })).toBeDefined();
     expect(screen.queryByRole('option', { name: 'MIS ARR Backend' })).toBeNull();
+  });
+
+  it('does not select a hidden option with Enter while loading', () => {
+    const onChange = vi.fn();
+    render(
+      <Harness
+        initial={{ organization: 'wso2', project: 'finance-web' }}
+        loading
+        loadingLabel="Loading projects"
+        onChange={onChange}
+      />
+    );
+
+    openLevel('Component');
+    const search = screen.getByRole('textbox', { name: 'Search Component' });
+
+    expect(screen.getByRole('progressbar', { name: 'Loading projects' })).toBeDefined();
+
+    expect(search.getAttribute('aria-activedescendant')).toBeNull();
+    expect(search.getAttribute('aria-controls')).toBeNull();
+
+    fireEvent.keyDown(screen.getByRole('dialog', { name: 'Component' }), { key: 'Enter' });
+
+    expect(onChange).not.toHaveBeenCalled();
+    expect(screen.getByRole('dialog', { name: 'Component' })).toBeDefined();
   });
 
   it('selects the first matching option from the keyboard', () => {
@@ -658,6 +758,27 @@ describe('ContextSwitcher dismissal', () => {
     });
     fireEvent.mouseDown(document.body);
     expect(screen.queryByRole('dialog')).toBeNull();
+  });
+
+  it('lets a document listener see a press inside the panel', async () => {
+    const heard = vi.fn();
+    document.addEventListener('mousedown', heard);
+    try {
+      render(<Harness />);
+      fireEvent.click(screen.getByRole('button', { name: 'Organization' }));
+      await act(async () => {
+        await new Promise((resolve) => {
+          setTimeout(resolve, 0);
+        });
+      });
+
+      fireEvent.mouseDown(screen.getByRole('dialog', { name: 'Organization' }));
+
+      expect(heard).toHaveBeenCalled();
+      expect(screen.getByRole('dialog', { name: 'Organization' })).toBeDefined();
+    } finally {
+      document.removeEventListener('mousedown', heard);
+    }
   });
 
   it('keeps only one panel open', () => {
@@ -842,6 +963,13 @@ describe('ContextSwitcher accessibility', () => {
     expect(organization.getAttribute('aria-expanded')).toBe('true');
     expect(organization.getAttribute('aria-controls')).toBe(dialog.id);
     expect(dialog.getAttribute('aria-modal')).toBeNull();
+
+    const search = screen.getByRole('textbox', { name: 'Search Organization' });
+    const list = screen.getByRole('listbox', { name: 'Organization' });
+    expect(search.getAttribute('aria-controls')).toBe(list.id);
+
+    fireEvent.change(search, { target: { value: 'no-such-option' } });
+    expect(search.getAttribute('aria-controls')).toBeNull();
   });
 
   it('names a group once and hides the visible label from assistive tech', () => {
@@ -1014,6 +1142,71 @@ describe('ContextSwitcher.Level', () => {
     expect(screen.getByRole('button', { name: 'Organization: retired' })).toBeDefined();
   });
 
+  it('ignores a child that is not an option or a group', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    try {
+      render(
+        <OxygenUIThemeProvider>
+          <ContextSwitcher value={{}} onChange={() => undefined}>
+            <ContextSwitcherLevel id="organization" label="Organization">
+              <span>Note</span>
+              <ContextSwitcherOption value="wso2">WSO2</ContextSwitcherOption>
+            </ContextSwitcherLevel>
+          </ContextSwitcher>
+        </OxygenUIThemeProvider>
+      );
+
+      fireEvent.click(screen.getByRole('button', { name: 'Organization' }));
+
+      expect(screen.queryByText('Note')).toBeNull();
+      expect(screen.getByRole('option', { name: 'WSO2' })).toBeDefined();
+      expect(warn).toHaveBeenCalledWith(expect.stringContaining('ContextSwitcher.Level'));
+    } finally {
+      warn.mockRestore();
+    }
+  });
+
+  it('uses the copy a product supplies', () => {
+    render(
+      <OxygenUIThemeProvider>
+        <ContextSwitcher value={{ organization: 'wso2' }} onChange={() => undefined}>
+          <ContextSwitcherLevel
+            id="organization"
+            label="Organization"
+            clearable
+            searchPlaceholder="Find"
+            searchLabel="Find organization"
+            noMatchesText="Nothing"
+            closeLabel="Clear organization"
+          >
+            <ContextSwitcherOption value="wso2">WSO2</ContextSwitcherOption>
+          </ContextSwitcherLevel>
+          <ContextSwitcherLevel
+            id="project"
+            label="Project"
+            noOptionsText="Empty"
+          />
+        </ContextSwitcher>
+      </OxygenUIThemeProvider>
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Organization: WSO2' }));
+    expect(screen.getByPlaceholderText('Find')).toBeDefined();
+    expect(screen.getByRole('textbox', { name: 'Find organization' })).toBeDefined();
+    expect(screen.getByRole('button', { name: 'Clear organization' })).toBeDefined();
+
+    fireEvent.change(screen.getByRole('textbox', { name: 'Find organization' }), {
+      target: { value: 'zzz' },
+    });
+    expect(screen.getByText('Nothing')).toBeDefined();
+
+    fireEvent.keyDown(screen.getByRole('dialog', { name: 'Organization' }), { key: 'Escape' });
+    fireEvent.click(screen.getByRole('button', { name: 'Organization: WSO2' }));
+    fireEvent.click(screen.getByRole('option', { name: 'WSO2' }));
+
+    expect(screen.getByText('Empty')).toBeDefined();
+  });
+
   it('shows no close button on a level that has no value', () => {
     const onChange = vi.fn();
     render(<Harness initial={{ organization: 'wso2' }} onChange={onChange} />);
@@ -1098,14 +1291,42 @@ describe('ContextSwitcher.Group', () => {
   });
 
   it('omits a group that contains no options', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    try {
+      render(
+        <OxygenUIThemeProvider>
+          <ContextSwitcher value={{}} onChange={() => undefined}>
+            <ContextSwitcherLevel id="organization" label="Organization">
+              <ContextSwitcherGroup label="Notes">
+                <span>Not a choice</span>
+              </ContextSwitcherGroup>
+              <ContextSwitcherOption value="personal">Personal</ContextSwitcherOption>
+            </ContextSwitcherLevel>
+          </ContextSwitcher>
+        </OxygenUIThemeProvider>
+      );
+
+      fireEvent.click(screen.getByRole('button', { name: 'Organization' }));
+
+      expect(screen.queryByRole('group', { name: 'Notes' })).toBeNull();
+      expect(screen.queryByText('Not a choice')).toBeNull();
+      expect(screen.getByRole('option', { name: 'Personal' })).toBeDefined();
+      expect(warn).toHaveBeenCalledWith(expect.stringContaining('ContextSwitcher.Group'));
+    } finally {
+      warn.mockRestore();
+    }
+  });
+
+  it('keeps a group whose options sit in a fragment', () => {
     render(
       <OxygenUIThemeProvider>
         <ContextSwitcher value={{}} onChange={() => undefined}>
           <ContextSwitcherLevel id="organization" label="Organization">
-            <ContextSwitcherGroup label="Notes">
-              <span>Not a choice</span>
+            <ContextSwitcherGroup label="Invited organizations">
+              <>
+                <ContextSwitcherOption value="wso2">WSO2</ContextSwitcherOption>
+              </>
             </ContextSwitcherGroup>
-            <ContextSwitcherOption value="personal">Personal</ContextSwitcherOption>
           </ContextSwitcherLevel>
         </ContextSwitcher>
       </OxygenUIThemeProvider>
@@ -1113,9 +1334,8 @@ describe('ContextSwitcher.Group', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Organization' }));
 
-    expect(screen.queryByRole('group', { name: 'Notes' })).toBeNull();
-    expect(screen.queryByText('Not a choice')).toBeNull();
-    expect(screen.getByRole('option', { name: 'Personal' })).toBeDefined();
+    expect(screen.getByRole('group', { name: 'Invited organizations' })).toBeDefined();
+    expect(screen.getByRole('option', { name: 'WSO2' })).toBeDefined();
   });
 });
 

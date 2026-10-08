@@ -37,7 +37,7 @@ const meta: Meta<typeof ContextSwitcher> = {
         component: `
 The chain shows each selected level. A level with no value stays hidden until its parent option is chosen. That choice opens the child panel and moves focus into its search. Dismissing the panel without a choice hides the empty level again.
 
-Choosing a field opens its panel: a search box, then ungrouped options and groups. Search filters the option text. Arrow keys move the highlight and leave the cursor in the search box. Enter picks the highlighted option. Escape, an outside click, or a second click on the field closes the panel. A label, value, group name, or option that does not fit stays on one line and ends in an ellipsis. Hovering it shows the full text.
+Choosing a field opens its panel: a search box, then options and groups in the order they are written. Search filters the option text. Arrow keys move the highlight and leave the cursor in the search box. Enter picks the highlighted option. Escape, an outside click, or a second click on the field closes the panel. A label, value, group name, or option that does not fit stays on one line and ends in an ellipsis. Hovering it shows the full text.
 
 The close control sits inside the field, above the chevron. Closing a level hides that level and every level under it, and remembers the selection. Choosing the parent's current option again shows them with that selection. Choosing a different option opens an empty child. The close control appears only when the level is clearable and has a selection. The first level has no close control unless \`clearable\` is set. Changing a parent clears the levels under it. The product routes from \`onChange\`.
 

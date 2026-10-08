@@ -31,7 +31,7 @@ import { LevelPanelContext, useContextSwitcher } from './context';
 import { isContextSwitcherGroup } from './ContextSwitcherGroup';
 import { isContextSwitcherOption } from './ContextSwitcherOption';
 import { isTruncated, OverflowTooltip, tooltipLabel } from './OverflowTooltip';
-import { matchesQuery, nodeText, optionDomId } from './model';
+import { flattenElements, matchesQuery, nodeText, optionDomId } from './model';
 
 /**
  * Theme tokens used in this component:
@@ -236,7 +236,19 @@ export interface ContextSwitcherLevelProps
   clearable?: boolean;
   /** The panel shows a progress indicator instead of the options. */
   loading?: boolean;
-  /** Options and groups for this level. */
+  /** Placeholder in the panel search box. */
+  searchPlaceholder?: string;
+  /** Accessible name of the search box. Defaults to `Search ${label}`. */
+  searchLabel?: string;
+  /** Shown when the level has no options. */
+  noOptionsText?: string;
+  /** Shown when the search matches nothing. */
+  noMatchesText?: string;
+  /** Accessible name of the close button. Defaults to `Close ${label}`. */
+  closeLabel?: string;
+  /** Accessible name of the progress indicator. Defaults to `Loading ${label}`. */
+  loadingLabel?: string;
+  /** Options and groups for this level, in the order they should appear. */
   children?: React.ReactNode;
 }
 
@@ -246,9 +258,12 @@ interface OptionEntry {
   disabled: boolean;
 }
 
+const isPanelChild = (child: React.ReactElement): boolean =>
+  isContextSwitcherOption(child) || isContextSwitcherGroup(child);
+
 const collectOptions = (children: React.ReactNode): OptionEntry[] => {
   const options: OptionEntry[] = [];
-  React.Children.forEach(children, (child) => {
+  flattenElements(children).forEach((child) => {
     if (isContextSwitcherOption(child)) {
       options.push({
         value: child.props.value,
@@ -268,7 +283,23 @@ const collectOptions = (children: React.ReactNode): OptionEntry[] => {
  * ContextSwitcher.Level - A labeled field in the chain, and the panel that picks its value.
  */
 export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwitcherLevelProps>(
-  function ContextSwitcherLevel({ id, label, clearable, loading = false, children, ...rest }, ref) {
+  function ContextSwitcherLevel(
+    {
+      id,
+      label,
+      clearable,
+      loading = false,
+      searchPlaceholder = 'Search',
+      searchLabel,
+      noOptionsText = 'No options',
+      noMatchesText = 'No matches',
+      closeLabel,
+      loadingLabel,
+      children,
+      ...rest
+    },
+    ref
+  ) {
     const { value, levelIds, openId, setOpenId, restoreFocus, moveFocus, collapse, applyPick } =
       useContextSwitcher();
     const buttonRef = React.useRef<HTMLButtonElement>(null);
@@ -299,13 +330,30 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
       () => matches.filter((option) => !option.disabled),
       [matches]
     );
-    const childList = React.Children.toArray(children);
-    const ungroupedOptions = childList.filter(isContextSwitcherOption);
-    const groups = childList.filter(isContextSwitcherGroup);
+    const panelElements = flattenElements(children);
+    const panelChildren = panelElements.filter(isPanelChild);
+    const showList = !loading && matches.length > 0;
+    const resolvedSearchLabel = searchLabel ?? `Search ${label}`;
+    const resolvedCloseLabel = closeLabel ?? `Close ${label}`;
+    const resolvedLoadingLabel = loadingLabel ?? `Loading ${label}`;
+
+    React.useEffect(() => {
+      const elements = flattenElements(children);
+      if (elements.every(isPanelChild)) {
+        return;
+      }
+      console.warn(
+        'ContextSwitcher.Level only renders ContextSwitcher.Option and ContextSwitcher.Group children. Other children are ignored.'
+      );
+    }, [children]);
 
     React.useEffect(() => {
       if (!open) {
         setQuery('');
+        setActiveValue(null);
+        return;
+      }
+      if (loading) {
         setActiveValue(null);
         return;
       }
@@ -315,7 +363,7 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
         }
         return enabledMatches[0]?.value ?? null;
       });
-    }, [open, enabledMatches]);
+    }, [open, loading, enabledMatches]);
 
     React.useLayoutEffect(() => {
       if (!open || !activeValue) {
@@ -401,6 +449,9 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
         setOpenId(null);
         return;
       }
+      if (loading) {
+        return;
+      }
       if (event.key === 'Enter') {
         event.preventDefault();
         if (activeValue) {
@@ -480,7 +531,7 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
               </FieldButton>
             </OverflowTooltip>
             {canClear ? (
-              <CloseButton aria-label={`Close ${label}`} onClick={onClear}>
+              <CloseButton aria-label={resolvedCloseLabel} onClick={onClear}>
                 <X size={16} aria-hidden="true" />
               </CloseButton>
             ) : null}
@@ -508,7 +559,6 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
               tabIndex={-1}
               ref={panelRef}
               elevation={8}
-              onMouseDown={(event) => event.stopPropagation()}
               onKeyDown={onPanelKeyDown}
               sx={{
                 outline: 'none',
@@ -520,35 +570,35 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
                   inputRef={searchRef}
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Search"
+                  placeholder={searchPlaceholder}
                   fullWidth
                   size="small"
                   autoComplete="off"
                   slotProps={{
                     input: {
-                      'aria-label': `Search ${label}`,
+                      'aria-label': resolvedSearchLabel,
                       'aria-autocomplete': 'list',
-                      'aria-controls': listId,
-                      'aria-activedescendant': activeValue ? optionDomId(listId, activeValue) : undefined,
+                      'aria-controls': showList ? listId : undefined,
+                      'aria-activedescendant':
+                        showList && activeValue ? optionDomId(listId, activeValue) : undefined,
                     },
                   }}
                 />
                 {loading ? (
                   <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
-                    <CircularProgress size={20} aria-label={`Loading ${label}`} />
+                    <CircularProgress size={20} aria-label={resolvedLoadingLabel} />
                   </Box>
                 ) : null}
-                {!loading && options.length === 0 ? <EmptyCopy>No options</EmptyCopy> : null}
+                {!loading && options.length === 0 ? <EmptyCopy>{noOptionsText}</EmptyCopy> : null}
                 {!loading && options.length > 0 && matches.length === 0 ? (
-                  <EmptyCopy>No matches</EmptyCopy>
+                  <EmptyCopy>{noMatchesText}</EmptyCopy>
                 ) : null}
-                {!loading && matches.length > 0 ? (
+                {showList ? (
                   <LevelPanelContext.Provider
                     value={{ query, selectedValue, activeValue, listId, onSelect }}
                   >
                     <OptionList id={listId} role="listbox" aria-label={label} tabIndex={-1}>
-                      {ungroupedOptions}
-                      {groups}
+                      {panelChildren}
                     </OptionList>
                   </LevelPanelContext.Provider>
                 ) : null}
