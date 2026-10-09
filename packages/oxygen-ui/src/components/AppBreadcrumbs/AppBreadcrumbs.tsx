@@ -164,7 +164,7 @@ export default function AppBreadcrumbs({items, maxItems = 4, sx, ...props}: AppB
 
   if (shouldTruncate) {
     // Show items before the ellipsis (all except the last)
-    visibleItems.slice(0, -1).forEach((item, index) => {
+    visibleItems.slice(0, -1).forEach((item) => {
       breadcrumbChildren.push(renderItem(item, false));
     });
     // Add ellipsis button
