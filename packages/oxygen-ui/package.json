@@ -34,7 +34,7 @@
     "dist/styles/Themes/theme.css"
   ],
   "scripts": {
-    "build": "pnpm clean && tsc -p tsconfig.json && node esbuild.config.js",
+    "build": "node scripts/generate-material-subpaths.mjs && pnpm clean && tsc -p tsconfig.json && node esbuild.config.js",
     "build:watch": "node esbuild.config.js --watch",
     "dev": "node esbuild.config.js --watch",
     "typecheck": "tsc --noEmit",
