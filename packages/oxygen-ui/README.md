@@ -309,6 +309,26 @@ function MyComponent() {
 }
 ```
 
+### Light and Dark Mode in Client-Rendered Apps
+
+By default the first render ignores the stored color scheme, so that a server-rendered page matches it. In a client-rendered app (Vite, Create React App) that shows as a frame of the light scheme on every page load in dark mode. Pass `noSsr` to use the stored scheme from the first render:
+
+```typescript
+<OxygenUIThemeProvider noSsr>
+  <YourApp />
+</OxygenUIThemeProvider>
+```
+
+Server-rendered apps should leave `noSsr` off and render MUI's `InitColorSchemeScript` with `attribute="data-color-scheme"`, Oxygen's selector. MUI's default attribute, `data-mui-color-scheme`, isn't read by Oxygen's styles. If you pass `defaultMode`, `modeStorageKey` or `colorSchemeStorageKey` to the provider, pass the same values to the script:
+
+```typescript
+import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
+
+<InitColorSchemeScript attribute="data-color-scheme" />
+```
+
+MUI's other color-scheme options (`defaultMode`, `modeStorageKey`, `colorSchemeStorageKey`, `disableTransitionOnChange`, `storageManager`) are passed through to its `ThemeProvider` as well.
+
 ## Content Security Policy (CSP)
 
 Oxygen UI (via MUI and Emotion) injects styles at runtime using `<style>` tags. If your application enforces a strict CSP, pass a nonce so those tags are allowed. Follow the same directives recommended in the [MUI Content Security Policy guide](https://mui.com/material-ui/guides/content-security-policy/):
