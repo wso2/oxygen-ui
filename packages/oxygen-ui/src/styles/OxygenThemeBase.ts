@@ -190,6 +190,29 @@ const OxygenThemeBase = extendTheme({
         }),
       },
     },
+    MuiBreadcrumbs: {
+      styleOverrides: {
+        // Only the current (last) level is highlighted; parent levels are muted.
+        li: ({ theme }) => ({
+          color: (theme.vars || theme).palette.text.secondary,
+          '&:last-child': {
+            color: (theme.vars || theme).palette.text.primary,
+            fontWeight: theme.typography.fontWeightBold,
+          },
+          // Some themes (e.g. Acrylic) use nearly identical primary and secondary
+          // text colors, so dim the parents further. Dark mode only: in light mode
+          // any opacity drops parent links below the 4.5:1 contrast minimum.
+          ...theme.applyStyles('dark', {
+            '&:not(:last-child)': {
+              opacity: 0.7,
+            },
+          }),
+        }),
+        separator: ({ theme }) => ({
+          color: (theme.vars || theme).palette.text.disabled,
+        }),
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: {
         // Honor the user's OS-level reduced-motion preference (WCAG 2.3.3):
