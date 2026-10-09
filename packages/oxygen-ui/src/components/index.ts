@@ -32,6 +32,8 @@ export { default as PageContent } from './PageContent';
 export type { PageContentProps } from './PageContent';
 export { default as PageTitle } from './PageTitle';
 export type { PageTitleProps, PageTitleAvatarProps, PageTitleHeaderProps, PageTitleSubHeaderProps, PageTitleLinkProps } from './PageTitle';
+export { default as RelativeTime } from './RelativeTime';
+export type { RelativeTimeProps } from './RelativeTime';
 export { default as StatCard } from './StatCard';
 export type { StatCardProps } from './StatCard';
 export { default as ThemeSwitcher, ThemeSelect } from './ThemeSwitcher';
