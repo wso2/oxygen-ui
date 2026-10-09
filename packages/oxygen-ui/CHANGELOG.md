@@ -1,5 +1,18 @@
 # @wso2/oxygen-ui
 
+## 0.16.0
+
+### Minor Changes
+
+- [#640](https://github.com/wso2/oxygen-ui/pull/640) [`f1bc7ad`](https://github.com/wso2/oxygen-ui/commit/f1bc7ade89e74a6771eb02db54ae05b3e9aa5267) Thanks [@aruniw](https://github.com/aruniw)! - Add `RelativeTime` component to display a clock icon with an optional action and a consumer-provided relative time (e.g. "Updated 3 weeks ago")
+
+### Patch Changes
+
+- [#631](https://github.com/wso2/oxygen-ui/pull/631) [`e119dae`](https://github.com/wso2/oxygen-ui/commit/e119dae2096038cafff079b49f404c68f7267662) Thanks [@SandaminiM](https://github.com/SandaminiM)! - Use the `Menu` (hamburger) icon for `HeaderToggle` in both collapsed and expanded sidebar states
+
+- Updated dependencies []:
+  - @wso2/oxygen-ui-icons-react@0.16.0
+
 ## 0.15.0
 
 ### Minor Changes
