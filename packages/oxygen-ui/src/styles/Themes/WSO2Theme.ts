@@ -40,8 +40,8 @@ const WSO2ThemeConfig = {
           contrastText: '#ffffff',
         },
         warning: {
-          main: '#e65100', // Darker orange for better contrast with white text
-          contrastText: '#ffffff',
+          main: '#e65100',
+          contrastText: '#000000', // Black text meets WCAG AA contrast on orange; white does not
         },
         error: {
           main: '#c62828', // Darker red for better contrast with white text
@@ -75,8 +75,8 @@ const WSO2ThemeConfig = {
           contrastText: '#ffffff',
         },
         warning: {
-          main: '#f57c00', // Darker orange for better contrast with white text
-          contrastText: '#ffffff',
+          main: '#f57c00',
+          contrastText: '#000000', // Black text meets WCAG AA contrast on orange; white does not
         },
         error: {
           main: '#d32f2f', // Darker red for better contrast with white text
