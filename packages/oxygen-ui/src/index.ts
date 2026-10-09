@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2025-2026, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -56,18 +56,7 @@ export * from '@mui/material';
 // Then: colors.deepOrange[500], colors.deepPurple[500], etc.
 export * as colors from '@mui/material/colors';
 
-// Re-export @mui/x-data-grid as namespace to avoid conflicts
-// Usage: import { DataGrid } from '@wso2/oxygen-ui';
-export * as DataGrid from '@mui/x-data-grid';
-
-// Re-export @mui/x-date-pickers as namespace to avoid conflicts
-// Usage: import { DatePickers } from '@wso2/oxygen-ui';
-export * as DatePickers from '@mui/x-date-pickers';
-
-// Re-export AdapterDateFns for date pickers (most commonly used adapter)
-// Other adapters (Dayjs, Luxon, Moment) can be imported directly from @mui/x-date-pickers if needed
-export { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-
-// Re-export @mui/x-tree-view as namespace to avoid conflicts
-// Usage: import { TreeView } from '@wso2/oxygen-ui';
-export * as TreeView from '@mui/x-tree-view';
+// MUI X (Data Grid, Date Pickers, Tree View) and Prism stay out of this
+// Published entry. Import them from Oxygen subpaths (`@wso2/oxygen-ui/data-grid`,
+// `date-pickers`, `tree-view`). CodeBlock and ListingTable.DataGrid load their
+// heavy deps on mount. See https://github.com/wso2/oxygen-ui/issues/578.
