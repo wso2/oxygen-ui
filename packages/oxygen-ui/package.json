@@ -25,6 +25,7 @@
     "dist",
     "package.json",
     "README.md",
+    "TESTING.md",
     ".claude",
     ".ai",
     "bin"
