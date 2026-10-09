@@ -153,7 +153,7 @@ const AppShell: React.FC<AppShellProps> & {
         {/* Main content area with sidebar */}
         <Layout sx={{ flex: 1, overflow: 'hidden' }}>
           {/* Sidebar */}
-          {slots.sidebar && <Layout.Sidebar>{slots.sidebar}</Layout.Sidebar>}
+          {slots.sidebar && <Layout.Sidebar sx={{ height: '100%' }}>{slots.sidebar}</Layout.Sidebar>}
 
           {/* Content + Footer */}
           <Layout.Content sx={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'auto' }}>
