@@ -24,6 +24,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "paths": {
+      "@/*": ["./src/*"],
       "@oxygen-ui/*": ["./node_modules/@mui/material/*", "./node_modules/lucide-react/*"]
     }
   },
