@@ -393,7 +393,20 @@ describe('ContextSwitcher close', () => {
 
 const declaredProperty = (
   element: Element,
-  property: 'boxShadow' | 'outline' | 'gridRow' | 'backgroundColor'
+  property:
+    | 'boxShadow'
+    | 'outline'
+    | 'gridRow'
+    | 'backgroundColor'
+    | 'position'
+    | 'top'
+    | 'right'
+    | 'transform'
+    | 'borderRadius'
+    | 'borderTopWidth'
+    | 'borderTopStyle'
+    | 'clipPath'
+    | 'zIndex'
 ): string[] => {
   const classNames = Array.from(element.classList);
   const values: string[] = [];
@@ -435,17 +448,27 @@ describe('ContextSwitcher panel', () => {
     expect(boxShadowsFor(field as Element).some((shadow) => shadow.includes('2px'))).toBe(false);
   });
 
-  it('stacks the close button above the chevron', () => {
+  it('places a full circle on the top-right edge, above the field and under the panel', () => {
     render(<Harness initial={{ organization: 'wso2', project: 'finance-web' }} />);
 
     const close = screen.getByRole('button', { name: 'Close Project' });
-    const project = screen.getByRole('button', { name: 'Project: Finance Web' });
-    const chevron = project.querySelector('svg')?.parentElement;
+    const circle = close.previousElementSibling;
 
-    expect(close.parentElement).toBe(project.parentElement);
-    expect(declaredProperty(close, 'gridRow')).toContain('1');
-    expect(chevron).not.toBeNull();
-    expect(declaredProperty(chevron as Element, 'gridRow')).toContain('2');
+    expect(circle).not.toBeNull();
+    expect(declaredProperty(circle as Element, 'position')).toContain('absolute');
+    expect(declaredProperty(circle as Element, 'top')).toContain('0px');
+    expect(declaredProperty(circle as Element, 'right')).toContain('0px');
+    expect(declaredProperty(circle as Element, 'transform').some((value) => value.includes('50%'))).toBe(
+      true
+    );
+    expect(declaredProperty(circle as Element, 'borderRadius')).toContain('50%');
+    expect(declaredProperty(circle as Element, 'borderTopWidth').some((value) => value !== '0px')).toBe(
+      true
+    );
+    expect(declaredProperty(circle as Element, 'borderTopStyle')).toContain('solid');
+    expect(declaredProperty(circle as Element, 'clipPath')).toEqual([]);
+    expect(declaredProperty(circle as Element, 'zIndex')).toEqual(['1']);
+    expect(declaredProperty(close, 'zIndex')).toEqual(['1']);
   });
 
   it('keeps the open panel outside the field it is anchored to', () => {

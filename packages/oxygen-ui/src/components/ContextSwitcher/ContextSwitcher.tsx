@@ -95,7 +95,8 @@ const levelElements = (
  * visible and the remembered selection is dropped. Choosing the parent's current option again shows
  * them with that selection. Choosing a different option opens an empty child. Dismissing
  * that panel without a choice hides the empty level again. An outside click or a
- * second click on the field also closes the panel. The close button stays inside the field. A name that does not fit
+ * second click on the field also closes the panel. The close button sits on the top-right
+ * edge of the field, outside the border, in a full rounded circle. A name that does not fit
  * stays on one line and ends in an ellipsis. Hovering it shows the full text.
  * The product places the chain, usually in `Header.Switchers`, and routes from
  * `onChange`.

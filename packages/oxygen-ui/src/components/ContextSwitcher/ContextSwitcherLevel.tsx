@@ -71,6 +71,8 @@ const FieldRoot = styled(Box, {
   gridTemplateColumns: 'minmax(0, 1fr) auto',
   gridTemplateRows: 'auto auto',
   maxWidth: 220,
+  overflow: 'visible',
+  position: 'relative',
   minHeight: 48,
   minWidth: 0,
   padding: theme.spacing(0.5, 0.75, 0.5, 1),
@@ -108,37 +110,57 @@ interface ChevronOwnerState {
   besideValue: boolean;
 }
 
-// Close sits on the label row. The chevron sits on the value row, in the same column.
+// The chevron sits in the right column. A value centers it across both rows.
 const ChevronMark = styled('span', {
   name: 'MuiContextSwitcher',
   slot: 'Chevron',
   shouldForwardProp: (prop) => prop !== 'ownerState',
 })<{ ownerState: ChevronOwnerState }>(({ ownerState }) => ({
   alignItems: 'center',
+  alignSelf: 'center',
   display: 'inline-flex',
   gridColumn: 2,
-  gridRow: ownerState.besideValue ? 2 : 1,
+  gridRow: ownerState.besideValue ? '1 / -1' : 1,
   justifyContent: 'center',
   lineHeight: 0,
+}));
+
+const closeAnchor = {
+  height: 16,
+  position: 'absolute' as const,
+  right: 0,
+  top: 0,
+  transform: 'translate(50%, -50%)',
+  width: 16,
+  zIndex: 1,
+};
+
+const CloseCircle = styled('span', {
+  name: 'MuiContextSwitcher',
+  slot: 'CloseCircle',
+})(({ theme }) => ({
+  ...closeAnchor,
+  backgroundColor: (theme.vars || theme).palette.background.paper,
+  border: '1px solid',
+  borderColor: (theme.vars || theme).palette.divider,
+  borderRadius: '50%',
+  pointerEvents: 'none' as const,
 }));
 
 const CloseButton = styled(IconButton, {
   name: 'MuiContextSwitcher',
   slot: 'Close',
 })(({ theme }) => ({
-  alignSelf: 'center',
+  ...closeAnchor,
+  backgroundColor: 'transparent',
   border: 0,
-  color: 'inherit',
-  gridColumn: 2,
-  gridRow: 1,
-  height: 16,
-  justifySelf: 'center',
+  color: (theme.vars || theme).palette.text.secondary,
   minWidth: 16,
   padding: 0,
-  width: 16,
-  zIndex: 1,
-  '&.Mui-focusVisible': {
+  '&:hover': {
     backgroundColor: 'transparent',
+  },
+  '&.Mui-focusVisible': {
     outline: `2px solid ${(theme.vars || theme).palette.text.primary}`,
     outlineOffset: 2,
   },
@@ -531,9 +553,12 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
               </FieldButton>
             </OverflowTooltip>
             {canClear ? (
-              <CloseButton aria-label={resolvedCloseLabel} onClick={onClear}>
-                <X size={16} aria-hidden="true" />
-              </CloseButton>
+              <>
+                <CloseCircle aria-hidden="true" />
+                <CloseButton aria-label={resolvedCloseLabel} onClick={onClear}>
+                  <X size={10} aria-hidden="true" />
+                </CloseButton>
+              </>
             ) : null}
           </FieldRoot>
           <Popper

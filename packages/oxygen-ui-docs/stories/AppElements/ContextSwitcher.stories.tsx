@@ -39,7 +39,7 @@ The chain shows each selected level. A level with no value stays hidden until it
 
 Choosing a field opens its panel: a search box, then options and groups in the order they are written. Search filters the option text. Arrow keys move the highlight and leave the cursor in the search box. Enter picks the highlighted option. Escape, an outside click, or a second click on the field closes the panel. A label, value, group name, or option that does not fit stays on one line and ends in an ellipsis. Hovering it shows the full text.
 
-The close control sits inside the field, above the chevron. Closing a level hides that level and every level under it, and remembers the selection. Choosing the parent's current option again shows them with that selection. Choosing a different option opens an empty child. The close control appears only when the level is clearable and has a selection. The first level has no close control unless \`clearable\` is set. Changing a parent clears the levels under it. The product routes from \`onChange\`.
+The close control sits on the top-right edge of the field, outside the border, in a full rounded circle. Closing a level hides that level and every level under it, and remembers the selection. Choosing the parent's current option again shows them with that selection. Choosing a different option opens an empty child. The close control appears only when the level is clearable and has a selection. The first level has no close control unless \`clearable\` is set. Changing a parent clears the levels under it. The product routes from \`onChange\`.
 
 Place the chain in \`Header.Switchers\`. That slot is visible from the \`md\` breakpoint
 up, and hidden on smaller widths and in a minimal header.
@@ -131,8 +131,8 @@ export const InHeader: Story = {
 };
 
 /**
- * Organization, Project, and Component selected. The close control sits above
- * the chevron inside Project and Component.
+ * Organization, Project, and Component selected. The close control sits on the
+ * top-right edge of Project and Component, outside the field.
  */
 export const Selected: Story = {
   render: () => <HeaderChain initial={filledValue} />,
