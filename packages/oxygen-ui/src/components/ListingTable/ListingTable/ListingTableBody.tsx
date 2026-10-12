@@ -16,12 +16,56 @@
  * under the License.
  */
 
-import { ReactElement } from 'react';
+import { Children, ReactElement, ReactNode } from 'react';
 import MuiTableBody, { TableBodyProps as MuiTableBodyProps } from '@mui/material/TableBody';
+import MuiTableRow from '@mui/material/TableRow';
+import MuiTableCell from '@mui/material/TableCell';
+import { Search } from '@wso2/oxygen-ui-icons-react';
+import { useListingTable } from '../context';
+import { ListingTableEmptyState } from '../shared/ListingTableEmptyState';
 
-export interface ListingTableBodyProps extends MuiTableBodyProps {}
+export interface ListingTableBodyProps extends MuiTableBodyProps {
+  /** Active search query; falls back to the ListingTable.Provider value */
+  searchValue?: string;
+  /** @default 'No search results found' */
+  noSearchResultsText?: string;
+  /** @default 'Try a different search term.' */
+  noSearchResultsDescription?: string;
+  /** @default <Search /> */
+  noSearchResultsIcon?: ReactNode;
+  /** @default 1000 */
+  emptyStateColSpan?: number;
+}
 
-export function ListingTableBody({ children, ...props }: ListingTableBodyProps): ReactElement {
+export function ListingTableBody({
+  children,
+  searchValue,
+  noSearchResultsText = 'No search results found',
+  noSearchResultsDescription = 'Please try a different search term.',
+  noSearchResultsIcon = <Search />,
+  emptyStateColSpan = 1000,
+  ...props
+}: ListingTableBodyProps): ReactElement {
+  const context = useListingTable();
+  const isSearching = Boolean(searchValue ?? context?.searchValue);
+  const hasRows = Children.toArray(children).length > 0;
+
+  if (isSearching && !hasRows) {
+    return (
+      <MuiTableBody {...props}>
+        <MuiTableRow>
+          <MuiTableCell colSpan={emptyStateColSpan} sx={{ border: 0 }}>
+            <ListingTableEmptyState
+              title={noSearchResultsText}
+              description={noSearchResultsDescription}
+              illustration={noSearchResultsIcon}
+            />
+          </MuiTableCell>
+        </MuiTableRow>
+      </MuiTableBody>
+    );
+  }
+
   return <MuiTableBody {...props}>{children}</MuiTableBody>;
 }
 
