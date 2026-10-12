@@ -877,7 +877,7 @@ export const TableVariant: Story = {
             <ListingTable.Cell>Environment</ListingTable.Cell>
           </ListingTable.Row>
         </ListingTable.Head>
-        <ListingTable.Body searchValue={searchValue}>
+        <ListingTable.Body>
           {platformComponents.slice(0, 5).map((component) => (
             <ListingTable.Row key={component.id} hover>
               <ListingTable.Cell>

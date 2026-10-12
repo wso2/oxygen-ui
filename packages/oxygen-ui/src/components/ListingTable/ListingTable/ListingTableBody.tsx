@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import { Children, ReactElement, ReactNode } from 'react';
+import { Children, Fragment, ReactElement, ReactNode, isValidElement } from 'react';
 import MuiTableBody, { TableBodyProps as MuiTableBodyProps } from '@mui/material/TableBody';
 import MuiTableRow from '@mui/material/TableRow';
 import MuiTableCell from '@mui/material/TableCell';
@@ -29,12 +29,18 @@ export interface ListingTableBodyProps extends MuiTableBodyProps {
   searchValue?: string;
   /** @default 'No search results found' */
   noSearchResultsText?: string;
-  /** @default 'Try a different search term.' */
+  /** @default 'Please try a different search term.' */
   noSearchResultsDescription?: string;
   /** @default <Search /> */
   noSearchResultsIcon?: ReactNode;
   /** @default 1000 */
   emptyStateColSpan?: number;
+}
+
+function hasContent(node: ReactNode): boolean {
+  return Children.toArray(node).some((child) =>
+    isValidElement<{ children?: ReactNode }>(child) && child.type === Fragment ? hasContent(child.props.children) : true,
+  );
 }
 
 export function ListingTableBody({
@@ -48,7 +54,7 @@ export function ListingTableBody({
 }: ListingTableBodyProps): ReactElement {
   const context = useListingTable();
   const isSearching = Boolean(searchValue ?? context?.searchValue);
-  const hasRows = Children.toArray(children).length > 0;
+  const hasRows = hasContent(children);
 
   if (isSearching && !hasRows) {
     return (

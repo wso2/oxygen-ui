@@ -21,9 +21,9 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { cleanup, render, screen } from '@testing-library/react';
 import OxygenUIThemeProvider from '../../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
 import { ListingTableProvider } from '../ListingTableProvider';
-import { ListingTableBody } from './ListingTableBody';
+import { ListingTableBody, ListingTableBodyProps } from './ListingTableBody';
 
-function renderBody(rows?: React.ReactNode, props: { searchValue?: string } = { searchValue: 'abc' }) {
+function renderBody(rows?: React.ReactNode, props: ListingTableBodyProps = { searchValue: 'abc' }) {
   return render(
     <OxygenUIThemeProvider>
       <table>
@@ -39,7 +39,7 @@ describe('ListingTableBody no search results', () => {
   it('shows default text and description when there are no rows', () => {
     renderBody();
     expect(screen.getByText('No search results found')).toBeTruthy();
-    expect(screen.getByText('Try a different search term.')).toBeTruthy();
+    expect(screen.getByText('Please try a different search term.')).toBeTruthy();
   });
 
   it('shows nothing extra when not searching', () => {
@@ -64,6 +64,11 @@ describe('ListingTableBody no search results', () => {
     renderBody(null, { searchValue: 'abc', noSearchResultsText: 'Nothing here', noSearchResultsDescription: 'Try again' });
     expect(screen.getByText('Nothing here')).toBeTruthy();
     expect(screen.getByText('Try again')).toBeTruthy();
+  });
+
+  it('treats an empty fragment as no rows', () => {
+    renderBody(<></>);
+    expect(screen.getByText('No search results found')).toBeTruthy();
   });
 
   it('renders rows instead of empty state when rows exist', () => {
