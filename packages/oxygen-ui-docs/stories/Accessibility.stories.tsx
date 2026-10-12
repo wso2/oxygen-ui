@@ -27,7 +27,7 @@ import CenterContentLayout from '../layouts/CenterContentLayout';
  * application is responsible for.
  */
 const meta: Meta = {
-  title: 'Accessibility',
+  title: 'Guides/Accessibility',
   parameters: {
     layout: 'centered',
     docs: {
