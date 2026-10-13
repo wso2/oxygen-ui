@@ -38,13 +38,13 @@ describe('ListingTableBody no search results', () => {
 
   it('shows default text and description when there are no rows', () => {
     renderBody();
-    expect(screen.getByText('No search results found')).toBeTruthy();
-    expect(screen.getByText('Please try a different search term.')).toBeTruthy();
+    expect(screen.getByText('No results found')).toBeTruthy();
+    expect(screen.getByText('Try a different keyword')).toBeTruthy();
   });
 
   it('shows nothing extra when not searching', () => {
     renderBody(null, {});
-    expect(screen.queryByText('No search results found')).toBeNull();
+    expect(screen.queryByText('No results found')).toBeNull();
   });
 
   it('reads the search value from the provider', () => {
@@ -57,7 +57,7 @@ describe('ListingTableBody no search results', () => {
         </ListingTableProvider>
       </OxygenUIThemeProvider>,
     );
-    expect(screen.getByText('No search results found')).toBeTruthy();
+    expect(screen.getByText('No results found')).toBeTruthy();
   });
 
   it('supports custom text and description', () => {
@@ -66,14 +66,29 @@ describe('ListingTableBody no search results', () => {
     expect(screen.getByText('Try again')).toBeTruthy();
   });
 
+  it('ignores a whitespace-only search', () => {
+    renderBody(null, { searchValue: '   ' });
+    expect(screen.queryByText('No results found')).toBeNull();
+  });
+
+  it('skips the empty state while loading', () => {
+    renderBody(null, { searchValue: 'abc', loading: true });
+    expect(screen.queryByText('No results found')).toBeNull();
+  });
+
+  it('announces the empty state to screen readers', () => {
+    renderBody();
+    expect(screen.getByRole('status').textContent).toContain('No results found');
+  });
+
   it('treats an empty fragment as no rows', () => {
     renderBody(<></>);
-    expect(screen.getByText('No search results found')).toBeTruthy();
+    expect(screen.getByText('No results found')).toBeTruthy();
   });
 
   it('renders rows instead of empty state when rows exist', () => {
     renderBody(<tr><td>row</td></tr>);
     expect(screen.getByText('row')).toBeTruthy();
-    expect(screen.queryByText('No search results found')).toBeNull();
+    expect(screen.queryByText('No results found')).toBeNull();
   });
 });

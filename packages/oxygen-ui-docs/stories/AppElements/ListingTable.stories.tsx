@@ -772,7 +772,7 @@ export const Density: Story = {
 
 /**
  * When a search matches no rows, `ListingTable.Body` shows an icon and a
- * "No search results found" message. Customize it with `noSearchResultsText`,
+ * "No results found" message. Customize it with `noSearchResultsText`,
  * `noSearchResultsDescription` and `noSearchResultsIcon`.
  *
  * Pass `searchValue` to the Body, or wrap in `ListingTable.Provider` to read it from context.
@@ -799,7 +799,7 @@ export const NoSearchResults: Story = {
           </ListingTable.Head>
           <ListingTable.Body
             searchValue={searchValue}
-            noSearchResultsDescription="Please try a different search term."
+            noSearchResultsDescription="Try a different keyword"
           >
             {rows.map((c) => (
               <ListingTable.Row key={c.id} hover>
