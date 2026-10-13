@@ -30,18 +30,11 @@ export interface ContextSwitcherContextValue {
   openId: string | null;
   setOpenId: (id: string | null) => void;
   onChange: (value: ContextSwitcherValue) => void;
+  /** Move focus to the neighboring stop. Stays put at either end. */
+  moveFocus: (from: HTMLElement, direction: -1 | 1) => void;
   /**
-   * After close unmounts the focused control, move focus to the last
-   * visible field button.
-   */
-  restoreFocus: () => void;
-  /** Move focus to the neighboring field. Stays put at either end of the chain. */
-  moveFocus: (levelId: string, direction: -1 | 1) => void;
-  /** Hides a level and the levels under it, and remembers their selection. */
-  collapse: (levelId: string) => void;
-  /**
-   * Applies a pick. Choosing the parent of a hidden level again restores that
-   * selection. Choosing a different option forgets it.
+   * Applies a pick. The same option keeps the levels under it. A different
+   * option clears them. Either way the next level's panel opens.
    */
   applyPick: (levelId: string, optionValue: string) => void;
 }

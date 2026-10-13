@@ -18,7 +18,9 @@
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import Tooltip from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
+import { ChevronLeft } from '@wso2/oxygen-ui-icons-react';
 import { ContextSwitcherContext, type ContextSwitcherValue } from './context';
 import { ContextSwitcherLevel, type ContextSwitcherLevelProps } from './ContextSwitcherLevel';
 import { ContextSwitcherGroup } from './ContextSwitcherGroup';
@@ -42,6 +44,43 @@ const ChainRoot = styled(Box, {
   minWidth: 0,
 }));
 
+const LevelSlash = styled('span', {
+  name: 'MuiContextSwitcher',
+  slot: 'Slash',
+})(({ theme }) => ({
+  color: (theme.vars || theme).palette.text.secondary,
+  flex: 'none',
+}));
+
+const BackButton = styled('button', {
+  name: 'MuiContextSwitcher',
+  slot: 'Back',
+})(({ theme }) => ({
+  alignItems: 'center',
+  backgroundColor: (theme.vars || theme).palette.background.paper,
+  border: '1px solid',
+  borderColor: (theme.vars || theme).palette.divider,
+  borderRadius: theme.shape.borderRadius,
+  color: (theme.vars || theme).palette.text.primary,
+  cursor: 'pointer',
+  display: 'inline-flex',
+  flex: 'none',
+  height: 48,
+  justifyContent: 'center',
+  minWidth: 40,
+  padding: 0,
+  '&:hover': {
+    backgroundColor: (theme.vars || theme).palette.action.hover,
+  },
+  '&:focus': {
+    outline: 'none',
+  },
+  '&:focus-visible': {
+    outline: `2px solid ${(theme.vars || theme).palette.text.primary}`,
+    outlineOffset: 2,
+  },
+}));
+
 /**
  * Props for the context switcher.
  */
@@ -49,8 +88,12 @@ export interface ContextSwitcherProps
   extends Omit<React.ComponentPropsWithoutRef<'div'>, 'onChange' | 'children'> {
   /** Selected option value for each level id. A missing id means that level is empty. */
   value: ContextSwitcherValue;
-  /** Called with the next map after a pick or a close. */
+  /** Called with the next map when the selection changes. */
   onChange: (value: ContextSwitcherValue) => void;
+  /**
+   * Show Back and only the current level. Off by default, which shows the chain.
+   */
+  back?: boolean;
   /** Levels, in order. */
   children: React.ReactNode;
 }
@@ -83,23 +126,13 @@ const levelElements = (
 /**
  * ContextSwitcher - A chain of labeled fields for selecting through a hierarchy.
  *
- * The chain shows each selected level. A level with no value stays hidden until its
- * parent option is chosen, and that child's panel opens with focus in its search.
- * Choosing a field, or pressing ArrowDown or ArrowUp on it, opens that level's panel: a search box
- * and the level's options. ArrowLeft and ArrowRight move between fields. Inside
- * the panel, those arrows stay in the search box and move the highlighted option.
- * Enter picks it and leaves the field. Escape closes the panel and returns focus
- * to the field. Closing a level hides that level and every level under it, and
- * keeps the selection aside. The fields follow `value`. If that value still
- * includes the closed level, or the product sets it again later, the level stays
- * visible and the remembered selection is dropped. Choosing the parent's current option again shows
- * them with that selection. Choosing a different option opens an empty child. Dismissing
- * that panel without a choice hides the empty level again. An outside click or a
- * second click on the field also closes the panel. The close button sits on the top-right
- * edge of the field, outside the border, in a full rounded circle. A name that does not fit
- * stays on one line and ends in an ellipsis. Hovering it shows the full text.
- * The product places the chain, usually in `Header.Switchers`, and routes from
- * `onChange`.
+ * The chain shows the first level, and each following level once the level above
+ * it has a selection. An empty level stays on screen and reads "Select {label}".
+ * A slash separates the levels. `back` shows Back and only the current level.
+ * Back steps up one level. Choosing an option opens the next level's panel.
+ * The same option keeps the levels under it. A different option clears them.
+ * The product places the switcher, usually in `Header.Switchers`, and routes
+ * from `onChange` when the selection changes.
  *
  * @example
  * ```tsx
@@ -116,14 +149,12 @@ const levelElements = (
  * ```
  */
 export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherProps>(
-  function ContextSwitcher({ value, onChange, children, ...rest }, ref) {
+  function ContextSwitcher({ value, onChange, back = false, children, ...rest }, ref) {
     const chainRef = React.useRef<HTMLDivElement>(null);
-    const restoreFocusRef = React.useRef(false);
-    const memoryRef = React.useRef<ContextSwitcherValue | null>(null);
+    const focusFieldRef = React.useRef(false);
     const emittedRef = React.useRef<ContextSwitcherValue | null>(null);
     const [openId, setOpenId] = React.useState<string | null>(null);
-    const [collapsedId, setCollapsedId] = React.useState<string | null>(null);
-    const [revealedId, setRevealedId] = React.useState<string | null>(null);
+    const [pinnedIndex, setPinnedIndex] = React.useState<number | null>(null);
     const levels = levelElements(children);
     const levelKey = levels.map((level) => level.props.id).join('\0');
     const levelIds = React.useMemo(
@@ -133,13 +164,21 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
     const normalized = React.useMemo(() => normalizeValue(levelIds, value), [levelIds, value]);
     const committedRef = React.useRef(normalized);
     const selectedCount = selectedLevelCount(levelIds, normalized);
-    const revealedIndex = revealedId === null ? -1 : levelIds.indexOf(revealedId);
-    let visibleCount = levels.length === 0 ? 0 : Math.max(selectedCount, 1);
-    if (revealedIndex === selectedCount && revealedId !== null && !normalized[revealedId]) {
-      visibleCount = Math.min(levels.length, selectedCount + 1);
-    }
-    const visible = levels.slice(0, visibleCount);
+    const derivedIndex =
+      levels.length === 0 ? -1 : selectedCount < levels.length ? selectedCount : selectedCount - 1;
+    const currentIndex =
+      pinnedIndex !== null && pinnedIndex >= 0 && pinnedIndex < levels.length
+        ? pinnedIndex
+        : derivedIndex;
+    const chainCount =
+      levels.length === 0 ? 0 : Math.min(levels.length, Math.max(selectedCount + 1, 1));
+    const visible = back
+      ? currentIndex < 0
+        ? []
+        : [levels[currentIndex]]
+      : levels.slice(0, chainCount);
     const visibleKey = visible.map((level) => level.props.id).join('\0');
+    const parentLevel = back && currentIndex > 0 ? levels[currentIndex - 1] : null;
 
     const emit = React.useCallback(
       (next: ContextSwitcherValue) => {
@@ -161,9 +200,7 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
       }
       if (!sameSelection(committedRef.current, normalized)) {
         emittedRef.current = null;
-        memoryRef.current = null;
-        setCollapsedId(null);
-        setRevealedId(null);
+        setPinnedIndex(null);
         committedRef.current = normalized;
       }
     }, [normalized]);
@@ -175,96 +212,58 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
       }
     }, [openId, visibleKey]);
 
-    React.useEffect(() => {
-      if (!revealedId || normalized[revealedId] || openId === revealedId) {
+    const moveFocus = React.useCallback((from: HTMLElement, direction: -1 | 1) => {
+      const stops = chainRef.current?.querySelectorAll<HTMLElement>('[data-chain-stop]');
+      if (!stops) {
         return;
       }
-      setRevealedId(null);
-    }, [openId, revealedId, normalized]);
-
-    const restoreFocus = React.useCallback(() => {
-      restoreFocusRef.current = true;
-    }, []);
-
-    const moveFocus = React.useCallback((levelId: string, direction: -1 | 1) => {
-      const fields = chainRef.current?.querySelectorAll<HTMLButtonElement>(
-        'button[aria-haspopup="dialog"]'
-      );
-      if (!fields) {
+      const list = Array.from(stops);
+      const index = list.indexOf(from);
+      if (index < 0) {
         return;
       }
-      const list = Array.from(fields);
-      const index = list.findIndex((field) => field.dataset.levelId === levelId);
       list[index + direction]?.focus();
     }, []);
 
-    const collapse = React.useCallback(
-      (levelId: string) => {
+    const applyPick = React.useCallback(
+      (levelId: string, optionValue: string) => {
         const index = levelIds.indexOf(levelId);
-        if (index <= 0) {
-          memoryRef.current = null;
-          setCollapsedId(null);
-          emit(clearFrom(levelIds, normalized, levelId));
+        const nextId = levelIds[index + 1] ?? null;
+        if (normalized[levelId] !== optionValue) {
+          emit(selectLevel(levelIds, normalized, levelId, optionValue));
+        }
+        if (nextId) {
+          setPinnedIndex(index + 1);
+          setOpenId(nextId);
           return;
         }
-        memoryRef.current = { ...normalized };
-        setCollapsedId(levelId);
-        setRevealedId(null);
-        emit(clearFrom(levelIds, normalized, levelId));
+        setPinnedIndex(index);
+        setOpenId(null);
       },
       [levelIds, normalized, emit]
     );
 
-    const applyPick = React.useCallback(
-      (levelId: string, optionValue: string) => {
-        const index = collapsedId === null ? -1 : levelIds.indexOf(collapsedId);
-        const parentId = index > 0 ? levelIds[index - 1] : undefined;
-        const memory = memoryRef.current;
-        const pickingHiddenParent = parentId === levelId && memory !== null;
-
-        const nextId = levelIds[levelIds.indexOf(levelId) + 1] ?? null;
-
-        if (pickingHiddenParent && memory[levelId] === optionValue && normalized[levelId] === optionValue) {
-          emit(normalizeValue(levelIds, memory));
-          memoryRef.current = null;
-          setCollapsedId(null);
-          setRevealedId(null);
-          if (nextId) {
-            setOpenId(nextId);
-          }
-          return;
-        }
-
-        if (index >= 0 && levelIds.indexOf(levelId) < index) {
-          memoryRef.current = null;
-          setCollapsedId(null);
-        }
-
-        if (normalized[levelId] === optionValue) {
-          setRevealedId(nextId);
-          if (nextId) {
-            setOpenId(nextId);
-          }
-          return;
-        }
-        emit(selectLevel(levelIds, normalized, levelId, optionValue));
-        setRevealedId(nextId);
-        if (nextId) {
-          setOpenId(nextId);
-        }
-      },
-      [collapsedId, levelIds, normalized, emit]
-    );
-
-    React.useLayoutEffect(() => {
-      if (!restoreFocusRef.current) {
+    const stepBack = () => {
+      if (currentIndex <= 0) {
         return;
       }
-      restoreFocusRef.current = false;
-      const fields = chainRef.current?.querySelectorAll<HTMLButtonElement>(
-        'button[aria-haspopup="dialog"]'
-      );
-      fields?.[fields.length - 1]?.focus();
+      const levelId = levelIds[currentIndex];
+      if (normalized[levelId]) {
+        emit(clearFrom(levelIds, normalized, levelId));
+      }
+      setPinnedIndex(currentIndex - 1);
+      setOpenId(null);
+      focusFieldRef.current = true;
+    };
+
+    React.useLayoutEffect(() => {
+      if (!focusFieldRef.current) {
+        return;
+      }
+      focusFieldRef.current = false;
+      chainRef.current
+        ?.querySelector<HTMLButtonElement>('button[aria-haspopup="dialog"]')
+        ?.focus();
     });
 
     const contextValue = React.useMemo(
@@ -274,13 +273,32 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
         openId,
         setOpenId,
         onChange,
-        restoreFocus,
         moveFocus,
-        collapse,
         applyPick,
       }),
-      [normalized, levelIds, openId, onChange, restoreFocus, moveFocus, collapse, applyPick]
+      [normalized, levelIds, openId, onChange, moveFocus, applyPick]
     );
+
+    const onBackKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') {
+        return;
+      }
+      event.preventDefault();
+      moveFocus(event.currentTarget, event.key === 'ArrowRight' ? 1 : -1);
+    };
+
+    const chainItems: React.ReactNode[] = [];
+    visible.forEach((level, index) => {
+      if (!back && index > 0) {
+        chainItems.push(
+          <LevelSlash key={`${level.props.id}-slash`} aria-hidden="true">
+            /
+          </LevelSlash>
+        );
+      }
+      chainItems.push(level);
+    });
+    const backLabel = parentLevel ? `Go to the ${parentLevel.props.label} level` : '';
 
     return (
       <ContextSwitcherContext.Provider value={contextValue}>
@@ -295,7 +313,20 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
           }}
           {...rest}
         >
-          {visible}
+          {parentLevel ? (
+            <Tooltip title={backLabel} enterDelay={0} enterNextDelay={0}>
+              <BackButton
+                type="button"
+                data-chain-stop=""
+                aria-label={backLabel}
+                onClick={stepBack}
+                onKeyDown={onBackKeyDown}
+              >
+                <ChevronLeft size={16} aria-hidden="true" />
+              </BackButton>
+            </Tooltip>
+          ) : null}
+          {chainItems}
         </ChainRoot>
       </ContextSwitcherContext.Provider>
     );

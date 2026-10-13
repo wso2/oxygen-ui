@@ -1344,11 +1344,11 @@ describe('ContextSwitcher', () => {
 
     expect(rootRef.current).toBe(screen.getByTestId('chain'));
     expect(levelRef.current).toBe(screen.getByTestId('level'));
-    expect(levelRef.current?.contains(screen.getByRole('button', { name: 'Organization' }))).toBe(
+    expect(levelRef.current?.contains(screen.getByRole('button', { name: 'Organization: Select organization' }))).toBe(
       true
     );
 
-    fireEvent.click(screen.getByRole('button', { name: 'Organization' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Organization: Select organization' }));
 
     expect(groupRef.current).toBe(screen.getByTestId('group'));
     expect(optionRef.current).toBe(screen.getByTestId('option'));

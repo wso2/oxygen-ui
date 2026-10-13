@@ -20,13 +20,12 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
-import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import { ChevronDown, X } from '@wso2/oxygen-ui-icons-react';
+import { ChevronDown, ChevronUp } from '@wso2/oxygen-ui-icons-react';
 import { LevelPanelContext, useContextSwitcher } from './context';
 import { isContextSwitcherGroup } from './ContextSwitcherGroup';
 import { isContextSwitcherOption } from './ContextSwitcherOption';
@@ -56,27 +55,37 @@ const LevelFrame = styled(Box, {
   position: 'relative',
 });
 
+interface FieldOwnerState {
+  open: boolean;
+}
+
 const FieldRoot = styled(Box, {
   name: 'MuiContextSwitcher',
   slot: 'Level',
-})(({ theme }) => ({
-  alignItems: 'center',
-  backgroundColor: (theme.vars || theme).palette.background.paper,
-  border: '1px solid',
-  borderColor: (theme.vars || theme).palette.divider,
-  borderRadius: theme.shape.borderRadius,
-  boxShadow: 'none',
-  columnGap: theme.spacing(0.5),
-  display: 'inline-grid',
-  gridTemplateColumns: 'minmax(0, 1fr) auto',
-  gridTemplateRows: 'auto auto',
-  maxWidth: 220,
-  overflow: 'visible',
-  position: 'relative',
-  minHeight: 48,
-  minWidth: 0,
-  padding: theme.spacing(0.5, 0.75, 0.5, 1),
-}));
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<{ ownerState: FieldOwnerState }>(({ theme, ownerState }) => {
+  const palette = (theme.vars || theme).palette;
+  return {
+    alignItems: 'center',
+    backgroundColor: palette.background.paper,
+    border: '1px solid',
+    borderColor: ownerState.open ? palette.primary.main : palette.divider,
+    borderRadius: theme.shape.borderRadius,
+    boxShadow: ownerState.open ? `0 0 0 2px ${palette.primary.main}` : 'none',
+    columnGap: theme.spacing(0.5),
+    display: 'inline-grid',
+    gridTemplateColumns: 'minmax(0, 180px) auto',
+    gridTemplateRows: 'auto auto',
+    overflow: 'visible',
+    position: 'relative',
+    minHeight: 48,
+    minWidth: 0,
+    padding: theme.spacing(0.5, 0.75, 0.5, 1),
+    '&:hover': {
+      backgroundColor: palette.action.hover,
+    },
+  };
+});
 
 const FieldButton = styled('button', {
   name: 'MuiContextSwitcher',
@@ -125,47 +134,6 @@ const ChevronMark = styled('span', {
   lineHeight: 0,
 }));
 
-const closeAnchor = {
-  height: 16,
-  position: 'absolute' as const,
-  right: 0,
-  top: 0,
-  transform: 'translate(50%, -50%)',
-  width: 16,
-  zIndex: 1,
-};
-
-const CloseCircle = styled('span', {
-  name: 'MuiContextSwitcher',
-  slot: 'CloseCircle',
-})(({ theme }) => ({
-  ...closeAnchor,
-  backgroundColor: (theme.vars || theme).palette.background.paper,
-  border: '1px solid',
-  borderColor: (theme.vars || theme).palette.divider,
-  borderRadius: '50%',
-  pointerEvents: 'none' as const,
-}));
-
-const CloseButton = styled(IconButton, {
-  name: 'MuiContextSwitcher',
-  slot: 'Close',
-})(({ theme }) => ({
-  ...closeAnchor,
-  backgroundColor: 'transparent',
-  border: 0,
-  color: (theme.vars || theme).palette.text.secondary,
-  minWidth: 16,
-  padding: 0,
-  '&:hover': {
-    backgroundColor: 'transparent',
-  },
-  '&.Mui-focusVisible': {
-    outline: `2px solid ${(theme.vars || theme).palette.text.primary}`,
-    outlineOffset: 2,
-  },
-}));
-
 const FieldText = styled('span', {
   name: 'MuiContextSwitcher',
   slot: 'LevelText',
@@ -189,16 +157,24 @@ const FieldLabel = styled('span', {
   whiteSpace: 'nowrap',
 }));
 
+interface ValueOwnerState {
+  empty: boolean;
+}
+
 const FieldValue = styled('span', {
   name: 'MuiContextSwitcher',
   slot: 'LevelValue',
-})(({ theme }) => ({
-  color: (theme.vars || theme).palette.text.primary,
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<{ ownerState: ValueOwnerState }>(({ theme, ownerState }) => ({
+  color: ownerState.empty
+    ? (theme.vars || theme).palette.text.secondary
+    : (theme.vars || theme).palette.text.primary,
   fontSize: theme.typography.body2.fontSize,
   display: 'block',
   gridColumn: 1,
   gridRow: 2,
   lineHeight: 1.3,
+  maxWidth: 180,
   minWidth: 0,
   overflow: 'hidden',
   textOverflow: 'ellipsis',
@@ -251,11 +227,6 @@ export interface ContextSwitcherLevelProps
   id: string;
   /** Name shown on the field, such as Organization. */
   label: string;
-  /**
-   * Whether the field shows a close button.
-   * Defaults to false for the first level and true for every level after it.
-   */
-  clearable?: boolean;
   /** The panel shows a progress indicator instead of the options. */
   loading?: boolean;
   /** Placeholder in the panel search box. */
@@ -266,8 +237,6 @@ export interface ContextSwitcherLevelProps
   noOptionsText?: string;
   /** Shown when the search matches nothing. */
   noMatchesText?: string;
-  /** Accessible name of the close button. Defaults to `Close ${label}`. */
-  closeLabel?: string;
   /** Accessible name of the progress indicator. Defaults to `Loading ${label}`. */
   loadingLabel?: string;
   /** Options and groups for this level, in the order they should appear. */
@@ -309,21 +278,18 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
     {
       id,
       label,
-      clearable,
       loading = false,
       searchPlaceholder = 'Search',
       searchLabel,
       noOptionsText = 'No options',
       noMatchesText = 'No matches',
-      closeLabel,
       loadingLabel,
       children,
       ...rest
     },
     ref
   ) {
-    const { value, levelIds, openId, setOpenId, restoreFocus, moveFocus, collapse, applyPick } =
-      useContextSwitcher();
+    const { value, openId, setOpenId, moveFocus, applyPick } = useContextSwitcher();
     const buttonRef = React.useRef<HTMLButtonElement>(null);
     const labelRef = React.useRef<HTMLSpanElement>(null);
     const valueRef = React.useRef<HTMLSpanElement>(null);
@@ -342,8 +308,9 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
 
     const selectedValue = value[id];
     const options = React.useMemo(() => collectOptions(children), [children]);
-    const selectedText = options.find((option) => option.value === selectedValue)?.text ?? selectedValue;
-    const canClear = (clearable ?? levelIds[0] !== id) && Boolean(selectedValue);
+    const matchedText = options.find((option) => option.value === selectedValue)?.text;
+    const selectedText = selectedValue ? (matchedText ?? selectedValue) : '';
+    const prompt = `Select ${label.toLowerCase()}`;
     const matches = React.useMemo(
       () => options.filter((option) => matchesQuery(option.text, query)),
       [options, query]
@@ -356,7 +323,6 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
     const panelChildren = panelElements.filter(isPanelChild);
     const showList = !loading && matches.length > 0;
     const resolvedSearchLabel = searchLabel ?? `Search ${label}`;
-    const resolvedCloseLabel = closeLabel ?? `Close ${label}`;
     const resolvedLoadingLabel = loadingLabel ?? `Loading ${label}`;
 
     React.useEffect(() => {
@@ -429,13 +395,6 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
       applyPick(id, optionValue);
     };
 
-    const onClear = (event: React.MouseEvent) => {
-      event.stopPropagation();
-      setOpenId(openId === id ? null : openId);
-      restoreFocus();
-      collapse(id);
-    };
-
     const moveActive = (key: string) => {
       if (enabledMatches.length === 0) {
         return;
@@ -460,7 +419,7 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
       }
       if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
         event.preventDefault();
-        moveFocus(id, event.key === 'ArrowRight' ? 1 : -1);
+        moveFocus(event.currentTarget, event.key === 'ArrowRight' ? 1 : -1);
       }
     };
 
@@ -488,7 +447,8 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
       moveActive(event.key);
     };
 
-    const accessibleName = selectedText ? `${label}: ${selectedText}` : label;
+    const shownValue = selectedText || prompt;
+    const accessibleName = `${label}: ${shownValue}`;
     const showNameTooltip = () => {
       setNameTooltipOpen(isTruncated(labelRef.current) || isTruncated(valueRef.current));
     };
@@ -516,6 +476,7 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
         <LevelFrame>
           <FieldRoot
             {...rest}
+            ownerState={{ open }}
             ref={(node: HTMLDivElement | null) => {
               fieldRef.current = node;
               if (typeof ref === 'function') {
@@ -534,6 +495,7 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
                 ref={buttonRef}
                 type="button"
                 data-level-id={id}
+                data-chain-stop=""
                 aria-label={accessibleName}
                 aria-haspopup="dialog"
                 aria-expanded={open}
@@ -545,21 +507,19 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
               >
                 <FieldText>
                   <FieldLabel ref={labelRef}>{label}</FieldLabel>
-                  {selectedText ? <FieldValue ref={valueRef}>{selectedText}</FieldValue> : null}
+                  <FieldValue ref={valueRef} ownerState={{ empty: !selectedText }}>
+                    {shownValue}
+                  </FieldValue>
                 </FieldText>
-                <ChevronMark ownerState={{ besideValue: Boolean(selectedText) }}>
-                  <ChevronDown size={16} aria-hidden="true" />
+                <ChevronMark ownerState={{ besideValue: true }}>
+                  {open ? (
+                    <ChevronUp size={16} aria-hidden="true" />
+                  ) : (
+                    <ChevronDown size={16} aria-hidden="true" />
+                  )}
                 </ChevronMark>
               </FieldButton>
             </OverflowTooltip>
-            {canClear ? (
-              <>
-                <CloseCircle aria-hidden="true" />
-                <CloseButton aria-label={resolvedCloseLabel} onClick={onClear}>
-                  <X size={10} aria-hidden="true" />
-                </CloseButton>
-              </>
-            ) : null}
           </FieldRoot>
           <Popper
             open={open && anchorEl !== null}
