@@ -16,12 +16,69 @@
  * under the License.
  */
 
-import { ReactElement } from 'react';
+import { Children, Fragment, ReactElement, ReactNode, isValidElement } from 'react';
 import MuiTableBody, { TableBodyProps as MuiTableBodyProps } from '@mui/material/TableBody';
+import MuiTableRow from '@mui/material/TableRow';
+import MuiTableCell from '@mui/material/TableCell';
+import Box from '@mui/material/Box';
+import { Search } from '@wso2/oxygen-ui-icons-react';
+import { useListingTable } from '../context';
+import { ListingTableEmptyState } from '../shared/ListingTableEmptyState';
 
-export interface ListingTableBodyProps extends MuiTableBodyProps {}
+export interface ListingTableBodyProps extends MuiTableBodyProps {
+  /** Active search query; falls back to the ListingTable.Provider value */
+  searchValue?: string;
+  /** Skips the no-results state while data is loading; falls back to the ListingTable.Provider value */
+  loading?: boolean;
+  /** @default 'No results found' */
+  noSearchResultsText?: string;
+  /** @default 'Try a different keyword' */
+  noSearchResultsDescription?: string;
+  /** @default <Search /> */
+  noSearchResultsIcon?: ReactNode;
+  /** @default 1000 */
+  emptyStateColSpan?: number;
+}
 
-export function ListingTableBody({ children, ...props }: ListingTableBodyProps): ReactElement {
+function hasContent(node: ReactNode): boolean {
+  return Children.toArray(node).some((child) =>
+    isValidElement<{ children?: ReactNode }>(child) && child.type === Fragment ? hasContent(child.props.children) : true,
+  );
+}
+
+export function ListingTableBody({
+  children,
+  searchValue,
+  loading,
+  noSearchResultsText = 'No results found',
+  noSearchResultsDescription = 'Try a different keyword',
+  noSearchResultsIcon = <Search />,
+  emptyStateColSpan = 1000,
+  ...props
+}: ListingTableBodyProps): ReactElement {
+  const context = useListingTable();
+  const isSearching = Boolean((searchValue ?? context?.searchValue)?.trim());
+  const isLoading = loading ?? context?.loading ?? false;
+  const hasRows = hasContent(children);
+
+  if (isSearching && !isLoading && !hasRows) {
+    return (
+      <MuiTableBody {...props}>
+        <MuiTableRow>
+          <MuiTableCell colSpan={emptyStateColSpan} sx={{ border: 0 }}>
+            <Box role="status" aria-live="polite">
+              <ListingTableEmptyState
+                title={noSearchResultsText}
+                description={noSearchResultsDescription}
+                illustration={noSearchResultsIcon}
+              />
+            </Box>
+          </MuiTableCell>
+        </MuiTableRow>
+      </MuiTableBody>
+    );
+  }
+
   return <MuiTableBody {...props}>{children}</MuiTableBody>;
 }
 

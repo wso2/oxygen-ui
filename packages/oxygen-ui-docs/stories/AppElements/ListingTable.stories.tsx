@@ -404,7 +404,7 @@ export const QuickStart: Story = {
               <ListingTable.Cell>Environment</ListingTable.Cell>
             </ListingTable.Row>
           </ListingTable.Head>
-          <ListingTable.Body>
+          <ListingTable.Body searchValue={searchValue}>
             {filteredComponents.map((component) => (
               <ListingTable.Row key={component.id} hover>
                 <ListingTable.Cell>
@@ -768,6 +768,50 @@ export const Density: Story = {
       </ListingTable>
     </ListingTable.Container>
   ),
+};
+
+/**
+ * When a search matches no rows, `ListingTable.Body` shows an icon and a
+ * "No results found" message. Customize it with `noSearchResultsText`,
+ * `noSearchResultsDescription` and `noSearchResultsIcon`.
+ *
+ * Pass `searchValue` to the Body, or wrap in `ListingTable.Provider` to read it from context.
+ */
+export const NoSearchResults: Story = {
+  render: () => {
+    const [searchValue, setSearchValue] = useState('zzz');
+    const rows = platformComponents.filter((c) => c.name.toLowerCase().includes(searchValue.toLowerCase())).slice(0, 5);
+
+    return (
+      <ListingTable.Container sx={{ minWidth: 700 }}>
+        <ListingTable.Toolbar
+          showSearch
+          searchValue={searchValue}
+          onSearchChange={setSearchValue}
+          searchPlaceholder="Search components..."
+        />
+        <ListingTable>
+          <ListingTable.Head>
+            <ListingTable.Row>
+              <ListingTable.Cell>Name</ListingTable.Cell>
+              <ListingTable.Cell>Type</ListingTable.Cell>
+            </ListingTable.Row>
+          </ListingTable.Head>
+          <ListingTable.Body
+            searchValue={searchValue}
+            noSearchResultsDescription="Try a different keyword"
+          >
+            {rows.map((c) => (
+              <ListingTable.Row key={c.id} hover>
+                <ListingTable.Cell>{c.name}</ListingTable.Cell>
+                <ListingTable.Cell>{c.type}</ListingTable.Cell>
+              </ListingTable.Row>
+            ))}
+          </ListingTable.Body>
+        </ListingTable>
+      </ListingTable.Container>
+    );
+  },
 };
 
 /**
