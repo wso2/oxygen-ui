@@ -89,6 +89,34 @@ font is embedded as base64 data URIs:
   <YourApp />
 </OxygenUIThemeProvider>
 \`\`\`
+
+### Client-rendered apps
+By default the first render ignores the stored color scheme, so that a
+server-rendered page matches it, and a page load in dark mode paints the light
+scheme for a frame. Client-rendered apps (Vite, Create React App) should pass
+\`noSsr\` to use the stored scheme from the first render.
+
+\`\`\`tsx
+<OxygenUIThemeProvider noSsr>
+  <YourApp />
+</OxygenUIThemeProvider>
+\`\`\`
+
+Server-rendered apps should leave \`noSsr\` off and render MUI's
+\`InitColorSchemeScript\` with \`attribute="data-color-scheme"\`, Oxygen's
+selector. MUI's default attribute, \`data-mui-color-scheme\`, isn't read by
+Oxygen's styles. If you pass \`defaultMode\`, \`modeStorageKey\` or
+\`colorSchemeStorageKey\` to the provider, pass the same values to the script:
+
+\`\`\`tsx
+import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
+
+<InitColorSchemeScript attribute="data-color-scheme" />
+\`\`\`
+
+MUI's other color-scheme options (\`defaultMode\`, \`modeStorageKey\`,
+\`colorSchemeStorageKey\`, \`disableTransitionOnChange\`, \`storageManager\`) are
+passed through to its \`ThemeProvider\` as well.
         `,
       },
     },
@@ -122,6 +150,48 @@ font is embedded as base64 data URIs:
       description: 'A custom Emotion cache instance for full control over style injection (cache key, nonce, insertion point, stylis plugins, container). Create one with `createEmotionCache` and set `prepend: true` to preserve injectFirst cascade. Takes precedence over the `nonce` prop.',
       table: {
         type: { summary: 'EmotionCache' },
+      },
+    },
+    noSsr: {
+      control: false,
+      description: 'Use the stored color scheme from the first render instead of after mount. Set this in client-rendered apps, so a page load in dark mode does not paint the light scheme first. Leave it off for server-rendered apps.',
+      table: {
+        defaultValue: { summary: 'false' },
+      },
+    },
+    defaultMode: {
+      control: false,
+      description: "Mode used when none is stored: `'light'`, `'dark'` or `'system'`. Passed through to MUI's ThemeProvider.",
+      table: {
+        defaultValue: { summary: "'system'" },
+      },
+    },
+    modeStorageKey: {
+      control: false,
+      description: "localStorage key for the stored mode. Passed through to MUI's ThemeProvider.",
+      table: {
+        defaultValue: { summary: "'mui-mode'" },
+      },
+    },
+    colorSchemeStorageKey: {
+      control: false,
+      description: "localStorage key prefix for the stored color scheme names. Passed through to MUI's ThemeProvider.",
+      table: {
+        defaultValue: { summary: "'mui-color-scheme'" },
+      },
+    },
+    disableTransitionOnChange: {
+      control: false,
+      description: "Disable CSS transitions while switching between modes. Passed through to MUI's ThemeProvider.",
+      table: {
+        defaultValue: { summary: 'false' },
+      },
+    },
+    storageManager: {
+      control: false,
+      description: "Where the mode and color scheme are stored, in place of localStorage. Passed through to MUI's ThemeProvider.",
+      table: {
+        type: { summary: 'StorageManager | null' },
       },
     },
     children: {
