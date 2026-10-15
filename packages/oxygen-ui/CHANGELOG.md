@@ -1,5 +1,20 @@
 # @wso2/oxygen-ui
 
+## 0.16.0
+
+### Minor Changes
+
+- [#640](https://github.com/wso2/oxygen-ui/pull/640) [`f1bc7ad`](https://github.com/wso2/oxygen-ui/commit/f1bc7ade89e74a6771eb02db54ae05b3e9aa5267) Thanks [@aruniw](https://github.com/aruniw)! - Add `RelativeTime` component to display a clock icon with an optional action and a consumer-provided relative time (e.g. "Updated 3 weeks ago")
+
+- [#645](https://github.com/wso2/oxygen-ui/pull/645) [`5210aaf`](https://github.com/wso2/oxygen-ui/commit/5210aafa15a1be873e46dc2322aaea2987037b43) Thanks [@SandaminiM](https://github.com/SandaminiM)! - Show a "No results found" message with an icon in `ListingTable.Body` when a search matches no rows. Customize it with the new `noSearchResultsText`, `noSearchResultsDescription`, `noSearchResultsIcon`, `emptyStateColSpan`, `searchValue` and `loading` props
+
+### Patch Changes
+
+- [#631](https://github.com/wso2/oxygen-ui/pull/631) [`e119dae`](https://github.com/wso2/oxygen-ui/commit/e119dae2096038cafff079b49f404c68f7267662) Thanks [@SandaminiM](https://github.com/SandaminiM)! - Use the `Menu` (hamburger) icon for `HeaderToggle` in both collapsed and expanded sidebar states
+
+- Updated dependencies []:
+  - @wso2/oxygen-ui-icons-react@0.16.0
+
 ## 0.15.0
 
 ### Minor Changes
