@@ -18,6 +18,19 @@ description: Generate forms with Form.* components and validation. Use when crea
 - Use controlled components with state
 - Show validation errors with `error` and `helperText` props
 - Use theme tokens for spacing
+- Write all UI text in sentence case (see below)
+
+## UI Text
+
+Write all titles, action text, and content in sentence case. Capitalize only the first word, proper nouns, product names, and acronyms.
+
+```text
+✓ First name    ✓ Create account    ✓ Enter your email address
+✗ First Name    ✗ Create Account    ✗ ENTER YOUR EMAIL ADDRESS
+```
+
+- Applies to section headers, labels, placeholders, helper text, error messages, and buttons
+- Write the text in sentence case in the source; never change case with `textTransform: 'uppercase'` or `'capitalize'`
 
 ## Basic Form
 
