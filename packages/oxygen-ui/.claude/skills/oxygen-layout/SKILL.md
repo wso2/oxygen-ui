@@ -19,6 +19,19 @@ description: Generate application layouts with AppShell, Header, and Sidebar. Us
 - Import icons from `@wso2/oxygen-ui-icons-react`
 - Use theme tokens for all styling
 - Set a browser tab title on every page using `[Specific page/resource] | [Product]` (see below)
+- Write all UI text in sentence case (see below)
+
+## UI Text
+
+Write all titles, action text, and content in sentence case. Capitalize only the first word, proper nouns, product names, and acronyms.
+
+```text
+✓ User management    ✓ API keys    ✓ Sign out
+✗ User Management    ✗ API Keys    ✗ SIGN OUT
+```
+
+- Applies to page titles, headings, navigation items, sidebar categories, header actions, and menu items
+- Write the text in sentence case in the source; never change case with `textTransform: 'uppercase'` or `'capitalize'`
 
 ## Browser Tab Title
 

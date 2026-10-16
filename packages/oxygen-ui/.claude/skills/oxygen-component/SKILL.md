@@ -19,6 +19,19 @@ description: Generate Oxygen UI React components following best practices. Use w
 - Never hardcode colors or spacing values
 - For data tables, prefer `ListingTable` over MUI's `Table`
 - For layouts, use `AppShell`, `Header`, `Sidebar`
+- Write all UI text in sentence case (see below)
+
+## UI Text
+
+Write all titles, action text, and content in sentence case. Capitalize only the first word, proper nouns, product names, and acronyms.
+
+```text
+✓ Create project    ✓ API keys    ✓ Last modified
+✗ Create Project    ✗ API Keys    ✗ LAST MODIFIED
+```
+
+- Applies to titles, headings, buttons, links, menu items, tabs, labels, placeholders, table columns, tooltips, and messages
+- Write the text in sentence case in the source; never change case with `textTransform: 'uppercase'` or `'capitalize'`
 
 ## Component Template
 
