@@ -97,6 +97,9 @@ const semantic = {
   error: '#E60000',
   warning: '#FFB400',
   success: '#00C853',
+  // Darker shades for text on light surfaces; the base colors fall below 4.5:1 on white
+  warningText: '#8A5A00',
+  successText: '#007A33',
 };
 
 const grey = {
@@ -134,10 +137,12 @@ const WSO2ThemeConfig = {
         },
         success: {
           main: semantic.success,
+          dark: semantic.successText,
           contrastText: neutral[950],
         },
         warning: {
           main: semantic.warning,
+          dark: semantic.warningText,
           contrastText: neutral[950],
         },
         error: {
@@ -305,21 +310,35 @@ const WSO2ThemeConfig = {
           '&:hover': {
             color: theme.palette.primary.main,
           },
+          // Light mode labels use the darker shade so they meet 4.5:1 on white surfaces
           '&.MuiButton-colorSuccess': {
-            color: theme.palette.success.main,
-            borderColor: theme.palette.success.main,
+            color: theme.vars.palette.success.dark,
+            borderColor: theme.vars.palette.success.main,
             '&:hover': {
-              color: theme.palette.success.main,
-              borderColor: theme.palette.success.main,
+              color: theme.vars.palette.success.dark,
+              borderColor: theme.vars.palette.success.main,
             },
+            ...theme.applyStyles('dark', {
+              color: theme.vars.palette.success.main,
+              '&:hover': {
+                color: theme.vars.palette.success.main,
+              },
+            }),
           },
+          // Light mode labels use the darker shade so they meet 4.5:1 on white surfaces
           '&.MuiButton-colorWarning': {
-            color: theme.palette.warning.main,
-            borderColor: theme.palette.warning.main,
+            color: theme.vars.palette.warning.dark,
+            borderColor: theme.vars.palette.warning.main,
             '&:hover': {
-              color: theme.palette.warning.main,
-              borderColor: theme.palette.warning.main,
+              color: theme.vars.palette.warning.dark,
+              borderColor: theme.vars.palette.warning.main,
             },
+            ...theme.applyStyles('dark', {
+              color: theme.vars.palette.warning.main,
+              '&:hover': {
+                color: theme.vars.palette.warning.main,
+              },
+            }),
           },
           '&.MuiButton-colorError': {
             color: theme.palette.error.main,
