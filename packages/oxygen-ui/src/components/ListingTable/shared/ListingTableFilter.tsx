@@ -167,7 +167,17 @@ export const ListingTableFilter = React.forwardRef<HTMLButtonElement, ListingTab
                     duration: theme.transitions.duration.shorter,
                   }),
                   '.MuiTableCell-root:hover &': { opacity: applied ? 1 : 0.5 },
-                  '&:hover, &:focus-visible, &[aria-expanded="true"], .MuiTableCell-root:focus-within &': {
+                  // Inside a cell, the full-strength states repeat under the cell, so they match the
+                  // specificity of the cell-hover rule above and come after it.
+                  [[
+                    '&:hover',
+                    '&:focus-visible',
+                    '&[aria-expanded="true"]',
+                    '.MuiTableCell-root &:hover',
+                    '.MuiTableCell-root &:focus-visible',
+                    '.MuiTableCell-root &[aria-expanded="true"]',
+                    '.MuiTableCell-root:focus-within &',
+                  ].join(', ')]: {
                     opacity: 1,
                   },
                   '@media (hover: none)': { opacity: applied ? 1 : 0.5 },
