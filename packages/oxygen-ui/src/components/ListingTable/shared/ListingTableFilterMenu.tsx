@@ -29,7 +29,10 @@ import { SearchBarBase } from '../../SearchBar/SearchBarBase';
  * One choice of a filter list.
  */
 export interface ListingTableFilterOption {
-  /** Value reported when the choice is picked. */
+  /**
+   * Value reported when the choice is picked. It must not be empty: an empty value means no filter is
+   * applied, so a choice with one is left out of the list. Use the "any" choice to clear the filter.
+   */
   value: string;
   /** Text shown for the choice. */
   label: string;
@@ -85,8 +88,9 @@ const MenuContent: React.FC<MenuContentProps> = ({
 
   const current = value ?? '';
   const needle = query.trim().toLowerCase();
-  const shown = [{ value: '', label: allLabel }, ...options].filter((option) =>
-    option.label.toLowerCase().includes(needle)
+  // An empty value means nothing is applied, so only the "any" choice may have one.
+  const shown = [{ value: '', label: allLabel }, ...options.filter((option) => option.value !== '')].filter(
+    (option) => option.label.toLowerCase().includes(needle)
   );
 
   const pick = (option: ListingTableFilterOption) => {

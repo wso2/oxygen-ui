@@ -74,6 +74,15 @@ describe('ListingTableFilter', () => {
     expect(choices()).toEqual(['Any', 'Running', 'Stopped', 'Failed']);
   });
 
+  it('leaves out a choice with an empty value, because an empty value means nothing is applied', () => {
+    const onChange = vi.fn();
+    renderFilter({ onChange, options: [{ value: '', label: 'Blank' }, ...OPTIONS] });
+    fireEvent.click(button());
+    expect(choices()).toEqual(['Any', 'Running', 'Stopped', 'Failed']);
+    fireEvent.click(screen.getByRole('menuitemradio', { name: 'Any' }));
+    expect(onChange).toHaveBeenCalledWith(null);
+  });
+
   it('reports the picked value and closes', () => {
     const onChange = vi.fn();
     renderFilter({ onChange });
