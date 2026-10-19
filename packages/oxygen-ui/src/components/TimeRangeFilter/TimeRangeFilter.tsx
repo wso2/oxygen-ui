@@ -316,7 +316,11 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
       setCustomOpen(activeId === CUSTOM_ID);
     };
     const latestPrepare = React.useRef(prepare);
-    latestPrepare.current = prepare;
+    // Kept current in an effect, not during render. It is declared before the effect below so it
+    // has run by the time that one reads it.
+    React.useLayoutEffect(() => {
+      latestPrepare.current = prepare;
+    });
     const wasOpen = React.useRef(false);
     React.useLayoutEffect(() => {
       if (open && !wasOpen.current) latestPrepare.current();
