@@ -41,7 +41,6 @@ export type { ThemeSwitcherProps, ThemeSelectProps } from './ThemeSwitcher';
 export { default as TimeRangeFilter } from './TimeRangeFilter';
 export type {
   TimeRange,
-  TimeRangeFilterHandle,
   TimeRangeFilterProps,
   TimeRangePreset,
 } from './TimeRangeFilter';

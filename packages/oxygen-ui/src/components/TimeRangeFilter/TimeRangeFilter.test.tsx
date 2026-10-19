@@ -18,10 +18,10 @@
 
 import * as React from 'react';
 import { describe, it, expect, afterEach, vi } from 'vitest';
-import { render, cleanup, screen, fireEvent, act, waitFor, within } from '@testing-library/react';
+import { render, cleanup, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import OxygenUIThemeProvider from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
 import TimeRangeFilter from './TimeRangeFilter';
-import type { TimeRange, TimeRangeFilterHandle } from './TimeRangeFilter';
+import type { TimeRange } from './TimeRangeFilter';
 
 const renderWithTheme = (ui: React.ReactElement) =>
   render(<OxygenUIThemeProvider>{ui}</OxygenUIThemeProvider>);
@@ -323,15 +323,130 @@ describe('TimeRangeFilter', () => {
     );
   });
 
-  it('opens the picker from outside through its ref', async () => {
-    const ref = React.createRef<TimeRangeFilterHandle>();
-    renderWithTheme(<TimeRangeFilter ref={ref} value={null} onChange={() => undefined} />);
-    expect(screen.queryByText('Last hour')).toBeNull();
+  describe('controlled open', () => {
+    it('opens and closes only as `open` says, and reports the requests', async () => {
+      const onOpen = vi.fn();
+      const onClose = vi.fn();
+      const { rerender } = renderWithTheme(
+        <TimeRangeFilter value={null} onChange={() => undefined} open={false} onOpen={onOpen} onClose={onClose} />
+      );
+      openMenu();
+      expect(onOpen).toHaveBeenCalledTimes(1);
+      // The page did not set `open`, so the picker stays closed.
+      expect(screen.queryByText('Last hour')).toBeNull();
 
-    act(() => ref.current?.open());
-    expect(screen.getByText('Last hour')).not.toBeNull();
+      rerender(
+        <OxygenUIThemeProvider>
+          <TimeRangeFilter value={null} onChange={() => undefined} open onOpen={onOpen} onClose={onClose} />
+        </OxygenUIThemeProvider>
+      );
+      expect(screen.getByText('Last hour')).not.toBeNull();
+      fireEvent.keyDown(screen.getByRole('menu'), { key: 'Escape' });
+      expect(onClose).toHaveBeenCalledTimes(1);
+      // Still open: closing is up to the page.
+      expect(screen.getByText('Last hour')).not.toBeNull();
+    });
 
-    act(() => ref.current?.close());
-    await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
+    it('closes itself after a choice when not controlled, and still reports it', async () => {
+      const onClose = vi.fn();
+      renderWithTheme(<TimeRangeFilter value={null} onChange={() => undefined} onClose={onClose} />);
+      openMenu();
+      fireEvent.click(screen.getByText('Last hour'));
+      await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
+      expect(onClose).toHaveBeenCalledTimes(1);
+    });
+
+    it('opens under `anchorEl` when it is given, for a control elsewhere such as a chip', () => {
+      const Harness = () => {
+        const [open, setOpen] = React.useState(false);
+        const [anchor, setAnchor] = React.useState<HTMLElement | null>(null);
+        return (
+          <>
+            <TimeRangeFilter
+              value={sampleRange}
+              onChange={() => undefined}
+              open={open}
+              anchorEl={anchor}
+              onOpen={() => {
+                setAnchor(null);
+                setOpen(true);
+              }}
+              onClose={() => setOpen(false)}
+              sx={{ display: 'none' }}
+            />
+            <button
+              type="button"
+              onClick={(event) => {
+                setAnchor(event.currentTarget);
+                setOpen(true);
+              }}
+            >
+              chip
+            </button>
+          </>
+        );
+      };
+      renderWithTheme(<Harness />);
+      fireEvent.click(screen.getByRole('button', { name: 'chip' }));
+      expect(screen.getByText('Last hour')).not.toBeNull();
+      expect(document.querySelector('.MuiPopover-root')).not.toBeNull();
+    });
+  });
+
+  describe('as a button', () => {
+    it('forwards its ref to the trigger button', () => {
+      const ref = React.createRef<HTMLButtonElement>();
+      renderWithTheme(<TimeRangeFilter ref={ref} value={null} onChange={() => undefined} />);
+      expect(ref.current).toBe(screen.getByRole('button', { name: /time range/i }));
+    });
+
+    it('passes className, data attributes and aria attributes to the trigger button', () => {
+      renderWithTheme(
+        <TimeRangeFilter
+          value={null}
+          onChange={() => undefined}
+          className="mine"
+          data-testid="range-trigger"
+          id="range"
+        />
+      );
+      const trigger = screen.getByTestId('range-trigger');
+      expect(trigger.classList.contains('mine')).toBe(true);
+      expect(trigger.id).toBe('range');
+    });
+
+    it('calls the onClick it is given as well as opening', () => {
+      const onClick = vi.fn();
+      renderWithTheme(<TimeRangeFilter value={null} onChange={() => undefined} onClick={onClick} />);
+      openMenu();
+      expect(onClick).toHaveBeenCalledTimes(1);
+      expect(screen.getByText('Last hour')).not.toBeNull();
+    });
+  });
+
+  describe('accessible names and state', () => {
+    it('says it opens a menu, and whether it is open', () => {
+      renderWithTheme(<TimeRangeFilter value={null} onChange={() => undefined} />);
+      const trigger = screen.getByRole('button', { name: /time range/i });
+      expect(trigger.getAttribute('aria-haspopup')).toBe('menu');
+      expect(trigger.getAttribute('aria-expanded')).toBe('false');
+      fireEvent.click(trigger);
+      expect(trigger.getAttribute('aria-expanded')).toBe('true');
+    });
+
+    it('names the list of choices after the trigger label', () => {
+      renderWithTheme(<TimeRangeFilter value={null} onChange={() => undefined} label="Period" />);
+      fireEvent.click(screen.getByRole('button', { name: 'Period' }));
+      expect(screen.getByRole('menu', { name: 'Period' })).not.toBeNull();
+    });
+
+    it('names the custom range panel and each end of the range', () => {
+      renderWithTheme(<TimeRangeFilter value={null} onChange={() => undefined} />);
+      openCustomPopover();
+      expect(screen.getByRole('group', { name: 'Select date range' })).not.toBeNull();
+      expect(screen.getByRole('group', { name: 'Start from (UTC)' })).not.toBeNull();
+      expect(screen.getByRole('group', { name: 'End on (UTC)' })).not.toBeNull();
+      expect(screen.getByRole('menuitem', { name: 'Custom' }).getAttribute('aria-expanded')).toBe('true');
+    });
   });
 });

@@ -20,6 +20,7 @@ import * as React from 'react';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import type { ButtonProps } from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Popover from '@mui/material/Popover';
@@ -53,19 +54,9 @@ export interface TimeRangePreset {
 }
 
 /**
- * Imperative handle, so a control elsewhere (such as a chip showing the range) can reopen the picker.
- */
-export interface TimeRangeFilterHandle {
-  /** Opens the picker, anchored to `anchor` (defaults to the trigger button). */
-  open: (anchor?: HTMLElement | null) => void;
-  /** Closes the picker. */
-  close: () => void;
-}
-
-/**
  * Props for the TimeRangeFilter component
  */
-export interface TimeRangeFilterProps {
+export interface TimeRangeFilterProps extends Omit<ButtonProps, 'onChange' | 'value' | 'children'> {
   /**
    * The selected range, or `null` when no range is selected.
    */
@@ -135,14 +126,25 @@ export interface TimeRangeFilterProps {
    */
   invalidRangeLabel?: string;
   /**
-   * Disables the trigger button.
-   * @default false
+   * Whether the picker is open. Set it, with `onOpen` and `onClose`, to control the picker, for
+   * example to reopen it from a chip that shows the range. Leave it out and the picker opens and
+   * closes itself.
    */
-  disabled?: boolean;
+  open?: boolean;
   /**
-   * Custom styles for the trigger button.
+   * Called when the trigger button asks to open the picker.
    */
-  sx?: SxProps<Theme>;
+  onOpen?: () => void;
+  /**
+   * Called when the picker asks to close: after a choice is applied, on Cancel, on Escape, and on a
+   * click outside.
+   */
+  onClose?: () => void;
+  /**
+   * The element the open picker is placed under. Defaults to the trigger button. Set it when the
+   * picker is opened from somewhere else, such as a chip.
+   */
+  anchorEl?: HTMLElement | null;
 }
 
 const HOUR_MS = 60 * 60 * 1000;
@@ -225,18 +227,26 @@ const validDate = (date: Date | null): Date | null =>
  *
  * @example
  * ```tsx
- * // Reopen the picker from a chip
- * const filterRef = React.useRef<TimeRangeFilterHandle>(null);
+ * // Reopen the picker from a chip: control `open` and `anchorEl`
+ * const [anchor, setAnchor] = React.useState<HTMLElement | null>(null);
+ * const [open, setOpen] = React.useState(false);
  *
- * <TimeRangeFilter ref={filterRef} value={range} onChange={setRange} />
+ * <TimeRangeFilter
+ *   value={range}
+ *   onChange={setRange}
+ *   open={open}
+ *   anchorEl={anchor}
+ *   onOpen={() => { setAnchor(null); setOpen(true); }}
+ *   onClose={() => setOpen(false)}
+ * />
  * <Chip
  *   label="Time: Last 24 hours"
- *   onClick={(event) => filterRef.current?.open(event.currentTarget)}
+ *   onClick={(event) => { setAnchor(event.currentTarget); setOpen(true); }}
  *   onDelete={() => setRange(null)}
  * />
  * ```
  */
-const TimeRangeFilter = React.forwardRef<TimeRangeFilterHandle, TimeRangeFilterProps>(
+const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps>(
   (
     {
       value,
@@ -253,14 +263,25 @@ const TimeRangeFilter = React.forwardRef<TimeRangeFilterHandle, TimeRangeFilterP
       applyLabel = 'Apply',
       cancelLabel = 'Cancel',
       invalidRangeLabel = 'Choose a valid time range.',
-      disabled = false,
-      sx,
+      open: openProp,
+      onOpen,
+      onClose,
+      anchorEl,
+      onClick,
+      ...buttonProps
     },
     ref,
   ) => {
     const panelId = React.useId();
-    const triggerRef = React.useRef<HTMLButtonElement>(null);
-    const [anchor, setAnchor] = React.useState<HTMLElement | null>(null);
+    const triggerRef = React.useRef<HTMLButtonElement | null>(null);
+    const setTriggerRef = (element: HTMLButtonElement | null) => {
+      triggerRef.current = element;
+      if (typeof ref === 'function') ref(element);
+      else if (ref) ref.current = element;
+    };
+    // The picker controls itself unless `open` is given.
+    const [ownOpen, setOwnOpen] = React.useState(false);
+    const open = openProp ?? ownOpen;
     const [customOpen, setCustomOpen] = React.useState(false);
     const [selection, setSelection] = React.useState<Selection | null>(null);
     // The custom range being edited, as dates in the pickers' (local) terms; see `toPickerDate`.
@@ -279,31 +300,28 @@ const TimeRangeFilter = React.forwardRef<TimeRangeFilterHandle, TimeRangeFilterP
         : (presets.find((preset) => preset.durationMs === value.end.getTime() - value.start.getTime())
             ?.id ?? CUSTOM_ID);
 
-    const close = () => setAnchor(null);
+    const close = () => {
+      if (openProp === undefined) setOwnOpen(false);
+      onClose?.();
+    };
 
     // Each time the picker opens, the custom fields start from the current range (or the last day),
     // and are shown at once when the current range is a custom one.
-    const openAt = React.useCallback(
-      (element: HTMLElement | null) => {
-        const end = value?.end ?? new Date();
-        const start = value?.start ?? new Date(end.getTime() - DAY_MS);
-        setFrom(toPickerDate(start));
-        setUntil(toPickerDate(end));
-        setError('');
-        setCustomOpen(activeId === CUSTOM_ID);
-        setAnchor(element);
-      },
-      [value, activeId],
-    );
-
-    React.useImperativeHandle(
-      ref,
-      () => ({
-        open: (element) => openAt(element ?? triggerRef.current),
-        close: () => setAnchor(null),
-      }),
-      [openAt],
-    );
+    const prepare = () => {
+      const end = value?.end ?? new Date();
+      const start = value?.start ?? new Date(end.getTime() - DAY_MS);
+      setFrom(toPickerDate(start));
+      setUntil(toPickerDate(end));
+      setError('');
+      setCustomOpen(activeId === CUSTOM_ID);
+    };
+    const latestPrepare = React.useRef(prepare);
+    latestPrepare.current = prepare;
+    const wasOpen = React.useRef(false);
+    React.useLayoutEffect(() => {
+      if (open && !wasOpen.current) latestPrepare.current();
+      wasOpen.current = open;
+    }, [open]);
 
     const applyPreset = (preset: TimeRangePreset) => {
       const end = new Date();
@@ -372,23 +390,26 @@ const TimeRangeFilter = React.forwardRef<TimeRangeFilterHandle, TimeRangeFilterP
     return (
       <>
         <Button
-          ref={triggerRef}
           size="small"
           variant="text"
           color="inherit"
-          disabled={disabled}
+          {...buttonProps}
+          ref={setTriggerRef}
           aria-haspopup="menu"
-          aria-expanded={Boolean(anchor)}
+          aria-expanded={open}
           endIcon={<ChevronDown size={14} />}
-          onClick={(event) => openAt(event.currentTarget)}
-          sx={sx}
+          onClick={(event) => {
+            onClick?.(event);
+            if (openProp === undefined) setOwnOpen(true);
+            onOpen?.();
+          }}
         >
           {label}
         </Button>
 
         <Popover
-          anchorEl={anchor}
-          open={Boolean(anchor)}
+          anchorEl={anchorEl ?? triggerRef.current}
+          open={open}
           onClose={close}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           slotProps={{ paper: { sx: solidPaperSx } }}

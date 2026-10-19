@@ -18,7 +18,7 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
 import { Chip, Stack, TimeRangeFilter, Typography } from '@wso2/oxygen-ui';
-import type { TimeRange, TimeRangeFilterHandle } from '@wso2/oxygen-ui';
+import type { TimeRange } from '@wso2/oxygen-ui';
 import React from 'react';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -45,7 +45,7 @@ chosen range through \`onChange\`; your app decides what to fetch and when to cl
 - **Presets**: Last hour, Last 24 hours, Last 7 days and Last 30 days by default, or your own list. Choosing one applies it
 - **Custom range**: Choosing Custom shows a Select date range panel beside the list, with a date field and a time field (to the second) for the start and for the end, read as UTC. Apply uses it, and Cancel closes without applying
 - **Limits**: A custom range is only applied when the end is after the start, and, when you set \`maxRangeMs\`, within that length
-- **Reopen from elsewhere**: A \`ref\` exposes \`open()\` and \`close()\`, so a chip can reopen the picker
+- **Reopen from elsewhere**: Control the picker with \`open\`, \`onOpen\`, \`onClose\` and \`anchorEl\`, so a chip can reopen it
 - **Localizable**: Every visible string is a prop
 
 ### Usage
@@ -171,11 +171,13 @@ export const Disabled: Story = {
 };
 
 /**
- * Clicking the chip reopens the picker through the component's ref. Removing the chip clears the range.
+ * Clicking the chip reopens the picker under the chip: the page controls `open` and `anchorEl`.
+ * Removing the chip clears the range.
  */
 export const WithChip: Story = {
   render: () => {
-    const filterRef = React.useRef<TimeRangeFilterHandle>(null);
+    const [open, setOpen] = React.useState(false);
+    const [anchor, setAnchor] = React.useState<HTMLElement | null>(null);
     const [range, setRange] = React.useState<TimeRange | null>(() => ({
       start: new Date(Date.now() - DAY_MS),
       end: new Date(),
@@ -188,13 +190,26 @@ export const WithChip: Story = {
             <Chip
               variant="outlined"
               label={`Time: ${formatUtc(range.start)} to ${formatUtc(range.end)}`}
-              onClick={(event) => filterRef.current?.open(event.currentTarget)}
+              onClick={(event) => {
+                setAnchor(event.currentTarget);
+                setOpen(true);
+              }}
               onDelete={() => setRange(null)}
             />
           )}
         </Stack>
         <Stack direction="row">
-          <TimeRangeFilter ref={filterRef} value={range} onChange={setRange} />
+          <TimeRangeFilter
+            value={range}
+            onChange={setRange}
+            open={open}
+            anchorEl={anchor}
+            onOpen={() => {
+              setAnchor(null);
+              setOpen(true);
+            }}
+            onClose={() => setOpen(false)}
+          />
         </Stack>
       </Stack>
     );
