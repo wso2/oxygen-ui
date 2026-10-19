@@ -108,22 +108,22 @@ function SectionedForm() {
   return (
     <Box sx={{ maxWidth: 600 }}>
       <Form.Section>
-        <Form.Header>Personal Information</Form.Header>
+        <Form.Header>Personal information</Form.Header>
         <Form.Subheader>Enter your basic details</Form.Subheader>
 
         <Form.Stack spacing={2}>
-          <Form.TextInput label="First Name" required />
-          <Form.TextInput label="Last Name" required />
+          <Form.TextInput label="First name" required />
+          <Form.TextInput label="Last name" required />
           <Form.TextInput label="Email" type="email" required />
         </Form.Stack>
       </Form.Section>
 
       <Form.Section>
-        <Form.Header>Company Details</Form.Header>
+        <Form.Header>Company details</Form.Header>
         <Form.Subheader>Optional information about your organization</Form.Subheader>
 
         <Form.Stack spacing={2}>
-          <Form.TextInput label="Company Name" />
+          <Form.TextInput label="Company name" />
           <Form.SelectInput label="Role">
             <Form.MenuItem value="developer">Developer</Form.MenuItem>
             <Form.MenuItem value="designer">Designer</Form.MenuItem>
@@ -226,7 +226,7 @@ function LoginForm() {
             disabled={loading}
             sx={{ mt: 3, mb: 2 }}
           >
-            {loading ? 'Signing in...' : 'Sign In'}
+            {loading ? 'Signing in...' : 'Sign in'}
           </Button>
 
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -305,7 +305,7 @@ function RegistrationWizard() {
           <>
             <TextField
               fullWidth
-              label="Full Name"
+              label="Full name"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               margin="normal"
@@ -412,7 +412,7 @@ function AddressForm() {
 
       <TextField fullWidth label="City" margin="normal" />
       <TextField fullWidth label="Address" margin="normal" multiline rows={2} />
-      <TextField fullWidth label="Zip Code" margin="normal" />
+      <TextField fullWidth label="ZIP code" margin="normal" />
 
       <Button variant="contained" sx={{ mt: 2 }}>
         Save Address

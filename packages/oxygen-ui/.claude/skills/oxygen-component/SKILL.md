@@ -63,7 +63,7 @@ import { ListingTable, Chip, IconButton } from '@wso2/oxygen-ui';
 import { EditIcon, TrashIcon } from '@wso2/oxygen-ui-icons-react';
 
 <ListingTable.Container>
-  <ListingTable.Toolbar showSearch actions={<Button>Add Item</Button>} />
+  <ListingTable.Toolbar showSearch actions={<Button>Add item</Button>} />
   <ListingTable variant="card">
     <ListingTable.Head>
       <ListingTable.Row>
@@ -96,7 +96,7 @@ import { EditIcon, TrashIcon } from '@wso2/oxygen-ui-icons-react';
 import { Paper, Typography, Box, Button } from '@wso2/oxygen-ui';
 
 <Paper sx={{ p: 3 }}>
-  <Typography variant="h6" gutterBottom>Card Title</Typography>
+  <Typography variant="h6" gutterBottom>Card title</Typography>
   <Typography color="text.secondary" sx={{ mb: 2 }}>
     Card description text
   </Typography>
@@ -120,7 +120,7 @@ import {
 } from '@wso2/oxygen-ui';
 
 <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-  <DialogTitle>Dialog Title</DialogTitle>
+  <DialogTitle>Dialog title</DialogTitle>
   <DialogContent>
     <DialogContentText>Dialog content goes here.</DialogContentText>
   </DialogContent>
