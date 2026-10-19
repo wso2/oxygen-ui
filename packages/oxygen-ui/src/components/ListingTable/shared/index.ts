@@ -33,6 +33,9 @@ export type { ListingTableDensityControlProps } from './ListingTableDensityContr
 export { default as ListingTableSortLabel, ListingTableSortLabel as SortLabel } from './ListingTableSortLabel';
 export type { ListingTableSortLabelProps, ListingSortDirection } from './ListingTableSortLabel';
 
+export { default as ListingTableFilter, ListingTableFilter as Filter } from './ListingTableFilter';
+export type { ListingTableFilterProps, ListingTableFilterOption } from './ListingTableFilter';
+
 export { default as ListingTableRowActions, ListingTableRowActions as RowActions } from './ListingTableRowActions';
 export type { ListingTableRowActionsProps } from './ListingTableRowActions';
 
