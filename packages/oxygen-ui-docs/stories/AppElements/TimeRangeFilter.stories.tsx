@@ -153,7 +153,7 @@ export const WithMaxRange: Story = {
           value={range}
           onChange={setRange}
           maxRangeMs={DAY_MS}
-          invalidRangeLabel="Choose a range of at most 24 hours."
+          rangeTooLongLabel="Choose a range of at most 24 hours."
         />
         <Typography variant="body2" color="text.secondary">
           {range ? `${formatUtc(range.start)} to ${formatUtc(range.end)} UTC` : 'No range selected'}
