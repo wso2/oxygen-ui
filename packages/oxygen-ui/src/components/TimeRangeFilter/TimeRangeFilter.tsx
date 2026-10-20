@@ -316,6 +316,9 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
     ref,
   ) => {
     const panelId = React.useId();
+    const panelHeadingId = React.useId();
+    const fromHeadingId = React.useId();
+    const untilHeadingId = React.useId();
     const triggerRef = React.useRef<HTMLButtonElement | null>(null);
     const setTriggerRef = (element: HTMLButtonElement | null) => {
       triggerRef.current = element;
@@ -430,11 +433,12 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
     /** One end of the custom range: a heading, a date field and a time field. */
     const rangeEnd = (
       heading: string,
-      value: RangeEnd,
-      setValue: (next: RangeEnd) => void,
+      headingId: string,
+      end: RangeEnd,
+      setEnd: (next: RangeEnd) => void,
     ) => (
-      <Box role="group" aria-label={heading}>
-        <Typography variant="body2" sx={{ mb: 1 }} aria-hidden="true">
+      <Box role="group" aria-labelledby={headingId}>
+        <Typography id={headingId} variant="body2" sx={{ mb: 1 }}>
           {heading}
         </Typography>
         <Stack direction="row" gap={1}>
@@ -442,8 +446,8 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
           <DatePicker
             label={dateLabel}
             format="dd MMM, yyyy"
-            value={value.date}
-            onChange={(next) => setValue({ ...value, date: next })}
+            value={end.date}
+            onChange={(next) => setEnd({ ...end, date: next })}
             slotProps={{
               textField: { size: 'small', sx: { flex: 1, minWidth: 150 } },
               desktopPaper: { sx: solidPaperSx },
@@ -455,8 +459,8 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
             ampm={false}
             views={['hours', 'minutes', 'seconds']}
             format="HH:mm:ss"
-            value={value.time}
-            onChange={(next) => setValue({ ...value, time: next })}
+            value={end.time}
+            onChange={(next) => setEnd({ ...end, time: next })}
             slotProps={{
               textField: { size: 'small', sx: { width: 130 } },
               desktopPaper: { sx: solidPaperSx },
@@ -521,14 +525,16 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
               <Stack
                 id={panelId}
                 role="group"
-                aria-label={panelTitle}
+                aria-labelledby={panelHeadingId}
                 gap={2}
                 sx={{ p: 2, width: 380, maxWidth: '100%', borderLeft: 1, borderColor: 'divider' }}
               >
-                <Typography variant="subtitle2">{panelTitle}</Typography>
+                <Typography id={panelHeadingId} variant="subtitle2">
+                  {panelTitle}
+                </Typography>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  {rangeEnd(fromLabel, from, editFrom)}
-                  {rangeEnd(untilLabel, until, editUntil)}
+                  {rangeEnd(fromLabel, fromHeadingId, from, editFrom)}
+                  {rangeEnd(untilLabel, untilHeadingId, until, editUntil)}
                 </LocalizationProvider>
                 {error && <Alert severity="error">{error}</Alert>}
                 <Stack direction="row" justifyContent="flex-end" gap={1}>
