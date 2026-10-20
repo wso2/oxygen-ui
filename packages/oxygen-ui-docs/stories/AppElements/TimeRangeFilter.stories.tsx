@@ -79,6 +79,7 @@ const [range, setRange] = React.useState<TimeRange | null>(null);
     cancelLabel: { control: 'text', description: 'Text of the button that closes without applying' },
     applyLabel: { control: 'text', description: 'Text of the apply button' },
     invalidRangeLabel: { control: 'text', description: 'Error for an invalid custom range' },
+    rangeTooLongLabel: { control: 'text', description: 'Error for a custom range longer than maxRangeMs. Names the limit by default' },
     disabled: { control: 'boolean', description: 'Disables the trigger button' },
   },
 };

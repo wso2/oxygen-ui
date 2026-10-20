@@ -297,11 +297,29 @@ describe('TimeRangeFilter', () => {
     renderWithTheme(<TimeRangeFilter value={null} onChange={onChange} maxRangeMs={24 * HOUR} />);
     openCustomPopover();
     fillCustomRange('2026-10-10T00:00', '2026-10-12T00:00');
-    expect(screen.getByText('Choose a valid time range.')).not.toBeNull();
+    expect(screen.getByText('Choose a range of at most 1 day.')).not.toBeNull();
     expect(onChange).not.toHaveBeenCalled();
 
     fillCustomRange('2026-10-11T00:00', '2026-10-12T00:00');
     expect(onChange).toHaveBeenCalledTimes(1);
+  });
+
+  it('uses its own text for a range that is too long', () => {
+    renderWithTheme(
+      <TimeRangeFilter value={null} onChange={() => undefined} maxRangeMs={24 * HOUR} rangeTooLongLabel="Too long" />,
+    );
+    openCustomPopover();
+    fillCustomRange('2026-10-10T00:00', '2026-10-12T00:00');
+    expect(screen.getByText('Too long')).not.toBeNull();
+  });
+
+  it('clears the error as soon as a field is edited', () => {
+    renderWithTheme(<TimeRangeFilter value={null} onChange={() => undefined} />);
+    openCustomPopover();
+    fillCustomRange('2026-10-12T09:45', '2026-10-11T08:30');
+    expect(screen.getByText('Choose a valid time range.')).not.toBeNull();
+    fireEvent.change(pickerInput('End on (UTC)', 'Date'), { target: { value: '13 Oct, 2026' } });
+    expect(screen.queryByText('Choose a valid time range.')).toBeNull();
   });
 
   it('uses custom labels', () => {

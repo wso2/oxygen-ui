@@ -122,10 +122,15 @@ export interface TimeRangeFilterProps extends Omit<ButtonProps, 'onChange' | 'va
    */
   cancelLabel?: string;
   /**
-   * Error shown when the custom range is empty, reversed, or longer than `maxRangeMs`.
+   * Error shown when the custom range is empty or reversed, or a date or time is missing.
    * @default 'Choose a valid time range.'
    */
   invalidRangeLabel?: string;
+  /**
+   * Error shown when the custom range is longer than `maxRangeMs`. The default names the limit, for
+   * example 'Choose a range of at most 30 days.'; set it to translate that text.
+   */
+  rangeTooLongLabel?: string;
   /**
    * Whether the picker is open. Set it, with `onOpen` and `onClose`, to control the picker, for
    * example to reopen it from a chip that shows the range. Leave it out and the picker opens and
@@ -159,6 +164,15 @@ const DEFAULT_PRESETS: TimeRangePreset[] = [
 ];
 
 const CUSTOM_ID = 'custom';
+
+/** A length of time in the largest whole unit it fits, for the message about the longest range. */
+const describeSpan = (ms: number): string => {
+  const unit = (count: number, name: string) => `${count} ${name}${count === 1 ? '' : 's'}`;
+  if (ms % DAY_MS === 0) return unit(ms / DAY_MS, 'day');
+  if (ms % HOUR_MS === 0) return unit(ms / HOUR_MS, 'hour');
+  return unit(Math.max(1, Math.round(ms / 60000)), 'minute');
+};
+
 /**
  * How far from now the end of a range set by the app may be for it to count as a preset ("Last 24
  * hours" and so on). A preset always ends now, so a range of the same length that ended earlier is a
@@ -290,6 +304,7 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
       applyLabel = 'Apply',
       cancelLabel = 'Cancel',
       invalidRangeLabel = 'Choose a valid time range.',
+      rangeTooLongLabel,
       open: openProp,
       onOpen,
       onClose,
@@ -359,6 +374,16 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
       wasOpen.current = open;
     }, [open]);
 
+    // Editing a field clears the message about the last attempt.
+    const editFrom = (next: RangeEnd) => {
+      setFrom(next);
+      setError('');
+    };
+    const editUntil = (next: RangeEnd) => {
+      setUntil(next);
+      setError('');
+    };
+
     const applyPreset = (preset: TimeRangePreset) => {
       const end = new Date();
       const start = new Date(end.getTime() - preset.durationMs);
@@ -388,8 +413,12 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
       const start = instantOf(from);
       const end = instantOf(until);
       const span = start && end ? end.getTime() - start.getTime() : NaN;
-      if (!start || !end || !Number.isFinite(span) || span <= 0 || (maxRangeMs !== undefined && span > maxRangeMs)) {
+      if (!start || !end || !Number.isFinite(span) || span <= 0) {
         setError(invalidRangeLabel);
+        return;
+      }
+      if (maxRangeMs !== undefined && span > maxRangeMs) {
+        setError(rangeTooLongLabel ?? `Choose a range of at most ${describeSpan(maxRangeMs)}.`);
         return;
       }
       setError('');
@@ -498,8 +527,8 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
               >
                 <Typography variant="subtitle2">{panelTitle}</Typography>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  {rangeEnd(fromLabel, from, setFrom)}
-                  {rangeEnd(untilLabel, until, setUntil)}
+                  {rangeEnd(fromLabel, from, editFrom)}
+                  {rangeEnd(untilLabel, until, editUntil)}
                 </LocalizationProvider>
                 {error && <Alert severity="error">{error}</Alert>}
                 <Stack direction="row" justifyContent="flex-end" gap={1}>
