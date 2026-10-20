@@ -16,9 +16,11 @@
  * under the License.
  */
 
+import { deDE } from '@mui/x-date-pickers/locales';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Chip, Stack, TimeRangeFilter, Typography } from '@wso2/oxygen-ui';
 import type { TimeRange } from '@wso2/oxygen-ui';
+import { de } from 'date-fns/locale';
 import React from 'react';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -49,7 +51,7 @@ beside the button, as the examples below do.
 - **Custom range**: Choosing Custom shows a Select date range panel beside the list, with a date field and a time field (to the second) for the start and for the end, read as UTC. Apply uses it, and Cancel closes without applying
 - **Limits**: A custom range is only applied when the end is after the start, and, when you set \`maxRangeMs\`, within that length
 - **Reopen from elsewhere**: Control the picker with \`open\`, \`onOpen\`, \`onClose\` and \`anchorEl\`, so a chip can reopen it
-- **Localizable**: Every visible string is a prop
+- **Localizable**: Every text of the component is a prop. Set \`adapterLocale\` for the month names of the fields and calendars, \`localeText\` for the pickers' own controls (the calendar buttons, and OK and Cancel on touch screens), and \`dateFormat\` and \`timeFormat\` for the field formats
 
 ### Usage
 \`\`\`tsx
@@ -79,6 +81,10 @@ const [range, setRange] = React.useState<TimeRange | null>(null);
     cancelLabel: { control: 'text', description: 'Text of the button that closes without applying' },
     applyLabel: { control: 'text', description: 'Text of the apply button' },
     invalidRangeLabel: { control: 'text', description: 'Error for an invalid custom range' },
+    adapterLocale: { control: false, description: 'date-fns locale of the date and time fields, for example fr or de from date-fns/locale' },
+    localeText: { control: false, description: 'Text of the pickers own controls, for example from @mui/x-date-pickers/locales' },
+    dateFormat: { control: 'text', description: 'date-fns format of the date fields. Default dd MMM, yyyy' },
+    timeFormat: { control: 'text', description: 'date-fns format of the time fields. Default HH:mm:ss' },
     rangeTooLongLabel: { control: 'text', description: 'Error for a custom range longer than maxRangeMs. Names the limit by default' },
     disabled: { control: 'boolean', description: 'Disables the trigger button' },
   },
@@ -106,7 +112,7 @@ export const Default: Story = {
 };
 
 /**
- * Pass your own presets, and translate every label.
+ * Pass your own presets, translate every label, and set the locale of the date and time fields (here German, with `adapterLocale` and `localeText`).
  */
 export const CustomPresetsAndLabels: Story = {
   render: () => {
@@ -127,6 +133,8 @@ export const CustomPresetsAndLabels: Story = {
           applyLabel="Anwenden"
           cancelLabel="Abbrechen"
           invalidRangeLabel="Wählen Sie einen gültigen Zeitraum."
+          adapterLocale={de}
+          localeText={deDE.components.MuiLocalizationProvider.defaultProps.localeText}
           presets={[
             { id: '15m', label: 'Letzte 15 Minuten', durationMs: 15 * 60 * 1000 },
             { id: '1d', label: 'Letzter Tag', durationMs: DAY_MS },

@@ -30,8 +30,10 @@ import type { SxProps, Theme } from '@mui/material/styles';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import type { LocalizationProviderProps } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { ChevronDown } from '@wso2/oxygen-ui-icons-react';
+import type { Locale } from 'date-fns';
 
 /**
  * A closed time range. `end` is later than `start`.
@@ -131,6 +133,29 @@ export interface TimeRangeFilterProps extends Omit<ButtonProps, 'onChange' | 'va
    * example 'Choose a range of at most 30 days.'; set it to translate that text.
    */
   rangeTooLongLabel?: string;
+  /**
+   * The date-fns locale of the date and time fields and their calendars, for example `fr` from
+   * `date-fns/locale`. It sets the month names, the first day of the week and the like. The pickers
+   * are in English when it is not set.
+   */
+  adapterLocale?: Locale;
+  /**
+   * Text of the pickers' own controls (the calendar buttons, and the OK and Cancel of the dialog
+   * shown on touch screens), for example `frFR.components.MuiLocalizationProvider.defaultProps.localeText`
+   * from `@mui/x-date-pickers/locales`.
+   */
+  localeText?: LocalizationProviderProps<Locale>['localeText'];
+  /**
+   * Format of the date fields, as a date-fns format string.
+   * @default 'dd MMM, yyyy'
+   */
+  dateFormat?: string;
+  /**
+   * Format of the time fields, as a date-fns format string. Keep the seconds in it: the fields pick
+   * the hour, the minute and the second.
+   * @default 'HH:mm:ss'
+   */
+  timeFormat?: string;
   /**
    * Whether the picker is open. Set it, with `onOpen` and `onClose`, to control the picker, for
    * example to reopen it from a chip that shows the range. Leave it out and the picker opens and
@@ -305,6 +330,10 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
       cancelLabel = 'Cancel',
       invalidRangeLabel = 'Choose a valid time range.',
       rangeTooLongLabel,
+      adapterLocale,
+      localeText,
+      dateFormat = 'dd MMM, yyyy',
+      timeFormat = 'HH:mm:ss',
       open: openProp,
       onOpen,
       onClose,
@@ -445,7 +474,7 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
           {/* Each field keeps its own value, so clearing one does not empty the other. They are combined on Apply. */}
           <DatePicker
             label={dateLabel}
-            format="dd MMM, yyyy"
+            format={dateFormat}
             value={end.date}
             onChange={(next) => setEnd({ ...end, date: next })}
             slotProps={{
@@ -458,7 +487,7 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
             label={timeLabel}
             ampm={false}
             views={['hours', 'minutes', 'seconds']}
-            format="HH:mm:ss"
+            format={timeFormat}
             value={end.time}
             onChange={(next) => setEnd({ ...end, time: next })}
             slotProps={{
@@ -540,7 +569,7 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
                 <Typography id={panelHeadingId} variant="subtitle2">
                   {panelTitle}
                 </Typography>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={adapterLocale} localeText={localeText}>
                   {rangeEnd(fromLabel, fromHeadingId, from, editFrom)}
                   {rangeEnd(untilLabel, untilHeadingId, until, editUntil)}
                 </LocalizationProvider>

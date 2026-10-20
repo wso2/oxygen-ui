@@ -19,6 +19,7 @@
 import * as React from 'react';
 import { describe, it, expect, afterEach, vi } from 'vitest';
 import { render, cleanup, screen, fireEvent, waitFor, within } from '@testing-library/react';
+import { fr } from 'date-fns/locale';
 import OxygenUIThemeProvider from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
 import TimeRangeFilter from './TimeRangeFilter';
 import type { TimeRange } from './TimeRangeFilter';
@@ -278,6 +279,33 @@ describe('TimeRangeFilter', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Apply' }));
     expect(onChange).not.toHaveBeenCalled();
     expect(screen.getByText('Choose a valid time range.')).not.toBeNull();
+  });
+
+  it('shows the month in the given locale, and the formats it is given', () => {
+    renderWithTheme(<TimeRangeFilter value={sampleRange} onChange={() => undefined} adapterLocale={fr} />);
+    openCustomPopover();
+    expect(pickerInput('Start from (UTC)', 'Date').value).toBe('12 oct., 2026');
+  });
+
+  it('uses the date and time formats it is given', () => {
+    renderWithTheme(
+      <TimeRangeFilter value={sampleRange} onChange={() => undefined} dateFormat="yyyy-MM-dd" timeFormat="HH.mm.ss" />,
+    );
+    openCustomPopover();
+    expect(pickerInput('Start from (UTC)', 'Date').value).toBe('2026-10-12');
+    expect(pickerInput('Start from (UTC)', 'Time').value).toBe('00.00.00');
+  });
+
+  it('uses the text it is given for the pickers own controls', () => {
+    renderWithTheme(
+      <TimeRangeFilter
+        value={sampleRange}
+        onChange={() => undefined}
+        localeText={{ openDatePickerDialogue: () => 'Choisir la date' }}
+      />,
+    );
+    openCustomPopover();
+    expect(screen.getAllByRole('button', { name: 'Choisir la date' }).length).toBeGreaterThan(0);
   });
 
   it('rejects an empty or reversed custom range', () => {
