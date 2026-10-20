@@ -189,6 +189,17 @@ describe('ListingTableFilter', () => {
       expect(onChange).toHaveBeenCalledWith('running');
     });
 
+    it('moves back to the search field on ArrowUp from the first choice, and not to the last choice', () => {
+      renderFilter({ searchable: true });
+      fireEvent.click(button());
+      const field = screen.getByRole('textbox');
+      fireEvent.keyDown(field, { key: 'ArrowDown' });
+      const first = screen.getAllByRole('menuitemradio')[0];
+      expect(document.activeElement).toBe(first);
+      fireEvent.keyDown(first, { key: 'ArrowUp' });
+      expect(document.activeElement).toBe(field);
+    });
+
     it('moves to the choices on ArrowDown', () => {
       renderFilter({ searchable: true });
       fireEvent.click(button());

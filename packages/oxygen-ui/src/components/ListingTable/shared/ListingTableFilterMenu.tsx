@@ -86,6 +86,7 @@ const MenuContent: React.FC<MenuContentProps> = ({
     if (open) setQuery('');
   }, [open]);
   const listRef = React.useRef<HTMLUListElement>(null);
+  const searchRef = React.useRef<HTMLDivElement>(null);
 
   const current = value ?? '';
   const needle = query.trim().toLowerCase();
@@ -101,12 +102,24 @@ const MenuContent: React.FC<MenuContentProps> = ({
     onClose();
   };
 
+  // ArrowUp on the first choice goes back to the search field, as ArrowDown in the field goes to the
+  // first choice, instead of wrapping to the last choice. It is handled on capture, before the list's own
+  // key handling moves focus.
+  const handleListKeyDown = (event: React.KeyboardEvent<HTMLUListElement>) => {
+    const first = listRef.current?.querySelector<HTMLElement>('[role="menuitemradio"]');
+    if (searchable && event.key === 'ArrowUp' && document.activeElement === first) {
+      event.preventDefault();
+      event.stopPropagation(); // keep the list from handling the key as well, which would wrap
+      searchRef.current?.querySelector('input')?.focus();
+    }
+  };
+
   const focusFirst = () => listRef.current?.querySelector<HTMLElement>('[role="menuitemradio"]')?.focus();
 
   return (
     <Box sx={{ minWidth: 240, maxWidth: 320 }}>
       {searchable && (
-        <Box sx={{ p: 1 }}>
+        <Box ref={searchRef} sx={{ p: 1 }}>
           <SearchBarBase
             autoFocus
             fullWidth
@@ -130,7 +143,7 @@ const MenuContent: React.FC<MenuContentProps> = ({
           />
         </Box>
       )}
-      <MenuList ref={listRef} aria-label={label} autoFocusItem={!searchable} sx={{ py: 0.5, maxHeight: 320, overflow: 'auto' }}>
+      <MenuList ref={listRef} aria-label={label} autoFocusItem={!searchable} onKeyDownCapture={handleListKeyDown} sx={{ py: 0.5, maxHeight: 320, overflow: 'auto' }}>
         {shown.map((option) => {
           const selected = option.value === current;
           return (
