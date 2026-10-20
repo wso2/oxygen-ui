@@ -29,14 +29,14 @@ import { SearchBarBase } from '../../SearchBar/SearchBarBase';
  * One choice of a filter list.
  */
 export interface ListingTableFilterOption {
-  /** Value reported when the choice is picked. */
+  /**
+   * Value reported when the choice is picked. It must not be empty: an empty value means no filter is
+   * applied, so a choice with one is left out of the list. Use the "any" choice to clear the filter.
+   */
   value: string;
   /** Text shown for the choice. */
   label: string;
 }
-
-/** A choice of the menu: a given option, or the "any" choice the menu adds, which is not an option. */
-type MenuOption = ListingTableFilterOption | { value: ''; label: string; isAll: true };
 
 export interface ListingTableFilterMenuProps {
   /** Whether the list is open. */
@@ -86,13 +86,15 @@ const MenuContent: React.FC<MenuContentProps> = ({
   }, [open]);
   const listRef = React.useRef<HTMLUListElement>(null);
 
+  const current = value ?? '';
   const needle = query.trim().toLowerCase();
-  const shown: MenuOption[] = [{ value: '', label: allLabel, isAll: true }, ...options].filter((option) =>
-    option.label.toLowerCase().includes(needle)
+  // An empty value means nothing is applied, so only the "any" choice may have one.
+  const shown = [{ value: '', label: allLabel }, ...options.filter((option) => option.value !== '')].filter(
+    (option) => option.label.toLowerCase().includes(needle)
   );
 
-  const pick = (option: MenuOption) => {
-    onChange('isAll' in option ? null : option.value);
+  const pick = (option: ListingTableFilterOption) => {
+    onChange(option.value === '' ? null : option.value);
     onClose();
   };
 
@@ -127,10 +129,10 @@ const MenuContent: React.FC<MenuContentProps> = ({
       )}
       <MenuList ref={listRef} aria-label={label} autoFocusItem={!searchable} sx={{ py: 0.5, maxHeight: 320, overflow: 'auto' }}>
         {shown.map((option) => {
-          const selected = 'isAll' in option ? value == null : option.value === value;
+          const selected = option.value === current;
           return (
             <MenuItem
-              key={'isAll' in option ? 'all' : `option-${option.value}`}
+              key={option.value}
               role="menuitemradio"
               aria-checked={selected}
               selected={selected}

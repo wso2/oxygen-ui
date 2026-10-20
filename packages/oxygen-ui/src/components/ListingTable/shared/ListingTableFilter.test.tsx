@@ -74,21 +74,22 @@ describe('ListingTableFilter', () => {
     expect(choices()).toEqual(['Any', 'Running', 'Stopped', 'Failed']);
   });
 
-  it('keeps the "any" choice distinct from a choice with an empty value', () => {
+  it('leaves out a choice with an empty value, because an empty value means nothing is applied', () => {
     const onChange = vi.fn();
     renderFilter({ onChange, options: [{ value: '', label: 'Blank' }, ...OPTIONS] });
     fireEvent.click(button());
-    expect(choices()).toEqual(['Any', 'Blank', 'Running', 'Stopped', 'Failed']);
-    fireEvent.click(screen.getByRole('menuitemradio', { name: 'Blank' }));
-    expect(onChange).toHaveBeenCalledWith('');
-  });
-
-  it('clears the filter with the "any" choice when an empty-value choice exists', () => {
-    const onChange = vi.fn();
-    renderFilter({ onChange, options: [{ value: '', label: 'Blank' }, ...OPTIONS] });
-    fireEvent.click(button());
+    expect(choices()).toEqual(['Any', 'Running', 'Stopped', 'Failed']);
     fireEvent.click(screen.getByRole('menuitemradio', { name: 'Any' }));
     expect(onChange).toHaveBeenCalledWith(null);
+  });
+
+  it('ticks "any" when no value is applied, whether it is null, undefined or empty', () => {
+    for (const value of [null, undefined, '']) {
+      const { unmount } = renderFilter({ value });
+      fireEvent.click(button());
+      expect(screen.getByRole('menuitemradio', { name: 'Any' }).getAttribute('aria-checked')).toBe('true');
+      unmount();
+    }
   });
 
   it('reports the picked value and closes', () => {
