@@ -77,7 +77,7 @@ export interface TimeRangeFilterProps extends Omit<ButtonProps, 'onChange' | 'va
   maxRangeMs?: number;
   /**
    * Text of the trigger button.
-   * @default 'Time Range'
+   * @default 'Time range'
    */
   label?: string;
   /**
@@ -253,7 +253,7 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
       onChange,
       presets = DEFAULT_PRESETS,
       maxRangeMs,
-      label = 'Time Range',
+      label = 'Time range',
       customRangeLabel = 'Custom',
       panelTitle = 'Select date range',
       fromLabel = 'Start from (UTC)',
@@ -268,6 +268,7 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
       onClose,
       anchorEl,
       onClick,
+      sx,
       ...buttonProps
     },
     ref,
@@ -398,6 +399,8 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
           variant="text"
           color="inherit"
           {...buttonProps}
+          // Control text is in sentence case, whatever the theme does to buttons.
+          sx={[{ textTransform: 'none' }, ...(Array.isArray(sx) ? sx : [sx])]}
           ref={setTriggerRef}
           aria-haspopup="menu"
           aria-expanded={open}
@@ -454,10 +457,10 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
                 </LocalizationProvider>
                 {error && <Alert severity="error">{error}</Alert>}
                 <Stack direction="row" justifyContent="flex-end" gap={1}>
-                  <Button variant="outlined" color="inherit" onClick={close}>
+                  <Button variant="outlined" color="inherit" onClick={close} sx={{ textTransform: 'none' }}>
                     {cancelLabel}
                   </Button>
-                  <Button variant="contained" onClick={applyCustomRange}>
+                  <Button variant="contained" onClick={applyCustomRange} sx={{ textTransform: 'none' }}>
                     {applyLabel}
                   </Button>
                 </Stack>
