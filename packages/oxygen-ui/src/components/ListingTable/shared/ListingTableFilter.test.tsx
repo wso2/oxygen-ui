@@ -161,6 +161,9 @@ describe('ListingTableFilter', () => {
   it('does not open when disabled', () => {
     renderFilter({ disabled: true });
     expect((button() as HTMLButtonElement).disabled).toBe(true);
+    fireEvent.click(button());
+    expect(screen.queryByRole('menu')).toBeNull();
+    expect(button().getAttribute('aria-expanded')).toBe('false');
   });
 
   describe('search', () => {
