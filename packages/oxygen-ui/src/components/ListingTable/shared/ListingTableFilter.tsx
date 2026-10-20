@@ -123,6 +123,7 @@ export const ListingTableFilter = React.forwardRef<HTMLButtonElement, ListingTab
     // The table's state, when the filter is inside a ListingTable.Provider.
     const tableContext = useListingTable();
     const [anchor, setAnchor] = React.useState<HTMLElement | null>(null);
+    const listId = React.useId();
 
     // Derive the value: props > context (when field is given)
     const fromContext = field !== undefined ? tableContext?.filters?.[field] : undefined;
@@ -158,6 +159,7 @@ export const ListingTableFilter = React.forwardRef<HTMLButtonElement, ListingTab
               aria-label={label}
               aria-haspopup="menu"
               aria-expanded={Boolean(anchor)}
+              aria-controls={anchor ? listId : undefined}
               onClick={(event) => {
                 onClick?.(event);
                 setAnchor(event.currentTarget);
@@ -206,6 +208,7 @@ export const ListingTableFilter = React.forwardRef<HTMLButtonElement, ListingTab
           onChange={change}
           searchable={searchable}
           label={label}
+          listId={listId}
           allLabel={allLabel}
           searchPlaceholder={searchPlaceholder}
           noMatchLabel={noMatchLabel}

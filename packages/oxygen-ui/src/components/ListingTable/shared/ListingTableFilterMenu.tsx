@@ -55,6 +55,8 @@ export interface ListingTableFilterMenuProps {
   searchable?: boolean;
   /** Accessible name of the list and of the search field. */
   label: string;
+  /** Id of the list of choices, for the `aria-controls` of the button that opens it. */
+  listId?: string;
   /** Text of the choice that clears the filter. */
   allLabel: string;
   /** Placeholder of the search field. */
@@ -74,6 +76,7 @@ const MenuContent: React.FC<MenuContentProps> = ({
   onChange,
   searchable = false,
   label,
+  listId,
   allLabel,
   searchPlaceholder,
   noMatchLabel,
@@ -143,7 +146,7 @@ const MenuContent: React.FC<MenuContentProps> = ({
           />
         </Box>
       )}
-      <MenuList ref={listRef} aria-label={label} autoFocusItem={!searchable} onKeyDownCapture={handleListKeyDown} sx={{ py: 0.5, maxHeight: 320, overflow: 'auto' }}>
+      <MenuList ref={listRef} id={listId} aria-label={label} autoFocusItem={!searchable} onKeyDownCapture={handleListKeyDown} sx={{ py: 0.5, maxHeight: 320, overflow: 'auto' }}>
         {shown.map((option) => {
           const selected = option.value === current;
           return (

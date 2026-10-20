@@ -59,6 +59,16 @@ describe('ListingTableFilter', () => {
     expect(screen.queryByRole('menu')).toBeNull();
   });
 
+  it('points at its list with aria-controls while open, and at nothing while closed', () => {
+    renderFilter();
+    const trigger = button();
+    expect(trigger.hasAttribute('aria-controls')).toBe(false);
+    fireEvent.click(trigger);
+    const menu = screen.getByRole('menu', { name: 'Filter by status' });
+    expect(trigger.getAttribute('aria-controls')).toBe(menu.id);
+    expect(menu.id).not.toBe('');
+  });
+
   it('has its label once, not on the tooltip wrapper as well', () => {
     renderFilter();
     expect(document.querySelectorAll('[aria-label="Filter by status"]')).toHaveLength(1);
