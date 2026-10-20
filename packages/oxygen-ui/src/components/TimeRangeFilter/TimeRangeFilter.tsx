@@ -527,7 +527,15 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
                 role="group"
                 aria-labelledby={panelHeadingId}
                 gap={2}
-                sx={{ p: 2, width: 380, maxWidth: '100%', borderLeft: 1, borderColor: 'divider' }}
+                // Below the list when the two wrap on a narrow screen, beside it from `sm` up.
+                sx={{
+                  p: 2,
+                  width: 380,
+                  maxWidth: '100%',
+                  borderTop: { xs: 1, sm: 0 },
+                  borderLeft: { xs: 0, sm: 1 },
+                  borderColor: 'divider',
+                }}
               >
                 <Typography id={panelHeadingId} variant="subtitle2">
                   {panelTitle}
