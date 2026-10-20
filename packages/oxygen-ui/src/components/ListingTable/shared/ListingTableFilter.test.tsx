@@ -146,9 +146,9 @@ describe('ListingTableFilter', () => {
       fireEvent.click(button());
       const field = screen.getByRole('textbox', { name: 'Filter by status' });
       fireEvent.change(field, { target: { value: 'fail' } });
-      expect(choices()).toEqual(['Failed']);
+      expect(choices()).toEqual(['Any', 'Failed']); // "any" stays at the top and is not a match
       fireEvent.change(field, { target: { value: 'zzz' } });
-      expect(screen.queryAllByRole('menuitemradio')).toHaveLength(0);
+      expect(choices()).toEqual(['Any']);
       expect(screen.getByText('Nothing here')).not.toBeNull();
     });
 
@@ -169,6 +169,24 @@ describe('ListingTableFilter', () => {
       fireEvent.change(field, { target: { value: 'stop' } });
       fireEvent.keyDown(field, { key: 'Enter' });
       expect(onChange).toHaveBeenCalledWith('stopped');
+    });
+
+    it('does not clear the filter on Enter, even when the typed text matches "any"', () => {
+      const onChange = vi.fn();
+      renderFilter({ searchable: true, onChange, value: 'failed' });
+      fireEvent.click(button());
+      const field = screen.getByRole('textbox');
+      fireEvent.change(field, { target: { value: 'an' } }); // matches "Any" and no option
+      fireEvent.keyDown(field, { key: 'Enter' });
+      expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it('picks the first option on Enter with nothing typed, not "any"', () => {
+      const onChange = vi.fn();
+      renderFilter({ searchable: true, onChange });
+      fireEvent.click(button());
+      fireEvent.keyDown(screen.getByRole('textbox'), { key: 'Enter' });
+      expect(onChange).toHaveBeenCalledWith('running');
     });
 
     it('moves to the choices on ArrowDown', () => {

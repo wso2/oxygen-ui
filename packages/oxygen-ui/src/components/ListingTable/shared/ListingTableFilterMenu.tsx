@@ -88,10 +88,12 @@ const MenuContent: React.FC<MenuContentProps> = ({
 
   const current = value ?? '';
   const needle = query.trim().toLowerCase();
-  // An empty value means nothing is applied, so only the "any" choice may have one.
-  const shown = [{ value: '', label: allLabel }, ...options.filter((option) => option.value !== '')].filter(
-    (option) => option.label.toLowerCase().includes(needle)
+  // An empty value means nothing is applied, so only the "any" choice may have one. Typing narrows the
+  // options only: "any" stays at the top and is not a match, so Enter never clears the filter.
+  const matching = options.filter(
+    (option) => option.value !== '' && option.label.toLowerCase().includes(needle)
   );
+  const shown = [{ value: '', label: allLabel }, ...matching];
 
   const pick = (option: ListingTableFilterOption) => {
     onChange(option.value === '' ? null : option.value);
@@ -115,9 +117,9 @@ const MenuContent: React.FC<MenuContentProps> = ({
               if (event.key === 'ArrowDown') {
                 event.preventDefault();
                 focusFirst();
-              } else if (event.key === 'Enter' && shown.length > 0) {
+              } else if (event.key === 'Enter' && matching.length > 0) {
                 event.preventDefault();
-                pick(shown[0]);
+                pick(matching[0]);
               }
             }}
             sx={{
@@ -144,7 +146,7 @@ const MenuContent: React.FC<MenuContentProps> = ({
             </MenuItem>
           );
         })}
-        {shown.length === 0 && (
+        {needle !== '' && matching.length === 0 && (
           // A list item, not a paragraph, because it sits directly in the list.
           <Typography component="li" role="presentation" variant="body2" color="text.secondary" sx={{ px: 2, py: 1, listStyle: 'none' }}>
             {noMatchLabel}
