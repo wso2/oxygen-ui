@@ -32,6 +32,8 @@ export interface ListingTableFilterOption {
   /**
    * Value reported when the choice is picked. It must not be empty: an empty value means no filter is
    * applied, so a choice with one is left out of the list. Use the "any" choice to clear the filter.
+   * Values must be unique: each one identifies its choice, so two choices with the same value could not
+   * be told apart when picked or ticked.
    */
   value: string;
   /** Text shown for the choice. */
