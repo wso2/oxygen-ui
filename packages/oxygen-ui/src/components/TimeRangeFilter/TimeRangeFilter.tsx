@@ -191,6 +191,11 @@ const solidPaperSx: SxProps<Theme> = theme => {
 /**
  * The MUI pickers work in local time. To enter and read UTC, a UTC instant is shown as the local
  * date with the same year, month, day, hour, minute and second, and converted back on change.
+ *
+ * Limit: in a time zone with daylight saving time, a UTC time that falls in the local hour that is
+ * skipped when the clocks go forward (for example 02:30 on that day in the US) does not exist as a
+ * local date, so the field shows it an hour later. Pick a range that avoids that hour, or one on
+ * another day.
  */
 const toPickerDate = (date: Date): Date =>
   new Date(
