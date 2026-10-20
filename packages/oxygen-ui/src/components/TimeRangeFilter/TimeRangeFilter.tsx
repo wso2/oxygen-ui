@@ -437,7 +437,7 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
           slotProps={{ paper: { sx: solidPaperSx } }}
         >
           <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
-            <MenuList aria-label={label} sx={{ minWidth: 180, py: 1, alignSelf: 'flex-start' }}>
+            <MenuList aria-label={label} autoFocusItem={open} sx={{ minWidth: 180, py: 1, alignSelf: 'flex-start' }}>
               {presets.map((preset) => (
                 <MenuItem
                   key={preset.id}

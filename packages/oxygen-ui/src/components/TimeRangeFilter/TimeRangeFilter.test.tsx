@@ -149,6 +149,12 @@ describe('TimeRangeFilter', () => {
     expect(screen.getByText('Last 24 hours').classList.contains('Mui-selected')).toBe(false);
   });
 
+  it('moves focus into the list when it opens', async () => {
+    renderWithTheme(<TimeRangeFilter value={null} onChange={() => undefined} />);
+    openMenu();
+    await waitFor(() => expect(document.activeElement?.getAttribute('role')).toBe('menuitem'));
+  });
+
   it('treats a fixed past range as custom, even when it is as long as a preset', () => {
     const end = Date.now() - 3 * 24 * HOUR;
     renderWithTheme(
