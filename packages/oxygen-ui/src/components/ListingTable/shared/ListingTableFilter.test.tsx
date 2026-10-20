@@ -74,11 +74,19 @@ describe('ListingTableFilter', () => {
     expect(choices()).toEqual(['Any', 'Running', 'Stopped', 'Failed']);
   });
 
-  it('leaves out a choice with an empty value, because an empty value means nothing is applied', () => {
+  it('keeps the "any" choice distinct from a choice with an empty value', () => {
     const onChange = vi.fn();
     renderFilter({ onChange, options: [{ value: '', label: 'Blank' }, ...OPTIONS] });
     fireEvent.click(button());
-    expect(choices()).toEqual(['Any', 'Running', 'Stopped', 'Failed']);
+    expect(choices()).toEqual(['Any', 'Blank', 'Running', 'Stopped', 'Failed']);
+    fireEvent.click(screen.getByRole('menuitemradio', { name: 'Blank' }));
+    expect(onChange).toHaveBeenCalledWith('');
+  });
+
+  it('clears the filter with the "any" choice when an empty-value choice exists', () => {
+    const onChange = vi.fn();
+    renderFilter({ onChange, options: [{ value: '', label: 'Blank' }, ...OPTIONS] });
+    fireEvent.click(button());
     fireEvent.click(screen.getByRole('menuitemradio', { name: 'Any' }));
     expect(onChange).toHaveBeenCalledWith(null);
   });
