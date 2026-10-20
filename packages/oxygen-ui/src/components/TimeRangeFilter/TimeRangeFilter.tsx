@@ -159,6 +159,12 @@ const DEFAULT_PRESETS: TimeRangePreset[] = [
 ];
 
 const CUSTOM_ID = 'custom';
+/**
+ * How far from now the end of a range set by the app may be for it to count as a preset ("Last 24
+ * hours" and so on). A preset always ends now, so a range of the same length that ended earlier is a
+ * custom one. The margin covers a range the app set a little while before the picker is opened.
+ */
+const PRESET_END_TOLERANCE_MS = 5 * 60 * 1000;
 
 /** The choice made in the list, with the range it produced. */
 interface Selection {
@@ -296,15 +302,19 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
     const [error, setError] = React.useState('');
 
     // Highlight the choice made here while it still matches the value. Otherwise (a range the
-    // consumer set, or one it changed since) pick the preset of the same length, or custom.
+    // consumer set, or one it changed since) pick the preset of the same length that ends about now,
+    // or custom. A fixed past range is custom, whatever its length.
     const activeId = !value
       ? null
       : selection &&
           selection.start === value.start.getTime() &&
           selection.end === value.end.getTime()
         ? selection.id
-        : (presets.find((preset) => preset.durationMs === value.end.getTime() - value.start.getTime())
-            ?.id ?? CUSTOM_ID);
+        : (presets.find(
+            (preset) =>
+              preset.durationMs === value.end.getTime() - value.start.getTime() &&
+              Math.abs(Date.now() - value.end.getTime()) <= PRESET_END_TOLERANCE_MS,
+          )?.id ?? CUSTOM_ID);
 
     const close = () => {
       if (openProp === undefined) setOwnOpen(false);

@@ -149,6 +149,27 @@ describe('TimeRangeFilter', () => {
     expect(screen.getByText('Last 24 hours').classList.contains('Mui-selected')).toBe(false);
   });
 
+  it('treats a fixed past range as custom, even when it is as long as a preset', () => {
+    const end = Date.now() - 3 * 24 * HOUR;
+    renderWithTheme(
+      <TimeRangeFilter value={{ start: new Date(end - 24 * HOUR), end: new Date(end) }} onChange={() => undefined} />,
+    );
+    openMenu();
+    expect(screen.getByText('Custom').classList.contains('Mui-selected')).toBe(true);
+    expect(screen.getByText('Last 24 hours').classList.contains('Mui-selected')).toBe(false);
+    expect(screen.getByRole('group', { name: 'Select date range' })).not.toBeNull();
+  });
+
+  it('still highlights the preset when the app set the range a little while ago', () => {
+    const end = Date.now() - 2 * 60 * 1000;
+    renderWithTheme(
+      <TimeRangeFilter value={{ start: new Date(end - 24 * HOUR), end: new Date(end) }} onChange={() => undefined} />,
+    );
+    openMenu();
+    expect(screen.getByText('Last 24 hours').classList.contains('Mui-selected')).toBe(true);
+    expect(screen.queryByRole('group', { name: 'Select date range' })).toBeNull();
+  });
+
   it('highlights the preset matching a range set by the consumer, else custom', () => {
     const now = Date.now();
     const { rerender } = renderWithTheme(
