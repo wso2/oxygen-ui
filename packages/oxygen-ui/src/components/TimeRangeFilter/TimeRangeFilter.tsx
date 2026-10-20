@@ -472,7 +472,7 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
               {presets.map((preset) => (
                 <MenuItem
                   key={preset.id}
-                  selected={activeId === preset.id}
+                  selected={activeId === preset.id && !customOpen}
                   onClick={() => applyPreset(preset)}
                 >
                   {preset.label}

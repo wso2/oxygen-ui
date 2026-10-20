@@ -161,6 +161,18 @@ describe('TimeRangeFilter', () => {
     await waitFor(() => expect(document.activeElement?.getAttribute('role')).toBe('menuitem'));
   });
 
+  it('stops highlighting the preset once the custom fields are open', () => {
+    const now = Date.now();
+    renderWithTheme(
+      <TimeRangeFilter value={{ start: new Date(now - 24 * HOUR), end: new Date(now) }} onChange={() => undefined} />,
+    );
+    openMenu();
+    expect(screen.getByText('Last 24 hours').classList.contains('Mui-selected')).toBe(true);
+    fireEvent.click(screen.getByText('Custom'));
+    expect(screen.getByText('Custom').classList.contains('Mui-selected')).toBe(true);
+    expect(screen.getByText('Last 24 hours').classList.contains('Mui-selected')).toBe(false);
+  });
+
   it('treats a fixed past range as custom, even when it is as long as a preset', () => {
     const end = Date.now() - 3 * 24 * HOUR;
     renderWithTheme(
