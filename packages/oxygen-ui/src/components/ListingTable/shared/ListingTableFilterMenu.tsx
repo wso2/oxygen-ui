@@ -80,8 +80,9 @@ const MenuContent: React.FC<MenuContentProps> = ({
 }) => {
   // What the reader has typed. It starts empty, whatever the current choice is.
   const [query, setQuery] = React.useState('');
-  // The list stays mounted while it closes, so a quick reopen would keep the old text without this.
-  React.useEffect(() => {
+  // The list stays mounted while it closes, so a quick reopen would keep the old text without this. It
+  // runs before the browser paints, so the old text is never shown.
+  React.useLayoutEffect(() => {
     if (open) setQuery('');
   }, [open]);
   const listRef = React.useRef<HTMLUListElement>(null);
