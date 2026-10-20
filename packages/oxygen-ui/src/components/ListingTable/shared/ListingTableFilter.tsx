@@ -34,7 +34,8 @@ export interface ListingTableFilterProps extends Omit<IconButtonProps, 'onChange
   /**
    * Field/column identifier for context-based filtering.
    * When provided and used with ListingTable.Provider, the component reads the applied value from
-   * `filters[field]` and reports changes through `onFilterChange(field, value)`.
+   * `filters[field]` and reports changes through `onFilterChange(field, value)`. The value in `filters`
+   * is the `value` of the chosen option, so it is a string; any other type counts as not applied.
    */
   field?: string;
   /**
