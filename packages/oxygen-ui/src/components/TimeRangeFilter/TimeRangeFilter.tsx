@@ -214,6 +214,17 @@ const fromPickerDate = (date: Date): Date =>
     ),
   );
 
+/** One end of the custom range as the two fields hold it: each keeps its own value while it is edited. */
+interface RangeEnd {
+  date: Date | null;
+  time: Date | null;
+}
+
+const toRangeEnd = (date: Date): RangeEnd => {
+  const picker = toPickerDate(date);
+  return { date: picker, time: picker };
+};
+
 /** A field's value, or null while it is empty or only partly typed. */
 const validDate = (date: Date | null): Date | null =>
   date && !Number.isNaN(date.getTime()) ? date : null;
@@ -297,8 +308,8 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
     const [customOpen, setCustomOpen] = React.useState(false);
     const [selection, setSelection] = React.useState<Selection | null>(null);
     // The custom range being edited, as dates in the pickers' (local) terms; see `toPickerDate`.
-    const [from, setFrom] = React.useState<Date | null>(null);
-    const [until, setUntil] = React.useState<Date | null>(null);
+    const [from, setFrom] = React.useState<RangeEnd>({ date: null, time: null });
+    const [until, setUntil] = React.useState<RangeEnd>({ date: null, time: null });
     const [error, setError] = React.useState('');
 
     // Highlight the choice made here while it still matches the value. Otherwise (a range the
@@ -326,8 +337,8 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
     const prepare = () => {
       const end = value?.end ?? new Date();
       const start = value?.start ?? new Date(end.getTime() - DAY_MS);
-      setFrom(toPickerDate(start));
-      setUntil(toPickerDate(end));
+      setFrom(toRangeEnd(start));
+      setUntil(toRangeEnd(end));
       setError('');
       setCustomOpen(activeId === CUSTOM_ID);
     };
@@ -351,11 +362,26 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
       onChange({ start, end });
     };
 
+    /** The instant of an end, once both its date and its time are complete; null until then. */
+    const instantOf = (rangeEnd: RangeEnd): Date | null => {
+      const date = validDate(rangeEnd.date);
+      const time = validDate(rangeEnd.time);
+      if (!date || !time) return null;
+      return fromPickerDate(
+        new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate(),
+          time.getHours(),
+          time.getMinutes(),
+          time.getSeconds(),
+        ),
+      );
+    };
+
     const applyCustomRange = () => {
-      const pickedFrom = validDate(from);
-      const pickedUntil = validDate(until);
-      const start = pickedFrom && fromPickerDate(pickedFrom);
-      const end = pickedUntil && fromPickerDate(pickedUntil);
+      const start = instantOf(from);
+      const end = instantOf(until);
       const span = start && end ? end.getTime() - start.getTime() : NaN;
       if (!start || !end || !Number.isFinite(span) || span <= 0 || (maxRangeMs !== undefined && span > maxRangeMs)) {
         setError(invalidRangeLabel);
@@ -370,20 +396,20 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
     /** One end of the custom range: a heading, a date field and a time field. */
     const rangeEnd = (
       heading: string,
-      date: Date | null,
-      setDate: (next: Date | null) => void,
+      value: RangeEnd,
+      setValue: (next: RangeEnd) => void,
     ) => (
       <Box role="group" aria-label={heading}>
         <Typography variant="body2" sx={{ mb: 1 }} aria-hidden="true">
           {heading}
         </Typography>
         <Stack direction="row" gap={1}>
-          {/* Both fields edit the same date: the date field keeps its time, and the time field its date. */}
+          {/* Each field keeps its own value, so clearing one does not empty the other. They are combined on Apply. */}
           <DatePicker
             label={dateLabel}
             format="dd MMM, yyyy"
-            value={date}
-            onChange={setDate}
+            value={value.date}
+            onChange={(next) => setValue({ ...value, date: next })}
             slotProps={{
               textField: { size: 'small', sx: { flex: 1, minWidth: 150 } },
               desktopPaper: { sx: solidPaperSx },
@@ -395,8 +421,8 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
             ampm={false}
             views={['hours', 'minutes', 'seconds']}
             format="HH:mm:ss"
-            value={date}
-            onChange={setDate}
+            value={value.time}
+            onChange={(next) => setValue({ ...value, time: next })}
             slotProps={{
               textField: { size: 'small', sx: { width: 130 } },
               desktopPaper: { sx: solidPaperSx },

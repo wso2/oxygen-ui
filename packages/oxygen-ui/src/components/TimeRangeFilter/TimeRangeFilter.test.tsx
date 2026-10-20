@@ -247,6 +247,27 @@ describe('TimeRangeFilter', () => {
     expect(pickerInput('End on (UTC)', 'Time').value).toBe('00:00:00');
   });
 
+  it('keeps the time when the date is cleared, and the date when the time is cleared', () => {
+    renderWithTheme(<TimeRangeFilter value={sampleRange} onChange={() => undefined} />);
+    openCustomPopover();
+    fireEvent.change(pickerInput('Start from (UTC)', 'Date'), { target: { value: '' } });
+    expect(pickerInput('Start from (UTC)', 'Date').value).toBe('');
+    expect(pickerInput('Start from (UTC)', 'Time').value).toBe('00:00:00');
+    fireEvent.change(pickerInput('End on (UTC)', 'Time'), { target: { value: '' } });
+    expect(pickerInput('End on (UTC)', 'Time').value).toBe('');
+    expect(pickerInput('End on (UTC)', 'Date').value).toBe('13 Oct, 2026');
+  });
+
+  it('does not apply a range whose date is cleared', () => {
+    const onChange = vi.fn();
+    renderWithTheme(<TimeRangeFilter value={sampleRange} onChange={onChange} />);
+    openCustomPopover();
+    fireEvent.change(pickerInput('Start from (UTC)', 'Date'), { target: { value: '' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Apply' }));
+    expect(onChange).not.toHaveBeenCalled();
+    expect(screen.getByText('Choose a valid time range.')).not.toBeNull();
+  });
+
   it('rejects an empty or reversed custom range', () => {
     const onChange = vi.fn();
     renderWithTheme(<TimeRangeFilter value={null} onChange={onChange} />);
