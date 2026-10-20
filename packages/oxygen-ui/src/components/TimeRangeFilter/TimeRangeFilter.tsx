@@ -417,7 +417,7 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
           // Control text is in sentence case, whatever the theme does to buttons.
           sx={[{ textTransform: 'none' }, ...(Array.isArray(sx) ? sx : [sx])]}
           ref={setTriggerRef}
-          aria-haspopup="menu"
+          aria-haspopup="dialog"
           aria-expanded={open}
           endIcon={<ChevronDown size={14} />}
           onClick={(event) => {
@@ -434,7 +434,7 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
           open={open}
           onClose={close}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-          slotProps={{ paper: { sx: solidPaperSx } }}
+          slotProps={{ paper: { sx: solidPaperSx, role: 'dialog', 'aria-label': label } }}
         >
           <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
             <MenuList aria-label={label} autoFocusItem={open} sx={{ minWidth: 180, py: 1, alignSelf: 'flex-start' }}>

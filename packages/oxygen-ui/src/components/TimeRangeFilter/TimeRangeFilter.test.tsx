@@ -83,7 +83,7 @@ describe('TimeRangeFilter', () => {
   it('renders the trigger button with the menu closed', () => {
     renderWithTheme(<TimeRangeFilter value={null} onChange={() => undefined} />);
     const trigger = screen.getByRole('button', { name: /time range/i });
-    expect(trigger.getAttribute('aria-haspopup')).toBe('menu');
+    expect(trigger.getAttribute('aria-haspopup')).toBe('dialog');
     expect(trigger.getAttribute('aria-expanded')).toBe('false');
     expect(screen.queryByText('Last hour')).toBeNull();
   });
@@ -147,6 +147,12 @@ describe('TimeRangeFilter', () => {
     fireEvent.click(screen.getByText('clear'));
     openMenu();
     expect(screen.getByText('Last 24 hours').classList.contains('Mui-selected')).toBe(false);
+  });
+
+  it('opens a dialog, which is what the trigger announces', () => {
+    renderWithTheme(<TimeRangeFilter value={null} onChange={() => undefined} />);
+    openMenu();
+    expect(screen.getByRole('dialog', { name: 'Time range' })).not.toBeNull();
   });
 
   it('moves focus into the list when it opens', async () => {
@@ -455,7 +461,7 @@ describe('TimeRangeFilter', () => {
     it('says it opens a menu, and whether it is open', () => {
       renderWithTheme(<TimeRangeFilter value={null} onChange={() => undefined} />);
       const trigger = screen.getByRole('button', { name: /time range/i });
-      expect(trigger.getAttribute('aria-haspopup')).toBe('menu');
+      expect(trigger.getAttribute('aria-haspopup')).toBe('dialog');
       expect(trigger.getAttribute('aria-expanded')).toBe('false');
       fireEvent.click(trigger);
       expect(trigger.getAttribute('aria-expanded')).toBe('true');
