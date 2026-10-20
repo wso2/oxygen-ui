@@ -132,6 +132,13 @@ export const ListingTableFilter = React.forwardRef<HTMLButtonElement, ListingTab
     const change = (next: string | null) => {
       if (onChangeProp) onChangeProp(next);
       else if (field && tableContext?.onFilterChange) tableContext.onFilterChange(field, next);
+      else {
+        // Nothing receives the choice, which is a setup mistake that would otherwise do nothing silently.
+        console.warn(
+          'ListingTable.Filter: a choice was picked but nothing handles it. Pass `onChange`, or give `field` ' +
+            'inside a ListingTable.Provider that has `onFilterChange`.'
+        );
+      }
     };
 
     // At rest the funnel is hidden, or half visible with `alwaysShowIcon`, and fully visible once a

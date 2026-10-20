@@ -92,6 +92,25 @@ describe('ListingTableFilter', () => {
     }
   });
 
+  it('warns when a choice is picked and nothing handles it', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    renderFilter();
+    fireEvent.click(button());
+    fireEvent.click(screen.getByRole('menuitemradio', { name: 'Failed' }));
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(String(warn.mock.calls[0][0])).toContain('ListingTable.Filter');
+    warn.mockRestore();
+  });
+
+  it('does not warn when a handler receives the choice', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    renderFilter({ onChange: () => undefined });
+    fireEvent.click(button());
+    fireEvent.click(screen.getByRole('menuitemradio', { name: 'Failed' }));
+    expect(warn).not.toHaveBeenCalled();
+    warn.mockRestore();
+  });
+
   it('reports the picked value and closes', () => {
     const onChange = vi.fn();
     renderFilter({ onChange });
