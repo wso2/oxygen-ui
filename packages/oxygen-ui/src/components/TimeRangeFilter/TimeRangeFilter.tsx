@@ -58,7 +58,8 @@ export interface TimeRangePreset {
  */
 export interface TimeRangeFilterProps extends Omit<ButtonProps, 'onChange' | 'value' | 'children'> {
   /**
-   * The selected range, or `null` when no range is selected.
+   * The selected range, or `null` when no range is selected. The button does not display it, so show
+   * it elsewhere (for example in a chip).
    */
   value: TimeRange | null;
   /**
@@ -217,6 +218,10 @@ const validDate = (date: Date | null): Date | null =>
  *
  * Custom ranges are entered and read as UTC. The component never fetches data or clears the
  * range itself; it reports choices through `onChange`.
+ *
+ * The button does not show the selected range: its text stays the same after a choice. Show the
+ * range yourself, for example in a chip or as text beside the button, so readers can see which
+ * range is applied.
  *
  * @example
  * ```tsx

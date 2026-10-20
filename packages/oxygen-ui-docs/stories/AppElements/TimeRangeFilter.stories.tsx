@@ -41,6 +41,9 @@ const meta: Meta<typeof TimeRangeFilter> = {
 The TimeRangeFilter component lets users pick the period a list or log covers. It reports the
 chosen range through \`onChange\`; your app decides what to fetch and when to clear the range.
 
+The button does not show the selected range, so show it yourself, for example in a chip or as text
+beside the button, as the examples below do.
+
 ### Features
 - **Presets**: Last hour, Last 24 hours, Last 7 days and Last 30 days by default, or your own list. Choosing one applies it
 - **Custom range**: Choosing Custom shows a Select date range panel beside the list, with a date field and a time field (to the second) for the start and for the end, read as UTC. Apply uses it, and Cancel closes without applying
@@ -62,7 +65,7 @@ const [range, setRange] = React.useState<TimeRange | null>(null);
     },
   },
   argTypes: {
-    value: { control: false, description: 'The selected range, or null when none is selected' },
+    value: { control: false, description: 'The selected range, or null when none is selected. The button does not display it, so show it elsewhere' },
     onChange: { control: false, description: 'Called with the new range' },
     presets: { control: false, description: 'Presets listed before the custom range' },
     maxRangeMs: { control: 'number', description: 'Longest custom range, in milliseconds' },
