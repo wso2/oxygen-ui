@@ -1714,6 +1714,100 @@ export const Filtering: Story = {
 };
 
 /**
+ * Filtering through `ListingTable.Provider`: the application keeps the applied values in `filters` and
+ * receives each change in `onFilterChange`, and each `ListingTable.Filter` only needs its `field`. A
+ * value in `filters` is the `value` of the chosen option, so it is a string. This is the same table as
+ * above, with the state held in one place instead of one `value` and `onChange` per column.
+ */
+export const FilteringWithProvider: Story = {
+  args: {
+    variant: 'table',
+    density: 'standard',
+  },
+  argTypes: {
+    variant: {
+      control: 'radio',
+      options: ['table', 'card'],
+    },
+    density: {
+      control: 'select',
+      options: ['compact', 'standard', 'comfortable'],
+    },
+  },
+  render: (args) => {
+    const [filters, setFilters] = useState<Record<string, unknown>>({});
+
+    const optionsFor = (key: 'type' | 'status') =>
+      Array.from(new Set(platformComponents.map((component) => String(component[key])))).map((value) => ({
+        value,
+        label: value,
+      }));
+
+    const visible = useMemo(
+      () =>
+        platformComponents.filter(
+          (component) =>
+            (!filters.type || component.type === filters.type) &&
+            (!filters.status || component.status === filters.status),
+        ),
+      [filters],
+    );
+
+    return (
+      <ListingTable.Provider
+        filters={filters}
+        onFilterChange={(key, value) => setFilters((previous) => ({ ...previous, [key]: value }))}
+      >
+        <ListingTable.Container sx={{ minWidth: 700 }} disablePaper={args.variant === 'card'}>
+          <ListingTable variant={args.variant} density={args.density}>
+            <ListingTable.Head>
+              <ListingTable.Row>
+                <ListingTable.Cell>Name</ListingTable.Cell>
+                <ListingTable.Cell>
+                  Type
+                  <ListingTable.Filter field="type" label="Filter by type" options={optionsFor('type')} />
+                </ListingTable.Cell>
+                <ListingTable.Cell>
+                  Status
+                  <ListingTable.Filter field="status" label="Filter by status" options={optionsFor('status')} searchable />
+                </ListingTable.Cell>
+                <ListingTable.Cell>Version</ListingTable.Cell>
+              </ListingTable.Row>
+            </ListingTable.Head>
+            <ListingTable.Body>
+              {visible.slice(0, 5).map((component) => (
+                <ListingTable.Row key={component.id} hover variant={args.variant}>
+                  <ListingTable.Cell>
+                    <ListingTable.CellIcon icon={getComponentIcon(component.type)} primary={component.name} />
+                  </ListingTable.Cell>
+                  <ListingTable.Cell>
+                    <Chip label={component.type} size="small" variant="outlined" />
+                  </ListingTable.Cell>
+                  <ListingTable.Cell>
+                    <Chip
+                      icon={getStatusIcon(component.status) || undefined}
+                      label={component.status}
+                      size="small"
+                      color={getStatusColor(component.status)}
+                      variant="outlined"
+                    />
+                  </ListingTable.Cell>
+                  <ListingTable.Cell>
+                    <Typography variant="body2" fontFamily="monospace">
+                      {component.version}
+                    </Typography>
+                  </ListingTable.Cell>
+                </ListingTable.Row>
+              ))}
+            </ListingTable.Body>
+          </ListingTable>
+        </ListingTable.Container>
+      </ListingTable.Provider>
+    );
+  },
+};
+
+/**
  * Row selection with checkboxes.
  *
  * Features:
