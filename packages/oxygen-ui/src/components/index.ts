@@ -153,6 +153,8 @@ export type {
   ListingTableDensityControlProps,
   ListingTableSortLabelProps,
   ListingSortDirection,
+  ListingTableFilterProps,
+  ListingTableFilterOption,
   ListingTableRowActionsProps,
   ListingTableCellIconProps,
   ListingTableContextValue,

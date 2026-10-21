@@ -33,6 +33,7 @@ import {
   ListingTableEmptyState,
   ListingTableToolbar,
   ListingTableSortLabel,
+  ListingTableFilter,
   ListingTableDensityControl,
 } from '../shared';
 import { ListingTableProvider } from '../ListingTableProvider';
@@ -154,6 +155,7 @@ interface ListingTableComponent {
   EmptyState: typeof ListingTableEmptyState;
   Toolbar: typeof ListingTableToolbar;
   SortLabel: typeof ListingTableSortLabel;
+  Filter: typeof ListingTableFilter;
   DensityControl: typeof ListingTableDensityControl;
   DataGrid: typeof ListingTableDataGrid;
 }
@@ -172,6 +174,7 @@ const ListingTableCompound: ListingTableComponent = Object.assign(ListingTable, 
   EmptyState: ListingTableEmptyState,
   Toolbar: ListingTableToolbar,
   SortLabel: ListingTableSortLabel,
+  Filter: ListingTableFilter,
   DensityControl: ListingTableDensityControl,
   DataGrid: ListingTableDataGrid,
 });

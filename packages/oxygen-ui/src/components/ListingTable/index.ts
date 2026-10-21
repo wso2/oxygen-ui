@@ -44,6 +44,7 @@ export type { ListingTableToolbarProps } from './shared';
 export type { ListingTableEmptyStateProps } from './shared';
 export type { ListingTableDensityControlProps } from './shared';
 export type { ListingTableSortLabelProps, ListingSortDirection } from './shared';
+export type { ListingTableFilterProps, ListingTableFilterOption } from './shared';
 export type { ListingTableRowActionsProps } from './shared';
 export type { ListingTableCellIconProps } from './shared';
 
@@ -57,6 +58,8 @@ export {
   DensityControl,
   ListingTableSortLabel,
   SortLabel,
+  ListingTableFilter,
+  Filter,
   ListingTableRowActions,
   RowActions,
   ListingTableCellIcon,
