@@ -33,6 +33,21 @@ Write all titles, action text, and content in sentence case. Capitalize only the
 - Applies to titles, headings, buttons, links, menu items, tabs, labels, placeholders, table columns, tooltips, and messages
 - Write the text in sentence case in the source; never change case with `textTransform: 'uppercase'` or `'capitalize'`
 
+## Choosing a Table
+
+Pick the table type by what users do with the data:
+
+| Type | Use when | Setup |
+|------|----------|-------|
+| Listing table (default) | Scanning and comparing records across columns; tables inside a page section, panel, or dialog | `<ListingTable variant="table">` |
+| Card table | Top level listing of entities users click to open (projects, components); rich rows with few columns | `<ListingTable variant="card">`, `disablePaper` on `Container`, `variant="card" hover clickable` on each `Row` |
+| Data table | Large or server-paginated data; column filtering, resizing, hiding, reordering; bulk selection | `<ListingTable.DataGrid>` inside `ListingTable.Provider` (`variant="data-grid-card"` on the Provider only for entity listings) |
+
+- Default to the listing table when unsure
+- Do not nest a card table inside a card, dialog, or drawer
+- Do not use `striped` or `bordered` with the card variant
+- Use one table type for the same kind of data across the product
+
 ## Component Template
 
 ```tsx
