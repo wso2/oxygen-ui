@@ -19,6 +19,19 @@ description: Generate application layouts with AppShell, Header, and Sidebar. Us
 - Import icons from `@wso2/oxygen-ui-icons-react`
 - Use theme tokens for all styling
 - Set a browser tab title on every page using `[Specific page/resource] | [Product]` (see below)
+- Write all UI text in sentence case (see below)
+
+## UI Text
+
+Write all titles, action text, and content in sentence case. Capitalize only the first word, proper nouns, product names, and acronyms.
+
+```text
+✓ User management    ✓ API keys    ✓ Sign out
+✗ User Management    ✗ API Keys    ✗ SIGN OUT
+```
+
+- Applies to page titles, headings, navigation items, sidebar categories, header actions, and menu items
+- Write the text in sentence case in the source; never change case with `textTransform: 'uppercase'` or `'capitalize'`
 
 ## Browser Tab Title
 
@@ -31,7 +44,7 @@ Every page must set a browser tab title in this format, so users can tell tabs, 
 Examples:
 
 ```text
-All Projects | Acme Console
+All projects | Acme Console
 Environments | Acme Console
 ```
 
@@ -47,7 +60,7 @@ Environments | Acme Console
 function ProjectsPage() {
   return (
     <>
-      <title>All Projects | Acme Console</title>
+      <title>All projects | Acme Console</title>
       {/* page content */}
     </>
   );
@@ -80,9 +93,9 @@ import {
 function ProjectsPage() {
   return (
     <>
-      <title>All Projects | My Application</title>
+      <title>All projects | My Application</title>
       {/* Page content goes here */}
-      <h1>All Projects</h1>
+      <h1>All projects</h1>
     </>
   );
 }
@@ -229,7 +242,7 @@ export default App;
   <Sidebar.Nav>
     <Sidebar.Item id="parent" hasChildren>
       <Sidebar.ItemIcon><FolderIcon size={20} /></Sidebar.ItemIcon>
-      <Sidebar.ItemLabel>Parent Item</Sidebar.ItemLabel>
+      <Sidebar.ItemLabel>Parent item</Sidebar.ItemLabel>
     </Sidebar.Item>
 
     {expandedMenus['parent'] && (
@@ -259,7 +272,7 @@ function DashboardContent() {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} md={3}>
           <Paper sx={{ p: 3 }}>
-            <Typography color="text.secondary" variant="body2">Total Users</Typography>
+            <Typography color="text.secondary" variant="body2">Total users</Typography>
             <Typography variant="h4" fontWeight="bold">12,345</Typography>
           </Paper>
         </Grid>

@@ -19,6 +19,34 @@ description: Generate Oxygen UI React components following best practices. Use w
 - Never hardcode colors or spacing values
 - For data tables, prefer `ListingTable` over MUI's `Table`
 - For layouts, use `AppShell`, `Header`, `Sidebar`
+- Write all UI text in sentence case (see below)
+
+## UI Text
+
+Write all titles, action text, and content in sentence case. Capitalize only the first word, proper nouns, product names, and acronyms.
+
+```text
+✓ Create project    ✓ API keys    ✓ Last modified
+✗ Create Project    ✗ API Keys    ✗ LAST MODIFIED
+```
+
+- Applies to titles, headings, buttons, links, menu items, tabs, labels, placeholders, table columns, tooltips, and messages
+- Write the text in sentence case in the source; never change case with `textTransform: 'uppercase'` or `'capitalize'`
+
+## Choosing a Table
+
+Pick the table type by what users do with the data:
+
+| Type | Use when | Setup |
+|------|----------|-------|
+| Listing table (default) | Scanning and comparing records across columns; tables inside a page section, panel, or dialog | `<ListingTable variant="table">` |
+| Card table | Top level listing of entities users click to open (projects, components); rich rows with few columns | `<ListingTable variant="card">`, `disablePaper` on `Container`, `variant="card" hover clickable` on each `Row` |
+| Data table | Large or server-paginated data; column filtering, resizing, hiding, reordering; bulk selection | `<ListingTable.DataGrid>` inside `ListingTable.Provider` (`variant="data-grid-card"` on the Provider only for entity listings) |
+
+- Default to the listing table when unsure
+- Do not nest a card table inside a card, dialog, or drawer
+- Do not use `striped` or `bordered` with the card variant
+- Use one table type for the same kind of data across the product
 
 ## Component Template
 
@@ -50,7 +78,7 @@ import { ListingTable, Chip, IconButton } from '@wso2/oxygen-ui';
 import { EditIcon, TrashIcon } from '@wso2/oxygen-ui-icons-react';
 
 <ListingTable.Container>
-  <ListingTable.Toolbar showSearch actions={<Button>Add Item</Button>} />
+  <ListingTable.Toolbar showSearch actions={<Button>Add item</Button>} />
   <ListingTable variant="card">
     <ListingTable.Head>
       <ListingTable.Row>
@@ -83,7 +111,7 @@ import { EditIcon, TrashIcon } from '@wso2/oxygen-ui-icons-react';
 import { Paper, Typography, Box, Button } from '@wso2/oxygen-ui';
 
 <Paper sx={{ p: 3 }}>
-  <Typography variant="h6" gutterBottom>Card Title</Typography>
+  <Typography variant="h6" gutterBottom>Card title</Typography>
   <Typography color="text.secondary" sx={{ mb: 2 }}>
     Card description text
   </Typography>
@@ -107,7 +135,7 @@ import {
 } from '@wso2/oxygen-ui';
 
 <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-  <DialogTitle>Dialog Title</DialogTitle>
+  <DialogTitle>Dialog title</DialogTitle>
   <DialogContent>
     <DialogContentText>Dialog content goes here.</DialogContentText>
   </DialogContent>
