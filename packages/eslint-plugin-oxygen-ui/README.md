@@ -52,8 +52,6 @@ Prevents direct imports from all MUI packages (`@mui/*`) and suggests using `@ox
 ```javascript
 import { Box, Stack } from '@mui/material';
 import Button from '@mui/material/Button';
-import { DataGrid } from '@mui/x-data-grid';
-import { DatePicker } from '@mui/x-date-pickers';
 ```
 
 ✅ **Correct:**
@@ -61,19 +59,15 @@ import { DatePicker } from '@mui/x-date-pickers';
 // Standard Material-UI components
 import { Box, Stack, Button } from '@wso2/oxygen-ui';
 
-// MUI X Data Grid components (namespace export)
-import { DataGrid } from '@wso2/oxygen-ui';
-// Then destructure specific components:
-const { DataGrid: DataGridComponent, GridColDef } = DataGrid;
-
-// MUI X Date Pickers components (namespace export)
-import { DatePickers } from '@wso2/oxygen-ui';
-// Then destructure specific components:
-const { DatePicker, LocalizationProvider } = DatePickers;
+// MUI X lives on Oxygen subpaths (not the main @wso2/oxygen-ui entry)
+import { DataGrid } from '@wso2/oxygen-ui/data-grid';
+import { DatePicker, LocalizationProvider } from '@wso2/oxygen-ui/date-pickers';
+import { SimpleTreeView } from '@wso2/oxygen-ui/tree-view';
 ```
 
 **Options:**
 - `suggestedPackage` (string): The package to suggest instead of @mui/* (default: '@wso2/oxygen-ui')
+- `suggestedPackageByPrefix` (object): Map of `@mui` prefixes to Oxygen paths (for example `@mui/x-data-grid` → `@wso2/oxygen-ui/data-grid`)
 - `allowedPackages` (array): List of MUI packages that are allowed (default: [])
 
 ### `no-direct-lucide-imports`

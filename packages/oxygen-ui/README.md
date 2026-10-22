@@ -66,17 +66,13 @@ function App() {
 
 ### MUI X Data Grid
 
-Data Grid components are exported as a namespace to avoid naming conflicts:
+**Breaking:** `import { DataGrid } from '@wso2/oxygen-ui'` (the MUI X namespace) is removed. Import from `@wso2/oxygen-ui/data-grid` instead. The same applies to `DatePickers` (`date-pickers`), `AdapterDateFns` (`date-pickers/AdapterDateFns`), and `TreeView` (`tree-view`).
+
+Import Data Grid from the Oxygen subpath. It is not on the main entry, so apps that only use `Table` / `Button` do not evaluate the grid.
 
 ```typescript
-import { DataGrid } from '@wso2/oxygen-ui';
-
-// Destructure the components you need
-const { 
-  DataGrid: DataGridComponent, 
-  GridColDef, 
-  GridToolbarContainer 
-} = DataGrid;
+import { DataGrid } from '@wso2/oxygen-ui/data-grid';
+import type { GridColDef } from '@wso2/oxygen-ui/data-grid';
 
 function MyDataGrid() {
   const columns: GridColDef[] = [
@@ -90,7 +86,7 @@ function MyDataGrid() {
   ];
 
   return (
-    <DataGridComponent
+    <DataGrid
       rows={rows}
       columns={columns}
     />
@@ -98,25 +94,21 @@ function MyDataGrid() {
 }
 ```
 
+For an Oxygen-styled grid inside a listing, use `ListingTable.DataGrid` — it loads `@mui/x-data-grid` when the grid mounts.
+
 ### MUI X Date Pickers
 
-Date Picker components are exported as a namespace:
+Import date pickers from the Oxygen subpath (and the adapter you use):
 
 ```typescript
-import { DatePickers } from '@wso2/oxygen-ui';
-
-// Destructure the components you need
-const { 
-  DatePicker, 
-  LocalizationProvider, 
-  DateTimePicker 
-} = DatePickers;
+import { DatePicker, LocalizationProvider } from '@wso2/oxygen-ui/date-pickers';
+import { AdapterDateFns } from '@wso2/oxygen-ui/date-pickers/AdapterDateFns';
 
 function MyDatePicker() {
   const [value, setValue] = useState<Date | null>(null);
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
         label="Select Date"
         value={value}
@@ -158,13 +150,10 @@ function MyChart() {
 
 ### MUI X Tree View
 
-Tree View components are exported as a namespace:
+Import tree view from the Oxygen subpath:
 
 ```typescript
-import { TreeView } from '@wso2/oxygen-ui';
-
-// Destructure the tree components you need
-const { SimpleTreeView, TreeItem } = TreeView;
+import { SimpleTreeView, TreeItem } from '@wso2/oxygen-ui/tree-view';
 
 function MyTreeView() {
   return (
@@ -419,21 +408,15 @@ All components from `@mui/material` are re-exported directly.
 
 ### MUI X Components
 
-- `DataGrid` - Namespace containing all Data Grid components
-- `DatePickers` - Namespace containing all Date Picker components
-- `Charts` - Namespace containing all Chart components
-- `TreeView` - Namespace containing all TreeView components
+Import Data Grid, Date Pickers, and Tree View from `@wso2/oxygen-ui/data-grid`, `@wso2/oxygen-ui/date-pickers`, and `@wso2/oxygen-ui/tree-view`. They are not re-exported from the main `@wso2/oxygen-ui` entry.
 
 ## TypeScript Support
 
-This package includes full TypeScript definitions. All types from Material-UI and MUI X are also available:
+This package includes full TypeScript definitions. Material-UI types are re-exported from `@wso2/oxygen-ui`. MUI X types come from the Oxygen subpaths:
 
 ```typescript
 import type { ButtonProps, BoxProps } from '@wso2/oxygen-ui';
-import { DataGrid } from '@wso2/oxygen-ui';
-
-const { GridColDef } = DataGrid;
-type MyGridColDef = typeof GridColDef;
+import type { GridColDef } from '@wso2/oxygen-ui/data-grid';
 ```
 
 ## AI-Assisted Development

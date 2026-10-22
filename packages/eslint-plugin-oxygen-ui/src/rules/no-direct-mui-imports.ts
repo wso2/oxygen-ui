@@ -22,6 +22,7 @@ import type {ImportDeclaration} from 'estree';
 interface NoDirectMuiImportsOptions {
   allowedPackages?: string[];
   suggestedPackage?: string;
+  suggestedPackageByPrefix?: Record<string, string>;
 }
 
 const noDirectMuiImportsRule: Rule.RuleModule = {
@@ -46,6 +47,11 @@ const noDirectMuiImportsRule: Rule.RuleModule = {
             type: 'string',
             description: 'The package to suggest instead of @mui/material',
           },
+          suggestedPackageByPrefix: {
+            type: 'object',
+            additionalProperties: {type: 'string'},
+            description: 'Map of @mui package prefixes to Oxygen import paths (for example MUI X subpaths)',
+          },
         },
         additionalProperties: false,
       },
@@ -61,6 +67,22 @@ const noDirectMuiImportsRule: Rule.RuleModule = {
     const options: NoDirectMuiImportsOptions = (context.options?.[0] as NoDirectMuiImportsOptions) ?? {};
     const allowedPackages: string[] = options.allowedPackages ?? [];
     const suggestedPackage: string = options.suggestedPackage ?? '@wso2/oxygen-ui';
+    const suggestedPackageByPrefix: Record<string, string> = options.suggestedPackageByPrefix ?? {};
+
+    function suggestedFor(importSource: string): string {
+      const prefixes = Object.keys(suggestedPackageByPrefix).sort((left, right) => right.length - left.length);
+      const match = prefixes.find(
+        (prefix) => importSource === prefix || importSource.startsWith(`${prefix}/`),
+      );
+      if (!match) {
+        return suggestedPackage;
+      }
+      const rest = importSource.slice(match.length);
+      if (match === '@mui/x-date-pickers' && rest.startsWith('/Adapter')) {
+        return `${suggestedPackageByPrefix[match]}${rest}`;
+      }
+      return suggestedPackageByPrefix[match];
+    }
 
     return {
       ImportDeclaration(node: ImportDeclaration) {
@@ -76,6 +98,8 @@ const noDirectMuiImportsRule: Rule.RuleModule = {
           return;
         }
 
+        const replacement = suggestedFor(importSource);
+
         // Extract component name from subpath imports like '@mui/material/Box' or '@mui/x-data-grid/DataGrid'
         const componentMatch = /^@mui\/[^/]+\/(.+)$/.exec(importSource);
         const componentName = componentMatch ? componentMatch[1] : null;
@@ -86,20 +110,20 @@ const noDirectMuiImportsRule: Rule.RuleModule = {
           data: {
             source: importSource,
             component: componentName ?? '',
-            suggestedPackage,
+            suggestedPackage: replacement,
           },
           fix(fixer: Rule.RuleFixer) {
             // For subpath imports like "import Box from '@mui/material/Box'" or "import { DataGrid } from '@mui/x-data-grid'"
             // Convert to: "import {Box} from '@oxygen-ui/react'"
             if (componentName && node.specifiers.length === 1 && node.specifiers[0].type === 'ImportDefaultSpecifier') {
               const importedName = node.specifiers[0].local.name;
-              const newImport = `import {${importedName}} from '${suggestedPackage}'`;
+              const newImport = `import {${importedName}} from '${replacement}'`;
               return fixer.replaceText(node, newImport);
             }
 
             // For all other cases (direct imports from any @mui/* package)
             // Just replace the source with the suggested package
-            const newSource = `'${suggestedPackage}'`;
+            const newSource = `'${replacement}'`;
             return fixer.replaceText(node.source, newSource);
           },
         });

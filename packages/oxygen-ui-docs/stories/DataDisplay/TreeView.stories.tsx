@@ -18,9 +18,7 @@
 
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { TreeView } from '@wso2/oxygen-ui';
-
-const { SimpleTreeView, TreeItem } = TreeView;
+import { SimpleTreeView, TreeItem } from '@wso2/oxygen-ui/tree-view';
 
 /**
  * MUI X Tree View provides components for displaying hierarchical data.

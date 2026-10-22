@@ -46,7 +46,26 @@ export default {
     config.resolve = config.resolve || {};
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
-      '@wso2/oxygen-ui': path.resolve(__dirname, '../../oxygen-ui/dist/index.js'),
+      '@wso2/oxygen-ui$': path.resolve(__dirname, '../../oxygen-ui/dist/index.js'),
+      '@wso2/oxygen-ui/data-grid$': path.resolve(__dirname, '../../oxygen-ui/dist/data-grid.js'),
+      '@wso2/oxygen-ui/date-pickers$': path.resolve(__dirname, '../../oxygen-ui/dist/date-pickers.js'),
+      '@wso2/oxygen-ui/tree-view$': path.resolve(__dirname, '../../oxygen-ui/dist/tree-view.js'),
+      ...Object.fromEntries(
+        [
+          'AdapterDateFns',
+          'AdapterDateFnsJalali',
+          'AdapterDateFnsJalaliV2',
+          'AdapterDateFnsV2',
+          'AdapterDayjs',
+          'AdapterLuxon',
+          'AdapterMoment',
+          'AdapterMomentHijri',
+          'AdapterMomentJalaali',
+        ].map((adapter) => [
+          `@wso2/oxygen-ui/date-pickers/${adapter}`,
+          path.resolve(__dirname, `../../oxygen-ui/dist/date-pickers/${adapter}.js`),
+        ]),
+      ),
       '@wso2/oxygen-ui-icons-react': path.resolve(__dirname, '../../oxygen-ui-icons-react/dist/index.js'),
       '@wso2/oxygen-ui-charts-react': path.resolve(__dirname, '../../oxygen-ui-charts-react/dist/index.js'),
     };

@@ -18,13 +18,11 @@
 
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { DataGrid } from '@wso2/oxygen-ui';
+import { DataGrid } from '@wso2/oxygen-ui/data-grid';
 
-const { DataGrid: DataGridComponent } = DataGrid;
-
-const meta: Meta<typeof DataGridComponent> = {
+const meta: Meta<typeof DataGrid> = {
   title: 'Data Display/DataGrid',
-  component: DataGridComponent,
+  component: DataGrid,
   parameters: {
     layout: 'centered',
     docs: {
@@ -39,7 +37,7 @@ const meta: Meta<typeof DataGridComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof DataGridComponent>;
+type Story = StoryObj<typeof DataGrid>;
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
@@ -77,7 +75,7 @@ const rows = [
 export const Default: Story = {
   render: () => (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGridComponent rows={rows} columns={columns} />
+      <DataGrid rows={rows} columns={columns} />
     </div>
   ),
 };
@@ -85,7 +83,7 @@ export const Default: Story = {
 export const WithCheckboxSelection: Story = {
   render: () => (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGridComponent
+      <DataGrid
         rows={rows}
         columns={columns}
         checkboxSelection
@@ -97,7 +95,7 @@ export const WithCheckboxSelection: Story = {
 export const WithPagination: Story = {
   render: () => (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGridComponent
+      <DataGrid
         rows={rows}
         columns={columns}
         initialState={{
@@ -114,7 +112,7 @@ export const WithPagination: Story = {
 export const Sortable: Story = {
   render: () => (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGridComponent
+      <DataGrid
         rows={rows}
         columns={columns}
         initialState={{
@@ -130,7 +128,7 @@ export const Sortable: Story = {
 export const DisableRowSelectionOnClick: Story = {
   render: () => (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGridComponent
+      <DataGrid
         rows={rows}
         columns={columns}
         disableRowSelectionOnClick
@@ -142,7 +140,7 @@ export const DisableRowSelectionOnClick: Story = {
 export const Loading: Story = {
   render: () => (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGridComponent
+      <DataGrid
         rows={[]}
         columns={columns}
         loading
