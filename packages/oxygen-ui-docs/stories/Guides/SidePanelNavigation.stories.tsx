@@ -101,11 +101,13 @@ interface ItemProps {
   icon: React.ReactNode;
   label: string;
   children?: React.ReactNode;
+  /** Set by a parent Sidebar.Item when this item is nested. */
+  depth?: number;
 }
 
-function Item({ id, icon, label, children }: ItemProps) {
+function Item({ id, icon, label, children, depth }: ItemProps) {
   return (
-    <Sidebar.Item id={id}>
+    <Sidebar.Item id={id} depth={depth}>
       <Sidebar.ItemIcon>{icon}</Sidebar.ItemIcon>
       <Sidebar.ItemLabel>{label}</Sidebar.ItemLabel>
       {children}
