@@ -98,16 +98,33 @@ General:
 ```tsx
 const storageKey = `side-panel-groups:${userId}`;
 
-const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>(() => {
-  const saved = JSON.parse(localStorage.getItem(storageKey) ?? '{}');
-  // Always open the group that contains the active page.
-  return activeGroupId ? { ...saved, [activeGroupId]: true } : saved;
-});
+const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({});
+
+// Load the user's saved groups on the client, after mount (safe for SSR).
+useEffect(() => {
+  try {
+    const saved = JSON.parse(localStorage.getItem(storageKey) ?? '{}');
+    setExpandedMenus((prev) => ({ ...saved, ...prev }));
+  } catch {
+    // Storage is unavailable or the saved value is invalid.
+  }
+}, [storageKey]);
+
+// Open the group that contains the active page whenever it changes.
+useEffect(() => {
+  if (activeGroupId) {
+    setExpandedMenus((prev) => ({ ...prev, [activeGroupId]: true }));
+  }
+}, [activeGroupId]);
 
 const toggleExpand = (id: string) => {
   setExpandedMenus((prev) => {
     const next = { ...prev, [id]: !prev[id] };
-    localStorage.setItem(storageKey, JSON.stringify(next));
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(next));
+    } catch {
+      // Storage is unavailable.
+    }
     return next;
   });
 };
