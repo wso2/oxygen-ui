@@ -500,9 +500,10 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
         </SidebarItemPopover>
       )}
 
-      {/* Nested children - only shown when not collapsed */}
+      {/* Nested children - only shown when not collapsed. Rendered as an <li>
+          so the parent list only contains list items. */}
       {hasNestedItems && !collapsed && (
-        <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+        <Collapse component="li" in={isExpanded} timeout="auto" unmountOnExit>
           <List disablePadding>
             {nestedItems.map((child, index) => {
               if (React.isValidElement<SidebarItemProps>(child)) {
