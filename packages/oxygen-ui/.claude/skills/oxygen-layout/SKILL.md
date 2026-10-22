@@ -20,6 +20,7 @@ description: Generate application layouts with AppShell, Header, and Sidebar. Us
 - Use theme tokens for all styling
 - Set a browser tab title on every page using `[Specific page/resource] | [Product]` (see below)
 - Write all UI text in sentence case (see below)
+- Group sidebar items with section titles and collapsible groups (see below)
 
 ## UI Text
 
@@ -65,6 +66,98 @@ function ProjectsPage() {
     </>
   );
 }
+```
+
+## Side Panel Navigation
+
+Group sidebar items with section titles and collapsible groups. Titles keep the main areas visible; collapsible groups keep the panel short as items grow.
+
+```text
+Section title       Main areas users need to see at a glance      Sidebar.CategoryLabel
+Collapsible group   Secondary items, or a parent with sub-pages    Sidebar.Item with nested Sidebar.Item children
+```
+
+If users visit an item often, put it under a title. Otherwise, put it in a collapsible group.
+
+Section titles:
+- Keep titles short and clear; they are labels only, never clickable
+- Limit the number of titled sections; don't give every group a title
+
+Collapsible groups:
+- The parent only opens and closes the group; never give it a page or a `link`
+- Expand the group that contains the active page by default
+- Remember each user's open and closed groups (`Sidebar` does not store this; see below)
+- One level of nesting only; never put a collapsible group inside another
+- Give child items icons that differ from the parent's icon
+
+General:
+- Put Settings, Notifications, and Help in `Sidebar.Footer`, outside the scrolling `Sidebar.Nav`
+- Add a menu search when the panel has many items
+- Don't mix the rules: titles never toggle, collapsible parents never navigate
+
+```tsx
+const storageKey = `side-panel-groups:${userId}`;
+
+const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>(() => {
+  const saved = JSON.parse(localStorage.getItem(storageKey) ?? '{}');
+  // Always open the group that contains the active page.
+  return activeGroupId ? { ...saved, [activeGroupId]: true } : saved;
+});
+
+const toggleExpand = (id: string) => {
+  setExpandedMenus((prev) => {
+    const next = { ...prev, [id]: !prev[id] };
+    localStorage.setItem(storageKey, JSON.stringify(next));
+    return next;
+  });
+};
+
+<Sidebar
+  collapsed={collapsed}
+  activeItem={activeItem}
+  expandedMenus={expandedMenus}
+  onSelect={setActiveItem}
+  onToggleExpand={toggleExpand}
+>
+  <Sidebar.Nav>
+    <Sidebar.Category>
+      <Sidebar.Item id="home">
+        <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
+        <Sidebar.ItemLabel>Home</Sidebar.ItemLabel>
+      </Sidebar.Item>
+    </Sidebar.Category>
+
+    <Sidebar.Category>
+      <Sidebar.CategoryLabel>Build</Sidebar.CategoryLabel>
+      <Sidebar.Item id="projects">
+        <Sidebar.ItemIcon><FolderOpen size={20} /></Sidebar.ItemIcon>
+        <Sidebar.ItemLabel>Projects</Sidebar.ItemLabel>
+      </Sidebar.Item>
+      {/* Collapsible group: nest child items inside the parent */}
+      <Sidebar.Item id="developer-tools">
+        <Sidebar.ItemIcon><Wrench size={20} /></Sidebar.ItemIcon>
+        <Sidebar.ItemLabel>Developer tools</Sidebar.ItemLabel>
+        <Sidebar.Item id="api-keys">
+          <Sidebar.ItemIcon><KeyRound size={20} /></Sidebar.ItemIcon>
+          <Sidebar.ItemLabel>API keys</Sidebar.ItemLabel>
+        </Sidebar.Item>
+        <Sidebar.Item id="webhooks">
+          <Sidebar.ItemIcon><Webhook size={20} /></Sidebar.ItemIcon>
+          <Sidebar.ItemLabel>Webhooks</Sidebar.ItemLabel>
+        </Sidebar.Item>
+      </Sidebar.Item>
+    </Sidebar.Category>
+  </Sidebar.Nav>
+
+  <Sidebar.Footer>
+    <Sidebar.Category>
+      <Sidebar.Item id="settings">
+        <Sidebar.ItemIcon><Settings size={20} /></Sidebar.ItemIcon>
+        <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
+      </Sidebar.Item>
+    </Sidebar.Category>
+  </Sidebar.Footer>
+</Sidebar>
 ```
 
 ## Complete App Shell Layout
@@ -227,36 +320,6 @@ export default App;
     <ColorSchemeToggle />
   </Header.Actions>
 </Header>
-```
-
-## Sidebar with Nested Items
-
-```tsx
-<Sidebar
-  collapsed={collapsed}
-  activeItem={activeItem}
-  expandedMenus={expandedMenus}
-  onSelect={setActiveItem}
-  onToggleExpand={toggleExpand}
->
-  <Sidebar.Nav>
-    <Sidebar.Item id="parent" hasChildren>
-      <Sidebar.ItemIcon><FolderIcon size={20} /></Sidebar.ItemIcon>
-      <Sidebar.ItemLabel>Parent item</Sidebar.ItemLabel>
-    </Sidebar.Item>
-
-    {expandedMenus['parent'] && (
-      <>
-        <Sidebar.Item id="child1" nested>
-          <Sidebar.ItemLabel>Child 1</Sidebar.ItemLabel>
-        </Sidebar.Item>
-        <Sidebar.Item id="child2" nested>
-          <Sidebar.ItemLabel>Child 2</Sidebar.ItemLabel>
-        </Sidebar.Item>
-      </>
-    )}
-  </Sidebar.Nav>
-</Sidebar>
 ```
 
 ## Dashboard Layout with Stats
