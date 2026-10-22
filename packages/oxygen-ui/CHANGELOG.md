@@ -1,5 +1,22 @@
 # @wso2/oxygen-ui
 
+## 0.17.0
+
+### Minor Changes
+
+- [#648](https://github.com/wso2/oxygen-ui/pull/648) [`e489fab`](https://github.com/wso2/oxygen-ui/commit/e489fab128f8e8e6e9d000d62bff3459b43f3b95) Thanks [@Kalika-Jay](https://github.com/Kalika-Jay)! - Add `TimeRangeFilter` for picking a time range: a button that opens a list of quick ranges and, beside it, the fields of a custom range (a date and a time for the start and for the end, read as UTC). The component holds the range as one value and reports it through `onChange`. A custom range is applied only when the end is after the start, and, with `maxRangeMs`, within that length.
+
+- [#651](https://github.com/wso2/oxygen-ui/pull/651) [`e9b104c`](https://github.com/wso2/oxygen-ui/commit/e9b104c574b706b35ef5beb030823513df8b4c1d) Thanks [@Kalika-Jay](https://github.com/Kalika-Jay)! - Add `ListingTable.Filter`, the filter counterpart of `ListingTable.SortLabel`: a funnel button for a column heading that opens the column's choices as a menu, optionally with a search field. It appears when the heading is pointed at or focused and stays visible while a value is applied; `alwaysShowIcon` keeps it visible at all times. It passes `className`, `data-*` and other button props to the funnel button, and forwards its `ref` to it. It works with props (`value`, `onChange`) or, with a `field`, through the `filters` and `onFilterChange` of `ListingTable.Provider`. A column without it has no filter.
+
+### Patch Changes
+
+- [#656](https://github.com/wso2/oxygen-ui/pull/656) [`3b026ee`](https://github.com/wso2/oxygen-ui/commit/3b026eef6eeba3938d2e179497ec966096d3f1e5) Thanks [@aruniw](https://github.com/aruniw)! - Fix `Sidebar.Item` list markup: an expanded group's nested items are now rendered in an `<li>`, so the parent list contains only list items (axe `list` rule, WCAG 1.3.1).
+
+  Add side panel navigation rules to the `oxygen-layout` AI skill: when to use section titles and collapsible groups, how collapsible groups behave, and pinning footer items in `Sidebar.Footer`. Fix the skill's nested sidebar example, which used `hasChildren` and `nested` props that `Sidebar.Item` does not have.
+
+- Updated dependencies []:
+  - @wso2/oxygen-ui-icons-react@0.17.0
+
 ## 0.16.0
 
 ### Minor Changes
