@@ -542,12 +542,12 @@ const LogViewerStream = React.forwardRef<HTMLDivElement, LogViewerStreamProps>(f
   // does not also have to set `loadingOlder` for the button to show it is busy.
   const [requestPending, setRequestPending] = React.useState(false);
   const mounted = React.useRef(true);
-  React.useEffect(
-    () => () => {
+  React.useEffect(() => {
+    mounted.current = true;
+    return () => {
       mounted.current = false;
-    },
-    []
-  );
+    };
+  }, []);
   const loadingMore = loadingOlder || requestPending;
 
   const canLoadOlder = hasMoreOlder && !loadingMore && !loading && Boolean(onLoadOlder);

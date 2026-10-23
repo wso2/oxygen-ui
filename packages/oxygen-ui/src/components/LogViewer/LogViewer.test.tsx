@@ -470,6 +470,25 @@ describe('LogViewer', () => {
       await waitFor(() => expect(button.getAttribute('aria-busy')).toBe('false'));
     });
 
+    it('stops showing busy after the returned promise settles in StrictMode', async () => {
+      let finish: () => void = () => undefined;
+      const onLoadOlder = vi.fn(() => new Promise<void>((resolve) => (finish = resolve)));
+      render(
+        <React.StrictMode>
+          <OxygenUIThemeProvider>
+            <LogViewer entries={entries('1')} onLoadOlder={onLoadOlder} {...base} />
+          </OxygenUIThemeProvider>
+        </React.StrictMode>
+      );
+      const button = screen.getByRole('button', { name: 'Load older logs' });
+      fireEvent.click(button);
+      await waitFor(() => expect(button.getAttribute('aria-busy')).toBe('true'));
+      await act(async () => {
+        finish();
+      });
+      await waitFor(() => expect(button.getAttribute('aria-busy')).toBe('false'));
+    });
+
     it('does not expose the spinner on the busy button as an unnamed progress bar', () => {
       renderWithTheme(<LogViewer entries={entries('1')} hasMoreOlder loadingOlder />);
       expect(screen.queryByRole('progressbar')).toBeNull();
