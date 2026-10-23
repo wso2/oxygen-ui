@@ -2,6 +2,8 @@
 
 ESLint plugin to enforce Oxygen UI best practices by preventing direct imports from `@mui/*` packages and `lucide-react`.
 
+The rules are defined in [`@wso2/oxygen-ui-rules`](../oxygen-ui-rules), which is shared with the Oxygen UI analyzer. This plugin exposes them to ESLint. To change a rule, edit it there.
+
 ## Installation
 
 ```bash

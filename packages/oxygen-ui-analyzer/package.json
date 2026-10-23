@@ -1,0 +1,65 @@
+{
+  "name": "@wso2/oxygen-ui-analyzer",
+  "private": true,
+  "version": "0.0.1",
+  "description": "WSO2 Oxygen UI | Analyzer - Checks a project against the Oxygen UI rules and reports which files are inconsistent with the design system",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./schema/report.schema.json": "./schema/report.schema.json"
+  },
+  "bin": {
+    "oxygen-ui-analyzer": "./bin/oxygen-ui-analyzer.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "schema",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rimraf dist && node esbuild.config.js && tsc -p tsconfig.json --emitDeclarationOnly",
+    "clean": "rimraf dist",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "wso2",
+    "oxygen-ui",
+    "design-system",
+    "governance",
+    "analyzer"
+  ],
+  "author": "WSO2 LLC",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wso2/oxygen-ui.git"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "dependencies": {
+    "@typescript-eslint/parser": "catalog:",
+    "eslint": "catalog:"
+  },
+  "peerDependencies": {
+    "typescript": ">=4.8.4 <6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@wso2/oxygen-ui-rules": "workspace:^",
+    "esbuild": "catalog:",
+    "rimraf": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
