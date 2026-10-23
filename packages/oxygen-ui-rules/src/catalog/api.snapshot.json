@@ -1,0 +1,775 @@
+{
+  "@wso2/oxygen-ui": {
+    "AcrylicOrangeTheme": {},
+    "AcrylicPurpleTheme": {},
+    "AppBreadcrumbs": {
+      "props": [
+        "items",
+        "maxItems?",
+        "sx?"
+      ]
+    },
+    "AppShell": {
+      "props": [
+        "children",
+        "collapseOnMobile?",
+        "collapseOnSelectOnMobile?",
+        "initialActiveItem?",
+        "initialCollapsed?",
+        "sidebarCollapsedWidth?",
+        "sidebarWidth?",
+        "sx?"
+      ],
+      "members": {
+        "Footer": [
+          "children"
+        ],
+        "Main": [
+          "children"
+        ],
+        "Navbar": [
+          "children"
+        ],
+        "NotificationPanel": [
+          "children"
+        ],
+        "Sidebar": [
+          "children"
+        ]
+      }
+    },
+    "AppSwitcher": {
+      "props": [
+        "aria-label?",
+        "children",
+        "currentAppId?",
+        "sx?",
+        "unavailableLabel?",
+        "width?"
+      ],
+      "members": {
+        "App": [
+          "busy?",
+          "component?",
+          "componentProps?",
+          "current?",
+          "disabled?",
+          "icon?",
+          "id?",
+          "name",
+          "onClick?",
+          "target?",
+          "tone?",
+          "tooltip?",
+          "url?"
+        ],
+        "Footer": [
+          "children?",
+          "columns?",
+          "label?",
+          "links?",
+          "loading?",
+          "loadingCount?"
+        ],
+        "Section": [
+          "apps?",
+          "children?",
+          "columns?",
+          "label?",
+          "loading?",
+          "loadingCount?"
+        ],
+        "Trigger": [
+          "icon?",
+          "label?"
+        ]
+      }
+    },
+    "ClassicTheme": {},
+    "CodeBlock": {
+      "props": [
+        "code",
+        "language?",
+        "showLineNumbers?"
+      ]
+    },
+    "ColorSchemeImage": {
+      "props": [
+        "alt",
+        "height?",
+        "src",
+        "width?"
+      ]
+    },
+    "ColorSchemeSVG": {
+      "props": [
+        "children?",
+        "height?",
+        "preserveAspectRatio?",
+        "svg?",
+        "viewBox?",
+        "width?",
+        "xmlns?",
+        "xmlnsXlink?"
+      ]
+    },
+    "ColorSchemeToggle": {
+      "props": [
+        "darkModeIcon?",
+        "lightModeIcon?",
+        "systemModeIcon?"
+      ]
+    },
+    "ColorSchemeToggleDefault": {
+      "props": [
+        "darkModeIcon?",
+        "lightModeIcon?",
+        "systemModeIcon?"
+      ]
+    },
+    "ComplexSelect": {
+      "props": [
+        "children",
+        "labelAnchor?"
+      ],
+      "members": {
+        "Divider": [],
+        "ListHeader": [
+          "children"
+        ],
+        "MenuItem": [
+          "children"
+        ]
+      }
+    },
+    "createOxygenTheme": {},
+    "Footer": {
+      "props": [
+        "children",
+        "sx?"
+      ],
+      "members": {
+        "Copyright": [
+          "children"
+        ],
+        "Divider": [],
+        "Link": [
+          "children",
+          "href"
+        ],
+        "Version": [
+          "children"
+        ]
+      }
+    },
+    "Form": {
+      "members": {
+        "Body": [],
+        "CardActions": [],
+        "CardButton": [
+          "alignItems?",
+          "children",
+          "disabled?",
+          "onClick?",
+          "selected?"
+        ],
+        "CardContent": [],
+        "CardHeader": [],
+        "CardMedia": [],
+        "DisappearingCardButtonContent": [],
+        "ElementWrapper": [
+          "children?",
+          "label",
+          "name"
+        ],
+        "Header": [],
+        "Section": [
+          "children"
+        ],
+        "Stack": [],
+        "Subheader": [],
+        "Wizard": [
+          "actions?",
+          "activeStep",
+          "steps"
+        ]
+      }
+    },
+    "formatRelativeTime": {},
+    "Header": {
+      "props": [
+        "children",
+        "minimal?",
+        "sx?"
+      ],
+      "members": {
+        "Actions": [
+          "children",
+          "sx?"
+        ],
+        "Brand": [
+          "aria-label?",
+          "children",
+          "onClick?",
+          "sx?"
+        ],
+        "BrandLogo": [
+          "children",
+          "sx?"
+        ],
+        "BrandTitle": [
+          "children",
+          "sx?"
+        ],
+        "Spacer": [
+          "sx?"
+        ],
+        "Switchers": [
+          "children",
+          "showDivider?",
+          "sx?"
+        ],
+        "Toggle": [
+          "collapseIcon?",
+          "collapseLabel?",
+          "collapsed?",
+          "expandIcon?",
+          "expandLabel?",
+          "onToggle?",
+          "sx?"
+        ]
+      }
+    },
+    "HighContrastTheme": {},
+    "Layout": {
+      "props": [],
+      "members": {
+        "Content": [],
+        "Header": [],
+        "Navbar": [],
+        "Sidebar": []
+      }
+    },
+    "ListingTable": {
+      "props": [
+        "bordered?",
+        "density?",
+        "striped?",
+        "variant?"
+      ],
+      "members": {
+        "Body": [
+          "emptyStateColSpan?",
+          "loading?",
+          "noSearchResultsDescription?",
+          "noSearchResultsIcon?",
+          "noSearchResultsText?",
+          "searchValue?"
+        ],
+        "Cell": [
+          "maxWidth?",
+          "truncate?"
+        ],
+        "CellIcon": [
+          "icon",
+          "iconPosition?",
+          "iconSx?",
+          "primary",
+          "secondary?",
+          "sx?"
+        ],
+        "Container": [
+          "disablePaper?",
+          "elevation?"
+        ],
+        "DataGrid": [
+          "density?"
+        ],
+        "DensityControl": [
+          "onChange?",
+          "size?",
+          "sx?",
+          "value?"
+        ],
+        "EmptyState": [
+          "action?",
+          "description?",
+          "illustration?",
+          "minHeight?",
+          "sx?",
+          "title?"
+        ],
+        "Filter": [
+          "allLabel?",
+          "alwaysShowIcon?",
+          "field?",
+          "label?",
+          "noMatchLabel?",
+          "onChange?",
+          "options",
+          "searchPlaceholder?",
+          "searchable?",
+          "value?"
+        ],
+        "Footer": [],
+        "Head": [],
+        "Provider": [
+          "children",
+          "customHandlers?",
+          "density?",
+          "filters?",
+          "isSelected?",
+          "loading?",
+          "onBulkAction?",
+          "onBulkDelete?",
+          "onClearFilters?",
+          "onClearSelection?",
+          "onDensityChange?",
+          "onFilterChange?",
+          "onPageChange?",
+          "onRowsPerPageChange?",
+          "onSearchChange?",
+          "onSelectAll?",
+          "onSelectionChange?",
+          "onSortChange?",
+          "page?",
+          "rowsPerPage?",
+          "searchValue?",
+          "selected?",
+          "sortDirection?",
+          "sortField?",
+          "totalCount?",
+          "variant?"
+        ],
+        "Row": [
+          "clickable?",
+          "variant?"
+        ],
+        "RowActions": [
+          "align?",
+          "children",
+          "sx?",
+          "visibility?"
+        ],
+        "SortLabel": [
+          "active?",
+          "children",
+          "direction?",
+          "field?",
+          "hideSortIcon?",
+          "onClick?"
+        ],
+        "Toolbar": [
+          "actions?",
+          "children?",
+          "onSearchChange?",
+          "searchMaxWidth?",
+          "searchMinWidth?",
+          "searchPlaceholder?",
+          "searchSlot?",
+          "searchValue?",
+          "showSearch?",
+          "sx?"
+        ]
+      }
+    },
+    "ListingTableContext": {
+      "props": []
+    },
+    "ListingTableProvider": {
+      "props": [
+        "children",
+        "customHandlers?",
+        "density?",
+        "filters?",
+        "isSelected?",
+        "loading?",
+        "onBulkAction?",
+        "onBulkDelete?",
+        "onClearFilters?",
+        "onClearSelection?",
+        "onDensityChange?",
+        "onFilterChange?",
+        "onPageChange?",
+        "onRowsPerPageChange?",
+        "onSearchChange?",
+        "onSelectAll?",
+        "onSelectionChange?",
+        "onSortChange?",
+        "page?",
+        "rowsPerPage?",
+        "searchValue?",
+        "selected?",
+        "sortDirection?",
+        "sortField?",
+        "totalCount?",
+        "variant?"
+      ]
+    },
+    "NotificationBanner": {
+      "props": [
+        "actionLabel?",
+        "message",
+        "onAction?",
+        "onDismiss?",
+        "severity?",
+        "sx?",
+        "title?",
+        "visible?"
+      ]
+    },
+    "NotificationPanel": {
+      "props": [
+        "anchor?",
+        "aria-label?",
+        "children",
+        "liveAnnouncement?",
+        "onClose?",
+        "open?",
+        "sx?",
+        "variant?",
+        "width?"
+      ],
+      "members": {
+        "Actions": [
+          "hasUnread?",
+          "onClearAll?",
+          "onMarkAllRead?",
+          "sx?"
+        ],
+        "EmptyState": [
+          "icon?",
+          "message?",
+          "sx?"
+        ],
+        "Header": [
+          "children",
+          "sx?"
+        ],
+        "HeaderBadge": [
+          "children",
+          "color?",
+          "sx?"
+        ],
+        "HeaderClose": [
+          "children?",
+          "onClick?",
+          "sx?"
+        ],
+        "HeaderIcon": [
+          "children",
+          "sx?"
+        ],
+        "HeaderTitle": [
+          "children",
+          "sx?"
+        ],
+        "Item": [
+          "children",
+          "id",
+          "onAction?",
+          "onDismiss?",
+          "onMarkRead?",
+          "read?",
+          "sx?",
+          "type"
+        ],
+        "ItemAction": [
+          "children",
+          "onClick?",
+          "sx?"
+        ],
+        "ItemAvatar": [
+          "children?",
+          "sx?"
+        ],
+        "ItemMessage": [
+          "children",
+          "sx?"
+        ],
+        "ItemTimestamp": [
+          "children",
+          "sx?"
+        ],
+        "ItemTitle": [
+          "children",
+          "showUnreadIndicator?",
+          "sx?"
+        ],
+        "List": [
+          "children",
+          "showDividers?",
+          "sx?"
+        ],
+        "Tabs": [
+          "onChange",
+          "sx?",
+          "tabs",
+          "value"
+        ]
+      }
+    },
+    "OxygenTheme": {},
+    "OxygenUIThemeProvider": {
+      "props": [
+        "children",
+        "emotionCache?",
+        "initialTheme?",
+        "nonce?",
+        "onThemesLoaded?",
+        "theme?",
+        "themes?"
+      ]
+    },
+    "PageContent": {
+      "props": [
+        "centered?",
+        "children",
+        "fullWidth?",
+        "maxWidth?",
+        "noPadding?"
+      ]
+    },
+    "PageTitle": {
+      "props": [
+        "children",
+        "sx?"
+      ],
+      "members": {
+        "Actions": [
+          "children"
+        ],
+        "Avatar": [
+          "children?"
+        ],
+        "BackButton": [
+          "children?",
+          "component?"
+        ],
+        "Header": [
+          "children"
+        ],
+        "Link": [
+          "children",
+          "icon?"
+        ],
+        "SubHeader": [
+          "children"
+        ]
+      }
+    },
+    "PaleBaseTheme": {},
+    "PaleGrayTheme": {},
+    "PaleIndigoTheme": {},
+    "ParticleBackground": {
+      "props": [
+        "baseDensity?",
+        "clickBurst?",
+        "linkAlpha?",
+        "linkDist?",
+        "maxSpeed?",
+        "mouseInfluence?",
+        "opacity?",
+        "radius?",
+        "repelStrength?"
+      ]
+    },
+    "pxToRem": {},
+    "RelativeTime": {
+      "props": [
+        "action?",
+        "dateTime?",
+        "hideIcon?",
+        "icon?",
+        "size?",
+        "sx?",
+        "time",
+        "tooltip?"
+      ]
+    },
+    "SearchBar": {
+      "props": []
+    },
+    "SearchBarWithAdvancedFilter": {
+      "props": [
+        "advancedFilter",
+        "attributeOptions",
+        "conditionOptions",
+        "maxHeight?",
+        "onAdvancedFilterChange",
+        "onAdvancedSearch?",
+        "onChange",
+        "placeholder?",
+        "popoverWidth?",
+        "value"
+      ]
+    },
+    "Sidebar": {
+      "props": [
+        "activeItem?",
+        "children",
+        "collapsed?",
+        "collapsedWidth?",
+        "expandedMenus?",
+        "onSelect?",
+        "onToggleExpand?",
+        "sx?",
+        "width?"
+      ],
+      "members": {
+        "Category": [
+          "children",
+          "sx?"
+        ],
+        "CategoryLabel": [
+          "children",
+          "sx?"
+        ],
+        "Footer": [
+          "children",
+          "showDivider?",
+          "sx?"
+        ],
+        "Item": [
+          "children",
+          "depth?",
+          "id",
+          "link?",
+          "sx?"
+        ],
+        "ItemBadge": [
+          "children",
+          "color?",
+          "sx?"
+        ],
+        "ItemIcon": [
+          "children",
+          "sx?"
+        ],
+        "ItemLabel": [
+          "children",
+          "sx?"
+        ],
+        "Nav": [
+          "children",
+          "showDividers?",
+          "sx?"
+        ],
+        "User": [
+          "children",
+          "onClick?",
+          "showDivider?",
+          "sx?"
+        ],
+        "UserAvatar": [
+          "alt?",
+          "children?",
+          "src?",
+          "sx?"
+        ],
+        "UserEmail": [
+          "children",
+          "sx?"
+        ],
+        "UserName": [
+          "children",
+          "sx?"
+        ]
+      }
+    },
+    "StatCard": {
+      "props": [
+        "icon?",
+        "iconColor?",
+        "label",
+        "value"
+      ]
+    },
+    "ThemeSelect": {
+      "props": [
+        "label?",
+        "showLabel?",
+        "size?",
+        "sx?",
+        "variant?"
+      ]
+    },
+    "ThemeSwitcher": {
+      "props": [
+        "children?",
+        "label?",
+        "showLabel?",
+        "size?",
+        "sx?",
+        "variant?"
+      ]
+    },
+    "TimeRangeFilter": {
+      "props": [
+        "adapterLocale?",
+        "anchorEl?",
+        "applyLabel?",
+        "cancelLabel?",
+        "customRangeLabel?",
+        "dateFormat?",
+        "dateLabel?",
+        "fromLabel?",
+        "invalidRangeLabel?",
+        "label?",
+        "localeText?",
+        "maxRangeMs?",
+        "onChange",
+        "onClose?",
+        "onOpen?",
+        "open?",
+        "panelTitle?",
+        "presets?",
+        "rangeTooLongLabel?",
+        "timeFormat?",
+        "timeLabel?",
+        "untilLabel?",
+        "value"
+      ]
+    },
+    "useAppShell": {},
+    "useListingTable": {},
+    "useListingTableRequired": {},
+    "useNotifications": {},
+    "UserMenu": {
+      "props": [
+        "children"
+      ],
+      "members": {
+        "Divider": [],
+        "Header": [
+          "avatar?",
+          "email",
+          "name",
+          "role?"
+        ],
+        "Item": [
+          "badge?",
+          "icon?",
+          "label",
+          "onClick?"
+        ],
+        "Logout": [
+          "icon?",
+          "label?",
+          "onClick?"
+        ],
+        "Trigger": [
+          "avatar?",
+          "name",
+          "showName?"
+        ]
+      }
+    },
+    "useSidebar": {},
+    "useThemeContent": {},
+    "useThemeContentDefault": {},
+    "useThemeSwitcher": {},
+    "version": {},
+    "WSO2Theme": {}
+  }
+}

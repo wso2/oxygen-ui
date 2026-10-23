@@ -34,5 +34,7 @@ export default defineConfig({
   ],
   test: {
     environment: 'node',
+    // Fixture packages are read by the tooling tests, not run as tests.
+    exclude: ['**/node_modules/**', 'tools/test/fixtures/**'],
   },
 });

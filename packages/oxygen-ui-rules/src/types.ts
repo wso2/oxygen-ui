@@ -114,3 +114,54 @@ export interface RuleDefinition {
   /** The automated check, as an ESLint rule. Present only for `automated` rules. */
   detect?: Rule.RuleModule;
 }
+
+/**
+ * What kind of public API a catalog entry describes.
+ */
+export type CatalogKind = 'component' | 'layout' | 'provider' | 'hook' | 'theme' | 'utility' | 'animation';
+
+/**
+ * An Oxygen UI component, hook, theme or utility that products are expected to use. Every value
+ * that `@wso2/oxygen-ui` exports itself must belong to exactly one entry, or be waived, so that
+ * new exports are not added without deciding how they are governed.
+ */
+export interface CatalogComponent {
+  /** Catalog name. Usually the main export. Rules refer to it with `{type: 'component', name}`. */
+  name: string;
+  kind: CatalogKind;
+  /** Every export of `@wso2/oxygen-ui` that belongs to this entry. */
+  exports: string[];
+  /** What the entry is for, in one sentence. */
+  summary: string;
+  /** Storybook title of its documentation, such as `App Elements/Page Title`. */
+  story?: string;
+}
+
+/**
+ * A publishable package of the Oxygen UI repository and how products should use it.
+ * Rules refer to it with `{type: 'package', name}`.
+ */
+export interface CatalogPackage {
+  name: string;
+  summary: string;
+  /** How products are expected to import or depend on the package. */
+  usage: string;
+}
+
+/**
+ * A usage guide in the Oxygen UI Storybook. Rules extracted from it refer to it with
+ * `{type: 'guide', id}`.
+ */
+export interface CatalogGuide {
+  /** The Storybook title, such as `Guides/Choosing a Table`. */
+  id: string;
+  summary: string;
+}
+
+/**
+ * An Oxygen UI export that is deliberately not in the catalog, with the reason.
+ */
+export interface CatalogWaiver {
+  export: string;
+  reason: string;
+}

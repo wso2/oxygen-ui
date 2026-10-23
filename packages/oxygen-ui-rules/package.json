@@ -24,7 +24,10 @@
     "clean": "rimraf dist",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "coverage": "node tools/coverage.js",
+    "generate": "node tools/generate.js",
+    "new": "node tools/new.js"
   },
   "keywords": [
     "wso2",
@@ -61,6 +64,16 @@
     "targets": {
       "build": {
         "dependsOn": []
+      },
+      "coverage": {
+        "dependsOn": [
+          "build"
+        ]
+      },
+      "generate": {
+        "dependsOn": [
+          "build"
+        ]
       }
     }
   }
