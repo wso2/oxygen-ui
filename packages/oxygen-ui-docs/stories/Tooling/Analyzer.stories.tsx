@@ -93,7 +93,7 @@ interface Report {
 }
 
 interface FixPlan {
-  files: { file: string; findings: string[]; diff: string }[];
+  files: { file: string; findings: string[]; suggested: string[]; diff: string }[];
   unfixable: Finding[];
 }
 
@@ -236,10 +236,13 @@ npx oxygen-ui-analyzer analyze --format json --output oxygen-report.json`}
             language="bash"
             code={`pnpm oxygen:fix                                  # preview the diff; nothing is changed
 pnpm oxygen:fix --apply --verify "pnpm typecheck" # write the fixes, then check them
-pnpm oxygen:fix --apply --rule no-direct-lucide-imports --limit 10`}
+pnpm oxygen:fix --apply --rule no-direct-lucide-imports --limit 10
+pnpm oxygen:fix --suggestions                    # also preview suggested fixes, which need review
+pnpm oxygen:fix --ai                             # write the rest to a plan for an AI assistant`}
           />
           <Text>
-            Only safe fixes are applied. With --apply, nothing is written to files with uncommitted changes. After
+            Automatic fixes are applied by default, and suggested fixes only with --suggestions. With --apply, nothing is
+            written to files with uncommitted changes. After
             writing, the project is analyzed again, and every --verify command is run. If the changes introduce a
             new finding or a command fails, they are rolled back.
           </Text>
@@ -456,6 +459,7 @@ export const DemoFix: Story = {
           {() => {
             const { data } = plan as { data: FixPlan };
             const fixed = data.files.reduce((count, file) => count + file.findings.length, 0);
+            const suggested = data.files.reduce((count, file) => count + file.suggested.length, 0);
 
             return (
               <Stack spacing={3}>
@@ -464,8 +468,12 @@ export const DemoFix: Story = {
                     Demo fix
                   </Typography>
                   <Text>
-                    The preview from <code>pnpm oxygen:fix</code>: {fixed} findings in {data.files.length} files can be
-                    fixed automatically. Run it with --apply to write these changes.
+                    The preview from <code>pnpm oxygen:fix --suggestions</code>: {fixed} findings in {data.files.length}{' '}
+                    files can be fixed.{' '}
+                    {suggested === 1
+                      ? '1 of them is a suggested fix, which changes more than the import and needs review.'
+                      : `${suggested} of them are suggested fixes, which change more than the import and need review.`}{' '}
+                    Add --apply to write the changes.
                   </Text>
                 </Box>
 
@@ -474,13 +482,22 @@ export const DemoFix: Story = {
                     <Typography variant="subtitle2" gutterBottom sx={{ fontFamily: 'monospace' }}>
                       {file.file}
                     </Typography>
+                    {file.suggested.length > 0 && (
+                      <Typography variant="body2" color="text.secondary" gutterBottom>
+                        Includes a suggested fix: the DataGrid import, and every use of DataGrid and GridColDef.
+                      </Typography>
+                    )}
                     <DiffView diff={file.diff} />
                   </Box>
                 ))}
 
                 {data.unfixable.length > 0 && (
                   <Section title="Needs a manual change">
-                    <Text>These findings have no safe automatic fix. The message says what to use instead.</Text>
+                    <Text>
+                      These findings have no automatic or suggested fix. The message says what to use instead.{' '}
+                      <code>pnpm oxygen:fix --ai</code> writes them, with each rule's guidance and the surrounding code,
+                      to a plan for an AI coding assistant.
+                    </Text>
                     <Box component="ul" sx={{ pl: 3, m: 0 }}>
                       {data.unfixable.map((finding) => (
                         <li key={finding.id}>

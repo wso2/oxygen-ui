@@ -20,7 +20,7 @@ import {spawnSync} from 'child_process';
 import {readFileSync, realpathSync, writeFileSync} from 'fs';
 import {join, resolve} from 'path';
 import {rules as registry, type RuleDefinition} from '@wso2/oxygen-ui-rules';
-import {analyze, createAnalyzerEslint, toRuleId, type AnalyzeOptions} from '../engine/analyze.js';
+import {analyze, createAnalyzerEslint, getFindingIds, type AnalyzeOptions} from '../engine/analyze.js';
 import type {Finding, Report} from '../report/types.js';
 import {formatUnifiedDiff} from './diff.js';
 
@@ -29,6 +29,8 @@ export interface FixOptions extends AnalyzeOptions {
   ruleIds?: string[];
   /** Fix at most this many files. */
   limit?: number;
+  /** Also apply suggested fixes, which change more than automatic fixes and need review. */
+  suggestions?: boolean;
 }
 
 export interface FileFix {
@@ -36,6 +38,8 @@ export interface FileFix {
   file: string;
   /** The findings the change fixes. */
   findings: Finding[];
+  /** The findings among them that are fixed with a suggestion, rather than an automatic fix. */
+  suggested: Finding[];
   before: string;
   after: string;
   diff: string;
@@ -105,43 +109,38 @@ export async function planFixes(options: FixOptions = {}): Promise<FixPlan> {
 
   const report = await analyze({...options, root, rules});
   const inScope = report.findings.filter((finding) => ruleIds.includes(finding.ruleId));
-  const fixable = inScope.filter((finding) => safeRuleIds.has(finding.ruleId) && finding.fix.available);
+  const isAutomatic = (finding: Finding) => safeRuleIds.has(finding.ruleId) && finding.fix.available;
+  const fixable = inScope.filter((finding) => isAutomatic(finding) || (options.suggestions && finding.fix.suggestion));
   const candidateFiles = [...new Set(fixable.map((finding) => finding.file))];
   const selectedFiles = options.limit === undefined ? candidateFiles : candidateFiles.slice(0, Math.max(options.limit, 0));
 
   const files: FileFix[] = [];
 
   if (selectedFiles.length > 0) {
-    // Fix exactly the planned findings. ESLint would otherwise also fix problems in the same files
-    // that the analysis does not report, such as findings covered by a product exception.
-    const planned = new Set(fixable.map((finding) => `${finding.file}\0${finding.ruleId}\0${finding.line}\0${finding.column}`));
-    let currentFile = '';
-
     const eslint = createAnalyzerEslint({
       root,
       rules,
       ignore: options.ignore,
       ruleOptions: Object.fromEntries(Object.entries(options.config?.rules ?? {}).map(([id, setting]) => [id, setting.options])),
-      fix: (message) => planned.has(`${currentFile}\0${toRuleId(message.ruleId)}\0${message.line}\0${message.column}`),
     });
 
     for (const file of selectedFiles) {
-      currentFile = file;
-      const [result] = await eslint.lintFiles([join(root, file)]);
+      const planned = new Map(fixable.filter((finding) => finding.file === file).map((finding) => [finding.id, finding]));
+      const before = readFileSync(join(root, file), 'utf-8');
+      const {text, applied} = await fixFile(eslint, join(root, file), file, before, planned, isAutomatic);
 
-      if (!result || result.output === undefined) {
-        continue;
+      if (text !== before) {
+        const findings = [...applied].map((id) => planned.get(id) as Finding).sort((a, b) => a.line - b.line);
+
+        files.push({
+          file,
+          findings,
+          suggested: findings.filter((finding) => !isAutomatic(finding)),
+          before,
+          after: text,
+          diff: formatUnifiedDiff(file, before, text),
+        });
       }
-
-      const before = readFileSync(result.filePath, 'utf-8');
-
-      files.push({
-        file,
-        findings: fixable.filter((finding) => finding.file === file),
-        before,
-        after: result.output,
-        diff: formatUnifiedDiff(file, before, result.output),
-      });
     }
   }
 
@@ -156,9 +155,71 @@ export async function planFixes(options: FixOptions = {}): Promise<FixPlan> {
     report,
     ruleIds,
     files,
-    unfixable: inScope.filter((finding) => !fixedIds.has(finding.id) && !skippedFiles.has(finding.file)),
+    unfixable: inScope.filter((finding) => !fixedIds.has(finding.id) && !(skippedFiles.has(finding.file) && fixable.includes(finding))),
     skipped: fixable.filter((finding) => skippedFiles.has(finding.file)),
   };
+}
+
+/** The most passes over one file. Each pass applies the planned fixes that do not overlap. */
+const MAX_FIX_PASSES = 10;
+
+/**
+ * Applies the planned fixes to one file's text, without writing it. Only the planned findings are
+ * fixed, so problems the analysis does not report, such as findings covered by a product exception,
+ * are left alone. Fixes that overlap, such as a suggestion that rewrites code that another fix also
+ * changes, are applied in later passes, matching findings by id.
+ */
+async function fixFile(
+  eslint: ReturnType<typeof createAnalyzerEslint>,
+  filePath: string,
+  file: string,
+  source: string,
+  planned: Map<string, Finding>,
+  isAutomatic: (finding: Finding) => boolean,
+): Promise<{text: string; applied: Set<string>}> {
+  let text = source;
+  const applied = new Set<string>();
+
+  for (let pass = 0; pass < MAX_FIX_PASSES && applied.size < planned.size; pass += 1) {
+    const [result] = await eslint.lintText(text, {filePath});
+    const ids = getFindingIds(file, text, result.messages);
+    const edits: {id: string; range: [number, number]; text: string}[] = [];
+
+    result.messages.forEach((message, index) => {
+      const id = ids[index];
+      const finding = id ? planned.get(id) : undefined;
+
+      if (!id || !finding || applied.has(id)) {
+        return;
+      }
+
+      const fix = isAutomatic(finding) ? message.fix : message.suggestions?.[0]?.fix;
+      if (fix) {
+        edits.push({id, range: fix.range, text: fix.text});
+      }
+    });
+
+    // Apply the edits that do not overlap, from the end of the file so earlier ranges stay valid.
+    const selected: typeof edits = [];
+    for (const edit of edits.sort((a, b) => a.range[0] - b.range[0])) {
+      const previous = selected[selected.length - 1];
+
+      if (!previous || edit.range[0] >= previous.range[1]) {
+        selected.push(edit);
+      }
+    }
+
+    if (selected.length === 0) {
+      break;
+    }
+
+    for (const edit of selected.reverse()) {
+      text = text.slice(0, edit.range[0]) + edit.text + text.slice(edit.range[1]);
+      applied.add(edit.id);
+    }
+  }
+
+  return {text, applied};
 }
 
 /**

@@ -40,3 +40,5 @@ export {CONFIG_TEMPLATE, initConfig} from './config/init.js';
 export {CONFIG_FILES, ConfigError, DEFAULT_BASELINE, loadConfig, resolveConfig} from './config/load.js';
 export type {AnalyzerConfig, ExceptionConfig, ResolvedConfig, RuleSetting, RuleSettingSeverity} from './config/types.js';
 export {evaluateCheck, formatCheck, formatCheckJson, type CheckFormatOptions, type CheckResult} from './reporters/check.js';
+export {createAiFixPlan, DEFAULT_AI_PLAN, writeAiFixPlan, type AiFixPlan, type AiFixTask, type AiPlanOptions} from './fix/ai-plan.js';
+export {getFindingIds} from './engine/analyze.js';

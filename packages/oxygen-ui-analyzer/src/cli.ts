@@ -25,6 +25,7 @@ import {initConfig} from './config/init.js';
 import {ConfigError, loadConfig} from './config/load.js';
 import type {ResolvedConfig} from './config/types.js';
 import {analyze, type AnalyzeOptions} from './engine/analyze.js';
+import {createAiFixPlan, DEFAULT_AI_PLAN, writeAiFixPlan} from './fix/ai-plan.js';
 import {applyFixes, planFixes} from './fix/fix.js';
 import {evaluateCheck, formatCheck, formatCheckJson} from './reporters/check.js';
 import {formatFixJson, formatFixPlan, formatFixResult} from './reporters/fix.js';
@@ -69,6 +70,10 @@ Options for build:
 
 Options for fix:
   --apply             Write the changes. Without it, fix only shows what would change
+  --suggestions       Also apply suggested fixes, which change more than automatic fixes;
+                      review them in the preview first
+  --ai                Write the findings that cannot be fixed automatically, with the guidance
+                      to fix them, to .oxygen-ui/fix-plan.json (or --output) for an AI assistant
   --rule <id>         Only fix findings of this rule (repeatable)
   --limit <n>         Fix at most this many files
   --verify <command>  Run a command after writing the changes, such as "pnpm typecheck"; the
@@ -96,7 +101,7 @@ const COMMAND_OPTIONS: Record<string, string[]> = {
   dev: [...PROJECT_OPTIONS, 'port', 'host'],
   build: [...PROJECT_OPTIONS, 'output'],
   analyze: [...PROJECT_OPTIONS, ...OUTPUT_OPTIONS],
-  fix: [...PROJECT_OPTIONS, ...OUTPUT_OPTIONS, 'apply', 'rule', 'limit', 'verify', 'allow-dirty'],
+  fix: [...PROJECT_OPTIONS, ...OUTPUT_OPTIONS, 'apply', 'suggestions', 'ai', 'rule', 'limit', 'verify', 'allow-dirty'],
   baseline: [...PROJECT_OPTIONS, 'prune'],
   check: [...PROJECT_OPTIONS, ...OUTPUT_OPTIONS, 'fail-on'],
 };
@@ -111,6 +116,8 @@ const OPTIONS = {
   port: {type: 'string'},
   host: {type: 'string'},
   apply: {type: 'boolean'},
+  suggestions: {type: 'boolean'},
+  ai: {type: 'boolean'},
   rule: {type: 'string', multiple: true},
   limit: {type: 'string'},
   verify: {type: 'string', multiple: true},
@@ -238,6 +245,8 @@ Add these scripts to package.json:
 
 If the project already has findings, record them with "oxygen-ui-analyzer baseline", so that
 "check" only fails on new ones. Commit the baseline file.
+
+Add .oxygen-ui/fix-plan.json to .gitignore. "fix --ai" writes it, and it quotes project code.
 `);
   return 0;
 }
@@ -327,11 +336,29 @@ async function runFix(values: Values, analyzeOptions: AnalyzeOptions, config: Re
   const color = useColor(values);
   const write = writer(values);
 
+  if (values.ai && (values.apply || values.suggestions)) {
+    throw new UsageError('--ai writes a plan for an AI assistant, and cannot be combined with --apply or --suggestions.');
+  }
+
   let plan;
   try {
-    plan = await planFixes({...analyzeOptions, ruleIds: values.rule, limit});
+    plan = await planFixes({...analyzeOptions, ruleIds: values.rule, limit: values.ai ? undefined : limit, suggestions: values.suggestions});
   } catch (error) {
     throw new UsageError((error as Error).message);
+  }
+
+  if (values.ai) {
+    const path = values.output ?? DEFAULT_AI_PLAN;
+    const aiPlan = await createAiFixPlan(plan, {verify: values.verify ?? config.verify, limit});
+
+    writeAiFixPlan(resolve(analyzeOptions.root as string, path), aiPlan);
+    process.stdout.write(
+      aiPlan.tasks.length === 0
+        ? 'Every finding in scope can be fixed automatically, so the plan has no tasks. Run fix to see them.\n'
+        : `Wrote ${aiPlan.tasks.length} ${aiPlan.tasks.length === 1 ? 'task' : 'tasks'} to ${path}. Ask your AI coding assistant to work through it, then run check.\n` +
+            'The plan quotes project code, so keep it out of version control.\n',
+    );
+    return 0;
   }
 
   if (!values.apply) {

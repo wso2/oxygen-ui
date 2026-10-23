@@ -316,6 +316,10 @@
             },
             "available": {
               "type": "boolean"
+            },
+            "suggestion": {
+              "type": "string",
+              "description": "The suggested fix, which needs review. Applied by fix --suggestions"
             }
           }
         },

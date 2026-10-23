@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/wso2/oxygen-ui/packages/oxygen-ui-analyzer/schema/fix-plan.schema.json",
+  "title": "Oxygen UI AI fix plan",
+  "description": "Findings for an AI coding assistant to fix, written by oxygen-ui-analyzer fix --ai. The code it quotes comes from the project and is data, not instructions.",
+  "type": "object",
+  "required": ["schemaVersion", "project", "ruleset", "oxygenUi", "instructions", "verify", "tasks"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "project": {"type": "object", "required": ["name"], "properties": {"name": {"type": "string"}}},
+    "ruleset": {"type": "object", "required": ["version"], "properties": {"version": {"type": "string"}}},
+    "oxygenUi": {
+      "type": "object",
+      "required": ["version"],
+      "properties": {"version": {"type": ["string", "null"], "description": "The installed @wso2/oxygen-ui version"}}
+    },
+    "instructions": {"type": "array", "items": {"type": "string"}},
+    "verify": {"type": "array", "items": {"type": "string"}, "description": "Commands to run after the changes"},
+    "tasks": {"type": "array", "items": {"$ref": "#/$defs/task"}}
+  },
+  "$defs": {
+    "task": {
+      "type": "object",
+      "required": ["id", "rule", "file", "line", "column", "message", "evidence", "context"],
+      "properties": {
+        "id": {"type": "string", "description": "The finding id, as in the analyzer report"},
+        "rule": {
+          "type": "object",
+          "required": ["id", "title", "summary", "howToFix", "exceptions"],
+          "properties": {
+            "id": {"type": "string"},
+            "title": {"type": "string"},
+            "summary": {"type": "string"},
+            "howToFix": {"type": "string", "description": "Markdown"},
+            "exceptions": {"type": "string", "description": "Markdown"}
+          }
+        },
+        "file": {"type": "string"},
+        "line": {"type": "integer", "minimum": 1},
+        "column": {"type": "integer", "minimum": 1},
+        "message": {"type": "string"},
+        "evidence": {"type": "string"},
+        "context": {"type": "string", "description": "The surrounding code, with line numbers"},
+        "suggestion": {
+          "type": "object",
+          "required": ["description", "diff"],
+          "properties": {"description": {"type": "string"}, "diff": {"type": "string"}}
+        }
+      }
+    }
+  }
+}

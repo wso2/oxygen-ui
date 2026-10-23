@@ -43,6 +43,11 @@ export interface FindingFix {
   type: RuleFixType;
   /** Whether an automatic fix exists for this specific finding. */
   available: boolean;
+  /**
+   * The suggested fix for this finding, if the rule has one: a fix that changes more than an automatic
+   * fix and needs review. `fix --suggestions` applies it.
+   */
+  suggestion?: string;
 }
 
 /**

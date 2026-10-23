@@ -52,14 +52,14 @@ async function generate() {
   const options = { root: demoDir, include: config.include, ignore: config.ignore, config };
 
   const report = await analyze(options);
-  const plan = await planFixes(options);
+  const plan = await planFixes({ ...options, suggestions: true });
 
   await fs.ensureDir(outputDir);
   await fs.writeFile(path.join(outputDir, 'report.json'), formatJson(report));
   await fs.writeFile(path.join(outputDir, 'fix-plan.json'), formatFixJson(plan));
   await fs.writeFile(path.join(outputDir, 'report.html'), renderReportHtml(report));
 
-  console.log(`✓ Analyzer demo generated: ${report.summary.findings} findings, ${plan.files.length} files with safe fixes.`);
+  console.log(`✓ Analyzer demo generated: ${report.summary.findings} findings, ${plan.files.length} files with fixes.`);
 }
 
 generate();

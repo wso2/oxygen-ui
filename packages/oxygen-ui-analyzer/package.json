@@ -12,7 +12,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./schema/report.schema.json": "./schema/report.schema.json"
+    "./schema/report.schema.json": "./schema/report.schema.json",
+    "./schema/fix-plan.schema.json": "./schema/fix-plan.schema.json"
   },
   "bin": {
     "oxygen-ui-analyzer": "./bin/oxygen-ui-analyzer.js"

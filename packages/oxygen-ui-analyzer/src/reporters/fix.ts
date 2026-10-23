@@ -30,7 +30,7 @@ type Paint = (code: string, text: string) => string;
 
 const painter = (color?: boolean): Paint => (code, text) => (color ? `\u001b[${code}m${text}\u001b[0m` : text);
 
-const plural = (count: number, word: string): string => `${count} ${count === 1 ? word : `${word}s`}`;
+const plural = (count: number, word: string, pluralWord = `${word}s`): string => `${count} ${count === 1 ? word : pluralWord}`;
 
 /**
  * Formats a fix plan as a preview: the diff of every file that would change, then a summary.
@@ -44,6 +44,9 @@ export function formatFixPlan(plan: FixPlan, options: FixFormatOptions = {}): st
   output.push('');
 
   for (const fileFix of plan.files) {
+    if (fileFix.suggested.length > 0) {
+      output.push(paint('33', `Includes ${plural(fileFix.suggested.length, 'suggested fix', 'suggested fixes')} to review: ${fileFix.suggested.map((finding) => `line ${finding.line}`).join(', ')}`));
+    }
     output.push(colorDiff(fileFix.diff, paint));
   }
 
@@ -110,23 +113,19 @@ function formatUnfixable(findings: Finding[], paint: Paint): string[] {
     return [];
   }
 
-  const byType = new Map<string, number>();
-  for (const finding of findings) {
-    const reason = finding.fix.type === 'safe' ? 'manual' : finding.fix.type;
-    byType.set(reason, (byType.get(reason) ?? 0) + 1);
+  const suggested = findings.filter((finding) => finding.fix.suggestion).length;
+  const other = findings.length - suggested;
+  const output = [paint('2', `  ${plural(findings.length, 'other finding')} cannot be fixed automatically:`)];
+
+  if (suggested > 0) {
+    output.push(paint('2', `    ${suggested} ${suggested === 1 ? 'has a suggested fix' : 'have suggested fixes'} to review. Preview ${suggested === 1 ? 'it' : 'them'} with --suggestions.`));
   }
 
-  // Singular and plural forms of what each kind of finding needs.
-  const labels: Record<string, [string, string]> = {
-    manual: ['needs a manual change', 'need a manual change'],
-    suggestion: ['has a suggested fix to review (not available yet)', 'have a suggested fix to review (not available yet)'],
-    ai: ['needs the AI remediation skill (not available yet)', 'need the AI remediation skill (not available yet)'],
-  };
+  if (other > 0) {
+    output.push(paint('2', `    ${other} ${other === 1 ? 'needs' : 'need'} a manual or AI-assisted change. Write a plan for an AI assistant with --ai.`));
+  }
 
-  return [
-    paint('2', `  ${plural(findings.length, 'other finding')} cannot be fixed automatically:`),
-    ...[...byType].map(([type, count]) => paint('2', `    ${count} ${labels[type]?.[count === 1 ? 0 : 1] ?? type}`)),
-  ];
+  return output;
 }
 
 function colorDiff(diff: string, paint: Paint): string {
@@ -150,7 +149,12 @@ export function formatFixJson(plan: FixPlan, result?: FixResult): string {
     project: plan.report.project,
     ruleset: plan.report.ruleset,
     rules: plan.ruleIds,
-    files: plan.files.map(({file, findings, diff}) => ({file, findings: findings.map((finding) => finding.id), diff})),
+    files: plan.files.map(({file, findings, suggested, diff}) => ({
+      file,
+      findings: findings.map((finding) => finding.id),
+      suggested: suggested.map((finding) => finding.id),
+      diff,
+    })),
     unfixable: plan.unfixable,
     skipped: plan.skipped,
     ...(result

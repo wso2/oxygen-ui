@@ -58,6 +58,13 @@ export default function FindingCard({finding, rule}: {finding: Finding; rule?: R
 
           <CodeBlock code={finding.evidence} language={languageOf(finding.file)} />
 
+          {finding.fix.suggestion && (
+            <Typography variant="body2" color="text.secondary">
+              Suggested fix: {finding.fix.suggestion} Preview it with <code>oxygen:fix --suggestions</code>, then add{' '}
+              <code>--apply</code> to write it.
+            </Typography>
+          )}
+
           <Stack direction={{xs: 'column', sm: 'row'}} spacing={2} alignItems={{sm: 'center'}} justifyContent="space-between">
             <Typography variant="body2" color="text.secondary">
               Rule:{' '}

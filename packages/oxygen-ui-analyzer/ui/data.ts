@@ -16,9 +16,11 @@
  * under the License.
  */
 
+import {getDocSection} from '@wso2/oxygen-ui-rules';
 import type {Finding, Report, ReportRule, SuppressedFinding} from '../src/report/types.js';
 
 export type {Finding, Report, ReportRule, SuppressedFinding};
+export {getDocSection};
 
 export type Severity = Finding['severity'];
 
@@ -91,12 +93,6 @@ export function highestSeverity(findings: Finding[]): Severity {
   return SEVERITY_ORDER.find((severity) => findings.some((finding) => finding.severity === severity)) ?? 'info';
 }
 
-/** The text of a `## Heading` section in a rule's Markdown docs, or an empty string. */
-export function getDocSection(docs: string, heading: string): string {
-  const match = new RegExp(`^## ${heading}\\s*\\n([\\s\\S]*?)(?=^## |(?![\\s\\S]))`, 'm').exec(docs);
-  return match ? match[1].trim() : '';
-}
-
 /**
  * A prompt for an AI coding assistant to fix one finding, with the rule's guidance.
  */
@@ -111,6 +107,7 @@ export function buildFixPrompt(finding: Finding, rule?: ReportRule): string {
     '',
     'Code:',
     finding.evidence,
+    ...(finding.fix.suggestion ? ['', `Suggested fix from the rule: ${finding.fix.suggestion}`] : []),
     ...(howToFix ? ['', 'How to fix, from the rule documentation:', howToFix] : []),
     '',
     'Check the Oxygen UI API before changing the code. Keep the change limited to this finding, keep the behaviour the same, and run the project\'s lint, type checks and tests afterwards.',

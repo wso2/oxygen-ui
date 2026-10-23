@@ -136,11 +136,16 @@ npx oxygen-ui-analyzer fix [dir]           # preview: shows the diff, changes no
 npx oxygen-ui-analyzer fix [dir] --apply   # writes the changes
 ```
 
-`fix` only applies fixes of rules whose fix type is `safe`, such as rewriting `@mui/material` imports to `@wso2/oxygen-ui`. Other findings are listed with what they need: a manual change, a suggested fix to review, or the AI remediation skill.
+`fix` applies the automatic fixes of rules whose fix type is `safe`, such as rewriting `@mui/material` imports to `@wso2/oxygen-ui`. Other findings are listed with what they need:
+
+- **A suggested fix.** Some findings have a fix that is correct but changes more than one place, such as importing the Oxygen UI `DataGrid` namespace and rewriting every use of `DataGrid` and `GridColDef`. `--suggestions` includes them in the preview, marked for review, and `--apply --suggestions` writes them.
+- **An AI-assisted or manual change.** `--ai` writes these findings to `.oxygen-ui/fix-plan.json`, with each rule's guidance, the surrounding code, any suggested diff, the installed Oxygen UI version and the verify commands. An AI coding assistant can then work through it. The analyzer never calls an AI model itself. The plan follows [`schema/fix-plan.schema.json`](schema/fix-plan.schema.json), and quotes project code, so keep it out of version control.
 
 | Option | Description |
 |---|---|
 | `--apply` | Write the changes. Without it, `fix` only shows what would change |
+| `--suggestions` | Also apply suggested fixes. Review them in the preview first |
+| `--ai` | Write the findings that are not fixed automatically to `.oxygen-ui/fix-plan.json`, or `--output`, for an AI assistant. Not combined with `--apply` |
 | `--rule <id>` | Only fix findings of this rule. Repeatable |
 | `--limit <n>` | Fix at most this many files, to keep each change small enough to review |
 | `--verify <command>` | Run a command after writing the changes, such as `"pnpm typecheck"`. Repeatable |

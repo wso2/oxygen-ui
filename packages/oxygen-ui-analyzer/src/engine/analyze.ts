@@ -127,10 +127,11 @@ export async function analyze(options: AnalyzeOptions = {}): Promise<Report> {
 
   for (const result of results) {
     const file = toProjectPath(root, result.filePath);
-    const lines = (result.source ?? readFileSync(result.filePath, 'utf-8')).split(/\r?\n/);
-    const occurrences = new Map<string, number>();
+    const source = result.source ?? readFileSync(result.filePath, 'utf-8');
+    const lines = source.split(/\r?\n/);
+    const ids = getFindingIds(file, source, result.messages);
 
-    for (const message of result.messages) {
+    for (const [index, message] of result.messages.entries()) {
       if (message.fatal) {
         errors.push({file, message: message.message, line: message.line});
         continue;
@@ -144,13 +145,10 @@ export async function analyze(options: AnalyzeOptions = {}): Promise<Report> {
         continue;
       }
 
-      const evidence = getEvidence(lines, message);
-      const key = `${rule.meta.id}\0${file}\0${evidence.trim()}`;
-      const occurrence = occurrences.get(key) ?? 0;
-      occurrences.set(key, occurrence + 1);
+      const suggestion = message.suggestions?.[0]?.desc;
 
       findings.push({
-        id: createFindingId(key, occurrence),
+        id: ids[index] as string,
         ruleId: rule.meta.id,
         category: rule.meta.category,
         severity: getSeverity(rule, options.config),
@@ -162,8 +160,8 @@ export async function analyze(options: AnalyzeOptions = {}): Promise<Report> {
         ...(message.endLine ? {endLine: message.endLine} : {}),
         ...(message.endColumn ? {endColumn: message.endColumn} : {}),
         message: message.message,
-        evidence,
-        fix: {type: rule.meta.fix, available: Boolean(message.fix)},
+        evidence: getEvidence(lines, message),
+        fix: {type: rule.meta.fix, available: Boolean(message.fix), ...(suggestion ? {suggestion} : {})},
       });
     }
   }
@@ -307,6 +305,30 @@ function createEslintConfig(
       ) as Linter.RulesRecord,
     },
   ];
+}
+
+/**
+ * Returns the finding id for each of a file's lint messages, in order, or `null` for messages that
+ * are not Oxygen UI findings. Ids depend on the rule, the file and the code involved, not the
+ * position, so they identify the same finding after unrelated code moves.
+ */
+export function getFindingIds(file: string, source: string, messages: Linter.LintMessage[]): (string | null)[] {
+  const lines = source.split(/\r?\n/);
+  const occurrences = new Map<string, number>();
+
+  return messages.map((message) => {
+    const ruleId = message.fatal ? null : toRuleId(message.ruleId);
+
+    if (!ruleId) {
+      return null;
+    }
+
+    const key = `${ruleId}\0${file}\0${getEvidence(lines, message).trim()}`;
+    const occurrence = occurrences.get(key) ?? 0;
+    occurrences.set(key, occurrence + 1);
+
+    return createFindingId(key, occurrence);
+  });
 }
 
 function getEvidence(lines: string[], message: Linter.LintMessage): string {

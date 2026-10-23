@@ -50,7 +50,7 @@ describe('fix formatters', () => {
     expect(output).toContain('3 findings in 1 file can be fixed.');
     expect(output).toContain('Run again with --apply to write the changes.');
     expect(output).toContain('1 other finding cannot be fixed automatically:');
-    expect(output).toContain('1 needs a manual change');
+    expect(output).toContain('1 has a suggested fix to review. Preview it with --suggestions.');
   });
 
   it('leaves out the --apply hint while applying', () => {

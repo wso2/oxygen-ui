@@ -45,13 +45,20 @@ export function SeverityChip({severity}: {severity: Severity}) {
 
 /** Marks a finding that is not in the baseline. */
 export function NewChip() {
-  return <Chip label="New" size="small" color="info" variant="outlined" />;
+  // Oxygen's info colour does not reach 4.5:1 contrast as chip text, so the label carries the meaning.
+  return <Chip label="New" size="small" variant="outlined" />;
 }
 
 export function FixChip({finding}: {finding: Finding}) {
-  return isAutoFixable(finding) ? (
-    <Chip label="Fixable" size="small" color="success" variant="outlined" />
-  ) : (
+  if (isAutoFixable(finding)) {
+    return <Chip label="Fixable" size="small" color="success" variant="outlined" />;
+  }
+
+  if (finding.fix.suggestion) {
+    return <Chip label="Suggested fix" size="small" variant="outlined" />;
+  }
+
+  return (
     <Chip label={finding.fix.type === 'safe' ? 'Manual change' : FIX_TYPE_LABEL[finding.fix.type]} size="small" variant="outlined" />
   );
 }
