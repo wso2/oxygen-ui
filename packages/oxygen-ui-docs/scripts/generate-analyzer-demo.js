@@ -43,12 +43,16 @@ async function generate() {
     process.exit(1);
   }
 
-  const { analyze, formatFixJson, formatJson, planFixes, renderReportHtml } = analyzer;
+  const { analyze, formatFixJson, formatJson, loadConfig, planFixes, renderReportHtml } = analyzer;
 
   console.log('Generating the analyzer demo...');
 
-  const report = await analyze({ root: demoDir });
-  const plan = await planFixes({ root: demoDir });
+  // Analyze the demo the way its scripts do, with its own config.
+  const config = await loadConfig(demoDir);
+  const options = { root: demoDir, include: config.include, ignore: config.ignore, config };
+
+  const report = await analyze(options);
+  const plan = await planFixes(options);
 
   await fs.ensureDir(outputDir);
   await fs.writeFile(path.join(outputDir, 'report.json'), formatJson(report));

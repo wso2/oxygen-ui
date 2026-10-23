@@ -16,11 +16,12 @@
  * under the License.
  */
 
-import {Chip, Link, ListingTable, Stack, Typography} from '@wso2/oxygen-ui';
+import {Chip, ListingTable, Stack, Typography} from '@wso2/oxygen-ui';
+import TextLink from './TextLink.js';
 import {highestSeverity, routeToHash, type FileSummary} from '../data.js';
 import {SeverityChip} from './Labels.js';
 
-export default function FileList({files}: {files: FileSummary[]}) {
+export default function FileList({files, showNew = false}: {files: FileSummary[]; showNew?: boolean}) {
   if (files.length === 0) {
     return (
       <Typography variant="body2" color="text.secondary" sx={{py: 4, textAlign: 'center'}}>
@@ -36,6 +37,7 @@ export default function FileList({files}: {files: FileSummary[]}) {
           <ListingTable.Row>
             <ListingTable.Cell>File</ListingTable.Cell>
             <ListingTable.Cell>Findings</ListingTable.Cell>
+            {showNew && <ListingTable.Cell>New</ListingTable.Cell>}
             <ListingTable.Cell>Highest severity</ListingTable.Cell>
             <ListingTable.Cell>Fixable automatically</ListingTable.Cell>
           </ListingTable.Row>
@@ -44,11 +46,14 @@ export default function FileList({files}: {files: FileSummary[]}) {
           {files.map((summary) => (
             <ListingTable.Row key={summary.file} hover>
               <ListingTable.Cell>
-                <Link color="text.primary" underline="always" href={routeToHash({view: 'file', file: summary.file})} sx={{fontFamily: 'monospace', wordBreak: 'break-all'}}>
+                <TextLink href={routeToHash({view: 'file', file: summary.file})} sx={{fontFamily: 'monospace', wordBreak: 'break-all'}}>
                   {summary.file}
-                </Link>
+                </TextLink>
               </ListingTable.Cell>
               <ListingTable.Cell>{summary.findings.length}</ListingTable.Cell>
+              {showNew && (
+                <ListingTable.Cell>{summary.findings.filter((finding) => finding.status === 'new').length}</ListingTable.Cell>
+              )}
               <ListingTable.Cell>
                 <SeverityChip severity={highestSeverity(summary.findings)} />
               </ListingTable.Cell>

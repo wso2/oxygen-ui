@@ -6,14 +6,87 @@ Checks a project against the [Oxygen UI rules](../oxygen-ui-rules) and reports w
 
 ```bash
 pnpm add -D @wso2/oxygen-ui-analyzer
+npx oxygen-ui-analyzer init       # create oxygen-ui-analyzer.config.js
+npx oxygen-ui-analyzer baseline   # record the existing findings, if there are any
 ```
 
 ```jsonc
 "scripts": {
   "oxygen": "oxygen-ui-analyzer dev",
   "oxygen:build": "oxygen-ui-analyzer build",
-  "oxygen:fix": "oxygen-ui-analyzer fix"
+  "oxygen:fix": "oxygen-ui-analyzer fix",
+  "oxygen:check": "oxygen-ui-analyzer check"
 }
+```
+
+Commit the config and the baseline. `init` never overwrites an existing config and never changes `package.json`.
+
+## Configuration
+
+`oxygen-ui-analyzer.config.js` (or `.mjs`, `.cjs` or `.json`) at the project root belongs to the product. The analyzer reads it but never changes it. Use `--config <file>` to point to another file.
+
+```js
+/** @type {import('@wso2/oxygen-ui-analyzer').AnalyzerConfig} */
+export default {
+  include: ['src/**/*.{ts,tsx}'],
+  ignore: ['src/generated/**'],
+  rules: {
+    'no-direct-lucide-imports': 'warning',
+    'no-direct-mui-imports': {options: {allowedPackages: ['@mui/x-date-pickers/AdapterDayjs']}},
+  },
+  exceptions: [
+    {
+      rule: 'no-direct-mui-imports',
+      files: ['src/legacy/**'],
+      reason: 'The legacy audit log is replaced in the 2027 redesign.',
+      expires: '2027-06-30',
+    },
+  ],
+  failOn: 'error',
+  verify: ['pnpm typecheck'],
+  baseline: '.oxygen-ui/baseline.json',
+};
+```
+
+| Option | Description |
+|---|---|
+| `include` | Files to analyze. `--include` replaces it |
+| `ignore` | Files to skip, in addition to the defaults. `--ignore` adds to it |
+| `rules` | Per rule id: `'error'`, `'warning'`, `'info'` or `'off'`, or `{severity, options}` with the rule's options |
+| `exceptions` | Findings the product accepts on purpose. Each needs a `rule`, `files` (glob patterns) and a `reason`, and can have an `expires` date (YYYY-MM-DD) |
+| `failOn` | The lowest severity of new findings that fails `check`. Default: `error` |
+| `verify` | Commands `fix --apply` runs to check its changes. `--verify` replaces them |
+| `baseline` | The baseline file. Default: `.oxygen-ui/baseline.json` |
+
+Findings covered by an exception are listed separately in the report, with the reason, and do not count. After an exception expires, its findings count again. To keep exceptions visible to reviewers, every report and `check` notes:
+
+- exceptions that have expired,
+- exceptions that match no findings,
+- mandatory rules that are turned off.
+
+For a single line, a disable comment with a reason also works: `// eslint-disable-next-line @wso2/oxygen-ui/no-direct-mui-imports -- reason`.
+
+## Baseline and check
+
+```bash
+npx oxygen-ui-analyzer baseline           # record the current findings
+npx oxygen-ui-analyzer check              # fail on findings that are not in the baseline
+npx oxygen-ui-analyzer baseline --prune   # after fixing findings, remove them from the baseline
+```
+
+The baseline lets an existing project adopt the rules without fixing everything first, while `check` stops new code from adding findings. It lists one finding per line, so changes to it are easy to review.
+
+`check` exits with 1 when there are new findings at or above `failOn` (or `--fail-on`), and 0 otherwise. Findings in the baseline, findings below the threshold and findings covered by exceptions never fail it. Without a baseline, every finding counts as new.
+
+`baseline --prune` only removes fixed findings and never adds new ones. Running `baseline` without `--prune` replaces the baseline with the current findings, and reports how many were added, so that reviewers notice when findings are being accepted.
+
+Finding ids depend on the rule, the file and the code involved, not on the line number, so moving code around does not make known findings new. Changing the line that has the finding does, which is intended: code that is being edited should follow the rules.
+
+In CI:
+
+```bash
+npx oxygen-ui-analyzer check
+npx oxygen-ui-analyzer build --output oxygen-report.html   # keep as an artifact
 ```
 
 ## Report UI
@@ -80,9 +153,8 @@ With `--apply`, the changes are only kept if they pass every check:
 2. After writing, the project is analyzed again. If the changes introduced any new finding, they are rolled back.
 3. Each `--verify` command runs in order. If one fails, the changes are rolled back.
 
-`fix --apply` exits with 1 when it did not write the changes or rolled them back.
+`fix --apply` exits with 1 when it did not write the changes or rolled them back. The config's `verify` commands run when `--verify` is not given, and findings covered by exceptions are never fixed.
 
-Planned command: `check` (CI gate against a baseline).
 
 ## Report format
 

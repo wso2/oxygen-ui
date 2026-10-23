@@ -70,6 +70,8 @@ const report: Report = {
     finding('b', 'src/Users.tsx', 4, {fix: {type: 'safe', available: false}}),
     finding('c', 'src/Badge.tsx', 1),
   ],
+  suppressed: [],
+  notices: [],
   errors: [{file: 'src/Broken.tsx', message: 'Parsing error', line: 2}],
 };
 
@@ -112,6 +114,37 @@ describe('report UI', () => {
     expect(screen.getByRole('heading', {name: 'Import MUI components from Oxygen UI'})).toBeTruthy();
     expect(screen.getByRole('heading', {name: 'How to fix'})).toBeTruthy();
     expect(screen.getByRole('link', {name: 'src/Badge.tsx'})).toBeTruthy();
+  });
+
+  it('marks new findings when the report was compared with a baseline', () => {
+    const compared: Report = {
+      ...report,
+      findings: report.findings.map((item, index) => ({...item, status: index === 0 ? 'new' : 'baseline'})),
+      baseline: {path: '.oxygen-ui/baseline.json', known: 2, new: 1, fixed: 0},
+    };
+
+    render(<App initialReport={compared} live={false} />);
+    expect(screen.getByText('New since baseline')).toBeTruthy();
+    expect(screen.getByRole('switch', {name: 'New only'})).toBeTruthy();
+
+    navigate('#/files/src/Users.tsx');
+    expect(screen.getAllByText('New')).toHaveLength(1);
+  });
+
+  it('shows notices and the findings accepted by exceptions', () => {
+    const withExceptions: Report = {
+      ...report,
+      notices: [{level: 'warning', message: 'The exception for no-direct-mui-imports on src/old/** expired on 2026-01-31.'}],
+      suppressed: [{...report.findings[2], id: 'd', file: 'src/legacy/Old.tsx', exception: {reason: 'Replaced in the redesign.', files: ['src/legacy/**'], expires: '2027-06-30'}}],
+    };
+
+    render(<App initialReport={withExceptions} live={false} />);
+    expect(screen.getByText(/expired on 2026-01-31/)).toBeTruthy();
+
+    navigate('#/accepted');
+    expect(screen.getByText('Replaced in the redesign.')).toBeTruthy();
+    expect(screen.getByText('2027-06-30')).toBeTruthy();
+    expect(document.title).toBe('Accepted findings | Oxygen UI report');
   });
 
   it('says when the project has no findings', () => {

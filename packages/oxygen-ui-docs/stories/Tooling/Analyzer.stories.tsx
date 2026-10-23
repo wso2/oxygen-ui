@@ -186,7 +186,7 @@ export const Overview: Story = {
             components from Oxygen UI, can be applied automatically.
           </Text>
           <Typography variant="body2" sx={{ mt: 1 }}>
-            <Link href="./analyzer-demo/report.html" target="_blank" rel="noopener" color="text.primary" underline="always">
+            <Link href="./analyzer-demo/report.html" target="_blank" rel="noopener" color="text.primary" sx={{ textDecoration: 'underline' }}>
               Open the demo report
             </Link>
           </Typography>
@@ -243,6 +243,51 @@ pnpm oxygen:fix --apply --rule no-direct-lucide-imports --limit 10`}
             writing, the project is analyzed again, and every --verify command is run. If the changes introduce a
             new finding or a command fails, they are rolled back.
           </Text>
+        </Section>
+
+        <Section title="Adopt it in an existing product">
+          <Text>
+            Create the config, record the current findings as a baseline, and commit both. From then on, check fails
+            only on findings that are not in the baseline, so new code cannot add inconsistencies while the existing
+            ones are fixed over time.
+          </Text>
+          <CodeBlock
+            language="bash"
+            code={`npx oxygen-ui-analyzer init       # create oxygen-ui-analyzer.config.js
+npx oxygen-ui-analyzer baseline   # record the current findings in .oxygen-ui/baseline.json
+npx oxygen-ui-analyzer check      # fail on findings that are not in the baseline
+npx oxygen-ui-analyzer baseline --prune  # after fixing findings, remove them from the baseline`}
+          />
+          <Text>
+            The config belongs to the product; the analyzer never changes it. It sets the files to check, rule
+            severities and options, and exceptions. Every exception needs a reason, and can expire, after which its
+            findings are reported again. Expired exceptions, exceptions that match nothing, and mandatory rules that
+            are turned off are shown in every report, so reviewers can see them.
+          </Text>
+          <CodeBlock
+            language="javascript"
+            code={`export default {
+  rules: {
+    'no-direct-lucide-imports': 'warning',
+  },
+  exceptions: [
+    {
+      rule: 'no-direct-mui-imports',
+      files: ['src/legacy/**'],
+      reason: 'The legacy audit log is replaced in the 2027 redesign.',
+      expires: '2027-06-30',
+    },
+  ],
+  failOn: 'error',
+  verify: ['pnpm typecheck'],
+};`}
+          />
+          <Text>In CI, run check, and keep the HTML report as an artifact:</Text>
+          <CodeBlock
+            language="bash"
+            code={`npx oxygen-ui-analyzer check
+npx oxygen-ui-analyzer build --output oxygen-report.html`}
+          />
         </Section>
 
         <Section title="Try it on the demo">

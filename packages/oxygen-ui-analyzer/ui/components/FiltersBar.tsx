@@ -77,6 +77,12 @@ export default function FiltersBar({
         }
         label="Fixable only"
       />
+      {report.baseline && (
+        <FormControlLabel
+          control={<Switch checked={filters.newOnly} onChange={(event) => onChange({...filters, newOnly: event.target.checked})} />}
+          label="New only"
+        />
+      )}
     </Stack>
   );
 }

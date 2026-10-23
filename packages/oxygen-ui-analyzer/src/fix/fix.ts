@@ -44,7 +44,7 @@ export interface FileFix {
 export interface FixPlan {
   root: string;
   /** The analysis options the plan was made with, reused to check the result. */
-  options: Pick<AnalyzeOptions, 'include' | 'ignore' | 'rules'>;
+  options: Pick<AnalyzeOptions, 'include' | 'ignore' | 'rules' | 'config'>;
   /** The analysis the plan is based on. */
   report: Report;
   /** The rules in scope. */
@@ -112,19 +112,27 @@ export async function planFixes(options: FixOptions = {}): Promise<FixPlan> {
   const files: FileFix[] = [];
 
   if (selectedFiles.length > 0) {
+    // Fix exactly the planned findings. ESLint would otherwise also fix problems in the same files
+    // that the analysis does not report, such as findings covered by a product exception.
+    const planned = new Set(fixable.map((finding) => `${finding.file}\0${finding.ruleId}\0${finding.line}\0${finding.column}`));
+    let currentFile = '';
+
     const eslint = createAnalyzerEslint({
       root,
       rules,
       ignore: options.ignore,
-      fix: (message) => safeRuleIds.has(toRuleId(message.ruleId) ?? ''),
+      ruleOptions: Object.fromEntries(Object.entries(options.config?.rules ?? {}).map(([id, setting]) => [id, setting.options])),
+      fix: (message) => planned.has(`${currentFile}\0${toRuleId(message.ruleId)}\0${message.line}\0${message.column}`),
     });
 
-    for (const result of await eslint.lintFiles(selectedFiles.map((file) => join(root, file)))) {
-      if (result.output === undefined) {
+    for (const file of selectedFiles) {
+      currentFile = file;
+      const [result] = await eslint.lintFiles([join(root, file)]);
+
+      if (!result || result.output === undefined) {
         continue;
       }
 
-      const file = selectedFiles.find((candidate) => resolve(root, candidate) === resolve(result.filePath)) as string;
       const before = readFileSync(result.filePath, 'utf-8');
 
       files.push({
@@ -144,7 +152,7 @@ export async function planFixes(options: FixOptions = {}): Promise<FixPlan> {
 
   return {
     root,
-    options: {include: options.include, ignore: options.ignore, rules},
+    options: {include: options.include, ignore: options.ignore, rules, config: options.config},
     report,
     ruleIds,
     files,

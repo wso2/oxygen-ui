@@ -16,7 +16,8 @@
  * under the License.
  */
 
-import {Box, Button, Chip, Link, ListingTable, Stack, Typography} from '@wso2/oxygen-ui';
+import {Box, Button, Chip, ListingTable, Stack, Typography} from '@wso2/oxygen-ui';
+import TextLink from './TextLink.js';
 import {ArrowLeft} from '@wso2/oxygen-ui-icons-react';
 import {routeToHash, type Finding, type ReportRule} from '../data.js';
 import {CATEGORY_LABEL, FIX_TYPE_LABEL} from './Labels.js';
@@ -41,7 +42,7 @@ export function RuleList({rules}: {rules: ReportRule[]}) {
             .map((rule) => (
               <ListingTable.Row key={rule.id} hover>
                 <ListingTable.Cell>
-                  <Link color="text.primary" underline="always" href={routeToHash({view: 'rule', id: rule.id})}>{rule.title}</Link>
+                  <TextLink href={routeToHash({view: 'rule', id: rule.id})}>{rule.title}</TextLink>
                   <Typography variant="caption" color="text.secondary" sx={{display: 'block', fontFamily: 'monospace'}}>
                     {rule.id}
                   </Typography>
@@ -109,9 +110,9 @@ export function RuleDetail({rule, findings}: {rule?: ReportRule; findings: Findi
           <Box component="ul" sx={{pl: 3, m: 0}}>
             {files.map((file) => (
               <li key={file}>
-                <Link color="text.primary" underline="always" href={routeToHash({view: 'file', file})} sx={{fontFamily: 'monospace'}}>
+                <TextLink href={routeToHash({view: 'file', file})} sx={{fontFamily: 'monospace'}}>
                   {file}
-                </Link>
+                </TextLink>
                 <Typography component="span" variant="body2" color="text.secondary">
                   {' '}
                   ({findings.filter((finding) => finding.file === file).length})

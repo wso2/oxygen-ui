@@ -45,6 +45,12 @@ export interface FindingFix {
   available: boolean;
 }
 
+/**
+ * Whether a finding was already known when the baseline was recorded. Set only when the analysis
+ * was compared with a baseline.
+ */
+export type FindingStatus = 'new' | 'baseline';
+
 export interface Finding {
   /**
    * Stable identifier, derived from the rule, the file and the code involved rather than the
@@ -66,6 +72,37 @@ export interface Finding {
   /** The source lines the finding points to. */
   evidence: string;
   fix: FindingFix;
+  status?: FindingStatus;
+}
+
+/** The product exception that covers a finding. */
+export interface FindingException {
+  reason: string;
+  files: string[];
+  expires?: string;
+}
+
+/** A finding that a product exception accepts. It does not count as a finding. */
+export interface SuppressedFinding extends Finding {
+  exception: FindingException;
+}
+
+/** Something about the analysis that reviewers should know, such as an expired exception. */
+export interface ReportNotice {
+  level: 'warning' | 'info';
+  message: string;
+}
+
+/** How the analysis compares with the baseline. */
+export interface BaselineComparison {
+  /** The baseline file, relative to the project root. */
+  path: string;
+  /** Findings that were already in the baseline. */
+  known: number;
+  /** Findings that are not in the baseline. */
+  new: number;
+  /** Baseline findings that are no longer found. */
+  fixed: number;
 }
 
 /** A rule as it applied to this analysis, including its documentation for the report UI. */
@@ -107,5 +144,10 @@ export interface Report {
   summary: ReportSummary;
   rules: ReportRule[];
   findings: Finding[];
+  /** Findings accepted by product exceptions. */
+  suppressed: SuppressedFinding[];
+  notices: ReportNotice[];
   errors: AnalysisError[];
+  /** Present when the analysis was compared with a baseline. */
+  baseline?: BaselineComparison;
 }

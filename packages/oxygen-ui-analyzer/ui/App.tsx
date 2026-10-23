@@ -32,6 +32,7 @@ import {
   Typography,
 } from '@wso2/oxygen-ui';
 import {useEffect, useMemo, useState} from 'react';
+import AcceptedList from './components/AcceptedList.js';
 import FileDetail from './components/FileDetail.js';
 import FileList from './components/FileList.js';
 import FiltersBar from './components/FiltersBar.js';
@@ -82,6 +83,8 @@ function pageTitle(route: Route, report: Report): string {
       return `${report.rules.find((rule) => rule.id === route.id)?.title ?? route.id} | ${PRODUCT}`;
     case 'rules':
       return `Rules | ${PRODUCT}`;
+    case 'accepted':
+      return `Accepted findings | ${PRODUCT}`;
     default:
       return `${report.project.name} | ${PRODUCT}`;
   }
@@ -94,7 +97,7 @@ export default function App({initialReport, live}: {initialReport: Report; live:
 
   const filtered = useMemo(() => filterFindings(report.findings, filters), [report, filters]);
   const files = useMemo(() => summarizeFiles(filtered), [filtered]);
-  const tab = route.view === 'rules' || route.view === 'rule' ? 'rules' : 'files';
+  const tab = route.view === 'rules' || route.view === 'rule' ? 'rules' : route.view === 'accepted' ? 'accepted' : 'files';
   const generatedAt = new Date(report.generatedAt);
 
   return (
@@ -125,6 +128,12 @@ export default function App({initialReport, live}: {initialReport: Report; live:
 
             <Summary report={report} />
 
+            {report.notices.map((notice) => (
+              <Alert key={notice.message} severity={notice.level}>
+                {notice.message}
+              </Alert>
+            ))}
+
             <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
               <Tabs
                 value={tab}
@@ -135,6 +144,12 @@ export default function App({initialReport, live}: {initialReport: Report; live:
               >
                 <Tab value="files" label={`Files (${report.summary.filesWithFindings})`} href={routeToHash({view: 'files'})} component="a" />
                 <Tab value="rules" label={`Rules (${report.rules.length})`} href={routeToHash({view: 'rules'})} component="a" />
+                <Tab
+                  value="accepted"
+                  label={`Accepted (${report.suppressed.length})`}
+                  href={routeToHash({view: 'accepted'})}
+                  component="a"
+                />
               </Tabs>
             </Box>
 
@@ -152,7 +167,7 @@ export default function App({initialReport, live}: {initialReport: Report; live:
                         rules={report.rules}
                       />
                     ) : (
-                      <FileList files={files} />
+                      <FileList files={files} showNew={Boolean(report.baseline)} />
                     )}
                   </>
                 )}
@@ -181,6 +196,7 @@ export default function App({initialReport, live}: {initialReport: Report; live:
             )}
 
             {route.view === 'rules' && <RuleList rules={report.rules} />}
+            {route.view === 'accepted' && <AcceptedList findings={report.suppressed} />}
             {route.view === 'rule' && (
               <RuleDetail
                 rule={report.rules.find((rule) => rule.id === route.id)}

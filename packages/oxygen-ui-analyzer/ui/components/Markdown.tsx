@@ -16,8 +16,9 @@
  * under the License.
  */
 
-import {Box, Link, Typography} from '@wso2/oxygen-ui';
+import {Box, Typography} from '@wso2/oxygen-ui';
 import type {ReactNode} from 'react';
+import TextLink from './TextLink.js';
 
 /**
  * Renders the small subset of Markdown that rule docs use: `##` headings, paragraphs, `-` lists,
@@ -84,9 +85,9 @@ export function renderInline(text: string): ReactNode[] {
       parts.push(<strong key={key}>{match[2]}</strong>);
     } else if (/^https?:\/\//.test(match[4])) {
       parts.push(
-        <Link key={key} href={match[4]} target="_blank" rel="noopener noreferrer">
+        <TextLink key={key} href={match[4]} target="_blank" rel="noopener noreferrer">
           {match[3]}
-        </Link>,
+        </TextLink>,
       );
     } else {
       // Relative links point into the Oxygen UI repository and cannot be followed from a report.

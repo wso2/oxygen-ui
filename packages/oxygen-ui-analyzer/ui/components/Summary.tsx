@@ -17,7 +17,7 @@
  */
 
 import {Stack, StatCard} from '@wso2/oxygen-ui';
-import {CircleAlert, FileCode, ListChecks, Wrench} from '@wso2/oxygen-ui-icons-react';
+import {CircleAlert, FileCode, ListChecks, Sparkles, Wrench} from '@wso2/oxygen-ui-icons-react';
 import {isAutoFixable, type Report} from '../data.js';
 
 export default function Summary({report}: {report: Report}) {
@@ -27,6 +27,14 @@ export default function Summary({report}: {report: Report}) {
   return (
     <Stack direction={{xs: 'column', md: 'row'}} spacing={2} sx={{'& > *': {flex: 1}}}>
       <StatCard label="Findings" value={summary.findings} icon={<ListChecks />} iconColor={summary.findings > 0 ? 'error' : 'success'} />
+      {report.baseline && (
+        <StatCard
+          label="New since baseline"
+          value={report.baseline.new}
+          icon={<Sparkles />}
+          iconColor={report.baseline.new > 0 ? 'error' : 'success'}
+        />
+      )}
       <StatCard
         label="Files to update"
         value={`${summary.filesWithFindings} of ${summary.filesAnalyzed}`}

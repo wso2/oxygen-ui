@@ -28,13 +28,19 @@ import {
   type RuleDefinition,
 } from '@wso2/oxygen-ui-rules';
 import {ESLint, type Linter} from 'eslint';
+import type {Baseline} from '../baseline/baseline.js';
+import {matchesAny} from '../config/glob.js';
+import type {ResolvedConfig} from '../config/types.js';
 import {
   REPORT_SCHEMA_VERSION,
   type AnalysisError,
+  type BaselineComparison,
   type Finding,
   type Report,
+  type ReportNotice,
   type ReportRule,
   type ReportSummary,
+  type SuppressedFinding,
 } from '../report/types.js';
 import {DEFAULT_IGNORE, DEFAULT_INCLUDE} from './defaults.js';
 
@@ -47,6 +53,12 @@ export interface AnalyzeOptions {
   ignore?: string[];
   /** The rules to run. Defaults to every rule in `@wso2/oxygen-ui-rules`. */
   rules?: RuleDefinition[];
+  /** The product's rule settings and exceptions, from its config file. */
+  config?: Pick<ResolvedConfig, 'path' | 'rules' | 'exceptions'>;
+  /** The baseline to compare the findings with. */
+  baseline?: {path: string; baseline: Baseline} | null;
+  /** Today's date as YYYY-MM-DD, used for exception expiry dates. Defaults to the current date. */
+  today?: string;
 }
 
 const RULE_ID_PREFIX = `${ESLINT_PLUGIN_NAMESPACE}/`;
@@ -65,19 +77,22 @@ export interface AnalyzerEslintOptions {
   ignore?: string[];
   /** Which problems ESLint should fix. By default nothing is fixed. */
   fix?: (message: Linter.LintMessage) => boolean;
+  /** Options per rule id, passed to the rule's detector. */
+  ruleOptions?: Record<string, Record<string, unknown> | undefined>;
 }
 
 /**
  * Creates the ESLint instance the analyzer uses: only the automated Oxygen UI rules, with the
  * project's own ESLint configuration ignored.
  */
-export function createAnalyzerEslint({root, rules, ignore = [], fix}: AnalyzerEslintOptions): ESLint {
+export function createAnalyzerEslint({root, rules, ignore = [], fix, ruleOptions = {}}: AnalyzerEslintOptions): ESLint {
   return new ESLint({
     cwd: root,
     overrideConfigFile: true,
     overrideConfig: createEslintConfig(
       rules.filter((rule) => rule.detect),
       [...DEFAULT_IGNORE, ...ignore],
+      ruleOptions,
     ),
     errorOnUnmatchedPattern: false,
     warnIgnored: false,
@@ -97,8 +112,14 @@ const MAX_EVIDENCE_LINES = 3;
  */
 export async function analyze(options: AnalyzeOptions = {}): Promise<Report> {
   const root = resolve(options.root ?? process.cwd());
-  const rules = options.rules ?? registry;
-  const eslint = createAnalyzerEslint({root, rules, ignore: options.ignore});
+  const settings = options.config?.rules ?? {};
+  const rules = (options.rules ?? registry).filter((rule) => settings[rule.meta.id]?.severity !== 'off');
+  const eslint = createAnalyzerEslint({
+    root,
+    rules,
+    ignore: options.ignore,
+    ruleOptions: getRuleOptions(options.config),
+  });
   const results = await eslint.lintFiles(options.include ?? DEFAULT_INCLUDE);
 
   const findings: Finding[] = [];
@@ -132,7 +153,7 @@ export async function analyze(options: AnalyzeOptions = {}): Promise<Report> {
         id: createFindingId(key, occurrence),
         ruleId: rule.meta.id,
         category: rule.meta.category,
-        severity: rule.meta.severity,
+        severity: getSeverity(rule, options.config),
         confidence: 'high',
         kind: 'deterministic',
         file,
@@ -150,20 +171,116 @@ export async function analyze(options: AnalyzeOptions = {}): Promise<Report> {
   findings.sort(compareFindings);
   errors.sort((a, b) => a.file.localeCompare(b.file));
 
+  const today = options.today ?? new Date().toISOString().slice(0, 10);
+  const {active, suppressed, notices} = applyExceptions(findings, options.config, today);
+  notices.push(...getRuleNotices(options.rules ?? registry, options.config));
+  const baseline = options.baseline ? compareWithBaseline(active, options.baseline) : undefined;
+
   return {
     schemaVersion: REPORT_SCHEMA_VERSION,
     tool: {name: '@wso2/oxygen-ui-analyzer', version: __ANALYZER_VERSION__},
     ruleset: {version: rulesetVersion},
     project: {name: getProjectName(root)},
     generatedAt: new Date().toISOString(),
-    summary: summarize(results.length, findings),
-    rules: rules.map((rule) => toReportRule(rule, findings)),
-    findings,
+    summary: summarize(results.length, active),
+    rules: rules.map((rule) => toReportRule(rule, active, getSeverity(rule, options.config))),
+    findings: active,
+    suppressed,
+    notices,
     errors,
+    ...(baseline ? {baseline} : {}),
   };
 }
 
-function createEslintConfig(rules: RuleDefinition[], ignores: string[]): Linter.Config[] {
+function getSeverity(rule: RuleDefinition, config: AnalyzeOptions['config']): Finding['severity'] {
+  const severity = config?.rules[rule.meta.id]?.severity;
+  return severity && severity !== 'off' ? severity : rule.meta.severity;
+}
+
+function getRuleOptions(config: AnalyzeOptions['config']): Record<string, Record<string, unknown> | undefined> {
+  return Object.fromEntries(Object.entries(config?.rules ?? {}).map(([id, setting]) => [id, setting.options]));
+}
+
+/**
+ * Moves findings covered by an exception that has not expired to `suppressed`, and reports
+ * exceptions that have expired or match nothing, so that the config stays accurate.
+ */
+function applyExceptions(
+  findings: Finding[],
+  config: AnalyzeOptions['config'],
+  today: string,
+): {active: Finding[]; suppressed: SuppressedFinding[]; notices: ReportNotice[]} {
+  const exceptions = config?.exceptions ?? [];
+  const current = exceptions.filter((exception) => !exception.expires || exception.expires >= today);
+  const used = new Set<number>();
+  const active: Finding[] = [];
+  const suppressed: SuppressedFinding[] = [];
+
+  for (const finding of findings) {
+    const index = current.findIndex((exception) => exception.rule === finding.ruleId && matchesAny(finding.file, exception.files));
+
+    if (index === -1) {
+      active.push(finding);
+      continue;
+    }
+
+    used.add(index);
+    const {reason, files, expires} = current[index];
+    suppressed.push({...finding, exception: {reason, files, ...(expires ? {expires} : {})}});
+  }
+
+  const describe = (exception: (typeof exceptions)[number]) => `The exception for ${exception.rule} on ${exception.files.join(', ')}`;
+  const notices: ReportNotice[] = [
+    ...exceptions
+      .filter((exception) => exception.expires && exception.expires < today)
+      .map((exception) => ({
+        level: 'warning' as const,
+        message: `${describe(exception)} expired on ${exception.expires} and no longer applies. Fix the findings it covered, or renew it with a reason.`,
+      })),
+    ...current
+      .filter((_exception, index) => !used.has(index))
+      .map((exception) => ({
+        level: 'info' as const,
+        message: `${describe(exception)} matches no findings. Remove it from the config.`,
+      })),
+  ];
+
+  return {active, suppressed, notices};
+}
+
+/** Notices for rule settings that reviewers should see, such as mandatory rules turned off. */
+function getRuleNotices(rules: RuleDefinition[], config: AnalyzeOptions['config']): ReportNotice[] {
+  const where = config?.path ? basename(config.path) : 'the config';
+
+  return rules
+    .filter((rule) => rule.meta.level === 'mandatory' && config?.rules[rule.meta.id]?.severity === 'off')
+    .map((rule) => ({
+      level: 'warning' as const,
+      message: `The mandatory rule ${rule.meta.id} is turned off in ${where}. Mandatory rules should only be relaxed for specific files, with an exception and a reason.`,
+    }));
+}
+
+function compareWithBaseline(findings: Finding[], {path, baseline}: {path: string; baseline: Baseline}): BaselineComparison {
+  const known = new Set(baseline.findings.map((entry) => entry.id));
+  const current = new Set(findings.map((finding) => finding.id));
+
+  for (const finding of findings) {
+    finding.status = known.has(finding.id) ? 'baseline' : 'new';
+  }
+
+  return {
+    path,
+    known: findings.filter((finding) => finding.status === 'baseline').length,
+    new: findings.filter((finding) => finding.status === 'new').length,
+    fixed: baseline.findings.filter((entry) => !current.has(entry.id)).length,
+  };
+}
+
+function createEslintConfig(
+  rules: RuleDefinition[],
+  ignores: string[],
+  ruleOptions: Record<string, Record<string, unknown> | undefined>,
+): Linter.Config[] {
   return [
     {ignores},
     {
@@ -182,7 +299,12 @@ function createEslintConfig(rules: RuleDefinition[], ignores: string[]): Linter.
         [ESLINT_PLUGIN_NAMESPACE]: {rules: getEslintRules(rules)},
       },
       // The finding severity comes from the rule's metadata, so ESLint only needs the rule on.
-      rules: Object.fromEntries(rules.map((rule) => [`${RULE_ID_PREFIX}${rule.meta.id}`, 'error' as const])),
+      rules: Object.fromEntries(
+        rules.map((rule) => {
+          const options = ruleOptions[rule.meta.id];
+          return [`${RULE_ID_PREFIX}${rule.meta.id}`, options ? ['error', options] : 'error'];
+        }),
+      ) as Linter.RulesRecord,
     },
   ];
 }
@@ -237,8 +359,8 @@ function summarize(filesAnalyzed: number, findings: Finding[]): ReportSummary {
   return summary;
 }
 
-function toReportRule(rule: RuleDefinition, findings: Finding[]): ReportRule {
-  const {id, title, summary, category, level, severity, enforcement, fix} = rule.meta;
+function toReportRule(rule: RuleDefinition, findings: Finding[], severity: ReportRule['severity']): ReportRule {
+  const {id, title, summary, category, level, enforcement, fix} = rule.meta;
 
   return {
     id,

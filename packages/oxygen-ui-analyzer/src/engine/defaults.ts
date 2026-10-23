@@ -20,8 +20,8 @@
 export const DEFAULT_INCLUDE: string[] = ['**/*.{js,jsx,mjs,cjs,ts,tsx,mts,cts}'];
 
 /**
- * Files never analyzed by default: dependencies, build output and generated files, plus tests,
- * which are not shipped UI. Projects can add their own patterns.
+ * Files never analyzed by default: dependencies, build output and generated files, tests, which
+ * are not shipped UI, and the analyzer's own config. Projects can add their own patterns.
  */
 export const DEFAULT_IGNORE: string[] = [
   '**/node_modules/**',
@@ -36,4 +36,5 @@ export const DEFAULT_IGNORE: string[] = [
   '**/*.{test,spec}.{js,jsx,ts,tsx,mts,cts}',
   '**/__tests__/**',
   '**/__mocks__/**',
+  '**/oxygen-ui-analyzer.config.{js,mjs,cjs}',
 ];

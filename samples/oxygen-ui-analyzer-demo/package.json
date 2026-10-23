@@ -8,7 +8,8 @@
     "oxygen": "oxygen-ui-analyzer dev",
     "oxygen:build": "oxygen-ui-analyzer build",
     "oxygen:analyze": "oxygen-ui-analyzer analyze",
-    "oxygen:fix": "oxygen-ui-analyzer fix"
+    "oxygen:fix": "oxygen-ui-analyzer fix",
+    "oxygen:check": "oxygen-ui-analyzer check"
   },
   "devDependencies": {
     "@wso2/oxygen-ui-analyzer": "workspace:^"

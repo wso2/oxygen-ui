@@ -35,3 +35,8 @@ export {formatUnifiedDiff} from './fix/diff.js';
 export {formatFixJson, formatFixPlan, formatFixResult, type FixFormatOptions} from './reporters/fix.js';
 export {loadUiAssets, renderReportHtml, serializeForScript, type RenderReportOptions, type UiAssets} from './ui/html.js';
 export {startDevServer, type DevServer, type DevServerOptions} from './ui/server.js';
+export {createBaseline, pruneBaseline, readBaseline, writeBaseline, type Baseline, type BaselineEntry} from './baseline/baseline.js';
+export {CONFIG_TEMPLATE, initConfig} from './config/init.js';
+export {CONFIG_FILES, ConfigError, DEFAULT_BASELINE, loadConfig, resolveConfig} from './config/load.js';
+export type {AnalyzerConfig, ExceptionConfig, ResolvedConfig, RuleSetting, RuleSettingSeverity} from './config/types.js';
+export {evaluateCheck, formatCheck, formatCheckJson, type CheckFormatOptions, type CheckResult} from './reporters/check.js';

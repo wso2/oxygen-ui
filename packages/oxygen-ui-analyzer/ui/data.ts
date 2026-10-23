@@ -16,9 +16,9 @@
  * under the License.
  */
 
-import type {Finding, Report, ReportRule} from '../src/report/types.js';
+import type {Finding, Report, ReportRule, SuppressedFinding} from '../src/report/types.js';
 
-export type {Finding, Report, ReportRule};
+export type {Finding, Report, ReportRule, SuppressedFinding};
 
 export type Severity = Finding['severity'];
 
@@ -34,9 +34,11 @@ export interface Filters {
   severity: Severity | 'all';
   category: Finding['category'] | 'all';
   fixableOnly: boolean;
+  /** Only findings that are not in the baseline. */
+  newOnly: boolean;
 }
 
-export const DEFAULT_FILTERS: Filters = {query: '', severity: 'all', category: 'all', fixableOnly: false};
+export const DEFAULT_FILTERS: Filters = {query: '', severity: 'all', category: 'all', fixableOnly: false, newOnly: false};
 
 const SEVERITY_ORDER: Severity[] = ['error', 'warning', 'info'];
 
@@ -54,6 +56,7 @@ export function filterFindings(findings: Finding[], filters: Filters): Finding[]
       (filters.severity === 'all' || finding.severity === filters.severity) &&
       (filters.category === 'all' || finding.category === filters.category) &&
       (!filters.fixableOnly || isAutoFixable(finding)) &&
+      (!filters.newOnly || finding.status === 'new') &&
       (!query ||
         [finding.file, finding.message, finding.ruleId, finding.evidence].some((text) => text.toLowerCase().includes(query))),
   );
@@ -122,7 +125,12 @@ export function languageOf(file: string): 'tsx' | 'typescript' | 'jsx' | 'javasc
   return 'javascript';
 }
 
-export type Route = {view: 'files'} | {view: 'file'; file: string} | {view: 'rules'} | {view: 'rule'; id: string};
+export type Route =
+  | {view: 'files'}
+  | {view: 'file'; file: string}
+  | {view: 'rules'}
+  | {view: 'rule'; id: string}
+  | {view: 'accepted'};
 
 /** Reads the view from the URL hash, such as `#/files/src/App.tsx` or `#/rules/no-direct-mui-imports`. */
 export function parseRoute(hash: string): Route {
@@ -131,6 +139,10 @@ export function parseRoute(hash: string): Route {
 
   if (section === 'rules') {
     return target ? {view: 'rule', id: target} : {view: 'rules'};
+  }
+
+  if (section === 'accepted') {
+    return {view: 'accepted'};
   }
 
   return section === 'files' && target ? {view: 'file', file: target} : {view: 'files'};
@@ -144,6 +156,8 @@ export function routeToHash(route: Route): string {
       return `#/rules/${encodeURIComponent(route.id)}`;
     case 'rules':
       return '#/rules';
+    case 'accepted':
+      return '#/accepted';
     default:
       return '#/files';
   }

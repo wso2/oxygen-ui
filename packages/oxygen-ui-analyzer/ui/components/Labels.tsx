@@ -43,6 +43,11 @@ export function SeverityChip({severity}: {severity: Severity}) {
   return <Chip label={SEVERITY_LABEL[severity]} size="small" color={SEVERITY_COLOR[severity]} variant="outlined" />;
 }
 
+/** Marks a finding that is not in the baseline. */
+export function NewChip() {
+  return <Chip label="New" size="small" color="info" variant="outlined" />;
+}
+
 export function FixChip({finding}: {finding: Finding}) {
   return isAutoFixable(finding) ? (
     <Chip label="Fixable" size="small" color="success" variant="outlined" />

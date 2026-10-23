@@ -16,11 +16,12 @@
  * under the License.
  */
 
-import {Box, Button, Card, CardContent, CodeBlock, Link, Stack, Typography} from '@wso2/oxygen-ui';
+import {Box, Button, Card, CardContent, CodeBlock, Stack, Typography} from '@wso2/oxygen-ui';
+import TextLink from './TextLink.js';
 import {Check, Copy} from '@wso2/oxygen-ui-icons-react';
 import {useState} from 'react';
 import {buildFixPrompt, languageOf, routeToHash, type Finding, type ReportRule} from '../data.js';
-import {FixChip, SeverityChip} from './Labels.js';
+import {FixChip, NewChip, SeverityChip} from './Labels.js';
 
 export default function FindingCard({finding, rule}: {finding: Finding; rule?: ReportRule}) {
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'failed'>('idle');
@@ -46,6 +47,7 @@ export default function FindingCard({finding, rule}: {finding: Finding; rule?: R
         <Stack spacing={1.5}>
           <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" useFlexGap>
             <SeverityChip severity={finding.severity} />
+            {finding.status === 'new' && <NewChip />}
             <FixChip finding={finding} />
             <Typography variant="body2" color="text.secondary" sx={{fontFamily: 'monospace'}}>
               Line {finding.line}, column {finding.column}
@@ -59,7 +61,7 @@ export default function FindingCard({finding, rule}: {finding: Finding; rule?: R
           <Stack direction={{xs: 'column', sm: 'row'}} spacing={2} alignItems={{sm: 'center'}} justifyContent="space-between">
             <Typography variant="body2" color="text.secondary">
               Rule:{' '}
-              <Link color="text.primary" underline="always" href={routeToHash({view: 'rule', id: finding.ruleId})}>{rule?.title ?? finding.ruleId}</Link>
+              <TextLink href={routeToHash({view: 'rule', id: finding.ruleId})}>{rule?.title ?? finding.ruleId}</TextLink>
             </Typography>
             <Box>
               <Button size="small" variant="outlined" color="inherit" startIcon={copyState === 'copied' ? <Check /> : <Copy />} onClick={copyPrompt}>
