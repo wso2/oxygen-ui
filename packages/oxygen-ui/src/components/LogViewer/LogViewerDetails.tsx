@@ -43,6 +43,13 @@ const JsonTree: React.FC<JsonTreeProps> = ({ value, depth = 0, expandLabel, coll
       </Box>
     );
   }
+  if (value instanceof Date) {
+    return (
+      <Box component="span" sx={{ ...inherit, color: 'info.main' }}>
+        {Number.isNaN(value.getTime()) ? String(value) : value.toISOString()}
+      </Box>
+    );
+  }
   if (typeof value === 'string') {
     return (
       <Box component="span" sx={{ ...inherit, color: 'warning.main' }}>

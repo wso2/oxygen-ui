@@ -286,6 +286,25 @@ describe('LogViewer', () => {
       entry('2'),
     ];
 
+    it('shows a Date in the details as an ISO 8601 time, at the top level and nested', () => {
+      renderWithTheme(
+        <LogViewer
+          entries={[
+            entry('1', {
+              details: {
+                started: new Date('2026-10-13T10:00:00.000Z'),
+                info: { ended: new Date('2026-10-13T11:30:00.000Z'), broken: new Date('nope') },
+              },
+            }),
+          ]}
+        />
+      );
+      fireEvent.click(toggleFor('1'));
+      expect(screen.getByText('2026-10-13T10:00:00.000Z')).not.toBeNull();
+      expect(screen.getByText('2026-10-13T11:30:00.000Z')).not.toBeNull();
+      expect(screen.getByText('Invalid Date')).not.toBeNull();
+    });
+
     it('expands an entry to show its details, and collapses it again', async () => {
       renderWithTheme(<LogViewer entries={withDetails} />);
       const toggle = toggleFor('1');
