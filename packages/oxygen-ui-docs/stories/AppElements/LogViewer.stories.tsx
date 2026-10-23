@@ -116,9 +116,9 @@ const COLUMNS: LogColumn[] = [
   },
 ];
 
-/** The same columns, with sorting and a filter in the heading of each. */
+/** The same columns, with sorting and a filter in the heading of each, except the built-in time and level. */
 const FILTERABLE_COLUMNS: LogColumn[] = COLUMNS.map((column) =>
-  column.id === 'time'
+  column.id === 'time' || column.id === 'level'
     ? column
     : { ...column, sortable: true, filterId: column.id === 'status' ? 'status' : column.id }
 );
