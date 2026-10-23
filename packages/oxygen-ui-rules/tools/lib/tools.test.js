@@ -123,6 +123,19 @@ describe('checkRuleExamples', () => {
   });
 });
 
+describe('checkRuleExamples suggestions', () => {
+  it('fails when an example\'s expected suggestion is wrong', () => {
+    const rule = registry.rules.find((candidate) => candidate.meta.id === 'no-direct-mui-imports');
+    const withSuggestion = rule.examples.invalid.find((example) => example.suggestions?.length);
+    const broken = {
+      ...rule,
+      examples: {valid: [], invalid: [{...withSuggestion, suggestions: [{...withSuggestion.suggestions[0], output: 'wrong'}]}]},
+    };
+
+    expect(checkRuleExamples({...registry, rules: [broken]}).problems[0].message).toContain('suggests');
+  });
+});
+
 describe('describeApiChanges', () => {
   it('names added, removed and changed props and members', () => {
     const before = {'@wso2/oxygen-ui': {Card: {props: ['title'], members: {Header: ['children']}}, Old: {}}};

@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import type {Rule} from 'eslint';
-import type {ImportDeclaration} from 'estree';
+import type {Rule, SourceCode} from 'eslint';
+import type {Identifier, ImportDeclaration, ImportSpecifier, Node} from 'estree';
 
 interface NoDirectMuiImportsOptions {
   allowedPackages?: string[];
@@ -35,6 +35,7 @@ function getFix(
   node: ImportDeclaration,
   importSource: string,
   suggestedPackage: string,
+  sourceCode: SourceCode,
 ): Rule.ReportFixer | null {
   const newSource = `'${suggestedPackage}'`;
 
@@ -59,32 +60,101 @@ function getFix(
     return (fixer: Rule.RuleFixer) => fixer.replaceText(node.source, newSource);
   }
 
-  // A single default import, e.g. "import MuiButton from '@mui/material/Button'".
-  // Default and named imports together are left for the developer to fix.
-  if (node.specifiers.length === 1) {
-    const exportedName = subpathMatch[1];
-    const localName = defaultSpecifiers[0].local.name;
-    const specifier = localName === exportedName ? exportedName : `${exportedName} as ${localName}`;
-    const importKind = (node as ImportDeclaration & {importKind?: string}).importKind === 'type' ? 'type ' : '';
+  // A default import, alone or with named imports, e.g. "import MuiButton, {buttonClasses} from
+  // '@mui/material/Button'". The default export of a component subpath is the component, which
+  // Oxygen UI exports by the same name.
+  const exportedName = subpathMatch[1];
+  const localName = defaultSpecifiers[0].local.name;
+  const specifiers = [
+    localName === exportedName ? exportedName : `${exportedName} as ${localName}`,
+    ...node.specifiers.filter((specifier) => specifier.type === 'ImportSpecifier').map((specifier) => sourceCode.getText(specifier)),
+  ];
+  const importKind = (node as ImportDeclaration & {importKind?: string}).importKind === 'type' ? 'type ' : '';
 
-    return (fixer: Rule.RuleFixer) =>
-      fixer.replaceTextRange(
-        [node.range![0], node.source.range![1]],
-        `import ${importKind}{${specifier}} from ${newSource}`,
-      );
+  return (fixer: Rule.RuleFixer) =>
+    fixer.replaceTextRange([node.range![0], node.source.range![1]], `import ${importKind}{${specifiers.join(', ')}} from ${newSource}`);
+}
+
+/**
+ * Suggests importing the Oxygen UI namespace for a MUI X or MUI colors import, and rewriting every use
+ * of the imported names, e.g. `<DataGrid />` to `<DataGrid.DataGrid />` and `GridColDef` to
+ * `DataGrid.GridColDef`. It is a suggestion rather than a fix because it changes more than the
+ * import. No suggestion is made when the rewrite might not be correct.
+ */
+function getNamespaceSuggestion(
+  context: Rule.RuleContext,
+  node: ImportDeclaration,
+  importSource: string,
+  suggestedPackage: string,
+): Rule.SuggestionReportDescriptor[] {
+  const namespace = NAMESPACES.find((candidate) => candidate.root === importSource)?.namespace;
+  const specifiers = node.specifiers;
+
+  if (!namespace || specifiers.length === 0 || specifiers.some((specifier) => specifier.type !== 'ImportSpecifier')) {
+    return [];
   }
 
-  return null;
+  // The namespace name must be free, or the rewritten code would refer to something else. The import
+  // being replaced may itself declare it, as in "import {DataGrid} from '@mui/x-data-grid'".
+  const scope = context.sourceCode.getScope(node);
+  for (let current: typeof scope | null = scope; current; current = current.upper) {
+    const existing = current.set.get(namespace);
+
+    if (existing && !existing.defs.every((definition) => definition.parent === node)) {
+      return [];
+    }
+  }
+
+  const replacements: {range: [number, number]; text: string}[] = [];
+
+  for (const variable of context.sourceCode.getDeclaredVariables(node)) {
+    const specifier = (specifiers as ImportSpecifier[]).find((candidate) => candidate.local.name === variable.name);
+    if (!specifier) {
+      return [];
+    }
+
+    const imported = specifier.imported.type === 'Identifier' ? specifier.imported.name : String(specifier.imported.value);
+    const qualified = `${namespace}.${imported}`;
+
+    for (const reference of variable.references) {
+      const identifier = reference.identifier as Identifier & {parent?: Node & Record<string, unknown>};
+      const parent = identifier.parent;
+
+      if (!parent || parent.type === 'ExportSpecifier') {
+        // Re-exported names cannot be qualified.
+        return [];
+      }
+
+      if (parent.type === 'Property' && parent.shorthand) {
+        replacements.push({range: identifier.range!, text: `${identifier.name}: ${qualified}`});
+      } else {
+        replacements.push({range: identifier.range!, text: qualified});
+      }
+    }
+  }
+
+  const importKind = (node as ImportDeclaration & {importKind?: string}).importKind === 'type' ? 'type ' : '';
+
+  return [
+    {
+      messageId: 'useNamespace',
+      data: {namespace, suggestedPackage},
+      fix: (fixer: Rule.RuleFixer) => [
+        fixer.replaceTextRange([node.range![0], node.source.range![1]], `import ${importKind}{${namespace}} from '${suggestedPackage}'`),
+        ...replacements.map(({range, text}) => fixer.replaceTextRange(range, text)),
+      ],
+    },
+  ];
 }
 
 /**
  * MUI packages that Oxygen UI exposes as namespaces rather than as named exports.
  */
-const NAMESPACES: {pattern: RegExp; namespace: string; example: string}[] = [
-  {pattern: /^@mui\/x-data-grid(\/|$)/, namespace: 'DataGrid', example: '<DataGrid.DataGrid />'},
-  {pattern: /^@mui\/x-date-pickers(\/|$)/, namespace: 'DatePickers', example: '<DatePickers.DatePicker />'},
-  {pattern: /^@mui\/x-tree-view(\/|$)/, namespace: 'TreeView', example: '<TreeView.SimpleTreeView />'},
-  {pattern: /^@mui\/material\/colors$/, namespace: 'colors', example: 'colors.deepOrange[500]'},
+const NAMESPACES: {root: string; pattern: RegExp; namespace: string; example: string}[] = [
+  {root: '@mui/x-data-grid', pattern: /^@mui\/x-data-grid(\/|$)/, namespace: 'DataGrid', example: '<DataGrid.DataGrid />'},
+  {root: '@mui/x-date-pickers', pattern: /^@mui\/x-date-pickers(\/|$)/, namespace: 'DatePickers', example: '<DatePickers.DatePicker />'},
+  {root: '@mui/x-tree-view', pattern: /^@mui\/x-tree-view(\/|$)/, namespace: 'TreeView', example: '<TreeView.SimpleTreeView />'},
+  {root: '@mui/material/colors', pattern: /^@mui\/material\/colors$/, namespace: 'colors', example: 'colors.deepOrange[500]'},
 ];
 
 /**
@@ -112,6 +182,7 @@ const noDirectMuiImportsRule: Rule.RuleModule = {
       recommended: true,
     },
     fixable: 'code',
+    hasSuggestions: true,
     schema: [
       {
         type: 'object',
@@ -136,6 +207,7 @@ const noDirectMuiImportsRule: Rule.RuleModule = {
         "Direct imports from '{{source}}' are not allowed. Use '{{suggestedPackage}}' instead.",
       noDirectMuiNamespaceImport:
         "Direct imports from '{{source}}' are not allowed. Use the {{namespace}} namespace from '{{suggestedPackage}}' instead, for example {{example}}.",
+      useNamespace: "Import the {{namespace}} namespace from '{{suggestedPackage}}', and use the imported names through it.",
       noDirectMuiIconsImport:
         "Direct imports from '{{source}}' are not allowed. Use icons from '@wso2/oxygen-ui-icons-react' instead.",
     },
@@ -175,7 +247,8 @@ const noDirectMuiImportsRule: Rule.RuleModule = {
             suggestedPackage,
             ...data,
           },
-          fix: getFix(node, importSource, suggestedPackage),
+          fix: getFix(node, importSource, suggestedPackage, context.sourceCode),
+          suggest: getNamespaceSuggestion(context, node, importSource, suggestedPackage),
         });
       },
     };

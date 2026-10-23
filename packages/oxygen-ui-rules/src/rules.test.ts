@@ -19,7 +19,7 @@
 import {RuleTester} from 'eslint';
 import parser from '@typescript-eslint/parser';
 import {afterAll, describe, expect, it} from 'vitest';
-import {rules} from './index.js';
+import {getDocSection, rules} from './index.js';
 
 RuleTester.afterAll = afterAll;
 RuleTester.describe = describe;
@@ -75,6 +75,11 @@ describe('rule registry', () => {
     if (rule.detect) {
       const detect = rule.detect;
 
+      it('declares the message id of every example with suggestions', () => {
+        const withSuggestions = rule.examples.invalid.filter((example) => example.suggestions);
+        expect(withSuggestions.every((example) => typeof example.messageId === 'string' && example.errors === 1)).toBe(true);
+      });
+
       it('declares the number of findings for every invalid example', () => {
         expect(rule.examples.invalid.every((example) => typeof example.errors === 'number')).toBe(true);
       });
@@ -90,11 +95,32 @@ describe('rule registry', () => {
             name: example.title,
             code: example.code,
             filename: example.filename ?? 'example.tsx',
-            errors: example.errors ?? 1,
+            // Suggestions are checked on the example's single finding.
+            errors: example.suggestions
+              ? [
+                  {
+                    messageId: example.messageId as string,
+                    suggestions: example.suggestions.map(({description, output}) => ({desc: description, output})),
+                  },
+                ]
+              : (example.errors ?? 1),
             output: example.output ?? null,
           })),
         });
       });
     }
+  });
+});
+
+describe('getDocSection', () => {
+  const docs = '## Why\n\nBecause.\n\n## How to fix\n\nUse `Box`.\n\n- One\n\n## Exceptions\n\nNone.\n';
+
+  it('returns the text of a section, up to the next heading', () => {
+    expect(getDocSection(docs, 'How to fix')).toBe('Use `Box`.\n\n- One');
+    expect(getDocSection(docs, 'Exceptions')).toBe('None.');
+  });
+
+  it('returns an empty string for a missing section', () => {
+    expect(getDocSection(docs, 'Impact')).toBe('');
   });
 });

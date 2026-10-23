@@ -97,8 +97,22 @@ export interface RuleExample {
 export interface InvalidRuleExample extends RuleExample {
   /** Number of findings the example produces. Required for automated rules. */
   errors?: number;
+  /** The detector's message id for the finding. Required for examples with `suggestions`. */
+  messageId?: string;
   /** The code after `safe` fixes. `null` when the rule reports but does not fix the example. */
   output?: string | null;
+  /**
+   * The suggested fixes for the example's finding, which change more than an automatic fix and need
+   * review. An empty list means the rule makes no suggestion. Only for examples with one finding.
+   */
+  suggestions?: RuleSuggestionExample[];
+}
+
+export interface RuleSuggestionExample {
+  /** The suggestion's description, as shown to developers. */
+  description: string;
+  /** The code after applying the suggestion. */
+  output: string;
 }
 
 export interface RuleExamples {

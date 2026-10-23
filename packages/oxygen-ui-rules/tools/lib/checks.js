@@ -366,6 +366,21 @@ export function checkRuleExamples({rules, getEslintRules, ESLINT_PLUGIN_NAMESPAC
         continue;
       }
 
+      if (example.suggestions) {
+        const suggestions = messages[0].suggestions ?? [];
+        const actual = suggestions.map((suggestion) => ({
+          description: suggestion.desc,
+          output: example.code.slice(0, suggestion.fix.range[0]) + suggestion.fix.text + example.code.slice(suggestion.fix.range[1]),
+        }));
+
+        if (JSON.stringify(actual) !== JSON.stringify(example.suggestions)) {
+          problems.push({
+            message: `${rule.meta.id}: invalid example "${example.title}" suggests ${JSON.stringify(actual, null, 2)}\n    expected ${JSON.stringify(example.suggestions, null, 2)}`,
+          });
+          continue;
+        }
+      }
+
       const {output} = linter.verifyAndFix(example.code, config, example.filename ?? 'example.tsx');
       const expectedOutput = example.output ?? example.code;
 

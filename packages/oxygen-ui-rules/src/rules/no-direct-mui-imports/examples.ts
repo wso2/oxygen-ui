@@ -55,16 +55,71 @@ const examples: RuleExamples = {
       errors: 1,
     },
     {
-      title: 'MUI X import, which Oxygen UI exposes as a namespace (not fixed automatically)',
-      code: "import {DataGrid} from '@mui/x-data-grid';",
+      title: 'MUI X import, with a suggestion to use the Oxygen UI namespace',
+      code: "import {DataGrid} from '@mui/x-data-grid';\n\nexport const Grid = () => <DataGrid rows={[]} columns={[]} />;",
       output: null,
       errors: 1,
+      messageId: 'noDirectMuiNamespaceImport',
+      suggestions: [
+        {
+          description: "Import the DataGrid namespace from '@wso2/oxygen-ui', and use the imported names through it.",
+          output: "import {DataGrid} from '@wso2/oxygen-ui';\n\nexport const Grid = () => <DataGrid.DataGrid rows={[]} columns={[]} />;",
+        },
+      ],
     },
     {
-      title: 'MUI colors, which Oxygen UI exposes as the colors namespace (not fixed automatically)',
-      code: "import {red} from '@mui/material/colors';",
+      title: 'The suggestion rewrites JSX tags, types and shorthand properties',
+      code: [
+        "import {DataGrid, type GridColDef} from '@mui/x-data-grid';",
+        '',
+        'const columns: GridColDef[] = [];',
+        'export const meta = {GridColDef};',
+        'export const Grid = () => <DataGrid columns={columns}></DataGrid>;',
+      ].join('\n'),
       output: null,
       errors: 1,
+      messageId: 'noDirectMuiNamespaceImport',
+      suggestions: [
+        {
+          description: "Import the DataGrid namespace from '@wso2/oxygen-ui', and use the imported names through it.",
+          output: [
+            "import {DataGrid} from '@wso2/oxygen-ui';",
+            '',
+            'const columns: DataGrid.GridColDef[] = [];',
+            'export const meta = {GridColDef: DataGrid.GridColDef};',
+            'export const Grid = () => <DataGrid.DataGrid columns={columns}></DataGrid.DataGrid>;',
+          ].join('\n'),
+        },
+      ],
+    },
+    {
+      title: 'MUI colors, with a suggestion to use the colors namespace',
+      code: "import {red} from '@mui/material/colors';\n\nexport const danger = red[500];",
+      output: null,
+      errors: 1,
+      messageId: 'noDirectMuiNamespaceImport',
+      suggestions: [
+        {
+          description: "Import the colors namespace from '@wso2/oxygen-ui', and use the imported names through it.",
+          output: "import {colors} from '@wso2/oxygen-ui';\n\nexport const danger = colors.red[500];",
+        },
+      ],
+    },
+    {
+      title: 'No suggestion when the namespace name is already used',
+      code: "import {DataGrid as Grid} from '@mui/x-data-grid';\n\nconst DataGrid = 1;\nexport {Grid, DataGrid};",
+      output: null,
+      errors: 1,
+      messageId: 'noDirectMuiNamespaceImport',
+      suggestions: [],
+    },
+    {
+      title: 'No suggestion when an imported name is re-exported',
+      code: "import {DataGrid} from '@mui/x-data-grid';\n\nexport {DataGrid};",
+      output: null,
+      errors: 1,
+      messageId: 'noDirectMuiNamespaceImport',
+      suggestions: [],
     },
     {
       title: 'MUI icons, which should come from Oxygen UI icons (not fixed automatically)',
@@ -73,9 +128,9 @@ const examples: RuleExamples = {
       errors: 1,
     },
     {
-      title: 'Default and named imports together (not fixed automatically)',
-      code: "import Button, {buttonClasses} from '@mui/material/Button';",
-      output: null,
+      title: 'Default and named imports together',
+      code: "import MuiButton, {buttonClasses} from '@mui/material/Button';",
+      output: "import {Button as MuiButton, buttonClasses} from '@wso2/oxygen-ui';",
       errors: 1,
     },
   ],

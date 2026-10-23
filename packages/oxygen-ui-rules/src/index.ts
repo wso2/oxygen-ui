@@ -21,6 +21,7 @@ import type {RuleDefinition} from './types.js';
 
 export type * from './types.js';
 export {default as defineRule} from './defineRule.js';
+export {getDocSection} from './docs.js';
 export {getEslintRules, getRecommendedEslintRules} from './eslint.js';
 export {rules};
 export * as catalog from './catalog/index.js';
