@@ -63,6 +63,15 @@ export type {
   HeaderContextValue,
 } from './Header';
 
+export { ContextSwitcher } from './ContextSwitcher';
+export type {
+  ContextSwitcherProps,
+  ContextSwitcherValue,
+  ContextSwitcherLevelProps,
+  ContextSwitcherGroupProps,
+  ContextSwitcherOptionProps,
+} from './ContextSwitcher';
+
 export { AppSwitcher } from './AppSwitcher';
 export type {
   AppSwitcherProps,
