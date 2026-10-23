@@ -54,12 +54,12 @@ import { DataGrid, DatePickers, TreeView } from '@wso2/oxygen-ui';
 - `OxygenTheme` - Default theme (recommended)
 - `AcrylicOrangeTheme` - Orange accent variant
 - `AcrylicPurpleTheme` - Purple accent variant
-- `ChoreoTheme` - Choreo product theme (indigo-violet gradient)
 - `ClassicTheme` - Traditional styling
 - `HighContrastTheme` - Accessibility-focused
 - `PaleBaseTheme` - Minimal color palette
 - `PaleGrayTheme` - Soft gray tones
 - `PaleIndigoTheme` - Soft indigo tones
+- `WSO2Theme` - WSO2 brand theme
 
 ## Custom Oxygen Components
 
@@ -75,7 +75,7 @@ import { DataGrid, DatePickers, TreeView } from '@wso2/oxygen-ui';
 ## Detailed Documentation
 
 For comprehensive API reference and examples, see:
-- [Component API Reference](./components.md)
-- [UI Patterns & Examples](./patterns.md)
-- [Theme Customization](./theming.md)
-- [Migration Guide](./migration.md)
+- [Component API Reference](.ai/oxygen-ui/components.md)
+- [UI Patterns & Examples](.ai/oxygen-ui/patterns.md)
+- [Theme Customization](.ai/oxygen-ui/theming.md)
+- [Migration Guide](.ai/oxygen-ui/migration.md)

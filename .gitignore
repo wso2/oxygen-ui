@@ -70,3 +70,9 @@ docs/
 
 .ai/
 .claude/
+
+# The @wso2/oxygen-ui package ships these AI assets to consumers, so they are
+# source files here and must not be caught by the local Claude Code ignores above.
+!packages/oxygen-ui/.ai/
+!packages/oxygen-ui/.claude/
+!packages/oxygen-ui/.claude/CLAUDE.md
