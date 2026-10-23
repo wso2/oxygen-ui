@@ -77,6 +77,32 @@ function getFix(
   return null;
 }
 
+/**
+ * MUI packages that Oxygen UI exposes as namespaces rather than as named exports.
+ */
+const NAMESPACES: {pattern: RegExp; namespace: string; example: string}[] = [
+  {pattern: /^@mui\/x-data-grid(\/|$)/, namespace: 'DataGrid', example: '<DataGrid.DataGrid />'},
+  {pattern: /^@mui\/x-date-pickers(\/|$)/, namespace: 'DatePickers', example: '<DatePickers.DatePicker />'},
+  {pattern: /^@mui\/x-tree-view(\/|$)/, namespace: 'TreeView', example: '<TreeView.SimpleTreeView />'},
+  {pattern: /^@mui\/material\/colors$/, namespace: 'colors', example: 'colors.deepOrange[500]'},
+];
+
+/**
+ * Picks the message that tells the developer what to use instead.
+ */
+function getMessage(importSource: string, componentName: string | null): {messageId: string; data?: Record<string, string>} {
+  if (/^@mui\/icons-material(\/|$)/.test(importSource)) {
+    return {messageId: 'noDirectMuiIconsImport'};
+  }
+
+  const namespace = NAMESPACES.find((candidate) => candidate.pattern.test(importSource));
+  if (namespace) {
+    return {messageId: 'noDirectMuiNamespaceImport', data: {namespace: namespace.namespace, example: namespace.example}};
+  }
+
+  return {messageId: componentName ? 'noDirectMuiSubpathImport' : 'noDirectMuiImport'};
+}
+
 const noDirectMuiImportsRule: Rule.RuleModule = {
   meta: {
     type: 'problem',
@@ -108,6 +134,10 @@ const noDirectMuiImportsRule: Rule.RuleModule = {
         "Direct imports from MUI packages are not allowed. Use '{{suggestedPackage}}' instead to import Material-UI components.",
       noDirectMuiSubpathImport:
         "Direct imports from '{{source}}' are not allowed. Use '{{suggestedPackage}}' instead.",
+      noDirectMuiNamespaceImport:
+        "Direct imports from '{{source}}' are not allowed. Use the {{namespace}} namespace from '{{suggestedPackage}}' instead, for example {{example}}.",
+      noDirectMuiIconsImport:
+        "Direct imports from '{{source}}' are not allowed. Use icons from '@wso2/oxygen-ui-icons-react' instead.",
     },
   },
   create(context: Rule.RuleContext) {
@@ -134,13 +164,16 @@ const noDirectMuiImportsRule: Rule.RuleModule = {
         const componentMatch = /^@mui\/[^/]+\/(.+)$/.exec(importSource);
         const componentName = componentMatch ? componentMatch[1] : null;
 
+        const {messageId, data} = getMessage(importSource, componentName);
+
         context.report({
           node: node.source,
-          messageId: componentName ? 'noDirectMuiSubpathImport' : 'noDirectMuiImport',
+          messageId,
           data: {
             source: importSource,
             component: componentName ?? '',
             suggestedPackage,
+            ...data,
           },
           fix: getFix(node, importSource, suggestedPackage),
         });

@@ -67,6 +67,12 @@ const examples: RuleExamples = {
       errors: 1,
     },
     {
+      title: 'MUI icons, which should come from Oxygen UI icons (not fixed automatically)',
+      code: "import DeleteIcon from '@mui/icons-material/Delete';",
+      output: null,
+      errors: 1,
+    },
+    {
       title: 'Default and named imports together (not fixed automatically)',
       code: "import Button, {buttonClasses} from '@mui/material/Button';",
       output: null,
