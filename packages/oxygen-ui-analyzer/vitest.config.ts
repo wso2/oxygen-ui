@@ -27,5 +27,11 @@ export default defineConfig({
     environment: 'node',
     // Fixture projects are analyzed by the tests, not run as tests.
     exclude: ['**/node_modules/**', 'test/fixtures/**'],
+    server: {
+      deps: {
+        // MUI X's ESM build imports CSS, which Node cannot load, so Vite processes these packages.
+        inline: [/@mui\/x-/],
+      },
+    },
   },
 });

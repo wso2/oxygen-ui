@@ -15,7 +15,9 @@ pnpm --filter @wso2/oxygen-ui-rules --filter @wso2/oxygen-ui-analyzer build
 Then, in this directory:
 
 ```bash
-pnpm oxygen              # list the inconsistencies
+pnpm oxygen              # open the report in the browser; it updates as you edit the files
+pnpm oxygen:build        # write the report to oxygen-report.html
+pnpm oxygen:analyze      # print the report in the terminal
 pnpm oxygen:fix          # preview the safe automatic fixes
 ```
 

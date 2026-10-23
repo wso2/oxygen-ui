@@ -64,6 +64,7 @@ yarn.lock
 storybook-static
 packages/oxygen-ui-docs/.storybook/public/sample
 packages/oxygen-ui-docs/.storybook/public/analyzer-demo
+oxygen-report.html
 
 # Claude Code files
 CLAUDE.md

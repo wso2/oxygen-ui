@@ -27,7 +27,7 @@
   "scripts": {
     "build": "rimraf dist && node esbuild.config.js && tsc -p tsconfig.json --emitDeclarationOnly",
     "clean": "rimraf dist",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p ui/tsconfig.json",
     "test": "vitest run",
     "test:watch": "vitest"
   },
@@ -55,11 +55,34 @@
     "typescript": ">=4.8.4 <6.0.0"
   },
   "devDependencies": {
+    "@testing-library/dom": "catalog:",
+    "@testing-library/react": "catalog:",
     "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@wso2/oxygen-ui": "workspace:^",
+    "@wso2/oxygen-ui-icons-react": "workspace:^",
     "@wso2/oxygen-ui-rules": "workspace:^",
     "esbuild": "catalog:",
+    "jsdom": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "rimraf": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
+  },
+  "nx": {
+    "targets": {
+      "test": {
+        "dependsOn": [
+          "^build"
+        ]
+      },
+      "typecheck": {
+        "dependsOn": [
+          "^build"
+        ]
+      }
+    }
   }
 }

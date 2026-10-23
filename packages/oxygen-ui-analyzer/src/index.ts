@@ -33,3 +33,5 @@ export {
 } from './fix/fix.js';
 export {formatUnifiedDiff} from './fix/diff.js';
 export {formatFixJson, formatFixPlan, formatFixResult, type FixFormatOptions} from './reporters/fix.js';
+export {loadUiAssets, renderReportHtml, serializeForScript, type RenderReportOptions, type UiAssets} from './ui/html.js';
+export {startDevServer, type DevServer, type DevServerOptions} from './ui/server.js';

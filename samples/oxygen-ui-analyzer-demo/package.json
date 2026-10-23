@@ -5,7 +5,9 @@
   "description": "A small product codebase with deliberate design system inconsistencies, used to demonstrate the Oxygen UI analyzer",
   "type": "module",
   "scripts": {
-    "oxygen": "oxygen-ui-analyzer analyze",
+    "oxygen": "oxygen-ui-analyzer dev",
+    "oxygen:build": "oxygen-ui-analyzer build",
+    "oxygen:analyze": "oxygen-ui-analyzer analyze",
     "oxygen:fix": "oxygen-ui-analyzer fix"
   },
   "devDependencies": {

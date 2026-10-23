@@ -29,8 +29,8 @@ const demoDir = path.join(rootDir, 'samples/oxygen-ui-analyzer-demo');
 const outputDir = path.join(__dirname, '../.storybook/public/analyzer-demo');
 
 /**
- * Analyzes the analyzer demo sample and writes the report and fix plan that the
- * Tooling/Analyzer Storybook page shows. Nothing in the demo is changed.
+ * Analyzes the analyzer demo sample and writes the report, the fix plan and the report UI that
+ * the Tooling/Analyzer Storybook page shows. Nothing in the demo is changed.
  */
 async function generate() {
   let analyzer;
@@ -43,7 +43,7 @@ async function generate() {
     process.exit(1);
   }
 
-  const { analyze, formatFixJson, formatJson, planFixes } = analyzer;
+  const { analyze, formatFixJson, formatJson, planFixes, renderReportHtml } = analyzer;
 
   console.log('Generating the analyzer demo...');
 
@@ -53,6 +53,7 @@ async function generate() {
   await fs.ensureDir(outputDir);
   await fs.writeFile(path.join(outputDir, 'report.json'), formatJson(report));
   await fs.writeFile(path.join(outputDir, 'fix-plan.json'), formatFixJson(plan));
+  await fs.writeFile(path.join(outputDir, 'report.html'), renderReportHtml(report));
 
   console.log(`✓ Analyzer demo generated: ${report.summary.findings} findings, ${plan.files.length} files with safe fixes.`);
 }

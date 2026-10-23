@@ -24,6 +24,8 @@ import {applyFixes, planFixes} from './fix/fix.js';
 import {formatFixJson, formatFixPlan, formatFixResult} from './reporters/fix.js';
 import {formatJson} from './reporters/json.js';
 import {formatTerminal} from './reporters/terminal.js';
+import {renderReportHtml} from './ui/html.js';
+import {startDevServer} from './ui/server.js';
 
 const HELP = `
 Oxygen UI analyzer - Check a project against the Oxygen UI rules
@@ -31,13 +33,26 @@ Oxygen UI analyzer - Check a project against the Oxygen UI rules
 Usage: oxygen-ui-analyzer <command> [dir] [options]
 
 Commands:
-  analyze [dir]       Analyze a project (default: the current directory) and print the report
+  dev [dir]           Open the report in the browser, and update it as files change
+  build [dir]         Write the report as one HTML file that opens without a server
+  analyze [dir]       Print the report in the terminal, or as JSON
   fix [dir]           Preview the safe automatic fixes; add --apply to write them
   help                Show this help message
 
-Options for analyze and fix:
+The directory defaults to the current directory.
+
+Options for dev:
+  --port <port>       Port to listen on (default: 6007)
+  --host <host>       Host to listen on (default: 127.0.0.1)
+
+Options for build:
+  --output <file>     The HTML file to write (default: oxygen-report.html)
+
+Options for all commands:
   --include <glob>    Files to analyze, relative to the project (repeatable)
   --ignore <glob>     Files to skip, in addition to the defaults (repeatable)
+
+Options for analyze and fix:
   --format <format>   terminal (default) or json
   --output <file>     Write the output to a file instead of printing it
   --no-color          Print without colours
@@ -54,10 +69,11 @@ General options:
   -h, --help          Show this help message
   -v, --version       Show the analyzer version
 
-Planned commands: dev, build, check
+Planned command: check
 `;
 
-const PLANNED_COMMANDS = new Set(['dev', 'build', 'check']);
+const PLANNED_COMMANDS = new Set(['check']);
+const COMMANDS = new Set(['dev', 'build', 'analyze', 'fix']);
 
 /**
  * Runs the CLI with the given arguments and returns the process exit code.
@@ -83,6 +99,8 @@ export async function run(argv: string[]): Promise<number> {
         limit: {type: 'string'},
         verify: {type: 'string', multiple: true},
         'allow-dirty': {type: 'boolean', default: false},
+        port: {type: 'string'},
+        host: {type: 'string'},
         help: {type: 'boolean', short: 'h', default: false},
         version: {type: 'boolean', short: 'v', default: false},
       },
@@ -109,7 +127,7 @@ export async function run(argv: string[]): Promise<number> {
     return 2;
   }
 
-  if (command !== 'analyze' && command !== 'fix') {
+  if (!COMMANDS.has(command)) {
     return usageError(`Unknown command: ${command}`);
   }
 
@@ -117,7 +135,15 @@ export async function run(argv: string[]): Promise<number> {
     return usageError(`Unknown format: ${values.format}. Use "terminal" or "json".`);
   }
 
-  if (command === 'analyze') {
+  if (command !== 'dev' && (values.port !== undefined || values.host !== undefined)) {
+    return usageError('--port and --host are options of the dev command.');
+  }
+
+  if (command === 'dev' && values.output !== undefined) {
+    return usageError('--output is not an option of the dev command. Use build to write the report to a file.');
+  }
+
+  if (command === 'dev' || command === 'build' || command === 'analyze') {
     for (const option of ['apply', 'allow-dirty'] as const) {
       if (values[option]) {
         return usageError(`--${option} is an option of the fix command.`);
@@ -130,12 +156,34 @@ export async function run(argv: string[]): Promise<number> {
     }
   }
 
+  const root = commandArgs[0] ? resolve(commandArgs[0]) : process.cwd();
+
+  if (command === 'dev') {
+    const port = values.port === undefined ? 6007 : Number(values.port);
+    if (!Number.isInteger(port) || port < 0 || port > 65535) {
+      return usageError(`--port must be a port number, not "${values.port}".`);
+    }
+
+    return runDevServer({root, include: values.include, ignore: values.ignore, port, host: values.host});
+  }
+
+  if (command === 'build') {
+    const output = resolve(values.output ?? 'oxygen-report.html');
+    const report = await analyze({root, include: values.include, ignore: values.ignore});
+
+    mkdirSync(dirname(output), {recursive: true});
+    writeFileSync(output, renderReportHtml(report));
+    process.stdout.write(
+      `Report written to ${values.output ?? 'oxygen-report.html'}: ${report.summary.findings} findings in ${report.summary.filesWithFindings} of ${report.summary.filesAnalyzed} files.\n`,
+    );
+    return 0;
+  }
+
   const limit = values.limit === undefined ? undefined : Number(values.limit);
   if (limit !== undefined && (!Number.isInteger(limit) || limit < 1)) {
     return usageError(`--limit must be a positive whole number, not "${values.limit}".`);
   }
 
-  const root = commandArgs[0] ? resolve(commandArgs[0]) : process.cwd();
   const json = values.format === 'json';
   const color = !values.output && !values['no-color'] && !process.env.NO_COLOR && Boolean(process.stdout.isTTY);
   const write = (text: string) => {
@@ -180,6 +228,40 @@ export async function run(argv: string[]): Promise<number> {
   write(json ? formatFixJson(plan, result) : formatFixResult(result, {color}));
 
   return result.status === 'applied' || (result.status === 'refused' && plan.files.length === 0) ? 0 : 1;
+}
+
+async function runDevServer(options: Parameters<typeof startDevServer>[0]): Promise<number> {
+  let server;
+
+  try {
+    server = await startDevServer({
+      ...options,
+      onReport: (report) =>
+        process.stdout.write(
+          `${new Date().toLocaleTimeString()}  ${report.summary.findings} findings in ${report.summary.filesWithFindings} of ${report.summary.filesAnalyzed} files\n`,
+        ),
+      onError: (error) => process.stderr.write(`Analysis failed: ${(error as Error).message}\n`),
+    });
+  } catch (error) {
+    const code = (error as NodeJS.ErrnoException).code;
+    process.stderr.write(
+      code === 'EADDRINUSE'
+        ? `Port ${options?.port} is in use. Choose another with --port.\n`
+        : `${(error as Error).message}\n`,
+    );
+    return 2;
+  }
+
+  process.stdout.write(`\nOxygen UI report running at ${server.url}\nThe report updates as files change. Press Ctrl+C to stop.\n\n`);
+
+  return new Promise((resolveExit) => {
+    const stop = () => {
+      void server.close().then(() => resolveExit(0));
+    };
+
+    process.once('SIGINT', stop);
+    process.once('SIGTERM', stop);
+  });
 }
 
 function usageError(message: string): number {

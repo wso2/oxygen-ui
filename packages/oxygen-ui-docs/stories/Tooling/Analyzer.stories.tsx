@@ -25,6 +25,7 @@ import {
   CircularProgress,
   CodeBlock,
   Divider,
+  Link,
   ListingTable,
   Stack,
   StatCard,
@@ -180,9 +181,15 @@ export const Overview: Story = {
           </Typography>
           <Text>
             The analyzer checks a product against the Oxygen UI rules and reports which files are inconsistent with
-            the design system: the rule, the file and line, the code involved, and how to fix it. Safe fixes, such
-            as importing MUI components from Oxygen UI, can be applied automatically.
+            the design system: the rule, the file and line, the code involved, and how to fix it. Like Storybook, it
+            runs as a local web page while you work, or builds a report file for CI. Safe fixes, such as importing MUI
+            components from Oxygen UI, can be applied automatically.
           </Text>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            <Link href="./analyzer-demo/report.html" target="_blank" rel="noopener" color="text.primary" underline="always">
+              Open the demo report
+            </Link>
+          </Typography>
         </Box>
 
         <Divider />
@@ -193,7 +200,8 @@ export const Overview: Story = {
           <CodeBlock
             language="json"
             code={`"scripts": {
-  "oxygen": "oxygen-ui-analyzer analyze",
+  "oxygen": "oxygen-ui-analyzer dev",
+  "oxygen:build": "oxygen-ui-analyzer build",
   "oxygen:fix": "oxygen-ui-analyzer fix"
 }`}
           />
@@ -202,10 +210,16 @@ export const Overview: Story = {
         <Section title="Find inconsistencies">
           <CodeBlock
             language="bash"
-            code={`pnpm oxygen                         # report in the terminal
-pnpm oxygen --format json --output oxygen-report.json
-pnpm oxygen --include "src/**" --ignore "src/legacy/**"`}
+            code={`pnpm oxygen                    # open the report at http://127.0.0.1:6007; it updates as files change
+pnpm oxygen:build              # write the report to oxygen-report.html, for CI artifacts or sharing
+npx oxygen-ui-analyzer analyze # print the report in the terminal
+npx oxygen-ui-analyzer analyze --format json --output oxygen-report.json`}
           />
+          <Text>
+            The report lists the files to update, most findings first. Each finding shows the code involved, how to fix
+            it, and a button that copies a fix prompt for an AI coding assistant. Every command accepts --include and
+            --ignore to choose the files to check.
+          </Text>
           <Text>
             The analyzer uses its own ESLint setup with only the Oxygen UI rules, so the product's ESLint configuration
             does not change the results. Dependencies, build output and tests are skipped by default. To accept a
@@ -234,7 +248,7 @@ pnpm oxygen:fix --apply --rule no-direct-lucide-imports --limit 10`}
         <Section title="Try it on the demo">
           <Text>
             The repository includes samples/oxygen-ui-analyzer-demo, a small product with deliberate inconsistencies.
-            The Demo report and Demo fix stories on this page are generated from it.
+            The demo report linked above, and the Demo report and Demo fix stories on this page, are generated from it.
           </Text>
           <CodeBlock
             language="bash"
