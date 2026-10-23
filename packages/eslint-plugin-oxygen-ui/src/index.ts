@@ -22,8 +22,8 @@ import noDirectLucideImportsRule from './rules/no-direct-lucide-imports.js';
 
 const plugin: ESLint.Plugin = {
   meta: {
-    name: '@oxygen-ui/eslint-plugin',
-    version: '0.1.0',
+    name: '@wso2/eslint-plugin-oxygen-ui',
+    version: '0.0.1',
   },
   configs: {} as Record<string, Linter.Config>,
   rules: {
@@ -32,25 +32,15 @@ const plugin: ESLint.Plugin = {
   },
 };
 
-// Recommended config
+// Recommended config. Uses the same plugin namespace as the README, and the
+// rule defaults, which point to @wso2/oxygen-ui and @wso2/oxygen-ui-icons-react.
 const recommendedConfig: Linter.Config = {
   plugins: {
-    '@oxygen-ui': plugin,
+    '@wso2/oxygen-ui': plugin,
   },
   rules: {
-    '@oxygen-ui/no-direct-mui-imports': [
-      'error',
-      {
-        suggestedPackage: '@oxygen-ui/react',
-        allowedPackages: ['@mui/x-data-grid', '@mui/x-date-pickers'],
-      },
-    ],
-    '@oxygen-ui/no-direct-lucide-imports': [
-      'error',
-      {
-        suggestedPackage: '@oxygen-ui/react-icons',
-      },
-    ],
+    '@wso2/oxygen-ui/no-direct-mui-imports': 'error',
+    '@wso2/oxygen-ui/no-direct-lucide-imports': 'error',
   },
 };
 

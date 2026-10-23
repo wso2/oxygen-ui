@@ -24,11 +24,64 @@ interface NoDirectMuiImportsOptions {
   suggestedPackage?: string;
 }
 
+/**
+ * Returns a fix only for imports that `@wso2/oxygen-ui` re-exports unchanged:
+ * `@mui/material`, its `styles` subpath, and its single-component subpaths such as
+ * `@mui/material/Button`. Other packages are not fixed automatically, because
+ * Oxygen UI exposes them differently (for example `@mui/x-data-grid` is the
+ * `DataGrid` namespace and `@mui/material/colors` is the `colors` namespace).
+ */
+function getFix(
+  node: ImportDeclaration,
+  importSource: string,
+  suggestedPackage: string,
+): Rule.ReportFixer | null {
+  const newSource = `'${suggestedPackage}'`;
+
+  if (importSource === '@mui/material' || importSource === '@mui/material/styles') {
+    return (fixer: Rule.RuleFixer) => fixer.replaceText(node.source, newSource);
+  }
+
+  const subpathMatch = /^@mui\/material\/([A-Z][A-Za-z]*)$/.exec(importSource);
+  if (!subpathMatch) {
+    return null;
+  }
+
+  const defaultSpecifiers = node.specifiers.filter((specifier) => specifier.type === 'ImportDefaultSpecifier');
+  const namespaceSpecifiers = node.specifiers.filter((specifier) => specifier.type === 'ImportNamespaceSpecifier');
+
+  if (namespaceSpecifiers.length > 0) {
+    return null;
+  }
+
+  // Named imports only, e.g. "import { buttonClasses } from '@mui/material/Button'".
+  if (defaultSpecifiers.length === 0) {
+    return (fixer: Rule.RuleFixer) => fixer.replaceText(node.source, newSource);
+  }
+
+  // A single default import, e.g. "import MuiButton from '@mui/material/Button'".
+  // Default and named imports together are left for the developer to fix.
+  if (node.specifiers.length === 1) {
+    const exportedName = subpathMatch[1];
+    const localName = defaultSpecifiers[0].local.name;
+    const specifier = localName === exportedName ? exportedName : `${exportedName} as ${localName}`;
+    const importKind = (node as ImportDeclaration & {importKind?: string}).importKind === 'type' ? 'type ' : '';
+
+    return (fixer: Rule.RuleFixer) =>
+      fixer.replaceTextRange(
+        [node.range![0], node.source.range![1]],
+        `import ${importKind}{${specifier}} from ${newSource}`,
+      );
+  }
+
+  return null;
+}
+
 const noDirectMuiImportsRule: Rule.RuleModule = {
   meta: {
     type: 'problem',
     docs: {
-      description: 'Disallow direct imports from MUI packages (@mui/*), suggest using @oxygen-ui/react instead',
+      description: 'Disallow direct imports from MUI packages (@mui/*), suggest using @wso2/oxygen-ui instead',
       category: 'Best Practices',
       recommended: true,
     },
@@ -71,8 +124,9 @@ const noDirectMuiImportsRule: Rule.RuleModule = {
           return;
         }
 
-        // Check if the package is in the allowed list
-        if (allowedPackages.some((pkg: string) => importSource.startsWith(pkg))) {
+        // Check if the package is in the allowed list. Match the package name exactly,
+        // so allowing '@mui/x-data-grid' does not also allow '@mui/x-data-grid-pro'.
+        if (allowedPackages.some((pkg: string) => importSource === pkg || importSource.startsWith(`${pkg}/`))) {
           return;
         }
 
@@ -88,20 +142,7 @@ const noDirectMuiImportsRule: Rule.RuleModule = {
             component: componentName ?? '',
             suggestedPackage,
           },
-          fix(fixer: Rule.RuleFixer) {
-            // For subpath imports like "import Box from '@mui/material/Box'" or "import { DataGrid } from '@mui/x-data-grid'"
-            // Convert to: "import {Box} from '@oxygen-ui/react'"
-            if (componentName && node.specifiers.length === 1 && node.specifiers[0].type === 'ImportDefaultSpecifier') {
-              const importedName = node.specifiers[0].local.name;
-              const newImport = `import {${importedName}} from '${suggestedPackage}'`;
-              return fixer.replaceText(node, newImport);
-            }
-
-            // For all other cases (direct imports from any @mui/* package)
-            // Just replace the source with the suggested package
-            const newSource = `'${suggestedPackage}'`;
-            return fixer.replaceText(node.source, newSource);
-          },
+          fix: getFix(node, importSource, suggestedPackage),
         });
       },
     };
