@@ -4,7 +4,7 @@ The single source of truth for Oxygen UI governance rules. Each rule is defined 
 
 - [`@wso2/eslint-plugin-oxygen-ui`](../eslint-plugin-oxygen-ui), for lint feedback in editors and CI.
 - [`@wso2/oxygen-ui-analyzer`](../oxygen-ui-analyzer), for project reports.
-- The AI instructions that `npx @wso2/oxygen-ui init` installs (planned).
+- The AI instructions that `npx @wso2/oxygen-ui init` installs, which are generated from it.
 
 ## Rule structure
 
@@ -47,6 +47,20 @@ Each rule lives in its own folder under `src/rules/<rule-id>/`:
 
 Rules refer to catalog entries in their `sources`. [RULES.md](RULES.md) is generated from the registry and shows which entries have rules so far.
 
+## Generated AI documentation
+
+`pnpm rules:generate` writes the AI documentation that `npx @wso2/oxygen-ui init` installs in products, from the rules, the catalog and the `@wso2/oxygen-ui` type declarations:
+
+| File in `packages/oxygen-ui` | Generated from |
+|---|---|
+| `.claude/CLAUDE.md`, `.ai/AGENTS.md` | [`templates/core.md`](templates/core.md), the rules and the catalog |
+| `.claude/components.md`, `.ai/components.md` | The type declarations: every Oxygen UI component's own props, with types and descriptions, and its sub-components |
+| `.claude/rules.md`, `.ai/rules.md` | The rules: docs and examples |
+| `.ai/patterns.md`, `.ai/theming.md`, `.ai/migration.md` | Copies of the hand-written guides in `.claude/` |
+| The block between `<!-- oxygen-ui-rules:start -->` and `<!-- oxygen-ui-rules:end -->` in each skill | The rules |
+
+Edit the hand-written guides in `.claude/` and the skills outside the generated blocks; never edit the generated files. The coverage check fails when they are out of date, and when a hand-written guide or skill imports something `@wso2/oxygen-ui` does not export.
+
 ## Keeping the rules in step with Oxygen UI
 
 Run the coverage check from the repository root, like the tests:
@@ -64,7 +78,8 @@ It fails when:
 | Packages | A publishable package has no catalog entry, or an entry has no matching package |
 | Guides | A Storybook guide has no catalog entry, or an entry has no matching guide |
 | Rules | A rule has placeholders or no sources, or a source is not in the catalog |
-| Generated files | `RULES.md` or the API snapshot is out of date. A stale snapshot lists the changed props, so you can check whether rules need updating |
+| Generated files | `RULES.md`, the API snapshot or the generated AI documentation is out of date. A stale snapshot lists the changed props, so you can check whether rules need updating |
+| AI docs | A hand-written guide or skill imports a name that `@wso2/oxygen-ui` does not export |
 | Rule examples | An automated rule does not report or fix its examples as declared |
 
 Catalog entries and rules that have no rules yet are listed as notes, not failures.

@@ -33,7 +33,41 @@ import ts from 'typescript';
  * @param {{packageDir: string, entry?: string, tsconfig?: string}} options
  * @returns {Map<string, {props?: string[], members?: Record<string, string[]>}>}
  */
-export function readOwnedApi({packageDir, entry = 'src/index.ts', tsconfig = 'tsconfig.json'}) {
+export function readOwnedApi(options) {
+  const {owned} = readApiDetails(options);
+
+  return new Map(
+    [...owned].map(([name, value]) => {
+      const description = {};
+      if (value.props) description.props = value.props.map(propName).sort();
+      if (value.members) {
+        description.members = Object.fromEntries(
+          Object.entries(value.members).map(([member, props]) => [member, props.map(propName).sort()]),
+        );
+      }
+      return [name, description];
+    }),
+  );
+}
+
+const propName = (prop) => `${prop.name}${prop.optional ? '?' : ''}`;
+
+/** Longest type text kept in the generated API reference. */
+const MAX_TYPE_LENGTH = 120;
+
+/**
+ * Reads a package's public API in detail, for the generated API reference.
+ *
+ * @param {{packageDir: string, entry?: string, tsconfig?: string}} options
+ * @returns {{
+ *   all: Set<string>,
+ *   owned: Map<string, {description: string, props?: Prop[], members?: Record<string, Prop[]>}>,
+ * }}
+ *   `all` holds every export name, including re-exports such as MUI's, and `owned` the values the
+ *   package declares itself.
+ * @typedef {{name: string, optional: boolean, type: string, description: string}} Prop
+ */
+export function readApiDetails({packageDir, entry = 'src/index.ts', tsconfig = 'tsconfig.json'}) {
   const sourceDir = resolve(packageDir, 'src') + sep;
   const configPath = resolve(packageDir, tsconfig);
   const config = ts.readConfigFile(configPath, ts.sys.readFile);
@@ -58,23 +92,25 @@ export function readOwnedApi({packageDir, entry = 'src/index.ts', tsconfig = 'ts
       resolve(declaration.getSourceFile().fileName).startsWith(sourceDir),
     );
 
-  const api = new Map();
+  const owned = new Map();
+  const all = new Set();
 
   for (const exported of checker.getExportsOfModule(checker.getSymbolAtLocation(entryFile))) {
     const symbol = exported.flags & ts.SymbolFlags.Alias ? checker.getAliasedSymbol(exported) : exported;
+    all.add(exported.getName());
 
     if (isOwned(symbol) && symbol.flags & ts.SymbolFlags.Value) {
-      api.set(exported.getName(), describeValue(checker, exported.getName(), symbol, isOwned));
+      owned.set(exported.getName(), describeValue(checker, exported.getName(), symbol, isOwned));
     }
   }
 
-  return new Map([...api].sort(([a], [b]) => a.localeCompare(b)));
+  return {all, owned: new Map([...owned].sort(([a], [b]) => a.localeCompare(b)))};
 }
 
 function describeValue(checker, name, symbol, isOwned) {
   const declaration = symbol.valueDeclaration ?? symbol.getDeclarations()[0];
   const type = checker.getTypeOfSymbolAtLocation(symbol, declaration);
-  const description = {};
+  const description = {description: ts.displayPartsToString(symbol.getDocumentationComment(checker)).trim()};
 
   // Components are capitalised; hooks, utilities and constants are not, and have no props.
   if (!/^[A-Z]/.test(name)) {
@@ -123,6 +159,39 @@ function getProps(checker, type, declaration, isOwned) {
   return checker
     .getPropertiesOfType(propsType)
     .filter((property) => isOwned(property))
-    .map((property) => `${property.getName()}${property.flags & ts.SymbolFlags.Optional ? '?' : ''}`)
-    .sort();
+    .map((property) => {
+      const optional = Boolean(property.flags & ts.SymbolFlags.Optional);
+      const typeText = describeType(checker, checker.getTypeOfSymbolAtLocation(property, declaration), optional);
+
+      return {
+        name: property.getName(),
+        optional,
+        type: typeText.length > MAX_TYPE_LENGTH ? `${typeText.slice(0, MAX_TYPE_LENGTH - 1)}…` : typeText,
+        description: ts.displayPartsToString(property.getDocumentationComment(checker)).replace(/\s+/g, ' ').trim(),
+      };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+/**
+ * Formats a prop type. Unions are listed member by member, so named unions such as
+ * `ListingTableVariant` show their allowed values, unless the list is too long to be useful.
+ * Optional props leave out `undefined`.
+ */
+function describeType(checker, type, optional) {
+  // Optional props include undefined, which the Required column already shows.
+  const named = optional ? checker.typeToString(type).replace(/ \| undefined$/, '') : checker.typeToString(type);
+
+  if (!type.isUnion()) {
+    return named;
+  }
+
+  const parts = type.types.map((member) => checker.typeToString(member)).filter((part) => !(optional && part === 'undefined'));
+  // TypeScript represents boolean as the union of true and false.
+  const merged = parts.includes('true') && parts.includes('false')
+    ? [...parts.filter((part) => part !== 'true' && part !== 'false'), 'boolean']
+    : parts;
+  const expanded = [...new Set(merged)].join(' | ');
+
+  return expanded.length <= MAX_TYPE_LENGTH ? expanded : named;
 }

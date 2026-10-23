@@ -17,7 +17,8 @@
  */
 
 import {join} from 'path';
-import {readOwnedApi} from './api.js';
+import {buildAiDocs} from './ai-docs.js';
+import {readApiDetails} from './api.js';
 import {REPO_ROOT, RULES_PACKAGE_DIR} from './repo.js';
 
 /** The API snapshot, compared by `pnpm rules:coverage` to catch unreviewed API changes. */
@@ -30,13 +31,39 @@ export const RULES_INDEX_PATH = join(RULES_PACKAGE_DIR, 'RULES.md');
 export const SNAPSHOT_PACKAGES = [{name: '@wso2/oxygen-ui', dir: join(REPO_ROOT, 'packages/oxygen-ui')}];
 
 /**
- * Reads the owned API of every snapshotted package.
+ * Reads the API of every snapshotted package in detail: every export name, and the props and
+ * sub-components of the values the package declares itself.
  *
- * @returns {Record<string, Record<string, {props?: string[], members?: Record<string, string[]>}>>}
+ * @returns {Record<string, ReturnType<typeof readApiDetails>>}
  */
 export function readApi() {
+  return Object.fromEntries(SNAPSHOT_PACKAGES.map(({name, dir}) => [name, readApiDetails({packageDir: dir})]));
+}
+
+/**
+ * The API snapshot: prop and sub-component names only, so it changes when the API does, not when
+ * descriptions are edited.
+ *
+ * @param {ReturnType<typeof readApi>} api
+ * @returns {Record<string, Record<string, {props?: string[], members?: Record<string, string[]>}>>}
+ */
+export function toSnapshot(api) {
+  const names = (props) => props.map((prop) => `${prop.name}${prop.optional ? '?' : ''}`).sort();
+
   return Object.fromEntries(
-    SNAPSHOT_PACKAGES.map(({name, dir}) => [name, Object.fromEntries(readOwnedApi({packageDir: dir}))]),
+    Object.entries(api).map(([pkg, {owned}]) => [
+      pkg,
+      Object.fromEntries(
+        [...owned].map(([name, value]) => {
+          const description = {};
+          if (value.props) description.props = names(value.props);
+          if (value.members) {
+            description.members = Object.fromEntries(Object.entries(value.members).map(([member, props]) => [member, names(props)]));
+          }
+          return [name, description];
+        }),
+      ),
+    ]),
   );
 }
 
@@ -49,8 +76,9 @@ export function readApi() {
  */
 export function buildGeneratedFiles(registry, api) {
   return [
-    {path: API_SNAPSHOT_PATH, content: `${JSON.stringify(api, null, 2)}\n`},
+    {path: API_SNAPSHOT_PATH, content: `${JSON.stringify(toSnapshot(api), null, 2)}\n`},
     {path: RULES_INDEX_PATH, content: buildRulesIndex(registry)},
+    ...buildAiDocs(registry, api['@wso2/oxygen-ui']),
   ];
 }
 

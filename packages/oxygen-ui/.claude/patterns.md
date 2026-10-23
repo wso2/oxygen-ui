@@ -1140,7 +1140,6 @@ import {
   OxygenTheme,
   AcrylicOrangeTheme,
   AcrylicPurpleTheme,
-  ChoreoTheme,
   ClassicTheme,
   HighContrastTheme,
   PaleBaseTheme,
@@ -1155,12 +1154,12 @@ const themes = [
   { key: 'default', label: 'Default', theme: OxygenTheme },
   { key: 'orange', label: 'Acrylic Orange', theme: AcrylicOrangeTheme },
   { key: 'purple', label: 'Acrylic Purple', theme: AcrylicPurpleTheme },
-  { key: 'choreo', label: 'Choreo', theme: ChoreoTheme },
   { key: 'classic', label: 'Classic', theme: ClassicTheme },
   { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
   { key: 'paleBase', label: 'Pale Base', theme: PaleBaseTheme },
   { key: 'paleGray', label: 'Pale Gray', theme: PaleGrayTheme },
   { key: 'paleIndigo', label: 'Pale Indigo', theme: PaleIndigoTheme },
+  { key: 'wso2', label: 'WSO2', theme: WSO2Theme },
 ];
 
 function ThemeSelector() {

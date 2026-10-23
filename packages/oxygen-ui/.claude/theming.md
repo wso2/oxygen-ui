@@ -17,24 +17,24 @@
 | OxygenTheme | `OxygenTheme` | Default theme (Acrylic Base) |
 | Acrylic Orange | `AcrylicOrangeTheme` | Glass-morphism effects, orange primary |
 | Acrylic Purple | `AcrylicPurpleTheme` | Glass-morphism with purple accents |
-| Choreo | `ChoreoTheme` | Choreo product theme (indigo-violet gradient) |
 | Classic | `ClassicTheme` | Standard flat design |
 | High Contrast | `HighContrastTheme` | Accessibility-focused with high contrast colors |
 | Pale Base | `PaleBaseTheme` | Minimal color palette for subtle interfaces |
 | Pale Gray | `PaleGrayTheme` | Soft gray tones for a muted appearance |
 | Pale Indigo | `PaleIndigoTheme` | Soft indigo tones for a calm interface |
+| WSO2 | `WSO2Theme` | WSO2 brand theme |
 
 ```tsx
 import {
   OxygenTheme,
   AcrylicOrangeTheme,
   AcrylicPurpleTheme,
-  ChoreoTheme,
   ClassicTheme,
   HighContrastTheme,
   PaleBaseTheme,
   PaleGrayTheme,
   PaleIndigoTheme,
+  WSO2Theme,
 } from '@wso2/oxygen-ui';
 ```
 
@@ -67,12 +67,12 @@ import {
   OxygenTheme,
   AcrylicOrangeTheme,
   AcrylicPurpleTheme,
-  ChoreoTheme,
   ClassicTheme,
   HighContrastTheme,
   PaleBaseTheme,
   PaleGrayTheme,
   PaleIndigoTheme,
+  WSO2Theme,
 } from '@wso2/oxygen-ui';
 
 <OxygenUIThemeProvider
@@ -80,12 +80,12 @@ import {
     { key: 'default', label: 'Default', theme: OxygenTheme },
     { key: 'orange', label: 'Acrylic Orange', theme: AcrylicOrangeTheme },
     { key: 'purple', label: 'Acrylic Purple', theme: AcrylicPurpleTheme },
-    { key: 'choreo', label: 'Choreo', theme: ChoreoTheme },
     { key: 'classic', label: 'Classic', theme: ClassicTheme },
     { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
     { key: 'paleBase', label: 'Pale Base', theme: PaleBaseTheme },
     { key: 'paleGray', label: 'Pale Gray', theme: PaleGrayTheme },
     { key: 'paleIndigo', label: 'Pale Indigo', theme: PaleIndigoTheme },
+    { key: 'wso2', label: 'WSO2', theme: WSO2Theme },
   ]}
   initialTheme="default"
 >
@@ -259,11 +259,10 @@ The theme uses `data-color-scheme` attribute for mode switching:
 
 ### Extending Base Theme
 ```tsx
-import { extendTheme } from '@mui/material/styles';
-import { OxygenThemeBase } from '@wso2/oxygen-ui';
+import { createOxygenTheme } from '@wso2/oxygen-ui';
 
-const customTheme = extendTheme({
-  ...OxygenThemeBase,
+// createOxygenTheme builds on the Oxygen base theme, so only the differences are needed.
+const customTheme = createOxygenTheme({
   colorSchemes: {
     light: {
       palette: {
@@ -289,8 +288,9 @@ const customTheme = extendTheme({
 
 ### Component Overrides
 ```tsx
-const customTheme = extendTheme({
-  ...OxygenThemeBase,
+import { createOxygenTheme } from '@wso2/oxygen-ui';
+
+const customTheme = createOxygenTheme({
   components: {
     MuiButton: {
       styleOverrides: {

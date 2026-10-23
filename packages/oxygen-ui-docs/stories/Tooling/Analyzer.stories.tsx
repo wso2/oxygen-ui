@@ -541,8 +541,9 @@ export const Rules: Story = {
                     Rules
                   </Typography>
                   <Text>
-                    Rules version {data.ruleset.version}. Each rule is defined once in @wso2/oxygen-ui-rules, and both
-                    the analyzer and the ESLint plugin use it.
+                    Rules version {data.ruleset.version}. Each rule is defined once in @wso2/oxygen-ui-rules. The
+                    analyzer and the ESLint plugin check it, and the AI instructions that npx @wso2/oxygen-ui init
+                    installs are generated from it.
                   </Text>
                 </Box>
 

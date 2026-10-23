@@ -19,7 +19,8 @@
 import {existsSync, readFileSync} from 'fs';
 import parser from '@typescript-eslint/parser';
 import {Linter} from 'eslint';
-import {buildGeneratedFiles} from './generate.js';
+import {findUnknownImports} from './ai-docs.js';
+import {buildGeneratedFiles, toSnapshot} from './generate.js';
 import {listGuides, listPublishablePackages, repoPath} from './repo.js';
 
 /**
@@ -31,16 +32,17 @@ import {listGuides, listPublishablePackages, repoPath} from './repo.js';
  * Runs every coverage check.
  *
  * @param {typeof import('../../dist/index.js')} registry
- * @param {Record<string, Record<string, object>>} api The owned API, from `readApi()`.
+ * @param {ReturnType<typeof import('./generate.js').readApi>} api The API, from `readApi()`.
  * @returns {CheckResult[]}
  */
 export function runChecks(registry, api) {
   return [
-    checkComponents(registry, api),
+    checkComponents(registry, toSnapshot(api)),
     checkPackages(registry),
     checkGuides(registry),
     checkRuleSources(registry),
     checkGeneratedFiles(registry, api),
+    checkAiDocs(api),
     checkRuleExamples(registry),
   ];
 }
@@ -244,7 +246,7 @@ export function checkGeneratedFiles(registry, api) {
       problems.push({message: `${repoPath(path)} has not been generated.`, hint: 'pnpm rules:generate'});
     } else if (readFileSync(path, 'utf-8') !== content) {
       problems.push({
-        message: `${repoPath(path)} is out of date.${path.endsWith('.snapshot.json') ? ` ${describeApiChanges(JSON.parse(readFileSync(path, 'utf-8')), api)}` : ''}`,
+        message: `${repoPath(path)} is out of date.${path.endsWith('.snapshot.json') ? ` ${describeApiChanges(JSON.parse(readFileSync(path, 'utf-8')), toSnapshot(api))}` : ''}`,
         hint: path.endsWith('.snapshot.json')
           ? 'Check whether the changed components need new or updated rules, then run pnpm rules:generate.'
           : 'pnpm rules:generate',
@@ -300,6 +302,20 @@ function diffDescription(name, before, after) {
   }
 
   return changes;
+}
+
+/** The hand-written AI docs only import names that `@wso2/oxygen-ui` exports. */
+export function checkAiDocs(api) {
+  const unknown = findUnknownImports(api['@wso2/oxygen-ui'].all);
+
+  return result(
+    'AI docs',
+    unknown.length === 0 ? 'imports in hand-written docs and skills exist' : `${unknown.length} unknown imports`,
+    unknown.map(({file, line, name}) => ({
+      message: `${repoPath(file)}:${line} imports "${name}", which @wso2/oxygen-ui does not export.`,
+      hint: 'Update the example to the current API.',
+    })),
+  );
 }
 
 /** Every automated rule behaves as its examples say. */

@@ -380,6 +380,7 @@ function initDefault() {
   console.log('Files created:');
   console.log('  - AGENTS.md (root file with quick reference)');
   console.log('  - .ai/oxygen-ui/components.md (component reference)');
+  console.log('  - .ai/oxygen-ui/rules.md (design system rules)');
   console.log('  - .ai/oxygen-ui/patterns.md (common patterns)');
   console.log('  - .ai/oxygen-ui/theming.md (theme customization)');
   console.log('  - .ai/oxygen-ui/migration.md (migration guide)\n');
@@ -406,6 +407,7 @@ function initClaude(includeInternal = false) {
   console.log('Files created:');
   console.log('  - .claude/oxygen-ui/CLAUDE.md (core instructions)');
   console.log('  - .claude/oxygen-ui/components.md (component reference)');
+  console.log('  - .claude/oxygen-ui/rules.md (design system rules)');
   console.log('  - .claude/oxygen-ui/patterns.md (common patterns)');
   console.log('  - .claude/oxygen-ui/theming.md (theme customization)');
   console.log('  - .claude/oxygen-ui/migration.md (migration guide)');
@@ -415,6 +417,8 @@ function initClaude(includeInternal = false) {
   console.log('  - /oxygen-layout     Generate app layouts');
   console.log('  - /oxygen-form       Generate forms with validation');
   console.log('  - /oxygen-migrate    Migrate MUI code to Oxygen UI');
+  console.log('  - /oxygen-audit      Audit UI code against Oxygen UI');
+  console.log('  - /oxygen-remediate  Fix Oxygen UI findings');
   if (includeInternal) {
     console.log('  - /oxygen-sync       Sync AI docs with source (internal)');
   }
@@ -549,6 +553,8 @@ Available Skills (Claude mode only):
   /oxygen-layout     Generate app layouts with AppShell
   /oxygen-form       Generate forms with validation
   /oxygen-migrate    Migrate existing MUI code
+  /oxygen-audit      Audit UI code against Oxygen UI (read-only)
+  /oxygen-remediate  Fix Oxygen UI findings, one at a time
 `);
 }
 
