@@ -21,3 +21,15 @@ export {DEFAULT_IGNORE, DEFAULT_INCLUDE} from './engine/defaults.js';
 export * from './report/types.js';
 export {formatJson} from './reporters/json.js';
 export {formatTerminal, type TerminalFormatOptions} from './reporters/terminal.js';
+export {
+  applyFixes,
+  planFixes,
+  type ApplyOptions,
+  type FileFix,
+  type FixOptions,
+  type FixPlan,
+  type FixResult,
+  type VerificationResult,
+} from './fix/fix.js';
+export {formatUnifiedDiff} from './fix/diff.js';
+export {formatFixJson, formatFixPlan, formatFixResult, type FixFormatOptions} from './reporters/fix.js';

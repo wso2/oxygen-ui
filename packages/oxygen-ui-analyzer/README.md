@@ -2,7 +2,20 @@
 
 Checks a project against the [Oxygen UI rules](../oxygen-ui-rules) and reports which files are inconsistent with the design system.
 
-## Usage
+## Adding it to a project
+
+```bash
+pnpm add -D @wso2/oxygen-ui-analyzer
+```
+
+```jsonc
+"scripts": {
+  "oxygen": "oxygen-ui-analyzer analyze",
+  "oxygen:fix": "oxygen-ui-analyzer fix"
+}
+```
+
+## Analyze
 
 ```bash
 npx oxygen-ui-analyzer analyze [dir]
@@ -24,7 +37,33 @@ The analyzer runs its own ESLint instance with only the Oxygen UI rules, so a pr
 // eslint-disable-next-line @wso2/oxygen-ui/no-direct-mui-imports -- reason
 ```
 
-Planned commands: `dev` (local report UI), `build` (static HTML report), `check` (CI gate against a baseline) and `fix`.
+## Fix
+
+```bash
+npx oxygen-ui-analyzer fix [dir]           # preview: shows the diff, changes nothing
+npx oxygen-ui-analyzer fix [dir] --apply   # writes the changes
+```
+
+`fix` only applies fixes of rules whose fix type is `safe`, such as rewriting `@mui/material` imports to `@wso2/oxygen-ui`. Other findings are listed with what they need: a manual change, a suggested fix to review, or the AI remediation skill.
+
+| Option | Description |
+|---|---|
+| `--apply` | Write the changes. Without it, `fix` only shows what would change |
+| `--rule <id>` | Only fix findings of this rule. Repeatable |
+| `--limit <n>` | Fix at most this many files, to keep each change small enough to review |
+| `--verify <command>` | Run a command after writing the changes, such as `"pnpm typecheck"`. Repeatable |
+| `--allow-dirty` | Apply even when the files to change have uncommitted changes |
+| `--include`, `--ignore`, `--format`, `--output`, `--no-color` | As for `analyze` |
+
+With `--apply`, the changes are only kept if they pass every check:
+
+1. Nothing is written if a file to change has uncommitted changes, if a file changed since the fixes were planned, or if the project is not a git repository (unless `--allow-dirty` is used).
+2. After writing, the project is analyzed again. If the changes introduced any new finding, they are rolled back.
+3. Each `--verify` command runs in order. If one fails, the changes are rolled back.
+
+`fix --apply` exits with 1 when it did not write the changes or rolled them back.
+
+Planned commands: `dev` (local report UI), `build` (static HTML report) and `check` (CI gate against a baseline).
 
 ## Report format
 

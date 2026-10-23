@@ -51,6 +51,40 @@ export interface AnalyzeOptions {
 
 const RULE_ID_PREFIX = `${ESLINT_PLUGIN_NAMESPACE}/`;
 
+/**
+ * Returns the Oxygen UI rule id for an ESLint rule id such as
+ * `'@wso2/oxygen-ui/no-direct-mui-imports'`, or `null` for other plugins' rules.
+ */
+export function toRuleId(eslintRuleId: string | null): string | null {
+  return eslintRuleId?.startsWith(RULE_ID_PREFIX) ? eslintRuleId.slice(RULE_ID_PREFIX.length) : null;
+}
+
+export interface AnalyzerEslintOptions {
+  root: string;
+  rules: RuleDefinition[];
+  ignore?: string[];
+  /** Which problems ESLint should fix. By default nothing is fixed. */
+  fix?: (message: Linter.LintMessage) => boolean;
+}
+
+/**
+ * Creates the ESLint instance the analyzer uses: only the automated Oxygen UI rules, with the
+ * project's own ESLint configuration ignored.
+ */
+export function createAnalyzerEslint({root, rules, ignore = [], fix}: AnalyzerEslintOptions): ESLint {
+  return new ESLint({
+    cwd: root,
+    overrideConfigFile: true,
+    overrideConfig: createEslintConfig(
+      rules.filter((rule) => rule.detect),
+      [...DEFAULT_IGNORE, ...ignore],
+    ),
+    errorOnUnmatchedPattern: false,
+    warnIgnored: false,
+    ...(fix ? {fix} : {}),
+  });
+}
+
 /** Maximum number of source lines kept as evidence for one finding. */
 const MAX_EVIDENCE_LINES = 3;
 
@@ -64,16 +98,7 @@ const MAX_EVIDENCE_LINES = 3;
 export async function analyze(options: AnalyzeOptions = {}): Promise<Report> {
   const root = resolve(options.root ?? process.cwd());
   const rules = options.rules ?? registry;
-  const automatedRules = rules.filter((rule) => rule.detect);
-
-  const eslint = new ESLint({
-    cwd: root,
-    overrideConfigFile: true,
-    overrideConfig: createEslintConfig(automatedRules, [...DEFAULT_IGNORE, ...(options.ignore ?? [])]),
-    errorOnUnmatchedPattern: false,
-    warnIgnored: false,
-  });
-
+  const eslint = createAnalyzerEslint({root, rules, ignore: options.ignore});
   const results = await eslint.lintFiles(options.include ?? DEFAULT_INCLUDE);
 
   const findings: Finding[] = [];
@@ -90,7 +115,7 @@ export async function analyze(options: AnalyzeOptions = {}): Promise<Report> {
         continue;
       }
 
-      const ruleId = message.ruleId?.startsWith(RULE_ID_PREFIX) ? message.ruleId.slice(RULE_ID_PREFIX.length) : null;
+      const ruleId = toRuleId(message.ruleId);
       const rule = ruleId ? rules.find((candidate) => candidate.meta.id === ruleId) : undefined;
 
       // Problems that are not Oxygen UI findings, such as comments that configure other plugins' rules.
