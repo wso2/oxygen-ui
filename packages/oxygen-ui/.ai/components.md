@@ -14,6 +14,7 @@ Complete API reference for custom Oxygen UI components. For MUI components, refe
 - [UserMenu](#usermenu)
 - [AppSwitcher](#appswitcher)
 - [Form](#form)
+- [FullScreenWizard](#fullscreenwizard)
 - [NotificationPanel](#notificationpanel)
 - [NotificationBanner](#notificationbanner)
 - [ParticleBackground](#particlebackground)
@@ -551,6 +552,161 @@ interface WizardProps {
   <Form.Body>Additional context about the form section.</Form.Body>
 </Form.Section>
 ```
+
+---
+
+## FullScreenWizard
+
+Full-screen layout for create and onboarding flows: a progress bar, a header with a close button,
+a scrolling content column with an actions footer, and an optional live preview beside the form.
+
+```tsx
+import { FullScreenWizard, useWizardSteps } from '@wso2/oxygen-ui';
+```
+
+### Compound component
+
+- `FullScreenWizard.Progress` — determinate progress bar or segments; leave it out for a single-step form
+- `FullScreenWizard.Header` — `<header>` with the built-in close button, then breadcrumbs or a title
+- `FullScreenWizard.Content` — scroll region holding the active step; `<main>` in page mode
+- `FullScreenWizard.Footer` — actions row, under the step in the content column or as a full-width bar
+- `FullScreenWizard.Preview` — `<aside>` side panel (live preview, step rail, tips); adding it switches to a split layout
+
+The wizard is stateless: the consumer owns the steps, or uses `useWizardSteps`. It has no routing
+and no product logic, so confirming a close or warning about unsaved changes happens in `onClose`.
+Use it for flows that take over the screen; use `Form.Wizard` for a stepper inside a page, and a
+regular `Dialog` for a short task that keeps the page in view.
+
+### FullScreenWizard Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | required | Progress, Header, Content, Footer and an optional Preview |
+| `onClose` | `() => void` | - | Called by the close button and, in modal mode, by `Esc`. No close button without it |
+| `closeLabel` | `string` | `'Close'` | Accessible name of the close button |
+| `modal` | `boolean` | `false` | Renders the wizard in MUI's full-screen `Dialog` |
+| `open` | `boolean` | `false` | Whether the dialog is open (modal only) |
+| `DialogProps` | `Partial<DialogProps>` | - | Extra props for the `Dialog` (modal only) |
+| `aria-label` | `string` | - | Names the dialog in modal mode, the `main` region in page mode |
+| `aria-labelledby` | `string` | - | Id of the element naming the wizard; wins over `aria-label` |
+| `sx` | `SxProps<Theme>` | - | Additional styles for the root |
+
+The root forwards its `ref` and passes other attributes (`id`, `className`, `data-*`) to its element.
+Page mode fills `100dvh`. Every part forwards its `ref` and accepts `sx` and its element's attributes,
+and the theme can restyle each slot through `components.MuiFullScreenWizard.styleOverrides`.
+
+Parts are found by `displayName` among the wizard's children and inside fragments. A product
+component that wraps a part must set the same `displayName` (for example
+`'FullScreenWizard.Footer'`) and pass props such as `variant` or `position` through. Use one `Content`.
+
+### FullScreenWizard.Progress Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `number` | required | Progress from 0 to 100; clamped |
+| `valueText` | `string` | - | Read in place of the percentage, e.g. `"Step 2 of 3"` |
+| `progressLabel` | `string` | `'Progress'` | Accessible name of the bar |
+| `variant` | `'bar' \| 'segmented'` | `'bar'` | `bar` is a thin full-width bar; `segmented` shows one segment per step, inset to line up with the header |
+| `steps` | `number` | - | Number of segments in the `segmented` variant |
+
+Other `LinearProgress` props are forwarded in the `bar` variant.
+
+### FullScreenWizard.Header Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Breadcrumbs, a title or a stepper, shown beside the close button |
+| `closePosition` | `'start' \| 'end'` | `'start'` | Side of the header the close button sits on |
+| `closeIcon` | `ReactNode` | `<X size={20} />` | Icon of the close button |
+| `CloseButtonProps` | `Partial<IconButtonProps>` | - | Extra props for the close button (`size`, `color`, `sx`); its name and handler come from the wizard |
+| `sx` | `SxProps<Theme>` | - | Additional styles |
+
+### FullScreenWizard.Content Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `maxWidth` | `Breakpoint \| number \| false` | `'md'` | Width cap of the content column; `false` fills the width |
+| `align` | `'start' \| 'center'` | `'start'` | `start` keeps the column left-aligned; `center` centres it in both directions, for a welcome or picker screen |
+| `focusKey` | `string \| number` | - | When it changes, focus moves to the region and it scrolls to the top |
+| `sx` | `SxProps<Theme>` | - | Additional styles |
+
+Content forwards its `ref`. It is a plain region inside the dialog in modal mode.
+
+### FullScreenWizard.Footer Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `sticky` | `boolean` | `false` | Pins the footer to the bottom of the scroll region for long forms |
+| `variant` | `'inline' \| 'bar'` | `'inline'` | `inline` sits under the step in the content column; `bar` is a full-width bar along the bottom of the form column, outside the scroll |
+| `sx` | `SxProps<Theme>` | - | Additional styles |
+
+Actions are end-aligned; push a Back button to the start with `sx={{ mr: 'auto' }}`.
+
+### FullScreenWizard.Preview Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `hideBelow` | `Breakpoint \| false` | `'md'` | Hides the preview below this breakpoint; `false` always shows it |
+| `position` | `'start' \| 'end'` | `'end'` | Side of the form the panel sits on; with a narrower `flexBasis` in `sx`, `start` makes a step rail |
+| `previewLabel` | `string` | `'Preview'` | Accessible name of the `aside` |
+| `sx` | `SxProps<Theme>` | - | Additional styles |
+
+### useWizardSteps
+
+```tsx
+const wizard = useWizardSteps(['details', { id: 'access', skip: !needsAccess }, 'review'], {
+  initialStep: 'details',
+});
+// { activeStep, activeIndex, steps, count, isFirst, isLast, next, back, goTo, progress }
+```
+
+Skipped steps are left out of navigation, `count` and `progress`. `next` and `back` clamp at the
+ends, `goTo` ignores unknown and skipped ids, and if the active step becomes skipped the wizard
+moves to the next visible step (or the previous one at the end). `progress` is
+`(activeIndex + 1) / count * 100`.
+
+### Usage
+
+```tsx
+import { AppBreadcrumbs, Button, FullScreenWizard, useWizardSteps } from '@wso2/oxygen-ui';
+
+const wizard = useWizardSteps(['details', 'access', 'review']);
+
+<FullScreenWizard onClose={handleClose} aria-label="Create project">
+  <FullScreenWizard.Progress
+    value={wizard.progress}
+    valueText={`Step ${wizard.activeIndex + 1} of ${wizard.count}`}
+  />
+  <FullScreenWizard.Header>
+    <AppBreadcrumbs items={breadcrumbs} />
+  </FullScreenWizard.Header>
+  <FullScreenWizard.Content focusKey={wizard.activeStep}>
+    {stepContent[wizard.activeStep]}
+  </FullScreenWizard.Content>
+  <FullScreenWizard.Footer>
+    {!wizard.isFirst && (
+      <Button variant="outlined" onClick={wizard.back} sx={{ mr: 'auto' }}>Back</Button>
+    )}
+    <Button variant="contained" onClick={wizard.isLast ? handleCreate : wizard.next}>
+      {wizard.isLast ? 'Create' : 'Continue'}
+    </Button>
+  </FullScreenWizard.Footer>
+  <FullScreenWizard.Preview>{preview}</FullScreenWizard.Preview>
+</FullScreenWizard>
+```
+
+### Keyboard & Accessibility
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` | Moves through the close button, the step's fields and the footer actions |
+| `Enter` / `Space` | Activates the focused button |
+| `Esc` | Calls `onClose` in modal mode |
+
+- Landmarks: `header`, `main` (page mode, named by `aria-label`) and `aside` for the preview.
+- The close button is named (`closeLabel`); the progress bar has a label and `aria-valuetext`.
+- Changing `focusKey` moves focus to the new step, so screen readers start there.
+- Modal mode traps focus, locks page scroll, and names the dialog by `aria-label` or `aria-labelledby`.
 
 ---
 
