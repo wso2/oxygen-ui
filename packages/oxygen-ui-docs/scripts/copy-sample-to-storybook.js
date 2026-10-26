@@ -34,9 +34,10 @@ const isWatchMode = process.argv.includes('--watch');
 async function buildSampleApp() {
   console.log('Building sample app...');
   try {
-    execSync('BUILD_FOR_STORYBOOK=true pnpm build', {
+    execSync('pnpm build', {
       cwd: sampleDir,
-      stdio: 'inherit'
+      stdio: 'inherit',
+      env: { ...process.env, BUILD_FOR_STORYBOOK: 'true' }
     });
     console.log('✓ Sample app built successfully!');
   } catch (error) {
