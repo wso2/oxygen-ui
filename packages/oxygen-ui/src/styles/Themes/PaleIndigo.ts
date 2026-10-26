@@ -77,7 +77,7 @@ const PaleIndigoThemeConfig = {
           main: '#ED6C02',
           light: '#FF9800',
           dark: '#E65100',
-          contrastText: '#ffffff',
+          contrastText: '#000000',
         },
         info: {
           main: '#5567d5',
