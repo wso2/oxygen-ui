@@ -36,7 +36,14 @@ export { default as StatCard } from './StatCard';
 export type { StatCardProps } from './StatCard';
 
 export { default as TrialBadge, getTrialBadgeStatus } from './TrialBadge';
-export type { TrialBadgeProps, TrialBadgeStatus } from './TrialBadge';
+export type {
+  TrialBadgeProps,
+  TrialBadgeStatus,
+  TrialBadgeUsage,
+  TrialBadgeUsageItem,
+  TrialBadgeUsageSection,
+  TrialBadgeUsageTone,
+} from './TrialBadge';
 export { default as ThemeSwitcher, ThemeSelect } from './ThemeSwitcher';
 export type { ThemeSwitcherProps, ThemeSelectProps } from './ThemeSwitcher';
 export { default as SearchBarWithAdvancedFilter } from './SearchBar/SearchBarWithAdvancedFilter';

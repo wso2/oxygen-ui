@@ -50,6 +50,72 @@ export const EndingSoon: Story = { args: { daysLeft: 5 } };
 export const Critical: Story = { args: { daysLeft: 2, onUpgrade: () => undefined } };
 export const Expired: Story = { args: { daysLeft: 0, onUpgrade: () => undefined } };
 
+const singleUsage = {
+  title: 'Components',
+  totalSuffix: 'used',
+  items: [
+    { label: 'LLM Providers', count: 1, limit: 5 },
+    { label: 'MCP Proxies', count: 3, limit: 5 },
+    { label: 'Rest APIs', count: 4, limit: 5 },
+    { label: 'Agent Proxies', count: 5, limit: 5 },
+  ],
+  onUpgrade: () => undefined,
+};
+
+const sectionedUsage = {
+  sections: [
+    {
+      title: 'Infrastructure',
+      items: [
+        { label: 'Projects', count: 1, limit: 3 },
+        { label: 'Environments', count: 4, limit: 6 },
+        { label: 'Gateways', count: 3, limit: 3 },
+        { label: 'Portals', count: 1, limit: 2 },
+      ],
+    },
+    {
+      title: 'Components',
+      totalSuffix: 'used',
+      items: [
+        { label: 'LLM Providers', count: 1, limit: 5 },
+        { label: 'MCP Proxies', count: 4, limit: 10 },
+        { label: 'Rest APIs', count: 6, limit: 10 },
+        { label: 'Agent Proxies', count: 5, limit: 5 },
+      ],
+    },
+  ],
+  onUpgrade: () => undefined,
+};
+
+const withRoom = [(Story: React.ComponentType) => <div style={{ minHeight: 520 }}><Story /></div>];
+
+/**
+ * Pass `usage` to show a panel with the usage of each resource when the badge is hovered or
+ * focused. Each bar is colored by `count / limit`: green up to 50%, yellow above that, and red
+ * from 75%. Hover the badge to see it.
+ */
+export const WithUsagePanel: Story = {
+  args: { daysLeft: 10, usage: singleUsage },
+  decorators: withRoom,
+};
+
+/**
+ * Group resources under titles with `usage.sections`. Each section shows its own total
+ * (for example "8 of 14 used") above its rows.
+ */
+export const WithUsagePanelSections: Story = {
+  args: { daysLeft: 10, usage: sectionedUsage },
+  decorators: withRoom,
+};
+
+/**
+ * Both cut-offs can be changed with `warningThreshold` and `criticalThreshold`.
+ */
+export const WithUsagePanelCustomThresholds: Story = {
+  args: { daysLeft: 10, usage: { ...singleUsage, warningThreshold: 0.2, criticalThreshold: 0.9 } },
+  decorators: withRoom,
+};
+
 export const AllStates: Story = {
   render: () => (
     <Stack spacing={2} alignItems="flex-start">
