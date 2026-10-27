@@ -59,6 +59,8 @@ const displayNameOf = (child: React.ReactNode): string | undefined =>
  * Flattens fragments, so parts grouped in `<>...</>` are still found.
  * `React.Children.toArray` numbers keys afresh inside each fragment, so a
  * fragment's children take its key as a prefix to stay unique among siblings.
+ * The prefix ends in `:`, which React escapes inside keys, so a direct key
+ * can never match a prefixed one.
  */
 const flattenChildren = (children: React.ReactNode, keyPrefix = ''): React.ReactNode[] =>
   React.Children.toArray(children).reduce<React.ReactNode[]>((flat, child) => {
@@ -66,7 +68,7 @@ const flattenChildren = (children: React.ReactNode, keyPrefix = ''): React.React
       return flat.concat([child]);
     }
     if (child.type === React.Fragment) {
-      return flat.concat(flattenChildren(child.props.children, `${keyPrefix}${child.key}`));
+      return flat.concat(flattenChildren(child.props.children, `${keyPrefix}${child.key}:`));
     }
     return flat.concat([keyPrefix ? React.cloneElement(child, { key: `${keyPrefix}${child.key}` }) : child]);
   }, []);

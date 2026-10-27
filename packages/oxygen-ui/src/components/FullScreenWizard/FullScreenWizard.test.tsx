@@ -305,6 +305,20 @@ describe('FullScreenWizard', () => {
     expect(messages.filter((message) => message.includes('same key'))).toEqual([]);
   });
 
+  it('keeps keys unique when a direct key looks like a nested one', () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+    renderWithTheme(
+      <FullScreenWizard>
+        <FullScreenWizard.Header key="a.$b">Create project</FullScreenWizard.Header>
+        <React.Fragment key="a">
+          <FullScreenWizard.Content key="b">Step</FullScreenWizard.Content>
+        </React.Fragment>
+      </FullScreenWizard>
+    );
+    const messages = consoleError.mock.calls.map(([message]) => String(message));
+    expect(messages.filter((message) => message.includes('same key'))).toEqual([]);
+  });
+
   it('lets the close button icon and props be customised but keeps its name and handler', () => {
     const onClose = vi.fn();
     renderWithTheme(
