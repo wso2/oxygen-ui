@@ -57,15 +57,19 @@ const displayNameOf = (child: React.ReactNode): string | undefined =>
 
 /**
  * Flattens fragments, so parts grouped in `<>...</>` are still found.
+ * `React.Children.toArray` numbers keys afresh inside each fragment, so a
+ * fragment's children take its key as a prefix to stay unique among siblings.
  */
-const flattenChildren = (children: React.ReactNode): React.ReactNode[] =>
-  React.Children.toArray(children).reduce<React.ReactNode[]>(
-    (flat, child) =>
-      React.isValidElement<{ children?: React.ReactNode }>(child) && child.type === React.Fragment
-        ? flat.concat(flattenChildren(child.props.children))
-        : flat.concat([child]),
-    []
-  );
+const flattenChildren = (children: React.ReactNode, keyPrefix = ''): React.ReactNode[] =>
+  React.Children.toArray(children).reduce<React.ReactNode[]>((flat, child) => {
+    if (!React.isValidElement<{ children?: React.ReactNode }>(child)) {
+      return flat.concat([child]);
+    }
+    if (child.type === React.Fragment) {
+      return flat.concat(flattenChildren(child.props.children, `${keyPrefix}${child.key}`));
+    }
+    return flat.concat([keyPrefix ? React.cloneElement(child, { key: `${keyPrefix}${child.key}` }) : child]);
+  }, []);
 
 /**
  * Styled root of the wizard: the progress bar across the full width, then the

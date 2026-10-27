@@ -25,6 +25,9 @@ import { useFullScreenWizard } from './context';
 /**
  * Theme tokens used in this component:
  *
+ * Colors:
+ * - `primary.main` - Focus ring shown to keyboard users after a step change
+ *
  * Spacing:
  * - `spacing(3)` / `spacing(4)` - Vertical padding on xs / from md up
  * - `spacing(2)`, `spacing(4)`, `spacing(10)` - Horizontal padding on xs, from sm up, from md up
@@ -53,10 +56,14 @@ const FullScreenWizardContentRoot = styled('div', {
     padding: theme.spacing(4, 10),
   },
   // Focus moves here programmatically when the step changes, so screen readers
-  // start at the new step. The region is a container, not a control, so it
-  // shows no focus ring; Tab still moves on to the step's own controls.
+  // start at the new step. The ring shows only for keyboard users, and is inset
+  // because the wizard root clips overflow.
   '&:focus': {
     outline: 'none',
+  },
+  '&:focus-visible': {
+    outline: `2px solid ${(theme.vars || theme).palette.primary.main}`,
+    outlineOffset: -2,
   },
 }));
 

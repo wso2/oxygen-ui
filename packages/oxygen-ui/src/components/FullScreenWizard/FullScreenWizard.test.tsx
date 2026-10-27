@@ -290,6 +290,21 @@ describe('FullScreenWizard', () => {
     expect(within(screen.getByRole('main')).getByTestId('footer')).toBeDefined();
   });
 
+  it('keeps keys unique when a fragment follows another part', () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+    renderWithTheme(
+      <FullScreenWizard>
+        <FullScreenWizard.Header>Create project</FullScreenWizard.Header>
+        <>
+          <FullScreenWizard.Content>Step</FullScreenWizard.Content>
+          <FullScreenWizard.Footer>Actions</FullScreenWizard.Footer>
+        </>
+      </FullScreenWizard>
+    );
+    const messages = consoleError.mock.calls.map(([message]) => String(message));
+    expect(messages.filter((message) => message.includes('same key'))).toEqual([]);
+  });
+
   it('lets the close button icon and props be customised but keeps its name and handler', () => {
     const onClose = vi.fn();
     renderWithTheme(
