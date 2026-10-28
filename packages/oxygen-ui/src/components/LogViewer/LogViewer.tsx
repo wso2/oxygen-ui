@@ -111,7 +111,9 @@ export interface LogViewerProps {
    * Called when older entries are wanted: when the reader scrolls toward the older end, or uses
    * the load older button. It is not called while loading or when `hasMoreOlder` is false, and
    * not again until the request finishes. Return the request's promise, so the viewer knows when it
-   * finishes and shows the button as busy meanwhile; or set `loadingOlder` while it runs.
+   * finishes and shows the button as busy meanwhile; or set `loadingOlder` while it runs. With neither,
+   * the viewer cannot tell when the request ends, so it asks again only after the entries change: a
+   * request that fails without a promise or `loadingOlder` leaves the button unable to ask again.
    */
   onLoadOlder?: () => void | Promise<unknown>;
   /**
