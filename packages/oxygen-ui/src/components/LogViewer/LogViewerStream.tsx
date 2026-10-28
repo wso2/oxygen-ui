@@ -525,7 +525,8 @@ const LogViewerStream = React.forwardRef<HTMLDivElement, LogViewerStreamProps>(f
 
   const oldestFirst = order === 'oldest-first';
 
-  // Bring the entry a shared link points at into view, once, when it first appears in the list.
+  // Bring the entry a shared link points at into view, once, when it first appears in the list. The rows are
+  // not drawn while loading, so the end of loading is a reason to look again even when the entries are the same.
   const scrolledTo = React.useRef<string | undefined>(undefined);
   React.useEffect(() => {
     if (!highlightedEntryId) {
@@ -540,7 +541,7 @@ const LogViewerStream = React.forwardRef<HTMLDivElement, LogViewerStreamProps>(f
       scrolledTo.current = highlightedEntryId;
       element.scrollIntoView?.({ block: 'center' });
     }
-  }, [highlightedEntryId, entries]);
+  }, [highlightedEntryId, entries, loading]);
 
   // Flipping the order puts the other end of the list at the top, so start from the top again.
   React.useEffect(() => {

@@ -1378,6 +1378,17 @@ describe('LogViewer', () => {
         expect(marked()).toHaveLength(1);
       });
 
+      it('scrolls to the entry when loading ends with the same entries', () => {
+        // The rows are not drawn while loading, so the entry cannot be found until it ends. The same list is
+        // passed both times, so only the end of loading can make the viewer look again.
+        const list = entries('3', '2', '1');
+        const { rerender } = render(tree({ entries: list, highlightedEntryId: '2', loading: true }));
+        expect(scrolled).toHaveLength(0);
+        rerender(tree({ entries: list, highlightedEntryId: '2', loading: false }));
+        expect(scrolled).toHaveLength(1);
+        expect(marked()).toHaveLength(1);
+      });
+
       it('scrolls again for a different entry, and marks nothing for an unknown one', () => {
         const { rerender } = render(tree({ highlightedEntryId: '2' }));
         rerender(tree({ highlightedEntryId: '1' }));
