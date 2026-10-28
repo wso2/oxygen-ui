@@ -357,6 +357,30 @@ describe('LogViewer', () => {
       });
     });
 
+    it('keeps the id of the details free of white space, whatever the entry id holds', () => {
+      // aria-controls is a list of ids separated by white space, so an id with a space in it points at nothing.
+      // Two different entry ids must still give two different ids.
+      renderWithTheme(
+        <LogViewer
+          entries={[
+            entry('a b', { timestamp: '2026-10-13T10:00:02.000Z', details: { user: 'maria' } }),
+            entry('a%20b', { timestamp: '2026-10-13T10:00:01.000Z', details: { user: 'devon' } }),
+          ]}
+        />
+      );
+      const first = toggleFor('a b');
+      const second = toggleFor('a%20b');
+      fireEvent.click(first);
+      fireEvent.click(second);
+      const firstRegion = screen.getByRole('region', { name: 'Details for a b' });
+      const secondRegion = screen.getByRole('region', { name: 'Details for a%20b' });
+
+      expect(firstRegion.id).not.toMatch(/\s/);
+      expect(first.getAttribute('aria-controls')).toBe(firstRegion.id);
+      expect(second.getAttribute('aria-controls')).toBe(secondRegion.id);
+      expect(firstRegion.id).not.toBe(secondRegion.id);
+    });
+
     it('renders nested details as a tree that can be collapsed', () => {
       renderWithTheme(<LogViewer entries={withDetails} />);
       fireEvent.click(toggleFor('1'));

@@ -927,7 +927,9 @@ const LogViewerStream = React.forwardRef<HTMLDivElement, LogViewerStreamProps>(f
                 entry={entry}
                 highlighted={entry.id === highlightedEntryId}
                 open={expanded.has(entry.id)}
-                detailsId={`${baseId}-details-${entry.id}`}
+                // aria-controls is a list of ids separated by white space, so the entry id is encoded: the result
+                // has none, and two different entry ids cannot give the same one.
+                detailsId={`${baseId}-details-${encodeURIComponent(entry.id)}`}
                 onToggle={() => toggle(entry.id)}
                 renderDetails={renderDetails}
                 copyLabel={copyLabel}
