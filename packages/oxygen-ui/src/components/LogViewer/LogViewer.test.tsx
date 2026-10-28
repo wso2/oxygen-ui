@@ -2415,3 +2415,21 @@ describe('props and refs of the parts', () => {
     expect(screen.getByRole('button', { name: 'Aufklappen' })).not.toBeNull();
   });
 });
+
+describe('LogViewer level marker color', () => {
+  afterEach(() => document.documentElement.removeAttribute('data-color-scheme'));
+
+  const colorOf = (level: string) => getComputedStyle(document.querySelector(`[data-level="${level}"]`) as HTMLElement).color;
+
+  it('follows the active color scheme: the main color on dark, the darker shade on light', () => {
+    renderWithTheme(<LogViewer entries={[entry('1', { level: 'info' }), entry('2', { level: 'error' })]} />);
+
+    document.documentElement.setAttribute('data-color-scheme', 'dark');
+    expect(colorOf('info')).toBe('var(--oxygen-palette-info-main)');
+    expect(colorOf('error')).toBe('var(--oxygen-palette-error-main)');
+
+    document.documentElement.setAttribute('data-color-scheme', 'light');
+    expect(colorOf('info')).toBe('var(--oxygen-palette-info-dark)');
+    expect(colorOf('error')).toBe('var(--oxygen-palette-error-dark)');
+  });
+});

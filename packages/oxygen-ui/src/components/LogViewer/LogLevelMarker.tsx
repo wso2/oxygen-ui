@@ -71,7 +71,7 @@ const LogLevelMarker: React.FC<LogLevelMarkerProps> = ({ level, label }) => {
       color={color}
       label={label}
       data-level={level}
-      sx={{
+      sx={(theme: Theme) => ({
         height: 18,
         minWidth: 56,
         fontFamily: 'inherit',
@@ -80,12 +80,15 @@ const LogLevelMarker: React.FC<LogLevelMarkerProps> = ({ level, label }) => {
         verticalAlign: 'baseline',
         ...(strong && { borderWidth: '2px' }),
         // The main color of info and warning is too light for text on a white page (below 4.5:1), so the
-        // text takes the darker shade in the light theme. The border keeps the main color.
+        // text takes the darker shade in the light scheme. The border keeps the main color. `palette.mode` is
+        // the mode of the default scheme, not the active one, so the scheme is chosen with `applyStyles` and the
+        // colors come from `theme.vars`, which follow the active scheme.
         ...(color !== 'default' && {
-          color: (theme: Theme) => (theme.palette.mode === 'light' ? theme.palette[color].dark : theme.palette[color].main),
+          color: (theme.vars || theme).palette[color].main,
+          ...theme.applyStyles('light', { color: (theme.vars || theme).palette[color].dark }),
         }),
         '& .MuiChip-label': { px: 0.75, textAlign: 'center', flex: 1 },
-      }}
+      })}
     />
   );
 };
