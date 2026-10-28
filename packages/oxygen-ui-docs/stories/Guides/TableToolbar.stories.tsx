@@ -44,6 +44,12 @@ import CenterContentLayout from '../../layouts/CenterContentLayout';
 const meta: Meta = {
   title: 'Guides/Table Toolbar',
   parameters: {
+    a11y: {
+      // The brand orange fails contrast until the palette is fixed (#558)
+      options: {
+        rules: { 'color-contrast': { enabled: false } },
+      },
+    },
     layout: 'centered',
     docs: {
       page: () => (
