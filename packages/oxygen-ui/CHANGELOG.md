@@ -1,5 +1,18 @@
 # @wso2/oxygen-ui
 
+## 0.18.0
+
+### Minor Changes
+
+- [#632](https://github.com/wso2/oxygen-ui/pull/632) [`4e3991d`](https://github.com/wso2/oxygen-ui/commit/4e3991debde6015533455ae4c280df76910a4666) Thanks [@Induwara04](https://github.com/Induwara04)! - Add `TrialBadge`, a pill showing the days left in a free trial with a progress ring. It changes color as the trial runs out (`active`, `ending-soon`, `critical`, `expired`) and turns its second line into an "Upgrade now" link (`onUpgrade` / `upgradeHref`) in the last days and after expiry. Pass `usage` to show an optional hover panel with titled sections of resources (`count/limit`), progress bars colored by the share of the limit used, and an upgrade button.
+
+- [#652](https://github.com/wso2/oxygen-ui/pull/652) [`116951a`](https://github.com/wso2/oxygen-ui/commit/116951aaef71e7a30ee0420588fbbff696215118) Thanks [@aruniw](https://github.com/aruniw)! - Update `WSO2Theme` to the new WSO2 brand color foundations: Orange 600 primary, Blue 800 secondary, neutral grey ramp, new error/warning/success colors, navy dark mode, and Aurora mesh backgrounds
+
+### Patch Changes
+
+- Updated dependencies [[`4e3991d`](https://github.com/wso2/oxygen-ui/commit/4e3991debde6015533455ae4c280df76910a4666)]:
+  - @wso2/oxygen-ui-icons-react@0.18.0
+
 ## 0.17.0
 
 ### Minor Changes
