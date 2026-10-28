@@ -128,4 +128,10 @@ describe('useWizardSteps', () => {
     expect(result.current.count).toBe(0);
     expect(result.current.progress).toBe(0);
   });
+
+  it('does not report a last step when every step is skipped', () => {
+    const { result } = renderSteps([{ id: 'details', skip: true }]);
+
+    expect(result.current.isLast).toBe(false);
+  });
 });

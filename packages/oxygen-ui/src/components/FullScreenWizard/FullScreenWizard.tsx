@@ -203,7 +203,7 @@ type FullScreenWizardComponent = React.ForwardRefExoticComponent<
  *     <AppBreadcrumbs items={breadcrumbs} />
  *   </FullScreenWizard.Header>
  *   <FullScreenWizard.Content focusKey={wizard.activeStep}>
- *     {stepContent[wizard.activeStep]}
+ *     {wizard.activeStep && stepContent[wizard.activeStep]}
  *   </FullScreenWizard.Content>
  *   <FullScreenWizard.Footer>
  *     {!wizard.isFirst && (
@@ -312,7 +312,10 @@ const FullScreenWizardBase = React.forwardRef<HTMLDivElement, FullScreenWizardPr
       return layout;
     }
 
-    const { slotProps, ...restDialogProps } = dialogProps ?? {};
+    // Dialog builds its paper props as `{ paper: PaperProps, ...slotProps }`, so
+    // setting `slotProps.paper` below would drop the deprecated `PaperProps`.
+    // Merge both, with `slotProps.paper` winning as it does in Dialog.
+    const { slotProps, PaperProps: paperProps, ...restDialogProps } = dialogProps ?? {};
     const paperSlot = slotProps?.paper;
 
     return (
@@ -326,6 +329,7 @@ const FullScreenWizardBase = React.forwardRef<HTMLDivElement, FullScreenWizardPr
           ...slotProps,
           // Keep a consumer's paper props, given as an object or a function of the owner state.
           paper: (ownerState) => ({
+            ...paperProps,
             ...(typeof paperSlot === 'function' ? paperSlot(ownerState) : paperSlot),
             'aria-label': ariaLabelledby ? undefined : ariaLabel,
             // Dialog generates an `aria-labelledby` id for a DialogTitle. With

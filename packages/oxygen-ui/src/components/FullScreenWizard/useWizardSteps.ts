@@ -36,7 +36,7 @@ export interface UseWizardStepsOptions<T extends string = string> {
  */
 export interface UseWizardStepsReturn<T extends string = string> {
   /** Id of the active step. `undefined` only when every step is skipped. */
-  activeStep: T;
+  activeStep: T | undefined;
   /** Index of the active step among the visible steps (`-1` when there are none) */
   activeIndex: number;
   /** Ids of the visible steps, in order. Skipped steps are left out. */
@@ -45,7 +45,7 @@ export interface UseWizardStepsReturn<T extends string = string> {
   count: number;
   /** Whether the active step is the first visible step */
   isFirst: boolean;
-  /** Whether the active step is the last visible step */
+  /** Whether the active step is the last visible step. `false` when every step is skipped. */
   isLast: boolean;
   /** Moves to the next visible step. Does nothing on the last step. */
   next: () => void;
@@ -113,7 +113,7 @@ const resolveActiveStep = <T extends string>(
  *     valueText={`Step ${wizard.activeIndex + 1} of ${wizard.count}`}
  *   />
  *   <FullScreenWizard.Content focusKey={wizard.activeStep}>
- *     {stepContent[wizard.activeStep]}
+ *     {wizard.activeStep && stepContent[wizard.activeStep]}
  *   </FullScreenWizard.Content>
  *   <FullScreenWizard.Footer>
  *     {!wizard.isFirst && <Button onClick={wizard.back}>Back</Button>}
@@ -170,12 +170,13 @@ export const useWizardSteps = <T extends string>(
   );
 
   return {
-    activeStep: activeStep as T,
+    activeStep,
     activeIndex,
     steps: visible,
     count,
     isFirst: activeIndex <= 0,
-    isLast: activeIndex === count - 1,
+    // With no visible steps both sides are -1; that is not a last step to finish on.
+    isLast: count > 0 && activeIndex === count - 1,
     next,
     back,
     goTo,

@@ -82,7 +82,10 @@ const FullScreenWizardContentColumn = styled('div', {
   if (typeof maxWidth === 'number') {
     resolvedMaxWidth = maxWidth;
   } else if (maxWidth) {
-    resolvedMaxWidth = `${theme.breakpoints.values[maxWidth]}${theme.breakpoints.unit ?? 'px'}`;
+    // `xs` is 0, which would collapse the column, so floor it as MUI's Container does.
+    const width =
+      maxWidth === 'xs' ? Math.max(theme.breakpoints.values.xs, 444) : theme.breakpoints.values[maxWidth];
+    resolvedMaxWidth = `${width}${theme.breakpoints.unit ?? 'px'}`;
   }
 
   return {
@@ -115,8 +118,14 @@ export interface FullScreenWizardContentProps extends React.HTMLAttributes<HTMLE
   /** The active step */
   children?: React.ReactNode;
   /**
+   * Element the content region renders as. Pass `'div'` when the page around
+   * the wizard already has a `main` landmark, such as an `AppShell`.
+   * @default 'main' in page mode, 'div' in modal mode
+   */
+  component?: React.ElementType;
+  /**
    * Maximum width of the content column: a breakpoint key, a width in pixels,
-   * or `false` to fill the available width.
+   * or `false` to fill the available width. `xs` is at least 444px, as in MUI's `Container`.
    * @default 'md'
    */
   maxWidth?: Breakpoint | number | false;
@@ -141,20 +150,20 @@ export interface FullScreenWizardContentProps extends React.HTMLAttributes<HTMLE
  * FullScreenWizard.Content - Scroll region holding the active step.
  *
  * Renders a `<main>` landmark in page mode and a plain region inside the
- * dialog in modal mode. The step and the `FullScreenWizard.Footer` share a
+ * dialog in modal mode; `component` overrides the element. The step and the `FullScreenWizard.Footer` share a
  * left-aligned column capped at `maxWidth`, so showing or hiding a preview
  * does not move the form.
  *
  * @example
  * ```tsx
  * <FullScreenWizard.Content maxWidth="md" focusKey={wizard.activeStep}>
- *   {stepContent[wizard.activeStep]}
+ *   {wizard.activeStep && stepContent[wizard.activeStep]}
  * </FullScreenWizard.Content>
  * ```
  */
 export const FullScreenWizardContent = React.forwardRef<HTMLElement, FullScreenWizardContentProps>(
   function FullScreenWizardContent(
-    { children, maxWidth = 'md', align = 'start', focusKey, ...props },
+    { children, component, maxWidth = 'md', align = 'start', focusKey, ...props },
     ref
   ) {
     const { modal, footer, ariaLabel, ariaLabelledby, headerHeight } = useFullScreenWizard(
@@ -179,15 +188,17 @@ export const FullScreenWizardContent = React.forwardRef<HTMLElement, FullScreenW
       node.focus({ preventScroll: true });
     }, [focusKey]);
 
-    // In page mode the wizard's name labels the `main` landmark; in modal mode
-    // it names the dialog instead, and this region stays unnamed.
-    const landmarkProps = modal
-      ? {}
-      : { 'aria-label': ariaLabelledby ? undefined : ariaLabel, 'aria-labelledby': ariaLabelledby };
+    // The wizard's name labels the `main` landmark. In modal mode it names the
+    // dialog instead, and a plain `div` cannot take a name, so it stays unnamed.
+    const element = component ?? (modal ? 'div' : 'main');
+    const landmarkProps =
+      element === 'main'
+        ? { 'aria-label': ariaLabelledby ? undefined : ariaLabel, 'aria-labelledby': ariaLabelledby }
+        : {};
 
     return (
       <FullScreenWizardContentRoot
-        as={modal ? 'div' : 'main'}
+        as={element}
         ref={handleRef as React.Ref<HTMLDivElement>}
         tabIndex={-1}
         {...landmarkProps}

@@ -87,6 +87,32 @@ describe('FullScreenWizard', () => {
     expect(screen.queryByRole('main')).toBeNull();
   });
 
+  it('renders the content as another element, unnamed, when given a component', () => {
+    renderWithTheme(
+      <FullScreenWizard aria-label="Create project">
+        <FullScreenWizard.Content component="div" data-testid="content">
+          Step
+        </FullScreenWizard.Content>
+      </FullScreenWizard>
+    );
+
+    const content = screen.getByTestId('content');
+    expect(content.tagName).toBe('DIV');
+    expect(content.getAttribute('aria-label')).toBeNull();
+    expect(screen.queryByRole('main')).toBeNull();
+  });
+
+  it('keeps an xs content column readable', () => {
+    renderWithTheme(
+      <FullScreenWizard>
+        <FullScreenWizard.Content maxWidth="xs">Step</FullScreenWizard.Content>
+      </FullScreenWizard>
+    );
+
+    const column = screen.getByRole('main').firstElementChild as HTMLElement;
+    expect(getComputedStyle(column).maxWidth).toBe('444px');
+  });
+
   it('does not move focus on the first render', () => {
     renderWithTheme(
       <React.StrictMode>
@@ -371,6 +397,25 @@ describe('FullScreenWizard', () => {
     );
     const dialog = screen.getByRole('dialog', { name: 'Invite member' });
     expect(dialog.classList.contains('custom-paper')).toBe(true);
+  });
+
+  it('keeps PaperProps in modal mode, with slotProps.paper taking precedence', () => {
+    renderWithTheme(
+      <FullScreenWizard
+        modal
+        open
+        aria-label="Invite member"
+        DialogProps={{
+          PaperProps: { className: 'legacy-paper', 'data-testid': 'legacy' } as object,
+          slotProps: { paper: { className: 'slot-paper' } },
+        }}
+      >
+        <FullScreenWizard.Content>Step</FullScreenWizard.Content>
+      </FullScreenWizard>
+    );
+    const dialog = screen.getByRole('dialog', { name: 'Invite member' });
+    expect(dialog.getAttribute('data-testid')).toBe('legacy');
+    expect(dialog.classList.contains('slot-paper')).toBe(true);
   });
 
   it('closes the modal on Escape', () => {

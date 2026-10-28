@@ -625,7 +625,8 @@ Other `LinearProgress` props are forwarded in the `bar` variant.
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `maxWidth` | `Breakpoint \| number \| false` | `'md'` | Width cap of the content column; `false` fills the width |
+| `component` | `ElementType` | `'main'` (page), `'div'` (modal) | Element the region renders as; `'div'` when the page already has a `main`, such as an `AppShell` |
+| `maxWidth` | `Breakpoint \| number \| false` | `'md'` | Width cap of the content column; `xs` is at least 444px, as in `Container`; `false` fills the width |
 | `align` | `'start' \| 'center'` | `'start'` | `start` keeps the column left-aligned; `center` centres it in both directions, for a welcome or picker screen |
 | `focusKey` | `string \| number` | - | When it changes, focus moves to the region and it scrolls to the top |
 | `sx` | `SxProps<Theme>` | - | Additional styles |
@@ -681,7 +682,7 @@ const wizard = useWizardSteps(['details', 'access', 'review']);
     <AppBreadcrumbs items={breadcrumbs} />
   </FullScreenWizard.Header>
   <FullScreenWizard.Content focusKey={wizard.activeStep}>
-    {stepContent[wizard.activeStep]}
+    {wizard.activeStep && stepContent[wizard.activeStep]}
   </FullScreenWizard.Content>
   <FullScreenWizard.Footer>
     {!wizard.isFirst && (
@@ -703,7 +704,7 @@ const wizard = useWizardSteps(['details', 'access', 'review']);
 | `Enter` / `Space` | Activates the focused button |
 | `Esc` | Calls `onClose` in modal mode |
 
-- Landmarks: `header`, `main` (page mode, named by `aria-label`) and `aside` for the preview.
+- Landmarks: `header`, `main` (page mode, named by `aria-label`) and `aside` for the preview. Inside a page that already has a `main`, pass `component="div"` to Content.
 - The close button is named (`closeLabel`); the progress bar has a label and `aria-valuetext`.
 - Changing `focusKey` moves focus to the new step, so screen readers start there.
 - Modal mode traps focus, locks page scroll, and names the dialog by `aria-label` or `aria-labelledby`.

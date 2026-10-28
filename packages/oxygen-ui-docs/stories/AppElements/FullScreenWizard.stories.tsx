@@ -110,7 +110,7 @@ const wizard = useWizardSteps(['details', 'access', 'review']);
     <AppBreadcrumbs items={breadcrumbs} />
   </FullScreenWizard.Header>
   <FullScreenWizard.Content focusKey={wizard.activeStep}>
-    {stepContent[wizard.activeStep]}
+    {wizard.activeStep && stepContent[wizard.activeStep]}
   </FullScreenWizard.Content>
   <FullScreenWizard.Footer>
     {!wizard.isFirst && (
@@ -149,7 +149,8 @@ const wizard = useWizardSteps(['details', 'access', 'review']);
 ### Accessibility
 - Landmarks: \`header\`, \`main\` in page mode (named by the wizard's \`aria-label\`) and \`aside\` for the
   preview (named "Preview" by default, \`previewLabel\` to change it). In modal mode the content is a plain
-  region, since a dialog should not hold a \`main\` landmark.
+  region, since a dialog should not hold a \`main\` landmark. Inside a page that already has a \`main\`, such
+  as an \`AppShell\`, pass \`component="div"\` to \`FullScreenWizard.Content\`.
 - The close button is named "Close" by default (\`closeLabel\` to change it).
 - The progress bar is named "Progress" by default (\`progressLabel\`) and reads \`valueText\`, such as
   "Step 2 of 3", in place of the percentage.
@@ -183,7 +184,8 @@ same \`displayName\`, such as \`'FullScreenWizard.Footer'\`, and pass its props 
 | \`Header\` | \`closePosition\` | \`'start'\` | Side of the header the close button sits on: \`start\` or \`end\` |
 | \`Header\` | \`closeIcon\` | X icon | Icon of the close button |
 | \`Header\` | \`CloseButtonProps\` | - | Extra props for the close button, such as \`size\`, \`color\` or \`sx\` |
-| \`Content\` | \`maxWidth\` | \`'md'\` | Width cap of the content column: a breakpoint key, a number of pixels, or \`false\` |
+| \`Content\` | \`component\` | \`'main'\` (page), \`'div'\` (modal) | Element the region renders as; \`'div'\` when the page already has a \`main\` |
+| \`Content\` | \`maxWidth\` | \`'md'\` | Width cap of the content column: a breakpoint key (\`xs\` is at least 444px, as in \`Container\`), a number of pixels, or \`false\` |
 | \`Content\` | \`align\` | \`'start'\` | \`start\` keeps the column left-aligned; \`center\` centres it, for a landing screen |
 | \`Content\` | \`focusKey\` | - | When it changes, focus moves to the content and it scrolls to the top |
 | \`Footer\` | \`sticky\` | \`false\` | Keeps the actions at the bottom of the scroll region on a long form |
@@ -434,6 +436,8 @@ const CreateProjectWizard = ({
   onClose?: () => void;
 }) => {
   const wizard = useWizardSteps<ProjectStep>(['details', 'access', 'review']);
+  // `activeStep` is only undefined when every step is skipped, which this flow never does.
+  const activeStep = wizard.activeStep ?? 'details';
   const [draft, setDraft] = React.useState<ProjectDraft>(EMPTY_DRAFT);
   const [created, setCreated] = React.useState(false);
 
@@ -451,7 +455,7 @@ const CreateProjectWizard = ({
   const breadcrumbs: BreadcrumbItem[] = [
     { key: 'projects', label: 'Projects', onClick: handleClose },
     { key: 'create', label: 'Create project', onClick: () => wizard.goTo('details') },
-    { key: wizard.activeStep, label: STEP_LABELS[wizard.activeStep] },
+    { key: activeStep, label: STEP_LABELS[activeStep] },
   ];
 
   return (
@@ -463,11 +467,11 @@ const CreateProjectWizard = ({
       <FullScreenWizard.Header>
         <AppBreadcrumbs items={breadcrumbs} />
       </FullScreenWizard.Header>
-      <FullScreenWizard.Content focusKey={created ? 'created' : wizard.activeStep}>
+      <FullScreenWizard.Content focusKey={created ? 'created' : activeStep}>
         {created ? (
           <Alert severity="success">Project created.</Alert>
         ) : (
-          <ProjectStepContent step={wizard.activeStep} draft={draft} onChange={setDraft} />
+          <ProjectStepContent step={activeStep} draft={draft} onChange={setDraft} />
         )}
       </FullScreenWizard.Content>
       <FullScreenWizard.Footer>
@@ -870,7 +874,8 @@ const useProjectFlow = () => {
     setDraft(EMPTY_DRAFT);
   };
   const stepText = `Step ${wizard.activeIndex + 1} of ${wizard.count}`;
-  const content = <ProjectStepContent step={wizard.activeStep} draft={draft} onChange={setDraft} />;
+  // `activeStep` is only undefined when every step is skipped, which this flow never does.
+  const content = <ProjectStepContent step={wizard.activeStep ?? 'details'} draft={draft} onChange={setDraft} />;
   const actions = (
     <>
       {!wizard.isFirst && (
