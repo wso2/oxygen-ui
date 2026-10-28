@@ -298,6 +298,15 @@ const LogRow: React.FC<LogRowProps> = ({
     }
   };
 
+  // A click that selects text must not also toggle the row. A repeated click (a double click picks a word, a
+  // triple click a line) and the click that ends a drag over the text of this row are selecting, so they are skipped.
+  const toggleFromRow = (event: React.MouseEvent<HTMLElement>) => {
+    if (event.detail > 1) return;
+    const selection = window.getSelection();
+    if (selection && !selection.isCollapsed && event.currentTarget.contains(selection.anchorNode)) return;
+    onToggle();
+  };
+
   // Copy and Copy link are icons at the top right of the opened entry, so they never cover a column.
   const detailActions = (copyText !== undefined || link) && (
     <Box sx={{ float: 'right', display: 'flex', gap: 0.5, ml: 2 }}>
@@ -326,8 +335,9 @@ const LogRow: React.FC<LogRowProps> = ({
         selected={open || highlighted}
         clickable={expandable}
         aria-current={highlighted ? 'true' : undefined}
-        // Clicking anywhere on the row opens it. The button in the first cell does the same for the keyboard.
-        onClick={expandable ? onToggle : undefined}
+        // Clicking anywhere on the row opens it, unless the click is selecting text. The button in the first cell
+        // does the same for the keyboard.
+        onClick={expandable ? toggleFromRow : undefined}
         sx={{
           // An open or shared entry is marked with the neutral selected color, not the table's tint.
           '&.Mui-selected': { bgcolor: 'action.selected' },

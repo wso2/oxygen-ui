@@ -323,6 +323,40 @@ describe('LogViewer', () => {
       await waitFor(() => expect(screen.queryByText('maria')).toBeNull());
     });
 
+    describe('a click that selects text', () => {
+      const isOpen = (id: string) => toggleFor(id).getAttribute('aria-expanded') === 'true';
+      const textOf = (id: string) => within(rowOf(id)).getByText(`message ${id}`);
+      const select = (element: HTMLElement) => window.getSelection()?.selectAllChildren(element);
+      afterEach(() => window.getSelection()?.removeAllRanges());
+
+      it('opens the entry when the text of its row is clicked', () => {
+        renderWithTheme(<LogViewer entries={withDetails} />);
+        fireEvent.click(textOf('1'));
+        expect(isOpen('1')).toBe(true);
+      });
+
+      it('does not open the entry when the click ends a selection of its text', () => {
+        renderWithTheme(<LogViewer entries={withDetails} />);
+        select(textOf('1'));
+        fireEvent.click(textOf('1'));
+        expect(isOpen('1')).toBe(false);
+      });
+
+      it('does not toggle again on the later clicks of a double click', () => {
+        renderWithTheme(<LogViewer entries={withDetails} />);
+        fireEvent.click(textOf('1'), { detail: 1 });
+        fireEvent.click(textOf('1'), { detail: 2 });
+        expect(isOpen('1')).toBe(true);
+      });
+
+      it('still opens the entry when the text selected is in another entry', () => {
+        renderWithTheme(<LogViewer entries={withDetails} />);
+        select(textOf('2'));
+        fireEvent.click(textOf('1'));
+        expect(isOpen('1')).toBe(true);
+      });
+    });
+
     it('renders nested details as a tree that can be collapsed', () => {
       renderWithTheme(<LogViewer entries={withDetails} />);
       fireEvent.click(toggleFor('1'));
