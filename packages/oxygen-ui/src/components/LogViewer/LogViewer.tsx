@@ -282,7 +282,11 @@ const LogViewerRoot: React.FC<LogViewerProps> = ({
   };
 
   const toggleOrder = () => {
-    const next: LogViewerOrder = chosenOrder === 'newest-first' ? 'oldest-first' : 'newest-first';
+    // A column sort fixes what the screen shows at newest-first, so the order to switch to is the opposite of the
+    // one shown, not of the one held, and the sort is left first, as the time heading does. The button then does
+    // what its label says.
+    const next: LogViewerOrder = order === 'newest-first' ? 'oldest-first' : 'newest-first';
+    if (sort) onSortChange?.(null);
     if (orderProp === undefined) setOwnOrder(next);
     onOrderChange?.(next);
   };

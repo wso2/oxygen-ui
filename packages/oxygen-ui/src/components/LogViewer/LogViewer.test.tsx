@@ -910,6 +910,32 @@ describe('LogViewer', () => {
       expect(onOrderChange).toHaveBeenLastCalledWith('newest-first');
     });
 
+    describe('while a column sort is set', () => {
+      // A column sort shows the entries as given, newest first, whatever order the viewer holds.
+      const sort = { columnId: 'user', direction: 'asc' as const };
+      const tree = (props: Partial<LogViewerProps>) => (
+        <LogViewer entries={entries('3', '2', '1')} showSort sort={sort} {...props} />
+      );
+
+      it('leaves the sort and switches to the order the screen is not showing', () => {
+        const onSortChange = vi.fn();
+        const onOrderChange = vi.fn();
+        renderWithTheme(tree({ onSortChange, onOrderChange }));
+        fireEvent.click(sortButton('Sorted newest first. Switch to oldest first'));
+        expect(onSortChange).toHaveBeenCalledWith(null);
+        expect(onOrderChange).toHaveBeenCalledWith('oldest-first');
+      });
+
+      it('does that even when the viewer holds oldest first, which the sort hides', () => {
+        const onSortChange = vi.fn();
+        const onOrderChange = vi.fn();
+        renderWithTheme(tree({ defaultOrder: 'oldest-first', onSortChange, onOrderChange }));
+        fireEvent.click(sortButton('Sorted newest first. Switch to oldest first'));
+        expect(onSortChange).toHaveBeenCalledWith(null);
+        expect(onOrderChange).toHaveBeenCalledWith('oldest-first');
+      });
+    });
+
     it('leaves the order to the page when order is set', () => {
       const onOrderChange = vi.fn();
       const tree = (order: 'newest-first' | 'oldest-first') => (
