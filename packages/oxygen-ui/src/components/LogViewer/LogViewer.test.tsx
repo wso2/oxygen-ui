@@ -1842,7 +1842,7 @@ describe('LogViewer', () => {
       fireEvent.click(within(group).getByRole('button', { name: 'Remove status filter' }));
       expect(onFilterChange).toHaveBeenCalledWith('status', null);
 
-      fireEvent.click(within(group).getByRole('button', { name: 'Change status filter' }));
+      fireEvent.click(within(group).getByRole('button', { name: 'Status: Failure, Change status filter' }));
       expect(screen.getByRole('menuitemradio', { name: 'Failure' }).getAttribute('aria-checked')).toBe('true');
     });
 
@@ -2442,7 +2442,7 @@ describe('props and refs of the parts', () => {
       </Base>
     );
     const group = screen.getByRole('group', { name: 'Applied filters' });
-    expect(within(group).getByRole('button', { name: 'Ändern: Status' })).not.toBeNull();
+    expect(within(group).getByRole('button', { name: 'Status: Failure, Ändern: Status' })).not.toBeNull();
     expect(within(group).getByRole('button', { name: 'Entfernen: Status' })).not.toBeNull();
 
     fireEvent.click(toggleFor('1'));

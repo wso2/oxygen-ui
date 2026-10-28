@@ -34,7 +34,9 @@ interface LogFilterChipProps {
   /** Called when the remove icon is clicked, or Backspace or Delete is pressed on the focused chip. */
   onRemove?: () => void;
   /**
-   * Accessible name of the chip while it can be clicked to change the filter.
+   * The action of the chip while it can be clicked to change the filter. Its accessible name is the text
+   * the chip shows, then this: `Status: Failed, Change status filter`. A value that is not text cannot be
+   * put into a name, so then this alone is the name.
    * @default `Change ${name} filter`, with the name in lower case
    */
   changeLabel?: string;
@@ -69,6 +71,14 @@ const RemoveIcon: React.FC<RemoveIconProps> = ({ label, ...props }) => (
 );
 
 /**
+ * The accessible name of a chip that can be clicked. It starts with the text the chip shows, so voice control
+ * that says what it sees finds it, and it holds the value, which a name of the action alone would hide from a
+ * screen reader. A value that is not text cannot be put into a name, so the action stays alone then.
+ */
+const openName = (name: string, value: React.ReactNode, changeLabel: string): string =>
+  typeof value === 'string' || typeof value === 'number' ? `${name}: ${value}, ${changeLabel}` : changeLabel;
+
+/**
  * An applied filter as a removable `name: value` chip, built on the standard `Chip`.
  */
 const LogFilterChip: React.FC<LogFilterChipProps> = ({
@@ -83,7 +93,7 @@ const LogFilterChip: React.FC<LogFilterChipProps> = ({
     variant="outlined"
     clickable={Boolean(onOpen)}
     onClick={onOpen}
-    aria-label={onOpen ? changeLabel : undefined}
+    aria-label={onOpen ? openName(name, value, changeLabel) : undefined}
     onDelete={onRemove}
     deleteIcon={onRemove ? <RemoveIcon label={removeLabel} /> : undefined}
     label={

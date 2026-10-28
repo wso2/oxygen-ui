@@ -59,8 +59,8 @@ export interface LogViewerToolbarProps extends Omit<BoxProps, 'children'> {
    */
   showFilterChips?: boolean;
   /**
-   * Accessible name of an applied filter's chip, which reopens the filter. It receives the filter's
-   * label.
+   * The action of an applied filter's chip, which reopens the filter. It receives the filter's label.
+   * The chip's accessible name is the text it shows, then this: `Status: Failed, Change status filter`.
    * @default (name) => `Change ${name} filter`, with the name in lower case
    */
   changeFilterLabel?: (name: string) => string;
