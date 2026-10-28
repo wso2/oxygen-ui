@@ -59,13 +59,13 @@ Every data table toolbar uses the same element order. Leave out elements a table
 
 **Search and filters swap by page context.** Put whichever users rely on more first, right after scope:
 
-- Search first when users look up a specific item by name (alerts, users, resources)
+- Search first when users look up a specific item by name (users, resources)
 - Filters first when users narrow by an attribute (logs by level, events by type)
 - Scope always stays first; use the same order for the same kind of page across the product
 - If the page's purpose doesn't make the choice clear, default to search first
 
 - Scope control (time range, workspace, region) comes first; its label shows the value (`Time: Last 24 hours`); at most one per table; never shown as a chip
-- Search is always visible; placeholder names what is searched (`Search by alert name`, `Search logs`)
+- Search is always visible; placeholder names what is searched (`Search by name`, `Search events`)
 - Prefer column header filters; use toolbar filters only when no column matches; a filter lives in one place only; max 3 toolbar filters, the rest under `More filters`
 - Right side order: view toggles (segmented control), utility icon buttons (export, column settings, refresh; refresh last), secondary actions (outlined or text, more than 2 go to an overflow menu), then one filled primary action rightmost
 - Applied filters show as `Label: value` chips in a row below the toolbar; show `Clear all` at 2+ chips (clears filters only, not scope or search); hide the row when empty
@@ -82,12 +82,12 @@ Every data table toolbar uses the same element order. Leave out elements a table
       <Tooltip title="Refresh">
         <IconButton size="small" aria-label="Refresh"><RefreshCw size={18} /></IconButton>
       </Tooltip>
-      <Button variant="contained">Create alert</Button>
+      <Button variant="contained">Add user</Button>
     </>
   }
 >
-  <Button variant="outlined" endIcon={<ChevronDown size={16} />}>Time: Last 24 hours</Button>
-  <TextField size="small" placeholder="Search by alert name" />
+  <Button variant="outlined" endIcon={<ChevronDown size={16} />}>Region: All regions</Button>
+  <TextField size="small" placeholder="Search by name" />
 </ListingTable.Toolbar>
 ```
 

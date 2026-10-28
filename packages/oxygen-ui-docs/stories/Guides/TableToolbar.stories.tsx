@@ -128,18 +128,18 @@ function ToolbarSample() {
                 <RefreshCw size={18} />
               </IconButton>
             </Tooltip>
-            <Button variant="contained">Create alert</Button>
+            <Button variant="contained">Add user</Button>
           </>
         }
       >
         <Button variant="outlined" endIcon={<ChevronDown size={16} />}>
-          Time: Last 24 hours
+          Region: All regions
         </Button>
         <TextField
           size="small"
-          placeholder="Search by alert name"
+          placeholder="Search by name"
           slotProps={{
-            htmlInput: { 'aria-label': 'Search by alert name' },
+            htmlInput: { 'aria-label': 'Search by name' },
             input: {
               startAdornment: (
                 <InputAdornment position="start">
@@ -151,8 +151,8 @@ function ToolbarSample() {
         />
       </ListingTable.Toolbar>
       <Stack direction="row" spacing={1} alignItems="center" sx={{ px: 2, py: 1.5 }}>
-        <Chip label="Severity: Warning, Error" size="small" onDelete={() => {}} />
-        <Chip label="Environment: Production" size="small" onDelete={() => {}} />
+        <Chip label="Status: Active, Pending" size="small" onDelete={() => {}} />
+        <Chip label="Role: Admin" size="small" onDelete={() => {}} />
         <Button size="small" variant="text">
           Clear all
         </Button>
@@ -201,7 +201,7 @@ export const Overview: Story = {
               which one users rely on more. Put the more important one first, right after scope.
             </Typography>
             <Box component="ul" sx={{ pl: 3, m: 0 }}>
-              <li><Typography variant="body2">Search first when users look up a specific item by name, such as alerts, users, or resources.</Typography></li>
+              <li><Typography variant="body2">Search first when users look up a specific item by name, such as users or resources.</Typography></li>
               <li><Typography variant="body2">Filters first when users narrow by an attribute, such as logs by level or events by type.</Typography></li>
               <li><Typography variant="body2">Scope always stays first. Use the same order for the same kind of page across the product.</Typography></li>
             </Box>
@@ -225,12 +225,12 @@ Filters first   [Scope] [Filters] [Search] ······ [Actions]`}
               [
                 'Search',
                 'Left, after scope (or after filters, see above)',
-                'Always visible; never collapsed to an icon on desktop. The placeholder names what is searched ("Search by alert name").',
+                'Always visible; never collapsed to an icon on desktop. The placeholder names what is searched ("Search by name").',
               ],
               [
                 'Toolbar filters',
                 'Left, after search (or after scope, see above)',
-                'Dropdowns ordered by usage. The label shows the value when set ("Severity: Warning"). Show at most 3; put the rest under "More filters".',
+                'Dropdowns ordered by usage. The label shows the value when set ("Status: Active"). Show at most 3; put the rest under "More filters".',
               ],
               [
                 'View toggles (UTC / Local, density, list / grid)',
@@ -247,7 +247,7 @@ Filters first   [Scope] [Filters] [Search] ······ [Actions]`}
                 'Right, after utility icons',
                 'Outlined or text buttons. Move more than 2 into an overflow menu.',
               ],
-              ['Primary action', 'Rightmost', 'At most one filled button per table ("Create alert").'],
+              ['Primary action', 'Rightmost', 'At most one filled button per table ("Add user").'],
             ]}
           />
           <Typography variant="body2">
@@ -264,7 +264,7 @@ Filters first   [Scope] [Filters] [Search] ······ [Actions]`}
           <RuleTable
             headers={['Type', 'Use when', 'Example']}
             rows={[
-              ['Column header filter', 'The filter maps to a visible column', 'Severity, environment, user'],
+              ['Column header filter', 'The filter maps to a visible column', 'Status, role, created by'],
               [
                 'Toolbar filter',
                 'The filter has no column, or must be visible at all times',
@@ -287,7 +287,7 @@ Filters first   [Scope] [Filters] [Search] ······ [Actions]`}
           </Typography>
           <BulletList
             items={[
-              'One chip per active filter: "Label: value". With several values: "Severity: Warning, Error".',
+              'One chip per active filter: "Label: value". With several values: "Status: Active, Pending".',
               'Scope controls never appear as chips; their value already shows in the control label.',
               'Show "Clear all" when 2 or more chips are active. It clears filters only, not scope or search.',
               'Truncate long values with an ellipsis and show the full value in a tooltip.',
@@ -338,7 +338,7 @@ Filters first   [Scope] [Filters] [Search] ······ [Actions]`}
             headers={['Item', 'Rule', 'Example']}
             rows={[
               ['Control labels', 'Sentence case; "Label: value" when set', 'Time: Last 24 hours'],
-              ['Search placeholder', '"Search by" + field, or "Search" + object', 'Search by alert name, Search logs'],
+              ['Search placeholder', '"Search by" + field, or "Search" + object', 'Search by name, Search events'],
               ['Dates', 'One format across all tables', '28 Oct 2026, 04:29 UTC'],
               ['Precise timestamps (logs)', 'ISO-like and monospace, only where milliseconds matter', '2026-10-23 05:54:49.983'],
               ['Date ranges', 'An en dash in compact labels', '16 Oct – 23 Oct'],
@@ -350,20 +350,20 @@ Filters first   [Scope] [Filters] [Search] ······ [Actions]`}
         </GuideSection>
 
         <GuideSection title="Examples">
-          <Typography variant="subtitle2">Alerts table</Typography>
+          <Typography variant="subtitle2">Search first: users look up items by name</Typography>
           <CodeBlock
             language="markup"
-            code={`[Time: Last 24 hours ▾] [Search by alert name] ··············· [⟳] [Create alert]
+            code={`[Search by name] [Status ▾] ··············· [⟳] [Add user]
 Footer: Rows per page: 10 · 1–6 of 6`}
           />
           <Typography variant="body2">
-            Severity, project, component, and environment stay as column header filters.
+            Filters that map to a column, such as role, stay as column header filters.
           </Typography>
-          <Typography variant="subtitle2">Logs table</Typography>
+          <Typography variant="subtitle2">Filters first: users narrow by attribute</Typography>
           <CodeBlock
             language="markup"
-            code={`[Time: 16 Oct – 23 Oct ▾] [Search logs] ······ [UTC | Local] [⬇] [⟳]
-[User: user@example.com ×]
+            code={`[Time: Last 7 days ▾] [Level ▾] [Type ▾] [Search events] ······ [UTC | Local] [⬇] [⟳]
+[Level: Error ×]
 Footer: 25 events loaded`}
           />
         </GuideSection>
