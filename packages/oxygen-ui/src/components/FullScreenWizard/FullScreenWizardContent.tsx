@@ -81,11 +81,12 @@ const FullScreenWizardContentColumn = styled('div', {
   let resolvedMaxWidth: string | number = 'none';
   if (typeof maxWidth === 'number') {
     resolvedMaxWidth = maxWidth;
+  } else if (maxWidth === 'xs') {
+    // `xs` is 0, which would collapse the column, so floor it as MUI's Container
+    // does: a plain number, which is pixels whatever the breakpoint unit.
+    resolvedMaxWidth = Math.max(theme.breakpoints.values.xs, 444);
   } else if (maxWidth) {
-    // `xs` is 0, which would collapse the column, so floor it as MUI's Container does.
-    const width =
-      maxWidth === 'xs' ? Math.max(theme.breakpoints.values.xs, 444) : theme.breakpoints.values[maxWidth];
-    resolvedMaxWidth = `${width}${theme.breakpoints.unit ?? 'px'}`;
+    resolvedMaxWidth = `${theme.breakpoints.values[maxWidth]}${theme.breakpoints.unit ?? 'px'}`;
   }
 
   return {

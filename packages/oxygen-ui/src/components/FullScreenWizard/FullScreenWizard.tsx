@@ -331,7 +331,10 @@ const FullScreenWizardBase = React.forwardRef<HTMLDivElement, FullScreenWizardPr
           paper: (ownerState) => ({
             ...paperProps,
             ...(typeof paperSlot === 'function' ? paperSlot(ownerState) : paperSlot),
-            'aria-label': ariaLabelledby ? undefined : ariaLabel,
+            // Without a wizard name, keep any `aria-label` given in the paper props.
+            ...(ariaLabelledby
+              ? { 'aria-label': undefined }
+              : ariaLabel !== undefined && { 'aria-label': ariaLabel }),
             // Dialog generates an `aria-labelledby` id for a DialogTitle. With
             // no title it points at nothing, so drop it when `aria-label` names
             // the dialog instead.

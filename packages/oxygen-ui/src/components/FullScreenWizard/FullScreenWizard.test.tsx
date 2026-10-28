@@ -21,6 +21,7 @@
 import * as React from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import OxygenUIThemeProvider from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
 import FullScreenWizard from './FullScreenWizard';
 import { useWizardSteps } from './useWizardSteps';
@@ -107,6 +108,19 @@ describe('FullScreenWizard', () => {
       <FullScreenWizard>
         <FullScreenWizard.Content maxWidth="xs">Step</FullScreenWizard.Content>
       </FullScreenWizard>
+    );
+
+    const column = screen.getByRole('main').firstElementChild as HTMLElement;
+    expect(getComputedStyle(column).maxWidth).toBe('444px');
+  });
+
+  it('keeps the xs floor in pixels when breakpoints use another unit', () => {
+    render(
+      <ThemeProvider theme={createTheme({ breakpoints: { unit: 'rem' } })}>
+        <FullScreenWizard>
+          <FullScreenWizard.Content maxWidth="xs">Step</FullScreenWizard.Content>
+        </FullScreenWizard>
+      </ThemeProvider>
     );
 
     const column = screen.getByRole('main').firstElementChild as HTMLElement;
@@ -416,6 +430,15 @@ describe('FullScreenWizard', () => {
     const dialog = screen.getByRole('dialog', { name: 'Invite member' });
     expect(dialog.getAttribute('data-testid')).toBe('legacy');
     expect(dialog.classList.contains('slot-paper')).toBe(true);
+  });
+
+  it('keeps a paper aria-label when the wizard has no name of its own', () => {
+    renderWithTheme(
+      <FullScreenWizard modal open DialogProps={{ PaperProps: { 'aria-label': 'Invite member' } as object }}>
+        <FullScreenWizard.Content>Step</FullScreenWizard.Content>
+      </FullScreenWizard>
+    );
+    expect(screen.getByRole('dialog', { name: 'Invite member' })).toBeDefined();
   });
 
   it('closes the modal on Escape', () => {
