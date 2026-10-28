@@ -121,6 +121,7 @@ function ToolbarSample() {
   return (
     <ListingTable.Container>
       <ListingTable.Toolbar
+        sx={{ flexWrap: 'wrap' }}
         actions={
           <>
             <Tooltip title="Refresh">
@@ -138,6 +139,8 @@ function ToolbarSample() {
         <TextField
           size="small"
           placeholder="Search by name"
+          // On narrow screens, search takes a full width row above the other controls
+          sx={{ order: { xs: -1, sm: 0 }, flexBasis: { xs: '100%', sm: 'auto' } }}
           slotProps={{
             htmlInput: { 'aria-label': 'Search by name' },
             input: {
@@ -267,7 +270,7 @@ Filters first   [Scope] [Filters] [Search] ······ [Actions]`}
               ['Column header filter', 'The filter maps to a visible column', 'Status, role, created by'],
               [
                 'Toolbar filter',
-                'The filter has no column, or must be visible at all times',
+                'The filter has no matching visible column',
                 'Tag, or owner on a table without an owner column',
               ],
             ]}
@@ -340,7 +343,7 @@ Filters first   [Scope] [Filters] [Search] ······ [Actions]`}
               ['Control labels', 'Sentence case; "Label: value" when set', 'Time: Last 24 hours'],
               ['Search placeholder', '"Search by" + field, or "Search" + object', 'Search by name, Search events'],
               ['Dates', 'One format across all tables', '28 Oct 2026, 04:29 UTC'],
-              ['Precise timestamps (logs)', 'ISO-like and monospace, only where milliseconds matter', '2026-10-23 05:54:49.983'],
+              ['Precise timestamps (logs)', 'ISO-like and monospace, only where milliseconds matter', '2026-10-23 05:54:49.983 UTC'],
               ['Date ranges', 'An en dash in compact labels', '16 Oct – 23 Oct'],
               ['Time zone', 'Shown once per value or range; follows the UTC / Local toggle', '07:05 UTC'],
               ['Relative time', 'Paired with the absolute time', '2 hours ago · 28 Oct 2026, 04:29 UTC'],

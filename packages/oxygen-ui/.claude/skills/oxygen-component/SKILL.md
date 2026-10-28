@@ -76,19 +76,35 @@ Every data table toolbar uses the same element order. Leave out elements a table
 - Use one date format across tables (`28 Oct 2026, 04:29 UTC`) and always show the time zone
 
 ```tsx
-<ListingTable.Toolbar
-  actions={
-    <>
-      <Tooltip title="Refresh">
-        <IconButton size="small" aria-label="Refresh"><RefreshCw size={18} /></IconButton>
-      </Tooltip>
-      <Button variant="contained">Add user</Button>
-    </>
-  }
->
-  <Button variant="outlined" endIcon={<ChevronDown size={16} />}>Region: All regions</Button>
-  <TextField size="small" placeholder="Search by name" />
-</ListingTable.Toolbar>
+import { Button, IconButton, ListingTable, TextField, Tooltip, useListingTableRequired } from '@wso2/oxygen-ui';
+import { ChevronDown, RefreshCw } from '@wso2/oxygen-ui-icons-react';
+
+// Render inside ListingTable.Provider so search reaches the table
+function UsersToolbar() {
+  const { searchValue, onSearchChange } = useListingTableRequired();
+
+  return (
+    <ListingTable.Toolbar
+      actions={
+        <>
+          <Tooltip title="Refresh">
+            <IconButton size="small" aria-label="Refresh"><RefreshCw size={18} /></IconButton>
+          </Tooltip>
+          <Button variant="contained">Add user</Button>
+        </>
+      }
+    >
+      <Button variant="outlined" endIcon={<ChevronDown size={16} />}>Region: All regions</Button>
+      <TextField
+        size="small"
+        placeholder="Search by name"
+        value={searchValue ?? ''}
+        onChange={(event) => onSearchChange?.(event.target.value)}
+        slotProps={{ htmlInput: { 'aria-label': 'Search by name' } }}
+      />
+    </ListingTable.Toolbar>
+  );
+}
 ```
 
 `ListingTable.Toolbar` renders `showSearch` before `children`, so when a table has a scope control or puts filters first, render search as a child in the right position instead of using `showSearch`.
