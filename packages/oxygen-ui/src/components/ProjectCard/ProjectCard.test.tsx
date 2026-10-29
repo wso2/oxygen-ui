@@ -101,6 +101,15 @@ describe('ProjectCard', () => {
     expect(container.querySelectorAll('.MuiCardContent-root')).toHaveLength(1);
   });
 
+  it('keeps working when the card gets focus', () => {
+    const onFocus = vi.fn();
+    renderCard({ title: 'Default', onClick: vi.fn(), onFocus });
+
+    fireEvent.focus(screen.getByRole('button', { name: /Default/ }));
+
+    expect(onFocus).toHaveBeenCalledTimes(1);
+  });
+
   it('marks the card as selected', () => {
     const { container } = renderCard({ title: 'Default', selected: true });
 

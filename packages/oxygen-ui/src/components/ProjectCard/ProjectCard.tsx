@@ -19,7 +19,7 @@
 import React from 'react';
 import { Box as BoxIcon, Trash2 } from '@wso2/oxygen-ui-icons-react';
 import { Box, Card, CardActionArea, CardContent, IconButton, Tooltip, Typography } from '@mui/material';
-import type { CardProps, TypographyProps } from '@mui/material';
+import type { CardProps, TooltipProps, TypographyProps } from '@mui/material';
 import RelativeTime from '../RelativeTime';
 
 /**
@@ -92,35 +92,63 @@ export interface ProjectCardProps extends Omit<CardProps, 'variant' | 'title' | 
 
 const FOOTER_HEIGHT = 48;
 const DESCRIPTION_LINES = 2;
+const ACTIONS_OFFSET = 12;
+const ACTIONS_GAP = 16;
+
+interface TruncatedTextProps extends Omit<TypographyProps, 'title'> {
+  title: React.ReactNode;
+  lines?: number;
+  placement?: TooltipProps['placement'];
+  /** Opens the tooltip (when the text is cut off) without hover, e.g. while the card has keyboard focus. */
+  forceOpen?: boolean;
+}
 
 /**
  * Text that is cut off with an ellipsis after `lines` lines, with the full content in a tooltip
- * on hover, only when it is actually cut off.
+ * on hover, only when it is actually cut off. Whether it is cut off is re-measured when the
+ * content or the available width changes.
  */
-const TruncatedText: React.FC<{ title: React.ReactNode; lines?: number } & Omit<TypographyProps, 'title'>> = ({
+const TruncatedText: React.FC<TruncatedTextProps> = ({
   title,
   lines = 1,
+  placement = 'top-start',
+  forceOpen = false,
   children,
   sx,
   ...props
 }) => {
   const ref = React.useRef<HTMLElement | null>(null);
   const [truncated, setTruncated] = React.useState(false);
+  const [hovered, setHovered] = React.useState(false);
+
+  React.useLayoutEffect(() => {
+    const element = ref.current;
+    if (!element) return undefined;
+
+    const measure = () => {
+      const isTruncated =
+        lines === 1 ? element.scrollWidth > element.clientWidth : element.scrollHeight > element.clientHeight;
+      setTruncated(isTruncated);
+    };
+
+    measure();
+    if (typeof ResizeObserver === 'undefined') return undefined;
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [lines, children]);
 
   return (
-    <Tooltip title={truncated ? title : ''} placement="top-start">
+    <Tooltip
+      title={truncated ? title : ''}
+      placement={placement}
+      open={truncated && (hovered || forceOpen)}
+      onOpen={() => setHovered(true)}
+      onClose={() => setHovered(false)}
+    >
       <Typography
         ref={ref}
         noWrap={lines === 1}
-        onMouseEnter={() => {
-          const element = ref.current;
-          setTruncated(
-            Boolean(
-              element &&
-                (lines === 1 ? element.scrollWidth > element.clientWidth : element.scrollHeight > element.clientHeight),
-            ),
-          );
-        }}
         sx={[
           lines > 1 && {
             display: '-webkit-box',
@@ -169,10 +197,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   onClick,
   href,
   selected = false,
+  onFocus,
+  onBlur,
+  onKeyDown,
   sx,
   ...props
 }) => {
   const interactive = Boolean(onClick || href);
+  // Keyboard focus opens the tooltips of cut-off text, since the text itself cannot take focus.
+  const [keyboardFocus, setKeyboardFocus] = React.useState(false);
+  // The footer reserves the actual width of the hover actions, so wide custom actions do not overlap the time.
+  const actionsRef = React.useRef<HTMLDivElement | null>(null);
+  const [actionsWidth, setActionsWidth] = React.useState(0);
   const footerActions =
     actions ??
     (onDelete ? (
@@ -182,7 +218,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         </IconButton>
       </Tooltip>
     ) : null);
-  const hasFooter = Boolean(updatedTime) || Boolean(footerActions);
+  const hasActions = Boolean(footerActions);
+  const hasFooter = Boolean(updatedTime) || hasActions;
+
+  React.useLayoutEffect(() => {
+    const element = actionsRef.current;
+    if (!element) {
+      setActionsWidth(0);
+      return undefined;
+    }
+    setActionsWidth(element.offsetWidth);
+    if (typeof ResizeObserver === 'undefined') return undefined;
+    const observer = new ResizeObserver(() => setActionsWidth(element.offsetWidth));
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [hasActions]);
 
   const content = (
     <>
@@ -209,6 +259,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             title={title}
             variant="h6"
             component={interactive ? 'span' : 'h3'}
+            forceOpen={keyboardFocus}
             sx={{ display: 'block', fontWeight: 700, fontSize: '1.125rem' }}
           >
             {title}
@@ -217,6 +268,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             <TruncatedText
               title={description}
               lines={DESCRIPTION_LINES}
+              placement="bottom-start"
+              forceOpen={keyboardFocus}
               variant="body2"
               color="text.secondary"
               // Slightly dimmed; any lower fails the 4.5:1 text contrast in light mode.
@@ -236,7 +289,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             px: 2.5,
             py: 0,
             // Leave room for the hover actions, which are positioned over the right side.
-            pr: footerActions ? 9 : 2.5,
+            pr: hasActions ? `${actionsWidth + ACTIONS_OFFSET + ACTIONS_GAP}px` : 2.5,
             '&:last-child': { pb: 0 },
             borderTop: '1px solid',
             borderColor: 'divider',
@@ -262,6 +315,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   return (
     <Card
       data-selected={selected || undefined}
+      onFocus={event => {
+        try {
+          setKeyboardFocus(event.target.matches(':focus-visible'));
+        } catch {
+          setKeyboardFocus(false);
+        }
+        onFocus?.(event);
+      }}
+      onBlur={event => {
+        setKeyboardFocus(false);
+        onBlur?.(event);
+      }}
+      onKeyDown={event => {
+        if (event.key === 'Escape') setKeyboardFocus(false);
+        onKeyDown?.(event);
+      }}
       sx={[
         {
           position: 'relative',
@@ -303,10 +372,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       {footerActions && (
         // Sits over the footer, outside the clickable area, so the buttons are not nested in it.
         <Box
+          ref={actionsRef}
           className="ProjectCard-actions"
           sx={{
             position: 'absolute',
-            right: 12,
+            right: ACTIONS_OFFSET,
             bottom: 0,
             height: FOOTER_HEIGHT,
             display: 'flex',
