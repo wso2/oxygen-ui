@@ -2477,6 +2477,48 @@ describe('props and refs of the parts', () => {
   });
 });
 
+describe('LogViewer root element', () => {
+  const root = (container: HTMLElement) => container.firstElementChild as HTMLElement;
+
+  it('forwards its ref to the outer element', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = renderWithTheme(<BaseLogViewer ref={ref} entries={entries('1')} columns={defaultColumns} />);
+    expect(ref.current).not.toBeNull();
+    expect(ref.current).toBe(root(container));
+    expect(ref.current?.querySelector('[data-entry-id="1"]')).not.toBeNull();
+  });
+
+  it('passes className, data-* and other props to the outer element', () => {
+    const { container } = renderWithTheme(
+      <BaseLogViewer
+        entries={entries('1')}
+        columns={defaultColumns}
+        className="my-viewer"
+        data-testid="viewer"
+        data-area="logs"
+        id="logs-viewer"
+        role="region"
+        aria-label="Application logs"
+      />
+    );
+    const element = root(container);
+    expect(element.classList.contains('my-viewer')).toBe(true);
+    expect(element.getAttribute('data-testid')).toBe('viewer');
+    expect(element.getAttribute('data-area')).toBe('logs');
+    expect(element.id).toBe('logs-viewer');
+    expect(screen.getByRole('region', { name: 'Application logs' })).toBe(element);
+  });
+
+  it('keeps its own look when props are passed, and still takes sx', () => {
+    const { container } = renderWithTheme(
+      <BaseLogViewer entries={entries('1')} columns={defaultColumns} className="x" sx={{ marginTop: '7px' }} />
+    );
+    const element = root(container);
+    expect(element.classList.contains('MuiPaper-outlined')).toBe(true);
+    expect(getComputedStyle(element).marginTop).toBe('7px');
+  });
+});
+
 describe('LogViewer level marker color', () => {
   afterEach(() => document.documentElement.removeAttribute('data-color-scheme'));
 

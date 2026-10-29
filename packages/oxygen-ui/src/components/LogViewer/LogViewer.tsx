@@ -18,6 +18,7 @@
 
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
+import type { PaperProps } from '@mui/material/Paper';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { LogViewerContext } from './context';
 import type { LogViewerContextValue } from './context';
@@ -47,9 +48,10 @@ import type {
 /**
  * Props for the LogViewer component. The root holds the data and the state of the viewer; what its
  * parts look like and say is set on the parts (`LogViewer.Toolbar`, `LogViewer.Stream` and the
- * controls in the toolbar).
+ * controls in the toolbar). The props it does not define itself, such as `className` and `data-*`,
+ * go to the outer element.
  */
-export interface LogViewerProps {
+export interface LogViewerProps extends Omit<PaperProps, 'children' | 'onCopy' | 'sx'> {
   /**
    * Entries, newest first, in the order a log is read from its source. The viewer reverses them
    * itself when the reader chooses oldest first.
@@ -240,36 +242,40 @@ const NO_FILTER_VALUES: LogFilterValues = {};
  * </LogViewer>
  * ```
  */
-const LogViewerRoot: React.FC<LogViewerProps> = ({
-  entries,
-  columns,
-  hideHeading = false,
-  children,
-  order: orderProp,
-  defaultOrder = 'newest-first',
-  onOrderChange,
-  loading = false,
-  loadingOlder = false,
-  hasMoreOlder = false,
-  onLoadOlder,
-  timeZone: timeZoneProp,
-  defaultTimeZone = 'utc',
-  onTimeZoneChange,
-  filters = NO_FILTERS,
-  filterValues = NO_FILTER_VALUES,
-  onFilterChange,
-  sort = null,
-  onSortChange,
-  error,
-  onRetry,
-  warning,
-  onCopy,
-  getEntryLink,
-  onCopyLink,
-  highlightedEntryId,
-  levelLabels: levelLabelsProp,
-  sx,
-}) => {
+const LogViewerRoot = React.forwardRef<HTMLDivElement, LogViewerProps>(function LogViewerRoot(
+  {
+    entries,
+    columns,
+    hideHeading = false,
+    children,
+    order: orderProp,
+    defaultOrder = 'newest-first',
+    onOrderChange,
+    loading = false,
+    loadingOlder = false,
+    hasMoreOlder = false,
+    onLoadOlder,
+    timeZone: timeZoneProp,
+    defaultTimeZone = 'utc',
+    onTimeZoneChange,
+    filters = NO_FILTERS,
+    filterValues = NO_FILTER_VALUES,
+    onFilterChange,
+    sort = null,
+    onSortChange,
+    error,
+    onRetry,
+    warning,
+    onCopy,
+    getEntryLink,
+    onCopyLink,
+    highlightedEntryId,
+    levelLabels: levelLabelsProp,
+    sx,
+    ...paperProps
+  },
+  ref,
+) {
   const [ownOrder, setOwnOrder] = React.useState<LogViewerOrder>(defaultOrder);
   const chosenOrder = orderProp ?? ownOrder;
   // Entries sorted by another column are shown as given, newest-first layout: "older" is the next page.
@@ -342,16 +348,21 @@ const LogViewerRoot: React.FC<LogViewerProps> = ({
 
   return (
     <LogViewerContext.Provider value={value}>
-      <Paper variant="outlined" sx={[{ overflow: 'hidden' }, ...(Array.isArray(sx) ? sx : [sx])]}>
+      <Paper
+        variant="outlined"
+        {...paperProps}
+        ref={ref}
+        sx={[{ overflow: 'hidden' }, ...(Array.isArray(sx) ? sx : [sx])]}
+      >
         {children ?? <LogViewerStream />}
       </Paper>
     </LogViewerContext.Provider>
   );
-};
+});
 
 LogViewerRoot.displayName = 'LogViewer';
 
-interface LogViewerComponent extends React.FC<LogViewerProps> {
+interface LogViewerComponent extends React.ForwardRefExoticComponent<LogViewerProps & React.RefAttributes<HTMLDivElement>> {
   Toolbar: typeof LogViewerToolbar;
   Stream: typeof LogViewerStream;
   Search: typeof LogViewerSearch;
