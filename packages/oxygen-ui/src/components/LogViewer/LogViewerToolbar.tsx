@@ -53,7 +53,7 @@ export interface LogViewerToolbarProps extends Omit<BoxProps, 'children'> {
    */
   appliedFiltersLabel?: string;
   /**
-   * Shows a removable chip above the toolbar for each applied filter. Without the chips, the
+   * Shows a removable chip below the toolbar for each applied filter, with a button that removes them all. Without the chips, the
    * reader can no longer see which filters are active at a glance, so turn them off only when
    * the page shows that some other way.
    * @default true
@@ -70,6 +70,11 @@ export interface LogViewerToolbarProps extends Omit<BoxProps, 'children'> {
    * @default (name) => `Remove ${name} filter`, with the name in lower case
    */
   removeFilterLabel?: (name: string) => string;
+  /**
+   * Text of the button that removes every applied filter. It is shown with the chips, when more than one is applied.
+   * @default 'Clear all'
+   */
+  clearAllLabel?: string;
 }
 
 const defaultChangeFilterLabel = (name: string): string => `Change ${name.toLowerCase()} filter`;
@@ -94,6 +99,7 @@ const LogViewerToolbar = React.forwardRef<HTMLDivElement, LogViewerToolbarProps>
     showFilterChips = true,
     changeFilterLabel = defaultChangeFilterLabel,
     removeFilterLabel = defaultRemoveFilterLabel,
+    clearAllLabel = 'Clear all',
     ...props
   },
   ref,
@@ -135,56 +141,52 @@ const LogViewerToolbar = React.forwardRef<HTMLDivElement, LogViewerToolbarProps>
         | LogSelectFilter
         | undefined)
     : undefined;
-  const chips = (showFilterChips ? filters : [])
-    .filter((filter) => isApplied(filterValues[filter.id]))
-    .map((filter) => {
-      const value = filterValues[filter.id];
-      if (filter.type === 'timeRange' && isRange(value)) {
-        return (
-          <LogFilterChip
-            key={filter.id}
-            name={filter.label}
-            value={
-              filter.formatValue
-                ? filter.formatValue(value)
-                : `${formatShort(value.start, timeZone)} - ${formatShort(value.end, timeZone)}`
-            }
-            onOpen={(event) => openRangePicker(filter.id, event.currentTarget)}
-            onRemove={() => change(filter.id, null)}
-            changeLabel={changeFilterLabel(filter.label)}
-            removeLabel={removeFilterLabel(filter.label)}
-          />
-        );
-      }
-      if (filter.type === 'select' && typeof value === 'string') {
-        const option = filter.options.find((candidate) => candidate.value === value);
-        return (
-          <LogFilterChip
-            key={filter.id}
-            name={filter.label}
-            value={option?.label ?? value}
-            onOpen={(event) => openSelectMenu(filter.id, event.currentTarget)}
-            onRemove={() => change(filter.id, null)}
-            changeLabel={changeFilterLabel(filter.label)}
-            removeLabel={removeFilterLabel(filter.label)}
-          />
-        );
-      }
-      return null;
-    });
+  // The applied filters that a chip is drawn for.
+  const appliedFilters = (showFilterChips ? filters : []).filter((filter) => {
+    const value = filterValues[filter.id];
+    return (
+      (filter.type === 'timeRange' && isRange(value)) ||
+      (filter.type === 'select' && typeof value === 'string' && isApplied(value))
+    );
+  });
+  const chips = appliedFilters.map((filter) => {
+    const value = filterValues[filter.id];
+    if (filter.type === 'timeRange' && isRange(value)) {
+      return (
+        <LogFilterChip
+          key={filter.id}
+          name={filter.label}
+          value={
+            filter.formatValue
+              ? filter.formatValue(value)
+              : `${formatShort(value.start, timeZone)} - ${formatShort(value.end, timeZone)}`
+          }
+          onOpen={(event) => openRangePicker(filter.id, event.currentTarget)}
+          onRemove={() => change(filter.id, null)}
+          changeLabel={changeFilterLabel(filter.label)}
+          removeLabel={removeFilterLabel(filter.label)}
+        />
+      );
+    }
+    if (filter.type === 'select' && typeof value === 'string') {
+      const option = filter.options.find((candidate) => candidate.value === value);
+      return (
+        <LogFilterChip
+          key={filter.id}
+          name={filter.label}
+          value={option?.label ?? value}
+          onOpen={(event) => openSelectMenu(filter.id, event.currentTarget)}
+          onRemove={() => change(filter.id, null)}
+          changeLabel={changeFilterLabel(filter.label)}
+          removeLabel={removeFilterLabel(filter.label)}
+        />
+      );
+    }
+    return null;
+  });
 
   return (
     <Box ref={ref} {...props}>
-      {chips.some(Boolean) && (
-        <Box
-          role="group"
-          aria-label={appliedFiltersLabel}
-          sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 1, px: 2, pt: 1.5 }}
-        >
-          {chips}
-        </Box>
-      )}
-
       {hasToolbar && (
         <Box
           role="toolbar"
@@ -245,6 +247,35 @@ const LogViewerToolbar = React.forwardRef<HTMLDivElement, LogViewerToolbarProps>
 
           {controls.length > 0 && (
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>{controls}</Box>
+          )}
+        </Box>
+      )}
+
+      {appliedFilters.length > 0 && (
+        <Box
+          role="group"
+          aria-label={appliedFiltersLabel}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 1,
+            px: 2,
+            py: 1,
+            borderBottom: 1,
+            borderColor: 'divider',
+          }}
+        >
+          {chips}
+          {appliedFilters.length > 1 && (
+            <Button
+              size="small"
+              variant="text"
+              onClick={() => appliedFilters.forEach((filter) => change(filter.id, null))}
+              sx={{ textTransform: 'none' }}
+            >
+              {clearAllLabel}
+            </Button>
           )}
         </Box>
       )}

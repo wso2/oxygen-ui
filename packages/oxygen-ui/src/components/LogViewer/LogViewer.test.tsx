@@ -81,6 +81,7 @@ type FlatProps = Omit<LogViewerProps, 'columns' | 'children'> & {
   showFilterChips?: boolean;
   toolbarLabel?: string;
   appliedFiltersLabel?: string;
+  clearAllLabel?: string;
   timeZoneLabel?: string;
   utcLabel?: string;
   localLabel?: string;
@@ -129,6 +130,7 @@ const LogViewer = ({
   showFilterChips,
   toolbarLabel,
   appliedFiltersLabel,
+  clearAllLabel,
   timeZoneLabel,
   utcLabel,
   localLabel,
@@ -159,6 +161,7 @@ const LogViewer = ({
     <BaseLogViewer.Toolbar
       label={toolbarLabel}
       appliedFiltersLabel={appliedFiltersLabel}
+      clearAllLabel={clearAllLabel}
       showFilterChips={showFilterChips}
     >
       {showSearch && (
@@ -1927,6 +1930,43 @@ describe('LogViewer', () => {
 
       fireEvent.click(within(group).getByRole('button', { name: 'Status: Failure, Change status filter' }));
       expect(screen.getByRole('menuitemradio', { name: 'Failure' }).getAttribute('aria-checked')).toBe('true');
+    });
+
+    it('draws the chips below the toolbar, and offers Clear all only when more than one is applied', () => {
+      const onFilterChange = vi.fn();
+      const level: LogFilterDefinition = {
+        id: 'level',
+        label: 'Level',
+        type: 'select',
+        options: [{ value: 'error', label: 'Error' }],
+      };
+      const { unmount } = renderWithTheme(
+        <LogViewer
+          entries={entries('1')}
+          filters={[status]}
+          filterValues={{ status: 'failure' }}
+          onFilterChange={onFilterChange}
+          showRefresh
+        />
+      );
+      const toolbar = screen.getByRole('toolbar');
+      const group = screen.getByRole('group', { name: 'Applied filters' });
+      expect(toolbar.compareDocumentPosition(group) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+      expect(screen.queryByRole('button', { name: 'Clear all' })).toBeNull();
+      unmount();
+
+      renderWithTheme(
+        <LogViewer
+          entries={entries('1')}
+          filters={[status, level]}
+          filterValues={{ status: 'failure', level: 'error' }}
+          onFilterChange={onFilterChange}
+          clearAllLabel="Alle löschen"
+        />
+      );
+      fireEvent.click(screen.getByRole('button', { name: 'Alle löschen' }));
+      expect(onFilterChange).toHaveBeenCalledWith('status', null);
+      expect(onFilterChange).toHaveBeenCalledWith('level', null);
     });
 
     it('hides the chips when showFilterChips is off, while the filter buttons stay', () => {
