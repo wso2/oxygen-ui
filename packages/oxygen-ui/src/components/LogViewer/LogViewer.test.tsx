@@ -1628,7 +1628,7 @@ describe('LogViewer', () => {
       expect(markers()[0].textContent).toBe('Warn');
     });
 
-    it('fills no marker, and draws fatal differently from error by its heavier border', () => {
+    it('fills no marker, and draws every border the same width, fatal and error alike', () => {
       renderWithTheme(
         <LogViewer entries={[entry('2', { level: 'fatal' }), entry('1', { level: 'error' })]} />
       );
@@ -1636,10 +1636,24 @@ describe('LogViewer', () => {
       expect(fatal.className).toContain('MuiChip-outlined');
       expect(error.className).toContain('MuiChip-outlined');
       expect(fatal.className).not.toContain('MuiChip-filled');
-      expect(getComputedStyle(fatal).borderWidth).toBe('2px');
-      expect(getComputedStyle(error).borderWidth).not.toBe('2px');
-      // Both stay readable as text, so severity never depends on the border alone.
+      expect(getComputedStyle(fatal).borderWidth).toBe(getComputedStyle(error).borderWidth);
+      // Both stay readable as text, so severity never depends on colour alone.
       expect(fatal.textContent).not.toBe(error.textContent);
+    });
+
+    it('puts a warning icon before the text of fatal only, and keeps the text', () => {
+      renderWithTheme(
+        <LogViewer
+          entries={['fatal', 'error', 'warn', 'info', 'debug'].map((level, index) =>
+            entry(String(index), { level: level as LogLevel })
+          )}
+        />
+      );
+      const withIcon = markers().filter((marker) => marker.querySelector('svg'));
+      expect(withIcon).toHaveLength(1);
+      expect(withIcon[0].getAttribute('data-level')).toBe('fatal');
+      expect(withIcon[0].textContent).toBe('Fatal');
+      expect(withIcon[0].querySelector('svg')?.getAttribute('aria-hidden')).toBe('true');
     });
 
     it('is inline, and sits in a cell of the row', () => {
