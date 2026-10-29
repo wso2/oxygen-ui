@@ -246,6 +246,14 @@ function LoginForm() {
 
 ## Multi-Step Wizard
 
+Use a wizard only when later steps depend on earlier choices; otherwise use a page form (see Choosing a Container in the oxygen-component skill). The example below shows the stepper structure; real wizards also need:
+
+- 3 to 7 named steps; order by dependency, optional steps last or skippable
+- Validate each step before Next; Back never loses data
+- A review step before submit, with an edit link per step
+- Cancel always available, confirming if progress will be lost; save drafts for long flows
+- A success state with clear next actions
+
 ```tsx
 import { useState } from 'react';
 import {

@@ -109,6 +109,31 @@ function UsersToolbar() {
 
 `ListingTable.Toolbar` renders `showSearch` before `children`, so when a table has a scope control or puts filters first, render search as a child in the right position instead of using `showSearch`.
 
+## Choosing a Container
+
+Use the lightest container that fits the task: modal → right drawer → page form → full page wizard. Ask in order and stop at the first "yes":
+
+1. Quick decision or 1 to 3 fields, with no scrolling content and no need to reference other pages? Use a modal
+2. Must the page behind stay visible, and is the task a single step? Use a right drawer
+3. Do later steps depend on earlier choices? Use a full page wizard
+4. Otherwise, use a page form with a back button
+
+| Pattern | Use when | Avoid when | Typical size |
+|---------|----------|------------|--------------|
+| Modal | Confirm, delete, rename, 1 to 3 fields | Scrolling content, referencing other pages, nested dialogs | Small to medium |
+| Right drawer | Viewing or editing an item while keeping context visible | Long or multi-step forms, complex validation | 400 to 600px wide |
+| Page form | Creating or editing one entity with many fields | Quick edits | Full content area |
+| Wizard | Sequential setup with dependent steps | Under 3 steps, non-linear editing | Full page, 3 to 7 steps |
+
+- Modal: one task, one decision; if it needs scrolling, it is not a modal. Title states the action (`Delete item?`), body explains the consequence. Buttons use specific verbs, never `OK` or `Yes`. Destructive actions use danger styling; high-impact deletes require typing the resource name. Trap focus, close on Esc, return focus to the trigger. Never nest modals or use them for unprompted interruptions
+- Right drawer: content relates to the page behind it (details, filters, settings, short edit forms). One standard width; wider variant only when content requires it. Sticky header (title, close) and sticky footer (primary and secondary actions). Warn about unsaved changes on close, Esc, or outside click. Don't stack drawers; open a modal from a drawer only for confirmations. Move focus in on open; return it to the trigger on close
+- Page form: back returns to the originating page and restores its state (filters, scroll, pagination). Clear page title (`Create …`, `Edit …`); breadcrumbs when navigation is deep. Group fields into titled sections; progressive disclosure for advanced settings. Keep the primary action reachable on long forms (sticky footer or top right). Prompt on unsaved changes for back button, browser back, and in-app links. Inline validation on blur; on submit, summarize errors at the top with links to fields
+- Wizard: stepper with step names and current position; 3 to 7 steps. Back never loses data; validate each step before Next. Order steps by dependency; optional steps last or skippable. Review step before final submit, with edit links per step. Cancel always available, confirms if progress will be lost; save drafts for long flows. Success state with clear next actions
+- Editing a resource with 5 to 6 fields defaults to a right drawer. Switch to a page form for long content (rich text, code or JSON editor, spec files), fields that depend on each other, an edit likely to grow or that sits alongside other settings, or when users must reference other pages while editing
+- Use the same pattern for the same task type across the product
+- Every editable container guards against unsaved changes the same way
+- Support keyboard use, visible focus, and labelled controls; meet WCAG 2.2 AA
+
 ## Component Template
 
 ```tsx
