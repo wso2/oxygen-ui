@@ -21,6 +21,7 @@ import Paper from '@mui/material/Paper';
 import type { PaperProps } from '@mui/material/Paper';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { LogViewerContext } from './context';
+import { isRange } from './filters';
 import type { LogViewerContextValue } from './context';
 import {
   LogViewerCount,
@@ -315,6 +316,11 @@ const LogViewerRoot = React.forwardRef<HTMLDivElement, LogViewerProps>(function 
     null
   );
 
+  // With a time range filter and no range applied, an empty list means that none was asked for, not that no logs exist.
+  const rangeFilters = filters.filter((filter) => filter.type === 'timeRange');
+  const awaitingRange =
+    entries.length === 0 && rangeFilters.length > 0 && !rangeFilters.some((filter) => isRange(filterValues[filter.id]));
+
   const value: LogViewerContextValue = {
     entries: displayed,
     count: entries.length,
@@ -332,6 +338,7 @@ const LogViewerRoot = React.forwardRef<HTMLDivElement, LogViewerProps>(function 
     columns,
     hideHeading,
     filters,
+    awaitingRange,
     filterValues,
     onFilterChange,
     sort,

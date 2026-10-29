@@ -89,6 +89,16 @@ export interface LogViewerStreamProps
    */
   emptyDescription?: string;
   /**
+   * Title of the empty state while the time range filter has no range, which is when nothing has been asked for yet.
+   * @default 'Select a time range'
+   */
+  noRangeTitle?: string;
+  /**
+   * Description under the title while the time range filter has no range.
+   * @default 'Choose a time range to load logs.'
+   */
+  noRangeDescription?: string;
+  /**
    * Text of the retry button of the error.
    * @default 'Try again'
    */
@@ -517,6 +527,8 @@ const LogViewerStream = React.forwardRef<HTMLDivElement, LogViewerStreamProps>(f
     scrollTriggerPx = 72,
     emptyTitle = 'No logs found',
     emptyDescription,
+    noRangeTitle = 'Select a time range',
+    noRangeDescription = 'Choose a time range to load logs.',
     retryLabel = 'Try again',
     loadOlderLabel = 'Load older logs',
     noMoreOlderLabel = 'No older logs',
@@ -552,6 +564,7 @@ const LogViewerStream = React.forwardRef<HTMLDivElement, LogViewerStreamProps>(f
     columns,
     hideHeading,
     filters,
+    awaitingRange,
     filterValues,
     onFilterChange,
     sort,
@@ -1004,8 +1017,8 @@ const LogViewerStream = React.forwardRef<HTMLDivElement, LogViewerStreamProps>(f
 
       {!loading && entries.length === 0 && !error && (
         <ListingTableEmptyState
-          title={emptyTitle}
-          description={emptyDescription}
+          title={awaitingRange ? noRangeTitle : emptyTitle}
+          description={awaitingRange ? noRangeDescription : emptyDescription}
           illustration={<FileSearch aria-hidden="true" />}
           minHeight={200}
         />

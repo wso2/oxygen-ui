@@ -66,6 +66,11 @@ export interface LogViewerContextValue {
   hideHeading: boolean;
   /** The filters the viewer shows. */
   filters: LogFilterDefinition[];
+  /**
+   * True when there is a time range filter, no range is applied to it, and nothing is loaded. The viewer then asks
+   * for a range instead of saying that no logs were found.
+   */
+  awaitingRange: boolean;
   /** The applied filters, keyed by filter id. */
   filterValues: LogFilterValues;
   /** Called with a filter's id and its new value. */

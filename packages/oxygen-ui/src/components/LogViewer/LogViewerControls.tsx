@@ -51,7 +51,9 @@ export const LogViewerCount = React.forwardRef<HTMLSpanElement, LogViewerCountPr
   { label = defaultCountLabel, sx, ...props },
   ref,
 ) {
-  const { count } = useLogViewerRequired();
+  const { count, awaitingRange } = useLogViewerRequired();
+  // Before a range is chosen, a count of 0 would read as a result.
+  if (awaitingRange) return null;
   return (
     <Typography
       ref={ref}

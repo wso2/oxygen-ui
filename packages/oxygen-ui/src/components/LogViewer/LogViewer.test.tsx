@@ -96,6 +96,8 @@ type FlatProps = Omit<LogViewerProps, 'columns' | 'children'> & {
     | 'scrollTriggerPx'
     | 'emptyTitle'
     | 'emptyDescription'
+    | 'noRangeTitle'
+    | 'noRangeDescription'
     | 'retryLabel'
     | 'loadOlderLabel'
     | 'noMoreOlderLabel'
@@ -143,6 +145,8 @@ const LogViewer = ({
   scrollTriggerPx,
   emptyTitle,
   emptyDescription,
+  noRangeTitle,
+  noRangeDescription,
   retryLabel,
   loadOlderLabel,
   noMoreOlderLabel,
@@ -189,6 +193,8 @@ const LogViewer = ({
       scrollTriggerPx={scrollTriggerPx}
       emptyTitle={emptyTitle}
       emptyDescription={emptyDescription}
+      noRangeTitle={noRangeTitle}
+      noRangeDescription={noRangeDescription}
       retryLabel={retryLabel}
       loadOlderLabel={loadOlderLabel}
       noMoreOlderLabel={noMoreOlderLabel}
@@ -279,6 +285,47 @@ describe('LogViewer', () => {
     expect(screen.getByText('Could not load')).not.toBeNull();
     expect(screen.getByText('Some logs are missing')).not.toBeNull();
     expect(stream()).not.toBeNull();
+  });
+
+  it('asks for a time range while none is applied, and says nothing was found once one is', () => {
+    const time: LogFilterDefinition = { id: 'time', label: 'Time Range', type: 'timeRange' };
+    const range = { start: new Date('2026-10-13T00:00:00Z'), end: new Date('2026-10-14T00:00:00Z') };
+    const { unmount } = renderWithTheme(
+      <LogViewer entries={[]} filters={[time]} filterValues={{}} showCount showDownload />
+    );
+    expect(screen.getByText('Select a time range')).not.toBeNull();
+    expect(screen.getByText('Choose a time range to load logs.')).not.toBeNull();
+    expect(screen.queryByText('No logs found')).toBeNull();
+    expect(screen.queryByText(/loaded/)).toBeNull();
+    expect(screen.getByRole('button', { name: /Download/ }).hasAttribute('disabled')).toBe(true);
+    unmount();
+
+    renderWithTheme(
+      <LogViewer entries={[]} filters={[time]} filterValues={{ time: range }} showCount showDownload />
+    );
+    expect(screen.getByText('No logs found')).not.toBeNull();
+    expect(screen.queryByText('Select a time range')).toBeNull();
+    expect(screen.getByText('0 entries loaded')).not.toBeNull();
+  });
+
+  it('keeps the usual empty state without a time range filter, and uses noRangeTitle for the words', () => {
+    const time: LogFilterDefinition = { id: 'time', label: 'Time Range', type: 'timeRange' };
+    const { unmount } = renderWithTheme(<LogViewer entries={[]} />);
+    expect(screen.getByText('No logs found')).not.toBeNull();
+    unmount();
+
+    renderWithTheme(
+      <LogViewer entries={[]} filters={[time]} noRangeTitle="Zeitraum wählen" noRangeDescription="Wählen Sie einen Zeitraum." />
+    );
+    expect(screen.getByText('Zeitraum wählen')).not.toBeNull();
+    expect(screen.getByText('Wählen Sie einen Zeitraum.')).not.toBeNull();
+  });
+
+  it('does not ask for a time range once entries are loaded without one', () => {
+    const time: LogFilterDefinition = { id: 'time', label: 'Time Range', type: 'timeRange' };
+    renderWithTheme(<LogViewer entries={entries('1')} filters={[time]} showCount />);
+    expect(screen.queryByText('Select a time range')).toBeNull();
+    expect(screen.getByText('1 entry loaded')).not.toBeNull();
   });
 
   it('does not show the empty state next to an error', () => {
