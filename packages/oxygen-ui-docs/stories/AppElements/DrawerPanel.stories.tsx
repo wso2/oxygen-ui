@@ -89,7 +89,7 @@ import { DrawerPanel } from '@wso2/oxygen-ui';
 
 ### Guidelines
 - Write the title in sentence case and name the item it shows (\`Build details\`, not \`Details\`).
-- Always include \`DrawerPanel.CloseButton\` and keep it rightmost; Escape and a backdrop click also close the panel.
+- Always include \`DrawerPanel.CloseButton\` and keep it rightmost. With the default \`temporary\` variant, Escape and a backdrop click also close the panel; the \`persistent\` variant closes only through \`DrawerPanel.CloseButton\`.
 - Add \`DrawerPanel.ExpandButton\` when the content benefits from more room (logs, tables, diffs). Skip it for short forms.
 - Put extra header actions (share, settings) before the expand and close buttons, as icon buttons with a tooltip.
 - Use \`DrawerPanel.Footer\` for actions that apply to the whole panel; put the primary action last.
@@ -288,8 +288,12 @@ export const WithHeaderActions: Story = {
             <DrawerPanel.Title icon={<ListTree size={20} />}>Build details</DrawerPanel.Title>
             <DrawerPanel.Actions>
               <Tooltip title="Copy link">
-                <IconButton aria-label="Copy link">
-                  <Share2 size={20} />
+                <IconButton
+                  aria-label="Copy link"
+                  size="small"
+                  onClick={() => navigator.clipboard?.writeText(window.location.href).catch(() => {})}
+                >
+                  <Share2 size={20} aria-hidden="true" />
                 </IconButton>
               </Tooltip>
               <DrawerPanel.ExpandButton />

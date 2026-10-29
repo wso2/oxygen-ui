@@ -43,6 +43,20 @@ const renderPanel = (props: Partial<React.ComponentProps<typeof DrawerPanel>> = 
     </DrawerPanel>,
   );
 
+// jsdom does not apply stylesheet media queries, so read the sm+ paper width
+// from the CSS rule Emotion generated for the drawer root's class.
+const getSmPaperWidth = (): string | undefined => {
+  const root = document.querySelector('.MuiDrawer-root');
+  const rootClass = Array.from(root?.classList ?? []).find((c) => c.startsWith('css-'));
+  const css = Array.from(document.querySelectorAll('style'))
+    .map((style) => style.textContent)
+    .join('\n');
+  const rule = new RegExp(
+    `@media \\(min-width:600px\\)\\{\\.${rootClass} \\.MuiDrawer-paper\\{width:([^;}]+);`,
+  );
+  return css.match(rule)?.[1];
+};
+
 describe('DrawerPanel', () => {
   it('names the drawer dialog from its title', () => {
     renderPanel();
@@ -55,6 +69,11 @@ describe('DrawerPanel', () => {
     expect(screen.getByRole('dialog', { name: 'Pipeline run' })).toBeDefined();
   });
 
+  it('exposes a persistent drawer as a named region', () => {
+    renderPanel({ variant: 'persistent' });
+    expect(screen.getByRole('region', { name: 'Build details' })).toBeDefined();
+  });
+
   it('calls onClose from the close button', () => {
     const onClose = vi.fn();
     renderPanel({ onClose });
@@ -62,12 +81,30 @@ describe('DrawerPanel', () => {
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
+  it('calls onClose once when Escape is pressed', () => {
+    const onClose = vi.fn();
+    renderPanel({ onClose });
+    fireEvent.keyDown(screen.getByRole('dialog'), { key: 'Escape' });
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('calls onClose once when the backdrop is clicked', () => {
+    const onClose = vi.fn();
+    renderPanel({ onClose });
+    const backdrop = document.querySelector('.MuiBackdrop-root');
+    expect(backdrop).not.toBeNull();
+    fireEvent.click(backdrop!);
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
   // jsdom ignores media queries, so the expand button keeps its xs `display: none`
   // and is not exposed by role; query it by label instead.
-  it('toggles the expand button label when uncontrolled', () => {
+  it('toggles the expand button label and paper width when uncontrolled', () => {
     renderPanel();
+    expect(getSmPaperWidth()).toBe('560px');
     fireEvent.click(screen.getByLabelText('Expand'));
     expect(screen.getByLabelText('Collapse')).toBeDefined();
+    expect(getSmPaperWidth()).toBe('100%');
   });
 
   it('reports expand changes without changing state when controlled', () => {
@@ -76,6 +113,12 @@ describe('DrawerPanel', () => {
     fireEvent.click(screen.getByLabelText('Expand'));
     expect(onExpandedChange).toHaveBeenCalledWith(true);
     expect(screen.getByLabelText('Expand')).toBeDefined();
+    expect(getSmPaperWidth()).toBe('560px');
+  });
+
+  it('uses expandedWidth for the sm+ paper width when expanded', () => {
+    renderPanel({ expanded: true, expandedWidth: 960 });
+    expect(getSmPaperWidth()).toBe('960px');
   });
 
   it('throws when sub-components are used outside DrawerPanel', () => {

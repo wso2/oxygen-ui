@@ -95,7 +95,7 @@ export interface DrawerPanelProps {
   /** Drawer variant (default: 'temporary') */
   variant?: 'temporary' | 'persistent';
   /**
-   * Accessible name for the drawer. Only needed when the panel has no
+   * Accessible name for the drawer. When provided, it takes precedence over
    * `DrawerPanel.Title`; otherwise the title names the drawer.
    */
   'aria-label'?: string;
@@ -174,10 +174,10 @@ const DrawerPanel: React.FC<DrawerPanelProps> & {
   const ownerState = { width, expandedWidth, expanded };
 
   // The Slide transition writes `transition: transform ...` inline on the paper,
-  // which overrides any stylesheet transition. Append the width transition once
-  // the slide-in finishes; Slide replaces the inline value again on exit.
+  // which overrides any stylesheet transition. Append the width transition as
+  // the slide-in starts; Slide replaces the inline value again on exit.
   const theme = useTheme();
-  const handleEntered = React.useCallback(
+  const handleEntering = React.useCallback(
     (node: HTMLElement) => {
       const widthTransition = theme.transitions.create('width', {
         duration: theme.transitions.duration.standard,
@@ -200,8 +200,12 @@ const DrawerPanel: React.FC<DrawerPanelProps> & {
         sx={sx}
         variant={variant}
         slotProps={{
-          paper: ariaLabel ? { 'aria-label': ariaLabel } : { 'aria-labelledby': titleId },
-          transition: { onEntered: handleEntered },
+          paper: {
+            // Temporary drawers get role="dialog" from MUI; persistent ones need a landmark role.
+            ...(variant === 'persistent' && { role: 'region' }),
+            ...(ariaLabel ? { 'aria-label': ariaLabel } : { 'aria-labelledby': titleId }),
+          },
+          transition: { onEntering: handleEntering },
         }}
       >
         {children}
