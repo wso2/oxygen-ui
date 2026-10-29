@@ -56,7 +56,9 @@ const meta: Meta<typeof Drawer> = {
       description: {
         component: 'Oxygen UI drawer component is a direct import of MUI drawer component. \n\n' + 
         'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-drawer/](https://mui.com/material-ui/react-drawer/)',
+        '[https://mui.com/material-ui/react-drawer/](https://mui.com/material-ui/react-drawer/)\n\n' +
+        'For a details panel with a title, expand button and close button, use ' +
+        '[DrawerPanel](?path=/docs/app-elements-drawer-panel--docs) instead.',
       },
     },
   },
