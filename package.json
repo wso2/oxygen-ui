@@ -19,6 +19,9 @@
     "publish:packages": "changeset publish",
     "version:packages": "changeset version && pnpm install --lockfile-only",
     "test": "nx run-many --target=test --all",
+    "rules:coverage": "nx run @wso2/oxygen-ui-rules:coverage",
+    "rules:generate": "nx run @wso2/oxygen-ui-rules:generate",
+    "rules:new": "pnpm --filter @wso2/oxygen-ui-rules run new",
     "storybook": "pnpm --filter @wso2/oxygen-ui-docs dev"
   },
   "keywords": [

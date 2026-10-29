@@ -2,7 +2,7 @@
   "name": "@wso2/eslint-plugin-oxygen-ui",
   "private": true,
   "version": "0.0.1",
-  "description": "ESLint plugin to prevent @mui and lucide-react direct imports in Oxygen UI based projects.",
+  "description": "ESLint plugin that enforces the Oxygen UI rules defined in @wso2/oxygen-ui-rules, such as preventing direct @mui and lucide-react imports.",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -35,7 +35,9 @@
   "devDependencies": {
     "@types/eslint": "catalog:",
     "@types/estree": "1.0.6",
+    "@wso2/oxygen-ui-rules": "workspace:^",
     "esbuild": "catalog:",
+    "eslint": "catalog:",
     "rimraf": "catalog:",
     "typescript": "catalog:"
   },
@@ -46,7 +48,9 @@
   "nx": {
     "targets": {
       "build": {
-        "dependsOn": []
+        "dependsOn": [
+          "^build"
+        ]
       }
     }
   }

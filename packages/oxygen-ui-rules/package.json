@@ -1,0 +1,80 @@
+{
+  "name": "@wso2/oxygen-ui-rules",
+  "private": true,
+  "version": "0.0.1",
+  "description": "WSO2 Oxygen UI | Rules - The single source of truth for Oxygen UI governance rules, used by the ESLint plugin, the analyzer and the AI instructions",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rimraf dist && node esbuild.config.js && tsc -p tsconfig.json --emitDeclarationOnly",
+    "clean": "rimraf dist",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "node tools/coverage.js",
+    "generate": "node tools/generate.js",
+    "new": "node tools/new.js"
+  },
+  "keywords": [
+    "wso2",
+    "oxygen-ui",
+    "design-system",
+    "governance",
+    "eslint"
+  ],
+  "author": "WSO2 LLC",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wso2/oxygen-ui.git"
+  },
+  "peerDependencies": {
+    "eslint": "^9.0.0"
+  },
+  "peerDependenciesMeta": {
+    "eslint": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/estree": "1.0.6",
+    "@types/node": "catalog:",
+    "@typescript-eslint/parser": "catalog:",
+    "esbuild": "catalog:",
+    "eslint": "catalog:",
+    "rimraf": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "dependsOn": []
+      },
+      "coverage": {
+        "dependsOn": [
+          "build"
+        ]
+      },
+      "generate": {
+        "dependsOn": [
+          "build"
+        ]
+      }
+    }
+  }
+}

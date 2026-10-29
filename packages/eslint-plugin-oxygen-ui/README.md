@@ -2,6 +2,8 @@
 
 ESLint plugin to enforce Oxygen UI best practices by preventing direct imports from `@mui/*` packages and `lucide-react`.
 
+The rules are defined in [`@wso2/oxygen-ui-rules`](../oxygen-ui-rules), which is shared with the Oxygen UI analyzer. This plugin exposes them to ESLint. To change a rule, edit it there.
+
 ## Installation
 
 ```bash
@@ -46,7 +48,7 @@ export default [
 
 ### `no-direct-mui-imports`
 
-Prevents direct imports from all MUI packages (`@mui/*`) and suggests using `@oxygen-ui/react` instead.
+Prevents direct imports from all MUI packages (`@mui/*`) and suggests using `@wso2/oxygen-ui` instead.
 
 ❌ **Incorrect:**
 ```javascript
@@ -96,6 +98,8 @@ import { Settings, Home, User } from '@wso2/oxygen-ui-icons-react';
 ## Auto-fixing
 
 Both rules support auto-fixing with `eslint --fix`.
+
+`no-direct-mui-imports` only fixes imports that `@wso2/oxygen-ui` re-exports unchanged: `@mui/material`, `@mui/material/styles` and single-component subpaths such as `@mui/material/Button`. Other `@mui/*` imports are reported but not fixed, because Oxygen UI exposes them differently (for example `DataGrid`, `DatePickers`, `TreeView` and `colors` are namespaces).
 
 ## License
 

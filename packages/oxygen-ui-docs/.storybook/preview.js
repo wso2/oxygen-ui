@@ -190,6 +190,9 @@ const preview = {
             'Accessibility',
             '*',
           ],
+          'Tooling', [
+            'Analyzer',
+          ],
           'App Elements', [
             'App Shell',
             'App Breadcrumbs',

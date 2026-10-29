@@ -1,0 +1,436 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/wso2/oxygen-ui/packages/oxygen-ui-analyzer/schema/report.schema.json",
+  "title": "Oxygen UI analyzer report",
+  "description": "Findings from analyzing a project against the Oxygen UI rules. Produced by oxygen-ui-analyzer, and by the AI audit skill for judgement findings.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "tool",
+    "ruleset",
+    "project",
+    "generatedAt",
+    "summary",
+    "rules",
+    "findings",
+    "suppressed",
+    "notices",
+    "errors"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "tool": {
+      "type": "object",
+      "required": [
+        "name",
+        "version"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "ruleset": {
+      "type": "object",
+      "required": [
+        "version"
+      ],
+      "properties": {
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "project": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "filesAnalyzed",
+        "filesWithFindings",
+        "findings",
+        "bySeverity",
+        "byCategory"
+      ],
+      "properties": {
+        "filesAnalyzed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "filesWithFindings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "findings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "bySeverity": {
+          "type": "object",
+          "required": [
+            "error",
+            "warning",
+            "info"
+          ],
+          "properties": {
+            "error": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "warning": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "info": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "byCategory": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/$defs/category"
+          },
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rule"
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/finding"
+      }
+    },
+    "suppressed": {
+      "type": "array",
+      "description": "Findings accepted by product exceptions. They do not count as findings.",
+      "items": {
+        "$ref": "#/$defs/suppressedFinding"
+      }
+    },
+    "notices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/notice"
+      }
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/error"
+      }
+    },
+    "baseline": {
+      "$ref": "#/$defs/baseline"
+    }
+  },
+  "$defs": {
+    "category": {
+      "enum": [
+        "imports",
+        "styling",
+        "components",
+        "patterns",
+        "accessibility",
+        "testability",
+        "content"
+      ]
+    },
+    "severity": {
+      "enum": [
+        "error",
+        "warning",
+        "info"
+      ]
+    },
+    "fixType": {
+      "enum": [
+        "safe",
+        "suggestion",
+        "ai",
+        "manual"
+      ]
+    },
+    "rule": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "summary",
+        "category",
+        "level",
+        "severity",
+        "enforcement",
+        "fix",
+        "docs",
+        "findings"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "category": {
+          "$ref": "#/$defs/category"
+        },
+        "level": {
+          "enum": [
+            "mandatory",
+            "recommended",
+            "advisory"
+          ]
+        },
+        "severity": {
+          "$ref": "#/$defs/severity"
+        },
+        "enforcement": {
+          "enum": [
+            "automated",
+            "judgement"
+          ]
+        },
+        "fix": {
+          "$ref": "#/$defs/fixType"
+        },
+        "docs": {
+          "type": "string",
+          "description": "Markdown"
+        },
+        "findings": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "required": [
+        "id",
+        "ruleId",
+        "category",
+        "severity",
+        "confidence",
+        "kind",
+        "file",
+        "line",
+        "column",
+        "message",
+        "evidence",
+        "fix"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "ruleId": {
+          "type": "string"
+        },
+        "category": {
+          "$ref": "#/$defs/category"
+        },
+        "severity": {
+          "$ref": "#/$defs/severity"
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "deterministic",
+            "judgement"
+          ]
+        },
+        "file": {
+          "type": "string",
+          "description": "Relative to the project root, with forward slashes"
+        },
+        "line": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "column": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "endLine": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "endColumn": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "message": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "string"
+        },
+        "fix": {
+          "type": "object",
+          "required": [
+            "type",
+            "available"
+          ],
+          "properties": {
+            "type": {
+              "$ref": "#/$defs/fixType"
+            },
+            "available": {
+              "type": "boolean"
+            },
+            "suggestion": {
+              "type": "string",
+              "description": "The suggested fix, which needs review. Applied by fix --suggestions"
+            }
+          }
+        },
+        "status": {
+          "enum": [
+            "new",
+            "baseline"
+          ],
+          "description": "Present when the analysis was compared with a baseline"
+        }
+      }
+    },
+    "error": {
+      "type": "object",
+      "required": [
+        "file",
+        "message"
+      ],
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "line": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "suppressedFinding": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/finding"
+        },
+        {
+          "type": "object",
+          "required": [
+            "exception"
+          ],
+          "properties": {
+            "exception": {
+              "type": "object",
+              "required": [
+                "reason",
+                "files"
+              ],
+              "properties": {
+                "reason": {
+                  "type": "string"
+                },
+                "files": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "expires": {
+                  "type": "string",
+                  "format": "date"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "notice": {
+      "type": "object",
+      "required": [
+        "level",
+        "message"
+      ],
+      "properties": {
+        "level": {
+          "enum": [
+            "warning",
+            "info"
+          ]
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "baseline": {
+      "type": "object",
+      "required": [
+        "path",
+        "known",
+        "new",
+        "fixed"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "known": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "new": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "fixed": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

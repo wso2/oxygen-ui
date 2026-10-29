@@ -5,8 +5,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node ./scripts/copy-sample-to-storybook.js --watch & storybook dev -p 6006",
-    "build": "node ./scripts/copy-sample-to-storybook.js && storybook build -o dist",
+    "dev": "node ./scripts/generate-analyzer-demo.js && node ./scripts/copy-sample-to-storybook.js --watch & storybook dev -p 6006",
+    "build": "node ./scripts/generate-analyzer-demo.js && node ./scripts/copy-sample-to-storybook.js && storybook build -o dist",
     "preview": "http-server dist",
     "test:storybook": "test-storybook",
     "test:storybook:ci": "concurrently --kill-others --success first --names \"SERVE,TEST\" \"http-server dist --port 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && test-storybook --url http://127.0.0.1:6006 --maxWorkers=2\""
@@ -47,6 +47,7 @@
     "@svgr/webpack": "8.1.0",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "@wso2/oxygen-ui-analyzer": "workspace:^",
     "babel-loader": "10.0.0",
     "concurrently": "^10.0.3",
     "date-fns": "4.1.0",

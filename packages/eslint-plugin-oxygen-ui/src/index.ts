@@ -17,41 +17,30 @@
  */
 
 import type {ESLint, Linter} from 'eslint';
-import noDirectMuiImportsRule from './rules/no-direct-mui-imports.js';
-import noDirectLucideImportsRule from './rules/no-direct-lucide-imports.js';
+import {
+  ESLINT_PLUGIN_NAMESPACE,
+  getEslintRules,
+  getRecommendedEslintRules,
+  rules as registry,
+} from '@wso2/oxygen-ui-rules';
 
+// The rules are defined in @wso2/oxygen-ui-rules, the single source of truth shared with the
+// Oxygen UI analyzer and AI instructions. This plugin only exposes them to ESLint.
 const plugin: ESLint.Plugin = {
   meta: {
-    name: '@oxygen-ui/eslint-plugin',
-    version: '0.1.0',
+    name: '@wso2/eslint-plugin-oxygen-ui',
+    version: '0.0.1',
   },
   configs: {} as Record<string, Linter.Config>,
-  rules: {
-    'no-direct-mui-imports': noDirectMuiImportsRule,
-    'no-direct-lucide-imports': noDirectLucideImportsRule,
-  },
+  rules: getEslintRules(registry),
 };
 
-// Recommended config
+// Recommended config. Uses the same plugin namespace as the README.
 const recommendedConfig: Linter.Config = {
   plugins: {
-    '@oxygen-ui': plugin,
+    [ESLINT_PLUGIN_NAMESPACE]: plugin,
   },
-  rules: {
-    '@oxygen-ui/no-direct-mui-imports': [
-      'error',
-      {
-        suggestedPackage: '@oxygen-ui/react',
-        allowedPackages: ['@mui/x-data-grid', '@mui/x-date-pickers'],
-      },
-    ],
-    '@oxygen-ui/no-direct-lucide-imports': [
-      'error',
-      {
-        suggestedPackage: '@oxygen-ui/react-icons',
-      },
-    ],
-  },
+  rules: getRecommendedEslintRules(registry, ESLINT_PLUGIN_NAMESPACE),
 };
 
 // Assign configs
