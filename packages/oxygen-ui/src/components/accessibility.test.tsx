@@ -27,7 +27,7 @@
 
 import * as React from 'react';
 import { describe, it, expect, afterEach, vi } from 'vitest';
-import { render, cleanup, screen, fireEvent } from '@testing-library/react';
+import { render, cleanup, screen, fireEvent, within } from '@testing-library/react';
 import { MenuItem, Select } from '@mui/material';
 import OxygenUIThemeProvider from '../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
 import ClassicTheme from '../styles/Themes/ClassicTheme';
@@ -47,6 +47,7 @@ import type { AppSwitcherAppProps } from './AppSwitcher/AppSwitcherApp';
 import type { AppSwitcherFooterProps } from './AppSwitcher/AppSwitcherFooter';
 import NotificationPanel from './NotificationPanel/NotificationPanel';
 import { useNotificationPanel } from './NotificationPanel/context';
+import FullScreenWizard from './FullScreenWizard/FullScreenWizard';
 
 const renderWithTheme = (ui: React.ReactElement) =>
   render(<OxygenUIThemeProvider>{ui}</OxygenUIThemeProvider>);
@@ -1314,5 +1315,80 @@ describe('NotificationPanel', () => {
     fireEvent.click(screen.getByTestId('announce-button'));
 
     expect(screen.getByTestId('notification-panel-live-region').textContent).toBe('');
+  });
+});
+
+describe('FullScreenWizard', () => {
+  const renderWizard = (props: Partial<React.ComponentProps<typeof FullScreenWizard>> = {}) =>
+    renderWithTheme(
+      <FullScreenWizard onClose={() => {}} aria-label="Create project" {...props}>
+        <FullScreenWizard.Progress value={50} valueText="Step 2 of 4" />
+        <FullScreenWizard.Header>Create project</FullScreenWizard.Header>
+        <FullScreenWizard.Content>Step</FullScreenWizard.Content>
+        <FullScreenWizard.Footer>
+          <button type="button">Continue</button>
+        </FullScreenWizard.Footer>
+        <FullScreenWizard.Preview>Preview</FullScreenWizard.Preview>
+      </FullScreenWizard>,
+    );
+
+  it('exposes the header, main and preview landmarks in page mode', () => {
+    renderWizard();
+
+    expect(screen.getByRole('banner')).toBeDefined();
+    expect(screen.getByRole('main', { name: 'Create project' })).toBeDefined();
+    expect(screen.getByRole('complementary', { name: 'Preview' })).toBeDefined();
+  });
+
+  it('names the close button, with a fallback for a blank label', () => {
+    renderWizard({ closeLabel: 'Discard and close' });
+    expect(screen.getByRole('button', { name: 'Discard and close' })).toBeDefined();
+    cleanup();
+
+    renderWizard({ closeLabel: ' ' });
+    expect(screen.getByRole('button', { name: 'Close' })).toBeDefined();
+  });
+
+  it('labels the progress bar and exposes its value text', () => {
+    renderWizard();
+
+    const progress = screen.getByRole('progressbar', { name: 'Progress' });
+    expect(progress.getAttribute('aria-valuetext')).toBe('Step 2 of 4');
+    expect(progress.getAttribute('aria-valuenow')).toBe('50');
+  });
+
+  it('lets consumers rename the progress bar and the preview', () => {
+    renderWithTheme(
+      <FullScreenWizard>
+        <FullScreenWizard.Progress value={10} progressLabel="Setup progress" />
+        <FullScreenWizard.Preview previewLabel="Sign-in preview">Preview</FullScreenWizard.Preview>
+      </FullScreenWizard>,
+    );
+
+    expect(screen.getByRole('progressbar', { name: 'Setup progress' })).toBeDefined();
+    expect(screen.getByRole('complementary', { name: 'Sign-in preview' })).toBeDefined();
+  });
+
+  it('names the modal dialog and does not render a main landmark inside it', () => {
+    renderWizard({ modal: true, open: true });
+
+    const dialog = screen.getByRole('dialog', { name: 'Create project' });
+    // No dangling `aria-labelledby` pointing at a DialogTitle that is not there.
+    expect(dialog.getAttribute('aria-labelledby')).toBeNull();
+    expect(screen.queryByRole('main')).toBeNull();
+    expect(within(dialog).getByRole('button', { name: 'Close' })).toBeDefined();
+  });
+
+  it('names the modal dialog by aria-labelledby', () => {
+    renderWithTheme(
+      <FullScreenWizard modal open aria-labelledby="wizard-title">
+        <FullScreenWizard.Header>
+          <h1 id="wizard-title">Invite member</h1>
+        </FullScreenWizard.Header>
+        <FullScreenWizard.Content>Step</FullScreenWizard.Content>
+      </FullScreenWizard>,
+    );
+
+    expect(screen.getByRole('dialog', { name: 'Invite member' })).toBeDefined();
   });
 });

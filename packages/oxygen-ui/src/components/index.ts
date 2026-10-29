@@ -142,6 +142,21 @@ export type { NotificationBannerProps } from './NotificationBanner';
 // Form Component
 export { Form } from './Form';
 
+// FullScreenWizard Component
+export { FullScreenWizard, useFullScreenWizard, useWizardSteps } from './FullScreenWizard';
+export type {
+  FullScreenWizardProps,
+  FullScreenWizardProgressProps,
+  FullScreenWizardHeaderProps,
+  FullScreenWizardContentProps,
+  FullScreenWizardFooterProps,
+  FullScreenWizardPreviewProps,
+  FullScreenWizardContextValue,
+  UseWizardStepsOptions,
+  UseWizardStepsReturn,
+  WizardStepInput,
+} from './FullScreenWizard';
+
 // AppShell Component
 export { AppShell } from './AppShell';
 export type { AppShellProps } from './AppShell';
