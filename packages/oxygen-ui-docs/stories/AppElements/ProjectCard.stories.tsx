@@ -36,7 +36,7 @@ The ProjectCard component is a reusable card for listing projects. It is built f
 components and extends the Card props, except \`variant\`.
 
 ### Features
-- **Icon badge**: a round badge with a custom icon (a cube by default) in any theme color
+- **Icon badge**: a round badge with a custom icon (a cube by default) in any theme color, light (tinted) or filled
 - **Description and updated time**: both optional; the time (e.g. "1 day ago") reuses the RelativeTime component, and \`updatedTooltip\` shows anything on hover
 - **Delete action**: appears on hover or focus when \`onDelete\` is set, or use \`actions\` for custom content
 - **Clickable**: pass \`onClick\` or \`href\` to make the whole card interactive
@@ -61,6 +61,11 @@ import { Grid, ProjectCard } from '@wso2/oxygen-ui';
   argTypes: {
     title: { control: 'text', description: 'Name of the project' },
     description: { control: 'text', description: 'Short description under the title' },
+    iconVariant: {
+      control: 'radio',
+      options: ['light', 'filled'],
+      description: 'Light (tinted) or filled icon badge',
+    },
     iconColor: {
       control: 'select',
       options: ['primary', 'secondary', 'success', 'error', 'info', 'warning'],
@@ -110,7 +115,7 @@ export const FourInARow: Story = {
       {[
         ['Default', 'Default project', '1 minute ago'],
         ['Payments', 'Payment APIs, gateways and everything else the payments team needs to take, track and refund orders in one place', '3 hours ago'],
-        ['Mobile app backend', 'Mobile app backend', '1 day ago'],
+        ['Mobile app backend', undefined, '1 day ago'],
         ['Analytics', 'Reports and dashboards for every team, from the first sign-up all the way to the last renewal of a customer account', '2 weeks ago'],
       ].map(([title, description, time], index) => (
         <Grid key={title} size={{ xs: 12, sm: 6, lg: 3 }}>

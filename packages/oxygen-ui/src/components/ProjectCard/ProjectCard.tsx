@@ -18,7 +18,7 @@
 
 import React from 'react';
 import { Box as BoxIcon, Trash2 } from '@wso2/oxygen-ui-icons-react';
-import { Box, Card, CardActionArea, CardContent, IconButton, Tooltip, Typography } from '@mui/material';
+import { Avatar, Box, Card, CardActionArea, CardContent, IconButton, Tooltip, Typography } from '@mui/material';
 import type { CardProps, TooltipProps, TypographyProps } from '@mui/material';
 import RelativeTime from '../RelativeTime';
 
@@ -44,6 +44,12 @@ export interface ProjectCardProps extends Omit<CardProps, 'variant' | 'title' | 
    * @default 'primary'
    */
   iconColor?: 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
+  /**
+   * Style of the icon badge: `light` is a tinted background with a colored icon, `filled` is a solid
+   * background with a contrasting icon.
+   * @default 'light'
+   */
+  iconVariant?: 'light' | 'filled';
   /**
    * Relative time text for the footer, e.g. "1 minute ago" or "1 day ago", shown with a clock icon.
    * The time is hidden when not set.
@@ -94,6 +100,8 @@ const FOOTER_HEIGHT = 48;
 const DESCRIPTION_LINES = 2;
 const ACTIONS_OFFSET = 12;
 const ACTIONS_GAP = 16;
+// Horizontal padding of the card content (2.5 spacing units of 8px), which the footer row sits inside.
+const CONTENT_PADDING_PX = 20;
 
 interface TruncatedTextProps extends Omit<TypographyProps, 'title'> {
   title: React.ReactNode;
@@ -187,6 +195,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   description,
   icon,
   iconColor = 'primary',
+  iconVariant = 'light',
   updatedTime,
   updatedLabel,
   updatedDateTime,
@@ -213,8 +222,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     actions ??
     (onDelete ? (
       <Tooltip title={deleteLabel}>
-        <IconButton size="small" color="error" aria-label={deleteLabel} onClick={onDelete}>
-          <Trash2 size={20} />
+        <IconButton size="small" color="error" aria-label={deleteLabel} onClick={onDelete} sx={{ p: 0.5 }}>
+          <Trash2 size={16} />
         </IconButton>
       </Tooltip>
     ) : null);
@@ -236,73 +245,74 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
   const content = (
     <>
-      <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2, p: 2.5 }}>
-        <Box
-          aria-hidden="true"
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-            width: 52,
-            height: 52,
-            borderRadius: '50%',
-            bgcolor: `${iconColor}.main`,
-            color: `${iconColor}.contrastText`,
-          }}
-        >
-          {icon ?? <BoxIcon size={24} />}
-        </Box>
-        <Box sx={{ minWidth: 0, flex: 1 }}>
+      {/* Top padding matches the space below the time in the footer row (half of the footer height minus the text). */}
+      <CardContent sx={{ px: 2.5, pt: 1.75, pb: 1.5 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Avatar
+            aria-hidden="true"
+            variant={iconVariant === 'light' ? 'light' : 'circular'}
+            color={iconColor}
+            sx={theme => ({
+              flexShrink: 0,
+              width: 44,
+              height: 44,
+              ...(iconVariant === 'filled' && {
+                bgcolor: (theme.vars || theme).palette[iconColor].main,
+                color: (theme.vars || theme).palette[iconColor].contrastText,
+              }),
+            })}
+          >
+            {icon ?? <BoxIcon size={20} />}
+          </Avatar>
           {/* A heading is not valid inside the button/link of a clickable card, so it is a plain block there. */}
           <TruncatedText
             title={title}
             variant="h6"
             component={interactive ? 'span' : 'h3'}
             forceOpen={keyboardFocus}
-            sx={{ display: 'block', fontWeight: 700, fontSize: '1.125rem' }}
+            sx={{ display: 'block', minWidth: 0, flex: 1, fontWeight: 700, fontSize: '1.125rem' }}
           >
             {title}
           </TruncatedText>
-          {description && (
-            <TruncatedText
-              title={description}
-              lines={DESCRIPTION_LINES}
-              placement="bottom-start"
-              forceOpen={keyboardFocus}
-              variant="body2"
-              color="text.secondary"
-              // Slightly dimmed; any lower fails the 4.5:1 text contrast in light mode.
-              sx={{ mt: 0.5, opacity: 0.9 }}
-            >
-              {description}
-            </TruncatedText>
-          )}
         </Box>
+        {description && (
+          <TruncatedText
+            title={description}
+            lines={DESCRIPTION_LINES}
+            placement="bottom-start"
+            forceOpen={keyboardFocus}
+            variant="body2"
+            color="text.secondary"
+            // Slightly dimmed; any lower fails the 4.5:1 text contrast in light mode.
+            sx={{ mt: 1.5, opacity: 0.9 }}
+          >
+            {description}
+          </TruncatedText>
+        )}
       </CardContent>
       {hasFooter && (
-        <CardContent
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            minHeight: FOOTER_HEIGHT,
-            px: 2.5,
-            py: 0,
-            // Leave room for the hover actions, which are positioned over the right side.
-            pr: hasActions ? `${actionsWidth + ACTIONS_OFFSET + ACTIONS_GAP}px` : 2.5,
-            '&:last-child': { pb: 0 },
-            borderTop: '1px solid',
-            borderColor: 'divider',
-          }}
-        >
-          {updatedTime && (
-            <RelativeTime
-              action={updatedLabel}
-              time={updatedTime}
-              dateTime={updatedDateTime}
-              tooltip={updatedTooltip}
-            />
-          )}
+        // The divider is inset to the card's padding, so it does not touch the card edges.
+        <CardContent sx={{ px: 2.5, py: 0, '&:last-child': { pb: 0 } }}>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              minHeight: FOOTER_HEIGHT,
+              // Leave room for the hover actions, which are positioned over the right side.
+              pr: hasActions ? `${Math.max(0, actionsWidth + ACTIONS_OFFSET + ACTIONS_GAP - CONTENT_PADDING_PX)}px` : 0,
+              borderTop: '1px solid',
+              borderColor: 'divider',
+            }}
+          >
+            {updatedTime && (
+              <RelativeTime
+                action={updatedLabel}
+                time={updatedTime}
+                dateTime={updatedDateTime}
+                tooltip={updatedTooltip}
+              />
+            )}
+          </Box>
         </CardContent>
       )}
     </>

@@ -73,6 +73,20 @@ declare module '@mui/material/styles' {
   interface ThemeVars extends CustomThemeProperties {}
 }
 
+// Add a `light` Avatar variant (tinted background, colored content) and a `color` prop to pick its color
+declare module '@mui/material/Avatar' {
+  interface AvatarPropsVariantOverrides {
+    light: true;
+  }
+  interface AvatarOwnProps {
+    /**
+     * Color of the `light` variant.
+     * @default 'primary'
+     */
+    color?: 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
+  }
+}
+
 export interface OxygenTheme extends Theme {
   vars: NonNullable<Theme['vars']>;
 }
@@ -189,6 +203,27 @@ const OxygenThemeBase = extendTheme({
           },
         }),
       },
+    },
+    MuiAvatar: {
+      variants: [
+        // `light`: a tinted background (12% of the color) with the color itself for the icon.
+        // Shape is circular, as the variant replaces `circular`/`rounded`/`square`.
+        {
+          props: { variant: 'light' },
+          style: ({ theme }) => ({
+            borderRadius: '50%',
+            backgroundColor: `color-mix(in srgb, ${(theme.vars || theme).palette.primary.main} 12%, transparent)`,
+            color: (theme.vars || theme).palette.primary.main,
+          }),
+        },
+        ...(['primary', 'secondary', 'success', 'error', 'info', 'warning'] as const).map(color => ({
+          props: { variant: 'light' as const, color },
+          style: ({ theme }: { theme: Theme }) => ({
+            backgroundColor: `color-mix(in srgb, ${(theme.vars || theme).palette[color].main} 12%, transparent)`,
+            color: (theme.vars || theme).palette[color].main,
+          }),
+        })),
+      ],
     },
     MuiBreadcrumbs: {
       styleOverrides: {
