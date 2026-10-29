@@ -1712,7 +1712,7 @@ describe('LogViewer', () => {
       expect(screen.getByRole('toolbar')).not.toBeNull();
     });
 
-    it('puts the filters and the count first in the toolbar, and the search before the time zone', () => {
+    it('puts the filters, then the search and the count, first in the toolbar, before the time zone', () => {
       const filters: LogFilterDefinition[] = [{ id: 'status', label: 'Status', type: 'select', options: [] }];
       renderWithTheme(
         <LogViewer
@@ -1728,7 +1728,7 @@ describe('LogViewer', () => {
       const text = Array.from(toolbar.querySelectorAll('input, button, p')).map((element) =>
         element.tagName === 'INPUT' ? 'search' : (element.textContent ?? '')
       );
-      expect(text.slice(0, 4)).toEqual(['Status', 'N events', 'search', 'UTC']);
+      expect(text.slice(0, 4)).toEqual(['Status', 'search', 'N events', 'UTC']);
     });
 
     it('reports the text once typing pauses, not on every key', () => {
@@ -2255,6 +2255,23 @@ describe('composition', () => {
       .map((button) => button.getAttribute('aria-label'));
     expect(names[0]).toMatch(/^Download/);
     expect(names[1]).toBe('Refresh');
+  });
+
+  it('puts the search on the left with the filters, wherever it is among the controls', () => {
+    renderWithTheme(
+      <Base entries={entries('1', '2')} columns={defaultColumns}>
+        <Base.Toolbar>
+          <Base.Download />
+          <Base.Search />
+          <Base.Refresh />
+        </Base.Toolbar>
+        <Base.Stream />
+      </Base>
+    );
+    const toolbar = screen.getByRole('toolbar');
+    const [left, right] = Array.from(toolbar.children) as HTMLElement[];
+    expect(within(left).getByPlaceholderText('Search logs')).not.toBeNull();
+    expect(within(right).queryByPlaceholderText('Search logs')).toBeNull();
   });
 
   it('gives each part its own words', () => {

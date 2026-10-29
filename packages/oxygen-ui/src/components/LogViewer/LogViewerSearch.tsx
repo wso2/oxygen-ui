@@ -122,7 +122,6 @@ const LogViewerSearch = React.forwardRef<HTMLDivElement, LogViewerSearchProps>(f
       }
       sx={[
         {
-          mr: 1,
           width: 240,
           minWidth: 160,
           '& .MuiOutlinedInput-root': { height: 32, fontSize: '0.8125rem' },

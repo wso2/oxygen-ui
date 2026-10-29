@@ -25,6 +25,7 @@ import { ListingTableFilterMenu } from '../ListingTable/shared/ListingTableFilte
 import TimeRangeFilter from '../TimeRangeFilter';
 import { useLogViewerRequired } from './context';
 import { LogViewerCount } from './LogViewerControls';
+import LogViewerSearch from './LogViewerSearch';
 import LogFilterChip from './LogFilterChip';
 import { formatShort } from './timestamps';
 import { isApplied, isRange } from './filters';
@@ -37,8 +38,8 @@ export interface LogViewerToolbarProps extends Omit<BoxProps, 'children'> {
   /**
    * The controls of the toolbar: `LogViewer.Search`, `LogViewer.TimeZone`, `LogViewer.Sort`,
    * `LogViewer.Download`, `LogViewer.Refresh` and `LogViewer.Count`. Include the ones you want. The
-   * layout is the same in every product: the filters and the count are on the left, and the other
-   * controls are on the right, in the order given.
+   * layout is the same in every product: the filters, the search and the count are on the left, in
+   * that order, and the other controls are on the right, in the order given.
    */
   children?: React.ReactNode;
   /**
@@ -121,10 +122,12 @@ const LogViewerToolbar = React.forwardRef<HTMLDivElement, LogViewerToolbarProps>
   const inHeader = new Set(hideHeading ? [] : columns.map((column) => column.filterId).filter(Boolean));
   const toolbarFilters = filters.filter((filter) => !inHeader.has(filter.id));
 
-  // The count sits with the filters on the left, wherever it is among the other controls.
+  // The search and the count sit with the filters on the left, wherever they are among the other controls.
   const all = React.Children.toArray(children);
-  const counts = all.filter((child) => React.isValidElement(child) && child.type === LogViewerCount);
-  const controls = all.filter((child) => !(React.isValidElement(child) && child.type === LogViewerCount));
+  const isLeft = (child: React.ReactNode, type: unknown) => React.isValidElement(child) && child.type === type;
+  const searches = all.filter((child) => isLeft(child, LogViewerSearch));
+  const counts = all.filter((child) => isLeft(child, LogViewerCount));
+  const controls = all.filter((child) => !isLeft(child, LogViewerSearch) && !isLeft(child, LogViewerCount));
   const hasToolbar = toolbarFilters.length > 0 || all.length > 0;
 
   const activeSelect = openMenu
@@ -236,6 +239,7 @@ const LogViewerToolbar = React.forwardRef<HTMLDivElement, LogViewerToolbarProps>
                 </Button>
               );
             })}
+            {searches}
             {counts}
           </Box>
 
