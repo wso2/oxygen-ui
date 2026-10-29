@@ -23,11 +23,11 @@ import type { CardProps, TooltipProps, TypographyProps } from '@mui/material';
 import RelativeTime from '../RelativeTime';
 
 /**
- * Props for the ProjectCard component
+ * Props for the ListingCard component
  */
-export interface ProjectCardProps extends Omit<CardProps, 'variant' | 'title' | 'children' | 'onClick'> {
+export interface ListingCardProps extends Omit<CardProps, 'variant' | 'title' | 'children' | 'onClick'> {
   /**
-   * Name of the project. Truncated when too long, with the full name in a tooltip on hover.
+   * Title of the card. Truncated when too long, with the full name in a tooltip on hover.
    */
   title: React.ReactNode;
   /**
@@ -74,7 +74,7 @@ export interface ProjectCardProps extends Omit<CardProps, 'variant' | 'title' | 
   onDelete?: React.MouseEventHandler<HTMLButtonElement>;
   /**
    * Accessible name (and tooltip) of the delete button.
-   * @default 'Delete project'
+   * @default 'Delete'
    */
   deleteLabel?: string;
   /**
@@ -90,7 +90,7 @@ export interface ProjectCardProps extends Omit<CardProps, 'variant' | 'title' | 
    */
   href?: string;
   /**
-   * Highlights the card with a primary colored border, e.g. for the current project.
+   * Highlights the card with a primary colored border, e.g. for the current item.
    * @default false
    */
   selected?: boolean;
@@ -140,10 +140,24 @@ const TruncatedText: React.FC<TruncatedTextProps> = ({
     };
 
     measure();
-    if (typeof ResizeObserver === 'undefined') return undefined;
+
+    // Web fonts that load after mount change the text width without resizing the element.
+    let active = true;
+    document.fonts?.ready.then(() => {
+      if (active) measure();
+    });
+
+    if (typeof ResizeObserver === 'undefined') {
+      return () => {
+        active = false;
+      };
+    }
     const observer = new ResizeObserver(measure);
     observer.observe(element);
-    return () => observer.disconnect();
+    return () => {
+      active = false;
+      observer.disconnect();
+    };
   }, [lines, children]);
 
   return (
@@ -176,21 +190,21 @@ const TruncatedText: React.FC<TruncatedTextProps> = ({
 };
 
 /**
- * ProjectCard component - A card for a project with an icon, name, description,
+ * ListingCard component - A card for an item in a listing (such as a project) with an icon, title, description,
  * last updated time and an optional delete action shown on hover.
  *
  * @example
  * ```tsx
- * <ProjectCard
+ * <ListingCard
  *   title="Default"
  *   description="Default project"
  *   updatedTime="1 day ago"
- *   onClick={() => openProject(id)}
- *   onDelete={() => deleteProject(id)}
+ *   onClick={() => openItem(id)}
+ *   onDelete={() => deleteItem(id)}
  * />
  * ```
  */
-const ProjectCard: React.FC<ProjectCardProps> = ({
+const ListingCard: React.FC<ListingCardProps> = ({
   title,
   description,
   icon,
@@ -201,7 +215,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   updatedDateTime,
   updatedTooltip,
   onDelete,
-  deleteLabel = 'Delete project',
+  deleteLabel = 'Delete',
   actions,
   onClick,
   href,
@@ -310,6 +324,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 time={updatedTime}
                 dateTime={updatedDateTime}
                 tooltip={updatedTooltip}
+                // Lets long unbreakable text wrap instead of running under the hover actions.
+                sx={{ minWidth: 0, overflowWrap: 'anywhere' }}
               />
             )}
           </Box>
@@ -353,7 +369,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           transition: 'transform 150ms ease, box-shadow 150ms ease',
           '&:hover': { ...highlight, boxShadow: 4, transform: 'translateY(-2px)' },
           '@media (prefers-reduced-motion: reduce)': { transition: 'none', '&:hover': { transform: 'none' } },
-          '&:hover .ProjectCard-actions, &:focus-within .ProjectCard-actions': { opacity: 1 },
+          '&:hover .ListingCard-actions, &:focus-within .ListingCard-actions': { opacity: 1 },
         },
         selected && highlight,
         ...(Array.isArray(sx) ? sx : [sx]),
@@ -383,7 +399,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         // Sits over the footer, outside the clickable area, so the buttons are not nested in it.
         <Box
           ref={actionsRef}
-          className="ProjectCard-actions"
+          className="ListingCard-actions"
           sx={{
             position: 'absolute',
             right: ACTIONS_OFFSET,
@@ -403,6 +419,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   );
 };
 
-ProjectCard.displayName = 'ProjectCard';
+ListingCard.displayName = 'ListingCard';
 
-export default ProjectCard;
+export default ListingCard;

@@ -17,22 +17,22 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react';
-import { Grid, ProjectCard } from '@wso2/oxygen-ui';
+import { Grid, ListingCard } from '@wso2/oxygen-ui';
 import React from 'react';
 
 /**
- * ProjectCard shows a project with an icon, name, description, last updated time and an optional delete action.
+ * ListingCard shows an item of a listing, such as a project, with an icon, title, description, last updated time and an optional delete action.
  */
-const meta: Meta<typeof ProjectCard> = {
-  title: 'App Elements/Project Card',
-  component: ProjectCard,
+const meta: Meta<typeof ListingCard> = {
+  title: 'App Elements/Listing Card',
+  component: ListingCard,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         component: `
-The ProjectCard component is a reusable card for listing projects. It is built from the Card and CardContent
+The ListingCard component is a reusable card for listing items such as projects. It is built from the Card and CardContent
 components and extends the Card props, except \`variant\`.
 
 ### Features
@@ -45,13 +45,13 @@ components and extends the Card props, except \`variant\`.
 
 ### Usage
 \`\`\`tsx
-import { Grid, ProjectCard } from '@wso2/oxygen-ui';
+import { Grid, ListingCard } from '@wso2/oxygen-ui';
 
-<ProjectCard
+<ListingCard
   title="Default"
   description="Default project"
   updatedTime="yesterday"
-  onDelete={() => deleteProject(id)}
+  onDelete={() => deleteItem(id)}
 />
 \`\`\`
         `,
@@ -59,7 +59,7 @@ import { Grid, ProjectCard } from '@wso2/oxygen-ui';
     },
   },
   argTypes: {
-    title: { control: 'text', description: 'Name of the project' },
+    title: { control: 'text', description: 'Title of the card' },
     description: { control: 'text', description: 'Short description under the title' },
     iconVariant: {
       control: 'radio',
@@ -79,7 +79,7 @@ import { Grid, ProjectCard } from '@wso2/oxygen-ui';
 };
 
 export default meta;
-type Story = StoryObj<typeof ProjectCard>;
+type Story = StoryObj<typeof ListingCard>;
 
 const narrow = [
   (Story: React.ComponentType) => (
@@ -119,7 +119,7 @@ export const FourInARow: Story = {
         ['Analytics', 'Reports and dashboards for every team, from the first sign-up all the way to the last renewal of a customer account', '2 weeks ago'],
       ].map(([title, description, time], index) => (
         <Grid key={title} size={{ xs: 12, sm: 6, lg: 3 }}>
-          <ProjectCard
+          <ListingCard
             title={title}
             description={description}
             updatedTime={time}
@@ -136,7 +136,7 @@ export const FourInARow: Story = {
 export const Truncated: Story = {
   decorators: narrow,
   args: {
-    title: 'A project with a very long name that does not fit on one line',
+    title: 'An item with a very long name that does not fit on one line',
     description:
       'A long description that wraps to a second line and is then cut off with an ellipsis, with the full text in a tooltip when you hover it',
     updatedTime: '3 weeks ago',

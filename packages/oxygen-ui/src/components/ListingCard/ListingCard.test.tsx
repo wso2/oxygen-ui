@@ -20,20 +20,20 @@ import * as React from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import OxygenUIThemeProvider from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
-import ProjectCard from './ProjectCard';
+import ListingCard from './ListingCard';
 
 afterEach(() => {
   cleanup();
 });
 
-const renderCard = (props: React.ComponentProps<typeof ProjectCard>) =>
+const renderCard = (props: React.ComponentProps<typeof ListingCard>) =>
   render(
     <OxygenUIThemeProvider>
-      <ProjectCard {...props} />
+      <ListingCard {...props} />
     </OxygenUIThemeProvider>,
   );
 
-describe('ProjectCard', () => {
+describe('ListingCard', () => {
   it('renders the title, description and updated time', () => {
     renderCard({ title: 'Default', description: 'Default project', updatedTime: '1 day ago', updatedLabel: 'Updated' });
 
@@ -53,7 +53,7 @@ describe('ProjectCard', () => {
   it('shows the delete button only when onDelete is set and calls it', () => {
     const onDelete = vi.fn();
     const { unmount } = renderCard({ title: 'Default', updatedTime: 'yesterday' });
-    expect(screen.queryByRole('button', { name: 'Delete project' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Delete' })).toBeNull();
     unmount();
 
     renderCard({ title: 'Default', onDelete, deleteLabel: 'Remove' });
@@ -68,9 +68,9 @@ describe('ProjectCard', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /Default/ }));
     expect(onClick).toHaveBeenCalledTimes(1);
-    expect(screen.getByRole('button', { name: /Default/ }).contains(screen.getByRole('button', { name: 'Delete project' }))).toBe(false);
+    expect(screen.getByRole('button', { name: /Default/ }).contains(screen.getByRole('button', { name: 'Delete' }))).toBe(false);
 
-    fireEvent.click(screen.getByRole('button', { name: 'Delete project' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
     expect(onDelete).toHaveBeenCalledTimes(1);
     expect(onClick).toHaveBeenCalledTimes(1);
   });
@@ -94,7 +94,7 @@ describe('ProjectCard', () => {
       actions: <button type="button">Open</button>,
     });
     expect(screen.getByRole('button', { name: 'Open' })).toBeTruthy();
-    expect(screen.queryByRole('button', { name: 'Delete project' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Delete' })).toBeNull();
     unmount();
 
     const { container } = renderCard({ title: 'Default' });

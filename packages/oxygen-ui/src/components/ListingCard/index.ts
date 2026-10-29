@@ -16,5 +16,5 @@
  * under the License.
  */
 
-export { default } from './ProjectCard';
-export * from './ProjectCard';
+export { default } from './ListingCard';
+export * from './ListingCard';
