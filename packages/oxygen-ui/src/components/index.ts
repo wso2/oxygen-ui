@@ -130,6 +130,19 @@ export type {
   NotificationTypeProps,
 } from './NotificationPanel';
 
+export { DrawerPanel, useDrawerPanel } from './DrawerPanel';
+export type {
+  DrawerPanelProps,
+  DrawerPanelHeaderProps,
+  DrawerPanelTitleProps,
+  DrawerPanelActionsProps,
+  DrawerPanelExpandButtonProps,
+  DrawerPanelCloseButtonProps,
+  DrawerPanelBodyProps,
+  DrawerPanelFooterProps,
+  DrawerPanelContextValue,
+} from './DrawerPanel';
+
 export { Footer } from './Footer';
 export type { FooterProps } from './Footer';
 
