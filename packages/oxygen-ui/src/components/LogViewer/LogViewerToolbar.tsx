@@ -80,7 +80,9 @@ export interface LogViewerToolbarProps extends Omit<BoxProps, 'children'> {
 // The filter buttons are outlined and as high as the search box, with text a little larger than the chips, so they read as controls.
 const FILTER_BUTTON_SX = {
   height: 40,
-  borderColor: 'divider',
+  // A border that can be seen (3:1 against the page), as the edge of a control must be.
+  borderColor: 'text.secondary',
+  '&:hover, &:focus-visible': { borderColor: 'text.primary' },
   textTransform: 'none',
   fontSize: '0.875rem',
   fontWeight: 500,
