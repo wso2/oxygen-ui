@@ -77,6 +77,15 @@ export interface LogViewerToolbarProps extends Omit<BoxProps, 'children'> {
   clearAllLabel?: string;
 }
 
+// The filter buttons are outlined and as high as the search box, with text a little larger than the chips, so they read as controls.
+const FILTER_BUTTON_SX = {
+  height: 40,
+  borderColor: 'divider',
+  textTransform: 'none',
+  fontSize: '0.875rem',
+  fontWeight: 500,
+} as const;
+
 const defaultChangeFilterLabel = (name: string): string => `Change ${name.toLowerCase()} filter`;
 const defaultRemoveFilterLabel = (name: string): string => `Remove ${name.toLowerCase()} filter`;
 
@@ -221,6 +230,9 @@ const LogViewerToolbar = React.forwardRef<HTMLDivElement, LogViewerToolbarProps>
                     presets={filter.presets}
                     maxRangeMs={filter.maxRangeMs}
                     dateFormat={DATE_FORMAT}
+                    variant="outlined"
+                    color="inherit"
+                    sx={FILTER_BUTTON_SX}
                     disabled={loading}
                   />
                 );
@@ -229,14 +241,14 @@ const LogViewerToolbar = React.forwardRef<HTMLDivElement, LogViewerToolbarProps>
                 <Button
                   key={filter.id}
                   size="small"
-                  variant="text"
+                  variant="outlined"
                   color="inherit"
                   disabled={loading}
                   aria-haspopup="menu"
                   aria-expanded={openMenu?.id === filter.id}
                   endIcon={<ChevronDown size={14} />}
                   onClick={(event) => openSelectMenu(filter.id, event.currentTarget)}
-                  sx={{ textTransform: 'none' }}
+                  sx={FILTER_BUTTON_SX}
                 >
                   {filter.label}
                 </Button>

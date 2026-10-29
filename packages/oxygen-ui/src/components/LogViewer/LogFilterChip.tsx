@@ -91,6 +91,8 @@ const LogFilterChip: React.FC<LogFilterChipProps> = ({
 }) => (
   <Chip
     variant="outlined"
+    size="small"
+    sx={{ fontSize: '0.8125rem' }}
     clickable={Boolean(onOpen)}
     onClick={onOpen}
     aria-label={onOpen ? openName(name, value, changeLabel) : undefined}
@@ -98,9 +100,7 @@ const LogFilterChip: React.FC<LogFilterChipProps> = ({
     deleteIcon={onRemove ? <RemoveIcon label={removeLabel} /> : undefined}
     label={
       <Box component="span" sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
-        <Box component="span" sx={{ fontWeight: 600 }}>
-          {name}:
-        </Box>
+        <Box component="span">{name}:</Box>
         <Box component="span">{value}</Box>
       </Box>
     }
