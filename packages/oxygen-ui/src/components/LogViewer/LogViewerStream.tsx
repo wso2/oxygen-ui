@@ -874,6 +874,9 @@ const LogViewerStream = React.forwardRef<HTMLDivElement, LogViewerStreamProps>(f
             scrollbarGutter: 'stable',
             // The width of the view, for the details of an entry (`cqw` in their styles).
             containerType: 'inline-size',
+            // The scroll position is corrected by hand when older entries are added above, so the
+            // browser's own scroll anchoring must not move it a second time.
+            overflowAnchor: 'none',
             // Many columns scroll sideways, and an overlay scrollbar hides until the list is
             // scrolled, so the reader would not see that there is more. Draw a persistent one.
             ...({
