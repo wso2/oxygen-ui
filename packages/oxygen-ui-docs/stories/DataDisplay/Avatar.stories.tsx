@@ -18,6 +18,7 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
 import { Avatar, AvatarGroup, Stack } from '@wso2/oxygen-ui';
+import { Box, Layers, Package, ShieldCheck, TriangleAlert } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';
 
 /**
@@ -89,6 +90,33 @@ export const Colors: Story = {
       <Avatar sx={{ bgcolor: 'success.main' }}>S</Avatar>
       <Avatar sx={{ bgcolor: 'error.main' }}>E</Avatar>
       <Avatar sx={{ bgcolor: 'warning.main' }}>W</Avatar>
+    </Stack>
+  ),
+};
+
+/**
+ * The `light` variant has a tinted background (12% of the color) with the color itself for the icon.
+ * Pick the color with the `color` prop (default `primary`). Use it with icons rather than text, as colored
+ * text on the tint is below the 4.5:1 contrast ratio. It is always circular.
+ */
+export const Light: Story = {
+  render: () => (
+    <Stack direction="row" spacing={2}>
+      <Avatar variant="light" color="primary">
+        <Box size={20} />
+      </Avatar>
+      <Avatar variant="light" color="secondary">
+        <Layers size={20} />
+      </Avatar>
+      <Avatar variant="light" color="success">
+        <ShieldCheck size={20} />
+      </Avatar>
+      <Avatar variant="light" color="error">
+        <TriangleAlert size={20} />
+      </Avatar>
+      <Avatar variant="light" color="warning">
+        <Package size={20} />
+      </Avatar>
     </Stack>
   ),
 };
