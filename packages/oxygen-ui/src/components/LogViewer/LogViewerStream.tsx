@@ -40,10 +40,10 @@ import { ListingTableEmptyState } from '../ListingTable/shared/ListingTableEmpty
 import { ListingTableProvider } from '../ListingTable/ListingTableProvider';
 import { ListingTableFilter, ListingTableSortLabel } from '../ListingTable/shared';
 import TimeRangeFilter from '../TimeRangeFilter';
-import type { TimeRange } from '../TimeRangeFilter';
 import LogLevelMarker from './LogLevelMarker';
 import LogViewerDetails from './LogViewerDetails';
 import { columnLabel, columnsMinWidth, columnWidth, MONOSPACE } from './columns';
+import { isApplied, isRange } from './filters';
 import type { LogEntry, LogFilterValue } from './types';
 
 /** Height of the viewer, in pixels, while the first page loads and there is nothing else to show. */
@@ -655,9 +655,6 @@ const LogViewerStream = React.forwardRef<HTMLDivElement, LogViewerStreamProps>(f
   });
 
   const newestFirst = order === 'newest-first';
-  const isRange = (value: LogFilterValue): value is TimeRange => typeof value === 'object' && value !== null;
-  const isApplied = (value: LogFilterValue): boolean =>
-    isRange(value) || (typeof value === 'string' && value !== '');
 
   // The heading row: a cell per column, with its sort control and its filter.
   const headingRow = (

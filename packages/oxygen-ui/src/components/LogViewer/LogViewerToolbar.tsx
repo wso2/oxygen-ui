@@ -23,11 +23,11 @@ import Button from '@mui/material/Button';
 import { ChevronDown } from '@wso2/oxygen-ui-icons-react';
 import { ListingTableFilterMenu } from '../ListingTable/shared/ListingTableFilterMenu';
 import TimeRangeFilter from '../TimeRangeFilter';
-import type { TimeRange } from '../TimeRangeFilter';
 import { useLogViewerRequired } from './context';
 import { LogViewerCount } from './LogViewerControls';
 import LogFilterChip from './LogFilterChip';
 import { formatShort } from './timestamps';
+import { isApplied, isRange } from './filters';
 import type { LogFilterValue, LogSelectFilter } from './types';
 
 /**
@@ -73,12 +73,6 @@ export interface LogViewerToolbarProps extends Omit<BoxProps, 'children'> {
 
 const defaultChangeFilterLabel = (name: string): string => `Change ${name.toLowerCase()} filter`;
 const defaultRemoveFilterLabel = (name: string): string => `Remove ${name.toLowerCase()} filter`;
-
-const isRange = (value: LogFilterValue): value is TimeRange =>
-  typeof value === 'object' && value !== null;
-
-const isApplied = (value: LogFilterValue): boolean =>
-  isRange(value) || (typeof value === 'string' && value !== '');
 
 interface OpenMenu {
   id: string;
