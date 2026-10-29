@@ -68,6 +68,7 @@ import { DataGrid, DatePickers, TreeView } from '@wso2/oxygen-ui';
 - **Forms**: `Form.CardButton`, `Form.Section`, `Form.Stack`, `Form.Wizard`, `FullScreenWizard`
 - **Inputs**: `SearchBar`, `SearchBarWithAdvancedFilter`, `ComplexSelect`
 - **Feedback**: `NotificationPanel`, `NotificationBanner`
+- **Panels**: `DrawerPanel`
 - **Theming**: `OxygenUIThemeProvider`, `ThemeSwitcher`, `ColorSchemeToggle`, `ColorSchemeImage`
 - **User**: `UserMenu`
 - **Animations**: `ParticleBackground`

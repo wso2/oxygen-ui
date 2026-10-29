@@ -152,6 +152,7 @@ const AcrylicBaseTheme = {
       styleOverrides: {
         paper: ({ theme }: { theme: OxygenTheme }) => ({
           background: theme.vars!.palette.background.paper,
+          borderRadius: 0,
         }),
       },
     },

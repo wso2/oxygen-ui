@@ -15,6 +15,7 @@ Complete API reference for custom Oxygen UI components. For MUI components, refe
 - [AppSwitcher](#appswitcher)
 - [Form](#form)
 - [FullScreenWizard](#fullscreenwizard)
+- [DrawerPanel](#drawerpanel)
 - [NotificationPanel](#notificationpanel)
 - [NotificationBanner](#notificationbanner)
 - [ParticleBackground](#particlebackground)
@@ -708,6 +709,67 @@ const wizard = useWizardSteps(['details', 'access', 'review']);
 - The close button is named (`closeLabel`); the progress bar has a label and `aria-valuetext`.
 - Changing `focusKey` moves focus to the new step, so screen readers start there.
 - Modal mode traps focus, locks page scroll, and names the dialog by `aria-label` or `aria-labelledby`.
+
+---
+
+## DrawerPanel
+
+Slide-out side panel for item details or secondary tasks, with a title, optional expand button and close button.
+
+```tsx
+import { DrawerPanel } from '@wso2/oxygen-ui';
+```
+
+### Sub-components
+
+| Component | Description |
+|-----------|-------------|
+| `DrawerPanel.Header` | Top row with the title and action buttons only |
+| `DrawerPanel.Title` | Panel heading with optional `icon`; names the drawer |
+| `DrawerPanel.Actions` | Right-aligned header actions |
+| `DrawerPanel.ExpandButton` | Toggles between `width` and `expandedWidth` (hidden on mobile) |
+| `DrawerPanel.CloseButton` | Calls `onClose` (or its own `onClick`) |
+| `DrawerPanel.Body` | Scrollable main content |
+| `DrawerPanel.Footer` | Sticky footer for panel actions |
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | required | Panel visibility |
+| `onClose` | `() => void` | required | Close handler |
+| `width` | `number \| string` | `560` | Width on sm+ screens |
+| `expandedWidth` | `number \| string` | `'100%'` | Width on sm+ screens while expanded |
+| `expanded` | `boolean` | - | Controlled expanded state |
+| `defaultExpanded` | `boolean` | `false` | Initial expanded state when uncontrolled |
+| `onExpandedChange` | `(expanded: boolean) => void` | - | Called when the expand button toggles |
+| `anchor` | `'left' \| 'right'` | `'right'` | Drawer side |
+| `variant` | `'temporary' \| 'persistent'` | `'temporary'` | Drawer variant |
+| `aria-label` | `string` | - | Accessible name when there is no `DrawerPanel.Title` |
+
+### Usage
+
+```tsx
+<DrawerPanel open={open} onClose={() => setOpen(false)}>
+  <DrawerPanel.Header>
+    <DrawerPanel.Title icon={<ListTree size={20} />}>Build details</DrawerPanel.Title>
+    <DrawerPanel.Actions>
+      <DrawerPanel.ExpandButton />
+      <DrawerPanel.CloseButton />
+    </DrawerPanel.Actions>
+  </DrawerPanel.Header>
+  <DrawerPanel.Body>
+    <RelativeTime action="Triggered" time="about 1 hour ago" />
+    {/* content */}
+  </DrawerPanel.Body>
+  <DrawerPanel.Footer>
+    <Button variant="contained">Rerun build</Button>
+  </DrawerPanel.Footer>
+</DrawerPanel>
+```
+
+- Keep `CloseButton` rightmost; put extra icon actions (with `Tooltip` and `aria-label`) before `ExpandButton`
+- Add `ExpandButton` only when content benefits from more room (logs, tables, diffs)
 
 ---
 
