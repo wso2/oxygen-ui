@@ -140,8 +140,8 @@ export const Overview: Story = {
             Answer each question in order and stop at the first &quot;yes&quot;.
           </Typography>
           <Box component="ol" sx={{ pl: 3, m: 0 }}>
-            <li><Typography variant="body2">Is it a quick decision or 1 to 3 fields? Use a modal.</Typography></li>
-            <li><Typography variant="body2">Must the page behind stay visible? Use a right drawer.</Typography></li>
+            <li><Typography variant="body2">Is it a quick decision or 1 to 3 fields, with no scrolling content and no need to reference other pages? Use a modal.</Typography></li>
+            <li><Typography variant="body2">Must the page behind stay visible, and is the task a single step? Use a right drawer.</Typography></li>
             <li><Typography variant="body2">Do later steps depend on earlier choices? Use a full page wizard.</Typography></li>
             <li><Typography variant="body2">Otherwise, use a page form with a back button.</Typography></li>
           </Box>

@@ -113,8 +113,8 @@ function UsersToolbar() {
 
 Use the lightest container that fits the task: modal → right drawer → page form → full page wizard. Ask in order and stop at the first "yes":
 
-1. Quick decision or 1 to 3 fields? Use a modal
-2. Must the page behind stay visible? Use a right drawer
+1. Quick decision or 1 to 3 fields, with no scrolling content and no need to reference other pages? Use a modal
+2. Must the page behind stay visible, and is the task a single step? Use a right drawer
 3. Do later steps depend on earlier choices? Use a full page wizard
 4. Otherwise, use a page form with a back button
 
