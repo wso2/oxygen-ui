@@ -27,7 +27,7 @@ import { useLogViewerRequired } from './context';
 import { LogViewerCount } from './LogViewerControls';
 import LogViewerSearch from './LogViewerSearch';
 import LogFilterChip from './LogFilterChip';
-import { formatShort } from './timestamps';
+import { DATE_FORMAT, formatShort } from './timestamps';
 import { isApplied, isRange } from './filters';
 import type { LogFilterValue, LogSelectFilter } from './types';
 
@@ -220,6 +220,7 @@ const LogViewerToolbar = React.forwardRef<HTMLDivElement, LogViewerToolbarProps>
                     label={filter.label}
                     presets={filter.presets}
                     maxRangeMs={filter.maxRangeMs}
+                    dateFormat={DATE_FORMAT}
                     disabled={loading}
                   />
                 );

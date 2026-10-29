@@ -1337,7 +1337,7 @@ describe('LogViewer', () => {
         <LogViewer entries={entries('1')} filters={[time]} filterValues={{ time: range }} />
       );
       expect(screen.getByRole('group', { name: 'Applied filters' }).textContent).toContain(
-        '14 Sep, 2026 10:03:42 - 14 Oct, 2026 10:03:42'
+        '2026-09-14 10:03:42 - 2026-10-14 10:03:42'
       );
       rerender(
         <OxygenUIThemeProvider>
@@ -1345,7 +1345,7 @@ describe('LogViewer', () => {
         </OxygenUIThemeProvider>
       );
       expect(screen.getByRole('group', { name: 'Applied filters' }).textContent).toContain(
-        '14 Sep, 2026 15:33:42 - 14 Oct, 2026 15:33:42'
+        '2026-09-14 15:33:42 - 2026-10-14 15:33:42'
       );
     });
 
@@ -2065,7 +2065,7 @@ describe('LogViewer', () => {
       );
       const group = screen.getByRole('group', { name: 'Applied filters' });
       expect(group.textContent).toContain('Time Range:');
-      expect(group.textContent).toContain('14 Sep, 2026 10:03:42 - 14 Oct, 2026 10:03:42');
+      expect(group.textContent).toContain('2026-09-14 10:03:42 - 2026-10-14 10:03:42');
       fireEvent.click(within(group).getByRole('button', { name: 'Remove time range filter' }));
       expect(onFilterChange).toHaveBeenLastCalledWith('time', null);
     });
@@ -2087,9 +2087,9 @@ describe('LogViewer', () => {
       );
       fireEvent.click(screen.getByRole('button', { name: 'Time Range' }));
       fireEvent.click(screen.getByRole('menuitem', { name: 'Custom' }));
-      fireEvent.change(pickerInput('Start from (UTC)', 'Date'), { target: { value: '01 Oct, 2026' } });
+      fireEvent.change(pickerInput('Start from (UTC)', 'Date'), { target: { value: '2026-10-01' } });
       fireEvent.change(pickerInput('Start from (UTC)', 'Time'), { target: { value: '00:00:00' } });
-      fireEvent.change(pickerInput('End on (UTC)', 'Date'), { target: { value: '05 Oct, 2026' } });
+      fireEvent.change(pickerInput('End on (UTC)', 'Date'), { target: { value: '2026-10-05' } });
       fireEvent.change(pickerInput('End on (UTC)', 'Time'), { target: { value: '00:00:00' } });
       fireEvent.click(screen.getByRole('button', { name: 'Apply' }));
       expect(screen.getByText('Choose a range of at most 1 hour.')).not.toBeNull();

@@ -18,7 +18,12 @@
 
 import type { LogTimeZone } from './types';
 
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+/**
+ * The date format of the viewer, as a date-fns format string, for the date fields of the time range
+ * picker. It is the date that `formatDisplay` and `formatShort` write, so a time reads the same in a row,
+ * in a filter chip and in the picker.
+ */
+export const DATE_FORMAT = 'yyyy-MM-dd';
 
 const pad = (value: number, length = 2): string => String(value).padStart(length, '0');
 
@@ -72,9 +77,9 @@ export const formatIso = (timestamp: string | Date, zone: LogTimeZone): string =
 };
 
 /**
- * A shorter form for filter chips, for example "15 Oct, 2026 08:16:55".
+ * A shorter form for filter chips, for example "2026-10-15 08:16:55".
  */
 export const formatShort = (date: Date, zone: LogTimeZone): string => {
   const { shifted } = wallClock(date, zone);
-  return `${shifted.getUTCDate()} ${MONTHS[shifted.getUTCMonth()]}, ${shifted.getUTCFullYear()} ${timeFields(shifted)}`;
+  return `${dateFields(shifted)} ${timeFields(shifted)}`;
 };
