@@ -29,7 +29,16 @@ import Collapse from '@mui/material/Collapse';
 import Table from '@mui/material/Table';
 import Typography from '@mui/material/Typography';
 import type { SxProps, Theme } from '@mui/material/styles';
-import { ChevronDown, ChevronRight, ChevronUp, Copy, FileSearch, Link2, ListFilter } from '@wso2/oxygen-ui-icons-react';
+import {
+  Check,
+  ChevronDown,
+  ChevronRight,
+  ChevronUp,
+  Copy,
+  FileSearch,
+  Link2,
+  ListFilter,
+} from '@wso2/oxygen-ui-icons-react';
 import { useLogViewerRequired } from './context';
 import { entryText } from './download';
 import { formatDisplay } from './timestamps';
@@ -108,6 +117,11 @@ export interface LogViewerStreamProps
    * @default 'Copy link'
    */
   copyLinkLabel?: string;
+  /**
+   * Text that replaces the Copy and Copy link labels for a moment after the copy succeeded.
+   * @default 'Copied'
+   */
+  copiedLabel?: string;
   /**
    * Accessible name of the button that opens or closes an entry.
    * @default ({ open }) => (open ? 'Hide details' : 'Show details')
@@ -219,6 +233,9 @@ const EdgeNote: React.FC<{ text: string }> = ({ text }) => (
 );
 
 /** Copy and Copy link: quiet icon buttons in the colors of the viewer. */
+/** How long the copied label stays on a button after its copy succeeded. */
+const COPIED_MS = 1500;
+
 const ICON_ACTION_SX = {
   color: 'text.secondary',
   border: 1,
@@ -254,6 +271,7 @@ interface LogRowProps {
   renderDetails?: (entry: LogEntry) => React.ReactNode;
   copyLabel: string;
   copyLinkLabel: string;
+  copiedLabel: string;
   detailsToggleLabel: (info: { open: boolean }) => string;
   detailsLabel: (entry: LogEntry) => string;
   expandNodeLabel: string;
@@ -269,6 +287,7 @@ const LogRow: React.FC<LogRowProps> = ({
   renderDetails,
   copyLabel,
   copyLinkLabel,
+  copiedLabel,
   detailsToggleLabel,
   detailsLabel,
   expandNodeLabel,
@@ -281,9 +300,20 @@ const LogRow: React.FC<LogRowProps> = ({
   // runs the render and text of every column, which would be done for every row of the list on every render.
   const copyText = open ? entryText(entry, columns, timeZone, levelLabels) : undefined;
 
+  // Which button shows the copied label, for a moment after its copy succeeded.
+  const [copied, setCopied] = React.useState<'text' | 'link' | null>(null);
+  const copiedTimer = React.useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  React.useEffect(() => () => clearTimeout(copiedTimer.current), []);
+  const markCopied = (which: 'text' | 'link') => {
+    setCopied(which);
+    clearTimeout(copiedTimer.current);
+    copiedTimer.current = setTimeout(() => setCopied(null), COPIED_MS);
+  };
+
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(copyText ?? '');
+      markCopied('text');
       onCopy?.(entry, true);
     } catch {
       onCopy?.(entry, false);
@@ -294,6 +324,7 @@ const LogRow: React.FC<LogRowProps> = ({
   const copyLink = async () => {
     try {
       await navigator.clipboard.writeText(link ?? '');
+      markCopied('link');
       onCopyLink?.(entry, true);
     } catch {
       onCopyLink?.(entry, false);
@@ -313,16 +344,26 @@ const LogRow: React.FC<LogRowProps> = ({
   const detailActions = (copyText !== undefined || link) && (
     <Box sx={{ float: 'right', display: 'flex', gap: 0.5, ml: 2 }}>
       {copyText !== undefined && (
-        <Tooltip title={copyLabel}>
-          <IconButton size="small" aria-label={copyLabel} onClick={() => void copy()} sx={ICON_ACTION_SX}>
-            <Copy size={14} />
+        <Tooltip title={copied === 'text' ? copiedLabel : copyLabel}>
+          <IconButton
+            size="small"
+            aria-label={copied === 'text' ? copiedLabel : copyLabel}
+            onClick={() => void copy()}
+            sx={ICON_ACTION_SX}
+          >
+            {copied === 'text' ? <Check size={14} /> : <Copy size={14} />}
           </IconButton>
         </Tooltip>
       )}
       {link && (
-        <Tooltip title={copyLinkLabel}>
-          <IconButton size="small" aria-label={copyLinkLabel} onClick={() => void copyLink()} sx={ICON_ACTION_SX}>
-            <Link2 size={14} />
+        <Tooltip title={copied === 'link' ? copiedLabel : copyLinkLabel}>
+          <IconButton
+            size="small"
+            aria-label={copied === 'link' ? copiedLabel : copyLinkLabel}
+            onClick={() => void copyLink()}
+            sx={ICON_ACTION_SX}
+          >
+            {copied === 'link' ? <Check size={14} /> : <Link2 size={14} />}
           </IconButton>
         </Tooltip>
       )}
@@ -482,6 +523,7 @@ const LogViewerStream = React.forwardRef<HTMLDivElement, LogViewerStreamProps>(f
     newestLabel,
     copyLabel = 'Copy',
     copyLinkLabel = 'Copy link',
+    copiedLabel = 'Copied',
     detailsToggleLabel = defaultDetailsToggleLabel,
     detailsLabel = defaultDetailsLabel,
     expandNodeLabel = 'Expand',
@@ -933,6 +975,7 @@ const LogViewerStream = React.forwardRef<HTMLDivElement, LogViewerStreamProps>(f
                 renderDetails={renderDetails}
                 copyLabel={copyLabel}
                 copyLinkLabel={copyLinkLabel}
+                copiedLabel={copiedLabel}
                 detailsToggleLabel={detailsToggleLabel}
                 detailsLabel={detailsLabel}
                 expandNodeLabel={expandNodeLabel}

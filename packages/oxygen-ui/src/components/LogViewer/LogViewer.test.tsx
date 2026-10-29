@@ -101,6 +101,7 @@ type FlatProps = Omit<LogViewerProps, 'columns' | 'children'> & {
     | 'newestLabel'
     | 'copyLabel'
     | 'copyLinkLabel'
+    | 'copiedLabel'
     | 'detailsToggleLabel'
     | 'sortColumnLabel'
     | 'filterColumnLabel'
@@ -146,6 +147,7 @@ const LogViewer = ({
   newestLabel,
   copyLabel,
   copyLinkLabel,
+  copiedLabel,
   detailsToggleLabel,
   sortColumnLabel,
   filterColumnLabel,
@@ -190,6 +192,7 @@ const LogViewer = ({
       newestLabel={newestLabel}
       copyLabel={copyLabel}
       copyLinkLabel={copyLinkLabel}
+      copiedLabel={copiedLabel}
       detailsToggleLabel={detailsToggleLabel}
       sortColumnLabel={sortColumnLabel}
       filterColumnLabel={filterColumnLabel}
@@ -462,6 +465,45 @@ describe('LogViewer', () => {
       await waitFor(() => expect(onCopy).toHaveBeenCalledTimes(1));
       expect(writeText).toHaveBeenCalledWith('plain text');
       expect(onCopy).toHaveBeenCalledWith(expect.objectContaining({ id: '1' }), false);
+    });
+
+    it('shows the copied label on a button after its copy succeeded, then goes back', async () => {
+      mockClipboard(vi.fn().mockResolvedValue(undefined));
+      renderWithTheme(
+        <LogViewer entries={[withText('1')]} getEntryLink={(item) => `https://logs.test/${item.id}`} />
+      );
+
+      fireEvent.click(toggleFor('1'));
+      vi.useFakeTimers({ shouldAdvanceTime: true });
+      try {
+        fireEvent.click(screen.getByRole('button', { name: 'Copy' }));
+        expect(await screen.findByRole('button', { name: 'Copied' })).toBeTruthy();
+        // Only the button that was used changes.
+        expect(screen.getByRole('button', { name: 'Copy link' })).toBeTruthy();
+
+        act(() => {
+          vi.advanceTimersByTime(2000);
+        });
+        expect(screen.getByRole('button', { name: 'Copy' })).toBeTruthy();
+        expect(screen.queryByRole('button', { name: 'Copied' })).toBeNull();
+      } finally {
+        vi.useRealTimers();
+      }
+    });
+
+    it('does not show the copied label when the copy failed, and takes it from copiedLabel', async () => {
+      const writeText = vi.fn().mockRejectedValueOnce(new Error('denied')).mockResolvedValue(undefined);
+      mockClipboard(writeText);
+      const onCopy = vi.fn();
+      renderWithTheme(<LogViewer entries={[withText('1')]} onCopy={onCopy} copiedLabel="Copiado" />);
+
+      fireEvent.click(toggleFor('1'));
+      fireEvent.click(screen.getByRole('button', { name: 'Copy' }));
+      await waitFor(() => expect(onCopy).toHaveBeenCalledTimes(1));
+      expect(screen.queryByRole('button', { name: 'Copiado' })).toBeNull();
+
+      fireEvent.click(screen.getByRole('button', { name: 'Copy' }));
+      expect(await screen.findByRole('button', { name: 'Copiado' })).toBeTruthy();
     });
 
     it('hides Copy when there is nothing to copy', () => {
