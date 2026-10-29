@@ -18,7 +18,7 @@
 
 import * as React from 'react';
 import Drawer from '@mui/material/Drawer';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { DrawerPanelContext } from './context';
 import { DrawerPanelHeader } from './DrawerPanelHeader';
@@ -62,9 +62,6 @@ const DrawerPanelRoot = styled(Drawer, {
     maxWidth: '100%',
     display: 'flex',
     flexDirection: 'column',
-    transition: theme.transitions.create('width', {
-      duration: theme.transitions.duration.standard,
-    }),
     [theme.breakpoints.up('sm')]: {
       width: ownerState.expanded
         ? ownerState.expandedWidth
@@ -176,6 +173,23 @@ const DrawerPanel: React.FC<DrawerPanelProps> & {
   );
   const ownerState = { width, expandedWidth, expanded };
 
+  // The Slide transition writes `transition: transform ...` inline on the paper,
+  // which overrides any stylesheet transition. Append the width transition once
+  // the slide-in finishes; Slide replaces the inline value again on exit.
+  const theme = useTheme();
+  const handleEntered = React.useCallback(
+    (node: HTMLElement) => {
+      const widthTransition = theme.transitions.create('width', {
+        duration: theme.transitions.duration.standard,
+        easing: theme.transitions.easing.easeInOut,
+      });
+      node.style.transition = node.style.transition
+        ? `${node.style.transition}, ${widthTransition}`
+        : widthTransition;
+    },
+    [theme]
+  );
+
   return (
     <DrawerPanelContext.Provider value={contextValue}>
       <DrawerPanelRoot
@@ -187,6 +201,7 @@ const DrawerPanel: React.FC<DrawerPanelProps> & {
         variant={variant}
         slotProps={{
           paper: ariaLabel ? { 'aria-label': ariaLabel } : { 'aria-labelledby': titleId },
+          transition: { onEntered: handleEntered },
         }}
       >
         {children}
