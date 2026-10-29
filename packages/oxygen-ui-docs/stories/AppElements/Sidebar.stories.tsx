@@ -57,6 +57,7 @@ It supports collapsible states, hierarchical menus, and user profile sections.
 - \`Sidebar.ItemLabel\` - Label for a navigation item
 - \`Sidebar.ItemBadge\` - Badge/count for a navigation item
 - \`Sidebar.Footer\` - Footer section
+- \`Sidebar.CollapseToggle\` - Collapse and expand control, fixed in the footer
 - \`Sidebar.User\` - User profile section
 - \`Sidebar.UserAvatar\` - User avatar
 - \`Sidebar.UserName\` - User name
@@ -410,6 +411,40 @@ export const WithUser: Story = {
               <Sidebar.UserName>John Doe</Sidebar.UserName>
               <Sidebar.UserEmail>john@example.com</Sidebar.UserEmail>
             </Sidebar.User>
+          </Sidebar.Footer>
+        </Sidebar>
+      </Box>
+    );
+  },
+};
+
+/**
+ * Sidebar with a collapse toggle fixed at the bottom.
+ */
+export const WithCollapseToggle: Story = {
+  render: () => {
+    const [activeItem, setActiveItem] = React.useState('projects');
+    const [collapsed, setCollapsed] = React.useState(false);
+
+    return (
+      <Box sx={{ height: 500, width: 280 }}>
+        <Sidebar
+          collapsed={collapsed}
+          activeItem={activeItem}
+          expandedMenus={{}}
+          onSelect={setActiveItem}
+        >
+          <Sidebar.Nav>
+            <Sidebar.Category>
+              <Sidebar.Item id="projects">
+                <Sidebar.ItemIcon><FolderOpen size={20} /></Sidebar.ItemIcon>
+                <Sidebar.ItemLabel>Projects</Sidebar.ItemLabel>
+              </Sidebar.Item>
+            </Sidebar.Category>
+          </Sidebar.Nav>
+
+          <Sidebar.Footer>
+            <Sidebar.CollapseToggle onToggle={() => setCollapsed((prev) => !prev)} />
           </Sidebar.Footer>
         </Sidebar>
       </Box>
