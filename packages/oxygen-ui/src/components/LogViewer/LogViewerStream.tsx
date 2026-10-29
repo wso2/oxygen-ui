@@ -277,7 +277,9 @@ const LogRow: React.FC<LogRowProps> = ({
   const { columns, timeZone, onCopy, levelLabels, getEntryLink, onCopyLink } = useLogViewerRequired();
   const time = formatDisplay(entry.timestamp, timeZone);
   const expandable = Boolean(entry.details || renderDetails);
-  const copyText = entryText(entry, columns, timeZone, levelLabels);
+  // The text is needed only by Copy, which an open entry shows, so a closed entry does not build it. Building it
+  // runs the render and text of every column, which would be done for every row of the list on every render.
+  const copyText = open ? entryText(entry, columns, timeZone, levelLabels) : undefined;
 
   const copy = async () => {
     try {

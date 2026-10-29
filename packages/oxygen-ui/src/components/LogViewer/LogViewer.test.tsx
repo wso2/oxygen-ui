@@ -428,6 +428,23 @@ describe('LogViewer', () => {
       expect(onCopy).toHaveBeenCalledWith(expect.objectContaining({ id: '1' }), true);
     });
 
+    it('builds the text to copy only for an entry that is open', async () => {
+      const writeText = vi.fn().mockResolvedValue(undefined);
+      mockClipboard(writeText);
+      const text = vi.fn((item: LogEntry) => `line ${item.id}`);
+      const columns: LogColumn[] = [{ id: 'time' }, { id: 'message', label: 'Message', render: messageOf, text }];
+      renderWithTheme(<LogViewer entries={[withText('3'), withText('2'), withText('1')]} columns={columns} />);
+      // Only an open entry shows Copy, so no closed entry needs its text built.
+      expect(text).not.toHaveBeenCalled();
+
+      fireEvent.click(toggleFor('2'));
+      expect(text).toHaveBeenCalled();
+      expect(text.mock.calls.every(([item]) => item.id === '2')).toBe(true);
+
+      fireEvent.click(screen.getByRole('button', { name: 'Copy' }));
+      await waitFor(() => expect(writeText).toHaveBeenCalledWith('2026-10-13T10:00:02.000Z line 2'));
+    });
+
     it('copies copyText when given, and reports a failed copy', async () => {
       const writeText = vi.fn().mockRejectedValue(new Error('denied'));
       mockClipboard(writeText);
