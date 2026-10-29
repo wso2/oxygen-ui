@@ -57,6 +57,9 @@ export type { SidebarItemContextValue } from './SidebarItemContext';
 export { SidebarFooter } from './SidebarFooter';
 export type { SidebarFooterProps } from './SidebarFooter';
 
+export { SidebarCollapseToggle } from './SidebarCollapseToggle';
+export type { SidebarCollapseToggleProps } from './SidebarCollapseToggle';
+
 export { SidebarUser } from './SidebarUser';
 export type { SidebarUserProps } from './SidebarUser';
 

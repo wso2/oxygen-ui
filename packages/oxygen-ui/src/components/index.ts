@@ -99,6 +99,7 @@ export type {
   SidebarItemLabelProps,
   SidebarItemBadgeProps,
   SidebarFooterProps,
+  SidebarCollapseToggleProps,
   SidebarUserProps,
   SidebarUserAvatarProps,
   SidebarUserNameProps,

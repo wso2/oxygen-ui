@@ -92,6 +92,7 @@ Collapsible groups:
 
 General:
 - Put Settings, Notifications, and Help in `Sidebar.Footer`, outside the scrolling `Sidebar.Nav`
+- To let users collapse the sidebar from the bottom, put `<Sidebar.CollapseToggle />` last in `Sidebar.Footer`; it uses the AppShell `toggleSidebar` action, or pass `onToggle`
 - Add a menu search when the panel has many items
 - Don't mix the rules: titles never toggle, collapsible parents never navigate
 

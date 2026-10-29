@@ -26,6 +26,7 @@ import { SidebarNav } from './SidebarNav';
 import { SidebarCategory, SidebarCategoryLabel } from './SidebarCategory';
 import { SidebarItem, SidebarItemIcon, SidebarItemLabel, SidebarItemBadge } from './SidebarItem';
 import { SidebarFooter } from './SidebarFooter';
+import { SidebarCollapseToggle } from './SidebarCollapseToggle';
 import { SidebarUser, SidebarUserAvatar, SidebarUserName, SidebarUserEmail } from './SidebarUser';
 
 /**
@@ -161,6 +162,7 @@ const Sidebar: React.FC<SidebarProps> & {
   ItemLabel: typeof SidebarItemLabel;
   ItemBadge: typeof SidebarItemBadge;
   Footer: typeof SidebarFooter;
+  CollapseToggle: typeof SidebarCollapseToggle;
   User: typeof SidebarUser;
   UserAvatar: typeof SidebarUserAvatar;
   UserName: typeof SidebarUserName;
@@ -221,6 +223,7 @@ const Sidebar: React.FC<SidebarProps> & {
  * - `Sidebar.Category` - Groups items under a label
  * - `Sidebar.Item` - Individual menu item
  * - `Sidebar.Footer` - Fixed bottom section
+ * - `Sidebar.CollapseToggle` - Collapse and expand control for the footer
  * - `Sidebar.User` - User profile section
  */
 Sidebar.Nav = SidebarNav;
@@ -231,6 +234,7 @@ Sidebar.ItemIcon = SidebarItemIcon;
 Sidebar.ItemLabel = SidebarItemLabel;
 Sidebar.ItemBadge = SidebarItemBadge;
 Sidebar.Footer = SidebarFooter;
+Sidebar.CollapseToggle = SidebarCollapseToggle;
 Sidebar.User = SidebarUser;
 Sidebar.UserAvatar = SidebarUserAvatar;
 Sidebar.UserName = SidebarUserName;
