@@ -299,7 +299,8 @@ const LogViewerToolbar = React.forwardRef<HTMLDivElement, LogViewerToolbarProps>
                 size="small"
                 variant="text"
                 onClick={() => appliedFilters.forEach((filter) => change(filter.id, null))}
-                sx={{ textTransform: 'none' }}
+                // As high as a chip, so the row does not grow when the button appears.
+                sx={{ textTransform: 'none', height: 24, minWidth: 0, px: 1, fontSize: '0.8125rem' }}
               >
                 {clearAllLabel}
               </Button>
