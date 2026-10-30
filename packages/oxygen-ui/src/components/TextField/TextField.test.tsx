@@ -94,6 +94,27 @@ describe('TextField', () => {
     expect(ref.current?.contains(screen.getByLabelText('Name'))).toBe(true);
   });
 
+  it('draws a single label in top mode', () => {
+    const { container } = renderWithTheme(<TextField labelPlacement="top" label="Name" />);
+    expect(container.querySelectorAll('label')).toHaveLength(1);
+  });
+
+  it('appends (Optional) to a top label', () => {
+    renderWithTheme(<TextField labelPlacement="top" label="Description" optional />);
+    expect(screen.getByText('Description (Optional)').classList.contains('MuiFormLabel-root')).toBe(true);
+    expect(screen.getByLabelText('Description (Optional)').tagName).toBe('INPUT');
+  });
+
+  it('appends (Optional) to a floating label', () => {
+    renderWithTheme(<TextField label="Description" optional />);
+    expect(screen.getByLabelText('Description (Optional)').tagName).toBe('INPUT');
+  });
+
+  it('adds no (Optional) text without a label', () => {
+    renderWithTheme(<TextField optional placeholder="Search" />);
+    expect(screen.queryByText(/\(Optional\)/)).toBeNull();
+  });
+
   it('falls back to MUI TextField when there is no label', () => {
     const { container } = renderWithTheme(<TextField labelPlacement="top" placeholder="Search" />);
     expect(container.querySelector('.MuiFormLabel-root')).toBeNull();

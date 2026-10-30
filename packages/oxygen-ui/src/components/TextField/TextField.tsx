@@ -28,7 +28,7 @@ import MuiTextField, { type TextFieldProps as MuiTextFieldProps } from '@mui/mat
 export type TextFieldLabelPlacement = 'top';
 
 /**
- * Props for the TextField component: every MUI TextField prop, plus `labelPlacement`.
+ * Props for the TextField component: every MUI TextField prop, plus `labelPlacement` and `optional`.
  */
 export type TextFieldProps = MuiTextFieldProps & {
   /**
@@ -37,6 +37,12 @@ export type TextFieldProps = MuiTextFieldProps & {
    * appearing does not shift the form.
    */
   labelPlacement?: TextFieldLabelPlacement;
+  /**
+   * Appends "(Optional)" to the label. It is part of the label text, so it takes the label's
+   * colour in every state and is read out with it. Has no effect without a label.
+   * @default false
+   */
+  optional?: boolean;
 };
 
 /**
@@ -55,17 +61,24 @@ export type TextFieldProps = MuiTextFieldProps & {
  * ```tsx
  * <TextField labelPlacement="top" label="Name" required error={!!error} helperText={error} />
  * ```
+ *
+ * @example
+ * ```tsx
+ * <TextField labelPlacement="top" label="Description" optional />
+ * ```
  */
 const TextField = React.forwardRef<HTMLDivElement, TextFieldProps>(function TextField(
-  { labelPlacement, ...props },
+  { labelPlacement, optional = false, label: labelProp, ...fieldProps },
   ref,
 ) {
-  const { label, id: idProp, sx, className, style, fullWidth, margin, required, error, disabled, slotProps, onFocus, onBlur, helperText: helperProp, ...rest } = props;
+  const hasLabel = labelProp != null && labelProp !== '';
+  const label = optional && hasLabel ? <>{labelProp} (Optional)</> : labelProp;
+  const { id: idProp, sx, className, style, fullWidth, margin, required, error, disabled, slotProps, onFocus, onBlur, helperText: helperProp, ...rest } = fieldProps;
   const generatedId = React.useId();
   // The inner field tracks its own focus, so it is lifted to the outer FormControl for the label to colour on focus.
   const [focused, setFocused] = React.useState(false);
 
-  if (labelPlacement !== 'top' || label == null || label === '') return <MuiTextField ref={ref} {...props} />;
+  if (labelPlacement !== 'top' || !hasLabel) return <MuiTextField ref={ref} {...fieldProps} label={label} />;
 
   const helperText = error !== undefined && (helperProp == null || helperProp === '') ? ' ' : helperProp;
   const id = idProp ?? generatedId;

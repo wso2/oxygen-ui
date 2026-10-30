@@ -27,7 +27,7 @@ const meta: Meta<typeof TextField> = {
     docs: {
       description: {
         component: 'Oxygen UI text field component is MUI text field component, with MUI\'s floating label by default. ' +
-        'Set `labelPlacement="top"` to draw a static label above the field instead. \n\n' + 
+        'Set `labelPlacement="top"` to draw a static label above the field instead, and `optional` to append "(Optional)" to the label. \n\n' + 
         'Read MUI documentation for complete API : ' +
         '[https://mui.com/material-ui/react-text-field/](https://mui.com/material-ui/react-text-field/)',
       },
@@ -41,6 +41,11 @@ const meta: Meta<typeof TextField> = {
       mapping: { unset: undefined, top: 'top' },
       description: 'Leave unset for MUI\'s floating label; `top` draws a static label above the field.',
       table: { type: { summary: "'top'" }, defaultValue: { summary: 'unset (floating label)' } },
+    },
+    optional: {
+      control: 'boolean',
+      description: 'Appends "(Optional)" to the label.',
+      table: { defaultValue: { summary: 'false' } },
     },
   },
 };
@@ -70,6 +75,23 @@ export const LabelOnTopWithError: Story = {
     error: true,
     helperText: 'Error message',
     defaultValue: 'Value',
+  },
+};
+
+export const Optional: Story = {
+  args: {
+    label: 'Label',
+    placeholder: 'Placeholder',
+    optional: true,
+  },
+};
+
+export const LabelOnTopOptional: Story = {
+  args: {
+    labelPlacement: 'top',
+    label: 'Label',
+    placeholder: 'Placeholder',
+    optional: true,
   },
 };
 
