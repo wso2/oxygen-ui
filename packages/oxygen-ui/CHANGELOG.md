@@ -1,5 +1,22 @@
 # @wso2/oxygen-ui
 
+## 0.19.0
+
+### Minor Changes
+
+- [#660](https://github.com/wso2/oxygen-ui/pull/660) [`030e131`](https://github.com/wso2/oxygen-ui/commit/030e131c2051cc8f15daf8945be6567db0bba009) Thanks [@savindi7](https://github.com/savindi7)! - Add `FullScreenWizard`, a full-screen layout for create and onboarding flows with a progress bar, a header with a close button, a scrolling content column with an actions footer, an optional live preview and an optional `modal` mode, plus a `useWizardSteps` hook for step state.
+
+- [#658](https://github.com/wso2/oxygen-ui/pull/658) [`7b1b159`](https://github.com/wso2/oxygen-ui/commit/7b1b159a4acfe27041c619355b85ca7343fb5227) Thanks [@Kalika-Jay](https://github.com/Kalika-Jay)! - Add `LogViewer`, a compound component for time-ordered log entries shown as rows of columns under a heading row. Compose it from `LogViewer.Toolbar` (with `Search`, `TimeZone`, `Sort`, `Download`, `Refresh` and `Count` as children) and `LogViewer.Stream`. Columns can sort and filter from their heading, entries expand in place, older entries load on demand, and timestamps show in UTC or the reader's time zone. Filters (`select`, `timeRange`) are described with `filters` and reported through `onFilterChange`; the viewer never filters or sorts the data itself. Every part passes `className`, `sx`, `data-*` and other props to its element, and forwards its `ref` to it.
+
+- [#664](https://github.com/wso2/oxygen-ui/pull/664) [`db8beb9`](https://github.com/wso2/oxygen-ui/commit/db8beb91b6178bcaca2702a0f2618a3d347dd0ec) Thanks [@Induwara04](https://github.com/Induwara04)! - Add `ListingCard`, a card for items in a listing, such as projects, with an icon badge, title, description and a relative last updated time (`updatedTime`, with an optional `updatedTooltip`). The whole card can be made clickable with `onClick` or `href`, an optional delete button (`onDelete` / `actions`) appears on hover, long text is truncated with a tooltip, and `selected` highlights the card.
+
+- [#670](https://github.com/wso2/oxygen-ui/pull/670) [`228b814`](https://github.com/wso2/oxygen-ui/commit/228b814aa96ac26fc73240efba6949133a78ad8f) Thanks [@SandaminiM](https://github.com/SandaminiM)! - Add an optional `labelPlacement="top"` prop to `TextField`. Without it, `TextField` is MUI's TextField with its floating label, so existing fields are unchanged. `labelPlacement="top"` draws a static label above the field, colours it on focus, names select fields through it, and keeps an empty helper line on fields that set `error` so the form does not shift when an error appears. A new `optional` prop appends "(Optional)" to the label in either placement. `TextField` and `TextFieldProps` are now exported by Oxygen UI itself instead of being re-exported from MUI.
+
+### Patch Changes
+
+- Updated dependencies [[`db8beb9`](https://github.com/wso2/oxygen-ui/commit/db8beb91b6178bcaca2702a0f2618a3d347dd0ec), [`228b814`](https://github.com/wso2/oxygen-ui/commit/228b814aa96ac26fc73240efba6949133a78ad8f)]:
+  - @wso2/oxygen-ui-icons-react@0.19.0
+
 ## 0.18.0
 
 ### Minor Changes
