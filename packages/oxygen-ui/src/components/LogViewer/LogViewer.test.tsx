@@ -2203,6 +2203,18 @@ describe('LogViewer', () => {
       });
     });
 
+    it('turns off scroll anchoring only when the oldest entries are first', () => {
+      const anchor = () => getComputedStyle(stream()).getPropertyValue('overflow-anchor');
+      const { rerender } = renderWithTheme(<LogViewer entries={entries('1')} columns={columns} />);
+      expect(anchor()).toBe('auto');
+      rerender(
+        <OxygenUIThemeProvider>
+          <LogViewer entries={entries('1')} columns={columns} order="oldest-first" />
+        </OxygenUIThemeProvider>
+      );
+      expect(anchor()).toBe('none');
+    });
+
     describe('as a table', () => {
       it('is a table with a heading row of column headers and one row per entry', () => {
         renderWithTheme(<LogViewer entries={entries('2', '1')} columns={columns} />);
