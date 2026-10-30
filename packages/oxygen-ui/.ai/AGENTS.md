@@ -71,6 +71,7 @@ import { DataGrid, DatePickers, TreeView } from '@wso2/oxygen-ui';
 - **Panels**: `DrawerPanel`
 - **Theming**: `OxygenUIThemeProvider`, `ThemeSwitcher`, `ColorSchemeToggle`, `ColorSchemeImage`
 - **User**: `UserMenu`
+- **Navigation**: `ContextSwitcher`
 - **Animations**: `ParticleBackground`
 
 ## Detailed Documentation
