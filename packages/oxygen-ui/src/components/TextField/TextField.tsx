@@ -21,53 +21,17 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import MuiTextField, { type TextFieldProps as MuiTextFieldProps } from '@mui/material/TextField';
 
-/**
- * Where a TextField draws its label, when not MUI's floating label.
- * - `top`: a static label above the field, as in WSO2 cloud console forms.
- */
+/** `top` draws a static label above the field instead of MUI's floating label. */
 export type TextFieldLabelPlacement = 'top';
 
-/**
- * Props for the TextField component: every MUI TextField prop, plus `labelPlacement` and `optional`.
- */
 export type TextFieldProps = MuiTextFieldProps & {
-  /**
-   * Leave unset for MUI's floating label. `top` draws a static label above the field instead,
-   * and a field that sets `error` keeps its helper line while it is empty, so an error
-   * appearing does not shift the form.
-   */
+  /** Leave unset for MUI's floating label; `top` draws a static label above the field. */
   labelPlacement?: TextFieldLabelPlacement;
-  /**
-   * Appends "(Optional)" to the label. It is part of the label text, so it takes the label's
-   * colour in every state and is read out with it. Has no effect without a label, or on a
-   * `required` field.
-   * @default false
-   */
+  /** Appends "(Optional)" to the label; ignored without a label or on a `required` field. */
   optional?: boolean;
 };
 
-/**
- * TextField component - MUI's TextField, with an optional static label above the field
- *
- * With `labelPlacement="top"`, `ref` and the layout props (`sx`, `className`, `style`,
- * `fullWidth`, `margin`) go to an outer FormControl that holds both the label and the field.
- * Without `labelPlacement`, or without a label, the component is MUI's TextField unchanged.
- *
- * @example
- * ```tsx
- * <TextField label="Name" placeholder="e.g. Customer Support Platform" />
- * ```
- *
- * @example
- * ```tsx
- * <TextField labelPlacement="top" label="Name" required error={!!error} helperText={error} />
- * ```
- *
- * @example
- * ```tsx
- * <TextField labelPlacement="top" label="Description" optional />
- * ```
- */
+/** MUI's TextField; with `labelPlacement="top"`, `ref` and layout props go to an outer FormControl. */
 const TextField = React.forwardRef<HTMLDivElement, TextFieldProps>(function TextField(
   { labelPlacement, optional = false, label: labelProp, ...fieldProps },
   ref,
@@ -76,17 +40,16 @@ const TextField = React.forwardRef<HTMLDivElement, TextFieldProps>(function Text
   const label = optional && hasLabel && !fieldProps.required ? <>{labelProp} (Optional)</> : labelProp;
   const { id: idProp, sx, className, style, fullWidth, margin, required, error, disabled, color, focused: focusedProp, slotProps, onFocus, onBlur, helperText: helperProp, ...rest } = fieldProps;
   const generatedId = React.useId();
-  // The inner field tracks its own focus, so it is lifted to the outer FormControl for the label to colour on focus.
+  // The inner field owns focus; lifting it lets the outer label colour on focus.
   const [hasFocus, setHasFocus] = React.useState(false);
 
   if (labelPlacement !== 'top' || !hasLabel) return <MuiTextField ref={ref} {...fieldProps} label={label} />;
 
-  // Booleans render nothing either, so they reserve the line like an empty value.
+  // Reserving the line keeps the form from shifting when an error appears.
   const helperText = error !== undefined && (helperProp == null || helperProp === '' || typeof helperProp === 'boolean') ? ' ' : helperProp;
   const id = idProp ?? generatedId;
   const labelId = `${id}-label`;
-  // A select's combobox is a div, which a <label for> cannot name, so it is named through labelId instead.
-  // slotProps.select may be an object or a function of the owner state; labelId is merged into either.
+  // A select's combobox is a div, which <label for> cannot name, so it is named through labelId.
   const selectProps = slotProps?.select;
   const selectSlot = rest.select
     ? { select: typeof selectProps === 'function' ? (ownerState: Parameters<typeof selectProps>[0]) => ({ ...selectProps(ownerState), labelId }) : { ...selectProps, labelId } }
@@ -101,7 +64,7 @@ const TextField = React.forwardRef<HTMLDivElement, TextFieldProps>(function Text
         {...rest}
         id={id}
         fullWidth
-        // The filled variant pads its input for a floating label; the label is above, so drop that room.
+        // The filled variant pads for a floating label, which top mode does not draw.
         hiddenLabel
         required={required}
         error={error}

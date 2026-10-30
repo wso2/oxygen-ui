@@ -43,7 +43,6 @@ describe('TextField', () => {
     const label = screen.getByText('Name');
     expect(label.classList.contains('MuiFormLabel-root')).toBe(true);
     expect(label.classList.contains('MuiInputLabel-root')).toBe(false);
-    // No floating label, so the outline has no notch cut for one.
     expect(container.querySelector('legend')?.textContent).not.toContain('Name');
     expect(screen.getByLabelText('Name').tagName).toBe('INPUT');
   });

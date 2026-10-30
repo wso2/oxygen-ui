@@ -46,8 +46,7 @@ export * from "./hooks";
 // Export utils
 export * from "./utils";
 
-// Named, so it takes precedence over the TextField and TextFieldProps of `export * from '@mui/material'` below.
-// Two `export *` of one name would cancel each other out, so the re-export through ./components is not enough.
+// Named, because two `export *` of one name (./components and @mui/material) cancel each other out.
 export { TextField } from './components';
 export type { TextFieldProps, TextFieldLabelPlacement } from './components';
 
