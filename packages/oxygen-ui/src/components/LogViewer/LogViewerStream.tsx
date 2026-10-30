@@ -41,7 +41,7 @@ import {
 } from '@wso2/oxygen-ui-icons-react';
 import { useLogViewerRequired } from './context';
 import { entryText } from './download';
-import { formatDisplay } from './timestamps';
+import { DATE_FORMAT, formatDisplay } from './timestamps';
 import ListingTableCell from '../ListingTable/ListingTable/ListingTableCell';
 import ListingTableHead from '../ListingTable/ListingTable/ListingTableHead';
 import ListingTableRow from '../ListingTable/ListingTable/ListingTableRow';
@@ -779,6 +779,7 @@ const LogViewerStream = React.forwardRef<HTMLDivElement, LogViewerStreamProps>(f
                     label={filter.label}
                     presets={filter.presets}
                     maxRangeMs={filter.maxRangeMs}
+                    dateFormat={DATE_FORMAT}
                     disabled={loading}
                     sx={{ display: 'none' }}
                   />

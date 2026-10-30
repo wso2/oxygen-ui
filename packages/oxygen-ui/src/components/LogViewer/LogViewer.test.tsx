@@ -2189,6 +2189,22 @@ describe('LogViewer', () => {
       { id: 'status', label: 'Status', type: 'select', options: [{ value: 'ok', label: 'Ok' }] },
     ];
 
+    it('shows the dates of the picker in the heading in the same format as the toolbar', () => {
+      const range = { start: new Date('2026-10-13T00:00:00Z'), end: new Date('2026-10-14T00:00:00Z') };
+      renderWithTheme(
+        <LogViewer
+          entries={entries('1')}
+          columns={columns}
+          filters={filters}
+          filterValues={{ time: range }}
+          onFilterChange={() => undefined}
+        />
+      );
+      fireEvent.click(screen.getByRole('button', { name: 'Filter by Time' }));
+      fireEvent.click(screen.getByRole('menuitem', { name: 'Custom' }));
+      expect(pickerInput('Start from (UTC)', 'Date').value).toBe('2026-10-13');
+    });
+
     it('builds the id of the details from the position, so an entry id that cannot be encoded does not break the list', () => {
       const ids = ['a b', '\uD800', 'x'];
       renderWithTheme(<LogViewer entries={ids.map((id) => withText(id))} columns={columns} />);
