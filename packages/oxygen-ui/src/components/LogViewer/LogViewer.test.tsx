@@ -2189,6 +2189,20 @@ describe('LogViewer', () => {
       { id: 'status', label: 'Status', type: 'select', options: [{ value: 'ok', label: 'Ok' }] },
     ];
 
+    it('builds the id of the details from the position, so an entry id that cannot be encoded does not break the list', () => {
+      const ids = ['a b', '\uD800', 'x'];
+      renderWithTheme(<LogViewer entries={ids.map((id) => withText(id))} columns={columns} />);
+      screen.getAllByRole('button', { name: 'Show details' }).forEach((button) => fireEvent.click(button));
+      const controls = Array.from(stream().querySelectorAll('[aria-controls]')).map((element) =>
+        element.getAttribute('aria-controls')
+      );
+      expect(new Set(controls).size).toBe(3);
+      controls.forEach((value) => {
+        expect(value).not.toMatch(/\s/);
+        expect(document.getElementById(value as string)).not.toBeNull();
+      });
+    });
+
     describe('as a table', () => {
       it('is a table with a heading row of column headers and one row per entry', () => {
         renderWithTheme(<LogViewer entries={entries('2', '1')} columns={columns} />);

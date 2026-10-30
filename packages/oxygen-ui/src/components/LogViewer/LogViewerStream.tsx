@@ -978,15 +978,16 @@ const LogViewerStream = React.forwardRef<HTMLDivElement, LogViewerStreamProps>(f
             <ListingTableHead>{headingRow}</ListingTableHead>
             {showRows && (oldestFirst ? edgeRow(olderEdge) : edgeRow(newerEdge))}
             {showRows &&
-              entries.map((entry) => (
+              entries.map((entry, index) => (
               <LogRow
                 key={entry.id}
                 entry={entry}
                 highlighted={entry.id === highlightedEntryId}
                 open={expanded.has(entry.id)}
-                // aria-controls is a list of ids separated by white space, so the entry id is encoded: the result
-                // has none, and two different entry ids cannot give the same one.
-                detailsId={`${baseId}-details-${encodeURIComponent(entry.id)}`}
+                // aria-controls is a list of ids separated by white space, so the id is built from the position, not
+                // from the entry id, which may hold white space or characters that cannot be encoded. The button and
+                // the region take it in the same render, so they stay paired as the list changes.
+                detailsId={`${baseId}-details-${index}`}
                 onToggle={() => toggle(entry.id)}
                 renderDetails={renderDetails}
                 copyLabel={copyLabel}
