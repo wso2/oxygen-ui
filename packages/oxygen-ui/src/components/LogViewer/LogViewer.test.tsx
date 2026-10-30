@@ -1392,7 +1392,7 @@ describe('LogViewer', () => {
         </OxygenUIThemeProvider>
       );
       expect(screen.getByRole('group', { name: 'Applied filters' }).textContent).toContain(
-        '2026-09-14 15:33:42 - 2026-10-14 15:33:42'
+        '2026-09-14 15:33:42 +05:30 - 2026-10-14 15:33:42 +05:30'
       );
     });
 

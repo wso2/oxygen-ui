@@ -50,6 +50,11 @@ const dateFields = (shifted: Date): string =>
 const timeFields = (shifted: Date): string =>
   `${pad(shifted.getUTCHours())}:${pad(shifted.getUTCMinutes())}:${pad(shifted.getUTCSeconds())}`;
 
+const offsetText = (offsetMinutes: number): string => {
+  const abs = Math.abs(offsetMinutes);
+  return `${offsetMinutes < 0 ? '-' : '+'}${pad(Math.floor(abs / 60))}:${pad(abs % 60)}`;
+};
+
 /**
  * How a timestamp is shown in a row, for example "2026-10-15 08:16:55.622". A string that is not a
  * date is shown as it is.
@@ -71,15 +76,15 @@ export const formatIso = (timestamp: string | Date, zone: LogTimeZone): string =
   const { shifted, offsetMinutes } = wallClock(date, zone);
   const base = `${dateFields(shifted)}T${timeFields(shifted)}.${pad(shifted.getUTCMilliseconds(), 3)}`;
   if (offsetMinutes === 0) return `${base}Z`;
-  const sign = offsetMinutes > 0 ? '+' : '-';
-  const abs = Math.abs(offsetMinutes);
-  return `${base}${sign}${pad(Math.floor(abs / 60))}:${pad(abs % 60)}`;
+  return `${base}${offsetText(offsetMinutes)}`;
 };
 
 /**
- * A shorter form for filter chips, for example "2026-10-15 08:16:55".
+ * A shorter form for filter chips, for example "2026-10-15 08:16:55". Local time adds its offset, for example
+ * "2026-10-15 13:46:55 +05:30", because two moments an hour apart read the same where the clocks are set back.
  */
 export const formatShort = (date: Date, zone: LogTimeZone): string => {
-  const { shifted } = wallClock(date, zone);
-  return `${dateFields(shifted)} ${timeFields(shifted)}`;
+  const { shifted, offsetMinutes } = wallClock(date, zone);
+  const base = `${dateFields(shifted)} ${timeFields(shifted)}`;
+  return zone === 'utc' ? base : `${base} ${offsetText(offsetMinutes)}`;
 };
