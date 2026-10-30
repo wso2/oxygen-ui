@@ -44,6 +44,7 @@ import {
 import { useState, useEffect, type JSX, useCallback } from 'react'
 import { useNavigate, useLocation, Outlet, Link as NavigateLink, useParams } from 'react-router'
 import Logo from '../components/Logo';
+import SmoothNavHighlight from '../components/SmoothNavHighlight';
 import {
   BarChart3,
   Bell,
@@ -71,7 +72,7 @@ import type { Organization, Project } from '../mock-data/types';
 // Notification button component - must be a child of AppShell to access context
 function NotificationButton({ unreadCount }: { unreadCount: number }) {
   const { actions } = useAppShell();
-  
+
   return (
     <Tooltip title="Notifications">
       <IconButton
@@ -258,10 +259,10 @@ export default function AppLayout(): JSX.Element {
             />
             <UserMenu>
               <UserMenu.Trigger name={mockUser.name} avatar={mockUser.avatar} />
-              <UserMenu.Header 
-                name={mockUser.name} 
-                email={mockUser.email} 
-                avatar={mockUser.avatar} 
+              <UserMenu.Header
+                name={mockUser.name}
+                email={mockUser.email}
+                avatar={mockUser.avatar}
                 role={mockUser.role}
               />
               <UserMenu.Item
@@ -290,113 +291,125 @@ export default function AppLayout(): JSX.Element {
       </AppShell.Navbar>
 
       <AppShell.Sidebar>
-        <Sidebar activeItem={initialActiveItem}>
-          <Sidebar.Nav>
-            {/* Global Navigation */}
-            {!isOrganization && (
-              <Sidebar.Category>
-                <Sidebar.Item id="dashboard" link={<NavigateLink to="/organizations" />}>
-                  <Sidebar.ItemIcon><Home /></Sidebar.ItemIcon>
-                  <Sidebar.ItemLabel>Organizations</Sidebar.ItemLabel>
-                </Sidebar.Item>
-                <Sidebar.Item id="account">
-                  <Sidebar.ItemIcon><UserCog /></Sidebar.ItemIcon>
-                  <Sidebar.ItemLabel>Account</Sidebar.ItemLabel>
-                </Sidebar.Item>
-                <Sidebar.Item id="billing">
-                  <Sidebar.ItemIcon><CircleDollarSign /></Sidebar.ItemIcon>
-                  <Sidebar.ItemLabel>Billing</Sidebar.ItemLabel>
-                </Sidebar.Item>
-              </Sidebar.Category>
-            )}
-
-            {isOrganization && (
-              <>
-                {/* Main Navigation */}
+        <SmoothNavHighlight
+          targetSelector=".MuiListItemButton-root"
+          activeSelector=".Mui-selected"
+          sx={{ height: '100%', display: 'flex', flexDirection: 'column', flex: 1 }}
+        >
+          <Sidebar
+            activeItem={initialActiveItem}
+            onSelect={(id) => setInitialActiveItem(id)}
+            sx={{ height: '100%', display: 'flex', flexDirection: 'column', flex: 1 }}
+          >
+            <Sidebar.Nav sx={{ flex: 1 }}>
+              {/* Global Navigation */}
+              {!isOrganization && (
                 <Sidebar.Category>
                   <Sidebar.Item id="dashboard" link={<NavigateLink to="/organizations" />}>
                     <Sidebar.ItemIcon><Home /></Sidebar.ItemIcon>
                     <Sidebar.ItemLabel>Organizations</Sidebar.ItemLabel>
                   </Sidebar.Item>
-                  <Sidebar.Item id="analytics" link={<NavigateLink to={`/o/${selectedOrg?.orgId}/analytics`} />}>
-                    <Sidebar.ItemIcon><BarChart3 /></Sidebar.ItemIcon>
-                    <Sidebar.ItemLabel>Analytics</Sidebar.ItemLabel>
+                  <Sidebar.Item id="account">
+                    <Sidebar.ItemIcon><UserCog /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Account</Sidebar.ItemLabel>
+                  </Sidebar.Item>
+                  <Sidebar.Item id="billing">
+                    <Sidebar.ItemIcon><CircleDollarSign /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Billing</Sidebar.ItemLabel>
                   </Sidebar.Item>
                 </Sidebar.Category>
+              )}
 
-                {/* Management */}
-                <Sidebar.Category>
-                  <Sidebar.CategoryLabel>Management</Sidebar.CategoryLabel>
-                  <Sidebar.Item id="users">
-                    <Sidebar.ItemIcon><Users /></Sidebar.ItemIcon>
-                    <Sidebar.ItemLabel>Users</Sidebar.ItemLabel>
-                    <Sidebar.ItemBadge>3</Sidebar.ItemBadge>
-                    <Sidebar.Item id="users-list">
+              {isOrganization && (
+                <>
+                  {/* Main Navigation */}
+                  <Sidebar.Category>
+                    <Sidebar.Item id="dashboard" link={<NavigateLink to="/organizations" />}>
+                      <Sidebar.ItemIcon><Home /></Sidebar.ItemIcon>
+                      <Sidebar.ItemLabel>Organizations</Sidebar.ItemLabel>
+                    </Sidebar.Item>
+                    <Sidebar.Item id="analytics" link={<NavigateLink to={`/o/${selectedOrg?.orgId}/analytics`} />}>
+                      <Sidebar.ItemIcon><BarChart3 /></Sidebar.ItemIcon>
+                      <Sidebar.ItemLabel>Analytics</Sidebar.ItemLabel>
+                    </Sidebar.Item>
+                  </Sidebar.Category>
+
+                  {/* Management */}
+                  <Sidebar.Category>
+                    <Sidebar.CategoryLabel>Management</Sidebar.CategoryLabel>
+                    <Sidebar.Item id="users">
                       <Sidebar.ItemIcon><Users /></Sidebar.ItemIcon>
-                      <Sidebar.ItemLabel>All Users</Sidebar.ItemLabel>
+                      <Sidebar.ItemLabel>Users</Sidebar.ItemLabel>
+                      <Sidebar.ItemBadge>3</Sidebar.ItemBadge>
+                      <Sidebar.Item id="users-list">
+                        <Sidebar.ItemIcon><Users /></Sidebar.ItemIcon>
+                        <Sidebar.ItemLabel>All Users</Sidebar.ItemLabel>
+                      </Sidebar.Item>
+                      <Sidebar.Item id="users-roles">
+                        <Sidebar.ItemIcon><UserCog /></Sidebar.ItemIcon>
+                        <Sidebar.ItemLabel>Roles</Sidebar.ItemLabel>
+                      </Sidebar.Item>
+                      <Sidebar.Item id="users-permissions">
+                        <Sidebar.ItemIcon><Lock /></Sidebar.ItemIcon>
+                        <Sidebar.ItemLabel>Permissions</Sidebar.ItemLabel>
+                      </Sidebar.Item>
                     </Sidebar.Item>
-                    <Sidebar.Item id="users-roles">
-                      <Sidebar.ItemIcon><UserCog /></Sidebar.ItemIcon>
-                      <Sidebar.ItemLabel>Roles</Sidebar.ItemLabel>
+                    <Sidebar.Item id="projects" link={<NavigateLink to={`/o/${selectedOrg?.orgId}/projects`} />}>
+                      <Sidebar.ItemIcon><FolderOpen /></Sidebar.ItemIcon>
+                      <Sidebar.ItemLabel>Projects</Sidebar.ItemLabel>
+                      <Sidebar.ItemBadge>5</Sidebar.ItemBadge>
                     </Sidebar.Item>
-                    <Sidebar.Item id="users-permissions">
-                      <Sidebar.ItemIcon><Lock /></Sidebar.ItemIcon>
-                      <Sidebar.ItemLabel>Permissions</Sidebar.ItemLabel>
+                    <Sidebar.Item id="integrations">
+                      <Sidebar.ItemIcon><Layers /></Sidebar.ItemIcon>
+                      <Sidebar.ItemLabel>Integrations</Sidebar.ItemLabel>
                     </Sidebar.Item>
-                  </Sidebar.Item>
-                  <Sidebar.Item id="projects" link={<NavigateLink to={`/o/${selectedOrg?.orgId}/projects`} />}>
-                    <Sidebar.ItemIcon><FolderOpen /></Sidebar.ItemIcon>
-                    <Sidebar.ItemLabel>Projects</Sidebar.ItemLabel>
-                    <Sidebar.ItemBadge>5</Sidebar.ItemBadge>
-                  </Sidebar.Item>
-                  <Sidebar.Item id="integrations">
-                    <Sidebar.ItemIcon><Layers /></Sidebar.ItemIcon>
-                    <Sidebar.ItemLabel>Integrations</Sidebar.ItemLabel>
-                  </Sidebar.Item>
-                </Sidebar.Category>
+                  </Sidebar.Category>
 
-                {/* Infrastructure */}
-                <Sidebar.Category>
-                  <Sidebar.CategoryLabel>Infrastructure</Sidebar.CategoryLabel>
-                  <Sidebar.Item id="security">
-                    <Sidebar.ItemIcon><Shield /></Sidebar.ItemIcon>
-                    <Sidebar.ItemLabel>Security</Sidebar.ItemLabel>
-                    <Sidebar.Item id="security-overview">
+                  {/* Infrastructure */}
+                  <Sidebar.Category>
+                    <Sidebar.CategoryLabel>Infrastructure</Sidebar.CategoryLabel>
+                    <Sidebar.Item id="security">
                       <Sidebar.ItemIcon><Shield /></Sidebar.ItemIcon>
-                      <Sidebar.ItemLabel>Overview</Sidebar.ItemLabel>
+                      <Sidebar.ItemLabel>Security</Sidebar.ItemLabel>
+                      <Sidebar.Item id="security-overview">
+                        <Sidebar.ItemIcon><Shield /></Sidebar.ItemIcon>
+                        <Sidebar.ItemLabel>Overview</Sidebar.ItemLabel>
+                      </Sidebar.Item>
+                      <Sidebar.Item id="security-api-keys">
+                        <Sidebar.ItemIcon><Key /></Sidebar.ItemIcon>
+                        <Sidebar.ItemLabel>API Keys</Sidebar.ItemLabel>
+                      </Sidebar.Item>
                     </Sidebar.Item>
-                    <Sidebar.Item id="security-api-keys">
-                      <Sidebar.ItemIcon><Key /></Sidebar.ItemIcon>
-                      <Sidebar.ItemLabel>API Keys</Sidebar.ItemLabel>
+                    <Sidebar.Item id="databases">
+                      <Sidebar.ItemIcon><Database /></Sidebar.ItemIcon>
+                      <Sidebar.ItemLabel>Databases</Sidebar.ItemLabel>
                     </Sidebar.Item>
+                    <Sidebar.Item id="domains">
+                      <Sidebar.ItemIcon><Globe /></Sidebar.ItemIcon>
+                      <Sidebar.ItemLabel>Domains</Sidebar.ItemLabel>
+                    </Sidebar.Item>
+                  </Sidebar.Category>
+                </>
+              )}
+            </Sidebar.Nav>
+
+            {/* Settings Footer anchored to bottom */}
+            <Box sx={{ mt: 'auto' }}>
+              <Sidebar.Footer>
+                <Sidebar.Category>
+                  <Sidebar.Item id="settings" link={<NavigateLink to="/settings" />}>
+                    <Sidebar.ItemIcon><Settings /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
                   </Sidebar.Item>
-                  <Sidebar.Item id="databases">
-                    <Sidebar.ItemIcon><Database /></Sidebar.ItemIcon>
-                    <Sidebar.ItemLabel>Databases</Sidebar.ItemLabel>
-                  </Sidebar.Item>
-                  <Sidebar.Item id="domains">
-                    <Sidebar.ItemIcon><Globe /></Sidebar.ItemIcon>
-                    <Sidebar.ItemLabel>Domains</Sidebar.ItemLabel>
+                  <Sidebar.Item id="help">
+                    <Sidebar.ItemIcon><HelpCircle /></Sidebar.ItemIcon>
+                    <Sidebar.ItemLabel>Help & Support</Sidebar.ItemLabel>
                   </Sidebar.Item>
                 </Sidebar.Category>
-              </>
-            )}
-          </Sidebar.Nav>
-
-          {/* Settings Footer */}
-          <Sidebar.Footer>
-            <Sidebar.Category>
-              <Sidebar.Item id="settings" link={<NavigateLink to="/settings" />}>
-                <Sidebar.ItemIcon><Settings /></Sidebar.ItemIcon>
-                <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
-              </Sidebar.Item>
-              <Sidebar.Item id="help">
-                <Sidebar.ItemIcon><HelpCircle /></Sidebar.ItemIcon>
-                <Sidebar.ItemLabel>Help & Support</Sidebar.ItemLabel>
-              </Sidebar.Item>
-            </Sidebar.Category>
-          </Sidebar.Footer>
-        </Sidebar>
+              </Sidebar.Footer>
+            </Box>
+          </Sidebar>
+        </SmoothNavHighlight>
       </AppShell.Sidebar>
 
       <AppShell.Main>
@@ -406,7 +419,7 @@ export default function AppLayout(): JSX.Element {
       <AppShell.Footer>
         <Footer>
           <Footer.Copyright>
-            © {new Date().getFullYear()} |  
+            © {new Date().getFullYear()} |
             <Box sx={{ verticalAlign: 'middle', mt: .2, mx: .5, display: 'inline-block' }}>
               <WSO2 size={12} />
             </Box>
