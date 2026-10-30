@@ -38,8 +38,9 @@ export interface LogViewerToolbarProps extends Omit<BoxProps, 'children'> {
   /**
    * The controls of the toolbar: `LogViewer.Search`, `LogViewer.TimeZone`, `LogViewer.Sort`,
    * `LogViewer.Download`, `LogViewer.Refresh` and `LogViewer.Count`. Include the ones you want. The
-   * layout is the same in every product: the filters, the search and the count are on the left, in
-   * that order, and the other controls are on the right, in the order given.
+   * layout is the same in every product: the filters and the search are on the left, and the other
+   * controls are on the right, in the order given. The count goes before the applied filter chips,
+   * or after the search when there are none.
    */
   children?: React.ReactNode;
   /**
@@ -160,6 +161,8 @@ const LogViewerToolbar = React.forwardRef<HTMLDivElement, LogViewerToolbarProps>
       (filter.type === 'select' && typeof value === 'string' && isApplied(value))
     );
   });
+  // The count goes before the chips when there are any, and otherwise stays with the filters in the toolbar.
+  const countWithChips = counts.length > 0 && appliedFilters.length > 0;
   const chips = appliedFilters.map((filter) => {
     const value = filterValues[filter.id];
     if (filter.type === 'timeRange' && isRange(value)) {
@@ -257,7 +260,7 @@ const LogViewerToolbar = React.forwardRef<HTMLDivElement, LogViewerToolbarProps>
               );
             })}
             {searches}
-            {counts}
+            {!countWithChips && counts}
           </Box>
 
           {controls.length > 0 && (
@@ -268,30 +271,40 @@ const LogViewerToolbar = React.forwardRef<HTMLDivElement, LogViewerToolbarProps>
 
       {appliedFilters.length > 0 && (
         <Box
-          role="group"
-          aria-label={appliedFiltersLabel}
           sx={{
             display: 'flex',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: 1,
+            alignItems: 'flex-start',
+            gap: 1.5,
             px: 2,
             py: 1,
             borderBottom: 1,
             borderColor: 'divider',
           }}
         >
-          {chips}
-          {appliedFilters.length > 1 && (
-            <Button
-              size="small"
-              variant="text"
-              onClick={() => appliedFilters.forEach((filter) => change(filter.id, null))}
-              sx={{ textTransform: 'none' }}
-            >
-              {clearAllLabel}
-            </Button>
+          {/* The count sits before the first chip, and is as high as a chip so it stays on the first line. */}
+          {counts.length > 0 && (
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, flexShrink: 0, height: 24 }}>
+              {counts}
+              <Box aria-hidden="true" sx={{ width: '1px', height: 16, bgcolor: 'text.disabled' }} />
+            </Box>
           )}
+          <Box
+            role="group"
+            aria-label={appliedFiltersLabel}
+            sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 1, flex: 1, minWidth: 0 }}
+          >
+            {chips}
+            {appliedFilters.length > 1 && (
+              <Button
+                size="small"
+                variant="text"
+                onClick={() => appliedFilters.forEach((filter) => change(filter.id, null))}
+                sx={{ textTransform: 'none' }}
+              >
+                {clearAllLabel}
+              </Button>
+            )}
+          </Box>
         </Box>
       )}
 

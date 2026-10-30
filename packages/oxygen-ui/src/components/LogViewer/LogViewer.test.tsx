@@ -1789,7 +1789,7 @@ describe('LogViewer', () => {
         />
       );
       const toolbar = screen.getByRole('toolbar');
-      const text = Array.from(toolbar.querySelectorAll('input, button, p')).map((element) =>
+      const text = Array.from(toolbar.querySelectorAll('input, button, .MuiTypography-caption')).map((element) =>
         element.tagName === 'INPUT' ? 'search' : (element.textContent ?? '')
       );
       expect(text.slice(0, 4)).toEqual(['Status', 'search', 'N events', 'UTC']);
@@ -2028,6 +2028,29 @@ describe('LogViewer', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Alle löschen' }));
       expect(onFilterChange).toHaveBeenCalledWith('status', null);
       expect(onFilterChange).toHaveBeenCalledWith('level', null);
+    });
+
+    it('puts the count before the chips when there are any, and with the filters when there are none', () => {
+      const { unmount } = renderWithTheme(
+        <LogViewer
+          entries={entries('1', '2')}
+          filters={[status]}
+          filterValues={{ status: 'failure' }}
+          showCount
+          showSearch
+        />
+      );
+      const toolbar = screen.getByRole('toolbar');
+      const group = screen.getByRole('group', { name: 'Applied filters' });
+      const count = screen.getByText('2 entries loaded');
+      expect(toolbar.contains(count)).toBe(false);
+      expect(group.contains(count)).toBe(false);
+      expect(count.compareDocumentPosition(group) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+      expect(count.className).toContain('MuiTypography-caption');
+      unmount();
+
+      renderWithTheme(<LogViewer entries={entries('1', '2')} filters={[status]} showCount showSearch />);
+      expect(within(screen.getByRole('toolbar')).getByText('2 entries loaded')).not.toBeNull();
     });
 
     it('hides the chips when showFilterChips is off, while the filter buttons stay', () => {

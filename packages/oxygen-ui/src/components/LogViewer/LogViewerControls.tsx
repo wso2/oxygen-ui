@@ -43,8 +43,9 @@ export interface LogViewerCountProps extends Omit<React.ComponentProps<typeof Ty
 const defaultCountLabel = (count: number): string => `${count} ${count === 1 ? 'entry' : 'entries'} loaded`;
 
 /**
- * LogViewer.Count - The number of loaded entries. In the toolbar it sits on the left, after the
- * filters, wherever it is placed among the other controls. It passes `className`, `data-*` and other
+ * LogViewer.Count - The number of loaded entries, as small quiet text. In the toolbar it goes before the
+ * applied filter chips, or after the search when there are none, wherever it is placed among the other
+ * controls. It passes `className`, `data-*` and other
  * text props to its element, and forwards its `ref` to it.
  */
 export const LogViewerCount = React.forwardRef<HTMLSpanElement, LogViewerCountProps>(function LogViewerCount(
@@ -57,10 +58,10 @@ export const LogViewerCount = React.forwardRef<HTMLSpanElement, LogViewerCountPr
   return (
     <Typography
       ref={ref}
-      variant="body2"
+      variant="caption"
       color="text.secondary"
       {...props}
-      sx={[{ ml: 1 }, ...(Array.isArray(sx) ? sx : [sx])]}
+      sx={[{ whiteSpace: 'nowrap', fontSize: '0.8125rem' }, ...(Array.isArray(sx) ? sx : [sx])]}
     >
       {label(count)}
     </Typography>
