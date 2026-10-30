@@ -19,6 +19,8 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
 import { Button } from '@mui/material';
+import { useColorScheme } from '@mui/material/styles';
+import type { StorageManager } from '@mui/material/styles';
 import createCache from '@emotion/cache';
 import OxygenUIThemeProvider from './OxygenUIThemeProvider';
 
@@ -133,5 +135,92 @@ describe('OxygenUIThemeProvider CSP support', () => {
     } finally {
       marker.remove();
     }
+  });
+});
+
+/**
+ * Records the color scheme MUI reports on every render, so a test can tell
+ * what the first render (the first paint) used.
+ */
+function SchemeProbe({ seen }: { seen: Array<string | undefined> }) {
+  const { colorScheme } = useColorScheme();
+  seen.push(colorScheme);
+  return null;
+}
+
+/** An in-memory stand-in for MUI's localStorage manager, seeded per test. */
+function memoryStorage(entries: Record<string, string>): StorageManager {
+  return ({ key }) => ({
+    get: (defaultValue) => entries[key] ?? defaultValue,
+    set: (value) => {
+      entries[key] = value;
+    },
+    subscribe: () => () => {},
+  });
+}
+
+describe('OxygenUIThemeProvider color scheme options', () => {
+  beforeEach(() => {
+    document.documentElement.removeAttribute('data-color-scheme');
+  });
+
+  afterEach(() => {
+    cleanup();
+  });
+
+  it('uses the stored scheme from the first render when `noSsr` is set', () => {
+    const seen: Array<string | undefined> = [];
+
+    render(
+      <OxygenUIThemeProvider noSsr storageManager={memoryStorage({ 'mui-mode': 'dark' })}>
+        <SchemeProbe seen={seen} />
+      </OxygenUIThemeProvider>
+    );
+
+    expect(seen[0]).toBe('dark');
+    expect(document.documentElement.getAttribute('data-color-scheme')).toBe('dark');
+  });
+
+  // MUI's default, kept so server-rendered apps hydrate as before: the first
+  // render has no scheme, and the stored one applies after mount.
+  it('leaves the first render without a scheme by default', () => {
+    const seen: Array<string | undefined> = [];
+
+    render(
+      <OxygenUIThemeProvider storageManager={memoryStorage({ 'mui-mode': 'dark' })}>
+        <SchemeProbe seen={seen} />
+      </OxygenUIThemeProvider>
+    );
+
+    expect(seen[0]).toBeUndefined();
+    expect(seen[seen.length - 1]).toBe('dark');
+  });
+
+  it('passes `modeStorageKey` through to MUI', () => {
+    const seen: Array<string | undefined> = [];
+
+    render(
+      <OxygenUIThemeProvider
+        noSsr
+        modeStorageKey="app-mode"
+        storageManager={memoryStorage({ 'app-mode': 'dark' })}
+      >
+        <SchemeProbe seen={seen} />
+      </OxygenUIThemeProvider>
+    );
+
+    expect(seen[0]).toBe('dark');
+  });
+
+  it('passes `defaultMode` through to MUI', () => {
+    const seen: Array<string | undefined> = [];
+
+    render(
+      <OxygenUIThemeProvider noSsr defaultMode="dark" storageManager={memoryStorage({})}>
+        <SchemeProbe seen={seen} />
+      </OxygenUIThemeProvider>
+    );
+
+    expect(seen[0]).toBe('dark');
   });
 });
