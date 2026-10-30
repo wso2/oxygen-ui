@@ -46,6 +46,11 @@ export * from "./hooks";
 // Export utils
 export * from "./utils";
 
+// Named, so it takes precedence over the TextField and TextFieldProps of `export * from '@mui/material'` below.
+// Two `export *` of one name would cancel each other out, so the re-export through ./components is not enough.
+export { TextField } from './components';
+export type { TextFieldProps, TextFieldLabelPlacement } from './components';
+
 // Re-export the entire @mui/material API
 // This allows consumers to import from @wso2/oxygen-ui instead of @mui/material
 // and automatically get the Oxygen theme applied
