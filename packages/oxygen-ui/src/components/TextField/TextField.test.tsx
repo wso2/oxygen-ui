@@ -110,6 +110,45 @@ describe('TextField', () => {
     expect(screen.getByLabelText('Description (Optional)').tagName).toBe('INPUT');
   });
 
+  it('adds no (Optional) text to a required field', () => {
+    renderWithTheme(<TextField labelPlacement="top" label="Name" optional required />);
+    expect(screen.queryByText(/\(Optional\)/)).toBeNull();
+  });
+
+  it('reserves the helper line when helperText is a boolean', () => {
+    const { container } = renderWithTheme(<TextField labelPlacement="top" label="Name" error={false} helperText={false} />);
+    expect(container.querySelector('.MuiFormHelperText-root')).not.toBeNull();
+  });
+
+  it('keeps props from a callback slotProps.select and still names the select', () => {
+    renderWithTheme(
+      <TextField labelPlacement="top" label="Region" select value="eu" slotProps={{ select: () => ({ 'aria-describedby': 'region-help' }) }}>
+        <MenuItem value="eu">Europe</MenuItem>
+      </TextField>,
+    );
+    const combobox = screen.getByRole('combobox', { name: /Region/ });
+    expect(combobox.getAttribute('aria-describedby')).toContain('region-help');
+  });
+
+  it('keeps props from an object slotProps.select', () => {
+    renderWithTheme(
+      <TextField labelPlacement="top" label="Region" select value="eu" slotProps={{ select: { 'aria-describedby': 'region-help' } }}>
+        <MenuItem value="eu">Europe</MenuItem>
+      </TextField>,
+    );
+    expect(screen.getByRole('combobox', { name: /Region/ }).getAttribute('aria-describedby')).toContain('region-help');
+  });
+
+  it('gives the top label the field colour', () => {
+    renderWithTheme(<TextField labelPlacement="top" label="Name" color="secondary" />);
+    expect(screen.getByText('Name').classList.contains('MuiFormLabel-colorSecondary')).toBe(true);
+  });
+
+  it('honours a focused prop on the top label', () => {
+    renderWithTheme(<TextField labelPlacement="top" label="Name" focused />);
+    expect(screen.getByText('Name').classList.contains('Mui-focused')).toBe(true);
+  });
+
   it('adds no (Optional) text without a label', () => {
     renderWithTheme(<TextField optional placeholder="Search" />);
     expect(screen.queryByText(/\(Optional\)/)).toBeNull();

@@ -39,7 +39,8 @@ export type TextFieldProps = MuiTextFieldProps & {
   labelPlacement?: TextFieldLabelPlacement;
   /**
    * Appends "(Optional)" to the label. It is part of the label text, so it takes the label's
-   * colour in every state and is read out with it. Has no effect without a label.
+   * colour in every state and is read out with it. Has no effect without a label, or on a
+   * `required` field.
    * @default false
    */
   optional?: boolean;
@@ -72,22 +73,27 @@ const TextField = React.forwardRef<HTMLDivElement, TextFieldProps>(function Text
   ref,
 ) {
   const hasLabel = labelProp != null && labelProp !== '';
-  const label = optional && hasLabel ? <>{labelProp} (Optional)</> : labelProp;
-  const { id: idProp, sx, className, style, fullWidth, margin, required, error, disabled, slotProps, onFocus, onBlur, helperText: helperProp, ...rest } = fieldProps;
+  const label = optional && hasLabel && !fieldProps.required ? <>{labelProp} (Optional)</> : labelProp;
+  const { id: idProp, sx, className, style, fullWidth, margin, required, error, disabled, color, focused: focusedProp, slotProps, onFocus, onBlur, helperText: helperProp, ...rest } = fieldProps;
   const generatedId = React.useId();
   // The inner field tracks its own focus, so it is lifted to the outer FormControl for the label to colour on focus.
-  const [focused, setFocused] = React.useState(false);
+  const [hasFocus, setHasFocus] = React.useState(false);
 
   if (labelPlacement !== 'top' || !hasLabel) return <MuiTextField ref={ref} {...fieldProps} label={label} />;
 
-  const helperText = error !== undefined && (helperProp == null || helperProp === '') ? ' ' : helperProp;
+  // Booleans render nothing either, so they reserve the line like an empty value.
+  const helperText = error !== undefined && (helperProp == null || helperProp === '' || typeof helperProp === 'boolean') ? ' ' : helperProp;
   const id = idProp ?? generatedId;
   const labelId = `${id}-label`;
   // A select's combobox is a div, which a <label for> cannot name, so it is named through labelId instead.
-  const selectSlot = rest.select ? { select: { ...(slotProps?.select as object | undefined), labelId } } : {};
+  // slotProps.select may be an object or a function of the owner state; labelId is merged into either.
+  const selectProps = slotProps?.select;
+  const selectSlot = rest.select
+    ? { select: typeof selectProps === 'function' ? (ownerState: Parameters<typeof selectProps>[0]) => ({ ...selectProps(ownerState), labelId }) : { ...selectProps, labelId } }
+    : {};
 
   return (
-    <FormControl ref={ref} sx={sx} className={className} style={style} fullWidth={fullWidth} margin={margin} required={required} error={error} disabled={disabled} focused={focused}>
+    <FormControl ref={ref} sx={sx} className={className} style={style} fullWidth={fullWidth} margin={margin} required={required} error={error} disabled={disabled} color={color} focused={focusedProp ?? hasFocus}>
       <FormLabel id={labelId} htmlFor={id}>
         {label}
       </FormLabel>
@@ -100,14 +106,16 @@ const TextField = React.forwardRef<HTMLDivElement, TextFieldProps>(function Text
         required={required}
         error={error}
         disabled={disabled}
+        color={color}
+        focused={focusedProp}
         helperText={helperText}
         slotProps={{ ...slotProps, ...selectSlot }}
         onFocus={(e) => {
-          setFocused(true);
+          setHasFocus(true);
           onFocus?.(e);
         }}
         onBlur={(e) => {
-          setFocused(false);
+          setHasFocus(false);
           onBlur?.(e);
         }}
       />
