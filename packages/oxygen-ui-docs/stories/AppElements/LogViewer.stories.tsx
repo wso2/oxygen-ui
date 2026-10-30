@@ -393,7 +393,7 @@ export const StandardControls: Story = {
     return (
       <LogViewer columns={COLUMNS} entries={events.map(toEntry)} hasMoreOlder={hasMore} onLoadOlder={loadOlder}>
         <LogViewer.Toolbar>
-          <LogViewer.Count label={(count) => `${count} events loaded · UTC`} />
+          <LogViewer.Count label={(count) => `${count} events · UTC`} />
           <LogViewer.Download />
           <LogViewer.Refresh onRefresh={reset} />
         </LogViewer.Toolbar>

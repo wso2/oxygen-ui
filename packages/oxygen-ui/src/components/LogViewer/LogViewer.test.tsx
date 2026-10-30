@@ -305,7 +305,7 @@ describe('LogViewer', () => {
     );
     expect(screen.getByText('No logs found')).not.toBeNull();
     expect(screen.queryByText('Select a time range')).toBeNull();
-    expect(screen.getByText('0 entries loaded')).not.toBeNull();
+    expect(screen.getByText('0 entries')).not.toBeNull();
   });
 
   it('keeps the usual empty state without a time range filter, and uses noRangeTitle for the words', () => {
@@ -325,7 +325,7 @@ describe('LogViewer', () => {
     const time: LogFilterDefinition = { id: 'time', label: 'Time Range', type: 'timeRange' };
     renderWithTheme(<LogViewer entries={entries('1')} filters={[time]} showCount />);
     expect(screen.queryByText('Select a time range')).toBeNull();
-    expect(screen.getByText('1 entry loaded')).not.toBeNull();
+    expect(screen.getByText('1 entry')).not.toBeNull();
   });
 
   it('does not show the empty state next to an error', () => {
@@ -927,11 +927,11 @@ describe('LogViewer', () => {
 
     it('shows the number of loaded entries, and formats it with countLabel', () => {
       const { unmount } = renderWithTheme(<LogViewer entries={entries('2', '1')} showCount />);
-      expect(screen.getByText('2 entries loaded')).not.toBeNull();
+      expect(screen.getByText('2 entries')).not.toBeNull();
       unmount();
 
       const { unmount: unmountOne } = renderWithTheme(<LogViewer entries={entries('1')} showCount />);
-      expect(screen.getByText('1 entry loaded')).not.toBeNull();
+      expect(screen.getByText('1 entry')).not.toBeNull();
       unmountOne();
 
       renderWithTheme(
@@ -978,7 +978,7 @@ describe('LogViewer', () => {
         'Refresh',
       ]);
       const text = toolbar.textContent ?? '';
-      expect(text.indexOf('Status')).toBeLessThan(text.indexOf('1 entry loaded'));
+      expect(text.indexOf('Status')).toBeLessThan(text.indexOf('1 entry'));
     });
 
     it('puts the toolbar above the list', () => {
@@ -1339,7 +1339,7 @@ describe('LogViewer', () => {
         .map((button) => button.getAttribute('aria-label') ?? button.textContent);
       expect(names).toEqual(['UTC', 'Local', 'Sorted newest first. Switch to oldest first', 'Download the 1 loaded entry', 'Refresh']);
       const text = toolbar.textContent ?? '';
-      expect(text.indexOf('1 entry loaded')).toBeLessThan(text.indexOf('UTC'));
+      expect(text.indexOf('1 entry')).toBeLessThan(text.indexOf('UTC'));
     });
 
     it('writes copied text as ISO 8601 with the zone, so a pasted line is unambiguous', async () => {
@@ -2042,7 +2042,7 @@ describe('LogViewer', () => {
       );
       const toolbar = screen.getByRole('toolbar');
       const group = screen.getByRole('group', { name: 'Applied filters' });
-      const count = screen.getByText('2 entries loaded');
+      const count = screen.getByText('2 entries');
       expect(toolbar.contains(count)).toBe(false);
       expect(group.contains(count)).toBe(false);
       expect(count.compareDocumentPosition(group) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
@@ -2050,7 +2050,7 @@ describe('LogViewer', () => {
       unmount();
 
       renderWithTheme(<LogViewer entries={entries('1', '2')} filters={[status]} showCount showSearch />);
-      expect(within(screen.getByRole('toolbar')).getByText('2 entries loaded')).not.toBeNull();
+      expect(within(screen.getByRole('toolbar')).getByText('2 entries')).not.toBeNull();
     });
 
     it('hides the chips when showFilterChips is off, while the filter buttons stay', () => {
@@ -2414,8 +2414,8 @@ describe('composition', () => {
     );
     const toolbar = screen.getByRole('toolbar');
     const [left, right] = Array.from(toolbar.children) as HTMLElement[];
-    expect(left.textContent).toContain('2 entries loaded');
-    expect(right.textContent).not.toContain('entries loaded');
+    expect(left.textContent).toContain('2 entries');
+    expect(right.textContent).not.toContain('2 entries');
     const names = within(right)
       .getAllByRole('button')
       .map((button) => button.getAttribute('aria-label'));

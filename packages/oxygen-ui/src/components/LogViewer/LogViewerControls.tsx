@@ -35,12 +35,12 @@ export interface LogViewerCountProps extends Omit<React.ComponentProps<typeof Ty
   /**
    * Text of the count, for the number of loaded entries. Use it to add a unit or a note such as the
    * time zone.
-   * @default (count) => `${count} entries loaded`
+   * @default (count) => `${count} entries`
    */
   label?: (count: number) => string;
 }
 
-const defaultCountLabel = (count: number): string => `${count} ${count === 1 ? 'entry' : 'entries'} loaded`;
+const defaultCountLabel = (count: number): string => `${count} ${count === 1 ? 'entry' : 'entries'}`;
 
 /**
  * LogViewer.Count - The number of loaded entries, as small quiet text. In the toolbar it goes before the
