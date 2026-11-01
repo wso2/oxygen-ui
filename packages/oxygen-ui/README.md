@@ -12,7 +12,7 @@ yarn add @wso2/oxygen-ui @emotion/react @emotion/styled @mui/material
 pnpm add @wso2/oxygen-ui @emotion/react @emotion/styled @mui/material
 ```
 
-**Note:** The Inter Variable font is automatically bundled and loaded when you import from `@wso2/oxygen-ui`. No additional setup required!
+**Note:** The Inter Variable and Sora Variable (used by `ChoreoLabsTheme`) fonts are automatically bundled and loaded when you import from `@wso2/oxygen-ui`. No additional setup required!
 
 ### Peer Dependencies
 
@@ -323,7 +323,7 @@ Content-Security-Policy:
 
 - **`style-src-elem`** — Emotion injects `<style>` elements; each needs a matching nonce.
 - **`style-src-attr 'unsafe-inline'`** — MUI components apply dynamic inline `style` attributes (dimensions, CSS custom properties, positioning). Nonces cannot cover style attributes.
-- **`font-src 'self' data:`** — The bundled Inter font is embedded as base64 `data:` URIs. Without `data:` in `font-src` (which otherwise falls back to `default-src 'self'`), the browser blocks the fonts even when the style tag itself is allowed.
+- **`font-src 'self' data:`** — The bundled Sora and Inter fonts are embedded as base64 `data:` URIs. Without `data:` in `font-src` (which otherwise falls back to `default-src 'self'`), the browser blocks the fonts even when the style tag itself is allowed.
 - **`script-src 'nonce-...'`** — Only required if your app uses MUI's `InitColorSchemeScript`. Oxygen UI does not ship that script.
 
 ### Using the `nonce` prop
@@ -377,7 +377,7 @@ Generate a unique nonce per request on the server, include it in the CSP header,
 
 ### Bundled fonts and theme CSS
 
-The bundled CSS — the Inter Variable font styles and the theme CSS — is injected as separate `<style>` tags when the package is imported (before React renders), so the nonce for those tags is resolved from well-known conventions instead of a prop:
+The bundled CSS — the Sora and Inter Variable font styles and the theme CSS — is injected as separate `<style>` tags when the package is imported (before React renders), so the nonce for those tags is resolved from well-known conventions instead of a prop:
 
 1. The `__webpack_nonce__` global ([webpack convention](https://webpack.js.org/guides/csp/))
 2. A `<meta property="csp-nonce" nonce="...">` tag ([Vite convention](https://vite.dev/guide/features.html#content-security-policy-csp)); `content` is also accepted as a fallback
