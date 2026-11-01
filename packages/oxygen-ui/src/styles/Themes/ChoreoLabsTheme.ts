@@ -353,8 +353,9 @@ const ChoreoLabsThemeConfig = {
           '&.Mui-selected': {
             // Use CSS variable - automatically adapts to color scheme
             backgroundColor: theme.vars.palette.action.selected,
+            // Keep the selected background on hover so the item still reads as selected
             '&:hover': {
-              backgroundColor: theme.vars.palette.action.hover,
+              backgroundColor: theme.vars.palette.action.selected,
             },
           },
         }),
