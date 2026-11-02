@@ -135,7 +135,6 @@ function ToolbarSample() {
                 <RefreshCw size={18} />
               </IconButton>
             </Tooltip>
-            <Button variant="contained">Add user</Button>
           </>
         }
       >
@@ -196,12 +195,17 @@ export const Overview: Story = {
           </Typography>
           <CodeBlock
             language="markup"
-            code={`[Scope] [Search] [Filters] ······ [View toggles] [Utility icons] [Secondary] [Primary]
+            code={`[Scope] [Search] [Filters] ······ [View toggles] [Utility icons] [Secondary]
 [Applied filter chips] [Clear all]`}
           />
           <Typography variant="body2">
             If a table doesn&apos;t need an element, leave it out. The order of the remaining
             elements never changes, except for search and filters.
+          </Typography>
+          <Typography variant="body2">
+            The primary action, such as &quot;Add user&quot;, is not part of the toolbar. It goes in
+            the page header, at the top right in <code>PageTitle.Actions</code>, vertically centered
+            with the title text.
           </Typography>
           <Alert severity="info">
             <AlertTitle>Order search and filters by the page</AlertTitle>
@@ -256,7 +260,11 @@ Filters first   [Scope] [Filters] [Search] ······ [Actions]`}
                 'Right, after utility icons',
                 'Outlined or text buttons. Move more than 2 into an overflow menu.',
               ],
-              ['Primary action', 'Rightmost', 'At most one filled button per table ("Add user").'],
+              [
+                'Primary action ("Add user")',
+                'Page header, top right',
+                'Not in the toolbar. Use PageTitle.Actions, vertically centered with the title text. At most one filled button per page.',
+              ],
             ]}
           />
           <Typography variant="body2">
@@ -335,10 +343,10 @@ Filters first   [Scope] [Filters] [Search] ······ [Actions]`}
             <li><Typography variant="body2">Secondary actions move into an overflow (⋯) menu.</Typography></li>
             <li><Typography variant="body2">Toolbar filters collapse into one &quot;Filters&quot; button with a count (&quot;Filters · 2&quot;).</Typography></li>
             <li><Typography variant="body2">View toggles and utility icons move into the overflow menu. Refresh stays visible.</Typography></li>
-            <li><Typography variant="body2">Search takes a full width row on top; scope and the primary action share the row below.</Typography></li>
+            <li><Typography variant="body2">Search takes a full width row on top; the other controls share the row below.</Typography></li>
           </Box>
           <Typography variant="body2">
-            The scope control, search, and primary action never collapse into a menu.
+            The scope control and search never collapse into a menu.
           </Typography>
         </GuideSection>
 
@@ -362,7 +370,8 @@ Filters first   [Scope] [Filters] [Search] ······ [Actions]`}
           <Typography variant="subtitle2">Search first: users look up items by name</Typography>
           <CodeBlock
             language="markup"
-            code={`[Search by name] [Status ▾] ··············· [⟳] [Add user]
+            code={`Users                                         [Add user]
+[Search by name] [Status ▾] ··············· [⟳]
 Footer: Rows per page: 10 · 1–6 of 6`}
           />
           <Typography variant="body2">
@@ -388,7 +397,7 @@ Footer: 25 events loaded`}
               ['Show the scope value in its control label', 'Show scope as a removable chip'],
               ['Place chips below the toolbar', 'Place chips above the toolbar'],
               ['Put each filter in one place', 'Offer the same filter in the header and the toolbar'],
-              ['Keep one primary action, rightmost', 'Use several filled buttons'],
+              ['Put the primary action in the page header', 'Put a filled primary button in the toolbar'],
               ['Show the result count in the footer', 'Mix status text with toolbar controls'],
               ['Use one date format and show the time zone', 'Mix date formats across tables'],
             ]}

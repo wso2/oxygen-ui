@@ -429,7 +429,7 @@ function DashboardCharts() {
 
 ```tsx
 import { useState, useMemo } from 'react';
-import { ListingTable, Button, IconButton, Chip } from '@wso2/oxygen-ui';
+import { ListingTable, Button, IconButton, Chip, PageTitle } from '@wso2/oxygen-ui';
 import { EditIcon, TrashIcon, MoreVerticalIcon } from '@wso2/oxygen-ui-icons-react';
 
 interface User {
@@ -476,6 +476,14 @@ function UsersTable({ users }: { users: User[] }) {
   );
 
   return (
+    <>
+    {/* The primary action goes in the page header, not the table toolbar */}
+    <PageTitle>
+      <PageTitle.Header>Users</PageTitle.Header>
+      <PageTitle.Actions>
+        <Button variant="contained">Add user</Button>
+      </PageTitle.Actions>
+    </PageTitle>
     <ListingTable.Provider
       searchValue={search}
       onSearchChange={setSearch}
@@ -495,11 +503,6 @@ function UsersTable({ users }: { users: User[] }) {
         <ListingTable.Toolbar
           showSearch
           searchPlaceholder="Search users..."
-          actions={
-            <Button variant="contained" size="small">
-              Add User
-            </Button>
-          }
         />
 
         <ListingTable>
@@ -554,6 +557,7 @@ function UsersTable({ users }: { users: User[] }) {
         </ListingTable>
       </ListingTable.Container>
     </ListingTable.Provider>
+    </>
   );
 }
 ```

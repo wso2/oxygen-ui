@@ -894,6 +894,8 @@ import { SearchBar, SearchBarWithAdvancedFilter } from '@wso2/oxygen-ui';
 | `value` | `string` | - | Search input value |
 | `onChange` | `(value: string) => void` | - | Change handler |
 | `placeholder` | `string` | `'Search...'` | Placeholder text |
+| `width` | `'auto' \| 'standard'` | `'auto'` | `'standard'` sizes search to 400px, shrinking in narrower containers. Use it for list and grid page search |
+| `fullWidth` | `boolean` | `false` | Stretches search across its container. Takes precedence over `width` |
 
 ### SearchBarWithAdvancedFilter Props
 

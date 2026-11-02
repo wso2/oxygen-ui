@@ -118,6 +118,18 @@ describe('SearchBar', () => {
     renderWithTheme(<SearchBar ref={ref} data-testid="search-root" />);
     expect(ref.current).toBe(screen.getByTestId('search-root'));
   });
+
+  it('caps the width at 400px with width="standard"', () => {
+    renderWithTheme(<SearchBar width="standard" data-testid="search-root" />);
+    const root = getComputedStyle(screen.getByTestId('search-root'));
+    expect(root.maxWidth).toBe('400px');
+    expect(root.width).toBe('100%');
+  });
+
+  it('lets fullWidth take precedence over width="standard"', () => {
+    renderWithTheme(<SearchBar width="standard" fullWidth data-testid="search-root" />);
+    expect(getComputedStyle(screen.getByTestId('search-root')).maxWidth).not.toBe('400px');
+  });
 });
 
 describe('ListingTableToolbar', () => {
