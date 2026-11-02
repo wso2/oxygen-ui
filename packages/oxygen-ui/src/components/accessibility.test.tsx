@@ -42,6 +42,7 @@ import AppBreadcrumbs from './AppBreadcrumbs/AppBreadcrumbs';
 import ListingTableToolbar from './ListingTable/shared/ListingTableToolbar';
 import UserMenu from './UserMenu/UserMenu';
 import AppSwitcher from './AppSwitcher/AppSwitcher';
+import { ContextSwitcher } from './ContextSwitcher';
 import type { AppSwitcherProps } from './AppSwitcher/AppSwitcher';
 import type { AppSwitcherAppProps } from './AppSwitcher/AppSwitcherApp';
 import type { AppSwitcherFooterProps } from './AppSwitcher/AppSwitcherFooter';
@@ -1044,6 +1045,40 @@ describe('AppBreadcrumbs', () => {
     renderWithTheme(<AppBreadcrumbs items={items} data-testid="crumbs" />);
     expect(screen.getByTestId('crumbs')).toBeDefined();
   });
+
+  it('renders a field item as the field and keeps the string label for the ellipsis menu', () => {
+    renderWithTheme(
+      <AppBreadcrumbs
+        maxItems={2}
+        items={[
+          {key: 'org', label: 'Organization', field: <button type="button">Org field</button>},
+          {key: 'project', label: 'Project', field: <button type="button">Project field</button>},
+          {key: 'component', label: 'Component', field: <button type="button">Component field</button>},
+        ]}
+      />,
+    );
+
+    expect(screen.getByRole('button', {name: 'Org field'})).toBeDefined();
+    expect(screen.getByRole('button', {name: 'Component field'})).toBeDefined();
+    expect(screen.queryByRole('button', {name: 'Project field'})).toBeNull();
+
+    fireEvent.click(screen.getByRole('button', {name: 'Show hidden breadcrumbs'}));
+    expect(screen.getByRole('menuitem', {name: 'Project'})).toBeDefined();
+  });
+
+  it('draws a custom separator between label-only items', () => {
+    renderWithTheme(
+      <AppBreadcrumbs
+        separator="/"
+        items={[
+          {key: 'home', label: 'Home', onClick: () => {}},
+          {key: 'settings', label: 'Settings'},
+        ]}
+      />,
+    );
+
+    expect(screen.getByText('/')).toBeDefined();
+  });
 });
 
 describe('NotificationPanel', () => {
@@ -1390,5 +1425,41 @@ describe('FullScreenWizard', () => {
     );
 
     expect(screen.getByRole('dialog', { name: 'Invite member' })).toBeDefined();
+  });
+});
+
+describe('ContextSwitcher', () => {
+  it('forwards refs and data attributes to the chain and level', () => {
+    const rootRef = React.createRef<HTMLDivElement>();
+    const levelRef = React.createRef<HTMLDivElement>();
+
+    renderWithTheme(
+      <ContextSwitcher ref={rootRef} data-testid="chain" value={{}} onChange={() => undefined}>
+        <ContextSwitcher.Level
+          ref={levelRef}
+          id="organization"
+          label="Organization"
+          data-testid="level"
+        >
+          <ContextSwitcher.Group label="Invited organizations">
+            <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+          </ContextSwitcher.Group>
+        </ContextSwitcher.Level>
+      </ContextSwitcher>
+    );
+
+    expect(rootRef.current).toBe(screen.getByTestId('chain'));
+    expect(levelRef.current).toBe(screen.getByTestId('level'));
+    const field = levelRef.current?.querySelector(
+      '[role="combobox"][aria-label="Organization: Select organization"]'
+    ) as HTMLElement | null;
+    expect(field).not.toBeNull();
+    expect(levelRef.current?.contains(field)).toBe(true);
+
+    fireEvent.mouseDown(field!);
+    fireEvent.click(field!);
+    expect(screen.getByRole('listbox', {hidden: true})).toBeDefined();
+    expect(screen.getByText('WSO2')).toBeDefined();
+    expect(screen.getByText('Invited organizations')).toBeDefined();
   });
 });

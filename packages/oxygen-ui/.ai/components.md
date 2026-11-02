@@ -12,6 +12,7 @@ Complete API reference for custom Oxygen UI components. For MUI components, refe
 - [Sidebar](#sidebar)
 - [Footer](#footer)
 - [UserMenu](#usermenu)
+- [ContextSwitcher](#contextswitcher)
 - [AppSwitcher](#appswitcher)
 - [Form](#form)
 - [FullScreenWizard](#fullscreenwizard)
@@ -1239,6 +1240,116 @@ import { UserIcon, SettingsIcon, LogOutIcon } from '@wso2/oxygen-ui-icons-react'
   <UserMenu.Divider />
   <UserMenu.Logout icon={<LogOutIcon size={20} />} onClick={() => signOut()} />
 </UserMenu>
+```
+
+## ContextSwitcher
+
+Shows where a person is in a product's hierarchy, such as organization, project, and component, and lets them choose another place in it. It belongs in `Header.Switchers`.
+
+```tsx
+import { ContextSwitcher } from '@wso2/oxygen-ui';
+import type { ContextSwitcherValue } from '@wso2/oxygen-ui';
+```
+
+### Compound component
+
+- `ContextSwitcher.Level` — one named step in the hierarchy: a field, and the panel that picks its value
+- `ContextSwitcher.Group` — a labelled cluster of options inside a level's panel
+- `ContextSwitcher.Option` — one choice in a level's panel
+
+The switcher is controlled. `value` maps each level `id` to the selected option `value`; a missing id is an empty level. The product routes from `onChange`.
+
+Choosing a field opens its panel: a search box, then options and groups in the order they are written. Choosing an option opens the next level's panel. The same option keeps the levels under it; a different option clears them.
+
+**Two variants:**
+
+- **Chain** (default): the levels sit side by side with a slash between them. An empty level stays on screen as "Select project", in a quieter fill, and opens like any other level.
+- **Back** (`back`): only the current level is on screen, with Back in front of it in one bordered field. The current level is the deepest level with a selection, or the empty level whose options are open. Back clears the current level and steps up one level; the first level has no Back.
+
+A name that does not fit ends in an ellipsis at 180px. Hovering it, focusing the field with the keyboard, or highlighting the option with the arrow keys shows the full text.
+
+### ContextSwitcher Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `ContextSwitcherValue` | required | Selected option value for each level id (`Record<string, string>`) |
+| `onChange` | `(value: ContextSwitcherValue) => void` | required | Called with the next map when the selection changes |
+| `back` | `boolean` | `false` | Show only the current level, with Back in front of it |
+| `children` | `ReactNode` | required | `ContextSwitcher.Level` elements, in order |
+
+Other `div` props and `ref` are forwarded to the root.
+
+### ContextSwitcher.Level Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `string` | required | Key used in the `value` map |
+| `label` | `string` | required | Name shown on the field, such as `"Organization"` |
+| `loading` | `boolean` | `false` | The panel shows a progress indicator instead of the options |
+| `searchPlaceholder` | `string` | `'Search'` | Placeholder in the panel search box |
+| `searchLabel` | `string` | `` `Search ${label}` `` | Accessible name of the search box |
+| `noOptionsText` | `string` | `'No options'` | Shown when the level has no options |
+| `noMatchesText` | `string` | `'No matches'` | Shown when the search matches nothing |
+| `loadingLabel` | `string` | `` `Loading ${label}` `` | Accessible name of the progress indicator |
+| `promptText` | `string` | `` `Select ${label}` `` | Shown on the field while the level has no selection |
+| `backLabel` | `string` | `` `Go to the ${label} level` `` | Name of the Back control that returns to this level |
+| `children` | `ReactNode` | - | Options and groups, in the order they should appear |
+
+### ContextSwitcher.Group Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | required | Visible heading and accessible name of the group |
+| `children` | `ReactNode` | required | `ContextSwitcher.Option` elements |
+
+The group is omitted when search filters out all of its options.
+
+### ContextSwitcher.Option Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | required | Value written into the `value` map when picked |
+| `disabled` | `boolean` | `false` | Shown, but cannot be picked |
+| `children` | `ReactNode` | required | Label; search filters this text |
+
+### Type Exports
+
+`ContextSwitcherProps`, `ContextSwitcherValue`, `ContextSwitcherLevelProps`, `ContextSwitcherGroupProps`, `ContextSwitcherOptionProps`
+
+### Usage
+
+```tsx
+import { ContextSwitcher, Header } from '@wso2/oxygen-ui';
+import type { ContextSwitcherValue } from '@wso2/oxygen-ui';
+
+const [value, setValue] = useState<ContextSwitcherValue>({
+  organization: 'wso2',
+  project: 'finance-web',
+});
+
+<Header.Switchers>
+  <ContextSwitcher value={value} onChange={setValue}>
+    <ContextSwitcher.Level id="organization" label="Organization">
+      <ContextSwitcher.Option value="personal">Personal</ContextSwitcher.Option>
+      <ContextSwitcher.Group label="Invited organizations">
+        <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+        <ContextSwitcher.Option value="demo">Demo Organization</ContextSwitcher.Option>
+      </ContextSwitcher.Group>
+    </ContextSwitcher.Level>
+    <ContextSwitcher.Level id="project" label="Project" loading={projectsLoading}>
+      {projects.map((project) => (
+        <ContextSwitcher.Option key={project.id} value={project.id}>
+          {project.name}
+        </ContextSwitcher.Option>
+      ))}
+    </ContextSwitcher.Level>
+  </ContextSwitcher>
+</Header.Switchers>
+
+// One level with Back
+<ContextSwitcher back value={value} onChange={setValue}>
+  {/* same levels */}
+</ContextSwitcher>
 ```
 
 ## AppSwitcher
