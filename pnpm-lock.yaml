@@ -10135,7 +10135,7 @@ snapshots:
       sirv: 3.0.2
       tinyglobby: 0.2.15
       tinyrainbow: 3.0.3
-      vitest: 4.0.6(@types/node@24.9.1)(@vitest/ui@4.0.6)(jsdom@29.1.1)(terser@5.44.0)(yaml@2.8.1)
+      vitest: 4.0.6(@types/node@24.6.0)(@vitest/ui@4.0.6)(jsdom@29.1.1)(terser@5.44.0)(yaml@2.8.1)
 
   '@vitest/utils@3.2.4':
     dependencies:

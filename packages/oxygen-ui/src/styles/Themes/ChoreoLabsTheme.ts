@@ -17,6 +17,7 @@
  */
 
 import { extendTheme } from '@mui/material/styles';
+import type { TypographyVariant, TypographyVariantsOptions } from '@mui/material/styles';
 import OxygenThemeBase from '../OxygenThemeBase';
 import { createOxygenTheme } from '../../utils/createOxygenTheme';
 import type { OxygenTheme } from '../OxygenThemeBase';
@@ -41,7 +42,7 @@ const fontFamily = "'Sora Variable', sans-serif";
 
 // The base theme is already built, so its typography variants each carry their own fontFamily.
 // Set it on every variant, not only the root, so a font change reaches all of them.
-const typographyVariants = [
+const typographyVariants: TypographyVariant[] = [
   'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
   'subtitle1', 'subtitle2', 'body1', 'body2', 'button', 'caption', 'overline',
 ];
@@ -126,7 +127,7 @@ const { colorSchemes } = extendTheme({
  */
 const ChoreoLabsThemeConfig = {
   colorSchemes,
-  typography: typographyVariants.reduce<Record<string, unknown>>(
+  typography: typographyVariants.reduce<TypographyVariantsOptions>(
     (typography, variant) => ({ ...typography, [variant]: { fontFamily } }),
     { fontFamily },
   ),

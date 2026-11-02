@@ -28,9 +28,10 @@ const BURN = '#C43300';
 const MIDNIGHT_INK = '#0B1633';
 
 describe('ChoreoLabsTheme', () => {
-  it('is exported without replacing the default theme', () => {
-    expect(ChoreoLabsTheme).toBeDefined();
-    expect(OxygenTheme).not.toBe(ChoreoLabsTheme);
+  it('leaves the default theme unchanged', () => {
+    expect(OxygenTheme.typography.fontFamily).not.toContain('Sora Variable');
+    expect(OxygenTheme.colorSchemes.light!.palette.primary.main).not.toBe(SIGNAL);
+    expect(OxygenTheme.colorSchemes.dark!.palette.primary.main).not.toBe(SIGNAL);
   });
 
   it.each(['light', 'dark'] as const)('uses the brand primary in the %s scheme', (scheme) => {
