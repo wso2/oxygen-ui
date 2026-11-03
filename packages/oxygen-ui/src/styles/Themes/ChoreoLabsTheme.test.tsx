@@ -83,7 +83,6 @@ describe('ChoreoLabsTheme', () => {
   });
 });
 
-// The Choreo Labs brand uses no gradients.
 describe('ChoreoLabsTheme gradients', () => {
   afterEach(() => {
     cleanup();

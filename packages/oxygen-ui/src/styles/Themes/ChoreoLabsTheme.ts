@@ -27,25 +27,22 @@ import type { OxygenTheme } from '../OxygenThemeBase';
  */
 const ChoreoLabsColors = {
   signal: '#FF4600',
-  flare: '#FF6E33', // Hover on Signal
-  ember: '#8F2400', // Pressed
+  flare: '#FF6E33',
+  ember: '#8F2400',
   // Signal is below 4.5:1 as text on light surfaces, so orange text there uses Burn.
   burn: '#C43300',
   midnightInk: '#0B1633',
-  deepNavy: '#17223A', // Raised surfaces in dark mode
+  deepNavy: '#17223A',
   blackout: '#050A1C',
   cobalt: '#1F4FFF',
-  mist: '#EAF6FF', // Section wash
+  mist: '#EAF6FF',
   slate: '#5A6072',
-  fog: '#D7DBE4', // Hairlines
+  fog: '#D7DBE4',
   paper: '#F4F6FA',
   white: '#FFFFFF',
 };
 
-// Status colours are for system status only, never as brand accents. Light mode uses the base
-// colour, with the darker shade for text; dark mode uses the lighter shade that reads on Midnight Ink.
-// Info isn't a status colour in the guidelines, and Cobalt is never a fill, so info is neutral navy:
-// Midnight Ink on Mist in light mode, and White on Ink in dark mode.
+// The guidelines define no info colour and Cobalt is never a fill, so info is neutral navy.
 const ChoreoLabsStatusColors = {
   light: {
     info: { main: ChoreoLabsColors.midnightInk, contrastText: ChoreoLabsColors.white },
@@ -61,11 +58,9 @@ const ChoreoLabsStatusColors = {
   },
 };
 
-// Sora, the Choreo Labs brand typeface, loaded from @fontsource-variable/sora in fonts-sora.css.
 const fontFamily = "'Sora Variable', sans-serif";
 
-// The base theme is already built, so its typography variants each carry their own fontFamily.
-// Set it on every variant, not only the root, so a font change reaches all of them.
+// The base theme's typography variants each carry their own fontFamily, so set it on every variant.
 const typographyVariants: TypographyVariant[] = [
   'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
   'subtitle1', 'subtitle2', 'body1', 'body2', 'button', 'caption', 'overline',
@@ -77,7 +72,7 @@ const ChoreoLabsColorSchemes = {
       primary: {
         main: ChoreoLabsColors.signal,
         dark: ChoreoLabsColors.burn,
-        contrastText: ChoreoLabsColors.midnightInk, // Text on Signal is Midnight Ink
+        contrastText: ChoreoLabsColors.midnightInk,
       },
       secondary: {
         main: '#e8e8e8',
@@ -85,7 +80,7 @@ const ChoreoLabsColorSchemes = {
       background: {
         default: ChoreoLabsColors.paper,
         paper: '#ffffffc5',
-        acrylic: '#ffffff40', // More transparent version for Paper and Card components
+        acrylic: '#ffffff40',
       },
       text: {
         primary: ChoreoLabsColors.midnightInk,
@@ -113,7 +108,7 @@ const ChoreoLabsColorSchemes = {
       background: {
         default: ChoreoLabsColors.blackout,
         paper: `${ChoreoLabsColors.deepNavy}c5`,
-        acrylic: `${ChoreoLabsColors.midnightInk}40`, // More transparent version for Paper and Card components
+        acrylic: `${ChoreoLabsColors.midnightInk}40`,
       },
       text: {
         primary: ChoreoLabsColors.white,
@@ -125,7 +120,7 @@ const ChoreoLabsColorSchemes = {
         infoColor: ChoreoLabsColors.white,
         infoIconColor: ChoreoLabsColors.white,
         infoStandardBg: ChoreoLabsColors.midnightInk,
-        // The derived filled colour would be a grey shade of white, so filled info is raised Deep Navy
+        // The derived filled colour would be grey
         infoFilledBg: ChoreoLabsColors.deepNavy,
         infoFilledColor: ChoreoLabsColors.white,
       },
@@ -166,8 +161,7 @@ const ChoreoLabsThemeConfig = {
     borderRadius: 12,
   },
   gradient: {
-    // The brand uses no gradients, so the theme itself doesn't use this. It stays a flat Signal for
-    // apps that read theme.gradient.primary.
+    // Unused by the theme; kept flat for apps that read theme.gradient.primary
     primary: `linear-gradient(${ChoreoLabsColors.signal}, ${ChoreoLabsColors.signal})`,
   },
   components: {
@@ -182,7 +176,6 @@ const ChoreoLabsThemeConfig = {
     MuiButtonBase: {
       styleOverrides: {
         root: {
-          // Keyboard focus is Cobalt
           '&.Mui-focusVisible': {
             outline: `2px solid ${ChoreoLabsColors.cobalt}`,
             outlineOffset: 2,
@@ -311,9 +304,8 @@ const ChoreoLabsThemeConfig = {
           WebkitBackdropFilter: theme.blur.light,
           backdropFilter: theme.blur.light,
           border: `${theme.border.width} ${theme.border.style} ${theme.vars.palette.divider}`,
-          // More transparent for direct Paper component usage
           backgroundColor: theme.vars.palette.background.acrylic,
-          // No gradients: drop MUI's dark-mode elevation overlay
+          // Drop MUI's dark-mode elevation overlay gradient
           backgroundImage: 'none',
           boxShadow: theme.shadows[1],
         }),
@@ -342,7 +334,6 @@ const ChoreoLabsThemeConfig = {
     MuiCard: {
       styleOverrides: {
         root: ({ theme }: { theme: OxygenTheme }) => ({
-          // More transparent for Card component
           backgroundColor: theme.vars.palette.background.acrylic,
         }),
       },
@@ -365,7 +356,6 @@ const ChoreoLabsThemeConfig = {
           fontSize: theme.typography.body2.fontSize,
           borderRadius: 8,
           backgroundColor: theme.vars.palette.background.acrylic,
-          // Focus is Cobalt; error keeps its own colour
           '&.Mui-focused:not(.Mui-error) .MuiOutlinedInput-notchedOutline': {
             borderColor: ChoreoLabsColors.cobalt,
           },
@@ -407,9 +397,7 @@ const ChoreoLabsThemeConfig = {
         root: ({ theme }: { theme: OxygenTheme }) => ({
           borderRadius: 8,
           '&.Mui-selected': {
-            // Use CSS variable - automatically adapts to color scheme
             backgroundColor: theme.vars.palette.action.selected,
-            // Keep the selected background on hover so the item still reads as selected
             '&:hover': {
               backgroundColor: theme.vars.palette.action.selected,
             },
