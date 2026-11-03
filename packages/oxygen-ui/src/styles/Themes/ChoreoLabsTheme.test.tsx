@@ -62,8 +62,23 @@ describe('ChoreoLabsTheme', () => {
     expect(palette.error.main).toBe(colors.error);
   });
 
-  it('uses Fog for light-mode hairlines', () => {
-    expect(ChoreoLabsTheme.colorSchemes.light!.palette.divider).toBe('#D7DBE4');
+  it('uses Paper as the light-mode content background and Fog for hairlines', () => {
+    const { palette } = ChoreoLabsTheme.colorSchemes.light!;
+
+    expect(palette.background.default).toBe('#F4F6FA');
+    expect(palette.divider).toBe('#D7DBE4');
+  });
+
+  it.each([
+    ['light', { success: ['#15803D', '#DCFCE7'], warning: ['#8A5A00', '#FEF6D8'], error: ['#B42318', '#FDE7E7'] }],
+    ['dark', { success: ['#4ADE80', '#0B1633'], warning: ['#FCD34D', '#0B1633'], error: ['#FF7A7F', '#0B1633'] }],
+  ] as const)('uses the guideline alert text and wash in the %s scheme', (scheme, colors) => {
+    const { Alert } = ChoreoLabsTheme.colorSchemes[scheme]!.palette;
+
+    (['success', 'warning', 'error'] as const).forEach((status) => {
+      expect(Alert[`${status}Color`]).toBe(colors[status][0]);
+      expect(Alert[`${status}StandardBg`]).toBe(colors[status][1]);
+    });
   });
 
   it('sets Sora on every typography variant', () => {

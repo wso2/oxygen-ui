@@ -39,6 +39,7 @@ const ChoreoLabsColors = {
   slate: '#5A6072',
   fog: '#D7DBE4',
   paper: '#F4F6FA',
+  graphite: '#1E222C',
   white: '#FFFFFF',
 };
 
@@ -75,7 +76,7 @@ const ChoreoLabsColorSchemes = {
         contrastText: ChoreoLabsColors.midnightInk,
       },
       secondary: {
-        main: '#e8e8e8',
+        main: ChoreoLabsColors.fog,
       },
       background: {
         default: ChoreoLabsColors.paper,
@@ -92,6 +93,13 @@ const ChoreoLabsColorSchemes = {
         infoColor: ChoreoLabsColors.midnightInk,
         infoIconColor: ChoreoLabsColors.midnightInk,
         infoStandardBg: ChoreoLabsColors.mist,
+        successColor: '#15803D',
+        successStandardBg: '#DCFCE7',
+        warningColor: '#8A5A00',
+        warningStandardBg: '#FEF6D8',
+        warningFilledColor: ChoreoLabsColors.midnightInk,
+        errorColor: '#B42318',
+        errorStandardBg: '#FDE7E7',
       },
     },
   },
@@ -103,7 +111,7 @@ const ChoreoLabsColorSchemes = {
         contrastText: ChoreoLabsColors.midnightInk,
       },
       secondary: {
-        main: '#3c3c3c',
+        main: ChoreoLabsColors.graphite,
       },
       background: {
         default: ChoreoLabsColors.blackout,
@@ -123,6 +131,19 @@ const ChoreoLabsColorSchemes = {
         // The derived filled colour would be grey
         infoFilledBg: ChoreoLabsColors.deepNavy,
         infoFilledColor: ChoreoLabsColors.white,
+        // Status text in dark mode is the light shade on Ink; filled alerts keep the base colours
+        successColor: '#4ADE80',
+        successStandardBg: ChoreoLabsColors.midnightInk,
+        successFilledBg: '#16A34A',
+        successFilledColor: ChoreoLabsColors.white,
+        warningColor: '#FCD34D',
+        warningStandardBg: ChoreoLabsColors.midnightInk,
+        warningFilledBg: '#F5B300',
+        warningFilledColor: ChoreoLabsColors.midnightInk,
+        errorColor: '#FF7A7F',
+        errorStandardBg: ChoreoLabsColors.midnightInk,
+        errorFilledBg: '#E5484D',
+        errorFilledColor: ChoreoLabsColors.white,
       },
     },
   },
@@ -273,6 +294,9 @@ const ChoreoLabsThemeConfig = {
           backgroundColor: theme.vars.palette.background.acrylic,
           WebkitBackdropFilter: theme.blur.light,
           backdropFilter: theme.blur.light,
+          ...theme.applyStyles('light', {
+            backgroundColor: ChoreoLabsColors.white,
+          }),
         }),
       },
     },
@@ -283,6 +307,9 @@ const ChoreoLabsThemeConfig = {
           WebkitBackdropFilter: theme.blur.medium,
           backdropFilter: theme.blur.medium,
           borderRadius: 0,
+          ...theme.applyStyles('light', {
+            backgroundColor: `${ChoreoLabsColors.white} !important`,
+          }),
         }),
       },
       defaultProps: {
