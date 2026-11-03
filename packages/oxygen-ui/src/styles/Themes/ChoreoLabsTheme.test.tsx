@@ -62,10 +62,11 @@ describe('ChoreoLabsTheme', () => {
     expect(palette.error.main).toBe(colors.error);
   });
 
-  it('uses Paper as the light-mode content background and Fog for hairlines', () => {
+  it('uses White surfaces on the Paper content background in light mode, with Fog hairlines', () => {
     const { palette } = ChoreoLabsTheme.colorSchemes.light!;
 
     expect(palette.background.default).toBe('#F4F6FA');
+    expect(palette.background.acrylic).toBe('#FFFFFF');
     expect(palette.divider).toBe('#D7DBE4');
   });
 

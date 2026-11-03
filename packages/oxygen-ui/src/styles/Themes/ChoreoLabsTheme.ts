@@ -81,7 +81,7 @@ const ChoreoLabsColorSchemes = {
       background: {
         default: ChoreoLabsColors.paper,
         paper: '#ffffffc5',
-        acrylic: '#ffffff40',
+        acrylic: ChoreoLabsColors.white,
       },
       text: {
         primary: ChoreoLabsColors.midnightInk,
