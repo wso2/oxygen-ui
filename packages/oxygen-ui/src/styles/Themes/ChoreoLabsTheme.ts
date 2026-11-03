@@ -393,6 +393,24 @@ const ChoreoLabsThemeConfig = {
         }),
       },
     },
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          '&:not(.Mui-error)::after': {
+            borderBottomColor: ChoreoLabsColors.cobalt,
+          },
+        },
+      },
+    },
+    MuiFilledInput: {
+      styleOverrides: {
+        root: {
+          '&:not(.Mui-error)::after': {
+            borderBottomColor: ChoreoLabsColors.cobalt,
+          },
+        },
+      },
+    },
     MuiMenuItem: {
       styleOverrides: {
         root: ({ theme }: { theme: OxygenTheme }) => ({

@@ -18,7 +18,7 @@
 
 import { describe, it, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
-import { AppBar, Button, Card, Dialog, Fab, Paper } from '@mui/material';
+import { AppBar, Button, Card, Dialog, Fab, FilledInput, Input, OutlinedInput, Paper } from '@mui/material';
 import type { TypographyVariantsOptions } from '@mui/material/styles';
 import OxygenUIThemeProvider from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
 import { ChoreoLabsTheme, OxygenTheme } from './index';
@@ -82,6 +82,10 @@ describe('ChoreoLabsTheme', () => {
     });
   });
 
+  it('fills dark-mode info alerts with Deep Navy', () => {
+    expect(ChoreoLabsTheme.colorSchemes.dark!.palette.Alert.infoFilledBg).toBe('#17223A');
+  });
+
   it('sets Sora on every typography variant', () => {
     const typography = ChoreoLabsTheme.typography as unknown as Record<string, TypographyVariantsOptions>;
     const variants = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'body1', 'body2', 'button', 'caption', 'overline'];
@@ -130,5 +134,40 @@ describe('ChoreoLabsTheme gradients', () => {
         expect(backgroundImages[backgroundImages.length - 1]).toBe('background-image:none');
       }
     });
+  });
+});
+
+describe('ChoreoLabsTheme states', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
+  const renderedCss = () => Array.from(document.querySelectorAll('style')).map((style) => style.textContent).join('');
+
+  it('uses Flare on hover and Ember with a white label when pressed on primary buttons', () => {
+    render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Button variant="contained">Contained</Button>
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+
+    expect(css).toMatch(/:hover\{background:#FF6E33\s*!important;/);
+    expect(css).toMatch(/:active\{background:#8F2400\s*!important;color:#FFFFFF\s*!important;/);
+  });
+
+  it('uses Cobalt for focus on every input variant', () => {
+    render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <OutlinedInput />
+        <FilledInput />
+        <Input />
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+
+    expect(css).toMatch(/OutlinedInput-root\.Mui-focused:not\(\.Mui-error\) \.MuiOutlinedInput-notchedOutline\{border-color:#1F4FFF;/);
+    expect(css).toMatch(/FilledInput-root:not\(\.Mui-error\)::after\{border-bottom-color:#1F4FFF;/);
+    expect(css).toMatch(/MuiInput-root:not\(\.Mui-error\)::after\{border-bottom-color:#1F4FFF;/);
   });
 });
