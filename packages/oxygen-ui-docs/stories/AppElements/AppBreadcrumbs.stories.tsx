@@ -43,6 +43,8 @@ a dropdown menu listing the hidden entries.
 - **Keyboard accessible**: Clickable items respond to Enter and Space
 - **Theme integration**: Uses MUI palette tokens and \`sx\` prop for custom overrides
 - **Flexible items**: Each item can optionally carry an \`onClick\` handler for navigation
+- **Field items**: An item may carry a \`field\` node; the trail renders that node, and the string \`label\` still names the item in the overflow menu
+- **Custom separator**: Pass \`separator\` to replace the default chevron
 
 ### Usage
 \`\`\`tsx

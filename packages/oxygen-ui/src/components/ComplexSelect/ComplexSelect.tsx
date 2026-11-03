@@ -65,7 +65,6 @@ const InsideLabelText = styled(MuiTypography, {
 })(({ theme }) => ({
   fontSize: theme.typography.caption.fontSize,
   color: theme.vars?.palette.text.secondary || theme.palette.text.secondary,
-  opacity: 0.7,
   display: 'block',
   lineHeight: 1.2,
   marginBottom: theme.spacing(0.125),

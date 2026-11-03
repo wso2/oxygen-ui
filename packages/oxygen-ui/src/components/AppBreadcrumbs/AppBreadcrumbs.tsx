@@ -23,13 +23,22 @@ import Typography from '@mui/material/Typography';
 import {styled} from '@mui/material/styles';
 import type {SxProps, Theme} from '@mui/material';
 import {ChevronRight} from '@wso2/oxygen-ui-icons-react';
-import type {JSX, MouseEvent} from 'react';
+import type {JSX, MouseEvent, ReactNode} from 'react';
 import {useId, useState} from 'react';
 
 export interface BreadcrumbItem {
   key: string;
+  /**
+   * Text for page trails and for the overflow menu. When `field` is set, this
+   * string is not drawn in the trail.
+   */
   label: string;
   onClick?: () => void;
+  /**
+   * When set, the trail renders this node instead of the string label. The
+   * string label still names the item in the overflow menu.
+   */
+  field?: ReactNode;
 }
 
 export interface AppBreadcrumbsProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -42,6 +51,10 @@ export interface AppBreadcrumbsProps extends React.HTMLAttributes<HTMLDivElement
    * @default 4
    */
   maxItems?: number;
+  /**
+   * Separator between items. Defaults to a chevron.
+   */
+  separator?: ReactNode;
   /**
    * The sx prop for styling with Material-UI system.
    */
@@ -115,11 +128,18 @@ const AppBreadcrumbsEllipsis = styled('button', {
   },
 }));
 
-export default function AppBreadcrumbs({items, maxItems = 4, sx, ...props}: AppBreadcrumbsProps): JSX.Element {
+export default function AppBreadcrumbs({
+  items,
+  maxItems = 4,
+  separator,
+  sx,
+  ...props
+}: AppBreadcrumbsProps): JSX.Element {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [ellipsisHovered, setEllipsisHovered] = useState(false);
   const menuId = useId();
   const open = Boolean(anchorEl);
+  const trailSeparator = separator ?? <ChevronRight size={16} aria-hidden="true" />;
 
   const handleEllipsisClick = (e: MouseEvent<HTMLElement>) => {
     setAnchorEl(open ? null : e.currentTarget);
@@ -137,6 +157,9 @@ export default function AppBreadcrumbs({items, maxItems = 4, sx, ...props}: AppB
   const hiddenItems: BreadcrumbItem[] = shouldTruncate ? items.slice(maxItems - 1, items.length - 1) : [];
 
   const renderItem = (item: BreadcrumbItem, isLast: boolean) => {
+    if (item.field != null) {
+      return <span key={item.key}>{item.field}</span>;
+    }
     const isClickable = !isLast && !!item.onClick;
     return (
       <AppBreadcrumbsItem
@@ -195,7 +218,7 @@ export default function AppBreadcrumbs({items, maxItems = 4, sx, ...props}: AppB
   return (
     <AppBreadcrumbsRoot sx={sx} {...props}>
       <Breadcrumbs
-        separator={<ChevronRight size={16} aria-hidden="true" />}
+        separator={trailSeparator}
         aria-label="breadcrumb"
         sx={{'& ol': {flexWrap: 'nowrap', alignItems: 'center'}}}
       >
