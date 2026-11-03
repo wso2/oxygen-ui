@@ -17,7 +17,7 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react';
-import { PageTitle, colors, Box } from '@wso2/oxygen-ui';
+import { PageTitle, colors, Button } from '@wso2/oxygen-ui';
 import { Link as LinkIcon, User, Folder } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';
 
@@ -57,6 +57,23 @@ import { Link as LinkIcon } from '@wso2/oxygen-ui-icons-react';
 </PageTitle>
 \`\`\`
         
+### Placing actions
+- Put page-level actions in \`PageTitle.Actions\`, at the top right of the page header, vertically centered with the title block (header and subheader). This is where users look for actions that apply to the whole page.
+- This applies to table pages too: the primary action ("Add user") goes here, not in the table toolbar.
+- Put the primary action on the far right ("Create project") and the secondary action to its left ("Import").
+- Use a contained button for the primary action and an outlined button for the secondary action.
+
+\`\`\`tsx
+<PageTitle>
+  <PageTitle.Header>Projects</PageTitle.Header>
+  <PageTitle.SubHeader>Manage your development projects</PageTitle.SubHeader>
+  <PageTitle.Actions>
+    <Button variant="outlined">Import</Button>
+    <Button variant="contained">Create project</Button>
+  </PageTitle.Actions>
+</PageTitle>
+\`\`\`
+
 ### Accessibility
 - \`PageTitle.BackButton\` renders a labeled text button ("Back" by default) with the arrow icon hidden from screen readers.
 - Header/SubHeader render semantic heading content; extra \`aria-*\` props are forwarded to the root.
@@ -179,11 +196,8 @@ export const FullExample: Story = {
         Link a Repository
       </PageTitle.Link>
       <PageTitle.Actions>
-        <Box sx={{ display: 'flex', gap: 1 }}>
-          <button style={{ padding: '8px 16px', borderRadius: '4px', border: 'none', backgroundColor: '#1976d2', color: 'white', cursor: 'pointer' }}>
-            Create
-          </button>
-        </Box>
+        <Button variant="outlined">Import</Button>
+        <Button variant="contained">Create project</Button>
       </PageTitle.Actions>
     </PageTitle>
   ),

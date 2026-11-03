@@ -61,6 +61,21 @@ export const Default: Story = {
   ),
 }
 
+/**
+ * `width="standard"` sizes search to 400px, shrinking in narrower containers.
+ * Use it for list and grid page search so it looks the same across the product.
+ * `fullWidth` stretches search across its container.
+ */
+export const Widths: Story = {
+  render: () => (
+    <Stack spacing={2} sx={{ width: 720 }}>
+      <SearchBar placeholder="Default" />
+      <SearchBar width="standard" placeholder="Standard (400px)" />
+      <SearchBar fullWidth placeholder="Full width" />
+    </Stack>
+  ),
+}
+
 export const WithAdvancedFilter: Story = {
   render: () => {
     const [value, setValue] = React.useState('')
