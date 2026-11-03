@@ -58,7 +58,7 @@ import { Link as LinkIcon } from '@wso2/oxygen-ui-icons-react';
 \`\`\`
         
 ### Placing actions
-- Put page-level actions in \`PageTitle.Actions\`, at the top right of the page header, vertically centered with the title text. This is where users look for actions that apply to the whole page.
+- Put page-level actions in \`PageTitle.Actions\`, at the top right of the page header, vertically centered with the title block (header and subheader). This is where users look for actions that apply to the whole page.
 - This applies to table pages too: the primary action ("Add user") goes here, not in the table toolbar.
 - Put the primary action on the far right ("Create project") and the secondary action to its left ("Import").
 - Use a contained button for the primary action and an outlined button for the secondary action.

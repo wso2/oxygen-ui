@@ -126,6 +126,11 @@ describe('SearchBar', () => {
     expect(root.width).toBe('100%');
   });
 
+  it('lets sx override the standard maxWidth', () => {
+    renderWithTheme(<SearchBar width="standard" sx={{ maxWidth: 300 }} data-testid="search-root" />);
+    expect(getComputedStyle(screen.getByTestId('search-root')).maxWidth).toBe('300px');
+  });
+
   it('lets fullWidth take precedence over width="standard"', () => {
     renderWithTheme(<SearchBar width="standard" fullWidth data-testid="search-root" />);
     expect(getComputedStyle(screen.getByTestId('search-root')).maxWidth).not.toBe('400px');

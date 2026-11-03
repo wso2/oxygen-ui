@@ -53,7 +53,7 @@ Pick the table type by what users do with the data:
 Every data table toolbar uses the same element order. Leave out elements a table doesn't need; never reorder the rest, except search and filters:
 
 ```text
-[Scope] [Search] [Filters] ······ [View toggles] [Utility icons] [Secondary] [Primary]
+[Scope] [Search] [Filters] ······ [View toggles] [Utility icons] [Secondary]
 [Applied filter chips] [Clear all]
 ```
 
@@ -68,7 +68,7 @@ Every data table toolbar uses the same element order. Leave out elements a table
 - Search is always visible; placeholder names what is searched (`Search by name`, `Search events`)
 - Prefer column header filters; use toolbar filters only when no column matches; a filter lives in one place only; max 3 toolbar filters, the rest under `More filters`
 - Right side order: view toggles (segmented control), utility icon buttons (export, column settings, refresh; refresh last), then secondary actions (outlined or text, more than 2 go to an overflow menu)
-- The primary action (`Add user`) is not in the toolbar; put it in `PageTitle.Actions` at the top right of the page header, vertically centered with the title text
+- The primary action (`Add user`) is not in the toolbar; put it in `PageTitle.Actions` at the top right of the page header, vertically centered with the title block (header and subheader)
 - Applied filters show as `Label: value` chips in a row below the toolbar; show `Clear all` at 2+ chips (clears filters only, not scope or search); hide the row when empty
 - Put the result count in the footer next to pagination (`1–25 of 120`, or `25 events loaded` without pagination), never in the toolbar
 - When rows are selected, a bulk actions bar replaces the toolbar: count and `Select all` on the left, actions on the right with destructive ones last and confirmed

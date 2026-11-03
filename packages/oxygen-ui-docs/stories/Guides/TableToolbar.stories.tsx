@@ -205,7 +205,7 @@ export const Overview: Story = {
           <Typography variant="body2">
             The primary action, such as &quot;Add user&quot;, is not part of the toolbar. It goes in
             the page header, at the top right in <code>PageTitle.Actions</code>, vertically centered
-            with the title text.
+            with the title block (header and subheader).
           </Typography>
           <Alert severity="info">
             <AlertTitle>Order search and filters by the page</AlertTitle>
@@ -263,7 +263,7 @@ Filters first   [Scope] [Filters] [Search] ······ [Actions]`}
               [
                 'Primary action ("Add user")',
                 'Page header, top right',
-                'Not in the toolbar. Use PageTitle.Actions, vertically centered with the title text. At most one filled button per page.',
+                'Not in the toolbar. Use PageTitle.Actions, vertically centered with the title block (header and subheader). At most one filled button per page.',
               ],
             ]}
           />
