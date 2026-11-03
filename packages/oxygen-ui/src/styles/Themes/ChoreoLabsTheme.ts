@@ -27,14 +27,38 @@ import type { OxygenTheme } from '../OxygenThemeBase';
  */
 const ChoreoLabsColors = {
   signal: '#FF4600',
+  flare: '#FF6E33', // Hover on Signal
+  ember: '#8F2400', // Pressed
   // Signal is below 4.5:1 as text on light surfaces, so orange text there uses Burn.
   burn: '#C43300',
   midnightInk: '#0B1633',
+  deepNavy: '#17223A', // Raised surfaces in dark mode
   blackout: '#050A1C',
   cobalt: '#1F4FFF',
+  mist: '#EAF6FF', // Section wash
   slate: '#5A6072',
+  fog: '#D7DBE4', // Hairlines
   paper: '#F4F6FA',
   white: '#FFFFFF',
+};
+
+// Status colours are for system status only, never as brand accents. Light mode uses the base
+// colour, with the darker shade for text; dark mode uses the lighter shade that reads on Midnight Ink.
+// Info isn't a status colour in the guidelines, and Cobalt is never a fill, so info is neutral navy:
+// Midnight Ink on Mist in light mode, and White on Ink in dark mode.
+const ChoreoLabsStatusColors = {
+  light: {
+    info: { main: ChoreoLabsColors.midnightInk, contrastText: ChoreoLabsColors.white },
+    success: { main: '#16A34A', dark: '#15803D', contrastText: ChoreoLabsColors.white },
+    warning: { main: '#F5B300', dark: '#8A5A00', contrastText: ChoreoLabsColors.midnightInk },
+    error: { main: '#E5484D', dark: '#B42318', contrastText: ChoreoLabsColors.white },
+  },
+  dark: {
+    info: { main: ChoreoLabsColors.white, contrastText: ChoreoLabsColors.midnightInk },
+    success: { main: '#4ADE80', contrastText: ChoreoLabsColors.midnightInk },
+    warning: { main: '#FCD34D', contrastText: ChoreoLabsColors.midnightInk },
+    error: { main: '#FF7A7F', contrastText: ChoreoLabsColors.midnightInk },
+  },
 };
 
 // Sora, the Choreo Labs brand typeface, loaded from @fontsource-variable/sora in fonts-sora.css.
@@ -58,10 +82,6 @@ const ChoreoLabsColorSchemes = {
       secondary: {
         main: '#e8e8e8',
       },
-      info: {
-        main: ChoreoLabsColors.cobalt,
-        contrastText: ChoreoLabsColors.white,
-      },
       background: {
         default: ChoreoLabsColors.paper,
         paper: '#ffffffc5',
@@ -71,7 +91,13 @@ const ChoreoLabsColorSchemes = {
         primary: ChoreoLabsColors.midnightInk,
         secondary: ChoreoLabsColors.slate,
       },
-      divider: '#00000012',
+      divider: ChoreoLabsColors.fog,
+      ...ChoreoLabsStatusColors.light,
+      Alert: {
+        infoColor: ChoreoLabsColors.midnightInk,
+        infoIconColor: ChoreoLabsColors.midnightInk,
+        infoStandardBg: ChoreoLabsColors.mist,
+      },
     },
   },
   dark: {
@@ -84,13 +110,9 @@ const ChoreoLabsColorSchemes = {
       secondary: {
         main: '#3c3c3c',
       },
-      info: {
-        main: ChoreoLabsColors.cobalt,
-        contrastText: ChoreoLabsColors.white,
-      },
       background: {
         default: ChoreoLabsColors.blackout,
-        paper: `${ChoreoLabsColors.midnightInk}c5`,
+        paper: `${ChoreoLabsColors.deepNavy}c5`,
         acrylic: `${ChoreoLabsColors.midnightInk}40`, // More transparent version for Paper and Card components
       },
       text: {
@@ -98,6 +120,15 @@ const ChoreoLabsColorSchemes = {
         secondary: '#D0D3E2',
       },
       divider: '#ffffff16',
+      ...ChoreoLabsStatusColors.dark,
+      Alert: {
+        infoColor: ChoreoLabsColors.white,
+        infoIconColor: ChoreoLabsColors.white,
+        infoStandardBg: ChoreoLabsColors.midnightInk,
+        // The derived filled colour would be a grey shade of white, so filled info is raised Deep Navy
+        infoFilledBg: ChoreoLabsColors.deepNavy,
+        infoFilledColor: ChoreoLabsColors.white,
+      },
     },
   },
 };
@@ -148,6 +179,17 @@ const ChoreoLabsThemeConfig = {
         }),
       },
     },
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          // Keyboard focus is Cobalt
+          '&.Mui-focusVisible': {
+            outline: `2px solid ${ChoreoLabsColors.cobalt}`,
+            outlineOffset: 2,
+          },
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
@@ -159,11 +201,13 @@ const ChoreoLabsThemeConfig = {
           '&:not(:disabled)': {
             background: `${theme.vars.palette.primary.main} !important`,
             color: `${theme.vars.palette.primary.contrastText} !important`,
-            // The default hover darkens to Burn, which is below 4.5:1 against Midnight Ink text.
             '&:hover': {
-              background: `${theme.vars.palette.primary.main} !important`,
-              opacity: 0.9,
-              color: `${theme.vars.palette.primary.contrastText} !important`,
+              background: `${ChoreoLabsColors.flare} !important`,
+            },
+            // Midnight Ink doesn't read on Ember, so the pressed label is white
+            '&:active': {
+              background: `${ChoreoLabsColors.ember} !important`,
+              color: `${ChoreoLabsColors.white} !important`,
             },
           },
         }),
@@ -205,8 +249,11 @@ const ChoreoLabsThemeConfig = {
           backgroundColor: theme.vars.palette.primary.main,
           color: theme.vars.palette.primary.contrastText,
           '&:hover': {
-            backgroundColor: theme.vars.palette.primary.main,
-            opacity: 0.9,
+            backgroundColor: ChoreoLabsColors.flare,
+          },
+          '&:active': {
+            backgroundColor: ChoreoLabsColors.ember,
+            color: ChoreoLabsColors.white,
           },
         }),
       },
@@ -318,6 +365,10 @@ const ChoreoLabsThemeConfig = {
           fontSize: theme.typography.body2.fontSize,
           borderRadius: 8,
           backgroundColor: theme.vars.palette.background.acrylic,
+          // Focus is Cobalt; error keeps its own colour
+          '&.Mui-focused:not(.Mui-error) .MuiOutlinedInput-notchedOutline': {
+            borderColor: ChoreoLabsColors.cobalt,
+          },
         }),
         notchedOutline: ({ theme }: { theme: OxygenTheme }) => ({
           borderWidth: 1,
@@ -340,6 +391,10 @@ const ChoreoLabsThemeConfig = {
           '&:hover': {
             color: theme.vars.palette.primary.dark,
             textDecoration: 'underline',
+          },
+          '&.Mui-focusVisible, &:focus-visible': {
+            outline: `2px solid ${ChoreoLabsColors.cobalt}`,
+            outlineOffset: 2,
           },
           ...theme.applyStyles('light', {
             color: theme.vars.palette.primary.dark,

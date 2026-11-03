@@ -50,6 +50,22 @@ describe('ChoreoLabsTheme', () => {
     expect(primary.darkChannel).toBe('196 51 0');
   });
 
+  it.each([
+    ['light', { info: '#0B1633', success: '#16A34A', warning: '#F5B300', error: '#E5484D' }],
+    ['dark', { info: '#FFFFFF', success: '#4ADE80', warning: '#FCD34D', error: '#FF7A7F' }],
+  ] as const)('uses the brand status colours in the %s scheme', (scheme, colors) => {
+    const { palette } = ChoreoLabsTheme.colorSchemes[scheme]!;
+
+    expect(palette.info.main).toBe(colors.info);
+    expect(palette.success.main).toBe(colors.success);
+    expect(palette.warning.main).toBe(colors.warning);
+    expect(palette.error.main).toBe(colors.error);
+  });
+
+  it('uses Fog for light-mode hairlines', () => {
+    expect(ChoreoLabsTheme.colorSchemes.light!.palette.divider).toBe('#D7DBE4');
+  });
+
   it('sets Sora on every typography variant', () => {
     const typography = ChoreoLabsTheme.typography as unknown as Record<string, TypographyVariantsOptions>;
     const variants = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'body1', 'body2', 'button', 'caption', 'overline'];
