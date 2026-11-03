@@ -1,5 +1,24 @@
 # @wso2/oxygen-ui
 
+## 0.20.0
+
+### Minor Changes
+
+- [#672](https://github.com/wso2/oxygen-ui/pull/672) [`86bb2f6`](https://github.com/wso2/oxygen-ui/commit/86bb2f6e8bb92a2620b78972acf87c7e854c2782) Thanks [@savindi7](https://github.com/savindi7)! - Add `ChoreoLabsTheme`, a copy of `AcrylicOrangeTheme` with the Choreo Labs brand colours and the Sora typeface. The brand uses no gradients, so the page background, primary buttons and dark-mode surfaces are flat. Sora is bundled from `@fontsource-variable/sora` alongside Inter.
+
+  Existing themes and the default theme are unchanged. To use the new theme, pass it to the provider: `<OxygenUIThemeProvider theme={ChoreoLabsTheme}>`.
+
+- [#626](https://github.com/wso2/oxygen-ui/pull/626) [`fd6cf78`](https://github.com/wso2/oxygen-ui/commit/fd6cf786ce7841f9bd44da806bad9e7314511870) Thanks [@ajirthan](https://github.com/ajirthan)! - Add `ContextSwitcher` as ComplexSelect levels in an AppBreadcrumbs chain. With Back, earlier levels stay visible and Back is joined to the current level. A loading level keeps its label. AppBreadcrumbs accepts a field node per item and a custom separator.
+
+- [#673](https://github.com/wso2/oxygen-ui/pull/673) [`cfa8a0c`](https://github.com/wso2/oxygen-ui/commit/cfa8a0c4ba5c711846fda3fcd37f4f26ee5de845) Thanks [@aruniw](https://github.com/aruniw)! - Add a `width` prop to `SearchBar`. `width="standard"` sizes search to 400px, shrinking in narrower containers, so list and grid page search is the same size across the product. `fullWidth` takes precedence when both are set.
+
+### Patch Changes
+
+- [#673](https://github.com/wso2/oxygen-ui/pull/673) [`cfa8a0c`](https://github.com/wso2/oxygen-ui/commit/cfa8a0c4ba5c711846fda3fcd37f4f26ee5de845) Thanks [@aruniw](https://github.com/aruniw)! - Update the AI guidance so the primary action, such as "Add user", goes in `PageTitle.Actions` at the top right of the page header, vertically centered with the title block (header and subheader), instead of in the table toolbar.
+
+- Updated dependencies []:
+  - @wso2/oxygen-ui-icons-react@0.20.0
+
 ## 0.19.0
 
 ### Minor Changes
