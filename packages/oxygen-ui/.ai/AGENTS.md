@@ -54,7 +54,7 @@ import { DataGrid, DatePickers, TreeView } from '@wso2/oxygen-ui';
 - `OxygenTheme` - Default theme (recommended)
 - `AcrylicOrangeTheme` - Orange accent variant
 - `AcrylicPurpleTheme` - Purple accent variant
-- `ChoreoTheme` - Choreo product theme (indigo-violet gradient)
+- `ChoreoLabsTheme` - Choreo Labs brand theme (Acrylic look with Choreo Labs colours and Sora font)
 - `ClassicTheme` - Traditional styling
 - `HighContrastTheme` - Accessibility-focused
 - `PaleBaseTheme` - Minimal color palette

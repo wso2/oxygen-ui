@@ -232,7 +232,7 @@ export const Integrate: Story = {
                 ['OxygenTheme', 'Default theme — recommended starting point'],
                 ['AcrylicOrangeTheme', 'Warm orange accent'],
                 ['AcrylicPurpleTheme', 'Rich purple accent'],
-                ['ChoreoTheme', 'Choreo product theme with indigo-violet gradient'],
+                ['ChoreoLabsTheme', 'Choreo Labs brand colours and Sora font on the Acrylic look'],
                 ['ClassicTheme', 'Traditional, conservative styling'],
                 ['HighContrastTheme', 'Accessibility-focused high contrast'],
                 ['PaleGrayTheme', 'Soft neutral gray palette'],
@@ -473,7 +473,7 @@ export const UseAIToGenerateUIs: Story = {
               'Create an AppShell layout with a sidebar, header with user menu, and a dashboard page showing stat cards.',
               'Build a user management page with a ListingTable, search bar, and a "Create User" dialog using Form.Wizard.',
               'Add a BarChart showing monthly signups using @wso2/oxygen-ui-charts-react.',
-              'Switch my app to the ChoreoTheme and add a ColorSchemeToggle to the header.',
+              'Switch my app to the ChoreoLabsTheme and add a ColorSchemeToggle to the header.',
             ].map((prompt, i) => (
               <Paper
                 key={i}
