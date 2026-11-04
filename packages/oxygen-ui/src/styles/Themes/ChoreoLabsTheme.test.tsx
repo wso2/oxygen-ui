@@ -18,7 +18,7 @@
 
 import { describe, it, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
-import { AppBar, Button, Card, Dialog, Fab, Paper } from '@mui/material';
+import { AppBar, Button, Card, Dialog, Fab, FilledInput, Input, OutlinedInput, Paper } from '@mui/material';
 import type { TypographyVariantsOptions } from '@mui/material/styles';
 import OxygenUIThemeProvider from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
 import { ChoreoLabsTheme, OxygenTheme } from './index';
@@ -50,6 +50,42 @@ describe('ChoreoLabsTheme', () => {
     expect(primary.darkChannel).toBe('196 51 0');
   });
 
+  it.each([
+    ['light', { info: '#0B1633', success: '#16A34A', warning: '#F5B300', error: '#E5484D' }],
+    ['dark', { info: '#FFFFFF', success: '#4ADE80', warning: '#FCD34D', error: '#FF7A7F' }],
+  ] as const)('uses the brand status colours in the %s scheme', (scheme, colors) => {
+    const { palette } = ChoreoLabsTheme.colorSchemes[scheme]!;
+
+    expect(palette.info.main).toBe(colors.info);
+    expect(palette.success.main).toBe(colors.success);
+    expect(palette.warning.main).toBe(colors.warning);
+    expect(palette.error.main).toBe(colors.error);
+  });
+
+  it('uses White surfaces on the Paper content background in light mode, with Fog hairlines', () => {
+    const { palette } = ChoreoLabsTheme.colorSchemes.light!;
+
+    expect(palette.background.default).toBe('#F4F6FA');
+    expect(palette.background.acrylic).toBe('#FFFFFF');
+    expect(palette.divider).toBe('#D7DBE4');
+  });
+
+  it.each([
+    ['light', { success: ['#15803D', '#DCFCE7'], warning: ['#8A5A00', '#FEF6D8'], error: ['#B42318', '#FDE7E7'] }],
+    ['dark', { success: ['#4ADE80', '#0B1633'], warning: ['#FCD34D', '#0B1633'], error: ['#FF7A7F', '#0B1633'] }],
+  ] as const)('uses the guideline alert text and wash in the %s scheme', (scheme, colors) => {
+    const { Alert } = ChoreoLabsTheme.colorSchemes[scheme]!.palette;
+
+    (['success', 'warning', 'error'] as const).forEach((status) => {
+      expect(Alert[`${status}Color`]).toBe(colors[status][0]);
+      expect(Alert[`${status}StandardBg`]).toBe(colors[status][1]);
+    });
+  });
+
+  it('fills dark-mode info alerts with Deep Navy', () => {
+    expect(ChoreoLabsTheme.colorSchemes.dark!.palette.Alert.infoFilledBg).toBe('#17223A');
+  });
+
   it('sets Sora on every typography variant', () => {
     const typography = ChoreoLabsTheme.typography as unknown as Record<string, TypographyVariantsOptions>;
     const variants = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'body1', 'body2', 'button', 'caption', 'overline'];
@@ -67,7 +103,6 @@ describe('ChoreoLabsTheme', () => {
   });
 });
 
-// The Choreo Labs brand uses no gradients.
 describe('ChoreoLabsTheme gradients', () => {
   afterEach(() => {
     cleanup();
@@ -99,5 +134,40 @@ describe('ChoreoLabsTheme gradients', () => {
         expect(backgroundImages[backgroundImages.length - 1]).toBe('background-image:none');
       }
     });
+  });
+});
+
+describe('ChoreoLabsTheme states', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
+  const renderedCss = () => Array.from(document.querySelectorAll('style')).map((style) => style.textContent).join('');
+
+  it('uses Flare on hover and Ember with a white label when pressed on primary buttons', () => {
+    render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Button variant="contained">Contained</Button>
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+
+    expect(css).toMatch(/:hover\{background:#FF6E33\s*!important;/);
+    expect(css).toMatch(/:active\{background:#8F2400\s*!important;color:#FFFFFF\s*!important;/);
+  });
+
+  it('uses Cobalt for focus on every input variant', () => {
+    render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <OutlinedInput />
+        <FilledInput />
+        <Input />
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+
+    expect(css).toMatch(/OutlinedInput-root\.Mui-focused:not\(\.Mui-error\) \.MuiOutlinedInput-notchedOutline\{border-color:#1F4FFF;/);
+    expect(css).toMatch(/FilledInput-root:not\(\.Mui-error\)::after\{border-bottom-color:#1F4FFF;/);
+    expect(css).toMatch(/MuiInput-root:not\(\.Mui-error\)::after\{border-bottom-color:#1F4FFF;/);
   });
 });
