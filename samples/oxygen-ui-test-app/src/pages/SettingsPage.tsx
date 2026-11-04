@@ -56,6 +56,7 @@ import {
   CreditCard,
 } from '@wso2/oxygen-ui-icons-react'
 import { useState, type JSX } from 'react'
+import SmoothNavHighlight from '../components/SmoothNavHighlight'
 
 export default function SettingsPage(): JSX.Element {
   const [activeTab, setActiveTab] = useState(0)
@@ -127,22 +128,43 @@ export default function SettingsPage(): JSX.Element {
       )}
 
       <Box sx={{ display: 'flex', gap: 3 }}>
-        <Card variant="outlined" sx={{ width: 280, height: 'fit-content'}}>
-          <CardContent sx={{ p: 3 }}>
-            <Tabs
-              orientation="vertical"
-              value={activeTab}
-              onChange={(_, newValue) => setActiveTab(newValue)}
-            >
-              <Tab icon={<Building2 size={18} />} iconPosition="start" label="General" />
-              <Tab icon={<Palette size={18} />} iconPosition="start" label="Appearance" />
-              <Tab icon={<Bell size={18} />} iconPosition="start" label="Notifications" />
-              <Tab icon={<Shield size={18} />} iconPosition="start" label="Security" />
-              <Tab icon={<Users size={18} />} iconPosition="start" label="Members" />
-              <Tab icon={<Key size={18} />} iconPosition="start" label="API Keys" />
-              <Tab icon={<CreditCard size={18} />} iconPosition="start" label="Billing" />
-              <Tab icon={<Trash2 size={18} />} iconPosition="start" label="Danger Zone" />
-            </Tabs>
+        <Card variant="outlined" sx={{ width: 280, height: 'fit-content' }}>
+          <CardContent sx={{ p: 2 }}>
+            <SmoothNavHighlight targetSelector=".MuiTab-root" activeSelector=".Mui-selected">
+              <Tabs
+                orientation="vertical"
+                value={activeTab}
+                onChange={(_, newValue) => setActiveTab(newValue)}
+                sx={{
+                  '& .MuiTabs-indicator': {
+                    display: 'none',
+                  },
+                  '& .MuiTab-root': {
+                    justifyContent: 'flex-start',
+                    minHeight: 44,
+                    borderRadius: 1,
+                    textTransform: 'none',
+                    px: 2,
+                    fontWeight: 500,
+                    textAlign: 'left',
+                    color: 'text.secondary',
+                    '&.Mui-selected': {
+                      color: (theme) => (theme.vars || theme).palette.primary.main,
+                      fontWeight: 600,
+                    },
+                  },
+                }}
+              >
+                <Tab icon={<Building2 size={18} />} iconPosition="start" label="General" />
+                <Tab icon={<Palette size={18} />} iconPosition="start" label="Appearance" />
+                <Tab icon={<Bell size={18} />} iconPosition="start" label="Notifications" />
+                <Tab icon={<Shield size={18} />} iconPosition="start" label="Security" />
+                <Tab icon={<Users size={18} />} iconPosition="start" label="Members" />
+                <Tab icon={<Key size={18} />} iconPosition="start" label="API Keys" />
+                <Tab icon={<CreditCard size={18} />} iconPosition="start" label="Billing" />
+                <Tab icon={<Trash2 size={18} />} iconPosition="start" label="Danger Zone" />
+              </Tabs>
+            </SmoothNavHighlight>
           </CardContent>
         </Card>
 
@@ -298,14 +320,16 @@ export default function SettingsPage(): JSX.Element {
                   <FormControl>
                     <FormLabel>Language</FormLabel>
                     <Autocomplete
-                      value={{ value: appearanceSettings.language, label: {
-                        en: 'English',
-                        es: 'Spanish',
-                        fr: 'French',
-                        de: 'German',
-                        ja: 'Japanese',
-                        zh: 'Chinese'
-                      }[appearanceSettings.language] || 'English' }}
+                      value={{
+                        value: appearanceSettings.language, label: {
+                          en: 'English',
+                          es: 'Spanish',
+                          fr: 'French',
+                          de: 'German',
+                          ja: 'Japanese',
+                          zh: 'Chinese'
+                        }[appearanceSettings.language] || 'English'
+                      }}
                       onChange={(_, newValue) => {
                         if (newValue) {
                           setAppearanceSettings({ ...appearanceSettings, language: newValue.value })
