@@ -42,7 +42,11 @@ const recommendedConfig: Linter.Config = {
       'error',
       {
         suggestedPackage: '@oxygen-ui/react',
-        allowedPackages: ['@mui/x-data-grid', '@mui/x-date-pickers'],
+        suggestedPackageByPrefix: {
+          '@mui/x-data-grid': '@wso2/oxygen-ui/data-grid',
+          '@mui/x-date-pickers': '@wso2/oxygen-ui/date-pickers',
+          '@mui/x-tree-view': '@wso2/oxygen-ui/tree-view',
+        },
       },
     ],
     '@oxygen-ui/no-direct-lucide-imports': [

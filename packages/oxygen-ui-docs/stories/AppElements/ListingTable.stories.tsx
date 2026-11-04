@@ -19,7 +19,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import {
   ListingTable,
-  DataGrid,
   Button,
   Checkbox,
   Chip,
@@ -33,6 +32,7 @@ import {
   TextField,
   useListingTable,
 } from '@wso2/oxygen-ui';
+import { DataGrid } from '@wso2/oxygen-ui/data-grid';
 import type { ListingTableDensity, ListingTableDataGridProps, ListingTableSortDirection, ListingTableVariant } from '@wso2/oxygen-ui';
 import {
   Edit,
@@ -986,9 +986,7 @@ export const DataGridVariant: Story = {
     },
   },
   render: (args) => {
-    const { DataGrid: MuiDataGrid } = DataGrid;
-
-    const columns: React.ComponentProps<typeof MuiDataGrid>['columns'] = [
+    const columns: React.ComponentProps<typeof DataGrid>['columns'] = [
       {
         field: 'name',
         headerName: 'Name',
@@ -1055,14 +1053,12 @@ export const DataGridVariant: Story = {
 export const DataGridRowActions: Story = {
   name: 'DataGrid Row Actions',
   render: () => {
-    const { DataGrid: MuiDataGrid } = DataGrid;
-
     const handleAction = (action: string, id: string, e: React.MouseEvent) => {
       e.stopPropagation();
       console.log(`${action}:`, id);
     };
 
-    const columns: React.ComponentProps<typeof MuiDataGrid>['columns'] = [
+    const columns: React.ComponentProps<typeof DataGrid>['columns'] = [
       {
         field: 'name',
         headerName: 'Name',
@@ -1177,9 +1173,7 @@ export const DataGridCardVariant: Story = {
     },
   },
   render: (args) => {
-    const { DataGrid: MuiDataGrid } = DataGrid;
-
-    const columns: React.ComponentProps<typeof MuiDataGrid>['columns'] = [
+    const columns: React.ComponentProps<typeof DataGrid>['columns'] = [
       {
         field: 'name',
         headerName: 'Name',
@@ -1251,12 +1245,11 @@ export const DataGridCardVariant: Story = {
 export const DataGridWithProvider: Story = {
   name: 'DataGrid With Provider',
   render: () => {
-    const { DataGrid: MuiDataGrid } = DataGrid;
     const [searchValue, setSearchValue] = useState('');
     const [density, setDensity] = useState<ListingTableDensity>('standard');
     const [loading, setLoading] = useState(false);
 
-    const columns: React.ComponentProps<typeof MuiDataGrid>['columns'] = [
+    const columns: React.ComponentProps<typeof DataGrid>['columns'] = [
       {
         field: 'name',
         headerName: 'Name',
