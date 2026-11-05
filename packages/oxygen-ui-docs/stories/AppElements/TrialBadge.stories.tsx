@@ -87,6 +87,32 @@ const sectionedUsage = {
   onUpgrade: () => undefined,
 };
 
+const nestedUsage = {
+  sections: [
+    {
+      title: 'Managed Interfaces',
+      totalSuffix: 'used',
+      items: [{ label: 'APIs', count: 5, limit: 5 }],
+    },
+    {
+      title: 'Infrastructure',
+      groups: [
+        {
+          title: 'Gateways',
+          items: [
+            { label: 'WSO2 Managed', count: 0, limit: 1 },
+            { label: 'Self-Hosted', count: 1, limit: 1 },
+          ],
+        },
+        // Untitled: a plain row, and the only way to place one *below* a titled
+        // group, since a section's own `items` always render first.
+        { items: [{ label: 'Portals', count: 1, limit: 1 }] },
+      ],
+    },
+  ],
+  onUpgrade: () => undefined,
+};
+
 const withRoom = [(Story: React.ComponentType) => <div style={{ minHeight: 520 }}><Story /></div>];
 
 /**
@@ -105,6 +131,22 @@ export const WithUsagePanel: Story = {
  */
 export const WithUsagePanelSections: Story = {
   args: { daysLeft: 10, usage: sectionedUsage },
+  decorators: withRoom,
+};
+
+/**
+ * Nest a run of related rows under a sub-heading with `section.groups`, keeping them in the
+ * same section as the section's own `items` rather than splitting them into a section of their
+ * own. The section total counts every row, grouped and loose alike.
+ *
+ * A group with no `title` renders its rows plainly. Since a section's own `items` always come
+ * first, that is how a plain row is placed *below* a titled group — as "Portals" is here.
+ *
+ * The indent comes out of the label column, which is already `noWrap` — keep a grouped row's
+ * label short ("WSO2 Managed", not "WSO2 Managed Gateways") or it truncates.
+ */
+export const WithUsagePanelNestedGroups: Story = {
+  args: { daysLeft: 10, usage: nestedUsage },
   decorators: withRoom,
 };
 

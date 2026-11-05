@@ -115,6 +115,35 @@ export interface TrialBadgeUsageItem {
 }
 
 /**
+ * A run of resources inside a section, optionally under a sub-heading.
+ *
+ * One level only: a group holds rows, never further groups. Use a titled group
+ * to name a related run of rows ("Gateways") without promoting them to a
+ * section of their own, which would separate them from the rest of their
+ * section.
+ *
+ * An untitled group renders its rows plainly — no sub-heading, no indent, the
+ * same as a section's own `items`. That is how a section orders its content:
+ * loose `items` always come first, so a plain row that must follow a titled
+ * group goes in a trailing untitled group instead.
+ */
+export interface TrialBadgeUsageGroup {
+  /**
+   * Stable key for the group. Falls back to the title.
+   */
+  key?: string
+  /**
+   * Sub-heading shown above the group's rows, which are indented beneath it.
+   * Omit for a plain run of rows with no sub-heading.
+   */
+  title?: React.ReactNode
+  /**
+   * The resources to list in this group.
+   */
+  items: TrialBadgeUsageItem[]
+}
+
+/**
  * A titled group of resources in the usage panel.
  */
 export interface TrialBadgeUsageSection {
@@ -127,12 +156,21 @@ export interface TrialBadgeUsageSection {
    */
   title: React.ReactNode
   /**
-   * The resources to list. The section total is the sum of their counts and limits.
+   * The resources listed directly under the section heading, above any `groups`.
+   * Optional so a section can hold nothing but groups.
    */
-  items: TrialBadgeUsageItem[]
+  items?: TrialBadgeUsageItem[]
+  /**
+   * Further runs of rows, rendered in order after `items`. A group may carry a
+   * sub-heading or not; an untitled one is the way to place a plain row below a
+   * titled group.
+   */
+  groups?: TrialBadgeUsageGroup[]
   /**
    * Text after the section total, e.g. `left` gives "14 of 30 left".
    * The total is shown only when this is passed.
+   *
+   * The total covers every row in the section, `groups` included.
    */
   totalSuffix?: React.ReactNode
 }
@@ -244,6 +282,61 @@ const sumOf = (items: TrialBadgeUsageItem[], pick: (item: TrialBadgeUsageItem) =
   items.reduce((sum, item) => sum + Math.max(0, pick(item)), 0)
 
 /**
+ * Every row a section draws, loose ones and grouped ones alike.
+ *
+ * A section's total has to count the rows nested in its groups: a section that
+ * holds nothing but groups would otherwise total "0 of 0" while displaying a
+ * full set of bars.
+ */
+const itemsOf = (section: TrialBadgeUsageSection): TrialBadgeUsageItem[] =>
+  ([] as TrialBadgeUsageItem[]).concat(section.items ?? [], ...(section.groups ?? []).map(group => group.items))
+
+/**
+ * One resource's row: label, bar, and `count/limit`.
+ *
+ * Shared by a section's loose rows and its groups' rows, so both are measured
+ * and colored the same way wherever they sit.
+ */
+const TrialBadgeUsageRow: React.FC<{
+  item: TrialBadgeUsageItem
+  warningThreshold: number
+  criticalThreshold: number
+}> = ({ item, warningThreshold, criticalThreshold }) => {
+  const count = Math.max(0, item.count)
+  const tone = getUsageTone(count, item.limit, warningThreshold, criticalThreshold)
+  const value = item.limit > 0 ? Math.min(100, (count / item.limit) * 100) : 0
+  const label = typeof item.label === 'string' ? item.label : undefined
+  return (
+    <Box
+      data-tone={tone}
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 80px 32px',
+        alignItems: 'center',
+        columnGap: 1.5,
+      }}
+    >
+      <Typography variant="caption" color="text.secondary" noWrap sx={{ fontSize: '0.75rem' }}>
+        {item.label}
+      </Typography>
+      <LinearProgress
+        variant="determinate"
+        value={value}
+        color={tone}
+        aria-label={label ?? 'Usage'}
+        sx={{ height: 4, borderRadius: 999, bgcolor: 'action.hover' }}
+      />
+      <Typography variant="caption" color="text.secondary" sx={{ textAlign: 'right', fontSize: '0.75rem' }}>
+        <Box component="span" sx={{ fontWeight: 700, color: 'text.primary' }}>
+          {count}
+        </Box>
+        /{item.limit}
+      </Typography>
+    </Box>
+  )
+}
+
+/**
  * Panel listing the usage of each resource, in titled sections. Rendered next to the badge, not
  * inside it, so its button is not nested in the badge's own button.
  */
@@ -260,7 +353,7 @@ const TrialBadgeUsagePanel: React.FC<{ usage: TrialBadgeUsage }> = ({ usage }) =
   const sections: TrialBadgeUsageSection[] = usage.sections ?? [
     { title: usage.title ?? 'Components left', items: usage.items ?? [], totalSuffix: usage.totalSuffix },
   ]
-  const allItems = ([] as TrialBadgeUsageItem[]).concat(...sections.map(section => section.items))
+  const allItems = ([] as TrialBadgeUsageItem[]).concat(...sections.map(itemsOf))
   // The button is colored by the combined share across every section.
   const totalTone = getUsageTone(
     sumOf(allItems, item => item.count),
@@ -313,8 +406,9 @@ const TrialBadgeUsagePanel: React.FC<{ usage: TrialBadgeUsage }> = ({ usage }) =
         }}
       />
       {sections.map((section, index) => {
-        const sectionCount = sumOf(section.items, item => item.count)
-        const sectionLimit = sumOf(section.items, item => item.limit)
+        const sectionItems = itemsOf(section)
+        const sectionCount = sumOf(sectionItems, item => item.count)
+        const sectionLimit = sumOf(sectionItems, item => item.limit)
         return (
           <CardContent
             key={section.key ?? textOf(section.title) ?? index}
@@ -342,41 +436,48 @@ const TrialBadgeUsagePanel: React.FC<{ usage: TrialBadgeUsage }> = ({ usage }) =
               ) : null}
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-              {section.items.map((item, itemIndex) => {
-                const count = Math.max(0, item.count)
-                const tone = getUsageTone(count, item.limit, warningThreshold, criticalThreshold)
-                const value = item.limit > 0 ? Math.min(100, (count / item.limit) * 100) : 0
+              {(section.items ?? []).map((item, itemIndex) => (
+                <TrialBadgeUsageRow
+                  key={item.key ?? textOf(item.label) ?? itemIndex}
+                  item={item}
+                  warningThreshold={warningThreshold}
+                  criticalThreshold={criticalThreshold}
+                />
+              ))}
+              {(section.groups ?? []).map((group, groupIndex) => {
+                const rows = group.items.map((item, itemIndex) => (
+                  <TrialBadgeUsageRow
+                    key={item.key ?? textOf(item.label) ?? itemIndex}
+                    item={item}
+                    warningThreshold={warningThreshold}
+                    criticalThreshold={criticalThreshold}
+                  />
+                ))
+                // No sub-heading means nothing to label or indent against: the rows
+                // read as part of the section itself, just later in the order.
+                if (group.title == null) {
+                  return (
+                    <React.Fragment key={group.key ?? groupIndex}>{rows}</React.Fragment>
+                  )
+                }
                 return (
                   <Box
-                    key={item.key ?? textOf(item.label) ?? itemIndex}
-                    data-tone={tone}
-                    sx={{
-                      display: 'grid',
-                      gridTemplateColumns: '1fr 80px 32px',
-                      alignItems: 'center',
-                      columnGap: 1.5,
-                    }}
+                    key={group.key ?? textOf(group.title) ?? groupIndex}
+                    role="group"
+                    aria-label={textOf(group.title)}
                   >
-                    <Typography variant="caption" color="text.secondary" noWrap sx={{ fontSize: '0.75rem' }}>
-                      {item.label}
-                    </Typography>
-                    <LinearProgress
-                      variant="determinate"
-                      value={value}
-                      color={tone}
-                      aria-label={textOf(item.label) ?? 'Usage'}
-                      sx={{ height: 4, borderRadius: 999, bgcolor: 'action.hover' }}
-                    />
+                    {/* Same weight and color as the rows it labels: the indent and the
+                        absent bar already mark it as a heading rather than a resource. */}
                     <Typography
                       variant="caption"
                       color="text.secondary"
-                      sx={{ textAlign: 'right', fontSize: '0.75rem' }}
+                      sx={{ display: 'block', fontSize: '0.75rem', mb: 1 }}
                     >
-                      <Box component="span" sx={{ fontWeight: 700, color: 'text.primary' }}>
-                        {count}
-                      </Box>
-                      /{item.limit}
+                      {group.title}
                     </Typography>
+                    {/* The indent comes out of the label column, which is already `noWrap`:
+                        a grouped label truncates sooner than a loose one, so keep them short. */}
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, pl: 1.5 }}>{rows}</Box>
                   </Box>
                 )
               })}
