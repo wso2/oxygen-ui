@@ -376,6 +376,34 @@ describe('LogViewer', () => {
       await waitFor(() => expect(screen.queryByText('maria')).toBeNull());
     });
 
+    it('keeps the details in the page while the entry closes, so closing animates like opening', async () => {
+      renderWithTheme(<LogViewer entries={withDetails} />);
+      const toggle = toggleFor('1');
+      fireEvent.click(toggle);
+      expect(screen.getByText('maria')).not.toBeNull();
+
+      fireEvent.click(toggle);
+      // The entry reports itself closed at once, and the details leave only after they have finished closing.
+      expect(toggle.getAttribute('aria-expanded')).toBe('false');
+      expect(screen.queryByText('maria')).not.toBeNull();
+      await waitFor(() => expect(screen.queryByText('maria')).toBeNull());
+    });
+
+    it('keeps the details when the entry is opened again while it is still closing', async () => {
+      renderWithTheme(<LogViewer entries={withDetails} />);
+      const toggle = toggleFor('1');
+      fireEvent.click(toggle);
+      fireEvent.click(toggle);
+      fireEvent.click(toggle);
+      expect(toggle.getAttribute('aria-expanded')).toBe('true');
+
+      await act(async () => {
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      });
+      expect(toggle.getAttribute('aria-expanded')).toBe('true');
+      expect(screen.queryByText('maria')).not.toBeNull();
+    });
+
     describe('a click that selects text', () => {
       const isOpen = (id: string) => toggleFor(id).getAttribute('aria-expanded') === 'true';
       const textOf = (id: string) => within(rowOf(id)).getByText(`message ${id}`);

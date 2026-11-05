@@ -330,6 +330,13 @@ const LogRow: React.FC<LogRowProps> = ({
     }
   };
 
+  // The details stay in the page until they have finished closing, so that closing is animated like opening. They are
+  // taken out of the page when the close transition ends.
+  const [detailsMounted, setDetailsMounted] = React.useState(open);
+  React.useEffect(() => {
+    if (open) setDetailsMounted(true);
+  }, [open]);
+
   const link = getEntryLink?.(entry);
   const copyLink = async () => {
     try {
@@ -471,9 +478,9 @@ const LogRow: React.FC<LogRowProps> = ({
         })}
       </ListingTableRow>
 
-      {expandable && open && (
+      {expandable && (open || detailsMounted) && (
         <FullRow columnCount={columns.length}>
-          <Collapse in appear timeout="auto">
+          <Collapse in={open} appear timeout="auto" onExited={() => setDetailsMounted(false)}>
             <Box
               id={detailsId}
               role="region"
