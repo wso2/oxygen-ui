@@ -90,15 +90,18 @@ export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps
           endAdornment: endAdornment,
         },
       }}
-      sx={{
-        '& .MuiOutlinedInput-root': {
-          height: 40,
+      sx={[
+        {
+          '& .MuiOutlinedInput-root': {
+            height: 40,
+          },
+          '& .MuiInputBase-input': {
+            padding: '8.5px 14px',
+          },
         },
-        '& .MuiInputBase-input': {
-          padding: '8.5px 14px',
-        },
-        ...sx,
-      }}
+        // Spreading `sx` would turn an array of styles into numbered keys and lose them all.
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
     />
   )
 })
