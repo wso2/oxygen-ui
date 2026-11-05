@@ -141,6 +141,139 @@ describe('TrialBadge', () => {
       expect(screen.getByText('Rest APIs')).toBeTruthy();
     });
 
+    it('nests a group under its section heading, with its rows indented below it', () => {
+      const { container } = renderBadge({
+        daysLeft: 10,
+        usage: {
+          sections: [
+            {
+              title: 'Infrastructure',
+              items: [{ label: 'Portals', count: 1, limit: 1 }],
+              groups: [
+                {
+                  title: 'Gateways',
+                  items: [
+                    { label: 'WSO2 Managed', count: 0, limit: 1 },
+                    { label: 'Self-Hosted', count: 1, limit: 1 },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      });
+
+      fireEvent.mouseEnter(container.firstElementChild as Element);
+
+      expect(screen.getByText('Infrastructure')).toBeTruthy();
+      expect(screen.getByRole('group', { name: 'Gateways' })).toBeTruthy();
+      // The group's rows live inside it; the section's loose row does not.
+      const group = screen.getByRole('group', { name: 'Gateways' });
+      expect(group.textContent).toContain('WSO2 Managed');
+      expect(group.textContent).toContain('Self-Hosted');
+      expect(group.textContent).not.toContain('Portals');
+      expect(screen.getByText('Portals')).toBeTruthy();
+    });
+
+    it('counts grouped rows in the section total, not just the loose ones', () => {
+      const { container } = renderBadge({
+        daysLeft: 10,
+        usage: {
+          sections: [
+            {
+              title: 'Infrastructure',
+              totalSuffix: 'used',
+              // Every row is nested: summing section.items alone would read "0 of 0".
+              groups: [
+                {
+                  title: 'Gateways',
+                  items: [
+                    { label: 'WSO2 Managed', count: 0, limit: 1 },
+                    { label: 'Self-Hosted', count: 1, limit: 1 },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      });
+
+      fireEvent.mouseEnter(container.firstElementChild as Element);
+
+      expect(screen.getByText(/of 2 used/)).toBeTruthy();
+      expect(screen.queryByText(/of 0 used/)).toBeNull();
+    });
+
+    it('colors the upgrade button from grouped rows as well as loose ones', () => {
+      const { container } = renderBadge({
+        daysLeft: 10,
+        usage: {
+          // Loose rows alone are 0/2 (green); counting the group takes it to 4/6, over
+          // the 0.5 warning threshold. Green here would mean the group was ignored.
+          sections: [
+            {
+              title: 'Infrastructure',
+              items: [{ label: 'Portals', count: 0, limit: 2 }],
+              groups: [{ title: 'Gateways', items: [{ label: 'WSO2 Managed', count: 4, limit: 4 }] }],
+            },
+          ],
+        },
+      });
+
+      fireEvent.mouseEnter(container.firstElementChild as Element);
+
+      expect(screen.getByRole('button', { name: /Upgrade/ }).getAttribute('data-tone')).toBe('warning');
+    });
+
+    it('renders a section\'s loose rows above its groups', () => {
+      const { container } = renderBadge({
+        daysLeft: 10,
+        usage: {
+          sections: [
+            {
+              title: 'Infrastructure',
+              items: [{ label: 'Portals', count: 1, limit: 1 }],
+              groups: [{ title: 'Gateways', items: [{ label: 'WSO2 Managed', count: 0, limit: 1 }] }],
+            },
+          ],
+        },
+      });
+
+      fireEvent.mouseEnter(container.firstElementChild as Element);
+
+      // The panel Card carries the first section's title too, so match the inner one.
+      const groups = screen.getAllByRole('group', { name: 'Infrastructure' });
+      const order = groups[groups.length - 1].textContent ?? '';
+      expect(order.indexOf('Portals')).toBeLessThan(order.indexOf('Gateways'));
+    });
+
+    it('renders an untitled group as plain rows, after a titled one', () => {
+      const { container } = renderBadge({
+        daysLeft: 10,
+        usage: {
+          sections: [
+            {
+              title: 'Infrastructure',
+              groups: [
+                { title: 'Gateways', items: [{ label: 'WSO2 Managed', count: 0, limit: 1 }] },
+                { items: [{ label: 'Portals', count: 1, limit: 1 }] },
+              ],
+            },
+          ],
+        },
+      });
+
+      fireEvent.mouseEnter(container.firstElementChild as Element);
+
+      // No sub-heading of its own, and outside the titled group's subtree.
+      expect(screen.getByRole('group', { name: 'Gateways' }).textContent).not.toContain('Portals');
+      expect(screen.getByText('Portals')).toBeTruthy();
+
+      const groups = screen.getAllByRole('group', { name: 'Infrastructure' });
+      const order = groups[groups.length - 1].textContent ?? '';
+      expect(order.indexOf('Gateways')).toBeLessThan(order.indexOf('Portals'));
+    });
+
     it('shows a section total only when totalSuffix is passed', () => {
       const { container } = renderBadge({
         daysLeft: 10,

@@ -70,6 +70,7 @@ export type {
   TrialBadgeProps,
   TrialBadgeStatus,
   TrialBadgeUsage,
+  TrialBadgeUsageGroup,
   TrialBadgeUsageItem,
   TrialBadgeUsageSection,
   TrialBadgeUsageTone,
