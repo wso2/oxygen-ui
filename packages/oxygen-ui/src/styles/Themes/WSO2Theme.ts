@@ -281,6 +281,17 @@ const WSO2ThemeConfig = {
         }),
       },
     },
+    MuiFormLabel: {
+      styleOverrides: {
+        asterisk: ({ theme }: { theme: OxygenTheme }) => ({
+          color: theme.vars.palette.error.main,
+          // error.main is 3.35:1 on navy; orange 400 is the nearest brand red that passes (5.82:1)
+          ...theme.applyStyles('dark', {
+            color: orange[400],
+          }),
+        }),
+      },
+    },
     MuiPaper: {
       styleOverrides: {
         root: ({ theme }: { theme: OxygenTheme }) => ({

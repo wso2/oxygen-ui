@@ -17,7 +17,7 @@
  */
 
 import * as React from 'react';
-import { describe, it, expect, afterEach } from 'vitest';
+import { describe, it, expect, afterEach, vi } from 'vitest';
 import { render, cleanup, screen, fireEvent } from '@testing-library/react';
 import MenuItem from '@mui/material/MenuItem';
 import OxygenUIThemeProvider from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
@@ -59,12 +59,15 @@ describe('TextField', () => {
     expect(container.querySelector('.MuiInputBase-inputHiddenLabel')).not.toBeNull();
   });
 
-  it('colours the top label while the field has focus', () => {
-    renderWithTheme(<TextField labelPlacement="top" label="Name" />);
+  it('keeps the top label colour while the field has focus', () => {
+    const onFocus = vi.fn();
+    const onBlur = vi.fn();
+    renderWithTheme(<TextField labelPlacement="top" label="Name" onFocus={onFocus} onBlur={onBlur} />);
     fireEvent.focus(screen.getByLabelText('Name'));
-    expect(screen.getByText('Name').classList.contains('Mui-focused')).toBe(true);
-    fireEvent.blur(screen.getByLabelText('Name'));
     expect(screen.getByText('Name').classList.contains('Mui-focused')).toBe(false);
+    fireEvent.blur(screen.getByLabelText('Name'));
+    expect(onFocus).toHaveBeenCalledTimes(1);
+    expect(onBlur).toHaveBeenCalledTimes(1);
   });
 
   it('names a select through its top label', () => {
@@ -143,9 +146,10 @@ describe('TextField', () => {
     expect(screen.getByText('Name').classList.contains('MuiFormLabel-colorSecondary')).toBe(true);
   });
 
-  it('honours a focused prop on the top label', () => {
-    renderWithTheme(<TextField labelPlacement="top" label="Name" focused />);
-    expect(screen.getByText('Name').classList.contains('Mui-focused')).toBe(true);
+  it('applies a focused prop to the field but not the top label', () => {
+    const { container } = renderWithTheme(<TextField labelPlacement="top" label="Name" focused />);
+    expect(screen.getByText('Name').classList.contains('Mui-focused')).toBe(false);
+    expect(container.querySelector('.MuiInputBase-root.Mui-focused')).not.toBeNull();
   });
 
   it('adds no (Optional) text without a label', () => {

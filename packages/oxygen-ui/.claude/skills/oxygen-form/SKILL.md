@@ -1,6 +1,6 @@
 ---
 name: oxygen-form
-description: Generate forms with Form.* components and validation. Use when creating input forms, multi-step wizards, or form validation.
+description: Generate forms with Form.* components and validation. Use when creating input forms, multi-step wizards, or form validation. Covers field labels and required-field marking.
 ---
 
 # Generate Oxygen UI Form
@@ -10,7 +10,9 @@ description: Generate forms with Form.* components and validation. Use when crea
 1. Read `.claude/oxygen-ui/components.md` for Form.* API
 2. Use `Form.Section` for grouping fields
 3. Use `Form.Stack` for field layout
-4. Add validation with `error` and `helperText` props
+4. Give every field a fixed label on top with `labelPlacement="top"` (see Field Labels)
+5. Mark each required field with `required`; leave optional fields unmarked
+6. Add validation with `error` and `helperText` props
 
 ## Critical Rules
 
@@ -18,6 +20,8 @@ description: Generate forms with Form.* components and validation. Use when crea
 - Use controlled components with state
 - Show validation errors with `error` and `helperText` props
 - Use theme tokens for spacing
+- Use `labelPlacement="top"` on every `TextField` in a form; never use the floating label in forms
+- Set `required` on every required field; never use the `optional` prop or write "(Optional)" in a label
 - Write all UI text in sentence case (see below)
 
 ## UI Text
@@ -32,11 +36,57 @@ Write all titles, action text, and content in sentence case. Capitalize only the
 - Applies to section headers, labels, placeholders, helper text, error messages, and buttons
 - Write the text in sentence case in the source; never change case with `textTransform: 'uppercase'` or `'capitalize'`
 
+## Field Labels
+
+Forms use a fixed label above the input, not MUI's floating label. `labelPlacement` is an Oxygen UI prop, so import `TextField` from `@wso2/oxygen-ui`; the MUI `TextField` ignores it.
+
+```tsx
+<TextField labelPlacement="top" label="Display name" required />  // required: label shows a red *
+<TextField labelPlacement="top" label="Description" />            // optional: no marker
+```
+
+### Required fields
+
+- The developer marks each required field with the `required` prop. Nothing is required by default
+- `required` draws the red `*` after the label (themed, meets contrast in light and dark) and sets `required` on the native input, so screen readers announce it
+- Do not add a `*` to the label text yourself, and do not color labels red; the theme handles it
+- Keep `required` in sync with validation: every field the form rejects when empty is `required`, and no other field is
+
+### Optional fields
+
+- Leave optional fields unmarked. Do not pass the `optional` prop and do not write "(Optional)" in the label, placeholder, or helper text
+- Do not describe a section as optional in its header or subheader; unmarked fields already read as optional
+
+### Select and Autocomplete
+
+The same rules apply. Use `TextField` with `select`, or pass `labelPlacement="top"` and `required` to the `TextField` in `renderInput`:
+
+```tsx
+<TextField select labelPlacement="top" label="Role" required value={role} onChange={...}>
+  <MenuItem value="developer">Developer</MenuItem>
+</TextField>
+
+<Autocomplete
+  options={countries}
+  renderInput={(params) => <TextField {...params} labelPlacement="top" label="Country" required />}
+/>
+```
+
+### Do and don't
+
+```text
+✓ <TextField labelPlacement="top" label="Email" required />
+✗ <TextField label="Email" required />                       floating label in a form
+✗ <TextField labelPlacement="top" label="Email *" />         hand-written asterisk
+✗ <TextField labelPlacement="top" label="Phone" optional />  optional marker
+✗ <TextField labelPlacement="top" label="Phone (Optional)" />
+```
+
 ## Basic Form
 
 ```tsx
 import { useState } from 'react';
-import { Box, TextField, Button, Alert } from '@wso2/oxygen-ui';
+import { Box, Form, TextField, Button } from '@wso2/oxygen-ui';
 
 function BasicForm() {
   const [formData, setFormData] = useState({ name: '', email: '' });
@@ -68,30 +118,32 @@ function BasicForm() {
 
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 400 }}>
-      <TextField
-        fullWidth
-        label="Name"
-        value={formData.name}
-        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-        error={!!errors.name}
-        helperText={errors.name}
-        margin="normal"
-        required
-      />
+      <Form.Stack spacing={2}>
+        <TextField
+          fullWidth
+          labelPlacement="top"
+          label="Name"
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          error={!!errors.name}
+          helperText={errors.name}
+          required
+        />
 
-      <TextField
-        fullWidth
-        label="Email"
-        type="email"
-        value={formData.email}
-        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-        error={!!errors.email}
-        helperText={errors.email}
-        margin="normal"
-        required
-      />
+        <TextField
+          fullWidth
+          labelPlacement="top"
+          label="Email"
+          type="email"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          error={!!errors.email}
+          helperText={errors.email}
+          required
+        />
+      </Form.Stack>
 
-      <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+      <Button type="submit" variant="contained" sx={{ mt: 3 }}>
         Submit
       </Button>
     </Box>
@@ -102,7 +154,7 @@ function BasicForm() {
 ## Form with Sections
 
 ```tsx
-import { Form, TextField, Button, Box } from '@wso2/oxygen-ui';
+import { Form, TextField, MenuItem, Button, Box } from '@wso2/oxygen-ui';
 
 function SectionedForm() {
   return (
@@ -112,23 +164,24 @@ function SectionedForm() {
         <Form.Subheader>Enter your basic details</Form.Subheader>
 
         <Form.Stack spacing={2}>
-          <Form.TextInput label="First name" required />
-          <Form.TextInput label="Last name" required />
-          <Form.TextInput label="Email" type="email" required />
+          <TextField fullWidth labelPlacement="top" label="First name" required />
+          <TextField fullWidth labelPlacement="top" label="Last name" required />
+          <TextField fullWidth labelPlacement="top" label="Email" type="email" required />
         </Form.Stack>
       </Form.Section>
 
       <Form.Section>
         <Form.Header>Company details</Form.Header>
-        <Form.Subheader>Optional information about your organization</Form.Subheader>
+        <Form.Subheader>Tell us about your organization</Form.Subheader>
 
         <Form.Stack spacing={2}>
-          <Form.TextInput label="Company name" />
-          <Form.SelectInput label="Role">
-            <Form.MenuItem value="developer">Developer</Form.MenuItem>
-            <Form.MenuItem value="designer">Designer</Form.MenuItem>
-            <Form.MenuItem value="manager">Manager</Form.MenuItem>
-          </Form.SelectInput>
+          {/* Optional fields: no marker */}
+          <TextField fullWidth labelPlacement="top" label="Company name" />
+          <TextField fullWidth select labelPlacement="top" label="Role" defaultValue="">
+            <MenuItem value="developer">Developer</MenuItem>
+            <MenuItem value="designer">Designer</MenuItem>
+            <MenuItem value="manager">Manager</MenuItem>
+          </TextField>
         </Form.Stack>
       </Form.Section>
 
@@ -152,8 +205,8 @@ import {
   TextField,
   Button,
   Link,
-  Divider,
   Alert,
+  Form,
 } from '@wso2/oxygen-ui';
 
 function LoginForm() {
@@ -189,7 +242,7 @@ function LoginForm() {
     >
       <Paper sx={{ p: 4, maxWidth: 400, width: '100%' }}>
         <Typography variant="h5" gutterBottom align="center">
-          Sign In
+          Sign in
         </Typography>
 
         {error && (
@@ -199,25 +252,27 @@ function LoginForm() {
         )}
 
         <Box component="form" onSubmit={handleSubmit}>
-          <TextField
-            fullWidth
-            label="Email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            margin="normal"
-            required
-          />
+          <Form.Stack spacing={2}>
+            <TextField
+              fullWidth
+              labelPlacement="top"
+              label="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
 
-          <TextField
-            fullWidth
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            margin="normal"
-            required
-          />
+            <TextField
+              fullWidth
+              labelPlacement="top"
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </Form.Stack>
 
           <Button
             fullWidth
@@ -265,6 +320,7 @@ import {
   Button,
   Typography,
   TextField,
+  Form,
 } from '@wso2/oxygen-ui';
 
 const steps = ['Account', 'Profile', 'Review'];
@@ -289,43 +345,46 @@ function RegistrationWizard() {
     switch (step) {
       case 0:
         return (
-          <>
+          <Form.Stack spacing={2}>
             <TextField
               fullWidth
+              labelPlacement="top"
               label="Email"
               type="email"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              margin="normal"
+              required
             />
             <TextField
               fullWidth
+              labelPlacement="top"
               label="Password"
               type="password"
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              margin="normal"
+              required
             />
-          </>
+          </Form.Stack>
         );
       case 1:
         return (
-          <>
+          <Form.Stack spacing={2}>
             <TextField
               fullWidth
+              labelPlacement="top"
               label="Full name"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              margin="normal"
+              required
             />
             <TextField
               fullWidth
+              labelPlacement="top"
               label="Company"
               value={formData.company}
               onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-              margin="normal"
             />
-          </>
+          </Form.Stack>
         );
       case 2:
         return (
@@ -381,7 +440,7 @@ function RegistrationWizard() {
 
 ```tsx
 import { useState } from 'react';
-import { Box, TextField, Button, MenuItem, Autocomplete } from '@wso2/oxygen-ui';
+import { Box, Form, TextField, Button, MenuItem, Autocomplete } from '@wso2/oxygen-ui';
 
 const countries = [
   { label: 'United States', code: 'US' },
@@ -396,34 +455,38 @@ function AddressForm() {
 
   return (
     <Box sx={{ maxWidth: 400 }}>
-      <Autocomplete
-        options={countries}
-        value={country}
-        onChange={(_, newValue) => setCountry(newValue)}
-        renderInput={(params) => (
-          <TextField {...params} label="Country" margin="normal" />
-        )}
-      />
+      <Form.Stack spacing={2}>
+        <Autocomplete
+          options={countries}
+          value={country}
+          onChange={(_, newValue) => setCountry(newValue)}
+          renderInput={(params) => (
+            <TextField {...params} labelPlacement="top" label="Country" required />
+          )}
+        />
 
-      <TextField
-        fullWidth
-        select
-        label="State"
-        value={state}
-        onChange={(e) => setState(e.target.value)}
-        margin="normal"
-      >
-        <MenuItem value="ca">California</MenuItem>
-        <MenuItem value="ny">New York</MenuItem>
-        <MenuItem value="tx">Texas</MenuItem>
-      </TextField>
+        <TextField
+          fullWidth
+          select
+          labelPlacement="top"
+          label="State"
+          value={state}
+          onChange={(e) => setState(e.target.value)}
+          required
+        >
+          <MenuItem value="ca">California</MenuItem>
+          <MenuItem value="ny">New York</MenuItem>
+          <MenuItem value="tx">Texas</MenuItem>
+        </TextField>
 
-      <TextField fullWidth label="City" margin="normal" />
-      <TextField fullWidth label="Address" margin="normal" multiline rows={2} />
-      <TextField fullWidth label="ZIP code" margin="normal" />
+        <TextField fullWidth labelPlacement="top" label="City" required />
+        <TextField fullWidth labelPlacement="top" label="Address" required multiline rows={2} />
+        {/* Optional field: no marker */}
+        <TextField fullWidth labelPlacement="top" label="ZIP code" />
+      </Form.Stack>
 
-      <Button variant="contained" sx={{ mt: 2 }}>
-        Save Address
+      <Button variant="contained" sx={{ mt: 3 }}>
+        Save address
       </Button>
     </Box>
   );

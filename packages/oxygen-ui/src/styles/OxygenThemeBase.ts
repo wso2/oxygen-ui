@@ -268,6 +268,19 @@ const OxygenThemeBase = extendTheme({
         clearIcon: React.createElement(X),
       },
     },
+    MuiFormLabel: {
+      styleOverrides: {
+        // Required marker. Red signals "required" faster than grey, but the "*" glyph
+        // carries the meaning, so color is not the only cue (WCAG 1.4.1). Dark mode
+        // uses error.light because error.main often drops below 4.5:1 on dark surfaces.
+        asterisk: ({ theme }) => ({
+          color: (theme.vars || theme).palette.error.main,
+          ...theme.applyStyles('dark', {
+            color: (theme.vars || theme).palette.error.light,
+          }),
+        }),
+      },
+    },
     MuiInputLabel: {
       styleOverrides: {
         root: {
