@@ -1,5 +1,24 @@
 # @wso2/oxygen-ui
 
+## 0.21.0
+
+### Minor Changes
+
+- [#679](https://github.com/wso2/oxygen-ui/pull/679) [`28e6115`](https://github.com/wso2/oxygen-ui/commit/28e6115cf353fef0a76f79635aff97b92b4f7dc7) Thanks [@ShalkiWenushika](https://github.com/ShalkiWenushika)! - Let a `TrialBadge` usage section nest a run of rows under a sub-heading, via a new
+  `TrialBadgeUsageGroup` on `TrialBadgeUsageSection.groups`. A section can now hold loose
+  `items`, groups, or both, so related rows ("Gateways") can be named without promoting them
+  to a section of their own. A group with no `title` renders its rows plainly, which is how a
+  plain row is placed below a titled group — a section's own `items` always render first.
+  `TrialBadgeUsageSection.items` is now optional, and a section's total counts every row it
+  draws, grouped and loose alike.
+
+### Patch Changes
+
+- [#676](https://github.com/wso2/oxygen-ui/pull/676) [`30f1448`](https://github.com/wso2/oxygen-ui/commit/30f1448f50514b2653c403c78a6832b5e69b6721) Thanks [@savindi7](https://github.com/savindi7)! - Apply the Choreo Labs colour guidelines to `ChoreoLabsTheme`: brand success, warning and error colours and alerts, a neutral navy info colour, Cobalt keyboard focus, Flare hover and Ember pressed states on primary buttons, a White header, sidebar and cards on the Paper content background with Fog hairlines in light mode, cool-grey secondary colours, and Deep Navy raised surfaces in dark mode.
+
+- Updated dependencies []:
+  - @wso2/oxygen-ui-icons-react@0.21.0
+
 ## 0.20.0
 
 ### Minor Changes
