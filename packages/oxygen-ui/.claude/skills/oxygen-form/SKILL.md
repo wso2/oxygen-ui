@@ -41,14 +41,14 @@ Write all titles, action text, and content in sentence case. Capitalize only the
 Forms use a fixed label above the input, not MUI's floating label. `labelPlacement` is an Oxygen UI prop, so import `TextField` from `@wso2/oxygen-ui`; the MUI `TextField` ignores it.
 
 ```tsx
-<TextField labelPlacement="top" label="Display name" required />  // required: label shows a red *
+<TextField labelPlacement="top" label="Display name" required />  // required: label shows a themed *
 <TextField labelPlacement="top" label="Description" />            // optional: no marker
 ```
 
 ### Required fields
 
 - The developer marks each required field with the `required` prop. Nothing is required by default
-- `required` draws the red `*` after the label (themed, meets contrast in light and dark) and sets `required` on the native input, so screen readers announce it
+- `required` draws a `*` after the label, colored by the theme, and sets `required` on the native input, so screen readers announce it
 - Do not add a `*` to the label text yourself, and do not color labels red; the theme handles it
 - Keep `required` in sync with validation: every field the form rejects when empty is `required`, and no other field is
 
@@ -117,7 +117,8 @@ function BasicForm() {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 400 }}>
+    // noValidate lets validate() show inline errors instead of the browser's required bubbles
+    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ maxWidth: 400 }}>
       <Form.Stack spacing={2}>
         <TextField
           fullWidth
@@ -178,6 +179,7 @@ function SectionedForm() {
           {/* Optional fields: no marker */}
           <TextField fullWidth labelPlacement="top" label="Company name" />
           <TextField fullWidth select labelPlacement="top" label="Role" defaultValue="">
+            <MenuItem value="">None</MenuItem>
             <MenuItem value="developer">Developer</MenuItem>
             <MenuItem value="designer">Designer</MenuItem>
             <MenuItem value="manager">Manager</MenuItem>
@@ -440,7 +442,7 @@ function RegistrationWizard() {
 
 ```tsx
 import { useState } from 'react';
-import { Box, Form, TextField, Button, MenuItem, Autocomplete } from '@wso2/oxygen-ui';
+import { Box, Form, TextField, Button, Autocomplete } from '@wso2/oxygen-ui';
 
 const countries = [
   { label: 'United States', code: 'US' },
@@ -451,7 +453,7 @@ const countries = [
 
 function AddressForm() {
   const [country, setCountry] = useState<typeof countries[0] | null>(null);
-  const [state, setState] = useState('');
+  const [region, setRegion] = useState('');
 
   return (
     <Box sx={{ maxWidth: 400 }}>
@@ -459,30 +461,29 @@ function AddressForm() {
         <Autocomplete
           options={countries}
           value={country}
-          onChange={(_, newValue) => setCountry(newValue)}
+          onChange={(_, newValue) => {
+            setCountry(newValue);
+            setRegion('');
+          }}
           renderInput={(params) => (
             <TextField {...params} labelPlacement="top" label="Country" required />
           )}
         />
 
+        {/* Free text, so it works for any country */}
         <TextField
           fullWidth
-          select
           labelPlacement="top"
-          label="State"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
+          label="State, province, or region"
+          value={region}
+          onChange={(e) => setRegion(e.target.value)}
           required
-        >
-          <MenuItem value="ca">California</MenuItem>
-          <MenuItem value="ny">New York</MenuItem>
-          <MenuItem value="tx">Texas</MenuItem>
-        </TextField>
+        />
 
         <TextField fullWidth labelPlacement="top" label="City" required />
         <TextField fullWidth labelPlacement="top" label="Address" required multiline rows={2} />
         {/* Optional field: no marker */}
-        <TextField fullWidth labelPlacement="top" label="ZIP code" />
+        <TextField fullWidth labelPlacement="top" label="Postal code" />
       </Form.Stack>
 
       <Button variant="contained" sx={{ mt: 3 }}>

@@ -273,11 +273,18 @@ const OxygenThemeBase = extendTheme({
         // Required marker. Red signals "required" faster than grey, but the "*" glyph
         // carries the meaning, so color is not the only cue (WCAG 1.4.1). Dark mode
         // uses error.light because error.main often drops below 4.5:1 on dark surfaces.
+        // `&.Mui-error` matches MUI's error rule so the dark color also holds in error state;
+        // the disabled rule comes last so a disabled field's marker is muted like its label.
         asterisk: ({ theme }) => ({
           color: (theme.vars || theme).palette.error.main,
           ...theme.applyStyles('dark', {
-            color: (theme.vars || theme).palette.error.light,
+            '&, &.Mui-error': {
+              color: (theme.vars || theme).palette.error.light,
+            },
           }),
+          '.Mui-disabled > &': {
+            color: (theme.vars || theme).palette.text.disabled,
+          },
         }),
       },
     },

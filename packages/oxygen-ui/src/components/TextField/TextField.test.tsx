@@ -62,9 +62,10 @@ describe('TextField', () => {
   it('keeps the top label colour while the field has focus', () => {
     const onFocus = vi.fn();
     const onBlur = vi.fn();
-    renderWithTheme(<TextField labelPlacement="top" label="Name" onFocus={onFocus} onBlur={onBlur} />);
+    const { container } = renderWithTheme(<TextField labelPlacement="top" label="Name" onFocus={onFocus} onBlur={onBlur} />);
     fireEvent.focus(screen.getByLabelText('Name'));
     expect(screen.getByText('Name').classList.contains('Mui-focused')).toBe(false);
+    expect(container.querySelector('.MuiInputBase-root.Mui-focused')).not.toBeNull();
     fireEvent.blur(screen.getByLabelText('Name'));
     expect(onFocus).toHaveBeenCalledTimes(1);
     expect(onBlur).toHaveBeenCalledTimes(1);

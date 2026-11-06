@@ -175,7 +175,7 @@ export const RequiredWithFixedLabel: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Static label above the input (no floating label). `required` adds the red asterisk.',
+        story: 'Static label above the input (no floating label). `required` adds an asterisk.',
       },
     },
   },

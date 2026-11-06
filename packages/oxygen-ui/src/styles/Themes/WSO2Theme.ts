@@ -283,12 +283,21 @@ const WSO2ThemeConfig = {
     },
     MuiFormLabel: {
       styleOverrides: {
+        // error.main (#E60000) is 3.56:1 on the washed light page and 3.35:1 on navy, so the
+        // marker uses brand reds that pass: orange 700 in light (5.45:1), orange 400 in dark (5.82:1).
+        // `&.Mui-error` overrides MUI's error rule; the disabled rule mutes the marker with its label.
         asterisk: ({ theme }: { theme: OxygenTheme }) => ({
-          color: theme.vars.palette.error.main,
-          // error.main is 3.35:1 on navy; orange 400 is the nearest brand red that passes (5.82:1)
+          '&, &.Mui-error': {
+            color: orange[700],
+          },
           ...theme.applyStyles('dark', {
-            color: orange[400],
+            '&, &.Mui-error': {
+              color: orange[400],
+            },
           }),
+          '.Mui-disabled > &': {
+            color: theme.vars.palette.text.disabled,
+          },
         }),
       },
     },
