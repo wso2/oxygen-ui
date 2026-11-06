@@ -306,9 +306,21 @@ const LogRow: React.FC<LogRowProps> = ({
   const { columns, timeZone, onCopy, levelLabels, getEntryLink, onCopyLink } = useLogViewerRequired();
   const time = formatDisplay(entry.timestamp, timeZone);
   const expandable = Boolean(entry.details || renderDetails);
-  // The text is needed only by Copy, which an open entry shows, so a closed entry does not build it. Building it
-  // runs the render and text of every column, which would be done for every row of the list on every render.
-  const copyText = open ? entryText(entry, columns, timeZone, levelLabels) : undefined;
+
+  // The details stay in the page until they have finished closing, so that closing is animated like opening. They are
+  // taken out of the page when the close transition ends.
+  const [detailsMounted, setDetailsMounted] = React.useState(open);
+  React.useEffect(() => {
+    if (open) setDetailsMounted(true);
+  }, [open]);
+  const showingDetails = open || detailsMounted;
+
+  // The text is needed only by Copy, which the details show, so an entry whose details are out of the page does not
+  // build it. Building it runs the render and text of every column, which would be done for every row of the list on
+  // every render. Copy stays until the details have finished closing: taking it out at the start of the close would
+  // change the height of the details (when they are shorter than the button, or wrap beside it) before Collapse
+  // measures them, and the close would jump instead of glide.
+  const copyText = showingDetails ? entryText(entry, columns, timeZone, levelLabels) : undefined;
 
   // Which button shows the copied label, for a moment after its copy succeeded.
   const [copied, setCopied] = React.useState<'text' | 'link' | null>(null);
@@ -330,11 +342,14 @@ const LogRow: React.FC<LogRowProps> = ({
     }
   };
 
-  // The details stay in the page until they have finished closing, so that closing is animated like opening. They are
-  // taken out of the page when the close transition ends.
-  const [detailsMounted, setDetailsMounted] = React.useState(open);
-  React.useEffect(() => {
-    if (open) setDetailsMounted(true);
+  // While the details finish closing they are still in the page, but nobody can use them: they are inert from the moment
+  // the entry closes (no focus, no clicks, and out of the accessibility tree). If the focus was inside them, it goes to
+  // the button that opened and closed the entry, so the keyboard user is not left on something that has disappeared.
+  // It runs before the browser paints, while the focused element is still the one that was in the details.
+  const detailsRef = React.useRef<HTMLDivElement>(null);
+  const toggleRef = React.useRef<HTMLButtonElement>(null);
+  React.useLayoutEffect(() => {
+    if (!open && detailsRef.current?.contains(document.activeElement)) toggleRef.current?.focus();
   }, [open]);
 
   const link = getEntryLink?.(entry);
@@ -441,6 +456,7 @@ const LogRow: React.FC<LogRowProps> = ({
             >
               {index === 0 && expandable && (
                 <ButtonBase
+                  ref={toggleRef}
                   onClick={(event) => {
                     // The row handles clicks too, so this one must not toggle twice.
                     event.stopPropagation();
@@ -478,13 +494,15 @@ const LogRow: React.FC<LogRowProps> = ({
         })}
       </ListingTableRow>
 
-      {expandable && (open || detailsMounted) && (
+      {expandable && showingDetails && (
         <FullRow columnCount={columns.length}>
           <Collapse in={open} appear timeout="auto" onExited={() => setDetailsMounted(false)}>
             <Box
+              ref={detailsRef}
               id={detailsId}
               role="region"
               aria-label={detailsLabel(entry)}
+              inert={!open}
               sx={{ bgcolor: 'action.hover' }}
             >
               {/* The row is as wide as all the columns. The details stay at the left edge of what is

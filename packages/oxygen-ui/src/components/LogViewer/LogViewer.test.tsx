@@ -389,6 +389,64 @@ describe('LogViewer', () => {
       await waitFor(() => expect(screen.queryByText('maria')).toBeNull());
     });
 
+    it('keeps the Copy buttons in the details until the details have finished closing', async () => {
+      renderWithTheme(<LogViewer entries={withDetails} getEntryLink={(item) => `https://logs.test/${item.id}`} />);
+      const toggle = toggleFor('1');
+      fireEvent.click(toggle);
+      expect(screen.queryByLabelText('Copy')).not.toBeNull();
+      expect(screen.queryByLabelText('Copy link')).not.toBeNull();
+
+      fireEvent.click(toggle);
+      // Taking Copy out when the entry closes would change the height of the details before they start to collapse.
+      expect(screen.queryByText('maria')).not.toBeNull();
+      expect(screen.queryByLabelText('Copy')).not.toBeNull();
+      expect(screen.queryByLabelText('Copy link')).not.toBeNull();
+      await waitFor(() => expect(screen.queryByLabelText('Copy')).toBeNull());
+      expect(screen.queryByLabelText('Copy link')).toBeNull();
+    });
+
+    it('makes the details inert as soon as the entry closes, and live again when it opens', async () => {
+      renderWithTheme(<LogViewer entries={withDetails} />);
+      const toggle = toggleFor('1');
+      fireEvent.click(toggle);
+      const details = screen.getByLabelText('Details for 1');
+      expect(details.hasAttribute('inert')).toBe(false);
+
+      fireEvent.click(toggle);
+      // Still in the page, finishing its close, but no focus and no clicks.
+      expect(screen.getByLabelText('Details for 1')).toBe(details);
+      expect(details.hasAttribute('inert')).toBe(true);
+
+      fireEvent.click(toggle);
+      expect(details.hasAttribute('inert')).toBe(false);
+    });
+
+    it('moves the focus to the toggle when the entry closes while the focus is inside its details', async () => {
+      renderWithTheme(<LogViewer entries={withDetails} />);
+      const toggle = toggleFor('1');
+      fireEvent.click(toggle);
+      const copy = screen.getByLabelText('Copy');
+      copy.focus();
+      expect(document.activeElement).toBe(copy);
+
+      fireEvent.click(toggle);
+      expect(document.activeElement).toBe(toggle);
+      await waitFor(() => expect(screen.queryByText('maria')).toBeNull());
+    });
+
+    it('leaves the focus alone when the entry closes and the focus is elsewhere', () => {
+      renderWithTheme(
+        <LogViewer entries={[entry('1', { details: { user: 'maria' } }), entry('2', { details: { user: 'omar' } })]} />
+      );
+      const toggle = toggleFor('1');
+      const other = toggleFor('2');
+      fireEvent.click(toggle);
+      other.focus();
+
+      fireEvent.click(toggle);
+      expect(document.activeElement).toBe(other);
+    });
+
     it('keeps the details when the entry is opened again while it is still closing', async () => {
       renderWithTheme(<LogViewer entries={withDetails} />);
       const toggle = toggleFor('1');
