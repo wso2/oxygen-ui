@@ -108,7 +108,25 @@ export const WithAvatar: Story = {
   ),
 };
 
-// The dot takes the chip's colour through `currentColor`, so it matches the label in every variant and colour.
+const statusDotSource = `const StatusDot = (props: React.ComponentProps<typeof Box>) => (
+  <Box
+    component="span"
+    {...props}
+    sx={{
+      width: 8,
+      height: 8,
+      borderRadius: '50%',
+      bgcolor: 'currentColor',
+      '.MuiChip-root &.MuiChip-icon': { color: 'inherit', marginLeft: '10px', marginRight: '-4px' },
+      '.MuiChip-root &.MuiChip-iconSmall': { marginLeft: '8px', marginRight: '-2px' },
+    }}
+  />
+);
+
+<Chip icon={<StatusDot />} label="Available" color="success" variant="outlined" />
+<Chip icon={<StatusDot />} label="Draft" variant="outlined" />`;
+
+// The dot takes the label's colour through `currentColor`, so it matches the label in every variant and colour.
 const StatusDot = (props: React.ComponentProps<typeof Box>) => (
   <Box
     component="span"
@@ -118,8 +136,9 @@ const StatusDot = (props: React.ComponentProps<typeof Box>) => (
       height: 8,
       borderRadius: '50%',
       bgcolor: 'currentColor',
+      // Default chips give the icon its own grey; inherit the label colour instead.
       // The chip's default icon spacing is sized for 18px icons, which leaves a small dot cramped
-      '.MuiChip-root &.MuiChip-icon': { marginLeft: '10px', marginRight: '-4px' },
+      '.MuiChip-root &.MuiChip-icon': { color: 'inherit', marginLeft: '10px', marginRight: '-4px' },
       '.MuiChip-root &.MuiChip-iconSmall': { marginLeft: '8px', marginRight: '-2px' },
     }}
   />
@@ -139,8 +158,9 @@ export const WithStatusDot: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Pass a small dot as the `icon` to show a status. The chip colours the icon, so the dot matches the label.',
+        story: 'Pass a small dot as the `icon` to show a status. The dot inherits the label colour, so it matches the label.',
       },
+      source: { code: statusDotSource },
     },
   },
 };
@@ -158,7 +178,8 @@ export const Tag: Story = {
     docs: {
       description: {
         story: 'The `tag` variant is a filled, square-cornered uppercase label, styled by `ChoreoLabsTheme` only. ' +
-          'It is dark blue by default; set `color` to use another palette colour.',
+          'It is dark blue by default; set `color` to use another palette colour. ' +
+          'Pick Choreo Labs in the Theme toolbar to see it.',
       },
     },
   },
