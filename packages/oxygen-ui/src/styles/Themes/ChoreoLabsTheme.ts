@@ -22,6 +22,45 @@ import OxygenThemeBase from '../OxygenThemeBase';
 import { createOxygenTheme } from '../../utils/createOxygenTheme';
 import type { OxygenTheme } from '../OxygenThemeBase';
 
+declare module '@mui/material/styles' {
+  interface Palette {
+    accent: Palette['primary'];
+  }
+  interface PaletteOptions {
+    accent?: PaletteOptions['primary'];
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    accent: true;
+  }
+  interface ButtonPropsVariantOverrides {
+    subtle: true;
+  }
+}
+
+declare module '@mui/material/Chip' {
+  interface ChipPropsVariantOverrides {
+    tag: true;
+  }
+}
+
+const tagColors = ['primary', 'secondary', 'success', 'error', 'warning', 'info'] as const;
+
+// A tag keeps its own colours when clickable or deletable, instead of MUI's grey hover and delete icon
+const tagStyle = (backgroundColor: string, color: string) => ({
+  backgroundColor,
+  color,
+  '&.MuiChip-clickable:hover, &.MuiChip-clickable.Mui-focusVisible, &.MuiChip-deletable.Mui-focusVisible': {
+    backgroundColor,
+    opacity: 0.85,
+  },
+  '& .MuiChip-deleteIcon, & .MuiChip-deleteIcon:hover': {
+    color,
+  },
+});
+
 /**
  * Choreo Labs core colours, from the Choreo Labs Web Design System.
  */
@@ -61,6 +100,18 @@ const ChoreoLabsStatusColors = {
 
 const fontFamily = "'Sora Variable', sans-serif";
 
+// Outlined fields match the button heights: small fields line up with medium buttons, medium with large.
+// Padding is derived from the 1.4375em line height so it holds for any font size. Heights aren't fixed,
+// so multiline fields and Autocomplete chips still grow, and components that set their own size keep it.
+const fieldHeight = { small: 40, medium: 48 };
+const fieldPadding = (height: number, inner = '0px') => `calc((${height}px - 1.4375em - ${inner}) / 2)`;
+
+// Matches the base theme's `light` Avatar variant, for the avatars the app shell styles itself
+const lightAvatar = ({ theme }: { theme: OxygenTheme }) => ({
+  backgroundColor: `color-mix(in srgb, ${theme.vars.palette.primary.main} 12%, transparent)`,
+  color: theme.vars.palette.primary.main,
+});
+
 // The base theme's typography variants each carry their own fontFamily, so set it on every variant.
 const typographyVariants: TypographyVariant[] = [
   'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
@@ -76,7 +127,14 @@ const ChoreoLabsColorSchemes = {
         contrastText: ChoreoLabsColors.midnightInk,
       },
       secondary: {
-        main: ChoreoLabsColors.fog,
+        main: ChoreoLabsColors.midnightInk,
+        contrastText: ChoreoLabsColors.white,
+      },
+      accent: {
+        main: ChoreoLabsColors.burn,
+        light: ChoreoLabsColors.signal,
+        dark: ChoreoLabsColors.ember,
+        contrastText: ChoreoLabsColors.white,
       },
       background: {
         default: ChoreoLabsColors.paper,
@@ -89,6 +147,9 @@ const ChoreoLabsColorSchemes = {
       },
       divider: ChoreoLabsColors.fog,
       ...ChoreoLabsStatusColors.light,
+      Avatar: {
+        defaultBg: ChoreoLabsColors.fog,
+      },
       Alert: {
         infoColor: ChoreoLabsColors.midnightInk,
         infoIconColor: ChoreoLabsColors.midnightInk,
@@ -110,8 +171,16 @@ const ChoreoLabsColorSchemes = {
         dark: ChoreoLabsColors.burn,
         contrastText: ChoreoLabsColors.midnightInk,
       },
+      // Midnight Ink disappears on the dark ground, so dark mode inverts the secondary colour
       secondary: {
-        main: ChoreoLabsColors.graphite,
+        main: ChoreoLabsColors.white,
+        contrastText: ChoreoLabsColors.midnightInk,
+      },
+      accent: {
+        main: ChoreoLabsColors.burn,
+        light: ChoreoLabsColors.signal,
+        dark: ChoreoLabsColors.ember,
+        contrastText: ChoreoLabsColors.white,
       },
       background: {
         default: ChoreoLabsColors.blackout,
@@ -124,6 +193,9 @@ const ChoreoLabsColorSchemes = {
       },
       divider: '#ffffff16',
       ...ChoreoLabsStatusColors.dark,
+      Avatar: {
+        defaultBg: ChoreoLabsColors.graphite,
+      },
       Alert: {
         infoColor: ChoreoLabsColors.white,
         infoIconColor: ChoreoLabsColors.white,
@@ -189,9 +261,15 @@ const ChoreoLabsThemeConfig = {
     MuiAvatar: {
       styleOverrides: {
         root: ({ theme }: { theme: OxygenTheme }) => ({
-          backgroundColor: theme.vars.palette.secondary.main,
+          backgroundColor: theme.vars.palette.Avatar.defaultBg,
           color: theme.vars.palette.text.primary,
         }),
+      },
+    },
+    MuiUserMenu: {
+      styleOverrides: {
+        avatar: lightAvatar,
+        headerAvatar: lightAvatar,
       },
     },
     MuiButtonBase: {
@@ -209,8 +287,11 @@ const ChoreoLabsThemeConfig = {
         root: {
           borderRadius: 20,
           textTransform: 'none',
-          fontWeight: 400,
+          fontWeight: 500,
         },
+        sizeSmall: { minHeight: 32 },
+        sizeMedium: { minHeight: 40 },
+        sizeLarge: { minHeight: 48 },
         containedPrimary: ({ theme }: { theme: OxygenTheme }) => ({
           '&:not(:disabled)': {
             background: `${theme.vars.palette.primary.main} !important`,
@@ -241,21 +322,37 @@ const ChoreoLabsThemeConfig = {
         }),
         containedSecondary: ({ theme }: { theme: OxygenTheme }) => ({
           backgroundColor: theme.vars.palette.secondary.main,
-          color: theme.vars.palette.text.primary,
+          color: theme.vars.palette.secondary.contrastText,
           '&:hover': {
             backgroundColor: theme.vars.palette.secondary.main,
             opacity: 0.8,
           },
         }),
         outlinedSecondary: ({ theme }: { theme: OxygenTheme }) => ({
-          borderColor: theme.vars.palette.divider,
-          color: theme.vars.palette.text.primary,
+          borderColor: theme.vars.palette.secondary.main,
+          color: theme.vars.palette.secondary.main,
           '&:hover': {
-            borderColor: theme.vars.palette.text.secondary,
+            borderColor: theme.vars.palette.secondary.main,
             backgroundColor: theme.vars.palette.action.hover,
           },
         }),
       },
+      variants: [
+        {
+          props: { variant: 'subtle' },
+          style: ({ theme }: { theme: OxygenTheme }) => ({
+            backgroundColor: theme.vars.palette.accent.main,
+            color: theme.vars.palette.accent.contrastText,
+            '&:hover': {
+              backgroundColor: theme.vars.palette.accent.dark,
+            },
+            '&.Mui-disabled': {
+              backgroundColor: theme.vars.palette.action.disabledBackground,
+              color: theme.vars.palette.action.disabled,
+            },
+          }),
+        },
+      ],
     },
     MuiFab: {
       styleOverrides: {
@@ -290,6 +387,7 @@ const ChoreoLabsThemeConfig = {
     },
     MuiSidebar: {
       styleOverrides: {
+        userAvatar: lightAvatar,
         root: ({ theme }: { theme: OxygenTheme }) => ({
           backgroundColor: theme.vars.palette.background.acrylic,
           WebkitBackdropFilter: theme.blur.light,
@@ -350,6 +448,17 @@ const ChoreoLabsThemeConfig = {
     },
     MuiAutocomplete: {
       styleOverrides: {
+        // The Autocomplete input keeps MUI's own vertical padding (7.5px, or 2.5px when small)
+        root: {
+          '& .MuiOutlinedInput-root:not(.MuiInputBase-sizeSmall)': {
+            paddingTop: fieldPadding(fieldHeight.medium, '15px'),
+            paddingBottom: fieldPadding(fieldHeight.medium, '15px'),
+          },
+          '& .MuiOutlinedInput-root.MuiInputBase-sizeSmall': {
+            paddingTop: fieldPadding(fieldHeight.small, '5px'),
+            paddingBottom: fieldPadding(fieldHeight.small, '5px'),
+          },
+        },
         paper: ({ theme }: { theme: OxygenTheme }) => ({
           backgroundColor: theme.vars.palette.background.paper,
           WebkitBackdropFilter: theme.blur.medium,
@@ -357,6 +466,26 @@ const ChoreoLabsThemeConfig = {
           backgroundImage: 'none',
         }),
       },
+    },
+    MuiChip: {
+      variants: [
+        // `tag`: a filled, square-cornered uppercase label. Dark blue unless a colour is set.
+        {
+          props: { variant: 'tag' },
+          style: ({ theme }: { theme: OxygenTheme }) => ({
+            borderRadius: 4,
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            letterSpacing: '0.04em',
+            ...tagStyle(theme.vars.palette.secondary.main, theme.vars.palette.secondary.contrastText),
+          }),
+        },
+        ...tagColors.map((color) => ({
+          props: { variant: 'tag' as const, color },
+          style: ({ theme }: { theme: OxygenTheme }) =>
+            tagStyle(theme.vars.palette[color].main, theme.vars.palette[color].contrastText),
+        })),
+      ],
     },
     MuiCard: {
       styleOverrides: {
@@ -377,10 +506,55 @@ const ChoreoLabsThemeConfig = {
     MuiTextField: {
       defaultProps: { size: 'small' },
     },
+    MuiSelect: {
+      styleOverrides: {
+        select: {
+          '&.MuiOutlinedInput-input': {
+            paddingTop: fieldPadding(fieldHeight.medium),
+            paddingBottom: fieldPadding(fieldHeight.medium),
+          },
+          '&.MuiOutlinedInput-input.MuiInputBase-inputSizeSmall': {
+            paddingTop: fieldPadding(fieldHeight.small),
+            paddingBottom: fieldPadding(fieldHeight.small),
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          // Replaces the base theme's offset for select labels, which was tuned to the old field heights
+          '.MuiFormControl-root:has(.MuiSelect-select) &:not(.MuiInputLabel-shrink)': {
+            top: 0,
+          },
+        },
+        outlined: {
+          '&:not(.MuiInputLabel-shrink)': {
+            transform: `translate(14px, ${fieldPadding(fieldHeight.medium)}) scale(1)`,
+          },
+          // A label outside a sized FormControl stays medium, so follow the field's size instead
+          '&.MuiInputLabel-sizeSmall:not(.MuiInputLabel-shrink), .MuiFormControl-root:has(.MuiInputBase-sizeSmall) &:not(.MuiInputLabel-shrink)': {
+            transform: `translate(14px, ${fieldPadding(fieldHeight.small)}) scale(1)`,
+          },
+        },
+      },
+    },
     MuiOutlinedInput: {
       styleOverrides: {
+        // Multiline fields pad the root instead
+        input: ({ ownerState }: { ownerState: { size?: string; multiline?: boolean } }) => {
+          if (ownerState.multiline) {
+            return {};
+          }
+          const padding = fieldPadding(ownerState.size === 'small' ? fieldHeight.small : fieldHeight.medium);
+          return { paddingTop: padding, paddingBottom: padding };
+        },
+        multiline: ({ ownerState }: { ownerState: { size?: string } }) => {
+          const padding = fieldPadding(ownerState.size === 'small' ? fieldHeight.small : fieldHeight.medium);
+          return { paddingTop: padding, paddingBottom: padding };
+        },
         root: ({ theme }: { theme: OxygenTheme }) => ({
-          fontSize: theme.typography.body2.fontSize,
+          fontSize: theme.typography.pxToRem(14),
           borderRadius: 8,
           backgroundColor: theme.vars.palette.background.acrylic,
           '&.Mui-focused:not(.Mui-error) .MuiOutlinedInput-notchedOutline': {

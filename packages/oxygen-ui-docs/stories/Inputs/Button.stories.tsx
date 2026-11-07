@@ -62,24 +62,47 @@ export const Variants: Story = {
       <Button variant="text">Text</Button>
       <Button variant="contained">Contained</Button>
       <Button variant="outlined">Outlined</Button>
+      <Button variant="subtle">Subtle</Button>
     </Stack>
   ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'The `subtle` variant is styled by `ChoreoLabsTheme` only: a Burn fill with a white label.',
+      },
+    },
+  },
 };
 
 export const ColorVariants: Story = {
   render: () => (
-    <Stack direction="row" spacing={2}>
-      <Button variant="contained" color="primary">Primary Contained</Button>
-      <Button variant="contained" color="secondary">Secondary Contained</Button>
-      <Button variant="contained" color="error">Error Contained</Button>
-      <Button variant="outlined" color="success">Success Outlined</Button>
+    <Stack direction="column" spacing={2}>
+      <Stack direction="row" spacing={2}>
+        <Button variant="contained" color="primary">Primary Contained</Button>
+        <Button variant="contained" color="secondary">Secondary Contained</Button>
+        <Button variant="contained" color="accent">Accent Contained</Button>
+        <Button variant="contained" color="error">Error Contained</Button>
+      </Stack>
+      <Stack direction="row" spacing={2}>
+        <Button variant="outlined" color="primary">Primary Outlined</Button>
+        <Button variant="outlined" color="secondary">Secondary Outlined</Button>
+        <Button variant="outlined" color="accent">Accent Outlined</Button>
+        <Button variant="outlined" color="success">Success Outlined</Button>
+      </Stack>
     </Stack>
   ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'The `accent` color is defined by `ChoreoLabsTheme` only.',
+      },
+    },
+  },
 };
 
 export const SizeVariants: Story = {
   render: () => (
-    <Stack direction="row" spacing={2}>
+    <Stack direction="row" spacing={2} alignItems="center">
       <Button variant="contained" size="small">Small</Button>
       <Button variant="contained" size="medium">Medium</Button>
       <Button variant="contained" size="large">Large</Button>
