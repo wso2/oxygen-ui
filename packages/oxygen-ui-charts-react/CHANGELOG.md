@@ -1,5 +1,12 @@
 # @wso2/oxygen-ui-charts-react
 
+## 0.21.1
+
+### Patch Changes
+
+- Updated dependencies [[`f8a2b03`](https://github.com/wso2/oxygen-ui/commit/f8a2b032027d9edfa921d6b169f7706d4ae9051b), [`526fa66`](https://github.com/wso2/oxygen-ui/commit/526fa66307f09c2479fefac0fdca4fe82ea7cb72)]:
+  - @wso2/oxygen-ui@0.21.1
+
 ## 0.21.0
 
 ### Patch Changes
