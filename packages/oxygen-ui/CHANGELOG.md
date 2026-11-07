@@ -1,5 +1,16 @@
 # @wso2/oxygen-ui
 
+## 0.21.1
+
+### Patch Changes
+
+- [#678](https://github.com/wso2/oxygen-ui/pull/678) [`f8a2b03`](https://github.com/wso2/oxygen-ui/commit/f8a2b032027d9edfa921d6b169f7706d4ae9051b) Thanks [@Kalika-Jay](https://github.com/Kalika-Jay)! - Make the filter buttons and the search field of the `LogViewer` toolbar 32px high, as the search field was written to be. `SearchBarBase` spread an `sx` array into numbered keys and dropped every style in it, so the field stayed at 40px; it now merges an array like any other `sx`.
+
+- [#678](https://github.com/wso2/oxygen-ui/pull/678) [`526fa66`](https://github.com/wso2/oxygen-ui/commit/526fa66307f09c2479fefac0fdca4fe82ea7cb72) Thanks [@Kalika-Jay](https://github.com/Kalika-Jay)! - Animate the closing of a `LogViewer` entry the way its opening is animated. The details used to leave the page the moment an entry was closed, so they opened with a slide and closed with none.
+
+- Updated dependencies []:
+  - @wso2/oxygen-ui-icons-react@0.21.1
+
 ## 0.21.0
 
 ### Minor Changes
