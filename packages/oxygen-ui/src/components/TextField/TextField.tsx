@@ -38,10 +38,8 @@ const TextField = React.forwardRef<HTMLDivElement, TextFieldProps>(function Text
 ) {
   const hasLabel = labelProp != null && labelProp !== '';
   const label = optional && hasLabel && !fieldProps.required ? <>{labelProp} (Optional)</> : labelProp;
-  const { id: idProp, sx, className, style, fullWidth, margin, required, error, disabled, color, focused: focusedProp, slotProps, onFocus, onBlur, helperText: helperProp, ...rest } = fieldProps;
+  const { id: idProp, sx, className, style, fullWidth, margin, required, error, disabled, color, focused, slotProps, helperText: helperProp, ...rest } = fieldProps;
   const generatedId = React.useId();
-  // The inner field owns focus; lifting it lets the outer label colour on focus.
-  const [hasFocus, setHasFocus] = React.useState(false);
 
   if (labelPlacement !== 'top' || !hasLabel) return <MuiTextField ref={ref} {...fieldProps} label={label} />;
 
@@ -56,7 +54,7 @@ const TextField = React.forwardRef<HTMLDivElement, TextFieldProps>(function Text
     : {};
 
   return (
-    <FormControl ref={ref} sx={sx} className={className} style={style} fullWidth={fullWidth} margin={margin} required={required} error={error} disabled={disabled} color={color} focused={focusedProp ?? hasFocus}>
+    <FormControl ref={ref} sx={sx} className={className} style={style} fullWidth={fullWidth} margin={margin} required={required} error={error} disabled={disabled} color={color}>
       <FormLabel id={labelId} htmlFor={id}>
         {label}
       </FormLabel>
@@ -70,17 +68,10 @@ const TextField = React.forwardRef<HTMLDivElement, TextFieldProps>(function Text
         error={error}
         disabled={disabled}
         color={color}
-        focused={focusedProp}
+        // Focus stays on the field's border; the static label keeps its colour.
+        focused={focused}
         helperText={helperText}
         slotProps={{ ...slotProps, ...selectSlot }}
-        onFocus={(e) => {
-          setHasFocus(true);
-          onFocus?.(e);
-        }}
-        onBlur={(e) => {
-          setHasFocus(false);
-          onBlur?.(e);
-        }}
       />
     </FormControl>
   );

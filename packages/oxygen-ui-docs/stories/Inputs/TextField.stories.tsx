@@ -165,6 +165,22 @@ export const Required: Story = {
   },
 };
 
+export const RequiredWithFixedLabel: Story = {
+  args: {
+    labelPlacement: 'top',
+    label: 'Required',
+    placeholder: 'Placeholder',
+    required: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Static label above the input (no floating label). `required` adds an asterisk.',
+      },
+    },
+  },
+};
+
 export const Multiline: Story = {
   args: {
     label: 'Multiline',
