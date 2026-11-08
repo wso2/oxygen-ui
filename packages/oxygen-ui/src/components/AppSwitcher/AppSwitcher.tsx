@@ -96,8 +96,8 @@ export interface AppSwitcherProps {
  * ```tsx
  * <AppSwitcher currentAppId="agent-manager">
  *   <AppSwitcher.Trigger label="Switch platforms" />
- *   <AppSwitcher.Section label="Platforms" apps={platforms} loading={isLoading} />
- *   <AppSwitcher.Footer label="Manage" links={manage} loading={isLoading} />
+ *   <AppSwitcher.Section label="Categories" apps={platforms} loading={isLoading} />
+ *   <AppSwitcher.Footer columns={2} links={cloudLinks} loading={isLoading} />
  * </AppSwitcher>
  * ```
  *
@@ -106,14 +106,14 @@ export interface AppSwitcherProps {
  * <Header.Actions>
  *   <AppSwitcher>
  *     <AppSwitcher.Trigger />
- *     <AppSwitcher.Section label="Platforms">
+ *     <AppSwitcher.Section label="Categories">
  *       <AppSwitcher.App name="Agent Manager" url="https://agent.wso2.com" />
  *       <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
  *       <AppSwitcher.App name="Analytics" disabled tooltip="Coming soon" />
  *     </AppSwitcher.Section>
- *     <AppSwitcher.Footer label="Manage">
- *       <AppSwitcher.App name="Organizations" url="https://console.wso2.com/organizations" />
- *       <AppSwitcher.App name="Billing" url="https://console.wso2.com/billing" />
+ *     <AppSwitcher.Footer columns={2}>
+ *       <AppSwitcher.App name="Cloud home" url="https://console.wso2.com" icon={<Home size={16} />} />
+ *       <AppSwitcher.App name="Settings" url="https://console.wso2.com/settings" icon={<Settings size={16} />} />
  *     </AppSwitcher.Footer>
  *   </AppSwitcher>
  * </Header.Actions>
@@ -200,7 +200,7 @@ export const AppSwitcher: React.FC<AppSwitcherProps> & {
  * - `AppSwitcher.Trigger` - Grid icon button that opens the popover
  * - `AppSwitcher.Section` - Labelled grid of application cards
  * - `AppSwitcher.App` - Card button for a single destination
- * - `AppSwitcher.Footer` - Manage section; its cards take the `manage` tone
+ * - `AppSwitcher.Footer` - Links below a divider (e.g. Cloud home, Settings); its cards take the `manage` tone
  */
 AppSwitcher.Trigger = AppSwitcherTrigger;
 AppSwitcher.Section = AppSwitcherSection;
