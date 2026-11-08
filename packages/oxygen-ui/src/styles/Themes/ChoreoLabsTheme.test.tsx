@@ -210,10 +210,31 @@ describe('ChoreoLabsTheme states', () => {
     );
     const css = renderedCss();
 
-    expect(css).toMatch(/\.Mui-focused:not\(\.Mui-error\)\{color:var\(--oxygen-palette-text-secondary\);/);
+    expect(css).toMatch(/\.MuiFormControl-root:not\(:has\(\.MuiSelect-select\)\) ?> ?\.css-[\w-]+\.Mui-focused:not\(\.Mui-error\)\{color:var\(--oxygen-palette-text-secondary\);/);
     expect(ChoreoLabsTheme.components?.MuiInputLabel?.styleOverrides?.root).toHaveProperty([
       '.MuiFormControl-root:has(.MuiSelect-select) &:not(.MuiInputLabel-shrink)',
     ]);
+  });
+
+  // Selects are excluded from the label changes; check the selectors match the real markup.
+  it('leaves select labels with their original focus colour and spacing', () => {
+    const { container } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <div data-testid="floating-select"><OxygenTextField select label="Role" value="" /></div>
+        <div data-testid="floating-text"><OxygenTextField label="Name" /></div>
+        <div data-testid="fixed-select"><OxygenTextField select labelPlacement="top" label="Role" value="" /></div>
+        <div data-testid="fixed-text"><OxygenTextField labelPlacement="top" label="Name" /></div>
+      </OxygenUIThemeProvider>
+    );
+    const matches = (testId: string, selector: string) => Boolean(container.querySelector(`[data-testid="${testId}"] ${selector}`));
+    const neutralFloatingLabel = '.MuiFormControl-root:not(:has(.MuiSelect-select)) > .MuiInputLabel-root';
+    const selectFixedLabel = '.MuiFormLabel-root:has(+ .MuiTextField-root .MuiSelect-select)';
+
+    expect(renderedCss()).toMatch(/:has\(\+ ?\.MuiTextField-root \.MuiSelect-select\)\{margin-bottom:2px;/);
+    expect(matches('floating-select', neutralFloatingLabel)).toBe(false);
+    expect(matches('floating-text', neutralFloatingLabel)).toBe(true);
+    expect(matches('fixed-select', selectFixedLabel)).toBe(true);
+    expect(matches('fixed-text', selectFixedLabel)).toBe(false);
   });
 
   it('uses Cobalt for focus on every input variant', () => {

@@ -325,16 +325,21 @@ const ChoreoLabsThemeConfig = {
         root: ({ theme }: { theme: OxygenTheme }) => ({
           fontSize: theme.typography.body2.fontSize,
           marginBottom: '4px',
+          // Selects keep their original spacing; the wider gap is for text inputs only.
+          '&:has(+ .MuiTextField-root .MuiSelect-select)': {
+            marginBottom: '2px',
+          },
         }),
       },
     },
     MuiInputLabel: {
       styleOverrides: {
         // The field's border already shows focus, so the label stays neutral like fixed labels do.
+        // Selects keep MUI's focused label colour, since their focus style is unchanged.
         // `focused` rather than `root`: createOxygenTheme deep-merges objects but replaces functions,
         // so a function `root` would drop the base theme's select label offset.
         focused: ({ theme }: { theme: OxygenTheme }) => ({
-          '&.Mui-focused:not(.Mui-error)': {
+          '.MuiFormControl-root:not(:has(.MuiSelect-select)) > &.Mui-focused:not(.Mui-error)': {
             color: theme.vars.palette.text.secondary,
           },
         }),
