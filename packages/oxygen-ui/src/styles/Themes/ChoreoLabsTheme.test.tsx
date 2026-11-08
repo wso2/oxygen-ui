@@ -18,10 +18,12 @@
 
 import { describe, it, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
-import { AppBar, Button, Card, Dialog, Fab, FilledInput, Input, OutlinedInput, Paper, Select } from '@mui/material';
+import { AppBar, Button, Card, Chip, Dialog, Fab, FilledInput, Input, OutlinedInput, Paper, Select, TextField } from '@mui/material';
 import type { TypographyVariantsOptions } from '@mui/material/styles';
 import OxygenUIThemeProvider from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
 import OxygenTextField from '../../components/TextField/TextField';
+import SidebarUserAvatar from '../../components/Sidebar/SidebarUserAvatar';
+import UserMenu from '../../components/UserMenu/UserMenu';
 import { ChoreoLabsTheme, OxygenTheme } from './index';
 
 const SIGNAL = '#FF4600';
@@ -81,6 +83,23 @@ describe('ChoreoLabsTheme', () => {
       expect(Alert[`${status}Color`]).toBe(colors[status][0]);
       expect(Alert[`${status}StandardBg`]).toBe(colors[status][1]);
     });
+  });
+
+  it.each([
+    ['light', '#0B1633', '#FFFFFF'],
+    ['dark', '#FFFFFF', '#0B1633'],
+  ] as const)('uses dark blue as the secondary colour in the %s scheme', (scheme, main, contrastText) => {
+    const { secondary } = ChoreoLabsTheme.colorSchemes[scheme]!.palette;
+
+    expect(secondary.main).toBe(main);
+    expect(secondary.contrastText).toBe(contrastText);
+  });
+
+  it.each(['light', 'dark'] as const)('uses Burn as the accent colour in the %s scheme', (scheme) => {
+    const { accent } = ChoreoLabsTheme.colorSchemes[scheme]!.palette;
+
+    expect(accent.main).toBe(BURN);
+    expect(accent.contrastText).toBe('#FFFFFF');
   });
 
   it('fills dark-mode info alerts with Deep Navy', () => {
@@ -155,6 +174,113 @@ describe('ChoreoLabsTheme states', () => {
 
     expect(css).toMatch(/:hover\{background:#FF6E33\s*!important;/);
     expect(css).toMatch(/:active\{background:#8F2400\s*!important;color:#FFFFFF\s*!important;/);
+  });
+
+  it('sizes buttons at 32, 40 and 48px', () => {
+    const { getByText } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Button size="small">Small</Button>
+        <Button>Medium</Button>
+        <Button size="large">Large</Button>
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+    const minHeight = (label: string) => {
+      const className = getByText(label).className.split(' ').find((name) => name.startsWith('css-'));
+      return css.match(new RegExp(`\\.${className}\\{[^}]*min-height:(\\d+)px`))?.[1];
+    };
+
+    expect(minHeight('Small')).toBe('32');
+    expect(minHeight('Medium')).toBe('40');
+    expect(minHeight('Large')).toBe('48');
+  });
+
+  it('uses dark blue for outlined and filled secondary buttons', () => {
+    render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Button variant="outlined" color="secondary">All Reports</Button>
+        <Button variant="contained" color="secondary">Contact Us</Button>
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+
+    expect(css).toMatch(
+      /\{[^}]*background-color:var\(--oxygen-palette-secondary-main\);color:var\(--oxygen-palette-secondary-contrastText\);/
+    );
+
+    expect(css).toMatch(
+      /\{[^}]*border-color:var\(--oxygen-palette-secondary-main\);color:var\(--oxygen-palette-secondary-main\);/
+    );
+  });
+
+  it('fills the subtle button variant with the accent colour and a white label', () => {
+    render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Button variant="subtle">Download</Button>
+      </OxygenUIThemeProvider>
+    );
+
+    expect(renderedCss()).toMatch(
+      /\{[^}]*background-color:var\(--oxygen-palette-accent-main\);color:var\(--oxygen-palette-accent-contrastText\);/
+    );
+  });
+
+  it('uses the light avatar style for the app shell user avatars', () => {
+    render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <UserMenu>
+          <UserMenu.Trigger name="Jane Doe" />
+        </UserMenu>
+        <SidebarUserAvatar>JD</SidebarUserAvatar>
+      </OxygenUIThemeProvider>
+    );
+    const lightAvatar = 'background-color:color-mix(in srgb, var(--oxygen-palette-primary-main) 12%, transparent);color:var(--oxygen-palette-primary-main);}';
+
+    (['MuiUserMenu-avatar', 'MuiSidebar-userAvatar'] as const).forEach((slot) => {
+      const rule = renderedCss().match(new RegExp(`\\.[^{}]*${slot}\\{[^}]*\\}`))?.[0];
+      expect(rule?.endsWith(lightAvatar)).toBe(true);
+    });
+  });
+
+  it('sizes outlined fields at 40 and 48px to line up with medium and large buttons', () => {
+    const { container } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <div data-testid="small"><TextField label="Name" /></div>
+        <div data-testid="medium"><TextField size="medium" label="Name" /></div>
+        <div data-testid="multiline"><TextField multiline /></div>
+        <div data-testid="compact">
+          <TextField sx={{ '& .MuiOutlinedInput-root': { height: 32 }, '& .MuiInputBase-input': { padding: '4px 8px' } }} />
+        </div>
+      </OxygenUIThemeProvider>
+    );
+    const style = (testId: string, selector: string) =>
+      getComputedStyle(container.querySelector(`[data-testid="${testId}"] ${selector}`)!);
+
+    expect(style('small', '.MuiInputBase-input').paddingTop).toBe('calc(0.5 * (40px - 1.4375em - 0px))');
+    expect(style('medium', '.MuiInputBase-input').paddingTop).toBe('calc(0.5 * (48px - 1.4375em - 0px))');
+    expect(style('small', '.MuiInputLabel-root').transform).toBe('translate(14px, calc((40px - 1.4375em - 0px) / 2)) scale(1)');
+    expect(style('multiline', '.MuiInputBase-root').paddingTop).toBe('calc(0.5 * (40px - 1.4375em - 0px))');
+    expect(style('multiline', '.MuiInputBase-input').paddingTop).toBe('0px');
+    // Components that size their own fields keep that size
+    expect(style('compact', '.MuiInputBase-root').height).toBe('32px');
+    expect(style('compact', '.MuiInputBase-input').paddingTop).toBe('4px');
+  });
+
+  it('renders the tag chip as a dark blue uppercase label, or in the chosen colour', () => {
+    const { getByText } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Chip variant="tag" label="Webinar" />
+        <Chip variant="tag" color="primary" label="New" />
+      </OxygenUIThemeProvider>
+    );
+    const style = (label: string) => getComputedStyle(getByText(label).closest('.MuiChip-root')!);
+
+    expect(style('Webinar').textTransform).toBe('uppercase');
+    expect(style('Webinar').borderRadius).toBe('4px');
+    expect(style('Webinar').backgroundColor).toBe('var(--oxygen-palette-secondary-main)');
+    expect(style('New').backgroundColor).toBe('var(--oxygen-palette-primary-main)');
+    // jsdom lowercases computed colours, CSS variable names included
+    expect(style('New').color).toMatch(/^var\(--oxygen-palette-primary-contrasttext\)$/i);
   });
 
   it('gives outlined text inputs an Ink focus border, and a ring only with a fixed label', () => {
