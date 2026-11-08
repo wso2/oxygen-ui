@@ -1,5 +1,22 @@
 # @wso2/oxygen-ui
 
+## 0.22.0
+
+### Minor Changes
+
+- [#684](https://github.com/wso2/oxygen-ui/pull/684) [`d3db52f`](https://github.com/wso2/oxygen-ui/commit/d3db52ffba2d87356319b16d3b62ff3c3f2ca1e5) Thanks [@aruniw](https://github.com/aruniw)! - Let `AppSwitcher.Footer` sit below its divider without a heading, so the switcher can end with WSO2 Cloud links such as Cloud home and Settings. The footer no longer shows "Manage" unless a `label` is passed; it keeps "Manage" as its accessible name, which the new `aria-label` prop on `AppSwitcher.Footer` and `AppSwitcher.Section` can change.
+
+### Patch Changes
+
+- [#683](https://github.com/wso2/oxygen-ui/pull/683) [`ef0ba05`](https://github.com/wso2/oxygen-ui/commit/ef0ba054e39fa0cfe74460870b7cbac46390b5c9) Thanks [@savindi7](https://github.com/savindi7)! - Update `ChoreoLabsTheme` buttons, fields, chips and avatars: dark blue secondary colour for outlined and filled buttons, a Burn `accent` colour, a `subtle` button variant with a Burn fill and white label, button heights of 32, 40 and 48px for small, medium and large, a 500 button font weight, 40 and 48px outlined fields with 14px text to line up with medium and large buttons, the light avatar style for the app shell user avatars, and a `tag` Chip variant.
+
+- [#678](https://github.com/wso2/oxygen-ui/pull/678) [`f8a2b03`](https://github.com/wso2/oxygen-ui/commit/f8a2b032027d9edfa921d6b169f7706d4ae9051b) Thanks [@Kalika-Jay](https://github.com/Kalika-Jay)! - Make the filter buttons and the search field of the `LogViewer` toolbar 32px high, as the search field was written to be. `SearchBarBase` spread an `sx` array into numbered keys and dropped every style in it, so the field stayed at 40px; it now merges an array like any other `sx`.
+
+- [#678](https://github.com/wso2/oxygen-ui/pull/678) [`526fa66`](https://github.com/wso2/oxygen-ui/commit/526fa66307f09c2479fefac0fdca4fe82ea7cb72) Thanks [@Kalika-Jay](https://github.com/Kalika-Jay)! - Animate the closing of a `LogViewer` entry the way its opening is animated. The details used to leave the page the moment an entry was closed, so they opened with a slide and closed with none.
+
+- Updated dependencies []:
+  - @wso2/oxygen-ui-icons-react@0.22.0
+
 ## 0.21.0
 
 ### Minor Changes
