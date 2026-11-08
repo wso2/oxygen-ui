@@ -167,6 +167,7 @@ Creates:
   - `/oxygen-component` - Generate Oxygen UI components
   - `/oxygen-layout` - Generate app layouts
   - `/oxygen-form` - Generate forms with validation
+  - `/oxygen-textfield` - Use fixed-label text fields instead of floating labels
   - `/oxygen-migrate` - Migrate MUI code
 - Updates root `CLAUDE.md` with reference
 

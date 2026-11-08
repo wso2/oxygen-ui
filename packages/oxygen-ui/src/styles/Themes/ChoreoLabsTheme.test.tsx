@@ -18,9 +18,10 @@
 
 import { describe, it, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
-import { AppBar, Button, Card, Dialog, Fab, FilledInput, Input, OutlinedInput, Paper } from '@mui/material';
+import { AppBar, Button, Card, Dialog, Fab, FilledInput, Input, OutlinedInput, Paper, Select } from '@mui/material';
 import type { TypographyVariantsOptions } from '@mui/material/styles';
 import OxygenUIThemeProvider from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
+import OxygenTextField from '../../components/TextField/TextField';
 import { ChoreoLabsTheme, OxygenTheme } from './index';
 
 const SIGNAL = '#FF4600';
@@ -154,6 +155,65 @@ describe('ChoreoLabsTheme states', () => {
 
     expect(css).toMatch(/:hover\{background:#FF6E33\s*!important;/);
     expect(css).toMatch(/:active\{background:#8F2400\s*!important;color:#FFFFFF\s*!important;/);
+  });
+
+  it('gives outlined text inputs an Ink focus border, and a ring only with a fixed label', () => {
+    render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <OutlinedInput />
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+
+    expect(css).toMatch(/OutlinedInput-root\.Mui-focused:not\(\.MuiSelect-root\) \.MuiOutlinedInput-notchedOutline\{border-width:1\.5px;/);
+    expect(css).toMatch(/OutlinedInput-root\.Mui-focused:not\(\.Mui-error\):not\(\.MuiSelect-root\) \.MuiOutlinedInput-notchedOutline\{border-color:var\(--oxygen-palette-text-primary\);/);
+    expect(css).toMatch(/\.MuiFormLabel-root ?\+ ?\.MuiTextField-root \.css-[\w-]+OutlinedInput-root\.Mui-focused:not\(\.MuiSelect-root\)\{box-shadow:0 0 0 3px #1F4FFF40;/);
+    expect(css).toMatch(/\.MuiFormLabel-root ?\+ ?\.MuiTextField-root \.css-[\w-]+OutlinedInput-root\.Mui-focused\.Mui-error:not\(\.MuiSelect-root\)\{box-shadow:0 0 0 3px rgba\(var\(--oxygen-palette-error-mainChannel\) \/ 0\.25\);/);
+    // An unscoped ring rule (one starting right after the previous rule's `}`) would cross floating labels
+    expect(css).not.toMatch(/\}\.css-[\w-]+OutlinedInput-root\.Mui-focused[^{]*\{box-shadow/);
+  });
+
+  // The theme can't see the label placement, so the ring relies on this markup; fail loudly if it changes.
+  it('matches the ring selector only on fixed-label fields', () => {
+    const { container } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <div data-testid="fixed"><OxygenTextField labelPlacement="top" label="Name" /></div>
+        <div data-testid="floating"><OxygenTextField label="Name" /></div>
+      </OxygenUIThemeProvider>
+    );
+    const ringTarget = (testId: string) => container.querySelector(
+      `[data-testid="${testId}"] .MuiFormLabel-root + .MuiTextField-root .MuiOutlinedInput-root`,
+    );
+
+    expect(ringTarget('fixed')).not.toBeNull();
+    expect(ringTarget('floating')).toBeNull();
+  });
+
+  // Selects and text inputs share MuiOutlinedInput, and this class is the only way to tell them apart.
+  it('marks select input roots with MuiSelect-root and leaves text inputs unmarked', () => {
+    const { container } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <div data-testid="select"><Select value="" /></div>
+        <div data-testid="text"><OutlinedInput /></div>
+      </OxygenUIThemeProvider>
+    );
+
+    expect(container.querySelector('[data-testid="select"] .MuiOutlinedInput-root')?.classList.contains('MuiSelect-root')).toBe(true);
+    expect(container.querySelector('[data-testid="text"] .MuiOutlinedInput-root')?.classList.contains('MuiSelect-root')).toBe(false);
+  });
+
+  it('keeps the floating label colour on focus without dropping the base select label offset', () => {
+    render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <OxygenTextField label="Name" focused />
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+
+    expect(css).toMatch(/\.Mui-focused:not\(\.Mui-error\)\{color:var\(--oxygen-palette-text-secondary\);/);
+    expect(ChoreoLabsTheme.components?.MuiInputLabel?.styleOverrides?.root).toHaveProperty([
+      '.MuiFormControl-root:has(.MuiSelect-select) &:not(.MuiInputLabel-shrink)',
+    ]);
   });
 
   it('uses Cobalt for focus on every input variant', () => {
