@@ -99,8 +99,12 @@ const ChoreoLabsStatusColors = {
 };
 
 // Matches only fixed-label fields: the Oxygen TextField's `top` mode puts a FormLabel right before
-// the inner TextField, whereas a floating label sits inside it.
-const fixedLabelField = '.MuiFormLabel-root + .MuiTextField-root';
+// an inner TextField that has no label of its own. Excluding TextFields with an InputLabel keeps a
+// standalone FormLabel placed before a floating-label field from matching.
+const fixedLabelField = '.MuiFormLabel-root + .MuiTextField-root:not(:has(> .MuiInputLabel-root))';
+
+// Selects and native selects share MuiOutlinedInput with text inputs but keep the Cobalt focus border.
+const notSelect = ':not(.MuiSelect-root):not(.MuiNativeSelect-root)';
 
 const fontFamily = "'Sora Variable', sans-serif";
 
@@ -578,18 +582,18 @@ const ChoreoLabsThemeConfig = {
             borderColor: ChoreoLabsColors.cobalt,
           },
           // Text inputs follow the brand's focus style (thin text-colour border, ring on fixed-label
-          // fields), while selects (.MuiSelect-root) keep the Cobalt border above.
-          '&.Mui-focused:not(.MuiSelect-root) .MuiOutlinedInput-notchedOutline': {
+          // fields), while selects keep the Cobalt border above.
+          [`&.Mui-focused${notSelect} .MuiOutlinedInput-notchedOutline`]: {
             borderWidth: 1.5,
           },
-          '&.Mui-focused:not(.Mui-error):not(.MuiSelect-root) .MuiOutlinedInput-notchedOutline': {
+          [`&.Mui-focused:not(.Mui-error)${notSelect} .MuiOutlinedInput-notchedOutline`]: {
             borderColor: theme.vars.palette.text.primary,
           },
           // A box-shadow ignores the outline's notch and would cut through a floating label.
-          [`${fixedLabelField} &.Mui-focused:not(.MuiSelect-root)`]: {
+          [`${fixedLabelField} > &.Mui-focused${notSelect}`]: {
             boxShadow: `0 0 0 3px ${ChoreoLabsColors.cobalt}40`,
           },
-          [`${fixedLabelField} &.Mui-focused.Mui-error:not(.MuiSelect-root)`]: {
+          [`${fixedLabelField} > &.Mui-focused.Mui-error${notSelect}`]: {
             boxShadow: `0 0 0 3px rgba(${theme.vars.palette.error.mainChannel} / 0.25)`,
           },
         }),
