@@ -28,7 +28,7 @@ import {
   UserMenu,
 } from '@wso2/oxygen-ui';
 import type { AppSwitcherAppItem, AppSwitcherFooterLink } from '@wso2/oxygen-ui';
-import { Building2, CreditCard, UserRoundPlus } from '@wso2/oxygen-ui-icons-react';
+import { Home, Settings } from '@wso2/oxygen-ui-icons-react';
 
 /**
  * AppSwitcher lets users move between the WSO2 Cloud platforms from a grid
@@ -44,7 +44,7 @@ const meta: Meta<typeof AppSwitcher> = {
       description: {
         component: `
 The AppSwitcher pairs a grid icon button with a popover listing the platforms a user can switch to,
-plus a manage section linking to the WSO2 Cloud tabs.
+plus a footer below a divider that links back to the WSO2 Cloud console.
 
 ### Compound component
 The switcher is composed from sub-components — \`AppSwitcher.Trigger\`, \`AppSwitcher.Section\`,
@@ -61,7 +61,7 @@ arrow-key navigation, so the layout stays consistent while products keep control
   The current app is the exception: it opens in the same tab and closes the popover
 - Data-driven \`apps\` and \`links\`, with loading, unavailable and busy states
 - An unavailable platform can carry a \`tooltip\` (e.g. "Coming soon") explaining why
-- A \`Manage\` section for the WSO2 Cloud tabs (organizations, users, billing)
+- A footer below a divider with Cloud home and Settings, taking the user back to the WSO2 Cloud console
 - Responsive popover: viewport-capped on mobile, fixed width from \`sm\` up
 
 ### Usage
@@ -71,14 +71,14 @@ import { AppSwitcher, Header } from '@wso2/oxygen-ui';
 <Header.Actions>
   <AppSwitcher>
     <AppSwitcher.Trigger />
-    <AppSwitcher.Section label="Platforms">
+    <AppSwitcher.Section label="Categories">
       <AppSwitcher.App name="Agent Manager" url="https://agent.wso2.com" />
       <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
       <AppSwitcher.App name="Analytics Platform" disabled tooltip="Coming soon" />
     </AppSwitcher.Section>
-    <AppSwitcher.Footer label="Manage">
-      <AppSwitcher.App name="Organizations" url="https://console.wso2.com/organizations" />
-      <AppSwitcher.App name="Billing" url="https://console.wso2.com/billing" />
+    <AppSwitcher.Footer columns={2}>
+      <AppSwitcher.App name="Cloud home" url="https://console.wso2.com" icon={<Home size={16} />} />
+      <AppSwitcher.App name="Settings" url="https://console.wso2.com/settings" icon={<Settings size={16} />} />
     </AppSwitcher.Footer>
   </AppSwitcher>
 </Header.Actions>
@@ -93,8 +93,8 @@ not fetch anything; the console fetches the list and passes it in.
 \`\`\`tsx
 <AppSwitcher currentAppId="agent-manager">
   <AppSwitcher.Trigger label="Switch platforms" />
-  <AppSwitcher.Section label="Platforms" apps={platforms} loading={isLoading} />
-  <AppSwitcher.Footer label="Manage" links={manage} loading={isLoading} />
+  <AppSwitcher.Section label="Categories" apps={platforms} loading={isLoading} />
+  <AppSwitcher.Footer columns={2} links={cloudLinks} loading={isLoading} />
 </AppSwitcher>
 \`\`\`
 
@@ -117,7 +117,7 @@ not fetch anything; the console fetches the list and passes it in.
 ### The platform mark
 Every platform card carries the WSO2 mark, the \`WSO2\` icon from \`@wso2/oxygen-ui-icons-react\`. It is
 supplied by the component, so products do not pick their own artwork and the grid stays uniform. Pass
-\`icon\` only when a destination genuinely needs different artwork — the manage links do, which is why
+\`icon\` only when a destination genuinely needs different artwork — the footer links do, which is why
 they take neutral glyphs.
 
 ### Routing
@@ -132,7 +132,8 @@ card does nothing at all. A second click of the grid trigger, a click outside, o
 
 ### Accessibility
 - The trigger is a labeled button ("Switch Platforms" by default) exposing \`aria-haspopup\`, \`aria-expanded\`, and \`aria-controls\`.
-- Platforms and manage links are each grouped in a list labelled by their section heading.
+- Platforms are grouped in a list labelled by their section heading. The footer has no visible heading, so
+  its list is named by \`aria-label\` ("Manage" by default).
 - Platforms marked \`disabled\` carry \`aria-disabled\` and are drawn with a faded mark and muted label; they stay focusable so they remain discoverable, but never navigate.
 - "Coming soon" platforms are disabled cards like the above, and their tooltip is read as the card's description. A card is one when its \`url\` is \`null\` or blank and it has no \`onClick\` or \`component\`; in a section's \`apps\`, an omitted \`url\` counts too.
 - The current app is marked \`aria-current="page"\`; its border uses the darker brand token for 3:1 contrast.
@@ -162,14 +163,15 @@ export default meta;
 type Story = StoryObj<typeof AppSwitcher>;
 
 /**
- * The WSO2 Cloud tabs. These take their own glyphs rather than the WSO2 mark,
- * so they read as settings rather than as products. They point at wso2.com here
- * only so the demo links resolve; a product passes its own console URLs.
+ * The WSO2 Cloud console links: Cloud home returns the user to the console home
+ * page and Settings opens its settings page. These take their own glyphs rather
+ * than the WSO2 mark, so they read as navigation rather than as products. They
+ * point at wso2.com here only so the demo links resolve; a product passes its
+ * own console URLs.
  */
-const manageLinks = [
-  <AppSwitcher.App key="orgs" name="Organizations" url="https://wso2.com" icon={<Building2 size={16} />} />,
-  <AppSwitcher.App key="users" name="Users & roles" url="https://wso2.com" icon={<UserRoundPlus size={16} />} />,
-  <AppSwitcher.App key="billing" name="Billing" url="https://wso2.com" icon={<CreditCard size={16} />} />,
+const cloudLinks = [
+  <AppSwitcher.App key="home" name="Cloud home" url="https://wso2.com" icon={<Home size={16} />} />,
+  <AppSwitcher.App key="settings" name="Settings" url="https://wso2.com" icon={<Settings size={16} />} />,
 ];
 
 /**
@@ -200,12 +202,10 @@ export const Default: Story = {
       </Typography>
       <AppSwitcher>
         <AppSwitcher.Trigger />
-        <AppSwitcher.Section label="Platforms">
+        <AppSwitcher.Section label="Categories">
           {platforms}
         </AppSwitcher.Section>
-        <AppSwitcher.Footer label="Manage">
-          {manageLinks}
-        </AppSwitcher.Footer>
+        <AppSwitcher.Footer columns={2}>{cloudLinks}</AppSwitcher.Footer>
       </AppSwitcher>
     </Box>
   ),
@@ -214,19 +214,17 @@ export const Default: Story = {
 /**
  * A single platform. The grid does not stretch one card across the full width,
  * so an organization entitled to one platform still gets a card the same size
- * as everywhere else, with the manage section below it.
+ * as everywhere else, with the footer links below it.
  */
 export const SinglePlatform: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
       <AppSwitcher>
         <AppSwitcher.Trigger />
-        <AppSwitcher.Section label="Platforms">
+        <AppSwitcher.Section label="Categories">
           <AppSwitcher.App name="API Platform" url="https://wso2.com" />
         </AppSwitcher.Section>
-        <AppSwitcher.Footer label="Manage">
-          {manageLinks}
-        </AppSwitcher.Footer>
+        <AppSwitcher.Footer columns={2}>{cloudLinks}</AppSwitcher.Footer>
       </AppSwitcher>
     </Box>
   ),
@@ -249,12 +247,10 @@ export const InHeader: Story = {
       <Header.Actions>
         <AppSwitcher>
           <AppSwitcher.Trigger />
-          <AppSwitcher.Section label="Platforms">
+          <AppSwitcher.Section label="Categories">
             {platforms}
           </AppSwitcher.Section>
-          <AppSwitcher.Footer label="Manage">
-          {manageLinks}
-        </AppSwitcher.Footer>
+          <AppSwitcher.Footer columns={2}>{cloudLinks}</AppSwitcher.Footer>
         </AppSwitcher>
         <ColorSchemeToggle />
         <UserMenu>
@@ -280,10 +276,9 @@ const platformData: AppSwitcherAppItem[] = [
   { id: 'api-analytics', name: 'API Analytics', url: null },
 ];
 
-const manageData: AppSwitcherFooterLink[] = [
-  { id: 'organizations', name: 'Organizations', url: 'https://wso2.com', icon: <Building2 size={16} /> },
-  { id: 'users', name: 'Users & roles', url: 'https://wso2.com', icon: <UserRoundPlus size={16} /> },
-  { id: 'billing', name: 'Billing', url: 'https://wso2.com', icon: <CreditCard size={16} /> },
+const cloudData: AppSwitcherFooterLink[] = [
+  { id: 'cloud-home', name: 'Cloud home', url: 'https://wso2.com', icon: <Home size={16} /> },
+  { id: 'settings', name: 'Settings', url: 'https://wso2.com', icon: <Settings size={16} /> },
 ];
 
 /**
@@ -297,8 +292,8 @@ export const DataDriven: Story = {
     <Box sx={{ p: 4 }}>
       <AppSwitcher currentAppId="agent-manager">
         <AppSwitcher.Trigger label="Switch platforms" />
-        <AppSwitcher.Section label="Platforms" apps={platformData} />
-        <AppSwitcher.Footer label="Manage" links={manageData} />
+        <AppSwitcher.Section label="Categories" apps={platformData} />
+        <AppSwitcher.Footer columns={2} links={cloudData} />
       </AppSwitcher>
     </Box>
   ),
@@ -319,8 +314,8 @@ export const Loading: Story = {
         </Button>
         <AppSwitcher currentAppId="agent-manager">
           <AppSwitcher.Trigger />
-          <AppSwitcher.Section label="Platforms" apps={platformData} loading={loading} />
-          <AppSwitcher.Footer label="Manage" links={manageData} loading={loading} />
+          <AppSwitcher.Section label="Categories" apps={platformData} loading={loading} />
+          <AppSwitcher.Footer columns={2} links={cloudData} loading={loading} />
         </AppSwitcher>
       </Box>
     );
@@ -360,8 +355,8 @@ export const BusyCard: Story = {
         </Typography>
         <AppSwitcher currentAppId="agent-manager">
           <AppSwitcher.Trigger />
-          <AppSwitcher.Section label="Platforms" apps={apps} />
-          <AppSwitcher.Footer label="Manage" links={manageData} />
+          <AppSwitcher.Section label="Categories" apps={apps} />
+          <AppSwitcher.Footer columns={2} links={cloudData} />
         </AppSwitcher>
       </Box>
     );

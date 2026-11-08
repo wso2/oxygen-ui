@@ -70,8 +70,16 @@ export interface AppSwitcherFooterProps {
   children?: React.ReactNode;
   /** WSO2 Cloud destinations rendered as cards, as an alternative to `children` */
   links?: AppSwitcherFooterLink[];
-  /** Heading above the links (default: `"Manage"`) */
+  /**
+   * Heading above the links. Omit it to show the links under the divider alone,
+   * as in the WSO2 Cloud design.
+   */
   label?: string;
+  /**
+   * Accessible name for the links when there is no visible `label`
+   * (default: `"Manage"`)
+   */
+  'aria-label'?: string;
   /** Number of grid columns from the `sm` breakpoint up (default: 3) */
   columns?: number;
   /** Shows placeholder cards, e.g. while the links are fetched */
@@ -83,8 +91,8 @@ export interface AppSwitcherFooterProps {
 /**
  * AppSwitcher.Footer - Bottom section of the app switcher popover.
  *
- * Holds the WSO2 Cloud destinations (organizations, users, billing) as a
- * labelled grid of cards, using the same card as the platform grid so both rows
+ * Holds the WSO2 Cloud destinations (e.g. Cloud home and Settings) below a
+ * divider, as a grid of cards, using the same card as the platform grid so both rows
  * behave identically. The neutral mark and lighter type keep them visually
  * secondary to the platforms above.
  *
@@ -93,16 +101,17 @@ export interface AppSwitcherFooterProps {
  *
  * @example
  * ```tsx
- * <AppSwitcher.Footer label="Manage">
- *   <AppSwitcher.App name="Organizations" url="https://console.wso2.com/organizations" />
- *   <AppSwitcher.App name="Billing" url="https://console.wso2.com/billing" />
+ * <AppSwitcher.Footer columns={2}>
+ *   <AppSwitcher.App name="Cloud home" url="https://console.wso2.com" icon={<Home size={16} />} />
+ *   <AppSwitcher.App name="Settings" url="https://console.wso2.com/settings" icon={<Settings size={16} />} />
  * </AppSwitcher.Footer>
  * ```
  */
 export const AppSwitcherFooter: React.FC<AppSwitcherFooterProps> = ({
   children,
   links,
-  label = 'Manage',
+  label,
+  'aria-label': ariaLabel = 'Manage',
   columns = 3,
   loading = false,
   loadingCount,
@@ -123,6 +132,7 @@ export const AppSwitcherFooter: React.FC<AppSwitcherFooterProps> = ({
       <AppSwitcherFooterContext.Provider value={true}>
         <AppSwitcherSection
           label={label}
+          aria-label={ariaLabel}
           columns={columns}
           loading={loading}
           loadingCount={loadingCount}

@@ -136,8 +136,13 @@ export interface AppSwitcherSectionProps {
    * `url`, `onClick` or `component` renders disabled.
    */
   apps?: AppSwitcherAppItem[];
-  /** Section heading, rendered as an uppercase label (e.g. `"Platforms"`) */
+  /** Section heading, rendered as an uppercase label (e.g. `"Categories"`) */
   label?: string;
+  /**
+   * Accessible name for the grid when there is no visible `label`. Ignored
+   * when `label` is set, since the heading already names the grid.
+   */
+  'aria-label'?: string;
   /** Number of grid columns from the `sm` breakpoint up (default: 3) */
   columns?: number;
   /** Shows placeholder cards, e.g. while the apps are fetched */
@@ -155,18 +160,19 @@ export interface AppSwitcherSectionProps {
  *
  * @example
  * ```tsx
- * <AppSwitcher.Section label="Platforms">
+ * <AppSwitcher.Section label="Categories">
  *   <AppSwitcher.App name="Agent Manager" url="https://agent.wso2.com" />
  *   <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
  * </AppSwitcher.Section>
  *
- * <AppSwitcher.Section label="Platforms" apps={platforms} loading={isLoading} />
+ * <AppSwitcher.Section label="Categories" apps={platforms} loading={isLoading} />
  * ```
  */
 export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
   children,
   apps,
   label,
+  'aria-label': ariaLabel,
   columns = 3,
   loading = false,
   loadingCount,
@@ -267,6 +273,7 @@ export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
         ownerState={{ columns }}
         role="list"
         aria-labelledby={label ? labelId : undefined}
+        aria-label={label ? undefined : ariaLabel}
         aria-busy={loading ? 'true' : undefined}
         onKeyDown={handleKeyDown}
       >

@@ -245,6 +245,53 @@ describe('AppSwitcher data-driven sections', () => {
     expect(screen.queryByText('Agent Manager')).toBeNull();
   });
 
+  it('renders the footer without a heading when no label is given', () => {
+    render(
+      <OxygenUIThemeProvider>
+        <AppSwitcher>
+          <AppSwitcher.Trigger />
+          <AppSwitcher.Section label="Platforms" apps={PLATFORMS} />
+          <AppSwitcher.Footer columns={2} links={MANAGE} />
+        </AppSwitcher>
+      </OxygenUIThemeProvider>,
+    );
+    openSwitcher();
+
+    expect(screen.queryByText('Manage')).toBeNull();
+    const footer = screen.getByRole('list', { name: 'Manage' });
+    expect(footer.getAttribute('aria-labelledby')).toBeNull();
+    expect(footer.querySelectorAll('[data-app-switcher-app]')).toHaveLength(MANAGE.length);
+  });
+
+  it('names a heading-less footer from aria-label', () => {
+    render(
+      <OxygenUIThemeProvider>
+        <AppSwitcher>
+          <AppSwitcher.Trigger />
+          <AppSwitcher.Footer aria-label="WSO2 Cloud" links={MANAGE} />
+        </AppSwitcher>
+      </OxygenUIThemeProvider>,
+    );
+    openSwitcher();
+
+    expect(screen.getByRole('list', { name: 'WSO2 Cloud' })).toBeDefined();
+  });
+
+  it('prefers a visible label over aria-label', () => {
+    render(
+      <OxygenUIThemeProvider>
+        <AppSwitcher>
+          <AppSwitcher.Trigger />
+          <AppSwitcher.Footer label="Shortcuts" aria-label="Ignored" links={MANAGE} />
+        </AppSwitcher>
+      </OxygenUIThemeProvider>,
+    );
+    openSwitcher();
+
+    const footer = screen.getByRole('list', { name: 'Shortcuts' });
+    expect(footer.getAttribute('aria-label')).toBeNull();
+  });
+
   it('gives app cards the platform treatment and link cards the manage one', () => {
     renderSwitcher();
     openSwitcher();
