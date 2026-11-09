@@ -28,7 +28,33 @@ declare module '@mui/material/styles' {
   }
   interface PaletteOptions {
     accent?: PaletteOptions['primary'];
+    Button?: Partial<ChoreoLabsButtonPalette>;
   }
+  interface Palette {
+    // Only set by ChoreoLabsTheme
+    Button?: ChoreoLabsButtonPalette;
+  }
+}
+
+/**
+ * Button colours that differ between the light and dark schemes. Kept in the palette so each scheme
+ * swaps them through CSS variables, instead of scheme selectors that would outrank the disabled style.
+ */
+interface ChoreoLabsButtonPalette {
+  /** Outlined primary border and label, and text primary label */
+  outlinedColor: string;
+  /** Text primary label on hover */
+  textHoverColor: string;
+  /** Contained secondary fill on hover and when pressed */
+  containedSecondaryHoverBg: string;
+  /** Contained secondary label on hover */
+  containedSecondaryHoverColor: string;
+  /** Contained secondary label when pressed */
+  containedSecondaryActiveColor: string;
+  disabledBg: string;
+  disabledColor: string;
+  /** Keyboard focus ring */
+  focusRing: string;
 }
 
 declare module '@mui/material/Button' {
@@ -70,10 +96,17 @@ const ChoreoLabsColors = {
   ember: '#8F2400',
   // Signal is below 4.5:1 as text on light surfaces, so orange text there uses Burn.
   burn: '#C43300',
+  // The orange for white labels (4.6:1)
+  action: '#D83B00',
   midnightInk: '#0B1633',
   deepNavy: '#17223A',
   blackout: '#050A1C',
+  midnight900: '#070D22',
+  midnightText3: '#8A93A6',
+  void: '#07080C',
   cobalt: '#1F4FFF',
+  // Focus colour on dark surfaces, where Cobalt is too dark
+  azure: '#3D8BFF',
   mist: '#EAF6FF',
   slate: '#5A6072',
   fog: '#D7DBE4',
@@ -170,6 +203,17 @@ const ChoreoLabsColorSchemes = {
       Avatar: {
         defaultBg: ChoreoLabsColors.fog,
       },
+      Button: {
+        outlinedColor: ChoreoLabsColors.burn,
+        textHoverColor: ChoreoLabsColors.ember,
+        // Midnight Ink fill: darkens to Void
+        containedSecondaryHoverBg: ChoreoLabsColors.void,
+        containedSecondaryHoverColor: ChoreoLabsColors.white,
+        containedSecondaryActiveColor: ChoreoLabsColors.white,
+        disabledBg: ChoreoLabsColors.fog,
+        disabledColor: ChoreoLabsColors.slate,
+        focusRing: ChoreoLabsColors.cobalt,
+      },
       Alert: {
         infoColor: ChoreoLabsColors.midnightInk,
         infoIconColor: ChoreoLabsColors.midnightInk,
@@ -215,6 +259,17 @@ const ChoreoLabsColorSchemes = {
       ...ChoreoLabsStatusColors.dark,
       Avatar: {
         defaultBg: ChoreoLabsColors.graphite,
+      },
+      Button: {
+        outlinedColor: ChoreoLabsColors.signal,
+        textHoverColor: ChoreoLabsColors.flare,
+        // White fill (the guideline's inverse button): the fill stays and the label turns orange
+        containedSecondaryHoverBg: ChoreoLabsColors.white,
+        containedSecondaryHoverColor: ChoreoLabsColors.action,
+        containedSecondaryActiveColor: ChoreoLabsColors.burn,
+        disabledBg: ChoreoLabsColors.midnight900,
+        disabledColor: ChoreoLabsColors.midnightText3,
+        focusRing: ChoreoLabsColors.azure,
       },
       Alert: {
         infoColor: ChoreoLabsColors.white,
@@ -303,74 +358,148 @@ const ChoreoLabsThemeConfig = {
       },
     },
     MuiButton: {
+      // The guidelines' buttons are flat: no shadow at rest, on hover, when pressed or on focus
+      defaultProps: {
+        disableElevation: true,
+      },
       styleOverrides: {
-        root: {
-          borderRadius: 20,
+        // States follow the Choreo Labs button guidelines. Keyboard focus takes the hover colours (without
+        // the lift), as in the guidelines. Hover rules come before active ones so a pressed button shows
+        // its active colours.
+        root: ({ theme }: { theme: OxygenTheme }) => ({
+          // Every button is a pill at any height, as in the guidelines (--cl-radius-pill)
+          borderRadius: 999,
           textTransform: 'none',
           fontWeight: 500,
-        },
+          // Colours ease over 250ms; the lift uses the guidelines' ease-out curve
+          transition: [
+            theme.transitions.create(['background-color', 'border-color', 'color'], {
+              duration: theme.transitions.duration.short,
+            }),
+            theme.transitions.create('transform', {
+              duration: theme.transitions.duration.short,
+              easing: 'cubic-bezier(0.2, 0.7, 0.2, 1)',
+            }),
+          ].join(', '),
+          // A 3px ring set 3px out: Cobalt on light surfaces, Azure on dark. Overrides the thinner
+          // ButtonBase ring that other button-like components keep.
+          '&.Mui-focusVisible': {
+            outline: `3px solid ${theme.vars.palette.Button?.focusRing}`,
+            outlineOffset: 3,
+          },
+          // Filled and outlined buttons lift 2px on hover and press in slightly; text buttons stay put
+          '@media (hover: hover) and (prefers-reduced-motion: no-preference)': {
+            '&:not(.MuiButton-text):hover': {
+              transform: 'translateY(-2px)',
+            },
+          },
+          '@media (prefers-reduced-motion: no-preference)': {
+            '&:not(.MuiButton-text):active': {
+              transform: 'scale(0.98)',
+            },
+          },
+          // Every variant shares one disabled style; text buttons only grey their label
+          '&.Mui-disabled': {
+            color: theme.vars.palette.Button?.disabledColor,
+          },
+          '&.Mui-disabled:not(.MuiButton-text)': {
+            backgroundColor: theme.vars.palette.Button?.disabledBg,
+            borderColor: 'transparent',
+          },
+        }),
         sizeSmall: { minHeight: 32 },
         sizeMedium: { minHeight: 40 },
         sizeLarge: { minHeight: 48 },
+        // Signal fill with a Midnight Ink label; on hover and press the fill stays and the label turns white
         containedPrimary: ({ theme }: { theme: OxygenTheme }) => ({
-          '&:not(:disabled)': {
-            background: `${theme.vars.palette.primary.main} !important`,
-            color: `${theme.vars.palette.primary.contrastText} !important`,
-            '&:hover': {
-              background: `${ChoreoLabsColors.flare} !important`,
-            },
-            // Midnight Ink doesn't read on Ember, so the pressed label is white
-            '&:active': {
-              background: `${ChoreoLabsColors.ember} !important`,
-              color: `${ChoreoLabsColors.white} !important`,
-            },
+          backgroundColor: theme.vars.palette.primary.main,
+          color: theme.vars.palette.primary.contrastText,
+          '&:hover, &.Mui-focusVisible, &:active': {
+            backgroundColor: theme.vars.palette.primary.main,
+            color: ChoreoLabsColors.white,
           },
         }),
+        // Burn outline (Signal in dark mode); fills with Signal on hover and Action with an Ink label when pressed
         outlinedPrimary: ({ theme }: { theme: OxygenTheme }) => ({
-          borderColor: theme.vars.palette.primary.main,
-          color: theme.vars.palette.primary.main,
-          '&:hover': {
-            borderColor: theme.vars.palette.primary.dark,
-            backgroundColor: theme.vars.palette.action.hover,
+          borderColor: theme.vars.palette.Button?.outlinedColor,
+          color: theme.vars.palette.Button?.outlinedColor,
+          '&:hover, &.Mui-focusVisible': {
+            borderColor: theme.vars.palette.primary.main,
+            backgroundColor: theme.vars.palette.primary.main,
+            color: ChoreoLabsColors.white,
           },
-          ...theme.applyStyles('light', {
-            color: theme.vars.palette.primary.dark,
-          }),
+          '&:active': {
+            borderColor: ChoreoLabsColors.action,
+            backgroundColor: ChoreoLabsColors.action,
+            color: ChoreoLabsColors.midnightInk,
+          },
         }),
-        textPrimary: ({ theme }: { theme: OxygenTheme }) => theme.applyStyles('light', {
-          color: theme.vars.palette.primary.dark,
+        // The guidelines have no text button, so it follows the link colours: Burn, then Ember on hover
+        // (Signal and Flare in dark mode)
+        textPrimary: ({ theme }: { theme: OxygenTheme }) => ({
+          color: theme.vars.palette.Button?.outlinedColor,
+          '&:hover, &.Mui-focusVisible': {
+            color: theme.vars.palette.Button?.textHoverColor,
+          },
         }),
+        // Midnight Ink fill that darkens to Void on hover. Dark mode inverts it to a white fill whose
+        // label turns Action on hover and Burn when pressed.
         containedSecondary: ({ theme }: { theme: OxygenTheme }) => ({
           backgroundColor: theme.vars.palette.secondary.main,
           color: theme.vars.palette.secondary.contrastText,
-          '&:hover': {
-            backgroundColor: theme.vars.palette.secondary.main,
-            opacity: 0.8,
+          '&:hover, &.Mui-focusVisible': {
+            backgroundColor: theme.vars.palette.Button?.containedSecondaryHoverBg,
+            color: theme.vars.palette.Button?.containedSecondaryHoverColor,
+          },
+          '&:active': {
+            backgroundColor: theme.vars.palette.Button?.containedSecondaryHoverBg,
+            color: theme.vars.palette.Button?.containedSecondaryActiveColor,
           },
         }),
+        // Ink outline (white in dark mode) that fills on hover and press
         outlinedSecondary: ({ theme }: { theme: OxygenTheme }) => ({
           borderColor: theme.vars.palette.secondary.main,
           color: theme.vars.palette.secondary.main,
-          '&:hover': {
+          '&:hover, &.Mui-focusVisible, &:active': {
             borderColor: theme.vars.palette.secondary.main,
-            backgroundColor: theme.vars.palette.action.hover,
+            backgroundColor: theme.vars.palette.secondary.main,
+            color: theme.vars.palette.secondary.contrastText,
           },
         }),
       },
       variants: [
+        // Outlined accent works like the other outlined buttons: a solid Burn outline that fills with
+        // Burn and a white label on hover and keyboard focus, and darkens to Ember when pressed
         {
-          props: { variant: 'subtle' },
+          props: { variant: 'outlined', color: 'accent' },
           style: ({ theme }: { theme: OxygenTheme }) => ({
-            backgroundColor: theme.vars.palette.accent.main,
-            color: theme.vars.palette.accent.contrastText,
-            '&:hover': {
-              backgroundColor: theme.vars.palette.accent.dark,
+            borderColor: theme.vars.palette.accent.main,
+            color: theme.vars.palette.accent.main,
+            '&:hover, &.Mui-focusVisible': {
+              borderColor: theme.vars.palette.accent.main,
+              backgroundColor: theme.vars.palette.accent.main,
+              color: theme.vars.palette.accent.contrastText,
             },
-            '&.Mui-disabled': {
-              backgroundColor: theme.vars.palette.action.disabledBackground,
-              color: theme.vars.palette.action.disabled,
+            '&:active': {
+              borderColor: theme.vars.palette.accent.dark,
+              backgroundColor: theme.vars.palette.accent.dark,
+              color: theme.vars.palette.accent.contrastText,
             },
           }),
+        },
+        // The guidelines' action button: white label on Action, darkening to Burn on hover and Ember when pressed
+        {
+          props: { variant: 'subtle' },
+          style: {
+            backgroundColor: ChoreoLabsColors.action,
+            color: ChoreoLabsColors.white,
+            '&:hover, &.Mui-focusVisible': {
+              backgroundColor: ChoreoLabsColors.burn,
+            },
+            '&:active': {
+              backgroundColor: ChoreoLabsColors.ember,
+            },
+          },
         },
       ],
     },

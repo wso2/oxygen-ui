@@ -18,6 +18,7 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button, Stack, CircularProgress, useTheme } from '@wso2/oxygen-ui';
+import { ArrowRight, Download, Plus, Trash2 } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';
 
 /**
@@ -68,33 +69,72 @@ export const Variants: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'The `subtle` variant is styled by `ChoreoLabsTheme` only: a Burn fill with a white label.',
+        story: 'The `subtle` variant is styled by `ChoreoLabsTheme` only: an Action orange fill with a white label.',
       },
     },
   },
 };
 
+const colors = ['primary', 'secondary', 'accent', 'error', 'success'] as const;
+const colorVariants = ['contained', 'outlined', 'text'] as const;
+const capitalize = (value: string) => value.charAt(0).toUpperCase() + value.slice(1);
+
 export const ColorVariants: Story = {
   render: () => (
     <Stack direction="column" spacing={2}>
-      <Stack direction="row" spacing={2}>
-        <Button variant="contained" color="primary">Primary Contained</Button>
-        <Button variant="contained" color="secondary">Secondary Contained</Button>
-        <Button variant="contained" color="accent">Accent Contained</Button>
-        <Button variant="contained" color="error">Error Contained</Button>
+      {colorVariants.map((variant) => (
+        <Stack key={variant} direction="row" spacing={2}>
+          {colors.map((color) => (
+            <Button key={color} variant={variant} color={color}>
+              {capitalize(color)} {capitalize(variant)}
+            </Button>
+          ))}
+        </Stack>
+      ))}
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Every variant in each color. The `accent` color is defined by `ChoreoLabsTheme` only. ' +
+          'Use `error` for destructive actions such as delete; `success` is shown for completeness.',
+      },
+    },
+  },
+};
+
+// Icon sizes that sit well with each button size's label
+const iconSize = { small: 16, medium: 18, large: 20 } as const;
+
+export const WithIcons: Story = {
+  render: () => (
+    <Stack direction="column" spacing={2}>
+      <Stack direction="row" spacing={2} alignItems="center">
+        <Button variant="contained" startIcon={<Plus size={iconSize.medium} />}>Create project</Button>
+        <Button variant="contained" endIcon={<ArrowRight size={iconSize.medium} />}>Talk to us</Button>
+        <Button variant="outlined" startIcon={<Download size={iconSize.medium} />}>Download</Button>
+        <Button variant="outlined" color="secondary" endIcon={<ArrowRight size={iconSize.medium} />}>All reports</Button>
+        <Button variant="outlined" color="error" startIcon={<Trash2 size={iconSize.medium} />}>Delete</Button>
       </Stack>
-      <Stack direction="row" spacing={2}>
-        <Button variant="outlined" color="primary">Primary Outlined</Button>
-        <Button variant="outlined" color="secondary">Secondary Outlined</Button>
-        <Button variant="outlined" color="accent">Accent Outlined</Button>
-        <Button variant="outlined" color="success">Success Outlined</Button>
+      <Stack direction="row" spacing={2} alignItems="center">
+        <Button variant="text" startIcon={<Plus size={iconSize.medium} />}>Add member</Button>
+        <Button variant="text" endIcon={<ArrowRight size={iconSize.medium} />}>Learn more</Button>
+      </Stack>
+      <Stack direction="row" spacing={2} alignItems="center">
+        {(['small', 'medium', 'large'] as const).map((size) => (
+          <Button key={size} variant="contained" size={size} startIcon={<Plus size={iconSize[size]} />}>
+            Create project
+          </Button>
+        ))}
       </Stack>
     </Stack>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'The `accent` color is defined by `ChoreoLabsTheme` only.',
+        story: 'Pass an icon from `@wso2/oxygen-ui-icons-react` as `startIcon` or `endIcon`, and set its `size` to match the button: ' +
+          '16 for small, 18 for medium and 20 for large. Use a trailing arrow for actions that move the user forward. ' +
+          'For a button with only an icon, use `IconButton` with an `aria-label`.',
       },
     },
   },

@@ -165,7 +165,49 @@ describe('ChoreoLabsTheme states', () => {
 
   const renderedCss = () => Array.from(document.querySelectorAll('style')).map((style) => style.textContent).join('');
 
-  it('uses Flare on hover and Ember with a white label when pressed on primary buttons', () => {
+  it('keeps the Signal fill and turns the label white on hover, keyboard focus and press on primary buttons', () => {
+    render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Button variant="contained">Contained</Button>
+      </OxygenUIThemeProvider>
+    );
+
+    expect(renderedCss()).toMatch(
+      /:hover,[^{]*\.Mui-focusVisible,[^{]*:active\{background-color:var\(--oxygen-palette-primary-main\);color:#FFFFFF;/
+    );
+  });
+
+  it('fills outlined primary buttons with Signal on hover and Action with an Ink label when pressed', () => {
+    render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Button variant="outlined">Read the Article</Button>
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+
+    expect(css).toMatch(/\{[^}]*border-color:var\(--oxygen-palette-Button-outlinedColor\);color:var\(--oxygen-palette-Button-outlinedColor\);/);
+    expect(css).toMatch(/:hover,[^{]*\.Mui-focusVisible\{border-color:var\(--oxygen-palette-primary-main\);background-color:var\(--oxygen-palette-primary-main\);color:#FFFFFF;/);
+    expect(css).toMatch(/:active\{border-color:#D83B00;background-color:#D83B00;color:#0B1633;/);
+  });
+
+  it('fills outlined accent buttons with Burn on hover and focus, and Ember when pressed', () => {
+    render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Button variant="outlined" color="accent">Learn more</Button>
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+
+    expect(css).toMatch(/\{[^}]*border-color:var\(--oxygen-palette-accent-main\);color:var\(--oxygen-palette-accent-main\);/);
+    expect(css).toMatch(
+      /:hover,[^{]*\.Mui-focusVisible\{border-color:var\(--oxygen-palette-accent-main\);background-color:var\(--oxygen-palette-accent-main\);color:var\(--oxygen-palette-accent-contrastText\);/
+    );
+    expect(css).toMatch(
+      /:active\{border-color:var\(--oxygen-palette-accent-dark\);background-color:var\(--oxygen-palette-accent-dark\);color:var\(--oxygen-palette-accent-contrastText\);/
+    );
+  });
+
+  it('lifts filled and outlined buttons on hover and presses them in, unless reduced motion is preferred', () => {
     render(
       <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
         <Button variant="contained">Contained</Button>
@@ -173,8 +215,55 @@ describe('ChoreoLabsTheme states', () => {
     );
     const css = renderedCss();
 
-    expect(css).toMatch(/:hover\{background:#FF6E33\s*!important;/);
-    expect(css).toMatch(/:active\{background:#8F2400\s*!important;color:#FFFFFF\s*!important;/);
+    expect(css).toMatch(
+      /@media \(hover: hover\) and \(prefers-reduced-motion: no-preference\)\{[^{]*:not\(\.MuiButton-text\):hover\{[^}]*;transform:translateY\(-2px\);/
+    );
+    expect(css).toMatch(/@media \(prefers-reduced-motion: no-preference\)\{[^{]*:not\(\.MuiButton-text\):active\{[^}]*;transform:scale\(0\.98\);/);
+  });
+
+  it('uses the guideline disabled colours for every button variant', () => {
+    render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Button variant="contained" disabled>Disabled</Button>
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+
+    expect(css).toMatch(/\.Mui-disabled\{color:var\(--oxygen-palette-Button-disabledColor\);/);
+    expect(css).toMatch(
+      /\.Mui-disabled:not\(\.MuiButton-text\)\{background-color:var\(--oxygen-palette-Button-disabledBg\);border-color:transparent;/
+    );
+  });
+
+  it('draws a 3px focus ring 3px outside buttons, without a shadow', () => {
+    const { getByText } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Button variant="contained">Contained</Button>
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+
+    expect(css).toMatch(/\.Mui-focusVisible\{outline:3px solid var\(--oxygen-palette-Button-focusRing\);outline-offset:3px;/);
+    // disableElevation adds this class, which removes MUI's shadows at rest, on hover, press and focus
+    expect(getByText('Contained').classList).toContain('MuiButton-disableElevation');
+  });
+
+  it.each([
+    ['light', { outlinedColor: BURN, disabledBg: '#D7DBE4', disabledColor: '#5A6072', containedSecondaryHoverBg: '#07080C', focusRing: '#1F4FFF' }],
+    ['dark', { outlinedColor: SIGNAL, disabledBg: '#070D22', disabledColor: '#8A93A6', containedSecondaryHoverBg: '#FFFFFF', focusRing: '#3D8BFF' }],
+  ] as const)('sets the guideline button state colours in the %s scheme', (scheme, colors) => {
+    expect(ChoreoLabsTheme.colorSchemes[scheme]!.palette.Button).toMatchObject(colors);
+  });
+
+  it('makes every button size a pill', () => {
+    const { getByText } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Button size="large" variant="contained">Large</Button>
+      </OxygenUIThemeProvider>
+    );
+    const className = getByText('Large').className.split(' ').find((name) => name.startsWith('css-'));
+
+    expect(renderedCss()).toMatch(new RegExp(`\\.${className}\\{[^}]*border-radius:999px`));
   });
 
   it('sizes buttons at 32, 40 and 48px', () => {
@@ -196,7 +285,7 @@ describe('ChoreoLabsTheme states', () => {
     expect(minHeight('Large')).toBe('48');
   });
 
-  it('uses dark blue for outlined and filled secondary buttons', () => {
+  it('uses dark blue for outlined and filled secondary buttons, filling the outline on hover', () => {
     render(
       <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
         <Button variant="outlined" color="secondary">All Reports</Button>
@@ -208,22 +297,29 @@ describe('ChoreoLabsTheme states', () => {
     expect(css).toMatch(
       /\{[^}]*background-color:var\(--oxygen-palette-secondary-main\);color:var\(--oxygen-palette-secondary-contrastText\);/
     );
+    expect(css).toMatch(
+      /:hover,[^{]*\.Mui-focusVisible\{background-color:var\(--oxygen-palette-Button-containedSecondaryHoverBg\);color:var\(--oxygen-palette-Button-containedSecondaryHoverColor\);/
+    );
 
     expect(css).toMatch(
       /\{[^}]*border-color:var\(--oxygen-palette-secondary-main\);color:var\(--oxygen-palette-secondary-main\);/
     );
+    expect(css).toMatch(
+      /:hover,[^{]*:active\{border-color:var\(--oxygen-palette-secondary-main\);background-color:var\(--oxygen-palette-secondary-main\);color:var\(--oxygen-palette-secondary-contrastText\);/
+    );
   });
 
-  it('fills the subtle button variant with the accent colour and a white label', () => {
+  it('fills the subtle button variant with Action and a white label, darkening to Burn and Ember', () => {
     render(
       <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
         <Button variant="subtle">Download</Button>
       </OxygenUIThemeProvider>
     );
+    const css = renderedCss();
 
-    expect(renderedCss()).toMatch(
-      /\{[^}]*background-color:var\(--oxygen-palette-accent-main\);color:var\(--oxygen-palette-accent-contrastText\);/
-    );
+    expect(css).toMatch(/\{[^}]*background-color:#D83B00;color:#FFFFFF;/);
+    expect(css).toMatch(/:hover,[^{]*\.Mui-focusVisible\{background-color:#C43300;\}/);
+    expect(css).toMatch(/:active\{background-color:#8F2400;\}/);
   });
 
   it('uses the light avatar style for the app shell user avatars', () => {
