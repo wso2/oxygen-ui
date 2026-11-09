@@ -1,5 +1,22 @@
 # @wso2/oxygen-ui
 
+## 0.22.0
+
+### Minor Changes
+
+- [#685](https://github.com/wso2/oxygen-ui/pull/685) [`e7d6fcb`](https://github.com/wso2/oxygen-ui/commit/e7d6fcb7b0141e875ef4ee6612b392c8a5cda5fd) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Let `AppSwitcher.Footer` sit below its divider without a heading, so the switcher can end with WSO2 Cloud links such as Cloud home and Settings. The footer no longer shows "Manage" unless a `label` is passed; it keeps "Manage" as its accessible name, which the new `aria-label` prop on `AppSwitcher.Footer` and `AppSwitcher.Section` can change.
+
+### Patch Changes
+
+- [#685](https://github.com/wso2/oxygen-ui/pull/685) [`e7d6fcb`](https://github.com/wso2/oxygen-ui/commit/e7d6fcb7b0141e875ef4ee6612b392c8a5cda5fd) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Update `ChoreoLabsTheme` buttons, fields, chips and avatars: dark blue secondary colour for outlined and filled buttons, a Burn `accent` colour, a `subtle` button variant with a Burn fill and white label, button heights of 32, 40 and 48px for small, medium and large, a 500 button font weight, 40 and 48px outlined fields with 14px text to line up with medium and large buttons, the light avatar style for the app shell user avatars, and a `tag` Chip variant.
+
+- [#685](https://github.com/wso2/oxygen-ui/pull/685) [`e7d6fcb`](https://github.com/wso2/oxygen-ui/commit/e7d6fcb7b0141e875ef4ee6612b392c8a5cda5fd) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Make the filter buttons and the search field of the `LogViewer` toolbar 32px high, as the search field was written to be. `SearchBarBase` spread an `sx` array into numbered keys and dropped every style in it, so the field stayed at 40px; it now merges an array like any other `sx`.
+
+- [#685](https://github.com/wso2/oxygen-ui/pull/685) [`e7d6fcb`](https://github.com/wso2/oxygen-ui/commit/e7d6fcb7b0141e875ef4ee6612b392c8a5cda5fd) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Animate the closing of a `LogViewer` entry the way its opening is animated. The details used to leave the page the moment an entry was closed, so they opened with a slide and closed with none.
+
+- Updated dependencies []:
+  - @wso2/oxygen-ui-icons-react@0.22.0
+
 ## 0.21.0
 
 ### Minor Changes
