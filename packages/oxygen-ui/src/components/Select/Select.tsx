@@ -32,10 +32,13 @@ export type SelectProps<Value = unknown> = MuiSelectProps<Value> & {
   placeholder?: React.ReactNode;
 };
 
+// Unlike an input's ::placeholder, this is real text, so it must meet 4.5:1 contrast: use
+// text.secondary rather than the faded placeholder colour.
 const Placeholder = styled('span', { name: 'MuiSelect', slot: 'Placeholder' })(({ theme }) => ({
-  // Matches the text input placeholder.
-  color: 'currentColor',
-  opacity: theme.vars ? theme.vars.opacity.inputPlaceholder : theme.palette.mode === 'light' ? 0.42 : 0.5,
+  color: (theme.vars || theme).palette.text.secondary,
+  '.Mui-disabled > &': {
+    color: 'inherit',
+  },
 }));
 
 // MUI's own test for an empty select value.
