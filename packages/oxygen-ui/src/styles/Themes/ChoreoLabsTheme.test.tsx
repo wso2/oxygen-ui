@@ -18,7 +18,7 @@
 
 import { describe, it, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
-import { AppBar, Button, Card, Chip, Dialog, Fab, FilledInput, FormControl, FormLabel, Input, InputLabel, MenuItem, MenuList, NativeSelect, OutlinedInput, Paper, Select, TextField } from '@mui/material';
+import { AppBar, Button, Card, Chip, Dialog, Fab, FilledInput, FormControl, FormLabel, Input, InputAdornment, InputLabel, MenuItem, MenuList, NativeSelect, OutlinedInput, Paper, Select, TextField } from '@mui/material';
 import type { TypographyVariantsOptions } from '@mui/material/styles';
 import OxygenUIThemeProvider from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
 import OxygenTextField from '../../components/TextField/TextField';
@@ -413,16 +413,28 @@ describe('ChoreoLabsTheme states', () => {
         <div data-testid="mui-select">
           <FormControl error><InputLabel id="r">Role</InputLabel><Select labelId="r" label="Role" value="" /></FormControl>
         </div>
+        <div data-testid="wrapped-select">
+          <FormControl error><InputLabel id="w">Role</InputLabel><div><Select labelId="w" label="Role" value="" /></div></FormControl>
+        </div>
         <div data-testid="text"><OxygenTextField label="Name" error /></div>
+        <div data-testid="text-with-select-adornment">
+          <OxygenTextField
+            label="Timeout"
+            error
+            slotProps={{ input: { endAdornment: <InputAdornment position="end"><Select value="s" variant="standard"><MenuItem value="s">s</MenuItem></Select></InputAdornment> } }}
+          />
+        </div>
       </OxygenUIThemeProvider>
     );
-    const errorLabel = '.MuiFormControl-root:has(> .MuiSelect-root, > .MuiNativeSelect-root) > .MuiInputLabel-root.Mui-error';
+    const errorLabel = '.MuiFormControl-root:has(> .MuiSelect-root, > :not(.MuiInputBase-root) .MuiSelect-root, > .MuiNativeSelect-root, > :not(.MuiInputBase-root) .MuiNativeSelect-root) > .MuiInputLabel-root.Mui-error';
     const matches = (testId: string) => Boolean(container.querySelector(`[data-testid="${testId}"] ${errorLabel}`));
 
-    expect(renderedCss()).toMatch(/:has\(> ?\.MuiSelect-root, ?> ?\.MuiNativeSelect-root\) ?> ?\.css-[\w-]+\.MuiInputLabel-root\.Mui-error\{color:var\(--oxygen-palette-text-secondary\);/);
+    expect(renderedCss()).toMatch(/:has\(> ?\.MuiSelect-root, ?> ?:not\(\.MuiInputBase-root\) \.MuiSelect-root, ?> ?\.MuiNativeSelect-root, ?> ?:not\(\.MuiInputBase-root\) \.MuiNativeSelect-root\) ?> ?\.css-[\w-]+\.MuiInputLabel-root\.Mui-error\{color:var\(--oxygen-palette-text-secondary\);/);
     expect(matches('select')).toBe(true);
     expect(matches('mui-select')).toBe(true);
+    expect(matches('wrapped-select')).toBe(true);
     expect(matches('text')).toBe(false);
+    expect(matches('text-with-select-adornment')).toBe(false);
   });
 
   it('fills the selected menu item with the neutral selected colour, not a primary tint', () => {

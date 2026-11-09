@@ -113,6 +113,11 @@ const onFixedLabelInput = (selector: string) => fixedLabelInputs.map((prefix) =>
 // Cobalt focus border; fixed-label selects take the text input focus style.
 const notSelect = ':not(.MuiSelect-root):not(.MuiNativeSelect-root)';
 
+// A FormControl whose field is a select, either directly or inside a wrapper. A select inside the
+// field's own input root (such as a unit picker in a text field's adornment) doesn't count.
+const selectFormControl = '.MuiFormControl-root:has(> .MuiSelect-root, > :not(.MuiInputBase-root) .MuiSelect-root, '
+  + '> .MuiNativeSelect-root, > :not(.MuiInputBase-root) .MuiNativeSelect-root)';
+
 const fontFamily = "'Sora Variable', sans-serif";
 
 // Outlined fields match the button heights: small fields line up with medium buttons, medium with large.
@@ -436,7 +441,7 @@ const ChoreoLabsThemeConfig = {
           marginBottom: '4px',
           // A select's error shows on its border and helper text, so its floating label keeps its colour.
           // Set here because InputLabel has no `error` style slot; InputLabel renders a FormLabel.
-          '.MuiFormControl-root:has(> .MuiSelect-root, > .MuiNativeSelect-root) > &.MuiInputLabel-root.Mui-error': {
+          [`${selectFormControl} > &.MuiInputLabel-root.Mui-error`]: {
             color: theme.vars.palette.text.secondary,
           },
         }),

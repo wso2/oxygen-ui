@@ -13,7 +13,7 @@ description: Generate forms with Form.* components and validation. Use when crea
 4. Give every field a fixed label on top with `labelPlacement="top"` (see Field Labels)
 5. Mark each required field with `required`; leave optional fields unmarked
 6. Give every select a `placeholder`; ask the developer for the text (see Select and Autocomplete)
-7. Add validation with `error` and `helperText` props
+7. Add validation with `error` and `helperText` props. Plain `Select` has no `helperText`, so use `TextField select` for any select that shows validation messages
 
 ## Critical Rules
 
@@ -60,7 +60,7 @@ Forms use a fixed label above the input, not MUI's floating label. `labelPlaceme
 
 ### Select and Autocomplete
 
-The same rules apply. Use `TextField` with `select` (it supports `helperText` for validation messages), or `Select` with `labelPlacement="top"` (see the `oxygen-select` skill). Every select needs a `placeholder`; ask the developer for the text before writing the form, listing each select with a suggestion such as "Select a role", and never invent it. A select in error keeps its label colour; the error shows on the border and in `helperText`. For Autocomplete, pass `labelPlacement="top"` and `required` to the `TextField` in `renderInput`:
+The same rules apply. Use `TextField` with `select` (it supports `helperText` for validation messages), or `Select` with `labelPlacement="top"` (see the `oxygen-select` skill). Every select needs a `placeholder`; ask the developer for the text before writing the form, listing each select with a suggestion such as "Select a role", and never invent it. Native selects ignore `placeholder`, so use that text as the empty option's label instead. A select in error keeps its label colour; the error shows on the border and in `helperText`. For Autocomplete, pass `labelPlacement="top"` and `required` to the `TextField` in `renderInput`:
 
 ```tsx
 <TextField select labelPlacement="top" label="Role" placeholder="Select a role" required value={role} onChange={...}>
@@ -181,6 +181,8 @@ function SectionedForm() {
           <TextField fullWidth labelPlacement="top" label="Company name" />
           {/* Placeholder text comes from the developer */}
           <TextField fullWidth select labelPlacement="top" label="Role" placeholder="Select a role" defaultValue="">
+            {/* Optional select: an empty option lets users clear it */}
+            <MenuItem value="">None</MenuItem>
             <MenuItem value="developer">Developer</MenuItem>
             <MenuItem value="designer">Designer</MenuItem>
             <MenuItem value="manager">Manager</MenuItem>

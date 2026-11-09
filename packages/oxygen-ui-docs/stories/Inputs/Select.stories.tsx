@@ -19,7 +19,8 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Select, MenuItem, FormControl, InputLabel } from '@wso2/oxygen-ui';
-import { useState } from 'react';
+import type { SelectProps } from '@wso2/oxygen-ui';
+import { useId, useState } from 'react';
 
 const meta: Meta<typeof Select> = {
   title: 'Inputs/Select',
@@ -56,53 +57,59 @@ const meta: Meta<typeof Select> = {
 export default meta;
 type Story = StoryObj<typeof Select>;
 
+// The label stories pass their args through, so the labelPlacement and placeholder controls apply.
+// With labelPlacement unset, the select needs the FormControl and InputLabel of a floating label.
+type EnvironmentSelectProps = Pick<SelectProps<string>, 'labelPlacement' | 'label' | 'placeholder' | 'required' | 'error' | 'disabled' | 'size'>;
+
+function EnvironmentSelect({ labelPlacement, label, required, error, ...args }: EnvironmentSelectProps) {
+  const [value, setValue] = useState('');
+  const floatingLabelId = useId();
+  const select = (labelId?: string) => (
+    <Select
+      {...args}
+      labelPlacement={labelPlacement}
+      label={label}
+      labelId={labelId}
+      required={required}
+      error={error}
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      sx={{ minWidth: 240 }}
+    >
+      <MenuItem value="dev">Development</MenuItem>
+      <MenuItem value="staging">Staging</MenuItem>
+      <MenuItem value="prod">Production</MenuItem>
+    </Select>
+  );
+
+  if (labelPlacement === 'top') return select();
+  return (
+    <FormControl required={required} error={error} disabled={args.disabled} size={args.size}>
+      <InputLabel id={floatingLabelId}>{label}</InputLabel>
+      {select(floatingLabelId)}
+    </FormControl>
+  );
+}
+
+const labelArgs = {
+  labelPlacement: 'top',
+  label: 'Environment',
+  placeholder: 'Select an environment',
+} as const;
+
 export const LabelOnTop: Story = {
-  render: () => {
-    const [value, setValue] = useState('');
-    return (
-      <Select
-        labelPlacement="top"
-        label="Environment"
-        placeholder="Select an environment"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        sx={{ minWidth: 240 }}
-      >
-        <MenuItem value="dev">Development</MenuItem>
-        <MenuItem value="staging">Staging</MenuItem>
-        <MenuItem value="prod">Production</MenuItem>
-      </Select>
-    );
-  },
+  args: labelArgs,
+  render: (args) => <EnvironmentSelect {...(args as EnvironmentSelectProps)} />,
 };
 
 export const LabelOnTopRequired: Story = {
-  render: () => {
-    const [value, setValue] = useState('');
-    return (
-      <Select
-        labelPlacement="top"
-        label="Environment"
-        placeholder="Select an environment"
-        required
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        sx={{ minWidth: 240 }}
-      >
-        <MenuItem value="dev">Development</MenuItem>
-        <MenuItem value="prod">Production</MenuItem>
-      </Select>
-    );
-  },
+  args: { ...labelArgs, required: true },
+  render: (args) => <EnvironmentSelect {...(args as EnvironmentSelectProps)} />,
 };
 
 export const LabelOnTopWithError: Story = {
-  render: () => (
-    <Select labelPlacement="top" label="Environment" placeholder="Select an environment" error value="" sx={{ minWidth: 240 }}>
-      <MenuItem value="dev">Development</MenuItem>
-      <MenuItem value="prod">Production</MenuItem>
-    </Select>
-  ),
+  args: { ...labelArgs, error: true },
+  render: (args) => <EnvironmentSelect {...(args as EnvironmentSelectProps)} />,
 };
 
 /** Floating label. Prefer `LabelOnTop`; keep this only for existing screens. */

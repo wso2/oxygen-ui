@@ -19,7 +19,7 @@ Display name               ┌─ Display name ──────┐
 
 1. Import `TextField` from `@wso2/oxygen-ui`, never from `@mui/material`. `labelPlacement` is an Oxygen UI prop, and the MUI `TextField` ignores it.
 2. Add `labelPlacement="top"` to every `TextField` that has a `label`.
-3. Apply the same rule to selects (`TextField select`) and to the `TextField` in an Autocomplete's `renderInput`. Every `TextField select` also needs a `placeholder` whose text the developer provides; follow the `oxygen-select` skill for selects.
+3. Apply the same rule to selects (`TextField select`) and to the `TextField` in an Autocomplete's `renderInput`. Every `TextField select` also needs a `placeholder` whose text the developer provides; follow the `oxygen-select` skill for selects. Native selects (`SelectProps={{ native: true }}`) ignore `placeholder`, so use that text as the empty `<option value="">` instead.
 4. Mark required fields with `required`; the theme draws the `*`.
 5. For forms (validation, sections, wizards), also follow the `oxygen-form` skill.
 
@@ -71,7 +71,7 @@ When you edit code that uses floating labels:
 | `import { TextField } from '@mui/material'` | `import { TextField } from '@wso2/oxygen-ui'` |
 | `<TextField label="Name" />` | `<TextField labelPlacement="top" label="Name" />` |
 | `InputLabelProps={{ shrink: true }}` or `slotProps={{ inputLabel: { shrink: true } }}` | Remove it; add `labelPlacement="top"` |
-| `<FormControl><InputLabel>Role</InputLabel><Select label="Role">` | `<Select labelPlacement="top" label="Role">` or `<TextField select labelPlacement="top" label="Role">` (see `oxygen-select`) |
+| `<FormControl><InputLabel>Role</InputLabel><Select label="Role">` | `<Select labelPlacement="top" label="Role" placeholder="Select a role">` or `<TextField select labelPlacement="top" label="Role" placeholder="Select a role">`, with placeholder text from the developer (see `oxygen-select`) |
 | A `Typography` or `FormLabel` placed above a label-less `TextField` | Remove it; pass the text as `label` with `labelPlacement="top"` |
 | `label="Email *"` | `label="Email" required` |
 
