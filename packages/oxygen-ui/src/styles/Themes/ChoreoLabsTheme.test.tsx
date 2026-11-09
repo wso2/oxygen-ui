@@ -18,11 +18,12 @@
 
 import { describe, it, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
-import { AppBar, Button, Card, Chip, Dialog, Fab, FilledInput, FormControl, FormLabel, Input, InputAdornment, InputLabel, MenuItem, MenuList, NativeSelect, OutlinedInput, Paper, Select, TextField } from '@mui/material';
+import { AppBar, Breadcrumbs, Button, Card, Chip, Dialog, Fab, FilledInput, FormControl, FormLabel, Input, InputAdornment, InputLabel, MenuItem, MenuList, NativeSelect, OutlinedInput, Paper, Select, TextField } from '@mui/material';
 import type { TypographyVariantsOptions } from '@mui/material/styles';
 import OxygenUIThemeProvider from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
 import OxygenTextField from '../../components/TextField/TextField';
 import OxygenSelect from '../../components/Select/Select';
+import AppBreadcrumbs from '../../components/AppBreadcrumbs/AppBreadcrumbs';
 import SidebarUserAvatar from '../../components/Sidebar/SidebarUserAvatar';
 import UserMenu from '../../components/UserMenu/UserMenu';
 import { ChoreoLabsTheme, OxygenTheme } from './index';
@@ -547,6 +548,54 @@ describe('ChoreoLabsTheme states', () => {
     expect(winning).toContain(`.${itemClass}.Mui-selected:hover`);
     expect(winning).toContain(`.${itemClass}.Mui-selected.Mui-focusVisible`);
     expect(winning).toMatch(/\{background-color:var\(--oxygen-palette-action-selected\);$/);
+  });
+
+  it.each([
+    ['light', { linkColor: '#5A6072', linkHoverColor: BURN, separatorColor: '#5A6072' }],
+    ['dark', { linkColor: '#AEB6C6', linkHoverColor: SIGNAL, separatorColor: '#5F6B85' }],
+  ] as const)('uses the guideline breadcrumb colours in the %s scheme', (scheme, colors) => {
+    expect(ChoreoLabsTheme.colorSchemes[scheme]!.palette.Breadcrumbs).toEqual(colors);
+  });
+
+  it('separates app breadcrumbs with a slash and colours each level', () => {
+    const { container, getByText } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <AppBreadcrumbs items={[{ key: 'home', label: 'Home', onClick: () => {} }, { key: 'api', label: 'API Platform' }]} />
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+    const ruleFor = (text: string) => {
+      const className = getByText(text).className.split(' ').find((name) => name.startsWith('css-'));
+      return css.match(new RegExp(`\\.${className}\\{[^}]*\\}`))?.[0] ?? '';
+    };
+
+    expect(container.querySelector('.MuiBreadcrumbs-separator')?.textContent).toBe('/');
+    expect(ruleFor('Home')).toMatch(/font-size:14px;font-weight:400;line-height:1\.5;letter-spacing:0\.02em;word-spacing:0\.18em;color:var\(--oxygen-palette-Breadcrumbs-linkColor\);/);
+    expect(css).toMatch(/AppBreadcrumbs-item:hover\{[^}]*text-decoration:none;color:var\(--oxygen-palette-Breadcrumbs-linkHoverColor\);\}/);
+    expect(ruleFor('API Platform')).toMatch(/font-weight:400;[^}]*color:var\(--oxygen-palette-text-primary\);/);
+  });
+
+  it('keeps a custom app breadcrumb separator', () => {
+    const { container } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <AppBreadcrumbs separator=">" items={[{ key: 'home', label: 'Home' }, { key: 'api', label: 'API Platform' }]} />
+      </OxygenUIThemeProvider>
+    );
+
+    expect(container.querySelector('.MuiBreadcrumbs-separator')?.textContent).toBe('>');
+  });
+
+  it('spaces breadcrumb slashes 10px apart and keeps the current level at regular weight', () => {
+    render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Breadcrumbs><span>Home</span><span>API Platform</span></Breadcrumbs>
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+
+    expect(css).toMatch(/MuiBreadcrumbs-separator\{[^}]*margin-left:10px;margin-right:10px;color:var\(--oxygen-palette-Breadcrumbs-separatorColor\);\}/);
+    expect(css).toMatch(/\.MuiBreadcrumbs-li:last-child\{color:var\(--oxygen-palette-text-primary\);\}/);
+    expect(css).not.toMatch(/MuiBreadcrumbs-li[^{]*\{[^}]*(font-weight:700|opacity)/);
   });
 
   it('uses Cobalt for focus on every input variant', () => {

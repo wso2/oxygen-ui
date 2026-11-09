@@ -20,7 +20,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
-import {styled} from '@mui/material/styles';
+import {styled, useThemeProps} from '@mui/material/styles';
 import type {SxProps, Theme} from '@mui/material';
 import {ChevronRight} from '@wso2/oxygen-ui-icons-react';
 import type {JSX, MouseEvent, ReactNode} from 'react';
@@ -52,7 +52,8 @@ export interface AppBreadcrumbsProps extends React.HTMLAttributes<HTMLDivElement
    */
   maxItems?: number;
   /**
-   * Separator between items. Defaults to a chevron.
+   * Separator between items. Defaults to a chevron, unless the theme sets
+   * `components.MuiAppBreadcrumbs.defaultProps.separator`.
    */
   separator?: ReactNode;
   /**
@@ -128,13 +129,8 @@ const AppBreadcrumbsEllipsis = styled('button', {
   },
 }));
 
-export default function AppBreadcrumbs({
-  items,
-  maxItems = 4,
-  separator,
-  sx,
-  ...props
-}: AppBreadcrumbsProps): JSX.Element {
+export default function AppBreadcrumbs(inProps: AppBreadcrumbsProps): JSX.Element {
+  const {items, maxItems = 4, separator, sx, ...props} = useThemeProps({props: inProps, name: 'MuiAppBreadcrumbs'});
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [ellipsisHovered, setEllipsisHovered] = useState(false);
   const menuId = useId();

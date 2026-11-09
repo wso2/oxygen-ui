@@ -29,11 +29,23 @@ declare module '@mui/material/styles' {
   interface PaletteOptions {
     accent?: PaletteOptions['primary'];
     Button?: Partial<ChoreoLabsButtonPalette>;
+    Breadcrumbs?: Partial<ChoreoLabsBreadcrumbsPalette>;
   }
   interface Palette {
     // Only set by ChoreoLabsTheme
     Button?: ChoreoLabsButtonPalette;
+    Breadcrumbs?: ChoreoLabsBreadcrumbsPalette;
   }
+}
+
+/** Breadcrumb colours that differ between the light and dark schemes */
+interface ChoreoLabsBreadcrumbsPalette {
+  /** Parent levels */
+  linkColor: string;
+  /** Parent levels on hover */
+  linkHoverColor: string;
+  /** The slash between levels */
+  separatorColor: string;
 }
 
 /**
@@ -102,7 +114,9 @@ const ChoreoLabsColors = {
   deepNavy: '#17223A',
   blackout: '#050A1C',
   midnight900: '#070D22',
+  midnightText2: '#AEB6C6',
   midnightText3: '#8A93A6',
+  midnightText4: '#5F6B85',
   void: '#07080C',
   cobalt: '#1F4FFF',
   // Focus colour on dark surfaces, where Cobalt is too dark
@@ -152,6 +166,15 @@ const selectFormControl = '.MuiFormControl-root:has(> .MuiSelect-root, > :not(.M
   + '> .MuiNativeSelect-root, > :not(.MuiInputBase-root) .MuiNativeSelect-root)';
 
 const fontFamily = "'Sora Variable', sans-serif";
+
+// Breadcrumbs use the guideline's small caption type at regular weight, current level included
+const breadcrumbText = {
+  fontSize: 14,
+  fontWeight: 400,
+  lineHeight: 1.5,
+  letterSpacing: '0.02em',
+  wordSpacing: '0.18em',
+};
 
 // Outlined fields match the button heights: small fields line up with medium buttons, medium with large.
 // Padding is derived from the 1.4375em line height so it holds for any font size. Heights aren't fixed,
@@ -214,6 +237,11 @@ const ChoreoLabsColorSchemes = {
         disabledColor: ChoreoLabsColors.slate,
         focusRing: ChoreoLabsColors.cobalt,
       },
+      Breadcrumbs: {
+        linkColor: ChoreoLabsColors.slate,
+        linkHoverColor: ChoreoLabsColors.burn,
+        separatorColor: ChoreoLabsColors.slate,
+      },
       Alert: {
         infoColor: ChoreoLabsColors.midnightInk,
         infoIconColor: ChoreoLabsColors.midnightInk,
@@ -270,6 +298,11 @@ const ChoreoLabsColorSchemes = {
         disabledBg: ChoreoLabsColors.midnight900,
         disabledColor: ChoreoLabsColors.midnightText3,
         focusRing: ChoreoLabsColors.azure,
+      },
+      Breadcrumbs: {
+        linkColor: ChoreoLabsColors.midnightText2,
+        linkHoverColor: ChoreoLabsColors.signal,
+        separatorColor: ChoreoLabsColors.midnightText4,
       },
       Alert: {
         infoColor: ChoreoLabsColors.white,
@@ -796,6 +829,48 @@ const ChoreoLabsThemeConfig = {
             color: theme.vars.palette.primary.dark,
           }),
         }),
+      },
+    },
+    // Slash separated, with 10px either side of the slash. Replaces the base theme's li and
+    // separator styles, so the current level isn't bold and dark-mode parents aren't dimmed.
+    MuiBreadcrumbs: {
+      styleOverrides: {
+        root: breadcrumbText,
+        li: ({ theme }: { theme: OxygenTheme }) => ({
+          color: theme.vars.palette.Breadcrumbs?.linkColor,
+          '&:last-child': {
+            color: theme.vars.palette.text.primary,
+          },
+        }),
+        separator: ({ theme }: { theme: OxygenTheme }) => ({
+          marginLeft: 10,
+          marginRight: 10,
+          color: theme.vars.palette.Breadcrumbs?.separatorColor,
+        }),
+      },
+    },
+    MuiAppBreadcrumbs: {
+      defaultProps: {
+        separator: '/',
+      },
+      styleOverrides: {
+        // MUI also resolves this with the root's props, where there is no item ownerState
+        item: ({ theme, ownerState }: { theme: OxygenTheme; ownerState?: { isLast?: boolean; isClickable?: boolean } }) => ({
+          ...breadcrumbText,
+          ...(ownerState?.isLast && {
+            color: theme.vars.palette.text.primary,
+          }),
+          ...(ownerState?.isClickable && {
+            color: theme.vars.palette.Breadcrumbs?.linkColor,
+            '&:hover': {
+              textDecoration: 'none',
+              color: theme.vars.palette.Breadcrumbs?.linkHoverColor,
+            },
+          }),
+        }),
+        ellipsis: {
+          ...breadcrumbText,
+        },
       },
     },
     MuiListItemButton: {
