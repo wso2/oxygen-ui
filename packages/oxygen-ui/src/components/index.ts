@@ -62,6 +62,8 @@ export { default as RelativeTime } from './RelativeTime';
 export type { RelativeTimeProps } from './RelativeTime';
 export { default as TextField } from './TextField';
 export type { TextFieldProps, TextFieldLabelPlacement } from './TextField';
+export { default as Select } from './Select';
+export type { SelectProps, SelectLabelPlacement } from './Select';
 export { default as StatCard } from './StatCard';
 export type { StatCardProps } from './StatCard';
 

@@ -103,8 +103,20 @@ const ChoreoLabsStatusColors = {
 // standalone FormLabel placed before a floating-label field from matching.
 const fixedLabelField = '.MuiFormLabel-root + .MuiTextField-root:not(:has(> .MuiInputLabel-root))';
 
-// Selects and native selects share MuiOutlinedInput with text inputs but keep the Cobalt focus border.
+// Prefixes that, followed by an input root state, match only fixed-label inputs: the Oxygen TextField's
+// inner input, and the Oxygen Select's `top` mode, which puts a FormLabel (not an InputLabel) right
+// before the select's input root.
+const fixedLabelInputs = [`${fixedLabelField} > &`, '.MuiFormLabel-root:not(.MuiInputLabel-root) + &'];
+const onFixedLabelInput = (selector: string) => fixedLabelInputs.map((prefix) => `${prefix}${selector}`).join(', ');
+
+// Floating-label selects and native selects share MuiOutlinedInput with text inputs but keep the
+// Cobalt focus border; fixed-label selects take the text input focus style.
 const notSelect = ':not(.MuiSelect-root):not(.MuiNativeSelect-root)';
+
+// A FormControl whose field is a select, either directly or inside a wrapper. A select inside the
+// field's own input root (such as a unit picker in a text field's adornment) doesn't count.
+const selectFormControl = '.MuiFormControl-root:has(> .MuiSelect-root, > :not(.MuiInputBase-root) .MuiSelect-root, '
+  + '> .MuiNativeSelect-root, > :not(.MuiInputBase-root) .MuiNativeSelect-root)';
 
 const fontFamily = "'Sora Variable', sans-serif";
 
@@ -427,9 +439,10 @@ const ChoreoLabsThemeConfig = {
         root: ({ theme }: { theme: OxygenTheme }) => ({
           fontSize: theme.typography.body2.fontSize,
           marginBottom: '4px',
-          // Selects keep their original spacing; the wider gap is for text inputs only.
-          '&:has(+ .MuiTextField-root .MuiSelect-select)': {
-            marginBottom: '2px',
+          // A select's error shows on its border and helper text, so its floating label keeps its colour.
+          // Set here because InputLabel has no `error` style slot; InputLabel renders a FormLabel.
+          [`${selectFormControl} > &.MuiInputLabel-root.Mui-error`]: {
+            color: theme.vars.palette.text.secondary,
           },
         }),
       },
@@ -549,12 +562,12 @@ const ChoreoLabsThemeConfig = {
             transform: `translate(14px, ${fieldPadding(fieldHeight.small)}) scale(1)`,
           },
         },
-        // The field's border already shows focus, so the label stays neutral like fixed labels do.
-        // Selects keep MUI's focused label colour, since their focus style is unchanged.
+        // The field's border already shows focus, so floating labels on text inputs and selects stay
+        // neutral like fixed labels do.
         // `focused` rather than `root`: createOxygenTheme deep-merges objects but replaces functions,
         // so a function `root` would drop the base theme's select label offset.
         focused: ({ theme }: { theme: OxygenTheme }) => ({
-          '.MuiFormControl-root:not(:has(.MuiSelect-select)) > &.Mui-focused:not(.Mui-error)': {
+          '&.Mui-focused:not(.Mui-error)': {
             color: theme.vars.palette.text.secondary,
           },
         }),
@@ -581,19 +594,19 @@ const ChoreoLabsThemeConfig = {
           '&.Mui-focused:not(.Mui-error) .MuiOutlinedInput-notchedOutline': {
             borderColor: ChoreoLabsColors.cobalt,
           },
-          // Text inputs follow the brand's focus style (thin text-colour border, ring on fixed-label
-          // fields), while selects keep the Cobalt border above.
-          [`&.Mui-focused${notSelect} .MuiOutlinedInput-notchedOutline`]: {
+          // Text inputs and fixed-label selects follow the brand's focus style (thin text-colour border,
+          // ring on fixed-label fields), while floating-label selects keep the Cobalt border above.
+          [`&.Mui-focused${notSelect} .MuiOutlinedInput-notchedOutline, ${onFixedLabelInput('.Mui-focused .MuiOutlinedInput-notchedOutline')}`]: {
             borderWidth: 1.5,
           },
-          [`&.Mui-focused:not(.Mui-error)${notSelect} .MuiOutlinedInput-notchedOutline`]: {
+          [`&.Mui-focused:not(.Mui-error)${notSelect} .MuiOutlinedInput-notchedOutline, ${onFixedLabelInput('.Mui-focused:not(.Mui-error) .MuiOutlinedInput-notchedOutline')}`]: {
             borderColor: theme.vars.palette.text.primary,
           },
           // A box-shadow ignores the outline's notch and would cut through a floating label.
-          [`${fixedLabelField} > &.Mui-focused${notSelect}`]: {
+          [onFixedLabelInput('.Mui-focused')]: {
             boxShadow: `0 0 0 3px ${ChoreoLabsColors.cobalt}40`,
           },
-          [`${fixedLabelField} > &.Mui-focused.Mui-error${notSelect}`]: {
+          [onFixedLabelInput('.Mui-focused.Mui-error')]: {
             boxShadow: `0 0 0 3px rgba(${theme.vars.palette.error.mainChannel} / 0.25)`,
           },
         }),
@@ -625,6 +638,15 @@ const ChoreoLabsThemeConfig = {
       styleOverrides: {
         root: ({ theme }: { theme: OxygenTheme }) => ({
           fontSize: theme.typography.body2.fontSize,
+          // Drop the ButtonBase focus ring: the menu clips its sides, leaving stray lines above and
+          // below the item. The focus background still marks the keyboard-focused item.
+          '&.Mui-focusVisible': {
+            outline: 'none',
+          },
+          // A neutral fill for the selected option, matching selected list items, instead of a primary tint.
+          '&.Mui-selected, &.Mui-selected:hover, &.Mui-selected.Mui-focusVisible': {
+            backgroundColor: theme.vars.palette.action.selected,
+          },
         }),
       },
     },
