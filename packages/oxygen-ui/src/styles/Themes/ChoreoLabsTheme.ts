@@ -98,6 +98,14 @@ const ChoreoLabsStatusColors = {
   },
 };
 
+// Matches only fixed-label fields: the Oxygen TextField's `top` mode puts a FormLabel right before
+// an inner TextField that has no label of its own. Excluding TextFields with an InputLabel keeps a
+// standalone FormLabel placed before a floating-label field from matching.
+const fixedLabelField = '.MuiFormLabel-root + .MuiTextField-root:not(:has(> .MuiInputLabel-root))';
+
+// Selects and native selects share MuiOutlinedInput with text inputs but keep the Cobalt focus border.
+const notSelect = ':not(.MuiSelect-root):not(.MuiNativeSelect-root)';
+
 const fontFamily = "'Sora Variable', sans-serif";
 
 // Outlined fields match the button heights: small fields line up with medium buttons, medium with large.
@@ -418,7 +426,11 @@ const ChoreoLabsThemeConfig = {
       styleOverrides: {
         root: ({ theme }: { theme: OxygenTheme }) => ({
           fontSize: theme.typography.body2.fontSize,
-          marginBottom: '2px',
+          marginBottom: '4px',
+          // Selects keep their original spacing; the wider gap is for text inputs only.
+          '&:has(+ .MuiTextField-root .MuiSelect-select)': {
+            marginBottom: '2px',
+          },
         }),
       },
     },
@@ -537,6 +549,15 @@ const ChoreoLabsThemeConfig = {
             transform: `translate(14px, ${fieldPadding(fieldHeight.small)}) scale(1)`,
           },
         },
+        // The field's border already shows focus, so the label stays neutral like fixed labels do.
+        // Selects keep MUI's focused label colour, since their focus style is unchanged.
+        // `focused` rather than `root`: createOxygenTheme deep-merges objects but replaces functions,
+        // so a function `root` would drop the base theme's select label offset.
+        focused: ({ theme }: { theme: OxygenTheme }) => ({
+          '.MuiFormControl-root:not(:has(.MuiSelect-select)) > &.Mui-focused:not(.Mui-error)': {
+            color: theme.vars.palette.text.secondary,
+          },
+        }),
       },
     },
     MuiOutlinedInput: {
@@ -559,6 +580,21 @@ const ChoreoLabsThemeConfig = {
           backgroundColor: theme.vars.palette.background.acrylic,
           '&.Mui-focused:not(.Mui-error) .MuiOutlinedInput-notchedOutline': {
             borderColor: ChoreoLabsColors.cobalt,
+          },
+          // Text inputs follow the brand's focus style (thin text-colour border, ring on fixed-label
+          // fields), while selects keep the Cobalt border above.
+          [`&.Mui-focused${notSelect} .MuiOutlinedInput-notchedOutline`]: {
+            borderWidth: 1.5,
+          },
+          [`&.Mui-focused:not(.Mui-error)${notSelect} .MuiOutlinedInput-notchedOutline`]: {
+            borderColor: theme.vars.palette.text.primary,
+          },
+          // A box-shadow ignores the outline's notch and would cut through a floating label.
+          [`${fixedLabelField} > &.Mui-focused${notSelect}`]: {
+            boxShadow: `0 0 0 3px ${ChoreoLabsColors.cobalt}40`,
+          },
+          [`${fixedLabelField} > &.Mui-focused.Mui-error${notSelect}`]: {
+            boxShadow: `0 0 0 3px rgba(${theme.vars.palette.error.mainChannel} / 0.25)`,
           },
         }),
         notchedOutline: ({ theme }: { theme: OxygenTheme }) => ({

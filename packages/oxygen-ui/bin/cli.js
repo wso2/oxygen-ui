@@ -414,6 +414,7 @@ function initClaude(includeInternal = false) {
   console.log('  - /oxygen-component  Generate Oxygen UI components');
   console.log('  - /oxygen-layout     Generate app layouts');
   console.log('  - /oxygen-form       Generate forms with validation');
+  console.log('  - /oxygen-textfield  Use fixed-label text fields');
   console.log('  - /oxygen-migrate    Migrate MUI code to Oxygen UI');
   if (includeInternal) {
     console.log('  - /oxygen-sync       Sync AI docs with source (internal)');
@@ -548,6 +549,7 @@ Available Skills (Claude mode only):
   /oxygen-component  Generate Oxygen UI React components
   /oxygen-layout     Generate app layouts with AppShell
   /oxygen-form       Generate forms with validation
+  /oxygen-textfield  Use fixed-label text fields
   /oxygen-migrate    Migrate existing MUI code
 `);
 }
