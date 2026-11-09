@@ -18,11 +18,15 @@
 
 import { describe, it, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
-import { AppBar, Button, Card, Chip, Dialog, Fab, FilledInput, FormControl, FormLabel, Input, InputAdornment, InputLabel, MenuItem, MenuList, NativeSelect, OutlinedInput, Paper, Select, TextField } from '@mui/material';
+import { AppBar, Breadcrumbs, Button, Card, Chip, Dialog, Fab, FilledInput, FormControl, FormLabel, Input, InputAdornment, InputLabel, Link, MenuItem, MenuList, NativeSelect, OutlinedInput, Paper, Select, TextField, Typography } from '@mui/material';
 import type { TypographyVariantsOptions } from '@mui/material/styles';
 import OxygenUIThemeProvider from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
 import OxygenTextField from '../../components/TextField/TextField';
 import OxygenSelect from '../../components/Select/Select';
+import AppBreadcrumbs from '../../components/AppBreadcrumbs/AppBreadcrumbs';
+import Footer from '../../components/Footer/Footer';
+import PageTitle from '../../components/PageTitle/PageTitle';
+import ComplexSelect from '../../components/ComplexSelect/ComplexSelect';
 import SidebarUserAvatar from '../../components/Sidebar/SidebarUserAvatar';
 import UserMenu from '../../components/UserMenu/UserMenu';
 import { ChoreoLabsTheme, OxygenTheme } from './index';
@@ -322,18 +326,22 @@ describe('ChoreoLabsTheme states', () => {
     expect(css).toMatch(/:active\{background-color:#8F2400;\}/);
   });
 
-  it('uses the light avatar style for the app shell user avatars', () => {
+  it('uses the light avatar style for the app shell user avatars and page title avatars', () => {
     render(
       <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
         <UserMenu>
           <UserMenu.Trigger name="Jane Doe" />
         </UserMenu>
         <SidebarUserAvatar>JD</SidebarUserAvatar>
+        <PageTitle>
+          <PageTitle.Avatar>P</PageTitle.Avatar>
+          <PageTitle.Header>Project</PageTitle.Header>
+        </PageTitle>
       </OxygenUIThemeProvider>
     );
     const lightAvatar = 'background-color:color-mix(in srgb, var(--oxygen-palette-primary-main) 12%, transparent);color:var(--oxygen-palette-primary-main);}';
 
-    (['MuiUserMenu-avatar', 'MuiSidebar-userAvatar'] as const).forEach((slot) => {
+    (['MuiUserMenu-avatar', 'MuiSidebar-userAvatar', 'MuiPageTitle-avatar'] as const).forEach((slot) => {
       const rule = renderedCss().match(new RegExp(`\\.[^{}]*${slot}\\{[^}]*\\}`))?.[0];
       expect(rule?.endsWith(lightAvatar)).toBe(true);
     });
@@ -547,6 +555,227 @@ describe('ChoreoLabsTheme states', () => {
     expect(winning).toContain(`.${itemClass}.Mui-selected:hover`);
     expect(winning).toContain(`.${itemClass}.Mui-selected.Mui-focusVisible`);
     expect(winning).toMatch(/\{background-color:var\(--oxygen-palette-action-selected\);$/);
+  });
+
+  it.each([
+    ['light', { linkColor: '#5A6072', linkHoverColor: BURN, separatorColor: '#5A6072' }],
+    ['dark', { linkColor: '#AEB6C6', linkHoverColor: SIGNAL, separatorColor: '#5F6B85' }],
+  ] as const)('uses the guideline breadcrumb colours in the %s scheme', (scheme, colors) => {
+    expect(ChoreoLabsTheme.colorSchemes[scheme]!.palette.Breadcrumbs).toEqual(colors);
+  });
+
+  it('separates app breadcrumbs with a slash and colours each level', () => {
+    const { container, getByText } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <AppBreadcrumbs items={[{ key: 'home', label: 'Home', onClick: () => {} }, { key: 'api', label: 'API Platform' }]} />
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+    const ruleFor = (text: string) => {
+      const className = getByText(text).className.split(' ').find((name) => name.startsWith('css-'));
+      return css.match(new RegExp(`\\.${className}\\{[^}]*\\}`))?.[0] ?? '';
+    };
+
+    expect(container.querySelector('.MuiBreadcrumbs-separator')?.textContent).toBe('/');
+    expect(ruleFor('Home')).toMatch(/font-size:14px;font-weight:400;line-height:1\.5;letter-spacing:0\.02em;word-spacing:0\.18em;color:var\(--oxygen-palette-Breadcrumbs-linkColor\);/);
+    expect(css).toMatch(/AppBreadcrumbs-item:hover\{[^}]*text-decoration:none;color:var\(--oxygen-palette-Breadcrumbs-linkHoverColor\);\}/);
+    expect(ruleFor('API Platform')).toMatch(/font-weight:400;[^}]*color:var\(--oxygen-palette-text-primary\);/);
+  });
+
+  it('keeps a custom app breadcrumb separator', () => {
+    const { container } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <AppBreadcrumbs separator=">" items={[{ key: 'home', label: 'Home' }, { key: 'api', label: 'API Platform' }]} />
+      </OxygenUIThemeProvider>
+    );
+
+    expect(container.querySelector('.MuiBreadcrumbs-separator')?.textContent).toBe('>');
+  });
+
+  it('spaces breadcrumb slashes 10px apart and keeps the current level at regular weight', () => {
+    render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Breadcrumbs><span>Home</span><span>API Platform</span></Breadcrumbs>
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+
+    expect(css).toMatch(/MuiBreadcrumbs-separator\{[^}]*margin-left:10px;margin-right:10px;color:var\(--oxygen-palette-Breadcrumbs-separatorColor\);\}/);
+    expect(css).toMatch(/\.MuiBreadcrumbs-li:last-child\{color:var\(--oxygen-palette-text-primary\);\}/);
+    expect(css).not.toMatch(/MuiBreadcrumbs-li[^{]*\{[^}]*(font-weight:700|opacity)/);
+  });
+
+  it.each([
+    ['light', { hoverColor: BURN, primaryColor: BURN, secondaryColor: MIDNIGHT_INK, successColor: '#15803D', errorColor: '#B42318', warningColor: '#8A5A00', infoColor: MIDNIGHT_INK }],
+    ['dark', { hoverColor: SIGNAL, primaryColor: SIGNAL, secondaryColor: '#FFFFFF', successColor: '#4ADE80', errorColor: '#FF7A7F', warningColor: '#FCD34D', infoColor: '#FFFFFF' }],
+  ] as const)('uses the brand link colours in the %s scheme', (scheme, colors) => {
+    expect(ChoreoLabsTheme.colorSchemes[scheme]!.palette.Link).toEqual(colors);
+  });
+
+  // The last value of a property in a class's rules is the one that applies; hover keeps the
+  // resting value when its rules don't set one.
+  const lastValue = (css: string, selector: string, property: string, fallback: string) => {
+    const values = css.split('}').filter((rule) => rule.startsWith(selector))
+      .flatMap((rule) => [...rule.matchAll(new RegExp(`(?:^|[;{])${property}:([^;]+)`, 'g'))].map((match) => match[1]));
+    return values[values.length - 1] ?? fallback;
+  };
+  const cssClass = (element: HTMLElement) => element.className.split(' ').find((name) => name.startsWith('css-'))!;
+
+  it('gives links without a colour the default text colour, turning orange on hover', () => {
+    const { getByText } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Link href="/docs">Docs</Link>
+      </OxygenUIThemeProvider>
+    );
+    const className = cssClass(getByText('Docs'));
+    const css = renderedCss();
+
+    expect(lastValue(css, `.${className}{`, 'color', '')).toBe('var(--oxygen-palette-text-primary)');
+    expect(lastValue(css, `.${className}:hover{`, 'color', '')).toBe('var(--oxygen-palette-Link-hoverColor)');
+  });
+
+  it.each(['primary', 'secondary', 'success', 'error', 'warning', 'info'] as const)('uses the brand colour for color="%s" links', (color) => {
+    const { getByText } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Link href="/docs" color={color}>Docs</Link>
+      </OxygenUIThemeProvider>
+    );
+    const className = cssClass(getByText('Docs'));
+    const css = renderedCss();
+    const rest = lastValue(css, `.${className}{`, 'color', '');
+
+    expect(rest).toBe(`var(--oxygen-palette-Link-${color}Color)`);
+    expect(lastValue(css, `.${className}:hover{`, 'color', rest)).toBe(rest);
+  });
+
+  it('leaves color="inherit" links in the surrounding colour', () => {
+    const { getByText } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Link href="/docs" color="inherit">Docs</Link>
+      </OxygenUIThemeProvider>
+    );
+    const className = cssClass(getByText('Docs'));
+
+    expect(lastValue(renderedCss(), `.${className}{`, 'color', '')).toBe('inherit');
+  });
+
+  it('gives footer links the default text colour, with the link hover colour', () => {
+    render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Footer><Footer.Link href="/terms">Terms</Footer.Link></Footer>
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+
+    expect(css).toMatch(/MuiFooter-link\{[^}]*color:var\(--oxygen-palette-text-primary\);\}/);
+    expect(css).toMatch(/MuiFooter-link:hover\{color:var\(--oxygen-palette-Link-hoverColor\);\}/);
+  });
+
+  it.each([
+    ['none', 'none', 'none'],
+    ['hover', 'none', 'underline'],
+    ['always', 'underline', 'underline'],
+  ] as const)('follows underline="%s" on links', (underline, rest, hover) => {
+    const { getByText } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Link href="/docs" underline={underline}>Docs</Link>
+      </OxygenUIThemeProvider>
+    );
+    const className = cssClass(getByText('Docs'));
+    const css = renderedCss();
+    const restDecoration = lastValue(css, `.${className}{`, 'text-decoration', 'none');
+
+    expect(restDecoration).toBe(rest);
+    expect(lastValue(css, `.${className}:hover{`, 'text-decoration', restDecoration)).toBe(hover);
+  });
+
+  it('underlines links on hover by default', () => {
+    expect(ChoreoLabsTheme.components?.MuiLink?.defaultProps?.underline).toBe('hover');
+  });
+
+  // The last value of a property among rules whose selector list includes `selector`
+  const winningValue = (css: string, selector: string, property: string) => {
+    const values = css.split('}').filter((rule) => rule.split('{')[0].split(',').includes(selector))
+      .flatMap((rule) => [...rule.matchAll(new RegExp(`(?:^|[;{])${property}:([^;]+)`, 'g'))].map((match) => match[1]));
+    return values[values.length - 1];
+  };
+
+  it('gives ComplexSelect options the neutral hover and selected fills of Select options', () => {
+    render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <ComplexSelect open value="a" onChange={() => {}}>
+          <ComplexSelect.MenuItem value="a">Alpha</ComplexSelect.MenuItem>
+          <ComplexSelect.MenuItem value="b">Beta</ComplexSelect.MenuItem>
+        </ComplexSelect>
+      </OxygenUIThemeProvider>
+    );
+    const option = document.querySelector('.MuiMenuItem-root') as HTMLElement;
+    const className = cssClass(option);
+    const css = renderedCss();
+
+    expect(winningValue(css, `.${className}:hover`, 'background-color')).toBe('var(--oxygen-palette-action-hover)');
+    expect(winningValue(css, `.${className}.Mui-selected`, 'background-color')).toBe('var(--oxygen-palette-action-selected)');
+    expect(winningValue(css, `.${className}.Mui-selected:hover`, 'background-color')).toBe('var(--oxygen-palette-action-selected)');
+  });
+
+  it('styles the ComplexSelect outside label like the Select fixed label', () => {
+    const { getByText } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <ComplexSelect label="Role" labelAnchor="outside" value="a" onChange={() => {}}>
+          <ComplexSelect.MenuItem value="a">Alpha</ComplexSelect.MenuItem>
+        </ComplexSelect>
+      </OxygenUIThemeProvider>
+    );
+    const className = cssClass(getByText('Role'));
+    const css = renderedCss();
+
+    expect(winningValue(css, `.${className}`, 'color')).toBe('var(--oxygen-palette-text-secondary)');
+    expect(winningValue(css, `.${className}`, 'font-weight')).toBe('400');
+    expect(winningValue(css, `.${className}`, 'margin-bottom')).toBe('4px');
+    expect(winningValue(css, `.${className}.Mui-focused`, 'color')).toBe('var(--oxygen-palette-text-secondary)');
+  });
+
+  it.each([
+    ['outside', 'var(--oxygen-palette-text-primary)', '0 0 0 3px #1F4FFF40'],
+    ['inside', 'var(--oxygen-palette-text-primary)', undefined],
+    ['border', 'var(--oxygen-palette-text-primary)', undefined],
+  ] as const)('gives ComplexSelect with the label %s a text-colour focus border, with a ring only outside', (labelAnchor, borderColor, ring) => {
+    const { container } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <ComplexSelect label="Role" labelAnchor={labelAnchor} value="a" onChange={() => {}}>
+          <ComplexSelect.MenuItem value="a">Alpha</ComplexSelect.MenuItem>
+        </ComplexSelect>
+      </OxygenUIThemeProvider>
+    );
+    const className = cssClass(container.querySelector('.MuiInputBase-root') as HTMLElement);
+    const css = renderedCss();
+
+    expect(winningValue(css, `.${className}.Mui-focused:not(.Mui-error) .MuiOutlinedInput-notchedOutline`, 'border-color')).toBe(borderColor);
+    expect(winningValue(css, `.${className}.Mui-focused`, 'box-shadow')).toBe(ring);
+  });
+
+
+  it('styles links and text inside plain Breadcrumbs like AppBreadcrumbs items', () => {
+    const { getByText } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Breadcrumbs>
+          <Link underline="hover" color="inherit" href="#">Home</Link>
+          <Typography color="text.primary">Products</Typography>
+        </Breadcrumbs>
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+    const link = getByText('Home');
+    const text = getByText('Products');
+    const rootClass = cssClass(link.closest('.MuiBreadcrumbs-root') as HTMLElement);
+    const linkRule = `.${rootClass} .MuiBreadcrumbs-li:not(:last-child)>.MuiLink-root`;
+
+    expect(winningValue(css, linkRule, 'color')).toBe('var(--oxygen-palette-Breadcrumbs-linkColor)');
+    expect(winningValue(css, linkRule, 'text-decoration')).toBe('none');
+    expect(winningValue(css, `${linkRule}:hover`, 'color')).toBe('var(--oxygen-palette-Breadcrumbs-linkHoverColor)');
+    expect(winningValue(css, `${linkRule}:hover`, 'text-decoration')).toBe('none');
+    expect(winningValue(css, `.${rootClass} .MuiBreadcrumbs-li>.MuiTypography-root`, 'font-size')).toBe('inherit');
+    expect(text.closest('.MuiBreadcrumbs-li')).not.toBeNull();
   });
 
   it('uses Cobalt for focus on every input variant', () => {

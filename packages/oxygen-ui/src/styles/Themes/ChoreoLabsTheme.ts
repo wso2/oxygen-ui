@@ -29,11 +29,40 @@ declare module '@mui/material/styles' {
   interface PaletteOptions {
     accent?: PaletteOptions['primary'];
     Button?: Partial<ChoreoLabsButtonPalette>;
+    Breadcrumbs?: Partial<ChoreoLabsBreadcrumbsPalette>;
+    Link?: Partial<ChoreoLabsLinkPalette>;
   }
   interface Palette {
     // Only set by ChoreoLabsTheme
     Button?: ChoreoLabsButtonPalette;
+    Breadcrumbs?: ChoreoLabsBreadcrumbsPalette;
+    Link?: ChoreoLabsLinkPalette;
   }
+}
+
+/** Link colours that differ between the light and dark schemes */
+interface ChoreoLabsLinkPalette {
+  /** Default (text colour) links on hover */
+  hoverColor: string;
+  /** Text of links with a palette `color` */
+  primaryColor: string;
+  secondaryColor: string;
+  successColor: string;
+  errorColor: string;
+  warningColor: string;
+  infoColor: string;
+}
+
+const linkColors = ['primary', 'secondary', 'success', 'error', 'warning', 'info'] as const;
+
+/** Breadcrumb colours that differ between the light and dark schemes */
+interface ChoreoLabsBreadcrumbsPalette {
+  /** Parent levels */
+  linkColor: string;
+  /** Parent levels on hover */
+  linkHoverColor: string;
+  /** The slash between levels */
+  separatorColor: string;
 }
 
 /**
@@ -102,7 +131,9 @@ const ChoreoLabsColors = {
   deepNavy: '#17223A',
   blackout: '#050A1C',
   midnight900: '#070D22',
+  midnightText2: '#AEB6C6',
   midnightText3: '#8A93A6',
+  midnightText4: '#5F6B85',
   void: '#07080C',
   cobalt: '#1F4FFF',
   // Focus colour on dark surfaces, where Cobalt is too dark
@@ -152,6 +183,15 @@ const selectFormControl = '.MuiFormControl-root:has(> .MuiSelect-root, > :not(.M
   + '> .MuiNativeSelect-root, > :not(.MuiInputBase-root) .MuiNativeSelect-root)';
 
 const fontFamily = "'Sora Variable', sans-serif";
+
+// Breadcrumbs use the guideline's small caption type at regular weight, current level included
+const breadcrumbText = {
+  fontSize: 14,
+  fontWeight: 400,
+  lineHeight: 1.5,
+  letterSpacing: '0.02em',
+  wordSpacing: '0.18em',
+};
 
 // Outlined fields match the button heights: small fields line up with medium buttons, medium with large.
 // Padding is derived from the 1.4375em line height so it holds for any font size. Heights aren't fixed,
@@ -214,6 +254,22 @@ const ChoreoLabsColorSchemes = {
         disabledColor: ChoreoLabsColors.slate,
         focusRing: ChoreoLabsColors.cobalt,
       },
+      Breadcrumbs: {
+        linkColor: ChoreoLabsColors.slate,
+        linkHoverColor: ChoreoLabsColors.burn,
+        separatorColor: ChoreoLabsColors.slate,
+      },
+      // Signal and the status colours are below 4.5:1 as text on light surfaces, so light-mode
+      // link text uses their dark shades, the same as the Alert text colours
+      Link: {
+        hoverColor: ChoreoLabsColors.burn,
+        primaryColor: ChoreoLabsColors.burn,
+        secondaryColor: ChoreoLabsColors.midnightInk,
+        successColor: '#15803D',
+        errorColor: '#B42318',
+        warningColor: '#8A5A00',
+        infoColor: ChoreoLabsColors.midnightInk,
+      },
       Alert: {
         infoColor: ChoreoLabsColors.midnightInk,
         infoIconColor: ChoreoLabsColors.midnightInk,
@@ -270,6 +326,20 @@ const ChoreoLabsColorSchemes = {
         disabledBg: ChoreoLabsColors.midnight900,
         disabledColor: ChoreoLabsColors.midnightText3,
         focusRing: ChoreoLabsColors.azure,
+      },
+      Breadcrumbs: {
+        linkColor: ChoreoLabsColors.midnightText2,
+        linkHoverColor: ChoreoLabsColors.signal,
+        separatorColor: ChoreoLabsColors.midnightText4,
+      },
+      Link: {
+        hoverColor: ChoreoLabsColors.signal,
+        primaryColor: ChoreoLabsColors.signal,
+        secondaryColor: ChoreoLabsColors.white,
+        successColor: '#4ADE80',
+        errorColor: '#FF7A7F',
+        warningColor: '#FCD34D',
+        infoColor: ChoreoLabsColors.white,
       },
       Alert: {
         infoColor: ChoreoLabsColors.white,
@@ -339,6 +409,12 @@ const ChoreoLabsThemeConfig = {
           backgroundColor: theme.vars.palette.Avatar.defaultBg,
           color: theme.vars.palette.text.primary,
         }),
+      },
+    },
+    // Icon and letter avatars in page titles use the light tint; image avatars cover it
+    MuiPageTitle: {
+      styleOverrides: {
+        avatar: lightAvatar,
       },
     },
     MuiUserMenu: {
@@ -779,23 +855,154 @@ const ChoreoLabsThemeConfig = {
         }),
       },
     },
-    MuiLink: {
+    // ComplexSelect options match the Select's options: neutral hover and selected fills instead of
+    // the component's primary tint
+    MuiComplexSelectMenuItem: {
       styleOverrides: {
         root: ({ theme }: { theme: OxygenTheme }) => ({
-          color: theme.vars.palette.primary.main,
-          textDecoration: 'none',
           '&:hover': {
-            color: theme.vars.palette.primary.dark,
-            textDecoration: 'underline',
+            backgroundColor: theme.vars.palette.action.hover,
           },
+          '&.Mui-selected, &.Mui-selected:hover, &.Mui-selected.Mui-focusVisible': {
+            backgroundColor: theme.vars.palette.action.selected,
+          },
+        }),
+      },
+    },
+    // The outside label matches the Select's fixed label: secondary text at regular weight, 4px
+    // above the field, and no colour change on focus
+    MuiComplexSelect: {
+      styleOverrides: {
+        // Focus is a 1.5px text-colour border in every label mode, not Cobalt. With the label outside
+        // the field also gets the Select's fixed-label ring; a ring would cut through a border label.
+        root: ({ theme, labelAnchor }: { theme: OxygenTheme; labelAnchor?: string }) => ({
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderWidth: 1.5,
+          },
+          '&.Mui-focused:not(.Mui-error) .MuiOutlinedInput-notchedOutline': {
+            borderColor: theme.vars.palette.text.primary,
+          },
+          ...(labelAnchor === 'outside' && {
+            '&.Mui-focused': {
+              boxShadow: `0 0 0 3px ${ChoreoLabsColors.cobalt}40`,
+            },
+            '&.Mui-focused.Mui-error': {
+              boxShadow: `0 0 0 3px rgba(${theme.vars.palette.error.mainChannel} / 0.25)`,
+            },
+          }),
+        }),
+        inputLabel: ({ theme, labelAnchor }: { theme: OxygenTheme; labelAnchor?: string }) => (
+          labelAnchor === 'outside' ? {
+            color: theme.vars.palette.text.secondary,
+            fontWeight: theme.typography.fontWeightRegular,
+            marginBottom: 4,
+            '&.Mui-focused': {
+              color: theme.vars.palette.text.secondary,
+            },
+          } : {}
+        ),
+      },
+    },
+    // Links without a `color` take the default text colour and turn orange on hover; links with a
+    // palette `color` use the brand colour for it. The underline follows the `underline` prop, so
+    // `none` never underlines; links default to underlining on hover.
+    MuiLink: {
+      defaultProps: {
+        color: 'textPrimary',
+        underline: 'hover',
+      },
+      styleOverrides: {
+        root: ({ theme }: { theme: OxygenTheme }) => ({
+          variants: [
+            {
+              props: { color: 'textPrimary' },
+              style: {
+                '&:hover': {
+                  color: theme.vars.palette.Link?.hoverColor,
+                },
+              },
+            },
+            ...linkColors.map((color) => ({
+              props: { color },
+              style: {
+                color: theme.vars.palette.Link?.[`${color}Color`],
+              },
+            })),
+          ],
           '&.Mui-focusVisible, &:focus-visible': {
             outline: `2px solid ${ChoreoLabsColors.cobalt}`,
             outlineOffset: 2,
           },
-          ...theme.applyStyles('light', {
-            color: theme.vars.palette.primary.dark,
+        }),
+      },
+    },
+    // The footer styles its links itself, so they need the same colours here
+    MuiFooter: {
+      styleOverrides: {
+        link: ({ theme }: { theme: OxygenTheme }) => ({
+          color: theme.vars.palette.text.primary,
+          '&:hover': {
+            color: theme.vars.palette.Link?.hoverColor,
+          },
+        }),
+      },
+    },
+    // Slash separated, with 10px either side of the slash. Replaces the base theme's li and
+    // separator styles, so the current level isn't bold and dark-mode parents aren't dimmed.
+    MuiBreadcrumbs: {
+      styleOverrides: {
+        root: breadcrumbText,
+        // Breadcrumb children are the app's own Link and Typography elements, so they're styled here
+        // to match AppBreadcrumbs: caption text, and parent links that turn orange with no underline.
+        li: ({ theme }: { theme: OxygenTheme }) => ({
+          color: theme.vars.palette.Breadcrumbs?.linkColor,
+          '&:last-child': {
+            color: theme.vars.palette.text.primary,
+          },
+          '& > .MuiTypography-root': {
+            fontSize: 'inherit',
+            fontWeight: 'inherit',
+            lineHeight: 'inherit',
+            letterSpacing: 'inherit',
+          },
+          '&:not(:last-child) > .MuiLink-root': {
+            color: theme.vars.palette.Breadcrumbs?.linkColor,
+            textDecoration: 'none',
+            '&:hover': {
+              color: theme.vars.palette.Breadcrumbs?.linkHoverColor,
+              textDecoration: 'none',
+            },
+          },
+        }),
+        separator: ({ theme }: { theme: OxygenTheme }) => ({
+          marginLeft: 10,
+          marginRight: 10,
+          color: theme.vars.palette.Breadcrumbs?.separatorColor,
+        }),
+      },
+    },
+    MuiAppBreadcrumbs: {
+      defaultProps: {
+        separator: '/',
+      },
+      styleOverrides: {
+        // MUI also resolves this with the root's props, where there is no item ownerState
+        item: ({ theme, ownerState }: { theme: OxygenTheme; ownerState?: { isLast?: boolean; isClickable?: boolean } }) => ({
+          ...breadcrumbText,
+          ...(ownerState?.isLast && {
+            color: theme.vars.palette.text.primary,
+          }),
+          ...(ownerState?.isClickable && {
+            color: theme.vars.palette.Breadcrumbs?.linkColor,
+            '&:hover': {
+              textDecoration: 'none',
+              color: theme.vars.palette.Breadcrumbs?.linkHoverColor,
+            },
           }),
         }),
+        ellipsis: {
+          ...breadcrumbText,
+        },
       },
     },
     MuiListItemButton: {
