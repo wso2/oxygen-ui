@@ -440,6 +440,7 @@ export const UseAIToGenerateUIs: Story = {
                   ['.claude/skills/oxygen-component/', 'Generate custom themed components'],
                   ['.claude/skills/oxygen-form/', 'Build forms with Form.Wizard and Form.Section'],
                   ['.claude/skills/oxygen-textfield/', 'Use fixed-label text fields instead of floating labels'],
+                  ['.claude/skills/oxygen-select/', 'Use fixed-label selects instead of floating labels'],
                   ['.claude/skills/oxygen-migrate/', 'Migrate from MUI to Oxygen UI'],
                   ['.claude/skills/oxygen-sync/', 'Sync docs to latest package version'],
                 ].map(([skill, desc]) => (

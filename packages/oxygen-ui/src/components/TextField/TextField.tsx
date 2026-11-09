@@ -20,6 +20,7 @@ import * as React from 'react';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import MuiTextField, { type TextFieldProps as MuiTextFieldProps } from '@mui/material/TextField';
+import { selectPlaceholderProps } from '../Select/Select';
 
 /** `top` draws a static label above the field instead of MUI's floating label. */
 export type TextFieldLabelPlacement = 'top';
@@ -31,6 +32,8 @@ export type TextFieldProps = MuiTextFieldProps & {
   optional?: boolean;
 };
 
+type SelectSlot = { native?: boolean; renderValue?: (value: unknown) => React.ReactNode } & Record<string, unknown>;
+
 /** MUI's TextField; with `labelPlacement="top"`, `ref` and layout props go to an outer FormControl. */
 const TextField = React.forwardRef<HTMLDivElement, TextFieldProps>(function TextField(
   { labelPlacement, optional = false, label: labelProp, ...fieldProps },
@@ -40,22 +43,36 @@ const TextField = React.forwardRef<HTMLDivElement, TextFieldProps>(function Text
   const label = optional && hasLabel && !fieldProps.required ? <>{labelProp} (Optional)</> : labelProp;
   const { id: idProp, sx, className, style, fullWidth, margin, required, error, disabled, color, focused, slotProps, helperText: helperProp, ...rest } = fieldProps;
   const generatedId = React.useId();
+  // MUI's select ignores `placeholder`, so a select draws it through renderValue.
+  const selectPlaceholder = fieldProps.select && fieldProps.placeholder != null && fieldProps.placeholder !== '' ? fieldProps.placeholder : undefined;
 
-  if (labelPlacement !== 'top' || !hasLabel) return <MuiTextField ref={ref} {...fieldProps} label={label} />;
+  // Adds to slotProps.select, which may be an object or a callback.
+  const withSelectSlot = (labelId?: string) => {
+    const slot = slotProps?.select as SelectSlot | ((ownerState: unknown) => SelectSlot) | undefined;
+    const extend = (base: SelectSlot = {}): SelectSlot => ({
+      ...base,
+      ...(labelId && { labelId }),
+      ...(selectPlaceholder && !base.native && selectPlaceholderProps(selectPlaceholder, base.renderValue, fieldProps.children)),
+    });
+    return { ...slotProps, select: typeof slot === 'function' ? (ownerState: unknown) => extend(slot(ownerState)) : extend(slot) } as MuiTextFieldProps['slotProps'];
+  };
+
+  if (labelPlacement !== 'top' || !hasLabel) {
+    const placeholderProps = selectPlaceholder ? { placeholder: undefined, slotProps: withSelectSlot() } : {};
+    return <MuiTextField ref={ref} {...fieldProps} label={label} {...placeholderProps} />;
+  }
 
   // Reserving the line keeps the form from shifting when an error appears.
   const helperText = error !== undefined && (helperProp == null || helperProp === '' || typeof helperProp === 'boolean') ? ' ' : helperProp;
   const id = idProp ?? generatedId;
   const labelId = `${id}-label`;
   // A select's combobox is a div, which <label for> cannot name, so it is named through labelId.
-  const selectProps = slotProps?.select;
-  const selectSlot = rest.select
-    ? { select: typeof selectProps === 'function' ? (ownerState: Parameters<typeof selectProps>[0]) => ({ ...selectProps(ownerState), labelId }) : { ...selectProps, labelId } }
-    : {};
+  const fieldSlotProps = rest.select ? withSelectSlot(labelId) : slotProps;
 
   return (
     <FormControl ref={ref} sx={sx} className={className} style={style} fullWidth={fullWidth} margin={margin} required={required} error={error} disabled={disabled} color={color}>
-      <FormLabel id={labelId} htmlFor={id}>
+      {/* A select's error shows on the field and helper text; its label keeps its colour. */}
+      <FormLabel id={labelId} htmlFor={id} error={rest.select ? false : undefined}>
         {label}
       </FormLabel>
       <MuiTextField
@@ -71,7 +88,8 @@ const TextField = React.forwardRef<HTMLDivElement, TextFieldProps>(function Text
         // Focus stays on the field's border; the static label keeps its colour.
         focused={focused}
         helperText={helperText}
-        slotProps={{ ...slotProps, ...selectSlot }}
+        placeholder={selectPlaceholder ? undefined : rest.placeholder}
+        slotProps={fieldSlotProps}
       />
     </FormControl>
   );

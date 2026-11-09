@@ -168,6 +168,7 @@ Creates:
   - `/oxygen-layout` - Generate app layouts
   - `/oxygen-form` - Generate forms with validation
   - `/oxygen-textfield` - Use fixed-label text fields instead of floating labels
+  - `/oxygen-select` - Use fixed-label selects instead of floating labels
   - `/oxygen-migrate` - Migrate MUI code
 - Updates root `CLAUDE.md` with reference
 

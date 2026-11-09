@@ -28,18 +28,84 @@ const meta: Meta<typeof Select> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI select component is a direct import of MUI select component. \n\n' + 
+        component: 'Oxygen UI select component is MUI select component, with an added `labelPlacement` prop. ' +
+        'Use `labelPlacement="top"` with `label` to draw a fixed label above the select; this is the recommended variant. ' +
+        'Without it, the select keeps MUI\'s floating label, which needs a surrounding `FormControl` and `InputLabel`. ' +
+        'Set `placeholder` to show text while nothing is selected. \n\n' +
         'Read MUI documentation for complete API : ' +
         '[https://mui.com/material-ui/react-select/](https://mui.com/material-ui/react-select/)',
       },
     },
   },
   tags: ['autodocs'],
+  argTypes: {
+    labelPlacement: {
+      control: 'inline-radio',
+      options: ['unset', 'top'],
+      mapping: { unset: undefined, top: 'top' },
+      description: 'Leave unset for MUI\'s floating label; `top` draws a fixed label above the select.',
+      table: { type: { summary: "'top'" }, defaultValue: { summary: 'unset (floating label)' } },
+    },
+    placeholder: {
+      control: 'text',
+      description: 'Shown in the field while nothing is selected. Ignored by `native` selects.',
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Select>;
 
+export const LabelOnTop: Story = {
+  render: () => {
+    const [value, setValue] = useState('');
+    return (
+      <Select
+        labelPlacement="top"
+        label="Environment"
+        placeholder="Select an environment"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        sx={{ minWidth: 240 }}
+      >
+        <MenuItem value="dev">Development</MenuItem>
+        <MenuItem value="staging">Staging</MenuItem>
+        <MenuItem value="prod">Production</MenuItem>
+      </Select>
+    );
+  },
+};
+
+export const LabelOnTopRequired: Story = {
+  render: () => {
+    const [value, setValue] = useState('');
+    return (
+      <Select
+        labelPlacement="top"
+        label="Environment"
+        placeholder="Select an environment"
+        required
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        sx={{ minWidth: 240 }}
+      >
+        <MenuItem value="dev">Development</MenuItem>
+        <MenuItem value="prod">Production</MenuItem>
+      </Select>
+    );
+  },
+};
+
+export const LabelOnTopWithError: Story = {
+  render: () => (
+    <Select labelPlacement="top" label="Environment" placeholder="Select an environment" error value="" sx={{ minWidth: 240 }}>
+      <MenuItem value="dev">Development</MenuItem>
+      <MenuItem value="prod">Production</MenuItem>
+    </Select>
+  ),
+};
+
+/** Floating label. Prefer `LabelOnTop`; keep this only for existing screens. */
 export const Default: Story = {
   render: () => {
     const [value, setValue] = useState('');

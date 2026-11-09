@@ -158,6 +158,51 @@ describe('TextField', () => {
     expect(screen.queryByText(/\(Optional\)/)).toBeNull();
   });
 
+  it('keeps a select label out of the error state but not a text field label', () => {
+    renderWithTheme(
+      <>
+        <TextField select labelPlacement="top" label="Region" error value="">
+          <MenuItem value="eu">Europe</MenuItem>
+        </TextField>
+        <TextField labelPlacement="top" label="Name" error />
+      </>,
+    );
+    expect(screen.getByText('Region').classList.contains('Mui-error')).toBe(false);
+    expect(screen.getByText('Name').classList.contains('Mui-error')).toBe(true);
+    expect(document.querySelectorAll('.MuiInputBase-root.Mui-error')).toHaveLength(2);
+  });
+
+  it.each([
+    ['fixed', 'top'],
+    ['floating', undefined],
+  ] as const)('shows a placeholder on an empty %s-label select until an option is chosen', (_, labelPlacement) => {
+    renderWithTheme(
+      <TextField select labelPlacement={labelPlacement} label="Region" placeholder="Select a region" defaultValue="">
+        <MenuItem value="eu">Europe</MenuItem>
+      </TextField>,
+    );
+    expect(screen.getByRole('combobox').textContent).toBe('Select a region');
+    fireEvent.mouseDown(screen.getByRole('combobox'));
+    fireEvent.click(screen.getByRole('option', { name: 'Europe' }));
+    expect(screen.getByRole('combobox').textContent).toBe('Europe');
+  });
+
+  it('keeps a callback slotProps.select and the label name when a select has a placeholder', () => {
+    renderWithTheme(
+      <TextField labelPlacement="top" label="Region" select value="" placeholder="Select a region" slotProps={{ select: () => ({ 'aria-describedby': 'region-help' }) }}>
+        <MenuItem value="eu">Europe</MenuItem>
+      </TextField>,
+    );
+    const combobox = screen.getByRole('combobox', { name: /Region/ });
+    expect(combobox.textContent).toBe('Select a region');
+    expect(combobox.getAttribute('aria-describedby')).toContain('region-help');
+  });
+
+  it('still passes the placeholder to a text input', () => {
+    renderWithTheme(<TextField labelPlacement="top" label="Name" placeholder="Jane Doe" />);
+    expect(screen.getByPlaceholderText('Jane Doe')).toBeTruthy();
+  });
+
   it('falls back to MUI TextField when there is no label', () => {
     const { container } = renderWithTheme(<TextField labelPlacement="top" placeholder="Search" />);
     expect(container.querySelector('.MuiFormLabel-root')).toBeNull();

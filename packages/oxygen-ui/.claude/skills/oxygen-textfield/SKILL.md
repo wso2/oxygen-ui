@@ -19,7 +19,7 @@ Display name               ┌─ Display name ──────┐
 
 1. Import `TextField` from `@wso2/oxygen-ui`, never from `@mui/material`. `labelPlacement` is an Oxygen UI prop, and the MUI `TextField` ignores it.
 2. Add `labelPlacement="top"` to every `TextField` that has a `label`.
-3. Apply the same rule to selects (`TextField select`) and to the `TextField` in an Autocomplete's `renderInput`.
+3. Apply the same rule to selects (`TextField select`) and to the `TextField` in an Autocomplete's `renderInput`. Every `TextField select` also needs a `placeholder` whose text the developer provides; follow the `oxygen-select` skill for selects.
 4. Mark required fields with `required`; the theme draws the `*`.
 5. For forms (validation, sections, wizards), also follow the `oxygen-form` skill.
 
@@ -30,7 +30,7 @@ import { TextField, MenuItem, Autocomplete } from '@wso2/oxygen-ui';
 
 <TextField labelPlacement="top" label="Display name" required />
 
-<TextField select labelPlacement="top" label="Environment" value={env} onChange={(e) => setEnv(e.target.value)}>
+<TextField select labelPlacement="top" label="Environment" placeholder="Select an environment" value={env} onChange={(e) => setEnv(e.target.value)}>
   <MenuItem value="dev">Development</MenuItem>
   <MenuItem value="prod">Production</MenuItem>
 </TextField>
@@ -71,7 +71,7 @@ When you edit code that uses floating labels:
 | `import { TextField } from '@mui/material'` | `import { TextField } from '@wso2/oxygen-ui'` |
 | `<TextField label="Name" />` | `<TextField labelPlacement="top" label="Name" />` |
 | `InputLabelProps={{ shrink: true }}` or `slotProps={{ inputLabel: { shrink: true } }}` | Remove it; add `labelPlacement="top"` |
-| `<FormControl><InputLabel>Role</InputLabel><Select label="Role">` | `<TextField select labelPlacement="top" label="Role">` |
+| `<FormControl><InputLabel>Role</InputLabel><Select label="Role">` | `<Select labelPlacement="top" label="Role">` or `<TextField select labelPlacement="top" label="Role">` (see `oxygen-select`) |
 | A `Typography` or `FormLabel` placed above a label-less `TextField` | Remove it; pass the text as `label` with `labelPlacement="top"` |
 | `label="Email *"` | `label="Email" required` |
 
@@ -79,7 +79,7 @@ When you edit code that uses floating labels:
 
 ```text
 ✓ <TextField labelPlacement="top" label="Email" required />
-✓ <TextField select labelPlacement="top" label="Role">…</TextField>
+✓ <TextField select labelPlacement="top" label="Role" placeholder="Select a role">…</TextField>
 ✗ <TextField label="Email" />                          floating label
 ✗ import { TextField } from '@mui/material'            labelPlacement is ignored
 ✗ <TextField label="Email" slotProps={{ inputLabel: { shrink: true } }} />

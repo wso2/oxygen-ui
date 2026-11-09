@@ -18,10 +18,11 @@
 
 import { describe, it, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
-import { AppBar, Button, Card, Chip, Dialog, Fab, FilledInput, FormLabel, Input, NativeSelect, OutlinedInput, Paper, Select, TextField } from '@mui/material';
+import { AppBar, Button, Card, Chip, Dialog, Fab, FilledInput, FormControl, FormLabel, Input, InputLabel, MenuItem, MenuList, NativeSelect, OutlinedInput, Paper, Select, TextField } from '@mui/material';
 import type { TypographyVariantsOptions } from '@mui/material/styles';
 import OxygenUIThemeProvider from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
 import OxygenTextField from '../../components/TextField/TextField';
+import OxygenSelect from '../../components/Select/Select';
 import SidebarUserAvatar from '../../components/Sidebar/SidebarUserAvatar';
 import UserMenu from '../../components/UserMenu/UserMenu';
 import { ChoreoLabsTheme, OxygenTheme } from './index';
@@ -291,12 +292,53 @@ describe('ChoreoLabsTheme states', () => {
     );
     const css = renderedCss();
 
-    expect(css).toMatch(/OutlinedInput-root\.Mui-focused:not\(\.MuiSelect-root\):not\(\.MuiNativeSelect-root\) \.MuiOutlinedInput-notchedOutline\{border-width:1\.5px;/);
-    expect(css).toMatch(/OutlinedInput-root\.Mui-focused:not\(\.Mui-error\):not\(\.MuiSelect-root\):not\(\.MuiNativeSelect-root\) \.MuiOutlinedInput-notchedOutline\{border-color:var\(--oxygen-palette-text-primary\);/);
-    expect(css).toMatch(/\.MuiFormLabel-root ?\+ ?\.MuiTextField-root:not\(:has\(> ?\.MuiInputLabel-root\)\) ?> ?\.css-[\w-]+OutlinedInput-root\.Mui-focused:not\(\.MuiSelect-root\):not\(\.MuiNativeSelect-root\)\{box-shadow:0 0 0 3px #1F4FFF40;/);
-    expect(css).toMatch(/\.MuiFormLabel-root ?\+ ?\.MuiTextField-root:not\(:has\(> ?\.MuiInputLabel-root\)\) ?> ?\.css-[\w-]+OutlinedInput-root\.Mui-focused\.Mui-error:not\(\.MuiSelect-root\):not\(\.MuiNativeSelect-root\)\{box-shadow:0 0 0 3px rgba\(var\(--oxygen-palette-error-mainChannel\) \/ 0\.25\);/);
+    expect(css).toMatch(/OutlinedInput-root\.Mui-focused:not\(\.MuiSelect-root\):not\(\.MuiNativeSelect-root\) \.MuiOutlinedInput-notchedOutline[^{]*\{border-width:1\.5px;/);
+    expect(css).toMatch(/OutlinedInput-root\.Mui-focused:not\(\.Mui-error\):not\(\.MuiSelect-root\):not\(\.MuiNativeSelect-root\) \.MuiOutlinedInput-notchedOutline[^{]*\{border-color:var\(--oxygen-palette-text-primary\);/);
+    expect(css).toMatch(/\.MuiFormLabel-root ?\+ ?\.MuiTextField-root:not\(:has\(> ?\.MuiInputLabel-root\)\) ?> ?\.css-[\w-]+OutlinedInput-root\.Mui-focused[^{]*\{box-shadow:0 0 0 3px #1F4FFF40;/);
+    expect(css).toMatch(/\.MuiFormLabel-root ?\+ ?\.MuiTextField-root:not\(:has\(> ?\.MuiInputLabel-root\)\) ?> ?\.css-[\w-]+OutlinedInput-root\.Mui-focused\.Mui-error[^{]*\{box-shadow:0 0 0 3px rgba\(var\(--oxygen-palette-error-mainChannel\) \/ 0\.25\);/);
     // An unscoped ring rule (one starting right after the previous rule's `}`) would cross floating labels
     expect(css).not.toMatch(/\}\.css-[\w-]+OutlinedInput-root\.Mui-focused[^{]*\{box-shadow/);
+  });
+
+  it('gives fixed-label selects the text input focus border and ring', () => {
+    render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <OutlinedInput />
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+    const selectFixedLabel = '\\.MuiFormLabel-root:not\\(\\.MuiInputLabel-root\\) ?\\+ ?\\.css-[\\w-]+OutlinedInput-root\\.Mui-focused';
+
+    expect(css).toMatch(new RegExp(`${selectFixedLabel} \\.MuiOutlinedInput-notchedOutline[^{]*\\{border-width:1\\.5px;`));
+    expect(css).toMatch(new RegExp(`${selectFixedLabel}:not\\(\\.Mui-error\\) \\.MuiOutlinedInput-notchedOutline[^{]*\\{border-color:var\\(--oxygen-palette-text-primary\\);`));
+    expect(css).toMatch(new RegExp(`${selectFixedLabel}[^{]*\\{box-shadow:0 0 0 3px #1F4FFF40;`));
+    expect(css).toMatch(new RegExp(`${selectFixedLabel}\\.Mui-error[^{]*\\{box-shadow:0 0 0 3px rgba`));
+    // The fixed-label TextField rules no longer exclude selects, so `TextField select labelPlacement="top"` matches too.
+    expect(css).not.toMatch(/\.MuiTextField-root:not\(:has\(> ?\.MuiInputLabel-root\)\) ?> ?\.css-[\w-]+OutlinedInput-root\.Mui-focused[^,{]*:not\(\.MuiSelect-root\)/);
+  });
+
+  // The theme can't see the label placement, so the select rules rely on this markup; fail loudly if it changes.
+  it('matches the fixed-label select selectors only on fixed-label selects', () => {
+    const { container } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <div data-testid="fixed-select"><OxygenSelect labelPlacement="top" label="Role" value="" /></div>
+        <div data-testid="fixed-text-select"><OxygenTextField select labelPlacement="top" label="Role" value="" /></div>
+        <div data-testid="floating-select">
+          <FormControl><InputLabel id="role">Role</InputLabel><OxygenSelect labelId="role" label="Role" value="" /></FormControl>
+        </div>
+        <div data-testid="floating-text-select"><OxygenTextField select label="Role" value="" /></div>
+      </OxygenUIThemeProvider>
+    );
+    const fixedLabelInput = [
+      '.MuiFormLabel-root + .MuiTextField-root:not(:has(> .MuiInputLabel-root)) > .MuiSelect-root',
+      '.MuiFormLabel-root:not(.MuiInputLabel-root) + .MuiSelect-root',
+    ].join(', ');
+    const matches = (testId: string) => Boolean(container.querySelector(`[data-testid="${testId}"] :is(${fixedLabelInput})`));
+
+    expect(matches('fixed-select')).toBe(true);
+    expect(matches('fixed-text-select')).toBe(true);
+    expect(matches('floating-select')).toBe(false);
+    expect(matches('floating-text-select')).toBe(false);
   });
 
   // The theme can't see the label placement, so the ring relies on this markup; fail loudly if it changes.
@@ -334,39 +376,69 @@ describe('ChoreoLabsTheme states', () => {
     expect(classes('text')?.contains('MuiNativeSelect-root')).toBe(false);
   });
 
-  it('keeps the floating label colour on focus without dropping the base select label offset', () => {
+  it('keeps floating text and select label colours on focus without dropping the base select label offset', () => {
     render(
       <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
         <OxygenTextField label="Name" focused />
+        <OxygenTextField select label="Role" value="" focused />
       </OxygenUIThemeProvider>
     );
     const css = renderedCss();
 
-    expect(css).toMatch(/\.MuiFormControl-root:not\(:has\(\.MuiSelect-select\)\) ?> ?\.css-[\w-]+\.Mui-focused:not\(\.Mui-error\)\{color:var\(--oxygen-palette-text-secondary\);/);
+    expect(css).toMatch(/\}\.css-[\w-]+InputLabel-root\.Mui-focused:not\(\.Mui-error\)\{color:var\(--oxygen-palette-text-secondary\);/);
+    // Selects are no longer excluded from the neutral focus colour.
+    expect(css).not.toMatch(/:not\(:has\(\.MuiSelect-select\)\)/);
     expect(ChoreoLabsTheme.components?.MuiInputLabel?.styleOverrides?.root).toHaveProperty([
       '.MuiFormControl-root:has(.MuiSelect-select) &:not(.MuiInputLabel-shrink)',
     ]);
   });
 
-  // Selects are excluded from the label changes; check the selectors match the real markup.
-  it('leaves select labels with their original focus colour and spacing', () => {
-    const { container } = render(
+  it('keeps the focus ring off menu items, which mark focus with a background instead', () => {
+    render(
       <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
-        <div data-testid="floating-select"><OxygenTextField select label="Role" value="" /></div>
-        <div data-testid="floating-text"><OxygenTextField label="Name" /></div>
-        <div data-testid="fixed-select"><OxygenTextField select labelPlacement="top" label="Role" value="" /></div>
-        <div data-testid="fixed-text"><OxygenTextField labelPlacement="top" label="Name" /></div>
+        <MenuList><MenuItem>Development</MenuItem></MenuList>
       </OxygenUIThemeProvider>
     );
-    const matches = (testId: string, selector: string) => Boolean(container.querySelector(`[data-testid="${testId}"] ${selector}`));
-    const neutralFloatingLabel = '.MuiFormControl-root:not(:has(.MuiSelect-select)) > .MuiInputLabel-root';
-    const selectFixedLabel = '.MuiFormLabel-root:has(+ .MuiTextField-root .MuiSelect-select)';
+    const css = renderedCss();
 
-    expect(renderedCss()).toMatch(/:has\(\+ ?\.MuiTextField-root \.MuiSelect-select\)\{margin-bottom:2px;/);
-    expect(matches('floating-select', neutralFloatingLabel)).toBe(false);
-    expect(matches('floating-text', neutralFloatingLabel)).toBe(true);
-    expect(matches('fixed-select', selectFixedLabel)).toBe(true);
-    expect(matches('fixed-text', selectFixedLabel)).toBe(false);
+    // The MenuItem rule must come after the ButtonBase ring so it wins at equal specificity.
+    expect(css).toMatch(/MuiMenuItem-root\.Mui-focusVisible\{outline:2px solid #1F4FFF;[^}]*\}[\s\S]*MuiMenuItem-root\.Mui-focusVisible\{outline:none;/);
+    expect(css).toMatch(/MuiMenuItem-root\.Mui-focusVisible\{background-color:var\(--oxygen-palette-action-focus\);/);
+  });
+
+  it('keeps floating select labels, but not text labels, at the default colour in error', () => {
+    const { container } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <div data-testid="select"><OxygenTextField select label="Role" error value="" /></div>
+        <div data-testid="mui-select">
+          <FormControl error><InputLabel id="r">Role</InputLabel><Select labelId="r" label="Role" value="" /></FormControl>
+        </div>
+        <div data-testid="text"><OxygenTextField label="Name" error /></div>
+      </OxygenUIThemeProvider>
+    );
+    const errorLabel = '.MuiFormControl-root:has(> .MuiSelect-root, > .MuiNativeSelect-root) > .MuiInputLabel-root.Mui-error';
+    const matches = (testId: string) => Boolean(container.querySelector(`[data-testid="${testId}"] ${errorLabel}`));
+
+    expect(renderedCss()).toMatch(/:has\(> ?\.MuiSelect-root, ?> ?\.MuiNativeSelect-root\) ?> ?\.css-[\w-]+\.MuiInputLabel-root\.Mui-error\{color:var\(--oxygen-palette-text-secondary\);/);
+    expect(matches('select')).toBe(true);
+    expect(matches('mui-select')).toBe(true);
+    expect(matches('text')).toBe(false);
+  });
+
+  it('fills the selected menu item with the neutral selected colour, not a primary tint', () => {
+    const { container } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <MenuList><MenuItem selected>Development</MenuItem></MenuList>
+      </OxygenUIThemeProvider>
+    );
+    const itemClass = Array.from(container.querySelector('.MuiMenuItem-root')!.classList).find((name) => name.startsWith('css-'))!;
+    // Rules for the applied class, in order; the last selected rule is the one that wins.
+    const rules = renderedCss().split('}').filter((rule) => rule.includes(`.${itemClass}.Mui-selected`));
+    const winning = rules[rules.length - 1];
+
+    expect(winning).toContain(`.${itemClass}.Mui-selected:hover`);
+    expect(winning).toContain(`.${itemClass}.Mui-selected.Mui-focusVisible`);
+    expect(winning).toMatch(/\{background-color:var\(--oxygen-palette-action-selected\);$/);
   });
 
   it('uses Cobalt for focus on every input variant', () => {
