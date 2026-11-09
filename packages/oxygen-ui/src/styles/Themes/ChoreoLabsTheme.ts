@@ -952,10 +952,26 @@ const ChoreoLabsThemeConfig = {
     MuiBreadcrumbs: {
       styleOverrides: {
         root: breadcrumbText,
+        // Breadcrumb children are the app's own Link and Typography elements, so they're styled here
+        // to match AppBreadcrumbs: caption text, and parent links that turn orange with no underline.
         li: ({ theme }: { theme: OxygenTheme }) => ({
           color: theme.vars.palette.Breadcrumbs?.linkColor,
           '&:last-child': {
             color: theme.vars.palette.text.primary,
+          },
+          '& > .MuiTypography-root': {
+            fontSize: 'inherit',
+            fontWeight: 'inherit',
+            lineHeight: 'inherit',
+            letterSpacing: 'inherit',
+          },
+          '&:not(:last-child) > .MuiLink-root': {
+            color: theme.vars.palette.Breadcrumbs?.linkColor,
+            textDecoration: 'none',
+            '&:hover': {
+              color: theme.vars.palette.Breadcrumbs?.linkHoverColor,
+              textDecoration: 'none',
+            },
           },
         }),
         separator: ({ theme }: { theme: OxygenTheme }) => ({

@@ -18,7 +18,7 @@
 
 import { describe, it, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
-import { AppBar, Breadcrumbs, Button, Card, Chip, Dialog, Fab, FilledInput, FormControl, FormLabel, Input, InputAdornment, InputLabel, Link, MenuItem, MenuList, NativeSelect, OutlinedInput, Paper, Select, TextField } from '@mui/material';
+import { AppBar, Breadcrumbs, Button, Card, Chip, Dialog, Fab, FilledInput, FormControl, FormLabel, Input, InputAdornment, InputLabel, Link, MenuItem, MenuList, NativeSelect, OutlinedInput, Paper, Select, TextField, Typography } from '@mui/material';
 import type { TypographyVariantsOptions } from '@mui/material/styles';
 import OxygenUIThemeProvider from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
 import OxygenTextField from '../../components/TextField/TextField';
@@ -754,6 +754,29 @@ describe('ChoreoLabsTheme states', () => {
     expect(winningValue(css, `.${className}.Mui-focused`, 'box-shadow')).toBe(ring);
   });
 
+
+  it('styles links and text inside plain Breadcrumbs like AppBreadcrumbs items', () => {
+    const { getByText } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <Breadcrumbs>
+          <Link underline="hover" color="inherit" href="#">Home</Link>
+          <Typography color="text.primary">Products</Typography>
+        </Breadcrumbs>
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+    const link = getByText('Home');
+    const text = getByText('Products');
+    const rootClass = cssClass(link.closest('.MuiBreadcrumbs-root') as HTMLElement);
+    const linkRule = `.${rootClass} .MuiBreadcrumbs-li:not(:last-child)>.MuiLink-root`;
+
+    expect(winningValue(css, linkRule, 'color')).toBe('var(--oxygen-palette-Breadcrumbs-linkColor)');
+    expect(winningValue(css, linkRule, 'text-decoration')).toBe('none');
+    expect(winningValue(css, `${linkRule}:hover`, 'color')).toBe('var(--oxygen-palette-Breadcrumbs-linkHoverColor)');
+    expect(winningValue(css, `${linkRule}:hover`, 'text-decoration')).toBe('none');
+    expect(winningValue(css, `.${rootClass} .MuiBreadcrumbs-li>.MuiTypography-root`, 'font-size')).toBe('inherit');
+    expect(text.closest('.MuiBreadcrumbs-li')).not.toBeNull();
+  });
 
   it('uses Cobalt for focus on every input variant', () => {
     render(
