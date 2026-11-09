@@ -1,5 +1,22 @@
 # @wso2/oxygen-ui
 
+## 0.23.0
+
+### Minor Changes
+
+- [#687](https://github.com/wso2/oxygen-ui/pull/687) [`1ff809a`](https://github.com/wso2/oxygen-ui/commit/1ff809ac9660e45e35fcf5688d76be589d2140ec) Thanks [@aruniw](https://github.com/aruniw)! - Add an Oxygen `Select` with `labelPlacement="top"`, which draws a fixed label above the field; the floating label is unchanged. Add a `placeholder` prop to `Select` and to `TextField` selects. In `ChoreoLabsTheme`, select labels keep their default colour on focus and in error, fixed-label selects take the text field focus style, and menu items drop the clipped focus outline and use a neutral fill for the selected option. Add the `oxygen-select` skill.
+
+### Patch Changes
+
+- [#690](https://github.com/wso2/oxygen-ui/pull/690) [`5aec07e`](https://github.com/wso2/oxygen-ui/commit/5aec07e655356fea986de5155cf241c97923da69) Thanks [@aruniw](https://github.com/aruniw)! - Align `ChoreoLabsTheme` breadcrumbs, links, page titles and `ComplexSelect` with the Choreo Labs component sheet. Breadcrumbs use a slash separator, 14px caption text and the sheet's link, hover and separator colours, for both `AppBreadcrumbs` and plain `Breadcrumbs`. Links without a `color` take the default text colour and turn orange on hover, links with a palette `color` use the brand colour, and the underline follows the `underline` prop, defaulting to `hover`. `PageTitle.Avatar` uses the light avatar style. `ComplexSelect` options, outside label and focus border match `Select`. `AppBreadcrumbs` now reads its default props from the theme, so a theme can set its separator.
+
+- [#689](https://github.com/wso2/oxygen-ui/pull/689) [`2331bb7`](https://github.com/wso2/oxygen-ui/commit/2331bb7c822a82f9f3ca11cae61af60d1fa2d7aa) Thanks [@aruniw](https://github.com/aruniw)! - Match `ChoreoLabsTheme` button states to the Choreo Labs component sheet: default, hover, focus, active and disabled colours for contained, outlined and text buttons in light and dark mode, a 3px focus ring, a 2px lift on hover and a press scale on active (both off when reduced motion is preferred), full pill shapes at every size, and no elevation by default.
+
+- [#686](https://github.com/wso2/oxygen-ui/pull/686) [`0715af2`](https://github.com/wso2/oxygen-ui/commit/0715af27bbecc019642ff574836e54453533bab8) Thanks [@aruniw](https://github.com/aruniw)! - Update the `ChoreoLabsTheme` text field focus style: a 1.5px text-colour border, with a Cobalt ring on fixed-label fields. Floating-label and native selects keep the Cobalt border. Add the `oxygen-textfield` skill, which the CLI already lists.
+
+- Updated dependencies []:
+  - @wso2/oxygen-ui-icons-react@0.23.0
+
 ## 0.22.0
 
 ### Minor Changes
