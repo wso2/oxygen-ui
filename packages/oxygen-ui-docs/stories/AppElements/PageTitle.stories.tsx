@@ -17,7 +17,7 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react';
-import { PageTitle, colors, Button } from '@wso2/oxygen-ui';
+import { PageTitle, Button } from '@wso2/oxygen-ui';
 import { Link as LinkIcon, User, Folder } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';
 
@@ -153,7 +153,7 @@ export const WithLink: Story = {
 export const Complete: Story = {
   render: () => (
     <PageTitle>
-      <PageTitle.Avatar sx={{ bgcolor: colors.deepPurple[500] }}>
+      <PageTitle.Avatar variant="light">
         <Folder size={30} />
       </PageTitle.Avatar>
       <PageTitle.Header>Project Dashboard</PageTitle.Header>
@@ -187,7 +187,7 @@ export const FullExample: Story = {
   render: () => (
     <PageTitle>
       <PageTitle.BackButton component={<a href="#" />} />
-      <PageTitle.Avatar sx={{ bgcolor: colors.deepPurple[500] }}>
+      <PageTitle.Avatar variant="light">
         E
       </PageTitle.Avatar>
       <PageTitle.Header>E-Commerce Platform</PageTitle.Header>
