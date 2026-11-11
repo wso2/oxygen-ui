@@ -219,10 +219,13 @@ describe('ChoreoLabsTheme states', () => {
     );
     const css = renderedCss();
 
+    // Text buttons and buttons used as toggles (in a ButtonGroup or with aria-pressed) stay put
+    const lifting = ':not\\(\\.MuiButton-text\\):not\\(\\.MuiButtonGroup-grouped\\):not\\(\\[aria-pressed\\]\\)';
+
     expect(css).toMatch(
-      /@media \(hover: hover\) and \(prefers-reduced-motion: no-preference\)\{[^{]*:not\(\.MuiButton-text\):hover\{[^}]*;transform:translateY\(-2px\);/
+      new RegExp(`@media \\(hover: hover\\) and \\(prefers-reduced-motion: no-preference\\)\\{[^{]*${lifting}:hover\\{[^}]*;transform:translateY\\(-2px\\);`)
     );
-    expect(css).toMatch(/@media \(prefers-reduced-motion: no-preference\)\{[^{]*:not\(\.MuiButton-text\):active\{[^}]*;transform:scale\(0\.98\);/);
+    expect(css).toMatch(new RegExp(`@media \\(prefers-reduced-motion: no-preference\\)\\{[^{]*${lifting}:active\\{[^}]*;transform:scale\\(0\\.98\\);`));
   });
 
   it('uses the guideline disabled colours for every button variant', () => {
