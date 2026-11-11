@@ -737,9 +737,9 @@ describe('ChoreoLabsTheme states', () => {
 
   it.each([
     ['outside', 'var(--oxygen-palette-text-primary)', '0 0 0 3px #1F4FFF40'],
-    ['inside', 'var(--oxygen-palette-text-primary)', undefined],
+    ['inside', 'var(--oxygen-palette-text-primary)', '0 0 0 3px #1F4FFF40'],
     ['border', 'var(--oxygen-palette-text-primary)', undefined],
-  ] as const)('gives ComplexSelect with the label %s a text-colour focus border, with a ring only outside', (labelAnchor, borderColor, ring) => {
+  ] as const)('gives ComplexSelect with the label %s a text-colour focus border, with a ring unless the label is on the border', (labelAnchor, borderColor, ring) => {
     const { container } = render(
       <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
         <ComplexSelect label="Role" labelAnchor={labelAnchor} value="a" onChange={() => {}}>
@@ -752,6 +752,34 @@ describe('ChoreoLabsTheme states', () => {
 
     expect(winningValue(css, `.${className}.Mui-focused:not(.Mui-error) .MuiOutlinedInput-notchedOutline`, 'border-color')).toBe(borderColor);
     expect(winningValue(css, `.${className}.Mui-focused`, 'box-shadow')).toBe(ring);
+  });
+
+  it.each(['outside', 'inside'] as const)('turns the ComplexSelect focus ring red on error with the label %s', (labelAnchor) => {
+    const { container } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <ComplexSelect label="Role" labelAnchor={labelAnchor} error value="a" onChange={() => {}}>
+          <ComplexSelect.MenuItem value="a">Alpha</ComplexSelect.MenuItem>
+        </ComplexSelect>
+      </OxygenUIThemeProvider>
+    );
+    const className = cssClass(container.querySelector('.MuiInputBase-root') as HTMLElement);
+
+    expect(winningValue(renderedCss(), `.${className}.Mui-focused.Mui-error`, 'box-shadow')).toBe('0 0 0 3px rgba(var(--oxygen-palette-error-mainChannel) / 0.25)');
+  });
+
+  it('gives a ComplexSelect without a label the text-colour focus border but no ring, like a Select without one', () => {
+    const { container } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <ComplexSelect value="a" onChange={() => {}} slotProps={{ input: { 'aria-label': 'Role' } }}>
+          <ComplexSelect.MenuItem value="a">Alpha</ComplexSelect.MenuItem>
+        </ComplexSelect>
+      </OxygenUIThemeProvider>
+    );
+    const className = cssClass(container.querySelector('.MuiInputBase-root') as HTMLElement);
+    const css = renderedCss();
+
+    expect(winningValue(css, `.${className}.Mui-focused:not(.Mui-error) .MuiOutlinedInput-notchedOutline`, 'border-color')).toBe('var(--oxygen-palette-text-primary)');
+    expect(winningValue(css, `.${className}.Mui-focused`, 'box-shadow')).toBeUndefined();
   });
 
 

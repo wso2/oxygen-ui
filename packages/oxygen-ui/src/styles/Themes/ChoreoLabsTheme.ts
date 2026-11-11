@@ -874,7 +874,8 @@ const ChoreoLabsThemeConfig = {
     MuiComplexSelect: {
       styleOverrides: {
         // Focus is a 1.5px text-colour border in every label mode, not Cobalt. With the label outside
-        // the field also gets the Select's fixed-label ring; a ring would cut through a border label.
+        // or inside, the field also gets the Select's fixed-label ring. A ring would cut through a
+        // border label, and a field without a label gets none, like a Select without one.
         root: ({ theme, labelAnchor }: { theme: OxygenTheme; labelAnchor?: string }) => ({
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
             borderWidth: 1.5,
@@ -882,7 +883,7 @@ const ChoreoLabsThemeConfig = {
           '&.Mui-focused:not(.Mui-error) .MuiOutlinedInput-notchedOutline': {
             borderColor: theme.vars.palette.text.primary,
           },
-          ...(labelAnchor === 'outside' && {
+          ...((labelAnchor === 'outside' || labelAnchor === 'inside') && {
             '&.Mui-focused': {
               boxShadow: `0 0 0 3px ${ChoreoLabsColors.cobalt}40`,
             },

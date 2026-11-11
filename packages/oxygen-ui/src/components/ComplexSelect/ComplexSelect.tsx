@@ -21,7 +21,9 @@ import MuiSelect, { SelectProps, selectClasses } from '@mui/material/Select';
 import MuiFormControl from '@mui/material/FormControl';
 import MuiInputLabel from '@mui/material/InputLabel';
 import MuiTypography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
+import { inputBaseClasses } from '@mui/material/InputBase';
+import { listItemTextClasses } from '@mui/material/ListItemText';
+import { styled, useThemeProps } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
 import ComplexSelectListHeader from './ComplexSelectListHeader';
 import ComplexSelectMenuItem from './ComplexSelectMenuItem';
@@ -31,19 +33,30 @@ export interface ComplexSelectProps extends Omit<SelectProps, 'children'> {
   children: ReactNode;
   /**
    * The anchor position of the label when provided.
-   * - 'outside': Label appears above the select (default)
-   * - 'inside': Label appears inside the select field above the selected value.
-   *   Icons are preserved but secondary text is automatically hidden for a cleaner display.
+   * - 'inside' (default): Label appears inside the select field above the selected value.
+   *   Icons are preserved but secondary text is automatically hidden for a cleaner, more compact display.
+   * - 'outside': Label appears above the select
    * - 'border': Label appears on the border (MUI standard behavior)
+   * @default 'inside'
    */
   labelAnchor?: 'outside' | 'inside' | 'border';
+  /**
+   * The size of the field. Defaults to `small`, whatever the theme sets for `Select`, so
+   * switchers fit the Header. A theme can change it with
+   * `components.MuiComplexSelect.defaultProps.size`.
+   * @default 'small'
+   */
+  size?: SelectProps['size'];
 }
+
+// Height of the field when the label is inside it
+const INSIDE_LABEL_HEIGHT = 48;
 
 const StyledSelect = styled(MuiSelect, {
   name: 'MuiComplexSelect',
   slot: 'Root',
   shouldForwardProp: (prop) => prop !== 'labelAnchor',
-})<SelectProps & { labelAnchor?: 'outside' | 'inside' | 'border' }>(({ theme }) => ({
+})<SelectProps & { labelAnchor?: 'outside' | 'inside' | 'border' }>(({ theme, labelAnchor }) => ({
   '&.MuiList-root': {
     padding: theme.spacing(1),
   },
@@ -57,6 +70,22 @@ const StyledSelect = styled(MuiSelect, {
   [`& .${selectClasses.icon}`]: {
     marginLeft: theme.spacing(1),
   },
+  // Label inside: a 48px two-line field that fits the 64px Header. The height sits on the select
+  // display (the click target). `&&` plus the input class outrank theme padding overrides on the
+  // select slot, which are injected after this rule.
+  ...(labelAnchor === 'inside' && {
+    [`&&.MuiInputBase-root .${selectClasses.select}.${inputBaseClasses.input}`]: {
+      boxSizing: 'border-box',
+      minHeight: INSIDE_LABEL_HEIGHT,
+      paddingTop: 0,
+      paddingBottom: 0,
+      paddingLeft: theme.spacing(1.5),
+    },
+    [`& .${selectClasses.select} .${listItemTextClasses.root}`]: {
+      marginTop: 0,
+      marginBottom: 0,
+    },
+  }),
 }));
 
 const InsideLabelText = styled(MuiTypography, {
@@ -77,11 +106,19 @@ const StyledFormControl = styled(MuiFormControl, {
   minWidth: 120,
 }));
 
+// Names the combobox when the label is inside the field. A span rather than a <label>: a <label>
+// must point at a form control, and Select's combobox is a div, so browsers flag a <label> here as
+// not associated with any field.
+const HiddenLabel = styled('span', {
+  name: 'MuiComplexSelect',
+  slot: 'HiddenLabel',
+})(visuallyHidden);
+
 const StyledInputLabel = styled(MuiInputLabel, {
   name: 'MuiComplexSelect',
   slot: 'InputLabel',
   shouldForwardProp: (prop) => prop !== 'labelAnchor',
-})<{ labelAnchor?: 'outside' | 'inside' | 'border' }>(({ theme, labelAnchor = 'inside' }) => ({
+})<{ labelAnchor: 'outside' | 'border' }>(({ theme, labelAnchor }) => ({
   ...(labelAnchor === 'outside' && {
     position: 'relative',
     transform: 'none',
@@ -95,7 +132,16 @@ const StyledInputLabel = styled(MuiInputLabel, {
   }),
 }));
 
-export function ComplexSelect({ children, sx, label, labelId, labelAnchor = 'inside', ...props }: ComplexSelectProps) {
+export function ComplexSelect(inProps: ComplexSelectProps) {
+  const {
+    children,
+    sx,
+    label,
+    labelId,
+    labelAnchor = 'inside',
+    size = 'small',
+    ...props
+  } = useThemeProps({ props: inProps, name: 'MuiComplexSelect' });
   const autoLabelId = useId();
   // Helper function to inject label into MenuItem content
   const injectLabelIntoContent = (content: ReactNode): ReactNode => {
@@ -188,12 +234,12 @@ export function ComplexSelect({ children, sx, label, labelId, labelAnchor = 'ins
 
   const selectContent = (
     <StyledSelect 
-      {...props} 
-      label={label} 
-      labelId={labelId} 
+      {...props}
+      size={size}
+      label={label}
+      labelId={labelId}
       sx={sx}
       renderValue={renderInsideValue}
-      labelAnchor={labelAnchor}
       MenuProps={defaultMenuProps}
     >
       {children}
@@ -207,14 +253,12 @@ export function ComplexSelect({ children, sx, label, labelId, labelAnchor = 'ins
     return (
       <StyledFormControl fullWidth={props.fullWidth}>
         {/*
-         * For 'inside' mode the label is rendered inside the select value, which
-         * is not exposed as the field's accessible name. Keep a visually hidden
-         * InputLabel so the combobox still has an accessible name (WCAG 4.1.2).
+         * For 'inside' mode the label is drawn inside the select value, which is
+         * not exposed as the field's accessible name. A visually hidden span keeps
+         * the combobox named through aria-labelledby (WCAG 4.1.2).
          */}
         {labelAnchor === 'inside' ? (
-          <StyledInputLabel id={generatedLabelId} labelAnchor={labelAnchor} sx={visuallyHidden}>
-            {label}
-          </StyledInputLabel>
+          <HiddenLabel id={generatedLabelId}>{label}</HiddenLabel>
         ) : (
           <StyledInputLabel 
             id={generatedLabelId} 
@@ -225,10 +269,11 @@ export function ComplexSelect({ children, sx, label, labelId, labelAnchor = 'ins
         )}
         <StyledSelect
           {...props}
+          size={size}
           label={labelAnchor === 'border' ? label : undefined}
           labelId={generatedLabelId}
           labelAnchor={labelAnchor}
-          renderValue={labelAnchor === 'inside' ? renderInsideValue : props.renderValue}
+          renderValue={renderInsideValue}
           MenuProps={defaultMenuProps}
           sx={sx}
         >
