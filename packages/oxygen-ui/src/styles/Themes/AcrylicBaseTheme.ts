@@ -34,8 +34,19 @@ const AcrylicBaseTheme = {
           main: '#fa7b3f',
           contrastText: '#ffffff',
         },
+        // Every token is set: this merges into a built theme, whose derived light, dark and
+        // channel values for the base grey would otherwise stay. Dark text on the light grey,
+        // as the secondary button uses (the base theme's white is 1.2:1). `dark` is the hover
+        // and focus background, kept light enough for that text (6.5:1).
         secondary: {
           main: '#e8e8e8',
+          light: '#ededed',
+          dark: '#d0d0d0',
+          contrastText: '#40404B',
+          mainChannel: '232 232 232',
+          lightChannel: '237 237 237',
+          darkChannel: '208 208 208',
+          contrastTextChannel: '64 64 75',
         },
         background: {
           default: '#f5f5f5',

@@ -45,7 +45,8 @@ export const ElementWrapper = (props: ElementWrapperProps) => {
 
   return (
     <FormControl fullWidth>
-      <FormLabel id={labelId} htmlFor={name}>{label}</FormLabel>
+      {/* A fixed label stays neutral on focus, like the Oxygen Select's; the field's border shows focus */}
+      <FormLabel id={labelId} htmlFor={name} focused={false}>{label}</FormLabel>
       {enhancedChildren}
     </FormControl>
   )

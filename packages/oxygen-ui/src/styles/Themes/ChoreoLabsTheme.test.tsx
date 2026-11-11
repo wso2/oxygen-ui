@@ -27,6 +27,7 @@ import AppBreadcrumbs from '../../components/AppBreadcrumbs/AppBreadcrumbs';
 import Footer from '../../components/Footer/Footer';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import ComplexSelect from '../../components/ComplexSelect/ComplexSelect';
+import SearchBar from '../../components/SearchBar/SearchBar';
 import SidebarUserAvatar from '../../components/Sidebar/SidebarUserAvatar';
 import UserMenu from '../../components/UserMenu/UserMenu';
 import { ChoreoLabsTheme, OxygenTheme } from './index';
@@ -219,10 +220,13 @@ describe('ChoreoLabsTheme states', () => {
     );
     const css = renderedCss();
 
+    // Text buttons and buttons used as toggles (in a ButtonGroup or with aria-pressed) stay put
+    const lifting = ':not\\(\\.MuiButton-text\\):not\\(\\.MuiButtonGroup-grouped\\):not\\(\\[aria-pressed\\]\\)';
+
     expect(css).toMatch(
-      /@media \(hover: hover\) and \(prefers-reduced-motion: no-preference\)\{[^{]*:not\(\.MuiButton-text\):hover\{[^}]*;transform:translateY\(-2px\);/
+      new RegExp(`@media \\(hover: hover\\) and \\(prefers-reduced-motion: no-preference\\)\\{[^{]*${lifting}:hover\\{[^}]*;transform:translateY\\(-2px\\);`)
     );
-    expect(css).toMatch(/@media \(prefers-reduced-motion: no-preference\)\{[^{]*:not\(\.MuiButton-text\):active\{[^}]*;transform:scale\(0\.98\);/);
+    expect(css).toMatch(new RegExp(`@media \\(prefers-reduced-motion: no-preference\\)\\{[^{]*${lifting}:active\\{[^}]*;transform:scale\\(0\\.98\\);`));
   });
 
   it('uses the guideline disabled colours for every button variant', () => {
@@ -737,9 +741,9 @@ describe('ChoreoLabsTheme states', () => {
 
   it.each([
     ['outside', 'var(--oxygen-palette-text-primary)', '0 0 0 3px #1F4FFF40'],
-    ['inside', 'var(--oxygen-palette-text-primary)', undefined],
+    ['inside', 'var(--oxygen-palette-text-primary)', '0 0 0 3px #1F4FFF40'],
     ['border', 'var(--oxygen-palette-text-primary)', undefined],
-  ] as const)('gives ComplexSelect with the label %s a text-colour focus border, with a ring only outside', (labelAnchor, borderColor, ring) => {
+  ] as const)('gives ComplexSelect with the label %s a text-colour focus border, with a ring unless the label is on the border', (labelAnchor, borderColor, ring) => {
     const { container } = render(
       <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
         <ComplexSelect label="Role" labelAnchor={labelAnchor} value="a" onChange={() => {}}>
@@ -754,6 +758,47 @@ describe('ChoreoLabsTheme states', () => {
     expect(winningValue(css, `.${className}.Mui-focused`, 'box-shadow')).toBe(ring);
   });
 
+  it.each(['outside', 'inside'] as const)('turns the ComplexSelect focus ring red on error with the label %s', (labelAnchor) => {
+    const { container } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <ComplexSelect label="Role" labelAnchor={labelAnchor} error value="a" onChange={() => {}}>
+          <ComplexSelect.MenuItem value="a">Alpha</ComplexSelect.MenuItem>
+        </ComplexSelect>
+      </OxygenUIThemeProvider>
+    );
+    const className = cssClass(container.querySelector('.MuiInputBase-root') as HTMLElement);
+
+    expect(winningValue(renderedCss(), `.${className}.Mui-focused.Mui-error`, 'box-shadow')).toBe('0 0 0 3px rgba(var(--oxygen-palette-error-mainChannel) / 0.25)');
+  });
+
+  it('gives a ComplexSelect without a label the text-colour focus border but no ring, like a Select without one', () => {
+    const { container } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <ComplexSelect value="a" onChange={() => {}} slotProps={{ input: { 'aria-label': 'Role' } }}>
+          <ComplexSelect.MenuItem value="a">Alpha</ComplexSelect.MenuItem>
+        </ComplexSelect>
+      </OxygenUIThemeProvider>
+    );
+    const className = cssClass(container.querySelector('.MuiInputBase-root') as HTMLElement);
+    const css = renderedCss();
+
+    expect(winningValue(css, `.${className}.Mui-focused:not(.Mui-error) .MuiOutlinedInput-notchedOutline`, 'border-color')).toBe('var(--oxygen-palette-text-primary)');
+    expect(winningValue(css, `.${className}.Mui-focused`, 'box-shadow')).toBeUndefined();
+  });
+
+  it('gives a SearchBar without a floating label the fixed-label focus ring, red on error', () => {
+    const { container } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <SearchBar />
+      </OxygenUIThemeProvider>
+    );
+    const className = cssClass(container.querySelector('.MuiTextField-root') as HTMLElement);
+    const css = renderedCss();
+    const focused = `.${className}:not(:has(> .MuiInputLabel-root))>.MuiOutlinedInput-root.Mui-focused`;
+
+    expect(winningValue(css, focused, 'box-shadow')).toBe('0 0 0 3px #1F4FFF40');
+    expect(winningValue(css, `${focused}.Mui-error`, 'box-shadow')).toBe('0 0 0 3px rgba(var(--oxygen-palette-error-mainChannel) / 0.25)');
+  });
 
   it('styles links and text inside plain Breadcrumbs like AppBreadcrumbs items', () => {
     const { getByText } = render(

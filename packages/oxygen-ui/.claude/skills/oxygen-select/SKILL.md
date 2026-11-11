@@ -1,6 +1,6 @@
 ---
 name: oxygen-select
-description: Use the Oxygen UI Select with a fixed label above the field instead of MUI's floating label, and a placeholder the developer provides. Use when adding or editing any Select, dropdown, or picker built on Select, or when converting FormControl + InputLabel + Select code to fixed labels.
+description: Use the Oxygen UI Select with a fixed label above the field instead of MUI's floating label, and a placeholder the developer provides. Use ComplexSelect with its default inside label. Use when adding or editing any Select, ComplexSelect, dropdown, or picker built on Select, or when converting FormControl + InputLabel + Select code to fixed labels.
 ---
 
 # Fixed-Label Select
@@ -91,6 +91,37 @@ Suggestions follow these rules:
 - `sx`, `className`, `style`, `fullWidth` and `ref` apply to the outer wrapper that holds the label and the select. `size`, `variant`, `required`, `error` and `disabled` apply to both.
 - `placeholder` shows text in the field while nothing is selected (an empty value: `''`, `null`, `undefined` or `[]`), in the secondary text colour so it meets contrast requirements. It works with a custom `renderValue`. Native selects ignore it, so give them an empty option with the developer's placeholder text instead: `<option value="">Select a role</option>`.
 - Without a `label`, the prop has no effect and the select renders as a plain MUI `Select`.
+
+## ComplexSelect: keep the label inside
+
+`ComplexSelect` (rich options with icons, avatars and list headers, such as the organization and project switchers in `Header.Switchers`) follows a different rule from `Select`. Its label sits inside the field, above the selected value. This is the default `labelAnchor`, `inside`.
+
+1. Pass `label` and do not set `labelAnchor`. The default is `inside`.
+2. Do not use `labelAnchor="outside"` or `labelAnchor="border"` in new code. They are kept for existing screens only. When you edit a `ComplexSelect` that sets either, ask the developer before changing it, as the field's height changes.
+3. Do not add `labelPlacement`, `FormControl`, `InputLabel` or a `FormLabel` around it. `ComplexSelect` draws and links its own label.
+4. Do not add your own `aria-label` when a label is set. The label names the combobox.
+5. Leave `size` at its default, `small`. With the label inside, the field is 48px tall and fits the 64px `Header` with 8px above and below.
+6. For a chain of levels in the Header (organization, then project, then component), use `ContextSwitcher`, which draws each level as a `ComplexSelect` with the label inside.
+
+```tsx
+import { ComplexSelect } from '@wso2/oxygen-ui';
+
+<ComplexSelect label="Organization" value={org} onChange={(e) => setOrg(e.target.value as string)}>
+  <ComplexSelect.MenuItem value="acme">
+    <ComplexSelect.MenuItem.Avatar>A</ComplexSelect.MenuItem.Avatar>
+    <ComplexSelect.MenuItem.Text primary="Acme Corp" secondary="Owner" />
+  </ComplexSelect.MenuItem>
+</ComplexSelect>
+```
+
+The field shows the label, then the selected option with its icon or avatar. Secondary text appears only in the open list.
+
+```text
+✓ <ComplexSelect label="Organization" …>                        label inside, the default
+✗ <ComplexSelect label="Organization" labelAnchor="outside" …>  existing screens only
+✗ <ComplexSelect label="Organization" labelAnchor="border" …>   existing screens only
+✗ <ComplexSelect slotProps={{ input: { 'aria-label': 'Organization' } }} …>   hidden name where a visible label fits
+```
 
 ## Selects with no visible label
 

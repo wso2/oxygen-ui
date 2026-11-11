@@ -19,11 +19,18 @@
 import * as React from 'react'
 import TextField, { TextFieldProps } from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
+import { styled } from '@mui/material/styles'
 import { Search } from '@wso2/oxygen-ui-icons-react'
 
 export interface SearchBarBaseProps extends Omit<TextFieldProps, 'variant'> {
   endAdornment?: React.ReactNode
 }
+
+// Named so themes can style the search bar through `components.MuiSearchBar.styleOverrides.root`
+const SearchBarRoot = styled(TextField, {
+  name: 'MuiSearchBar',
+  slot: 'Root',
+})({})
 
 const hasMeaningfulAriaValue = (value?: string | null): boolean =>
   typeof value === 'string' && value.trim().length > 0;
@@ -70,7 +77,7 @@ export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps
       : undefined;
 
   return (
-    <TextField
+    <SearchBarRoot
       {...props}
       ref={ref}
       label={label}
@@ -95,8 +102,9 @@ export const SearchBarBase = React.forwardRef<HTMLDivElement, SearchBarBaseProps
           '& .MuiOutlinedInput-root': {
             height: 40,
           },
+          // No left padding: the search icon's 8px margin is the gap before the text
           '& .MuiInputBase-input': {
-            padding: '8.5px 14px',
+            padding: '8.5px 14px 8.5px 0',
           },
         },
         // Spreading `sx` would turn an array of styles into numbered keys and lose them all.

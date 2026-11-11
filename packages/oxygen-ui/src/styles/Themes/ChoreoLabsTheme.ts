@@ -196,6 +196,9 @@ const breadcrumbText = {
 // Outlined fields match the button heights: small fields line up with medium buttons, medium with large.
 // Padding is derived from the 1.4375em line height so it holds for any font size. Heights aren't fixed,
 // so multiline fields and Autocomplete chips still grow, and components that set their own size keep it.
+// Buttons that lift on hover: not text buttons, and not buttons used as toggles
+const liftingButton = ':not(.MuiButton-text):not(.MuiButtonGroup-grouped):not([aria-pressed])';
+
 const fieldHeight = { small: 40, medium: 48 };
 const fieldPadding = (height: number, inner = '0px') => `calc((${height}px - 1.4375em - ${inner}) / 2)`;
 
@@ -463,14 +466,16 @@ const ChoreoLabsThemeConfig = {
             outline: `3px solid ${theme.vars.palette.Button?.focusRing}`,
             outlineOffset: 3,
           },
-          // Filled and outlined buttons lift 2px on hover and press in slightly; text buttons stay put
+          // Filled and outlined buttons lift 2px on hover and press in slightly. Text buttons stay put,
+          // and so do buttons used as toggles (in a ButtonGroup or with aria-pressed): the lift would
+          // pull one segment out of line with its neighbours.
           '@media (hover: hover) and (prefers-reduced-motion: no-preference)': {
-            '&:not(.MuiButton-text):hover': {
+            [`&${liftingButton}:hover`]: {
               transform: 'translateY(-2px)',
             },
           },
           '@media (prefers-reduced-motion: no-preference)': {
-            '&:not(.MuiButton-text):active': {
+            [`&${liftingButton}:active`]: {
               transform: 'scale(0.98)',
             },
           },
@@ -874,7 +879,8 @@ const ChoreoLabsThemeConfig = {
     MuiComplexSelect: {
       styleOverrides: {
         // Focus is a 1.5px text-colour border in every label mode, not Cobalt. With the label outside
-        // the field also gets the Select's fixed-label ring; a ring would cut through a border label.
+        // or inside, the field also gets the Select's fixed-label ring. A ring would cut through a
+        // border label, and a field without a label gets none, like a Select without one.
         root: ({ theme, labelAnchor }: { theme: OxygenTheme; labelAnchor?: string }) => ({
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
             borderWidth: 1.5,
@@ -882,7 +888,7 @@ const ChoreoLabsThemeConfig = {
           '&.Mui-focused:not(.Mui-error) .MuiOutlinedInput-notchedOutline': {
             borderColor: theme.vars.palette.text.primary,
           },
-          ...(labelAnchor === 'outside' && {
+          ...((labelAnchor === 'outside' || labelAnchor === 'inside') && {
             '&.Mui-focused': {
               boxShadow: `0 0 0 3px ${ChoreoLabsColors.cobalt}40`,
             },
@@ -901,6 +907,20 @@ const ChoreoLabsThemeConfig = {
             },
           } : {}
         ),
+      },
+    },
+    // A search bar without a floating label takes the fixed-label text input ring on focus. With a
+    // floating label it doesn't: a box-shadow would cut through the label's notch.
+    MuiSearchBar: {
+      styleOverrides: {
+        root: ({ theme }: { theme: OxygenTheme }) => ({
+          '&:not(:has(> .MuiInputLabel-root)) > .MuiOutlinedInput-root.Mui-focused': {
+            boxShadow: `0 0 0 3px ${ChoreoLabsColors.cobalt}40`,
+          },
+          '&:not(:has(> .MuiInputLabel-root)) > .MuiOutlinedInput-root.Mui-focused.Mui-error': {
+            boxShadow: `0 0 0 3px rgba(${theme.vars.palette.error.mainChannel} / 0.25)`,
+          },
+        }),
       },
     },
     // Links without a `color` take the default text colour and turn orange on hover; links with a
