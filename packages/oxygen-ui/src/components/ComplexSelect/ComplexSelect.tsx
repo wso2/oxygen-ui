@@ -132,6 +132,13 @@ const StyledInputLabel = styled(MuiInputLabel, {
   }),
 }));
 
+/**
+ * Select with rich options: icons, avatars, two-line text, list headers and dividers.
+ *
+ * With a `label` and the default `labelAnchor` (`inside`), the label is drawn inside the field
+ * above the selected value and names the combobox through a visually hidden element. Without a
+ * label, pass a name through `slotProps.input['aria-label']`.
+ */
 export function ComplexSelect(inProps: ComplexSelectProps) {
   const {
     children,
