@@ -121,6 +121,13 @@ describe('ChoreoLabsTheme', () => {
     });
   });
 
+  // MUI X DataGrid reads its text styles from the font CSS variables rather than the typography.
+  it.each(['body1', 'body2', 'caption'] as const)('uses Sora in the %s font variable', (variant) => {
+    expect(ChoreoLabsTheme.font[variant]).toContain('Sora Variable');
+    expect(ChoreoLabsTheme.vars.font[variant]).toContain('Sora Variable');
+    expect(OxygenTheme.font[variant]).toContain('Inter Variable');
+  });
+
   it('keeps the base theme reduced-motion styles', () => {
     const styleOverrides = ChoreoLabsTheme.components?.MuiCssBaseline?.styleOverrides as Record<string, unknown>;
 
