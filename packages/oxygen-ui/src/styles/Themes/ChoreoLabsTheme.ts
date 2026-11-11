@@ -909,6 +909,20 @@ const ChoreoLabsThemeConfig = {
         ),
       },
     },
+    // A search bar without a floating label takes the fixed-label text input ring on focus. With a
+    // floating label it doesn't: a box-shadow would cut through the label's notch.
+    MuiSearchBar: {
+      styleOverrides: {
+        root: ({ theme }: { theme: OxygenTheme }) => ({
+          '&:not(:has(> .MuiInputLabel-root)) > .MuiOutlinedInput-root.Mui-focused': {
+            boxShadow: `0 0 0 3px ${ChoreoLabsColors.cobalt}40`,
+          },
+          '&:not(:has(> .MuiInputLabel-root)) > .MuiOutlinedInput-root.Mui-focused.Mui-error': {
+            boxShadow: `0 0 0 3px rgba(${theme.vars.palette.error.mainChannel} / 0.25)`,
+          },
+        }),
+      },
+    },
     // Links without a `color` take the default text colour and turn orange on hover; links with a
     // palette `color` use the brand colour for it. The underline follows the `underline` prop, so
     // `none` never underlines; links default to underlining on hover.

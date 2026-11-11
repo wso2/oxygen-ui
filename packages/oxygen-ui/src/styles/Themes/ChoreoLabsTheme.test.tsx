@@ -27,6 +27,7 @@ import AppBreadcrumbs from '../../components/AppBreadcrumbs/AppBreadcrumbs';
 import Footer from '../../components/Footer/Footer';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import ComplexSelect from '../../components/ComplexSelect/ComplexSelect';
+import SearchBar from '../../components/SearchBar/SearchBar';
 import SidebarUserAvatar from '../../components/Sidebar/SidebarUserAvatar';
 import UserMenu from '../../components/UserMenu/UserMenu';
 import { ChoreoLabsTheme, OxygenTheme } from './index';
@@ -785,6 +786,19 @@ describe('ChoreoLabsTheme states', () => {
     expect(winningValue(css, `.${className}.Mui-focused`, 'box-shadow')).toBeUndefined();
   });
 
+  it('gives a SearchBar without a floating label the fixed-label focus ring, red on error', () => {
+    const { container } = render(
+      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+        <SearchBar />
+      </OxygenUIThemeProvider>
+    );
+    const className = cssClass(container.querySelector('.MuiTextField-root') as HTMLElement);
+    const css = renderedCss();
+    const focused = `.${className}:not(:has(> .MuiInputLabel-root))>.MuiOutlinedInput-root.Mui-focused`;
+
+    expect(winningValue(css, focused, 'box-shadow')).toBe('0 0 0 3px #1F4FFF40');
+    expect(winningValue(css, `${focused}.Mui-error`, 'box-shadow')).toBe('0 0 0 3px rgba(var(--oxygen-palette-error-mainChannel) / 0.25)');
+  });
 
   it('styles links and text inside plain Breadcrumbs like AppBreadcrumbs items', () => {
     const { getByText } = render(
