@@ -36,6 +36,8 @@ const AcrylicBaseTheme = {
         },
         secondary: {
           main: '#e8e8e8',
+          // Dark text on the light grey, as the secondary button uses. The base theme's white is 1.2:1.
+          contrastText: '#40404B',
         },
         background: {
           default: '#f5f5f5',
