@@ -234,6 +234,11 @@ load or filter your data in \`onFilterChange\` and pass the result back in \`ent
     columns: { control: false, description: 'The columns of each entry, under a heading row' },
     sort: { control: false, description: 'The column other than the time that the entries are sorted by' },
     onSortChange: { control: false, description: 'Called when the reader sorts by a column other than the time' },
+    alwaysShowFilterIcons: {
+      control: 'boolean',
+      description: 'Keeps the funnel of a heading filter in view at half strength, instead of only when the heading is pointed at',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+    },
     order: {
       control: 'select',
       options: ['newest-first', 'oldest-first'],
@@ -459,16 +464,17 @@ export const WithFilters: Story = {
 /**
  * A heading filter draws its funnel only when the heading is pointed at. Set `alwaysShowFilterIcons` to keep
  * the funnels in view at half strength, as the alerts tables do, so a reader can see which columns filter.
- * A filter with a value applied is always fully shown.
+ * A filter with a value applied is always fully shown. Turn the control on and off to compare.
  */
 export const AlwaysShownFilterIcons: Story = {
-  render: () => (
+  args: { alwaysShowFilterIcons: true },
+  render: (args) => (
     <LogViewer
       columns={FILTERABLE_COLUMNS}
       entries={DEMO_EVENTS.slice(0, 8).map(toEntry)}
       filters={FILTERS}
       filterValues={{}}
-      alwaysShowFilterIcons
+      alwaysShowFilterIcons={args.alwaysShowFilterIcons}
     >
       <LogViewer.Toolbar>
         <LogViewer.Count />
