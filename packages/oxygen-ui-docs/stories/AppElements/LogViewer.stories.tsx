@@ -457,6 +457,28 @@ export const WithFilters: Story = {
 };
 
 /**
+ * A heading filter draws its funnel only when the heading is pointed at. Set `alwaysShowFilterIcons` to keep
+ * the funnels in view at half strength, as the alerts tables do, so a reader can see which columns filter.
+ * A filter with a value applied is always fully shown.
+ */
+export const AlwaysShownFilterIcons: Story = {
+  render: () => (
+    <LogViewer
+      columns={FILTERABLE_COLUMNS}
+      entries={DEMO_EVENTS.slice(0, 8).map(toEntry)}
+      filters={FILTERS}
+      filterValues={{}}
+      alwaysShowFilterIcons
+    >
+      <LogViewer.Toolbar>
+        <LogViewer.Count />
+      </LogViewer.Toolbar>
+      <Stream />
+    </LogViewer>
+  ),
+};
+
+/**
  * Every level has one standard marker, with the level as text so severity never relies on color
  * alone. No marker is filled: fatal stands out from error by its heavier border. An entry with no level has no marker.
  */
