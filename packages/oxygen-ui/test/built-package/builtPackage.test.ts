@@ -41,9 +41,21 @@ const barrelImport = (...names: string[]): string =>
   `import { ${names.join(', ')} } from '@wso2/oxygen-ui';\nexport { ${names.join(', ')} };\n`;
 
 const rows: Row[] = [
-  { name: 'Button', app: barrelImport('Button'), holds: [], gzipBudget: { rolldown: 36_974, vite: 37_771 } },
+  { name: 'TextField', app: barrelImport('TextField'), holds: [], gzipBudget: { rolldown: 56064, vite: 57338 } },
+  { name: 'Select', app: barrelImport('Select'), holds: [], gzipBudget: { rolldown: 53806, vite: 55013 } },
+  { name: 'Header', app: barrelImport('Header'), holds: [], gzipBudget: { rolldown: 55822, vite: 57027 } },
+  { name: 'AppShell', app: barrelImport('AppShell'), holds: [], gzipBudget: { rolldown: 28987, vite: 29466 } },
+  { name: 'Button', app: barrelImport('Button'), holds: [], gzipBudget: { rolldown: 36975, vite: 37772 } },
+  { name: 'OxygenUIThemeProvider', app: barrelImport('OxygenUIThemeProvider'), holds: ['font injection'], gzipBudget: { rolldown: 339838, vite: 341590 } },
+  { name: 'only an Oxygen theme', app: barrelImport('AcrylicOrangeTheme'), holds: ['font injection'], gzipBudget: { rolldown: 321306, vite: 322007 } },
+  {
+    name: 'the seven imports of the issue',
+    app: barrelImport('TextField', 'Select', 'Header', 'AppShell', 'Button', 'OxygenUIThemeProvider', 'Box'),
+    holds: ['font injection'],
+    gzipBudget: { rolldown: 393342, vite: 396304 },
+  },
   // Uses every marked library, so a marker that stops matching fails here and not silently in the rows above.
-  { name: 'every marked library', app: barrelImport('DataGrid', 'DatePickers', 'TreeView', 'CodeBlock', 'OxygenUIThemeProvider'), holds: ['Data Grid', 'date pickers', 'Tree View', 'Prism', 'font injection'], gzipBudget: { rolldown: 712_922, vite: 728_240 } },
+  { name: 'every marked library', app: barrelImport('DataGrid', 'DatePickers', 'TreeView', 'CodeBlock', 'OxygenUIThemeProvider'), holds: ['Data Grid', 'date pickers', 'Tree View', 'Prism', 'font injection'], gzipBudget: { rolldown: 643651, vite: 653343 } },
 ];
 
 describe('built package', { timeout: 60_000 }, () => {
@@ -61,6 +73,11 @@ describe('built package', { timeout: 60_000 }, () => {
 
   it('exports from the barrel the names 0.23.1 exported', async () => {
     expect(await installed.barrelExportNames()).toEqual(barrelExportsIn0231);
+  });
+
+  it('does not resolve a path to an internal module', async () => {
+    await expect(installed.bundle(`import '@wso2/oxygen-ui/components/TextField/TextField';\n`, 'rolldown')).rejects.toThrow();
+    await expect(installed.bundle(`import '@wso2/oxygen-ui/index';\n`, 'vite')).rejects.toThrow();
   });
 
   describe.each(rows)('app importing $name', row => {
