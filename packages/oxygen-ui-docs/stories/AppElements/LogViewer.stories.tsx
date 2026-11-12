@@ -234,6 +234,11 @@ load or filter your data in \`onFilterChange\` and pass the result back in \`ent
     columns: { control: false, description: 'The columns of each entry, under a heading row' },
     sort: { control: false, description: 'The column other than the time that the entries are sorted by' },
     onSortChange: { control: false, description: 'Called when the reader sorts by a column other than the time' },
+    alwaysShowFilterIcons: {
+      control: 'boolean',
+      description: 'Keeps the funnel of a heading filter in view at half strength, instead of only when the heading is pointed at',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+    },
     order: {
       control: 'select',
       options: ['newest-first', 'oldest-first'],
@@ -451,6 +456,47 @@ export const WithFilters: Story = {
           <LogViewer.Download />
         </LogViewer.Toolbar>
         <Stream emptyTitle="No logs match" emptyDescription="Try a wider range or remove a filter." />
+      </LogViewer>
+    );
+  },
+};
+
+/**
+ * A heading filter draws its funnel only when the heading is pointed at. Set `alwaysShowFilterIcons` to keep
+ * the funnels in view at half strength, as the alerts tables do, so a reader can see which columns filter.
+ * A filter with a value applied is always fully shown. Turn the control on and off to compare.
+ */
+export const AlwaysShownFilterIcons: Story = {
+  args: { alwaysShowFilterIcons: true },
+  render: (args) => {
+    const [values, setValues] = React.useState<LogFilterValues>({});
+
+    const entries = React.useMemo(
+      () =>
+        DEMO_EVENTS.filter(
+          (event) =>
+            (!values.status || event.status === values.status) &&
+            (!values.user || event.user === values.user) &&
+            (!values.action || event.action === values.action)
+        )
+          .slice(0, 8)
+          .map(toEntry),
+      [values]
+    );
+
+    return (
+      <LogViewer
+        columns={FILTERABLE_COLUMNS}
+        entries={entries}
+        filters={FILTERS}
+        filterValues={values}
+        onFilterChange={(id, value) => setValues((previous) => ({ ...previous, [id]: value }))}
+        alwaysShowFilterIcons={args.alwaysShowFilterIcons}
+      >
+        <LogViewer.Toolbar>
+          <LogViewer.Count />
+        </LogViewer.Toolbar>
+        <Stream emptyTitle="No logs match" emptyDescription="Remove a filter to see more." />
       </LogViewer>
     );
   },

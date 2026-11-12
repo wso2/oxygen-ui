@@ -2434,6 +2434,14 @@ describe('LogViewer', () => {
       expect(onFilterChange).toHaveBeenCalledWith('user', 'ann');
     });
 
+    it('shows the funnel of a heading filter only when pointed at, unless alwaysShowFilterIcons is set', () => {
+      const { unmount } = renderWithTheme(<LogViewer entries={entries('1')} columns={columns} filters={filters} />);
+      expect(getComputedStyle(screen.getByRole('button', { name: 'Filter by User' })).opacity).toBe('0');
+      unmount();
+      renderWithTheme(<LogViewer entries={entries('1')} columns={columns} filters={filters} alwaysShowFilterIcons />);
+      expect(getComputedStyle(screen.getByRole('button', { name: 'Filter by User' })).opacity).toBe('0.5');
+    });
+
     it('sorts by the time through the order, and by another column through onSortChange', () => {
       const onOrderChange = vi.fn();
       const onSortChange = vi.fn();
