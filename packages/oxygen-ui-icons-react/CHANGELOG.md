@@ -1,5 +1,7 @@
 # @wso2/oxygen-ui-icons-react
 
+## 0.23.1
+
 ## 0.23.0
 
 ## 0.22.0
