@@ -16,25 +16,30 @@
  * under the License.
  */
 
-import { readFileSync } from 'fs';
+import { readdirSync, readFileSync } from 'fs';
 import esbuild from 'esbuild';
 import { inlineCSSFontsPlugin } from '@wso2/esbuild-plugin-inline-css-fonts';
 
 const pkg = JSON.parse(readFileSync('./package.json', 'utf8'));
 
-esbuild.build({
-  entryPoints: [
-    'src/index.ts',
-  ],
+// Real subpath entries (wso2/oxygen-ui#582): every top-level src/*.ts besides
+// the barrel and tests becomes dist/<Name>.js + dist/<Name>.cjs, so the
+// `"./*": "./dist/*"` exports map resolves without the Vite plugin alias.
+const entryPoints = readdirSync('./src')
+  .filter((name) => name.endsWith('.ts') && !name.endsWith('.test.ts'))
+  .map((name) => `src/${name}`);
+
+const shared = {
+  entryPoints,
   platform: 'browser',
   outdir: 'dist',
   bundle: true,
-  format: 'esm',
   splitting: false,
   sourcemap: true,
   minify: false,
   target: ['es2017'],
-  plugins: [ 
+  allowOverwrite: true,
+  plugins: [
     inlineCSSFontsPlugin({
       styleAttribute: 'data-oxygen-fonts'
     })
@@ -51,7 +56,21 @@ esbuild.build({
     ...Object.keys(pkg.peerDependencies || {})
   ],
   preserveSymlinks: true,
-}).catch((err) => {
+};
+
+try {
+  await esbuild.build({
+    ...shared,
+    format: 'esm',
+    outExtension: { '.js': '.js' },
+  });
+
+  await esbuild.build({
+    ...shared,
+    format: 'cjs',
+    outExtension: { '.js': '.cjs' },
+  });
+} catch (err) {
   console.error(err);
   process.exit(1);
-});
+}
