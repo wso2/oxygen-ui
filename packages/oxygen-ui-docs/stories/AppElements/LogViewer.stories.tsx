@@ -468,20 +468,38 @@ export const WithFilters: Story = {
  */
 export const AlwaysShownFilterIcons: Story = {
   args: { alwaysShowFilterIcons: true },
-  render: (args) => (
-    <LogViewer
-      columns={FILTERABLE_COLUMNS}
-      entries={DEMO_EVENTS.slice(0, 8).map(toEntry)}
-      filters={FILTERS}
-      filterValues={{}}
-      alwaysShowFilterIcons={args.alwaysShowFilterIcons}
-    >
-      <LogViewer.Toolbar>
-        <LogViewer.Count />
-      </LogViewer.Toolbar>
-      <Stream />
-    </LogViewer>
-  ),
+  render: (args) => {
+    const [values, setValues] = React.useState<LogFilterValues>({});
+
+    const entries = React.useMemo(
+      () =>
+        DEMO_EVENTS.filter(
+          (event) =>
+            (!values.status || event.status === values.status) &&
+            (!values.user || event.user === values.user) &&
+            (!values.action || event.action === values.action)
+        )
+          .slice(0, 8)
+          .map(toEntry),
+      [values]
+    );
+
+    return (
+      <LogViewer
+        columns={FILTERABLE_COLUMNS}
+        entries={entries}
+        filters={FILTERS}
+        filterValues={values}
+        onFilterChange={(id, value) => setValues((previous) => ({ ...previous, [id]: value }))}
+        alwaysShowFilterIcons={args.alwaysShowFilterIcons}
+      >
+        <LogViewer.Toolbar>
+          <LogViewer.Count />
+        </LogViewer.Toolbar>
+        <Stream emptyTitle="No logs match" emptyDescription="Remove a filter to see more." />
+      </LogViewer>
+    );
+  },
 };
 
 /**
