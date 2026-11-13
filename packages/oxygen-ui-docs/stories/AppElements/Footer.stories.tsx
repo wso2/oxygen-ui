@@ -18,7 +18,8 @@
 
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Footer, Box } from '@wso2/oxygen-ui';
+import { AppShell, Footer, Box, Sidebar, Typography } from '@wso2/oxygen-ui';
+import { FolderOpen } from '@wso2/oxygen-ui-icons-react';
 
 /**
  * Footer is a compound component for displaying application footer with copyright,
@@ -82,6 +83,70 @@ export const Default: Story = {
         <Footer.Link href="#terms">Terms & Conditions</Footer.Link>
         <Footer.Link href="#privacy">Privacy Policy</Footer.Link>
       </Footer>
+    </Box>
+  ),
+};
+
+/**
+ * The `plain` variant has no bar. It has an inset divider instead, which lines up with the divider
+ * above the sidebar's collapse toggle (see the next story).
+ */
+export const Plain: Story = {
+  render: () => (
+    <Box sx={{ minHeight: 200, display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ flex: 1 }} />
+      <Footer variant="plain">
+        <Footer.Copyright>© {new Date().getFullYear()} WSO2 LLC.</Footer.Copyright>
+        <Footer.Link href="#documentation">Documentation</Footer.Link>
+        <Footer.Link href="#support">Support</Footer.Link>
+        <Footer.Link href="#terms">Terms of Use</Footer.Link>
+        <Footer.Link href="#privacy">Privacy Policy</Footer.Link>
+      </Footer>
+    </Box>
+  ),
+};
+
+/**
+ * The `plain` footer's divider is inset to the footer's padding and sits at the same height as the divider
+ * above the sidebar's collapse toggle, so the two lines read as one.
+ */
+export const PlainWithSidebar: Story = {
+  parameters: { layout: 'fullscreen' },
+  render: () => (
+    <Box sx={{ height: 360 }}>
+      <AppShell>
+        <AppShell.Sidebar>
+          <Sidebar collapsed={false} activeItem="projects" expandedMenus={{}} onSelect={() => undefined}>
+            <Sidebar.Nav>
+              <Sidebar.Category>
+                <Sidebar.Item id="projects">
+                  <Sidebar.ItemIcon>
+                    <FolderOpen size={20} />
+                  </Sidebar.ItemIcon>
+                  <Sidebar.ItemLabel>Projects</Sidebar.ItemLabel>
+                </Sidebar.Item>
+              </Sidebar.Category>
+            </Sidebar.Nav>
+            <Sidebar.Footer>
+              <Sidebar.CollapseToggle />
+            </Sidebar.Footer>
+          </Sidebar>
+        </AppShell.Sidebar>
+        <AppShell.Main>
+          <Box sx={{ p: 3 }}>
+            <Typography variant="h5">Projects</Typography>
+          </Box>
+        </AppShell.Main>
+        <AppShell.Footer>
+          <Footer variant="plain">
+            <Footer.Copyright>© {new Date().getFullYear()} WSO2 LLC.</Footer.Copyright>
+            <Footer.Link href="#documentation">Documentation</Footer.Link>
+            <Footer.Link href="#support">Support</Footer.Link>
+            <Footer.Link href="#terms">Terms of Use</Footer.Link>
+            <Footer.Link href="#privacy">Privacy Policy</Footer.Link>
+          </Footer>
+        </AppShell.Footer>
+      </AppShell>
     </Box>
   ),
 };
