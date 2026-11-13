@@ -17,7 +17,7 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react';
-import { PageContent, Card, CardContent, Typography, Box } from '@wso2/oxygen-ui';
+import { PageContent, Card, CardContent, Typography, Box, Footer } from '@wso2/oxygen-ui';
 import React from 'react';
 
 /**
@@ -41,6 +41,7 @@ max-width constraints, and theme-aware spacing.
 - **Auto Centering**: Centers content horizontally by default
 - **Theme Spacing**: Uses theme.spacing(5) for vertical padding
 - **Full Width Option**: Can override max-width for edge-to-edge content
+- **Footer**: Pass a \`footer\` (such as \`Footer\`): it sits at the bottom of a short page and scrolls after long content
 - **Styled Component**: Built with MUI styled API for theme integration
 
 ### Usage
@@ -59,6 +60,11 @@ import { PageContent } from '@wso2/oxygen-ui';
 
 // Full width
 <PageContent fullWidth>
+  <YourContent />
+</PageContent>
+
+// Footer at the bottom of the page
+<PageContent footer={<Footer variant="plain">...</Footer>}>
   <YourContent />
 </PageContent>
 
@@ -235,6 +241,72 @@ export const MultipleBlocks: Story = {
               </Typography>
             </CardContent>
           </Card>
+        </Box>
+      </PageContent>
+    </Box>
+  ),
+};
+
+const platformFooter = (
+  <Footer variant="plain">
+    <Footer.Copyright>© 2026 WSO2 LLC.</Footer.Copyright>
+    <Footer.Link href="#documentation">Documentation</Footer.Link>
+    <Footer.Link href="#support">Support</Footer.Link>
+    <Footer.Link href="#terms">Terms of Use</Footer.Link>
+    <Footer.Link href="#privacy">Privacy Policy</Footer.Link>
+  </Footer>
+);
+
+const projectCard = (name: string) => (
+  <Card key={name}>
+    <CardContent>
+      <Typography variant="h6">{name}</Typography>
+      <Typography variant="body2" color="text.secondary">
+        Created 3 days ago
+      </Typography>
+    </CardContent>
+  </Card>
+);
+
+/**
+ * Pass `footer` for a footer at the bottom of the page content. With short content it sits at the
+ * bottom of the page, filling the screen height. Use `Footer` with `variant="plain"` for centered text
+ * with no bar.
+ */
+export const WithFooter: Story = {
+  render: () => (
+    <Box sx={{ bgcolor: 'background.default', height: '100vh' }}>
+      <PageContent footer={platformFooter}>
+        <Typography variant="h3" component="h1">
+          Projects
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+          Projects group what you build across WSO2 platforms.
+        </Typography>
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
+          {['Default Project', 'API Portal', 'Test project'].map(projectCard)}
+        </Box>
+      </PageContent>
+    </Box>
+  ),
+};
+
+/**
+ * With content longer than the page, the footer comes after the content and scrolls with it.
+ * Scroll the page to reach it.
+ */
+export const WithFooterLargeContent: Story = {
+  render: () => (
+    <Box sx={{ bgcolor: 'background.default', height: '100vh' }}>
+      <PageContent footer={platformFooter}>
+        <Typography variant="h3" component="h1">
+          Projects
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+          Projects group what you build across WSO2 platforms.
+        </Typography>
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
+          {Array.from({ length: 36 }, (_, index) => projectCard(`Project ${index + 1}`))}
         </Box>
       </PageContent>
     </Box>

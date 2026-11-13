@@ -87,6 +87,24 @@ export const Default: Story = {
 };
 
 /**
+ * The `plain` variant has no bar (no background or border) and centers everything in one row.
+ */
+export const Plain: Story = {
+  render: () => (
+    <Box sx={{ minHeight: 200, display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ flex: 1 }} />
+      <Footer variant="plain">
+        <Footer.Copyright>© {new Date().getFullYear()} WSO2 LLC.</Footer.Copyright>
+        <Footer.Link href="#documentation">Documentation</Footer.Link>
+        <Footer.Link href="#support">Support</Footer.Link>
+        <Footer.Link href="#terms">Terms of Use</Footer.Link>
+        <Footer.Link href="#privacy">Privacy Policy</Footer.Link>
+      </Footer>
+    </Box>
+  ),
+};
+
+/**
  * Footer with version number.
  */
 export const WithVersion: Story = {
