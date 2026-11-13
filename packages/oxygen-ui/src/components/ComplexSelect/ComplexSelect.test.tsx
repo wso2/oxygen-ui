@@ -20,12 +20,12 @@ import * as React from 'react';
 import { describe, it, expect, afterEach } from 'vitest';
 import { render, cleanup, screen } from '@testing-library/react';
 import OxygenUIThemeProvider from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
-import { ChoreoLabsTheme } from '../../styles/Themes';
+import { OxygenTheme } from '../../styles/Themes';
 import { createOxygenTheme } from '../../utils/createOxygenTheme';
 import { ContextSwitcher } from '../ContextSwitcher';
 import ComplexSelect, { type ComplexSelectProps } from './ComplexSelect';
 
-const renderSelect = (props: Partial<ComplexSelectProps> = {}, theme = ChoreoLabsTheme) =>
+const renderSelect = (props: Partial<ComplexSelectProps> = {}, theme = OxygenTheme) =>
   render(
     <OxygenUIThemeProvider theme={theme}>
       <ComplexSelect value="acme" onChange={() => {}} {...props}>
@@ -77,7 +77,7 @@ describe('ComplexSelect inside label', () => {
 
   it('names a ContextSwitcher level without a <label>', () => {
     const { container } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={OxygenTheme}>
         <ContextSwitcher value={{ organization: 'wso2' }} onChange={() => {}}>
           <ContextSwitcher.Level id="organization" label="Organization">
             <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
@@ -113,7 +113,7 @@ describe('ComplexSelect inside label spacing', () => {
     const { padding, margin } = spacingRules(renderSelect({ label: 'Organization' }).container);
 
     expect(padding).toEqual([
-      `box-sizing:border-box;min-height:48px;padding-top:0;padding-bottom:0;padding-left:${ChoreoLabsTheme.spacing(1.5)};`,
+      `box-sizing:border-box;min-height:48px;padding-top:0;padding-bottom:0;padding-left:${OxygenTheme.spacing(1.5)};`,
     ]);
     expect(margin).toEqual(['margin-top:0;margin-bottom:0;']);
   });

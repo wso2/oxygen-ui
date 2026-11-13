@@ -14,10 +14,9 @@
 
 | Theme | Import | Description |
 |-------|--------|-------------|
-| OxygenTheme | `OxygenTheme` | Default theme (Acrylic Base) |
+| OxygenTheme | `OxygenTheme` | Default theme (Acrylic look with the brand colours and Sora font) |
 | Acrylic Orange | `AcrylicOrangeTheme` | Glass-morphism effects, orange primary |
 | Acrylic Purple | `AcrylicPurpleTheme` | Glass-morphism with purple accents |
-| Choreo Labs | `ChoreoLabsTheme` | Choreo Labs brand theme (Acrylic look with Choreo Labs colours and Sora font) |
 | Classic | `ClassicTheme` | Standard flat design |
 | High Contrast | `HighContrastTheme` | Accessibility-focused with high contrast colors |
 | Pale Base | `PaleBaseTheme` | Minimal color palette for subtle interfaces |
@@ -29,7 +28,6 @@ import {
   OxygenTheme,
   AcrylicOrangeTheme,
   AcrylicPurpleTheme,
-  ChoreoLabsTheme,
   ClassicTheme,
   HighContrastTheme,
   PaleBaseTheme,
@@ -67,7 +65,6 @@ import {
   OxygenTheme,
   AcrylicOrangeTheme,
   AcrylicPurpleTheme,
-  ChoreoLabsTheme,
   ClassicTheme,
   HighContrastTheme,
   PaleBaseTheme,
@@ -80,7 +77,6 @@ import {
     { key: 'default', label: 'Default', theme: OxygenTheme },
     { key: 'orange', label: 'Acrylic Orange', theme: AcrylicOrangeTheme },
     { key: 'purple', label: 'Acrylic Purple', theme: AcrylicPurpleTheme },
-    { key: 'choreoLabs', label: 'Choreo Labs', theme: ChoreoLabsTheme },
     { key: 'classic', label: 'Classic', theme: ClassicTheme },
     { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
     { key: 'paleBase', label: 'Pale Base', theme: PaleBaseTheme },
