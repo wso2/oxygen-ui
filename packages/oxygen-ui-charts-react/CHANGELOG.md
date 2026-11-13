@@ -1,5 +1,16 @@
 # @wso2/oxygen-ui-charts-react
 
+## 0.24.0
+
+### Minor Changes
+
+- [#699](https://github.com/wso2/oxygen-ui/pull/699) [`5ec7735`](https://github.com/wso2/oxygen-ui/commit/5ec7735459a01d8505571278b783470a8b59e080) Thanks [@Induwara04](https://github.com/Induwara04)! - Add a `footer` prop to `PageContent` that places a footer at the bottom of a short page and after the content of a long one, and a `plain` variant for `Footer` with no bar and an inset divider that lines up with the divider above `Sidebar.CollapseToggle`.
+
+### Patch Changes
+
+- Updated dependencies [[`165645d`](https://github.com/wso2/oxygen-ui/commit/165645dab90fac861030326490b2ac85f26fc502), [`c15b658`](https://github.com/wso2/oxygen-ui/commit/c15b658e532e9982abd9bf3788350ea747e86377), [`5ec7735`](https://github.com/wso2/oxygen-ui/commit/5ec7735459a01d8505571278b783470a8b59e080)]:
+  - @wso2/oxygen-ui@0.24.0
+
 ## 0.23.1
 
 ### Patch Changes
