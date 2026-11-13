@@ -51,9 +51,14 @@ import { FooterDivider } from './FooterDivider';
 
 /**
  * `bar` is a full-width bar with a top border and a paper background, with the copyright on the left
- * and the links on the right. `plain` has no background or border, and centers everything in one row.
+ * and the links on the right. `plain` has no background, and an inset divider set to the height of the
+ * sidebar's footer row so it lines up with the divider above `Sidebar.CollapseToggle`.
  */
 export type FooterVariant = 'bar' | 'plain';
+
+// Height of a sidebar footer row: its padding (2 x 8px) around a 44px item. Keeps the `plain` divider level
+// with the sidebar's own footer divider.
+const SIDEBAR_FOOTER_ROW_HEIGHT = 60;
 
 /**
  * Styled root container for the footer.
@@ -64,14 +69,14 @@ const FooterRoot = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'variant',
 })<{ component?: React.ElementType; variant?: FooterVariant }>(({ theme, variant }) => ({
   width: '100%',
-  paddingTop: theme.spacing(2),
-  paddingBottom: theme.spacing(2),
   paddingLeft: theme.spacing(3),
   paddingRight: theme.spacing(3),
   marginTop: 'auto',
   ...(variant === 'plain'
-    ? { backgroundColor: 'transparent' }
+    ? { paddingTop: 0, paddingBottom: 0, backgroundColor: 'transparent' }
     : {
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2),
         borderTop: `1px solid ${(theme.vars || theme).palette.divider}`,
         backgroundColor: (theme.vars || theme).palette.background.paper,
       }),
@@ -95,10 +100,9 @@ const FooterContent = styled(Box, {
     alignItems: 'center',
   },
   ...(variant === 'plain' && {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // Plus the 1px divider the sidebar draws above its row, so both dividers sit at the same height.
+    minHeight: SIDEBAR_FOOTER_ROW_HEIGHT + 1,
+    borderTop: `1px solid ${(theme.vars || theme).palette.divider}`,
   }),
 }));
 
@@ -135,7 +139,8 @@ export interface FooterProps {
   /** Child elements (Copyright, Version, Link, Divider components) */
   children: React.ReactNode;
   /**
-   * Look of the footer: `bar` (default) or `plain` (no bar, centered in one row).
+   * Look of the footer: `bar` (default), or `plain` (no bar, with an inset divider that lines up with the
+   * sidebar's collapse toggle divider).
    * @default 'bar'
    */
   variant?: FooterVariant;

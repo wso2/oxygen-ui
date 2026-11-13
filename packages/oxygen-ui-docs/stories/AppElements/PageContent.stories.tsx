@@ -17,7 +17,8 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react';
-import { PageContent, Card, CardContent, Typography, Box, Footer } from '@wso2/oxygen-ui';
+import { AppShell, PageContent, Card, CardContent, Typography, Box, Footer, Sidebar } from '@wso2/oxygen-ui';
+import { FolderOpen } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';
 
 /**
@@ -268,14 +269,27 @@ const projectCard = (name: string) => (
   </Card>
 );
 
-/**
- * Pass `footer` for a footer at the bottom of the page content. With short content it sits at the
- * bottom of the page, filling the screen height. Use `Footer` with `variant="plain"` for centered text
- * with no bar.
- */
-export const WithFooter: Story = {
-  render: () => (
-    <Box sx={{ bgcolor: 'background.default', height: '100vh' }}>
+// A shell with a collapse toggle in the sidebar, so the footer divider can be seen lining up with it.
+const ShellWithFooter: React.FC<{ projects: string[] }> = ({ projects }) => (
+  <AppShell>
+    <AppShell.Sidebar>
+      <Sidebar collapsed={false} activeItem="projects" expandedMenus={{}} onSelect={() => undefined}>
+        <Sidebar.Nav>
+          <Sidebar.Category>
+            <Sidebar.Item id="projects">
+              <Sidebar.ItemIcon>
+                <FolderOpen size={20} />
+              </Sidebar.ItemIcon>
+              <Sidebar.ItemLabel>Projects</Sidebar.ItemLabel>
+            </Sidebar.Item>
+          </Sidebar.Category>
+        </Sidebar.Nav>
+        <Sidebar.Footer>
+          <Sidebar.CollapseToggle />
+        </Sidebar.Footer>
+      </Sidebar>
+    </AppShell.Sidebar>
+    <AppShell.Main>
       <PageContent footer={platformFooter}>
         <Typography variant="h3" component="h1">
           Projects
@@ -284,11 +298,20 @@ export const WithFooter: Story = {
           Projects group what you build across WSO2 platforms.
         </Typography>
         <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
-          {['Default Project', 'API Portal', 'Test project'].map(projectCard)}
+          {projects.map(projectCard)}
         </Box>
       </PageContent>
-    </Box>
-  ),
+    </AppShell.Main>
+  </AppShell>
+);
+
+/**
+ * Pass `footer` for a footer at the bottom of the page content. With short content it sits at the
+ * bottom of the page, filling the screen height. The `plain` footer's divider lines up with the divider
+ * above the sidebar's collapse toggle.
+ */
+export const WithFooter: Story = {
+  render: () => <ShellWithFooter projects={['Default Project', 'API Portal', 'Test project']} />,
 };
 
 /**
@@ -296,19 +319,5 @@ export const WithFooter: Story = {
  * Scroll the page to reach it.
  */
 export const WithFooterLargeContent: Story = {
-  render: () => (
-    <Box sx={{ bgcolor: 'background.default', height: '100vh' }}>
-      <PageContent footer={platformFooter}>
-        <Typography variant="h3" component="h1">
-          Projects
-        </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-          Projects group what you build across WSO2 platforms.
-        </Typography>
-        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
-          {Array.from({ length: 36 }, (_, index) => projectCard(`Project ${index + 1}`))}
-        </Box>
-      </PageContent>
-    </Box>
-  ),
+  render: () => <ShellWithFooter projects={Array.from({ length: 36 }, (_, index) => `Project ${index + 1}`)} />,
 };
