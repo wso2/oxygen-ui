@@ -35,6 +35,7 @@ import {
   PaleGrayTheme,
   PaleIndigoTheme,
   WSO2Theme,
+  WSO2WebTheme,
   useColorScheme,
 } from "@wso2/oxygen-ui";
 import './docs.css';
@@ -116,10 +117,13 @@ const preview = {
         items: [
           { value: 'default', title: 'Default' },
           { value: 'wso2', title: 'WSO2' },
+          { value: 'wso2web', title: 'WSO2 Web' },
           { value: 'classic', title: 'Classic' },
           { value: 'highContrast', title: 'High Contrast' },
           { value: 'acrylicOrange', title: 'Acrylic Orange' },
           { value: 'acrylicPurple', title: 'Acrylic Purple' },
+          { value: 'paleGray', title: 'Pale Gray' },
+          { value: 'paleIndigo', title: 'Pale Indigo' },
         ],
         showName: true,
         dynamicTitle: true,
@@ -141,6 +145,7 @@ const preview = {
         { key: 'paleGray', label: 'Pale Gray', theme: PaleGrayTheme },
         { key: 'paleIndigo', label: 'Pale Indigo', theme: PaleIndigoTheme },
         { key: 'wso2', label: 'WSO2', theme: WSO2Theme },
+        { key: 'wso2web', label: 'WSO2 Web', theme: WSO2WebTheme },
       ], []);
 
       // Resolve system mode to actual light/dark based on OS preference
