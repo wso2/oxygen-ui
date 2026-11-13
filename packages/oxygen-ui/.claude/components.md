@@ -13,6 +13,7 @@ Complete API reference for custom Oxygen UI components. For MUI components, refe
 - [Footer](#footer)
 - [UserMenu](#usermenu)
 - [ContextSwitcher](#contextswitcher)
+- [HeaderBreadcrumbs](#headerbreadcrumbs)
 - [AppSwitcher](#appswitcher)
 - [Form](#form)
 - [FullScreenWizard](#fullscreenwizard)
@@ -1360,6 +1361,85 @@ const [value, setValue] = useState<ContextSwitcherValue>({
   {/* same levels */}
 </ContextSwitcher>
 ```
+
+## HeaderBreadcrumbs
+
+A trail of the current organization / project / component, like `thunder-id / thunderid ▾`. Each segment has two targets: the name goes to that entry's page, and the caret opens a menu to switch to another entry of the same level. After the trail, a › button opens the next level's menu; its tooltip and accessible name are "Open project" (on an organization) or "Open component" (on a project). Use it when the header should read as plain text. Use `ContextSwitcher` when each level should be a labeled field.
+
+```tsx
+import { HeaderBreadcrumbs, useHeaderBreadcrumbs, readHeaderBreadcrumbsState, clearHeaderBreadcrumbsState } from '@wso2/oxygen-ui';
+import type { HeaderBreadcrumbsItem, HeaderBreadcrumbsLevel, HeaderBreadcrumbsValue } from '@wso2/oxygen-ui';
+```
+
+### HeaderBreadcrumbs Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `levels` | `HeaderBreadcrumbsLevel[]` | required | Levels in order. The trail runs up to the first level without `selectedId`, which shows as a › button. Leave a level out to remove it |
+| `onNavigate` | `(levelId, item) => void` | - | A name was clicked |
+| `onSelect` | `(levelId, item) => void` | - | A different entry was picked in a switch menu |
+| `onOpen` | `(levelId) => void` | - | A switch menu opened |
+| `onCreate` | `(levelId, { levelId, value }) => void` | - | Adds "New {label}" to every level's menu, such as "New project" |
+| `onManage` | `(levelId, { levelId, value }) => void` | - | Adds "Manage {pluralLabel}" to every level's menu, such as "Manage projects" |
+| `showLabels` | `boolean` | `false` | Show each level's name (Organization, Project) in small text above it |
+| `showIcons` | `boolean` | `true` | Show each level's `icon` before its name. Set `false` to hide them; `showLabels` replaces them. Hovering the icon shows the level name; screen readers hear it through `aria-describedby` |
+| `linkComponent` | `ElementType` | `'a'` | Used for items with `href`, such as a router `Link` |
+| `separator` | `ReactNode` | `'/'` | Node between segments |
+
+`HeaderBreadcrumbsLevel`: `id`, `label`, `icon`, `items`, `selectedId`, `selectedItem` (name fallback before items load), `openLabel`, `loading`, `error`, `emptyText`, `menuTitle`, `searchPlaceholder`, `searchable` (`'auto'` shows search above 6 items), `pluralLabel`, `createAction` and `manageAction` (relabel, add `href`, own `onClick`, or `false` to hide the built-in action for that level), and `actions` (more `{ key, label, icon, href, onClick }` items).
+
+Every action's `onClick(event, { levelId, value })` runs after the menu closes. With `href`, the action renders through `linkComponent`; call `event.preventDefault()` to run your own logic instead of navigating. A level's own `onClick` wins over `onCreate` / `onManage`.
+
+`HeaderBreadcrumbsItem`: `id`, `name`, `description`, `avatar`, `href`, `disabled`.
+
+### useHeaderBreadcrumbs
+
+Holds the selection, fetches each level from its parents' selection, and aborts stale requests. Picking a different entry clears the levels under it. Clicking a name drops the levels under it (`truncateOnNavigate`, default `true`).
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `levels` | `HeaderBreadcrumbsLevelConfig[]` | Level display props plus `fetchItems({ parents, signal })` or fixed `items` |
+| `value` / `defaultValue` | `HeaderBreadcrumbsValue` | Controlled or initial selection (`Record<levelId, itemId>`) |
+| `onChange` | `(value, change) => void` | `change.type` is `select`, `navigate`, `clear` or `set` |
+| `onNavigate` | `(levelId, item) => void` | A name was clicked |
+| `refreshOnOpen` | `boolean` | Fetch a level again each time its menu opens |
+| `formatError` | `(error, levelId) => ReactNode` | Message for a failed fetch |
+| `persist` | `boolean \| { key?, storage?, sync? }` | Keep the selected ids (not the items) in `localStorage` (default key `oxygen-ui:header-breadcrumbs`). Apps on the same origin share it and, with `sync` (default `true`), follow each other's changes; `onChange` gets type `sync`. Uncontrolled, the stored value wins over `defaultValue` |
+
+Returns `value`, `levels`, `selected` (item per level), `select`, `clear`, `setValue`, `refresh`, `setItems`, `addItem`, `updateItem`, `removeItem`, and `breadcrumbProps` to spread on `HeaderBreadcrumbs`.
+
+### Usage
+
+```tsx
+const breadcrumb = useHeaderBreadcrumbs({
+  levels: [
+    { id: 'organization', label: 'Organization', fetchItems: ({ signal }) => api.organizations({ signal }) },
+    { id: 'project', label: 'Project', fetchItems: ({ parents, signal }) => api.projects(parents.organization, { signal }) },
+    { id: 'component', label: 'Component', fetchItems: ({ parents, signal }) => api.components(parents.project, { signal }) },
+  ],
+  value: valueFromRoute,
+  onChange: (next) => navigate(routeFor(next)),
+});
+
+<Header.Switchers>
+  <HeaderBreadcrumbs {...breadcrumb.breadcrumbProps} />
+</Header.Switchers>
+
+// After creating, renaming or deleting:
+breadcrumb.addItem('project', created);
+breadcrumb.updateItem('project', id, { name: 'New name' });
+breadcrumb.removeItem('project', id);
+
+// Share the selection across apps on the same origin:
+useHeaderBreadcrumbs({ levels, persist: true });
+const { organization, project } = useHeaderBreadcrumbsValue(); // from any app, re-renders on change
+readHeaderBreadcrumbsState()?.value.organization; // outside React
+clearHeaderBreadcrumbsState(); // on sign-out
+```
+
+localStorage is per origin (protocol, host and port), so apps on different subdomains do not share it.
+
+---
 
 ## AppSwitcher
 

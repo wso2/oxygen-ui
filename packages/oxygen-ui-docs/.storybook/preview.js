@@ -198,6 +198,7 @@ const preview = {
             'App Breadcrumbs',
             'App Switcher',
             'Header',
+            'Header Breadcrumbs',
             'User Menu',
             'Sidebar',
             'Footer',
