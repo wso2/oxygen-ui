@@ -1,5 +1,11 @@
 # @wso2/oxygen-ui-icons-react
 
+## 0.24.0
+
+### Minor Changes
+
+- [#699](https://github.com/wso2/oxygen-ui/pull/699) [`5ec7735`](https://github.com/wso2/oxygen-ui/commit/5ec7735459a01d8505571278b783470a8b59e080) Thanks [@Induwara04](https://github.com/Induwara04)! - Add a `footer` prop to `PageContent` that places a footer at the bottom of a short page and after the content of a long one, and a `plain` variant for `Footer` with no bar and an inset divider that lines up with the divider above `Sidebar.CollapseToggle`.
+
 ## 0.23.1
 
 ## 0.23.0
