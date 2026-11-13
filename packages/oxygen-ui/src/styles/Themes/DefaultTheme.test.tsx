@@ -30,21 +30,20 @@ import ComplexSelect from '../../components/ComplexSelect/ComplexSelect';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import SidebarUserAvatar from '../../components/Sidebar/SidebarUserAvatar';
 import UserMenu from '../../components/UserMenu/UserMenu';
-import { ChoreoLabsTheme, OxygenTheme } from './index';
+import DefaultTheme from './DefaultTheme';
+import { OxygenTheme } from './index';
 
 const SIGNAL = '#FF4600';
 const BURN = '#C43300';
 const MIDNIGHT_INK = '#0B1633';
 
-describe('ChoreoLabsTheme', () => {
-  it('leaves the default theme unchanged', () => {
-    expect(OxygenTheme.typography.fontFamily).not.toContain('Sora Variable');
-    expect(OxygenTheme.colorSchemes.light!.palette.primary.main).not.toBe(SIGNAL);
-    expect(OxygenTheme.colorSchemes.dark!.palette.primary.main).not.toBe(SIGNAL);
+describe('DefaultTheme', () => {
+  it('is the default theme', () => {
+    expect(OxygenTheme).toBe(DefaultTheme);
   });
 
   it.each(['light', 'dark'] as const)('uses the brand primary in the %s scheme', (scheme) => {
-    const { primary } = ChoreoLabsTheme.colorSchemes[scheme]!.palette;
+    const { primary } = DefaultTheme.colorSchemes[scheme]!.palette;
 
     expect(primary.main).toBe(SIGNAL);
     expect(primary.dark).toBe(BURN);
@@ -53,7 +52,7 @@ describe('ChoreoLabsTheme', () => {
 
   // The base theme is built on an orange primary; its derived values must not leak through.
   it.each(['light', 'dark'] as const)('derives the %s primary channels from Signal', (scheme) => {
-    const { primary } = ChoreoLabsTheme.colorSchemes[scheme]!.palette;
+    const { primary } = DefaultTheme.colorSchemes[scheme]!.palette;
 
     expect(primary.mainChannel).toBe('255 70 0');
     expect(primary.darkChannel).toBe('196 51 0');
@@ -63,7 +62,7 @@ describe('ChoreoLabsTheme', () => {
     ['light', { info: '#0B1633', success: '#16A34A', warning: '#F5B300', error: '#E5484D' }],
     ['dark', { info: '#FFFFFF', success: '#4ADE80', warning: '#FCD34D', error: '#FF7A7F' }],
   ] as const)('uses the brand status colours in the %s scheme', (scheme, colors) => {
-    const { palette } = ChoreoLabsTheme.colorSchemes[scheme]!;
+    const { palette } = DefaultTheme.colorSchemes[scheme]!;
 
     expect(palette.info.main).toBe(colors.info);
     expect(palette.success.main).toBe(colors.success);
@@ -72,7 +71,7 @@ describe('ChoreoLabsTheme', () => {
   });
 
   it('uses White surfaces on the Paper content background in light mode, with Fog hairlines', () => {
-    const { palette } = ChoreoLabsTheme.colorSchemes.light!;
+    const { palette } = DefaultTheme.colorSchemes.light!;
 
     expect(palette.background.default).toBe('#F4F6FA');
     expect(palette.background.acrylic).toBe('#FFFFFF');
@@ -83,7 +82,7 @@ describe('ChoreoLabsTheme', () => {
     ['light', { success: ['#15803D', '#DCFCE7'], warning: ['#8A5A00', '#FEF6D8'], error: ['#B42318', '#FDE7E7'] }],
     ['dark', { success: ['#4ADE80', '#0B1633'], warning: ['#FCD34D', '#0B1633'], error: ['#FF7A7F', '#0B1633'] }],
   ] as const)('uses the guideline alert text and wash in the %s scheme', (scheme, colors) => {
-    const { Alert } = ChoreoLabsTheme.colorSchemes[scheme]!.palette;
+    const { Alert } = DefaultTheme.colorSchemes[scheme]!.palette;
 
     (['success', 'warning', 'error'] as const).forEach((status) => {
       expect(Alert[`${status}Color`]).toBe(colors[status][0]);
@@ -95,28 +94,28 @@ describe('ChoreoLabsTheme', () => {
     ['light', '#0B1633', '#FFFFFF'],
     ['dark', '#FFFFFF', '#0B1633'],
   ] as const)('uses dark blue as the secondary colour in the %s scheme', (scheme, main, contrastText) => {
-    const { secondary } = ChoreoLabsTheme.colorSchemes[scheme]!.palette;
+    const { secondary } = DefaultTheme.colorSchemes[scheme]!.palette;
 
     expect(secondary.main).toBe(main);
     expect(secondary.contrastText).toBe(contrastText);
   });
 
   it.each(['light', 'dark'] as const)('uses Burn as the accent colour in the %s scheme', (scheme) => {
-    const { accent } = ChoreoLabsTheme.colorSchemes[scheme]!.palette;
+    const { accent } = DefaultTheme.colorSchemes[scheme]!.palette;
 
     expect(accent.main).toBe(BURN);
     expect(accent.contrastText).toBe('#FFFFFF');
   });
 
   it('fills dark-mode info alerts with Deep Navy', () => {
-    expect(ChoreoLabsTheme.colorSchemes.dark!.palette.Alert.infoFilledBg).toBe('#17223A');
+    expect(DefaultTheme.colorSchemes.dark!.palette.Alert.infoFilledBg).toBe('#17223A');
   });
 
   it('sets Sora on every typography variant', () => {
-    const typography = ChoreoLabsTheme.typography as unknown as Record<string, TypographyVariantsOptions>;
+    const typography = DefaultTheme.typography as unknown as Record<string, TypographyVariantsOptions>;
     const variants = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'body1', 'body2', 'button', 'caption', 'overline'];
 
-    expect(ChoreoLabsTheme.typography.fontFamily).toContain('Sora Variable');
+    expect(DefaultTheme.typography.fontFamily).toContain('Sora Variable');
     variants.forEach((variant) => {
       expect(typography[variant].fontFamily).toContain('Sora Variable');
     });
@@ -124,26 +123,25 @@ describe('ChoreoLabsTheme', () => {
 
   // MUI X DataGrid reads its text styles from the font CSS variables rather than the typography.
   it.each(['body1', 'body2', 'caption'] as const)('uses Sora in the %s font variable', (variant) => {
-    expect(ChoreoLabsTheme.font[variant]).toContain('Sora Variable');
-    expect(ChoreoLabsTheme.vars.font[variant]).toContain('Sora Variable');
-    expect(OxygenTheme.font[variant]).toContain('Inter Variable');
+    expect(DefaultTheme.font[variant]).toContain('Sora Variable');
+    expect(DefaultTheme.vars.font[variant]).toContain('Sora Variable');
   });
 
   it('keeps the base theme reduced-motion styles', () => {
-    const styleOverrides = ChoreoLabsTheme.components?.MuiCssBaseline?.styleOverrides as Record<string, unknown>;
+    const styleOverrides = DefaultTheme.components?.MuiCssBaseline?.styleOverrides as Record<string, unknown>;
 
     expect(styleOverrides).toHaveProperty(['@media (prefers-reduced-motion: reduce)']);
   });
 });
 
-describe('ChoreoLabsTheme gradients', () => {
+describe('DefaultTheme gradients', () => {
   afterEach(() => {
     cleanup();
   });
 
   it('renders component styles without gradients', () => {
     render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Button variant="contained">Contained</Button>
         <Fab color="primary">Fab</Fab>
         <Paper elevation={8}>Paper</Paper>
@@ -170,7 +168,7 @@ describe('ChoreoLabsTheme gradients', () => {
   });
 });
 
-describe('ChoreoLabsTheme states', () => {
+describe('DefaultTheme states', () => {
   afterEach(() => {
     cleanup();
   });
@@ -179,7 +177,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('keeps the Signal fill and turns the label white on hover, keyboard focus and press on primary buttons', () => {
     render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Button variant="contained">Contained</Button>
       </OxygenUIThemeProvider>
     );
@@ -191,7 +189,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('fills outlined primary buttons with Signal on hover and Action with an Ink label when pressed', () => {
     render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Button variant="outlined">Read the Article</Button>
       </OxygenUIThemeProvider>
     );
@@ -204,7 +202,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('fills outlined accent buttons with Burn on hover and focus, and Ember when pressed', () => {
     render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Button variant="outlined" color="accent">Learn more</Button>
       </OxygenUIThemeProvider>
     );
@@ -221,7 +219,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('lifts filled and outlined buttons on hover and presses them in, unless reduced motion is preferred', () => {
     render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Button variant="contained">Contained</Button>
       </OxygenUIThemeProvider>
     );
@@ -238,7 +236,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('uses the guideline disabled colours for every button variant', () => {
     render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Button variant="contained" disabled>Disabled</Button>
       </OxygenUIThemeProvider>
     );
@@ -252,7 +250,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('draws a 3px focus ring 3px outside buttons, without a shadow', () => {
     const { getByText } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Button variant="contained">Contained</Button>
       </OxygenUIThemeProvider>
     );
@@ -267,12 +265,12 @@ describe('ChoreoLabsTheme states', () => {
     ['light', { outlinedColor: BURN, disabledBg: '#D7DBE4', disabledColor: '#5A6072', containedSecondaryHoverBg: '#07080C', focusRing: '#1F4FFF' }],
     ['dark', { outlinedColor: SIGNAL, disabledBg: '#070D22', disabledColor: '#8A93A6', containedSecondaryHoverBg: '#FFFFFF', focusRing: '#3D8BFF' }],
   ] as const)('sets the guideline button state colours in the %s scheme', (scheme, colors) => {
-    expect(ChoreoLabsTheme.colorSchemes[scheme]!.palette.Button).toMatchObject(colors);
+    expect(DefaultTheme.colorSchemes[scheme]!.palette.Button).toMatchObject(colors);
   });
 
   it('makes every button size a pill', () => {
     const { getByText } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Button size="large" variant="contained">Large</Button>
       </OxygenUIThemeProvider>
     );
@@ -283,7 +281,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('sizes buttons at 32, 40 and 48px', () => {
     const { getByText } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Button size="small">Small</Button>
         <Button>Medium</Button>
         <Button size="large">Large</Button>
@@ -302,7 +300,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('uses dark blue for outlined and filled secondary buttons, filling the outline on hover', () => {
     render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Button variant="outlined" color="secondary">All Reports</Button>
         <Button variant="contained" color="secondary">Contact Us</Button>
       </OxygenUIThemeProvider>
@@ -326,7 +324,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('fills the subtle button variant with Action and a white label, darkening to Burn and Ember', () => {
     render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Button variant="subtle">Download</Button>
       </OxygenUIThemeProvider>
     );
@@ -339,7 +337,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('uses the light avatar style for the app shell user avatars and page title avatars', () => {
     render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <UserMenu>
           <UserMenu.Trigger name="Jane Doe" />
         </UserMenu>
@@ -360,7 +358,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('sizes outlined fields at 40 and 48px to line up with medium and large buttons', () => {
     const { container } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <div data-testid="small"><TextField label="Name" /></div>
         <div data-testid="medium"><TextField size="medium" label="Name" /></div>
         <div data-testid="multiline"><TextField multiline /></div>
@@ -384,7 +382,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('renders the tag chip as a dark blue uppercase label, or in the chosen colour', () => {
     const { getByText } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Chip variant="tag" label="Webinar" />
         <Chip variant="tag" color="primary" label="New" />
       </OxygenUIThemeProvider>
@@ -401,7 +399,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('gives outlined text inputs an Ink focus border, and a ring only with a fixed label', () => {
     render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <OutlinedInput />
       </OxygenUIThemeProvider>
     );
@@ -417,7 +415,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('gives fixed-label selects the text input focus border and ring', () => {
     render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <OutlinedInput />
       </OxygenUIThemeProvider>
     );
@@ -435,7 +433,7 @@ describe('ChoreoLabsTheme states', () => {
   // The theme can't see the label placement, so the select rules rely on this markup; fail loudly if it changes.
   it('matches the fixed-label select selectors only on fixed-label selects', () => {
     const { container } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <div data-testid="fixed-select"><OxygenSelect labelPlacement="top" label="Role" value="" /></div>
         <div data-testid="fixed-text-select"><OxygenTextField select labelPlacement="top" label="Role" value="" /></div>
         <div data-testid="floating-select">
@@ -459,7 +457,7 @@ describe('ChoreoLabsTheme states', () => {
   // The theme can't see the label placement, so the ring relies on this markup; fail loudly if it changes.
   it('matches the ring selector only on fixed-label fields', () => {
     const { container } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <div data-testid="fixed"><OxygenTextField labelPlacement="top" label="Name" /></div>
         <div data-testid="floating"><OxygenTextField label="Name" /></div>
         <div data-testid="standalone-label"><FormLabel>Details</FormLabel><OxygenTextField label="Name" /></div>
@@ -477,7 +475,7 @@ describe('ChoreoLabsTheme states', () => {
   // Selects and text inputs share MuiOutlinedInput, and this class is the only way to tell them apart.
   it('marks select input roots with MuiSelect-root or MuiNativeSelect-root and leaves text inputs unmarked', () => {
     const { container } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <div data-testid="select"><Select value="" /></div>
         <div data-testid="native-select"><NativeSelect input={<OutlinedInput />} /></div>
         <div data-testid="text"><OutlinedInput /></div>
@@ -493,7 +491,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('keeps floating text and select label colours on focus without dropping the base select label offset', () => {
     render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <OxygenTextField label="Name" focused />
         <OxygenTextField select label="Role" value="" focused />
       </OxygenUIThemeProvider>
@@ -503,14 +501,14 @@ describe('ChoreoLabsTheme states', () => {
     expect(css).toMatch(/\}\.css-[\w-]+InputLabel-root\.Mui-focused:not\(\.Mui-error\)\{color:var\(--oxygen-palette-text-secondary\);/);
     // Selects are no longer excluded from the neutral focus colour.
     expect(css).not.toMatch(/:not\(:has\(\.MuiSelect-select\)\)/);
-    expect(ChoreoLabsTheme.components?.MuiInputLabel?.styleOverrides?.root).toHaveProperty([
+    expect(DefaultTheme.components?.MuiInputLabel?.styleOverrides?.root).toHaveProperty([
       '.MuiFormControl-root:has(.MuiSelect-select) &:not(.MuiInputLabel-shrink)',
     ]);
   });
 
   it('keeps the focus ring off menu items, which mark focus with a background instead', () => {
     render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <MenuList><MenuItem>Development</MenuItem></MenuList>
       </OxygenUIThemeProvider>
     );
@@ -523,7 +521,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('keeps floating select labels, but not text labels, at the default colour in error', () => {
     const { container } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <div data-testid="select"><OxygenTextField select label="Role" error value="" /></div>
         <div data-testid="mui-select">
           <FormControl error><InputLabel id="r">Role</InputLabel><Select labelId="r" label="Role" value="" /></FormControl>
@@ -554,7 +552,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('fills the selected menu item with the neutral selected colour, not a primary tint', () => {
     const { container } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <MenuList><MenuItem selected>Development</MenuItem></MenuList>
       </OxygenUIThemeProvider>
     );
@@ -572,12 +570,12 @@ describe('ChoreoLabsTheme states', () => {
     ['light', { linkColor: '#5A6072', linkHoverColor: BURN, separatorColor: '#5A6072' }],
     ['dark', { linkColor: '#AEB6C6', linkHoverColor: SIGNAL, separatorColor: '#5F6B85' }],
   ] as const)('uses the guideline breadcrumb colours in the %s scheme', (scheme, colors) => {
-    expect(ChoreoLabsTheme.colorSchemes[scheme]!.palette.Breadcrumbs).toEqual(colors);
+    expect(DefaultTheme.colorSchemes[scheme]!.palette.Breadcrumbs).toEqual(colors);
   });
 
   it('separates app breadcrumbs with a slash and colours each level', () => {
     const { container, getByText } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <AppBreadcrumbs items={[{ key: 'home', label: 'Home', onClick: () => {} }, { key: 'api', label: 'API Platform' }]} />
       </OxygenUIThemeProvider>
     );
@@ -595,7 +593,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('keeps a custom app breadcrumb separator', () => {
     const { container } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <AppBreadcrumbs separator=">" items={[{ key: 'home', label: 'Home' }, { key: 'api', label: 'API Platform' }]} />
       </OxygenUIThemeProvider>
     );
@@ -605,7 +603,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('spaces breadcrumb slashes 10px apart and keeps the current level at regular weight', () => {
     render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Breadcrumbs><span>Home</span><span>API Platform</span></Breadcrumbs>
       </OxygenUIThemeProvider>
     );
@@ -620,7 +618,7 @@ describe('ChoreoLabsTheme states', () => {
     ['light', { hoverColor: BURN, primaryColor: BURN, secondaryColor: MIDNIGHT_INK, successColor: '#15803D', errorColor: '#B42318', warningColor: '#8A5A00', infoColor: MIDNIGHT_INK }],
     ['dark', { hoverColor: SIGNAL, primaryColor: SIGNAL, secondaryColor: '#FFFFFF', successColor: '#4ADE80', errorColor: '#FF7A7F', warningColor: '#FCD34D', infoColor: '#FFFFFF' }],
   ] as const)('uses the brand link colours in the %s scheme', (scheme, colors) => {
-    expect(ChoreoLabsTheme.colorSchemes[scheme]!.palette.Link).toEqual(colors);
+    expect(DefaultTheme.colorSchemes[scheme]!.palette.Link).toEqual(colors);
   });
 
   // The last value of a property in a class's rules is the one that applies; hover keeps the
@@ -634,7 +632,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('gives links without a colour the default text colour, turning orange on hover', () => {
     const { getByText } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Link href="/docs">Docs</Link>
       </OxygenUIThemeProvider>
     );
@@ -647,7 +645,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it.each(['primary', 'secondary', 'success', 'error', 'warning', 'info'] as const)('uses the brand colour for color="%s" links', (color) => {
     const { getByText } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Link href="/docs" color={color}>Docs</Link>
       </OxygenUIThemeProvider>
     );
@@ -661,7 +659,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('leaves color="inherit" links in the surrounding colour', () => {
     const { getByText } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Link href="/docs" color="inherit">Docs</Link>
       </OxygenUIThemeProvider>
     );
@@ -672,7 +670,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('gives footer links the default text colour, with the link hover colour', () => {
     render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Footer><Footer.Link href="/terms">Terms</Footer.Link></Footer>
       </OxygenUIThemeProvider>
     );
@@ -688,7 +686,7 @@ describe('ChoreoLabsTheme states', () => {
     ['always', 'underline', 'underline'],
   ] as const)('follows underline="%s" on links', (underline, rest, hover) => {
     const { getByText } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Link href="/docs" underline={underline}>Docs</Link>
       </OxygenUIThemeProvider>
     );
@@ -701,7 +699,7 @@ describe('ChoreoLabsTheme states', () => {
   });
 
   it('underlines links on hover by default', () => {
-    expect(ChoreoLabsTheme.components?.MuiLink?.defaultProps?.underline).toBe('hover');
+    expect(DefaultTheme.components?.MuiLink?.defaultProps?.underline).toBe('hover');
   });
 
   // The last value of a property among rules whose selector list includes `selector`
@@ -713,7 +711,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('gives ComplexSelect options the neutral hover and selected fills of Select options', () => {
     render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <ComplexSelect open value="a" onChange={() => {}}>
           <ComplexSelect.MenuItem value="a">Alpha</ComplexSelect.MenuItem>
           <ComplexSelect.MenuItem value="b">Beta</ComplexSelect.MenuItem>
@@ -731,7 +729,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('styles the ComplexSelect outside label like the Select fixed label', () => {
     const { getByText } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <ComplexSelect label="Role" labelAnchor="outside" value="a" onChange={() => {}}>
           <ComplexSelect.MenuItem value="a">Alpha</ComplexSelect.MenuItem>
         </ComplexSelect>
@@ -752,7 +750,7 @@ describe('ChoreoLabsTheme states', () => {
     ['border', 'var(--oxygen-palette-text-primary)', undefined],
   ] as const)('gives ComplexSelect with the label %s a text-colour focus border, with a ring unless the label is on the border', (labelAnchor, borderColor, ring) => {
     const { container } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <ComplexSelect label="Role" labelAnchor={labelAnchor} value="a" onChange={() => {}}>
           <ComplexSelect.MenuItem value="a">Alpha</ComplexSelect.MenuItem>
         </ComplexSelect>
@@ -767,7 +765,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it.each(['outside', 'inside'] as const)('turns the ComplexSelect focus ring red on error with the label %s', (labelAnchor) => {
     const { container } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <ComplexSelect label="Role" labelAnchor={labelAnchor} error value="a" onChange={() => {}}>
           <ComplexSelect.MenuItem value="a">Alpha</ComplexSelect.MenuItem>
         </ComplexSelect>
@@ -780,7 +778,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('gives a ComplexSelect without a label the text-colour focus border but no ring, like a Select without one', () => {
     const { container } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <ComplexSelect value="a" onChange={() => {}} slotProps={{ input: { 'aria-label': 'Role' } }}>
           <ComplexSelect.MenuItem value="a">Alpha</ComplexSelect.MenuItem>
         </ComplexSelect>
@@ -795,7 +793,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('gives a SearchBar without a floating label the fixed-label focus ring, red on error', () => {
     const { container } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <SearchBar />
       </OxygenUIThemeProvider>
     );
@@ -809,7 +807,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('styles links and text inside plain Breadcrumbs like AppBreadcrumbs items', () => {
     const { getByText } = render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <Breadcrumbs>
           <Link underline="hover" color="inherit" href="#">Home</Link>
           <Typography color="text.primary">Products</Typography>
@@ -832,7 +830,7 @@ describe('ChoreoLabsTheme states', () => {
 
   it('uses Cobalt for focus on every input variant', () => {
     render(
-      <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+      <OxygenUIThemeProvider theme={DefaultTheme}>
         <OutlinedInput />
         <FilledInput />
         <Input />

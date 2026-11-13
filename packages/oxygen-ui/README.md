@@ -12,7 +12,7 @@ yarn add @wso2/oxygen-ui @emotion/react @emotion/styled @mui/material
 pnpm add @wso2/oxygen-ui @emotion/react @emotion/styled @mui/material
 ```
 
-**Note:** The Inter Variable and Sora Variable (used by `ChoreoLabsTheme`) fonts are automatically bundled and loaded when you import from `@wso2/oxygen-ui`. No additional setup required!
+**Note:** The Inter Variable and Sora Variable (used by the default theme) fonts are automatically bundled and loaded when you import from `@wso2/oxygen-ui`. No additional setup required!
 
 ### Peer Dependencies
 

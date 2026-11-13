@@ -86,7 +86,7 @@ Suggestions follow these rules:
 
 ## How it behaves
 
-- The label renders as a `FormLabel` above the select and keeps its colour on focus and in the error state; the error shows on the field's border and in helper text. Focus shows only on the field: in the Choreo Labs theme, a text-colour border with a Cobalt ring, the same as fixed-label text fields.
+- The label renders as a `FormLabel` above the select and keeps its colour on focus and in the error state; the error shows on the field's border and in helper text. Focus shows only on the field: in the default theme, a text-colour border with a Cobalt ring, the same as fixed-label text fields.
 - The label names the combobox through `labelId` (or `htmlFor` with `native`), so screen readers announce it. Do not add your own `aria-label` when a label is set.
 - `sx`, `className`, `style`, `fullWidth` and `ref` apply to the outer wrapper that holds the label and the select. `size`, `variant`, `required`, `error` and `disabled` apply to both.
 - `placeholder` shows text in the field while nothing is selected (an empty value: `''`, `null`, `undefined` or `[]`), in the secondary text colour so it meets contrast requirements. It works with a custom `renderValue`. Native selects ignore it, so give them an empty option with the developer's placeholder text instead: `<option value="">Select a role</option>`.

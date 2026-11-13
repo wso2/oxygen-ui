@@ -28,20 +28,20 @@ declare module '@mui/material/styles' {
   }
   interface PaletteOptions {
     accent?: PaletteOptions['primary'];
-    Button?: Partial<ChoreoLabsButtonPalette>;
-    Breadcrumbs?: Partial<ChoreoLabsBreadcrumbsPalette>;
-    Link?: Partial<ChoreoLabsLinkPalette>;
+    Button?: Partial<DefaultThemeButtonPalette>;
+    Breadcrumbs?: Partial<DefaultThemeBreadcrumbsPalette>;
+    Link?: Partial<DefaultThemeLinkPalette>;
   }
   interface Palette {
-    // Only set by ChoreoLabsTheme
-    Button?: ChoreoLabsButtonPalette;
-    Breadcrumbs?: ChoreoLabsBreadcrumbsPalette;
-    Link?: ChoreoLabsLinkPalette;
+    // Only set by the default theme
+    Button?: DefaultThemeButtonPalette;
+    Breadcrumbs?: DefaultThemeBreadcrumbsPalette;
+    Link?: DefaultThemeLinkPalette;
   }
 }
 
 /** Link colours that differ between the light and dark schemes */
-interface ChoreoLabsLinkPalette {
+interface DefaultThemeLinkPalette {
   /** Default (text colour) links on hover */
   hoverColor: string;
   /** Text of links with a palette `color` */
@@ -56,7 +56,7 @@ interface ChoreoLabsLinkPalette {
 const linkColors = ['primary', 'secondary', 'success', 'error', 'warning', 'info'] as const;
 
 /** Breadcrumb colours that differ between the light and dark schemes */
-interface ChoreoLabsBreadcrumbsPalette {
+interface DefaultThemeBreadcrumbsPalette {
   /** Parent levels */
   linkColor: string;
   /** Parent levels on hover */
@@ -69,7 +69,7 @@ interface ChoreoLabsBreadcrumbsPalette {
  * Button colours that differ between the light and dark schemes. Kept in the palette so each scheme
  * swaps them through CSS variables, instead of scheme selectors that would outrank the disabled style.
  */
-interface ChoreoLabsButtonPalette {
+interface DefaultThemeButtonPalette {
   /** Outlined primary border and label, and text primary label */
   outlinedColor: string;
   /** Text primary label on hover */
@@ -117,9 +117,9 @@ const tagStyle = (backgroundColor: string, color: string) => ({
 });
 
 /**
- * Choreo Labs core colours, from the Choreo Labs Web Design System.
+ * Core brand colours, from the web design system.
  */
-const ChoreoLabsColors = {
+const BrandColors = {
   signal: '#FF4600',
   flare: '#FF6E33',
   ember: '#8F2400',
@@ -147,18 +147,18 @@ const ChoreoLabsColors = {
 };
 
 // The guidelines define no info colour and Cobalt is never a fill, so info is neutral navy.
-const ChoreoLabsStatusColors = {
+const StatusColors = {
   light: {
-    info: { main: ChoreoLabsColors.midnightInk, contrastText: ChoreoLabsColors.white },
-    success: { main: '#16A34A', dark: '#15803D', contrastText: ChoreoLabsColors.white },
-    warning: { main: '#F5B300', dark: '#8A5A00', contrastText: ChoreoLabsColors.midnightInk },
-    error: { main: '#E5484D', dark: '#B42318', contrastText: ChoreoLabsColors.white },
+    info: { main: BrandColors.midnightInk, contrastText: BrandColors.white },
+    success: { main: '#16A34A', dark: '#15803D', contrastText: BrandColors.white },
+    warning: { main: '#F5B300', dark: '#8A5A00', contrastText: BrandColors.midnightInk },
+    error: { main: '#E5484D', dark: '#B42318', contrastText: BrandColors.white },
   },
   dark: {
-    info: { main: ChoreoLabsColors.white, contrastText: ChoreoLabsColors.midnightInk },
-    success: { main: '#4ADE80', contrastText: ChoreoLabsColors.midnightInk },
-    warning: { main: '#FCD34D', contrastText: ChoreoLabsColors.midnightInk },
-    error: { main: '#FF7A7F', contrastText: ChoreoLabsColors.midnightInk },
+    info: { main: BrandColors.white, contrastText: BrandColors.midnightInk },
+    success: { main: '#4ADE80', contrastText: BrandColors.midnightInk },
+    warning: { main: '#FCD34D', contrastText: BrandColors.midnightInk },
+    error: { main: '#FF7A7F', contrastText: BrandColors.midnightInk },
   },
 };
 
@@ -214,74 +214,74 @@ const typographyVariants: TypographyVariant[] = [
   'subtitle1', 'subtitle2', 'body1', 'body2', 'button', 'caption', 'overline',
 ];
 
-const ChoreoLabsColorSchemes = {
+const DefaultThemeColorSchemes = {
   light: {
     palette: {
       primary: {
-        main: ChoreoLabsColors.signal,
-        dark: ChoreoLabsColors.burn,
-        contrastText: ChoreoLabsColors.midnightInk,
+        main: BrandColors.signal,
+        dark: BrandColors.burn,
+        contrastText: BrandColors.midnightInk,
       },
       secondary: {
-        main: ChoreoLabsColors.midnightInk,
-        contrastText: ChoreoLabsColors.white,
+        main: BrandColors.midnightInk,
+        contrastText: BrandColors.white,
       },
       accent: {
-        main: ChoreoLabsColors.burn,
-        light: ChoreoLabsColors.signal,
-        dark: ChoreoLabsColors.ember,
-        contrastText: ChoreoLabsColors.white,
+        main: BrandColors.burn,
+        light: BrandColors.signal,
+        dark: BrandColors.ember,
+        contrastText: BrandColors.white,
       },
       background: {
-        default: ChoreoLabsColors.paper,
+        default: BrandColors.paper,
         paper: '#ffffffc5',
-        acrylic: ChoreoLabsColors.white,
+        acrylic: BrandColors.white,
       },
       text: {
-        primary: ChoreoLabsColors.midnightInk,
-        secondary: ChoreoLabsColors.slate,
+        primary: BrandColors.midnightInk,
+        secondary: BrandColors.slate,
       },
-      divider: ChoreoLabsColors.fog,
-      ...ChoreoLabsStatusColors.light,
+      divider: BrandColors.fog,
+      ...StatusColors.light,
       Avatar: {
-        defaultBg: ChoreoLabsColors.fog,
+        defaultBg: BrandColors.fog,
       },
       Button: {
-        outlinedColor: ChoreoLabsColors.burn,
-        textHoverColor: ChoreoLabsColors.ember,
+        outlinedColor: BrandColors.burn,
+        textHoverColor: BrandColors.ember,
         // Midnight Ink fill: darkens to Void
-        containedSecondaryHoverBg: ChoreoLabsColors.void,
-        containedSecondaryHoverColor: ChoreoLabsColors.white,
-        containedSecondaryActiveColor: ChoreoLabsColors.white,
-        disabledBg: ChoreoLabsColors.fog,
-        disabledColor: ChoreoLabsColors.slate,
-        focusRing: ChoreoLabsColors.cobalt,
+        containedSecondaryHoverBg: BrandColors.void,
+        containedSecondaryHoverColor: BrandColors.white,
+        containedSecondaryActiveColor: BrandColors.white,
+        disabledBg: BrandColors.fog,
+        disabledColor: BrandColors.slate,
+        focusRing: BrandColors.cobalt,
       },
       Breadcrumbs: {
-        linkColor: ChoreoLabsColors.slate,
-        linkHoverColor: ChoreoLabsColors.burn,
-        separatorColor: ChoreoLabsColors.slate,
+        linkColor: BrandColors.slate,
+        linkHoverColor: BrandColors.burn,
+        separatorColor: BrandColors.slate,
       },
       // Signal and the status colours are below 4.5:1 as text on light surfaces, so light-mode
       // link text uses their dark shades, the same as the Alert text colours
       Link: {
-        hoverColor: ChoreoLabsColors.burn,
-        primaryColor: ChoreoLabsColors.burn,
-        secondaryColor: ChoreoLabsColors.midnightInk,
+        hoverColor: BrandColors.burn,
+        primaryColor: BrandColors.burn,
+        secondaryColor: BrandColors.midnightInk,
         successColor: '#15803D',
         errorColor: '#B42318',
         warningColor: '#8A5A00',
-        infoColor: ChoreoLabsColors.midnightInk,
+        infoColor: BrandColors.midnightInk,
       },
       Alert: {
-        infoColor: ChoreoLabsColors.midnightInk,
-        infoIconColor: ChoreoLabsColors.midnightInk,
-        infoStandardBg: ChoreoLabsColors.mist,
+        infoColor: BrandColors.midnightInk,
+        infoIconColor: BrandColors.midnightInk,
+        infoStandardBg: BrandColors.mist,
         successColor: '#15803D',
         successStandardBg: '#DCFCE7',
         warningColor: '#8A5A00',
         warningStandardBg: '#FEF6D8',
-        warningFilledColor: ChoreoLabsColors.midnightInk,
+        warningFilledColor: BrandColors.midnightInk,
         errorColor: '#B42318',
         errorStandardBg: '#FDE7E7',
       },
@@ -290,80 +290,80 @@ const ChoreoLabsColorSchemes = {
   dark: {
     palette: {
       primary: {
-        main: ChoreoLabsColors.signal,
-        dark: ChoreoLabsColors.burn,
-        contrastText: ChoreoLabsColors.midnightInk,
+        main: BrandColors.signal,
+        dark: BrandColors.burn,
+        contrastText: BrandColors.midnightInk,
       },
       // Midnight Ink disappears on the dark ground, so dark mode inverts the secondary colour
       secondary: {
-        main: ChoreoLabsColors.white,
-        contrastText: ChoreoLabsColors.midnightInk,
+        main: BrandColors.white,
+        contrastText: BrandColors.midnightInk,
       },
       accent: {
-        main: ChoreoLabsColors.burn,
-        light: ChoreoLabsColors.signal,
-        dark: ChoreoLabsColors.ember,
-        contrastText: ChoreoLabsColors.white,
+        main: BrandColors.burn,
+        light: BrandColors.signal,
+        dark: BrandColors.ember,
+        contrastText: BrandColors.white,
       },
       background: {
-        default: ChoreoLabsColors.blackout,
-        paper: `${ChoreoLabsColors.deepNavy}c5`,
-        acrylic: `${ChoreoLabsColors.midnightInk}40`,
+        default: BrandColors.blackout,
+        paper: `${BrandColors.deepNavy}c5`,
+        acrylic: `${BrandColors.midnightInk}40`,
       },
       text: {
-        primary: ChoreoLabsColors.white,
+        primary: BrandColors.white,
         secondary: '#D0D3E2',
       },
       divider: '#ffffff16',
-      ...ChoreoLabsStatusColors.dark,
+      ...StatusColors.dark,
       Avatar: {
-        defaultBg: ChoreoLabsColors.graphite,
+        defaultBg: BrandColors.graphite,
       },
       Button: {
-        outlinedColor: ChoreoLabsColors.signal,
-        textHoverColor: ChoreoLabsColors.flare,
+        outlinedColor: BrandColors.signal,
+        textHoverColor: BrandColors.flare,
         // White fill (the guideline's inverse button): the fill stays and the label turns orange
-        containedSecondaryHoverBg: ChoreoLabsColors.white,
-        containedSecondaryHoverColor: ChoreoLabsColors.action,
-        containedSecondaryActiveColor: ChoreoLabsColors.burn,
-        disabledBg: ChoreoLabsColors.midnight900,
-        disabledColor: ChoreoLabsColors.midnightText3,
-        focusRing: ChoreoLabsColors.azure,
+        containedSecondaryHoverBg: BrandColors.white,
+        containedSecondaryHoverColor: BrandColors.action,
+        containedSecondaryActiveColor: BrandColors.burn,
+        disabledBg: BrandColors.midnight900,
+        disabledColor: BrandColors.midnightText3,
+        focusRing: BrandColors.azure,
       },
       Breadcrumbs: {
-        linkColor: ChoreoLabsColors.midnightText2,
-        linkHoverColor: ChoreoLabsColors.signal,
-        separatorColor: ChoreoLabsColors.midnightText4,
+        linkColor: BrandColors.midnightText2,
+        linkHoverColor: BrandColors.signal,
+        separatorColor: BrandColors.midnightText4,
       },
       Link: {
-        hoverColor: ChoreoLabsColors.signal,
-        primaryColor: ChoreoLabsColors.signal,
-        secondaryColor: ChoreoLabsColors.white,
+        hoverColor: BrandColors.signal,
+        primaryColor: BrandColors.signal,
+        secondaryColor: BrandColors.white,
         successColor: '#4ADE80',
         errorColor: '#FF7A7F',
         warningColor: '#FCD34D',
-        infoColor: ChoreoLabsColors.white,
+        infoColor: BrandColors.white,
       },
       Alert: {
-        infoColor: ChoreoLabsColors.white,
-        infoIconColor: ChoreoLabsColors.white,
-        infoStandardBg: ChoreoLabsColors.midnightInk,
+        infoColor: BrandColors.white,
+        infoIconColor: BrandColors.white,
+        infoStandardBg: BrandColors.midnightInk,
         // The derived filled colour would be grey
-        infoFilledBg: ChoreoLabsColors.deepNavy,
-        infoFilledColor: ChoreoLabsColors.white,
+        infoFilledBg: BrandColors.deepNavy,
+        infoFilledColor: BrandColors.white,
         // Status text in dark mode is the light shade on Ink; filled alerts keep the base colours
         successColor: '#4ADE80',
-        successStandardBg: ChoreoLabsColors.midnightInk,
+        successStandardBg: BrandColors.midnightInk,
         successFilledBg: '#16A34A',
-        successFilledColor: ChoreoLabsColors.white,
+        successFilledColor: BrandColors.white,
         warningColor: '#FCD34D',
-        warningStandardBg: ChoreoLabsColors.midnightInk,
+        warningStandardBg: BrandColors.midnightInk,
         warningFilledBg: '#F5B300',
-        warningFilledColor: ChoreoLabsColors.midnightInk,
+        warningFilledColor: BrandColors.midnightInk,
         errorColor: '#FF7A7F',
-        errorStandardBg: ChoreoLabsColors.midnightInk,
+        errorStandardBg: BrandColors.midnightInk,
         errorFilledBg: '#E5484D',
-        errorFilledColor: ChoreoLabsColors.white,
+        errorFilledColor: BrandColors.white,
       },
     },
   },
@@ -374,25 +374,25 @@ const ChoreoLabsColorSchemes = {
 // Building the palettes on their own first gives createOxygenTheme a complete set that replaces them.
 const { colorSchemes } = extendTheme({
   cssVarPrefix: 'oxygen', // Same as OxygenThemeBase, so derived values reference --oxygen-* variables
-  colorSchemes: ChoreoLabsColorSchemes,
+  colorSchemes: DefaultThemeColorSchemes,
 });
 
 /**
- * ChoreoLabs Theme - Choreo Labs brand theme
- * A copy of AcrylicOrangeTheme (translucent acrylic surfaces) with the Choreo Labs palette and the
- * Sora typeface: Signal orange primary, Midnight Ink text and Blackout dark mode. The brand uses no gradients, so the page
- * background is the flat Paper or Blackout colour instead of Acrylic Orange's radial background.
+ * Default Theme - exported as `OxygenTheme`, and used by `OxygenUIThemeProvider` when no theme is passed.
+ * The brand palette and the Sora typeface: Signal orange primary, Midnight Ink text and Blackout dark mode.
+ * The brand uses no gradients, so the page background is the flat Paper or Blackout colour, with White
+ * header, sidebar and cards in light mode.
  *
  * Usage:
  * ```tsx
- * import { OxygenUIThemeProvider, ChoreoLabsTheme } from '@wso2/oxygen-ui';
+ * import { OxygenUIThemeProvider } from '@wso2/oxygen-ui';
  *
- * <OxygenUIThemeProvider theme={ChoreoLabsTheme}>
+ * <OxygenUIThemeProvider>
  *   <App />
  * </OxygenUIThemeProvider>
  * ```
  */
-const ChoreoLabsThemeConfig = {
+const DefaultThemeConfig = {
   colorSchemes,
   typography: typographyVariants.reduce<TypographyVariantsOptions>(
     (typography, variant) => ({ ...typography, [variant]: { fontFamily } }),
@@ -403,7 +403,7 @@ const ChoreoLabsThemeConfig = {
   },
   gradient: {
     // Unused by the theme; kept flat for apps that read theme.gradient.primary
-    primary: `linear-gradient(${ChoreoLabsColors.signal}, ${ChoreoLabsColors.signal})`,
+    primary: `linear-gradient(${BrandColors.signal}, ${BrandColors.signal})`,
   },
   components: {
     MuiAvatar: {
@@ -430,7 +430,7 @@ const ChoreoLabsThemeConfig = {
       styleOverrides: {
         root: {
           '&.Mui-focusVisible': {
-            outline: `2px solid ${ChoreoLabsColors.cobalt}`,
+            outline: `2px solid ${BrandColors.cobalt}`,
             outlineOffset: 2,
           },
         },
@@ -442,7 +442,7 @@ const ChoreoLabsThemeConfig = {
         disableElevation: true,
       },
       styleOverrides: {
-        // States follow the Choreo Labs button guidelines. Keyboard focus takes the hover colours (without
+        // States follow the brand button guidelines. Keyboard focus takes the hover colours (without
         // the lift), as in the guidelines. Hover rules come before active ones so a pressed button shows
         // its active colours.
         root: ({ theme }: { theme: OxygenTheme }) => ({
@@ -497,7 +497,7 @@ const ChoreoLabsThemeConfig = {
           color: theme.vars.palette.primary.contrastText,
           '&:hover, &.Mui-focusVisible, &:active': {
             backgroundColor: theme.vars.palette.primary.main,
-            color: ChoreoLabsColors.white,
+            color: BrandColors.white,
           },
         }),
         // Burn outline (Signal in dark mode); fills with Signal on hover and Action with an Ink label when pressed
@@ -507,12 +507,12 @@ const ChoreoLabsThemeConfig = {
           '&:hover, &.Mui-focusVisible': {
             borderColor: theme.vars.palette.primary.main,
             backgroundColor: theme.vars.palette.primary.main,
-            color: ChoreoLabsColors.white,
+            color: BrandColors.white,
           },
           '&:active': {
-            borderColor: ChoreoLabsColors.action,
-            backgroundColor: ChoreoLabsColors.action,
-            color: ChoreoLabsColors.midnightInk,
+            borderColor: BrandColors.action,
+            backgroundColor: BrandColors.action,
+            color: BrandColors.midnightInk,
           },
         }),
         // The guidelines have no text button, so it follows the link colours: Burn, then Ember on hover
@@ -572,13 +572,13 @@ const ChoreoLabsThemeConfig = {
         {
           props: { variant: 'subtle' },
           style: {
-            backgroundColor: ChoreoLabsColors.action,
-            color: ChoreoLabsColors.white,
+            backgroundColor: BrandColors.action,
+            color: BrandColors.white,
             '&:hover, &.Mui-focusVisible': {
-              backgroundColor: ChoreoLabsColors.burn,
+              backgroundColor: BrandColors.burn,
             },
             '&:active': {
-              backgroundColor: ChoreoLabsColors.ember,
+              backgroundColor: BrandColors.ember,
             },
           },
         },
@@ -590,11 +590,11 @@ const ChoreoLabsThemeConfig = {
           backgroundColor: theme.vars.palette.primary.main,
           color: theme.vars.palette.primary.contrastText,
           '&:hover': {
-            backgroundColor: ChoreoLabsColors.flare,
+            backgroundColor: BrandColors.flare,
           },
           '&:active': {
-            backgroundColor: ChoreoLabsColors.ember,
-            color: ChoreoLabsColors.white,
+            backgroundColor: BrandColors.ember,
+            color: BrandColors.white,
           },
         }),
       },
@@ -623,7 +623,7 @@ const ChoreoLabsThemeConfig = {
           WebkitBackdropFilter: theme.blur.light,
           backdropFilter: theme.blur.light,
           ...theme.applyStyles('light', {
-            backgroundColor: ChoreoLabsColors.white,
+            backgroundColor: BrandColors.white,
           }),
         }),
       },
@@ -636,7 +636,7 @@ const ChoreoLabsThemeConfig = {
           backdropFilter: theme.blur.medium,
           borderRadius: 0,
           ...theme.applyStyles('light', {
-            backgroundColor: `${ChoreoLabsColors.white} !important`,
+            backgroundColor: `${BrandColors.white} !important`,
           }),
         }),
       },
@@ -802,7 +802,7 @@ const ChoreoLabsThemeConfig = {
           borderRadius: 8,
           backgroundColor: theme.vars.palette.background.acrylic,
           '&.Mui-focused:not(.Mui-error) .MuiOutlinedInput-notchedOutline': {
-            borderColor: ChoreoLabsColors.cobalt,
+            borderColor: BrandColors.cobalt,
           },
           // Text inputs and fixed-label selects follow the brand's focus style (thin text-colour border,
           // ring on fixed-label fields), while floating-label selects keep the Cobalt border above.
@@ -814,7 +814,7 @@ const ChoreoLabsThemeConfig = {
           },
           // A box-shadow ignores the outline's notch and would cut through a floating label.
           [onFixedLabelInput('.Mui-focused')]: {
-            boxShadow: `0 0 0 3px ${ChoreoLabsColors.cobalt}40`,
+            boxShadow: `0 0 0 3px ${BrandColors.cobalt}40`,
           },
           [onFixedLabelInput('.Mui-focused.Mui-error')]: {
             boxShadow: `0 0 0 3px rgba(${theme.vars.palette.error.mainChannel} / 0.25)`,
@@ -830,7 +830,7 @@ const ChoreoLabsThemeConfig = {
       styleOverrides: {
         root: {
           '&:not(.Mui-error)::after': {
-            borderBottomColor: ChoreoLabsColors.cobalt,
+            borderBottomColor: BrandColors.cobalt,
           },
         },
       },
@@ -839,7 +839,7 @@ const ChoreoLabsThemeConfig = {
       styleOverrides: {
         root: {
           '&:not(.Mui-error)::after': {
-            borderBottomColor: ChoreoLabsColors.cobalt,
+            borderBottomColor: BrandColors.cobalt,
           },
         },
       },
@@ -890,7 +890,7 @@ const ChoreoLabsThemeConfig = {
           },
           ...((labelAnchor === 'outside' || labelAnchor === 'inside') && {
             '&.Mui-focused': {
-              boxShadow: `0 0 0 3px ${ChoreoLabsColors.cobalt}40`,
+              boxShadow: `0 0 0 3px ${BrandColors.cobalt}40`,
             },
             '&.Mui-focused.Mui-error': {
               boxShadow: `0 0 0 3px rgba(${theme.vars.palette.error.mainChannel} / 0.25)`,
@@ -915,7 +915,7 @@ const ChoreoLabsThemeConfig = {
       styleOverrides: {
         root: ({ theme }: { theme: OxygenTheme }) => ({
           '&:not(:has(> .MuiInputLabel-root)) > .MuiOutlinedInput-root.Mui-focused': {
-            boxShadow: `0 0 0 3px ${ChoreoLabsColors.cobalt}40`,
+            boxShadow: `0 0 0 3px ${BrandColors.cobalt}40`,
           },
           '&:not(:has(> .MuiInputLabel-root)) > .MuiOutlinedInput-root.Mui-focused.Mui-error': {
             boxShadow: `0 0 0 3px rgba(${theme.vars.palette.error.mainChannel} / 0.25)`,
@@ -950,7 +950,7 @@ const ChoreoLabsThemeConfig = {
             })),
           ],
           '&.Mui-focusVisible, &:focus-visible': {
-            outline: `2px solid ${ChoreoLabsColors.cobalt}`,
+            outline: `2px solid ${BrandColors.cobalt}`,
             outlineOffset: 2,
           },
         }),
@@ -1076,6 +1076,6 @@ const ChoreoLabsThemeConfig = {
   },
 };
 
-const ChoreoLabsTheme = createOxygenTheme(ChoreoLabsThemeConfig, OxygenThemeBase);
+const DefaultTheme = createOxygenTheme(DefaultThemeConfig, OxygenThemeBase);
 
-export default ChoreoLabsTheme;
+export default DefaultTheme;

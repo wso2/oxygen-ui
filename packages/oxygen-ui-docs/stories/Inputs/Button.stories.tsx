@@ -69,7 +69,7 @@ export const Variants: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'The `subtle` variant is styled by `ChoreoLabsTheme` only: an Action orange fill with a white label.',
+        story: 'The `subtle` variant is styled by the default theme only: an Action orange fill with a white label.',
       },
     },
   },
@@ -96,7 +96,7 @@ export const ColorVariants: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Every variant in each color. The `accent` color is defined by `ChoreoLabsTheme` only. ' +
+        story: 'Every variant in each color. The `accent` color is defined by the default theme only. ' +
           'Use `error` for destructive actions such as delete; `success` is shown for completeness.',
       },
     },

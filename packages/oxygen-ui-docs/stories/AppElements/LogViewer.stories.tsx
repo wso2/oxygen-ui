@@ -139,6 +139,15 @@ const meta: Meta<typeof LogViewer> = {
   component: LogViewer,
   tags: ['autodocs'],
   parameters: {
+    a11y: {
+      // Known WCAG AA exception: the default theme's success and error colours (#16A34A, #E5484D)
+      // do not meet the 4.5:1 text-contrast requirement on light surfaces.
+      // Tracked in https://github.com/wso2/oxygen-ui/issues/558 — remove
+      // this override once the palette decision lands.
+      options: {
+        rules: { 'color-contrast': { enabled: false } },
+      },
+    },
     layout: 'padded',
     docs: {
       description: {

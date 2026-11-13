@@ -29,9 +29,9 @@ import {
   useThemeSwitcher,
   AcrylicOrangeTheme,
   AcrylicPurpleTheme,
-  ChoreoLabsTheme,
   ClassicTheme,
   HighContrastTheme,
+  OxygenTheme,
   PaleGrayTheme,
   PaleIndigoTheme,
   WSO2Theme,
@@ -110,16 +110,16 @@ const preview = {
     theme: {
       name: 'Theme',
       description: 'Global theme for components',
-      defaultValue: 'classic',
+      defaultValue: 'default',
       toolbar: {
         icon: 'paintbrush',
         items: [
+          { value: 'default', title: 'Default' },
           { value: 'wso2', title: 'WSO2' },
           { value: 'classic', title: 'Classic' },
           { value: 'highContrast', title: 'High Contrast' },
           { value: 'acrylicOrange', title: 'Acrylic Orange' },
           { value: 'acrylicPurple', title: 'Acrylic Purple' },
-          { value: 'choreoLabs', title: 'Choreo Labs' },
         ],
         showName: true,
         dynamicTitle: true,
@@ -130,13 +130,13 @@ const preview = {
   decorators: [
     (Story, context) => {
       const mode = context.globals.colorScheme ?? 'dark';
-      const themeKey = context.globals.theme ?? 'wso2';
+      const themeKey = context.globals.theme ?? 'default';
 
       const themes = React.useMemo(() => [
         { key: 'acrylicOrange', label: 'Acrylic Orange', theme: AcrylicOrangeTheme },
         { key: 'acrylicPurple', label: 'Acrylic Purple', theme: AcrylicPurpleTheme },
-        { key: 'choreoLabs', label: 'Choreo Labs', theme: ChoreoLabsTheme },
         { key: 'classic', label: 'Classic', theme: ClassicTheme },
+        { key: 'default', label: 'Default', theme: OxygenTheme },
         { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
         { key: 'paleGray', label: 'Pale Gray', theme: PaleGrayTheme },
         { key: 'paleIndigo', label: 'Pale Indigo', theme: PaleIndigoTheme },
