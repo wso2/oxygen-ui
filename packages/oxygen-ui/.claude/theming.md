@@ -14,7 +14,7 @@
 
 | Theme | Import | Description |
 |-------|--------|-------------|
-| OxygenTheme | `OxygenTheme` | Default theme (Acrylic look with the brand colours and Sora font) |
+| OxygenTheme | `OxygenTheme` | Default theme (brand colours, Sora font and flat surfaces) |
 | Acrylic Orange | `AcrylicOrangeTheme` | Glass-morphism effects, orange primary |
 | Acrylic Purple | `AcrylicPurpleTheme` | Glass-morphism with purple accents |
 | Classic | `ClassicTheme` | Standard flat design |

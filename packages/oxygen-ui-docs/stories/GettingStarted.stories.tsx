@@ -229,7 +229,7 @@ export const Integrate: Story = {
             </Typography>
             <Stack spacing={0.5}>
               {[
-                ['OxygenTheme', 'Default theme: brand colours and Sora font on the Acrylic look'],
+                ['OxygenTheme', 'Default theme: brand colours, Sora font and flat surfaces'],
                 ['AcrylicOrangeTheme', 'Warm orange accent'],
                 ['AcrylicPurpleTheme', 'Rich purple accent'],
                 ['ClassicTheme', 'Traditional, conservative styling'],

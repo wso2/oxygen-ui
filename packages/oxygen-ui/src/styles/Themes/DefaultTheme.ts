@@ -379,9 +379,9 @@ const { colorSchemes } = extendTheme({
 
 /**
  * Default Theme - exported as `OxygenTheme`, and used by `OxygenUIThemeProvider` when no theme is passed.
- * Translucent acrylic surfaces with the brand palette and the Sora typeface: Signal orange primary,
- * Midnight Ink text and Blackout dark mode. The brand uses no gradients, so the page background is the flat
- * Paper or Blackout colour.
+ * The brand palette and the Sora typeface: Signal orange primary, Midnight Ink text and Blackout dark mode.
+ * The brand uses no gradients, so the page background is the flat Paper or Blackout colour, with White
+ * header, sidebar and cards in light mode.
  *
  * Usage:
  * ```tsx

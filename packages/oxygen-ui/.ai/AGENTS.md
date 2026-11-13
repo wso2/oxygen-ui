@@ -54,7 +54,7 @@ import { DataGrid, DatePickers, TreeView } from '@wso2/oxygen-ui';
 
 ## Available Themes
 
-- `OxygenTheme` - Default theme (recommended): Acrylic look with the brand colours and Sora font
+- `OxygenTheme` - Default theme (recommended): brand colours, Sora font and flat surfaces
 - `AcrylicOrangeTheme` - Orange accent variant
 - `AcrylicPurpleTheme` - Purple accent variant
 - `ClassicTheme` - Traditional styling
