@@ -31,6 +31,9 @@ const sourceRoot = path.resolve('src');
 
 const fontStylesheets = [path.join(sourceRoot, 'fonts.css'), path.join(sourceRoot, 'fonts-sora.css')];
 
+const injectionModuleOf = stylesheet => stylesheet.replace(/\.css$/, '.js');
+const stylesheetOf = injectionModule => injectionModule.replace(/\.js$/, '.css');
+
 /**
  * A font stylesheet becomes a JavaScript module that injects it. The module needs a `.js` id and
  * `moduleSideEffects`: under a `.css` id rolldown loses the import, and without the flag it drops the module.
@@ -45,13 +48,14 @@ const fontStylesheetsAsInjectionModules = {
       throw new Error(`${importer} imports ${source}, and only the font stylesheets are built to a module.`);
     }
 
-    return { id: stylesheet.replace(/\.css$/, '.js'), moduleSideEffects: true };
+    return { id: injectionModuleOf(stylesheet), moduleSideEffects: true };
   },
   async load(id) {
-    if (!fontStylesheets.includes(id.replace(/\.js$/, '.css'))) return null;
+    const stylesheet = stylesheetOf(id);
+    if (!fontStylesheets.includes(stylesheet)) return null;
 
     const { outputFiles } = await esbuild.build({
-      entryPoints: [id.replace(/\.js$/, '.css')],
+      entryPoints: [stylesheet],
       bundle: true,
       write: false,
       format: 'esm',
