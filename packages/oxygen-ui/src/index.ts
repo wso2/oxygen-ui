@@ -16,10 +16,6 @@
  * under the License.
  */
 
-// Auto-import bundled fonts
-import './fonts.css';
-import './fonts-sora.css';
-
 // Import package.json to extract version
 import pkg from '../package.json';
 

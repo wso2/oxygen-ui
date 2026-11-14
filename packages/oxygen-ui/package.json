@@ -9,13 +9,7 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    },
-    "./*": {
-      "types": "./dist/*.d.ts",
-      "import": "./dist/*.js",
-      "require": "./dist/*.cjs"
+      "import": "./dist/index.js"
     }
   },
   "bin": {
@@ -30,16 +24,17 @@
     "bin"
   ],
   "sideEffects": [
-    "src/styles/Themes/theme.css",
-    "dist/styles/Themes/theme.css"
+    "./dist/styles/OxygenThemeBase.js",
+    "./dist/fonts.js",
+    "./dist/fonts-sora.js"
   ],
   "scripts": {
-    "build": "pnpm clean && tsc -p tsconfig.json && node esbuild.config.js",
-    "build:watch": "node esbuild.config.js --watch",
-    "dev": "node esbuild.config.js --watch",
+    "build": "pnpm clean && tsc -p tsconfig.json && node build.mjs",
+    "build:watch": "node build.mjs --watch",
+    "dev": "node build.mjs --watch",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src",
-    "lint:fix": "eslint src --fix",
+    "lint": "eslint src test",
+    "lint:fix": "eslint src test --fix",
     "clean": "rimraf dist",
     "test": "vitest run",
     "test:watch": "vitest"
@@ -102,6 +97,7 @@
     "eslint-plugin-react-hooks": "catalog:",
     "jsdom": "catalog:",
     "rimraf": "catalog:",
+    "rolldown": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vitest": "catalog:"
@@ -114,6 +110,11 @@
       "build": {
         "dependsOn": [
           "^build"
+        ]
+      },
+      "test": {
+        "dependsOn": [
+          "build"
         ]
       }
     }
