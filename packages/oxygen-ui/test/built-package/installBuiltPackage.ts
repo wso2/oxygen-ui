@@ -88,7 +88,10 @@ const bundleWithRolldown: Bundle = async (appRoot, entry) => {
     cwd: appRoot,
     platform: 'browser',
     external: reactIsExternal,
-    logLevel: 'silent',
+    logLevel: 'warn',
+    onLog: (_level, log) => {
+      if (log.code === 'UNRESOLVED_IMPORT') throw new Error(log.message);
+    },
     plugins: [stylesheetsAsEmptyModules],
   });
 

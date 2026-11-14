@@ -54,6 +54,8 @@ const fontStylesheetsAsInjectionModules = {
     const stylesheet = stylesheetOf(id);
     if (!fontStylesheets.includes(stylesheet)) return null;
 
+    this.addWatchFile(stylesheet);
+
     const { outputFiles } = await esbuild.build({
       entryPoints: [stylesheet],
       bundle: true,
@@ -85,7 +87,9 @@ const options = {
 };
 
 if (process.argv.includes('--watch')) {
-  watch(options);
+  watch(options).on('event', event => {
+    if (event.code === 'ERROR') console.error(event.error);
+  });
 } else {
   const bundle = await rolldown(options);
 
