@@ -23,6 +23,17 @@ import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 
 /**
+ * Styled outer container for the sidebar footer that pushes it to the bottom.
+ */
+const SidebarFooterContainer = styled(Box, {
+  name: 'MuiSidebar',
+  slot: 'FooterContainer',
+})({
+  marginTop: 'auto',
+  width: '100%',
+});
+
+/**
  * Styled footer container for the sidebar.
  */
 const SidebarFooterRoot = styled(Box, {
@@ -57,10 +68,10 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({
   sx,
 }) => {
   return (
-    <>
+    <SidebarFooterContainer sx={sx}>
       {showDivider && <Divider />}
-      <SidebarFooterRoot sx={sx}>{children}</SidebarFooterRoot>
-    </>
+      <SidebarFooterRoot>{children}</SidebarFooterRoot>
+    </SidebarFooterContainer>
   );
 };
 

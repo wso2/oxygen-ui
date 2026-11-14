@@ -26,6 +26,7 @@ function LayoutSidebar({children = null, sx, ...rest}: PropsWithChildren<BoxProp
       sx={{
         display: 'flex',
         flexDirection: 'column',
+        height: '100%',
         ...sx,
       }}
       {...rest}
