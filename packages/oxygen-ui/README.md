@@ -401,6 +401,8 @@ Loading themes from URLs (`themes: [{ key: 'x', label: 'X', theme: '/themes/x.js
 
 ### Custom Oxygen UI Components
 
+- `AIAssistant` - Enterprise AI Copilot and conversational assistant with drawer, floating, and inline modes
+- `AIAssistantTrigger` - Accessible trigger button with sparkles icon and status badge
 - `OxygenTheme` - Default theme configuration
 - `OxygenThemeWithRadialBackground` - Theme variant with radial gradient backgrounds
 - `OxygenUIThemeProvider` - Theme provider component with theme switching support
