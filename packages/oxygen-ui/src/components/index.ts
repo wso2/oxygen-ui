@@ -113,6 +113,31 @@ export type {
   ContextSwitcherOptionProps,
 } from './ContextSwitcher';
 
+export {
+  HeaderBreadcrumbs,
+  useHeaderBreadcrumbs,
+  useHeaderBreadcrumbsValue,
+  HEADER_BREADCRUMBS_STORAGE_KEY,
+  readHeaderBreadcrumbsState,
+  writeHeaderBreadcrumbsState,
+  clearHeaderBreadcrumbsState,
+  subscribeHeaderBreadcrumbsState,
+} from './HeaderBreadcrumbs';
+export type {
+  HeaderBreadcrumbsProps,
+  HeaderBreadcrumbsItem,
+  HeaderBreadcrumbsLevel,
+  HeaderBreadcrumbsAction,
+  HeaderBreadcrumbsValue,
+  HeaderBreadcrumbsChange,
+  HeaderBreadcrumbsFetchContext,
+  HeaderBreadcrumbsLevelConfig,
+  UseHeaderBreadcrumbsOptions,
+  UseHeaderBreadcrumbsReturn,
+  HeaderBreadcrumbsPersistOptions,
+  HeaderBreadcrumbsStoredState,
+} from './HeaderBreadcrumbs';
+
 export { AppSwitcher } from './AppSwitcher';
 export type {
   AppSwitcherProps,

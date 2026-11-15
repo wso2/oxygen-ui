@@ -22,7 +22,7 @@ import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
 import type { EmotionCache } from '@emotion/cache';
 import { ReactNode, createContext, useContext, useState, useEffect, useMemo } from 'react';
-import OxygenTheme from '../../styles/Themes/AcrylicBaseTheme';
+import OxygenTheme from '../../styles/Themes/DefaultTheme';
 
 const THEME_STORAGE_KEY = 'oxygen-theme';
 

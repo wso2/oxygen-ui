@@ -504,17 +504,8 @@ export const Playground: Story = {
                   const org = mockOrganizations.find((o) => o.id === e.target.value);
                   if (org) setOrganization(org);
                 }}
-                size="small"
+                label="Organization"
                 sx={{ minWidth: 180 }}
-                slotProps={{ input: { 'aria-label': 'Organization' } }}
-                renderValue={() => (
-                  <>
-                    <ComplexSelect.MenuItem.Avatar>
-                      {selectedOrg.avatar}
-                    </ComplexSelect.MenuItem.Avatar>
-                    <ComplexSelect.MenuItem.Text primary={selectedOrg.name} />
-                  </>
-                )}
               >
                 <ComplexSelect.ListHeader>Organizations</ComplexSelect.ListHeader>
                 {mockOrganizations.map((org) => (
@@ -530,12 +521,8 @@ export const Playground: Story = {
                   const project = mockProjects.find((p) => p.id === e.target.value);
                   if (project) setProject(project);
                 }}
-                size="small"
+                label="Project"
                 sx={{ minWidth: 160 }}
-                slotProps={{ input: { 'aria-label': 'Project' } }}
-                renderValue={() => (
-                  <ComplexSelect.MenuItem.Text primary={selectedProject.name} />
-                )}
               >
                 <ComplexSelect.ListHeader>Projects</ComplexSelect.ListHeader>
                 {mockProjects.map((project) => (

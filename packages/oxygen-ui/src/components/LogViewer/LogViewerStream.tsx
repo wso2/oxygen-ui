@@ -588,6 +588,7 @@ const LogViewerStream = React.forwardRef<HTMLDivElement, LogViewerStreamProps>(f
     highlightedEntryId,
     columns,
     hideHeading,
+    alwaysShowFilterIcons,
     filters,
     awaitingRange,
     filterValues,
@@ -789,6 +790,7 @@ const LogViewerStream = React.forwardRef<HTMLDivElement, LogViewerStreamProps>(f
                   allLabel={filter.allLabel ?? `Any ${filter.label.toLowerCase()}`}
                   searchPlaceholder={filter.searchPlaceholder}
                   noMatchLabel={filter.noMatchLabel}
+                  alwaysShowIcon={alwaysShowFilterIcons}
                   disabled={loading}
                 />
               )}

@@ -1,5 +1,88 @@
 # @wso2/oxygen-ui
 
+## 0.25.0
+
+### Minor Changes
+
+- [#701](https://github.com/wso2/oxygen-ui/pull/701) [`7a62a8c`](https://github.com/wso2/oxygen-ui/commit/7a62a8c774cd2018cfc25997b1fa2f71ddb978a5) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Add `HeaderBreadcrumbs`
+
+### Patch Changes
+
+- Updated dependencies [[`7a62a8c`](https://github.com/wso2/oxygen-ui/commit/7a62a8c774cd2018cfc25997b1fa2f71ddb978a5)]:
+  - @wso2/oxygen-ui-icons-react@0.25.0
+
+## 0.24.0
+
+### Minor Changes
+
+- [#700](https://github.com/wso2/oxygen-ui/pull/700) [`165645d`](https://github.com/wso2/oxygen-ui/commit/165645dab90fac861030326490b2ac85f26fc502) Thanks [@savindi7](https://github.com/savindi7)! - Update the default theme. `OxygenTheme`, and `OxygenUIThemeProvider` when no theme is passed, now use the brand colours, the Sora font and flat surfaces. The theme's previous named export is removed: pass no theme to `OxygenUIThemeProvider`, or use `OxygenTheme` in a `themes` list.
+
+- [#696](https://github.com/wso2/oxygen-ui/pull/696) [`c15b658`](https://github.com/wso2/oxygen-ui/commit/c15b658e532e9982abd9bf3788350ea747e86377) Thanks [@Kalika-Jay](https://github.com/Kalika-Jay)! - Add `alwaysShowFilterIcons` to `LogViewer`. A filter that sits in a column heading draws its funnel only when the heading is pointed at; with the prop the funnel stays in view at half strength, as `alwaysShowIcon` does on `ListingTable.Filter`. It defaults to `false`, so nothing changes unless it is set.
+
+- [#699](https://github.com/wso2/oxygen-ui/pull/699) [`5ec7735`](https://github.com/wso2/oxygen-ui/commit/5ec7735459a01d8505571278b783470a8b59e080) Thanks [@Induwara04](https://github.com/Induwara04)! - Add a `footer` prop to `PageContent` that places a footer at the bottom of a short page and after the content of a long one, and a `plain` variant for `Footer` with no bar and an inset divider that lines up with the divider above `Sidebar.CollapseToggle`.
+
+### Patch Changes
+
+- Updated dependencies [[`5ec7735`](https://github.com/wso2/oxygen-ui/commit/5ec7735459a01d8505571278b783470a8b59e080)]:
+  - @wso2/oxygen-ui-icons-react@0.24.0
+
+## 0.23.1
+
+### Patch Changes
+
+- [#693](https://github.com/wso2/oxygen-ui/pull/693) [`0abda89`](https://github.com/wso2/oxygen-ui/commit/0abda89e6e1f469df939baa7e6669f7edd296a0f) Thanks [@aruniw](https://github.com/aruniw)! - PR: #TBD
+
+  Give `AcrylicOrangeTheme` and `AcrylicPurpleTheme` a dark `secondary.contrastText` (`#40404B`) in light mode. Their light grey `secondary.main` inherited the base theme's white, which is 1.2:1, so text set in `secondary.contrastText` on `secondary.main` was unreadable. The light, dark and channel tokens are now derived from the light grey too, so hovered or focused secondary chips and FABs (`secondary.dark`, now `#d0d0d0`) and secondary chip delete icons stay readable. The Avatar `Colors` story now pairs each background with its `contrastText`, so the secondary avatar letter shows in every theme, including `ChoreoLabsTheme`, where the theme's Avatar text colour matches `secondary.main`.
+
+- [#693](https://github.com/wso2/oxygen-ui/pull/693) [`3bb6863`](https://github.com/wso2/oxygen-ui/commit/3bb686363951ed0e9c2d11ce146911d3ff87f17f) Thanks [@aruniw](https://github.com/aruniw)! - In `ChoreoLabsTheme`, buttons used as toggles no longer lift on hover or press in when clicked. This covers buttons in a `ButtonGroup` and buttons with `aria-pressed`. The lift pulled one segment out of line with its neighbours. Other filled and outlined buttons still lift.
+
+- [#693](https://github.com/wso2/oxygen-ui/pull/693) [`5e96900`](https://github.com/wso2/oxygen-ui/commit/5e96900c00ee0306ee4f513b6b6cf1769dbf649a) Thanks [@aruniw](https://github.com/aruniw)! - PR: #TBD
+
+  Fit `ComplexSelect` with the label inside the field (`labelAnchor="inside"`, the default) in a 64px `Header`. The field drops the theme's single-line padding and the value text's margins and is 48px tall in every theme, with its content centred and 12px of left padding, which leaves 8px above and below it in the header. Content taller than 48px, such as a large avatar, still grows the field. It was 63px in `ChoreoLabsTheme`, where it touched the top and bottom of the header. `ContextSwitcher.Level` gets the same fix. Fields without a label, or with the label `outside` or on the `border`, are unchanged. The inside label now names the combobox through a visually hidden `span` instead of a `<label>` that pointed at no form control, so Chrome no longer reports "No label associated with a form field". The accessible name is unchanged, and a `labelId` you pass still names the combobox. `ComplexSelect` now defaults to `size="small"` on its own, instead of following the theme's default for `Select`, so a theme that makes `Select` medium no longer makes the Header switchers taller. A theme can change it with `components.MuiComplexSelect.defaultProps.size`, and the `size` prop still wins. In `ChoreoLabsTheme`, a focused `ComplexSelect` with the label inside now gets the same 3px Cobalt focus ring as a fixed-label `Select` (red on error), as one with the label outside already did. A field with the label on the border, or with no label, keeps the text-colour border without a ring. The docs, the `oxygen-select` and `oxygen-layout` skills, and `AGENTS.md` now tell developers to keep the default `labelAnchor` (`inside`) and not to use `outside` or `border` in new code, and the `ComplexSelect` section of the component reference describes the real API.
+
+- [#693](https://github.com/wso2/oxygen-ui/pull/693) [`3bb6863`](https://github.com/wso2/oxygen-ui/commit/3bb686363951ed0e9c2d11ce146911d3ff87f17f) Thanks [@aruniw](https://github.com/aruniw)! - `Form.ElementWrapper` keeps its label at the default colour when the field inside it is focused, like the Oxygen `Select` fixed label. It used to turn the theme's primary colour (orange in `ChoreoLabsTheme` and the Acrylic themes). The field's border still shows focus.
+
+- [#695](https://github.com/wso2/oxygen-ui/pull/695) [`60e8e06`](https://github.com/wso2/oxygen-ui/commit/60e8e06a62ab5b2a4660d507b3eeabaa9a807b04) Thanks [@NipuniBhagya](https://github.com/NipuniBhagya)! - Derive a theme's `font` CSS variables from its own typography in `createOxygenTheme`.
+
+- [#693](https://github.com/wso2/oxygen-ui/pull/693) [`3bb6863`](https://github.com/wso2/oxygen-ui/commit/3bb686363951ed0e9c2d11ce146911d3ff87f17f) Thanks [@aruniw](https://github.com/aruniw)! - `SearchBar` drops the input's left padding, so the gap between the search icon and the text is the icon's 8px margin instead of 22px. `SearchBarWithAdvancedFilter` gets the same fix. Themes can now style the search bar through `components.MuiSearchBar.styleOverrides`. In `ChoreoLabsTheme`, a focused search bar without a floating label gets the same 3px light Cobalt ring as a fixed-label text input (red on error).
+
+- Updated dependencies []:
+  - @wso2/oxygen-ui-icons-react@0.23.1
+
+## 0.23.0
+
+### Minor Changes
+
+- [#687](https://github.com/wso2/oxygen-ui/pull/687) [`1ff809a`](https://github.com/wso2/oxygen-ui/commit/1ff809ac9660e45e35fcf5688d76be589d2140ec) Thanks [@aruniw](https://github.com/aruniw)! - Add an Oxygen `Select` with `labelPlacement="top"`, which draws a fixed label above the field; the floating label is unchanged. Add a `placeholder` prop to `Select` and to `TextField` selects. In `ChoreoLabsTheme`, select labels keep their default colour on focus and in error, fixed-label selects take the text field focus style, and menu items drop the clipped focus outline and use a neutral fill for the selected option. Add the `oxygen-select` skill.
+
+### Patch Changes
+
+- [#690](https://github.com/wso2/oxygen-ui/pull/690) [`5aec07e`](https://github.com/wso2/oxygen-ui/commit/5aec07e655356fea986de5155cf241c97923da69) Thanks [@aruniw](https://github.com/aruniw)! - Align `ChoreoLabsTheme` breadcrumbs, links, page titles and `ComplexSelect` with the Choreo Labs component sheet. Breadcrumbs use a slash separator, 14px caption text and the sheet's link, hover and separator colours, for both `AppBreadcrumbs` and plain `Breadcrumbs`. Links without a `color` take the default text colour and turn orange on hover, links with a palette `color` use the brand colour, and the underline follows the `underline` prop, defaulting to `hover`. `PageTitle.Avatar` uses the light avatar style. `ComplexSelect` options, outside label and focus border match `Select`. `AppBreadcrumbs` now reads its default props from the theme, so a theme can set its separator.
+
+- [#689](https://github.com/wso2/oxygen-ui/pull/689) [`2331bb7`](https://github.com/wso2/oxygen-ui/commit/2331bb7c822a82f9f3ca11cae61af60d1fa2d7aa) Thanks [@aruniw](https://github.com/aruniw)! - Match `ChoreoLabsTheme` button states to the Choreo Labs component sheet: default, hover, focus, active and disabled colours for contained, outlined and text buttons in light and dark mode, a 3px focus ring, a 2px lift on hover and a press scale on active (both off when reduced motion is preferred), full pill shapes at every size, and no elevation by default.
+
+- [#686](https://github.com/wso2/oxygen-ui/pull/686) [`0715af2`](https://github.com/wso2/oxygen-ui/commit/0715af27bbecc019642ff574836e54453533bab8) Thanks [@aruniw](https://github.com/aruniw)! - Update the `ChoreoLabsTheme` text field focus style: a 1.5px text-colour border, with a Cobalt ring on fixed-label fields. Floating-label and native selects keep the Cobalt border. Add the `oxygen-textfield` skill, which the CLI already lists.
+
+- Updated dependencies []:
+  - @wso2/oxygen-ui-icons-react@0.23.0
+
+## 0.22.0
+
+### Minor Changes
+
+- [#685](https://github.com/wso2/oxygen-ui/pull/685) [`e7d6fcb`](https://github.com/wso2/oxygen-ui/commit/e7d6fcb7b0141e875ef4ee6612b392c8a5cda5fd) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Let `AppSwitcher.Footer` sit below its divider without a heading, so the switcher can end with WSO2 Cloud links such as Cloud home and Settings. The footer no longer shows "Manage" unless a `label` is passed; it keeps "Manage" as its accessible name, which the new `aria-label` prop on `AppSwitcher.Footer` and `AppSwitcher.Section` can change.
+
+### Patch Changes
+
+- [#685](https://github.com/wso2/oxygen-ui/pull/685) [`e7d6fcb`](https://github.com/wso2/oxygen-ui/commit/e7d6fcb7b0141e875ef4ee6612b392c8a5cda5fd) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Update `ChoreoLabsTheme` buttons, fields, chips and avatars: dark blue secondary colour for outlined and filled buttons, a Burn `accent` colour, a `subtle` button variant with a Burn fill and white label, button heights of 32, 40 and 48px for small, medium and large, a 500 button font weight, 40 and 48px outlined fields with 14px text to line up with medium and large buttons, the light avatar style for the app shell user avatars, and a `tag` Chip variant.
+
+- [#685](https://github.com/wso2/oxygen-ui/pull/685) [`e7d6fcb`](https://github.com/wso2/oxygen-ui/commit/e7d6fcb7b0141e875ef4ee6612b392c8a5cda5fd) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Make the filter buttons and the search field of the `LogViewer` toolbar 32px high, as the search field was written to be. `SearchBarBase` spread an `sx` array into numbered keys and dropped every style in it, so the field stayed at 40px; it now merges an array like any other `sx`.
+
+- [#685](https://github.com/wso2/oxygen-ui/pull/685) [`e7d6fcb`](https://github.com/wso2/oxygen-ui/commit/e7d6fcb7b0141e875ef4ee6612b392c8a5cda5fd) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Animate the closing of a `LogViewer` entry the way its opening is animated. The details used to leave the page the moment an entry was closed, so they opened with a slide and closed with none.
+
+- Updated dependencies []:
+  - @wso2/oxygen-ui-icons-react@0.22.0
+
 ## 0.21.0
 
 ### Minor Changes

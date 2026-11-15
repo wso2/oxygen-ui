@@ -987,7 +987,7 @@ import { PageContent } from '@wso2/oxygen-ui';
 
 ## ComplexSelect
 
-Enhanced select component with search and multi-select capabilities.
+Select with rich options: icons, avatars, two-line text, list headers and dividers. Built on the MUI `Select`, so it accepts the `Select` props. Use it for the organization and project switchers in `Header.Switchers`.
 
 ```tsx
 import { ComplexSelect } from '@wso2/oxygen-ui';
@@ -997,26 +997,33 @@ import { ComplexSelect } from '@wso2/oxygen-ui';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `options` | `Option[]` | required | Select options |
-| `value` | `string \| string[]` | - | Selected value(s) |
-| `onChange` | `(value) => void` | - | Change handler |
-| `multiple` | `boolean` | `false` | Enable multi-select |
-| `searchable` | `boolean` | `false` | Enable search |
+| `label` | `ReactNode` | - | Field label. Names the combobox |
+| `labelAnchor` | `'inside' \| 'outside' \| 'border'` | `'inside'` | Where the label sits. Keep the default in new code; `outside` and `border` are for existing screens only |
+| `size` | `'small' \| 'medium'` | `'small'` | Field size. A theme can change it with `components.MuiComplexSelect.defaultProps.size` |
+| `value` | `unknown` | - | Selected value |
+| `onChange` | `(event) => void` | - | Change handler |
+| `children` | `ReactNode` | required | `ComplexSelect.MenuItem`, `ComplexSelect.ListHeader` and `ComplexSelect.Divider` |
+
+Sub-components: `ComplexSelect.MenuItem`, `ComplexSelect.MenuItem.Icon`, `ComplexSelect.MenuItem.Avatar`, `ComplexSelect.MenuItem.Text` (`primary`, `secondary`), `ComplexSelect.ListHeader`, `ComplexSelect.Divider`.
 
 ### Usage
 
 ```tsx
-<ComplexSelect
-  options={[
-    { value: 'us', label: 'United States' },
-    { value: 'uk', label: 'United Kingdom' },
-    { value: 'ca', label: 'Canada' },
-  ]}
-  value={country}
-  onChange={setCountry}
-  searchable
-/>
+<ComplexSelect label="Organization" value={org} onChange={(e) => setOrg(e.target.value as string)}>
+  <ComplexSelect.ListHeader>Organizations</ComplexSelect.ListHeader>
+  <ComplexSelect.MenuItem value="acme">
+    <ComplexSelect.MenuItem.Avatar>A</ComplexSelect.MenuItem.Avatar>
+    <ComplexSelect.MenuItem.Text primary="Acme Corp" secondary="Owner" />
+  </ComplexSelect.MenuItem>
+</ComplexSelect>
 ```
+
+### Label
+
+- With the default `labelAnchor`, `inside`, the label sits inside the field above the selected value. The field keeps the option's icon or avatar and hides its secondary text. It is 48px tall, so it fits the 64px `Header`.
+- Pass `label` and do not set `labelAnchor`. Do not wrap it in `FormControl` or add an `InputLabel`, `FormLabel` or `labelPlacement`.
+- Without a visible label, name it with `slotProps={{ input: { 'aria-label': 'Organization' } }}`.
+- For a chain of levels in the Header, use `ContextSwitcher`, which draws each level as a `ComplexSelect` with the label inside.
 
 ---
 

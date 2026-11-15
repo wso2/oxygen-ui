@@ -64,6 +64,8 @@ export interface LogViewerContextValue {
   columns: LogColumn[];
   /** True when the heading row is visually hidden and its sort and filter controls are not offered. */
   hideHeading: boolean;
+  /** True when the funnels of the filters in the headings stay in view. */
+  alwaysShowFilterIcons: boolean;
   /** The filters the viewer shows. */
   filters: LogFilterDefinition[];
   /**

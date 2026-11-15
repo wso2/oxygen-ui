@@ -82,14 +82,19 @@ export const Sizes: Story = {
   ),
 };
 
+/**
+ * Set the text colour with the background. Pair `<color>.main` with `<color>.contrastText`: the theme's
+ * Avatar text colour doesn't follow `bgcolor`, and in some themes it matches a palette colour, which
+ * hides the letter.
+ */
 export const Colors: Story = {
   render: () => (
     <Stack direction="row" spacing={2}>
-      <Avatar sx={{ bgcolor: 'primary.main' }}>P</Avatar>
-      <Avatar sx={{ bgcolor: 'secondary.main' }}>S</Avatar>
-      <Avatar sx={{ bgcolor: 'success.main' }}>S</Avatar>
-      <Avatar sx={{ bgcolor: 'error.main' }}>E</Avatar>
-      <Avatar sx={{ bgcolor: 'warning.main' }}>W</Avatar>
+      <Avatar sx={{ bgcolor: 'primary.main', color: 'primary.contrastText' }}>P</Avatar>
+      <Avatar sx={{ bgcolor: 'secondary.main', color: 'secondary.contrastText' }}>S</Avatar>
+      <Avatar sx={{ bgcolor: 'success.main', color: 'success.contrastText' }}>S</Avatar>
+      <Avatar sx={{ bgcolor: 'error.main', color: 'error.contrastText' }}>E</Avatar>
+      <Avatar sx={{ bgcolor: 'warning.main', color: 'warning.contrastText' }}>W</Avatar>
     </Stack>
   ),
 };

@@ -48,6 +48,11 @@ export interface PageContentProps extends Omit<BoxProps, 'maxWidth'> {
    * @default false
    */
   noPadding?: boolean;
+  /**
+   * Optional footer, e.g. a `Footer`. It is full width. When the content is short it sits at the bottom
+   * of the page content, and when the content is long it comes after the content and scrolls with it.
+   */
+  footer?: React.ReactNode;
 }
 
 /**
@@ -70,13 +75,28 @@ const PageContentRoot = styled(Box, {
 const PageContentInner = styled(Box, {
   name: 'MuiPageContent',
   slot: 'Inner',
-  shouldForwardProp: (prop) => prop !== 'maxWidth' && prop !== 'centered' && prop !== 'fullWidth' && prop !== 'noPadding',
-})<PageContentProps>(({ theme, maxWidth = '1400px', centered = true, fullWidth = false, noPadding = false }) => ({
+  shouldForwardProp: (prop) =>
+    prop !== 'maxWidth' && prop !== 'centered' && prop !== 'fullWidth' && prop !== 'noPadding' && prop !== 'withFooter',
+})<PageContentProps & { withFooter?: boolean }>(
+  ({ theme, maxWidth = '1400px', centered = true, fullWidth = false, noPadding = false, withFooter = false }) => ({
+    width: '100%',
+    // Only with a footer: fills the free height, so the footer is pushed to the bottom when the content is short.
+    ...(withFooter && { flex: '1 0 auto' }),
+    ...(!fullWidth && { maxWidth }),
+    ...(centered && { marginLeft: 'auto', marginRight: 'auto' }),
+    ...(!noPadding && { padding: theme.spacing(8) }),
+  })
+);
+
+/**
+ * Styled footer wrapper - sits at the bottom of the page when the content is short, and after the
+ * content (scrolling with it) when the content is long
+ */
+const PageContentFooter = styled(Box)({
+  flexShrink: 0,
+  marginTop: 'auto',
   width: '100%',
-  ...(!fullWidth && { maxWidth }),
-  ...(centered && { marginLeft: 'auto', marginRight: 'auto' }),
-  ...(!noPadding && { padding: theme.spacing(8) }),
-}));
+});
 
 /**
  * PageContent component - A container for page content with controllable max-width and centering
@@ -110,6 +130,14 @@ const PageContentInner = styled(Box, {
  * 
  * @example
  * ```tsx
+ * // Footer at the bottom of the page
+ * <PageContent footer={<Footer>...</Footer>}>
+ *   <YourContent />
+ * </PageContent>
+ * ```
+ *
+ * @example
+ * ```tsx
  * // Not centered
  * <PageContent centered={false}>
  *   <YourContent />
@@ -122,6 +150,7 @@ const PageContent: React.FC<PageContentProps> = ({
   centered,
   fullWidth,
   noPadding,
+  footer,
   ...props
 }) => {
   return (
@@ -131,10 +160,12 @@ const PageContent: React.FC<PageContentProps> = ({
         centered={centered}
         fullWidth={fullWidth}
         noPadding={noPadding}
+        withFooter={Boolean(footer)}
         {...props}
       >
         {children}
       </PageContentInner>
+      {footer && <PageContentFooter>{footer}</PageContentFooter>}
     </PageContentRoot>
   );
 };

@@ -37,10 +37,10 @@ const inputOfField = () => screen.getByRole('textbox') as HTMLElement;
 describe('SearchBarBase', () => {
   afterEach(cleanup);
 
-  it('is 40px high with its own padding when no sx is given', () => {
+  it('is 40px high with its own padding when no sx is given, and no left padding after the icon', () => {
     renderField();
     expect(getComputedStyle(rootOfField()).height).toBe('40px');
-    expect(getComputedStyle(inputOfField()).padding).toBe('8.5px 14px');
+    expect(getComputedStyle(inputOfField()).padding).toBe('8.5px 14px 8.5px 0px');
   });
 
   it('takes the height and padding of an sx object', () => {

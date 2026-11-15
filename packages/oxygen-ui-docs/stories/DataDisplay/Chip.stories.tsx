@@ -177,9 +177,9 @@ export const Tag: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'The `tag` variant is a filled, square-cornered uppercase label, styled by `ChoreoLabsTheme` only. ' +
+        story: 'The `tag` variant is a filled, square-cornered uppercase label, styled by the default theme only. ' +
           'It is dark blue by default; set `color` to use another palette colour. ' +
-          'Pick Choreo Labs in the Theme toolbar to see it.',
+          'Pick Default in the Theme toolbar to see it.',
       },
     },
   },

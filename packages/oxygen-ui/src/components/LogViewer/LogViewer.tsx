@@ -74,6 +74,13 @@ export interface LogViewerProps extends Omit<PaperProps, 'children' | 'onCopy' |
    */
   hideHeading?: boolean;
   /**
+   * Keeps the funnel of a filter that sits in a column heading in view, at half strength until the
+   * heading is pointed at, instead of showing it only then. A filter with a value applied is always
+   * fully shown. It has no effect when `hideHeading` is set.
+   * @default false
+   */
+  alwaysShowFilterIcons?: boolean;
+  /**
    * The parts of the viewer, top to bottom: usually a `LogViewer.Toolbar` and a `LogViewer.Stream`.
    * Leave it out for a viewer with just the stream.
    */
@@ -248,6 +255,7 @@ const LogViewerRoot = React.forwardRef<HTMLDivElement, LogViewerProps>(function 
     entries,
     columns,
     hideHeading = false,
+    alwaysShowFilterIcons = false,
     children,
     order: orderProp,
     defaultOrder = 'newest-first',
@@ -337,6 +345,7 @@ const LogViewerRoot = React.forwardRef<HTMLDivElement, LogViewerProps>(function 
     setTimeZone,
     columns,
     hideHeading,
+    alwaysShowFilterIcons,
     filters,
     awaitingRange,
     filterValues,

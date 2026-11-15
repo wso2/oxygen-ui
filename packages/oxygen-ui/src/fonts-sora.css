@@ -17,7 +17,7 @@
  */
 
 /*
- * Sora, the Choreo Labs brand typeface used by ChoreoLabsTheme. Kept out of fonts.css because the
+ * Sora, the brand typeface used by the default theme. Kept out of fonts.css because the
  * inline-css-fonts plugin resolves font files against the last @import's folder, so a second @import
  * in one file breaks the first one's fonts.
  */

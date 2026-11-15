@@ -26,7 +26,7 @@
 
 | Component | Issue | WCAG | Fix |
 | --- | --- | --- | --- |
-| `ComplexSelect` | `labelAnchor="inside"` rendered a visual label only; the combobox had no accessible name. Label ids were generated with `Math.random()` (unstable, SSR-unsafe). | 4.1.2 | Visually hidden `InputLabel` for inside mode; `useId()` for label ids. |
+| `ComplexSelect` | `labelAnchor="inside"` rendered a visual label only; the combobox had no accessible name. Label ids were generated with `Math.random()` (unstable, SSR-unsafe). | 4.1.2 | Visually hidden element for inside mode, referenced by `aria-labelledby` (a `<label>` there pointed at no form control); `useId()` for label ids. |
 | `ThemeSwitcher` / `ThemeSelect` | With `showLabel={false}` (default) the select had no accessible name; hardcoded label id broke with multiple instances. | 4.1.2 | Always render the `InputLabel` (visually hidden when `showLabel` is false); `useId()`. |
 | `Form.ElementWrapper` | `FormLabel htmlFor` cannot label MUI `Select` (renders a non-labelable `div[role="combobox"]`). | 1.3.1, 4.1.2 | Label gets an id; `Select` children are cloned with a matching `labelId`. |
 | `ColorSchemeToggle` | Icon-only button relied on `Tooltip` for its name; no ref forwarding. | 4.1.2 | Default `aria-label="Switch to <next> mode"` (overridable); `forwardRef`. |
@@ -53,7 +53,7 @@
 - `Select` — `InputLabel id` ↔ `Select labelId` linkage added to all variants (axe `aria-input-field-name`).
 - `Progress` — all `CircularProgress`/`LinearProgress` instances have `aria-label` (axe `aria-progressbar-name`).
 - `ImageList`, `useThemeContent` — fixed-height scrollable regions given `tabIndex={0}` and labels (axe `scrollable-region-focusable`); `warning.dark`-on-`warning.light` heading fixed.
-- `AppShell`, `ComplexSelect` stories — header switcher selects labeled via `slotProps={{ input: { 'aria-label': … } }}`.
+- `AppShell` story — header switcher selects use a visible `label` with the default `labelAnchor` (`inside`). `ComplexSelect` stories without a visible label are named via `slotProps={{ input: { 'aria-label': … } }}`.
 - `CreateServiceFormTemplate` — adornment icon buttons labeled (axe `button-name`).
 - The Storybook preview also dropped a broken `ChoreoTheme` import (not exported by the library).
 

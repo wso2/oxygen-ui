@@ -311,8 +311,21 @@ export default App;
   </Header.Brand>
 
   <Header.Switchers>
-    <OrganizationSwitcher />
-    <ProjectSwitcher />
+    <ComplexSelect label="Organization" value={org} onChange={(e) => setOrg(e.target.value as string)}>
+      {organizations.map((o) => (
+        <ComplexSelect.MenuItem key={o.id} value={o.id}>
+          <ComplexSelect.MenuItem.Avatar>{o.initial}</ComplexSelect.MenuItem.Avatar>
+          <ComplexSelect.MenuItem.Text primary={o.name} secondary={o.role} />
+        </ComplexSelect.MenuItem>
+      ))}
+    </ComplexSelect>
+    <ComplexSelect label="Project" value={project} onChange={(e) => setProject(e.target.value as string)}>
+      {projects.map((p) => (
+        <ComplexSelect.MenuItem key={p.id} value={p.id}>
+          <ComplexSelect.MenuItem.Text primary={p.name} />
+        </ComplexSelect.MenuItem>
+      ))}
+    </ComplexSelect>
   </Header.Switchers>
 
   <Header.Spacer />
@@ -325,6 +338,8 @@ export default App;
   </Header.Actions>
 </Header>
 ```
+
+Switchers use `ComplexSelect` with a `label` and the default `labelAnchor`, `inside`: the label sits inside the field above the selected value. Do not set `labelAnchor`; `outside` and `border` are for existing screens only, and they make the field too tall for the 64px Header. Keep the default `size` (`small`); the field is 48px tall. For a chain of levels (organization, project, component), use `ContextSwitcher` instead, which draws each level the same way. See the `oxygen-select` skill.
 
 ## Minimal Header (No Switchers)
 

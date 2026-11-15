@@ -24,6 +24,7 @@ function App() {
 4. **MUI X uses namespaces** - `DataGrid.DataGrid`, `DatePickers.DatePicker`, `TreeView.TreeView`
 5. **Use theme tokens** - Use `sx` prop with theme values, not hardcoded colors/spacing
 6. **Fixed labels on inputs** - Give every labelled `TextField` and `Select` `labelPlacement="top"`; never use MUI's floating label (`InputLabel` inside `FormControl`) in new code
+   - **`ComplexSelect` is the exception** - Pass `label` and keep the default `labelAnchor` (`inside`), which puts the label inside the field above the selected value. Do not set `labelAnchor="outside"` or `"border"` in new code
 7. **Select placeholders come from the developer** - Give every `Select` and `TextField select` a `placeholder`; ask the developer for the text instead of inventing it. Native selects (`native` or `SelectProps={{ native: true }}`) ignore `placeholder`, so put that same text in the empty option instead: `<option value="">Select a role</option>`
 
 ## Import Patterns
@@ -53,10 +54,9 @@ import { DataGrid, DatePickers, TreeView } from '@wso2/oxygen-ui';
 
 ## Available Themes
 
-- `OxygenTheme` - Default theme (recommended)
+- `OxygenTheme` - Default theme (recommended): brand colours, Sora font and flat surfaces
 - `AcrylicOrangeTheme` - Orange accent variant
 - `AcrylicPurpleTheme` - Purple accent variant
-- `ChoreoLabsTheme` - Choreo Labs brand theme (Acrylic look with Choreo Labs colours and Sora font)
 - `ClassicTheme` - Traditional styling
 - `HighContrastTheme` - Accessibility-focused
 - `PaleBaseTheme` - Minimal color palette

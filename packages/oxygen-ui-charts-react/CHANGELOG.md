@@ -1,5 +1,48 @@
 # @wso2/oxygen-ui-charts-react
 
+## 0.25.0
+
+### Minor Changes
+
+- [#701](https://github.com/wso2/oxygen-ui/pull/701) [`7a62a8c`](https://github.com/wso2/oxygen-ui/commit/7a62a8c774cd2018cfc25997b1fa2f71ddb978a5) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Add `HeaderBreadcrumbs`
+
+### Patch Changes
+
+- Updated dependencies [[`7a62a8c`](https://github.com/wso2/oxygen-ui/commit/7a62a8c774cd2018cfc25997b1fa2f71ddb978a5)]:
+  - @wso2/oxygen-ui@0.25.0
+
+## 0.24.0
+
+### Minor Changes
+
+- [#699](https://github.com/wso2/oxygen-ui/pull/699) [`5ec7735`](https://github.com/wso2/oxygen-ui/commit/5ec7735459a01d8505571278b783470a8b59e080) Thanks [@Induwara04](https://github.com/Induwara04)! - Add a `footer` prop to `PageContent` that places a footer at the bottom of a short page and after the content of a long one, and a `plain` variant for `Footer` with no bar and an inset divider that lines up with the divider above `Sidebar.CollapseToggle`.
+
+### Patch Changes
+
+- Updated dependencies [[`165645d`](https://github.com/wso2/oxygen-ui/commit/165645dab90fac861030326490b2ac85f26fc502), [`c15b658`](https://github.com/wso2/oxygen-ui/commit/c15b658e532e9982abd9bf3788350ea747e86377), [`5ec7735`](https://github.com/wso2/oxygen-ui/commit/5ec7735459a01d8505571278b783470a8b59e080)]:
+  - @wso2/oxygen-ui@0.24.0
+
+## 0.23.1
+
+### Patch Changes
+
+- Updated dependencies [[`0abda89`](https://github.com/wso2/oxygen-ui/commit/0abda89e6e1f469df939baa7e6669f7edd296a0f), [`e31b44c`](https://github.com/wso2/oxygen-ui/commit/e31b44c7489d9382a470fad390937882ee9db8f7), [`5e96900`](https://github.com/wso2/oxygen-ui/commit/5e96900c00ee0306ee4f513b6b6cf1769dbf649a), [`f98aaa0`](https://github.com/wso2/oxygen-ui/commit/f98aaa0f357fb51e64242e87b37e177685d3fce0), [`60e8e06`](https://github.com/wso2/oxygen-ui/commit/60e8e06a62ab5b2a4660d507b3eeabaa9a807b04), [`d40ced8`](https://github.com/wso2/oxygen-ui/commit/d40ced8ef3e6baaeffc499b0b3028c8df88931bf)]:
+  - @wso2/oxygen-ui@0.23.1
+
+## 0.23.0
+
+### Patch Changes
+
+- Updated dependencies [[`bd1aedb`](https://github.com/wso2/oxygen-ui/commit/bd1aedb1ab6078e311e7060bd427243e9db9a8c9), [`bd1aedb`](https://github.com/wso2/oxygen-ui/commit/bd1aedb1ab6078e311e7060bd427243e9db9a8c9), [`bd1aedb`](https://github.com/wso2/oxygen-ui/commit/bd1aedb1ab6078e311e7060bd427243e9db9a8c9), [`bd1aedb`](https://github.com/wso2/oxygen-ui/commit/bd1aedb1ab6078e311e7060bd427243e9db9a8c9)]:
+  - @wso2/oxygen-ui@0.23.0
+
+## 0.22.0
+
+### Patch Changes
+
+- Updated dependencies [[`e7d6fcb`](https://github.com/wso2/oxygen-ui/commit/e7d6fcb7b0141e875ef4ee6612b392c8a5cda5fd), [`e7d6fcb`](https://github.com/wso2/oxygen-ui/commit/e7d6fcb7b0141e875ef4ee6612b392c8a5cda5fd), [`e7d6fcb`](https://github.com/wso2/oxygen-ui/commit/e7d6fcb7b0141e875ef4ee6612b392c8a5cda5fd), [`e7d6fcb`](https://github.com/wso2/oxygen-ui/commit/e7d6fcb7b0141e875ef4ee6612b392c8a5cda5fd)]:
+  - @wso2/oxygen-ui@0.22.0
+
 ## 0.21.0
 
 ### Patch Changes

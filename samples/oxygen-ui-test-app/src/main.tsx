@@ -20,7 +20,7 @@ import {
   OxygenUIThemeProvider,
   AcrylicOrangeTheme,
   AcrylicPurpleTheme,
-  ChoreoLabsTheme,
+  OxygenTheme,
   ClassicTheme,
   HighContrastTheme,
   PaleGrayTheme,
@@ -80,7 +80,7 @@ createRoot(document.getElementById('root')!).render(
       themes={[
         { key: 'acrylicOrange', label: 'Acrylic Orange Theme', theme: AcrylicOrangeTheme },
         { key: 'acrylicPurple', label: 'Acrylic Purple Theme', theme: AcrylicPurpleTheme },
-        { key: 'choreoLabs', label: 'Choreo Labs Theme', theme: ChoreoLabsTheme },
+        { key: 'default', label: 'Default Theme', theme: OxygenTheme },
         { key: 'highContrast', label: 'High Contrast Theme', theme: HighContrastTheme },
         { key: 'classic', label: 'Classic Theme', theme: ClassicTheme },
         { key: 'paleGray', label: 'Pale Gray Theme', theme: PaleGrayTheme },

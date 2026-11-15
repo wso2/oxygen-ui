@@ -40,8 +40,12 @@ const meta: Meta<typeof ComplexSelect> = {
           '- `ComplexSelect.Divider` - Visual separators\n\n' +
           'Read MUI documentation for base Select API: ' +
           '[https://mui.com/material-ui/react-select/](https://mui.com/material-ui/react-select/)\n\n' +
+          '### Label\n' +
+          '- Pass `label` and keep the default `labelAnchor` (`inside`): the label sits inside the field above ' +
+          'the selected value, and the field is 48px tall, so it fits the Header.\n' +
+          '- Do not set `labelAnchor` in new code. `outside` and `border` are kept for existing screens only.\n\n' +
           '### Accessibility\n' +
-          '- With a `label`, the combobox is named in every `labelAnchor` mode (a visually hidden label is used for `inside`).\n' +
+          '- With a `label`, the combobox is named in every `labelAnchor` mode (for `inside`, a visually hidden element names it through `aria-labelledby`).\n' +
           "- Without a `label`, provide a name: `slotProps={{ input: { 'aria-label': 'Organization' } }}`.\n" +
           '- Standard MUI Select keyboard behavior applies: Enter/Space/Arrows open the list, Arrow keys navigate, Escape closes.\n' +
           '- Mark purely decorative item icons with `aria-hidden`.',
@@ -370,11 +374,12 @@ export const LabelAnchorVariants: Story = {
     docs: {
       description: {
         story: 
-          'The ComplexSelect component supports three label positioning modes:\n\n' +
-          '- **outside** (default): Label appears above the select field as a separate element\n' +
-          '- **border**: Label appears on the border (standard MUI behavior with notched outline)\n' +
-          '- **inside**: Label appears inside the select field above the selected value. ' +
-          'Icons are preserved but secondary text is automatically hidden for a cleaner, more compact display.',
+          'The ComplexSelect component supports three label positioning modes. Use the default, `inside`, ' +
+          'in new code; `outside` and `border` are kept for existing screens only.\n\n' +
+          '- **inside** (default): Label appears inside the select field above the selected value. ' +
+          'Icons are preserved but secondary text is automatically hidden for a cleaner, more compact display.\n' +
+          '- **outside** (existing screens only): Label appears above the select field as a separate element\n' +
+          '- **border** (existing screens only): Label appears on the border (standard MUI behavior with notched outline)',
       },
     },
   },

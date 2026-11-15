@@ -26,12 +26,15 @@ import {
   Divider,
   Tooltip,
   Box,
+  ComplexSelect,
 } from '@wso2/oxygen-ui';
 import {
   Zap,
   Bell,
   HelpCircle,
   Menu,
+  Building2,
+  FolderOpen,
 } from '@wso2/oxygen-ui-icons-react';
 
 /**
@@ -256,6 +259,70 @@ export const WithSwitchers: Story = {
       </Header.Actions>
     </Header>
   ),
+};
+
+/**
+ * Organization and project switchers drawn as ComplexSelect with the label inside the field.
+ * Each switcher is 48px tall and sits centred in the 64px header, 8px from the top and bottom.
+ */
+export const WithLabelledSwitchers: Story = {
+  render: () => {
+    const [organization, setOrganization] = React.useState('acme');
+    const [project, setProject] = React.useState('alpha');
+
+    return (
+      <Header>
+        <Header.Brand>
+          <Header.BrandLogo><Logo /></Header.BrandLogo>
+          <Header.BrandTitle>Oxygen UI</Header.BrandTitle>
+        </Header.Brand>
+        <Header.Switchers>
+          <ComplexSelect
+            label="Organization"
+            value={organization}
+            onChange={(event) => setOrganization(event.target.value as string)}
+            sx={{ minWidth: 180 }}
+          >
+            <ComplexSelect.MenuItem value="acme">
+              <ComplexSelect.MenuItem.Icon>
+                <Building2 size={16} aria-hidden />
+              </ComplexSelect.MenuItem.Icon>
+              <ComplexSelect.MenuItem.Text primary="Acme Corp" />
+            </ComplexSelect.MenuItem>
+            <ComplexSelect.MenuItem value="globex">
+              <ComplexSelect.MenuItem.Icon>
+                <Building2 size={16} aria-hidden />
+              </ComplexSelect.MenuItem.Icon>
+              <ComplexSelect.MenuItem.Text primary="Globex" />
+            </ComplexSelect.MenuItem>
+          </ComplexSelect>
+          <ComplexSelect
+            label="Project"
+            value={project}
+            onChange={(event) => setProject(event.target.value as string)}
+            sx={{ minWidth: 180 }}
+          >
+            <ComplexSelect.MenuItem value="alpha">
+              <ComplexSelect.MenuItem.Icon>
+                <FolderOpen size={16} aria-hidden />
+              </ComplexSelect.MenuItem.Icon>
+              <ComplexSelect.MenuItem.Text primary="Project Alpha" />
+            </ComplexSelect.MenuItem>
+            <ComplexSelect.MenuItem value="beta">
+              <ComplexSelect.MenuItem.Icon>
+                <FolderOpen size={16} aria-hidden />
+              </ComplexSelect.MenuItem.Icon>
+              <ComplexSelect.MenuItem.Text primary="Project Beta" />
+            </ComplexSelect.MenuItem>
+          </ComplexSelect>
+        </Header.Switchers>
+        <Header.Spacer />
+        <Header.Actions>
+          <ColorSchemeToggle />
+        </Header.Actions>
+      </Header>
+    );
+  },
 };
 
 /**
