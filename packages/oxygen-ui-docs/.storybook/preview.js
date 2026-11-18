@@ -172,7 +172,7 @@ const preview = {
     },
 
     backgrounds: {
-      disable: true,
+      disabled: true,
     },
     options: {
       storySort: {
@@ -241,6 +241,8 @@ const preview = {
       ),
     },
   },
+
+  tags: ['autodocs']
 };
 
 export default preview;

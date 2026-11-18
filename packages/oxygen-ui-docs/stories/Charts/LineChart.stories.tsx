@@ -17,7 +17,7 @@
  */
 
 import React from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-webpack5'
 import { LineChart, Line } from '@wso2/oxygen-ui-charts-react'
 
 const meta: Meta = {

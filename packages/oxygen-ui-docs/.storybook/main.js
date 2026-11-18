@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import path from 'path';
+import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -26,22 +26,24 @@ export default {
   stories: [
     '../stories/**/*.stories.@(js|jsx|ts|tsx|mdx)'
   ],
+
   staticDirs: ['public'],
+
   addons: [
-    '@storybook/addon-docs',
-    '@storybook/addon-links',
-    '@storybook/addon-a11y',
+    getAbsolutePath("@storybook/addon-docs"),
+    getAbsolutePath("@storybook/addon-links"),
+    getAbsolutePath("@storybook/addon-a11y"),
   ],
+
   framework: {
-    name: '@storybook/react-webpack5',
+    name: getAbsolutePath("@storybook/react-webpack5"),
     options: {}
   },
-  docs: {
-    autodocs: true,
-  },
+
   typescript: {
     reactDocgen: "react-docgen-typescript"
   },
+
   webpackFinal: async (config) => {
     config.resolve = config.resolve || {};
     config.resolve.alias = {
@@ -93,4 +95,8 @@ export default {
     
     return config;
   }
+};
+
+function getAbsolutePath(value) {
+  return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
 }

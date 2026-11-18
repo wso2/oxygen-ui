@@ -17,7 +17,7 @@
  */
 
 import { Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Stack, Typography, CodeBlock, Box, Divider, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@wso2/oxygen-ui';
 import React from 'react';
 import CenterContentLayout from '../layouts/CenterContentLayout';

@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Box, Typography, Card, CardContent, Grid, Link } from '@wso2/oxygen-ui';
 import React, { useState } from 'react';
 import { Default as DashboardTemplate } from './DashboardTemplate.stories';

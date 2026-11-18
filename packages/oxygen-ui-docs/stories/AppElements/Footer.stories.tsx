@@ -17,7 +17,7 @@
  */
 
 import * as React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { AppShell, Footer, Box, Sidebar, Typography } from '@wso2/oxygen-ui';
 import { FolderOpen } from '@wso2/oxygen-ui-icons-react';
 

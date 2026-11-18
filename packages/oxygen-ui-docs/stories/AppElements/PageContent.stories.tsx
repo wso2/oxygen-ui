@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { AppShell, PageContent, Card, CardContent, Typography, Box, Footer, Sidebar } from '@wso2/oxygen-ui';
 import { FolderOpen } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';

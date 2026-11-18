@@ -17,7 +17,7 @@
  */
 
 import React, { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { BottomNavigation, BottomNavigationAction, Paper } from '@wso2/oxygen-ui';
 import { History, Star, Archive, Home, Search, User, Settings, Bell, Mail, MapPin } from '@wso2/oxygen-ui-icons-react';
 

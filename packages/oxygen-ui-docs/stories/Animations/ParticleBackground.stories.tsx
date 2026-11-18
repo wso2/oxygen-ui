@@ -17,7 +17,7 @@
  */
 
 import { Controls, Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { ParticleBackground, Box, Typography } from '@wso2/oxygen-ui';
 import React from 'react';
 

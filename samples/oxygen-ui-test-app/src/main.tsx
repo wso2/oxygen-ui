@@ -22,7 +22,6 @@ import {
   ClassicTheme,
   HighContrastTheme,
   PaleGrayTheme,
-  PaleIndigoTheme,
   createOxygenTheme,
   type OxygenThemeType,
 } from '@wso2/oxygen-ui'

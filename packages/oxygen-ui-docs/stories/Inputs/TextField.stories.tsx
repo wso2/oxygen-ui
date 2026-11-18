@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { TextField } from '@wso2/oxygen-ui';
 
 const meta: Meta<typeof TextField> = {

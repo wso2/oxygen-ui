@@ -17,7 +17,7 @@
  */
 
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Select, MenuItem, FormControl, InputLabel } from '@wso2/oxygen-ui';
 import type { SelectProps } from '@wso2/oxygen-ui';
 import { useId, useState } from 'react';

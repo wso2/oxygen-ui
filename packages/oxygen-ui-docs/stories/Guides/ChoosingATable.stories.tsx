@@ -17,7 +17,7 @@
  */
 
 import { Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Stack, Typography, CodeBlock, Box, Divider, ListingTable, Chip } from '@wso2/oxygen-ui';
 import type { ListingTableDataGridProps } from '@wso2/oxygen-ui';
 import { Folder } from '@wso2/oxygen-ui-icons-react';

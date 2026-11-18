@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { useTheme, Paper, Typography, Stack, Box, Chip } from '@wso2/oxygen-ui';
 import React from 'react';
 
