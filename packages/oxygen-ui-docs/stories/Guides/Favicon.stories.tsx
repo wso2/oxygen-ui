@@ -78,8 +78,8 @@ export const Overview: Story = {
           <Typography variant="h6" gutterBottom>
             Download
           </Typography>
-          <Stack direction="row" spacing={3} alignItems="center">
-            <Stack direction="row" spacing={2} alignItems="flex-end">
+          <Stack direction="row" spacing={3} sx={{ alignItems: 'center' }}>
+            <Stack direction="row" spacing={2} sx={{ alignItems: 'flex-end' }}>
               <Box component="img" src={FAVICON_URL} alt="Favicon at 32 by 32 pixels" width={32} height={32} />
               <Box component="img" src={FAVICON_URL} alt="Favicon at 16 by 16 pixels" width={16} height={16} />
             </Stack>
@@ -92,7 +92,7 @@ export const Overview: Story = {
               >
                 Download favicon.ico
               </Button>
-              <Typography variant="caption" color="text.secondary" display="block" sx={{ mt: 1 }}>
+              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 1 }}>
                 One ICO file with 16×16 and 32×32 sizes.
               </Typography>
             </Box>

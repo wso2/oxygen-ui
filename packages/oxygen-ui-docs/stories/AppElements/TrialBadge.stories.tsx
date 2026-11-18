@@ -160,7 +160,7 @@ export const WithUsagePanelCustomThresholds: Story = {
 
 export const AllStates: Story = {
   render: () => (
-    <Stack spacing={2} alignItems="flex-start">
+    <Stack spacing={2} sx={{ alignItems: 'flex-start' }}>
       {[12, 5, 2, 0].map((d) => (
         <TrialBadge key={d} daysLeft={d} onUpgrade={() => undefined} />
       ))}

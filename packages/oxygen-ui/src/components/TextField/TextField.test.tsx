@@ -56,7 +56,8 @@ describe('TextField', () => {
 
   it('drops the floating-label padding of the filled variant', () => {
     const { container } = renderWithTheme(<TextField labelPlacement="top" variant="filled" label="Name" />);
-    expect(container.querySelector('.MuiInputBase-inputHiddenLabel')).not.toBeNull();
+    // MUI v9 marks the root, not the input, with the hidden-label class.
+    expect(container.querySelector('.MuiInputBase-hiddenLabel')).not.toBeNull();
   });
 
   it('keeps the top label colour while the field has focus', () => {

@@ -405,7 +405,7 @@ const StoredState = () => {
   React.useEffect(() => subscribeHeaderBreadcrumbsState(setState, { key: SHARED_KEY }), []);
   return (
     <Box>
-      <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
+      <Stack direction="row" spacing={1} sx={{ alignItems: 'center', mb: 1 }}>
         <Typography variant="subtitle2">localStorage[&quot;{SHARED_KEY}&quot;]</Typography>
         <Button size="small" variant="text" onClick={() => clearHeaderBreadcrumbsState({ key: SHARED_KEY })}>
           Clear
@@ -495,7 +495,7 @@ export const UpdatingData: Story = {
             }}
           />
         </InHeader>
-        <Stack direction="row" spacing={1} sx={{ p: 3 }} flexWrap="wrap" useFlexGap>
+        <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', p: 3 }} useFlexGap>
           <Button variant="contained" startIcon={<Plus size={16} />} onClick={createProject}>
             Create project
           </Button>

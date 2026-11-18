@@ -491,64 +491,81 @@ const DefaultThemeConfig = {
         sizeSmall: { minHeight: 32 },
         sizeMedium: { minHeight: 40 },
         sizeLarge: { minHeight: 48 },
-        // Signal fill with a Midnight Ink label; on hover and press the fill stays and the label turns white
-        containedPrimary: ({ theme }: { theme: OxygenTheme }) => ({
-          backgroundColor: theme.vars.palette.primary.main,
-          color: theme.vars.palette.primary.contrastText,
-          '&:hover, &.Mui-focusVisible, &:active': {
-            backgroundColor: theme.vars.palette.primary.main,
-            color: BrandColors.white,
-          },
-        }),
-        // Burn outline (Signal in dark mode); fills with Signal on hover and Action with an Ink label when pressed
-        outlinedPrimary: ({ theme }: { theme: OxygenTheme }) => ({
-          borderColor: theme.vars.palette.Button?.outlinedColor,
-          color: theme.vars.palette.Button?.outlinedColor,
-          '&:hover, &.Mui-focusVisible': {
-            borderColor: theme.vars.palette.primary.main,
-            backgroundColor: theme.vars.palette.primary.main,
-            color: BrandColors.white,
-          },
-          '&:active': {
-            borderColor: BrandColors.action,
-            backgroundColor: BrandColors.action,
-            color: BrandColors.midnightInk,
-          },
-        }),
-        // The guidelines have no text button, so it follows the link colours: Burn, then Ember on hover
-        // (Signal and Flare in dark mode)
-        textPrimary: ({ theme }: { theme: OxygenTheme }) => ({
-          color: theme.vars.palette.Button?.outlinedColor,
-          '&:hover, &.Mui-focusVisible': {
-            color: theme.vars.palette.Button?.textHoverColor,
-          },
-        }),
-        // Midnight Ink fill that darkens to Void on hover. Dark mode inverts it to a white fill whose
-        // label turns Action on hover and Burn when pressed.
-        containedSecondary: ({ theme }: { theme: OxygenTheme }) => ({
-          backgroundColor: theme.vars.palette.secondary.main,
-          color: theme.vars.palette.secondary.contrastText,
-          '&:hover, &.Mui-focusVisible': {
-            backgroundColor: theme.vars.palette.Button?.containedSecondaryHoverBg,
-            color: theme.vars.palette.Button?.containedSecondaryHoverColor,
-          },
-          '&:active': {
-            backgroundColor: theme.vars.palette.Button?.containedSecondaryHoverBg,
-            color: theme.vars.palette.Button?.containedSecondaryActiveColor,
-          },
-        }),
-        // Ink outline (white in dark mode) that fills on hover and press
-        outlinedSecondary: ({ theme }: { theme: OxygenTheme }) => ({
-          borderColor: theme.vars.palette.secondary.main,
-          color: theme.vars.palette.secondary.main,
-          '&:hover, &.Mui-focusVisible, &:active': {
-            borderColor: theme.vars.palette.secondary.main,
-            backgroundColor: theme.vars.palette.secondary.main,
-            color: theme.vars.palette.secondary.contrastText,
-          },
-        }),
       },
       variants: [
+        // MUI v9 no longer applies combined keys such as `containedPrimary`, so each variant and colour pair
+        // is matched here.
+        // Signal fill with a Midnight Ink label; on hover and press the fill stays and the label turns white
+        {
+          props: { variant: 'contained', color: 'primary' },
+          style: ({ theme }: { theme: OxygenTheme }) => ({
+            backgroundColor: theme.vars.palette.primary.main,
+            color: theme.vars.palette.primary.contrastText,
+            '&:hover, &.Mui-focusVisible, &:active': {
+              backgroundColor: theme.vars.palette.primary.main,
+              color: BrandColors.white,
+            },
+          }),
+        },
+        // Burn outline (Signal in dark mode); fills with Signal on hover and Action with an Ink label when pressed
+        {
+          props: { variant: 'outlined', color: 'primary' },
+          style: ({ theme }: { theme: OxygenTheme }) => ({
+            borderColor: theme.vars.palette.Button?.outlinedColor,
+            color: theme.vars.palette.Button?.outlinedColor,
+            '&:hover, &.Mui-focusVisible': {
+              borderColor: theme.vars.palette.primary.main,
+              backgroundColor: theme.vars.palette.primary.main,
+              color: BrandColors.white,
+            },
+            '&:active': {
+              borderColor: BrandColors.action,
+              backgroundColor: BrandColors.action,
+              color: BrandColors.midnightInk,
+            },
+          }),
+        },
+        // The guidelines have no text button, so it follows the link colours: Burn, then Ember on hover
+        // (Signal and Flare in dark mode)
+        {
+          props: { variant: 'text', color: 'primary' },
+          style: ({ theme }: { theme: OxygenTheme }) => ({
+            color: theme.vars.palette.Button?.outlinedColor,
+            '&:hover, &.Mui-focusVisible': {
+              color: theme.vars.palette.Button?.textHoverColor,
+            },
+          }),
+        },
+        // Midnight Ink fill that darkens to Void on hover. Dark mode inverts it to a white fill whose
+        // label turns Action on hover and Burn when pressed.
+        {
+          props: { variant: 'contained', color: 'secondary' },
+          style: ({ theme }: { theme: OxygenTheme }) => ({
+            backgroundColor: theme.vars.palette.secondary.main,
+            color: theme.vars.palette.secondary.contrastText,
+            '&:hover, &.Mui-focusVisible': {
+              backgroundColor: theme.vars.palette.Button?.containedSecondaryHoverBg,
+              color: theme.vars.palette.Button?.containedSecondaryHoverColor,
+            },
+            '&:active': {
+              backgroundColor: theme.vars.palette.Button?.containedSecondaryHoverBg,
+              color: theme.vars.palette.Button?.containedSecondaryActiveColor,
+            },
+          }),
+        },
+        // Ink outline (white in dark mode) that fills on hover and press
+        {
+          props: { variant: 'outlined', color: 'secondary' },
+          style: ({ theme }: { theme: OxygenTheme }) => ({
+            borderColor: theme.vars.palette.secondary.main,
+            color: theme.vars.palette.secondary.main,
+            '&:hover, &.Mui-focusVisible, &:active': {
+              borderColor: theme.vars.palette.secondary.main,
+              backgroundColor: theme.vars.palette.secondary.main,
+              color: theme.vars.palette.secondary.contrastText,
+            },
+          }),
+        },
         // Outlined accent works like the other outlined buttons: a solid Burn outline that fills with
         // Burn and a white label on hover and keyboard focus, and darkens to Ember when pressed
         {

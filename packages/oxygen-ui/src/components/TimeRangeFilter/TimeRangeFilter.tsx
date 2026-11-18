@@ -470,7 +470,7 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
         <Typography id={headingId} variant="body2" sx={{ mb: 1 }}>
           {heading}
         </Typography>
-        <Stack direction="row" gap={1}>
+        <Stack direction="row" sx={{ gap: 1 }}>
           {/* Each field keeps its own value, so clearing one does not empty the other. They are combined on Apply. */}
           <DatePicker
             label={dateLabel}
@@ -555,9 +555,9 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
                 id={panelId}
                 role="group"
                 aria-labelledby={panelHeadingId}
-                gap={2}
                 // Below the list when the two wrap on a narrow screen, beside it from `sm` up.
                 sx={{
+                  gap: 2,
                   p: 2,
                   width: 380,
                   maxWidth: '100%',
@@ -574,7 +574,7 @@ const TimeRangeFilter = React.forwardRef<HTMLButtonElement, TimeRangeFilterProps
                   {rangeEnd(untilLabel, untilHeadingId, until, editUntil)}
                 </LocalizationProvider>
                 {error && <Alert severity="error">{error}</Alert>}
-                <Stack direction="row" justifyContent="flex-end" gap={1}>
+                <Stack direction="row" sx={{ justifyContent: 'flex-end', gap: 1 }}>
                   <Button variant="outlined" color="inherit" onClick={close} sx={{ textTransform: 'none' }}>
                     {cancelLabel}
                   </Button>

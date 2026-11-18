@@ -124,7 +124,7 @@ function ListPageSample() {
           <Button variant="contained">Create project</Button>
         </PageTitle.Actions>
       </PageTitle>
-      <Stack direction="row" spacing={2} alignItems="center" sx={{ flexWrap: 'wrap', rowGap: 2 }}>
+      <Stack direction="row" spacing={2} sx={{ alignItems: 'center', flexWrap: 'wrap', rowGap: 2 }}>
         <SearchBar width="standard" placeholder="Search projects" />
         <Box sx={{ flexGrow: 1 }} />
         <Button variant="outlined" endIcon={<ChevronDown size={16} />}>

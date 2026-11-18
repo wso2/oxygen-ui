@@ -312,10 +312,12 @@ const FullScreenWizardBase = React.forwardRef<HTMLDivElement, FullScreenWizardPr
       return layout;
     }
 
-    // Dialog builds its paper props as `{ paper: PaperProps, ...slotProps }`, so
-    // setting `slotProps.paper` below would drop the deprecated `PaperProps`.
-    // Merge both, with `slotProps.paper` winning as it does in Dialog.
-    const { slotProps, PaperProps: paperProps, ...restDialogProps } = dialogProps ?? {};
+    // Setting `slotProps.paper` below replaces the consumer's own, so merge it in. MUI v9 removed the
+    // deprecated `PaperProps` from the types, but older callers may still pass it, so keep honouring it,
+    // with `slotProps.paper` winning as it did in Dialog.
+    const { slotProps, PaperProps: paperProps, ...restDialogProps } = (dialogProps ?? {}) as NonNullable<
+      typeof dialogProps
+    > & { PaperProps?: Record<string, unknown> };
     const paperSlot = slotProps?.paper;
 
     return (

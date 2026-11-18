@@ -298,8 +298,10 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
                 } as React.HTMLAttributes<HTMLDivElement>
               }
               MenuProps={{
-                MenuListProps: {
-                  'aria-label': label,
+                slotProps: {
+                  list: {
+                    'aria-label': label,
+                  },
                 },
               }}
             >

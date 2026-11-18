@@ -117,13 +117,13 @@ const buildSteps = [
 ];
 
 const BuildMetadata = () => (
-  <Stack direction="row" flexWrap="wrap" columnGap={3} rowGap={1} sx={{ mb: 3, color: 'text.secondary' }}>
+  <Stack direction="row" sx={{ flexWrap: 'wrap', columnGap: 3, rowGap: 1, mb: 3, color: 'text.secondary' }}>
     <RelativeTime action="Triggered" time="about 1 hour ago" dateTime="2026-10-29T09:12:00Z" />
-    <Stack direction="row" spacing={0.75} alignItems="center">
+    <Stack direction="row" spacing={0.75} sx={{ alignItems: 'center' }}>
       <GitBranch size={16} aria-hidden="true" />
       <Typography variant="body2">main</Typography>
     </Stack>
-    <Stack direction="row" spacing={0.75} alignItems="center">
+    <Stack direction="row" spacing={0.75} sx={{ alignItems: 'center' }}>
       <GitCommitHorizontal size={16} aria-hidden="true" />
       <Typography variant="body2">a3f9c21</Typography>
     </Stack>
@@ -136,12 +136,10 @@ const BuildSteps = () => (
       <Stack
         key={step.name}
         direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        sx={{ py: 1.5 }}
+        sx={{ alignItems: 'center', justifyContent: 'space-between', py: 1.5 }}
       >
         <Typography variant="body2">{step.name}</Typography>
-        <Stack direction="row" spacing={2} alignItems="center">
+        <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
           <Typography variant="body2" color="text.secondary">
             {step.duration}
           </Typography>
@@ -226,7 +224,7 @@ export const ControlledExpand: Story = {
     const [expanded, setExpanded] = React.useState(true);
 
     return (
-      <Stack spacing={1} alignItems="center">
+      <Stack spacing={1} sx={{ alignItems: 'center' }}>
         <Button variant="outlined" onClick={() => setOpen(true)}>
           View build logs
         </Button>
