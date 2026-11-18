@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@wso2/oxygen-ui-workspace",
-  "description": "WSO2 Oxygen UI | Workspace",
+  "description": "Choreo Oxygen UI | Workspace",
   "files": [
     "packages",
     "README.md"
@@ -23,6 +23,8 @@
   },
   "keywords": [
     "wso2",
+    "choreo",
+    "choreo-labs",
     "oxygen-ui",
     "design-system",
     "material-ui",

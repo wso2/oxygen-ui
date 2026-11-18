@@ -50,7 +50,7 @@ import { ContextSwitcher, Header } from '@wso2/oxygen-ui';
   <ContextSwitcher value={value} onChange={setValue}>
     <ContextSwitcher.Level id="organization" label="Organization">
       <ContextSwitcher.Group label="Invited organizations">
-        <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+        <ContextSwitcher.Option value="wso2">Choreo Labs</ContextSwitcher.Option>
       </ContextSwitcher.Group>
     </ContextSwitcher.Level>
     <ContextSwitcher.Level id="project" label="Project">
@@ -88,7 +88,7 @@ const Chain = ({
       <ContextSwitcher.Level id="organization" label="Organization">
         <ContextSwitcher.Option value="personal">Personal</ContextSwitcher.Option>
         <ContextSwitcher.Group label="Invited organizations">
-          <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+          <ContextSwitcher.Option value="wso2">Choreo Labs</ContextSwitcher.Option>
           <ContextSwitcher.Option value="demo">Demo Organization</ContextSwitcher.Option>
           <ContextSwitcher.Option value="north-america">
             North American Enterprise Organization
@@ -172,7 +172,7 @@ const OpenOnMount = ({ name, children }: { name: string; children: React.ReactNo
 export const OpenPanel: Story = {
   parameters: { layout: 'padded' },
   render: () => (
-    <OpenOnMount name="Organization: WSO2">
+    <OpenOnMount name="Organization: Choreo Labs">
       <Chain />
     </OpenOnMount>
   ),
@@ -201,7 +201,7 @@ export const Loading: Story = {
     <OpenOnMount name="Project: Finance Web">
       <ContextSwitcher value={{ organization: 'wso2', project: 'finance-web' }} onChange={() => undefined}>
         <ContextSwitcher.Level id="organization" label="Organization">
-          <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+          <ContextSwitcher.Option value="wso2">Choreo Labs</ContextSwitcher.Option>
         </ContextSwitcher.Level>
         <ContextSwitcher.Level id="project" label="Project" loading>
           <ContextSwitcher.Option value="finance-web">Finance Web</ContextSwitcher.Option>

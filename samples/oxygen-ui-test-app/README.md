@@ -1,6 +1,6 @@
 # Oxygen UI Test App
 
-This is a sample Vite + React + TypeScript application demonstrating the usage of WSO2 Oxygen UI components.
+This is a sample Vite + React + TypeScript application demonstrating the usage of Choreo Oxygen UI components.
 
 ## Features
 
@@ -119,7 +119,7 @@ function App() {
 - [React 19](https://react.dev/)
 - [TypeScript 5](https://www.typescriptlang.org/)
 - [Vite 7](https://vite.dev/)
-- [@wso2/oxygen-ui](../../packages/oxygen-ui/README.md) - WSO2 Oxygen UI component library
+- [@wso2/oxygen-ui](../../packages/oxygen-ui/README.md) - Choreo Oxygen UI component library
 - [@wso2/oxygen-ui-icons-react](../../packages/oxygen-ui-icons-react/README.md) - Icon library
 - [@wso2/eslint-plugin-oxygen-ui](../../packages/eslint-plugin-oxygen-ui/README.md) - ESLint plugin
 - [@wso2/vite-plugin-oxygen-ui](../../packages/vite-plugin-oxygen-ui/README.md) - Vite plugin

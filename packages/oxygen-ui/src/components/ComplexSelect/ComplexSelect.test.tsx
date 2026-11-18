@@ -78,9 +78,9 @@ describe('ComplexSelect inside label', () => {
   it('names a ContextSwitcher level without a <label>', () => {
     const { container } = render(
       <OxygenUIThemeProvider theme={OxygenTheme}>
-        <ContextSwitcher value={{ organization: 'wso2' }} onChange={() => {}}>
+        <ContextSwitcher value={{ organization: 'choreo-labs' }} onChange={() => {}}>
           <ContextSwitcher.Level id="organization" label="Organization">
-            <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+            <ContextSwitcher.Option value="choreo-labs">Choreo Labs</ContextSwitcher.Option>
           </ContextSwitcher.Level>
         </ContextSwitcher>
       </OxygenUIThemeProvider>,

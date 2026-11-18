@@ -268,13 +268,13 @@ describe('AppSwitcher data-driven sections', () => {
       <OxygenUIThemeProvider>
         <AppSwitcher>
           <AppSwitcher.Trigger />
-          <AppSwitcher.Footer aria-label="WSO2 Cloud" links={MANAGE} />
+          <AppSwitcher.Footer aria-label="Choreo Cloud" links={MANAGE} />
         </AppSwitcher>
       </OxygenUIThemeProvider>,
     );
     openSwitcher();
 
-    expect(screen.getByRole('list', { name: 'WSO2 Cloud' })).toBeDefined();
+    expect(screen.getByRole('list', { name: 'Choreo Cloud' })).toBeDefined();
   });
 
   it('prefers a visible label over aria-label', () => {

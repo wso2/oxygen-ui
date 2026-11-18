@@ -1,13 +1,13 @@
-# WSO2 Oxygen-UI
+# Choreo Oxygen UI
 
-**WSO2 Oxygen-UI** is the official design system and React component library for WSO2 products, built on top of [Material-UI v7](https://mui.com/material-ui/). It provides a consistent, modern, and accessible user experience across all WSO2 applications, enabling rapid development and seamless integration with the latest frontend technologies.
+**Choreo Oxygen UI** is the official design system and React component library for Choreo Labs products, built on top of [Material-UI v7](https://mui.com/material-ui/). It provides a consistent, modern, and accessible user experience across all Choreo Labs applications, enabling rapid development and seamless integration with the latest frontend technologies.
 
-Oxygen-UI delivers:
+Oxygen UI delivers:
 
-- A comprehensive set of ready-to-use UI components + icons, themed for WSO2 brand and product needs
+- A comprehensive set of ready-to-use UI components + icons, themed for Choreo Labs brand and product needs
 - Full compatibility with Material-UI v7.3.5 and its ecosystem
 - Full compatibility with Lucide v0.553
-- Support for custom WSO2 components, icons and design patterns
+- Support for custom Choreo Labs components, icons and design patterns
 - Easy integration with Vite, Nx, and modern React workflows
 
 # Prerequisites
@@ -40,7 +40,7 @@ pnpm add @wso2/oxygen-ui @wso2/oxygen-ui-charts-react
 
 ## Using Components
 
-Import any Material-UI or Oxygen-UI custom component:
+Import any Material-UI or Oxygen UI custom component:
 
 ```jsx
 import { OxygenUIThemeProvider, Button, TextField } from '@wso2/oxygen-ui';
@@ -80,10 +80,10 @@ See the [@wso2/oxygen-ui README](./packages/oxygen-ui/README.md) for detailed us
 
 ## Using Icons
 
-Import Lucide icons or Oxygen-UI custom icons:
+Import Lucide icons or Oxygen UI custom icons:
 
 ```jsx
-import { Bell, WSO2 } from '@wso2/oxygen-ui-icons-react';
+import { Bell, ChoreoLabs } from '@wso2/oxygen-ui-icons-react';
 ```
 
 > **Note**: `import { Bell } from '@wso2/oxygen-ui-icons-react'` is equivalent to `import { Bell } from 'lucide-react'`
@@ -124,13 +124,13 @@ The workspace is organized as follows:
 ```
 oxygen-ui/
 ├── packages/
-│   ├── oxygen-ui/                        # Main Oxygen-UI component library (@wso2/oxygen-ui)
-│   ├── oxygen-ui-charts-react/           # Oxygen-UI charts library (@wso2/oxygen-ui-charts-react)
-│   ├── oxygen-ui-docs/                   # Oxygen-UI docs - storybook
-│   ├── oxygen-ui-icons-react/            # Oxygen-UI icons library (@wso2/oxygen-ui-icons-react) 
-│   └── eslint-plugin-oxygen-ui/          # ESLint plugin for enforcing Oxygen-UI import patterns
+│   ├── oxygen-ui/                        # Main Oxygen UI component library (@wso2/oxygen-ui)
+│   ├── oxygen-ui-charts-react/           # Oxygen UI charts library (@wso2/oxygen-ui-charts-react)
+│   ├── oxygen-ui-docs/                   # Oxygen UI docs - storybook
+│   ├── oxygen-ui-icons-react/            # Oxygen UI icons library (@wso2/oxygen-ui-icons-react) 
+│   └── eslint-plugin-oxygen-ui/          # ESLint plugin for enforcing Oxygen UI import patterns
 ├── samples/
-│   └── oxygen-ui-test-app/               # Example Vite + React app using Oxygen-UI
+│   └── oxygen-ui-test-app/               # Example Vite + React app using Oxygen UI
 ├── README.md
 ├── package.json
 ├── pnpm-workspace.yaml

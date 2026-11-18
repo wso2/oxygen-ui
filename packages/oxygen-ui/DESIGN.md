@@ -1,10 +1,10 @@
-# Oxygen UI Design System
+# Choreo Oxygen UI Design System
 
 This document outlines the design system architecture, design tool integration, and guidelines for designers working with Oxygen UI.
 
 ## Overview
 
-Oxygen UI is WSO2's design system built on top of Material-UI v7. It provides a unified visual language and component library that ensures consistency across all WSO2 products.
+Choreo Oxygen UI is Choreo Labs' design system built on top of Material-UI v7. It provides a unified visual language and component library that ensures consistency across all Choreo Labs products.
 
 ## Design Tools Integration
 
@@ -69,11 +69,7 @@ Oxygen UI uses Material-UI's 8px spacing scale:
 
 #### Border Radius
 
-**WSO2 Theme:**
-- Default: `20px` (theme.shape.borderRadius)
-
-**Other Themes:**
-- Varies by theme (typically 8-12px)
+Set per theme through `theme.shape.borderRadius` (typically 8-12px).
 
 #### Shadows & Blur
 

@@ -33,8 +33,8 @@ describe('Form.ElementWrapper', () => {
     [
       'select',
       () => (
-        <Select value="wso2" onChange={() => {}}>
-          <MenuItem value="wso2">wso2</MenuItem>
+        <Select value="choreo-labs" onChange={() => {}}>
+          <MenuItem value="choreo-labs">choreo-labs</MenuItem>
         </Select>
       ),
       'combobox',

@@ -49,7 +49,7 @@ const Harness = ({
       >
         <ContextSwitcher.Level id="organization" label="Organization">
           <ContextSwitcher.Group label="Invited organizations">
-            <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+            <ContextSwitcher.Option value="choreo-labs">Choreo Labs</ContextSwitcher.Option>
             <ContextSwitcher.Option value="demo">Demo Organization</ContextSwitcher.Option>
           </ContextSwitcher.Group>
           <ContextSwitcher.Option value="personal">Personal</ContextSwitcher.Option>
@@ -100,16 +100,16 @@ describe('ContextSwitcher chain', () => {
   });
 
   it('shows the next empty level once the level above it has a selection', () => {
-    render(<Harness initial={{organization: 'wso2'}} />);
+    render(<Harness initial={{organization: 'choreo-labs'}} />);
 
-    expect(fieldByLabel('Organization').getAttribute('aria-label')).toBe('Organization: WSO2');
+    expect(fieldByLabel('Organization').getAttribute('aria-label')).toBe('Organization: Choreo Labs');
     expect(screen.getByText('/')).toBeDefined();
     expect(fieldByLabel('Project').getAttribute('aria-label')).toBe('Project: Select project');
     expect(screen.queryByRole('combobox', {name: /Component/})).toBeNull();
   });
 
   it('ignores a value whose parent level is empty', () => {
-    render(<Harness initial={{organization: 'wso2', component: 'mis-arr'}} />);
+    render(<Harness initial={{organization: 'choreo-labs', component: 'mis-arr'}} />);
 
     expect(fieldByLabel('Organization')).toBeDefined();
     expect(fieldByLabel('Project')).toBeDefined();
@@ -170,9 +170,9 @@ describe('ContextSwitcher truncated names', () => {
 
 describe('ContextSwitcher back', () => {
   it('keeps earlier levels on screen and names the level Back returns to', () => {
-    render(<Harness initial={{organization: 'wso2', project: 'finance-web', component: 'mis-arr'}} back />);
+    render(<Harness initial={{organization: 'choreo-labs', project: 'finance-web', component: 'mis-arr'}} back />);
 
-    expect(fieldByLabel('Organization').getAttribute('aria-label')).toBe('Organization: WSO2');
+    expect(fieldByLabel('Organization').getAttribute('aria-label')).toBe('Organization: Choreo Labs');
     expect(fieldByLabel('Project').getAttribute('aria-label')).toBe('Project: Finance Web');
     expect(fieldByLabel('Component').getAttribute('aria-label')).toBe('Component: MIS ARR Backend');
     expect(screen.getAllByText('/')).toHaveLength(2);
@@ -180,7 +180,7 @@ describe('ContextSwitcher back', () => {
   });
 
   it('keeps later levels on screen while an earlier list is open', () => {
-    render(<Harness initial={{organization: 'wso2', project: 'finance-web', component: 'mis-arr'}} back />);
+    render(<Harness initial={{organization: 'choreo-labs', project: 'finance-web', component: 'mis-arr'}} back />);
 
     openLevel('Organization');
 
@@ -193,7 +193,7 @@ describe('ContextSwitcher back', () => {
     const onChange = vi.fn();
     render(
       <Harness
-        initial={{organization: 'wso2', project: 'finance-web', component: 'mis-arr'}}
+        initial={{organization: 'choreo-labs', project: 'finance-web', component: 'mis-arr'}}
         back
         onChange={onChange}
       />
@@ -201,17 +201,17 @@ describe('ContextSwitcher back', () => {
 
     fireEvent.click(screen.getByRole('button', {name: 'Go to the Project level'}));
 
-    expect(onChange).toHaveBeenCalledWith({organization: 'wso2', project: 'finance-web'});
-    expect(fieldByLabel('Organization').getAttribute('aria-label')).toBe('Organization: WSO2');
+    expect(onChange).toHaveBeenCalledWith({organization: 'choreo-labs', project: 'finance-web'});
+    expect(fieldByLabel('Organization').getAttribute('aria-label')).toBe('Organization: Choreo Labs');
     expect(fieldByLabel('Project').getAttribute('aria-label')).toBe('Project: Finance Web');
     expect(screen.queryByRole('combobox', {name: /Component/, hidden: true})).toBeNull();
   });
 
   it('shows an empty level while its options are open and returns when they close', () => {
-    render(<Harness initial={{organization: 'wso2'}} back />);
+    render(<Harness initial={{organization: 'choreo-labs'}} back />);
 
     openLevel('Organization');
-    fireEvent.click(screen.getByRole('option', {name: 'WSO2'}));
+    fireEvent.click(screen.getByRole('option', {name: 'Choreo Labs'}));
 
     expect(fieldByLabel('Project').getAttribute('aria-expanded')).toBe('true');
     fireEvent.keyDown(screen.getByRole('listbox'), {key: 'Escape'});
@@ -221,7 +221,7 @@ describe('ContextSwitcher back', () => {
   });
 
   it('joins Back and the field in one group', () => {
-    render(<Harness initial={{organization: 'wso2', project: 'finance-web'}} back />);
+    render(<Harness initial={{organization: 'choreo-labs', project: 'finance-web'}} back />);
 
     expect(screen.getByRole('group', {name: 'Project'})).toBeDefined();
     expect(
@@ -237,13 +237,13 @@ describe('ContextSwitcher selection', () => {
     const onChange = vi.fn();
     render(
       <Harness
-        initial={{organization: 'wso2', project: 'finance-web', component: 'mis-arr'}}
+        initial={{organization: 'choreo-labs', project: 'finance-web', component: 'mis-arr'}}
         onChange={onChange}
       />
     );
 
     openLevel('Organization');
-    fireEvent.click(screen.getByRole('option', {name: 'WSO2'}));
+    fireEvent.click(screen.getByRole('option', {name: 'Choreo Labs'}));
 
     expect(onChange).not.toHaveBeenCalled();
     expect(fieldByLabel('Project').getAttribute('aria-expanded')).toBe('true');
@@ -254,7 +254,7 @@ describe('ContextSwitcher selection', () => {
     const onChange = vi.fn();
     render(
       <Harness
-        initial={{organization: 'wso2', project: 'finance-web', component: 'mis-arr'}}
+        initial={{organization: 'choreo-labs', project: 'finance-web', component: 'mis-arr'}}
         onChange={onChange}
       />
     );
@@ -269,18 +269,18 @@ describe('ContextSwitcher selection', () => {
   });
 
   it('lists options in source order and marks the current option', () => {
-    render(<Harness initial={{organization: 'wso2'}} />);
+    render(<Harness initial={{organization: 'choreo-labs'}} />);
     openLevel('Organization');
 
     const options = screen.getAllByRole('option').map((option) => option.textContent);
-    expect(options).toEqual(expect.arrayContaining(['WSO2', 'Demo Organization', 'Personal']));
-    expect(screen.getByRole('option', {name: 'WSO2'}).getAttribute('aria-selected')).toBe('true');
+    expect(options).toEqual(expect.arrayContaining(['Choreo Labs', 'Demo Organization', 'Personal']));
+    expect(screen.getByRole('option', {name: 'Choreo Labs'}).getAttribute('aria-selected')).toBe('true');
     expect(screen.getByText('Invited organizations')).toBeDefined();
   });
 
   it('keeps a disabled option visible and unselectable', () => {
     const onChange = vi.fn();
-    render(<Harness initial={{organization: 'wso2'}} onChange={onChange} />);
+    render(<Harness initial={{organization: 'choreo-labs'}} onChange={onChange} />);
     openLevel('Project');
 
     fireEvent.click(screen.getByRole('option', {name: 'Sales'}));
@@ -304,7 +304,7 @@ describe('ContextSwitcher panel', () => {
 
   it('shows a progress indicator while a level is loading', () => {
     render(
-      <Harness initial={{organization: 'wso2', project: 'finance-web'}} loading loadingLabel="Loading components" />
+      <Harness initial={{organization: 'choreo-labs', project: 'finance-web'}} loading loadingLabel="Loading components" />
     );
     openLevel('Component');
     expect(screen.getByRole('progressbar', {name: 'Loading components'})).toBeDefined();
@@ -313,9 +313,9 @@ describe('ContextSwitcher panel', () => {
   it('keeps the level label visible while that level is loading', () => {
     render(
       <OxygenUIThemeProvider>
-        <ContextSwitcher value={{organization: 'wso2', project: 'finance-web'}} onChange={() => undefined}>
+        <ContextSwitcher value={{organization: 'choreo-labs', project: 'finance-web'}} onChange={() => undefined}>
           <ContextSwitcher.Level id="organization" label="Organization">
-            <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+            <ContextSwitcher.Option value="choreo-labs">Choreo Labs</ContextSwitcher.Option>
           </ContextSwitcher.Level>
           <ContextSwitcher.Level id="project" label="Project" loading>
             <ContextSwitcher.Option value="finance-web">Finance Web</ContextSwitcher.Option>
@@ -338,7 +338,7 @@ describe('ContextSwitcher panel', () => {
 
 describe('ContextSwitcher dismissal', () => {
   it('closes on Escape and an outside click', () => {
-    render(<Harness initial={{organization: 'wso2'}} />);
+    render(<Harness initial={{organization: 'choreo-labs'}} />);
     openLevel('Organization');
     expect(fieldByLabel('Organization').getAttribute('aria-expanded')).toBe('true');
 
@@ -351,7 +351,7 @@ describe('ContextSwitcher dismissal', () => {
   });
 
   it('keeps only one panel open', () => {
-    render(<Harness initial={{organization: 'wso2', project: 'finance-web'}} />);
+    render(<Harness initial={{organization: 'choreo-labs', project: 'finance-web'}} />);
     openLevel('Organization');
     openLevel('Project');
 
@@ -362,7 +362,7 @@ describe('ContextSwitcher dismissal', () => {
 
 describe('ContextSwitcher keyboard', () => {
   it('moves between fields with the left and right arrows while closed', () => {
-    render(<Harness initial={{organization: 'wso2', project: 'finance-web'}} />);
+    render(<Harness initial={{organization: 'choreo-labs', project: 'finance-web'}} />);
     const organization = fieldByLabel('Organization');
     organization.focus();
     fireEvent.keyDown(organization, {key: 'ArrowRight'});
@@ -372,7 +372,7 @@ describe('ContextSwitcher keyboard', () => {
   });
 
   it('moves across earlier levels, Back, and the current level', () => {
-    render(<Harness initial={{organization: 'wso2', project: 'finance-web', component: 'mis-arr'}} back />);
+    render(<Harness initial={{organization: 'choreo-labs', project: 'finance-web', component: 'mis-arr'}} back />);
     const organization = fieldByLabel('Organization');
     organization.focus();
 
@@ -389,10 +389,10 @@ describe('ContextSwitcher', () => {
   it('reads levels wrapped in a fragment', () => {
     render(
       <OxygenUIThemeProvider>
-        <ContextSwitcher value={{organization: 'wso2'}} onChange={() => undefined}>
+        <ContextSwitcher value={{organization: 'choreo-labs'}} onChange={() => undefined}>
           <>
             <ContextSwitcher.Level id="organization" label="Organization">
-              <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+              <ContextSwitcher.Option value="choreo-labs">Choreo Labs</ContextSwitcher.Option>
             </ContextSwitcher.Level>
             <ContextSwitcher.Level id="project" label="Project">
               <ContextSwitcher.Option value="finance-web">Finance Web</ContextSwitcher.Option>
@@ -411,11 +411,11 @@ describe('ContextSwitcher', () => {
       <OxygenUIThemeProvider>
         <ContextSwitcher
           back
-          value={{organization: 'wso2', project: 'finance-web'}}
+          value={{organization: 'choreo-labs', project: 'finance-web'}}
           onChange={() => undefined}
         >
           <ContextSwitcher.Level id="organization" label="Organization" backLabel="Return to organization">
-            <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+            <ContextSwitcher.Option value="choreo-labs">Choreo Labs</ContextSwitcher.Option>
           </ContextSwitcher.Level>
           <ContextSwitcher.Level id="project" label="Project" promptText="Choose a project">
             <ContextSwitcher.Option value="finance-web">Finance Web</ContextSwitcher.Option>
@@ -445,7 +445,7 @@ describe('ContextSwitcher.Level', () => {
       <OxygenUIThemeProvider>
         <ContextSwitcher value={{organization: 'missing'}} onChange={() => undefined}>
           <ContextSwitcher.Level id="organization" label="Organization">
-            <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+            <ContextSwitcher.Option value="choreo-labs">Choreo Labs</ContextSwitcher.Option>
           </ContextSwitcher.Level>
         </ContextSwitcher>
       </OxygenUIThemeProvider>
@@ -461,7 +461,7 @@ describe('ContextSwitcher.Group', () => {
       render(
         <OxygenUIThemeProvider>
           <ContextSwitcher.Group label="Invited organizations">
-            <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+            <ContextSwitcher.Option value="choreo-labs">Choreo Labs</ContextSwitcher.Option>
           </ContextSwitcher.Group>
         </OxygenUIThemeProvider>
       )
@@ -474,7 +474,7 @@ describe('ContextSwitcher.Option', () => {
     expect(() =>
       render(
         <OxygenUIThemeProvider>
-          <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+          <ContextSwitcher.Option value="choreo-labs">Choreo Labs</ContextSwitcher.Option>
         </OxygenUIThemeProvider>
       )
     ).toThrow('ContextSwitcher.Option must be rendered inside a level');

@@ -1142,8 +1142,6 @@ function TabNavigation() {
 import {
   OxygenUIThemeProvider,
   OxygenTheme,
-  AcrylicOrangeTheme,
-  AcrylicPurpleTheme,
   ClassicTheme,
   HighContrastTheme,
   PaleBaseTheme,
@@ -1156,8 +1154,6 @@ import {
 
 const themes = [
   { key: 'default', label: 'Default', theme: OxygenTheme },
-  { key: 'orange', label: 'Acrylic Orange', theme: AcrylicOrangeTheme },
-  { key: 'purple', label: 'Acrylic Purple', theme: AcrylicPurpleTheme },
   { key: 'classic', label: 'Classic', theme: ClassicTheme },
   { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
   { key: 'paleBase', label: 'Pale Base', theme: PaleBaseTheme },

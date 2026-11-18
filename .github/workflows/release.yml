@@ -98,7 +98,7 @@ jobs:
           title: '[Release] [GitHub Action] Update package versions'
           publish: pnpm publish:packages
           version: pnpm version:packages
-          commit: "[WSO2 Release] [GitHub Action] [Release] [${{ github.ref_name }}] [skip ci] update package versions"
+          commit: "[Choreo Labs Release] [GitHub Action] [Release] [${{ github.ref_name }}] [skip ci] update package versions"
         env:
           GITHUB_TOKEN: ${{ env.GH_TOKEN }}
 

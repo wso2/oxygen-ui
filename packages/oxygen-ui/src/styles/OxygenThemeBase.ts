@@ -67,6 +67,17 @@ interface CustomThemeProperties {
 // Extend MUI Theme to include custom properties
 declare module '@mui/material/styles' {
   interface Theme extends CustomThemeProperties {}
+
+  interface Palette {
+    /**
+     * A categorical blue, for marking one kind of thing apart from another (a tag, a legend, a status
+     * that is neither good nor bad). Use it for text, outlines and light tints, not for solid fills.
+     */
+    blue: Palette['primary'];
+  }
+  interface PaletteOptions {
+    blue?: PaletteOptions['primary'];
+  }
   
   interface ThemeOptions extends Partial<CustomThemeProperties> {}
   
@@ -83,7 +94,13 @@ declare module '@mui/material/Avatar' {
      * Color of the `light` variant.
      * @default 'primary'
      */
-    color?: 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
+    color?: 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning' | 'blue';
+  }
+}
+
+declare module '@mui/material/Chip' {
+  interface ChipPropsColorOverrides {
+    blue: true;
   }
 }
 
@@ -163,6 +180,11 @@ const OxygenThemeBase = extendTheme({
           main: OxygenUIPrimitives.secondaryColor,
           contrastText: '#ffffff',
         },
+        // Cobalt: 6.1:1 as text on white
+        blue: {
+          main: '#1F4FFF',
+          contrastText: '#ffffff',
+        },
         background: {
           default: '#fafafa',
           paper: '#ffffff',
@@ -178,6 +200,11 @@ const OxygenThemeBase = extendTheme({
         secondary: {
           main: OxygenUIPrimitives.secondaryColor,
           contrastText: '#ffffff',
+        },
+        // Azure: Cobalt is too dark to read on dark surfaces
+        blue: {
+          main: '#3D8BFF',
+          contrastText: '#0B1633',
         },
         background: {
           default: '#121212',
@@ -216,7 +243,7 @@ const OxygenThemeBase = extendTheme({
             color: (theme.vars || theme).palette.primary.main,
           }),
         },
-        ...(['primary', 'secondary', 'success', 'error', 'info', 'warning'] as const).map(color => ({
+        ...(['primary', 'secondary', 'success', 'error', 'info', 'warning', 'blue'] as const).map(color => ({
           props: { variant: 'light' as const, color },
           style: ({ theme }: { theme: Theme }) => ({
             backgroundColor: `color-mix(in srgb, ${(theme.vars || theme).palette[color].main} 12%, transparent)`,

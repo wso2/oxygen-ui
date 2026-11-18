@@ -1,7 +1,7 @@
 {
   "name": "@wso2/oxygen-ui-docs",
   "version": "0.0.1",
-  "description": "Documentation site for WSO2 Oxygen UI using Storybook",
+  "description": "Documentation site for Choreo Oxygen UI using Storybook",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,6 +13,8 @@
   },
   "keywords": [
     "wso2",
+    "choreo",
+    "choreo-labs",
     "oxygen-ui",
     "documentation",
     "storybook"

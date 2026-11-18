@@ -38,7 +38,7 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Welcome to Oxygen UI - A comprehensive design system built on MUI',
+        component: 'Welcome to Choreo Oxygen UI - A comprehensive design system built on MUI',
       },
     }
   },
@@ -52,7 +52,7 @@ const WelcomeContent = () => (
     <Box>
       <Box sx={{ mb: 6 }}>
         <Typography variant="h2" gutterBottom>
-          Welcome to Oxygen UI
+          Welcome to Choreo Oxygen UI
         </Typography>
 
         <Typography variant="body2" sx={{ mt: 2, mb: 4, display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -62,7 +62,7 @@ const WelcomeContent = () => (
         <Typography variant="body1" paragraph sx={{ fontSize: '1.1rem', mb: 4 }}>
           Oxygen UI is a design system built on MUI (Material-UI) v7, providing a comprehensive set of 
           customizable composite components, themes, and utilities in addition to what MUI provides for building 
-          unified React applications in the WSO2 ecosystem.
+          unified React applications in the Choreo Labs ecosystem.
         </Typography>
 
         <Link href="./sample/index.html" target="_blank" rel="noopener" variant="h6">

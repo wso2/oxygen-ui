@@ -1,7 +1,7 @@
 {
   "name": "@wso2/oxygen-ui-charts-react",
   "version": "0.25.0",
-  "description": "WSO2 Oxygen UI Charts - React components",
+  "description": "Choreo Oxygen UI Charts - React components",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -30,6 +30,8 @@
   },
   "keywords": [
     "wso2",
+    "choreo",
+    "choreo-labs",
     "oxygen-ui",
     "charts",
     "recharts",

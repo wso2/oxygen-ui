@@ -21,6 +21,8 @@ import { createOxygenTheme } from '../../utils/createOxygenTheme';
 
 /**
  * AcrylicPurple Theme - Purple-blue gradient theme
+ *
+ * Reference only: this theme is not exported from the package and is not part of the public API.
  * Features: Purple-blue gradient, modern spacing, radial background
  */
 const AcrylicPurpleThemeConfig = {

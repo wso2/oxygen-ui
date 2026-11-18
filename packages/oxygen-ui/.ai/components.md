@@ -69,14 +69,14 @@ interface ThemeOption {
 import {
   OxygenUIThemeProvider,
   OxygenTheme,
-  AcrylicOrangeTheme,
-  AcrylicPurpleTheme,
+  ClassicTheme,
+  HighContrastTheme,
 } from '@wso2/oxygen-ui';
 
 const themes = [
   { key: 'default', label: 'Default', theme: OxygenTheme },
-  { key: 'orange', label: 'Orange', theme: AcrylicOrangeTheme },
-  { key: 'purple', label: 'Purple', theme: AcrylicPurpleTheme },
+  { key: 'classic', label: 'Classic', theme: ClassicTheme },
+  { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
 ];
 
 <OxygenUIThemeProvider themes={themes} initialTheme="default">

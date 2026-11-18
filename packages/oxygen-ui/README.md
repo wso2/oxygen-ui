@@ -1,6 +1,6 @@
 # @wso2/oxygen-ui
 
-WSO2 Oxygen UI React component library - A comprehensive design system powered by Material-UI with TypeScript support.
+Choreo Oxygen UI React component library - A comprehensive design system powered by Material-UI with TypeScript support.
 
 ## Installation
 

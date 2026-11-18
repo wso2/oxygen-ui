@@ -230,8 +230,6 @@ export const Integrate: Story = {
             <Stack spacing={0.5}>
               {[
                 ['OxygenTheme', 'Default theme: brand colours, Sora font and flat surfaces'],
-                ['AcrylicOrangeTheme', 'Warm orange accent'],
-                ['AcrylicPurpleTheme', 'Rich purple accent'],
                 ['ClassicTheme', 'Traditional, conservative styling'],
                 ['HighContrastTheme', 'Accessibility-focused high contrast'],
                 ['PaleGrayTheme', 'Soft neutral gray palette'],
