@@ -26,7 +26,7 @@ html[data-color-scheme='light'] body {
 html[data-color-scheme='dark'],
 html[data-color-scheme='dark'] body {
     color-scheme: dark;
-    --background: #000000;
+    --background: #050A1C;
 }
 
 .sidebar-container,
@@ -80,6 +80,100 @@ body[data-color-scheme='dark'] .sbdocs .toc-list-item > a.is-active-link {
 body[data-color-scheme='dark'] .sbdocs-content tbody > tr textarea {
     background-color: #222222 !important;
     color: #ededed !important;
+}
+
+/* Docs pages render with Storybook's light theme, so dark mode overrides what it leaves light.
+   rgb(118 137 156) replaces its dark grey text (rgb(46 51 56)) and keeps 4.5:1 on these surfaces. */
+/* Inline code: a faint chip on the dark page instead of a white one */
+body[data-color-scheme='dark'] .sbdocs :not(pre) > code {
+    background-color: rgb(255 255 255 / 6%) !important;
+    border-color: rgb(255 255 255 / 12%) !important;
+    color: rgb(118 137 156) !important;
+}
+
+/* Props table: type labels and other muted cell text */
+body[data-color-scheme='dark'] .docblock-argstable td div,
+body[data-color-scheme='dark'] .docblock-argstable td div span {
+    color: rgb(118 137 156) !important;
+}
+
+/* Props table: "Set boolean" and similar control buttons */
+body[data-color-scheme='dark'] .docblock-argstable td button {
+    background-color: rgb(255 255 255 / 6%) !important;
+    border-color: rgb(255 255 255 / 12%) !important;
+    box-shadow: none !important;
+    color: rgb(118 137 156) !important;
+}
+
+/* Code snippets and "Show code" panels: the default theme's dark CodeBlock palette, with the same
+   token mapping as CodeBlock (Void surface, Fog text, Azure keywords, Flare calls, green strings,
+   amber numbers, muted comments). */
+body[data-color-scheme='dark'] .docblock-source {
+    background-color: #07080C !important;
+    border: 1px solid rgb(255 255 255 / 12%) !important;
+    box-shadow: none !important;
+}
+
+body[data-color-scheme='dark'] .docblock-source pre,
+body[data-color-scheme='dark'] .docblock-source code,
+body[data-color-scheme='dark'] .docblock-source .token.punctuation,
+body[data-color-scheme='dark'] .docblock-source .token.operator,
+body[data-color-scheme='dark'] .docblock-source .token.entity,
+body[data-color-scheme='dark'] .docblock-source .token.url {
+    color: #D7DBE4 !important;
+}
+
+body[data-color-scheme='dark'] .docblock-source .token.comment,
+body[data-color-scheme='dark'] .docblock-source .token.prolog,
+body[data-color-scheme='dark'] .docblock-source .token.doctype,
+body[data-color-scheme='dark'] .docblock-source .token.cdata {
+    color: #8A93A6 !important;
+}
+
+body[data-color-scheme='dark'] .docblock-source .token.keyword,
+body[data-color-scheme='dark'] .docblock-source .token.property,
+body[data-color-scheme='dark'] .docblock-source .token.tag,
+body[data-color-scheme='dark'] .docblock-source .token.boolean,
+body[data-color-scheme='dark'] .docblock-source .token.constant,
+body[data-color-scheme='dark'] .docblock-source .token.symbol,
+body[data-color-scheme='dark'] .docblock-source .token.deleted,
+body[data-color-scheme='dark'] .docblock-source .token.atrule,
+body[data-color-scheme='dark'] .docblock-source .token.attr-value,
+body[data-color-scheme='dark'] .docblock-source .token.regex,
+body[data-color-scheme='dark'] .docblock-source .token.important,
+body[data-color-scheme='dark'] .docblock-source .token.variable {
+    color: #3D8BFF !important;
+}
+
+body[data-color-scheme='dark'] .docblock-source .token.selector,
+body[data-color-scheme='dark'] .docblock-source .token.attr-name,
+body[data-color-scheme='dark'] .docblock-source .token.string,
+body[data-color-scheme='dark'] .docblock-source .token.char,
+body[data-color-scheme='dark'] .docblock-source .token.builtin,
+body[data-color-scheme='dark'] .docblock-source .token.inserted {
+    color: #4ADE80 !important;
+}
+
+body[data-color-scheme='dark'] .docblock-source .token.function,
+body[data-color-scheme='dark'] .docblock-source .token.class-name {
+    color: #FF6E33 !important;
+}
+
+body[data-color-scheme='dark'] .docblock-source .token.number {
+    color: #FCD34D !important;
+}
+
+/* The action bar that holds Copy */
+body[data-color-scheme='dark'] .docblock-source div:has(> button) {
+    background: transparent !important;
+    border-color: rgb(255 255 255 / 12%) !important;
+}
+
+body[data-color-scheme='dark'] .docblock-source button {
+    background-color: rgb(255 255 255 / 6%) !important;
+    border-color: rgb(255 255 255 / 12%) !important;
+    box-shadow: none !important;
+    color: rgb(118 137 156) !important;
 }
 
 /* Light mode - ensure proper contrast */

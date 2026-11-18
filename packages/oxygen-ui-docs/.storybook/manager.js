@@ -32,8 +32,8 @@ const applyTheme = (mode) => {
   addons.setConfig({
     theme: {
       ...(mode === 'light' ? themes.light : themes.dark),
-      appBg: (mode === 'light' ? '#ffffff' : '#000000'),
-      barBg: (mode === 'light' ? '#f0f0f0' : '#000000'),
+      appBg: (mode === 'light' ? '#ffffff' : '#050A1C'),
+      barBg: (mode === 'light' ? '#f0f0f0' : '#050A1C'),
       brandTitle: 'Choreo Oxygen UI',
       brandUrl: 'https://github.com/wso2/oxygen-ui',
       brandImage: (mode === 'light' ? './oxygen-ui-logo.svg' : './oxygen-ui-logo-inverted.svg')
