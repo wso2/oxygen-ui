@@ -20,6 +20,7 @@ Complete API reference for custom Oxygen UI components. For MUI components, refe
 - [DrawerPanel](#drawerpanel)
 - [NotificationPanel](#notificationpanel)
 - [NotificationBanner](#notificationbanner)
+- [PageLoader](#pageloader)
 - [ParticleBackground](#particlebackground)
 - [Other Components](#other-components)
 - [MUI X Namespaces](#mui-x-namespaces)
@@ -70,14 +71,14 @@ interface ThemeOption {
 import {
   OxygenUIThemeProvider,
   OxygenTheme,
-  AcrylicOrangeTheme,
-  AcrylicPurpleTheme,
+  ClassicTheme,
+  HighContrastTheme,
 } from '@wso2/oxygen-ui';
 
 const themes = [
   { key: 'default', label: 'Default', theme: OxygenTheme },
-  { key: 'orange', label: 'Orange', theme: AcrylicOrangeTheme },
-  { key: 'purple', label: 'Purple', theme: AcrylicPurpleTheme },
+  { key: 'classic', label: 'Classic', theme: ClassicTheme },
+  { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
 ];
 
 <OxygenUIThemeProvider themes={themes} initialTheme="default">
@@ -1061,6 +1062,49 @@ import { NotificationBanner } from '@wso2/oxygen-ui';
   onAction={() => openMaintenanceInfo()}
   onDismiss={() => setShowBanner(false)}
 />
+```
+
+---
+
+## PageLoader
+
+Full-page loader. Animates the Oxygen UI mark in the centre while a background task runs. When `loading` turns `false`, the mark comes to rest, the title slides out to its right (pushing the mark left until the full logo is centred), and after `holdDuration` it calls `onComplete`, fades out and shows `children`. Honours `prefers-reduced-motion`.
+
+```tsx
+import { PageLoader, PageLoaderIcon } from '@wso2/oxygen-ui';
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `loading` | `boolean` | required | `true` while the task runs; `false` starts the reveal |
+| `title` | `ReactNode` | Oxygen UI wordmark | Revealed to the right of the icon. A string is set in the theme font, sized and tracked to match the wordmark |
+| `icon` | `ReactNode` | `<PageLoaderIcon />` | Replaces the animated mark |
+| `size` | `number` | `48` | Icon height in px; the title scales with it |
+| `onComplete` | `() => void` | - | Called once the full logo has been shown, before the fade out |
+| `onPhaseChange` | `(phase: PageLoaderPhase) => void` | - | `loading` → `settling` → `revealing` → `revealed` → `exiting` → `done` |
+| `revealDuration` | `number` | `700` | Reveal length in ms |
+| `holdDuration` | `number` | `600` | How long the full logo stays before `onComplete`, in ms |
+| `exitDuration` | `number` | `400` | Fade out length in ms |
+| `fullScreen` | `boolean` | `true` | Cover the viewport; `false` fills a positioned parent |
+| `loadingLabel` | `string` | `'Loading'` | Screen reader label while loading |
+| `children` | `ReactNode` | - | Shown once the loader finishes |
+
+`PageLoaderIcon` takes `size` (default `48`) plus any SVG props, and uses `currentColor`.
+
+### Usage
+
+```tsx
+const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+  Promise.all([loadUser(), loadConfig()]).finally(() => setLoading(false));
+}, []);
+
+<PageLoader loading={loading} onComplete={() => track('app-ready')}>
+  <App />
+</PageLoader>
 ```
 
 ---

@@ -17,3 +17,5 @@
  */
 
 export * from './ParticleBackground';
+export { default as PageLoader, PageLoaderIcon } from './PageLoader';
+export type { PageLoaderProps, PageLoaderPhase, PageLoaderIconProps } from './PageLoader';

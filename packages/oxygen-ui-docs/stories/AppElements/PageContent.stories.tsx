@@ -295,7 +295,7 @@ const ShellWithFooter: React.FC<{ projects: string[] }> = ({ projects }) => (
           Projects
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-          Projects group what you build across WSO2 platforms.
+          Projects group what you build across Choreo Labs platforms.
         </Typography>
         <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
           {projects.map(projectCard)}

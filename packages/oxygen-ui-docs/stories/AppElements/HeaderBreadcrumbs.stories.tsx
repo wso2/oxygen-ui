@@ -150,7 +150,7 @@ const orgAvatar = (name: string) => (
 
 const ORGANIZATIONS: HeaderBreadcrumbsItem[] = [
   { id: 'thunder-id', name: 'thunder-id', description: 'Owner', avatar: orgAvatar('thunder id') },
-  { id: 'wso2', name: 'WSO2', description: 'Member', avatar: orgAvatar('WSO2') },
+  { id: 'wso2', name: 'Choreo Labs', description: 'Member', avatar: orgAvatar('Choreo Labs') },
   { id: 'personal', name: 'Personal', avatar: orgAvatar('Personal') },
 ];
 
