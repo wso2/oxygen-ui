@@ -96,7 +96,7 @@ export const Plain: Story = {
     <Box sx={{ minHeight: 200, display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ flex: 1 }} />
       <Footer variant="plain">
-        <Footer.Copyright>© {new Date().getFullYear()} WSO2 LLC.</Footer.Copyright>
+        <Footer.Copyright>© {new Date().getFullYear()} Choreo Labs.</Footer.Copyright>
         <Footer.Link href="#documentation">Documentation</Footer.Link>
         <Footer.Link href="#support">Support</Footer.Link>
         <Footer.Link href="#terms">Terms of Use</Footer.Link>
@@ -139,7 +139,7 @@ export const PlainWithSidebar: Story = {
         </AppShell.Main>
         <AppShell.Footer>
           <Footer variant="plain">
-            <Footer.Copyright>© {new Date().getFullYear()} WSO2 LLC.</Footer.Copyright>
+            <Footer.Copyright>© {new Date().getFullYear()} Choreo Labs.</Footer.Copyright>
             <Footer.Link href="#documentation">Documentation</Footer.Link>
             <Footer.Link href="#support">Support</Footer.Link>
             <Footer.Link href="#terms">Terms of Use</Footer.Link>
@@ -196,7 +196,7 @@ export const Complete: Story = {
     <Box sx={{ minHeight: 200, display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ flex: 1 }} />
       <Footer>
-        <Footer.Copyright>© {new Date().getFullYear()} WSO2 LLC. All rights reserved.</Footer.Copyright>
+        <Footer.Copyright>© {new Date().getFullYear()} Choreo Labs. All rights reserved.</Footer.Copyright>
         <Footer.Divider />
         <Footer.Version>v3.0.0-beta.1</Footer.Version>
         <Footer.Link href="https://wso2.com/terms">Terms & Conditions</Footer.Link>
