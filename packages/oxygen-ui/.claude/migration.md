@@ -13,7 +13,7 @@
 
 Migrating to Oxygen UI involves:
 1. Installing Oxygen UI packages
-2. Replacing direct `@mui/*` imports with `@wso2/oxygen-ui`
+2. Replacing direct `@mui/*` imports with `@wso2/oxygen-ui` path imports
 3. Replacing `lucide-react` imports with `@wso2/oxygen-ui-icons-react`
 4. Wrapping app with `OxygenUIThemeProvider`
 5. Setting up ESLint plugin to prevent regressions
@@ -47,7 +47,10 @@ import Typography from '@mui/material/Typography';
 
 **After:**
 ```tsx
-import { Box, Stack, Button, Typography } from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import Stack from '@wso2/oxygen-ui/Stack';
+import Button from '@wso2/oxygen-ui/Button';
+import Typography from '@wso2/oxygen-ui/Typography';
 ```
 
 ### MUI X Components
@@ -61,7 +64,8 @@ import { BarChart } from '@mui/x-charts';
 
 **After:**
 ```tsx
-import { DataGrid, DatePickers } from '@wso2/oxygen-ui';
+import * as DataGrid from '@wso2/oxygen-ui/data-grid';
+import * as DatePickers from '@wso2/oxygen-ui/date-pickers';
 
 const { DataGrid: DataGridComponent } = DataGrid;
 const { DatePicker } = DatePickers;
@@ -97,7 +101,7 @@ const theme = createTheme({ ... });
 
 **After:**
 ```tsx
-import { OxygenUIThemeProvider } from '@wso2/oxygen-ui';
+import OxygenUIThemeProvider from '@wso2/oxygen-ui/OxygenUIThemeProvider';
 
 <OxygenUIThemeProvider>
   <App />
@@ -181,7 +185,9 @@ During migration, temporarily allow specific MUI packages:
 
 **After (Oxygen AppShell):**
 ```tsx
-import { AppShell, Header, Sidebar } from '@wso2/oxygen-ui';
+import AppShell from '@wso2/oxygen-ui/AppShell';
+import Header from '@wso2/oxygen-ui/Header';
+import Sidebar from '@wso2/oxygen-ui/Sidebar';
 
 <AppShell>
   <AppShell.Navbar>
@@ -208,10 +214,11 @@ const theme = createTheme({
 **After:**
 ```tsx
 import { extendTheme } from '@mui/material/styles';
-import { OxygenThemeBase, OxygenUIThemeProvider } from '@wso2/oxygen-ui';
+import OxygenTheme from '@wso2/oxygen-ui/OxygenTheme';
+import OxygenUIThemeProvider from '@wso2/oxygen-ui/OxygenUIThemeProvider';
 
 const customTheme = extendTheme({
-  ...OxygenThemeBase,
+  ...OxygenTheme,
   colorSchemes: {
     light: {
       palette: { primary: { main: '#1976d2' } },
@@ -236,7 +243,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 **After:**
 ```tsx
-import { IconButton } from '@wso2/oxygen-ui';
+import IconButton from '@wso2/oxygen-ui/IconButton';
 import { Settings } from '@wso2/oxygen-ui-icons-react';
 
 <IconButton><Settings size={20} /></IconButton>
@@ -253,7 +260,8 @@ const { mode, setMode } = useColorScheme();
 
 **After:**
 ```tsx
-import { ColorSchemeToggle, useThemeContent } from '@wso2/oxygen-ui';
+import ColorSchemeToggle from '@wso2/oxygen-ui/ColorSchemeToggle';
+import useThemeContent from '@wso2/oxygen-ui/useThemeContent';
 
 // Simple toggle
 <ColorSchemeToggle />
@@ -272,9 +280,10 @@ const content = useThemeContent({
 - [ ] Install `@wso2/oxygen-ui` and `@wso2/oxygen-ui-icons-react`
 - [ ] Install peer dependencies (`@emotion/react`, `@emotion/styled`, `date-fns`)
 - [ ] Wrap root component with `OxygenUIThemeProvider`
-- [ ] Replace `@mui/material` imports with `@wso2/oxygen-ui`
+- [ ] Replace `@mui/material` imports with `@wso2/oxygen-ui` path imports
 - [ ] Replace `@mui/icons-material` or `lucide-react` with `@wso2/oxygen-ui-icons-react`
-- [ ] Update MUI X imports to use namespaced exports
+- [ ] Update MUI X imports to namespace imports of `@wso2/oxygen-ui/data-grid`, `date-pickers` and `tree-view`
+- [ ] Set `moduleResolution` to `bundler`, `node16` or `nodenext`
 - [ ] Install and configure `@wso2/eslint-plugin-oxygen-ui`
 - [ ] Run ESLint with `--fix` to auto-correct remaining imports
 - [ ] Test light/dark mode functionality

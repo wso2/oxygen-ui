@@ -22,6 +22,7 @@ import List from '@mui/material/List';
 import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { SidebarCategoryLabel } from './SidebarCategoryLabel';
+import { sortParts } from '../../utils/compoundParts';
 
 /**
  * Styled container for sidebar category.
@@ -50,23 +51,8 @@ const separateChildren = (children: React.ReactNode): {
   labelChild: React.ReactNode;
   otherChildren: React.ReactNode[];
 } => {
-  let labelChild: React.ReactNode = null;
-  const otherChildren: React.ReactNode[] = [];
-
-  React.Children.forEach(children, (child) => {
-    if (React.isValidElement(child)) {
-      const displayName = (child.type as React.FC)?.displayName;
-      if (displayName === 'SidebarCategoryLabel') {
-        labelChild = child;
-      } else {
-        otherChildren.push(child);
-      }
-    } else {
-      otherChildren.push(child);
-    }
-  });
-
-  return { labelChild, otherChildren };
+  const { parts, rest } = sortParts(children, ['SidebarCategoryLabel']);
+  return { labelChild: parts.pop() ?? null, otherChildren: rest };
 };
 
 /**

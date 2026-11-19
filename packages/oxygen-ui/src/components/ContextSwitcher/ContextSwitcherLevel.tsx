@@ -22,10 +22,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { styled } from '@mui/material/styles';
 import ComplexSelect from '../ComplexSelect';
 import { useContextSwitcher } from './context';
-import { isContextSwitcherGroup } from './ContextSwitcherGroup';
-import { isContextSwitcherOption, type ContextSwitcherOptionProps } from './ContextSwitcherOption';
+import type { ContextSwitcherOptionProps } from './ContextSwitcherOption';
 import { isTruncated, OverflowTooltip, tooltipLabel } from './OverflowTooltip';
-import { flattenElements, nodeText } from './model';
+import { nodeText, optionsOf, parseLevelChildren, type LevelEntry } from './model';
 
 /**
  * Theme tokens used in this component:
@@ -131,44 +130,19 @@ const mapOption = (
 );
 
 const mapChildren = (
-  children: React.ReactNode,
+  entries: LevelEntry[],
   onPick: (optionValue: string) => void
-): React.ReactNode[] => {
-  const nodes: React.ReactNode[] = [];
-  flattenElements(children).forEach((child) => {
-    if (isContextSwitcherOption(child)) {
-      nodes.push(mapOption(child, onPick));
-      return;
-    }
-    if (isContextSwitcherGroup(child)) {
-      const options = flattenElements(child.props.children).filter(isContextSwitcherOption);
-      if (options.length === 0) {
-        return;
-      }
-      nodes.push(
-        <ComplexSelect.ListHeader key={`group-${child.props.label}`}>{child.props.label}</ComplexSelect.ListHeader>
-      );
-      options.forEach((option) => {
-        nodes.push(mapOption(option, onPick));
-      });
-    }
-  });
-  return nodes;
-};
-
-const collectOptions = (children: React.ReactNode): React.ReactElement<ContextSwitcherOptionProps>[] => {
-  const options: React.ReactElement<ContextSwitcherOptionProps>[] = [];
-  flattenElements(children).forEach((child) => {
-    if (isContextSwitcherOption(child)) {
-      options.push(child);
-      return;
-    }
-    if (isContextSwitcherGroup(child)) {
-      options.push(...flattenElements(child.props.children).filter(isContextSwitcherOption));
-    }
-  });
-  return options;
-};
+): React.ReactNode[] =>
+  ([] as React.ReactNode[]).concat(
+    ...entries.map((entry) =>
+      entry.kind === 'option'
+        ? [mapOption(entry.option, onPick)]
+        : [
+            <ComplexSelect.ListHeader key={`group-${entry.label}`}>{entry.label}</ComplexSelect.ListHeader>,
+            ...entry.options.map((option) => mapOption(option, onPick)),
+          ]
+    )
+  );
 
 /**
  * ContextSwitcher.Level - One field in the chain, drawn as a ComplexSelect.
@@ -197,7 +171,8 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
     const open = openId === id;
     const joined = joinedId === id;
     const prompt = promptText ?? `Select ${label.toLowerCase()}`;
-    const options = collectOptions(children);
+    const entries = parseLevelChildren(children);
+    const options = optionsOf(entries);
     const selectedOption = options.find((option) => option.props.value === selected);
     const displayName = selectedOption ? optionLabel(selectedOption) : selected || prompt;
     const fullName = `${label}: ${displayName}`;
@@ -245,7 +220,7 @@ export const ContextSwitcherLevel = React.forwardRef<HTMLDivElement, ContextSwit
               <ComplexSelect.MenuItem.Text primary={noOptionsText} />
             </ComplexSelect.MenuItem>,
           ]
-        : [promptItem, ...mapChildren(children, pick)];
+        : [promptItem, ...mapChildren(entries, pick)];
 
     const onKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
       if (open) {

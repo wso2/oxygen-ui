@@ -18,16 +18,14 @@
 
 import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react-webpack5'
-import {
-  Button,
-  CardHeader,
-  CardContent,
-  CardActions,
-  Typography,
-  Stack,
-  Tooltip,
-  Form,
-} from '@wso2/oxygen-ui'
+import Button from '@wso2/oxygen-ui/Button'
+import CardHeader from '@wso2/oxygen-ui/CardHeader'
+import CardContent from '@wso2/oxygen-ui/CardContent'
+import CardActions from '@wso2/oxygen-ui/CardActions'
+import Typography from '@wso2/oxygen-ui/Typography'
+import Stack from '@wso2/oxygen-ui/Stack'
+import Tooltip from '@wso2/oxygen-ui/Tooltip'
+import { Form } from '@wso2/oxygen-ui/Form'
 import {
   CircleQuestionMark,
   ArrowRightIcon,
@@ -81,12 +79,23 @@ export const Default: Story = {
     <Form.CardButton>
       <Form.CardHeader
         title={
-          <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{
+              alignItems: 'center',
+            }}
+          >
             <WSO2 size={24} />
             <Typography
               variant="h5"
               component="div"
-              sx={{ mb: 2, textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}
+              sx={{
+                mb: '0.35em',
+                textOverflow: 'ellipsis',
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+              }}
             >
               Service
             </Typography>
@@ -120,13 +129,30 @@ export const WithMultipleActions: Story = {
     <Form.CardButton>
       <CardHeader
         title={
-          <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{
+              alignItems: 'center',
+            }}
+          >
             <Calculator size={48} />
             <Stack direction="column">
-              <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+              <Stack
+                direction="row"
+                spacing={1}
+                sx={{
+                  alignItems: 'center',
+                }}
+              >
                 <Typography
                   variant="h5"
-                  sx={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', maxWidth: '70%' }}
+                  sx={{
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap',
+                    maxWidth: '70%',
+                  }}
                 >
                   Reading List REST Service in Go
                 </Typography>

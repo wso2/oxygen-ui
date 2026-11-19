@@ -18,7 +18,8 @@
 
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { ContextSwitcher, Header, type ContextSwitcherValue } from '@wso2/oxygen-ui';
+import ContextSwitcher, { type ContextSwitcherValue } from '@wso2/oxygen-ui/ContextSwitcher';
+import Header from '@wso2/oxygen-ui/Header';
 // Storybook's indexer fails to parse a JSX tag named `WSO2`.
 import { WSO2 as Wso2Logo } from '@wso2/oxygen-ui-icons-react';
 

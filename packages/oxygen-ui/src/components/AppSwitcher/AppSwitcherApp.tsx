@@ -26,7 +26,7 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { APP_SWITCHER_BRAND } from './brand';
 import { AppSwitcherContext, AppSwitcherFooterContext } from './context';
-import { isSafeAppUrl } from './url';
+import { closesPopover, isModifiedClick, resolveCardLink } from './cardLink';
 import { WSO2 } from '@wso2/oxygen-ui-icons-react';
 
 /**
@@ -311,10 +311,6 @@ export interface AppSwitcherAppItem extends Omit<AppSwitcherAppProps, 'id'> {
   id: string;
 }
 
-/** A modified click opens a new tab, so this tab is not navigating. */
-const isModifiedClick = (event: React.MouseEvent<HTMLElement>) =>
-  event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
-
 /**
  * AppSwitcher.App - Card button for a single destination in the switcher.
  *
@@ -368,13 +364,17 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
     const switcher = React.useContext(AppSwitcherContext);
     const current = currentProp ?? (id !== undefined && id === switcher?.currentAppId);
 
-    // Fetched data may send a blank string for an app with no destination yet,
-    // so treat it like `null`.
-    const normalizedUrl = typeof url === 'string' && url.trim() === '' ? null : url;
-
-    // URLs may come from fetched data, so block `javascript:` and the like.
-    const unsafeUrl = Boolean(normalizedUrl) && !isSafeAppUrl(normalizedUrl as string);
-    const safeUrl = unsafeUrl ? undefined : normalizedUrl || undefined;
+    const link = resolveCardLink({
+      url,
+      hasHandler: Boolean(onClick),
+      component,
+      componentProps,
+      target: targetProp,
+      current,
+      disabled: disabledProp,
+      busy,
+    });
+    const { unsafeUrl, unavailable, disabled, effectiveTarget } = link;
 
     React.useEffect(() => {
       if (unsafeUrl) {
@@ -385,20 +385,10 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
       }
     }, [unsafeUrl, name]);
 
-    const unavailable = normalizedUrl === null && !onClick && !component;
-    const disabled = disabledProp || unavailable || unsafeUrl;
     // Tell the user why the card is disabled.
     const tooltip =
       tooltipProp ??
       (unavailable ? (switcher?.unavailableLabel ?? DEFAULT_UNAVAILABLE_LABEL) : undefined);
-
-    // Opening the current app in a new tab would duplicate it.
-    const target = targetProp ?? (current ? '_self' : '_blank');
-    // `componentProps` may carry its own `target`, so the guard below is derived
-    // from whichever target actually reaches the rendered element rather than
-    // from the `target` prop alone.
-    const effectiveTarget =
-      typeof componentProps?.target === 'string' ? componentProps.target : target;
 
     // Selecting a card deliberately leaves the popover open: cards open in a new
     // tab, so the current tab does not navigate and closing would look like the
@@ -413,7 +403,7 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
         return;
       }
       onClick?.(event);
-      if (current && effectiveTarget !== '_blank' && !isModifiedClick(event)) {
+      if (closesPopover({ current, effectiveTarget, modifiedClick: isModifiedClick(event) })) {
         switcher?.handleClose();
       }
     };
@@ -421,28 +411,7 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
     const ownerState = { disabled, tone, current, busy };
     const markSize = tone === 'manage' ? 16 : 32;
 
-    // A consumer-supplied `component` (typically a router Link) wins, so
-    // client-side navigation works without the library depending on a router.
-    // Otherwise render a real anchor when navigable, so middle-click and
-    // "open in new tab" keep working. `rel` guards against reverse tabnabbing.
-    //
-    // A busy card renders as a button, so the context menu or a middle-click
-    // cannot open it past the click guard.
-    const canNavigate = !disabled && !busy;
-    const renderAsLink = Boolean(safeUrl) && canNavigate;
-    const linkProps = {
-      ...(safeUrl && { href: safeUrl }),
-      ...(effectiveTarget && { target: effectiveTarget }),
-    };
-    // Keep the reverse-tabnabbing guard out of the overridable props below so
-    // `componentProps` cannot drop it on a `_blank` target.
-    const relProps = effectiveTarget === '_blank' ? { rel: 'noopener noreferrer' } : {};
-    const anchorProps =
-      component && canNavigate
-        ? { component, ...componentProps, ...linkProps, ...relProps }
-        : renderAsLink
-          ? { component: 'a' as React.ElementType, ...linkProps, ...relProps }
-          : { component: ButtonBase as React.ElementType };
+    const anchorProps = link.element === 'button' ? { component: ButtonBase as React.ElementType } : link.props;
 
     // Unavailable apps stay focusable so they remain discoverable to screen
     // reader users; `aria-disabled` plus the click guard convey the state

@@ -13,7 +13,7 @@ description: Generate Oxygen UI React components following best practices. Use w
 
 ## Critical Rules
 
-- Import ALL components from `@wso2/oxygen-ui` (never from `@mui/material`)
+- Import ALL components from `@wso2/oxygen-ui` paths, such as `@wso2/oxygen-ui/Button` (never from `@mui/material`)
 - Import icons from `@wso2/oxygen-ui-icons-react`
 - Use theme tokens via `sx` prop (e.g., `p: 2`, `bgcolor: 'background.paper'`)
 - Never hardcode colors or spacing values
@@ -77,7 +77,11 @@ Every data table toolbar uses the same element order. Leave out elements a table
 - Use one date format across tables (`28 Oct 2026, 04:29 UTC`) and always show the time zone
 
 ```tsx
-import { Button, IconButton, ListingTable, TextField, Tooltip, useListingTableRequired } from '@wso2/oxygen-ui';
+import Button from '@wso2/oxygen-ui/Button';
+import IconButton from '@wso2/oxygen-ui/IconButton';
+import ListingTable, { useListingTableRequired } from '@wso2/oxygen-ui/ListingTable';
+import TextField from '@wso2/oxygen-ui/TextField';
+import Tooltip from '@wso2/oxygen-ui/Tooltip';
 import { ChevronDown, RefreshCw } from '@wso2/oxygen-ui-icons-react';
 
 // Render inside ListingTable.Provider so search reaches the table
@@ -137,7 +141,9 @@ Use the lightest container that fits the task: modal → right drawer → page f
 ## Component Template
 
 ```tsx
-import { Box, Typography, Button } from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import Typography from '@wso2/oxygen-ui/Typography';
+import Button from '@wso2/oxygen-ui/Button';
 import { IconName } from '@wso2/oxygen-ui-icons-react';
 
 interface MyComponentProps {
@@ -160,7 +166,9 @@ export default MyComponent;
 ### Data Table Component
 
 ```tsx
-import { ListingTable, Chip, IconButton } from '@wso2/oxygen-ui';
+import ListingTable from '@wso2/oxygen-ui/ListingTable';
+import Chip from '@wso2/oxygen-ui/Chip';
+import IconButton from '@wso2/oxygen-ui/IconButton';
 import { EditIcon, TrashIcon } from '@wso2/oxygen-ui-icons-react';
 
 <ListingTable.Container>
@@ -194,7 +202,10 @@ import { EditIcon, TrashIcon } from '@wso2/oxygen-ui-icons-react';
 ### Card Component
 
 ```tsx
-import { Paper, Typography, Box, Button } from '@wso2/oxygen-ui';
+import Paper from '@wso2/oxygen-ui/Paper';
+import Typography from '@wso2/oxygen-ui/Typography';
+import Box from '@wso2/oxygen-ui/Box';
+import Button from '@wso2/oxygen-ui/Button';
 
 <Paper sx={{ p: 3 }}>
   <Typography variant="h6" gutterBottom>Card title</Typography>
@@ -211,14 +222,12 @@ import { Paper, Typography, Box, Button } from '@wso2/oxygen-ui';
 ### Dialog Component
 
 ```tsx
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Button,
-} from '@wso2/oxygen-ui';
+import Dialog from '@wso2/oxygen-ui/Dialog';
+import DialogTitle from '@wso2/oxygen-ui/DialogTitle';
+import DialogContent from '@wso2/oxygen-ui/DialogContent';
+import DialogContentText from '@wso2/oxygen-ui/DialogContentText';
+import DialogActions from '@wso2/oxygen-ui/DialogActions';
+import Button from '@wso2/oxygen-ui/Button';
 
 <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
   <DialogTitle>Dialog title</DialogTitle>
@@ -235,7 +244,9 @@ import {
 ## MUI X Components (Use Namespaces)
 
 ```tsx
-import { DataGrid, DatePickers, TreeView } from '@wso2/oxygen-ui';
+import * as DataGrid from '@wso2/oxygen-ui/data-grid';
+import * as DatePickers from '@wso2/oxygen-ui/date-pickers';
+import * as TreeView from '@wso2/oxygen-ui/tree-view';
 
 // DataGrid
 <DataGrid.DataGrid rows={rows} columns={columns} />

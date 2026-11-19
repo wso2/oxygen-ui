@@ -296,9 +296,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
             placement="bottom-start"
             forceOpen={keyboardFocus}
             variant="body2"
-            color="text.secondary"
             // Slightly dimmed; any lower fails the 4.5:1 text contrast in light mode.
-            sx={{ mt: 1.5, opacity: 0.9 }}
+            sx={{ mt: 1.5, opacity: 0.9, color: 'text.secondary' }}
           >
             {description}
           </TruncatedText>

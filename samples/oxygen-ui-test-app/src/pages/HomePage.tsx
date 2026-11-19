@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025-2026, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,7 +16,13 @@
  * under the License.
  */
 
-import { Badge, Box, Button, Divider, Link, Stack, Typography } from '@wso2/oxygen-ui'
+import Badge from '@wso2/oxygen-ui/Badge'
+import Box from '@wso2/oxygen-ui/Box'
+import Button from '@wso2/oxygen-ui/Button'
+import Divider from '@wso2/oxygen-ui/Divider'
+import Link from '@wso2/oxygen-ui/Link'
+import Stack from '@wso2/oxygen-ui/Stack'
+import Typography from '@wso2/oxygen-ui/Typography'
 import { useState, type JSX } from 'react'
 import { Link as NavigateLink } from 'react-router'
 import reactLogo from '/react.svg'
@@ -59,8 +65,10 @@ export default function HomePage(): JSX.Element {
           direction="row"
           spacing={2}
           divider={<Divider orientation="vertical" flexItem />}
-          sx={{ justifyContent: 'center', alignItems: 'center' }}
-        >       
+          sx={{
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>       
           {appRoutes
             .flatMap((route) => route.children || [])
             .filter((child) => child.showInNav)

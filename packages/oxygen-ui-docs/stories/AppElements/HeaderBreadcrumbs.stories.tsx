@@ -18,25 +18,14 @@
 
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import {
-  Avatar,
-  Box,
-  Button,
-  Header,
-  HeaderBreadcrumbs,
-  Stack,
-  Typography,
-  clearHeaderBreadcrumbsState,
-  readHeaderBreadcrumbsState,
-  subscribeHeaderBreadcrumbsState,
-  useHeaderBreadcrumbs,
-  useHeaderBreadcrumbsValue,
-  type HeaderBreadcrumbsStoredState,
-  type HeaderBreadcrumbsItem,
-  type HeaderBreadcrumbsLevelConfig,
-  type HeaderBreadcrumbsValue,
-} from '@wso2/oxygen-ui';
-import { Box as BoxIcon, Building2, Plus, ScrollText, SquarePaddingTop } from '@wso2/oxygen-ui-icons-react';
+import Avatar from '@wso2/oxygen-ui/Avatar';
+import Box from '@wso2/oxygen-ui/Box';
+import Button from '@wso2/oxygen-ui/Button';
+import Header from '@wso2/oxygen-ui/Header';
+import HeaderBreadcrumbs, { clearHeaderBreadcrumbsState, readHeaderBreadcrumbsState, subscribeHeaderBreadcrumbsState, useHeaderBreadcrumbs, useHeaderBreadcrumbsValue, type HeaderBreadcrumbsStoredState, type HeaderBreadcrumbsItem, type HeaderBreadcrumbsLevelConfig, type HeaderBreadcrumbsValue } from '@wso2/oxygen-ui/HeaderBreadcrumbs';
+import Stack from '@wso2/oxygen-ui/Stack';
+import Typography from '@wso2/oxygen-ui/Typography';
+import { Box as BoxIcon, Building2, Plus, ScrollText } from '@wso2/oxygen-ui-icons-react';
 // Storybook's indexer fails to parse a JSX tag named `WSO2`.
 import { WSO2 as Wso2Logo } from '@wso2/oxygen-ui-icons-react';
 
@@ -212,10 +201,31 @@ const createLevels = (): HeaderBreadcrumbsLevelConfig[] => [
   {
     id: 'component',
     label: 'Component',
-    icon: <SquarePaddingTop />,
+    icon: <ComponentIcon />,
     fetchItems: ({ parents, signal }) => delay(COMPONENTS[parents.project] ?? [], signal),
   },
 ];
+
+/**
+ * Lucide's `square-padding-top`, drawn here because the bundled lucide-react predates it.
+ * Swap for the `SquarePaddingTop` import once lucide-react is upgraded.
+ */
+const ComponentIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="3" y="3" width="18" height="18" rx="2" />
+    <path d="M8 7h8" />
+  </svg>
+);
 
 // --- Story helpers -----------------------------------------------------------
 
@@ -233,11 +243,11 @@ const InHeader = ({ children }: { children: React.ReactNode }) => (
 
 const Log = ({ lines }: { lines: string[] }) => (
   <Box sx={{ p: 3 }}>
-    <Typography variant="subtitle2" gutterBottom>
+    <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
       Events
     </Typography>
     {lines.length === 0 ? (
-      <Typography variant="body2" color="text.secondary">
+      <Typography sx={{ color: 'text.secondary' }} variant="body2">
         Click a name to go to it, or a caret to switch.
       </Typography>
     ) : (
@@ -367,7 +377,7 @@ const AppHeader = ({ name }: { name: string }) => {
   });
   return (
     <Box sx={{ border: 1, borderColor: 'divider', borderRadius: 1, overflow: 'hidden' }}>
-      <Typography variant="caption" color="text.secondary" sx={{ display: 'block', px: 2, pt: 1 }}>
+      <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', px: 2, pt: 1 }}>
         {name}
       </Typography>
       <Box sx={{ px: 1.5, py: 1 }}>
@@ -405,7 +415,7 @@ const ContextReader = () => {
   const { organization, project, component } = useHeaderBreadcrumbsValue({ key: SHARED_KEY });
   return (
     <Box sx={{ border: 1, borderColor: 'divider', borderRadius: 1, px: 2, py: 1.5 }}>
-      <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 0.5 }}>
+      <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mb: 0.5 }}>
         Another app, reading useHeaderBreadcrumbsValue()
       </Typography>
       <Typography variant="body2">
@@ -493,7 +503,7 @@ export const UpdatingData: Story = {
           </Button>
         </Stack>
         <Box sx={{ px: 3 }}>
-          <Typography variant="body2" color="text.secondary" sx={{ fontFamily: 'monospace' }}>
+          <Typography variant="body2" sx={{ color: 'text.secondary', fontFamily: 'monospace' }}>
             value: {JSON.stringify(breadcrumb.value)}
           </Typography>
         </Box>

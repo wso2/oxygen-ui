@@ -18,16 +18,14 @@
 
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import {
-  AppSwitcher,
-  Box,
-  Button,
-  ColorSchemeToggle,
-  Header,
-  Typography,
-  UserMenu,
-} from '@wso2/oxygen-ui';
-import type { AppSwitcherAppItem, AppSwitcherFooterLink } from '@wso2/oxygen-ui';
+import AppSwitcher from '@wso2/oxygen-ui/AppSwitcher';
+import Box from '@wso2/oxygen-ui/Box';
+import Button from '@wso2/oxygen-ui/Button';
+import ColorSchemeToggle from '@wso2/oxygen-ui/ColorSchemeToggle';
+import Header from '@wso2/oxygen-ui/Header';
+import Typography from '@wso2/oxygen-ui/Typography';
+import UserMenu from '@wso2/oxygen-ui/UserMenu';
+import type { AppSwitcherAppItem, AppSwitcherFooterLink } from '@wso2/oxygen-ui/AppSwitcher';
 import { Home, Settings } from '@wso2/oxygen-ui-icons-react';
 
 /**
@@ -197,7 +195,7 @@ const platforms = [
 export const Default: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
-      <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+      <Typography variant="caption" sx={{ color: 'text.secondary', mb: 2, display: 'block' }}>
         Click the grid icon to switch between platforms
       </Typography>
       <AppSwitcher>
@@ -350,7 +348,7 @@ export const BusyCard: Story = {
 
     return (
       <Box sx={{ p: 4 }}>
-        <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+        <Typography variant="caption" sx={{ color: 'text.secondary', mb: 2, display: 'block' }}>
           Open the switcher and select API Platform
         </Typography>
         <AppSwitcher currentAppId="agent-manager">

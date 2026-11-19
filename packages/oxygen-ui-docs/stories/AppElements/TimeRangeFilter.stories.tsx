@@ -18,8 +18,11 @@
 
 import { deDE } from '@mui/x-date-pickers/locales';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Chip, Stack, TimeRangeFilter, Typography } from '@wso2/oxygen-ui';
-import type { TimeRange } from '@wso2/oxygen-ui';
+import Chip from '@wso2/oxygen-ui/Chip';
+import Stack from '@wso2/oxygen-ui/Stack';
+import TimeRangeFilter from '@wso2/oxygen-ui/TimeRangeFilter';
+import Typography from '@wso2/oxygen-ui/Typography';
+import type { TimeRange } from '@wso2/oxygen-ui/TimeRangeFilter';
 import { de } from 'date-fns/locale';
 import React from 'react';
 
@@ -101,9 +104,9 @@ export const Default: Story = {
     const [range, setRange] = React.useState<TimeRange | null>(null);
 
     return (
-      <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
+      <Stack sx={{ alignItems: 'center' }} direction="row" spacing={2}>
         <TimeRangeFilter value={range} onChange={setRange} maxRangeMs={30 * DAY_MS} />
-        <Typography variant="body2" color="text.secondary">
+        <Typography sx={{ color: 'text.secondary' }} variant="body2">
           {range ? `${formatUtc(range.start)} to ${formatUtc(range.end)} UTC` : 'No range selected'}
         </Typography>
       </Stack>
@@ -119,7 +122,7 @@ export const CustomPresetsAndLabels: Story = {
     const [range, setRange] = React.useState<TimeRange | null>(null);
 
     return (
-      <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
+      <Stack sx={{ alignItems: 'center' }} direction="row" spacing={2}>
         <TimeRangeFilter
           value={range}
           onChange={setRange}
@@ -140,7 +143,7 @@ export const CustomPresetsAndLabels: Story = {
             { id: '1d', label: 'Letzter Tag', durationMs: DAY_MS },
           ]}
         />
-        <Typography variant="body2" color="text.secondary">
+        <Typography sx={{ color: 'text.secondary' }} variant="body2">
           {range ? `${formatUtc(range.start)} bis ${formatUtc(range.end)} UTC` : 'Kein Zeitraum'}
         </Typography>
       </Stack>
@@ -156,14 +159,14 @@ export const WithMaxRange: Story = {
     const [range, setRange] = React.useState<TimeRange | null>(null);
 
     return (
-      <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
+      <Stack sx={{ alignItems: 'center' }} direction="row" spacing={2}>
         <TimeRangeFilter
           value={range}
           onChange={setRange}
           maxRangeMs={DAY_MS}
           rangeTooLongLabel="Choose a range of at most 24 hours."
         />
-        <Typography variant="body2" color="text.secondary">
+        <Typography sx={{ color: 'text.secondary' }} variant="body2">
           {range ? `${formatUtc(range.start)} to ${formatUtc(range.end)} UTC` : 'No range selected'}
         </Typography>
       </Stack>

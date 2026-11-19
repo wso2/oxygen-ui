@@ -16,79 +16,26 @@
  * under the License.
  */
 
-import { ReactElement, useCallback } from 'react';
-import { DataGrid, DataGridProps, GridDensity, GridRowSpacingParams } from '@mui/x-data-grid';
-import { styled, alpha } from '@mui/material/styles';
-import { useListingTable } from '../context';
-import { ListingTableDensity, densityStyles } from '../shared/types';
-import type { OxygenTheme } from '../../../styles/OxygenThemeBase';
+import { ReactElement, useEffect, useState } from 'react';
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import { loadListingTableDataGrid } from './loadListingTableDataGrid';
+import type { ListingTableDataGridProps } from './ListingTableDataGridLoaded';
 
-export interface ListingTableDataGridProps extends Omit<DataGridProps, 'density'> {
-  /**
-   * Density control - affects row padding.
-   * Maps directly to DataGrid density values.
-   * Falls back to the parent ListingTable.Provider density if not provided.
-   * @default 'standard'
-   */
-  density?: ListingTableDensity;
-}
+export type { ListingTableDataGridProps };
 
-const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
-  // Remove outer border for seamless integration within ListingTable.Container
-  border: 'none',
-  // Ensure the grid fills its container
-  width: '100%',
-  // Pin row divider color to theme.palette.divider — matches MUI TableCell default border
-  '--DataGrid-rowBorderColor': theme.palette.divider,
-  // Column headers: match ListingTableHead — grey[50] light / rgba dark background + bottom divider
-  '& .MuiDataGrid-columnHeaders': {
-    borderBottom: `1px solid ${theme.palette.divider}`,
-    ...theme.applyStyles('light', {
-      backgroundColor: theme.palette.grey[50],
-    }),
-    ...theme.applyStyles('dark', {
-      backgroundColor: 'rgba(255, 255, 255, 0.04)',
-    }),
-  },
-  '& .MuiDataGrid-columnHeaderTitle': {
-    fontWeight: 600,
-  },
-  // Only the checkbox header column needs this — sortable/menu columns manage their own layout
-  '& .MuiDataGrid-columnHeaderCheckbox .MuiDataGrid-columnHeaderDraggableContainer': {
-    width: 'unset',
-    height: 'unset',
-  },
-  // DataGrid v8 uses CSS :hover on rows (Mui-hovered JS class was removed)
-  '& .MuiDataGrid-row:hover': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // Selected row — match MUI Table Mui-selected appearance
-  '& .MuiDataGrid-row.Mui-selected': {
-    backgroundColor: theme.palette.action.selected,
-    '&:hover': {
-      backgroundColor: alpha(
-        theme.palette.primary.main,
-        theme.palette.action.selectedOpacity + theme.palette.action.hoverOpacity,
-      ),
-    },
-  },
-  '& .MuiDataGrid-cell': {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  // Hide the default outline for mouse interactions but keep a clearly
-  // visible focus indicator for keyboard navigation (WCAG 2.4.7).
-  '& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within': {
-    outline: 'none',
-  },
-  '& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-columnHeader:focus-within': {
-    outline: 'none',
-  },
-  '& .MuiDataGrid-cell:focus-visible, & .MuiDataGrid-columnHeader:focus-visible': {
-    outline: `2px solid ${(theme.vars || theme).palette.primary.main}`,
-    outlineOffset: -2,
-  },
-})) as typeof DataGrid;
+type LoadedComponent = Awaited<ReturnType<typeof loadListingTableDataGrid>>['default'];
+
+let loadedComponent: LoadedComponent | undefined;
+
+type LoadState =
+  | { status: 'loading' }
+  | { status: 'loaded'; Component: LoadedComponent }
+  | { status: 'failed' };
+
+const initialLoadState = (): LoadState =>
+  loadedComponent ? { status: 'loaded', Component: loadedComponent } : { status: 'loading' };
 
 /**
  * A `ListingTable` variant that renders an MUI DataGrid instead of a traditional HTML table.
@@ -123,127 +70,43 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
  * </ListingTable.Provider>
  * ```
  */
-export function ListingTableDataGrid({
-  density: densityProp,
-  loading: loadingProp,
-  getRowSpacing: getRowSpacingProp,
-  getRowHeight: getRowHeightProp,
-  filterModel: filterModelProp,
-  sx,
-  ...props
-}: ListingTableDataGridProps): ReactElement {
-  const context = useListingTable();
+export function ListingTableDataGrid(props: ListingTableDataGridProps): ReactElement {
+  const [state, setState] = useState<LoadState>(initialLoadState);
 
-  // Explicit props take priority over context values
-  const density = (densityProp ?? context?.density ?? 'standard') as GridDensity;
-  const loading = loadingProp !== undefined ? loadingProp : (context?.loading ?? false);
-  // 'data-grid-card' context variant enables card styling; everything else is table
-  const variant = context?.variant === 'data-grid-card' ? 'card' : 'table';
+  useEffect(() => {
+    if (loadedComponent) {
+      setState({ status: 'loaded', Component: loadedComponent });
+      return undefined;
+    }
 
-  // Wire Provider searchValue into DataGrid's quick filter when filterModel is not explicitly controlled
-  const searchValue = context?.searchValue ?? '';
-  const filterModel = filterModelProp ?? {
-    items: [],
-    quickFilterValues: searchValue ? [searchValue] : [],
-  };
+    let mounted = true;
+    loadListingTableDataGrid().then(
+      module => {
+        loadedComponent = module.default;
+        if (mounted) setState({ status: 'loaded', Component: module.default });
+      },
+      () => {
+        if (mounted) setState({ status: 'failed' });
+      },
+    );
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
-  // Default row spacing for the card variant — creates a 12 px gap between cards
-  const defaultCardRowSpacing = useCallback(
-    (params: GridRowSpacingParams) => ({ top: params.isFirstVisible ? 0 : 12, bottom: 0 }),
-    [],
-  );
+  if (state.status === 'loaded') {
+    const { Component } = state;
+    return <Component {...props} />;
+  }
 
-  // Card-specific style overrides — mirrors ListingTableRow card variant exactly:
-  // acrylic background, blur, 8 px rounded corners (no border)
-  const cardSx = (muiTheme: OxygenTheme) => ({
-      // Header: transparent background, no bottom divider, secondary-coloured labels — same as card table header
-      '& .MuiDataGrid-columnHeaders': {
-        backgroundColor: 'transparent',
-        borderBottom: 'none',
-        paddingBottom: '8px',
-      },
-      // Hide column resize handle/separator icon between headers
-      '& .MuiDataGrid-columnSeparator': {
-        visibility: 'hidden',
-      },
-      // Remove borders from individual column header cells (MuiDataGrid-withBorderColor adds these)
-      '& .MuiDataGrid-columnHeader': {
-        border: 'none',
-      },
-      // MuiDataGrid-withBorderColor is applied to headers and cells; zero out the CSS var
-      // and the border shorthand so nothing leaks through in any DataGrid version
-      '& .MuiDataGrid-withBorderColor': {
-        '--DataGrid-rowBorderColor': 'transparent',
-        borderColor: 'transparent',
-        border: 'none',
-      },
-      '& .MuiDataGrid-columnHeaderTitle': {
-        color: (muiTheme.vars || muiTheme).palette.text.secondary,
-        fontWeight: 600,
-      },
-      // Card row: acrylic background + blur + rounded corners, no border
-      '& .MuiDataGrid-row': {
-        borderRadius: '8px',
-        border: 'none',
-        backgroundColor:
-          muiTheme.vars?.palette.background.acrylic ??
-          (muiTheme.vars || muiTheme).palette.background.paper,
-        backdropFilter: muiTheme.blur?.light,
-        WebkitBackdropFilter: muiTheme.blur?.light,
-        '&:hover': {
-          backgroundColor: (muiTheme.vars || muiTheme).palette.action.hover,
-        },
-        '&.Mui-selected': {
-          border: 'none',
-          backgroundColor: (muiTheme.vars || muiTheme).palette.action.selected,
-          '&:hover': {
-            backgroundColor: alpha(
-              muiTheme.palette.primary.main,
-              muiTheme.palette.action.selectedOpacity + muiTheme.palette.action.hoverOpacity,
-            ),
-          },
-        },
-      },
-      // Remove ALL internal cell dividers and ensure vertical centering
-      '& .MuiDataGrid-cell': {
-        border: 'none',
-        display: 'flex',
-        alignItems: 'center',
-      },
-      // Remove vertical column separator lines inside card rows
-      '& .MuiDataGrid-cell--withRightBorder': {
-        borderRight: 'none',
-      },
-      // Footer spaced away from the last card row
-      '& .MuiDataGrid-footerContainer': {
-        borderTop: `1px solid ${(muiTheme.vars || muiTheme).palette.divider}`,
-        marginTop: '12px',
-      },
-  });
-
-  // Override DataGrid's fixed 16px cell/header padding with density-aware values
-  const resolvedDensity = (densityProp ?? context?.density ?? 'standard') as ListingTableDensity;
-  const { padding: cellPadding } = densityStyles[resolvedDensity];
-  const densitySx = {
-    '& .MuiDataGrid-columnHeader': { padding: cellPadding },
-    '& .MuiDataGrid-cell': { padding: cellPadding },
-  };
-
-  const mergedSx =
-    variant === 'card'
-      ? [cardSx as Parameters<typeof StyledDataGrid>[0]['sx'], densitySx, ...(Array.isArray(sx) ? sx : [sx])]
-      : [densitySx, ...(Array.isArray(sx) ? sx : [sx])];
+  if (state.status === 'failed') {
+    return <Alert severity="error">The data grid could not be loaded.</Alert>;
+  }
 
   return (
-    <StyledDataGrid
-      density={density}
-      loading={loading}
-      filterModel={filterModel}
-      getRowSpacing={variant === 'card' ? (getRowSpacingProp ?? defaultCardRowSpacing) : getRowSpacingProp}
-      getRowHeight={variant === 'card' ? (getRowHeightProp ?? (() => 'auto' as const)) : getRowHeightProp}
-      sx={mergedSx}
-      {...props}
-    />
+    <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }} aria-busy="true">
+      <CircularProgress aria-label="Loading data grid" />
+    </Box>
   );
 }
 

@@ -20,6 +20,7 @@ import type {} from '@mui/x-data-grid/themeAugmentation';
 import OxygenThemeBase from '../OxygenThemeBase';
 import { createOxygenTheme } from '../../utils/createOxygenTheme';
 import type { OxygenTheme } from '../OxygenThemeBase';
+import { bodyMenuItem, smallTextField } from './sharedOverrides';
 
 // Extend the TypeBackground interface to include acrylic
 declare module '@mui/material/styles' {
@@ -56,58 +57,56 @@ const PaleBaseThemeConfig = {
         },
       },
       variants: [
-        // MUI v9 no longer applies combined keys such as `containedPrimary`, so each variant and colour pair
-        // is matched here.
         {
           props: { variant: 'contained', color: 'primary' },
           style: ({ theme }: { theme: OxygenTheme }) => ({
-            '&:not(:disabled)': {
-              // Flat design with subtle gradient
+          '&:not(:disabled)': {
+            // Flat design with subtle gradient
+            background: `${theme.gradient.primary} !important`,
+            color: `${theme.vars!.palette.primary.contrastText} !important`,
+            '&:hover': {
               background: `${theme.gradient.primary} !important`,
+              opacity: 0.9,
               color: `${theme.vars!.palette.primary.contrastText} !important`,
-              '&:hover': {
-                background: `${theme.gradient.primary} !important`,
-                opacity: 0.9,
-                color: `${theme.vars!.palette.primary.contrastText} !important`,
-              },
-            }
-          }),
+            },
+          }
+        }),
         },
         {
           props: { variant: 'outlined', color: 'primary' },
           style: ({ theme }: { theme: OxygenTheme }) => ({
-            // Flat design - solid borders and colors
-            borderColor: theme.vars!.palette.primary.main,
-            color: theme.vars!.palette.primary.main,
-            '&:hover': {
-              borderColor: theme.vars!.palette.primary.dark,
-              backgroundColor: theme.vars!.palette.action.hover,
-              color: theme.vars!.palette.primary.dark,
-            },
-          }),
+          // Flat design - solid borders and colors
+          borderColor: theme.vars!.palette.primary.main,
+          color: theme.vars!.palette.primary.main,
+          '&:hover': {
+            borderColor: theme.vars!.palette.primary.dark,
+            backgroundColor: theme.vars!.palette.action.hover,
+            color: theme.vars!.palette.primary.dark,
+          },
+        }),
         },
         {
           props: { variant: 'contained', color: 'secondary' },
           style: ({ theme }: { theme: OxygenTheme }) => ({
-            // Flat design - solid colors
-            backgroundColor: theme.vars!.palette.secondary.main,
+          // Flat design - solid colors
+          backgroundColor: theme.vars!.palette.secondary.main,
+          color: theme.vars!.palette.secondary.contrastText,
+          '&:hover': {
+            backgroundColor: theme.vars!.palette.secondary.dark,
             color: theme.vars!.palette.secondary.contrastText,
-            '&:hover': {
-              backgroundColor: theme.vars!.palette.secondary.dark,
-              color: theme.vars!.palette.secondary.contrastText,
-            },
-          }),
+          },
+        }),
         },
         {
           props: { variant: 'outlined', color: 'secondary' },
           style: ({ theme }: { theme: OxygenTheme }) => ({
-            borderColor: theme.vars!.palette.divider,
-            color: theme.vars!.palette.text.primary,
-            '&:hover': {
-              borderColor: theme.vars!.palette.text.secondary,
-              backgroundColor: theme.palette.action.hover,
-            },
-          }),
+          borderColor: theme.vars!.palette.divider,
+          color: theme.vars!.palette.text.primary,
+          '&:hover': {
+            borderColor: theme.vars!.palette.text.secondary,
+            backgroundColor: theme.palette.action.hover,
+          },
+        }),
         },
       ],
     },
@@ -188,9 +187,7 @@ const PaleBaseThemeConfig = {
         }),
       }
     },
-    MuiTextField: {
-      defaultProps: { size: 'small' },
-    },
+    MuiTextField: smallTextField,
     MuiOutlinedInput: {
       styleOverrides: {
         root: ({ theme }: { theme: OxygenTheme }) => ({
@@ -205,13 +202,7 @@ const PaleBaseThemeConfig = {
         }),
       },
     },
-    MuiMenuItem: {
-      styleOverrides: {
-        root: ({ theme }: { theme: OxygenTheme }) => ({
-          fontSize: theme.typography.body2.fontSize,
-        }),
-      },
-    },
+    MuiMenuItem: bodyMenuItem,
     MuiLink: {
       styleOverrides: {
         root: ({ theme }: { theme: OxygenTheme }) => ({

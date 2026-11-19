@@ -18,6 +18,7 @@
 
 import PaleBaseTheme from './PaleBaseTheme';
 import { createOxygenTheme } from '../../utils/createOxygenTheme';
+import { paletteColor, tint } from './paletteTokens';
 
 /**
  * PaleIndigo Theme - Professional flat design with indigo color scheme
@@ -33,24 +34,25 @@ import { createOxygenTheme } from '../../utils/createOxygenTheme';
  * </OxygenUIThemeProvider>
  * ```
  */
+const lightAccent = '#5567d5';
+const darkAccent = '#7785dd';
+
 const PaleIndigoThemeConfig = {
   colorSchemes: {
     light: {
       palette: {
-        primary: {
-          main: '#5567d5',
-          mainChannel: '85 103 213',
+        primary: paletteColor({
+          main: lightAccent,
           light: '#7785dd',
           dark: '#3f4db5',
           contrastText: '#ffffff',
-        },
-        secondary: {
+        }),
+        secondary: paletteColor({
           main: '#757575',
-          mainChannel: '117 117 117',
           light: '#9E9E9E',
           dark: '#616161',
           contrastText: '#ffffff',
-        },
+        }),
         background: {
           default: '#F5F5F5',
           paper: '#FFFFFF',
@@ -62,9 +64,9 @@ const PaleIndigoThemeConfig = {
         },
         divider: '#E0E0E0',
         action: {
-          selected: 'rgba(85, 103, 213, 0.12)',
+          selected: tint(lightAccent, 0.12),
           selectedOpacity: 0.12,
-          hover: 'rgba(85, 103, 213, 0.08)',
+          hover: tint(lightAccent, 0.08),
           hoverOpacity: 0.08,
         },
         error: {
@@ -95,20 +97,18 @@ const PaleIndigoThemeConfig = {
     },
     dark: {
       palette: {
-        primary: {
-          main: '#7785dd',
-          mainChannel: '119 133 221',
+        primary: paletteColor({
+          main: darkAccent,
           light: '#99a5e5',
           dark: '#5567d5',
           contrastText: '#000000',
-        },
-        secondary: {
+        }),
+        secondary: paletteColor({
           main: '#9E9E9E',
-          mainChannel: '158 158 158',
           light: '#BDBDBD',
           dark: '#757575',
           contrastText: '#000000',
-        },
+        }),
         background: {
           default: '#121212',
           paper: '#1E1E1E',
@@ -120,9 +120,9 @@ const PaleIndigoThemeConfig = {
         },
         divider: '#424242',
         action: {
-          selected: 'rgba(119, 133, 221, 0.16)',
+          selected: tint(darkAccent, 0.16),
           selectedOpacity: 0.16,
-          hover: 'rgba(119, 133, 221, 0.12)',
+          hover: tint(darkAccent, 0.12),
           hoverOpacity: 0.12,
         },
         error: {

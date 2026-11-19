@@ -16,8 +16,10 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { StatCard, Box, Grid } from '@wso2/oxygen-ui';
+import type { Meta, StoryObj } from '@storybook/react-webpack5'
+import StatCard from '@wso2/oxygen-ui/StatCard'
+import Box from '@wso2/oxygen-ui/Box'
+import Grid from '@wso2/oxygen-ui/Grid'
 import {
   Users,
   TrendingUp,
@@ -27,8 +29,8 @@ import {
   ShoppingCart,
   Eye,
   Clock,
-} from '@wso2/oxygen-ui-icons-react';
-import React from 'react';
+} from '@wso2/oxygen-ui-icons-react'
+import React from 'react'
 
 /**
  * StatCard is a specialized card component for displaying statistics and metrics.
@@ -94,10 +96,10 @@ import { Users } from '@wso2/oxygen-ui-icons-react';
       },
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof StatCard>;
+export default meta
+type Story = StoryObj<typeof StatCard>
 
 /**
  * Default usage with a primary icon.
@@ -109,7 +111,7 @@ export const Default: Story = {
     icon: <Users size={24} />,
     iconColor: 'primary',
   },
-};
+}
 
 /**
  * Grid layout showing multiple stat cards with different color variants.
@@ -158,16 +160,11 @@ export const ColorVariants: Story = {
         />
       </Grid>
       <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-        <StatCard
-          value="12.5K"
-          label="Page Views"
-          icon={<Eye size={24} />}
-          iconColor="secondary"
-        />
+        <StatCard value="12.5K" label="Page Views" icon={<Eye size={24} />} iconColor="secondary" />
       </Grid>
     </Grid>
   ),
-};
+}
 
 /**
  * Stat cards without icons for a minimal look.
@@ -189,7 +186,7 @@ export const WithoutIcon: Story = {
       </Grid>
     </Grid>
   ),
-};
+}
 
 /**
  * Dashboard example with growth metrics.
@@ -206,12 +203,7 @@ export const DashboardMetrics: Story = {
         />
       </Grid>
       <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-        <StatCard
-          value="3.2K"
-          label="New Users"
-          icon={<Users size={24} />}
-          iconColor="primary"
-        />
+        <StatCard value="3.2K" label="New Users" icon={<Users size={24} />} iconColor="primary" />
       </Grid>
       <Grid size={{ xs: 12, sm: 6, md: 3 }}>
         <StatCard
@@ -231,7 +223,7 @@ export const DashboardMetrics: Story = {
       </Grid>
     </Grid>
   ),
-};
+}
 
 /**
  * Custom styled stat card with elevation and custom props.
@@ -261,7 +253,7 @@ export const CustomStyled: Story = {
       </Grid>
     </Grid>
   ),
-};
+}
 
 /**
  * Large format stat cards for key metrics.
@@ -297,4 +289,4 @@ export const LargeFormat: Story = {
       </Grid>
     </Grid>
   ),
-};
+}

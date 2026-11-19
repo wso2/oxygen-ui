@@ -17,17 +17,15 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react-webpack5'
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Box,
-  Layout,
-} from '@wso2/oxygen-ui'
+import AppBar from '@wso2/oxygen-ui/AppBar'
+import Toolbar from '@wso2/oxygen-ui/Toolbar'
+import Typography from '@wso2/oxygen-ui/Typography'
+import List from '@wso2/oxygen-ui/List'
+import ListItem from '@wso2/oxygen-ui/ListItem'
+import ListItemButton from '@wso2/oxygen-ui/ListItemButton'
+import ListItemText from '@wso2/oxygen-ui/ListItemText'
+import Box from '@wso2/oxygen-ui/Box'
+import Layout from '@wso2/oxygen-ui/Layout'
 import * as React from 'react'
 
 interface LayoutStoryArgs {
@@ -151,13 +149,18 @@ export const Playground: Story = {
               sx={{ p: 2, borderBottom: 1, borderColor: 'divider', bgcolor: 'background.paper' }}
             >
               <Typography variant="h5">{args.contentTitle}</Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
                 Page header section
               </Typography>
             </Layout.Header>
           )}
           <Box sx={{ p: 3 }}>
-            <Typography variant="h4" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="h4">
               {args.contentTitle}
             </Typography>
             <Typography sx={{ mb: 2 }}>{args.contentDescription}</Typography>
@@ -189,7 +192,7 @@ export const BasicLayout = () => (
     </Layout.Sidebar>
     <Layout.Content>
       <Box sx={{ p: 3 }}>
-        <Typography variant="h4" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h4">
           Main Content
         </Typography>
         <Typography sx={{ mb: 2 }}>
@@ -229,7 +232,7 @@ export const WithNavbar = () => (
       </Layout.Sidebar>
       <Layout.Content>
         <Box sx={{ p: 3 }}>
-          <Typography variant="h4" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h4">
             Layout with Top Navigation
           </Typography>
           <Typography sx={{ mb: 2 }}>
@@ -272,7 +275,12 @@ export const WithContentHeader = () => (
         }}
       >
         <Typography variant="h5">Page Title</Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           Subtitle or description
         </Typography>
       </Layout.Header>
@@ -322,7 +330,7 @@ export const FullFeaturedLayout = () => (
           <Typography variant="h5">Dashboard Overview</Typography>
         </Layout.Header>
         <Box sx={{ p: 3 }}>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Content Area
           </Typography>
           <Typography sx={{ mb: 2 }}>
@@ -343,7 +351,7 @@ export const ContentOnly = () => (
   <Layout sx={{ height: '100vh' }}>
     <Layout.Content>
       <Box sx={{ p: 3 }}>
-        <Typography variant="h4" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h4">
           Simple Content Layout
         </Typography>
         <Typography sx={{ mb: 2 }}>

@@ -38,6 +38,12 @@ export default [
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      // eslint-plugin-react-hooks 7 added React Compiler rules that flag existing code; they warn until each hit is fixed.
+      'react-hooks/globals': 'warn',
+      'react-hooks/use-memo': 'warn',
+      'react-hooks/refs': 'warn',
+      'react-hooks/set-state-in-effect': 'warn',
+      'react-hooks/preserve-manual-memoization': 'warn',
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },

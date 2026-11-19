@@ -24,6 +24,7 @@ import { styled } from '@mui/material/styles';
 import { APP_CARD_HEIGHT, AppSwitcherApp } from './AppSwitcherApp';
 import type { AppSwitcherAppItem, AppSwitcherAppTone } from './AppSwitcherApp';
 import { AppSwitcherFooterContext } from './context';
+import { nextCardIndex } from './navigation';
 
 /**
  * Theme tokens used in this component:
@@ -192,59 +193,15 @@ export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
    * stay in the sequence because they remain focusable and discoverable.
    */
   const handleKeyDown = (event: React.KeyboardEvent<HTMLUListElement>) => {
-    const keys = ['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp', 'Home', 'End'];
-    if (!keys.includes(event.key)) {
-      return;
-    }
-
     const cards = Array.from(
       gridRef.current?.querySelectorAll<HTMLElement>('[data-app-switcher-app]') ?? []
     );
-    if (cards.length === 0) {
-      return;
-    }
-
-    const currentIndex = cards.indexOf(document.activeElement as HTMLElement);
-    if (currentIndex === -1) {
-      return;
-    }
-
-    // The single-column layout below `sm` makes horizontal steps equivalent to
-    // vertical ones, so derive the row stride from the rendered geometry rather
-    // than the `columns` prop.
-    const firstTop = cards[0].getBoundingClientRect().top;
-    const perRow = Math.max(
-      1,
-      cards.filter((card) => card.getBoundingClientRect().top === firstTop).length
+    const nextIndex = nextCardIndex(
+      event.key,
+      cards.indexOf(document.activeElement as HTMLElement),
+      cards.map((card) => card.getBoundingClientRect().top)
     );
-
-    let nextIndex = currentIndex;
-    switch (event.key) {
-      case 'ArrowRight':
-        nextIndex = currentIndex + 1;
-        break;
-      case 'ArrowLeft':
-        nextIndex = currentIndex - 1;
-        break;
-      case 'ArrowDown':
-        nextIndex = currentIndex + perRow;
-        break;
-      case 'ArrowUp':
-        nextIndex = currentIndex - perRow;
-        break;
-      case 'Home':
-        nextIndex = 0;
-        break;
-      case 'End':
-        nextIndex = cards.length - 1;
-        break;
-      default:
-        break;
-    }
-
-    // Clamp instead of wrapping: a vertical step off the last row would
-    // otherwise land somewhere unrelated.
-    if (nextIndex < 0 || nextIndex >= cards.length) {
+    if (nextIndex === null) {
       return;
     }
 

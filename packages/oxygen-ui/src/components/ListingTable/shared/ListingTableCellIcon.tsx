@@ -90,8 +90,8 @@ export function ListingTableCellIcon({
         <Typography
           variant="caption"
           component="div"
-          color="text.secondary"
           sx={{
+            color: 'text.secondary',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',

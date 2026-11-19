@@ -23,7 +23,7 @@ import MenuList from '@mui/material/MenuList';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import { Check } from '@wso2/oxygen-ui-icons-react';
-import { SearchBarBase } from '../../SearchBar/SearchBarBase';
+import { SearchBarBase } from '../../SearchBar';
 
 /**
  * One choice of a filter list.
@@ -167,7 +167,7 @@ const MenuContent: React.FC<MenuContentProps> = ({
         })}
         {needle !== '' && matching.length === 0 && (
           // A list item, not a paragraph, because it sits directly in the list.
-          <Typography component="li" role="presentation" variant="body2" color="text.secondary" sx={{ px: 2, py: 1, listStyle: 'none' }}>
+          <Typography component="li" role="presentation" variant="body2" sx={{ color: 'text.secondary', px: 2, py: 1, listStyle: 'none' }}>
             {noMatchLabel}
           </Typography>
         )}

@@ -19,6 +19,7 @@
 import { deepmerge } from '@mui/utils';
 import { extendTheme, type Theme, type ThemeOptions } from '@mui/material/styles';
 import OxygenThemeBase, { type OxygenTheme } from '../styles/OxygenThemeBase';
+import { mergeComponentVariants } from './mergeComponentVariants';
 import { omitDerivedThemeValues, rememberExplicitThemeValues } from './omitDerivedThemeValues';
 
 /**
@@ -61,7 +62,9 @@ export function createOxygenTheme(
   config?: Partial<ThemeOptions> | Record<string, any>,
   baseTheme: Theme = OxygenThemeBase
 ): OxygenTheme {
-  const merged = deepmerge(omitDerivedThemeValues(baseTheme), config ?? {});
+  const base = omitDerivedThemeValues(baseTheme);
+  const merged = deepmerge(base, config ?? {});
+  mergeComponentVariants(merged, base, config ?? {});
   const theme = extendTheme(merged) as OxygenTheme;
   rememberExplicitThemeValues(theme, merged);
   return theme;

@@ -25,7 +25,7 @@ import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { PanelLeftClose, PanelLeftOpen } from '@wso2/oxygen-ui-icons-react';
 import { useSidebar } from './context';
-import { AppShellContext } from '../AppShell/context';
+import { useOptionalAppShell } from '../AppShell/internal';
 import { SidebarItemProvider } from './SidebarItemContext';
 import { SidebarItemIcon } from './SidebarItemIcon';
 import { SidebarItemLabel } from './SidebarItemLabel';
@@ -95,7 +95,7 @@ export const SidebarCollapseToggle: React.FC<SidebarCollapseToggleProps> = ({
   const { collapsed } = useSidebar();
 
   // Apps using AppShell get toggling without wiring onToggle
-  const appShellContext = React.useContext(AppShellContext);
+  const appShellContext = useOptionalAppShell();
   const onToggle = onToggleProp ?? appShellContext?.actions.toggleSidebar;
 
   const label = collapsed ? expandLabel : collapseLabel;

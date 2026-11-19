@@ -22,7 +22,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { Menu } from '@wso2/oxygen-ui-icons-react';
-import { AppShellContext } from '../AppShell/context';
+import { useOptionalAppShell } from '../AppShell/internal';
 
 /**
  * Styled toggle button for the header.
@@ -76,7 +76,7 @@ export const HeaderToggle: React.FC<HeaderToggleProps> = ({
   sx,
 }) => {
   // Try to consume AppShell context (optional - gracefully degrades if not available)
-  const appShellContext = React.useContext(AppShellContext);
+  const appShellContext = useOptionalAppShell();
 
   // Use context values as defaults, allow prop overrides
   const collapsed = collapsedProp ?? appShellContext?.state.sidebarCollapsed ?? false;

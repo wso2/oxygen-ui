@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { TextField } from '@wso2/oxygen-ui';
+import type { Meta, StoryObj } from '@storybook/react-webpack5'
+import TextField from '@wso2/oxygen-ui/TextField'
 
 const meta: Meta<typeof TextField> = {
   title: 'Inputs/TextField',
@@ -50,15 +50,15 @@ const meta: Meta<typeof TextField> = {
   },
 };
 
-export default meta;
-type Story = StoryObj<typeof TextField>;
+export default meta
+type Story = StoryObj<typeof TextField>
 
 export const Default: Story = {
   args: {
     label: 'Label',
     placeholder: 'Placeholder',
   },
-};
+}
 
 export const LabelOnTop: Story = {
   args: {
@@ -118,21 +118,21 @@ export const Outlined: Story = {
     label: 'Outlined',
     variant: 'outlined',
   },
-};
+}
 
 export const Filled: Story = {
   args: {
     label: 'Filled',
     variant: 'filled',
   },
-};
+}
 
 export const Standard: Story = {
   args: {
     label: 'Standard',
     variant: 'standard',
   },
-};
+}
 
 export const WithHelperText: Story = {
   args: {
@@ -140,7 +140,7 @@ export const WithHelperText: Story = {
     helperText: 'Enter your email address',
     type: 'email',
   },
-};
+}
 
 export const Error: Story = {
   args: {
@@ -148,7 +148,7 @@ export const Error: Story = {
     error: true,
     helperText: 'Invalid email address',
   },
-};
+}
 
 export const Disabled: Story = {
   args: {
@@ -156,14 +156,14 @@ export const Disabled: Story = {
     disabled: true,
     value: 'Disabled text field',
   },
-};
+}
 
 export const Required: Story = {
   args: {
     label: 'Required',
     required: true,
   },
-};
+}
 
 export const RequiredWithFixedLabel: Story = {
   args: {
@@ -188,11 +188,11 @@ export const Multiline: Story = {
     rows: 4,
     placeholder: 'Enter multiple lines of text',
   },
-};
+}
 
 export const FullWidth: Story = {
   args: {
     label: 'Full Width',
     fullWidth: true,
   },
-};
+}

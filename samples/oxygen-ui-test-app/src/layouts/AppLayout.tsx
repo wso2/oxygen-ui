@@ -16,31 +16,29 @@
  * under the License.
  */
 
-import {
-  AppShell,
-  Badge,
-  ColorSchemeToggle,
-  ComplexSelect,
-  Footer,
-  Divider,
-  Header,
-  IconButton,
-  Sidebar,
-  Tooltip,
-  UserMenu,
-  NotificationPanel,
-  formatRelativeTime,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Button,
-  useAppShell,
-  useNotifications,
-  version as OXYGEN_UI_VERSION,
-  Box
-} from '@wso2/oxygen-ui'
+import AppShell from '@wso2/oxygen-ui/AppShell'
+import Badge from '@wso2/oxygen-ui/Badge'
+import ColorSchemeToggle from '@wso2/oxygen-ui/ColorSchemeToggle'
+import ComplexSelect from '@wso2/oxygen-ui/ComplexSelect'
+import Footer from '@wso2/oxygen-ui/Footer'
+import Divider from '@wso2/oxygen-ui/Divider'
+import Header from '@wso2/oxygen-ui/Header'
+import IconButton from '@wso2/oxygen-ui/IconButton'
+import Sidebar from '@wso2/oxygen-ui/Sidebar'
+import Tooltip from '@wso2/oxygen-ui/Tooltip'
+import UserMenu from '@wso2/oxygen-ui/UserMenu'
+import NotificationPanel from '@wso2/oxygen-ui/NotificationPanel'
+import { formatRelativeTime } from '@wso2/oxygen-ui/utils'
+import Dialog from '@wso2/oxygen-ui/Dialog'
+import DialogTitle from '@wso2/oxygen-ui/DialogTitle'
+import DialogContent from '@wso2/oxygen-ui/DialogContent'
+import DialogContentText from '@wso2/oxygen-ui/DialogContentText'
+import DialogActions from '@wso2/oxygen-ui/DialogActions'
+import Button from '@wso2/oxygen-ui/Button'
+import useAppShell from '@wso2/oxygen-ui/useAppShell'
+import useNotifications from '@wso2/oxygen-ui/useNotifications'
+import OXYGEN_UI_VERSION from '@wso2/oxygen-ui/version'
+import Box from '@wso2/oxygen-ui/Box'
 import { useState, useEffect, type JSX, useCallback } from 'react'
 import { useNavigate, useLocation, Outlet, Link as NavigateLink, useParams } from 'react-router'
 import Logo from '../components/Logo';

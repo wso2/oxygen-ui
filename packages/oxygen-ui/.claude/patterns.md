@@ -22,16 +22,14 @@ Complete application shell with header, sidebar, and content area.
 
 ```tsx
 import { useState } from 'react';
-import {
-  OxygenUIThemeProvider,
-  OxygenTheme,
-  AppShell,
-  Header,
-  Sidebar,
-  Footer,
-  ColorSchemeToggle,
-  UserMenu,
-} from '@wso2/oxygen-ui';
+import OxygenUIThemeProvider from '@wso2/oxygen-ui/OxygenUIThemeProvider';
+import OxygenTheme from '@wso2/oxygen-ui/OxygenTheme';
+import AppShell from '@wso2/oxygen-ui/AppShell';
+import Header from '@wso2/oxygen-ui/Header';
+import Sidebar from '@wso2/oxygen-ui/Sidebar';
+import Footer from '@wso2/oxygen-ui/Footer';
+import ColorSchemeToggle from '@wso2/oxygen-ui/ColorSchemeToggle';
+import UserMenu from '@wso2/oxygen-ui/UserMenu';
 import { HomeIcon, DashboardIcon, SettingsIcon } from '@wso2/oxygen-ui-icons-react';
 
 function App() {
@@ -116,16 +114,14 @@ function App() {
 
 ```tsx
 import { useState } from 'react';
-import {
-  Box,
-  Paper,
-  Typography,
-  TextField,
-  Button,
-  Link,
-  Divider,
-  Alert,
-} from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import Paper from '@wso2/oxygen-ui/Paper';
+import Typography from '@wso2/oxygen-ui/Typography';
+import TextField from '@wso2/oxygen-ui/TextField';
+import Button from '@wso2/oxygen-ui/Button';
+import Link from '@wso2/oxygen-ui/Link';
+import Divider from '@wso2/oxygen-ui/Divider';
+import Alert from '@wso2/oxygen-ui/Alert';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -223,14 +219,12 @@ function LoginForm() {
 
 ```tsx
 import { useState } from 'react';
-import {
-  Box,
-  Paper,
-  Typography,
-  TextField,
-  Button,
-  Alert,
-} from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import Paper from '@wso2/oxygen-ui/Paper';
+import Typography from '@wso2/oxygen-ui/Typography';
+import TextField from '@wso2/oxygen-ui/TextField';
+import Button from '@wso2/oxygen-ui/Button';
+import Alert from '@wso2/oxygen-ui/Alert';
 
 function PasswordResetForm() {
   const [email, setEmail] = useState('');
@@ -289,7 +283,10 @@ function PasswordResetForm() {
 ### Stats Cards
 
 ```tsx
-import { Grid, Paper, Typography, Box } from '@wso2/oxygen-ui';
+import Grid from '@wso2/oxygen-ui/Grid';
+import Paper from '@wso2/oxygen-ui/Paper';
+import Typography from '@wso2/oxygen-ui/Typography';
+import Box from '@wso2/oxygen-ui/Box';
 import { TrendingUpIcon, TrendingDownIcon } from '@wso2/oxygen-ui-icons-react';
 
 interface StatCardProps {
@@ -365,7 +362,10 @@ function Dashboard() {
 > **Note:** Charts are available in a separate package `@wso2/oxygen-ui-charts-react` built on Recharts.
 
 ```tsx
-import { Grid, Paper, Typography, Box } from '@wso2/oxygen-ui';
+import Grid from '@wso2/oxygen-ui/Grid';
+import Paper from '@wso2/oxygen-ui/Paper';
+import Typography from '@wso2/oxygen-ui/Typography';
+import Box from '@wso2/oxygen-ui/Box';
 import { LineChart, PieChart } from '@wso2/oxygen-ui-charts-react';
 
 function DashboardCharts() {
@@ -429,7 +429,11 @@ function DashboardCharts() {
 
 ```tsx
 import { useState, useMemo } from 'react';
-import { ListingTable, Button, IconButton, Chip, PageTitle } from '@wso2/oxygen-ui';
+import ListingTable from '@wso2/oxygen-ui/ListingTable';
+import Button from '@wso2/oxygen-ui/Button';
+import IconButton from '@wso2/oxygen-ui/IconButton';
+import Chip from '@wso2/oxygen-ui/Chip';
+import PageTitle from '@wso2/oxygen-ui/PageTitle';
 import { EditIcon, TrashIcon, MoreVerticalIcon } from '@wso2/oxygen-ui-icons-react';
 
 interface User {
@@ -616,14 +620,12 @@ function UsersTable({ users }: { users: User[] }) {
 ### Confirmation Dialog
 
 ```tsx
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Button,
-} from '@wso2/oxygen-ui';
+import Dialog from '@wso2/oxygen-ui/Dialog';
+import DialogTitle from '@wso2/oxygen-ui/DialogTitle';
+import DialogContent from '@wso2/oxygen-ui/DialogContent';
+import DialogContentText from '@wso2/oxygen-ui/DialogContentText';
+import DialogActions from '@wso2/oxygen-ui/DialogActions';
+import Button from '@wso2/oxygen-ui/Button';
 
 interface ConfirmDialogProps {
   open: boolean;
@@ -686,15 +688,13 @@ function ConfirmDialog({
 ### Form Dialog
 
 ```tsx
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  TextField,
-  Box,
-} from '@wso2/oxygen-ui';
+import Dialog from '@wso2/oxygen-ui/Dialog';
+import DialogTitle from '@wso2/oxygen-ui/DialogTitle';
+import DialogContent from '@wso2/oxygen-ui/DialogContent';
+import DialogActions from '@wso2/oxygen-ui/DialogActions';
+import Button from '@wso2/oxygen-ui/Button';
+import TextField from '@wso2/oxygen-ui/TextField';
+import Box from '@wso2/oxygen-ui/Box';
 
 function CreateUserDialog({ open, onClose, onSubmit }) {
   const [name, setName] = useState('');
@@ -747,7 +747,9 @@ function CreateUserDialog({ open, onClose, onSubmit }) {
 ### 404 Page
 
 ```tsx
-import { Box, Typography, Button } from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import Typography from '@wso2/oxygen-ui/Typography';
+import Button from '@wso2/oxygen-ui/Button';
 
 function NotFoundPage() {
   return (
@@ -782,7 +784,10 @@ function NotFoundPage() {
 ### Error Boundary Fallback
 
 ```tsx
-import { Box, Typography, Button, Paper } from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import Typography from '@wso2/oxygen-ui/Typography';
+import Button from '@wso2/oxygen-ui/Button';
+import Paper from '@wso2/oxygen-ui/Paper';
 import { AlertTriangleIcon } from '@wso2/oxygen-ui-icons-react';
 
 function ErrorFallback({ error, resetError }) {
@@ -816,7 +821,9 @@ function ErrorFallback({ error, resetError }) {
 ### Empty State
 
 ```tsx
-import { Box, Typography, Button } from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import Typography from '@wso2/oxygen-ui/Typography';
+import Button from '@wso2/oxygen-ui/Button';
 import { InboxIcon } from '@wso2/oxygen-ui-icons-react';
 
 function EmptyState({
@@ -871,16 +878,14 @@ function EmptyState({
 
 ```tsx
 import { useState } from 'react';
-import {
-  Box,
-  Paper,
-  Stepper,
-  Step,
-  StepLabel,
-  Button,
-  Typography,
-  TextField,
-} from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import Paper from '@wso2/oxygen-ui/Paper';
+import Stepper from '@wso2/oxygen-ui/Stepper';
+import Step from '@wso2/oxygen-ui/Step';
+import StepLabel from '@wso2/oxygen-ui/StepLabel';
+import Button from '@wso2/oxygen-ui/Button';
+import Typography from '@wso2/oxygen-ui/Typography';
+import TextField from '@wso2/oxygen-ui/TextField';
 
 const steps = ['Account', 'Profile', 'Preferences'];
 
@@ -994,7 +999,10 @@ function RegistrationWizard() {
 
 ```tsx
 import { useState } from 'react';
-import { Box, TextField, Button, Alert } from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import TextField from '@wso2/oxygen-ui/TextField';
+import Button from '@wso2/oxygen-ui/Button';
+import Alert from '@wso2/oxygen-ui/Alert';
 
 interface FormErrors {
   [key: string]: string;
@@ -1070,7 +1078,9 @@ function ValidatedForm() {
 ### Breadcrumbs
 
 ```tsx
-import { Breadcrumbs, Link, Typography } from '@wso2/oxygen-ui';
+import Breadcrumbs from '@wso2/oxygen-ui/Breadcrumbs';
+import Link from '@wso2/oxygen-ui/Link';
+import Typography from '@wso2/oxygen-ui/Typography';
 import { ChevronRightIcon } from '@wso2/oxygen-ui-icons-react';
 
 function PageBreadcrumbs({ items }: { items: { label: string; href?: string }[] }) {
@@ -1109,7 +1119,9 @@ function PageBreadcrumbs({ items }: { items: { label: string; href?: string }[] 
 
 ```tsx
 import { useState } from 'react';
-import { Tabs, Tab, Box } from '@wso2/oxygen-ui';
+import Tabs from '@wso2/oxygen-ui/Tabs';
+import Tab from '@wso2/oxygen-ui/Tab';
+import Box from '@wso2/oxygen-ui/Box';
 
 function TabNavigation() {
   const [value, setValue] = useState(0);
@@ -1139,18 +1151,15 @@ function TabNavigation() {
 ### Complete Theme Switcher Setup
 
 ```tsx
-import {
-  OxygenUIThemeProvider,
-  OxygenTheme,
-  ClassicTheme,
-  HighContrastTheme,
-  PaleBaseTheme,
-  PaleGrayTheme,
-  PaleIndigoTheme,
-  useThemeSwitcher,
-  Select,
-  MenuItem,
-} from '@wso2/oxygen-ui';
+import OxygenUIThemeProvider, { useThemeSwitcher } from '@wso2/oxygen-ui/OxygenUIThemeProvider';
+import OxygenTheme from '@wso2/oxygen-ui/OxygenTheme';
+import ClassicTheme from '@wso2/oxygen-ui/ClassicTheme';
+import HighContrastTheme from '@wso2/oxygen-ui/HighContrastTheme';
+import PaleBaseTheme from '@wso2/oxygen-ui/PaleBaseTheme';
+import PaleGrayTheme from '@wso2/oxygen-ui/PaleGrayTheme';
+import PaleIndigoTheme from '@wso2/oxygen-ui/PaleIndigoTheme';
+import Select from '@wso2/oxygen-ui/Select';
+import MenuItem from '@wso2/oxygen-ui/MenuItem';
 
 const themes = [
   { key: 'default', label: 'Default', theme: OxygenTheme },

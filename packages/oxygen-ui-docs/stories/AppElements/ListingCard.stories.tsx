@@ -17,7 +17,8 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Grid, ListingCard } from '@wso2/oxygen-ui';
+import Grid from '@wso2/oxygen-ui/Grid';
+import ListingCard from '@wso2/oxygen-ui/ListingCard';
 import React from 'react';
 
 /**

@@ -16,15 +16,17 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Snackbar, Button, Alert } from '@wso2/oxygen-ui';
-import React, { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5'
+import Snackbar from '@wso2/oxygen-ui/Snackbar'
+import Button from '@wso2/oxygen-ui/Button'
+import Alert from '@wso2/oxygen-ui/Alert'
+import React, { useState } from 'react'
 
 /**
  * The Snackbar component provides brief messages about app processes.
  * It appears temporarily at the bottom of the screen.
- * 
- * This is a direct import of MUI snackbar component. 
+ *
+ * This is a direct import of MUI snackbar component.
  * Read more at: https://mui.com/material-ui/react-snackbar/
  */
 const meta: Meta<typeof Snackbar> = {
@@ -43,21 +45,22 @@ const meta: Meta<typeof Snackbar> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI snackbar component is a direct import of MUI snackbar component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-snackbar/](https://mui.com/material-ui/react-snackbar/)',
+        component:
+          'Oxygen UI snackbar component is a direct import of MUI snackbar component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-snackbar/](https://mui.com/material-ui/react-snackbar/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Snackbar>;
+export default meta
+type Story = StoryObj<typeof Snackbar>
 
 export const Default: Story = {
   render: () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     return (
       <>
         <Button onClick={() => setOpen(true)}>Show Snackbar</Button>
@@ -68,13 +71,13 @@ export const Default: Story = {
           message="This is a snackbar message"
         />
       </>
-    );
+    )
   },
-};
+}
 
 export const WithAlert: Story = {
   render: () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     return (
       <>
         <Button onClick={() => setOpen(true)} variant="contained">
@@ -86,22 +89,34 @@ export const WithAlert: Story = {
           </Alert>
         </Snackbar>
       </>
-    );
+    )
   },
-};
+}
 
 export const Positions: Story = {
   render: () => {
-    const [open, setOpen] = useState<string | null>(null);
+    const [open, setOpen] = useState<string | null>(null)
     return (
       <>
-        <Button onClick={() => setOpen('top-left')} sx={{ m: 1 }}>Top Left</Button>
-        <Button onClick={() => setOpen('top-center')} sx={{ m: 1 }}>Top Center</Button>
-        <Button onClick={() => setOpen('top-right')} sx={{ m: 1 }}>Top Right</Button>
-        <Button onClick={() => setOpen('bottom-left')} sx={{ m: 1 }}>Bottom Left</Button>
-        <Button onClick={() => setOpen('bottom-center')} sx={{ m: 1 }}>Bottom Center</Button>
-        <Button onClick={() => setOpen('bottom-right')} sx={{ m: 1 }}>Bottom Right</Button>
-        
+        <Button onClick={() => setOpen('top-left')} sx={{ m: 1 }}>
+          Top Left
+        </Button>
+        <Button onClick={() => setOpen('top-center')} sx={{ m: 1 }}>
+          Top Center
+        </Button>
+        <Button onClick={() => setOpen('top-right')} sx={{ m: 1 }}>
+          Top Right
+        </Button>
+        <Button onClick={() => setOpen('bottom-left')} sx={{ m: 1 }}>
+          Bottom Left
+        </Button>
+        <Button onClick={() => setOpen('bottom-center')} sx={{ m: 1 }}>
+          Bottom Center
+        </Button>
+        <Button onClick={() => setOpen('bottom-right')} sx={{ m: 1 }}>
+          Bottom Right
+        </Button>
+
         <Snackbar
           open={open === 'top-left'}
           autoHideDuration={2000}
@@ -145,18 +160,18 @@ export const Positions: Story = {
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         />
       </>
-    );
+    )
   },
-};
+}
 
 export const WithAction: Story = {
   render: () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     const action = (
       <Button color="secondary" size="small" onClick={() => setOpen(false)}>
         UNDO
       </Button>
-    );
+    )
     return (
       <>
         <Button onClick={() => setOpen(true)} variant="contained">
@@ -170,6 +185,6 @@ export const WithAction: Story = {
           action={action}
         />
       </>
-    );
+    )
   },
-};
+}

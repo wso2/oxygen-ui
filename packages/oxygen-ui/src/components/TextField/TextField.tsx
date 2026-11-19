@@ -20,7 +20,7 @@ import * as React from 'react';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import MuiTextField, { type TextFieldProps as MuiTextFieldProps } from '@mui/material/TextField';
-import { selectPlaceholderProps } from '../Select/Select';
+import { selectPlaceholderProps } from '../Select/internal';
 
 /** `top` draws a static label above the field instead of MUI's floating label. */
 export type TextFieldLabelPlacement = 'top';

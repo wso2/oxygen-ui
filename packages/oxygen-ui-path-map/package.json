@@ -1,0 +1,39 @@
+{
+  "name": "@wso2/oxygen-ui-path-map",
+  "version": "0.0.0",
+  "description": "Reads the path map that @wso2/oxygen-ui publishes.",
+  "type": "module",
+  "main": "./dist/pathMap.js",
+  "types": "./dist/pathMap.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/pathMap.d.ts",
+      "import": "./dist/pathMap.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "dev": "tsc -p tsconfig.build.json --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "oxygen-ui",
+    "path-imports"
+  ],
+  "author": "WSO2 LLC",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

@@ -17,8 +17,13 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Box, Button, Chip, PageLoader, PageLoaderIcon, Stack, Typography } from '@wso2/oxygen-ui';
-import type { PageLoaderPhase } from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import Button from '@wso2/oxygen-ui/Button';
+import Chip from '@wso2/oxygen-ui/Chip';
+import PageLoader, { PageLoaderIcon } from '@wso2/oxygen-ui/PageLoader';
+import Stack from '@wso2/oxygen-ui/Stack';
+import Typography from '@wso2/oxygen-ui/Typography';
+import type { PageLoaderPhase } from '@wso2/oxygen-ui/PageLoader';
 import React from 'react';
 
 /**
@@ -80,7 +85,7 @@ const Stage: React.FC<{ children: React.ReactNode; height?: number }> = ({ child
 const AppContent: React.FC = () => (
   <Stack spacing={1} sx={{ p: 3 }}>
     <Typography variant="h5">Welcome back</Typography>
-    <Typography color="text.secondary">
+    <Typography sx={{ color: 'text.secondary' }}>
       The loader has finished and the page content is shown.
     </Typography>
   </Stack>
@@ -115,7 +120,7 @@ export const Default: Story = {
           <Button variant="outlined" onClick={() => { setCompletedAt(null); replay(); }}>
             Replay
           </Button>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             {completedAt ? `onComplete fired at ${completedAt}` : 'Waiting for onComplete…'}
           </Typography>
         </Stack>
@@ -229,7 +234,7 @@ export const FullScreen: Story = {
         <Button variant="contained" onClick={start}>
           Show full screen loader
         </Button>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           The task finishes after 2.5 seconds.
         </Typography>
         {open && (

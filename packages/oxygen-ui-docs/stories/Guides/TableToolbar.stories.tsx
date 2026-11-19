@@ -18,22 +18,20 @@
 
 import { Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import {
-  Alert,
-  AlertTitle,
-  Stack,
-  Typography,
-  CodeBlock,
-  Box,
-  Divider,
-  ListingTable,
-  Button,
-  Chip,
-  IconButton,
-  InputAdornment,
-  TextField,
-  Tooltip,
-} from '@wso2/oxygen-ui';
+import Alert from '@wso2/oxygen-ui/Alert';
+import AlertTitle from '@wso2/oxygen-ui/AlertTitle';
+import Stack from '@wso2/oxygen-ui/Stack';
+import Typography from '@wso2/oxygen-ui/Typography';
+import CodeBlock from '@wso2/oxygen-ui/CodeBlock';
+import Box from '@wso2/oxygen-ui/Box';
+import Divider from '@wso2/oxygen-ui/Divider';
+import ListingTable from '@wso2/oxygen-ui/ListingTable';
+import Button from '@wso2/oxygen-ui/Button';
+import Chip from '@wso2/oxygen-ui/Chip';
+import IconButton from '@wso2/oxygen-ui/IconButton';
+import InputAdornment from '@wso2/oxygen-ui/InputAdornment';
+import TextField from '@wso2/oxygen-ui/TextField';
+import Tooltip from '@wso2/oxygen-ui/Tooltip';
 import { ChevronDown, RefreshCw, Search } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';
 import CenterContentLayout from '../../layouts/CenterContentLayout';
@@ -105,7 +103,7 @@ interface GuideSectionProps {
 function GuideSection({ title, children }: GuideSectionProps) {
   return (
     <Box>
-      <Typography variant="h6" gutterBottom>
+      <Typography sx={{ mb: '0.35em' }} variant="h6">
         {title}
       </Typography>
       <Stack spacing={1.5}>{children}</Stack>
@@ -174,10 +172,10 @@ export const Overview: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Table toolbar
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography sx={{ color: 'text.secondary' }} variant="body2">
             Every data table uses one toolbar layout, so users find search, filters, and actions in
             the same place on every page. This covers the toolbar above any data table or list view.
             It does not cover page headers or form layouts.
@@ -209,7 +207,7 @@ export const Overview: Story = {
           </Typography>
           <Alert severity="info">
             <AlertTitle>Order search and filters by the page</AlertTitle>
-            <Typography variant="body2" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="body2">
               Search and toolbar filters can swap places, depending on what the page is for and
               which one users rely on more. Put the more important one first, right after scope.
             </Typography>

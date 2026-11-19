@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025-2025, WSO2 LLC. (http://www.wso2.com).
+ * Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -17,20 +17,18 @@
  */
 
 import { useState, type JSX } from 'react';
-import {
-  Alert,
-  Box,
-  Button,
-  Checkbox,
-  Divider,
-  FormControlLabel,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  Link,
-  OutlinedInput,
-  Typography
-} from '@wso2/oxygen-ui';
+import Alert from '@wso2/oxygen-ui/Alert';
+import Box from '@wso2/oxygen-ui/Box';
+import Button from '@wso2/oxygen-ui/Button';
+import Checkbox from '@wso2/oxygen-ui/Checkbox';
+import Divider from '@wso2/oxygen-ui/Divider';
+import FormControlLabel from '@wso2/oxygen-ui/FormControlLabel';
+import IconButton from '@wso2/oxygen-ui/IconButton';
+import InputAdornment from '@wso2/oxygen-ui/InputAdornment';
+import InputLabel from '@wso2/oxygen-ui/InputLabel';
+import Link from '@wso2/oxygen-ui/Link';
+import OutlinedInput from '@wso2/oxygen-ui/OutlinedInput';
+import Typography from '@wso2/oxygen-ui/Typography';
 import { Eye, EyeOff, GitHub, Google } from '@wso2/oxygen-ui-icons-react'
 import {useNavigate} from 'react-router';
 
@@ -60,7 +58,7 @@ export default function LoginBox(): JSX.Element {
   return (
     <form onSubmit={handleLogin}>
       <Box sx={{ mb: 6 }}>
-        <Typography variant="h1" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h1">
           Login to Account
         </Typography>
 
@@ -74,7 +72,7 @@ export default function LoginBox(): JSX.Element {
           You are about to access a non-secure site. Proceed with caution!
         </Alert>
       }
-          
+
       <Box>
         <Button
           fullWidth
@@ -98,8 +96,18 @@ export default function LoginBox(): JSX.Element {
 
       <Divider sx={{ my: 3 }}>or</Divider>
 
-      <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', gap: 2 }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2
+        }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 0.5
+          }}>
           <InputLabel htmlFor="username">Username</InputLabel>
           <OutlinedInput
             type="text"
@@ -112,7 +120,12 @@ export default function LoginBox(): JSX.Element {
             required
           />
         </Box>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 0.5
+          }}>
           <InputLabel htmlFor="password">Password</InputLabel>
           <OutlinedInput
             type={showPassword ? 'text' : 'password'}
@@ -161,5 +174,5 @@ export default function LoginBox(): JSX.Element {
         </Button>
       </Box>
     </form>
-  )
+  );
 }

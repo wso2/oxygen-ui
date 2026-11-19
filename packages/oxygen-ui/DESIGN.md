@@ -245,7 +245,7 @@ pnpm run export:tokens
 ## Version History
 
 - **v0.8.x** - Added ColorSchemeSVG, runtime theme support, improved WSO2Theme
-- **v0.7.x** - Material-UI v7 upgrade, enhanced theming system
+- **v0.7.x** - Material-UI v9 upgrade, enhanced theming system
 - **v0.6.x** - Initial public release
 
 ---

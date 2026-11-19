@@ -27,6 +27,7 @@ import { FullScreenWizardHeader } from './FullScreenWizardHeader';
 import { FullScreenWizardContent } from './FullScreenWizardContent';
 import { FullScreenWizardFooter } from './FullScreenWizardFooter';
 import { FullScreenWizardPreview } from './FullScreenWizardPreview';
+import { displayNameOf, flattenChildren } from '../../utils/compoundParts';
 
 /**
  * Theme tokens used in this component:
@@ -51,27 +52,6 @@ const SLOT_DISPLAY_NAMES = {
   Footer: 'FullScreenWizard.Footer',
   Preview: 'FullScreenWizard.Preview',
 } as const;
-
-const displayNameOf = (child: React.ReactNode): string | undefined =>
-  React.isValidElement(child) ? (child.type as React.FC)?.displayName : undefined;
-
-/**
- * Flattens fragments, so parts grouped in `<>...</>` are still found.
- * `React.Children.toArray` numbers keys afresh inside each fragment, so a
- * fragment's children take its key as a prefix to stay unique among siblings.
- * The prefix ends in `:`, which React escapes inside keys, so a direct key
- * can never match a prefixed one.
- */
-const flattenChildren = (children: React.ReactNode, keyPrefix = ''): React.ReactNode[] =>
-  React.Children.toArray(children).reduce<React.ReactNode[]>((flat, child) => {
-    if (!React.isValidElement<{ children?: React.ReactNode }>(child)) {
-      return flat.concat([child]);
-    }
-    if (child.type === React.Fragment) {
-      return flat.concat(flattenChildren(child.props.children, `${keyPrefix}${child.key}:`));
-    }
-    return flat.concat([keyPrefix ? React.cloneElement(child, { key: `${keyPrefix}${child.key}` }) : child]);
-  }, []);
 
 /**
  * Styled root of the wizard: the progress bar across the full width, then the
@@ -312,12 +292,7 @@ const FullScreenWizardBase = React.forwardRef<HTMLDivElement, FullScreenWizardPr
       return layout;
     }
 
-    // Setting `slotProps.paper` below replaces the consumer's own, so merge it in. MUI v9 removed the
-    // deprecated `PaperProps` from the types, but older callers may still pass it, so keep honouring it,
-    // with `slotProps.paper` winning as it did in Dialog.
-    const { slotProps, PaperProps: paperProps, ...restDialogProps } = (dialogProps ?? {}) as NonNullable<
-      typeof dialogProps
-    > & { PaperProps?: Record<string, unknown> };
+    const { slotProps, ...restDialogProps } = dialogProps ?? {};
     const paperSlot = slotProps?.paper;
 
     return (
@@ -331,7 +306,6 @@ const FullScreenWizardBase = React.forwardRef<HTMLDivElement, FullScreenWizardPr
           ...slotProps,
           // Keep a consumer's paper props, given as an object or a function of the owner state.
           paper: (ownerState) => ({
-            ...paperProps,
             ...(typeof paperSlot === 'function' ? paperSlot(ownerState) : paperSlot),
             // Without a wizard name, keep any `aria-label` given in the paper props.
             ...(ariaLabelledby

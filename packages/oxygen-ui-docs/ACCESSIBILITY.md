@@ -15,10 +15,10 @@
 
 ## 2. Baseline results
 
-| Run | Failed stories | Notes |
-| --- | --- | --- |
-| Initial baseline | 48 / 533 | Per-rule story counts (not mutually exclusive): 36 `color-contrast`, 7 `aria-input-field-name`, 3 `label`, 1 `aria-progressbar-name`, 2 `scrollable-region-focusable` (49 rule-hits across 48 stories) |
-| After remediation | 0 / 533 | 35 unique stories carry documented, issue-tracked rule exceptions (see §5; some stories disable more than one rule) |
+| Run               | Failed stories | Notes                                                                                                                                                                                                  |
+| ----------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Initial baseline  | 48 / 533       | Per-rule story counts (not mutually exclusive): 36 `color-contrast`, 7 `aria-input-field-name`, 3 `label`, 1 `aria-progressbar-name`, 2 `scrollable-region-focusable` (49 rule-hits across 48 stories) |
+| After remediation | 0 / 533        | 35 unique stories carry documented, issue-tracked rule exceptions (see §5; some stories disable more than one rule)                                                                                    |
 
 ## 3. Issues found and fixed
 
@@ -59,14 +59,14 @@
 
 ## 4. Follow-up issues (tracked on GitHub)
 
-| Issue | Title | Severity |
-| --- | --- | --- |
-| [#557](https://github.com/wso2/oxygen-ui/issues/557) | **Epic:** Ensure WCAG 2.2 AA compliance across Oxygen UI | — |
-| [#558](https://github.com/wso2/oxygen-ui/issues/558) | Brand primary `#FF7300` fails WCAG AA 4.5:1 text contrast (Classic/WSO2 themes) | High (needs design decision) |
-| [#559](https://github.com/wso2/oxygen-ui/issues/559) | `forwardRef` + full prop forwarding rollout for remaining compound components | Medium |
-| [#561](https://github.com/wso2/oxygen-ui/issues/561) | Medium/low severity wrapper-audit follow-ups (SVG roles, landmark guidance, `aria-describedby` for form errors, hardcoded colors, decorative icons) | Medium/Low |
-| [#562](https://github.com/wso2/oxygen-ui/issues/562) | `Form.CardButton` nests interactive controls inside a `<button>` (`nested-interactive`) | High |
-| [#563](https://github.com/wso2/oxygen-ui/issues/563) | Manual AT pass (VoiceOver/NVDA, zoom 200%/400%) | High |
+| Issue                                                | Title                                                                                                                                               | Severity                     |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| [#557](https://github.com/wso2/oxygen-ui/issues/557) | **Epic:** Ensure WCAG 2.2 AA compliance across Oxygen UI                                                                                            | —                            |
+| [#558](https://github.com/wso2/oxygen-ui/issues/558) | Brand primary `#FF7300` fails WCAG AA 4.5:1 text contrast (Classic/WSO2 themes)                                                                     | High (needs design decision) |
+| [#559](https://github.com/wso2/oxygen-ui/issues/559) | `forwardRef` + full prop forwarding rollout for remaining compound components                                                                       | Medium                       |
+| [#561](https://github.com/wso2/oxygen-ui/issues/561) | Medium/low severity wrapper-audit follow-ups (SVG roles, landmark guidance, `aria-describedby` for form errors, hardcoded colors, decorative icons) | Medium/Low                   |
+| [#562](https://github.com/wso2/oxygen-ui/issues/562) | `Form.CardButton` nests interactive controls inside a `<button>` (`nested-interactive`)                                                             | High                         |
+| [#563](https://github.com/wso2/oxygen-ui/issues/563) | Manual AT pass (VoiceOver/NVDA, zoom 200%/400%)                                                                                                     | High                         |
 
 ## 5. Documented exceptions
 

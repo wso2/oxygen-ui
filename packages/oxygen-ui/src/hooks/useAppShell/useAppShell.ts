@@ -62,7 +62,7 @@ export interface UseAppShellOptions {
   initialActiveItem?: string;
   /** Auto-collapse sidebar on menu item selection in mobile view (default: true) */
   collapseOnSelectOnMobile?: boolean;
-  /** Auto-collapse sidebar on page load when in mobile view (default: false) */
+  /** Auto-collapse sidebar on page load when in mobile view (default: true) */
   collapseOnMobile?: boolean;
   /** Expanded sidebar width in pixels (default: 250) */
   sidebarWidth?: number;

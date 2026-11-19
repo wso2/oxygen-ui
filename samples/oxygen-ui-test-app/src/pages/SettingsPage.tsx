@@ -16,34 +16,32 @@
  * under the License.
  */
 
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Typography,
-  TextField,
-  Tabs,
-  Tab,
-  Divider,
-  FormControl,
-  FormLabel,
-  Switch,
-  FormControlLabel,
-  Select,
-  MenuItem,
-  PageTitle,
-  Chip,
-  List,
-  ListItem,
-  ListItemText,
-  Alert,
-  Grid,
-  Avatar,
-  ThemeSwitcher,
-  PageContent,
-  Autocomplete,
-} from '@wso2/oxygen-ui'
+import Box from '@wso2/oxygen-ui/Box'
+import Button from '@wso2/oxygen-ui/Button'
+import Card from '@wso2/oxygen-ui/Card'
+import CardContent from '@wso2/oxygen-ui/CardContent'
+import Typography from '@wso2/oxygen-ui/Typography'
+import TextField from '@wso2/oxygen-ui/TextField'
+import Tabs from '@wso2/oxygen-ui/Tabs'
+import Tab from '@wso2/oxygen-ui/Tab'
+import Divider from '@wso2/oxygen-ui/Divider'
+import FormControl from '@wso2/oxygen-ui/FormControl'
+import FormLabel from '@wso2/oxygen-ui/FormLabel'
+import Switch from '@wso2/oxygen-ui/Switch'
+import FormControlLabel from '@wso2/oxygen-ui/FormControlLabel'
+import Select from '@wso2/oxygen-ui/Select'
+import MenuItem from '@wso2/oxygen-ui/MenuItem'
+import PageTitle from '@wso2/oxygen-ui/PageTitle'
+import Chip from '@wso2/oxygen-ui/Chip'
+import List from '@wso2/oxygen-ui/List'
+import ListItem from '@wso2/oxygen-ui/ListItem'
+import ListItemText from '@wso2/oxygen-ui/ListItemText'
+import Alert from '@wso2/oxygen-ui/Alert'
+import Grid from '@wso2/oxygen-ui/Grid'
+import Avatar from '@wso2/oxygen-ui/Avatar'
+import ThemeSwitcher from '@wso2/oxygen-ui/ThemeSwitcher'
+import PageContent from '@wso2/oxygen-ui/PageContent'
+import Autocomplete from '@wso2/oxygen-ui/Autocomplete'
 import {
   Save,
   Building2,
@@ -152,14 +150,14 @@ export default function SettingsPage(): JSX.Element {
           {activeTab === 0 && (
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
+                <Typography variant="h5" sx={{ mb: 2 }}>
                   Organization Information
                 </Typography>
                 <Divider sx={{ mb: 4 }} />
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                   <Box>
-                    <Typography variant="body1" gutterBottom sx={{ mb: 2 }}>
+                    <Typography variant="body1" sx={{ mb: 2 }}>
                       Organization Logo
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -178,7 +176,12 @@ export default function SettingsPage(): JSX.Element {
                         <Button variant="outlined" size="small" sx={{ mb: 1 }}>
                           Change Logo
                         </Button>
-                        <Typography variant="caption" sx={{ display: 'block' }} color="text.secondary">
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            display: 'block',
+                            color: 'text.secondary'
+                          }}>
                           Recommended: Square image, at least 200x200px
                         </Typography>
                       </Box>
@@ -284,7 +287,7 @@ export default function SettingsPage(): JSX.Element {
           {activeTab === 1 && (
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
+                <Typography variant="h5" sx={{ mb: 2 }}>
                   Appearance Settings
                 </Typography>
                 <Divider sx={{ mb: 3 }} />
@@ -358,7 +361,9 @@ export default function SettingsPage(): JSX.Element {
                   </FormControl>
 
                   <Box sx={{ p: 2, bgcolor: 'action.hover', borderRadius: 1 }}>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{
+                      color: 'text.secondary'
+                    }}>
                       These preferences will be applied across your organization for all members.
                     </Typography>
                   </Box>
@@ -371,7 +376,7 @@ export default function SettingsPage(): JSX.Element {
           {activeTab === 2 && (
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
+                <Typography variant="h5" sx={{ mb: 2 }}>
                   Notification Settings
                 </Typography>
                 <Divider sx={{ mb: 3 }} />
@@ -392,7 +397,13 @@ export default function SettingsPage(): JSX.Element {
                     }
                     label="Email Notifications"
                   />
-                  <Typography variant="body2" color="text.secondary" sx={{ ml: 5, mt: -1 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: 'text.secondary',
+                      ml: 5,
+                      mt: -1
+                    }}>
                     Receive email notifications for organization events
                   </Typography>
 
@@ -411,7 +422,13 @@ export default function SettingsPage(): JSX.Element {
                     }
                     label="Slack Notifications"
                   />
-                  <Typography variant="body2" color="text.secondary" sx={{ ml: 5, mt: -1 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: 'text.secondary',
+                      ml: 5,
+                      mt: -1
+                    }}>
                     Send notifications to your Slack workspace
                   </Typography>
 
@@ -434,7 +451,13 @@ export default function SettingsPage(): JSX.Element {
                     }
                     label="Security Alerts"
                   />
-                  <Typography variant="body2" color="text.secondary" sx={{ ml: 5, mt: -1 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: 'text.secondary',
+                      ml: 5,
+                      mt: -1
+                    }}>
                     Get notified about security events and suspicious activities
                   </Typography>
 
@@ -453,7 +476,13 @@ export default function SettingsPage(): JSX.Element {
                     }
                     label="Billing Alerts"
                   />
-                  <Typography variant="body2" color="text.secondary" sx={{ ml: 5, mt: -1 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: 'text.secondary',
+                      ml: 5,
+                      mt: -1
+                    }}>
                     Receive alerts about billing and subscription changes
                   </Typography>
 
@@ -472,7 +501,13 @@ export default function SettingsPage(): JSX.Element {
                     }
                     label="Weekly Reports"
                   />
-                  <Typography variant="body2" color="text.secondary" sx={{ ml: 5, mt: -1 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: 'text.secondary',
+                      ml: 5,
+                      mt: -1
+                    }}>
                     Get weekly summary reports of organization activity
                   </Typography>
 
@@ -491,7 +526,13 @@ export default function SettingsPage(): JSX.Element {
                     }
                     label="Product Updates"
                   />
-                  <Typography variant="body2" color="text.secondary" sx={{ ml: 5, mt: -1 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: 'text.secondary',
+                      ml: 5,
+                      mt: -1
+                    }}>
                     Stay informed about new features and improvements
                   </Typography>
                 </Box>
@@ -503,7 +544,7 @@ export default function SettingsPage(): JSX.Element {
           {activeTab === 3 && (
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
+                <Typography variant="h5" sx={{ mb: 2 }}>
                   Security Settings
                 </Typography>
                 <Divider sx={{ mb: 3 }} />
@@ -525,7 +566,12 @@ export default function SettingsPage(): JSX.Element {
                       }
                       label="Require Two-Factor Authentication"
                     />
-                    <Typography variant="body2" color="text.secondary" sx={{ ml: 5 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: 'text.secondary',
+                        ml: 5
+                      }}>
                       Require all members to enable 2FA for enhanced security
                     </Typography>
                   </Box>
@@ -556,7 +602,12 @@ export default function SettingsPage(): JSX.Element {
                       }
                       label="Enable IP Whitelist"
                     />
-                    <Typography variant="body2" color="text.secondary" sx={{ ml: 5 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: 'text.secondary',
+                        ml: 5
+                      }}>
                       Restrict access to specific IP addresses
                     </Typography>
                   </Box>
@@ -588,7 +639,7 @@ export default function SettingsPage(): JSX.Element {
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                  <Typography variant="h5" gutterBottom>Team Members</Typography>
+                  <Typography sx={{ mb: '0.35em' }} variant="h5">Team Members</Typography>
                   <Button variant="contained" size="small" startIcon={<Users size={18} />}>
                     Invite Member
                   </Button>
@@ -677,7 +728,7 @@ export default function SettingsPage(): JSX.Element {
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                  <Typography variant="h5" gutterBottom>API Keys</Typography>
+                  <Typography sx={{ mb: '0.35em' }} variant="h5">API Keys</Typography>
                   <Button variant="contained" size="small">
                     Generate New Key
                   </Button>
@@ -697,7 +748,9 @@ export default function SettingsPage(): JSX.Element {
                       primary="Production API Key"
                       secondary={
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1 }}>
-                          <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
+                          <Typography variant="body2" sx={{
+                            fontFamily: "monospace"
+                          }}>
                             sk_prod_••••••••••••••••
                           </Typography>
                           <Chip label="Active" size="small" color="success" />
@@ -723,7 +776,9 @@ export default function SettingsPage(): JSX.Element {
                       primary="Development API Key"
                       secondary={
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1 }}>
-                          <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
+                          <Typography variant="body2" sx={{
+                            fontFamily: "monospace"
+                          }}>
                             sk_dev_••••••••••••••••
                           </Typography>
                           <Chip label="Active" size="small" color="success" />
@@ -752,14 +807,14 @@ export default function SettingsPage(): JSX.Element {
           {activeTab === 6 && (
             <Card variant="outlined">
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
+                <Typography variant="h5" sx={{ mb: 2 }}>
                   Billing & Subscription
                 </Typography>
                 <Divider sx={{ mb: 3 }} />
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                   <Box>
-                    <Typography variant="subtitle1" gutterBottom>
+                    <Typography sx={{ mb: '0.35em' }} variant="subtitle1">
                       Current Plan
                     </Typography>
                     <Box
@@ -774,7 +829,9 @@ export default function SettingsPage(): JSX.Element {
                       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Box>
                           <Typography variant="h6">Enterprise Plan</Typography>
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography variant="body2" sx={{
+                            color: 'text.secondary'
+                          }}>
                             For large organizations with advanced needs
                           </Typography>
                         </Box>
@@ -784,7 +841,9 @@ export default function SettingsPage(): JSX.Element {
                       </Box>
                       <Box sx={{ mt: 2 }}>
                         <Chip label="Active" color="success" size="small" sx={{ mr: 1 }} />
-                        <Typography variant="caption" color="text.secondary">
+                        <Typography variant="caption" sx={{
+                          color: 'text.secondary'
+                        }}>
                           Next billing date: January 1, 2026
                         </Typography>
                       </Box>
@@ -792,7 +851,7 @@ export default function SettingsPage(): JSX.Element {
                   </Box>
 
                   <Box>
-                    <Typography variant="subtitle1" gutterBottom>
+                    <Typography sx={{ mb: '0.35em' }} variant="subtitle1">
                       Payment Method
                     </Typography>
                     <Box
@@ -810,7 +869,9 @@ export default function SettingsPage(): JSX.Element {
                         <CreditCard size={24} />
                         <Box>
                           <Typography variant="body1">•••• •••• •••• 4242</Typography>
-                          <Typography variant="caption" color="text.secondary">
+                          <Typography variant="caption" sx={{
+                            color: 'text.secondary'
+                          }}>
                             Expires 12/2026
                           </Typography>
                         </Box>
@@ -822,7 +883,7 @@ export default function SettingsPage(): JSX.Element {
                   </Box>
 
                   <Box>
-                    <Typography variant="subtitle1" gutterBottom>
+                    <Typography sx={{ mb: '0.35em' }} variant="subtitle1">
                       Billing History
                     </Typography>
                     <List sx={{ border: 1, borderColor: 'divider', borderRadius: 1 }}>
@@ -863,7 +924,7 @@ export default function SettingsPage(): JSX.Element {
           {activeTab === 7 && (
             <Card variant="outlined" sx={{ borderColor: 'error.main' }}>
               <CardContent sx={{ p: 3 }}>
-                <Typography variant="h5" gutterBottom sx={{ mb: 2 }} color="error">
+                <Typography variant="h5" sx={{ mb: 2 }} color="error">
                   Danger Zone
                 </Typography>
                 <Divider sx={{ mb: 3 }} />
@@ -876,10 +937,15 @@ export default function SettingsPage(): JSX.Element {
                   </Alert>
 
                   <Box>
-                    <Typography variant="subtitle1" gutterBottom>
+                    <Typography sx={{ mb: '0.35em' }} variant="subtitle1">
                       Transfer Organization Ownership
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: 'text.secondary',
+                        mb: 2
+                      }}>
                       Transfer ownership of this organization to another member
                     </Typography>
                     <Button variant="outlined" color="warning">
@@ -890,10 +956,15 @@ export default function SettingsPage(): JSX.Element {
                   <Divider />
 
                   <Box>
-                    <Typography variant="subtitle1" gutterBottom>
+                    <Typography sx={{ mb: '0.35em' }} variant="subtitle1">
                       Delete Organization
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: 'text.secondary',
+                        mb: 2
+                      }}>
                       Permanently delete this organization and all its data, including all projects, members,
                       and settings. This action cannot be undone.
                     </Typography>
@@ -914,5 +985,5 @@ export default function SettingsPage(): JSX.Element {
         </Box>
       </Box>
     </PageContent>
-  )
+  );
 }

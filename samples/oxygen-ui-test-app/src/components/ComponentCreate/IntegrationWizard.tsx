@@ -16,7 +16,14 @@
  * under the License.
  */
 
-import { Box, Button, Form, IconButton, InputAdornment, TextField, Select, MenuItem } from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import Button from '@wso2/oxygen-ui/Button';
+import { Form } from '@wso2/oxygen-ui/Form';
+import IconButton from '@wso2/oxygen-ui/IconButton';
+import InputAdornment from '@wso2/oxygen-ui/InputAdornment';
+import TextField from '@wso2/oxygen-ui/TextField';
+import Select from '@wso2/oxygen-ui/Select';
+import MenuItem from '@wso2/oxygen-ui/MenuItem';
 import type { JSX } from 'react';
 import { useState } from 'react';
 import { BoxIcon, CheckIcon, CircleQuestionMark, GitBranchIcon, PencilIcon } from '@wso2/oxygen-ui-icons-react';

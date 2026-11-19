@@ -17,7 +17,7 @@ description: Generate forms with Form.* components and validation. Use when crea
 
 ## Critical Rules
 
-- Import form components from `@wso2/oxygen-ui`
+- Import form components from `@wso2/oxygen-ui` paths, such as `@wso2/oxygen-ui/TextField`
 - Use controlled components with state
 - Show validation errors with `error` and `helperText` props
 - Use theme tokens for spacing
@@ -39,7 +39,7 @@ Write all titles, action text, and content in sentence case. Capitalize only the
 
 ## Field Labels
 
-Forms use a fixed label above the input, not MUI's floating label. `labelPlacement` is an Oxygen UI prop, so import `TextField` from `@wso2/oxygen-ui`; the MUI `TextField` ignores it.
+Forms use a fixed label above the input, not MUI's floating label. `labelPlacement` is an Oxygen UI prop, so import `TextField` from `@wso2/oxygen-ui/TextField`; the MUI `TextField` ignores it.
 
 ```tsx
 <TextField labelPlacement="top" label="Display name" required />  // required: label shows a themed *
@@ -87,7 +87,10 @@ The same rules apply. Use `TextField` with `select` (it supports `helperText` fo
 
 ```tsx
 import { useState } from 'react';
-import { Box, Form, TextField, Button } from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import { Form } from '@wso2/oxygen-ui/Form';
+import TextField from '@wso2/oxygen-ui/TextField';
+import Button from '@wso2/oxygen-ui/Button';
 
 function BasicForm() {
   const [formData, setFormData] = useState({ name: '', email: '' });
@@ -156,7 +159,11 @@ function BasicForm() {
 ## Form with Sections
 
 ```tsx
-import { Form, TextField, MenuItem, Button, Box } from '@wso2/oxygen-ui';
+import { Form } from '@wso2/oxygen-ui/Form';
+import TextField from '@wso2/oxygen-ui/TextField';
+import MenuItem from '@wso2/oxygen-ui/MenuItem';
+import Button from '@wso2/oxygen-ui/Button';
+import Box from '@wso2/oxygen-ui/Box';
 
 function SectionedForm() {
   return (
@@ -203,16 +210,14 @@ function SectionedForm() {
 
 ```tsx
 import { useState } from 'react';
-import {
-  Box,
-  Paper,
-  Typography,
-  TextField,
-  Button,
-  Link,
-  Alert,
-  Form,
-} from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import Paper from '@wso2/oxygen-ui/Paper';
+import Typography from '@wso2/oxygen-ui/Typography';
+import TextField from '@wso2/oxygen-ui/TextField';
+import Button from '@wso2/oxygen-ui/Button';
+import Link from '@wso2/oxygen-ui/Link';
+import Alert from '@wso2/oxygen-ui/Alert';
+import { Form } from '@wso2/oxygen-ui/Form';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -316,17 +321,15 @@ Use a wizard only when later steps depend on earlier choices; otherwise use a pa
 
 ```tsx
 import { useState } from 'react';
-import {
-  Box,
-  Paper,
-  Stepper,
-  Step,
-  StepLabel,
-  Button,
-  Typography,
-  TextField,
-  Form,
-} from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import Paper from '@wso2/oxygen-ui/Paper';
+import Stepper from '@wso2/oxygen-ui/Stepper';
+import Step from '@wso2/oxygen-ui/Step';
+import StepLabel from '@wso2/oxygen-ui/StepLabel';
+import Button from '@wso2/oxygen-ui/Button';
+import Typography from '@wso2/oxygen-ui/Typography';
+import TextField from '@wso2/oxygen-ui/TextField';
+import { Form } from '@wso2/oxygen-ui/Form';
 
 const steps = ['Account', 'Profile', 'Review'];
 
@@ -445,7 +448,11 @@ function RegistrationWizard() {
 
 ```tsx
 import { useState } from 'react';
-import { Box, Form, TextField, Button, Autocomplete } from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import { Form } from '@wso2/oxygen-ui/Form';
+import TextField from '@wso2/oxygen-ui/TextField';
+import Button from '@wso2/oxygen-ui/Button';
+import Autocomplete from '@wso2/oxygen-ui/Autocomplete';
 
 const countries = [
   { label: 'United States', code: 'US' },

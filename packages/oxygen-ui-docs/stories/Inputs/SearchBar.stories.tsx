@@ -18,8 +18,9 @@
 
 import type { Meta, StoryObj } from '@storybook/react-webpack5'
 import React from 'react'
-import { Stack } from '@wso2/oxygen-ui'
-import { SearchBarWithAdvancedFilter, SearchBar } from '@wso2/oxygen-ui'
+import Stack from '@wso2/oxygen-ui/Stack'
+import SearchBarWithAdvancedFilter from '@wso2/oxygen-ui/SearchBarWithAdvancedFilter'
+import SearchBar from '@wso2/oxygen-ui/SearchBar'
 
 /**
  * The SearchBar component provides a styled search input built

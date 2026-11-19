@@ -18,7 +18,12 @@
 
 import { Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Stack, Typography, CodeBlock, Box, Divider, Button } from '@wso2/oxygen-ui';
+import Stack from '@wso2/oxygen-ui/Stack';
+import Typography from '@wso2/oxygen-ui/Typography';
+import CodeBlock from '@wso2/oxygen-ui/CodeBlock';
+import Box from '@wso2/oxygen-ui/Box';
+import Divider from '@wso2/oxygen-ui/Divider';
+import Button from '@wso2/oxygen-ui/Button';
 import { Download } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';
 import CenterContentLayout from '../../layouts/CenterContentLayout';
@@ -63,10 +68,10 @@ export const Overview: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Favicon
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography sx={{ color: 'text.secondary' }} variant="body2">
             The favicon is the small icon shown in the browser tab, bookmarks, and history. Use the same
             favicon on every page so users can spot your application among their open tabs.
           </Typography>
@@ -75,11 +80,11 @@ export const Overview: Story = {
         <Divider />
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Download
           </Typography>
-          <Stack direction="row" spacing={3} sx={{ alignItems: 'center' }}>
-            <Stack direction="row" spacing={2} sx={{ alignItems: 'flex-end' }}>
+          <Stack sx={{ alignItems: 'center' }} direction="row" spacing={3}>
+            <Stack sx={{ alignItems: 'flex-end' }} direction="row" spacing={2}>
               <Box component="img" src={FAVICON_URL} alt="Favicon at 32 by 32 pixels" width={32} height={32} />
               <Box component="img" src={FAVICON_URL} alt="Favicon at 16 by 16 pixels" width={16} height={16} />
             </Stack>
@@ -92,7 +97,7 @@ export const Overview: Story = {
               >
                 Download favicon.ico
               </Button>
-              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 1 }}>
+              <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mt: 1 }}>
                 One ICO file with 16×16 and 32×32 sizes.
               </Typography>
             </Box>
@@ -100,10 +105,10 @@ export const Overview: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Usage
           </Typography>
-          <Typography variant="body2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="body2">
             Put <code>favicon.ico</code> in your app&apos;s static folder (for example <code>public/</code> in
             Vite), then reference it from the <code>&lt;head&gt;</code> of <code>index.html</code>:
           </Typography>
@@ -117,7 +122,7 @@ export const Overview: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Rules
           </Typography>
           <Box component="ul" sx={{ pl: 3, m: 0 }}>

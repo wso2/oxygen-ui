@@ -16,7 +16,11 @@
  * under the License.
  */
 
-import { Box, Button, Form, Stack, Typography } from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import Button from '@wso2/oxygen-ui/Button';
+import { Form } from '@wso2/oxygen-ui/Form';
+import Stack from '@wso2/oxygen-ui/Stack';
+import Typography from '@wso2/oxygen-ui/Typography';
 import { ExternalLinkIcon } from '@wso2/oxygen-ui-icons-react';
 import type { JSX } from 'react';
 

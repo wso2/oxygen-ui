@@ -18,14 +18,12 @@
 
 import React, { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react-webpack5'
-import {
-  Button,
-  Box,
-  Alert,
-  Form,
-  TextField,
-  Typography,
-} from '@wso2/oxygen-ui'
+import Button from '@wso2/oxygen-ui/Button'
+import Box from '@wso2/oxygen-ui/Box'
+import Alert from '@wso2/oxygen-ui/Alert'
+import { Form } from '@wso2/oxygen-ui/Form'
+import TextField from '@wso2/oxygen-ui/TextField'
+import Typography from '@wso2/oxygen-ui/Typography'
 
 const meta: Meta = {
   title: 'Templates/Wizard',
@@ -118,7 +116,7 @@ export const Default: Story = {
           steps={steps}
           activeStep={activeStep}
           actions={
-            <Form.Stack direction="row" spacing={2} sx={{ justifyContent: 'flex-end', mt: 3 }}>
+            <Form.Stack direction="row" spacing={2} sx={{ mt: 3, justifyContent: 'flex-end' }}>
               <Button
                 variant="text"
                 onClick={() => setActiveStep(prev => prev - 1)}

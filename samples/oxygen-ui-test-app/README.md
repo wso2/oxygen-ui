@@ -70,7 +70,10 @@ oxygen-ui-test-app/
 ### Basic Components
 
 ```tsx
-import { Button, TextField, Box, Stack } from '@wso2/oxygen-ui';
+import Button from '@wso2/oxygen-ui/Button';
+import TextField from '@wso2/oxygen-ui/TextField';
+import Box from '@wso2/oxygen-ui/Box';
+import Stack from '@wso2/oxygen-ui/Stack';
 
 function MyComponent() {
   return (
@@ -103,7 +106,7 @@ function Toolbar() {
 ### Theme Provider
 
 ```tsx
-import { OxygenUIThemeProvider } from '@wso2/oxygen-ui';
+import OxygenUIThemeProvider from '@wso2/oxygen-ui/OxygenUIThemeProvider';
 
 function App() {
   return (
@@ -122,7 +125,6 @@ function App() {
 - [@wso2/oxygen-ui](../../packages/oxygen-ui/README.md) - Choreo Oxygen UI component library
 - [@wso2/oxygen-ui-icons-react](../../packages/oxygen-ui-icons-react/README.md) - Icon library
 - [@wso2/eslint-plugin-oxygen-ui](../../packages/eslint-plugin-oxygen-ui/README.md) - ESLint plugin
-- [@wso2/vite-plugin-oxygen-ui](../../packages/vite-plugin-oxygen-ui/README.md) - Vite plugin
 
 ## ESLint Configuration
 

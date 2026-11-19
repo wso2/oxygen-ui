@@ -17,9 +17,8 @@
  */
 
 import Box, { BoxProps } from '@mui/material/Box';
-import { useColorScheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { JSX } from 'react';
+import { useResolvedColorScheme } from '../../hooks/useResolvedColorScheme/useResolvedColorScheme';
 
 /**
  * Represents attributes for different color schemes (light and dark modes).
@@ -93,25 +92,15 @@ export interface ColorSchemeImageProps extends BoxProps {
 export default function ColorSchemeImage({src, alt, width = 16, height = 16, ...rest}: ColorSchemeImageProps): 
   JSX.Element {
 
-  const {mode} = useColorScheme();
+  const colorScheme = useResolvedColorScheme();
 
-  const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
-
-  let actualMode: string | undefined;
-
-  if (mode === 'system') {
-    actualMode = prefersDark ? 'dark' : 'light';
-  } else {
-    actualMode = mode;
-  }
-
-  const imageSrc: string = actualMode === 'dark' ? src.dark : src.light;
+  const imageSrc: string = colorScheme === 'dark' ? src.dark : src.light;
   let imageAlt: string;
 
   if (typeof alt === 'string') {
     imageAlt = alt;
   } else {
-    imageAlt = actualMode === 'dark' ? alt.dark : alt.light;
+    imageAlt = colorScheme === 'dark' ? alt.dark : alt.light;
   }
 
   return <Box component="img" src={imageSrc} alt={imageAlt} width={width} height={height} {...rest} />;

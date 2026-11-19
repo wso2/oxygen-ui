@@ -18,7 +18,6 @@
 
 import { useId } from 'react';
 import { Select, MenuItem, FormControl, InputLabel, SelectChangeEvent } from '@mui/material';
-import type { SxProps, Theme } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
 import { useThemeSwitcher } from '../../contexts/OxygenUIThemeProvider/OxygenUIThemeProvider';
 
@@ -77,7 +76,7 @@ export default function ThemeSelect({
     <FormControl size={size} variant={variant} sx={{ minWidth: 120, ...sx }}>
       {/* Keep the label visually hidden when showLabel is false so the
           select still has an accessible name (WCAG 4.1.2). */}
-      <InputLabel id={labelId} sx={showLabel ? undefined : (visuallyHidden as SxProps<Theme>)}>
+      <InputLabel id={labelId} sx={showLabel ? undefined : { ...visuallyHidden }}>
         {label}
       </InputLabel>
       <Select

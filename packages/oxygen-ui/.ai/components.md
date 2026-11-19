@@ -32,7 +32,8 @@ Complete API reference for custom Oxygen UI components. For MUI components, refe
 Theme provider that wraps your application. Required at the root level.
 
 ```tsx
-import { OxygenUIThemeProvider, OxygenTheme } from '@wso2/oxygen-ui';
+import OxygenUIThemeProvider from '@wso2/oxygen-ui/OxygenUIThemeProvider';
+import OxygenTheme from '@wso2/oxygen-ui/OxygenTheme';
 ```
 
 ### Props
@@ -66,17 +67,11 @@ interface ThemeOption {
 ### Theme Switching
 
 ```tsx
-import {
-  OxygenUIThemeProvider,
-  OxygenTheme,
-  ClassicTheme,
-  HighContrastTheme,
-} from '@wso2/oxygen-ui';
+import OxygenUIThemeProvider from '@wso2/oxygen-ui/OxygenUIThemeProvider';
+import OxygenTheme from '@wso2/oxygen-ui/OxygenTheme';
 
 const themes = [
   { key: 'default', label: 'Default', theme: OxygenTheme },
-  { key: 'classic', label: 'Classic', theme: ClassicTheme },
-  { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
 ];
 
 <OxygenUIThemeProvider themes={themes} initialTheme="default">
@@ -91,7 +86,7 @@ const themes = [
 Advanced data table with compound component pattern. Supports search, sort, pagination, selection, and bulk actions.
 
 ```tsx
-import { ListingTable } from '@wso2/oxygen-ui';
+import ListingTable from '@wso2/oxygen-ui/ListingTable';
 ```
 
 ### Sub-components
@@ -267,7 +262,7 @@ const [rowsPerPage, setRowsPerPage] = useState(10);
 Application layout wrapper using compound component pattern.
 
 ```tsx
-import { AppShell } from '@wso2/oxygen-ui';
+import AppShell from '@wso2/oxygen-ui/AppShell';
 ```
 
 ### Sub-components
@@ -315,7 +310,7 @@ import { AppShell } from '@wso2/oxygen-ui';
 Lightweight layout compound component for building flex-based page structures.
 
 ```tsx
-import { Layout } from '@wso2/oxygen-ui';
+import Layout from '@wso2/oxygen-ui/Layout';
 ```
 
 ### Sub-components
@@ -354,7 +349,7 @@ Extends MUI `BoxProps`. The root component renders a flex row container.
 Top navigation bar compound component.
 
 ```tsx
-import { Header } from '@wso2/oxygen-ui';
+import Header from '@wso2/oxygen-ui/Header';
 ```
 
 ### Sub-components
@@ -411,7 +406,7 @@ import { Header } from '@wso2/oxygen-ui';
 Collapsible navigation sidebar compound component.
 
 ```tsx
-import { Sidebar, SIDEBAR_WIDTH, COLLAPSED_SIDEBAR_WIDTH } from '@wso2/oxygen-ui';
+import Sidebar, { useSidebar } from '@wso2/oxygen-ui/Sidebar';
 ```
 
 ### Sub-components
@@ -488,7 +483,7 @@ import { HomeIcon, SettingsIcon } from '@wso2/oxygen-ui-icons-react';
 Form components namespace for building forms with card-based layouts and wizards.
 
 ```tsx
-import { Form } from '@wso2/oxygen-ui';
+import { Form } from '@wso2/oxygen-ui/Form';
 ```
 
 ### Components
@@ -563,7 +558,7 @@ Full-screen layout for create and onboarding flows: a progress bar, a header wit
 a scrolling content column with an actions footer, and an optional live preview beside the form.
 
 ```tsx
-import { FullScreenWizard, useWizardSteps } from '@wso2/oxygen-ui';
+import FullScreenWizard, { useWizardSteps } from '@wso2/oxygen-ui/FullScreenWizard';
 ```
 
 ### Compound component
@@ -671,7 +666,9 @@ moves to the next visible step (or the previous one at the end). `progress` is
 ### Usage
 
 ```tsx
-import { AppBreadcrumbs, Button, FullScreenWizard, useWizardSteps } from '@wso2/oxygen-ui';
+import AppBreadcrumbs from '@wso2/oxygen-ui/AppBreadcrumbs';
+import Button from '@wso2/oxygen-ui/Button';
+import FullScreenWizard, { useWizardSteps } from '@wso2/oxygen-ui/FullScreenWizard';
 
 const wizard = useWizardSteps(['details', 'access', 'review']);
 
@@ -718,7 +715,7 @@ const wizard = useWizardSteps(['details', 'access', 'review']);
 Slide-out side panel for item details or secondary tasks, with a title, optional expand button and close button.
 
 ```tsx
-import { DrawerPanel } from '@wso2/oxygen-ui';
+import DrawerPanel from '@wso2/oxygen-ui/DrawerPanel';
 ```
 
 ### Sub-components
@@ -779,7 +776,7 @@ import { DrawerPanel } from '@wso2/oxygen-ui';
 Slide-out notification panel with tabs and compound component pattern.
 
 ```tsx
-import { NotificationPanel } from '@wso2/oxygen-ui';
+import NotificationPanel from '@wso2/oxygen-ui/NotificationPanel';
 ```
 
 ### Sub-components
@@ -869,15 +866,6 @@ interface NotificationTabsProps {
 </NotificationPanel>
 ```
 
-### Hooks
-
-```tsx
-import { useNotificationPanel } from '@wso2/oxygen-ui';
-
-// Access panel context inside NotificationPanel
-const { open, onClose } = useNotificationPanel();
-```
-
 ---
 
 ## SearchBar
@@ -885,7 +873,8 @@ const { open, onClose } = useNotificationPanel();
 Search input components with optional advanced filtering.
 
 ```tsx
-import { SearchBar, SearchBarWithAdvancedFilter } from '@wso2/oxygen-ui';
+import SearchBar from '@wso2/oxygen-ui/SearchBar';
+import SearchBarWithAdvancedFilter from '@wso2/oxygen-ui/SearchBarWithAdvancedFilter';
 ```
 
 ### SearchBar Props
@@ -933,7 +922,7 @@ import { SearchBar, SearchBarWithAdvancedFilter } from '@wso2/oxygen-ui';
 Statistics display card for dashboards.
 
 ```tsx
-import { StatCard } from '@wso2/oxygen-ui';
+import StatCard from '@wso2/oxygen-ui/StatCard';
 ```
 
 ### Props
@@ -964,7 +953,7 @@ import { StatCard } from '@wso2/oxygen-ui';
 Page content wrapper with consistent padding and max-width.
 
 ```tsx
-import { PageContent } from '@wso2/oxygen-ui';
+import PageContent from '@wso2/oxygen-ui/PageContent';
 ```
 
 ### Props
@@ -990,7 +979,7 @@ import { PageContent } from '@wso2/oxygen-ui';
 Select with rich options: icons, avatars, two-line text, list headers and dividers. Built on the MUI `Select`, so it accepts the `Select` props. Use it for the organization and project switchers in `Header.Switchers`.
 
 ```tsx
-import { ComplexSelect } from '@wso2/oxygen-ui';
+import ComplexSelect from '@wso2/oxygen-ui/ComplexSelect';
 ```
 
 ### Props
@@ -1032,7 +1021,7 @@ Sub-components: `ComplexSelect.MenuItem`, `ComplexSelect.MenuItem.Icon`, `Comple
 Dismissible system alert banner for top-level announcements.
 
 ```tsx
-import { NotificationBanner } from '@wso2/oxygen-ui';
+import NotificationBanner from '@wso2/oxygen-ui/NotificationBanner';
 ```
 
 ### Props
@@ -1069,7 +1058,7 @@ import { NotificationBanner } from '@wso2/oxygen-ui';
 Animated particle canvas background with mouse interaction. Adapts to light/dark color scheme.
 
 ```tsx
-import { ParticleBackground } from '@wso2/oxygen-ui';
+import ParticleBackground from '@wso2/oxygen-ui/ParticleBackground';
 ```
 
 ### Props
@@ -1109,7 +1098,7 @@ import { ParticleBackground } from '@wso2/oxygen-ui';
 Dark/light mode toggle button.
 
 ```tsx
-import { ColorSchemeToggle } from '@wso2/oxygen-ui';
+import ColorSchemeToggle from '@wso2/oxygen-ui/ColorSchemeToggle';
 
 <ColorSchemeToggle />
 ```
@@ -1119,7 +1108,7 @@ import { ColorSchemeToggle } from '@wso2/oxygen-ui';
 Theme selection UI component.
 
 ```tsx
-import { ThemeSwitcher } from '@wso2/oxygen-ui';
+import ThemeSwitcher from '@wso2/oxygen-ui/ThemeSwitcher';
 
 <ThemeSwitcher />  // Requires OxygenUIThemeProvider with themes
 ```
@@ -1131,7 +1120,7 @@ import { ThemeSwitcher } from '@wso2/oxygen-ui';
 Application footer compound component with composition pattern.
 
 ```tsx
-import { Footer } from '@wso2/oxygen-ui';
+import Footer from '@wso2/oxygen-ui/Footer';
 ```
 
 ### Sub-components
@@ -1171,7 +1160,7 @@ import { Footer } from '@wso2/oxygen-ui';
 User profile dropdown menu compound component.
 
 ```tsx
-import { UserMenu } from '@wso2/oxygen-ui';
+import UserMenu from '@wso2/oxygen-ui/UserMenu';
 ```
 
 ### Sub-components
@@ -1238,7 +1227,7 @@ interface UserMenuUser {
 ### Usage
 
 ```tsx
-import { UserMenu } from '@wso2/oxygen-ui';
+import UserMenu from '@wso2/oxygen-ui/UserMenu';
 import { UserIcon, SettingsIcon, LogOutIcon } from '@wso2/oxygen-ui-icons-react';
 
 <UserMenu>
@@ -1256,8 +1245,8 @@ import { UserIcon, SettingsIcon, LogOutIcon } from '@wso2/oxygen-ui-icons-react'
 Shows where a person is in a product's hierarchy, such as organization, project, and component, and lets them choose another place in it. It belongs in `Header.Switchers`.
 
 ```tsx
-import { ContextSwitcher } from '@wso2/oxygen-ui';
-import type { ContextSwitcherValue } from '@wso2/oxygen-ui';
+import ContextSwitcher from '@wso2/oxygen-ui/ContextSwitcher';
+import type { ContextSwitcherValue } from '@wso2/oxygen-ui/ContextSwitcher';
 ```
 
 ### Compound component
@@ -1328,8 +1317,9 @@ The group is omitted when search filters out all of its options.
 ### Usage
 
 ```tsx
-import { ContextSwitcher, Header } from '@wso2/oxygen-ui';
-import type { ContextSwitcherValue } from '@wso2/oxygen-ui';
+import ContextSwitcher from '@wso2/oxygen-ui/ContextSwitcher';
+import Header from '@wso2/oxygen-ui/Header';
+import type { ContextSwitcherValue } from '@wso2/oxygen-ui/ContextSwitcher';
 
 const [value, setValue] = useState<ContextSwitcherValue>({
   organization: 'wso2',
@@ -1366,7 +1356,7 @@ const [value, setValue] = useState<ContextSwitcherValue>({
 Popover for navigating between WSO2 Cloud platforms.
 
 ```tsx
-import { AppSwitcher } from '@wso2/oxygen-ui';
+import AppSwitcher from '@wso2/oxygen-ui/AppSwitcher';
 ```
 
 ### Compound component
@@ -1452,7 +1442,8 @@ The footer renders nothing when it has neither children nor links.
 ### Usage
 
 ```tsx
-import { AppSwitcher, Header } from '@wso2/oxygen-ui';
+import AppSwitcher from '@wso2/oxygen-ui/AppSwitcher';
+import Header from '@wso2/oxygen-ui/Header';
 import { Building2, CreditCard, UserRoundPlus } from '@wso2/oxygen-ui-icons-react';
 
 <Header.Actions>
@@ -1600,7 +1591,7 @@ the platforms into the manage links.
 Page header with avatar and breadcrumb support.
 
 ```tsx
-import { PageTitle } from '@wso2/oxygen-ui';
+import PageTitle from '@wso2/oxygen-ui/PageTitle';
 
 <PageTitle>
   <PageTitle.Avatar><UserIcon /></PageTitle.Avatar>
@@ -1614,7 +1605,7 @@ import { PageTitle } from '@wso2/oxygen-ui';
 Syntax-highlighted code display.
 
 ```tsx
-import { CodeBlock } from '@wso2/oxygen-ui';
+import CodeBlock from '@wso2/oxygen-ui/CodeBlock';
 
 <CodeBlock language="typescript">
   {`const greeting = "Hello, World!";`}
@@ -1628,7 +1619,10 @@ import { CodeBlock } from '@wso2/oxygen-ui';
 MUI X components are exported as namespaces to avoid naming conflicts.
 
 ```tsx
-import { DataGrid, DatePickers, TreeView, AdapterDateFns } from '@wso2/oxygen-ui';
+import * as DataGrid from '@wso2/oxygen-ui/data-grid';
+import * as DatePickers from '@wso2/oxygen-ui/date-pickers';
+import * as TreeView from '@wso2/oxygen-ui/tree-view';
+import { AdapterDateFns } from '@wso2/oxygen-ui/date-pickers/AdapterDateFns';
 ```
 
 > **Note:** Charts are available in a separate package `@wso2/oxygen-ui-charts-react` built on Recharts.
@@ -1697,7 +1691,7 @@ import { DataGrid, DatePickers, TreeView, AdapterDateFns } from '@wso2/oxygen-ui
 Access theme switching context.
 
 ```tsx
-import { useThemeSwitcher } from '@wso2/oxygen-ui';
+import { useThemeSwitcher } from '@wso2/oxygen-ui/OxygenUIThemeProvider';
 
 function ThemeSelector() {
   const { currentTheme, themes, setTheme, isActive } = useThemeSwitcher();
@@ -1717,7 +1711,7 @@ function ThemeSelector() {
 Get content based on current color scheme (light/dark).
 
 ```tsx
-import { useThemeContent } from '@wso2/oxygen-ui';
+import useThemeContent from '@wso2/oxygen-ui/useThemeContent';
 
 function AdaptiveContent() {
   const content = useThemeContent({
@@ -1734,7 +1728,7 @@ function AdaptiveContent() {
 Manage AppShell state (sidebar collapsed, notifications open, etc.).
 
 ```tsx
-import { useAppShell } from '@wso2/oxygen-ui';
+import useAppShell from '@wso2/oxygen-ui/useAppShell';
 
 function MyComponent() {
   const {
@@ -1757,7 +1751,7 @@ function MyComponent() {
 Manage notification state and actions.
 
 ```tsx
-import { useNotifications } from '@wso2/oxygen-ui';
+import useNotifications from '@wso2/oxygen-ui/useNotifications';
 
 function NotificationManager() {
   const {
@@ -1782,7 +1776,7 @@ function NotificationManager() {
 Access ListingTable context (returns null outside Provider).
 
 ```tsx
-import { useListingTable } from '@wso2/oxygen-ui';
+import { useListingTable } from '@wso2/oxygen-ui/ListingTable';
 
 function CustomFilter() {
   const context = useListingTable();
@@ -1802,7 +1796,7 @@ function CustomFilter() {
 Access ListingTable context (throws if outside Provider).
 
 ```tsx
-import { useListingTableRequired } from '@wso2/oxygen-ui';
+import { useListingTableRequired } from '@wso2/oxygen-ui/ListingTable';
 
 function TableControls() {
   const { density, onDensityChange } = useListingTableRequired();
@@ -1813,17 +1807,9 @@ function TableControls() {
 ### Component Context Hooks
 
 ```tsx
-// Header context
-import { useHeader } from '@wso2/oxygen-ui';
-const headerContext = useHeader();
-
 // Sidebar context
-import { useSidebar } from '@wso2/oxygen-ui';
+import { useSidebar } from '@wso2/oxygen-ui/Sidebar';
 const sidebarContext = useSidebar();
-
-// NotificationPanel context
-import { useNotificationPanel } from '@wso2/oxygen-ui';
-const panelContext = useNotificationPanel();
 ```
 
 ---
@@ -1835,7 +1821,7 @@ const panelContext = useNotificationPanel();
 Format a date as a relative time string.
 
 ```tsx
-import { formatRelativeTime } from '@wso2/oxygen-ui';
+import { formatRelativeTime } from '@wso2/oxygen-ui/utils';
 
 formatRelativeTime(new Date(Date.now() - 1000 * 60 * 5));
 // Returns: "5 minutes ago"
@@ -1851,7 +1837,7 @@ Returns: `"Just now"` | `"X minute(s) ago"` | `"X hour(s) ago"` | `"X day(s) ago
 Convert pixel values to rem based on 14px base font size.
 
 ```tsx
-import { pxToRem } from '@wso2/oxygen-ui';
+import { pxToRem } from '@wso2/oxygen-ui/styles';
 
 pxToRem(14); // "1rem"
 pxToRem(28); // "2rem"
@@ -1862,144 +1848,14 @@ pxToRem(7);  // "0.5rem"
 
 ## Type Exports
 
-Import types for TypeScript usage:
+Each component's path carries its types beside the component, so one import line covers both:
 
 ```tsx
-import type {
-  // Theme
-  ThemeOption,
-  ThemeSwitcherContextValue,
-
-  // ListingTable
-  ListingTableProps,
-  ListingTableContainerProps,
-  ListingTableHeadProps,
-  ListingTableBodyProps,
-  ListingTableFooterProps,
-  ListingTableRowProps,
-  ListingTableCellProps,
-  ListingTableProviderProps,
-  ListingTableContextValue,
-  ListingTableToolbarProps,
-  ListingTableEmptyStateProps,
-  ListingTableDensityControlProps,
-  ListingTableSortLabelProps,
-  ListingTableRowActionsProps,
-  ListingTableCellIconProps,
-  ListingTableDensity,
-  ListingTableVariant,
-  ListingTableSortDirection,
-  ListingSortDirection,
-
-  // AppShell
-  AppShellProps,
-  AppShellNavbarProps,
-  AppShellSidebarProps,
-  AppShellMainProps,
-  AppShellFooterProps,
-  AppShellNotificationPanelProps,
-
-  // Header
-  HeaderProps,
-  HeaderSpacerProps,
-  HeaderToggleProps,
-  HeaderBrandProps,
-  HeaderBrandLogoProps,
-  HeaderBrandTitleProps,
-  HeaderSwitchersProps,
-  HeaderActionsProps,
-  HeaderContextValue,
-
-  // Sidebar
-  SidebarProps,
-  SidebarNavProps,
-  SidebarCategoryProps,
-  SidebarCategoryLabelProps,
-  SidebarItemProps,
-  SidebarItemIconProps,
-  SidebarItemLabelProps,
-  SidebarItemBadgeProps,
-  SidebarFooterProps,
-  SidebarUserProps,
-  SidebarUserAvatarProps,
-  SidebarUserNameProps,
-  SidebarUserEmailProps,
-  SidebarContextValue,
-  SidebarItemContextValue,
-
-  // NotificationPanel
-  NotificationPanelProps,
-  NotificationHeaderProps,
-  NotificationHeaderIconProps,
-  NotificationHeaderTitleProps,
-  NotificationHeaderBadgeProps,
-  NotificationHeaderCloseProps,
-  NotificationTabsProps,
-  NotificationTabConfig,
-  NotificationActionsProps,
-  NotificationListProps,
-  NotificationItemProps,
-  NotificationItemAvatarProps,
-  NotificationItemTitleProps,
-  NotificationItemMessageProps,
-  NotificationItemTimestampProps,
-  NotificationItemActionProps,
-  NotificationItemContextValue,
-  NotificationEmptyStateProps,
-  NotificationPanelContextValue,
-  NotificationType,
-  NotificationTypeProps,
-
-  // Footer
-  FooterProps,
-  FooterCopyrightProps,
-  FooterVersionProps,
-  FooterLinkProps,
-
-  // UserMenu
-  UserMenuProps,
-  UserMenuUser,
-  UserMenuTriggerProps,
-  UserMenuHeaderProps,
-  UserMenuItemProps,
-  UserMenuLogoutProps,
-
-  // NotificationBanner
-  NotificationBannerProps,
-
-  // ParticleBackground
-  ParticleBackgroundProps,
-
-  // Other components
-  CodeBlockProps,
-  ColorSchemeImageProps,
-  ColorSchemeImageAttribute,
-  ComplexSelectProps,
-  PageContentProps,
-  PageTitleProps,
-  PageTitleAvatarProps,
-  PageTitleHeaderProps,
-  PageTitleSubHeaderProps,
-  PageTitleLinkProps,
-  StatCardProps,
-  ThemeSwitcherProps,
-  ThemeSelectProps,
-  SearchBarProps,
-  SearchBarWithAdvancedFilterProps,
-  AdvancedFilterState,
-
-  // Form
-  WizardProps,
-  WizardStep,
-
-  // Hooks
-  AppShellState,
-  AppShellActions,
-  UseAppShellOptions,
-  UseAppShellReturn,
-  NotificationItem,
-  NotificationActions,
-  UseNotificationsOptions,
-  UseNotificationsReturn,
-} from '@wso2/oxygen-ui';
+import ListingTable, { type ListingTableProps } from '@wso2/oxygen-ui/ListingTable';
+import type { HeaderProps } from '@wso2/oxygen-ui/Header';
+import type { SidebarProps } from '@wso2/oxygen-ui/Sidebar';
+import type { UseAppShellReturn } from '@wso2/oxygen-ui/useAppShell';
+import type { ThemeOption } from '@wso2/oxygen-ui/OxygenUIThemeProvider';
 ```
+
+Every type is also exported from the `@wso2/oxygen-ui` barrel, which stays supported.

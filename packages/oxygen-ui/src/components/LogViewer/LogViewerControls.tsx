@@ -59,9 +59,8 @@ export const LogViewerCount = React.forwardRef<HTMLSpanElement, LogViewerCountPr
     <Typography
       ref={ref}
       variant="caption"
-      color="text.secondary"
       {...props}
-      sx={[{ whiteSpace: 'nowrap', fontSize: '0.8125rem' }, ...(Array.isArray(sx) ? sx : [sx])]}
+      sx={[{ color: 'text.secondary', whiteSpace: 'nowrap', fontSize: '0.8125rem' }, ...(Array.isArray(sx) ? sx : [sx])]}
     >
       {label(count)}
     </Typography>

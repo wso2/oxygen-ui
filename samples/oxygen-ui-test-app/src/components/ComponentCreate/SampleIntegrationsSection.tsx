@@ -16,7 +16,8 @@
  * under the License.
  */
 
-import { Box, Form } from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import { Form } from '@wso2/oxygen-ui/Form';
 import type { JSX, ReactNode } from 'react';
 
 export interface SampleIntegrationsSectionProps {
@@ -34,10 +35,15 @@ export default function SampleIntegrationsSection({
     <Form.Stack sx={{ flexGrow: 1 }}>
       <Form.Header>{title}</Form.Header>
       <Form.Body>{description}</Form.Body>
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: 2
+        }}>
         {children}
       </Box>
     </Form.Stack>
-  )
+  );
 }
 

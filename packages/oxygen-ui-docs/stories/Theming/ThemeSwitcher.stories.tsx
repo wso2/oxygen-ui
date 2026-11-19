@@ -16,9 +16,15 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { ThemeSwitcher, Stack, Typography, Box, OxygenUIThemeProvider, extendTheme, CodeBlock } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5'
+import ThemeSwitcher from '@wso2/oxygen-ui/ThemeSwitcher'
+import Stack from '@wso2/oxygen-ui/Stack'
+import Typography from '@wso2/oxygen-ui/Typography'
+import Box from '@wso2/oxygen-ui/Box'
+import OxygenUIThemeProvider from '@wso2/oxygen-ui/OxygenUIThemeProvider'
+import { extendTheme } from '@wso2/oxygen-ui/styles'
+import CodeBlock from '@wso2/oxygen-ui/CodeBlock'
+import React from 'react'
 
 // Define example themes for stories
 const defaultTheme = extendTheme({
@@ -26,27 +32,27 @@ const defaultTheme = extendTheme({
     light: { palette: { primary: { main: '#1976d2' } } },
     dark: { palette: { primary: { main: '#90caf9' } } },
   },
-});
+})
 
 const purpleTheme = extendTheme({
   colorSchemes: {
     light: { palette: { primary: { main: '#9c27b0' } } },
     dark: { palette: { primary: { main: '#ce93d8' } } },
   },
-});
+})
 
 const greenTheme = extendTheme({
   colorSchemes: {
     light: { palette: { primary: { main: '#2e7d32' } } },
     dark: { palette: { primary: { main: '#66bb6a' } } },
   },
-});
+})
 
 const exampleThemes = [
   { key: 'default', label: 'Default (Blue)', theme: defaultTheme },
   { key: 'purple', label: 'Purple', theme: purpleTheme },
   { key: 'green', label: 'Green', theme: greenTheme },
-];
+]
 
 /**
  * ThemeSwitcher allows users to switch between multiple theme configurations.
@@ -113,70 +119,103 @@ It will not work with a single theme configuration.
       table: { defaultValue: { summary: 'small' } },
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof ThemeSwitcher>;
+export default meta
+type Story = StoryObj<typeof ThemeSwitcher>
 
 export const Default: Story = {
   render: () => (
     <OxygenUIThemeProvider themes={exampleThemes}>
-      <Stack spacing={2} sx={{ alignItems: 'center', minWidth: 250 }}>
+      <Stack
+        spacing={2}
+        sx={{
+          alignItems: 'center',
+          minWidth: 250,
+        }}
+      >
         <ThemeSwitcher />
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           Try switching themes to see the changes
         </Typography>
       </Stack>
     </OxygenUIThemeProvider>
   ),
-};
+}
 
 export const WithLabel: Story = {
   render: () => (
     <OxygenUIThemeProvider themes={exampleThemes}>
-      <Stack spacing={2} sx={{ alignItems: 'center', minWidth: 250 }}>
+      <Stack
+        spacing={2}
+        sx={{
+          alignItems: 'center',
+          minWidth: 250,
+        }}
+      >
         <ThemeSwitcher showLabel />
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           With a label showing "Theme"
         </Typography>
       </Stack>
     </OxygenUIThemeProvider>
   ),
-};
+}
 
 export const CustomLabel: Story = {
   render: () => (
     <OxygenUIThemeProvider themes={exampleThemes}>
-      <Stack spacing={2} sx={{ alignItems: 'center', minWidth: 250 }}>
+      <Stack
+        spacing={2}
+        sx={{
+          alignItems: 'center',
+          minWidth: 250,
+        }}
+      >
         <ThemeSwitcher showLabel label="Choose Theme" />
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
           With a custom label text
         </Typography>
       </Stack>
     </OxygenUIThemeProvider>
   ),
-};
+}
 
 export const Variants: Story = {
   render: () => (
     <OxygenUIThemeProvider themes={exampleThemes}>
       <Stack spacing={3} sx={{ minWidth: 300 }}>
         <Box>
-          <Typography variant="subtitle2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
             Outlined
           </Typography>
           <ThemeSwitcher variant="outlined" showLabel />
         </Box>
-        
+
         <Box>
-          <Typography variant="subtitle2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
             Filled
           </Typography>
           <ThemeSwitcher variant="filled" showLabel />
         </Box>
-        
+
         <Box>
-          <Typography variant="subtitle2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
             Standard
           </Typography>
           <ThemeSwitcher variant="standard" showLabel />
@@ -184,21 +223,21 @@ export const Variants: Story = {
       </Stack>
     </OxygenUIThemeProvider>
   ),
-};
+}
 
 export const DifferentSizes: Story = {
   render: () => (
     <OxygenUIThemeProvider themes={exampleThemes}>
       <Stack spacing={3} sx={{ minWidth: 300 }}>
         <Box>
-          <Typography variant="subtitle2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
             Small
           </Typography>
           <ThemeSwitcher size="small" showLabel />
         </Box>
-        
+
         <Box>
-          <Typography variant="subtitle2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
             Medium (Default)
           </Typography>
           <ThemeSwitcher size="medium" showLabel />
@@ -206,14 +245,14 @@ export const DifferentSizes: Story = {
       </Stack>
     </OxygenUIThemeProvider>
   ),
-};
+}
 
 export const UsageExample: Story = {
   render: () => (
     <Stack spacing={3} sx={{ minWidth: 350, maxWidth: 600 }}>
       <Typography variant="h6">Complete Usage Example</Typography>
-      
-      <CodeBlock 
+
+      <CodeBlock
         language="tsx"
         code={`import { OxygenUIThemeProvider, ThemeSwitcher, extendTheme } from "@wso2/oxygen-ui";
 
@@ -246,4 +285,4 @@ function App() {
       />
     </Stack>
   ),
-};
+}

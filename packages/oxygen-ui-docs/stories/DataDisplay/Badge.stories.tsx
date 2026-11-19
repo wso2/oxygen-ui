@@ -16,15 +16,17 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Badge, Avatar, Stack } from '@wso2/oxygen-ui';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5'
+import Badge from '@wso2/oxygen-ui/Badge'
+import Avatar from '@wso2/oxygen-ui/Avatar'
+import Stack from '@wso2/oxygen-ui/Stack'
+import React from 'react'
 
 /**
  * The Badge component generates a small badge to the top-right of its children.
  * It's commonly used to display notifications, counts, or status indicators.
- * 
- * This is a direct import of MUI badge component. 
+ *
+ * This is a direct import of MUI badge component.
  * Read more at: https://mui.com/material-ui/react-badge/
  */
 const meta: Meta<typeof Badge> = {
@@ -34,17 +36,18 @@ const meta: Meta<typeof Badge> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI badge component is a direct import of MUI badge component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-badge/](https://mui.com/material-ui/react-badge/)',
+        component:
+          'Oxygen UI badge component is a direct import of MUI badge component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-badge/](https://mui.com/material-ui/react-badge/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Badge>;
+export default meta
+type Story = StoryObj<typeof Badge>
 
 export const Default: Story = {
   render: () => (
@@ -52,7 +55,7 @@ export const Default: Story = {
       <Avatar>U</Avatar>
     </Badge>
   ),
-};
+}
 
 export const Colors: Story = {
   render: () => (
@@ -74,7 +77,7 @@ export const Colors: Story = {
       </Badge>
     </Stack>
   ),
-};
+}
 
 export const MaxValue: Story = {
   render: () => (
@@ -90,7 +93,7 @@ export const MaxValue: Story = {
       </Badge>
     </Stack>
   ),
-};
+}
 
 export const Dot: Story = {
   render: () => (
@@ -106,7 +109,7 @@ export const Dot: Story = {
       </Badge>
     </Stack>
   ),
-};
+}
 
 export const Overlap: Story = {
   render: () => (
@@ -119,7 +122,7 @@ export const Overlap: Story = {
       </Badge>
     </Stack>
   ),
-};
+}
 
 export const Invisible: Story = {
   render: () => (
@@ -132,4 +135,4 @@ export const Invisible: Story = {
       </Badge>
     </Stack>
   ),
-};
+}
