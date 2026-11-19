@@ -272,3 +272,36 @@ export type {
   ListingTableProviderProps,
   ListingTableDataGridProps,
 } from './ListingTable';
+
+// AIAssistant Component
+export {
+  AIAssistant,
+  useAIAssistant,
+  AIAssistantContext,
+  AIAssistantTrigger,
+  AIAssistantHeader,
+  AIAssistantMessages,
+  AIAssistantMessage,
+  AIAssistantThought,
+  AIAssistantSuggestions,
+  AIAssistantPromptInput,
+} from './AIAssistant';
+export type {
+  AIAssistantProps,
+  AIAssistantContextValue,
+  AIAssistantTriggerProps,
+  AIAssistantHeaderProps,
+  AIAssistantMessagesProps,
+  AIAssistantMessageProps,
+  AIAssistantThoughtProps,
+  AIAssistantSuggestionsProps,
+  AIAssistantPromptInputProps,
+  AIAssistantMode,
+  AIAssistantMessageRole,
+  AIAssistantMessageItem,
+  AIAssistantCitation,
+  AIAssistantAttachment,
+  AIAssistantSuggestionItem,
+  AIAssistantModel,
+} from './AIAssistant';
+

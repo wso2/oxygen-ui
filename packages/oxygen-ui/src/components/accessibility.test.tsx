@@ -49,6 +49,8 @@ import type { AppSwitcherFooterProps } from './AppSwitcher/AppSwitcherFooter';
 import NotificationPanel from './NotificationPanel/NotificationPanel';
 import { useNotificationPanel } from './NotificationPanel/context';
 import FullScreenWizard from './FullScreenWizard/FullScreenWizard';
+import AIAssistant from './AIAssistant/AIAssistant';
+import AIAssistantTrigger from './AIAssistant/AIAssistantTrigger';
 
 const renderWithTheme = (ui: React.ReactElement) =>
   render(<OxygenUIThemeProvider>{ui}</OxygenUIThemeProvider>);
@@ -1480,3 +1482,34 @@ describe('ContextSwitcher', () => {
     expect(screen.getByText('Invited organizations')).toBeDefined();
   });
 });
+
+describe('AIAssistant Accessibility', () => {
+  it('forwards aria-label to drawer dialog and mounts live region with role="status"', () => {
+    renderWithTheme(
+      <AIAssistant
+        open={true}
+        aria-label="Enterprise AI Copilot"
+        title="Copilot"
+        messages={[]}
+      />
+    );
+
+    const dialog = screen.getByRole('dialog', { name: 'Enterprise AI Copilot' });
+    expect(dialog).toBeInTheDocument();
+
+    const liveRegion = screen.getByTestId('ai-assistant-live-region');
+    expect(liveRegion).toHaveAttribute('role', 'status');
+    expect(liveRegion).toHaveAttribute('aria-live', 'polite');
+    expect(liveRegion).toHaveAttribute('aria-atomic', 'true');
+  });
+
+  it('provides accessible trigger button with aria-expanded and aria-label', () => {
+    const { rerender } = renderWithTheme(<AIAssistantTrigger open={false} />);
+    const trigger = screen.getByRole('button', { name: 'Open AI Assistant' });
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+    rerender(<OxygenUIThemeProvider><AIAssistantTrigger open={true} /></OxygenUIThemeProvider>);
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  });
+});
+
