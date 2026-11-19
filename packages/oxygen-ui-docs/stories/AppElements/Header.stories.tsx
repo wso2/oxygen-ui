@@ -16,18 +16,16 @@
  * under the License.
  */
 
-import * as React from 'react';
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import {
-  Header,
-  ColorSchemeToggle,
-  IconButton,
-  Badge,
-  Divider,
-  Tooltip,
-  Box,
-  ComplexSelect,
-} from '@wso2/oxygen-ui';
+import * as React from 'react'
+import type { Meta, StoryObj } from '@storybook/react-webpack5'
+import Header from '@wso2/oxygen-ui/Header';
+import ColorSchemeToggle from '@wso2/oxygen-ui/ColorSchemeToggle';
+import IconButton from '@wso2/oxygen-ui/IconButton';
+import Badge from '@wso2/oxygen-ui/Badge';
+import Divider from '@wso2/oxygen-ui/Divider';
+import Tooltip from '@wso2/oxygen-ui/Tooltip';
+import Box from '@wso2/oxygen-ui/Box';
+import ComplexSelect from '@wso2/oxygen-ui/ComplexSelect';
 import {
   Zap,
   Bell,
@@ -55,7 +53,7 @@ const Logo: React.FC = () => (
   >
     <Zap size={20} />
   </Box>
-);
+)
 
 /**
  * Header is a compound component for building application top navigation bars.
@@ -109,10 +107,10 @@ import { Header } from '@wso2/oxygen-ui';
       },
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Header>;
+export default meta
+type Story = StoryObj<typeof Header>
 
 /**
  * Basic header with logo, title, and action buttons.
@@ -121,7 +119,9 @@ export const Default: Story = {
   render: () => (
     <Header>
       <Header.Brand>
-        <Header.BrandLogo><Logo /></Header.BrandLogo>
+        <Header.BrandLogo>
+          <Logo />
+        </Header.BrandLogo>
         <Header.BrandTitle>Oxygen UI</Header.BrandTitle>
       </Header.Brand>
       <Header.Spacer />
@@ -130,7 +130,7 @@ export const Default: Story = {
       </Header.Actions>
     </Header>
   ),
-};
+}
 
 /**
  * Header with sidebar toggle button.
@@ -138,16 +138,15 @@ export const Default: Story = {
  */
 export const WithToggle: Story = {
   render: () => {
-    const [collapsed, setCollapsed] = React.useState(false);
+    const [collapsed, setCollapsed] = React.useState(false)
 
     return (
       <Header>
-        <Header.Toggle
-          collapsed={collapsed}
-          onToggle={() => setCollapsed(!collapsed)}
-        />
+        <Header.Toggle collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
         <Header.Brand>
-          <Header.BrandLogo><Logo /></Header.BrandLogo>
+          <Header.BrandLogo>
+            <Logo />
+          </Header.BrandLogo>
           <Header.BrandTitle>Dashboard</Header.BrandTitle>
         </Header.Brand>
         <Header.Spacer />
@@ -155,9 +154,9 @@ export const WithToggle: Story = {
           <ColorSchemeToggle />
         </Header.Actions>
       </Header>
-    );
+    )
   },
-};
+}
 
 /**
  * Header with multiple action buttons.
@@ -166,7 +165,9 @@ export const WithActions: Story = {
   render: () => (
     <Header>
       <Header.Brand>
-        <Header.BrandLogo><Logo /></Header.BrandLogo>
+        <Header.BrandLogo>
+          <Logo />
+        </Header.BrandLogo>
         <Header.BrandTitle>Oxygen UI</Header.BrandTitle>
       </Header.Brand>
       <Header.Spacer />
@@ -191,23 +192,22 @@ export const WithActions: Story = {
       </Header.Actions>
     </Header>
   ),
-};
+}
 
 /**
  * Minimal header without switchers section.
  */
 export const Minimal: Story = {
   render: () => {
-    const [collapsed, setCollapsed] = React.useState(false);
+    const [collapsed, setCollapsed] = React.useState(false)
 
     return (
       <Header minimal>
-        <Header.Toggle
-          collapsed={collapsed}
-          onToggle={() => setCollapsed(!collapsed)}
-        />
+        <Header.Toggle collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
         <Header.Brand>
-          <Header.BrandLogo><Logo /></Header.BrandLogo>
+          <Header.BrandLogo>
+            <Logo />
+          </Header.BrandLogo>
           <Header.BrandTitle>Minimal Header</Header.BrandTitle>
         </Header.Brand>
         <Header.Spacer />
@@ -215,9 +215,9 @@ export const Minimal: Story = {
           <ColorSchemeToggle />
         </Header.Actions>
       </Header>
-    );
+    )
   },
-};
+}
 
 /**
  * Header with switchers section for organization/project context.
@@ -226,7 +226,9 @@ export const WithSwitchers: Story = {
   render: () => (
     <Header>
       <Header.Brand>
-        <Header.BrandLogo><Logo /></Header.BrandLogo>
+        <Header.BrandLogo>
+          <Logo />
+        </Header.BrandLogo>
         <Header.BrandTitle>Oxygen UI</Header.BrandTitle>
       </Header.Brand>
       <Header.Switchers>
@@ -259,7 +261,7 @@ export const WithSwitchers: Story = {
       </Header.Actions>
     </Header>
   ),
-};
+}
 
 /**
  * Organization and project switchers drawn as ComplexSelect with the label inside the field.
@@ -330,16 +332,15 @@ export const WithLabelledSwitchers: Story = {
  */
 export const Complete: Story = {
   render: () => {
-    const [collapsed, setCollapsed] = React.useState(false);
+    const [collapsed, setCollapsed] = React.useState(false)
 
     return (
       <Header>
-        <Header.Toggle
-          collapsed={collapsed}
-          onToggle={() => setCollapsed(!collapsed)}
-        />
+        <Header.Toggle collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
         <Header.Brand>
-          <Header.BrandLogo><Logo /></Header.BrandLogo>
+          <Header.BrandLogo>
+            <Logo />
+          </Header.BrandLogo>
           <Header.BrandTitle>Oxygen UI</Header.BrandTitle>
         </Header.Brand>
         <Header.Switchers>
@@ -372,6 +373,6 @@ export const Complete: Story = {
           </Tooltip>
         </Header.Actions>
       </Header>
-    );
+    )
   },
-};
+}

@@ -16,7 +16,8 @@
  * under the License.
  */
 
-import { Box, Typography } from '@wso2/oxygen-ui'
+import Box from '@wso2/oxygen-ui/Box'
+import Typography from '@wso2/oxygen-ui/Typography'
 import type { JSX, ReactNode } from 'react'
 
 interface PageTitleProps {
@@ -29,16 +30,18 @@ export default function PageTitle({ title, description, action }: PageTitleProps
   return (
     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
       <Box>
-        <Typography variant="h4" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h4">
           {title}
         </Typography>
         {description && (
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{
+            color: 'text.secondary'
+          }}>
             {description}
           </Typography>
         )}
       </Box>
       {action && <Box>{action}</Box>}
     </Box>
-  )
+  );
 }

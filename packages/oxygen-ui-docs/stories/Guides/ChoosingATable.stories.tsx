@@ -18,8 +18,14 @@
 
 import { Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Stack, Typography, CodeBlock, Box, Divider, ListingTable, Chip } from '@wso2/oxygen-ui';
-import type { ListingTableDataGridProps } from '@wso2/oxygen-ui';
+import Stack from '@wso2/oxygen-ui/Stack';
+import Typography from '@wso2/oxygen-ui/Typography';
+import CodeBlock from '@wso2/oxygen-ui/CodeBlock';
+import Box from '@wso2/oxygen-ui/Box';
+import Divider from '@wso2/oxygen-ui/Divider';
+import ListingTable from '@wso2/oxygen-ui/ListingTable';
+import Chip from '@wso2/oxygen-ui/Chip';
+import type { ListingTableDataGridProps } from '@wso2/oxygen-ui/ListingTable';
 import { Folder } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';
 import CenterContentLayout from '../../layouts/CenterContentLayout';
@@ -67,10 +73,10 @@ interface TableSectionProps {
 function TableSection({ title, purpose, whenToUse, examples, sample }: TableSectionProps) {
   return (
     <Box>
-      <Typography variant="h6" gutterBottom>
+      <Typography sx={{ mb: '0.35em' }} variant="h6">
         {title}
       </Typography>
-      <Typography variant="body2" gutterBottom>
+      <Typography sx={{ mb: '0.35em' }} variant="body2">
         {purpose}
       </Typography>
       <Typography variant="subtitle2" sx={{ mt: 1.5 }}>
@@ -216,10 +222,10 @@ export const Overview: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Choosing a table
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography sx={{ color: 'text.secondary' }} variant="body2">
             Oxygen UI has three table types, all built on <code>ListingTable</code>. Choose by what
             users do with the data.
           </Typography>
@@ -228,7 +234,7 @@ export const Overview: Story = {
         <Divider />
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Which one to use
           </Typography>
           <CodeBlock
@@ -281,7 +287,7 @@ Data table      Filter and act on large datasets     ListingTable.DataGrid`}
         <Divider />
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             For every table
           </Typography>
           <Box component="ul" sx={{ pl: 3, m: 0 }}>

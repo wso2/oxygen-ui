@@ -42,12 +42,16 @@ import {
 import { useLogViewerRequired } from './context';
 import { entryText } from './download';
 import { DATE_FORMAT, formatDisplay } from './timestamps';
-import ListingTableCell from '../ListingTable/ListingTable/ListingTableCell';
-import ListingTableHead from '../ListingTable/ListingTable/ListingTableHead';
-import ListingTableRow from '../ListingTable/ListingTable/ListingTableRow';
-import { ListingTableEmptyState } from '../ListingTable/shared/ListingTableEmptyState';
-import { ListingTableProvider } from '../ListingTable/ListingTableProvider';
-import { ListingTableFilter, ListingTableSortLabel } from '../ListingTable/shared';
+import {
+  ListingTableCell,
+  ListingTableEmptyState,
+  ListingTableFilter,
+  ListingTableHead,
+  ListingTableProvider,
+  ListingTableRow,
+  ListingTableSortLabel,
+} from '../ListingTable/internal';
+import { useOlderEntries } from './useOlderEntries';
 import TimeRangeFilter from '../TimeRangeFilter';
 import LogLevelMarker from './LogLevelMarker';
 import LogViewerDetails from './LogViewerDetails';
@@ -236,7 +240,7 @@ const EdgePill: React.FC<EdgePillProps> = ({ label, loading, position, onClick }
  */
 const EdgeNote: React.FC<{ text: string }> = ({ text }) => (
   <Box sx={{ display: 'flex', justifyContent: 'center', py: 0.75, px: 2 }}>
-    <Typography variant="caption" color="text.secondary">
+    <Typography sx={{ color: 'text.secondary' }} variant="caption">
       {text}
     </Typography>
   </Box>
@@ -602,8 +606,6 @@ const LogViewerStream = React.forwardRef<HTMLDivElement, LogViewerStreamProps>(f
 
   const baseId = React.useId();
   const scrollRef = React.useRef<HTMLDivElement>(null);
-  const lastScrollTop = React.useRef(0);
-  const lastLayout = React.useRef<{ firstId?: string; height: number }>({ height: 0 });
   const [expanded, setExpanded] = React.useState<ReadonlySet<string>>(() => new Set());
 
   const oldestFirst = order === 'oldest-first';
@@ -626,98 +628,16 @@ const LogViewerStream = React.forwardRef<HTMLDivElement, LogViewerStreamProps>(f
     }
   }, [highlightedEntryId, entries, loading]);
 
-  // Flipping the order puts the other end of the list at the top, so start from the top again.
-  React.useEffect(() => {
-    if (scrollRef.current) scrollRef.current.scrollTop = 0;
-    lastScrollTop.current = 0;
-  }, [order]);
-
-  // True while the promise `onLoadOlder` returned is pending, so a page that returns its request
-  // does not also have to set `loadingOlder` for the button to show it is busy.
-  const [requestPending, setRequestPending] = React.useState(false);
-  const mounted = React.useRef(true);
-  React.useEffect(() => {
-    mounted.current = true;
-    return () => {
-      mounted.current = false;
-    };
-  }, []);
-  const loadingMore = loadingOlder || requestPending;
-
-  const canLoadOlder = hasMoreOlder && !loadingMore && !loading && Boolean(onLoadOlder);
-
-  // A scroll and a wheel event can both fire before the consumer re-renders with `loadingOlder`
-  // set, so a request in flight is tracked here. It ends when the returned promise settles, when
-  // `loadingOlder` goes back to false, or when the entries change.
-  const requestInFlight = React.useRef(false);
-  const sawLoadingOlder = React.useRef(false);
-  React.useEffect(() => {
-    if (loadingOlder) {
-      sawLoadingOlder.current = true;
-    } else if (sawLoadingOlder.current) {
-      sawLoadingOlder.current = false;
-      requestInFlight.current = false;
-    }
-  }, [loadingOlder]);
-  React.useEffect(() => {
-    requestInFlight.current = false;
-  }, [entries]);
-
-  const loadOlder = () => {
-    if (!canLoadOlder || requestInFlight.current) return;
-    requestInFlight.current = true;
-    const request = onLoadOlder?.();
-    if (request && typeof request.then === 'function') {
-      setRequestPending(true);
-      const done = () => {
-        requestInFlight.current = false;
-        if (mounted.current) setRequestPending(false);
-      };
-      request.then(done, done);
-    }
-  };
-
-  // When older entries are added above the reader, move the scroll position down by their height
-  // so the entries being read stay where they are.
-  React.useLayoutEffect(() => {
-    const element = scrollRef.current;
-    const firstId = entries[0]?.id;
-    const previous = lastLayout.current;
-    if (
-      element &&
-      oldestFirst &&
-      previous.firstId !== undefined &&
-      firstId !== previous.firstId &&
-      entries.some((entry) => entry.id === previous.firstId)
-    ) {
-      element.scrollTop += element.scrollHeight - previous.height;
-    }
-    lastLayout.current = { firstId, height: element?.scrollHeight ?? 0 };
+  const { loadingMore, loadOlder, onScroll, onWheel } = useOlderEntries({
+    scrollRef,
+    entries,
+    order,
+    scrollTriggerPx,
+    hasMoreOlder,
+    loadingOlder,
+    loading,
+    onLoadOlder,
   });
-
-  const handleScroll = () => {
-    const element = scrollRef.current;
-    if (!element) return;
-    const movedUp = element.scrollTop < lastScrollTop.current;
-    const movedDown = element.scrollTop > lastScrollTop.current;
-    lastScrollTop.current = element.scrollTop;
-    const nearTop = element.scrollTop < scrollTriggerPx;
-    const nearBottom =
-      element.scrollHeight - element.scrollTop - element.clientHeight < scrollTriggerPx;
-    // Position alone is not enough: the list starts at the top, so scrolling away from the older
-    // end would otherwise load too.
-    if (oldestFirst ? nearTop && movedUp : nearBottom && movedDown) loadOlder();
-  };
-
-  // Scrolling further toward the older end while already at it produces no scroll event, so the
-  // wheel is the only signal that the reader wants more.
-  const handleWheel = (event: React.WheelEvent<HTMLElement>) => {
-    const element = scrollRef.current;
-    if (!element) return;
-    const atTop = element.scrollTop <= 0;
-    const atBottom = element.scrollHeight - element.scrollTop - element.clientHeight <= 1;
-    if (oldestFirst ? atTop && event.deltaY < 0 : atBottom && event.deltaY > 0) loadOlder();
-  };
 
   const toggle = (id: string) =>
     setExpanded((previous) => {
@@ -903,8 +823,8 @@ const LogViewerStream = React.forwardRef<HTMLDivElement, LogViewerStreamProps>(f
           ref={scrollRef}
           role="region"
           aria-label={streamLabel}
-          onScroll={handleScroll}
-          onWheel={handleWheel}
+          onScroll={onScroll}
+          onWheel={onWheel}
           sx={{
             maxHeight,
             minHeight: loading ? heldHeight.current : undefined,

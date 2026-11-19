@@ -33,3 +33,6 @@ export type {
   UseNotificationsOptions,
   UseNotificationsReturn,
 } from './useNotifications/useNotifications';
+
+export { useResolvedColorScheme } from './useResolvedColorScheme/useResolvedColorScheme';
+export type { ResolvedColorScheme } from './useResolvedColorScheme/useResolvedColorScheme';

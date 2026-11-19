@@ -55,6 +55,12 @@ export const AppShellProvider: React.FC<React.PropsWithChildren<{value: UseAppSh
 AppShellProvider.displayName = 'AppShellProvider';
 
 /**
+ * The shell the component is in, or undefined outside one. A component that works in a shell and on its own, such
+ * as the Sidebar, takes a prop first and the shell's value after it.
+ */
+export const useOptionalAppShell = (): UseAppShellReturn | undefined => React.useContext(AppShellContext);
+
+/**
  * Hook to access AppShell context with a helpful error message.
  * Throws an error if used outside of AppShell component tree.
  * 

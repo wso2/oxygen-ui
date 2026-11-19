@@ -8,18 +8,19 @@ description: Migrate existing MUI code to Oxygen UI patterns. Use when convertin
 ## Instructions
 
 1. Read `.claude/oxygen-ui/migration.md` for full guide
-2. Update imports from `@mui/*` to `@wso2/oxygen-ui`
+2. Update imports from `@mui/*` to `@wso2/oxygen-ui` path imports, such as `@wso2/oxygen-ui/Button`
 3. Replace `lucide-react` icons with `@wso2/oxygen-ui-icons-react`
 4. Add `OxygenUIThemeProvider` wrapper
 
 ## Migration Checklist
 
-- [ ] Replace `@mui/material` imports with `@wso2/oxygen-ui`
+- [ ] Replace `@mui/material` imports with `@wso2/oxygen-ui` path imports
 - [ ] Replace `@mui/icons-material` or `lucide-react` with `@wso2/oxygen-ui-icons-react`
-- [ ] Update MUI X imports to use namespaced exports
+- [ ] Update MUI X imports to namespace imports of `@wso2/oxygen-ui/data-grid`, `date-pickers` and `tree-view`
+- [ ] Set `moduleResolution` to `bundler`, `node16` or `nodenext`
 - [ ] Wrap root with `OxygenUIThemeProvider`
 - [ ] Replace `ThemeProvider` with `OxygenUIThemeProvider`
-- [ ] Update custom theme to use `OxygenThemeBase`
+- [ ] Update custom theme to use `OxygenTheme`
 
 ## Import Migration
 
@@ -34,7 +35,11 @@ import { styled } from '@mui/material/styles';
 
 **After:**
 ```tsx
-import { Box, Stack, Button, Typography, styled } from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import Stack from '@wso2/oxygen-ui/Stack';
+import Button from '@wso2/oxygen-ui/Button';
+import Typography from '@wso2/oxygen-ui/Typography';
+import { styled } from '@wso2/oxygen-ui/styles';
 ```
 
 ### Icons
@@ -68,7 +73,9 @@ import { SimpleTreeView } from '@mui/x-tree-view';
 
 **After:**
 ```tsx
-import { DataGrid, DatePickers, TreeView } from '@wso2/oxygen-ui';
+import * as DataGrid from '@wso2/oxygen-ui/data-grid';
+import * as DatePickers from '@wso2/oxygen-ui/date-pickers';
+import * as TreeView from '@wso2/oxygen-ui/tree-view';
 
 // Use as namespaces
 <DataGrid.DataGrid rows={rows} columns={columns} />
@@ -99,7 +106,8 @@ const theme = createTheme({
 
 **After:**
 ```tsx
-import { OxygenUIThemeProvider, OxygenTheme } from '@wso2/oxygen-ui';
+import OxygenUIThemeProvider from '@wso2/oxygen-ui/OxygenUIThemeProvider';
+import OxygenTheme from '@wso2/oxygen-ui/OxygenTheme';
 
 // Use default theme
 <OxygenUIThemeProvider theme={OxygenTheme}>
@@ -108,10 +116,10 @@ import { OxygenUIThemeProvider, OxygenTheme } from '@wso2/oxygen-ui';
 
 // Or with custom theme
 import { extendTheme } from '@mui/material/styles';
-import { OxygenThemeBase } from '@wso2/oxygen-ui';
+import OxygenTheme from '@wso2/oxygen-ui/OxygenTheme';
 
 const customTheme = extendTheme({
-  ...OxygenThemeBase,
+  ...OxygenTheme,
   colorSchemes: {
     light: {
       palette: { primary: { main: '#1976d2' } },
@@ -147,7 +155,10 @@ import { AppBar, Toolbar, Drawer, Box } from '@mui/material';
 
 **After (Oxygen AppShell):**
 ```tsx
-import { AppShell, Header, Sidebar, Footer } from '@wso2/oxygen-ui';
+import AppShell from '@wso2/oxygen-ui/AppShell';
+import Header from '@wso2/oxygen-ui/Header';
+import Sidebar from '@wso2/oxygen-ui/Sidebar';
+import Footer from '@wso2/oxygen-ui/Footer';
 
 <AppShell>
   <AppShell.Navbar>
@@ -211,7 +222,7 @@ import {
 
 **After (Oxygen ListingTable):**
 ```tsx
-import { ListingTable } from '@wso2/oxygen-ui';
+import ListingTable from '@wso2/oxygen-ui/ListingTable';
 
 <ListingTable.Container>
   <ListingTable.Toolbar showSearch />
@@ -246,7 +257,8 @@ const { mode, setMode } = useColorScheme();
 
 **After:**
 ```tsx
-import { ColorSchemeToggle, useTheme } from '@wso2/oxygen-ui';
+import ColorSchemeToggle from '@wso2/oxygen-ui/ColorSchemeToggle';
+import { useTheme } from '@wso2/oxygen-ui/styles';
 
 // Simple toggle component
 <ColorSchemeToggle />

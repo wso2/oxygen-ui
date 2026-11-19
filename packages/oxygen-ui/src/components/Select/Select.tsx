@@ -20,7 +20,10 @@ import * as React from 'react';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import MuiSelect, { type SelectProps as MuiSelectProps } from '@mui/material/Select';
-import { styled } from '@mui/material/styles';
+import { selectPlaceholderProps } from './placeholder';
+
+// Public through the `Select` path, where it is shared with `TextField select`.
+export { selectPlaceholderProps };
 
 /** `top` draws a static label above the select instead of MUI's floating label. */
 export type SelectLabelPlacement = 'top';
@@ -31,49 +34,6 @@ export type SelectProps<Value = unknown> = MuiSelectProps<Value> & {
   /** Shown in the field while nothing is selected. Ignored by `native` selects. */
   placeholder?: React.ReactNode;
 };
-
-// Unlike an input's ::placeholder, this is real text, so it must meet 4.5:1 contrast: use
-// text.secondary rather than the faded placeholder colour.
-const Placeholder = styled('span', { name: 'MuiSelect', slot: 'Placeholder' })(({ theme }) => ({
-  color: (theme.vars || theme).palette.text.secondary,
-  '.Mui-disabled > &': {
-    color: 'inherit',
-  },
-}));
-
-// MUI's own test for an empty select value.
-const isEmptyValue = (value: unknown) => value == null || value === '' || (Array.isArray(value) && value.length === 0);
-
-// MUI compares option values as strings, except for objects.
-const areEqualValues = (a: unknown, b: unknown) => (typeof b === 'object' && b !== null ? a === b : String(a) === String(b));
-
-// MUI's default display: the children of the selected option(s), joined with ", " when multiple.
-function renderSelectedOptions(selected: unknown, children: React.ReactNode): React.ReactNode {
-  const options = React.Children.toArray(children).filter(React.isValidElement) as React.ReactElement<{ value?: unknown; children?: React.ReactNode }>[];
-  const labelOf = (value: unknown) => options.find((option) => areEqualValues(value, option.props.value))?.props.children;
-  if (!Array.isArray(selected)) return labelOf(selected);
-  return selected.map((value, index) => (
-    <React.Fragment key={index}>
-      {index > 0 && ', '}
-      {labelOf(value)}
-    </React.Fragment>
-  ));
-}
-
-/** Select props that show `placeholder` while the value is empty; shared with `TextField select`. */
-export function selectPlaceholderProps<Value>(
-  placeholder: React.ReactNode,
-  renderValue: ((value: Value) => React.ReactNode) | undefined,
-  children: React.ReactNode,
-) {
-  return {
-    displayEmpty: true,
-    renderValue: (selected: Value) => {
-      if (isEmptyValue(selected)) return <Placeholder>{placeholder}</Placeholder>;
-      return renderValue ? renderValue(selected) : renderSelectedOptions(selected, children);
-    },
-  };
-}
 
 function SelectInner<Value>(
   { labelPlacement, label, placeholder, ...props }: SelectProps<Value>,

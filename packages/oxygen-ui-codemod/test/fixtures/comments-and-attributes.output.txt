@@ -1,0 +1,7 @@
+import {
+  Button, // keep
+  TextField,
+} from '@wso2/oxygen-ui';
+import { Button as B } from '@wso2/oxygen-ui' with { type: 'x' };
+import * as O from '@wso2/oxygen-ui';
+import T from '@wso2/oxygen-ui/TextField';

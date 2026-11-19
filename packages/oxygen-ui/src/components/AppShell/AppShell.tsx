@@ -27,6 +27,7 @@ import { AppShellFooter } from './AppShellFooter';
 import { AppShellNotificationPanel } from './AppShellNotificationPanel';
 import { useAppShell, type UseAppShellOptions } from '../../hooks/useAppShell';
 import { AppShellContext } from './context';
+import { displayNameOf, sortParts } from '../../utils/compoundParts';
 
 /**
  * Display names for slot detection.
@@ -62,35 +63,31 @@ const extractSlots = (children: React.ReactNode): ExtractedSlots => {
     notificationPanel: null,
   };
 
-  React.Children.forEach(children, (child) => {
-    if (React.isValidElement(child)) {
-      const displayName = (child.type as React.FC)?.displayName;
-      const childProps = child.props as { children?: React.ReactNode };
+  const { parts, rest } = sortParts(children, Object.values(SLOT_DISPLAY_NAMES));
+  const contentOf = (part: React.ReactElement) => (part.props as { children?: React.ReactNode }).children;
 
-      switch (displayName) {
-        case SLOT_DISPLAY_NAMES.Navbar:
-          slots.navbar = childProps.children;
-          break;
-        case SLOT_DISPLAY_NAMES.Sidebar:
-          slots.sidebar = childProps.children;
-          break;
-        case SLOT_DISPLAY_NAMES.Main:
-          slots.main = childProps.children;
-          break;
-        case SLOT_DISPLAY_NAMES.Footer:
-          slots.footer = childProps.children;
-          break;
-        case SLOT_DISPLAY_NAMES.NotificationPanel:
-          slots.notificationPanel = childProps.children;
-          break;
-        default:
-          // Non-slot children go to main content
-          if (!slots.main) {
-            slots.main = child;
-          }
-      }
+  parts.forEach((part) => {
+    switch (displayNameOf(part)) {
+      case SLOT_DISPLAY_NAMES.Navbar:
+        slots.navbar = contentOf(part);
+        break;
+      case SLOT_DISPLAY_NAMES.Sidebar:
+        slots.sidebar = contentOf(part);
+        break;
+      case SLOT_DISPLAY_NAMES.Main:
+        slots.main = contentOf(part);
+        break;
+      case SLOT_DISPLAY_NAMES.Footer:
+        slots.footer = contentOf(part);
+        break;
+      case SLOT_DISPLAY_NAMES.NotificationPanel:
+        slots.notificationPanel = contentOf(part);
+        break;
     }
   });
+
+  // Non-slot children go to main content
+  slots.main ||= rest.find((child) => React.isValidElement(child)) ?? null;
 
   return slots;
 };

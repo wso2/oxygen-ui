@@ -18,6 +18,8 @@
 
 import * as React from 'react';
 import type { ContextSwitcherValue } from './context';
+import { isContextSwitcherGroup } from './ContextSwitcherGroup';
+import { isContextSwitcherOption, type ContextSwitcherOptionProps } from './ContextSwitcherOption';
 
 /**
  * Elements in child order. A fragment is transparent. Text and empty slots are skipped.
@@ -130,3 +132,77 @@ export const selectLevel = (
   ...selectionsBefore(levelIds, value, levelIds.indexOf(levelId)),
   [levelId]: optionValue,
 });
+
+type OptionElement = React.ReactElement<ContextSwitcherOptionProps>;
+
+/**
+ * What a level's list holds, in child order: a loose option, or a group with
+ * the options inside it. A group with no options is left out, and so is
+ * anything that is neither.
+ */
+export type LevelEntry =
+  | { kind: 'option'; option: OptionElement }
+  | { kind: 'group'; label: React.ReactNode; options: OptionElement[] };
+
+export const parseLevelChildren = (children: React.ReactNode): LevelEntry[] => {
+  const entries: LevelEntry[] = [];
+  flattenElements(children).forEach((child) => {
+    if (isContextSwitcherOption(child)) {
+      entries.push({ kind: 'option', option: child });
+      return;
+    }
+    if (isContextSwitcherGroup(child)) {
+      const options = flattenElements(child.props.children).filter(isContextSwitcherOption);
+      if (options.length > 0) {
+        entries.push({ kind: 'group', label: child.props.label, options });
+      }
+    }
+  });
+  return entries;
+};
+
+/** Every option of a level, loose ones and grouped ones, in order. */
+export const optionsOf = (entries: LevelEntry[]): OptionElement[] =>
+  ([] as OptionElement[]).concat(...entries.map((entry) => (entry.kind === 'option' ? [entry.option] : entry.options)));
+
+export interface ChainState {
+  /** Index of the level in the foreground, or -1 with no levels. */
+  currentIndex: number;
+  /** The empty level whose list is open while Back is on, if any. */
+  openEmptyId: string | null;
+  /** How many levels are on screen. */
+  visibleCount: number;
+  /** Index of the level joined to Back, or -1 when Back is off or there are no levels. */
+  backIndex: number;
+}
+
+/**
+ * Which levels are on screen and which one is current, from the selection,
+ * the open list and whether Back is on. `value` has to be normalized.
+ */
+export const chainState = (
+  levelIds: readonly string[],
+  value: ContextSwitcherValue,
+  openId: string | null,
+  back: boolean
+): ChainState => {
+  const total = levelIds.length;
+  if (total === 0) {
+    return { currentIndex: -1, openEmptyId: null, visibleCount: 0, backIndex: -1 };
+  }
+  const selectedCount = selectedLevelCount(levelIds, value);
+  const openIndex = openId === null ? -1 : levelIds.indexOf(openId);
+  const currentIndex =
+    openIndex >= 0 && openIndex <= selectedCount ? openIndex : Math.max(selectedCount - 1, 0);
+  const openEmptyId =
+    back && openId !== null && openId === levelIds[currentIndex] && !value[openId] ? openId : null;
+  const visibleCount = back
+    ? Math.min(total, openEmptyId ? selectedCount + 1 : Math.max(selectedCount, 1))
+    : Math.min(total, Math.max(selectedCount + 1, 1));
+  const backIndex = !back
+    ? -1
+    : openEmptyId
+      ? levelIds.indexOf(openEmptyId)
+      : Math.max(selectedCount - 1, 0);
+  return { currentIndex, openEmptyId, visibleCount, backIndex };
+};

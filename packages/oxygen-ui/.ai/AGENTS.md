@@ -5,7 +5,9 @@
 ## Quick Start
 
 ```tsx
-import { OxygenUIThemeProvider, OxygenTheme, Button } from '@wso2/oxygen-ui';
+import OxygenUIThemeProvider from '@wso2/oxygen-ui/OxygenUIThemeProvider';
+import OxygenTheme from '@wso2/oxygen-ui/OxygenTheme';
+import Button from '@wso2/oxygen-ui/Button';
 
 function App() {
   return (
@@ -18,7 +20,7 @@ function App() {
 
 ## Critical Rules
 
-1. **Import from `@wso2/oxygen-ui`** - Never import directly from `@mui/material`
+1. **Import from `@wso2/oxygen-ui` paths** - `import Button from '@wso2/oxygen-ui/Button'`. Never import directly from `@mui/material`. The barrel (`import { Button } from '@wso2/oxygen-ui'`) still works, but write path imports in new code
 2. **Always wrap with `OxygenUIThemeProvider`** - Required at app root
 3. **Icons from `@wso2/oxygen-ui-icons-react`** - Separate package for icons
 4. **MUI X uses namespaces** - `DataGrid.DataGrid`, `DatePickers.DatePicker`, `TreeView.TreeView`
@@ -30,17 +32,25 @@ function App() {
 ## Import Patterns
 
 ```tsx
-// Components - import from @wso2/oxygen-ui
-import { Button, TextField, Box, Typography, ListingTable } from '@wso2/oxygen-ui';
+// Components - one path per component, with its parts, hook and types beside it
+import Button from '@wso2/oxygen-ui/Button';
+import TextField from '@wso2/oxygen-ui/TextField';
+import Box from '@wso2/oxygen-ui/Box';
+import Typography from '@wso2/oxygen-ui/Typography';
+import ListingTable from '@wso2/oxygen-ui/ListingTable';
 
 // Icons - import from @wso2/oxygen-ui-icons-react
 import { HomeIcon, SettingsIcon, UserIcon } from '@wso2/oxygen-ui-icons-react';
 
-// MUI X - use as namespaces
-import { DataGrid, DatePickers, TreeView } from '@wso2/oxygen-ui';
+// MUI X - lower-case paths, used as namespaces
+import * as DataGrid from '@wso2/oxygen-ui/data-grid';
+import * as DatePickers from '@wso2/oxygen-ui/date-pickers';
+import * as TreeView from '@wso2/oxygen-ui/tree-view';
 <DataGrid.DataGrid rows={rows} columns={columns} />
 <DatePickers.DatePicker value={date} onChange={setDate} />
 ```
+
+Path imports need `moduleResolution` set to `bundler`, `node16` or `nodenext`. To move existing barrel imports to path imports, run `npx @wso2/oxygen-ui-codemod path-imports`; add `--check` to list the barrel imports that remain without writing any file.
 
 ## Theme Tokens (Always Use)
 

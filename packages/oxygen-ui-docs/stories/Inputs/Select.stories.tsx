@@ -18,8 +18,11 @@
 
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Select, MenuItem, FormControl, InputLabel } from '@wso2/oxygen-ui';
-import type { SelectProps } from '@wso2/oxygen-ui';
+import Select from '@wso2/oxygen-ui/Select';
+import MenuItem from '@wso2/oxygen-ui/MenuItem';
+import FormControl from '@wso2/oxygen-ui/FormControl';
+import InputLabel from '@wso2/oxygen-ui/InputLabel';
+import type { SelectProps } from '@wso2/oxygen-ui/Select';
 import { useId, useState } from 'react';
 
 const meta: Meta<typeof Select> = {
@@ -54,8 +57,8 @@ const meta: Meta<typeof Select> = {
   },
 };
 
-export default meta;
-type Story = StoryObj<typeof Select>;
+export default meta
+type Story = StoryObj<typeof Select>
 
 // The label stories pass their args through, so the labelPlacement and placeholder controls apply.
 // With labelPlacement unset, the select needs the FormControl and InputLabel of a floating label.
@@ -115,24 +118,29 @@ export const LabelOnTopWithError: Story = {
 /** Floating label. Prefer `LabelOnTop`; keep this only for existing screens. */
 export const Default: Story = {
   render: () => {
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState('')
     return (
       <FormControl sx={{ minWidth: 200 }}>
         {/* Link the label to the select via id/labelId so the combobox has an accessible name */}
         <InputLabel id="select-age-label">Age</InputLabel>
-        <Select labelId="select-age-label" value={value} label="Age" onChange={(e) => setValue(e.target.value)}>
+        <Select
+          labelId="select-age-label"
+          value={value}
+          label="Age"
+          onChange={e => setValue(e.target.value)}
+        >
           <MenuItem value={10}>Ten</MenuItem>
           <MenuItem value={20}>Twenty</MenuItem>
           <MenuItem value={30}>Thirty</MenuItem>
         </Select>
       </FormControl>
-    );
+    )
   },
-};
+}
 
 export const WithDefaultValue: Story = {
   render: () => {
-    const [value, setValue] = useState(20);
+    const [value, setValue] = useState(20)
     return (
       <FormControl sx={{ minWidth: 200 }}>
         <InputLabel id="select-default-value-label">Age</InputLabel>
@@ -140,20 +148,20 @@ export const WithDefaultValue: Story = {
           labelId="select-default-value-label"
           value={value}
           label="Age"
-          onChange={(e) => setValue(e.target.value as number)}
+          onChange={e => setValue(e.target.value as number)}
         >
           <MenuItem value={10}>Ten</MenuItem>
           <MenuItem value={20}>Twenty</MenuItem>
           <MenuItem value={30}>Thirty</MenuItem>
         </Select>
       </FormControl>
-    );
+    )
   },
-};
+}
 
 export const Multiple: Story = {
   render: () => {
-    const [values, setValues] = useState<string[]>([]);
+    const [values, setValues] = useState<string[]>([])
     return (
       <FormControl sx={{ minWidth: 200 }}>
         <InputLabel id="select-multiple-label">Names</InputLabel>
@@ -162,16 +170,20 @@ export const Multiple: Story = {
           labelId="select-multiple-label"
           value={values}
           label="Names"
-          onChange={(e) => setValues(typeof e.target.value === 'string' ? e.target.value.split(',') : e.target.value)}
+          onChange={e =>
+            setValues(
+              typeof e.target.value === 'string' ? e.target.value.split(',') : e.target.value
+            )
+          }
         >
           <MenuItem value="Oliver">Oliver</MenuItem>
           <MenuItem value="Van">Van</MenuItem>
           <MenuItem value="April">April</MenuItem>
         </Select>
       </FormControl>
-    );
+    )
   },
-};
+}
 
 export const Disabled: Story = {
   render: () => (
@@ -184,7 +196,7 @@ export const Disabled: Story = {
       </Select>
     </FormControl>
   ),
-};
+}
 
 export const Error: Story = {
   render: () => (
@@ -197,4 +209,4 @@ export const Error: Story = {
       </Select>
     </FormControl>
   ),
-};
+}

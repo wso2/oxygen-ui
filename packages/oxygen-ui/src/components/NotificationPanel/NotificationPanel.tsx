@@ -23,7 +23,8 @@ import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
 import { NotificationPanelContext } from './context';
-import { AppShellContext } from '../AppShell/context';
+import { useLiveAnnouncement } from './useLiveAnnouncement';
+import { useOptionalAppShell } from '../AppShell/internal';
 import { NotificationHeader } from './NotificationHeader';
 import { NotificationHeaderIcon } from './NotificationHeaderIcon';
 import { NotificationHeaderTitle } from './NotificationHeaderTitle';
@@ -186,7 +187,7 @@ const NotificationPanel: React.FC<NotificationPanelProps> & {
   sx,
 }) => {
   // Try to consume AppShell context (optional - gracefully degrades if not available)
-  const appShellContext = React.useContext(AppShellContext);
+  const appShellContext = useOptionalAppShell();
 
   // Use context values as defaults, allow prop overrides
   const open = openProp ?? appShellContext?.state.notificationPanelOpen ?? false;
@@ -201,48 +202,11 @@ const NotificationPanel: React.FC<NotificationPanelProps> & {
       ? ariaLabelProp.trim()
       : 'Notifications';
 
-  const [liveAnnouncement, setLiveAnnouncementState] = React.useState('');
-  const [liveAnnouncementNonce, setLiveAnnouncementNonce] = React.useState(0);
-  // Start undefined so the first open with a prop still publishes once.
-  const prevLiveAnnouncementPropRef = React.useRef<string | undefined>(undefined);
-
-  // Announcements are events while open only (persistent/permanent keep content mounted when closed).
-  const publishLiveAnnouncement = React.useCallback(
-    (message: string) => {
-      if (!open) return;
-      setLiveAnnouncementState(message);
-      setLiveAnnouncementNonce((n) => n + 1);
-    },
-    [open]
-  );
-
-  // Clear on close; publish only when the prop *changes* while open (no reopen repeat).
-  // Clear stale text when the prop becomes undefined while open.
-  React.useEffect(() => {
-    if (!open) {
-      setLiveAnnouncementState('');
-      prevLiveAnnouncementPropRef.current = liveAnnouncementProp;
-      return;
-    }
-
-    const prev = prevLiveAnnouncementPropRef.current;
-    prevLiveAnnouncementPropRef.current = liveAnnouncementProp;
-
-    if (liveAnnouncementProp === undefined) {
-      if (prev !== undefined) {
-        setLiveAnnouncementState('');
-      }
-      return;
-    }
-
-    if (liveAnnouncementProp !== prev) {
-      publishLiveAnnouncement(liveAnnouncementProp);
-    }
-  }, [open, liveAnnouncementProp, publishLiveAnnouncement]);
+  const live = useLiveAnnouncement(open, liveAnnouncementProp);
 
   const contextValue = React.useMemo(
-    () => ({ onClose, open, setLiveAnnouncement: publishLiveAnnouncement }),
-    [onClose, open, publishLiveAnnouncement]
+    () => ({ onClose, open, setLiveAnnouncement: live.publish }),
+    [onClose, open, live.publish]
   );
   const ownerState = { width };
 
@@ -262,15 +226,15 @@ const NotificationPanel: React.FC<NotificationPanelProps> & {
         }}
       >
         <Box
-          key={liveAnnouncementNonce}
+          key={live.nonce}
           component="div"
           role="status"
           aria-live="polite"
           aria-atomic="true"
-          sx={visuallyHidden as SxProps<Theme>}
+          sx={{ ...visuallyHidden }}
           data-testid="notification-panel-live-region"
         >
-          {liveAnnouncement}
+          {live.message}
         </Box>
         {children}
       </NotificationPanelRoot>

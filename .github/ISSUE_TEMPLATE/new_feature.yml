@@ -33,7 +33,6 @@ body:
         - '@oxygen-ui/react-charts'
         - '@oxygen-ui/eslint-plugin'
         - '@oxygen-ui/esbuild-plugin-inline-css-fonts'
-        - '@oxygen-ui/vite-plugin'
         - 'oxygen-ui-docs'
         - 'samples'
         - 'other'

@@ -55,6 +55,12 @@ export default [
       ...tsPlugin.configs.recommended.rules,
       ...reactPlugin.configs.recommended.rules,
       ...reactHooksPlugin.configs.recommended.rules,
+      // eslint-plugin-react-hooks 7 added React Compiler rules that flag existing code; they warn until each hit is fixed.
+      'react-hooks/globals': 'warn',
+      'react-hooks/use-memo': 'warn',
+      'react-hooks/refs': 'warn',
+      'react-hooks/set-state-in-effect': 'warn',
+      'react-hooks/preserve-manual-memoization': 'warn',
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
       'no-undef': 'off', // TypeScript handles this

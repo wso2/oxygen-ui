@@ -18,41 +18,37 @@
 
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import {
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  Grid,
-  Button,
-  AppShell,
-  ColorSchemeToggle,
-  IconButton,
-  Tooltip,
-  Badge,
-  Divider,
-  Header,
-  Sidebar,
-  NotificationPanel,
-  UserMenu,
-  NotificationBanner,
-  Footer,
-  TrialBadge,
-  HeaderBreadcrumbs,
-  Avatar,
-  ColorSchemeImage,
-  version,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  formatRelativeTime,
-  useAppShell,
-  useNotifications,
-  type NotificationItem,
-  type HeaderBreadcrumbsItem,
-} from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import Typography from '@wso2/oxygen-ui/Typography';
+import Card from '@wso2/oxygen-ui/Card';
+import CardContent from '@wso2/oxygen-ui/CardContent';
+import Grid from '@wso2/oxygen-ui/Grid';
+import Button from '@wso2/oxygen-ui/Button';
+import AppShell from '@wso2/oxygen-ui/AppShell';
+import ColorSchemeToggle from '@wso2/oxygen-ui/ColorSchemeToggle';
+import IconButton from '@wso2/oxygen-ui/IconButton';
+import Tooltip from '@wso2/oxygen-ui/Tooltip';
+import Badge from '@wso2/oxygen-ui/Badge';
+import Divider from '@wso2/oxygen-ui/Divider';
+import Header from '@wso2/oxygen-ui/Header';
+import Sidebar from '@wso2/oxygen-ui/Sidebar';
+import NotificationPanel from '@wso2/oxygen-ui/NotificationPanel';
+import UserMenu from '@wso2/oxygen-ui/UserMenu';
+import NotificationBanner from '@wso2/oxygen-ui/NotificationBanner';
+import Footer from '@wso2/oxygen-ui/Footer';
+import TrialBadge from '@wso2/oxygen-ui/TrialBadge';
+import HeaderBreadcrumbs, { type HeaderBreadcrumbsItem } from '@wso2/oxygen-ui/HeaderBreadcrumbs';
+import Avatar from '@wso2/oxygen-ui/Avatar';
+import ColorSchemeImage from '@wso2/oxygen-ui/ColorSchemeImage';
+import version from '@wso2/oxygen-ui/version';
+import Dialog from '@wso2/oxygen-ui/Dialog';
+import DialogTitle from '@wso2/oxygen-ui/DialogTitle';
+import DialogContent from '@wso2/oxygen-ui/DialogContent';
+import DialogContentText from '@wso2/oxygen-ui/DialogContentText';
+import DialogActions from '@wso2/oxygen-ui/DialogActions';
+import { formatRelativeTime } from '@wso2/oxygen-ui/utils';
+import useAppShell from '@wso2/oxygen-ui/useAppShell';
+import useNotifications, { type NotificationItem } from '@wso2/oxygen-ui/useNotifications';
 import {
   Building2,
   Box as BoxIcon,
@@ -203,7 +199,7 @@ interface AppShellArgs {
  */
 const SampleContent: React.FC = () => (
   <Box sx={{ p: 3 }}>
-    <Typography variant="h4" gutterBottom sx={{ fontWeight: 600 }}>
+    <Typography variant="h4" sx={{ mb: '0.35em', fontWeight: 600 }}>
       Dashboard
     </Typography>
     <Typography variant="body1" sx={{ color: 'text.secondary', mb: 3 }}>
@@ -1011,7 +1007,7 @@ export const WithConfirmDialog: Story = {
 
         <AppShell.Main>
           <Box sx={{ p: 3 }}>
-            <Typography variant="h5" gutterBottom>
+            <Typography variant="h5" sx={{ mb: '0.35em' }}>
               Confirmation Dialog Example
             </Typography>
             <Typography sx={{ color: 'text.secondary', mb: 3 }}>
@@ -1088,7 +1084,7 @@ export const MobileResponsive: Story = {
       
       return (
         <Box sx={{ p: 3 }}>
-          <Typography variant="h5" gutterBottom>
+          <Typography variant="h5" sx={{ mb: '0.35em' }}>
             Mobile-Responsive Sidebar
           </Typography>
           <Typography sx={{ color: 'text.secondary', mb: 3 }}>
@@ -1197,7 +1193,7 @@ export const CustomSidebarWidth: Story = {
       
       return (
         <Box sx={{ p: 3 }}>
-          <Typography variant="h5" gutterBottom>
+          <Typography variant="h5" sx={{ mb: '0.35em' }}>
             Custom Sidebar Width
           </Typography>
           <Typography sx={{ color: 'text.secondary', mb: 3 }}>

@@ -18,6 +18,7 @@
 
 import { createOxygenTheme } from '../../utils/createOxygenTheme';
 import type { OxygenTheme } from '../OxygenThemeBase';
+import { bodyMenuItem, smallTextField } from './sharedOverrides';
 
 // Extend the TypeBackground interface to include acrylic
 declare module '@mui/material/styles' {
@@ -103,54 +104,52 @@ const AcrylicBaseTheme = {
         },
       },
       variants: [
-        // MUI v9 no longer applies combined keys such as `containedPrimary`, so each variant and colour pair
-        // is matched here.
         {
           props: { variant: 'contained', color: 'primary' },
           style: ({ theme }: { theme: OxygenTheme }) => ({
-            '&:not(:disabled)': {
+          '&:not(:disabled)': {
+            background: `${theme.gradient.primary} !important`,
+            color: '#fff !important',
+            '&:hover': {
               background: `${theme.gradient.primary} !important`,
+              opacity: 0.9,
               color: '#fff !important',
-              '&:hover': {
-                background: `${theme.gradient.primary} !important`,
-                opacity: 0.9,
-                color: '#fff !important',
-              },
-            }
-          }),
+            },
+          }
+        }),
         },
         {
           props: { variant: 'outlined', color: 'primary' },
           style: ({ theme }: { theme: OxygenTheme }) => ({
-            borderColor: theme.palette.primary.main,
-            color: theme.palette.primary.main,
-            '&:hover': {
-              borderColor: theme.palette.primary.dark,
-              backgroundColor: theme.palette.action.hover,
-            },
-          }),
+          borderColor: theme.palette.primary.main,
+          color: theme.palette.primary.main,
+          '&:hover': {
+            borderColor: theme.palette.primary.dark,
+            backgroundColor: theme.palette.action.hover,
+          },
+        }),
         },
         {
           props: { variant: 'contained', color: 'secondary' },
           style: ({ theme }: { theme: OxygenTheme }) => ({
+          backgroundColor: theme.vars!.palette.secondary.main,
+          color: theme.vars!.palette.text.primary,
+          '&:hover': {
             backgroundColor: theme.vars!.palette.secondary.main,
-            color: theme.vars!.palette.text.primary,
-            '&:hover': {
-              backgroundColor: theme.vars!.palette.secondary.main,
-              opacity: 0.8,
-            },
-          }),
+            opacity: 0.8,
+          },
+        }),
         },
         {
           props: { variant: 'outlined', color: 'secondary' },
           style: ({ theme }: { theme: OxygenTheme }) => ({
-            borderColor: theme.vars!.palette.divider,
-            color: theme.vars!.palette.text.primary,
-            '&:hover': {
-              borderColor: theme.vars!.palette.text.secondary,
-              backgroundColor: theme.palette.action.hover,
-            },
-          }),
+          borderColor: theme.vars!.palette.divider,
+          color: theme.vars!.palette.text.primary,
+          '&:hover': {
+            borderColor: theme.vars!.palette.text.secondary,
+            backgroundColor: theme.palette.action.hover,
+          },
+        }),
         },
       ],
     },
@@ -254,9 +253,7 @@ const AcrylicBaseTheme = {
         }),
       }
     },
-    MuiTextField: {
-      defaultProps: { size: 'small' },
-    },
+    MuiTextField: smallTextField,
     MuiOutlinedInput: {
       styleOverrides: {
         root: ({ theme }: { theme: OxygenTheme }) => ({
@@ -270,13 +267,7 @@ const AcrylicBaseTheme = {
         }),
       },
     },
-    MuiMenuItem: {
-      styleOverrides: {
-        root: ({ theme }: { theme: OxygenTheme }) => ({
-          fontSize: theme.typography.body2.fontSize,
-        }),
-      },
-    },
+    MuiMenuItem: bodyMenuItem,
     MuiLink: {
       styleOverrides: {
         root: ({ theme }: { theme: OxygenTheme }) => ({

@@ -12,7 +12,7 @@ yarn add @wso2/oxygen-ui @emotion/react @emotion/styled @mui/material
 pnpm add @wso2/oxygen-ui @emotion/react @emotion/styled @mui/material
 ```
 
-**Note:** The Inter Variable and Sora Variable (used by the default theme) fonts are automatically bundled and loaded when you import from `@wso2/oxygen-ui`. No additional setup required!
+**Note:** The Inter Variable and Sora Variable fonts are bundled and load with any Oxygen theme. No additional setup required, whichever way you import.
 
 ### Peer Dependencies
 
@@ -24,12 +24,68 @@ npm install react react-dom @emotion/react @emotion/styled @mui/material @mui/x-
 
 ## Usage
 
-### Material-UI Components
+### Path imports
 
-Import and use Material-UI components directly from `@wso2/oxygen-ui`:
+Import each component from its own path. A path import adds only that component and what it uses to your bundle, and it keeps your dev server from loading the whole package:
 
 ```typescript
-import { Box, Button, Stack, TextField } from '@wso2/oxygen-ui';
+import Button from '@wso2/oxygen-ui/Button';
+import TextField from '@wso2/oxygen-ui/TextField';
+```
+
+A path gives the component as its default export, with its parts, hook and types beside it as named exports. `@wso2/oxygen-ui/TextField` and `@wso2/oxygen-ui/Select` give Oxygen's components, the same objects the barrel gives.
+
+The barrel, `import { Button } from '@wso2/oxygen-ui'`, is still supported and is not deprecated. A barrel import is tree-shaken per module, so you can keep it and migrate when you choose.
+
+Path imports need `moduleResolution` set to `bundler`, `node16` or `nodenext` in your `tsconfig.json`. An app on the legacy `node` setting keeps resolving the barrel.
+
+#### Other paths
+
+| Path | Gives |
+| --- | --- |
+| `@wso2/oxygen-ui/<Component>` | An Oxygen component or a re-exported Material UI component, with its parts, hook and types |
+| `@wso2/oxygen-ui/<ThemeName>` | One theme as the default export, such as `OxygenTheme` or `AcrylicOrangeTheme` |
+| `@wso2/oxygen-ui/OxygenUIThemeProvider` | The provider, plus `useThemeSwitcher`, its types and `createEmotionCache` |
+| `@wso2/oxygen-ui/useAppShell`, `useNotifications`, `useThemeContent` | One shared hook |
+| `@wso2/oxygen-ui/styles` | Material UI's `styles`, plus `createOxygenTheme`, `pxToRem` and `OxygenThemeType` |
+| `@wso2/oxygen-ui/utils` | Material UI's `utils`, plus `formatRelativeTime` |
+| `@wso2/oxygen-ui/colors`, `Layout`, `ParticleBackground`, `version` | The matching barrel export |
+| `@wso2/oxygen-ui/data-grid` | All of MUI X Data Grid |
+| `@wso2/oxygen-ui/date-pickers` | All of MUI X date pickers |
+| `@wso2/oxygen-ui/date-pickers/AdapterDateFns` | A date adapter, with one path per first-party adapter |
+| `@wso2/oxygen-ui/tree-view` | All of MUI X Tree View |
+
+The MUI X paths are lower-case, so you can tell a package from a component at a glance. Import them as namespaces, as in the sections below.
+
+`@wso2/oxygen-ui/path-map.json` records, for every name on the barrel, the path it lives on.
+
+### Migrating from barrel imports
+
+`@wso2/oxygen-ui-codemod` rewrites the barrel imports in your app to path imports in one step. Nothing to install and nothing to remove afterwards:
+
+```bash
+npx @wso2/oxygen-ui-codemod path-imports
+```
+
+It reads the name-to-path map of the `@wso2/oxygen-ui` installed in your app, so it never writes a path your version does not have. It keeps type-only imports type-only, keeps `as` renames, and rewrites barrel re-exports too. A whole-barrel namespace import, a dynamic import and a `require` are reported and left alone. A file that imports a name the map does not have is left untouched and reported.
+
+In CI, check mode writes nothing, lists every barrel import that remains, and exits non-zero if there is any:
+
+```bash
+npx @wso2/oxygen-ui-codemod path-imports --check
+```
+
+The `no-direct-mui-imports` rule of `@wso2/eslint-plugin-oxygen-ui` fixes direct Material UI imports into Oxygen path imports.
+
+### Material-UI Components
+
+Re-exported Material UI components come from Oxygen paths too, so an app never needs to import from `@mui/material`:
+
+```typescript
+import Box from '@wso2/oxygen-ui/Box';
+import Button from '@wso2/oxygen-ui/Button';
+import Stack from '@wso2/oxygen-ui/Stack';
+import TextField from '@wso2/oxygen-ui/TextField';
 
 function MyComponent() {
   return (
@@ -46,11 +102,9 @@ function MyComponent() {
 ### Oxygen UI Custom Components
 
 ```typescript
-import { 
-  OxygenUIThemeProvider, 
-  ColorSchemeToggle, 
-  Layout 
-} from '@wso2/oxygen-ui';
+import OxygenUIThemeProvider from '@wso2/oxygen-ui/OxygenUIThemeProvider';
+import ColorSchemeToggle from '@wso2/oxygen-ui/ColorSchemeToggle';
+import Layout from '@wso2/oxygen-ui/Layout';
 
 function App() {
   return (
@@ -69,7 +123,7 @@ function App() {
 Data Grid components are exported as a namespace to avoid naming conflicts:
 
 ```typescript
-import { DataGrid } from '@wso2/oxygen-ui';
+import * as DataGrid from '@wso2/oxygen-ui/data-grid';
 
 // Destructure the components you need
 const { 
@@ -103,7 +157,7 @@ function MyDataGrid() {
 Date Picker components are exported as a namespace:
 
 ```typescript
-import { DatePickers } from '@wso2/oxygen-ui';
+import * as DatePickers from '@wso2/oxygen-ui/date-pickers';
 
 // Destructure the components you need
 const { 
@@ -127,41 +181,12 @@ function MyDatePicker() {
 }
 ```
 
-### MUI X Charts
-
-Chart components are exported as a namespace:
-
-```typescript
-import { Charts } from '@wso2/oxygen-ui';
-
-// Destructure the chart components you need
-const { LineChart, BarChart, PieChart } = Charts;
-
-function MyChart() {
-  const data = [
-    { month: 'Jan', value: 30 },
-    { month: 'Feb', value: 45 },
-    { month: 'Mar', value: 60 },
-  ];
-
-  return (
-    <LineChart
-      xAxis={[{ dataKey: 'month', scaleType: 'band' }]}
-      series={[{ dataKey: 'value', label: 'Sales' }]}
-      width={500}
-      height={300}
-      dataset={data}
-    />
-  );
-}
-```
-
 ### MUI X Tree View
 
 Tree View components are exported as a namespace:
 
 ```typescript
-import { TreeView } from '@wso2/oxygen-ui';
+import * as TreeView from '@wso2/oxygen-ui/tree-view';
 
 // Destructure the tree components you need
 const { SimpleTreeView, TreeItem } = TreeView;
@@ -190,18 +215,16 @@ Oxygen UI provides built-in theme switching capabilities through `OxygenUIThemeP
 Pass a `themes` array to `OxygenUIThemeProvider`:
 
 ```typescript
-import { 
-  OxygenUIThemeProvider, 
-  OxygenTheme, 
-  OxygenThemeWithRadialBackground 
-} from '@wso2/oxygen-ui';
+import OxygenUIThemeProvider from '@wso2/oxygen-ui/OxygenUIThemeProvider';
+import OxygenTheme from '@wso2/oxygen-ui/OxygenTheme';
+import AcrylicOrangeTheme from '@wso2/oxygen-ui/AcrylicOrangeTheme';
 
 function App() {
   return (
     <OxygenUIThemeProvider 
       themes={[
         { key: 'default', label: 'Default', theme: OxygenTheme },
-        { key: 'radial', label: 'Radial Background', theme: OxygenThemeWithRadialBackground },
+        { key: 'acrylic', label: 'Acrylic Orange', theme: AcrylicOrangeTheme },
       ]}
       initialTheme="default"
     >
@@ -216,19 +239,17 @@ function App() {
 Add the `ThemeSwitcher` component to provide a select dropdown:
 
 ```typescript
-import { 
-  OxygenUIThemeProvider, 
-  ThemeSwitcher, 
-  OxygenTheme, 
-  OxygenThemeWithRadialBackground 
-} from '@wso2/oxygen-ui';
+import OxygenUIThemeProvider from '@wso2/oxygen-ui/OxygenUIThemeProvider';
+import ThemeSwitcher from '@wso2/oxygen-ui/ThemeSwitcher';
+import OxygenTheme from '@wso2/oxygen-ui/OxygenTheme';
+import AcrylicOrangeTheme from '@wso2/oxygen-ui/AcrylicOrangeTheme';
 
 function App() {
   return (
     <OxygenUIThemeProvider 
       themes={[
         { key: 'default', label: 'Default', theme: OxygenTheme },
-        { key: 'radial', label: 'Radial Background', theme: OxygenThemeWithRadialBackground },
+        { key: 'acrylic', label: 'Acrylic Orange', theme: AcrylicOrangeTheme },
       ]}
     >
       <header>
@@ -295,7 +316,7 @@ function App() {
 Use the `useThemeSwitcher` hook to access theme state:
 
 ```typescript
-import { useThemeSwitcher } from '@wso2/oxygen-ui';
+import { useThemeSwitcher } from '@wso2/oxygen-ui/OxygenUIThemeProvider';
 
 function MyComponent() {
   const { currentTheme, themes, setTheme, isActive } = useThemeSwitcher();
@@ -303,7 +324,7 @@ function MyComponent() {
   return (
     <div>
       <p>Current theme: {currentTheme}</p>
-      <button onClick={() => setTheme('radial')}>Switch to Radial</button>
+      <button onClick={() => setTheme('acrylic')}>Switch to Acrylic Orange</button>
     </div>
   );
 }
@@ -331,7 +352,7 @@ Content-Security-Policy:
 Pass your server-generated nonce to `OxygenUIThemeProvider`. It is applied to every style tag injected by the styling engine (components, `CssBaseline`, theme styles). The value must match the nonce in your CSP header:
 
 ```typescript
-import { OxygenUIThemeProvider } from '@wso2/oxygen-ui';
+import OxygenUIThemeProvider from '@wso2/oxygen-ui/OxygenUIThemeProvider';
 
 // `serverNonce` is generated per request on the server and must match the CSP header.
 function App({ serverNonce }: { serverNonce: string }) {
@@ -350,7 +371,7 @@ For full control over style injection (cache key, insertion point, stylis plugin
 Set `prepend: true` to preserve the previous `injectFirst` cascade (application styles can override Oxygen UI styles). Omitting it changes style order.
 
 ```typescript
-import { OxygenUIThemeProvider, createEmotionCache } from '@wso2/oxygen-ui';
+import OxygenUIThemeProvider, { createEmotionCache } from '@wso2/oxygen-ui/OxygenUIThemeProvider';
 
 const cache = createEmotionCache({
   key: 'css',
@@ -377,7 +398,7 @@ Generate a unique nonce per request on the server, include it in the CSP header,
 
 ### Bundled fonts and theme CSS
 
-The bundled CSS — the Sora and Inter Variable font styles and the theme CSS — is injected as separate `<style>` tags when the package is imported (before React renders), so the nonce for those tags is resolved from well-known conventions instead of a prop:
+The bundled CSS — the Sora and Inter Variable font styles and the theme CSS — is injected as separate `<style>` tags when the module that holds it is imported (before React renders), so the nonce for those tags is resolved from well-known conventions instead of a prop:
 
 1. The `__webpack_nonce__` global ([webpack convention](https://webpack.js.org/guides/csp/))
 2. A `<meta property="csp-nonce" nonce="...">` tag ([Vite convention](https://vite.dev/guide/features.html#content-security-policy-csp)); `content` is also accepted as a fallback
@@ -402,7 +423,7 @@ Loading themes from URLs (`themes: [{ key: 'x', label: 'X', theme: '/themes/x.js
 ### Custom Oxygen UI Components
 
 - `OxygenTheme` - Default theme configuration
-- `OxygenThemeWithRadialBackground` - Theme variant with radial gradient backgrounds
+- `AcrylicOrangeTheme`, `AcrylicPurpleTheme`, `ClassicTheme`, `HighContrastTheme`, `PaleBaseTheme`, `PaleGrayTheme`, `PaleIndigoTheme` - Alternative themes
 - `OxygenUIThemeProvider` - Theme provider component with theme switching support
 - `ThemeSwitcher` - Theme selection component (default select dropdown or render props)
 - `ThemeSelect` - Standalone theme select dropdown component
@@ -421,7 +442,6 @@ All components from `@mui/material` are re-exported directly.
 
 - `DataGrid` - Namespace containing all Data Grid components
 - `DatePickers` - Namespace containing all Date Picker components
-- `Charts` - Namespace containing all Chart components
 - `TreeView` - Namespace containing all TreeView components
 
 ## TypeScript Support
@@ -429,8 +449,9 @@ All components from `@mui/material` are re-exported directly.
 This package includes full TypeScript definitions. All types from Material-UI and MUI X are also available:
 
 ```typescript
-import type { ButtonProps, BoxProps } from '@wso2/oxygen-ui';
-import { DataGrid } from '@wso2/oxygen-ui';
+import type { ButtonProps } from '@wso2/oxygen-ui/Button';
+import type { BoxProps } from '@wso2/oxygen-ui/Box';
+import * as DataGrid from '@wso2/oxygen-ui/data-grid';
 
 const { GridColDef } = DataGrid;
 type MyGridColDef = typeof GridColDef;

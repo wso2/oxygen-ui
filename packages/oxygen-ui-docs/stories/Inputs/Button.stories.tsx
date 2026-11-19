@@ -17,15 +17,18 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Button, Stack, CircularProgress, useTheme } from '@wso2/oxygen-ui';
+import Button from '@wso2/oxygen-ui/Button';
+import Stack from '@wso2/oxygen-ui/Stack';
+import CircularProgress from '@wso2/oxygen-ui/CircularProgress';
+import { useTheme } from '@wso2/oxygen-ui/styles';
 import { ArrowRight, Download, Plus, Trash2 } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';
 
 /**
  * The Button component triggers user actions such as submitting a form, opening a dialog, or performing navigation.
  * It supports different variants, colors, and sizes to suit various use cases and design contexts.
- * 
- * This is a direct import of MUI button component. 
+ *
+ * This is a direct import of MUI button component.
  * Read more at: https://mui.com/material-ui/react-button/
  */
 const meta = {
@@ -45,16 +48,17 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI button component is a direct import of MUI button component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-button/](https://mui.com/material-ui/react-button/)',
+        component:
+          'Oxygen UI button component is a direct import of MUI button component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-button/](https://mui.com/material-ui/react-button/)',
       },
     },
   },
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof Button>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Variations – variant, color, size
 export const Variants: Story = {
@@ -109,18 +113,18 @@ const iconSize = { small: 16, medium: 18, large: 20 } as const;
 export const WithIcons: Story = {
   render: () => (
     <Stack direction="column" spacing={2}>
-      <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
+      <Stack sx={{ alignItems: 'center' }} direction="row" spacing={2}>
         <Button variant="contained" startIcon={<Plus size={iconSize.medium} />}>Create project</Button>
         <Button variant="contained" endIcon={<ArrowRight size={iconSize.medium} />}>Talk to us</Button>
         <Button variant="outlined" startIcon={<Download size={iconSize.medium} />}>Download</Button>
         <Button variant="outlined" color="secondary" endIcon={<ArrowRight size={iconSize.medium} />}>All reports</Button>
         <Button variant="outlined" color="error" startIcon={<Trash2 size={iconSize.medium} />}>Delete</Button>
       </Stack>
-      <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
+      <Stack sx={{ alignItems: 'center' }} direction="row" spacing={2}>
         <Button variant="text" startIcon={<Plus size={iconSize.medium} />}>Add member</Button>
         <Button variant="text" endIcon={<ArrowRight size={iconSize.medium} />}>Learn more</Button>
       </Stack>
-      <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
+      <Stack sx={{ alignItems: 'center' }} direction="row" spacing={2}>
         {(['small', 'medium', 'large'] as const).map((size) => (
           <Button key={size} variant="contained" size={size} startIcon={<Plus size={iconSize[size]} />}>
             Create project
@@ -142,21 +146,27 @@ export const WithIcons: Story = {
 
 export const SizeVariants: Story = {
   render: () => (
-    <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
+    <Stack sx={{ alignItems: 'center' }} direction="row" spacing={2}>
       <Button variant="contained" size="small">Small</Button>
       <Button variant="contained" size="medium">Medium</Button>
       <Button variant="contained" size="large">Large</Button>
     </Stack>
   ),
-};
+}
 
 export const States: Story = {
   render: () => {
-    const theme = useTheme();
+    const theme = useTheme()
 
     return (
       <Stack direction="column" spacing={3}>
-        <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{
+            alignItems: 'center',
+          }}
+        >
           <Button variant="contained">Default</Button>
           <Button variant="contained" disabled>
             Disabled
@@ -170,7 +180,13 @@ export const States: Story = {
           </Button>
         </Stack>
 
-        <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{
+            alignItems: 'center',
+          }}
+        >
           <Button variant="outlined">Default</Button>
           <Button variant="outlined" disabled>
             Disabled
@@ -184,7 +200,13 @@ export const States: Story = {
           </Button>
         </Stack>
 
-        <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{
+            alignItems: 'center',
+          }}
+        >
           <Button variant="text">Default</Button>
           <Button variant="text" disabled>
             Disabled
@@ -198,6 +220,6 @@ export const States: Story = {
           </Button>
         </Stack>
       </Stack>
-    );
+    )
   },
-};
+}

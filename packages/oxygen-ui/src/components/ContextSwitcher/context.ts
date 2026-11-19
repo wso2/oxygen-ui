@@ -24,14 +24,11 @@ export type ContextSwitcherValue = Record<string, string>;
 export interface ContextSwitcherContextValue {
   /** Selection with orphan levels removed. */
   value: ContextSwitcherValue;
-  /** Level ids in child order. */
-  levelIds: readonly string[];
   /** Id of the level whose list is open, if any. */
   openId: string | null;
   /** Id of the level that shares a border with Back, if any. */
   joinedId: string | null;
   setOpenId: React.Dispatch<React.SetStateAction<string | null>>;
-  onChange: (value: ContextSwitcherValue) => void;
   /** Move focus to the neighboring stop. Stays put at either end. */
   moveFocus: (from: HTMLElement, direction: -1 | 1) => void;
   /**

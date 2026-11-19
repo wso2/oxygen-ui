@@ -26,18 +26,18 @@
     "url": "https://github.com/wso2/oxygen-ui.git"
   },
   "dependencies": {
-    "@hookform/resolvers": "5.2.1",
+    "@hookform/resolvers": "7.0.7",
     "@wso2/oxygen-ui": "workspace:^",
     "@wso2/oxygen-ui-charts-react": "workspace:^",
     "@wso2/oxygen-ui-icons-react": "workspace:^",
-    "react-hook-form": "7.62.0",
-    "zod": "4.0.10"
+    "react-hook-form": "7.92.0",
+    "zod": "4.6.7"
   },
   "devDependencies": {
-    "@babel/core": "7.28.5",
-    "@babel/preset-env": "7.28.5",
-    "@babel/preset-react": "7.28.5",
-    "@babel/preset-typescript": "7.28.5",
+    "@babel/core": "8.1.2",
+    "@babel/preset-env": "8.0.7",
+    "@babel/preset-react": "8.0.1",
+    "@babel/preset-typescript": "8.0.7",
     "@mdx-js/react": "3.1.1",
     "@mui/x-date-pickers": "catalog:",
     "@storybook/addon-a11y": "10.6.7",
@@ -48,17 +48,17 @@
     "@svgr/webpack": "8.1.0",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "babel-loader": "10.0.0",
-    "concurrently": "^10.0.3",
-    "date-fns": "4.1.0",
+    "babel-loader": "10.1.1",
+    "concurrently": "^10.0.7",
+    "date-fns": "4.4.0",
     "http-server": "^14.1.1",
     "lucide-react": "catalog:",
     "lucide-static": "catalog:",
-    "playwright": "1.61.1",
+    "playwright": "1.65.1",
     "react": "catalog:",
     "react-dom": "catalog:",
     "storybook": "10.6.7",
-    "wait-on": "^9.0.10"
+    "wait-on": "^9.5.1"
   },
   "publishConfig": {
     "access": "restricted"

@@ -18,7 +18,13 @@
 
 import { Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Stack, Typography, CodeBlock, Box, Divider, Chip, Sidebar } from '@wso2/oxygen-ui';
+import Stack from '@wso2/oxygen-ui/Stack';
+import Typography from '@wso2/oxygen-ui/Typography';
+import CodeBlock from '@wso2/oxygen-ui/CodeBlock';
+import Box from '@wso2/oxygen-ui/Box';
+import Divider from '@wso2/oxygen-ui/Divider';
+import Chip from '@wso2/oxygen-ui/Chip';
+import Sidebar from '@wso2/oxygen-ui/Sidebar';
 import {
   Bell,
   Boxes,
@@ -172,10 +178,10 @@ interface GuidelineSectionProps {
 function GuidelineSection({ title, purpose, rules, children }: GuidelineSectionProps) {
   return (
     <Box>
-      <Typography variant="h6" gutterBottom>
+      <Typography sx={{ mb: '0.35em' }} variant="h6">
         {title}
       </Typography>
-      <Typography variant="body2" gutterBottom>
+      <Typography sx={{ mb: '0.35em' }} variant="body2">
         {purpose}
       </Typography>
       <Box component="ul" sx={{ pl: 3, m: 0 }}>
@@ -376,10 +382,10 @@ export const Overview: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Side panel navigation
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography sx={{ color: 'text.secondary' }} variant="body2">
             Group side panel items with section titles and collapsible groups. Titles keep the main
             areas visible. Collapsible groups keep the panel short as the number of items grows.
           </Typography>
@@ -388,7 +394,7 @@ export const Overview: Story = {
         <Divider />
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             When to use titles vs collapsible groups
           </Typography>
           <CodeBlock
@@ -402,10 +408,10 @@ Collapsible group   Secondary items, or a parent with sub-pages     Sidebar.Item
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Recommended structure
           </Typography>
-          <Typography variant="body2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="body2">
             A few titled sections, a collapsible group for secondary items, and a pinned footer.
           </Typography>
           <Box sx={{ mt: 2 }}>
@@ -458,7 +464,7 @@ Collapsible group   Secondary items, or a parent with sub-pages     Sidebar.Item
           <Typography variant="subtitle2" sx={{ mt: 3, mb: 1 }}>
             Expand the active group and remember each user&apos;s choice
           </Typography>
-          <Typography variant="body2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="body2">
             <code>Sidebar</code> does not store which groups are open. Control it with{' '}
             <code>expandedMenus</code> and <code>onToggleExpand</code>, and save the state per user.
           </Typography>
@@ -519,7 +525,7 @@ const handleToggleExpand = (id: string) => {
         <Divider />
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             For every side panel
           </Typography>
           <Box component="ul" sx={{ pl: 3, m: 0 }}>

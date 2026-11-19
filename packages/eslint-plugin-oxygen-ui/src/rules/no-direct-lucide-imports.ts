@@ -19,6 +19,8 @@
 import type {Rule} from 'eslint';
 import type {ImportDeclaration} from 'estree';
 
+export const ICONS_PACKAGE = '@wso2/oxygen-ui-icons-react';
+
 interface NoDirectLucideImportsOptions {
   suggestedPackage?: string;
 }
@@ -27,7 +29,7 @@ const noDirectLucideImportsRule: Rule.RuleModule = {
   meta: {
     type: 'problem',
     docs: {
-      description: 'Disallow direct imports from lucide-react, suggest using @oxygen-ui/react-icons instead',
+      description: 'Disallow direct imports from lucide-react, suggest using @wso2/oxygen-ui-icons-react instead',
       category: 'Best Practices',
       recommended: true,
     },
@@ -51,7 +53,7 @@ const noDirectLucideImportsRule: Rule.RuleModule = {
   },
   create(context: Rule.RuleContext) {
     const options: NoDirectLucideImportsOptions = (context.options?.[0] as NoDirectLucideImportsOptions) ?? {};
-    const suggestedPackage: string = options.suggestedPackage ?? '@oxygen-ui/react-icons';
+    const suggestedPackage: string = options.suggestedPackage ?? ICONS_PACKAGE;
 
     return {
       ImportDeclaration(node: ImportDeclaration) {

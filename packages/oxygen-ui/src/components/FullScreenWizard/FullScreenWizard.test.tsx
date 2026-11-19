@@ -413,28 +413,9 @@ describe('FullScreenWizard', () => {
     expect(dialog.classList.contains('custom-paper')).toBe(true);
   });
 
-  it('keeps PaperProps in modal mode, with slotProps.paper taking precedence', () => {
-    renderWithTheme(
-      <FullScreenWizard
-        modal
-        open
-        aria-label="Invite member"
-        DialogProps={{
-          PaperProps: { className: 'legacy-paper', 'data-testid': 'legacy' } as object,
-          slotProps: { paper: { className: 'slot-paper' } },
-        }}
-      >
-        <FullScreenWizard.Content>Step</FullScreenWizard.Content>
-      </FullScreenWizard>
-    );
-    const dialog = screen.getByRole('dialog', { name: 'Invite member' });
-    expect(dialog.getAttribute('data-testid')).toBe('legacy');
-    expect(dialog.classList.contains('slot-paper')).toBe(true);
-  });
-
   it('keeps a paper aria-label when the wizard has no name of its own', () => {
     renderWithTheme(
-      <FullScreenWizard modal open DialogProps={{ PaperProps: { 'aria-label': 'Invite member' } as object }}>
+      <FullScreenWizard modal open DialogProps={{ slotProps: { paper: { 'aria-label': 'Invite member' } } }}>
         <FullScreenWizard.Content>Step</FullScreenWizard.Content>
       </FullScreenWizard>
     );

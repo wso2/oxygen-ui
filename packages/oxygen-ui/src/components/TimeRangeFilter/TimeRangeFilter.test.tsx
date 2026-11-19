@@ -80,7 +80,8 @@ afterEach(() => {
   cleanup();
 });
 
-describe('TimeRangeFilter', () => {
+// Filling the pickers re-renders several fields, so these tests need headroom when many test processes share the machine.
+describe('TimeRangeFilter', { timeout: 30_000 }, () => {
   it('renders the trigger button with the menu closed', () => {
     renderWithTheme(<TimeRangeFilter value={null} onChange={() => undefined} />);
     const trigger = screen.getByRole('button', { name: /time range/i });

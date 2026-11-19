@@ -17,20 +17,18 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import {
-  Box,
-  Button,
-  Card,
-  CardActionArea,
-  Chip,
-  CodeBlock,
-  Grid,
-  Link,
-  PageLoaderIcon,
-  Paper,
-  Stack,
-  Typography,
-} from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import Button from '@wso2/oxygen-ui/Button';
+import Card from '@wso2/oxygen-ui/Card';
+import CardActionArea from '@wso2/oxygen-ui/CardActionArea';
+import Chip from '@wso2/oxygen-ui/Chip';
+import CodeBlock from '@wso2/oxygen-ui/CodeBlock';
+import Grid from '@wso2/oxygen-ui/Grid';
+import Link from '@wso2/oxygen-ui/Link';
+import { PageLoaderIcon } from '@wso2/oxygen-ui/PageLoader';
+import Paper from '@wso2/oxygen-ui/Paper';
+import Stack from '@wso2/oxygen-ui/Stack';
+import Typography from '@wso2/oxygen-ui/Typography';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -151,7 +149,7 @@ const Hero = () => (
           Choreo Oxygen UI
         </Typography>
 
-        <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1.15rem', maxWidth: 620, mb: 4 }}>
+        <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '1.15rem', maxWidth: 620, mb: 4 }}>
           The design system for Choreo Labs products. Composite components, themes and utilities on top of
           MUI, for building consistent React applications.
         </Typography>
@@ -214,7 +212,7 @@ const Features = () => (
     <Typography variant="h5" component="h2" sx={SECTION_TITLE_SX}>
       What&apos;s inside
     </Typography>
-    <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+    <Typography variant="body2" sx={{ color: 'text.secondary', mb: 3 }}>
       Jump to a section, or browse everything in the sidebar.
     </Typography>
     <Grid container spacing={2}>
@@ -244,7 +242,7 @@ const Features = () => (
               <Typography variant="h6" component="h3" sx={{ fontSize: '1.05rem', fontWeight: 600, mb: 0.5 }}>
                 {feature.title}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 {feature.description}
               </Typography>
             </CardActionArea>
@@ -290,7 +288,7 @@ const QuickStart = () => (
       <Grid size={12}>
         <Step number={1} title="Install the package">
           <CodeBlock language="bash" code="npm install @wso2/oxygen-ui" />
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 2, mb: 1 }}>
+          <Typography variant="body2" sx={{ color: 'text.secondary', mt: 2, mb: 1 }}>
             Optional: icons and charts
           </Typography>
           <CodeBlock
@@ -342,7 +340,7 @@ const AiAssisted = () => (
         <Typography variant="h5" component="h2" sx={{ ...SECTION_TITLE_SX, mb: 1 }}>
           AI-assisted development
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+        <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
           Oxygen UI ships documentation for AI assistants such as Claude Code, Cursor and Copilot. Add it to
           your project with one command. Use <code>--claude</code> to also install invokable skills.
         </Typography>

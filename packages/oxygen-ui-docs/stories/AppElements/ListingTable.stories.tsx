@@ -16,24 +16,21 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import {
-  ListingTable,
-  DataGrid,
-  Button,
-  Checkbox,
-  Chip,
-  IconButton,
-  Stack,
-  TablePagination,
-  Tooltip,
-  Box,
-  Typography,
-  Autocomplete,
-  TextField,
-  useListingTable,
-} from '@wso2/oxygen-ui';
-import type { ListingTableDensity, ListingTableDataGridProps, ListingTableSortDirection, ListingTableVariant } from '@wso2/oxygen-ui';
+import type { Meta, StoryObj } from '@storybook/react-webpack5'
+import ListingTable, { useListingTable } from '@wso2/oxygen-ui/ListingTable'
+import * as DataGrid from '@wso2/oxygen-ui/data-grid'
+import Button from '@wso2/oxygen-ui/Button'
+import Checkbox from '@wso2/oxygen-ui/Checkbox'
+import Chip from '@wso2/oxygen-ui/Chip'
+import IconButton from '@wso2/oxygen-ui/IconButton'
+import Stack from '@wso2/oxygen-ui/Stack'
+import TablePagination from '@wso2/oxygen-ui/TablePagination'
+import Tooltip from '@wso2/oxygen-ui/Tooltip'
+import Box from '@wso2/oxygen-ui/Box'
+import Typography from '@wso2/oxygen-ui/Typography'
+import Autocomplete from '@wso2/oxygen-ui/Autocomplete'
+import TextField from '@wso2/oxygen-ui/TextField'
+import type { ListingTableDensity, ListingTableDataGridProps, ListingTableSortDirection, ListingTableVariant } from '@wso2/oxygen-ui/ListingTable'
 import {
   Edit,
   Trash2,
@@ -49,26 +46,26 @@ import {
   AlertCircle,
   Loader,
   ExternalLink,
-} from '@wso2/oxygen-ui-icons-react';
-import React, { useState, useMemo } from 'react';
+} from '@wso2/oxygen-ui-icons-react'
+import React, { useState, useMemo } from 'react'
 
 // ============================================================================
 // Types and Sample Data
 // ============================================================================
 
-type ComponentType = 'Service' | 'WebApp' | 'Webhook' | 'Proxy';
-type ComponentStatus = 'Running' | 'Stopped' | 'Deploying' | 'Error';
+type ComponentType = 'Service' | 'WebApp' | 'Webhook' | 'Proxy'
+type ComponentStatus = 'Running' | 'Stopped' | 'Deploying' | 'Error'
 
 interface PlatformComponent {
-  id: string;
-  name: string;
-  type: ComponentType;
-  description: string;
-  status: ComponentStatus;
-  environment: string;
-  version: string;
-  lastDeployed: string;
-  createdBy: string;
+  id: string
+  name: string
+  type: ComponentType
+  description: string
+  status: ComponentStatus
+  environment: string
+  version: string
+  lastDeployed: string
+  createdBy: string
 }
 
 const platformComponents: PlatformComponent[] = [
@@ -182,7 +179,7 @@ const platformComponents: PlatformComponent[] = [
     lastDeployed: '2025-12-16',
     createdBy: 'Hannah Anderson',
   },
-];
+]
 
 // ============================================================================
 // Helper Functions
@@ -191,57 +188,57 @@ const platformComponents: PlatformComponent[] = [
 const getComponentIcon = (type: ComponentType, size: number = 20) => {
   switch (type) {
     case 'Service':
-      return <Server size={size} />;
+      return <Server size={size} />
     case 'WebApp':
-      return <Globe size={size} />;
+      return <Globe size={size} />
     case 'Webhook':
-      return <Webhook size={size} />;
+      return <Webhook size={size} />
     case 'Proxy':
-      return <Shield size={size} />;
+      return <Shield size={size} />
     default:
-      return <Server size={size} />;
+      return <Server size={size} />
   }
-};
+}
 
 const getStatusColor = (status: ComponentStatus): 'success' | 'error' | 'warning' | 'info' => {
   switch (status) {
     case 'Running':
-      return 'success';
+      return 'success'
     case 'Stopped':
-      return 'error';
+      return 'error'
     case 'Deploying':
-      return 'warning';
+      return 'warning'
     case 'Error':
-      return 'error';
+      return 'error'
     default:
-      return 'info';
+      return 'info'
   }
-};
+}
 
 const getStatusIcon = (status: ComponentStatus) => {
   switch (status) {
     case 'Running':
-      return <CheckCircle size={14} />;
+      return <CheckCircle size={14} />
     case 'Stopped':
-      return <XCircle size={14} />;
+      return <XCircle size={14} />
     case 'Deploying':
-      return <Loader size={14} />;
+      return <Loader size={14} />
     case 'Error':
-      return <AlertCircle size={14} />;
+      return <AlertCircle size={14} />
     default:
-      return null;
+      return null
   }
-};
+}
 
 // ============================================================================
 // Story Args Interface
 // ============================================================================
 
 interface ListingTableStoryArgs {
-  variant?: ListingTableVariant;
-  density?: ListingTableDensity;
-  striped?: boolean;
-  bordered?: boolean;
+  variant?: ListingTableVariant
+  density?: ListingTableDensity
+  striped?: boolean
+  bordered?: boolean
 }
 
 // ============================================================================
@@ -315,7 +312,8 @@ const meta: Meta<typeof ListingTable> = {
     variant: {
       control: 'radio',
       options: ['table', 'card', 'data-grid'],
-      description: 'Display variant - table (traditional), card (card-like rows with rounded corners and gaps), data-grid (MUI DataGrid), or data-grid-card (MUI DataGrid with card rows)',
+      description:
+        'Display variant - table (traditional), card (card-like rows with rounded corners and gaps), data-grid (MUI DataGrid), or data-grid-card (MUI DataGrid with card rows)',
       table: {
         type: { summary: "'table' | 'card' | 'data-grid'" },
         defaultValue: { summary: 'table' },
@@ -345,10 +343,10 @@ const meta: Meta<typeof ListingTable> = {
       },
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof ListingTable & ListingTableStoryArgs>;
+export default meta
+type Story = StoryObj<typeof ListingTable & ListingTableStoryArgs>
 
 // ============================================================================
 // HERO STORIES
@@ -367,20 +365,20 @@ type Story = StoryObj<typeof ListingTable & ListingTableStoryArgs>;
  */
 export const QuickStart: Story = {
   render: () => {
-    const [searchValue, setSearchValue] = useState('');
+    const [searchValue, setSearchValue] = useState('')
 
     const filteredComponents = useMemo(() => {
-      if (!searchValue) return platformComponents.slice(0, 5);
-      const lower = searchValue.toLowerCase();
+      if (!searchValue) return platformComponents.slice(0, 5)
+      const lower = searchValue.toLowerCase()
       return platformComponents
         .filter(
-          (c) =>
+          c =>
             c.name.toLowerCase().includes(lower) ||
             c.description.toLowerCase().includes(lower) ||
-            c.type.toLowerCase().includes(lower),
+            c.type.toLowerCase().includes(lower)
         )
-        .slice(0, 5);
-    }, [searchValue]);
+        .slice(0, 5)
+    }, [searchValue])
 
     return (
       <ListingTable.Container sx={{ minWidth: 700 }}>
@@ -432,9 +430,9 @@ export const QuickStart: Story = {
           </ListingTable.Body>
         </ListingTable>
       </ListingTable.Container>
-    );
+    )
   },
-};
+}
 
 /**
  * **Full-featured production implementation** using the Provider pattern.
@@ -453,79 +451,82 @@ export const ProductionExample: Story = {
     variant: 'table',
     density: 'standard',
   },
-  render: (args) => {
-    const [searchValue, setSearchValue] = useState('');
-    const [sortField, setSortField] = useState<string>('name');
-    const [sortDirection, setSortDirection] = useState<ListingTableSortDirection>('asc');
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [selected, setSelected] = useState<readonly string[]>([]);
-    const [density, setDensity] = useState<ListingTableDensity>(args.density || 'standard');
+  render: args => {
+    const [searchValue, setSearchValue] = useState('')
+    const [sortField, setSortField] = useState<string>('name')
+    const [sortDirection, setSortDirection] = useState<ListingTableSortDirection>('asc')
+    const [page, setPage] = useState(0)
+    const [rowsPerPage, setRowsPerPage] = useState(5)
+    const [selected, setSelected] = useState<readonly string[]>([])
+    const [density, setDensity] = useState<ListingTableDensity>(args.density || 'standard')
 
     const handleSortChange = (field: string, direction: ListingTableSortDirection) => {
-      setSortField(field);
-      setSortDirection(direction);
-    };
+      setSortField(field)
+      setSortDirection(direction)
+    }
 
-    const isSelected = (id: string) => selected.includes(id);
+    const isSelected = (id: string) => selected.includes(id)
 
     const handleSelectAll = () => {
       if (selected.length === platformComponents.length) {
-        setSelected([]);
+        setSelected([])
       } else {
-        setSelected(platformComponents.map((c) => c.id));
+        setSelected(platformComponents.map(c => c.id))
       }
-    };
+    }
 
     const handleRowSelect = (id: string) => {
-      const selectedIndex = selected.indexOf(id);
-      let newSelected: readonly string[] = [];
+      const selectedIndex = selected.indexOf(id)
+      let newSelected: readonly string[] = []
 
       if (selectedIndex === -1) {
-        newSelected = [...selected, id];
+        newSelected = [...selected, id]
       } else {
-        newSelected = selected.filter((s) => s !== id);
+        newSelected = selected.filter(s => s !== id)
       }
 
-      setSelected(newSelected);
-    };
+      setSelected(newSelected)
+    }
 
     const handleBulkDelete = (ids: readonly string[]) => {
-      console.log('Bulk delete:', ids);
-      setSelected([]);
-    };
+      console.log('Bulk delete:', ids)
+      setSelected([])
+    }
 
     const processedComponents = useMemo(() => {
-      let result = [...platformComponents];
+      let result = [...platformComponents]
 
       if (searchValue) {
-        const lower = searchValue.toLowerCase();
+        const lower = searchValue.toLowerCase()
         result = result.filter(
-          (c) =>
+          c =>
             c.name.toLowerCase().includes(lower) ||
             c.description.toLowerCase().includes(lower) ||
-            c.type.toLowerCase().includes(lower),
-        );
+            c.type.toLowerCase().includes(lower)
+        )
       }
 
       result.sort((a, b) => {
-        const aVal = a[sortField as keyof PlatformComponent];
-        const bVal = b[sortField as keyof PlatformComponent];
-        const comparison = String(aVal).localeCompare(String(bVal));
-        return sortDirection === 'asc' ? comparison : -comparison;
-      });
+        const aVal = a[sortField as keyof PlatformComponent]
+        const bVal = b[sortField as keyof PlatformComponent]
+        const comparison = String(aVal).localeCompare(String(bVal))
+        return sortDirection === 'asc' ? comparison : -comparison
+      })
 
-      return result;
-    }, [searchValue, sortField, sortDirection]);
+      return result
+    }, [searchValue, sortField, sortDirection])
 
-    const paginatedComponents = processedComponents.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+    const paginatedComponents = processedComponents.slice(
+      page * rowsPerPage,
+      page * rowsPerPage + rowsPerPage
+    )
 
     return (
       <ListingTable.Provider
         searchValue={searchValue}
-        onSearchChange={(value) => {
-          setSearchValue(value);
-          setPage(0);
+        onSearchChange={value => {
+          setSearchValue(value)
+          setPage(0)
         }}
         sortField={sortField}
         sortDirection={sortDirection}
@@ -534,9 +535,9 @@ export const ProductionExample: Story = {
         rowsPerPage={rowsPerPage}
         totalCount={processedComponents.length}
         onPageChange={setPage}
-        onRowsPerPageChange={(rpp) => {
-          setRowsPerPage(rpp);
-          setPage(0);
+        onRowsPerPageChange={rpp => {
+          setRowsPerPage(rpp)
+          setPage(0)
         }}
         selected={selected}
         onSelectionChange={setSelected}
@@ -578,8 +579,12 @@ export const ProductionExample: Story = {
                 <ListingTable.Cell padding="checkbox">
                   <Checkbox
                     color="primary"
-                    indeterminate={selected.length > 0 && selected.length < platformComponents.length}
-                    checked={platformComponents.length > 0 && selected.length === platformComponents.length}
+                    indeterminate={
+                      selected.length > 0 && selected.length < platformComponents.length
+                    }
+                    checked={
+                      platformComponents.length > 0 && selected.length === platformComponents.length
+                    }
                     onChange={handleSelectAll}
                   />
                 </ListingTable.Cell>
@@ -599,8 +604,8 @@ export const ProductionExample: Story = {
               </ListingTable.Row>
             </ListingTable.Head>
             <ListingTable.Body>
-              {paginatedComponents.map((component) => {
-                const isItemSelected = isSelected(component.id);
+              {paginatedComponents.map(component => {
+                const isItemSelected = isSelected(component.id)
 
                 return (
                   <ListingTable.Row
@@ -639,9 +644,9 @@ export const ProductionExample: Story = {
                         <Tooltip title="Edit">
                           <IconButton
                             size="small"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              console.log('Edit:', component.id);
+                            onClick={e => {
+                              e.stopPropagation()
+                              console.log('Edit:', component.id)
                             }}
                           >
                             <Edit size={16} />
@@ -651,9 +656,9 @@ export const ProductionExample: Story = {
                           <IconButton
                             size="small"
                             color="error"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              console.log('Delete:', component.id);
+                            onClick={e => {
+                              e.stopPropagation()
+                              console.log('Delete:', component.id)
                             }}
                           >
                             <Trash2 size={16} />
@@ -662,7 +667,7 @@ export const ProductionExample: Story = {
                       </ListingTable.RowActions>
                     </ListingTable.Cell>
                   </ListingTable.Row>
-                );
+                )
               })}
             </ListingTable.Body>
           </ListingTable>
@@ -673,16 +678,16 @@ export const ProductionExample: Story = {
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={(_, newPage) => setPage(newPage)}
-            onRowsPerPageChange={(e) => {
-              setRowsPerPage(parseInt(e.target.value, 10));
-              setPage(0);
+            onRowsPerPageChange={e => {
+              setRowsPerPage(parseInt(e.target.value, 10))
+              setPage(0)
             }}
           />
         </ListingTable.Container>
       </ListingTable.Provider>
-    );
+    )
   },
-};
+}
 
 // ============================================================================
 // BASICS SECTION
@@ -718,7 +723,7 @@ export const BaseStructure: Story = {
           </ListingTable.Row>
         </ListingTable.Head>
         <ListingTable.Body>
-          {platformComponents.slice(0, 5).map((component) => (
+          {platformComponents.slice(0, 5).map(component => (
             <ListingTable.Row key={component.id}>
               <ListingTable.Cell>{component.name}</ListingTable.Cell>
               <ListingTable.Cell>{component.type}</ListingTable.Cell>
@@ -730,7 +735,7 @@ export const BaseStructure: Story = {
       </ListingTable>
     </ListingTable.Container>
   ),
-};
+}
 
 /**
  * Control row density with three options: compact, standard, and comfortable.
@@ -746,7 +751,7 @@ export const Density: Story = {
       options: ['compact', 'standard', 'comfortable'],
     },
   },
-  render: (args) => (
+  render: args => (
     <ListingTable.Container sx={{ minWidth: 600 }}>
       <ListingTable density={args.density}>
         <ListingTable.Head>
@@ -757,7 +762,7 @@ export const Density: Story = {
           </ListingTable.Row>
         </ListingTable.Head>
         <ListingTable.Body>
-          {platformComponents.slice(0, 4).map((component) => (
+          {platformComponents.slice(0, 4).map(component => (
             <ListingTable.Row key={component.id}>
               <ListingTable.Cell>{component.name}</ListingTable.Cell>
               <ListingTable.Cell>{component.type}</ListingTable.Cell>
@@ -768,7 +773,7 @@ export const Density: Story = {
       </ListingTable>
     </ListingTable.Container>
   ),
-};
+}
 
 /**
  * When a search matches no rows, `ListingTable.Body` shows an icon and a
@@ -837,7 +842,7 @@ export const EmptyState: Story = {
       />
     </ListingTable.Container>
   ),
-};
+}
 
 // ============================================================================
 // VARIANTS SECTION
@@ -866,9 +871,14 @@ export const TableVariant: Story = {
       control: 'boolean',
     },
   },
-  render: (args) => (
+  render: args => (
     <ListingTable.Container sx={{ minWidth: 700 }}>
-      <ListingTable variant="table" density={args.density} striped={args.striped} bordered={args.bordered}>
+      <ListingTable
+        variant="table"
+        density={args.density}
+        striped={args.striped}
+        bordered={args.bordered}
+      >
         <ListingTable.Head>
           <ListingTable.Row>
             <ListingTable.Cell>Name</ListingTable.Cell>
@@ -878,10 +888,13 @@ export const TableVariant: Story = {
           </ListingTable.Row>
         </ListingTable.Head>
         <ListingTable.Body>
-          {platformComponents.slice(0, 5).map((component) => (
+          {platformComponents.slice(0, 5).map(component => (
             <ListingTable.Row key={component.id} hover>
               <ListingTable.Cell>
-                <ListingTable.CellIcon icon={getComponentIcon(component.type)} primary={component.name} />
+                <ListingTable.CellIcon
+                  icon={getComponentIcon(component.type)}
+                  primary={component.name}
+                />
               </ListingTable.Cell>
               <ListingTable.Cell>
                 <Chip label={component.type} size="small" variant="outlined" />
@@ -902,7 +915,7 @@ export const TableVariant: Story = {
       </ListingTable>
     </ListingTable.Container>
   ),
-};
+}
 
 /**
  * The card variant displays each row as a card with:
@@ -924,7 +937,7 @@ export const CardVariant: Story = {
       options: ['compact', 'standard', 'comfortable'],
     },
   },
-  render: (args) => (
+  render: args => (
     <ListingTable.Container sx={{ minWidth: 700 }} disablePaper>
       <ListingTable variant="card" density={args.density}>
         <ListingTable.Head>
@@ -936,10 +949,13 @@ export const CardVariant: Story = {
           </ListingTable.Row>
         </ListingTable.Head>
         <ListingTable.Body>
-          {platformComponents.slice(0, 5).map((component) => (
+          {platformComponents.slice(0, 5).map(component => (
             <ListingTable.Row key={component.id} variant="card" hover clickable>
               <ListingTable.Cell>
-                <ListingTable.CellIcon icon={getComponentIcon(component.type)} primary={component.name} />
+                <ListingTable.CellIcon
+                  icon={getComponentIcon(component.type)}
+                  primary={component.name}
+                />
               </ListingTable.Cell>
               <ListingTable.Cell>{component.description}</ListingTable.Cell>
               <ListingTable.Cell>
@@ -960,7 +976,7 @@ export const CardVariant: Story = {
       </ListingTable>
     </ListingTable.Container>
   ),
-};
+}
 
 /**
  * The `data-grid` variant renders an MUI DataGrid instead of a traditional HTML table.
@@ -985,8 +1001,8 @@ export const DataGridVariant: Story = {
       options: ['compact', 'standard', 'comfortable'],
     },
   },
-  render: (args) => {
-    const { DataGrid: MuiDataGrid } = DataGrid;
+  render: args => {
+    const { DataGrid: MuiDataGrid } = DataGrid
 
     const columns: React.ComponentProps<typeof MuiDataGrid>['columns'] = [
       {
@@ -1026,9 +1042,9 @@ export const DataGridVariant: Story = {
       },
       { field: 'environment', headerName: 'Environment', flex: 1, minWidth: 130 },
       { field: 'version', headerName: 'Version', flex: 0.8, minWidth: 100 },
-    ];
+    ]
 
-    const rows = platformComponents.map((c) => ({ ...c }));
+    const rows = platformComponents.map(c => ({ ...c }))
 
     return (
       <ListingTable.Container sx={{ minWidth: 700 }}>
@@ -1042,9 +1058,9 @@ export const DataGridVariant: Story = {
           initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
         />
       </ListingTable.Container>
-    );
+    )
   },
-};
+}
 
 /**
  * Row actions that appear on hover, using `ListingTable.RowActions` inside a DataGrid `renderCell`.
@@ -1055,12 +1071,12 @@ export const DataGridVariant: Story = {
 export const DataGridRowActions: Story = {
   name: 'DataGrid Row Actions',
   render: () => {
-    const { DataGrid: MuiDataGrid } = DataGrid;
+    const { DataGrid: MuiDataGrid } = DataGrid
 
     const handleAction = (action: string, id: string, e: React.MouseEvent) => {
-      e.stopPropagation();
-      console.log(`${action}:`, id);
-    };
+      e.stopPropagation()
+      console.log(`${action}:`, id)
+    }
 
     const columns: React.ComponentProps<typeof MuiDataGrid>['columns'] = [
       {
@@ -1111,31 +1127,35 @@ export const DataGridRowActions: Story = {
         renderCell: ({ row }) => (
           <ListingTable.RowActions visibility="hover">
             <Tooltip title="View Details">
-              <IconButton size="small" onClick={(e) => handleAction('View', row.id, e)}>
+              <IconButton size="small" onClick={e => handleAction('View', row.id, e)}>
                 <ExternalLink size={16} />
               </IconButton>
             </Tooltip>
             <Tooltip title="Edit">
-              <IconButton size="small" onClick={(e) => handleAction('Edit', row.id, e)}>
+              <IconButton size="small" onClick={e => handleAction('Edit', row.id, e)}>
                 <Edit size={16} />
               </IconButton>
             </Tooltip>
             <Tooltip title="Delete">
-              <IconButton size="small" color="error" onClick={(e) => handleAction('Delete', row.id, e)}>
+              <IconButton
+                size="small"
+                color="error"
+                onClick={e => handleAction('Delete', row.id, e)}
+              >
                 <Trash2 size={16} />
               </IconButton>
             </Tooltip>
             <Tooltip title="More Options">
-              <IconButton size="small" onClick={(e) => handleAction('More', row.id, e)}>
+              <IconButton size="small" onClick={e => handleAction('More', row.id, e)}>
                 <MoreVertical size={16} />
               </IconButton>
             </Tooltip>
           </ListingTable.RowActions>
         ),
       },
-    ];
+    ]
 
-    const rows = platformComponents.map((c) => ({ ...c }));
+    const rows = platformComponents.map(c => ({ ...c }))
 
     return (
       <ListingTable.Container sx={{ minWidth: 800 }}>
@@ -1149,9 +1169,9 @@ export const DataGridRowActions: Story = {
           initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
         />
       </ListingTable.Container>
-    );
+    )
   },
-};
+}
 
 /**
  * The `data-grid-card` variant renders each DataGrid row as a floating card —
@@ -1176,8 +1196,8 @@ export const DataGridCardVariant: Story = {
       options: ['compact', 'standard', 'comfortable'],
     },
   },
-  render: (args) => {
-    const { DataGrid: MuiDataGrid } = DataGrid;
+  render: args => {
+    const { DataGrid: MuiDataGrid } = DataGrid
 
     const columns: React.ComponentProps<typeof MuiDataGrid>['columns'] = [
       {
@@ -1218,9 +1238,9 @@ export const DataGridCardVariant: Story = {
       },
       { field: 'environment', headerName: 'Environment', flex: 1, minWidth: 130 },
       { field: 'version', headerName: 'Version', flex: 0.8, minWidth: 100 },
-    ];
+    ]
 
-    const rows = platformComponents.map((c) => ({ ...c }));
+    const rows = platformComponents.map(c => ({ ...c }))
 
     return (
       <ListingTable.Provider variant="data-grid-card" density={args.density}>
@@ -1236,9 +1256,9 @@ export const DataGridCardVariant: Story = {
           />
         </ListingTable.Container>
       </ListingTable.Provider>
-    );
+    )
   },
-};
+}
 
 /**
  * Full-featured DataGrid variant integrated with `ListingTable.Provider`.
@@ -1251,10 +1271,10 @@ export const DataGridCardVariant: Story = {
 export const DataGridWithProvider: Story = {
   name: 'DataGrid With Provider',
   render: () => {
-    const { DataGrid: MuiDataGrid } = DataGrid;
-    const [searchValue, setSearchValue] = useState('');
-    const [density, setDensity] = useState<ListingTableDensity>('standard');
-    const [loading, setLoading] = useState(false);
+    const { DataGrid: MuiDataGrid } = DataGrid
+    const [searchValue, setSearchValue] = useState('')
+    const [density, setDensity] = useState<ListingTableDensity>('standard')
+    const [loading, setLoading] = useState(false)
 
     const columns: React.ComponentProps<typeof MuiDataGrid>['columns'] = [
       {
@@ -1296,14 +1316,14 @@ export const DataGridWithProvider: Story = {
       { field: 'environment', headerName: 'Environment', flex: 1, minWidth: 130 },
       { field: 'version', headerName: 'Version', flex: 0.8, minWidth: 100 },
       { field: 'lastDeployed', headerName: 'Last Deployed', flex: 1, minWidth: 130 },
-    ];
+    ]
 
-    const rows = platformComponents.map((c) => ({ ...c }));
+    const rows = platformComponents.map(c => ({ ...c }))
 
     const handleSimulateLoad = () => {
-      setLoading(true);
-      setTimeout(() => setLoading(false), 1500);
-    };
+      setLoading(true)
+      setTimeout(() => setLoading(false), 1500)
+    }
 
     return (
       <ListingTable.Provider
@@ -1342,9 +1362,9 @@ export const DataGridWithProvider: Story = {
           />
         </ListingTable.Container>
       </ListingTable.Provider>
-    );
+    )
   },
-};
+}
 
 /**
  * Side-by-side comparison of table and card variants.
@@ -1367,10 +1387,13 @@ export const VariantComparison: Story = {
               </ListingTable.Row>
             </ListingTable.Head>
             <ListingTable.Body>
-              {platformComponents.slice(0, 3).map((component) => (
+              {platformComponents.slice(0, 3).map(component => (
                 <ListingTable.Row key={component.id} hover>
                   <ListingTable.Cell>
-                    <ListingTable.CellIcon icon={getComponentIcon(component.type)} primary={component.name} />
+                    <ListingTable.CellIcon
+                      icon={getComponentIcon(component.type)}
+                      primary={component.name}
+                    />
                   </ListingTable.Cell>
                   <ListingTable.Cell>
                     <Chip label={component.type} size="small" variant="outlined" />
@@ -1404,10 +1427,13 @@ export const VariantComparison: Story = {
               </ListingTable.Row>
             </ListingTable.Head>
             <ListingTable.Body>
-              {platformComponents.slice(0, 3).map((component) => (
+              {platformComponents.slice(0, 3).map(component => (
                 <ListingTable.Row key={component.id} variant="card" hover clickable>
                   <ListingTable.Cell>
-                    <ListingTable.CellIcon icon={getComponentIcon(component.type)} primary={component.name} />
+                    <ListingTable.CellIcon
+                      icon={getComponentIcon(component.type)}
+                      primary={component.name}
+                    />
                   </ListingTable.Cell>
                   <ListingTable.Cell>
                     <Chip label={component.type} size="small" variant="outlined" />
@@ -1428,7 +1454,7 @@ export const VariantComparison: Story = {
       </div>
     </Stack>
   ),
-};
+}
 
 // ============================================================================
 // FEATURES SECTION
@@ -1444,7 +1470,7 @@ export const VariantComparison: Story = {
  */
 export const Toolbar: Story = {
   render: () => {
-    const [density, setDensity] = useState<ListingTableDensity>('standard');
+    const [density, setDensity] = useState<ListingTableDensity>('standard')
 
     return (
       <ListingTable.Container sx={{ minWidth: 700 }}>
@@ -1470,7 +1496,7 @@ export const Toolbar: Story = {
             </ListingTable.Row>
           </ListingTable.Head>
           <ListingTable.Body>
-            {platformComponents.slice(0, 5).map((component) => (
+            {platformComponents.slice(0, 5).map(component => (
               <ListingTable.Row key={component.id} hover>
                 <ListingTable.Cell>
                   <ListingTable.CellIcon
@@ -1497,9 +1523,9 @@ export const Toolbar: Story = {
           </ListingTable.Body>
         </ListingTable>
       </ListingTable.Container>
-    );
+    )
   },
-};
+}
 
 /**
  * Sortable columns using `ListingTable.SortLabel`.
@@ -1521,27 +1547,27 @@ export const Sorting: Story = {
       options: ['compact', 'standard', 'comfortable'],
     },
   },
-  render: (args) => {
-    const [sortField, setSortField] = useState<keyof PlatformComponent>('name');
-    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+  render: args => {
+    const [sortField, setSortField] = useState<keyof PlatformComponent>('name')
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
 
     const sortedComponents = useMemo(() => {
       return [...platformComponents].sort((a, b) => {
-        const aVal = a[sortField];
-        const bVal = b[sortField];
-        const comparison = String(aVal).localeCompare(String(bVal));
-        return sortDirection === 'asc' ? comparison : -comparison;
-      });
-    }, [sortField, sortDirection]);
+        const aVal = a[sortField]
+        const bVal = b[sortField]
+        const comparison = String(aVal).localeCompare(String(bVal))
+        return sortDirection === 'asc' ? comparison : -comparison
+      })
+    }, [sortField, sortDirection])
 
     const handleSort = (field: keyof PlatformComponent) => {
       if (sortField === field) {
-        setSortDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+        setSortDirection(prev => (prev === 'asc' ? 'desc' : 'asc'))
       } else {
-        setSortField(field);
-        setSortDirection('asc');
+        setSortField(field)
+        setSortDirection('asc')
       }
-    };
+    }
 
     return (
       <ListingTable.Container sx={{ minWidth: 700 }} disablePaper={args.variant === 'card'}>
@@ -1587,10 +1613,13 @@ export const Sorting: Story = {
             </ListingTable.Row>
           </ListingTable.Head>
           <ListingTable.Body>
-            {sortedComponents.slice(0, 5).map((component) => (
+            {sortedComponents.slice(0, 5).map(component => (
               <ListingTable.Row key={component.id} hover variant={args.variant}>
                 <ListingTable.Cell>
-                  <ListingTable.CellIcon icon={getComponentIcon(component.type)} primary={component.name} />
+                  <ListingTable.CellIcon
+                    icon={getComponentIcon(component.type)}
+                    primary={component.name}
+                  />
                 </ListingTable.Cell>
                 <ListingTable.Cell>
                   <Chip label={component.type} size="small" variant="outlined" />
@@ -1605,7 +1634,12 @@ export const Sorting: Story = {
                   />
                 </ListingTable.Cell>
                 <ListingTable.Cell>
-                  <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontFamily: 'monospace',
+                    }}
+                  >
                     {component.version}
                   </Typography>
                 </ListingTable.Cell>
@@ -1614,9 +1648,9 @@ export const Sorting: Story = {
           </ListingTable.Body>
         </ListingTable>
       </ListingTable.Container>
-    );
+    )
   },
-};
+}
 
 /**
  * Filterable columns using `ListingTable.Filter`, the filter counterpart of `SortLabel`.
@@ -1700,7 +1734,7 @@ export const Filtering: Story = {
                   />
                 </ListingTable.Cell>
                 <ListingTable.Cell>
-                  <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
+                  <Typography variant="body2" fontFamily="monospace">
                     {component.version}
                   </Typography>
                 </ListingTable.Cell>
@@ -1793,7 +1827,7 @@ export const FilteringWithProvider: Story = {
                     />
                   </ListingTable.Cell>
                   <ListingTable.Cell>
-                    <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
+                    <Typography variant="body2" fontFamily="monospace">
                       {component.version}
                     </Typography>
                   </ListingTable.Cell>
@@ -1830,36 +1864,39 @@ export const Selection: Story = {
       options: ['compact', 'standard', 'comfortable'],
     },
   },
-  render: (args) => {
-    const [selected, setSelected] = useState<readonly string[]>([]);
+  render: args => {
+    const [selected, setSelected] = useState<readonly string[]>([])
 
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
       if (event.target.checked) {
-        const newSelected = platformComponents.map((c) => c.id);
-        setSelected(newSelected);
-        return;
+        const newSelected = platformComponents.map(c => c.id)
+        setSelected(newSelected)
+        return
       }
-      setSelected([]);
-    };
+      setSelected([])
+    }
 
     const handleClick = (id: string) => {
-      const selectedIndex = selected.indexOf(id);
-      let newSelected: readonly string[] = [];
+      const selectedIndex = selected.indexOf(id)
+      let newSelected: readonly string[] = []
 
       if (selectedIndex === -1) {
-        newSelected = newSelected.concat(selected, id);
+        newSelected = newSelected.concat(selected, id)
       } else if (selectedIndex === 0) {
-        newSelected = newSelected.concat(selected.slice(1));
+        newSelected = newSelected.concat(selected.slice(1))
       } else if (selectedIndex === selected.length - 1) {
-        newSelected = newSelected.concat(selected.slice(0, -1));
+        newSelected = newSelected.concat(selected.slice(0, -1))
       } else if (selectedIndex > 0) {
-        newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
+        newSelected = newSelected.concat(
+          selected.slice(0, selectedIndex),
+          selected.slice(selectedIndex + 1)
+        )
       }
 
-      setSelected(newSelected);
-    };
+      setSelected(newSelected)
+    }
 
-    const isSelected = (id: string) => selected.indexOf(id) !== -1;
+    const isSelected = (id: string) => selected.indexOf(id) !== -1
 
     return (
       <ListingTable.Container sx={{ minWidth: 700 }} disablePaper={args.variant === 'card'}>
@@ -1870,7 +1907,9 @@ export const Selection: Story = {
                 <Checkbox
                   color="primary"
                   indeterminate={selected.length > 0 && selected.length < platformComponents.length}
-                  checked={platformComponents.length > 0 && selected.length === platformComponents.length}
+                  checked={
+                    platformComponents.length > 0 && selected.length === platformComponents.length
+                  }
                   onChange={handleSelectAllClick}
                 />
               </ListingTable.Cell>
@@ -1881,8 +1920,8 @@ export const Selection: Story = {
             </ListingTable.Row>
           </ListingTable.Head>
           <ListingTable.Body>
-            {platformComponents.map((component) => {
-              const isItemSelected = isSelected(component.id);
+            {platformComponents.map(component => {
+              const isItemSelected = isSelected(component.id)
 
               return (
                 <ListingTable.Row
@@ -1899,7 +1938,10 @@ export const Selection: Story = {
                     <Checkbox color="primary" checked={isItemSelected} />
                   </ListingTable.Cell>
                   <ListingTable.Cell>
-                    <ListingTable.CellIcon icon={getComponentIcon(component.type)} primary={component.name} />
+                    <ListingTable.CellIcon
+                      icon={getComponentIcon(component.type)}
+                      primary={component.name}
+                    />
                   </ListingTable.Cell>
                   <ListingTable.Cell>
                     <Chip label={component.type} size="small" variant="outlined" />
@@ -1915,14 +1957,14 @@ export const Selection: Story = {
                   </ListingTable.Cell>
                   <ListingTable.Cell>{component.environment}</ListingTable.Cell>
                 </ListingTable.Row>
-              );
+              )
             })}
           </ListingTable.Body>
         </ListingTable>
       </ListingTable.Container>
-    );
+    )
   },
-};
+}
 
 /**
  * Pagination using MUI TablePagination.
@@ -1942,18 +1984,18 @@ export const Pagination: Story = {
       options: ['compact', 'standard', 'comfortable'],
     },
   },
-  render: (args) => {
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(3);
+  render: args => {
+    const [page, setPage] = useState(0)
+    const [rowsPerPage, setRowsPerPage] = useState(3)
 
     const handleChangePage = (_event: unknown, newPage: number) => {
-      setPage(newPage);
-    };
+      setPage(newPage)
+    }
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setRowsPerPage(parseInt(event.target.value, 10));
-      setPage(0);
-    };
+      setRowsPerPage(parseInt(event.target.value, 10))
+      setPage(0)
+    }
 
     return (
       <ListingTable.Container sx={{ minWidth: 700 }} disablePaper={args.variant === 'card'}>
@@ -1967,30 +2009,32 @@ export const Pagination: Story = {
             </ListingTable.Row>
           </ListingTable.Head>
           <ListingTable.Body>
-            {platformComponents.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((component) => (
-              <ListingTable.Row key={component.id} hover variant={args.variant}>
-                <ListingTable.Cell>
-                  <ListingTable.CellIcon
-                    icon={getComponentIcon(component.type)}
-                    primary={component.name}
-                    secondary={component.description}
-                  />
-                </ListingTable.Cell>
-                <ListingTable.Cell>
-                  <Chip label={component.type} size="small" variant="outlined" />
-                </ListingTable.Cell>
-                <ListingTable.Cell>
-                  <Chip
-                    icon={getStatusIcon(component.status) || undefined}
-                    label={component.status}
-                    size="small"
-                    color={getStatusColor(component.status)}
-                    variant="outlined"
-                  />
-                </ListingTable.Cell>
-                <ListingTable.Cell>{component.environment}</ListingTable.Cell>
-              </ListingTable.Row>
-            ))}
+            {platformComponents
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map(component => (
+                <ListingTable.Row key={component.id} hover variant={args.variant}>
+                  <ListingTable.Cell>
+                    <ListingTable.CellIcon
+                      icon={getComponentIcon(component.type)}
+                      primary={component.name}
+                      secondary={component.description}
+                    />
+                  </ListingTable.Cell>
+                  <ListingTable.Cell>
+                    <Chip label={component.type} size="small" variant="outlined" />
+                  </ListingTable.Cell>
+                  <ListingTable.Cell>
+                    <Chip
+                      icon={getStatusIcon(component.status) || undefined}
+                      label={component.status}
+                      size="small"
+                      color={getStatusColor(component.status)}
+                      variant="outlined"
+                    />
+                  </ListingTable.Cell>
+                  <ListingTable.Cell>{component.environment}</ListingTable.Cell>
+                </ListingTable.Row>
+              ))}
           </ListingTable.Body>
         </ListingTable>
         <TablePagination
@@ -2003,9 +2047,9 @@ export const Pagination: Story = {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </ListingTable.Container>
-    );
+    )
   },
-};
+}
 
 /**
  * Row actions that appear on hover.
@@ -2016,9 +2060,9 @@ export const RowActions: Story = {
   name: 'Row Actions',
   render: () => {
     const handleAction = (action: string, id: string, e: React.MouseEvent) => {
-      e.stopPropagation();
-      console.log(`${action}:`, id);
-    };
+      e.stopPropagation()
+      console.log(`${action}:`, id)
+    }
 
     return (
       <ListingTable.Container sx={{ minWidth: 800 }}>
@@ -2033,7 +2077,7 @@ export const RowActions: Story = {
             </ListingTable.Row>
           </ListingTable.Head>
           <ListingTable.Body>
-            {platformComponents.slice(0, 5).map((component) => (
+            {platformComponents.slice(0, 5).map(component => (
               <ListingTable.Row
                 key={component.id}
                 hover
@@ -2063,22 +2107,26 @@ export const RowActions: Story = {
                 <ListingTable.Cell align="center">
                   <ListingTable.RowActions visibility="hover">
                     <Tooltip title="View Details">
-                      <IconButton size="small" onClick={(e) => handleAction('View', component.id, e)}>
+                      <IconButton size="small" onClick={e => handleAction('View', component.id, e)}>
                         <ExternalLink size={16} />
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Edit">
-                      <IconButton size="small" onClick={(e) => handleAction('Edit', component.id, e)}>
+                      <IconButton size="small" onClick={e => handleAction('Edit', component.id, e)}>
                         <Edit size={16} />
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete">
-                      <IconButton size="small" color="error" onClick={(e) => handleAction('Delete', component.id, e)}>
+                      <IconButton
+                        size="small"
+                        color="error"
+                        onClick={e => handleAction('Delete', component.id, e)}
+                      >
                         <Trash2 size={16} />
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="More Options">
-                      <IconButton size="small" onClick={(e) => handleAction('More', component.id, e)}>
+                      <IconButton size="small" onClick={e => handleAction('More', component.id, e)}>
                         <MoreVertical size={16} />
                       </IconButton>
                     </Tooltip>
@@ -2089,9 +2137,9 @@ export const RowActions: Story = {
           </ListingTable.Body>
         </ListingTable>
       </ListingTable.Container>
-    );
+    )
   },
-};
+}
 
 // ============================================================================
 // PROVIDER PATTERN SECTION
@@ -2116,25 +2164,29 @@ export const RowActions: Story = {
 export const ProviderIntroduction: Story = {
   name: 'Introduction',
   render: () => {
-    const [sortField, setSortField] = useState<string>('name');
-    const [sortDirection, setSortDirection] = useState<ListingTableSortDirection>('asc');
+    const [sortField, setSortField] = useState<string>('name')
+    const [sortDirection, setSortDirection] = useState<ListingTableSortDirection>('asc')
 
     const handleSortChange = (field: string, direction: ListingTableSortDirection) => {
-      setSortField(field);
-      setSortDirection(direction);
-    };
+      setSortField(field)
+      setSortDirection(direction)
+    }
 
     const sortedComponents = useMemo(() => {
       return [...platformComponents].sort((a, b) => {
-        const aVal = a[sortField as keyof PlatformComponent];
-        const bVal = b[sortField as keyof PlatformComponent];
-        const comparison = String(aVal).localeCompare(String(bVal));
-        return sortDirection === 'asc' ? comparison : -comparison;
-      });
-    }, [sortField, sortDirection]);
+        const aVal = a[sortField as keyof PlatformComponent]
+        const bVal = b[sortField as keyof PlatformComponent]
+        const comparison = String(aVal).localeCompare(String(bVal))
+        return sortDirection === 'asc' ? comparison : -comparison
+      })
+    }, [sortField, sortDirection])
 
     return (
-      <ListingTable.Provider sortField={sortField} sortDirection={sortDirection} onSortChange={handleSortChange}>
+      <ListingTable.Provider
+        sortField={sortField}
+        sortDirection={sortDirection}
+        onSortChange={handleSortChange}
+      >
         <ListingTable.Container sx={{ minWidth: 700 }}>
           <ListingTable>
             <ListingTable.Head>
@@ -2155,7 +2207,7 @@ export const ProviderIntroduction: Story = {
               </ListingTable.Row>
             </ListingTable.Head>
             <ListingTable.Body>
-              {sortedComponents.slice(0, 5).map((component) => (
+              {sortedComponents.slice(0, 5).map(component => (
                 <ListingTable.Row key={component.id} hover>
                   <ListingTable.Cell>
                     <ListingTable.CellIcon
@@ -2183,9 +2235,9 @@ export const ProviderIntroduction: Story = {
           </ListingTable>
         </ListingTable.Container>
       </ListingTable.Provider>
-    );
+    )
   },
-};
+}
 
 /**
  * Demonstrates context auto-binding for multiple components.
@@ -2200,38 +2252,38 @@ export const ProviderIntroduction: Story = {
 export const ContextAutoBinding: Story = {
   name: 'Context Auto-Binding',
   render: () => {
-    const [searchValue, setSearchValue] = useState('');
-    const [sortField, setSortField] = useState<string>('name');
-    const [sortDirection, setSortDirection] = useState<ListingTableSortDirection>('asc');
-    const [density, setDensity] = useState<ListingTableDensity>('standard');
+    const [searchValue, setSearchValue] = useState('')
+    const [sortField, setSortField] = useState<string>('name')
+    const [sortDirection, setSortDirection] = useState<ListingTableSortDirection>('asc')
+    const [density, setDensity] = useState<ListingTableDensity>('standard')
 
     const handleSortChange = (field: string, direction: ListingTableSortDirection) => {
-      setSortField(field);
-      setSortDirection(direction);
-    };
+      setSortField(field)
+      setSortDirection(direction)
+    }
 
     const filteredComponents = useMemo(() => {
-      let result = [...platformComponents];
+      let result = [...platformComponents]
 
       if (searchValue) {
-        const lower = searchValue.toLowerCase();
+        const lower = searchValue.toLowerCase()
         result = result.filter(
-          (c) =>
+          c =>
             c.name.toLowerCase().includes(lower) ||
             c.description.toLowerCase().includes(lower) ||
-            c.type.toLowerCase().includes(lower),
-        );
+            c.type.toLowerCase().includes(lower)
+        )
       }
 
       result.sort((a, b) => {
-        const aVal = a[sortField as keyof PlatformComponent];
-        const bVal = b[sortField as keyof PlatformComponent];
-        const comparison = String(aVal).localeCompare(String(bVal));
-        return sortDirection === 'asc' ? comparison : -comparison;
-      });
+        const aVal = a[sortField as keyof PlatformComponent]
+        const bVal = b[sortField as keyof PlatformComponent]
+        const comparison = String(aVal).localeCompare(String(bVal))
+        return sortDirection === 'asc' ? comparison : -comparison
+      })
 
-      return result;
-    }, [searchValue, sortField, sortDirection]);
+      return result
+    }, [searchValue, sortField, sortDirection])
 
     return (
       <ListingTable.Provider
@@ -2277,7 +2329,7 @@ export const ContextAutoBinding: Story = {
               </ListingTable.Row>
             </ListingTable.Head>
             <ListingTable.Body>
-              {filteredComponents.slice(0, 5).map((component) => (
+              {filteredComponents.slice(0, 5).map(component => (
                 <ListingTable.Row key={component.id} hover>
                   <ListingTable.Cell>
                     <ListingTable.CellIcon
@@ -2305,9 +2357,9 @@ export const ContextAutoBinding: Story = {
           </ListingTable>
         </ListingTable.Container>
       </ListingTable.Provider>
-    );
+    )
   },
-};
+}
 
 /**
  * Complete Provider example with all features: search, sort, pagination, selection, density, and bulk actions.
@@ -2317,78 +2369,81 @@ export const ContextAutoBinding: Story = {
 export const ProviderFullFeatured: Story = {
   name: 'Full Featured',
   render: () => {
-    const [searchValue, setSearchValue] = useState('');
-    const [sortField, setSortField] = useState<string>('name');
-    const [sortDirection, setSortDirection] = useState<ListingTableSortDirection>('asc');
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [selected, setSelected] = useState<readonly string[]>([]);
-    const [density, setDensity] = useState<ListingTableDensity>('standard');
+    const [searchValue, setSearchValue] = useState('')
+    const [sortField, setSortField] = useState<string>('name')
+    const [sortDirection, setSortDirection] = useState<ListingTableSortDirection>('asc')
+    const [page, setPage] = useState(0)
+    const [rowsPerPage, setRowsPerPage] = useState(5)
+    const [selected, setSelected] = useState<readonly string[]>([])
+    const [density, setDensity] = useState<ListingTableDensity>('standard')
 
     const handleSortChange = (field: string, direction: ListingTableSortDirection) => {
-      setSortField(field);
-      setSortDirection(direction);
-    };
+      setSortField(field)
+      setSortDirection(direction)
+    }
 
-    const isSelected = (id: string) => selected.includes(id);
+    const isSelected = (id: string) => selected.includes(id)
 
     const handleSelectAll = () => {
       if (selected.length === platformComponents.length) {
-        setSelected([]);
+        setSelected([])
       } else {
-        setSelected(platformComponents.map((c) => c.id));
+        setSelected(platformComponents.map(c => c.id))
       }
-    };
+    }
 
     const handleRowSelect = (id: string) => {
-      const selectedIndex = selected.indexOf(id);
-      let newSelected: readonly string[] = [];
+      const selectedIndex = selected.indexOf(id)
+      let newSelected: readonly string[] = []
 
       if (selectedIndex === -1) {
-        newSelected = [...selected, id];
+        newSelected = [...selected, id]
       } else {
-        newSelected = selected.filter((s) => s !== id);
+        newSelected = selected.filter(s => s !== id)
       }
 
-      setSelected(newSelected);
-    };
+      setSelected(newSelected)
+    }
 
     const handleBulkDelete = (ids: readonly string[]) => {
-      console.log('Bulk delete:', ids);
-      setSelected([]);
-    };
+      console.log('Bulk delete:', ids)
+      setSelected([])
+    }
 
     const processedComponents = useMemo(() => {
-      let result = [...platformComponents];
+      let result = [...platformComponents]
 
       if (searchValue) {
-        const lower = searchValue.toLowerCase();
+        const lower = searchValue.toLowerCase()
         result = result.filter(
-          (c) =>
+          c =>
             c.name.toLowerCase().includes(lower) ||
             c.description.toLowerCase().includes(lower) ||
-            c.type.toLowerCase().includes(lower),
-        );
+            c.type.toLowerCase().includes(lower)
+        )
       }
 
       result.sort((a, b) => {
-        const aVal = a[sortField as keyof PlatformComponent];
-        const bVal = b[sortField as keyof PlatformComponent];
-        const comparison = String(aVal).localeCompare(String(bVal));
-        return sortDirection === 'asc' ? comparison : -comparison;
-      });
+        const aVal = a[sortField as keyof PlatformComponent]
+        const bVal = b[sortField as keyof PlatformComponent]
+        const comparison = String(aVal).localeCompare(String(bVal))
+        return sortDirection === 'asc' ? comparison : -comparison
+      })
 
-      return result;
-    }, [searchValue, sortField, sortDirection]);
+      return result
+    }, [searchValue, sortField, sortDirection])
 
-    const paginatedComponents = processedComponents.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+    const paginatedComponents = processedComponents.slice(
+      page * rowsPerPage,
+      page * rowsPerPage + rowsPerPage
+    )
 
     return (
       <ListingTable.Provider
         searchValue={searchValue}
-        onSearchChange={(value) => {
-          setSearchValue(value);
-          setPage(0);
+        onSearchChange={value => {
+          setSearchValue(value)
+          setPage(0)
         }}
         sortField={sortField}
         sortDirection={sortDirection}
@@ -2397,9 +2452,9 @@ export const ProviderFullFeatured: Story = {
         rowsPerPage={rowsPerPage}
         totalCount={processedComponents.length}
         onPageChange={setPage}
-        onRowsPerPageChange={(rpp) => {
-          setRowsPerPage(rpp);
-          setPage(0);
+        onRowsPerPageChange={rpp => {
+          setRowsPerPage(rpp)
+          setPage(0)
         }}
         selected={selected}
         onSelectionChange={setSelected}
@@ -2440,8 +2495,12 @@ export const ProviderFullFeatured: Story = {
                 <ListingTable.Cell padding="checkbox">
                   <Checkbox
                     color="primary"
-                    indeterminate={selected.length > 0 && selected.length < platformComponents.length}
-                    checked={platformComponents.length > 0 && selected.length === platformComponents.length}
+                    indeterminate={
+                      selected.length > 0 && selected.length < platformComponents.length
+                    }
+                    checked={
+                      platformComponents.length > 0 && selected.length === platformComponents.length
+                    }
                     onChange={handleSelectAll}
                   />
                 </ListingTable.Cell>
@@ -2461,8 +2520,8 @@ export const ProviderFullFeatured: Story = {
               </ListingTable.Row>
             </ListingTable.Head>
             <ListingTable.Body>
-              {paginatedComponents.map((component) => {
-                const isItemSelected = isSelected(component.id);
+              {paginatedComponents.map(component => {
+                const isItemSelected = isSelected(component.id)
 
                 return (
                   <ListingTable.Row
@@ -2500,9 +2559,9 @@ export const ProviderFullFeatured: Story = {
                         <Tooltip title="Edit">
                           <IconButton
                             size="small"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              console.log('Edit:', component.id);
+                            onClick={e => {
+                              e.stopPropagation()
+                              console.log('Edit:', component.id)
                             }}
                           >
                             <Edit size={16} />
@@ -2512,9 +2571,9 @@ export const ProviderFullFeatured: Story = {
                           <IconButton
                             size="small"
                             color="error"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              console.log('Delete:', component.id);
+                            onClick={e => {
+                              e.stopPropagation()
+                              console.log('Delete:', component.id)
                             }}
                           >
                             <Trash2 size={16} />
@@ -2523,7 +2582,7 @@ export const ProviderFullFeatured: Story = {
                       </ListingTable.RowActions>
                     </ListingTable.Cell>
                   </ListingTable.Row>
-                );
+                )
               })}
             </ListingTable.Body>
           </ListingTable>
@@ -2534,16 +2593,16 @@ export const ProviderFullFeatured: Story = {
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={(_, newPage) => setPage(newPage)}
-            onRowsPerPageChange={(e) => {
-              setRowsPerPage(parseInt(e.target.value, 10));
-              setPage(0);
+            onRowsPerPageChange={e => {
+              setRowsPerPage(parseInt(e.target.value, 10))
+              setPage(0)
             }}
           />
         </ListingTable.Container>
       </ListingTable.Provider>
-    );
+    )
   },
-};
+}
 
 // ============================================================================
 // SEARCH EXTENSIBILITY SECTION
@@ -2559,18 +2618,18 @@ export const ProviderFullFeatured: Story = {
 export const BuiltInSearch: Story = {
   name: 'Built-in Search',
   render: () => {
-    const [searchValue, setSearchValue] = useState('');
+    const [searchValue, setSearchValue] = useState('')
 
     const filteredComponents = useMemo(() => {
-      if (!searchValue) return platformComponents;
-      const lower = searchValue.toLowerCase();
+      if (!searchValue) return platformComponents
+      const lower = searchValue.toLowerCase()
       return platformComponents.filter(
-        (c) =>
+        c =>
           c.name.toLowerCase().includes(lower) ||
           c.description.toLowerCase().includes(lower) ||
-          c.type.toLowerCase().includes(lower),
-      );
-    }, [searchValue]);
+          c.type.toLowerCase().includes(lower)
+      )
+    }, [searchValue])
 
     return (
       <ListingTable.Container sx={{ minWidth: 700 }}>
@@ -2591,7 +2650,7 @@ export const BuiltInSearch: Story = {
           </ListingTable.Head>
           <ListingTable.Body>
             {filteredComponents.length > 0 ? (
-              filteredComponents.map((component) => (
+              filteredComponents.map(component => (
                 <ListingTable.Row key={component.id} hover>
                   <ListingTable.Cell>
                     <ListingTable.CellIcon
@@ -2619,7 +2678,13 @@ export const BuiltInSearch: Story = {
               <ListingTable.Row>
                 <ListingTable.Cell colSpan={4}>
                   <Box sx={{ textAlign: 'center', py: 4 }}>
-                    <Typography color="text.secondary">No components match your search criteria.</Typography>
+                    <Typography
+                      sx={{
+                        color: 'text.secondary',
+                      }}
+                    >
+                      No components match your search criteria.
+                    </Typography>
                   </Box>
                 </ListingTable.Cell>
               </ListingTable.Row>
@@ -2627,17 +2692,17 @@ export const BuiltInSearch: Story = {
           </ListingTable.Body>
         </ListingTable>
       </ListingTable.Container>
-    );
+    )
   },
-};
+}
 
 /**
  * Custom search component that connects to the table context via `useListingTable` hook.
  */
 const CustomSearchAutocomplete = () => {
-  const tableContext = useListingTable();
+  const tableContext = useListingTable()
 
-  const componentNames = platformComponents.map((c) => c.name);
+  const componentNames = platformComponents.map(c => c.name)
 
   return (
     <Autocomplete
@@ -2645,13 +2710,18 @@ const CustomSearchAutocomplete = () => {
       options={componentNames}
       inputValue={tableContext?.searchValue ?? ''}
       onInputChange={(_, value) => tableContext?.onSearchChange?.(value)}
-      renderInput={(params) => (
-        <TextField {...params} size="small" placeholder="Search or select component..." sx={{ minWidth: 280 }} />
+      renderInput={params => (
+        <TextField
+          {...params}
+          size="small"
+          placeholder="Search or select component..."
+          sx={{ minWidth: 280 }}
+        />
       )}
       sx={{ minWidth: 280 }}
     />
-  );
-};
+  )
+}
 
 /**
  * Replace the default search with a custom component using `searchSlot`.
@@ -2664,18 +2734,18 @@ const CustomSearchAutocomplete = () => {
 export const CustomSearchComponent: Story = {
   name: 'Custom Search Component',
   render: () => {
-    const [searchValue, setSearchValue] = useState('');
+    const [searchValue, setSearchValue] = useState('')
 
     const filteredComponents = useMemo(() => {
-      if (!searchValue) return platformComponents;
-      const lower = searchValue.toLowerCase();
+      if (!searchValue) return platformComponents
+      const lower = searchValue.toLowerCase()
       return platformComponents.filter(
-        (c) =>
+        c =>
           c.name.toLowerCase().includes(lower) ||
           c.description.toLowerCase().includes(lower) ||
-          c.type.toLowerCase().includes(lower),
-      );
-    }, [searchValue]);
+          c.type.toLowerCase().includes(lower)
+      )
+    }, [searchValue])
 
     return (
       <ListingTable.Provider searchValue={searchValue} onSearchChange={setSearchValue}>
@@ -2699,7 +2769,7 @@ export const CustomSearchComponent: Story = {
             </ListingTable.Head>
             <ListingTable.Body>
               {filteredComponents.length > 0 ? (
-                filteredComponents.slice(0, 5).map((component) => (
+                filteredComponents.slice(0, 5).map(component => (
                   <ListingTable.Row key={component.id} hover>
                     <ListingTable.Cell>
                       <ListingTable.CellIcon
@@ -2727,7 +2797,13 @@ export const CustomSearchComponent: Story = {
                 <ListingTable.Row>
                   <ListingTable.Cell colSpan={4}>
                     <Box sx={{ textAlign: 'center', py: 4 }}>
-                      <Typography color="text.secondary">No components match your search criteria.</Typography>
+                      <Typography
+                        sx={{
+                          color: 'text.secondary',
+                        }}
+                      >
+                        No components match your search criteria.
+                      </Typography>
                     </Box>
                   </ListingTable.Cell>
                 </ListingTable.Row>
@@ -2736,30 +2812,30 @@ export const CustomSearchComponent: Story = {
           </ListingTable>
         </ListingTable.Container>
       </ListingTable.Provider>
-    );
+    )
   },
-};
+}
 
 /**
  * Custom filter component that uses the `useListingTable()` hook.
  */
 const TypeFilterChips = () => {
-  const tableContext = useListingTable();
-  const currentFilter = tableContext?.searchValue ?? '';
+  const tableContext = useListingTable()
+  const currentFilter = tableContext?.searchValue ?? ''
 
-  const types: ComponentType[] = ['Service', 'WebApp', 'Webhook', 'Proxy'];
+  const types: ComponentType[] = ['Service', 'WebApp', 'Webhook', 'Proxy']
 
   const handleFilterClick = (type: ComponentType) => {
     if (currentFilter === type) {
-      tableContext?.onSearchChange?.('');
+      tableContext?.onSearchChange?.('')
     } else {
-      tableContext?.onSearchChange?.(type);
+      tableContext?.onSearchChange?.(type)
     }
-  };
+  }
 
   return (
     <Stack direction="row" spacing={1}>
-      {types.map((type) => (
+      {types.map(type => (
         <Chip
           key={type}
           label={type}
@@ -2772,8 +2848,8 @@ const TypeFilterChips = () => {
         />
       ))}
     </Stack>
-  );
-};
+  )
+}
 
 /**
  * Build custom components that integrate with ListingTable context using the `useListingTable()` hook.
@@ -2793,18 +2869,18 @@ const TypeFilterChips = () => {
 export const UseListingTableHook: Story = {
   name: 'useListingTable Hook',
   render: () => {
-    const [searchValue, setSearchValue] = useState('');
+    const [searchValue, setSearchValue] = useState('')
 
     const filteredComponents = useMemo(() => {
-      if (!searchValue) return platformComponents;
-      const lower = searchValue.toLowerCase();
+      if (!searchValue) return platformComponents
+      const lower = searchValue.toLowerCase()
       return platformComponents.filter(
-        (c) =>
+        c =>
           c.name.toLowerCase().includes(lower) ||
           c.description.toLowerCase().includes(lower) ||
-          c.type.toLowerCase().includes(lower),
-      );
-    }, [searchValue]);
+          c.type.toLowerCase().includes(lower)
+      )
+    }, [searchValue])
 
     return (
       <ListingTable.Provider searchValue={searchValue} onSearchChange={setSearchValue}>
@@ -2830,7 +2906,7 @@ export const UseListingTableHook: Story = {
             </ListingTable.Head>
             <ListingTable.Body>
               {filteredComponents.length > 0 ? (
-                filteredComponents.slice(0, 5).map((component) => (
+                filteredComponents.slice(0, 5).map(component => (
                   <ListingTable.Row key={component.id} hover>
                     <ListingTable.Cell>
                       <ListingTable.CellIcon
@@ -2858,7 +2934,13 @@ export const UseListingTableHook: Story = {
                 <ListingTable.Row>
                   <ListingTable.Cell colSpan={4}>
                     <Box sx={{ textAlign: 'center', py: 4 }}>
-                      <Typography color="text.secondary">No components match your filter.</Typography>
+                      <Typography
+                        sx={{
+                          color: 'text.secondary',
+                        }}
+                      >
+                        No components match your filter.
+                      </Typography>
                     </Box>
                   </ListingTable.Cell>
                 </ListingTable.Row>
@@ -2867,6 +2949,6 @@ export const UseListingTableHook: Story = {
           </ListingTable>
         </ListingTable.Container>
       </ListingTable.Provider>
-    );
+    )
   },
-};
+}

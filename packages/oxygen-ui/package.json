@@ -9,13 +9,12 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": "./dist/index.js"
     },
+    "./path-map.json": "./dist/path-map.json",
     "./*": {
-      "types": "./dist/*.d.ts",
-      "import": "./dist/*.js",
-      "require": "./dist/*.cjs"
+      "types": "./dist/paths/*.d.ts",
+      "import": "./dist/paths/*.js"
     }
   },
   "bin": {
@@ -30,16 +29,17 @@
     "bin"
   ],
   "sideEffects": [
-    "src/styles/Themes/theme.css",
-    "dist/styles/Themes/theme.css"
+    "./dist/styles/OxygenThemeBase.js",
+    "./dist/fonts.js",
+    "./dist/fonts-sora.js"
   ],
   "scripts": {
-    "build": "pnpm clean && tsc -p tsconfig.json && node esbuild.config.js",
-    "build:watch": "node esbuild.config.js --watch",
-    "dev": "node esbuild.config.js --watch",
+    "build": "pnpm clean && tsc -p tsconfig.json && node build.mjs",
+    "build:watch": "node build.mjs --watch",
+    "dev": "node build.mjs --watch",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src",
-    "lint:fix": "eslint src --fix",
+    "lint": "eslint src test",
+    "lint:fix": "eslint src test --fix",
     "clean": "rimraf dist",
     "test": "vitest run",
     "test:watch": "vitest"
@@ -71,14 +71,14 @@
     "@emotion/cache": "catalog:",
     "@emotion/react": "catalog:",
     "@emotion/styled": "catalog:",
-    "@fontsource-variable/inter": "5.2.8",
+    "@fontsource-variable/inter": "5.3.0",
     "@fontsource-variable/sora": "5.3.0",
     "@mui/material": "catalog:",
     "@mui/utils": "catalog:",
     "@mui/x-data-grid": "catalog:",
     "@mui/x-date-pickers": "catalog:",
     "@mui/x-tree-view": "catalog:",
-    "date-fns": "4.1.0",
+    "date-fns": "4.4.0",
     "prismjs": "^1.30.0"
   },
   "peerDependencies": {
@@ -90,13 +90,14 @@
     "@eslint/js": "catalog:",
     "@testing-library/dom": "catalog:",
     "@testing-library/react": "catalog:",
-    "@types/prismjs": "^1.26.5",
+    "@types/prismjs": "^1.26.6",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@typescript-eslint/eslint-plugin": "catalog:",
     "@typescript-eslint/parser": "catalog:",
     "@vitest/ui": "catalog:",
     "@wso2/esbuild-plugin-inline-css-fonts": "workspace:^",
+    "@wso2/oxygen-ui-path-map": "workspace:*",
     "@wso2/oxygen-ui-icons-react": "workspace:^",
     "esbuild": "catalog:",
     "eslint": "catalog:",
@@ -104,6 +105,7 @@
     "eslint-plugin-react-hooks": "catalog:",
     "jsdom": "catalog:",
     "rimraf": "catalog:",
+    "rolldown": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vitest": "catalog:"

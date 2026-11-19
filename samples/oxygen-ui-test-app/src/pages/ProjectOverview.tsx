@@ -16,24 +16,22 @@
  * under the License.
  */
 
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Typography,
-  Stack,
-  IconButton,
-  Divider,
-  Grid,
-  Avatar,
-  SearchBar,
-  PageTitle,
-  PageContent,
-  ListingTable,
-  Chip,
-  DataGrid,
-} from '@wso2/oxygen-ui'
+import Box from '@wso2/oxygen-ui/Box'
+import Button from '@wso2/oxygen-ui/Button'
+import Card from '@wso2/oxygen-ui/Card'
+import CardContent from '@wso2/oxygen-ui/CardContent'
+import Typography from '@wso2/oxygen-ui/Typography'
+import Stack from '@wso2/oxygen-ui/Stack'
+import IconButton from '@wso2/oxygen-ui/IconButton'
+import Divider from '@wso2/oxygen-ui/Divider'
+import Grid from '@wso2/oxygen-ui/Grid'
+import Avatar from '@wso2/oxygen-ui/Avatar'
+import SearchBar from '@wso2/oxygen-ui/SearchBar'
+import PageTitle from '@wso2/oxygen-ui/PageTitle'
+import PageContent from '@wso2/oxygen-ui/PageContent'
+import ListingTable from '@wso2/oxygen-ui/ListingTable'
+import Chip from '@wso2/oxygen-ui/Chip'
+import * as DataGrid from '@wso2/oxygen-ui/data-grid'
 import { LineChart } from '@wso2/oxygen-ui-charts-react'
 import { Clock, Plus, RefreshCw, Info, Link as LinkIcon } from '@wso2/oxygen-ui-icons-react'
 import type { JSX } from 'react'
@@ -117,13 +115,16 @@ function LastUpdatedCell({ value }: { value: string }): JSX.Element {
       <Clock size={16} />
       <Typography
         variant="caption"
-        color="text.secondary"
-        sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
-      >
+        sx={{
+          color: 'text.secondary',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap'
+        }}>
         {value}
       </Typography>
     </Box>
-  )
+  );
 }
 
 export default function ProjectOverview(): JSX.Element {
@@ -153,7 +154,9 @@ export default function ProjectOverview(): JSX.Element {
 
         <Divider sx={{ mt: 2 }} />
 
-        <Grid container spacing={3} sx={{ mt: 2 }}>
+        <Grid container spacing={3} sx={{
+          mt: 2
+        }}>
           <Grid size={{ xs: 12, lg: 8 }}>
             <Grid container spacing={2} sx={{ mb: 2 }}>
               <Grid size={{ xs: 12, md: 10 }}>
@@ -214,13 +217,12 @@ export default function ProjectOverview(): JSX.Element {
                         renderCell: () => (
                           <Typography
                             variant="caption"
-                            color="text.secondary"
                             sx={{
+                              color: 'text.secondary',
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap',
-                            }}
-                          >
+                              whiteSpace: 'nowrap'
+                            }}>
                             This is a sample proxy that manages a list of reading items.
                           </Typography>
                         ),
@@ -301,14 +303,13 @@ export default function ProjectOverview(): JSX.Element {
                         <ListingTable.Cell>
                           <Typography
                             variant="caption"
-                            color="text.secondary"
                             sx={{
+                              color: 'text.secondary',
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',
                               whiteSpace: 'nowrap',
-                              maxWidth: 420,
-                            }}
-                          >
+                              maxWidth: 420
+                            }}>
                             This is a sample proxy that manages a list of reading items.
                           </Typography>
                         </ListingTable.Cell>
@@ -381,7 +382,9 @@ export default function ProjectOverview(): JSX.Element {
 
                   <Stack spacing={1}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <Typography variant="caption" color="text.secondary">
+                      <Typography variant="caption" sx={{
+                        color: 'text.secondary'
+                      }}>
                         HTTP
                       </Typography>
                       <Typography variant="caption">4</Typography>
@@ -390,7 +393,9 @@ export default function ProjectOverview(): JSX.Element {
                     <Divider />
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <Typography variant="caption" color="text.secondary">
+                      <Typography variant="caption" sx={{
+                        color: 'text.secondary'
+                      }}>
                         Service
                       </Typography>
                       <Typography variant="caption">1</Typography>
@@ -403,7 +408,9 @@ export default function ProjectOverview(): JSX.Element {
                     </Typography>
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <Typography variant="caption" color="text.secondary">
+                      <Typography variant="caption" sx={{
+                        color: 'text.secondary'
+                      }}>
                         MCP Servers
                       </Typography>
                       <Typography variant="caption">3</Typography>
@@ -442,5 +449,5 @@ export default function ProjectOverview(): JSX.Element {
         </Grid>
       </Box>
     </PageContent>
-  )
+  );
 }

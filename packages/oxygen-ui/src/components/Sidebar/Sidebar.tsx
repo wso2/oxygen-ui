@@ -21,7 +21,7 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { SidebarContext } from './context';
-import { AppShellContext } from '../AppShell/context';
+import { useOptionalAppShell } from '../AppShell/internal';
 import { SidebarNav } from './SidebarNav';
 import { SidebarCategory, SidebarCategoryLabel } from './SidebarCategory';
 import { SidebarItem, SidebarItemIcon, SidebarItemLabel, SidebarItemBadge } from './SidebarItem';
@@ -179,7 +179,7 @@ const Sidebar: React.FC<SidebarProps> & {
   sx,
 }) => {
   // Try to consume AppShell context (optional - gracefully degrades if not available)
-  const appShellContext = React.useContext(AppShellContext);
+  const appShellContext = useOptionalAppShell();
 
   // Use context values as defaults, allow prop overrides
   const collapsed = collapsedProp ?? appShellContext?.state.sidebarCollapsed ?? false;
