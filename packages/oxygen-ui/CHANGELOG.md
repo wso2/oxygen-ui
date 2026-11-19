@@ -1,5 +1,16 @@
 # @wso2/oxygen-ui
 
+## 0.26.0
+
+### Minor Changes
+
+- [#707](https://github.com/wso2/oxygen-ui/pull/707) [`0732f84`](https://github.com/wso2/oxygen-ui/commit/0732f845c58e5a561aea51fc5faa69261b747399) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Change WSO2 to Choreo Labs + New PageLoader Component
+
+### Patch Changes
+
+- Updated dependencies [[`0732f84`](https://github.com/wso2/oxygen-ui/commit/0732f845c58e5a561aea51fc5faa69261b747399)]:
+  - @wso2/oxygen-ui-icons-react@0.26.0
+
 ## 0.25.0
 
 ### Minor Changes

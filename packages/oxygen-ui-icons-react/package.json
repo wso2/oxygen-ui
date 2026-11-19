@@ -1,6 +1,6 @@
 {
   "name": "@wso2/oxygen-ui-icons-react",
-  "version": "0.25.0",
+  "version": "0.26.0",
   "description": "Choreo Oxygen UI Icons - Powered with Lucide icons library",
   "type": "module",
   "main": "./dist/index.js",
