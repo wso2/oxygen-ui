@@ -41,9 +41,9 @@ export default function ComponentCreate(): JSX.Element {
           <PageTitle.SubHeader>Follow the steps below to create a new integration</PageTitle.SubHeader>
         </PageTitle>
 
-        <Stack maxWidth="xl" mx="auto" spacing={2}>
+        <Stack spacing={2} sx={{ maxWidth: 'xl', mx: 'auto' }}>
           <Stack direction="row" spacing={2}>
-            <Form.Stack direction="row" width="md">
+            <Form.Stack direction="row" sx={{ width: 'md' }}>
               <IntegrationTypeCard
                 icon={Network}
                 title="Create a new Integration"

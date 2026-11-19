@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2025-2026, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -142,10 +142,7 @@ export default function LoginPage(): JSX.Element {
           <Box>
             <Stack
               direction="column"
-              alignItems="start"
-              gap={3}
-              maxWidth={580}
-              display={{xs: 'none', md: 'flex'}}
+              sx={{ alignItems: 'start', gap: 3, maxWidth: 580, display: {xs: 'none', md: 'flex'} }}
             >
               <Box sx={{ mb: 3 }}>
                 <Logo height={35} />
@@ -173,8 +170,7 @@ export default function LoginPage(): JSX.Element {
                 </Typography>
                 <Stack
                   direction="row"
-                  justifyContent="center"
-                  sx={{ mt: 2 }}
+                  sx={{ mt: 2, justifyContent: 'center' }}
                   spacing={1}
                 >
                   <Link>Privacy Policy</Link>

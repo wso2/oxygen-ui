@@ -111,7 +111,7 @@ export const Default: Story = {
 
     return (
       <Stack spacing={2}>
-        <Stack direction="row" spacing={2} alignItems="center">
+        <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
           <Button variant="outlined" onClick={() => { setCompletedAt(null); replay(); }}>
             Replay
           </Button>
@@ -149,7 +149,7 @@ export const Controlled: Story = {
 
     return (
       <Stack spacing={2}>
-        <Stack direction="row" spacing={2} alignItems="center">
+        <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
           <Button variant="contained" disabled={!loading} onClick={() => setLoading(false)}>
             Finish loading
           </Button>
@@ -225,7 +225,7 @@ export const FullScreen: Story = {
     };
 
     return (
-      <Stack spacing={2} alignItems="flex-start">
+      <Stack spacing={2} sx={{ alignItems: 'flex-start' }}>
         <Button variant="contained" onClick={start}>
           Show full screen loader
         </Button>
@@ -254,7 +254,7 @@ export const FullScreen: Story = {
  */
 export const Icon: StoryObj<typeof PageLoaderIcon> = {
   render: () => (
-    <Stack direction="row" spacing={4} alignItems="center">
+    <Stack direction="row" spacing={4} sx={{ alignItems: 'center' }}>
       <PageLoaderIcon size={24} />
       <PageLoaderIcon size={48} />
       <Box sx={{ color: 'primary.main', display: 'flex' }}>

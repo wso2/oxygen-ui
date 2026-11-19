@@ -36,7 +36,7 @@ import {
   type HeaderBreadcrumbsLevelConfig,
   type HeaderBreadcrumbsValue,
 } from '@wso2/oxygen-ui';
-import { Box as BoxIcon, Building2, Plus, ScrollText } from '@wso2/oxygen-ui-icons-react';
+import { Box as BoxIcon, Building2, Plus, ScrollText, SquarePaddingTop } from '@wso2/oxygen-ui-icons-react';
 // Storybook's indexer fails to parse a JSX tag named `WSO2`.
 import { WSO2 as Wso2Logo } from '@wso2/oxygen-ui-icons-react';
 
@@ -212,31 +212,10 @@ const createLevels = (): HeaderBreadcrumbsLevelConfig[] => [
   {
     id: 'component',
     label: 'Component',
-    icon: <ComponentIcon />,
+    icon: <SquarePaddingTop />,
     fetchItems: ({ parents, signal }) => delay(COMPONENTS[parents.project] ?? [], signal),
   },
 ];
-
-/**
- * Lucide's `square-padding-top`, drawn here because the bundled lucide-react predates it.
- * Swap for the `SquarePaddingTop` import once lucide-react is upgraded.
- */
-const ComponentIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <rect x="3" y="3" width="18" height="18" rx="2" />
-    <path d="M8 7h8" />
-  </svg>
-);
 
 // --- Story helpers -----------------------------------------------------------
 
@@ -405,7 +384,7 @@ const StoredState = () => {
   React.useEffect(() => subscribeHeaderBreadcrumbsState(setState, { key: SHARED_KEY }), []);
   return (
     <Box>
-      <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
+      <Stack direction="row" spacing={1} sx={{ alignItems: 'center', mb: 1 }}>
         <Typography variant="subtitle2">localStorage[&quot;{SHARED_KEY}&quot;]</Typography>
         <Button size="small" variant="text" onClick={() => clearHeaderBreadcrumbsState({ key: SHARED_KEY })}>
           Clear
@@ -495,7 +474,7 @@ export const UpdatingData: Story = {
             }}
           />
         </InHeader>
-        <Stack direction="row" spacing={1} sx={{ p: 3 }} flexWrap="wrap" useFlexGap>
+        <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', p: 3 }} useFlexGap>
           <Button variant="contained" startIcon={<Plus size={16} />} onClick={createProject}>
             Create project
           </Button>

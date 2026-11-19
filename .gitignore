@@ -68,5 +68,6 @@ packages/oxygen-ui-docs/.storybook/public/sample
 CLAUDE.md
 docs/
 
-.ai/
-.claude/
+# Root only: packages/oxygen-ui/.ai and .claude are tracked docs shipped with the package.
+/.ai/
+/.claude/

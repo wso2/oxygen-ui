@@ -122,15 +122,6 @@ const HighContrastThemeConfig = {
             borderWidth: '3px',
           },
         },
-        containedPrimary: ({ theme }: { theme: OxygenTheme }) => ({
-          backgroundColor: theme.vars!.palette.primary.main,
-          color: theme.vars!.palette.primary.contrastText,
-          borderColor: theme.vars!.palette.primary.main,
-          '&:hover': {
-            backgroundColor: theme.vars!.palette.primary.dark,
-            borderColor: theme.vars!.palette.primary.dark,
-          },
-        }),
         contained: ({ theme }: { theme: OxygenTheme }) => ({
           borderColor: theme.vars!.palette.primary.main,
         }),
@@ -143,6 +134,22 @@ const HighContrastThemeConfig = {
           },
         }),
       },
+      variants: [
+        // MUI v9 no longer applies combined keys such as `containedPrimary`, so each variant and colour pair
+        // is matched here.
+        {
+          props: { variant: 'contained', color: 'primary' },
+          style: ({ theme }: { theme: OxygenTheme }) => ({
+            backgroundColor: theme.vars!.palette.primary.main,
+            color: theme.vars!.palette.primary.contrastText,
+            borderColor: theme.vars!.palette.primary.main,
+            '&:hover': {
+              backgroundColor: theme.vars!.palette.primary.dark,
+              borderColor: theme.vars!.palette.primary.dark,
+            },
+          }),
+        },
+      ],
     },
     MuiCard: {
       styleOverrides: {

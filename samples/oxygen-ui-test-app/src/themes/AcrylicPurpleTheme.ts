@@ -101,42 +101,58 @@ const AcrylicBaseTheme = {
           textTransform: 'none',
           fontWeight: 400,
         },
-        containedPrimary: ({ theme }: { theme: OxygenThemeType }) => ({
-          '&:not(:disabled)': {
-            background: `${theme.gradient.primary} !important`,
-            color: '#fff !important',
-            '&:hover': {
-              background: `${theme.gradient.primary} !important`,
-              opacity: 0.9,
-              color: '#fff !important',
-            },
-          }
-        }),
-        outlinedPrimary: ({ theme }: { theme: OxygenThemeType }) => ({
-          borderColor: theme.palette.primary.main,
-          color: theme.palette.primary.main,
-          '&:hover': {
-            borderColor: theme.palette.primary.dark,
-            backgroundColor: theme.palette.action.hover,
-          },
-        }),
-        containedSecondary: ({ theme }: { theme: OxygenThemeType }) => ({
-          backgroundColor: theme.vars!.palette.secondary.main,
-          color: theme.vars!.palette.text.primary,
-          '&:hover': {
-            backgroundColor: theme.vars!.palette.secondary.main,
-            opacity: 0.8,
-          },
-        }),
-        outlinedSecondary: ({ theme }: { theme: OxygenThemeType }) => ({
-          borderColor: theme.vars!.palette.divider,
-          color: theme.vars!.palette.text.primary,
-          '&:hover': {
-            borderColor: theme.vars!.palette.text.secondary,
-            backgroundColor: theme.palette.action.hover,
-          },
-        }),
       },
+      variants: [
+        // MUI v9 no longer applies combined keys such as `containedPrimary`, so each variant and colour pair
+        // is matched here.
+        {
+          props: { variant: 'contained', color: 'primary' },
+          style: ({ theme }: { theme: OxygenThemeType }) => ({
+            '&:not(:disabled)': {
+              background: `${theme.gradient.primary} !important`,
+              color: '#fff !important',
+              '&:hover': {
+                background: `${theme.gradient.primary} !important`,
+                opacity: 0.9,
+                color: '#fff !important',
+              },
+            }
+          }),
+        },
+        {
+          props: { variant: 'outlined', color: 'primary' },
+          style: ({ theme }: { theme: OxygenThemeType }) => ({
+            borderColor: theme.palette.primary.main,
+            color: theme.palette.primary.main,
+            '&:hover': {
+              borderColor: theme.palette.primary.dark,
+              backgroundColor: theme.palette.action.hover,
+            },
+          }),
+        },
+        {
+          props: { variant: 'contained', color: 'secondary' },
+          style: ({ theme }: { theme: OxygenThemeType }) => ({
+            backgroundColor: theme.vars!.palette.secondary.main,
+            color: theme.vars!.palette.text.primary,
+            '&:hover': {
+              backgroundColor: theme.vars!.palette.secondary.main,
+              opacity: 0.8,
+            },
+          }),
+        },
+        {
+          props: { variant: 'outlined', color: 'secondary' },
+          style: ({ theme }: { theme: OxygenThemeType }) => ({
+            borderColor: theme.vars!.palette.divider,
+            color: theme.vars!.palette.text.primary,
+            '&:hover': {
+              borderColor: theme.vars!.palette.text.secondary,
+              backgroundColor: theme.palette.action.hover,
+            },
+          }),
+        },
+      ],
     },
     MuiFab: {
       styleOverrides: {
@@ -366,19 +382,27 @@ const AcrylicPurpleThemeConfig = {
   },
   components: {
     MuiButton: {
-      styleOverrides: {
-        containedPrimary: () => ({
-          '&:not(:disabled)': {
-            background: 'linear-gradient(77.74deg, #5567d5 11.16%, #7155d5ff 99.55%) !important',
-            color: '#fff !important',
-            '&:hover': {
+      variants: [
+        // Theme merging replaces arrays, so keep the base theme's button variants and add this theme's
+        // after them, where they win as the old combined keys did.
+        ...(AcrylicBaseTheme.components?.MuiButton?.variants ?? []),
+        // MUI v9 no longer applies combined keys such as `containedPrimary`, so each variant and colour pair
+        // is matched here.
+        {
+          props: { variant: 'contained', color: 'primary' },
+          style: () => ({
+            '&:not(:disabled)': {
               background: 'linear-gradient(77.74deg, #5567d5 11.16%, #7155d5ff 99.55%) !important',
-              opacity: 0.9,
               color: '#fff !important',
+              '&:hover': {
+                background: 'linear-gradient(77.74deg, #5567d5 11.16%, #7155d5ff 99.55%) !important',
+                opacity: 0.9,
+                color: '#fff !important',
+              },
             },
-          },
-        }),
-      },
+          }),
+        },
+      ],
     },
     MuiTableRow: {
       styleOverrides: {
