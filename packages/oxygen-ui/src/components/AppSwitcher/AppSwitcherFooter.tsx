@@ -33,7 +33,7 @@ import { AppSwitcherFooterContext } from './context';
  */
 
 /**
- * A single WSO2 Cloud destination in the footer.
+ * A single Choreo Cloud destination in the footer.
  *
  * Same shape as `AppSwitcherAppItem`, but `id` is optional since existing
  * links use `key`. A missing `url` keeps its old behavior, so existing
@@ -68,11 +68,11 @@ const AppSwitcherFooterRoot = styled(Box, {
 export interface AppSwitcherFooterProps {
   /** Manage cards (typically `AppSwitcher.App` elements) */
   children?: React.ReactNode;
-  /** WSO2 Cloud destinations rendered as cards, as an alternative to `children` */
+  /** Choreo Cloud destinations rendered as cards, as an alternative to `children` */
   links?: AppSwitcherFooterLink[];
   /**
    * Heading above the links. Omit it to show the links under the divider alone,
-   * as in the WSO2 Cloud design.
+   * as in the Choreo Cloud design.
    */
   label?: string;
   /**
@@ -91,7 +91,7 @@ export interface AppSwitcherFooterProps {
 /**
  * AppSwitcher.Footer - Bottom section of the app switcher popover.
  *
- * Holds the WSO2 Cloud destinations (e.g. Cloud home and Settings) below a
+ * Holds the Choreo Cloud destinations (e.g. Cloud home and Settings) below a
  * divider, as a grid of cards, using the same card as the platform grid so both rows
  * behave identically. The neutral mark and lighter type keep them visually
  * secondary to the platforms above.

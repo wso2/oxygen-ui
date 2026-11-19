@@ -553,15 +553,15 @@ describe('AppSwitcher', () => {
     expect(billing.getAttribute('href')).toBe('/billing');
   });
 
-  it('paints platform marks in WSO2 orange whatever the product theme', () => {
-    // The switcher is WSO2 Cloud chrome, so the pulse is brand artwork rather
-    // than a themed accent and must not follow `palette.primary`.
+  it('paints platform marks in Midnight Ink whatever the product theme', () => {
+    // The switcher is Choreo Cloud chrome, so the Choreo Labs mark is brand artwork
+    // rather than a themed accent and must not follow `palette.primary`.
     renderSwitcher();
     fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
     const tile = screen.getByRole('link', { name: 'API Platform' }).querySelector('svg')
       ?.parentElement as HTMLElement;
-    expect(getComputedStyle(tile).color).toBe('rgb(255, 115, 0)');
+    expect(getComputedStyle(tile).color).toBe('rgb(11, 22, 51)');
   });
 
   it('keeps manage marks neutral so they stay secondary to the platforms', () => {
@@ -570,7 +570,7 @@ describe('AppSwitcher', () => {
 
     const tile = screen.getByRole('link', { name: 'Billing' }).querySelector('svg')
       ?.parentElement as HTMLElement;
-    expect(getComputedStyle(tile).color).not.toBe('rgb(255, 115, 0)');
+    expect(getComputedStyle(tile).color).not.toBe('rgb(11, 22, 51)');
   });
 
   it('fades the mark of an unavailable platform without breaking its outline', () => {
@@ -588,7 +588,7 @@ describe('AppSwitcher', () => {
     expect(getComputedStyle(card).borderStyle).not.toBe('dashed');
 
     const tile = card.querySelector('svg')?.parentElement as HTMLElement;
-    expect(getComputedStyle(tile).color).not.toBe('rgb(255, 115, 0)');
+    expect(getComputedStyle(tile).opacity).toMatch(/disabledOpacity|^0\.38$/);
   });
 
   it('moves focus between app cards with the arrow keys', () => {

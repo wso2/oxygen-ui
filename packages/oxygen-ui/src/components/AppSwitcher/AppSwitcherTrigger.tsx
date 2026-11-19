@@ -70,7 +70,7 @@ export interface AppSwitcherTriggerProps
 /**
  * AppSwitcher.Trigger - Icon button that opens the app switcher popover.
  *
- * Renders the grid ("grip") icon used across WSO2 Cloud headers. Extra props,
+ * Renders the grid ("grip") icon used across Choreo Cloud headers. Extra props,
  * including `aria-*` attributes and `ref`, are forwarded to the underlying button.
  *
  * @example

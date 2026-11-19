@@ -17,15 +17,15 @@
  */
 
 /**
- * WSO2 brand colors used by the AppSwitcher.
+ * Brand colors used by the AppSwitcher.
  *
  * These are deliberately fixed rather than read from `palette.primary`: the
- * switcher is WSO2 Cloud chrome, so it shows the brand orange even in a product
+ * switcher is Choreo Cloud chrome, so it shows the brand orange even in a product
  * running an indigo or grey theme.
  *
  * Contrast (WCAG 2.1 AA needs 4.5:1 for normal text): `main` (#FF7300) is
- * 2.73:1 on white, so it is used only for decorative surfaces — the WSO2 mark
- * and the hover border. Any brand-colored *text* would need a darker shade;
+ * 2.73:1 on white, so it is used only for decorative surfaces: the hover
+ * border. Any brand-colored *text* would need a darker shade;
  * the switcher has none.
  *
  * The focus indicator is author-defined, so WCAG 2.1 SC 1.4.11 holds it to
@@ -37,7 +37,7 @@
  * contrast discussion.
  */
 export const APP_SWITCHER_BRAND = {
-  /** Full-strength WSO2 orange. Decorative surfaces only. */
+  /** Full-strength brand orange. Decorative surfaces only. */
   main: '#FF7300',
   /**
    * Darker orange reserved for the focus ring and the current app's border,
@@ -45,6 +45,11 @@ export const APP_SWITCHER_BRAND = {
    * `main`.
    */
   focus: '#E56800',
-  /** Faded orange for the mark of a platform that is not yet available. */
-  surfaceMark: '#FFC199',
+  /**
+   * The Choreo Labs mark on a platform card: Midnight Ink on a light card and
+   * white on a dark one, the brand kit's navy and white marks. It is brand
+   * artwork, so it is not orange and does not follow the product's palette.
+   */
+  mark: '#0B1633',
+  markOnDark: '#FFFFFF',
 } as const;
