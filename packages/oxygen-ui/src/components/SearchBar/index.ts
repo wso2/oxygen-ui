@@ -16,8 +16,8 @@
  * under the License.
  */
 
-export { SearchBar, SearchBarProps } from './SearchBar'
-export { SearchBarBase, SearchBarBaseProps } from './SearchBarBase'
+export { SearchBar, type SearchBarProps } from './SearchBar'
+export { SearchBarBase, type SearchBarBaseProps } from './SearchBarBase'
 export {
   SearchBarWithAdvancedFilter,
   type SearchBarWithAdvancedFilterProps,

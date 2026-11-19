@@ -18,7 +18,8 @@
 
 import type {ESLint, Linter} from 'eslint';
 import noDirectMuiImportsRule from './rules/no-direct-mui-imports.js';
-import noDirectLucideImportsRule from './rules/no-direct-lucide-imports.js';
+import noDirectLucideImportsRule, {ICONS_PACKAGE} from './rules/no-direct-lucide-imports.js';
+import {OXYGEN_PACKAGE} from './pathMap.js';
 
 const plugin: ESLint.Plugin = {
   meta: {
@@ -41,14 +42,13 @@ const recommendedConfig: Linter.Config = {
     '@oxygen-ui/no-direct-mui-imports': [
       'error',
       {
-        suggestedPackage: '@oxygen-ui/react',
-        allowedPackages: ['@mui/x-data-grid', '@mui/x-date-pickers'],
+        suggestedPackage: OXYGEN_PACKAGE,
       },
     ],
     '@oxygen-ui/no-direct-lucide-imports': [
       'error',
       {
-        suggestedPackage: '@oxygen-ui/react-icons',
+        suggestedPackage: ICONS_PACKAGE,
       },
     ],
   },

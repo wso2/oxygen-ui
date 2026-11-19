@@ -18,7 +18,11 @@
 
 import { Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Stack, Typography, CodeBlock, Box, Divider } from '@wso2/oxygen-ui';
+import Stack from '@wso2/oxygen-ui/Stack';
+import Typography from '@wso2/oxygen-ui/Typography';
+import CodeBlock from '@wso2/oxygen-ui/CodeBlock';
+import Box from '@wso2/oxygen-ui/Box';
+import Divider from '@wso2/oxygen-ui/Divider';
 import React from 'react';
 import CenterContentLayout from '../../layouts/CenterContentLayout';
 
@@ -50,10 +54,10 @@ export const Overview: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Consistent Browser Tab Title
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography sx={{ color: 'text.secondary' }} variant="body2">
             The browser tab title tells users where they are, even when the tab is in the background,
             bookmarked, or listed in their browser history. Use the same format on every page.
           </Typography>
@@ -62,14 +66,14 @@ export const Overview: Story = {
         <Divider />
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Format
           </Typography>
           <CodeBlock language="markup" code={`[Specific page/resource] | [Product]`} />
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Examples
           </Typography>
           <CodeBlock
@@ -80,7 +84,7 @@ Environments | Acme Console`}
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Rules
           </Typography>
           <Box component="ul" sx={{ pl: 3, m: 0 }}>

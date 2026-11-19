@@ -847,4 +847,19 @@ describe('DefaultTheme states', () => {
     expect(css).toMatch(/FilledInput-root:not\(\.Mui-error\)::after\{border-bottom-color:#1F4FFF;/);
     expect(css).toMatch(/MuiInput-root:not\(\.Mui-error\)::after\{border-bottom-color:#1F4FFF;/);
   });
+  it('pads a select to 40px by default, as small, and a medium select to 48px', () => {
+    const { container } = render(
+      <OxygenUIThemeProvider theme={DefaultTheme}>
+        <OxygenSelect value="" />
+        <OxygenSelect size="medium" value="" />
+      </OxygenUIThemeProvider>
+    );
+    const css = renderedCss();
+    const [small, medium] = Array.from(container.querySelectorAll('.MuiSelect-select'));
+
+    expect(small.parentElement?.classList.contains('MuiInputBase-sizeSmall')).toBe(true);
+    expect(medium.parentElement?.classList.contains('MuiInputBase-sizeSmall')).toBe(false);
+    expect(css).toMatch(/\.MuiInputBase-sizeSmall ?> ?[^{]*MuiOutlinedInput-input\{padding-top:calc\(\(40px/);
+    expect(css).toMatch(/MuiOutlinedInput-input\{padding-top:calc\(\(48px/);
+  });
 });

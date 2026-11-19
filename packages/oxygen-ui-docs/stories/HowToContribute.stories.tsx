@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025-2026, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,11 +16,15 @@
  * under the License.
  */
 
-import {Description, Primary, Subtitle, Title} from '@storybook/addon-docs/blocks';
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Stack, Typography, CodeBlock, Box, Divider } from '@wso2/oxygen-ui';
-import React from 'react';
-import CenterContentLayout from '../layouts/CenterContentLayout';
+import { Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks'
+import type { Meta, StoryObj } from '@storybook/react-webpack5'
+import Stack from '@wso2/oxygen-ui/Stack'
+import Typography from '@wso2/oxygen-ui/Typography'
+import CodeBlock from '@wso2/oxygen-ui/CodeBlock'
+import Box from '@wso2/oxygen-ui/Box'
+import Divider from '@wso2/oxygen-ui/Divider'
+import React from 'react'
+import CenterContentLayout from '../layouts/CenterContentLayout'
 
 /**
  * Practical guides for common tasks in Oxygen UI.
@@ -41,10 +45,10 @@ const meta: Meta = {
       ),
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 /**
  * Learn how to create a custom component using the Box component as a base.
@@ -54,25 +58,36 @@ export const CreateNewComponent: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Creating a Custom Component
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Use the Box component as a foundation to create custom styled components with full theme support.
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
+            Use the Box component as a foundation to create custom styled components with full theme
+            support.
           </Typography>
         </Box>
 
         <Divider />
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Step 1: Create Sub components
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
             Create separate files for each subcomponent using <code>styled()</code> from MUI.
           </Typography>
-          
-          <Typography variant="subtitle2" gutterBottom sx={{ mt: 2 }}>
+
+          <Typography variant="subtitle2" sx={{ mb: '0.35em', mt: 2 }}>
             CustomCardTitle.tsx
           </Typography>
           <CodeBlock
@@ -103,7 +118,7 @@ export const CreateNewComponent: Story = {
   export default CustomCardTitle;`}
           />
 
-          <Typography variant="subtitle2" gutterBottom sx={{ mt: 2 }}>
+          <Typography variant="subtitle2" sx={{ mb: '0.35em', mt: 2 }}>
             CustomCardDescription.tsx
           </Typography>
           <CodeBlock
@@ -127,13 +142,13 @@ export const CreateNewComponent: Story = {
   CustomCardDescription.displayName = 'CustomCard.Description';
   CustomCardDescription.defaultProps = {
     variant: 'body2',
-    sx: { mb: 2 },
+    sx: { mb: '0.35em' },
   };
 
   export default CustomCardDescription;`}
           />
 
-          <Typography variant="subtitle2" gutterBottom sx={{ mt: 2 }}>
+          <Typography variant="subtitle2" sx={{ mb: '0.35em', mt: 2 }}>
             CustomCardActions.tsx
           </Typography>
           <CodeBlock
@@ -163,11 +178,17 @@ export const CreateNewComponent: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Step 2: Create the Main Component
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Import sub components and attach them as static properties using <code>Object.assign()</code>.
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
+            Import sub components and attach them as static properties using{' '}
+            <code>Object.assign()</code>.
           </Typography>
           <CodeBlock
             language="tsx"
@@ -214,10 +235,15 @@ export const CreateNewComponent: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Step 3: Export Everything
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
             Create an index file to export the component and all its types.
           </Typography>
           <CodeBlock
@@ -232,10 +258,15 @@ export const CreateNewComponent: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Step 4: Use the Component
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
             Compose the card using the compound component pattern for flexible layouts.
           </Typography>
           <CodeBlock
@@ -265,7 +296,7 @@ export const CreateNewComponent: Story = {
       </Stack>
     </CenterContentLayout>
   ),
-};
+}
 
 /**
  * Learn how to add your component to Storybook with interactive examples.
@@ -275,10 +306,15 @@ export const CreateStory: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Adding a Storybook Story
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
             Create interactive documentation for your component with Storybook stories.
           </Typography>
         </Box>
@@ -286,10 +322,15 @@ export const CreateStory: Story = {
         <Divider />
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Step 1: Create the Story File
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
             Create a .stories.tsx file alongside your component.
           </Typography>
           <CodeBlock
@@ -353,10 +394,15 @@ export const CreateStory: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Step 2: Add Story Examples
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
             Create different story variations to showcase your component's features.
           </Typography>
           <CodeBlock
@@ -464,7 +510,7 @@ export const CreateStory: Story = {
       </Stack>
     </CenterContentLayout>
   ),
-};
+}
 
 /**
  * Learn how to create a completely custom theme with component overrides.
@@ -474,10 +520,15 @@ export const CreateCustomTheme: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Creating a Custom Theme
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
             Build a fully customized theme with component style overrides and custom properties.
           </Typography>
         </Box>
@@ -485,11 +536,17 @@ export const CreateCustomTheme: Story = {
         <Divider />
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Complete Custom Theme Example
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            This example includes custom colors, typography, component overrides, and custom theme properties.
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
+            This example includes custom colors, typography, component overrides, and custom theme
+            properties.
           </Typography>
           <CodeBlock
             language="tsx"
@@ -573,7 +630,7 @@ export const CreateCustomTheme: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Using the Custom Theme
           </Typography>
           <CodeBlock
@@ -593,7 +650,7 @@ export const CreateCustomTheme: Story = {
       </Stack>
     </CenterContentLayout>
   ),
-};
+}
 
 /**
  * Accessibility requirements for contributing components and stories.
@@ -603,35 +660,60 @@ export const AccessibilityPolicy: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Accessibility Policy
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Oxygen UI targets WCAG 2.1 AA. Every story runs automated axe-core checks, locally in the
-            Accessibility addon panel and in CI on every pull request.
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
+            Oxygen UI targets WCAG 2.1 AA. Every story runs automated axe-core checks, locally in
+            the Accessibility addon panel and in CI on every pull request.
           </Typography>
         </Box>
 
         <Divider />
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Rules for New Components and Stories
           </Typography>
-          <Typography variant="body2" color="text.secondary" component="div">
+          <Typography
+            variant="body2"
+            component="div"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
             <ul>
               <li>All stories must pass the accessibility checks. CI fails on new violations.</li>
-              <li>Icon-only controls must have an accessible name (an <code>aria-label</code>, not just a tooltip).</li>
-              <li>Interactive elements must be real buttons/links — never a <code>div</code> or <code>span</code> with <code>onClick</code>.</li>
-              <li>Custom wrappers must spread <code>...props</code> to their root and forward refs, so consumers can pass <code>aria-*</code> attributes and anchor menus/popovers.</li>
-              <li>Decorative icons need <code>aria-hidden="true"</code>.</li>
-              <li>Animations must respect <code>prefers-reduced-motion</code> (the base theme handles CSS transitions globally; JS-driven animation needs explicit handling).</li>
+              <li>
+                Icon-only controls must have an accessible name (an <code>aria-label</code>, not
+                just a tooltip).
+              </li>
+              <li>
+                Interactive elements must be real buttons/links — never a <code>div</code> or{' '}
+                <code>span</code> with <code>onClick</code>.
+              </li>
+              <li>
+                Custom wrappers must spread <code>...props</code> to their root and forward refs, so
+                consumers can pass <code>aria-*</code> attributes and anchor menus/popovers.
+              </li>
+              <li>
+                Decorative icons need <code>aria-hidden="true"</code>.
+              </li>
+              <li>
+                Animations must respect <code>prefers-reduced-motion</code> (the base theme handles
+                CSS transitions globally; JS-driven animation needs explicit handling).
+              </li>
             </ul>
           </Typography>
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Running the Checks
           </Typography>
           <CodeBlock
@@ -646,12 +728,17 @@ export const AccessibilityPolicy: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Documenting Exceptions
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            A story may only disable a rule when the violation is a known, tracked limitation. The override
-            must carry a comment explaining why and a link to the GitHub issue:
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
+            A story may only disable a rule when the violation is a known, tracked limitation. The
+            override must carry a comment explaining why and a link to the GitHub issue:
           </Typography>
           <CodeBlock
             language="tsx"
@@ -667,11 +754,18 @@ export const AccessibilityPolicy: Story = {
     },
   };`}
           />
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-            The full audit report and open findings live in <code>packages/oxygen-ui-docs/ACCESSIBILITY.md</code>.
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+              mt: 1,
+            }}
+          >
+            The full audit report and open findings live in{' '}
+            <code>packages/oxygen-ui-docs/ACCESSIBILITY.md</code>.
           </Typography>
         </Box>
       </Stack>
     </CenterContentLayout>
   ),
-};
+}

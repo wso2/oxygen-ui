@@ -16,7 +16,8 @@
  * under the License.
  */
 
-import { ColorSchemeImage, useThemeContent } from '@wso2/oxygen-ui'
+import ColorSchemeImage from '@wso2/oxygen-ui/ColorSchemeImage'
+import useThemeContent from '@wso2/oxygen-ui/useThemeContent'
 import type { JSX } from 'react'
 
 export default function Logo(props: {height?: number}): JSX.Element {

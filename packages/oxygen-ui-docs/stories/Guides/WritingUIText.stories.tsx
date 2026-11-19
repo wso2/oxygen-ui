@@ -18,7 +18,11 @@
 
 import { Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Stack, Typography, CodeBlock, Box, Divider } from '@wso2/oxygen-ui';
+import Stack from '@wso2/oxygen-ui/Stack';
+import Typography from '@wso2/oxygen-ui/Typography';
+import CodeBlock from '@wso2/oxygen-ui/CodeBlock';
+import Box from '@wso2/oxygen-ui/Box';
+import Divider from '@wso2/oxygen-ui/Divider';
 import React from 'react';
 import CenterContentLayout from '../../layouts/CenterContentLayout';
 
@@ -50,10 +54,10 @@ export const Overview: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Writing UI text
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography sx={{ color: 'text.secondary' }} variant="body2">
             Use sentence case for all text in the UI: titles, action text, and content. Sentence case
             is easier to read and keeps products built with Oxygen UI consistent.
           </Typography>
@@ -62,10 +66,10 @@ export const Overview: Story = {
         <Divider />
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Sentence case
           </Typography>
-          <Typography variant="body2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="body2">
             Capitalize only the first word and any proper nouns, product names, or acronyms.
           </Typography>
           <CodeBlock
@@ -77,7 +81,7 @@ export const Overview: Story = {
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Examples
           </Typography>
           <CodeBlock
@@ -89,7 +93,7 @@ Content       Last modified, Search by name, No applications yet`}
         </Box>
 
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             Rules
           </Typography>
           <Box component="ul" sx={{ pl: 3, m: 0 }}>

@@ -18,7 +18,12 @@
 
 import { Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Stack, Typography, CodeBlock, Box, Divider, ListingTable } from '@wso2/oxygen-ui';
+import Stack from '@wso2/oxygen-ui/Stack';
+import Typography from '@wso2/oxygen-ui/Typography';
+import CodeBlock from '@wso2/oxygen-ui/CodeBlock';
+import Box from '@wso2/oxygen-ui/Box';
+import Divider from '@wso2/oxygen-ui/Divider';
+import ListingTable from '@wso2/oxygen-ui/ListingTable';
 import React from 'react';
 import CenterContentLayout from '../../layouts/CenterContentLayout';
 
@@ -83,7 +88,7 @@ interface GuideSectionProps {
 function GuideSection({ title, children }: GuideSectionProps) {
   return (
     <Box>
-      <Typography variant="h6" gutterBottom>
+      <Typography sx={{ mb: '0.35em' }} variant="h6">
         {title}
       </Typography>
       <Stack spacing={1.5}>{children}</Stack>
@@ -122,10 +127,10 @@ export const Overview: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Choosing a container: modal, drawer, page form, or wizard
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography sx={{ color: 'text.secondary' }} variant="body2">
             Use the lightest container that fits the task. Escalate only when the task needs more
             room or structure.
           </Typography>

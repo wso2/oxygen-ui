@@ -172,15 +172,6 @@ jobs:
           files: ./packages/oxygen-icons/coverage/coverage-final.json
           flags: '@wso2/oxygen-icons'
           verbose: true
-          
-      - name: Upload `@wso2/vite-plugin-oxygen-ui` coverage reports to Codecov
-        id: upload-wso2-vite-plugin-oxygen-ui-coverage
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ env.CODECOV_TOKEN }}
-          files: ./packages/vite-plugin-oxygen-ui/coverage/coverage-final.json
-          flags: '@wso2/vite-plugin-oxygen-ui'
-          verbose: true
 
   storybook:
     name: 💅 Storybook

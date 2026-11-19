@@ -75,6 +75,7 @@ const UserMenu: React.FC<UserMenuProps> & {
   Logout: typeof UserMenuLogout;
   Divider: typeof UserMenuDivider;
 } = ({ children }) => {
+  const menuId = React.useId();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -96,10 +97,10 @@ const UserMenu: React.FC<UserMenuProps> & {
   );
 
   return (
-    <UserMenuContext.Provider value={{ open, anchorEl, handleOpen, handleClose }}>
+    <UserMenuContext.Provider value={{ menuId, open, anchorEl, handleOpen, handleClose }}>
       {triggerChild}
       <Menu
-        id="user-menu"
+        id={menuId}
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}

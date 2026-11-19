@@ -22,6 +22,8 @@ import * as React from 'react';
  * Context for UserMenu state and actions.
  */
 interface UserMenuContextType {
+  /** The id of the menu, which the trigger's `aria-controls` points at. */
+  menuId: string;
   open: boolean;
   anchorEl: null | HTMLElement;
   handleOpen: (event: React.MouseEvent<HTMLButtonElement>) => void;

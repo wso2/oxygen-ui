@@ -30,6 +30,7 @@ import {
   NotificationItemProvider,
   type NotificationItemContextValue,
 } from './NotificationItemContext';
+import { lastPartNamed, sortParts } from '../../utils/compoundParts';
 
 /**
  * Props for styled NotificationItemRoot.
@@ -114,6 +115,14 @@ export interface NotificationItemProps {
   sx?: SxProps<Theme>;
 }
 
+const ITEM_PART_NAMES = [
+  'NotificationItemAvatar',
+  'NotificationItemTitle',
+  'NotificationItemMessage',
+  'NotificationItemTimestamp',
+  'NotificationItemAction',
+];
+
 /**
  * Separates children by type for proper layout.
  */
@@ -124,36 +133,15 @@ const separateChildren = (children: React.ReactNode): {
   timestampChild: React.ReactNode;
   actionChild: React.ReactNode;
 } => {
-  let avatarChild: React.ReactNode = null;
-  let titleChild: React.ReactNode = null;
-  let messageChild: React.ReactNode = null;
-  let timestampChild: React.ReactNode = null;
-  let actionChild: React.ReactNode = null;
-
-  React.Children.forEach(children, (child) => {
-    if (React.isValidElement(child)) {
-      const displayName = (child.type as React.FC)?.displayName;
-      switch (displayName) {
-        case 'NotificationItemAvatar':
-          avatarChild = child;
-          break;
-        case 'NotificationItemTitle':
-          titleChild = child;
-          break;
-        case 'NotificationItemMessage':
-          messageChild = child;
-          break;
-        case 'NotificationItemTimestamp':
-          timestampChild = child;
-          break;
-        case 'NotificationItemAction':
-          actionChild = child;
-          break;
-      }
-    }
-  });
-
-  return { avatarChild, titleChild, messageChild, timestampChild, actionChild };
+  const { parts } = sortParts(children, ITEM_PART_NAMES);
+  const last = (name: string) => lastPartNamed(parts, name) ?? null;
+  return {
+    avatarChild: last('NotificationItemAvatar'),
+    titleChild: last('NotificationItemTitle'),
+    messageChild: last('NotificationItemMessage'),
+    timestampChild: last('NotificationItemTimestamp'),
+    actionChild: last('NotificationItemAction'),
+  };
 };
 
 /**

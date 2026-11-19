@@ -18,20 +18,18 @@
 
 import { Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import {
-  Stack,
-  Typography,
-  CodeBlock,
-  Box,
-  Divider,
-  ListingTable,
-  Button,
-  PageTitle,
-  Paper,
-  SearchBar,
-  ToggleButton,
-  ToggleButtonGroup,
-} from '@wso2/oxygen-ui';
+import Stack from '@wso2/oxygen-ui/Stack';
+import Typography from '@wso2/oxygen-ui/Typography';
+import CodeBlock from '@wso2/oxygen-ui/CodeBlock';
+import Box from '@wso2/oxygen-ui/Box';
+import Divider from '@wso2/oxygen-ui/Divider';
+import ListingTable from '@wso2/oxygen-ui/ListingTable';
+import Button from '@wso2/oxygen-ui/Button';
+import PageTitle from '@wso2/oxygen-ui/PageTitle';
+import Paper from '@wso2/oxygen-ui/Paper';
+import SearchBar from '@wso2/oxygen-ui/SearchBar';
+import ToggleButton from '@wso2/oxygen-ui/ToggleButton';
+import ToggleButtonGroup from '@wso2/oxygen-ui/ToggleButtonGroup';
 import { ChevronDown, LayoutGrid, List as ListIcon } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';
 import CenterContentLayout from '../../layouts/CenterContentLayout';
@@ -103,7 +101,7 @@ interface GuideSectionProps {
 function GuideSection({ title, children }: GuideSectionProps) {
   return (
     <Box>
-      <Typography variant="h6" gutterBottom>
+      <Typography sx={{ mb: '0.35em' }} variant="h6">
         {title}
       </Typography>
       <Stack spacing={1.5}>{children}</Stack>
@@ -154,10 +152,10 @@ export const Overview: Story = {
     <CenterContentLayout>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h2" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h2">
             Search placement
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography sx={{ color: 'text.secondary' }} variant="body2">
             Search goes in a toolbar row below the page header, sized to what users type. This
             covers list and grid pages, such as a projects page with cards. For data tables, follow
             the Table Toolbar guide, which uses the same left placement.

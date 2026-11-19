@@ -18,6 +18,7 @@
 
 import AcrylicBaseTheme from './AcrylicBaseTheme';
 import { createOxygenTheme } from '../../utils/createOxygenTheme';
+import { paletteColor, tint } from './paletteTokens';
 
 /**
  * AcrylicPurple Theme - Purple-blue gradient theme
@@ -25,34 +26,34 @@ import { createOxygenTheme } from '../../utils/createOxygenTheme';
  * Reference only: this theme is not exported from the package and is not part of the public API.
  * Features: Purple-blue gradient, modern spacing, radial background
  */
+const accent = '#646cff';
+
 const AcrylicPurpleThemeConfig = {
   colorSchemes: {
     light: {
       palette: {
-        primary: {
-          main: '#646cff',
-          mainChannel: '100 108 255',
+        primary: paletteColor({
+          main: accent,
           light: '#8187ff',
           dark: '#4651cc',
           contrastText: '#ffffff',
-        },
+        }),
         action: {
-          selected: 'rgba(100, 108, 255, 0.16)',
+          selected: tint(accent, 0.16),
           selectedOpacity: 0.16,
         },
       },
     },
     dark: {
       palette: {
-        primary: {
-          main: '#646cff',
-          mainChannel: '100 108 255',
+        primary: paletteColor({
+          main: accent,
           light: '#8187ff',
           dark: '#4651cc',
           contrastText: '#ffffff',
-        },
+        }),
         action: {
-          selected: 'rgba(100, 108, 255, 0.24)',
+          selected: tint(accent, 0.24),
           selectedOpacity: 0.24,
         },
       },
@@ -61,24 +62,19 @@ const AcrylicPurpleThemeConfig = {
   components: {
     MuiButton: {
       variants: [
-        // Theme merging replaces arrays, so keep the base theme's button variants and add this theme's
-        // after them, where they win as the old combined keys did.
-        ...(AcrylicBaseTheme.components?.MuiButton?.variants ?? []),
-        // MUI v9 no longer applies combined keys such as `containedPrimary`, so each variant and colour pair
-        // is matched here.
         {
           props: { variant: 'contained', color: 'primary' },
           style: () => ({
-            '&:not(:disabled)': {
+          '&:not(:disabled)': {
+            background: 'linear-gradient(77.74deg, #5567d5 11.16%, #7155d5ff 99.55%) !important',
+            color: '#fff !important',
+            '&:hover': {
               background: 'linear-gradient(77.74deg, #5567d5 11.16%, #7155d5ff 99.55%) !important',
+              opacity: 0.9,
               color: '#fff !important',
-              '&:hover': {
-                background: 'linear-gradient(77.74deg, #5567d5 11.16%, #7155d5ff 99.55%) !important',
-                opacity: 0.9,
-                color: '#fff !important',
-              },
             },
-          }),
+          },
+        }),
         },
       ],
     },
@@ -86,9 +82,9 @@ const AcrylicPurpleThemeConfig = {
       styleOverrides: {
         root: {
           '&.Mui-selected': {
-            backgroundColor: 'rgba(100, 108, 255, 0.16)',
+            backgroundColor: tint(accent, 0.16),
             '&:hover': {
-              backgroundColor: 'rgba(100, 108, 255, 0.24)',
+              backgroundColor: tint(accent, 0.24),
             },
           },
         },

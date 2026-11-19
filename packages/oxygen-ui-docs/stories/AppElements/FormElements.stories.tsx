@@ -18,17 +18,15 @@
 
 import React, { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react-webpack5'
-import {
-  Button,
-  IconButton,
-  InputAdornment,
-  Box,
-  TextField,
-  Select,
-  MenuItem,
-  Autocomplete,
-  Form,
-} from '@wso2/oxygen-ui'
+import Button from '@wso2/oxygen-ui/Button'
+import IconButton from '@wso2/oxygen-ui/IconButton'
+import InputAdornment from '@wso2/oxygen-ui/InputAdornment'
+import Box from '@wso2/oxygen-ui/Box'
+import TextField from '@wso2/oxygen-ui/TextField'
+import Select from '@wso2/oxygen-ui/Select'
+import MenuItem from '@wso2/oxygen-ui/MenuItem'
+import Autocomplete from '@wso2/oxygen-ui/Autocomplete'
+import { Form } from '@wso2/oxygen-ui/Form'
 import { PencilIcon, GitBranchIcon, BoxIcon } from '@wso2/oxygen-ui-icons-react'
 
 /**
@@ -348,7 +346,11 @@ export const CardButtonBasic: Story = {
         <Form.CardButton onClick={() => setSelected(!selected)} selected={selected}>
           <Form.CardHeader
             title={
-              <Form.Stack direction="row" spacing={2} sx={{ justifyContent: 'center', alignItems: 'center' }}>
+              <Form.Stack
+                direction="row"
+                spacing={2}
+                sx={{ justifyContent: 'center', alignItems: 'center' }}
+              >
                 <BoxIcon size={32} />
                 <Form.Body>Python</Form.Body>
               </Form.Stack>
@@ -384,7 +386,11 @@ export const CardButtonGrid: Story = {
           >
             <Form.CardHeader
               title={
-                <Form.Stack direction="row" spacing={1} sx={{ justifyContent: 'center', alignItems: 'center' }}>
+                <Form.Stack
+                  direction="row"
+                  spacing={1}
+                  sx={{ justifyContent: 'center', alignItems: 'center' }}
+                >
                   <BoxIcon size={24} />
                   <Form.Body>{option.label}</Form.Body>
                 </Form.Stack>

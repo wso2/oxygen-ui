@@ -24,16 +24,13 @@ import {
   Stories,
 } from '@storybook/addon-docs/blocks';
 import React from "react";
-import {
-  OxygenUIThemeProvider,
-  useThemeSwitcher,
-  ClassicTheme,
-  HighContrastTheme,
-  OxygenTheme,
-  PaleGrayTheme,
-  PaleIndigoTheme,
-  useColorScheme,
-} from "@wso2/oxygen-ui";
+import OxygenUIThemeProvider, { useThemeSwitcher } from "@wso2/oxygen-ui/OxygenUIThemeProvider";
+import ClassicTheme from "@wso2/oxygen-ui/ClassicTheme";
+import HighContrastTheme from "@wso2/oxygen-ui/HighContrastTheme";
+import OxygenTheme from "@wso2/oxygen-ui/OxygenTheme";
+import PaleGrayTheme from "@wso2/oxygen-ui/PaleGrayTheme";
+import PaleIndigoTheme from "@wso2/oxygen-ui/PaleIndigoTheme";
+import { useColorScheme } from "@wso2/oxygen-ui/styles";
 import './docs.css';
 
 /**

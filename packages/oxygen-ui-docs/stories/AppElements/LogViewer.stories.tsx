@@ -17,16 +17,10 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { LogViewer, Typography } from '@wso2/oxygen-ui';
-import type {
-  LogColumn,
-  LogEntry,
-  LogFilterDefinition,
-  LogFilterValues,
-  LogLevel,
-  LogSort,
-  TimeRange,
-} from '@wso2/oxygen-ui';
+import LogViewer from '@wso2/oxygen-ui/LogViewer';
+import Typography from '@wso2/oxygen-ui/Typography';
+import type { LogColumn, LogEntry, LogFilterDefinition, LogFilterValues, LogLevel, LogSort } from '@wso2/oxygen-ui/LogViewer';
+import type { TimeRange } from '@wso2/oxygen-ui/TimeRangeFilter';
 import React from 'react';
 
 const HOUR_MS = 60 * 60 * 1000;

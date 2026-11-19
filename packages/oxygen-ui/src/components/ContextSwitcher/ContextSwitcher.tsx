@@ -26,7 +26,7 @@ import { ContextSwitcherContext, type ContextSwitcherValue } from './context';
 import { ContextSwitcherLevel, type ContextSwitcherLevelProps } from './ContextSwitcherLevel';
 import { ContextSwitcherGroup } from './ContextSwitcherGroup';
 import { ContextSwitcherOption } from './ContextSwitcherOption';
-import { normalizeValue, selectedLevelCount, clearFrom, selectLevel } from './model';
+import { chainState, clearFrom, flattenElements, normalizeValue, selectLevel } from './model';
 
 /**
  * Theme tokens used in this component:
@@ -130,26 +130,6 @@ const isLevel = (
 ): child is React.ReactElement<ContextSwitcherLevelProps> =>
   React.isValidElement<ContextSwitcherLevelProps>(child) && child.type === ContextSwitcherLevel;
 
-/** Levels in child order. A fragment is transparent. Any other wrapper is not. */
-const levelElements = (
-  children: React.ReactNode
-): React.ReactElement<ContextSwitcherLevelProps>[] => {
-  const levels: React.ReactElement<ContextSwitcherLevelProps>[] = [];
-  React.Children.forEach(children, (child) => {
-    if (isLevel(child)) {
-      levels.push(child);
-      return;
-    }
-    if (
-      React.isValidElement<{ children?: React.ReactNode }>(child) &&
-      child.type === React.Fragment
-    ) {
-      levels.push(...levelElements(child.props.children));
-    }
-  });
-  return levels;
-};
-
 /**
  * ContextSwitcher - A chain of labeled fields for selecting through a hierarchy.
  *
@@ -179,39 +159,21 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
     const focusFieldRef = React.useRef(false);
     const openEmptyRef = React.useRef<string | null>(null);
     const [openId, setOpenId] = React.useState<string | null>(null);
-    const levels = levelElements(children);
+    const levels = flattenElements(children).filter(isLevel);
     const levelKey = levels.map((level) => level.props.id).join('\0');
     const levelIds = React.useMemo(
       () => (levelKey.length === 0 ? [] : levelKey.split('\0')),
       [levelKey]
     );
     const normalized = React.useMemo(() => normalizeValue(levelIds, value), [levelIds, value]);
-    const selectedCount = selectedLevelCount(levelIds, normalized);
-    const openIndex = openId === null ? -1 : levelIds.indexOf(openId);
-    const currentIndex =
-      levels.length === 0
-        ? -1
-        : openIndex >= 0 && openIndex <= selectedCount
-          ? openIndex
-          : Math.max(selectedCount - 1, 0);
-    const openEmptyId =
-      back && openId !== null && openId === levelIds[currentIndex] && !normalized[openId]
-        ? openId
-        : null;
-    const chainCount =
-      levels.length === 0 ? 0 : Math.min(levels.length, Math.max(selectedCount + 1, 1));
-    const backCount =
-      levels.length === 0
-        ? 0
-        : Math.min(levels.length, openEmptyId ? selectedCount + 1 : Math.max(selectedCount, 1));
-    const visible = levels.slice(0, back ? backCount : chainCount);
+    const { currentIndex, openEmptyId, visibleCount, backIndex } = chainState(
+      levelIds,
+      normalized,
+      openId,
+      back
+    );
+    const visible = levels.slice(0, visibleCount);
     const visibleKey = visible.map((level) => level.props.id).join('\0');
-    const backIndex =
-      !back || levels.length === 0
-        ? -1
-        : openEmptyId
-          ? levelIds.indexOf(openEmptyId)
-          : Math.max(selectedCount - 1, 0);
     const parentLevel = backIndex > 0 ? levels[backIndex - 1] : null;
     const joinedId = parentLevel ? levelIds[backIndex] : null;
     const focusLevelId = back && levels.length > 0 ? levelIds[Math.max(backIndex, 0)] : null;
@@ -281,15 +243,13 @@ export const ContextSwitcher = React.forwardRef<HTMLDivElement, ContextSwitcherP
     const contextValue = React.useMemo(
       () => ({
         value: normalized,
-        levelIds,
         openId,
         joinedId,
         setOpenId,
-        onChange,
         moveFocus,
         applyPick,
       }),
-      [normalized, levelIds, openId, joinedId, onChange, moveFocus, applyPick]
+      [normalized, openId, joinedId, moveFocus, applyPick]
     );
 
     const onBackKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {

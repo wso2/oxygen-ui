@@ -19,33 +19,30 @@
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
-import {
-  Alert,
-  AppBreadcrumbs,
-  Box,
-  Button,
-  Checkbox,
-  Divider,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  Form,
-  FullScreenWizard,
-  Paper,
-  Radio,
-  RadioGroup,
-  Stack,
-  Step,
-  StepLabel,
-  Stepper,
-  TextField,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography,
-  useWizardSteps,
-} from '@wso2/oxygen-ui';
-import type { BreadcrumbItem } from '@wso2/oxygen-ui';
+import Alert from '@wso2/oxygen-ui/Alert';
+import AppBreadcrumbs from '@wso2/oxygen-ui/AppBreadcrumbs';
+import Box from '@wso2/oxygen-ui/Box';
+import Button from '@wso2/oxygen-ui/Button';
+import Checkbox from '@wso2/oxygen-ui/Checkbox';
+import Divider from '@wso2/oxygen-ui/Divider';
+import FormControl from '@wso2/oxygen-ui/FormControl';
+import FormControlLabel from '@wso2/oxygen-ui/FormControlLabel';
+import FormGroup from '@wso2/oxygen-ui/FormGroup';
+import FormLabel from '@wso2/oxygen-ui/FormLabel';
+import { Form } from '@wso2/oxygen-ui/Form';
+import FullScreenWizard, { useWizardSteps } from '@wso2/oxygen-ui/FullScreenWizard';
+import Paper from '@wso2/oxygen-ui/Paper';
+import Radio from '@wso2/oxygen-ui/Radio';
+import RadioGroup from '@wso2/oxygen-ui/RadioGroup';
+import Stack from '@wso2/oxygen-ui/Stack';
+import Step from '@wso2/oxygen-ui/Step';
+import StepLabel from '@wso2/oxygen-ui/StepLabel';
+import Stepper from '@wso2/oxygen-ui/Stepper';
+import TextField from '@wso2/oxygen-ui/TextField';
+import ToggleButton from '@wso2/oxygen-ui/ToggleButton';
+import ToggleButtonGroup from '@wso2/oxygen-ui/ToggleButtonGroup';
+import Typography from '@wso2/oxygen-ui/Typography';
+import type { BreadcrumbItem } from '@wso2/oxygen-ui/AppBreadcrumbs';
 import { Building2, FolderPlus, Lock, Sparkles, UserPlus } from '@wso2/oxygen-ui-icons-react';
 
 /**
@@ -285,7 +282,7 @@ const StepHeading = ({ title, description, step }: { title: string; description:
     <Form.Header component="h1" gutterBottom>
       {title}
     </Form.Header>
-    <Typography variant="body1" color="text.secondary">
+    <Typography sx={{ color: 'text.secondary' }} variant="body1">
       {description}
     </Typography>
   </Box>
@@ -315,7 +312,7 @@ const OptionCard = ({
       <Typography variant="h6" component="span">
         {title}
       </Typography>
-      <Typography variant="body2" color="text.secondary">
+      <Typography sx={{ color: 'text.secondary' }} variant="body2">
         {description}
       </Typography>
     </Form.CardContent>
@@ -404,13 +401,13 @@ const ProjectStepContent = ({
       <Paper variant="outlined" sx={{ p: 3 }}>
         <Stack spacing={2} divider={<Divider />}>
           <Box>
-            <Typography variant="body2" color="text.secondary">
+            <Typography sx={{ color: 'text.secondary' }} variant="body2">
               Project name
             </Typography>
             <Typography variant="body1">{draft.name || 'Untitled project'}</Typography>
           </Box>
           <Box>
-            <Typography variant="body2" color="text.secondary">
+            <Typography sx={{ color: 'text.secondary' }} variant="body2">
               Access
             </Typography>
             <Typography variant="body1">
@@ -577,7 +574,7 @@ export const WithLivePreview: Story = {
         <FullScreenWizard.Preview>
           {/* The frame is the consumer's content: a device toggle and a browser window around the live sign-in page. */}
           <Stack direction="row" sx={{ alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
-            <Typography variant="overline" color="text.secondary" component="p">
+            <Typography sx={{ color: 'text.secondary' }} variant="overline" component="p">
               Preview
             </Typography>
             <ToggleButtonGroup
@@ -612,18 +609,17 @@ export const WithLivePreview: Story = {
               </Stack>
               <Typography
                 variant="caption"
-                color="text.secondary"
-                sx={{ flex: 1, py: 0.5, textAlign: 'center', borderRadius: 1, bgcolor: 'action.hover' }}
+                sx={{ color: 'text.secondary', flex: 1, py: 0.5, textAlign: 'center', borderRadius: 1, bgcolor: 'action.hover' }}
               >
                 {appName || 'Your app'} preview
               </Typography>
             </Box>
             <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4, bgcolor: 'background.default' }}>
             <Paper variant="outlined" sx={{ width: '100%', maxWidth: (theme) => theme.spacing(48), p: 4, borderRadius: radius }}>
-              <Typography variant="h5" component="p" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="h5" component="p">
                 {appName || 'Your app'}
               </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+              <Typography variant="body2" sx={{ color: 'text.secondary', mb: 3 }}>
                 {welcome}
               </Typography>
               <Box
@@ -726,7 +722,7 @@ export const CenteredLanding: Story = {
             <Typography variant="h4" component="h1">
               Welcome
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography sx={{ color: 'text.secondary' }} variant="body1">
               Choose where to start. You can do the rest later.
             </Typography>
           </Stack>
@@ -832,7 +828,7 @@ export const StickyFooter: Story = {
           </Stack>
           <FormControl component="fieldset">
             <FormLabel component="legend">
-              <Typography variant="h6" component="h2" color="text.primary">
+              <Typography sx={{ color: 'text.primary' }} variant="h6" component="h2">
                 Email notifications
               </Typography>
             </FormLabel>
@@ -917,7 +913,7 @@ export const FocusedFlow: Story = {
         </FullScreenWizard.Content>
         <FullScreenWizard.Footer variant="bar">
           {nextStep && (
-            <Typography variant="body2" color="text.secondary">
+            <Typography sx={{ color: 'text.secondary' }} variant="body2">
               Next: {STEP_LABELS[nextStep]}
             </Typography>
           )}
@@ -945,7 +941,7 @@ export const StepRail: Story = {
           previewLabel="Steps"
           sx={{ flexBasis: (theme) => theme.spacing(40), borderRight: 1, borderColor: 'divider', bgcolor: 'background.paper' }}
         >
-          <Typography variant="overline" color="text.secondary" component="p">
+          <Typography sx={{ color: 'text.secondary' }} variant="overline" component="p">
             Projects
           </Typography>
           <Typography variant="h5" component="p" sx={{ mb: 4 }}>

@@ -92,7 +92,7 @@ const StyledNameText = styled('span', {
  */
 export const UserMenuTrigger = React.forwardRef<HTMLButtonElement, UserMenuTriggerProps>(
   function UserMenuTrigger({ name, avatar, showName = false, onClick, 'aria-label': ariaLabel, ...props }, ref) {
-    const { open, handleOpen } = useUserMenu();
+    const { menuId, open, handleOpen } = useUserMenu();
     const avatarProps = getUserMenuAvatarProps(name, avatar);
     const defaultAriaLabel = showName ? name : 'Account';
     const resolvedAriaLabel =
@@ -110,7 +110,7 @@ export const UserMenuTrigger = React.forwardRef<HTMLButtonElement, UserMenuTrigg
           size="small"
           showName={showName}
           aria-label={resolvedAriaLabel}
-          aria-controls={open ? 'user-menu' : undefined}
+          aria-controls={open ? menuId : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >

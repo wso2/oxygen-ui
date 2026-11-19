@@ -16,15 +16,8 @@
  * under the License.
  */
 
-// Auto-import bundled fonts
-import './fonts.css';
-import './fonts-sora.css';
-
-// Import package.json to extract version
-import pkg from '../package.json';
-
 // Export version
-export const version =  pkg.version;
+export { version } from './version';
 
 // Export custom Oxygen UI components and utilities
 // Export styles (themes)

@@ -17,7 +17,7 @@
  */
 
 import * as React from 'react'
-import TextField, { TextFieldProps } from '@mui/material/TextField'
+import type { TextFieldProps } from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
@@ -26,12 +26,12 @@ import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
-import FormControl from '@mui/material/FormControl'
-import InputLabel from '@mui/material/InputLabel'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
+import type { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 
 import { ListFilter } from '@wso2/oxygen-ui-icons-react'
+import Select from '../Select'
+import TextField from '../TextField'
 import { SearchBarBase } from './SearchBarBase'
 
 export type AdvancedFilterOption = {
@@ -75,6 +75,7 @@ export function SearchBarWithAdvancedFilter({
 }: SearchBarWithAdvancedFilterProps) {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
   const open = Boolean(anchorEl)
+  const popoverId = React.useId()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value)
@@ -86,7 +87,7 @@ export function SearchBarWithAdvancedFilter({
     onAdvancedFilterChange({ ...advancedFilter, attribute: e.target.value as string })
   }
 
-  const handleCondChange = (e: SelectChangeEvent, child: React.ReactNode) => {
+  const handleCondChange = (e: SelectChangeEvent) => {
     onAdvancedFilterChange({ ...advancedFilter, condition: e.target.value as string })
   }
 
@@ -104,8 +105,6 @@ export function SearchBarWithAdvancedFilter({
     handleClose()
   }
 
-  const popoverId = open ? 'advanced-search-popover' : undefined
-
   return (
     <>
       <SearchBarBase
@@ -119,7 +118,7 @@ export function SearchBarWithAdvancedFilter({
             <Box sx={{ display: 'flex', alignItems: 'center', height: '100%' }}>
               <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
               <IconButton
-                aria-describedby={popoverId}
+                aria-describedby={open ? popoverId : undefined}
                 aria-label="Open advanced search"
                 onClick={handleOpen}
                 size="small"
@@ -156,53 +155,44 @@ export function SearchBarWithAdvancedFilter({
         <Divider sx={{ my: 1 }} />
 
         <Stack spacing={2} sx={{ mt: 2 }}>
-          <FormControl fullWidth size="small">
-            <InputLabel id="adv-filter-attribute-label">
-              Filter attribute{' '}
-              <Box component="span" sx={{ color: 'error.main' }}>
-                *
-              </Box>
-            </InputLabel>
+          <Select
+            labelPlacement="top"
+            label="Filter attribute"
+            placeholder="Select an attribute"
+            required
+            fullWidth
+            size="small"
+            value={advancedFilter.attribute}
+            onChange={handleAttrChange}
+          >
+            {attributeOptions.map(opt => (
+              <MenuItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </MenuItem>
+            ))}
+          </Select>
 
+          <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
             <Select
-              labelId="adv-filter-attribute-label"
-              value={advancedFilter.attribute}
-              label="Filter attribute *"
-              onChange={handleAttrChange}
+              labelPlacement="top"
+              label="Filter condition"
+              placeholder="Select a condition"
+              required
+              fullWidth
+              size="small"
+              value={advancedFilter.condition}
+              onChange={handleCondChange}
             >
-              {attributeOptions.map(opt => (
+              {conditionOptions.map(opt => (
                 <MenuItem key={opt.value} value={opt.value}>
                   {opt.label}
                 </MenuItem>
               ))}
             </Select>
-          </FormControl>
-
-          <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
-            <FormControl fullWidth size="small">
-              <InputLabel id="adv-filter-condition-label">
-                Filter condition{' '}
-                <Box component="span" sx={{ color: 'error.main' }}>
-                  *
-                </Box>
-              </InputLabel>
-
-              <Select
-                labelId="adv-filter-condition-label"
-                value={advancedFilter.condition}
-                label="Filter condition *"
-                onChange={handleCondChange}
-              >
-                {conditionOptions.map(opt => (
-                  <MenuItem key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
 
             <TextField
               size="small"
+              labelPlacement="top"
               required
               label="Filter value"
               placeholder="Enter value to search"

@@ -48,9 +48,9 @@ export default {
     config.resolve = config.resolve || {};
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
-      '@wso2/oxygen-ui': path.resolve(__dirname, '../../oxygen-ui/dist/index.js'),
-      '@wso2/oxygen-ui-icons-react': path.resolve(__dirname, '../../oxygen-ui-icons-react/dist/index.js'),
-      '@wso2/oxygen-ui-charts-react': path.resolve(__dirname, '../../oxygen-ui-charts-react/dist/index.js'),
+      '@wso2/oxygen-ui$': path.resolve(__dirname, '../../oxygen-ui/dist/index.js'),
+      '@wso2/oxygen-ui-icons-react$': path.resolve(__dirname, '../../oxygen-ui-icons-react/dist/index.js'),
+      '@wso2/oxygen-ui-charts-react$': path.resolve(__dirname, '../../oxygen-ui-charts-react/dist/index.js'),
     };
 
     config.module.rules = (config.module.rules || []).map((rule) => {

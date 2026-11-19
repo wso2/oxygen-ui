@@ -24,7 +24,7 @@
  * exports it, so the sample app builds its own copy the way any consumer would.
  */
 
-import { createOxygenTheme, type OxygenThemeType } from '@wso2/oxygen-ui';
+import { createOxygenTheme, type OxygenThemeType } from '@wso2/oxygen-ui/styles';
 
 const AcrylicBaseTheme = {
   colorSchemes: {

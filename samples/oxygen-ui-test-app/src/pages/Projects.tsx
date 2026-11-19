@@ -16,21 +16,19 @@
  * under the License.
  */
 
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardActions,
-  Grid,
-  PageContent,
-  PageTitle,
-  Typography,
-  TextField,
-  InputAdornment,
-  Chip,
-  IconButton,
-} from '@wso2/oxygen-ui'
+import Box from '@wso2/oxygen-ui/Box'
+import Button from '@wso2/oxygen-ui/Button'
+import Card from '@wso2/oxygen-ui/Card'
+import CardContent from '@wso2/oxygen-ui/CardContent'
+import CardActions from '@wso2/oxygen-ui/CardActions'
+import Grid from '@wso2/oxygen-ui/Grid'
+import PageContent from '@wso2/oxygen-ui/PageContent'
+import PageTitle from '@wso2/oxygen-ui/PageTitle'
+import Typography from '@wso2/oxygen-ui/Typography'
+import TextField from '@wso2/oxygen-ui/TextField'
+import InputAdornment from '@wso2/oxygen-ui/InputAdornment'
+import Chip from '@wso2/oxygen-ui/Chip'
+import IconButton from '@wso2/oxygen-ui/IconButton'
 import { Search, Plus, MoreVertical, Folder } from '@wso2/oxygen-ui-icons-react'
 import { useNavigate, useParams } from 'react-router'
 import { useState, type JSX } from 'react'
@@ -111,10 +109,15 @@ export default function Projects(): JSX.Element {
       {filteredProjects.length === 0 ? (
         <Box sx={{ textAlign: 'center', py: 8 }}>
           <Folder size={48} style={{ opacity: 0.3, marginBottom: 16 }} />
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h6">
             No projects found
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+              mb: 2
+            }}>
             {searchQuery ? 'Try adjusting your search' : 'Create your first project to get started'}
           </Typography>
           {!searchQuery && (
@@ -175,17 +178,16 @@ export default function Projects(): JSX.Element {
                   </Box>
                   <Typography
                     variant="body1"
-                    color="text.secondary"
                     sx={{
+                      color: 'text.secondary',
                       mb: 3,
                       minHeight: 40,
                       display: '-webkit-box',
                       WebkitLineClamp: 2,
                       WebkitBoxOrient: 'vertical',
                       overflow: 'hidden',
-                      lineHeight: 1.6,
-                    }}
-                  >
+                      lineHeight: 1.6
+                    }}>
                     {project.description ?? 'No description'}
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 1, mb: 2, flexWrap: 'wrap' }}>
@@ -204,9 +206,13 @@ export default function Projects(): JSX.Element {
                   </Box>
                   <Typography
                     variant="caption"
-                    color="text.secondary"
-                    sx={{ display: 'flex', alignItems: 'center', gap: 0.5, fontWeight: 500 }}
-                  >
+                    sx={{
+                      color: 'text.secondary',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 0.5,
+                      fontWeight: 500
+                    }}>
                     Updated {project.lastUpdated}
                   </Typography>
                 </CardContent>
@@ -229,5 +235,5 @@ export default function Projects(): JSX.Element {
         </Grid>
       )}
     </PageContent>
-  )
+  );
 }

@@ -20,6 +20,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
+import { sortParts } from '../../utils/compoundParts';
 
 /**
  * Styled header container for the notification panel.
@@ -64,23 +65,8 @@ const separateChildren = (children: React.ReactNode): {
   leftChildren: React.ReactNode[];
   closeChild: React.ReactNode;
 } => {
-  const leftChildren: React.ReactNode[] = [];
-  let closeChild: React.ReactNode = null;
-
-  React.Children.forEach(children, (child) => {
-    if (React.isValidElement(child)) {
-      const displayName = (child.type as React.FC)?.displayName;
-      if (displayName === 'NotificationHeaderClose') {
-        closeChild = child;
-      } else {
-        leftChildren.push(child);
-      }
-    } else {
-      leftChildren.push(child);
-    }
-  });
-
-  return { leftChildren, closeChild };
+  const { parts, rest } = sortParts(children, ['NotificationHeaderClose']);
+  return { leftChildren: rest, closeChild: parts.pop() ?? null };
 };
 
 /**

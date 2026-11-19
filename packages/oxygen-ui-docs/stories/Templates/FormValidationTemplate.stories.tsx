@@ -18,17 +18,15 @@
 
 import React, { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react-webpack5'
-import {
-  Button,
-  Box,
-  Alert,
-  Form,
-  TextField,
-  Select,
-  MenuItem,
-  Autocomplete,
-  Typography,
-} from '@wso2/oxygen-ui'
+import Button from '@wso2/oxygen-ui/Button'
+import Box from '@wso2/oxygen-ui/Box'
+import Alert from '@wso2/oxygen-ui/Alert'
+import { Form } from '@wso2/oxygen-ui/Form'
+import TextField from '@wso2/oxygen-ui/TextField'
+import Select from '@wso2/oxygen-ui/Select'
+import MenuItem from '@wso2/oxygen-ui/MenuItem'
+import Autocomplete from '@wso2/oxygen-ui/Autocomplete'
+import Typography from '@wso2/oxygen-ui/Typography'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -248,7 +246,9 @@ export const Default: Story = {
                           value={value}
                           onChange={(_, newValue) => onChange(newValue)}
                           multiple
-                          renderInput={params => <TextField {...params} placeholder="Select frameworks" />}
+                          renderInput={params => (
+                            <TextField {...params} placeholder="Select frameworks" />
+                          )}
                           fullWidth
                         />
                       </Form.ElementWrapper>
@@ -287,7 +287,7 @@ export const Default: Story = {
           {/* Display submitted data */}
           {submittedData && (
             <Alert severity="success">
-              <Typography variant="h6" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="h6">
                 Form Submitted Successfully!
               </Typography>
               <Typography variant="body2" component="pre" sx={{ mt: 1 }}>

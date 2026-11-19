@@ -21,7 +21,7 @@ import Box from '@mui/material/Box';
 import type { BoxProps } from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { ChevronDown } from '@wso2/oxygen-ui-icons-react';
-import { ListingTableFilterMenu } from '../ListingTable/shared/ListingTableFilterMenu';
+import { ListingTableFilterMenu } from '../ListingTable/internal';
 import TimeRangeFilter from '../TimeRangeFilter';
 import { useLogViewerRequired } from './context';
 import { LogViewerCount } from './LogViewerControls';

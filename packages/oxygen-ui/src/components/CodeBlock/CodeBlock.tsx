@@ -18,6 +18,7 @@
 
 import React, { useEffect } from 'react';
 import { Box, useTheme } from '@mui/material';
+import { useResolvedColorScheme } from '../../hooks/useResolvedColorScheme/useResolvedColorScheme';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-typescript';
@@ -55,27 +56,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
 }) => {
   const theme = useTheme();
   
-  // Check color scheme from DOM attribute (set by MUI's extendTheme)
-  const [isDark, setIsDark] = React.useState(false);
-
-  React.useEffect(() => {
-    const checkColorScheme = () => {
-      const htmlElement = document.documentElement;
-      const colorScheme = htmlElement.getAttribute('data-color-scheme');
-      setIsDark(colorScheme === 'dark' || theme.palette.mode === 'dark');
-    };
-
-    checkColorScheme();
-    
-    // Watch for changes to the color scheme attribute
-    const observer = new MutationObserver(checkColorScheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['data-color-scheme'],
-    });
-
-    return () => observer.disconnect();
-  }, [theme.palette.mode]);
+  const isDark = useResolvedColorScheme() === 'dark';
 
   useEffect(() => {
     Prism.highlightAll();

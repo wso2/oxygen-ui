@@ -17,9 +17,9 @@
  */
 
 import Box, {BoxProps} from '@mui/material/Box';
-import {Theme, useColorScheme} from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import {Theme} from '@mui/material/styles';
 import {ComponentType, JSX, ReactNode, SVGProps} from 'react';
+import {useResolvedColorScheme} from '../../hooks/useResolvedColorScheme/useResolvedColorScheme';
 
 /**
  * SVG component source for light and dark modes.
@@ -151,13 +151,11 @@ export default function ColorSchemeSVG({
   const wrapperRest = rest as BoxProps;
   const svgRest = rest as BoxProps<'svg'>;
 
-  const {mode} = useColorScheme();
-  const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
-  const actualMode = mode === 'system' ? (prefersDark ? 'dark' : 'light') : (mode ?? 'light');
+  const colorScheme = useResolvedColorScheme();
 
   const SelectedSvgComponent =
     SvgComponent && typeof SvgComponent === 'object' && 'light' in SvgComponent && 'dark' in SvgComponent
-      ? (actualMode === 'dark' ? SvgComponent.dark : SvgComponent.light)
+      ? (colorScheme === 'dark' ? SvgComponent.dark : SvgComponent.light)
       : SvgComponent;
 
   const colorSchemeStyles = {

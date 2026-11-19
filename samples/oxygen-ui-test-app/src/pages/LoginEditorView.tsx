@@ -16,28 +16,26 @@
  * under the License.
  */
 
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Typography,
-  TextField,
-  IconButton,
-  Tabs,
-  Tab,
-  Divider,
-  FormControl,
-  FormLabel,
-  Switch,
-  PageContent,
-  FormControlLabel,
-  Select,
-  MenuItem,
-  Chip,
-  Grid,
-  useAppShell,
-} from '@wso2/oxygen-ui'
+import Box from '@wso2/oxygen-ui/Box'
+import Button from '@wso2/oxygen-ui/Button'
+import Card from '@wso2/oxygen-ui/Card'
+import CardContent from '@wso2/oxygen-ui/CardContent'
+import Typography from '@wso2/oxygen-ui/Typography'
+import TextField from '@wso2/oxygen-ui/TextField'
+import IconButton from '@wso2/oxygen-ui/IconButton'
+import Tabs from '@wso2/oxygen-ui/Tabs'
+import Tab from '@wso2/oxygen-ui/Tab'
+import Divider from '@wso2/oxygen-ui/Divider'
+import FormControl from '@wso2/oxygen-ui/FormControl'
+import FormLabel from '@wso2/oxygen-ui/FormLabel'
+import Switch from '@wso2/oxygen-ui/Switch'
+import PageContent from '@wso2/oxygen-ui/PageContent'
+import FormControlLabel from '@wso2/oxygen-ui/FormControlLabel'
+import Select from '@wso2/oxygen-ui/Select'
+import MenuItem from '@wso2/oxygen-ui/MenuItem'
+import Chip from '@wso2/oxygen-ui/Chip'
+import Grid from '@wso2/oxygen-ui/Grid'
+import useAppShell from '@wso2/oxygen-ui/useAppShell'
 import { ArrowLeft, Save, Eye, Code, Settings, Play, Undo, Redo } from '@wso2/oxygen-ui-icons-react'
 import { useNavigate, useParams } from 'react-router'
 import { useState, useEffect, type JSX } from 'react'
@@ -133,7 +131,9 @@ export default function LoginEditorView(): JSX.Element {
           </IconButton>
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="h4">Login Flow Editor</Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" sx={{
+              color: 'text.secondary'
+            }}>
               Basic Login Flow
             </Typography>
           </Box>
@@ -329,10 +329,15 @@ export default function LoginEditorView(): JSX.Element {
           >
             <Card sx={{ width: '100%', maxWidth: 450, m: 3 }}>
               <CardContent sx={{ p: 4 }}>
-                <Typography variant="h1" gutterBottom>
+                <Typography sx={{ mb: '0.35em' }} variant="h1">
                   {formConfig.title}
                 </Typography>
-                <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 3 }}>
+                <Typography
+                  variant="subtitle2"
+                  sx={{
+                    color: 'text.secondary',
+                    mb: 3
+                  }}>
                   {formConfig.subtitle}
                 </Typography>
 
@@ -368,7 +373,9 @@ export default function LoginEditorView(): JSX.Element {
                   {formConfig.enableSocialLogin && (
                     <>
                       <Divider sx={{ my: 1 }}>
-                        <Typography variant="caption" color="text.secondary">
+                        <Typography variant="caption" sx={{
+                          color: 'text.secondary'
+                        }}>
                           OR
                         </Typography>
                       </Divider>
@@ -390,7 +397,9 @@ export default function LoginEditorView(): JSX.Element {
 
                   {formConfig.allowSignUp && (
                     <Box sx={{ textAlign: 'center', mt: 2 }}>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{
+                        color: 'text.secondary'
+                      }}>
                         Don't have an account?{' '}
                         <Button variant="text" size="small">
                           Sign up
@@ -419,15 +428,19 @@ export default function LoginEditorView(): JSX.Element {
         >
           <Box sx={{ display: 'flex', gap: 2 }}>
             <Chip label="Unsaved changes" size="small" color="warning" />
-            <Typography variant="caption" color="text.secondary">
+            <Typography variant="caption" sx={{
+              color: 'text.secondary'
+            }}>
               Last saved: 2 minutes ago
             </Typography>
           </Box>
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" sx={{
+            color: 'text.secondary'
+          }}>
             Ready
           </Typography>
         </Box>
       </Box>
     </PageContent>
-  )
+  );
 }

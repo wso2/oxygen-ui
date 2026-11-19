@@ -16,24 +16,22 @@
  * under the License.
  */
 
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Typography,
-  Tabs,
-  Tab,
-  Chip,
-  Divider,
-  List,
-  ListItem,
-  ListItemText,
-  Grid,
-  PageContent,
-  StatCard,
-  PageTitle,
-} from '@wso2/oxygen-ui'
+import Box from '@wso2/oxygen-ui/Box'
+import Button from '@wso2/oxygen-ui/Button'
+import Card from '@wso2/oxygen-ui/Card'
+import CardContent from '@wso2/oxygen-ui/CardContent'
+import Typography from '@wso2/oxygen-ui/Typography'
+import Tabs from '@wso2/oxygen-ui/Tabs'
+import Tab from '@wso2/oxygen-ui/Tab'
+import Chip from '@wso2/oxygen-ui/Chip'
+import Divider from '@wso2/oxygen-ui/Divider'
+import List from '@wso2/oxygen-ui/List'
+import ListItem from '@wso2/oxygen-ui/ListItem'
+import ListItemText from '@wso2/oxygen-ui/ListItemText'
+import Grid from '@wso2/oxygen-ui/Grid'
+import PageContent from '@wso2/oxygen-ui/PageContent'
+import StatCard from '@wso2/oxygen-ui/StatCard'
+import PageTitle from '@wso2/oxygen-ui/PageTitle'
 import { LineChart, BarChart, PieChart } from '@wso2/oxygen-ui-charts-react'
 import { Activity, FileText, Users, Clock, Logs } from '@wso2/oxygen-ui-icons-react'
 import { useNavigate, useParams } from 'react-router'

@@ -27,6 +27,7 @@ import { useSidebar } from './context';
 import { SidebarUserAvatar } from './SidebarUserAvatar';
 import { SidebarUserName } from './SidebarUserName';
 import { SidebarUserEmail } from './SidebarUserEmail';
+import { displayNameOf, lastPartNamed, sortParts, textOf } from '../../utils/compoundParts';
 
 /**
  * Props for styled SidebarUserButton.
@@ -91,8 +92,7 @@ const SidebarUserTextContainer = styled(Box, {
   }),
 }))
 
-// Child display names for detection
-const CHILD_DISPLAY_NAMES = [
+const USER_PART_NAMES = [
   'SidebarUserAvatar',
   'SidebarUserName',
   'SidebarUserEmail',
@@ -119,42 +119,18 @@ const separateChildren = (children: React.ReactNode): {
   avatarChild: React.ReactNode;
   textChildren: React.ReactNode[];
 } => {
-  let avatarChild: React.ReactNode = null;
-  const textChildren: React.ReactNode[] = [];
-
-  React.Children.forEach(children, (child) => {
-    if (React.isValidElement(child)) {
-      const displayName = (child.type as React.FC)?.displayName;
-      if (displayName === 'SidebarUserAvatar') {
-        avatarChild = child;
-      } else if (
-        displayName === 'SidebarUserName' ||
-        displayName === 'SidebarUserEmail'
-      ) {
-        textChildren.push(child);
-      }
-    }
-  });
-
-  return { avatarChild, textChildren };
+  const { parts } = sortParts(children, USER_PART_NAMES);
+  return {
+    avatarChild: lastPartNamed(parts, 'SidebarUserAvatar') ?? null,
+    textChildren: parts.filter((part) => displayNameOf(part) !== 'SidebarUserAvatar'),
+  };
 };
 
 /**
  * Gets the tooltip text from children.
  */
-const getTooltipText = (children: React.ReactNode): string => {
-  let tooltipText = '';
-  React.Children.forEach(children, (child) => {
-    if (React.isValidElement(child)) {
-      const displayName = (child.type as React.FC)?.displayName;
-      const props = child.props as { children?: React.ReactNode };
-      if (displayName === 'SidebarUserName' && props.children) {
-        tooltipText = String(props.children);
-      }
-    }
-  });
-  return tooltipText;
-};
+const getTooltipText = (children: React.ReactNode): string =>
+  textOf(lastPartNamed(sortParts(children, USER_PART_NAMES).parts, 'SidebarUserName'));
 
 /**
  * SidebarUser - User profile section at the bottom of the sidebar.

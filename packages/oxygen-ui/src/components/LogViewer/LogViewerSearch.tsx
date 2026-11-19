@@ -19,8 +19,8 @@
 import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
 import { X } from '@wso2/oxygen-ui-icons-react';
-import { SearchBarBase } from '../SearchBar/SearchBarBase';
-import type { SearchBarBaseProps } from '../SearchBar/SearchBarBase';
+import { SearchBarBase } from '../SearchBar';
+import type { SearchBarBaseProps } from '../SearchBar';
 
 /**
  * Props for LogViewer.Search. The rest of the props go to the search field.

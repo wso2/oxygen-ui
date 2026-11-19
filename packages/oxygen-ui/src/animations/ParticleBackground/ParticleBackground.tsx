@@ -17,7 +17,7 @@
  */
 
 import { useEffect, useRef } from 'react';
-import { useColorScheme } from '@mui/material/styles';
+import { useResolvedColorScheme } from '../../hooks/useResolvedColorScheme/useResolvedColorScheme';
 
 export interface ParticleBackgroundProps {
   /**
@@ -79,7 +79,7 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
   clickBurst = 120,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { mode } = useColorScheme();
+  const colorScheme = useResolvedColorScheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -102,7 +102,7 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
       colorLink: '#ffffff',
     };
 
-    let currentColors = mode === 'dark' ? darkColors : lightColors;
+    let currentColors = colorScheme === 'dark' ? darkColors : lightColors;
 
     // Setup
     let DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
@@ -339,7 +339,7 @@ export const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
       reducedMotionQuery.removeEventListener('change', handleReducedMotionChange);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [baseDensity, maxSpeed, radius, linkDist, linkAlpha, mouseInfluence, repelStrength, clickBurst, mode]);
+  }, [baseDensity, maxSpeed, radius, linkDist, linkAlpha, mouseInfluence, repelStrength, clickBurst, colorScheme]);
 
   return (
     <canvas

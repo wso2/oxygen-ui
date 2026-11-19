@@ -17,14 +17,14 @@
  */
 
 declare module 'lucide-react/package.json' {
-	const pkg: {version: string; [key: string]: unknown};
-	export default pkg;
+  const pkg: { version: string; [key: string]: unknown }
+  export default pkg
 }
 
 declare module '*.svg?react' {
-	import type {FunctionComponent, SVGProps} from 'react';
+  import type { FunctionComponent, SVGProps } from 'react'
 
-	const ReactComponent: FunctionComponent<SVGProps<SVGSVGElement>>;
+  const ReactComponent: FunctionComponent<SVGProps<SVGSVGElement>>
 
-	export default ReactComponent;
+  export default ReactComponent
 }

@@ -19,6 +19,7 @@
 import React from 'react'
 import { Box, Button, Card, CardContent, CircularProgress, LinearProgress, Popper, Typography } from '@mui/material'
 import type { BoxProps } from '@mui/material'
+import { getUsageTone, itemsOf, sumOf } from './usage'
 
 /**
  * Visual status of a trial, derived from the days remaining.
@@ -265,32 +266,6 @@ const POPPER_OPTIONS = {
 }
 const CLOSE_DELAY_MS = 120
 
-const getUsageTone = (
-  count: number,
-  limit: number,
-  warningThreshold: number,
-  criticalThreshold: number
-): TrialBadgeUsageTone => {
-  // A limit of 0 means nothing is allowed, so any use is over the limit.
-  const share = limit > 0 ? count / limit : 1
-  if (share >= criticalThreshold) return 'error'
-  if (share > warningThreshold) return 'warning'
-  return 'success'
-}
-
-const sumOf = (items: TrialBadgeUsageItem[], pick: (item: TrialBadgeUsageItem) => number) =>
-  items.reduce((sum, item) => sum + Math.max(0, pick(item)), 0)
-
-/**
- * Every row a section draws, loose ones and grouped ones alike.
- *
- * A section's total has to count the rows nested in its groups: a section that
- * holds nothing but groups would otherwise total "0 of 0" while displaying a
- * full set of bars.
- */
-const itemsOf = (section: TrialBadgeUsageSection): TrialBadgeUsageItem[] =>
-  ([] as TrialBadgeUsageItem[]).concat(section.items ?? [], ...(section.groups ?? []).map(group => group.items))
-
 /**
  * One resource's row: label, bar, and `count/limit`.
  *
@@ -316,7 +291,7 @@ const TrialBadgeUsageRow: React.FC<{
         columnGap: 1.5,
       }}
     >
-      <Typography variant="caption" color="text.secondary" noWrap sx={{ fontSize: '0.75rem' }}>
+      <Typography variant="caption" noWrap sx={{ color: 'text.secondary', fontSize: '0.75rem' }}>
         {item.label}
       </Typography>
       <LinearProgress
@@ -326,7 +301,7 @@ const TrialBadgeUsageRow: React.FC<{
         aria-label={label ?? 'Usage'}
         sx={{ height: 4, borderRadius: 999, bgcolor: 'action.hover' }}
       />
-      <Typography variant="caption" color="text.secondary" sx={{ textAlign: 'right', fontSize: '0.75rem' }}>
+      <Typography variant="caption" sx={{ color: 'text.secondary', textAlign: 'right', fontSize: '0.75rem' }}>
         <Box component="span" sx={{ fontWeight: 700, color: 'text.primary' }}>
           {count}
         </Box>
@@ -427,7 +402,7 @@ const TrialBadgeUsagePanel: React.FC<{ usage: TrialBadgeUsage }> = ({ usage }) =
                 {section.title}
               </Typography>
               {section.totalSuffix ? (
-                <Typography variant="body2" color="text.secondary">
+                <Typography sx={{ color: 'text.secondary' }} variant="body2">
                   <Box component="span" sx={{ fontWeight: 700, color: 'text.primary' }}>
                     {sectionCount}
                   </Box>{' '}
@@ -470,8 +445,7 @@ const TrialBadgeUsagePanel: React.FC<{ usage: TrialBadgeUsage }> = ({ usage }) =
                         absent bar already mark it as a heading rather than a resource. */}
                     <Typography
                       variant="caption"
-                      color="text.secondary"
-                      sx={{ display: 'block', fontSize: '0.75rem', mb: 1 }}
+                      sx={{ color: 'text.secondary', display: 'block', fontSize: '0.75rem', mb: 1 }}
                     >
                       {group.title}
                     </Typography>
@@ -498,7 +472,7 @@ const TrialBadgeUsagePanel: React.FC<{ usage: TrialBadgeUsage }> = ({ usage }) =
           borderColor: 'divider',
         }}
       >
-        <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.75rem' }}>
+        <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.75rem' }}>
           {footerText}
         </Typography>
         <Button

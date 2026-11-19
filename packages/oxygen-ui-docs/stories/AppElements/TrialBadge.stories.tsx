@@ -17,7 +17,8 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { TrialBadge, Stack } from '@wso2/oxygen-ui';
+import TrialBadge from '@wso2/oxygen-ui/TrialBadge';
+import Stack from '@wso2/oxygen-ui/Stack';
 import React from 'react';
 
 /**
@@ -160,7 +161,7 @@ export const WithUsagePanelCustomThresholds: Story = {
 
 export const AllStates: Story = {
   render: () => (
-    <Stack spacing={2} sx={{ alignItems: 'flex-start' }}>
+    <Stack sx={{ alignItems: 'flex-start' }} spacing={2}>
       {[12, 5, 2, 0].map((d) => (
         <TrialBadge key={d} daysLeft={d} onUpgrade={() => undefined} />
       ))}

@@ -182,17 +182,15 @@ const toggleExpand = (id: string) => {
 
 ```tsx
 import { useState } from 'react';
-import {
-  OxygenUIThemeProvider,
-  OxygenTheme,
-  AppShell,
-  Header,
-  Sidebar,
-  Footer,
-  Box,
-  ColorSchemeToggle,
-  UserMenu,
-} from '@wso2/oxygen-ui';
+import OxygenUIThemeProvider from '@wso2/oxygen-ui/OxygenUIThemeProvider';
+import OxygenTheme from '@wso2/oxygen-ui/OxygenTheme';
+import AppShell from '@wso2/oxygen-ui/AppShell';
+import Header from '@wso2/oxygen-ui/Header';
+import Sidebar from '@wso2/oxygen-ui/Sidebar';
+import Footer from '@wso2/oxygen-ui/Footer';
+import Box from '@wso2/oxygen-ui/Box';
+import ColorSchemeToggle from '@wso2/oxygen-ui/ColorSchemeToggle';
+import UserMenu from '@wso2/oxygen-ui/UserMenu';
 import {
   HomeIcon,
   DashboardIcon,
@@ -358,7 +356,10 @@ Switchers use `ComplexSelect` with a `label` and the default `labelAnchor`, `ins
 ## Dashboard Layout with Stats
 
 ```tsx
-import { Grid, Paper, Typography, Box } from '@wso2/oxygen-ui';
+import Grid from '@wso2/oxygen-ui/Grid';
+import Paper from '@wso2/oxygen-ui/Paper';
+import Typography from '@wso2/oxygen-ui/Typography';
+import Box from '@wso2/oxygen-ui/Box';
 
 function DashboardContent() {
   return (

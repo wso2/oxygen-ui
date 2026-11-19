@@ -16,23 +16,5 @@
  * under the License.
  */
 
-import esbuild from 'esbuild';
-import { readFileSync } from 'fs';
-
-const pkg = JSON.parse(readFileSync('./package.json', 'utf8'));
-
-await esbuild.build({
-  entryPoints: ['index.mjs'],
-  outdir: 'dist',
-  bundle: true,
-  format: 'esm',
-  platform: 'node',
-  sourcemap: true,
-  minify: false,
-  target: ['node25'],
-  external: [
-    ...Object.keys(pkg.dependencies || {}),
-    ...Object.keys(pkg.peerDependencies || {}),
-    'vite'
-],
-});
+export { useResolvedColorScheme, default } from './useResolvedColorScheme';
+export type { ResolvedColorScheme } from './useResolvedColorScheme';

@@ -49,6 +49,7 @@ import type { AppSwitcherFooterProps } from './AppSwitcher/AppSwitcherFooter';
 import NotificationPanel from './NotificationPanel/NotificationPanel';
 import { useNotificationPanel } from './NotificationPanel/context';
 import FullScreenWizard from './FullScreenWizard/FullScreenWizard';
+import NotificationBanner from './NotificationBanner/NotificationBanner';
 
 const renderWithTheme = (ui: React.ReactElement) =>
   render(<OxygenUIThemeProvider>{ui}</OxygenUIThemeProvider>);
@@ -241,7 +242,9 @@ describe('UserMenu.Trigger', () => {
     fireEvent.click(trigger);
 
     expect(trigger.getAttribute('aria-expanded')).toBe('true');
-    expect(trigger.getAttribute('aria-controls')).toBe('user-menu');
+    const controlled = trigger.getAttribute('aria-controls');
+    expect(controlled).toBeTruthy();
+    expect(document.getElementById(controlled as string)).not.toBeNull();
     expect(trigger.getAttribute('aria-label')).toBe('Account');
   });
 });
@@ -1478,5 +1481,18 @@ describe('ContextSwitcher', () => {
     expect(screen.getByRole('listbox', {hidden: true})).toBeDefined();
     expect(screen.getByText('Choreo Labs')).toBeDefined();
     expect(screen.getByText('Invited organizations')).toBeDefined();
+  });
+});
+
+describe('NotificationBanner', () => {
+  it('uses filled and colorInfo classes so the light-mode contrast override applies', () => {
+    renderWithTheme(
+      <NotificationBanner message="A new version of the application is available." />,
+    );
+
+    const alert = screen.getByRole('alert');
+    expect(alert.className).toMatch(/MuiAlert-filled/);
+    expect(alert.className).toMatch(/MuiAlert-colorInfo/);
+    expect(alert.className).not.toMatch(/MuiAlert-filledInfo/);
   });
 });

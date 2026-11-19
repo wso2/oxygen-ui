@@ -17,7 +17,7 @@ Environment                ┌─ Environment ───────┐
 
 ## Instructions
 
-1. Import `Select` from `@wso2/oxygen-ui`, never from `@mui/material`. `labelPlacement` is an Oxygen UI prop, and the MUI `Select` ignores it.
+1. Import `Select` from `@wso2/oxygen-ui/Select`, never from `@mui/material`. `labelPlacement` is an Oxygen UI prop, and the MUI `Select` ignores it.
 2. Add `labelPlacement="top"` and `label` to every `Select`. Do not wrap it in `FormControl` or add an `InputLabel`; the component draws its own.
 3. Give every `Select` a `placeholder`. Get the text from the developer; never make it up (see Placeholder text).
 4. Mark required selects with `required`; the theme draws the `*`.
@@ -27,7 +27,8 @@ Environment                ┌─ Environment ───────┐
 ## Usage
 
 ```tsx
-import { Select, MenuItem } from '@wso2/oxygen-ui';
+import Select from '@wso2/oxygen-ui/Select';
+import MenuItem from '@wso2/oxygen-ui/MenuItem';
 
 <Select
   labelPlacement="top"
@@ -45,7 +46,8 @@ import { Select, MenuItem } from '@wso2/oxygen-ui';
 With helper text:
 
 ```tsx
-import { TextField, MenuItem } from '@wso2/oxygen-ui';
+import TextField from '@wso2/oxygen-ui/TextField';
+import MenuItem from '@wso2/oxygen-ui/MenuItem';
 
 <TextField
   select
@@ -104,7 +106,7 @@ Suggestions follow these rules:
 6. For a chain of levels in the Header (organization, then project, then component), use `ContextSwitcher`, which draws each level as a `ComplexSelect` with the label inside.
 
 ```tsx
-import { ComplexSelect } from '@wso2/oxygen-ui';
+import ComplexSelect from '@wso2/oxygen-ui/ComplexSelect';
 
 <ComplexSelect label="Organization" value={org} onChange={(e) => setOrg(e.target.value as string)}>
   <ComplexSelect.MenuItem value="acme">
@@ -142,7 +144,7 @@ When you edit code that uses floating labels:
 
 | Floating-label code | Fixed-label replacement |
 | --- | --- |
-| `import { Select } from '@mui/material'` | `import { Select } from '@wso2/oxygen-ui'` |
+| `import { Select } from '@mui/material'` | `import Select from '@wso2/oxygen-ui/Select'` |
 | `<FormControl><InputLabel id="x">Role</InputLabel><Select labelId="x" label="Role">…</Select></FormControl>` | `<Select labelPlacement="top" label="Role">…</Select>` |
 | The same, plus a `FormHelperText` | `<TextField select labelPlacement="top" label="Role" helperText="…">…</TextField>` |
 | `<FormControl sx={{ minWidth: 200 }}>` around the select | Move `sx` onto the `Select` |

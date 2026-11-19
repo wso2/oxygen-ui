@@ -17,7 +17,10 @@
  */
 
 import { useState } from 'react'
-import { Fab, Menu, MenuItem, Box } from '@wso2/oxygen-ui'
+import Fab from '@wso2/oxygen-ui/Fab'
+import Menu from '@wso2/oxygen-ui/Menu'
+import MenuItem from '@wso2/oxygen-ui/MenuItem'
+import Box from '@wso2/oxygen-ui/Box'
 import { Menu as MenuIcon } from '@wso2/oxygen-ui-icons-react'
 import { useNavigate } from 'react-router'
 import appRoutes from '../config/appRoutes'

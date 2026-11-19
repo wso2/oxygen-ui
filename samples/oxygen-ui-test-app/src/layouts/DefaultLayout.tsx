@@ -17,7 +17,11 @@
  */
 
 import { Outlet } from 'react-router'
-import { Box, ColorSchemeToggle, Layout, Stack, ThemeSwitcher } from '@wso2/oxygen-ui'
+import Box from '@wso2/oxygen-ui/Box'
+import ColorSchemeToggle from '@wso2/oxygen-ui/ColorSchemeToggle'
+import Layout from '@wso2/oxygen-ui/Layout'
+import Stack from '@wso2/oxygen-ui/Stack'
+import ThemeSwitcher from '@wso2/oxygen-ui/ThemeSwitcher'
 import type { JSX } from 'react'
 
 export default function DefaultLayout(): JSX.Element {

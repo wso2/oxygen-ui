@@ -40,6 +40,8 @@ import {
 import { SidebarItemIcon } from './SidebarItemIcon';
 import { SidebarItemLabel } from './SidebarItemLabel';
 import { SidebarItemBadge } from './SidebarItemBadge';
+import { useCollapsedPopover } from './useCollapsedPopover';
+import { lastPartNamed, sortParts, textOf } from '../../utils/compoundParts';
 
 /**
  * Props for styled SidebarItemButton.
@@ -146,12 +148,7 @@ const SidebarItemPopoverButton = styled(MenuItem, {
   },
 }));
 
-// Child display names for detection
-const CHILD_DISPLAY_NAMES = [
-  'SidebarItemIcon',
-  'SidebarItemLabel',
-  'SidebarItemBadge',
-];
+const ITEM_PART_NAMES = ['SidebarItemIcon', 'SidebarItemLabel', 'SidebarItemBadge'];
 
 /**
  * Props for SidebarItem component.
@@ -176,41 +173,15 @@ const separateChildren = (children: React.ReactNode): {
   composableChildren: React.ReactNode[];
   nestedItems: React.ReactNode[];
 } => {
-  const composableChildren: React.ReactNode[] = [];
-  const nestedItems: React.ReactNode[] = [];
-
-  React.Children.toArray(children).forEach((child) => {
-    if (React.isValidElement(child)) {
-      const displayName = (child.type as React.FC)?.displayName;
-      if (displayName && CHILD_DISPLAY_NAMES.includes(displayName)) {
-        composableChildren.push(child);
-      } else {
-        nestedItems.push(child);
-      }
-    } else {
-      nestedItems.push(child);
-    }
-  });
-
-  return { composableChildren, nestedItems };
+  const { parts, rest } = sortParts(children, ITEM_PART_NAMES);
+  return { composableChildren: parts, nestedItems: rest };
 };
 
 /**
  * Gets the label for tooltip from children.
  */
-const getTooltipLabel = (children: React.ReactNode): string => {
-  let tooltipLabel = '';
-  React.Children.forEach(children, (child) => {
-    if (React.isValidElement(child)) {
-      const displayName = (child.type as React.FC)?.displayName;
-      const props = child.props as { children?: React.ReactNode };
-      if (displayName === 'SidebarItemLabel' && props.children) {
-        tooltipLabel = String(props.children);
-      }
-    }
-  });
-  return tooltipLabel;
-};
+const getTooltipLabel = (children: React.ReactNode): string =>
+  textOf(lastPartNamed(sortParts(children, ITEM_PART_NAMES).parts, 'SidebarItemLabel'));
 
 /**
  * Extracts icon and label from a SidebarItem's children for popover rendering.
@@ -219,22 +190,12 @@ const extractItemContent = (itemChildren: React.ReactNode): {
   icon: React.ReactNode;
   label: string;
 } => {
-  let icon: React.ReactNode = null;
-  let label = '';
-
-  React.Children.forEach(itemChildren, (child) => {
-    if (React.isValidElement(child)) {
-      const displayName = (child.type as React.FC)?.displayName;
-      const props = child.props as { children?: React.ReactNode };
-      if (displayName === 'SidebarItemIcon') {
-        icon = props.children;
-      } else if (displayName === 'SidebarItemLabel' && props.children) {
-        label = String(props.children);
-      }
-    }
-  });
-
-  return { icon, label };
+  const { parts } = sortParts(itemChildren, ITEM_PART_NAMES);
+  const icon = lastPartNamed(parts, 'SidebarItemIcon');
+  return {
+    icon: (icon?.props as { children?: React.ReactNode } | undefined)?.children ?? null,
+    label: textOf(lastPartNamed(parts, 'SidebarItemLabel')),
+  };
 };
 
 /**
@@ -287,36 +248,9 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
     });
   }, [hasNestedItems, nestedItems, activeItem]);
 
-  // Popover state for collapsed mode with nested items
-  const [popoverAnchor, setPopoverAnchor] = React.useState<HTMLElement | null>(null);
-  const [popoverOpenedByClick, setPopoverOpenedByClick] = React.useState(false);
-  const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-  const popoverOpen = Boolean(popoverAnchor);
+  const popover = useCollapsedPopover({ collapsed, hasNestedItems, isExpanded, toggleExpanded: () => onToggleExpand?.(id) });
+  const { anchor: popoverAnchor, open: popoverOpen, openedByClick: popoverOpenedByClick, close: closePopover } = popover;
   const popoverId = React.useId();
-
-  const clearCloseTimeout = React.useCallback(() => {
-    if (closeTimeoutRef.current != null) {
-      clearTimeout(closeTimeoutRef.current);
-      closeTimeoutRef.current = null;
-    }
-  }, []);
-
-  const closePopover = React.useCallback(() => {
-    clearCloseTimeout();
-    setPopoverAnchor(null);
-    setPopoverOpenedByClick(false);
-  }, [clearCloseTimeout]);
-
-  React.useEffect(() => () => clearCloseTimeout(), [clearCloseTimeout]);
-
-  // Expanding the sidebar unmounts the collapsed popover UI; clear leftover
-  // anchor state so collapsing again does not reopen the menu without a new
-  // hover or click.
-  React.useEffect(() => {
-    if (!collapsed) {
-      closePopover();
-    }
-  }, [collapsed, closePopover]);
 
   // Create context value for child components
   const contextValue: SidebarItemContextValue = {
@@ -328,53 +262,17 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
   };
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    if (collapsed && hasNestedItems) {
-      // Keyboard users can't hover: clicking (Enter/Space) the collapsed
-      // parent toggles the nested-items popover.
-      const nextAnchor = popoverAnchor ? null : event.currentTarget;
-      clearCloseTimeout();
-      setPopoverAnchor(nextAnchor);
-      setPopoverOpenedByClick(Boolean(nextAnchor));
-      // Keep expandedMenus in sync so reopening the full sidebar reflects
-      // what the user toggled while the rail was collapsed — but only toggle
-      // when the current expand state does not already match the popover.
-      const shouldBeExpanded = Boolean(nextAnchor);
-      if (isExpanded !== shouldBeExpanded) {
-        onToggleExpand?.(id);
-      }
-    } else if (hasNestedItems) {
+    if (popover.click(event.currentTarget)) return;
+
+    if (hasNestedItems) {
       onToggleExpand?.(id);
     } else {
       onSelect?.(id);
     }
   };
 
-  // Hover handlers for collapsed state popover
-  const handleMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
-    if (collapsed && hasNestedItems) {
-      clearCloseTimeout();
-      setPopoverAnchor(event.currentTarget);
-      setPopoverOpenedByClick(false);
-      // Keep expandedMenus in sync so reopening the full sidebar reflects
-      // nested items the user already inspected via the hover popover.
-      if (!isExpanded) {
-        onToggleExpand?.(id);
-      }
-    }
-  };
-
-  // Click/keyboard-opened menus stay open until Escape, backdrop, or item
-  // selection. Hover-opened menus use a short leave delay so the pointer can
-  // bridge the gap from the rail item to the sibling popover paper.
-  const handleMouseLeave = () => {
-    if (popoverOpenedByClick) {
-      return;
-    }
-    clearCloseTimeout();
-    closeTimeoutRef.current = setTimeout(() => {
-      closePopover();
-    }, 100);
-  };
+  const handleMouseEnter = (event: React.MouseEvent<HTMLElement>) => popover.enter(event.currentTarget);
+  const handleMouseLeave = popover.leave;
 
   const tooltipLabel = getTooltipLabel(children);
   const ownerState = { collapsed, depth };
@@ -463,7 +361,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
           disableRestoreFocus={!popoverOpenedByClick}
           slotProps={{
             paper: {
-              onMouseEnter: clearCloseTimeout,
+              onMouseEnter: popover.hold,
               onMouseLeave: handleMouseLeave,
             },
           }}

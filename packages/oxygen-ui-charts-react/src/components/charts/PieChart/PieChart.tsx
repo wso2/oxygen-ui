@@ -17,7 +17,8 @@
  */
 
 import React from 'react'
-import { useColorScheme, useTheme } from '@wso2/oxygen-ui'
+import { useTheme } from '@wso2/oxygen-ui'
+import { useChartColors } from '../useChartColors'
 import {
   PieChart as RechartsPieChart,
   Pie,
@@ -68,51 +69,8 @@ const PieChart = ({
 }: PieChartProps): React.ReactElement => {
   const theme = useTheme()
 
-  const { mode, systemMode } = useColorScheme()
-  const isDark = mode === 'dark' || (mode === 'system' && systemMode === 'dark')
+  const { series: chartColors, ...colors } = useChartColors(customColors)
 
-  const syntaxColors = React.useMemo(() => {
-    const defaultColors = {
-      primary: isDark ? '#F87643' : '#fa7b3f',
-      background: isDark ? '#1e1e1e' : '#f5f5f5',
-      text: isDark ? '#d4d4d4' : '#24292e',
-      comment: isDark ? '#6a9955' : '#6a737d',
-      keyword: isDark ? '#569cd6' : '#d73a49',
-      string: isDark ? '#ce9178' : '#032f62',
-      function: isDark ? '#dcdcaa' : '#6f42c1',
-      number: isDark ? '#b5cea8' : '#005cc5',
-      operator: isDark ? '#d4d4d4' : '#d73a49',
-    }
-    const themeSyntax = isDark
-      ? (theme.vars as any)?.syntax?.dark
-      : (theme.vars as any)?.syntax?.light
-
-    return {
-      ...defaultColors,
-      ...themeSyntax,
-      primary: theme.palette.primary?.main || themeSyntax?.primary || defaultColors.primary,
-    }
-  }, [isDark, theme.palette.primary?.main, theme.vars])
-
-  const chartColors = React.useMemo(() => {
-    if (customColors && customColors.length > 0) return customColors
-    return [
-      syntaxColors.primary,
-      syntaxColors.keyword,
-      syntaxColors.string,
-      syntaxColors.function,
-      syntaxColors.number,
-      syntaxColors.operator,
-    ]
-  }, [
-    customColors,
-    syntaxColors.primary,
-    syntaxColors.keyword,
-    syntaxColors.string,
-    syntaxColors.function,
-    syntaxColors.number,
-    syntaxColors.operator,
-  ])
 
   const legendConfig = React.useMemo(
     () => ({ show: true, align: 'center', verticalAlign: 'bottom', ...legend }) as const,
@@ -170,20 +128,20 @@ const PieChart = ({
               <Tooltip
                 {...rest}
                 contentStyle={{
-                  backgroundColor: syntaxColors.background,
-                  border: `1px solid ${syntaxColors.text}`,
+                  backgroundColor: colors.background,
+                  border: `1px solid ${colors.text}`,
                   borderRadius: theme.shape.borderRadius ?? 8,
-                  color: syntaxColors.text,
+                  color: colors.text,
                   boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                   ...contentStyle,
                 }}
                 itemStyle={{
-                  color: syntaxColors.text,
+                  color: colors.text,
                   fontSize: 12,
                   ...itemStyle,
                 }}
                 labelStyle={{
-                  color: syntaxColors.text,
+                  color: colors.text,
                   fontWeight: 600,
                   marginBottom: 4,
                   ...labelStyle,
@@ -200,7 +158,7 @@ const PieChart = ({
             formatter={(value: any) => (
               <span
                 style={{
-                  color: syntaxColors.text,
+                  color: colors.text,
                   fontSize: 13,
                   fontWeight: 500,
                 }}

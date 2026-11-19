@@ -18,19 +18,17 @@
 
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import {
-  Box,
-  Button,
-  Chip,
-  Divider,
-  DrawerPanel,
-  IconButton,
-  RelativeTime,
-  Stack,
-  TextField,
-  Tooltip,
-  Typography,
-} from '@wso2/oxygen-ui';
+import Box from '@wso2/oxygen-ui/Box';
+import Button from '@wso2/oxygen-ui/Button';
+import Chip from '@wso2/oxygen-ui/Chip';
+import Divider from '@wso2/oxygen-ui/Divider';
+import DrawerPanel from '@wso2/oxygen-ui/DrawerPanel';
+import IconButton from '@wso2/oxygen-ui/IconButton';
+import RelativeTime from '@wso2/oxygen-ui/RelativeTime';
+import Stack from '@wso2/oxygen-ui/Stack';
+import TextField from '@wso2/oxygen-ui/TextField';
+import Tooltip from '@wso2/oxygen-ui/Tooltip';
+import Typography from '@wso2/oxygen-ui/Typography';
 import { GitBranch, GitCommitHorizontal, ListTree, Settings, Share2 } from '@wso2/oxygen-ui-icons-react';
 
 /**
@@ -119,11 +117,11 @@ const buildSteps = [
 const BuildMetadata = () => (
   <Stack direction="row" sx={{ flexWrap: 'wrap', columnGap: 3, rowGap: 1, mb: 3, color: 'text.secondary' }}>
     <RelativeTime action="Triggered" time="about 1 hour ago" dateTime="2026-10-29T09:12:00Z" />
-    <Stack direction="row" spacing={0.75} sx={{ alignItems: 'center' }}>
+    <Stack sx={{ alignItems: 'center' }} direction="row" spacing={0.75}>
       <GitBranch size={16} aria-hidden="true" />
       <Typography variant="body2">main</Typography>
     </Stack>
-    <Stack direction="row" spacing={0.75} sx={{ alignItems: 'center' }}>
+    <Stack sx={{ alignItems: 'center' }} direction="row" spacing={0.75}>
       <GitCommitHorizontal size={16} aria-hidden="true" />
       <Typography variant="body2">a3f9c21</Typography>
     </Stack>
@@ -139,8 +137,8 @@ const BuildSteps = () => (
         sx={{ alignItems: 'center', justifyContent: 'space-between', py: 1.5 }}
       >
         <Typography variant="body2">{step.name}</Typography>
-        <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
-          <Typography variant="body2" color="text.secondary">
+        <Stack sx={{ alignItems: 'center' }} direction="row" spacing={2}>
+          <Typography sx={{ color: 'text.secondary' }} variant="body2">
             {step.duration}
           </Typography>
           <Chip label={step.status} color="success" size="small" variant="outlined" />
@@ -173,7 +171,7 @@ export const Default: Story = {
           </DrawerPanel.Header>
           <DrawerPanel.Body>
             <BuildMetadata />
-            <Typography variant="subtitle2" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="subtitle2">
               Steps
             </Typography>
             <BuildSteps />
@@ -224,11 +222,11 @@ export const ControlledExpand: Story = {
     const [expanded, setExpanded] = React.useState(true);
 
     return (
-      <Stack spacing={1} sx={{ alignItems: 'center' }}>
+      <Stack sx={{ alignItems: 'center' }} spacing={1}>
         <Button variant="outlined" onClick={() => setOpen(true)}>
           View build logs
         </Button>
-        <Typography variant="caption" color="text.secondary">
+        <Typography sx={{ color: 'text.secondary' }} variant="caption">
           Expanded: {expanded ? 'yes' : 'no'}
         </Typography>
         <DrawerPanel

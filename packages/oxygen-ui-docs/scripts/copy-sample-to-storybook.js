@@ -16,73 +16,73 @@
  * under the License.
  */
 
-import fs from 'fs-extra';
-import path from 'path';
-import { execSync } from 'child_process';
-import { fileURLToPath } from 'url';
+import fs from 'fs-extra'
+import path from 'path'
+import { execSync } from 'child_process'
+import { fileURLToPath } from 'url'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
-const rootDir = path.resolve(__dirname, '../../..');
-const sampleDir = path.join(rootDir, 'samples/oxygen-ui-test-app');
-const sampleDistDir = path.join(sampleDir, 'dist');
-const storybookPublicSampleDir = path.join(__dirname, '../.storybook/public/sample');
+const rootDir = path.resolve(__dirname, '../../..')
+const sampleDir = path.join(rootDir, 'samples/oxygen-ui-test-app')
+const sampleDistDir = path.join(sampleDir, 'dist')
+const storybookPublicSampleDir = path.join(__dirname, '../.storybook/public/sample')
 
-const isWatchMode = process.argv.includes('--watch');
+const isWatchMode = process.argv.includes('--watch')
 
 async function buildSampleApp() {
-  console.log('Building sample app...');
+  console.log('Building sample app...')
   try {
     execSync('BUILD_FOR_STORYBOOK=true pnpm build', {
       cwd: sampleDir,
-      stdio: 'inherit'
-    });
-    console.log('✓ Sample app built successfully!');
+      stdio: 'inherit',
+    })
+    console.log('✓ Sample app built successfully!')
   } catch (error) {
-    console.error('Error building sample app:', error);
-    process.exit(1);
+    console.error('Error building sample app:', error)
+    process.exit(1)
   }
 }
 
 async function copySample() {
   try {
-    console.log('Copying sample app to Storybook public folder...');
-    await fs.copy(sampleDistDir, storybookPublicSampleDir);
-    console.log('✓ Sample app copied successfully!');
+    console.log('Copying sample app to Storybook public folder...')
+    await fs.copy(sampleDistDir, storybookPublicSampleDir)
+    console.log('✓ Sample app copied successfully!')
   } catch (error) {
-    console.error('Error copying sample app:', error);
+    console.error('Error copying sample app:', error)
     if (!isWatchMode) {
-      process.exit(1);
+      process.exit(1)
     }
   }
 }
 
 async function copySampleToStorybook() {
   try {
-    console.log('Checking sample app dist...');
+    console.log('Checking sample app dist...')
 
     if (!fs.existsSync(sampleDistDir)) {
-      await buildSampleApp();
+      await buildSampleApp()
     }
 
-    await copySample();
+    await copySample()
 
     if (isWatchMode) {
-      console.log('Watching sample app dist for changes...');
+      console.log('Watching sample app dist for changes...')
       fs.watch(sampleDistDir, { recursive: true }, async (eventType, filename) => {
         if (filename) {
-          console.log(`Detected change in sample app: ${filename}`);
-          await copySample();
+          console.log(`Detected change in sample app: ${filename}`)
+          await copySample()
         }
-      });
+      })
     }
   } catch (error) {
-    console.error('Error in copy sample process:', error);
+    console.error('Error in copy sample process:', error)
     if (!isWatchMode) {
-      process.exit(1);
+      process.exit(1)
     }
   }
 }
 
-copySampleToStorybook();
+copySampleToStorybook()

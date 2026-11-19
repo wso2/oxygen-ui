@@ -16,26 +16,24 @@
  * under the License.
  */
 
-import * as React from 'react';
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import {
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  Button,
-  Stack,
-  Chip,
-  AppShell,
-  Header,
-  Sidebar,
-  NotificationPanel,
-  IconButton,
-  Badge,
-  Tooltip,
-  useAppShell,
-} from '@wso2/oxygen-ui';
-import { Home, Settings, Users, Menu, Bell } from '@wso2/oxygen-ui-icons-react';
+import * as React from 'react'
+import type { Meta, StoryObj } from '@storybook/react-webpack5'
+import Box from '@wso2/oxygen-ui/Box'
+import Typography from '@wso2/oxygen-ui/Typography'
+import Card from '@wso2/oxygen-ui/Card'
+import CardContent from '@wso2/oxygen-ui/CardContent'
+import Button from '@wso2/oxygen-ui/Button'
+import Stack from '@wso2/oxygen-ui/Stack'
+import Chip from '@wso2/oxygen-ui/Chip'
+import AppShell from '@wso2/oxygen-ui/AppShell'
+import Header from '@wso2/oxygen-ui/Header'
+import Sidebar from '@wso2/oxygen-ui/Sidebar'
+import NotificationPanel from '@wso2/oxygen-ui/NotificationPanel'
+import IconButton from '@wso2/oxygen-ui/IconButton'
+import Badge from '@wso2/oxygen-ui/Badge'
+import Tooltip from '@wso2/oxygen-ui/Tooltip'
+import useAppShell from '@wso2/oxygen-ui/useAppShell'
+import { Home, Settings, Users, Menu, Bell } from '@wso2/oxygen-ui-icons-react'
 
 const meta: Meta = {
   title: 'App Elements/useAppShell',
@@ -85,24 +83,24 @@ const { state, actions } = useAppShell();
 ### Options (Create Mode Only)
 - \`initialCollapsed\`: boolean - Initial sidebar collapsed state (default: false)
 - \`collapseOnSelectOnMobile\`: boolean - Auto-collapse on mobile after selection (default: false)
-- \`collapseOnMobile\`: boolean - Always collapsed on mobile (default: false)
+- \`collapseOnMobile\`: boolean - Collapsed on page load when in mobile view (default: true)
 - \`sidebarWidth\`: number - Expanded sidebar width in pixels (default: 250)
 - \`sidebarCollapsedWidth\`: number - Collapsed sidebar width in pixels (default: 64)
         `,
       },
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 /**
  * NotificationButton component that consumes AppShell context to toggle notification panel.
  */
 const NotificationButton: React.FC = () => {
-  const { state, actions } = useAppShell();
-  
+  const { state, actions } = useAppShell()
+
   return (
     <Tooltip title="Notifications">
       <IconButton
@@ -110,33 +108,34 @@ const NotificationButton: React.FC = () => {
         size="small"
         sx={{ color: 'text.secondary' }}
       >
-        <Badge
-          badgeContent={state.notificationPanelOpen ? 1 : 0}
-          color="primary"
-          variant="dot"
-        >
+        <Badge badgeContent={state.notificationPanelOpen ? 1 : 0} color="primary" variant="dot">
           <Bell size={20} />
         </Badge>
       </IconButton>
     </Tooltip>
-  );
-};
+  )
+}
 
 /**
  * StatusDisplay component that consumes AppShell context.
  */
 const StatusDisplay: React.FC = () => {
-  const { state } = useAppShell();
+  const { state } = useAppShell()
 
   return (
     <Card>
       <CardContent>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Shell State (from useAppShell)
         </Typography>
         <Stack spacing={1.5}>
           <Box>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              sx={{
+                color: 'text.secondary',
+              }}
+            >
               Sidebar Collapsed:
             </Typography>
             <Chip
@@ -146,17 +145,23 @@ const StatusDisplay: React.FC = () => {
             />
           </Box>
           <Box>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              sx={{
+                color: 'text.secondary',
+              }}
+            >
               Active Menu Item:
             </Typography>
-            <Chip
-              label={state.activeMenuItem || 'None'}
-              color="primary"
-              size="small"
-            />
+            <Chip label={state.activeMenuItem || 'None'} color="primary" size="small" />
           </Box>
           <Box>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              sx={{
+                color: 'text.secondary',
+              }}
+            >
               Notification Panel:
             </Typography>
             <Chip
@@ -168,56 +173,58 @@ const StatusDisplay: React.FC = () => {
         </Stack>
       </CardContent>
     </Card>
-  );
-};
+  )
+}
 
 /**
  * ControlPanel component that consumes AppShell context to control shell state.
  */
 const ControlPanel: React.FC = () => {
-  const { actions } = useAppShell();
+  const { actions } = useAppShell()
 
   return (
     <Card>
       <CardContent>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{ mb: '0.35em' }} variant="h6">
           Shell Controls (using useAppShell actions)
         </Typography>
         <Stack spacing={2}>
           <Box>
-            <Typography variant="body2" color="text.secondary" gutterBottom>
+            <Typography variant="body2" sx={{ mb: '0.35em', color: 'text.secondary' }}>
               Sidebar Controls:
             </Typography>
-            <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
-              <Button
-                variant="outlined"
-                size="small"
-                onClick={actions.toggleSidebar}
-              >
+            <Stack
+              direction="row"
+              spacing={1}
+              useFlexGap
+              sx={{
+                flexWrap: 'wrap',
+              }}
+            >
+              <Button variant="outlined" size="small" onClick={actions.toggleSidebar}>
                 Toggle Sidebar
               </Button>
-              <Button
-                variant="outlined"
-                size="small"
-                onClick={actions.expandSidebar}
-              >
+              <Button variant="outlined" size="small" onClick={actions.expandSidebar}>
                 Expand
               </Button>
-              <Button
-                variant="outlined"
-                size="small"
-                onClick={actions.collapseSidebar}
-              >
+              <Button variant="outlined" size="small" onClick={actions.collapseSidebar}>
                 Collapse
               </Button>
             </Stack>
           </Box>
-          
+
           <Box>
-            <Typography variant="body2" color="text.secondary" gutterBottom>
+            <Typography variant="body2" sx={{ mb: '0.35em', color: 'text.secondary' }}>
               Active Menu Item:
             </Typography>
-            <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
+            <Stack
+              direction="row"
+              spacing={1}
+              useFlexGap
+              sx={{
+                flexWrap: 'wrap',
+              }}
+            >
               <Button
                 variant="outlined"
                 size="small"
@@ -243,15 +250,18 @@ const ControlPanel: React.FC = () => {
           </Box>
 
           <Box>
-            <Typography variant="body2" color="text.secondary" gutterBottom>
+            <Typography variant="body2" sx={{ mb: '0.35em', color: 'text.secondary' }}>
               Notification Panel:
             </Typography>
-            <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
-              <Button
-                variant="outlined"
-                size="small"
-                onClick={actions.toggleNotificationPanel}
-              >
+            <Stack
+              direction="row"
+              spacing={1}
+              useFlexGap
+              sx={{
+                flexWrap: 'wrap',
+              }}
+            >
+              <Button variant="outlined" size="small" onClick={actions.toggleNotificationPanel}>
                 Toggle Panel
               </Button>
             </Stack>
@@ -259,8 +269,8 @@ const ControlPanel: React.FC = () => {
         </Stack>
       </CardContent>
     </Card>
-  );
-};
+  )
+}
 
 /**
  * Demonstrates consuming AppShell context using useAppShell() with no parameters.
@@ -288,15 +298,21 @@ export const ConsumeContext: Story = {
             <Sidebar.Nav>
               <Sidebar.Category>
                 <Sidebar.Item id="dashboard">
-                  <Sidebar.ItemIcon><Home size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Home size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Dashboard</Sidebar.ItemLabel>
                 </Sidebar.Item>
                 <Sidebar.Item id="users">
-                  <Sidebar.ItemIcon><Users size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Users size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Users</Sidebar.ItemLabel>
                 </Sidebar.Item>
                 <Sidebar.Item id="settings">
-                  <Sidebar.ItemIcon><Settings size={20} /></Sidebar.ItemIcon>
+                  <Sidebar.ItemIcon>
+                    <Settings size={20} />
+                  </Sidebar.ItemIcon>
                   <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
                 </Sidebar.Item>
               </Sidebar.Category>
@@ -306,14 +322,20 @@ export const ConsumeContext: Story = {
 
         <AppShell.Main>
           <Box sx={{ p: 3 }}>
-            <Typography variant="h5" gutterBottom>
+            <Typography sx={{ mb: '0.35em' }} variant="h5">
               Consume Context Mode
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            <Typography
+              variant="body2"
+              sx={{
+                color: 'text.secondary',
+                mb: 2,
+              }}
+            >
               These components use <code>useAppShell()</code> to consume the context created by{' '}
               <code>&lt;AppShell&gt;</code>.
             </Typography>
-            
+
             <Stack spacing={3} sx={{ mt: 3 }}>
               <StatusDisplay />
               <ControlPanel />
@@ -324,13 +346,20 @@ export const ConsumeContext: Story = {
         <AppShell.NotificationPanel>
           <NotificationPanel>
             <NotificationPanel.Header>
-              <NotificationPanel.HeaderIcon><Bell size={20} /></NotificationPanel.HeaderIcon>
+              <NotificationPanel.HeaderIcon>
+                <Bell size={20} />
+              </NotificationPanel.HeaderIcon>
               <NotificationPanel.HeaderTitle>Notifications</NotificationPanel.HeaderTitle>
               <NotificationPanel.HeaderClose />
             </NotificationPanel.Header>
             <NotificationPanel.List>
               <Box sx={{ p: 3, textAlign: 'center' }}>
-                <Typography variant="body2" color="text.secondary">
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: 'text.secondary',
+                  }}
+                >
                   Use the controls in the main area to toggle this panel.
                 </Typography>
               </Box>
@@ -338,14 +367,14 @@ export const ConsumeContext: Story = {
           </NotificationPanel>
         </AppShell.NotificationPanel>
       </AppShell>
-    );
+    )
   },
-};
+}
 
 /**
  * Demonstrates using useAppShell in Create Mode by passing options.
  * This pattern is useful when you need shell state without using the AppShell component.
- * 
+ *
  * Note: This is less common than Consume Mode since AppShell component handles this automatically.
  */
 export const CreateMode: Story = {
@@ -357,25 +386,36 @@ export const CreateMode: Story = {
         collapseOnSelectOnMobile: true,
         sidebarWidth: 280,
         sidebarCollapsedWidth: 72,
-      });
+      })
 
       return (
         <Box sx={{ p: 3 }}>
-          <Typography variant="h5" gutterBottom>
+          <Typography sx={{ mb: '0.35em' }} variant="h5">
             Create Mode
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'text.secondary',
+              mb: 2,
+            }}
+          >
             Using <code>useAppShell(options)</code> to create shell state directly.
           </Typography>
 
           <Card sx={{ mt: 3 }}>
             <CardContent>
-              <Typography variant="h6" gutterBottom>
+              <Typography sx={{ mb: '0.35em' }} variant="h6">
                 Shell State
               </Typography>
               <Stack spacing={1.5}>
                 <Box>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: 'text.secondary',
+                    }}
+                  >
                     Sidebar Collapsed:
                   </Typography>
                   <Chip
@@ -385,17 +425,23 @@ export const CreateMode: Story = {
                   />
                 </Box>
                 <Box>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: 'text.secondary',
+                    }}
+                  >
                     Active Menu Item:
                   </Typography>
-                  <Chip
-                    label={shell.state.activeMenuItem || 'None'}
-                    color="primary"
-                    size="small"
-                  />
+                  <Chip label={shell.state.activeMenuItem || 'None'} color="primary" size="small" />
                 </Box>
                 <Box>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: 'text.secondary',
+                    }}
+                  >
                     Sidebar Width:
                   </Typography>
                   <Chip
@@ -406,10 +452,17 @@ export const CreateMode: Story = {
               </Stack>
 
               <Box sx={{ mt: 3 }}>
-                <Typography variant="body2" color="text.secondary" gutterBottom>
+                <Typography variant="body2" sx={{ mb: '0.35em', color: 'text.secondary' }}>
                   Actions:
                 </Typography>
-                <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  useFlexGap
+                  sx={{
+                    flexWrap: 'wrap',
+                  }}
+                >
                   <Button
                     variant="outlined"
                     size="small"
@@ -439,7 +492,12 @@ export const CreateMode: Story = {
 
           <Card sx={{ mt: 2, bgcolor: 'info.50', borderColor: 'info.main' }} variant="outlined">
             <CardContent>
-              <Typography variant="body2" color="info.dark">
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'info.dark',
+                }}
+              >
                 <strong>💡 Tip:</strong> In most cases, you should use the Consume Context pattern
                 by wrapping your app with <code>&lt;AppShell&gt;</code> and calling{' '}
                 <code>useAppShell()</code> in child components. Create Mode is only needed for
@@ -448,9 +506,9 @@ export const CreateMode: Story = {
             </CardContent>
           </Card>
         </Box>
-      );
-    };
+      )
+    }
 
-    return <CustomShellManager />;
+    return <CustomShellManager />
   },
-};
+}

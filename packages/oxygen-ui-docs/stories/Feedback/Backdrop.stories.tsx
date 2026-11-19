@@ -16,15 +16,17 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Backdrop, Button, CircularProgress } from '@wso2/oxygen-ui';
-import React, { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5'
+import Backdrop from '@wso2/oxygen-ui/Backdrop'
+import Button from '@wso2/oxygen-ui/Button'
+import CircularProgress from '@wso2/oxygen-ui/CircularProgress'
+import React, { useState } from 'react'
 
 /**
  * The Backdrop component provides emphasis on a particular element or parts of it.
  * It signals a state change within the application and can be used for creating loaders, dialogs, and more.
- * 
- * This is a direct import of MUI backdrop component. 
+ *
+ * This is a direct import of MUI backdrop component.
  * Read more at: https://mui.com/material-ui/react-backdrop/
  */
 const meta: Meta<typeof Backdrop> = {
@@ -43,21 +45,22 @@ const meta: Meta<typeof Backdrop> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Oxygen UI backdrop component is a direct import of MUI backdrop component. \n\n' + 
-        'Read MUI documentation for complete API : ' +
-        '[https://mui.com/material-ui/react-backdrop/](https://mui.com/material-ui/react-backdrop/)',
+        component:
+          'Oxygen UI backdrop component is a direct import of MUI backdrop component. \n\n' +
+          'Read MUI documentation for complete API : ' +
+          '[https://mui.com/material-ui/react-backdrop/](https://mui.com/material-ui/react-backdrop/)',
       },
     },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Backdrop>;
+export default meta
+type Story = StoryObj<typeof Backdrop>
 
 export const Default: Story = {
   render: () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
       <>
@@ -65,18 +68,18 @@ export const Default: Story = {
         <Backdrop
           open={open}
           onClick={() => setOpen(false)}
-          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          sx={{ color: '#fff', zIndex: theme => theme.zIndex.drawer + 1 }}
         >
           <CircularProgress color="inherit" />
         </Backdrop>
       </>
-    );
+    )
   },
-};
+}
 
 export const WithContent: Story = {
   render: () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
       <>
@@ -84,19 +87,24 @@ export const WithContent: Story = {
         <Backdrop
           open={open}
           onClick={() => setOpen(false)}
-          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, flexDirection: 'column', gap: 2 }}
+          sx={{
+            color: '#fff',
+            zIndex: theme => theme.zIndex.drawer + 1,
+            flexDirection: 'column',
+            gap: 2,
+          }}
         >
           <CircularProgress color="inherit" />
           <div>Loading...</div>
         </Backdrop>
       </>
-    );
+    )
   },
-};
+}
 
 export const Invisible: Story = {
   render: () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
       <>
@@ -105,11 +113,11 @@ export const Invisible: Story = {
           open={open}
           onClick={() => setOpen(false)}
           invisible
-          sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          sx={{ zIndex: theme => theme.zIndex.drawer + 1 }}
         >
           <CircularProgress />
         </Backdrop>
       </>
-    );
+    )
   },
-};
+}

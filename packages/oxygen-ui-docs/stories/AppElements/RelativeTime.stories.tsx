@@ -17,7 +17,8 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { RelativeTime, Stack } from '@wso2/oxygen-ui';
+import RelativeTime from '@wso2/oxygen-ui/RelativeTime';
+import Stack from '@wso2/oxygen-ui/Stack';
 import { History } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';
 

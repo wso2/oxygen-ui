@@ -16,7 +16,12 @@
  * under the License.
  */
 
-import { Button, Divider, Form, PageTitle, PageContent, Stack } from '@wso2/oxygen-ui'
+import Button from '@wso2/oxygen-ui/Button'
+import Divider from '@wso2/oxygen-ui/Divider'
+import { Form } from '@wso2/oxygen-ui/Form'
+import PageTitle from '@wso2/oxygen-ui/PageTitle'
+import PageContent from '@wso2/oxygen-ui/PageContent'
+import Stack from '@wso2/oxygen-ui/Stack'
 import { useState, type JSX } from 'react'
 import { Link as NavigateLink, useParams } from 'react-router'
 import { ExternalLinkIcon, Import, Network, WSO2 } from '@wso2/oxygen-ui-icons-react'
@@ -41,7 +46,12 @@ export default function ComponentCreate(): JSX.Element {
           <PageTitle.SubHeader>Follow the steps below to create a new integration</PageTitle.SubHeader>
         </PageTitle>
 
-        <Stack spacing={2} sx={{ maxWidth: 'xl', mx: 'auto' }}>
+        <Stack
+          spacing={2}
+          sx={{
+            maxWidth: 'xl',
+            mx: 'auto'
+          }}>
           <Stack direction="row" spacing={2}>
             <Form.Stack direction="row" sx={{ width: 'md' }}>
               <IntegrationTypeCard
@@ -87,7 +97,7 @@ export default function ComponentCreate(): JSX.Element {
           </Stack>
         </Stack>
       </PageContent>
-    )
+    );
   }
 
   return (

@@ -17,25 +17,21 @@
  */
 
 import { useState, useMemo } from 'react'
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Chip,
-  IconButton,
-  ListingTable,
-  Menu,
-  MenuItem,
-  Select,
-  FormControl,
-  FormLabel,
-  TablePagination,
-  PageContent,
-  PageTitle,
-  type ListingTableDensity,
-  type ListingTableSortDirection,
-} from '@wso2/oxygen-ui'
+import Box from '@wso2/oxygen-ui/Box'
+import Button from '@wso2/oxygen-ui/Button'
+import Card from '@wso2/oxygen-ui/Card'
+import CardContent from '@wso2/oxygen-ui/CardContent'
+import Chip from '@wso2/oxygen-ui/Chip'
+import IconButton from '@wso2/oxygen-ui/IconButton'
+import ListingTable, { type ListingTableDensity, type ListingTableSortDirection } from '@wso2/oxygen-ui/ListingTable'
+import Menu from '@wso2/oxygen-ui/Menu'
+import MenuItem from '@wso2/oxygen-ui/MenuItem'
+import Select from '@wso2/oxygen-ui/Select'
+import FormControl from '@wso2/oxygen-ui/FormControl'
+import FormLabel from '@wso2/oxygen-ui/FormLabel'
+import TablePagination from '@wso2/oxygen-ui/TablePagination'
+import PageContent from '@wso2/oxygen-ui/PageContent'
+import PageTitle from '@wso2/oxygen-ui/PageTitle'
 import {
   Plus,
   MoreVertical,
