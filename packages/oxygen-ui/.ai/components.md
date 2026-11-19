@@ -1414,7 +1414,7 @@ Extra props, including `aria-*` attributes and `ref`, are forwarded to the under
 |-------|------|---------|-------------|
 | `name` | `string` | required | Platform name (e.g. "API Platform") |
 | `url` | `string` | - | Destination URL; renders the card as an anchor |
-| `icon` | `ReactNode` | WSO2 mark | Mark shown above the name |
+| `icon` | `ReactNode` | Choreo Labs mark | Mark shown above the name |
 | `target` | `string` | `'_blank'` | Anchor target for a card with a `url`; such platforms open in a new tab by default |
 | `disabled` | `boolean` | `false` | Blocks navigation (e.g. a platform not yet available) |
 | `tooltip` | `ReactNode` | - | Tooltip on hover/focus, e.g. `"Coming soon"` on an unavailable platform |
@@ -1441,7 +1441,7 @@ The footer renders nothing when it has neither children nor links.
 | `key` | `string` | required | Stable identifier, used as the React key |
 | `name` | `string` | required | Link name (e.g. "Users & roles") |
 | `url` | `string` | - | Destination URL; renders the card as an anchor |
-| `icon` | `ReactNode` | WSO2 mark | Mark shown above the name |
+| `icon` | `ReactNode` | Choreo Labs mark | Mark shown above the name |
 | `target` | `string` | `'_blank'` | Anchor target |
 | `disabled` | `boolean` | `false` | Blocks navigation |
 | `tooltip` | `ReactNode` | - | Tooltip on hover/focus |
@@ -1478,7 +1478,7 @@ import { Building2, CreditCard, UserRoundPlus } from '@wso2/oxygen-ui-icons-reac
 
 ### The platform mark
 
-Every platform card carries the WSO2 mark, the `WSO2` icon from `@wso2/oxygen-ui-icons-react`,
+Every platform card carries the Choreo Labs mark, the `ChoreoLabs` icon from `@wso2/oxygen-ui-icons-react`,
 supplied by the component. Products do not pick their own artwork, so the grid stays uniform
 across the cloud. Pass `icon` only when a destination genuinely needs different artwork — the
 manage links do, which is why they take neutral glyphs.
@@ -1563,15 +1563,17 @@ override it.
 
 ### Brand color
 
-The switcher is WSO2 Cloud chrome, so it uses the brand orange (`#FF7300`) even in a product
-running a different palette: the WSO2 mark, the hover border and the focus ring are all brand
-orange rather than `palette.primary`. There is no variant to opt out of this.
+The switcher is Choreo Cloud chrome, so it uses the brand orange (`#FF7300`) even in a product
+running a different palette: the hover border and the focus ring are brand orange rather than
+`palette.primary`. The platform mark is brand artwork too, but not orange: Midnight Ink (`#0B1633`)
+on a light card and white on a dark one, faded for a platform that is not yet available. There is
+no variant to opt out of this.
 
-**Contrast:** `#FF7300` is 2.73:1 on white. It is used only for the mark and the hover border —
+**Contrast:** `#FF7300` is 2.73:1 on white. It is used only for the hover border,
 never for text, so the switcher has no brand-colored text to fail WCAG AA. The focus ring is
 author-defined, which WCAG 2.1 SC 1.4.11 holds to 3:1, so it uses a darker brand token
 (`#E56800`, 3.33:1 on the light card and 5.63:1 on the dark one) rather than `main`. The 2.73:1
-mark and hover border still fall under 3:1; that is a property of the brand palette rather than
+hover border still falls under 3:1; that is a property of the brand palette rather than
 of this component (the standard card border, `#E0E0E0`, is 1.32:1), and is tracked in
 https://github.com/wso2/oxygen-ui/issues/558.
 

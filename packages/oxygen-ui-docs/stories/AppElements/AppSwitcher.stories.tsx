@@ -31,7 +31,7 @@ import type { AppSwitcherAppItem, AppSwitcherFooterLink } from '@wso2/oxygen-ui'
 import { Home, Settings } from '@wso2/oxygen-ui-icons-react';
 
 /**
- * AppSwitcher lets users move between the WSO2 Cloud platforms from a grid
+ * AppSwitcher lets users move between the Choreo Cloud platforms from a grid
  * icon button in the header.
  */
 const meta: Meta<typeof AppSwitcher> = {
@@ -44,7 +44,7 @@ const meta: Meta<typeof AppSwitcher> = {
       description: {
         component: `
 The AppSwitcher pairs a grid icon button with a popover listing the platforms a user can switch to,
-plus a footer below a divider that links back to the WSO2 Cloud console.
+plus a footer below a divider that links back to the Choreo Cloud console.
 
 ### Compound component
 The switcher is composed from sub-components — \`AppSwitcher.Trigger\`, \`AppSwitcher.Section\`,
@@ -55,13 +55,13 @@ arrow-key navigation, so the layout stays consistent while products keep control
 ### Features
 - Compound component pattern, matching the other app-shell components
 - Grid icon button that matches the other header icon buttons, including hover styling
-- Each platform is a card with the WSO2 mark above its name; giving it a \`url\` renders a real link
+- Each platform is a card with the Choreo Labs mark above its name; giving it a \`url\` renders a real link
 - A card given a \`url\` opens in a new tab by default; every enabled card lifts with an accent border on hover
 - Selecting a card leaves the popover open; only the trigger, an outside click or \`Esc\` dismisses it.
   The current app is the exception: it opens in the same tab and closes the popover
 - Data-driven \`apps\` and \`links\`, with loading, unavailable and busy states
 - An unavailable platform can carry a \`tooltip\` (e.g. "Coming soon") explaining why
-- A footer below a divider with Cloud home and Settings, taking the user back to the WSO2 Cloud console
+- A footer below a divider with Cloud home and Settings, taking the user back to the Choreo Cloud console
 - Responsive popover: viewport-capped on mobile, fixed width from \`sm\` up
 
 ### Usage
@@ -115,7 +115,7 @@ not fetch anything; the console fetches the list and passes it in.
   \`javascript:\` or \`data:\`, renders the card disabled and logs a warning.
 
 ### The platform mark
-Every platform card carries the WSO2 mark, the \`WSO2\` icon from \`@wso2/oxygen-ui-icons-react\`. It is
+Every platform card carries the Choreo Labs mark, the \`ChoreoLabs\` icon from \`@wso2/oxygen-ui-icons-react\`. It is
 supplied by the component, so products do not pick their own artwork and the grid stays uniform. Pass
 \`icon\` only when a destination genuinely needs different artwork — the footer links do, which is why
 they take neutral glyphs.
@@ -163,9 +163,9 @@ export default meta;
 type Story = StoryObj<typeof AppSwitcher>;
 
 /**
- * The WSO2 Cloud console links: Cloud home returns the user to the console home
+ * The Choreo Cloud console links: Cloud home returns the user to the console home
  * page and Settings opens its settings page. These take their own glyphs rather
- * than the WSO2 mark, so they read as navigation rather than as products. They
+ * than the Choreo Labs mark, so they read as navigation rather than as products. They
  * point at wso2.com here only so the demo links resolve; a product passes its
  * own console URLs.
  */
@@ -175,7 +175,7 @@ const cloudLinks = [
 ];
 
 /**
- * The platform cards, as shown in the WSO2 Cloud design. Analytics is not yet
+ * The platform cards, as shown in the Choreo Cloud design. Analytics is not yet
  * available, so it renders faded and explains itself with a tooltip.
  *
  * Every card points at wso2.com purely to demo the navigation: cards open in a

@@ -74,7 +74,7 @@ export interface AppSwitcherProps {
 }
 
 /**
- * AppSwitcher - Popover for navigating between WSO2 Cloud applications.
+ * AppSwitcher - Popover for navigating between Choreo Cloud applications.
  *
  * A compound component pairing a grid icon button in the header with a popover
  * listing the available platforms. The trigger renders in place; every other

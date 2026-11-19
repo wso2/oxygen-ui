@@ -300,6 +300,30 @@ describe('AppSwitcher data-driven sections', () => {
     const manageHeight = getComputedStyle(cardFor('Billing')).height;
     expect(platformHeight).not.toBe(manageHeight);
   });
+
+  it('draws the Choreo Labs mark on a platform card that brings no icon of its own', () => {
+    renderSwitcher();
+    openSwitcher();
+
+    // The mark is brand artwork the component supplies, so every product's switcher shows the same one.
+    const card = cardFor('API Platform');
+    expect(card.querySelector('svg.lucide-choreo-labs')).not.toBeNull();
+    expect(card.querySelector('svg.lucide-wso2')).toBeNull();
+  });
+
+  it('draws the platform mark in Midnight Ink, not the orange accent, and fades it when unavailable', () => {
+    renderSwitcher();
+    openSwitcher();
+
+    // The kit's navy mark on a light card; orange stays on the borders and focus ring only.
+    const holder = (name: string) => cardFor(name).querySelector('svg.lucide-choreo-labs')!.parentElement!;
+    expect(getComputedStyle(holder('API Platform')).color).toBe('rgb(11, 22, 51)');
+    const faded = /disabledOpacity|^0\.38$/;
+    expect(getComputedStyle(holder('API Platform')).opacity).not.toMatch(faded);
+    // API Analytics has no url, so it is coming soon: the same mark, faded.
+    expect(getComputedStyle(holder('API Analytics')).color).toBe('rgb(11, 22, 51)');
+    expect(getComputedStyle(holder('API Analytics')).opacity).toMatch(faded);
+  });
 });
 
 describe('AppSwitcher unavailable apps', () => {

@@ -82,7 +82,7 @@
     "prismjs": "^1.30.0"
   },
   "peerDependencies": {
-    "@wso2/oxygen-ui-icons-react": ">=0.1.0",
+    "@wso2/oxygen-ui-icons-react": ">=0.26.0",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
