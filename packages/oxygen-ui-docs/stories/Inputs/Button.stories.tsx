@@ -109,18 +109,18 @@ const iconSize = { small: 16, medium: 18, large: 20 } as const;
 export const WithIcons: Story = {
   render: () => (
     <Stack direction="column" spacing={2}>
-      <Stack direction="row" spacing={2} alignItems="center">
+      <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
         <Button variant="contained" startIcon={<Plus size={iconSize.medium} />}>Create project</Button>
         <Button variant="contained" endIcon={<ArrowRight size={iconSize.medium} />}>Talk to us</Button>
         <Button variant="outlined" startIcon={<Download size={iconSize.medium} />}>Download</Button>
         <Button variant="outlined" color="secondary" endIcon={<ArrowRight size={iconSize.medium} />}>All reports</Button>
         <Button variant="outlined" color="error" startIcon={<Trash2 size={iconSize.medium} />}>Delete</Button>
       </Stack>
-      <Stack direction="row" spacing={2} alignItems="center">
+      <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
         <Button variant="text" startIcon={<Plus size={iconSize.medium} />}>Add member</Button>
         <Button variant="text" endIcon={<ArrowRight size={iconSize.medium} />}>Learn more</Button>
       </Stack>
-      <Stack direction="row" spacing={2} alignItems="center">
+      <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
         {(['small', 'medium', 'large'] as const).map((size) => (
           <Button key={size} variant="contained" size={size} startIcon={<Plus size={iconSize[size]} />}>
             Create project
@@ -142,7 +142,7 @@ export const WithIcons: Story = {
 
 export const SizeVariants: Story = {
   render: () => (
-    <Stack direction="row" spacing={2} alignItems="center">
+    <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
       <Button variant="contained" size="small">Small</Button>
       <Button variant="contained" size="medium">Medium</Button>
       <Button variant="contained" size="large">Large</Button>
@@ -156,7 +156,7 @@ export const States: Story = {
 
     return (
       <Stack direction="column" spacing={3}>
-        <Stack direction="row" spacing={2} alignItems="center">
+        <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
           <Button variant="contained">Default</Button>
           <Button variant="contained" disabled>
             Disabled
@@ -170,7 +170,7 @@ export const States: Story = {
           </Button>
         </Stack>
 
-        <Stack direction="row" spacing={2} alignItems="center">
+        <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
           <Button variant="outlined">Default</Button>
           <Button variant="outlined" disabled>
             Disabled
@@ -184,7 +184,7 @@ export const States: Story = {
           </Button>
         </Stack>
 
-        <Stack direction="row" spacing={2} alignItems="center">
+        <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
           <Button variant="text">Default</Button>
           <Button variant="text" disabled>
             Disabled

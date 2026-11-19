@@ -76,14 +76,14 @@ export const Installation: Story = {
 
         {/* Core */}
         <Box>
-          <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
+          <Stack direction="row" spacing={1} sx={{ alignItems: 'center', mb: 1 }}>
             <Typography variant="h6" gutterBottom sx={{ mb: 0 }}>
               Core — <code>@wso2/oxygen-ui</code>
             </Typography>
             <Chip label="required" size="small" color="primary" variant="outlined" />
           </Stack>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Components, themes, layouts, hooks, and utilities — everything built on top of MUI v7.
+            Components, themes, layouts, hooks, and utilities — everything built on top of MUI v9.
           </Typography>
 
           <Typography variant="subtitle2" gutterBottom>
@@ -115,7 +115,7 @@ export const Installation: Story = {
 
         {/* Icons */}
         <Box>
-          <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
+          <Stack direction="row" spacing={1} sx={{ alignItems: 'center', mb: 1 }}>
             <Typography variant="h6" gutterBottom sx={{ mb: 0 }}>
               Icons — <code>@wso2/oxygen-ui-icons-react</code>
             </Typography>
@@ -148,7 +148,7 @@ export const Installation: Story = {
 
         {/* Charts */}
         <Box>
-          <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
+          <Stack direction="row" spacing={1} sx={{ alignItems: 'center', mb: 1 }}>
             <Typography variant="h6" gutterBottom sx={{ mb: 0 }}>
               Charts — <code>@wso2/oxygen-ui-charts-react</code>
             </Typography>
@@ -235,7 +235,7 @@ export const Integrate: Story = {
                 ['PaleGrayTheme', 'Soft neutral gray palette'],
                 ['PaleIndigoTheme', 'Muted indigo tones'],
               ].map(([name, description]) => (
-                <Stack key={name} direction="row" spacing={1} alignItems="baseline">
+                <Stack key={name} direction="row" spacing={1} sx={{ alignItems: 'baseline' }}>
                   <Typography variant="body2" component="code" sx={{ minWidth: 180 }}>
                     {name}
                   </Typography>
@@ -415,7 +415,7 @@ export const UseAIToGenerateUIs: Story = {
                   ['.ai/oxygen-ui/migration.md', 'Upgrade and migration notes'],
                   ['AGENTS.md', 'Root import reference for AI agents'],
                 ].map(([file, desc]) => (
-                  <Stack key={file} direction="row" spacing={1} alignItems="baseline">
+                  <Stack key={file} direction="row" spacing={1} sx={{ alignItems: 'baseline' }}>
                     <Typography variant="body2" component="code" sx={{ minWidth: 230 }}>
                       {file}
                     </Typography>
@@ -441,7 +441,7 @@ export const UseAIToGenerateUIs: Story = {
                   ['.claude/skills/oxygen-migrate/', 'Migrate from MUI to Oxygen UI'],
                   ['.claude/skills/oxygen-sync/', 'Sync docs to latest package version'],
                 ].map(([skill, desc]) => (
-                  <Stack key={skill} direction="row" spacing={1} alignItems="baseline">
+                  <Stack key={skill} direction="row" spacing={1} sx={{ alignItems: 'baseline' }}>
                     <Typography variant="body2" component="code" sx={{ minWidth: 230 }}>
                       {skill}
                     </Typography>

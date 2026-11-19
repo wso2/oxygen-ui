@@ -67,7 +67,7 @@ export const Basic: Story = {
           <SpeedDialAction
             key={action.name}
             icon={action.icon}
-            tooltipTitle={action.name}
+            slotProps={{ tooltip: { title: action.name } }}
           />
         ))}
       </SpeedDial>
@@ -90,7 +90,7 @@ export const CustomIcon: Story = {
           <SpeedDialAction
             key={action.name}
             icon={action.icon}
-            tooltipTitle={action.name}
+            slotProps={{ tooltip: { title: action.name } }}
           />
         ))}
       </SpeedDial>
@@ -114,7 +114,7 @@ export const Directions: Story = {
           <SpeedDialAction
             key={action.name}
             icon={action.icon}
-            tooltipTitle={action.name}
+            slotProps={{ tooltip: { title: action.name } }}
           />
         ))}
       </SpeedDial>
@@ -128,7 +128,7 @@ export const Directions: Story = {
           <SpeedDialAction
             key={action.name}
             icon={action.icon}
-            tooltipTitle={action.name}
+            slotProps={{ tooltip: { title: action.name } }}
           />
         ))}
       </SpeedDial>
@@ -142,7 +142,7 @@ export const Directions: Story = {
           <SpeedDialAction
             key={action.name}
             icon={action.icon}
-            tooltipTitle={action.name}
+            slotProps={{ tooltip: { title: action.name } }}
           />
         ))}
       </SpeedDial>
@@ -156,7 +156,7 @@ export const Directions: Story = {
           <SpeedDialAction
             key={action.name}
             icon={action.icon}
-            tooltipTitle={action.name}
+            slotProps={{ tooltip: { title: action.name } }}
           />
         ))}
       </SpeedDial>
@@ -186,7 +186,7 @@ export const Controlled: Story = {
             <SpeedDialAction
               key={action.name}
               icon={action.icon}
-              tooltipTitle={action.name}
+              slotProps={{ tooltip: { title: action.name } }}
               onClick={() => setOpen(false)}
             />
           ))}
@@ -211,8 +211,7 @@ export const TooltipPlacement: Story = {
           <SpeedDialAction
             key={action.name}
             icon={action.icon}
-            tooltipTitle={action.name}
-            tooltipOpen
+            slotProps={{ tooltip: { title: action.name, open: true } }}
           />
         ))}
       </SpeedDial>

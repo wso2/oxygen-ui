@@ -1,6 +1,6 @@
 # Choreo Oxygen UI - AI Development Guide
 
-> Choreo Labs' React component library built on Material-UI v7
+> Choreo Labs' React component library built on Material-UI v9
 
 ## Quick Start
 

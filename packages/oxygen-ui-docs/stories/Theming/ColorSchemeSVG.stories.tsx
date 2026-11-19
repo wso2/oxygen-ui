@@ -160,7 +160,7 @@ type Story = StoryObj<typeof ColorSchemeSVG>;
 
 export const Default: Story = {
   render: () => (
-    <Stack spacing={3} sx={{alignItems: 'center'}}>
+    <Stack spacing={3} sx={{ alignItems: 'center' }}>
       <Typography variant="body2" color="text.secondary" sx={{textAlign: 'center', maxWidth: 400}}>
         Toggle the color scheme to see the SVG colors adapt
       </Typography>
@@ -194,7 +194,7 @@ export const WithRelativeSVGFile: Story = {
     },
   },
   render: () => (
-    <Stack spacing={3} sx={{alignItems: 'center'}}>
+    <Stack spacing={3} sx={{ alignItems: 'center' }}>
       <Typography variant="body2" color="text.secondary" sx={{textAlign: 'center', maxWidth: 400}}>
         Dashboard illustration using an imported relative SVG file with theme color attributes
       </Typography>
@@ -268,8 +268,8 @@ export function Example() {
 
 export const AllColorValues: Story = {
   render: () => (
-    <Stack spacing={3} sx={{alignItems: 'center', width: '100%', maxWidth: 800}}>
-      <Typography variant="h5" sx={{fontWeight: 600}}>
+    <Stack spacing={3} sx={{ alignItems: 'center', width: '100%', maxWidth: 800 }}>
+      <Typography variant="h5" sx={{ fontWeight: 600 }}>
         Available Color Values
       </Typography>
       <Typography variant="body2" color="text.secondary" sx={{textAlign: 'center'}}>
@@ -280,7 +280,7 @@ export const AllColorValues: Story = {
         <Stack spacing={3}>
           {/* Theme Colors */}
           <Box>
-            <Typography variant="subtitle2" gutterBottom>
+            <Typography variant="subtitle2" sx={{ mb: 2 }}>
               Theme Colors
             </Typography>
             <ColorSchemeSVG width="100%" height={60}>
@@ -307,7 +307,7 @@ export const AllColorValues: Story = {
 
           {/* Status Colors */}
           <Box>
-            <Typography variant="subtitle2" gutterBottom>
+            <Typography variant="subtitle2" sx={{ mb: 2 }}>
               Status Colors
             </Typography>
             <ColorSchemeSVG width="100%" height={60}>
@@ -334,7 +334,7 @@ export const AllColorValues: Story = {
 
           {/* Text Colors */}
           <Box>
-            <Typography variant="subtitle2" gutterBottom>
+            <Typography variant="subtitle2" sx={{ mb: 2 }}>
               Text Colors
             </Typography>
             <ColorSchemeSVG width="100%" height={60}>
@@ -355,7 +355,7 @@ export const AllColorValues: Story = {
 
           {/* Stroke Variants */}
           <Box>
-            <Typography variant="subtitle2" gutterBottom>
+            <Typography variant="subtitle2" sx={{ mb: 2 }}>
               Stroke Variants
             </Typography>
             <ColorSchemeSVG width="100%" height={60}>
@@ -381,7 +381,7 @@ export const AllColorValues: Story = {
 
 export const ComplexIllustration: Story = {
   render: () => (
-    <Stack spacing={3} sx={{alignItems: 'center'}}>
+    <Stack spacing={3} sx={{ alignItems: 'center' }}>
       <Typography variant="body2" color="text.secondary" sx={{textAlign: 'center', maxWidth: 500}}>
         A more complex example showing how multiple color classes work together
       </Typography>

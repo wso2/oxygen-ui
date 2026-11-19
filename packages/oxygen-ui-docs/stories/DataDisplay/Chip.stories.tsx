@@ -61,7 +61,7 @@ export const Variants: Story = {
 
 export const Colors: Story = {
   render: () => (
-    <Stack direction="row" spacing={1} flexWrap="wrap">
+    <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap' }}>
       <Chip label="Primary" color="primary" />
       <Chip label="Secondary" color="secondary" />
       <Chip label="Success" color="success" />
@@ -74,7 +74,7 @@ export const Colors: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <Stack direction="row" spacing={1} alignItems="center">
+    <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
       <Chip label="Small" size="small" />
       <Chip label="Medium" />
     </Stack>
@@ -146,7 +146,7 @@ const StatusDot = (props: React.ComponentProps<typeof Box>) => (
 
 export const WithStatusDot: Story = {
   render: () => (
-    <Stack direction="row" spacing={1} flexWrap="wrap">
+    <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap' }}>
       <Chip icon={<StatusDot />} label="Available" color="success" variant="outlined" />
       <Chip icon={<StatusDot />} label="Pending" color="warning" variant="outlined" />
       <Chip icon={<StatusDot />} label="Failed" color="error" variant="outlined" />
@@ -167,7 +167,7 @@ export const WithStatusDot: Story = {
 
 export const Tag: Story = {
   render: () => (
-    <Stack direction="row" spacing={1} flexWrap="wrap">
+    <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap' }}>
       <Chip variant="tag" label="Webinar" />
       <Chip variant="tag" color="primary" label="New" />
       <Chip variant="tag" color="success" label="Live" />

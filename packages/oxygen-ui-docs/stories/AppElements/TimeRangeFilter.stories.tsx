@@ -101,7 +101,7 @@ export const Default: Story = {
     const [range, setRange] = React.useState<TimeRange | null>(null);
 
     return (
-      <Stack direction="row" spacing={2} alignItems="center">
+      <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
         <TimeRangeFilter value={range} onChange={setRange} maxRangeMs={30 * DAY_MS} />
         <Typography variant="body2" color="text.secondary">
           {range ? `${formatUtc(range.start)} to ${formatUtc(range.end)} UTC` : 'No range selected'}
@@ -119,7 +119,7 @@ export const CustomPresetsAndLabels: Story = {
     const [range, setRange] = React.useState<TimeRange | null>(null);
 
     return (
-      <Stack direction="row" spacing={2} alignItems="center">
+      <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
         <TimeRangeFilter
           value={range}
           onChange={setRange}
@@ -156,7 +156,7 @@ export const WithMaxRange: Story = {
     const [range, setRange] = React.useState<TimeRange | null>(null);
 
     return (
-      <Stack direction="row" spacing={2} alignItems="center">
+      <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
         <TimeRangeFilter
           value={range}
           onChange={setRange}

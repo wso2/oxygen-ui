@@ -1605,7 +1605,7 @@ export const Sorting: Story = {
                   />
                 </ListingTable.Cell>
                 <ListingTable.Cell>
-                  <Typography variant="body2" fontFamily="monospace">
+                  <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
                     {component.version}
                   </Typography>
                 </ListingTable.Cell>
@@ -1700,7 +1700,7 @@ export const Filtering: Story = {
                   />
                 </ListingTable.Cell>
                 <ListingTable.Cell>
-                  <Typography variant="body2" fontFamily="monospace">
+                  <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
                     {component.version}
                   </Typography>
                 </ListingTable.Cell>
@@ -1793,7 +1793,7 @@ export const FilteringWithProvider: Story = {
                     />
                   </ListingTable.Cell>
                   <ListingTable.Cell>
-                    <Typography variant="body2" fontFamily="monospace">
+                    <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
                       {component.version}
                     </Typography>
                   </ListingTable.Cell>

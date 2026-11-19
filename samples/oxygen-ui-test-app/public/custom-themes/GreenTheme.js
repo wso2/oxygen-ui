@@ -150,11 +150,6 @@ const GreenThemeConfig = {
             backgroundColor: '#0d8d63',
           },
         },
-        containedSecondary: {
-          '&:hover': {
-            backgroundColor: '#3d5460',
-          },
-        },
         outlined: ({ theme }) => ({
           color: theme.palette.primary.main,
           borderColor: theme.palette.primary.main,
@@ -164,14 +159,6 @@ const GreenThemeConfig = {
             color: theme.palette.primary.main,
           },
         }),
-        outlinedSecondary: ({ theme }) => ({
-          color: theme.palette.secondary.main,
-          borderColor: theme.palette.secondary.main,
-          '&:hover': {
-            backgroundColor: '#49646e10',
-            borderColor: theme.palette.secondary.main,
-          },
-        }),
         text: ({ theme }) => ({
           color: theme.vars.palette.text.primary,
           '&:hover': {
@@ -179,13 +166,39 @@ const GreenThemeConfig = {
             color: theme.vars.palette.text.primary,
           },
         }),
-        textSecondary: ({ theme }) => ({
-          color: theme.palette.secondary.main,
-          '&:hover': {
-            backgroundColor: '#49646e10',
-          },
-        }),
       },
+      variants: [
+        // MUI v9 no longer applies combined keys such as `containedPrimary`, so each variant and colour pair
+        // is matched here.
+        {
+          props: { variant: 'contained', color: 'secondary' },
+          style: {
+            '&:hover': {
+              backgroundColor: '#3d5460',
+            },
+          },
+        },
+        {
+          props: { variant: 'outlined', color: 'secondary' },
+          style: ({ theme }) => ({
+            color: theme.palette.secondary.main,
+            borderColor: theme.palette.secondary.main,
+            '&:hover': {
+              backgroundColor: '#49646e10',
+              borderColor: theme.palette.secondary.main,
+            },
+          }),
+        },
+        {
+          props: { variant: 'text', color: 'secondary' },
+          style: ({ theme }) => ({
+            color: theme.palette.secondary.main,
+            '&:hover': {
+              backgroundColor: '#49646e10',
+            },
+          }),
+        },
+      ],
     },
     MuiLink: {
       styleOverrides: {

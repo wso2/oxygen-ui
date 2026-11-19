@@ -65,7 +65,7 @@ export const Colors: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <Stack direction="row" spacing={2} alignItems="center">
+    <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
       <Fab size="small" color="primary">+</Fab>
       <Fab size="medium" color="primary">+</Fab>
       <Fab size="large" color="primary">+</Fab>

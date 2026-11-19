@@ -142,18 +142,25 @@ const PurpleThemeConfig = {
           textTransform: 'none',
           fontWeight: 400,
         },
-        containedPrimary: () => ({
-          '&:not(:disabled)': {
-            background: 'linear-gradient(77.74deg, #4a5bc8 11.16%, #745bcc 99.55%) !important',
-            color: '#fff !important',
-            '&:hover': {
-              background: 'linear-gradient(77.74deg, #4a5bc8 11.16%, #745bcc 99.55%) !important',
-              opacity: 0.9,
-              color: '#fff !important',
-            },
-          },
-        }),
       },
+      variants: [
+        // MUI v9 no longer applies combined keys such as `containedPrimary`, so each variant and colour pair
+        // is matched here.
+        {
+          props: { variant: 'contained', color: 'primary' },
+          style: () => ({
+            '&:not(:disabled)': {
+              background: 'linear-gradient(77.74deg, #4a5bc8 11.16%, #745bcc 99.55%) !important',
+              color: '#fff !important',
+              '&:hover': {
+                background: 'linear-gradient(77.74deg, #4a5bc8 11.16%, #745bcc 99.55%) !important',
+                opacity: 0.9,
+                color: '#fff !important',
+              },
+            },
+          }),
+        },
+      ],
     },
     MuiButtonBase: {
       styleOverrides: {

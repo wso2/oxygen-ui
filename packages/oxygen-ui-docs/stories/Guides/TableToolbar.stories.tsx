@@ -158,7 +158,7 @@ function ToolbarSample() {
           }}
         />
       </ListingTable.Toolbar>
-      <Stack direction="row" spacing={1} alignItems="center" sx={{ px: 2, py: 1.5 }}>
+      <Stack direction="row" spacing={1} sx={{ alignItems: 'center', px: 2, py: 1.5 }}>
         <Chip label="Status: Active, Pending" size="small" onDelete={() => {}} />
         <Chip label="Role: Admin" size="small" onDelete={() => {}} />
         <Button size="small" variant="text">

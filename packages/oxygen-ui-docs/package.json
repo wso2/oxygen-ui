@@ -67,7 +67,22 @@
     "targets": {
       "build": {
         "dependsOn": [
-          "^build"
+          "^build",
+          {
+            "projects": [
+              "@wso2/oxygen-ui-test-app"
+            ],
+            "target": "build"
+          }
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          "{workspaceRoot}/samples/oxygen-ui-test-app/**/*"
+        ],
+        "outputs": [
+          "{projectRoot}/dist",
+          "{projectRoot}/.storybook/public/sample"
         ]
       }
     }

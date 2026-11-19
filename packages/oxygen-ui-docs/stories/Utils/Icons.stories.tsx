@@ -477,31 +477,31 @@ export const IconSizes: Story = {
     <Box sx={{ display: 'flex', gap: 3, alignItems: 'flex-end' }}>
       <Box sx={{ textAlign: 'center' }}>
         <Home size={16} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
           16px
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Home size={24} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
           24px (default)
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Home size={32} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
           32px
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Home size={48} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
           48px
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Home size={64} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
           64px
         </Typography>
       </Box>
@@ -514,31 +514,31 @@ export const IconColors: Story = {
     <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap', alignItems: 'center' }}>
       <Box sx={{ textAlign: 'center' }}>
         <Star size={32} color="currentColor" />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
           Current Color
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Star size={32} color="#ff7400" />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
           Custom Hex
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Star size={32} color="rgb(74, 41, 165)" />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
           RGB
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center', color: 'error.main' }}>
         <Star size={32} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
           Inherit (Error)
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center', color: 'success.main' }}>
         <Star size={32} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
           Inherit (Success)
         </Typography>
       </Box>
@@ -551,31 +551,31 @@ export const IconStrokeWidth: Story = {
     <Box sx={{ display: 'flex', gap: 3, alignItems: 'center' }}>
       <Box sx={{ textAlign: 'center' }}>
         <Settings size={32} strokeWidth={1} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
           Thin (1)
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Settings size={32} strokeWidth={1.5} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
           Light (1.5)
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Settings size={32} strokeWidth={2} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
           Regular (2)
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Settings size={32} strokeWidth={2.5} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
           Medium (2.5)
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Settings size={32} strokeWidth={3} />
-        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+        <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
           Bold (3)
         </Typography>
       </Box>

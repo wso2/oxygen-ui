@@ -1,12 +1,12 @@
 # Choreo Oxygen UI
 
-**Choreo Oxygen UI** is the official design system and React component library for Choreo Labs products, built on top of [Material-UI v7](https://mui.com/material-ui/). It provides a consistent, modern, and accessible user experience across all Choreo Labs applications, enabling rapid development and seamless integration with the latest frontend technologies.
+**Choreo Oxygen UI** is the official design system and React component library for Choreo Labs products, built on top of [Material-UI v9](https://mui.com/material-ui/). It provides a consistent, modern, and accessible user experience across all Choreo Labs applications, enabling rapid development and seamless integration with the latest frontend technologies.
 
 Oxygen UI delivers:
 
 - A comprehensive set of ready-to-use UI components + icons, themed for Choreo Labs brand and product needs
-- Full compatibility with Material-UI v7.3.5 and its ecosystem
-- Full compatibility with Lucide v0.553
+- Full compatibility with Material-UI v9.5 and MUI X v9.18
+- Full compatibility with Lucide v1.75
 - Support for custom Choreo Labs components, icons and design patterns
 - Easy integration with Vite, Nx, and modern React workflows
 

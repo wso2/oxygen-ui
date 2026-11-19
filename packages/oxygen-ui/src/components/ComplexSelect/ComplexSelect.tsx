@@ -23,7 +23,7 @@ import MuiInputLabel from '@mui/material/InputLabel';
 import MuiTypography from '@mui/material/Typography';
 import { inputBaseClasses } from '@mui/material/InputBase';
 import { listItemTextClasses } from '@mui/material/ListItemText';
-import { styled, useThemeProps } from '@mui/material/styles';
+import { styled, useThemeProps, type CSSObject } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
 import ComplexSelectListHeader from './ComplexSelectListHeader';
 import ComplexSelectMenuItem from './ComplexSelectMenuItem';
@@ -112,7 +112,7 @@ const StyledFormControl = styled(MuiFormControl, {
 const HiddenLabel = styled('span', {
   name: 'MuiComplexSelect',
   slot: 'HiddenLabel',
-})(visuallyHidden);
+})(visuallyHidden as CSSObject);
 
 const StyledInputLabel = styled(MuiInputLabel, {
   name: 'MuiComplexSelect',

@@ -134,11 +134,11 @@ const Hero = () => (
       backgroundImage: `radial-gradient(120% 140% at 100% 0%, rgba(${theme.vars?.palette.primary.mainChannel} / 0.16) 0%, transparent 55%)`,
     })}
   >
-    <Stack direction={{ xs: 'column', md: 'row' }} spacing={{ xs: 4, md: 6 }} alignItems={{ md: 'center' }}>
+    <Stack direction={{ xs: 'column', md: 'row' }} spacing={{ xs: 4, md: 6 }} sx={{ alignItems: { md: 'center' } }}>
       <Box sx={{ flex: 1, minWidth: 0 }}>
         <Stack direction="row" spacing={1} sx={{ mb: 3, flexWrap: 'wrap', rowGap: 1 }}>
           <Chip size="small" color="primary" label={`v${packageJson.version}`} />
-          <Chip size="small" variant="outlined" label="MUI v7" />
+          <Chip size="small" variant="outlined" label="MUI v9" />
           <Chip size="small" variant="outlined" label="React" />
           <Chip size="small" variant="outlined" label="TypeScript" />
         </Stack>
@@ -257,7 +257,7 @@ const Features = () => (
 
 const Step = ({ number, title, children }: { number: number; title: string; children: React.ReactNode }) => (
   <Box sx={{ minWidth: 0 }}>
-    <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 1.5 }}>
+    <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center', mb: 1.5 }}>
       <Box
         sx={{
           width: 28,
@@ -325,7 +325,7 @@ function App() {
 
 const AiAssisted = () => (
   <Paper variant="outlined" sx={{ p: { xs: 3, md: 4 } }}>
-    <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} alignItems={{ md: 'flex-start' }}>
+    <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} sx={{ alignItems: { md: 'flex-start' } }}>
       <Box
         sx={(theme) => ({
           display: 'inline-flex',
