@@ -312,7 +312,7 @@ export function writePathEntries({ paths, nameToPathMap }) {
   const pathMapText = `${JSON.stringify(nameToPathMap, null, 2)}\n`;
   const checked = parsePathMap(pathMapText);
 
-  // Checked before anything is written, with the same function the lint rule reads it with.
+  // Checked before anything is written, with the same function the codemod and the lint rule read it with.
   if ('reason' in checked) throw new Error(`The path map this build produced fails the check its readers apply: ${checked.reason}.`);
 
   mkdirSync(folder, { recursive: true });

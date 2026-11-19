@@ -1,0 +1,1 @@
+import * as Oxygen from '@wso2/oxygen-ui';

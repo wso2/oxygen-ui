@@ -1,0 +1,46 @@
+{
+  "name": "@wso2/oxygen-ui-codemod",
+  "version": "0.0.0",
+  "description": "Codemods for apps that use @wso2/oxygen-ui.",
+  "type": "module",
+  "bin": {
+    "oxygen-ui-codemod": "./dist/bin.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "dev": "tsc -p tsconfig.build.json --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "oxygen-ui",
+    "codemod",
+    "path-imports"
+  ],
+  "author": "WSO2 LLC",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@wso2/oxygen-ui-path-map": "workspace:*",
+    "typescript": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "vitest": "catalog:"
+  }
+}

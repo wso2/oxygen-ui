@@ -50,7 +50,7 @@ import * as TreeView from '@wso2/oxygen-ui/tree-view';
 <DatePickers.DatePicker value={date} onChange={setDate} />
 ```
 
-Path imports need `moduleResolution` set to `bundler`, `node16` or `nodenext`.
+Path imports need `moduleResolution` set to `bundler`, `node16` or `nodenext`. To move existing barrel imports to path imports, run `npx @wso2/oxygen-ui-codemod path-imports`; add `--check` to list the barrel imports that remain without writing any file.
 
 ## Theme Tokens (Always Use)
 

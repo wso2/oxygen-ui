@@ -61,8 +61,9 @@ interface PathGroup {
   named: string[];
 }
 
-// A type-only path gets its own `import type` statement, so the fix replaces one import and keeps its
-// other names where they are.
+// A type-only path gets its own `import type` statement here, where the codemod keeps its names inline as
+// `type X` in one statement. The two are meant to differ: this fix replaces one import and keeps its other
+// names where they are, and the codemod rewrites every barrel import in a file.
 const statementsFor = (target: string, group: PathGroup, quote: string, terminator: string): string[] => {
   const from = `from ${quote}${target}${quote}${terminator}`;
   if (!group.typeOnly) {

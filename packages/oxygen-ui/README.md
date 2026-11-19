@@ -59,6 +59,22 @@ The MUI X paths are lower-case, so you can tell a package from a component at a 
 
 `@wso2/oxygen-ui/path-map.json` records, for every name on the barrel, the path it lives on.
 
+### Migrating from barrel imports
+
+`@wso2/oxygen-ui-codemod` rewrites the barrel imports in your app to path imports in one step. Nothing to install and nothing to remove afterwards:
+
+```bash
+npx @wso2/oxygen-ui-codemod path-imports
+```
+
+It reads the name-to-path map of the `@wso2/oxygen-ui` installed in your app, so it never writes a path your version does not have. It keeps type-only imports type-only, keeps `as` renames, and rewrites barrel re-exports too. A whole-barrel namespace import, a dynamic import and a `require` are reported and left alone. A file that imports a name the map does not have is left untouched and reported.
+
+In CI, check mode writes nothing, lists every barrel import that remains, and exits non-zero if there is any:
+
+```bash
+npx @wso2/oxygen-ui-codemod path-imports --check
+```
+
 The `no-direct-mui-imports` rule of `@wso2/eslint-plugin-oxygen-ui` fixes direct Material UI imports into Oxygen path imports.
 
 ### Material-UI Components

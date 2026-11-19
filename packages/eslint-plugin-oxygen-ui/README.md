@@ -69,7 +69,7 @@ The MUI X packages live on the lower-case paths `data-grid`, `date-pickers` and 
 
 The autofix writes path imports:
 - A Material UI path import such as `@mui/material/Button` keeps its imports and moves to `@wso2/oxygen-ui/Button`.
-- An import from `@mui/material` becomes one import per Oxygen path. It uses the name-to-path map (`@wso2/oxygen-ui/path-map.json`) of the Oxygen version installed in your app. If that version has no map, or a name is not in it, the import is reported and left for you to fix.
+- An import from `@mui/material` becomes one import per Oxygen path. It uses the name-to-path map (`@wso2/oxygen-ui/path-map.json`) of the Oxygen version installed in your app, the same map the codemod uses. If that version has no map, or a name is not in it, the import is reported and left for you to fix.
 - An MUI X import moves to the matching lower-case Oxygen path.
 - Type-only names stay type-only, and a file without semicolons stays without them.
 
@@ -102,6 +102,8 @@ export default [
   },
 ];
 ```
+
+To rewrite the barrel imports you already have, run `npx @wso2/oxygen-ui-codemod path-imports`. Its `--check` flag fails when one remains.
 
 ### `no-direct-lucide-imports`
 

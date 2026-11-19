@@ -1,0 +1,2 @@
+export * from '@wso2/oxygen-ui';
+export * as Oxygen from '@wso2/oxygen-ui';

@@ -1,0 +1,1 @@
+const lazy = () => import('@wso2/oxygen-ui');

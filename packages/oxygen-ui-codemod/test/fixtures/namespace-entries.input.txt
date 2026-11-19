@@ -1,0 +1,3 @@
+import { DataGrid, colors, DataGrid as Grid } from '@wso2/oxygen-ui';
+import type { DataGrid as GridTypes } from '@wso2/oxygen-ui';
+export { DataGrid as ExportedGrid } from '@wso2/oxygen-ui';

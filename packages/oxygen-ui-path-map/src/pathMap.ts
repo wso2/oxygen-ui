@@ -80,7 +80,7 @@ const cache = new Map<string, { modified: number; map: PathMap }>();
 
 /**
  * Reads the path map of the Oxygen package installed for a folder. It never throws: the caller decides what
- * each outcome means, such as a command failing where the lint rule stays quiet when Oxygen is absent.
+ * each outcome means, such as the codemod failing where the lint rule stays quiet when Oxygen is absent.
  */
 export const readInstalledPathMap = (from: string): PathMapReading => {
   const packageDirectory = installedPackageDirectory(from);
