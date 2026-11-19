@@ -1,8 +1,8 @@
 # @wso2/oxygen-ui-icons-react
 
-WSO2 Oxygen UI Icons library - Powered by [Lucide Icons](https://lucide.dev/).
+Choreo Oxygen UI Icons library - Powered by [Lucide Icons](https://lucide.dev/).
 
-This package provides a comprehensive set of icons for use in WSO2 Oxygen UI applications, including all Lucide icons plus custom WSO2-specific icons.
+This package provides a comprehensive set of icons for use in Choreo Oxygen UI applications, including all Lucide icons plus custom WSO2-specific icons.
 
 ## Installation
 
@@ -15,7 +15,7 @@ pnpm add @wso2/oxygen-ui-icons-react
 Import icons directly from the package:
 
 ```jsx
-import { Bell, Search, User, WSO2 } from '@wso2/oxygen-ui-icons-react';
+import { Bell, Search, User, ChoreoLabs } from '@wso2/oxygen-ui-icons-react';
 
 function MyComponent() {
   return (
@@ -23,7 +23,7 @@ function MyComponent() {
       <Bell size={24} />
       <Search color="blue" />
       <User strokeWidth={1.5} />
-      <WSO2 />
+      <ChoreoLabs />
     </div>
   );
 }
@@ -47,9 +47,10 @@ This package includes:
 ### Lucide Icons (2000+)
 Browse the complete collection at [lucide.dev/icons](https://lucide.dev/icons)
 
-### Custom WSO2 Icons
+### Custom Brand Icons
+- `ChoreoLabs` - Choreo Labs mark
 - `WSO2` - WSO2 logo icon
-- And other WSO2-specific branding icons
+- Third-party marks: `Bitbucket`, `Facebook`, `GitHub`, `GitLab`, `Google`, `Lambda`, `MCP`
 
 ## Example with Material-UI
 

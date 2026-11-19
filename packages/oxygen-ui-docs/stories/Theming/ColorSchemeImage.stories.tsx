@@ -17,7 +17,7 @@
  */
 
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { ColorSchemeImage, ColorSchemeToggle, Stack, Typography, Paper, Box } from '@wso2/oxygen-ui';
 
 const meta: Meta<typeof ColorSchemeImage> = {

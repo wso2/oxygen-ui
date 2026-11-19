@@ -17,7 +17,7 @@
  */
 
 import {Description, Primary, Subtitle, Title} from '@storybook/addon-docs/blocks';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Stack, Typography, CodeBlock, Box, Divider, Paper, Chip } from '@wso2/oxygen-ui';
 import React from 'react';
 import CenterContentLayout from '../layouts/CenterContentLayout';
@@ -230,8 +230,6 @@ export const Integrate: Story = {
             <Stack spacing={0.5}>
               {[
                 ['OxygenTheme', 'Default theme: brand colours, Sora font and flat surfaces'],
-                ['AcrylicOrangeTheme', 'Warm orange accent'],
-                ['AcrylicPurpleTheme', 'Rich purple accent'],
                 ['ClassicTheme', 'Traditional, conservative styling'],
                 ['HighContrastTheme', 'Accessibility-focused high contrast'],
                 ['PaleGrayTheme', 'Soft neutral gray palette'],

@@ -17,7 +17,7 @@
  */
 
 import React from 'react';
-import type {Meta, StoryObj} from '@storybook/react';
+import type {Meta, StoryObj} from '@storybook/react-webpack5';
 import {useColorScheme, Box, Button, Chip, Stack, Typography} from '@wso2/oxygen-ui';
 import {Moon, Sun, Monitor} from '@wso2/oxygen-ui-icons-react';
 

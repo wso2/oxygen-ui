@@ -17,7 +17,7 @@
  */
 
 import {Description, Primary, Subtitle, Title} from '@storybook/addon-docs/blocks';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Stack, Typography, CodeBlock, Box, Divider } from '@wso2/oxygen-ui';
 import React from 'react';
 import CenterContentLayout from '../layouts/CenterContentLayout';
@@ -295,7 +295,7 @@ export const CreateStory: Story = {
           <CodeBlock
             language="tsx"
             code={`// src/components/CustomCard/CustomCard.stories.tsx
-  import type { Meta, StoryObj } from '@storybook/react';
+  import type { Meta, StoryObj } from '@storybook/react-webpack5';
   import { CustomCard } from './CustomCard';
   import { Button, Stack } from '@wso2/oxygen-ui';
   import React from 'react';

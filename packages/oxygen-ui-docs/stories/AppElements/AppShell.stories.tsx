@@ -17,7 +17,7 @@
  */
 
 import * as React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import {
   Box,
   Typography,
@@ -38,7 +38,10 @@ import {
   NotificationBanner,
   Footer,
   TrialBadge,
-  ComplexSelect,
+  HeaderBreadcrumbs,
+  Avatar,
+  ColorSchemeImage,
+  version,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -48,9 +51,11 @@ import {
   useAppShell,
   useNotifications,
   type NotificationItem,
+  type HeaderBreadcrumbsItem,
 } from '@wso2/oxygen-ui';
 import {
-  Zap,
+  Building2,
+  Box as BoxIcon,
   Bell,
   HelpCircle,
   Home,
@@ -240,24 +245,35 @@ const SampleContent: React.FC = () => (
 );
 
 /**
- * Logo component for the header.
+ * The Oxygen UI logo (mark and wordmark), with a light and a dark version.
  */
 const Logo: React.FC = () => (
-  <Box
-    sx={{
-      width: 32,
-      height: 32,
-      borderRadius: 1,
-      bgcolor: 'primary.main',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: 'primary.contrastText',
-    }}
-  >
-    <Zap size={20} />
-  </Box>
+  <ColorSchemeImage
+    src={{ light: './oxygen-ui-logo.svg', dark: './oxygen-ui-logo-inverted.svg' }}
+    alt={{ light: 'Oxygen UI', dark: 'Oxygen UI' }}
+    height={24}
+    width="auto"
+  />
 );
+
+const organizationItems: HeaderBreadcrumbsItem[] = mockOrganizations.map((org) => ({
+  id: org.id,
+  name: org.name,
+  description: org.description,
+  avatar: (
+    <Avatar variant="rounded" sx={{ width: 24, height: 24, fontSize: 12 }}>
+      {org.avatar}
+    </Avatar>
+  ),
+}));
+
+const projectItems: HeaderBreadcrumbsItem[] = mockProjects.map((project) => ({
+  id: project.id,
+  name: project.name,
+  description: project.description,
+}));
+
+const COPYRIGHT = `© ${new Date().getFullYear()} Choreo Labs. All rights reserved.`;
 
 /**
  * Notification button that consumes AppShell context.
@@ -298,7 +314,7 @@ const NotificationButton: React.FC<{ count: number }> = ({ count }) => {
  * - **Children-Only API**: No props for UI elements - use child components instead
  * - **Layout Structure**: Using the Layout component for flexible composition
  * - **Navigation**: Collapsible sidebar with hierarchical menus
- * - **Header**: Top bar with logo, switchers, and user actions
+ * - **Header**: Top bar with the logo, organization and project breadcrumbs, and user actions
  * - **Notifications**: Banner alerts and notification panel
  * - **Footer**: Copyright and legal links
  *
@@ -357,7 +373,7 @@ A comprehensive App Shell template using **compound components** with a **childr
 This template shows how to compose Oxygen UI components to create a complete
 application shell with:
 - Collapsible navigation sidebar with hierarchical menus
-- Header with logo, context switchers, and user actions
+- Header with the logo, organization and project breadcrumbs, and user actions
 - Notification system with slide-out panel
 - Footer with legal links
 
@@ -495,42 +511,35 @@ export const Playground: Story = {
             <Header.Toggle />
             <Header.Brand>
               <Header.BrandLogo><Logo /></Header.BrandLogo>
-              <Header.BrandTitle>Oxygen UI</Header.BrandTitle>
             </Header.Brand>
             <Header.Switchers>
-              <ComplexSelect
-                value={selectedOrg.id}
-                onChange={(e) => {
-                  const org = mockOrganizations.find((o) => o.id === e.target.value);
-                  if (org) setOrganization(org);
+              <HeaderBreadcrumbs
+                levels={[
+                  {
+                    id: 'organization',
+                    label: 'Organization',
+                    icon: <Building2 />,
+                    items: organizationItems,
+                    selectedId: selectedOrg.id,
+                  },
+                  {
+                    id: 'project',
+                    label: 'Project',
+                    icon: <BoxIcon />,
+                    items: projectItems,
+                    selectedId: selectedProject.id,
+                  },
+                ]}
+                onSelect={(levelId, item) => {
+                  if (levelId === 'organization') {
+                    const org = mockOrganizations.find((o) => o.id === item.id);
+                    if (org) setOrganization(org);
+                  } else {
+                    const project = mockProjects.find((p) => p.id === item.id);
+                    if (project) setProject(project);
+                  }
                 }}
-                label="Organization"
-                sx={{ minWidth: 180 }}
-              >
-                <ComplexSelect.ListHeader>Organizations</ComplexSelect.ListHeader>
-                {mockOrganizations.map((org) => (
-                  <ComplexSelect.MenuItem key={org.id} value={org.id}>
-                    <ComplexSelect.MenuItem.Avatar>{org.avatar}</ComplexSelect.MenuItem.Avatar>
-                    <ComplexSelect.MenuItem.Text primary={org.name} secondary={org.description} />
-                  </ComplexSelect.MenuItem>
-                ))}
-              </ComplexSelect>
-              <ComplexSelect
-                value={selectedProject.id}
-                onChange={(e) => {
-                  const project = mockProjects.find((p) => p.id === e.target.value);
-                  if (project) setProject(project);
-                }}
-                label="Project"
-                sx={{ minWidth: 160 }}
-              >
-                <ComplexSelect.ListHeader>Projects</ComplexSelect.ListHeader>
-                {mockProjects.map((project) => (
-                  <ComplexSelect.MenuItem key={project.id} value={project.id}>
-                    <ComplexSelect.MenuItem.Text primary={project.name} secondary={project.description} />
-                  </ComplexSelect.MenuItem>
-                ))}
-              </ComplexSelect>
+              />
             </Header.Switchers>
             <Header.Spacer />
             <Header.Actions>
@@ -702,10 +711,10 @@ export const Playground: Story = {
 
         {args.showFooter && (
           <AppShell.Footer>
-            <Footer>
-              <Footer.Copyright>© {new Date().getFullYear()} WSO2 LLC. All rights reserved.</Footer.Copyright>
+            <Footer variant="plain">
+              <Footer.Copyright>{COPYRIGHT}</Footer.Copyright>
               <Footer.Divider />
-              <Footer.Version>oxygen-ui-v1.0.0</Footer.Version>
+              <Footer.Version>Oxygen UI v{version}</Footer.Version>
               <Footer.Link href="#terms">Terms & Conditions</Footer.Link>
               <Footer.Link href="#privacy">Privacy Policy</Footer.Link>
             </Footer>
@@ -965,7 +974,6 @@ export const WithConfirmDialog: Story = {
             <Header.Toggle />
             <Header.Brand>
               <Header.BrandLogo><Logo /></Header.BrandLogo>
-              <Header.BrandTitle>Oxygen UI</Header.BrandTitle>
             </Header.Brand>
             <Header.Spacer />
             <Header.Actions>
@@ -1113,7 +1121,6 @@ export const MobileResponsive: Story = {
             <Header.Toggle />
             <Header.Brand>
               <Header.BrandLogo><Logo /></Header.BrandLogo>
-              <Header.BrandTitle>Mobile Demo</Header.BrandTitle>
             </Header.Brand>
             <Header.Spacer />
             <Header.Actions>
@@ -1154,8 +1161,8 @@ export const MobileResponsive: Story = {
 
         {args.showFooter && (
           <AppShell.Footer>
-            <Footer>
-              <Footer.Copyright>© 2026 WSO2 LLC</Footer.Copyright>
+            <Footer variant="plain">
+              <Footer.Copyright>{COPYRIGHT}</Footer.Copyright>
               <Footer.Divider />
               <Footer.Link href="#privacy">Privacy</Footer.Link>
               <Footer.Link href="#terms">Terms</Footer.Link>
@@ -1226,7 +1233,6 @@ export const CustomSidebarWidth: Story = {
             <Header.Toggle />
             <Header.Brand>
               <Header.BrandLogo><Logo /></Header.BrandLogo>
-              <Header.BrandTitle>Custom Width Demo</Header.BrandTitle>
             </Header.Brand>
             <Header.Spacer />
             <Header.Actions>
@@ -1267,8 +1273,8 @@ export const CustomSidebarWidth: Story = {
 
         {args.showFooter && (
           <AppShell.Footer>
-            <Footer>
-              <Footer.Copyright>© 2026 WSO2 LLC</Footer.Copyright>
+            <Footer variant="plain">
+              <Footer.Copyright>{COPYRIGHT}</Footer.Copyright>
               <Footer.Divider />
               <Footer.Link href="#privacy">Privacy</Footer.Link>
               <Footer.Link href="#terms">Terms</Footer.Link>

@@ -17,7 +17,7 @@
  */
 
 import * as React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import {
   Avatar,
   Box,
@@ -150,7 +150,7 @@ const orgAvatar = (name: string) => (
 
 const ORGANIZATIONS: HeaderBreadcrumbsItem[] = [
   { id: 'thunder-id', name: 'thunder-id', description: 'Owner', avatar: orgAvatar('thunder id') },
-  { id: 'wso2', name: 'WSO2', description: 'Member', avatar: orgAvatar('WSO2') },
+  { id: 'wso2', name: 'Choreo Labs', description: 'Member', avatar: orgAvatar('Choreo Labs') },
   { id: 'personal', name: 'Personal', avatar: orgAvatar('Personal') },
 ];
 

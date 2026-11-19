@@ -1459,7 +1459,7 @@ describe('ContextSwitcher', () => {
           data-testid="level"
         >
           <ContextSwitcher.Group label="Invited organizations">
-            <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+            <ContextSwitcher.Option value="choreo-labs">Choreo Labs</ContextSwitcher.Option>
           </ContextSwitcher.Group>
         </ContextSwitcher.Level>
       </ContextSwitcher>
@@ -1476,7 +1476,7 @@ describe('ContextSwitcher', () => {
     fireEvent.mouseDown(field!);
     fireEvent.click(field!);
     expect(screen.getByRole('listbox', {hidden: true})).toBeDefined();
-    expect(screen.getByText('WSO2')).toBeDefined();
+    expect(screen.getByText('Choreo Labs')).toBeDefined();
     expect(screen.getByText('Invited organizations')).toBeDefined();
   });
 });

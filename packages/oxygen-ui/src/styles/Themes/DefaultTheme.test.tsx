@@ -111,6 +111,11 @@ describe('DefaultTheme', () => {
     expect(DefaultTheme.colorSchemes.dark!.palette.Alert.infoFilledBg).toBe('#17223A');
   });
 
+  it('offers a categorical blue: Cobalt in light mode and Azure in dark mode', () => {
+    expect(DefaultTheme.colorSchemes.light?.palette.blue.main).toBe('#1F4FFF');
+    expect(DefaultTheme.colorSchemes.dark?.palette.blue.main).toBe('#3D8BFF');
+  });
+
   it('sets Sora on every typography variant', () => {
     const typography = DefaultTheme.typography as unknown as Record<string, TypographyVariantsOptions>;
     const variants = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'body1', 'body2', 'button', 'caption', 'overline'];

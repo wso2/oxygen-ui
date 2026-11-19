@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Button, Stack, CircularProgress, useTheme } from '@wso2/oxygen-ui';
 import { ArrowRight, Download, Plus, Trash2 } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';

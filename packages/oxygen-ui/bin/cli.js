@@ -542,7 +542,7 @@ Examples:
   npx @wso2/oxygen-ui update          # Auto-detects previous mode
   npx @wso2/oxygen-ui update --claude # Force Claude mode update
 
-Internal (WSO2 maintainers):
+Internal (Choreo Labs maintainers):
   npx @wso2/oxygen-ui init --claude --internal   # Include internal skills
   npx @wso2/oxygen-ui update --claude --internal  # Update with internal skills
 

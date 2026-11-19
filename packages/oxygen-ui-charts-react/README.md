@@ -1,8 +1,8 @@
 # @wso2/oxygen-ui-charts-react
 
-WSO2 Oxygen UI Charts library - Powered by [Recharts](https://recharts.org/).
+Choreo Oxygen UI Charts library - Powered by [Recharts](https://recharts.org/).
 
-This package provides a comprehensive set of accessible, theme-aware chart components for building data visualizations in WSO2 Oxygen UI applications. It wraps Recharts components with WSO2-specific defaults, simplified configuration APIs, and automatic integration with the Oxygen UI system.
+This package provides a comprehensive set of accessible, theme-aware chart components for building data visualizations in Choreo Oxygen UI applications. It wraps Recharts components with Oxygen UI defaults, simplified configuration APIs, and automatic integration with the Oxygen UI system.
 
 ## Features
 

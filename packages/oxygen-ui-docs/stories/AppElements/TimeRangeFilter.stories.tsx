@@ -17,7 +17,7 @@
  */
 
 import { deDE } from '@mui/x-date-pickers/locales';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Chip, Stack, TimeRangeFilter, Typography } from '@wso2/oxygen-ui';
 import type { TimeRange } from '@wso2/oxygen-ui';
 import { de } from 'date-fns/locale';

@@ -1,6 +1,6 @@
-# Oxygen UI - AI Development Guide
+# Choreo Oxygen UI - AI Development Guide
 
-> WSO2's React component library built on Material-UI v7
+> Choreo Labs' React component library built on Material-UI v7
 
 ## Quick Start
 
@@ -55,13 +55,8 @@ import { DataGrid, DatePickers, TreeView } from '@wso2/oxygen-ui';
 ## Available Themes
 
 - `OxygenTheme` - Default theme (recommended): brand colours, Sora font and flat surfaces
-- `AcrylicOrangeTheme` - Orange accent variant
-- `AcrylicPurpleTheme` - Purple accent variant
 - `ClassicTheme` - Traditional styling
 - `HighContrastTheme` - Accessibility-focused
-- `PaleBaseTheme` - Minimal color palette
-- `PaleGrayTheme` - Soft gray tones
-- `PaleIndigoTheme` - Soft indigo tones
 
 ## Custom Oxygen Components
 

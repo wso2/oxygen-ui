@@ -1,7 +1,7 @@
 {
   "name": "@wso2/oxygen-ui-docs",
   "version": "0.0.1",
-  "description": "Documentation site for WSO2 Oxygen UI using Storybook",
+  "description": "Documentation site for Choreo Oxygen UI using Storybook",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,6 +13,8 @@
   },
   "keywords": [
     "wso2",
+    "choreo",
+    "choreo-labs",
     "oxygen-ui",
     "documentation",
     "storybook"
@@ -38,12 +40,11 @@
     "@babel/preset-typescript": "7.28.5",
     "@mdx-js/react": "3.1.1",
     "@mui/x-date-pickers": "catalog:",
-    "@storybook/addon-a11y": "10.6.0",
-    "@storybook/addon-docs": "10.6.0",
-    "@storybook/addon-links": "10.6.0",
-    "@storybook/react": "10.6.0",
-    "@storybook/react-webpack5": "10.6.0",
-    "@storybook/test-runner": "^0.24.4",
+    "@storybook/addon-a11y": "10.6.7",
+    "@storybook/addon-docs": "10.6.7",
+    "@storybook/addon-links": "10.6.7",
+    "@storybook/react-webpack5": "10.6.7",
+    "@storybook/test-runner": "^0.26.0",
     "@svgr/webpack": "8.1.0",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
@@ -56,7 +57,7 @@
     "playwright": "1.61.1",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "storybook": "10.6.0",
+    "storybook": "10.6.7",
     "wait-on": "^9.0.10"
   },
   "publishConfig": {

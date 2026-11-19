@@ -1,6 +1,6 @@
 # @wso2/oxygen-ui-docs
 
-Documentation site for WSO2 Oxygen UI using Storybook.
+Documentation site for Choreo Oxygen UI using Storybook.
 
 ## Getting Started
 

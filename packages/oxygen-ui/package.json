@@ -1,7 +1,7 @@
 {
   "name": "@wso2/oxygen-ui",
   "version": "0.25.0",
-  "description": "WSO2 Oxygen UI | Design System - Powered with Material-UI component library with TypeScript support",
+  "description": "Choreo Oxygen UI | Design System - Powered with Material-UI component library with TypeScript support",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -46,6 +46,8 @@
   },
   "keywords": [
     "wso2",
+    "choreo",
+    "choreo-labs",
     "oxygen-ui",
     "design-system",
     "material-ui",

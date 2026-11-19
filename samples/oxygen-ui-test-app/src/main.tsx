@@ -18,14 +18,10 @@
 
 import {
   OxygenUIThemeProvider,
-  AcrylicOrangeTheme,
-  AcrylicPurpleTheme,
   OxygenTheme,
   ClassicTheme,
   HighContrastTheme,
   PaleGrayTheme,
-  PaleIndigoTheme,
-  WSO2Theme,
   createOxygenTheme,
   type OxygenThemeType,
 } from '@wso2/oxygen-ui'
@@ -33,6 +29,7 @@ import { HashRouter, BrowserRouter } from 'react-router'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
+import AcrylicPurpleTheme from './themes/AcrylicPurpleTheme'
 import './index.css'
 
 interface RuntimeTheme {
@@ -78,14 +75,11 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <OxygenUIThemeProvider 
       themes={[
-        { key: 'acrylicOrange', label: 'Acrylic Orange Theme', theme: AcrylicOrangeTheme },
         { key: 'acrylicPurple', label: 'Acrylic Purple Theme', theme: AcrylicPurpleTheme },
         { key: 'default', label: 'Default Theme', theme: OxygenTheme },
         { key: 'highContrast', label: 'High Contrast Theme', theme: HighContrastTheme },
         { key: 'classic', label: 'Classic Theme', theme: ClassicTheme },
         { key: 'paleGray', label: 'Pale Gray Theme', theme: PaleGrayTheme },
-        { key: 'paleIndigo', label: 'Pale Indigo Theme', theme: PaleIndigoTheme },
-        { key: 'wso2', label: 'WSO2 Theme', theme: WSO2Theme },
         ...(APP_CONFIG.design?.themes?.map(
           (theme) => ({
             key: theme.key,
@@ -94,7 +88,7 @@ createRoot(document.getElementById('root')!).render(
           })
         ) ?? [])
       ]}
-      initialTheme={APP_CONFIG.design?.initialTheme ?? "acrylicOrange"}
+      initialTheme={APP_CONFIG.design?.initialTheme ?? "default"}
       onThemesLoaded={(loadedThemes: LoadedTheme[]) => {
         console.log('Themes loaded:', loadedThemes);
       }}

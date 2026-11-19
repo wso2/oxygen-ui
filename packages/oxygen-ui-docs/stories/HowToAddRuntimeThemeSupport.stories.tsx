@@ -17,7 +17,7 @@
  */
 
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Stack, Typography, CodeBlock, Box, Divider } from '@wso2/oxygen-ui';
 import {Description, Primary, Subtitle, Title} from '@storybook/addon-docs/blocks';
 import CenterContentLayout from '../layouts/CenterContentLayout';
@@ -453,7 +453,7 @@ import {
   createOxygenTheme,
   type OxygenThemeType,
   // Import any built-in themes you want to use
-  AcrylicOrangeTheme,
+  OxygenTheme,
   ClassicTheme
 } from '@wso2/oxygen-ui';
 import { StrictMode } from 'react';
@@ -529,9 +529,9 @@ createRoot(document.getElementById('root')!).render(
       themes={[
         // Built-in themes
         { 
-          key: 'acrylicOrange', 
-          label: 'Acrylic Orange', 
-          theme: AcrylicOrangeTheme 
+          key: 'default', 
+          label: 'Default', 
+          theme: OxygenTheme 
         },
         { 
           key: 'classic', 
@@ -549,7 +549,7 @@ createRoot(document.getElementById('root')!).render(
             : createOxygenTheme(theme.theme)  // Convert objects to themes
         })) ?? [])
       ]}
-      initialTheme={APP_CONFIG.design?.initialTheme ?? "acrylicOrange"}
+      initialTheme={APP_CONFIG.design?.initialTheme ?? "default"}
       onThemesLoaded={(loadedThemes: LoadedTheme[]) => {
         console.log('All themes loaded:', loadedThemes);
         // Track when external theme files finish loading

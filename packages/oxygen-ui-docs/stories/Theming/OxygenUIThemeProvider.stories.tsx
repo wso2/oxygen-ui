@@ -17,7 +17,7 @@
  */
 
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Stack, Typography, Box, CodeBlock, Paper, Button, OxygenUIThemeProvider, extendTheme } from '@wso2/oxygen-ui';
 
 /**

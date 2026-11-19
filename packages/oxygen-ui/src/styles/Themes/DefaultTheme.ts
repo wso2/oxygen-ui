@@ -405,6 +405,32 @@ const DefaultThemeConfig = {
     // Unused by the theme; kept flat for apps that read theme.gradient.primary
     primary: `linear-gradient(${BrandColors.signal}, ${BrandColors.signal})`,
   },
+  // Code blocks use the theme's own colours: Flare/Burn orange for calls, the theme blue for keywords, the
+  // success green for strings, the warning amber for numbers and muted text for comments. Every token keeps
+  // WCAG AA 4.5:1 against its background (lowest: strings at 4.6:1 in light mode).
+  syntax: {
+    light: {
+      background: BrandColors.paper,
+      text: BrandColors.midnightInk,
+      comment: BrandColors.slate,
+      keyword: BrandColors.cobalt,
+      string: StatusColors.light.success.dark,
+      function: BrandColors.burn,
+      number: StatusColors.light.warning.dark,
+      operator: BrandColors.midnightInk,
+    },
+    // A near-black well on the navy page.
+    dark: {
+      background: BrandColors.void,
+      text: BrandColors.fog,
+      comment: BrandColors.midnightText3,
+      keyword: BrandColors.azure,
+      string: StatusColors.dark.success.main,
+      function: BrandColors.flare,
+      number: StatusColors.dark.warning.main,
+      operator: BrandColors.fog,
+    },
+  },
   components: {
     MuiAvatar: {
       styleOverrides: {

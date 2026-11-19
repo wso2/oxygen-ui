@@ -45,7 +45,7 @@ import { omitDerivedThemeValues, rememberExplicitThemeValues } from './omitDeriv
  *   }
  * });
  * 
- * // Create a theme extending AcrylicOrangeTheme
+ * // Create a theme extending ClassicTheme
  * const MyCustomTheme = createOxygenTheme({
  *   components: {
  *     MuiButton: {
@@ -54,7 +54,7 @@ import { omitDerivedThemeValues, rememberExplicitThemeValues } from './omitDeriv
  *       }
  *     }
  *   }
- * }, AcrylicOrangeTheme);
+ * }, ClassicTheme);
  * ```
  */
 export function createOxygenTheme(

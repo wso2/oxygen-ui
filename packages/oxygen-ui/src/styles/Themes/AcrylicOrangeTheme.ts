@@ -21,12 +21,14 @@ import { createOxygenTheme } from '../../utils/createOxygenTheme';
 
 /**
  * AcrylicOrange Theme - Oxygen Theme with Radial Background Design
+ *
+ * Reference only: this theme is not exported from the package and is not part of the public API.
  * This theme extends the base AcrylicBaseTheme and adds radial gradient backgrounds
  * that respond to light/dark color schemes.
  * 
  * Usage:
  * ```tsx
- * import { OxygenUIThemeProvider, AcrylicOrangeTheme } from '@wso2/oxygen-ui';
+ * import AcrylicOrangeTheme from './AcrylicOrangeTheme';
  * 
  * <OxygenUIThemeProvider theme={AcrylicOrangeTheme}>
  *   <App />

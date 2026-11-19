@@ -17,7 +17,7 @@
  */
 
 import React from 'react';
-import type {Meta, StoryObj} from '@storybook/react';
+import type {Meta, StoryObj} from '@storybook/react-webpack5';
 import {ColorSchemeSVG, ColorSchemeToggle, Stack, Typography, Paper, Box, Divider} from '@wso2/oxygen-ui';
 import DashboardIllustration from './assets/dashboard-illustration.svg?react';
 import DashboardIllustrationLight from './assets/dashboard-illustration-light.svg?react';

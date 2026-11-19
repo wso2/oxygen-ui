@@ -17,7 +17,7 @@
  */
 
 import * as React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { NotificationPanel, Box, Button, Avatar, Typography } from '@wso2/oxygen-ui';
 import {
   Bell,

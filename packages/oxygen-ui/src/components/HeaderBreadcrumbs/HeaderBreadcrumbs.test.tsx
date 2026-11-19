@@ -38,7 +38,7 @@ import type {
 
 const organizations: HeaderBreadcrumbsItem[] = [
   { id: 'thunder-id', name: 'thunder-id' },
-  { id: 'wso2', name: 'WSO2' },
+  { id: 'choreo-labs', name: 'Choreo Labs' },
 ];
 
 const projects: Record<string, HeaderBreadcrumbsItem[]> = {
@@ -46,7 +46,7 @@ const projects: Record<string, HeaderBreadcrumbsItem[]> = {
     { id: 'thunderid', name: 'thunderid' },
     { id: 'docs', name: 'docs' },
   ],
-  wso2: [{ id: 'oxygen-ui', name: 'oxygen-ui' }],
+  'choreo-labs': [{ id: 'oxygen-ui', name: 'oxygen-ui' }],
 };
 
 const fetchProjects = vi.fn(({ parents }: { parents: HeaderBreadcrumbsValue }) =>
@@ -113,14 +113,14 @@ describe('HeaderBreadcrumbs', () => {
     await screen.findByRole('button', { name: 'thunderid' });
 
     fireEvent.click(screen.getByRole('button', { name: 'Switch organization' }));
-    fireEvent.click(await screen.findByRole('menuitemradio', { name: 'WSO2' }));
+    fireEvent.click(await screen.findByRole('menuitemradio', { name: 'Choreo Labs' }));
 
     expect(onChange).toHaveBeenLastCalledWith(
-      { organization: 'wso2' },
+      { organization: 'choreo-labs' },
       expect.objectContaining({ type: 'select', levelId: 'organization' })
     );
     expect(screen.queryByRole('button', { name: 'thunderid' })).toBeNull();
-    expect((screen.getByRole('button', { name: 'WSO2' })).getAttribute('aria-current')).toBe('page');
+    expect((screen.getByRole('button', { name: 'Choreo Labs' })).getAttribute('aria-current')).toBe('page');
   });
 
   it('marks the selected entry in the menu', async () => {
@@ -149,12 +149,12 @@ describe('HeaderBreadcrumbs', () => {
       expect.objectContaining({ parents: { organization: 'thunder-id' } })
     );
 
-    act(() => api.select('organization', 'wso2'));
+    act(() => api.select('organization', 'choreo-labs'));
     act(() => api.select('project', 'oxygen-ui'));
 
     expect(await screen.findByRole('button', { name: 'oxygen-ui' })).toBeTruthy();
     expect(fetchProjects).toHaveBeenLastCalledWith(
-      expect.objectContaining({ parents: { organization: 'wso2' } })
+      expect.objectContaining({ parents: { organization: 'choreo-labs' } })
     );
   });
 
@@ -203,15 +203,15 @@ describe('HeaderBreadcrumbs', () => {
             id: 'organization',
             label: 'Organization',
             items: [],
-            selectedItem: { id: 'wso2', name: 'WSO2' },
+            selectedItem: { id: 'choreo-labs', name: 'Choreo Labs' },
           },
         ],
-        defaultValue: { organization: 'wso2' },
+        defaultValue: { organization: 'choreo-labs' },
       });
       return null;
     };
     render(<Fallback />);
-    expect(api.selected.organization).toEqual({ id: 'wso2', name: 'WSO2' });
+    expect(api.selected.organization).toEqual({ id: 'choreo-labs', name: 'Choreo Labs' });
 
     act(() => api.clear('organization'));
     expect(api.selected.organization).toBeNull();
@@ -237,7 +237,7 @@ describe('HeaderBreadcrumbs', () => {
             fetchItems: () => Promise.reject(new Error('Could not load organizations')),
           },
         ],
-        defaultValue: { organization: 'wso2' },
+        defaultValue: { organization: 'choreo-labs' },
       });
       return (
         <OxygenUIThemeProvider>
@@ -247,7 +247,7 @@ describe('HeaderBreadcrumbs', () => {
     };
     render(<Failing />);
     await waitFor(() =>
-      expect(screen.getByRole('button', { name: 'wso2' })).toBeTruthy()
+      expect(screen.getByRole('button', { name: 'choreo-labs' })).toBeTruthy()
     );
     fireEvent.click(screen.getByRole('button', { name: 'Switch organization' }));
     expect((await screen.findByRole('alert')).textContent).toContain('Could not load organizations');
@@ -314,12 +314,12 @@ describe('HeaderBreadcrumbs', () => {
       <OxygenUIThemeProvider>
         <HeaderBreadcrumbs
           levels={[
-            { id: 'organization', label: 'Organization', items: organizations, selectedId: 'wso2' },
+            { id: 'organization', label: 'Organization', items: organizations, selectedId: 'choreo-labs' },
           ]}
         />
       </OxygenUIThemeProvider>
     );
-    expect(screen.getByRole('button', { name: 'WSO2' }).getAttribute('aria-current')).toBe('page');
+    expect(screen.getByRole('button', { name: 'Choreo Labs' }).getAttribute('aria-current')).toBe('page');
     expect(screen.queryByRole('button', { name: /^Open / })).toBeNull();
   });
 });
@@ -411,7 +411,7 @@ describe('HeaderBreadcrumbs actions', () => {
         <HeaderBreadcrumbs
           onCreate={onCreate}
           levels={[
-            { id: 'organization', label: 'Organization', items: organizations, selectedId: 'wso2' },
+            { id: 'organization', label: 'Organization', items: organizations, selectedId: 'choreo-labs' },
             { id: 'project', label: 'Project', items: [] },
           ]}
         />
@@ -421,7 +421,7 @@ describe('HeaderBreadcrumbs actions', () => {
     fireEvent.click(screen.getByRole('menuitem', { name: 'New project' }));
     expect(onCreate).toHaveBeenCalledWith('project', {
       levelId: 'project',
-      value: { organization: 'wso2' },
+      value: { organization: 'choreo-labs' },
     });
   });
 });
@@ -433,13 +433,13 @@ describe('HeaderBreadcrumbs labels', () => {
         <HeaderBreadcrumbs
           showLabels
           levels={[
-            { id: 'organization', label: 'Organization', items: organizations, selectedId: 'wso2' },
+            { id: 'organization', label: 'Organization', items: organizations, selectedId: 'choreo-labs' },
             { id: 'project', label: 'Project', items: [] },
           ]}
         />
       </OxygenUIThemeProvider>
     );
-    const name = screen.getByRole('button', { name: 'WSO2' });
+    const name = screen.getByRole('button', { name: 'Choreo Labs' });
     const labelId = name.getAttribute('aria-describedby');
     expect(labelId).toBeTruthy();
     expect(document.getElementById(labelId as string)?.textContent).toBe('Organization');
@@ -453,12 +453,12 @@ describe('HeaderBreadcrumbs labels', () => {
     render(
       <OxygenUIThemeProvider>
         <HeaderBreadcrumbs
-          levels={[{ id: 'organization', label: 'Organization', items: organizations, selectedId: 'wso2' }]}
+          levels={[{ id: 'organization', label: 'Organization', items: organizations, selectedId: 'choreo-labs' }]}
         />
       </OxygenUIThemeProvider>
     );
     expect(screen.queryByText('Organization')).toBeNull();
-    expect(screen.getByRole('button', { name: 'WSO2' }).getAttribute('aria-describedby')).toBeNull();
+    expect(screen.getByRole('button', { name: 'Choreo Labs' }).getAttribute('aria-describedby')).toBeNull();
   });
 });
 
@@ -469,7 +469,7 @@ describe('HeaderBreadcrumbs icons', () => {
       label: 'Organization',
       icon: <svg data-testid="org-icon" />,
       items: organizations,
-      selectedId: 'wso2',
+      selectedId: 'choreo-labs',
     },
     { id: 'project', label: 'Project', icon: <svg data-testid="project-icon" />, items: [] },
   ];
@@ -484,7 +484,7 @@ describe('HeaderBreadcrumbs icons', () => {
     // The next level shows a › button instead of its icon.
     expect(screen.queryByTestId('project-icon')).toBeNull();
     // The icon is hidden from the accessible name; the level name describes the button.
-    const name = screen.getByRole('button', { name: 'WSO2' });
+    const name = screen.getByRole('button', { name: 'Choreo Labs' });
     expect(document.getElementById(name.getAttribute('aria-describedby') as string)?.textContent).toBe(
       'Organization'
     );
@@ -511,7 +511,7 @@ describe('HeaderBreadcrumbs icons', () => {
       </OxygenUIThemeProvider>
     );
     expect(screen.queryByTestId('org-icon')).toBeNull();
-    expect(screen.getByRole('button', { name: 'WSO2' }).getAttribute('aria-describedby')).toBeNull();
+    expect(screen.getByRole('button', { name: 'Choreo Labs' }).getAttribute('aria-describedby')).toBeNull();
   });
 });
 
@@ -536,9 +536,9 @@ describe('useHeaderBreadcrumbs persistence', () => {
   });
 
   it('starts from the stored selection', async () => {
-    writeHeaderBreadcrumbsState({ organization: 'wso2', project: 'oxygen-ui' });
+    writeHeaderBreadcrumbsState({ organization: 'choreo-labs', project: 'oxygen-ui' });
     render(<Harness persist defaultValue={{ organization: 'thunder-id' }} />);
-    expect(api.value).toEqual({ organization: 'wso2', project: 'oxygen-ui' });
+    expect(api.value).toEqual({ organization: 'choreo-labs', project: 'oxygen-ui' });
     expect(
       (await screen.findByRole('button', { name: 'oxygen-ui' })).getAttribute('aria-current')
     ).toBe('page');
@@ -550,11 +550,11 @@ describe('useHeaderBreadcrumbs persistence', () => {
     await screen.findByRole('button', { name: 'thunderid' });
 
     act(() =>
-      writeHeaderBreadcrumbsState({ organization: 'wso2' })
+      writeHeaderBreadcrumbsState({ organization: 'choreo-labs' })
     );
 
-    expect(api.value).toEqual({ organization: 'wso2' });
-    expect(onChange).toHaveBeenLastCalledWith({ organization: 'wso2' }, { type: 'sync' });
+    expect(api.value).toEqual({ organization: 'choreo-labs' });
+    expect(onChange).toHaveBeenLastCalledWith({ organization: 'choreo-labs' }, { type: 'sync' });
     expect(await screen.findByRole('button', { name: 'Open project' })).toBeTruthy();
   });
 
@@ -583,8 +583,8 @@ describe('useHeaderBreadcrumbs persistence', () => {
   it('ignores corrupt stored data', () => {
     window.localStorage.setItem(HEADER_BREADCRUMBS_STORAGE_KEY, '{not json');
     expect(readHeaderBreadcrumbsState()).toBeNull();
-    render(<Harness persist defaultValue={{ organization: 'wso2' }} />);
-    expect(api.value).toEqual({ organization: 'wso2' });
+    render(<Harness persist defaultValue={{ organization: 'choreo-labs' }} />);
+    expect(api.value).toEqual({ organization: 'choreo-labs' });
   });
 });
 
@@ -601,13 +601,13 @@ describe('useHeaderBreadcrumbsValue', () => {
   });
 
   it('returns the stored selection and follows changes', () => {
-    writeHeaderBreadcrumbsState({ organization: 'wso2' });
+    writeHeaderBreadcrumbsState({ organization: 'choreo-labs' });
     const onRender = vi.fn();
     render(<Reader onRender={onRender} />);
-    expect(onRender).toHaveBeenLastCalledWith({ organization: 'wso2' });
+    expect(onRender).toHaveBeenLastCalledWith({ organization: 'choreo-labs' });
 
-    act(() => writeHeaderBreadcrumbsState({ organization: 'wso2', project: 'oxygen-ui' }));
-    expect(onRender).toHaveBeenLastCalledWith({ organization: 'wso2', project: 'oxygen-ui' });
+    act(() => writeHeaderBreadcrumbsState({ organization: 'choreo-labs', project: 'oxygen-ui' }));
+    expect(onRender).toHaveBeenLastCalledWith({ organization: 'choreo-labs', project: 'oxygen-ui' });
 
     act(() => clearHeaderBreadcrumbsState());
     expect(onRender).toHaveBeenLastCalledWith({});

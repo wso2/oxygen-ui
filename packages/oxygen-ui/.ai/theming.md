@@ -15,19 +15,12 @@
 | Theme | Import | Description |
 |-------|--------|-------------|
 | OxygenTheme | `OxygenTheme` | Default theme (brand colours, Sora font and flat surfaces) |
-| Acrylic Orange | `AcrylicOrangeTheme` | Glass-morphism effects, orange primary |
-| Acrylic Purple | `AcrylicPurpleTheme` | Glass-morphism with purple accents |
 | Classic | `ClassicTheme` | Standard flat design |
 | High Contrast | `HighContrastTheme` | Accessibility-focused with high contrast colors |
-| Pale Base | `PaleBaseTheme` | Minimal color palette for subtle interfaces |
-| Pale Gray | `PaleGrayTheme` | Soft gray tones for a muted appearance |
-| Pale Indigo | `PaleIndigoTheme` | Soft indigo tones for a calm interface |
 
 ```tsx
 import {
   OxygenTheme,
-  AcrylicOrangeTheme,
-  AcrylicPurpleTheme,
   ClassicTheme,
   HighContrastTheme,
   PaleBaseTheme,
@@ -63,8 +56,6 @@ import { OxygenUIThemeProvider, ClassicTheme } from '@wso2/oxygen-ui';
 import {
   OxygenUIThemeProvider,
   OxygenTheme,
-  AcrylicOrangeTheme,
-  AcrylicPurpleTheme,
   ClassicTheme,
   HighContrastTheme,
   PaleBaseTheme,
@@ -75,8 +66,6 @@ import {
 <OxygenUIThemeProvider
   themes={[
     { key: 'default', label: 'Default', theme: OxygenTheme },
-    { key: 'orange', label: 'Acrylic Orange', theme: AcrylicOrangeTheme },
-    { key: 'purple', label: 'Acrylic Purple', theme: AcrylicPurpleTheme },
     { key: 'classic', label: 'Classic', theme: ClassicTheme },
     { key: 'highContrast', label: 'High Contrast', theme: HighContrastTheme },
     { key: 'paleBase', label: 'Pale Base', theme: PaleBaseTheme },

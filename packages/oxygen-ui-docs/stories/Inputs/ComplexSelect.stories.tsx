@@ -17,7 +17,7 @@
  */
 
 import React, { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { ComplexSelect, Box } from '@wso2/oxygen-ui';
 import { User, Users, ShieldCheck, Smartphone, Settings, Plus } from '@wso2/oxygen-ui-icons-react';
 

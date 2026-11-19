@@ -17,7 +17,7 @@
  */
 
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Stack, Typography, CodeBlock, createOxygenTheme } from '@wso2/oxygen-ui';
 
 /**
@@ -296,7 +296,7 @@ export const MixedThemeSources: Story = {
         code={`import { 
   createOxygenTheme, 
   OxygenUIThemeProvider,
-  AcrylicOrangeTheme 
+  OxygenTheme 
 } from "@wso2/oxygen-ui";
 
 // Runtime configuration from window object
@@ -319,7 +319,7 @@ const config = window.__APP_RUNTIME_CONFIG__;
 <OxygenUIThemeProvider 
   themes={[
     // Pre-built theme
-    { key: "orange", label: "Orange", theme: AcrylicOrangeTheme },
+    { key: "default", label: "Default", theme: OxygenTheme },
     
     // Map runtime config themes
     ...(config?.design?.themes?.map((theme) => ({

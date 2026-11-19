@@ -17,11 +17,11 @@
  */
 
 export { default as OxygenTheme } from './DefaultTheme';
-export { default as AcrylicOrangeTheme } from './AcrylicOrangeTheme';
-export { default as AcrylicPurpleTheme } from './AcrylicPurpleTheme';
 export { default as ClassicTheme } from './ClassicTheme';
 export { default as HighContrastTheme } from './HighContrastTheme';
 export { default as PaleBaseTheme } from './PaleBaseTheme';
 export { default as PaleGrayTheme } from './PaleGray';
 export { default as PaleIndigoTheme } from './PaleIndigo';
-export { default as WSO2Theme } from './WSO2Theme';
+
+// AcrylicOrangeTheme and AcrylicPurpleTheme (with AcrylicBaseTheme) stay in this folder for
+// reference only. They are not exported and are not part of the public API.

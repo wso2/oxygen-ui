@@ -17,7 +17,7 @@
  */
 
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@wso2/oxygen-ui';
 import { useState } from 'react';
 
