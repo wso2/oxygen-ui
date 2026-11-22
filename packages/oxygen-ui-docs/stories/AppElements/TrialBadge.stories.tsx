@@ -21,8 +21,8 @@ import { TrialBadge, Stack } from '@wso2/oxygen-ui';
 import React from 'react';
 
 /**
- * TrialBadge shows the days left in a free trial. Its color follows the time left,
- * and in the last days and after expiry the second line becomes an "Upgrade now" link.
+ * TrialBadge shows the days left in a free trial on one line. Its ring color follows the time left,
+ * and in the last days and after expiry the muted text becomes an "Upgrade now" link.
  */
 const meta: Meta<typeof TrialBadge> = {
   title: 'App Elements/Trial Badge',

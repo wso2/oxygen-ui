@@ -46,7 +46,7 @@ describe('TrialBadge', () => {
     const { container } = renderBadge({ daysLeft: 0.5 });
 
     expect(screen.queryByText('Trial expired')).toBeNull();
-    expect(screen.getByText('1 day left')).toBeTruthy();
+    expect(screen.getByText('1 day')).toBeTruthy();
     expect(container.querySelector('[data-status="critical"]')).not.toBeNull();
   });
 

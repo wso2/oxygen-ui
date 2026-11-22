@@ -65,18 +65,18 @@ export interface TrialBadgeProps extends Omit<BoxProps, 'children'> {
    */
   showUpgrade?: boolean
   /**
-   * Primary line while the trial is running. Receives the days left.
-   * @default (days) => `${days} day(s) left`
+   * Bold leading text while the trial is running. Receives the days left.
+   * @default (days) => `${days} day(s)`
    */
   getTitle?: (daysLeft: number) => React.ReactNode
   /**
-   * Primary line once the trial has expired.
+   * Bold leading text once the trial has expired.
    * @default 'Trial expired'
    */
   expiredLabel?: React.ReactNode
   /**
-   * Secondary line while no upgrade prompt is shown.
-   * @default 'of free trial'
+   * Muted text after the days while no upgrade prompt is shown.
+   * @default 'left in trial'
    */
   subtitle?: React.ReactNode
   /**
@@ -255,8 +255,9 @@ const STATUS_COLOR = {
 } as const
 
 // Sized so the badge is ~34px tall, level with the other header items (icon buttons, avatar).
-const RING_SIZE = 28
-const RING_THICKNESS = 4
+const RING_SIZE = 18
+// Relative to MUI's 44px viewBox: ~2.5px of stroke at 18px.
+const RING_THICKNESS = 6
 
 const POPPER_OPTIONS = {
   // Fixed positioning keeps the panel from being clipped by an overflow-hidden header.
@@ -527,9 +528,9 @@ const TrialBadgeUsagePanel: React.FC<{ usage: TrialBadgeUsage }> = ({ usage }) =
 }
 
 /**
- * TrialBadge component - A compact pill showing the remaining days of a free trial.
- * The color changes with the time left, and in the last days (and after expiry)
- * the second line becomes an "Upgrade now" link.
+ * TrialBadge component - A compact single-line pill showing the remaining days of a free trial,
+ * e.g. "15 days left in trial", led by a progress ring. The ring color changes with the time left,
+ * and in the last days (and after expiry) the muted text becomes an "Upgrade now" link.
  *
  * @example
  * ```tsx
@@ -549,9 +550,9 @@ const TrialBadge: React.FC<TrialBadgeProps> = ({
   onUpgrade,
   upgradeHref,
   showUpgrade = true,
-  getTitle = days => `${days} ${days === 1 ? 'day' : 'days'} left`,
+  getTitle = days => `${days} ${days === 1 ? 'day' : 'days'}`,
   expiredLabel = 'Trial expired',
-  subtitle = 'of free trial',
+  subtitle = 'left in trial',
   upgradeLabel = 'Upgrade now',
   onClick,
   usage,
@@ -603,13 +604,13 @@ const TrialBadge: React.FC<TrialBadgeProps> = ({
           display: 'inline-flex',
           alignItems: 'center',
           gap: 1,
-          py: 0.25,
-          pl: 0.5,
-          pr: 1.5,
+          py: 0.75,
+          pl: 1,
+          pr: 1.75,
           borderRadius: 999,
           border: '1px solid',
-          borderColor: `${theme.palette[color].main}`,
-          bgcolor: `color-mix(in srgb, ${theme.palette[color].main} 12%, transparent)`,
+          borderColor: 'divider',
+          bgcolor: 'transparent',
           color: 'text.primary',
           font: 'inherit',
           textAlign: 'left',
@@ -618,7 +619,7 @@ const TrialBadge: React.FC<TrialBadgeProps> = ({
             cursor: 'pointer',
             transition: 'background-color 150ms',
             '&:hover': {
-              bgcolor: `color-mix(in srgb, ${theme.palette[color].main} 20%, transparent)`,
+              bgcolor: 'action.hover',
             },
             '&:focus-visible': {
               outline: '2px solid',
@@ -637,7 +638,7 @@ const TrialBadge: React.FC<TrialBadgeProps> = ({
           value={100}
           size={RING_SIZE}
           thickness={RING_THICKNESS}
-          sx={{ color: `${color}.main`, opacity: 0.25 }}
+          sx={{ color: 'action.selected' }}
         />
         {!isExpired && (
           <CircularProgress
@@ -645,39 +646,31 @@ const TrialBadge: React.FC<TrialBadgeProps> = ({
             value={progress}
             size={RING_SIZE}
             thickness={RING_THICKNESS}
-            sx={{ color: `${color}.main`, position: 'absolute', left: 0 }}
+            sx={{
+              color: `${color}.main`,
+              position: 'absolute',
+              left: 0,
+              '& .MuiCircularProgress-circle': { strokeLinecap: 'round' },
+            }}
           />
         )}
-        <Box
-          sx={{
-            position: 'absolute',
-            inset: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Typography variant="caption" sx={{ fontWeight: 700, lineHeight: 1 }}>
-            {days}
-          </Typography>
-        </Box>
       </Box>
-      <Box sx={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2 }}>
-        <Typography variant="body2" sx={{ fontWeight: 700, fontSize: '0.8125rem', lineHeight: 1.2 }}>
+      <Typography
+        component="span"
+        variant="body2"
+        noWrap
+        sx={{ fontSize: '0.875rem', lineHeight: 1.2, color: 'text.secondary' }}
+      >
+        <Box component="span" sx={{ fontWeight: 700, color: 'text.primary' }}>
           {isExpired ? expiredLabel : getTitle(days)}
-        </Typography>
-        <Typography
-          variant="caption"
-          sx={{
-            fontSize: '0.6875rem',
-            lineHeight: 1.2,
-            fontWeight: upgradeVisible ? 600 : 400,
-            color: status === 'active' ? 'text.secondary' : `${color}.main`,
-          }}
+        </Box>{' '}
+        <Box
+          component="span"
+          sx={upgradeVisible ? { fontWeight: 600, color: `${color}.main` } : undefined}
         >
           {upgradeVisible ? <>{upgradeLabel} →</> : subtitle}
-        </Typography>
-      </Box>
+        </Box>
+      </Typography>
     </Box>
   )
 
