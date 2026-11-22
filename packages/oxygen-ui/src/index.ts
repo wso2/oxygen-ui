@@ -69,6 +69,11 @@ export * as DataGrid from '@mui/x-data-grid';
 // Usage: import { DatePickers } from '@wso2/oxygen-ui';
 export * as DatePickers from '@mui/x-date-pickers';
 
+// Re-export the date picker translations, which @mui/x-date-pickers keeps out of its main entry
+// Usage: import { DatePickersLocales } from '@wso2/oxygen-ui';
+//        DatePickersLocales.frFR.components.MuiLocalizationProvider.defaultProps.localeText
+export * as DatePickersLocales from '@mui/x-date-pickers/locales';
+
 // Re-export AdapterDateFns for date pickers (most commonly used adapter)
 // Other adapters (Dayjs, Luxon, Moment) can be imported directly from @mui/x-date-pickers if needed
 export { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
