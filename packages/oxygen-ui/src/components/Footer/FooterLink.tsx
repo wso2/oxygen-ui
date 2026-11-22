@@ -40,8 +40,11 @@ const StyledLink = styled(Link, {
 export interface FooterLinkProps extends Omit<LinkProps, 'underline'> {
   /** Link text */
   children: React.ReactNode;
-  /** Link URL */
-  href: string;
+  /**
+   * Link URL. Leave it out for an action that is not a navigation, such as opening cookie settings:
+   * the link then renders as a `button` and runs `onClick`.
+   */
+  href?: string;
 }
 
 /**
@@ -50,9 +53,18 @@ export interface FooterLinkProps extends Omit<LinkProps, 'underline'> {
  * Usage:
  * ```tsx
  * <Footer.Link href="/terms">Terms & Conditions</Footer.Link>
+ * <Footer.Link onClick={openCookieSettings}>Cookie settings</Footer.Link>
  * ```
  */
 export const FooterLink: React.FC<FooterLinkProps> = ({ children, href, ...props }) => {
+  if (href === undefined) {
+    return (
+      <StyledLink component="button" type="button" underline="hover" {...props}>
+        {children}
+      </StyledLink>
+    );
+  }
+
   return (
     <StyledLink href={href} underline="hover" {...props}>
       {children}
