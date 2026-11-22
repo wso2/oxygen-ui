@@ -107,9 +107,9 @@ export interface AppSwitcherProps {
  *   <AppSwitcher>
  *     <AppSwitcher.Trigger />
  *     <AppSwitcher.Section label="Categories">
- *       <AppSwitcher.App name="Agent Manager" url="https://agent.wso2.com" />
- *       <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
- *       <AppSwitcher.App name="Analytics" disabled tooltip="Coming soon" />
+ *       <AppSwitcher.App name="Agent Management" url="https://agent.wso2.com" icon={<Bot size={32} />} />
+ *       <AppSwitcher.App name="API Management" url="https://api.wso2.com" icon={<Cpu size={32} />} />
+ *       <AppSwitcher.App name="Analytics" disabled tooltip="Coming soon" icon={<ChartLine size={32} />} />
  *     </AppSwitcher.Section>
  *     <AppSwitcher.Footer columns={2}>
  *       <AppSwitcher.App name="Cloud home" url="https://console.wso2.com" icon={<Home size={16} />} />

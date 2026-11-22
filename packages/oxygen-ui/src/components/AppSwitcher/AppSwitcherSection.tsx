@@ -20,7 +20,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
+import { alpha, styled } from '@mui/material/styles';
 import { APP_CARD_HEIGHT, AppSwitcherApp } from './AppSwitcherApp';
 import type { AppSwitcherAppItem, AppSwitcherAppTone } from './AppSwitcherApp';
 import { AppSwitcherFooterContext } from './context';
@@ -30,6 +30,7 @@ import { AppSwitcherFooterContext } from './context';
  *
  * Colors:
  * - `text.secondary` - Section label color
+ * - `divider` - Rule below a `manage` section that is followed by another section
  *
  * Spacing:
  * - `spacing(2.5)` - Section padding
@@ -42,12 +43,28 @@ import { AppSwitcherFooterContext } from './context';
 
 /**
  * Styled section container.
+ *
+ * A `manage` section is the WSO2 Cloud row (Cloud home, organization settings)
+ * placed above the categories. It takes the same faint wash as the footer and,
+ * when another section follows, a divider below it so the two kinds of
+ * destination read as separate groups.
  */
 const AppSwitcherSectionRoot = styled(Box, {
   name: 'MuiAppSwitcher',
   slot: 'Section',
-})(({ theme }) => ({
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<{ ownerState: { manageRow: boolean } }>(({ theme, ownerState }) => ({
   padding: theme.spacing(2),
+  // The footer draws its own wash and divider, so only a standalone manage
+  // section takes them here.
+  ...(ownerState.manageRow && {
+    backgroundColor: theme.vars
+      ? `rgba(${theme.vars.palette.common.onBackgroundChannel} / 0.02)`
+      : alpha(theme.palette.text.primary, 0.02),
+    '&:not(:last-child)': {
+      borderBottom: `1px solid ${(theme.vars || theme).palette.divider}`,
+    },
+  }),
 }));
 
 /**
@@ -145,6 +162,14 @@ export interface AppSwitcherSectionProps {
   'aria-label'?: string;
   /** Number of grid columns from the `sm` breakpoint up (default: 3) */
   columns?: number;
+  /**
+   * Visual treatment for the section and its cards (default: `"manage"` inside
+   * the footer, `"platform"` elsewhere). Use `"manage"` for the WSO2 Cloud row
+   * (Cloud home, organization settings) placed above the categories: its cards
+   * take the smaller neutral glyph, and a divider separates it from the next
+   * section.
+   */
+  tone?: AppSwitcherAppTone;
   /** Shows placeholder cards, e.g. while the apps are fetched */
   loading?: boolean;
   /** Number of placeholder cards while `loading` (default: one row, `columns`) */
@@ -161,11 +186,13 @@ export interface AppSwitcherSectionProps {
  * @example
  * ```tsx
  * <AppSwitcher.Section label="Categories">
- *   <AppSwitcher.App name="Agent Manager" url="https://agent.wso2.com" />
- *   <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
+ *   <AppSwitcher.App name="Agent Management" url="https://agent.wso2.com" icon={<Bot size={32} />} />
+ *   <AppSwitcher.App name="API Management" url="https://api.wso2.com" icon={<Cpu size={32} />} />
  * </AppSwitcher.Section>
  *
- * <AppSwitcher.Section label="Categories" apps={platforms} loading={isLoading} />
+ * <AppSwitcher.Section label="Categories" apps={categories} loading={isLoading} />
+ *
+ * <AppSwitcher.Section label="Manage" tone="manage" columns={2} apps={cloudLinks} />
  * ```
  */
 export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
@@ -174,13 +201,14 @@ export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
   label,
   'aria-label': ariaLabel,
   columns = 3,
+  tone: toneProp,
   loading = false,
   loadingCount,
 }) => {
   const labelId = React.useId();
-  // Placeholders in the footer match its shorter cards.
+  // The footer's cards, and its placeholders, take the shorter manage cards.
   const inFooter = React.useContext(AppSwitcherFooterContext);
-  const tone: AppSwitcherAppTone = inFooter ? 'manage' : 'platform';
+  const tone: AppSwitcherAppTone = toneProp ?? (inFooter ? 'manage' : 'platform');
   const gridRef = React.useRef<HTMLUListElement>(null);
 
   /**
@@ -266,7 +294,7 @@ export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
     : (children ?? (apps && renderAppItems(apps, { missingUrlIsUnavailable: true })));
 
   return (
-    <AppSwitcherSectionRoot>
+    <AppSwitcherSectionRoot ownerState={{ manageRow: tone === 'manage' && !inFooter }}>
       {label && <AppSwitcherSectionLabel id={labelId}>{label}</AppSwitcherSectionLabel>}
       <AppSwitcherSectionGrid
         ref={gridRef}
@@ -277,9 +305,12 @@ export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
         aria-busy={loading ? 'true' : undefined}
         onKeyDown={handleKeyDown}
       >
-        {React.Children.map(content, (child) =>
-          React.isValidElement(child) ? <li>{child}</li> : child
-        )}
+        {/* Composed cards pick up the section's tone without repeating it. */}
+        <AppSwitcherFooterContext.Provider value={tone === 'manage'}>
+          {React.Children.map(content, (child) =>
+            React.isValidElement(child) ? <li>{child}</li> : child
+          )}
+        </AppSwitcherFooterContext.Provider>
       </AppSwitcherSectionGrid>
     </AppSwitcherSectionRoot>
   );

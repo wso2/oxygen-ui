@@ -24,7 +24,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import { APP_SWITCHER_BRAND } from './brand';
 import { AppSwitcherContext, AppSwitcherFooterContext } from './context';
 import { isSafeAppUrl } from './url';
 import { WSO2 } from '@wso2/oxygen-ui-icons-react';
@@ -40,9 +39,8 @@ import { WSO2 } from '@wso2/oxygen-ui-icons-react';
  * Elevation:
  * - `shadows[2]` - Hover elevation
  *
- * Brand (see `brand.ts`):
- * - `APP_SWITCHER_BRAND.main` - Hover border
- * - `APP_SWITCHER_BRAND.focus` - Focus ring and the current app's border
+ * - `primary.main` - Hover border, focus ring, the current app's border and the WSO2 fallback mark
+ * - `text.secondary` / `text.disabled` - Card icons, and any mark of an unavailable card
  *
  * Typography / sizing:
  * - `typography.body2` - Name text
@@ -56,7 +54,7 @@ import { WSO2 } from '@wso2/oxygen-ui-icons-react';
 /**
  * Visual treatments a card can take.
  *
- * - `platform` - Large brand-colored mark, used for the platform grid
+ * - `platform` - Large mark, used for the category grid
  * - `manage`   - Smaller neutral mark on a grey disc, used for the manage row
  */
 export type AppSwitcherAppTone = 'platform' | 'manage';
@@ -74,6 +72,8 @@ interface AppSwitcherAppOwnerState {
   tone: AppSwitcherAppTone;
   current: boolean;
   busy: boolean;
+  /** Whether the card shows the WSO2 mark (no `icon` given) */
+  brandMark: boolean;
 }
 
 /**
@@ -100,9 +100,9 @@ const AppSwitcherAppRoot = styled(Card, {
   slot: 'App',
   shouldForwardProp: (prop) => prop !== 'ownerState',
 })<AppSwitcherAppRootProps>(({ theme, ownerState }) => {
-  // The switcher is WSO2 Cloud chrome, so its accent is the brand orange even
-  // when the surrounding product runs a different palette.
-  const accent = APP_SWITCHER_BRAND.main;
+  // The highlight follows the theme, so it matches the product's own orange
+  // (Signal in the default theme) rather than a second, fixed shade.
+  const accent = (theme.vars || theme).palette.primary.main;
   const manage = ownerState.tone === 'manage';
   const interactive = !ownerState.disabled && !ownerState.busy;
 
@@ -143,10 +143,9 @@ const AppSwitcherAppRoot = styled(Card, {
         backgroundColor: (theme.vars || theme).palette.action.hover,
       },
     }),
-    // `focus` rather than `main`, so the state indicator meets WCAG 3:1.
     ...(ownerState.current && {
       '&.MuiCard-root': {
-        borderColor: APP_SWITCHER_BRAND.focus,
+        borderColor: accent,
       },
     }),
     // Tells the user why clicks are ignored.
@@ -155,8 +154,7 @@ const AppSwitcherAppRoot = styled(Card, {
     }),
     '&:hover': {
       ...(interactive && {
-        // Keep the current border on hover; `accent` would lower its contrast.
-        borderColor: ownerState.current ? APP_SWITCHER_BRAND.focus : accent,
+        borderColor: accent,
         boxShadow: theme.shadows[2],
         transform: 'translateY(-2px)',
       }),
@@ -164,9 +162,9 @@ const AppSwitcherAppRoot = styled(Card, {
     // MUI only adds `.Mui-focusVisible` on ButtonBase; anchors and consumer
     // components need the native selector to get the same ring.
     '&.Mui-focusVisible, &:focus-visible': {
-      // The focus ring uses the darker brand token so it clears the 3:1 that
-      // WCAG 2.1 SC 1.4.11 asks of an author-defined focus indicator.
-      outline: `2px solid ${APP_SWITCHER_BRAND.focus}`,
+      // The theme's primary color carries the ring; themes keep it at 3:1 or
+      // more against the card, as WCAG 2.1 SC 1.4.11 asks of a focus indicator.
+      outline: `2px solid ${accent}`,
       outlineOffset: 2,
     },
     // Motion is decoration here; the border and shadow still carry the state.
@@ -182,9 +180,13 @@ const AppSwitcherAppRoot = styled(Card, {
 /**
  * Styled holder for the app mark.
  *
- * Platform marks are the WSO2 logo and carry no backplate, matching the
- * design; manage marks sit on a neutral disc so the two rows read as different
- * kinds of destination.
+ * Platform marks carry no backplate, matching the design; manage marks sit on
+ * a neutral disc so the two rows read as different kinds of destination.
+ *
+ * Category icons are neutral, so the grid reads as one set and the theme's
+ * primary color stays reserved for the hover border, focus ring and current
+ * app. The WSO2 mark, shown when no `icon` is given, takes the primary color
+ * as well. Every color comes from the theme.
  */
 const AppSwitcherAppIcon = styled(Box, {
   name: 'MuiAppSwitcher',
@@ -192,6 +194,7 @@ const AppSwitcherAppIcon = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'ownerState',
 })<{ ownerState: AppSwitcherAppOwnerState }>(({ theme, ownerState }) => {
   const manage = ownerState.tone === 'manage';
+  const primaryMark = ownerState.brandMark && !manage;
 
   return {
     display: 'inline-flex',
@@ -206,14 +209,13 @@ const AppSwitcherAppIcon = styled(Box, {
     }),
     borderRadius: '50%',
     backgroundColor: manage ? (theme.vars || theme).palette.action.hover : 'transparent',
-    // The WSO2 mark is brand artwork rather than a themed accent, so it stays
-    // orange; manage glyphs are neutral so they read as settings.
-    color: manage ? (theme.vars || theme).palette.text.secondary : APP_SWITCHER_BRAND.main,
-    // A faded mark is the only tint an unavailable platform keeps.
+    // The WSO2 mark takes the theme's primary color; every other icon is neutral.
+    color: primaryMark
+      ? (theme.vars || theme).palette.primary.main
+      : (theme.vars || theme).palette.text.secondary,
+    // An unavailable card's mark fades like its label.
     ...(ownerState.disabled && {
-      color: manage
-        ? (theme.vars || theme).palette.text.disabled
-        : APP_SWITCHER_BRAND.surfaceMark,
+      color: (theme.vars || theme).palette.text.disabled,
     }),
     '& svg': {
       display: 'block',
@@ -260,7 +262,7 @@ const AppSwitcherAppName = styled(Typography, {
 export interface AppSwitcherAppProps {
   /** Identifier matched against the switcher's `currentAppId`. Not set as the DOM `id`. */
   id?: string;
-  /** Application name (e.g. `"API Platform"`) */
+  /** Application name (e.g. `"API Management"`) */
   name: string;
   /**
    * Destination URL. The card renders as an anchor pointing at it.
@@ -271,7 +273,11 @@ export interface AppSwitcherAppProps {
    * card disabled.
    */
   url?: string | null;
-  /** Mark shown above the name (default: the WSO2 logo) */
+  /**
+   * Mark shown above the name (default: the WSO2 logo). Give each category a
+   * matching glyph, e.g. `<Bot size={32} />` for Agent Management; it is drawn
+   * in a neutral color, so any icon fits.
+   */
   icon?: React.ReactNode;
   /** Visual treatment (default: `"manage"` inside the footer, `"platform"` elsewhere) */
   tone?: AppSwitcherAppTone;
@@ -335,9 +341,9 @@ const isModifiedClick = (event: React.MouseEvent<HTMLElement>) =>
  *
  * @example
  * ```tsx
- * <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
- * <AppSwitcher.App name="Analytics Platform" disabled tooltip="Coming soon" />
- * <AppSwitcher.App id="agent-manager" name="Agent Manager" url="https://agent.wso2.com" />
+ * <AppSwitcher.App name="API Management" url="https://api.wso2.com" icon={<Cpu size={32} />} />
+ * <AppSwitcher.App name="Analytics" disabled tooltip="Coming soon" icon={<ChartLine size={32} />} />
+ * <AppSwitcher.App id="agent-management" name="Agent Management" url="https://agent.wso2.com" icon={<Bot size={32} />} />
  * ```
  */
 export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>(
@@ -418,7 +424,7 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
       }
     };
 
-    const ownerState = { disabled, tone, current, busy };
+    const ownerState = { disabled, tone, current, busy, brandMark: icon == null };
     const markSize = tone === 'manage' ? 16 : 32;
 
     // A consumer-supplied `component` (typically a router Link) wins, so

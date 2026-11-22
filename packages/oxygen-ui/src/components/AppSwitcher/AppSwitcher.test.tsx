@@ -81,6 +81,20 @@ const nameOf = (card: Element) => card.textContent;
 const cardFor = (name: string) =>
   screen.getByText(name).closest('[data-app-switcher-app]') as HTMLElement;
 
+/**
+ * The CSS rules emotion generated for an element, optionally narrowed by a
+ * selector suffix. Theme colors are CSS variables, which jsdom cannot resolve,
+ * so tests check the rule text instead of the computed color.
+ */
+const rulesFor = (element: Element, suffix = '') => {
+  const cls = Array.from(element.classList).find((name) => name.startsWith('css-'));
+  const css = Array.from(document.querySelectorAll('style'))
+    .map((style) => style.textContent)
+    .join('');
+  const escapedSuffix = suffix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return (css.match(new RegExp(`\\.${cls}${escapedSuffix}\\{[^}]*\\}`, 'g')) ?? []).join('');
+};
+
 afterEach(() => {
   cleanup();
   vi.restoreAllMocks();
@@ -194,13 +208,14 @@ describe('AppSwitcher current app', () => {
     expect(trigger.getAttribute('aria-expanded')).toBe('false');
   });
 
-  it('gives the current app a persistent brand border', () => {
+  it('gives the current app a persistent border in the theme primary color', () => {
     renderSwitcher({ currentAppId: 'agent-manager' });
     openSwitcher();
 
-    const brand = 'rgb(229, 104, 0)';
-    expect(getComputedStyle(cardFor('Agent Manager')).borderColor).toBe(brand);
-    expect(getComputedStyle(cardFor('Identity Platform')).borderColor).not.toBe(brand);
+    expect(rulesFor(cardFor('Agent Manager'), '.MuiCard-root')).toMatch(
+      /border-color:var\(--[\w-]*palette-primary-main/,
+    );
+    expect(rulesFor(cardFor('Identity Platform'), '.MuiCard-root')).not.toMatch(/primary-main/);
   });
 });
 
@@ -683,5 +698,45 @@ describe('AppSwitcher legacy behavior', () => {
     );
 
     expect(screen.getByRole('link', { name: 'Standalone' }).getAttribute('target')).toBe('_blank');
+  });
+});
+
+describe('AppSwitcher manage row and icons', () => {
+  const renderWithManageRow = () =>
+    render(
+      <OxygenUIThemeProvider>
+        <AppSwitcher>
+          <AppSwitcher.Trigger />
+          <AppSwitcher.Section label="Manage" tone="manage" columns={2} apps={MANAGE} />
+          <AppSwitcher.Section label="Categories">
+            <AppSwitcher.App
+              name="Agent Management"
+              url="https://agent.example.com"
+              icon={<svg data-testid="custom-icon" />}
+            />
+            <AppSwitcher.App name="Integration" url="https://integration.example.com" />
+          </AppSwitcher.Section>
+        </AppSwitcher>
+      </OxygenUIThemeProvider>,
+    );
+
+  it('gives a manage-tone section the shorter manage cards', () => {
+    renderWithManageRow();
+    openSwitcher();
+
+    expect(screen.getByRole('list', { name: 'Manage' })).toBeDefined();
+    const manageHeight = getComputedStyle(cardFor('Billing')).height;
+    expect(manageHeight).not.toBe(getComputedStyle(cardFor('Agent Management')).height);
+  });
+
+  it('draws a custom icon in a neutral color and the WSO2 mark in the theme primary color', () => {
+    renderWithManageRow();
+    openSwitcher();
+
+    const customHolder = screen.getByTestId('custom-icon').parentElement as HTMLElement;
+    expect(rulesFor(customHolder)).toMatch(/[^-]color:var\(--[\w-]*palette-text-secondary/);
+
+    const markHolder = cardFor('Integration').querySelector('[aria-hidden="true"]') as HTMLElement;
+    expect(rulesFor(markHolder)).toMatch(/[^-]color:var\(--[\w-]*palette-primary-main/);
   });
 });
