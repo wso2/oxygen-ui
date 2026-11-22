@@ -145,7 +145,7 @@ export const Overview: Story = {
                 a maximum-contrast palette for users who need it — offer it via <code>ThemeSwitcher</code>.
               </li>
               <li>
-                <strong>Known exception:</strong> the brand primary <code>#FF7300</code> in the Classic and WSO2
+                <strong>Known exception:</strong> the brand primary <code>#FF7300</code> in the Classic
                 themes does not reach the 4.5:1 ratio required for normal-size text. Avoid orange text on light
                 backgrounds for essential content, or use a theme/palette override until the tracked palette
                 update lands.

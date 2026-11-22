@@ -44,7 +44,7 @@ import { AppSwitcherFooterContext } from './context';
 /**
  * Styled section container.
  *
- * A `manage` section is the WSO2 Cloud row (Cloud home, organization settings)
+ * A `manage` section is the Choreo Labs Cloud row (Cloud home, organization settings)
  * placed above the categories. It takes the same faint wash as the footer and,
  * when another section follows, a divider below it so the two kinds of
  * destination read as separate groups.
@@ -164,7 +164,7 @@ export interface AppSwitcherSectionProps {
   columns?: number;
   /**
    * Visual treatment for the section and its cards (default: `"manage"` inside
-   * the footer, `"platform"` elsewhere). Use `"manage"` for the WSO2 Cloud row
+   * the footer, `"platform"` elsewhere). Use `"manage"` for the Choreo Labs Cloud row
    * (Cloud home, organization settings) placed above the categories: its cards
    * take the smaller neutral glyph, and a divider separates it from the next
    * section.
@@ -186,8 +186,8 @@ export interface AppSwitcherSectionProps {
  * @example
  * ```tsx
  * <AppSwitcher.Section label="Categories">
- *   <AppSwitcher.App name="Agent Management" url="https://agent.wso2.com" icon={<Bot size={32} />} />
- *   <AppSwitcher.App name="API Management" url="https://api.wso2.com" icon={<Cpu size={32} />} />
+ *   <AppSwitcher.App name="Agent Management" url="https://agent.example.com" icon={<Bot size={32} />} />
+ *   <AppSwitcher.App name="API Management" url="https://api.example.com" icon={<Cpu size={32} />} />
  * </AppSwitcher.Section>
  *
  * <AppSwitcher.Section label="Categories" apps={categories} loading={isLoading} />

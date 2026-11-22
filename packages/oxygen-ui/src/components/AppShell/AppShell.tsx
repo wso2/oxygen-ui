@@ -128,7 +128,7 @@ export interface AppShellProps extends UseAppShellOptions {
  *     <MyPage /> {/* Can use useAppShell()
  *   </AppShell.Main>
  *   <AppShell.Footer>
- *     <Footer companyName="WSO2 LLC" />
+ *     <Footer companyName="Choreo Labs" />
  *   </AppShell.Footer>
  * </AppShell>
  * ```

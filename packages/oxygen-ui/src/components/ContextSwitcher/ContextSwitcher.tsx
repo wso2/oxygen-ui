@@ -164,7 +164,7 @@ const levelElements = (
  * <Header.Switchers>
  *   <ContextSwitcher value={value} onChange={setValue}>
  *     <ContextSwitcher.Level id="organization" label="Organization">
- *       <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+ *       <ContextSwitcher.Option value="choreo-labs">Choreo Labs</ContextSwitcher.Option>
  *     </ContextSwitcher.Level>
  *     <ContextSwitcher.Level id="project" label="Project">
  *       <ContextSwitcher.Option value="finance-web">Finance Web</ContextSwitcher.Option>

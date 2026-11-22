@@ -21,7 +21,7 @@ Design tokens are defined in code and can be extracted for use in design tools. 
 #### Color System
 
 **Base Colors:**
-- Primary: `#ff7300` (WSO2 Orange)
+- Primary: `#ff7300` (Classic orange)
 - Secondary: `#757575` (Gray)
 
 **Status Colors (Light Mode):**
@@ -244,7 +244,7 @@ pnpm run export:tokens
 
 ## Version History
 
-- **v0.8.x** - Added ColorSchemeSVG, runtime theme support, improved WSO2Theme
+- **v0.8.x** - Added ColorSchemeSVG, runtime theme support, improved the brand theme
 - **v0.7.x** - Material-UI v7 upgrade, enhanced theming system
 - **v0.6.x** - Initial public release
 

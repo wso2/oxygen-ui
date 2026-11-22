@@ -37,8 +37,7 @@ import {
   type HeaderBreadcrumbsValue,
 } from '@wso2/oxygen-ui';
 import { Box as BoxIcon, Building2, Plus, ScrollText } from '@wso2/oxygen-ui-icons-react';
-// Storybook's indexer fails to parse a JSX tag named `WSO2`.
-import { WSO2 as Wso2Logo } from '@wso2/oxygen-ui-icons-react';
+import { ChoreoLabs } from '@wso2/oxygen-ui-icons-react';
 
 /**
  * HeaderBreadcrumbs shows where the user is (organization / project / component) and
@@ -150,7 +149,7 @@ const orgAvatar = (name: string) => (
 
 const ORGANIZATIONS: HeaderBreadcrumbsItem[] = [
   { id: 'thunder-id', name: 'thunder-id', description: 'Owner', avatar: orgAvatar('thunder id') },
-  { id: 'wso2', name: 'Choreo Labs', description: 'Member', avatar: orgAvatar('Choreo Labs') },
+  { id: 'choreo-labs', name: 'Choreo Labs', description: 'Member', avatar: orgAvatar('Choreo Labs') },
   { id: 'personal', name: 'Personal', avatar: orgAvatar('Personal') },
 ];
 
@@ -165,7 +164,7 @@ const PROJECTS: Record<string, HeaderBreadcrumbsItem[]> = {
     { id: 'samples', name: 'samples' },
     { id: 'legacy-console', name: 'legacy-console', disabled: true, description: 'Archived' },
   ],
-  wso2: [
+  'choreo-labs': [
     { id: 'oxygen-ui', name: 'oxygen-ui', description: 'Design system' },
     { id: 'choreo', name: 'choreo' },
   ],
@@ -244,7 +243,7 @@ const InHeader = ({ children }: { children: React.ReactNode }) => (
   <Header>
     <Header.Brand>
       <Header.BrandLogo>
-        <Wso2Logo size={28} aria-label="WSO2" />
+        <ChoreoLabs size={28} aria-label="Choreo Labs" />
       </Header.BrandLogo>
     </Header.Brand>
     <Header.Switchers>{children}</Header.Switchers>
@@ -372,7 +371,7 @@ export const WithoutIcons: Story = {
 export const WithoutComponentLevel: Story = {
   render: () => (
     <Connected
-      defaultValue={{ organization: 'wso2', project: 'oxygen-ui' }}
+      defaultValue={{ organization: 'choreo-labs', project: 'oxygen-ui' }}
       levelIds={['organization', 'project']}
     />
   ),
@@ -531,7 +530,7 @@ export const Uncontrolled: Story = {
   parameters: { layout: 'padded' },
   render: function UncontrolledStory() {
     const [value, setValue] = React.useState<HeaderBreadcrumbsValue>({
-      organization: 'wso2',
+      organization: 'choreo-labs',
       project: 'oxygen-ui',
     });
     return (

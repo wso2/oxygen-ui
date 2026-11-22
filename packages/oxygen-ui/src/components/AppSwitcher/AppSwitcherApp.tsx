@@ -26,7 +26,7 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { AppSwitcherContext, AppSwitcherFooterContext } from './context';
 import { isSafeAppUrl } from './url';
-import { WSO2 } from '@wso2/oxygen-ui-icons-react';
+import { ChoreoLabs } from '@wso2/oxygen-ui-icons-react';
 
 /**
  * Theme tokens used in this component:
@@ -39,14 +39,14 @@ import { WSO2 } from '@wso2/oxygen-ui-icons-react';
  * Elevation:
  * - `shadows[2]` - Hover elevation
  *
- * - `primary.main` - Hover border, focus ring, the current app's border and the WSO2 fallback mark
+ * - `primary.main` - Hover border, focus ring, the current app's border and the Choreo Labs fallback mark
  * - `text.secondary` / `text.disabled` - Card icons, and any mark of an unavailable card
  *
  * Typography / sizing:
  * - `typography.body2` - Name text
  * - `spacing()` / `shape.borderRadius` - Card and tile dimensions
  *
- * Layout follows the agreed WSO2 Cloud design: the mark sits centered above a
+ * Layout follows the agreed Choreo Labs Cloud design: the mark sits centered above a
  * centered name. A card is a destination, so its whole
  * surface is the hit target.
  */
@@ -72,7 +72,7 @@ interface AppSwitcherAppOwnerState {
   tone: AppSwitcherAppTone;
   current: boolean;
   busy: boolean;
-  /** Whether the card shows the WSO2 mark (no `icon` given) */
+  /** Whether the card shows the Choreo Labs mark (no `icon` given) */
   brandMark: boolean;
 }
 
@@ -185,7 +185,7 @@ const AppSwitcherAppRoot = styled(Card, {
  *
  * Category icons are neutral, so the grid reads as one set and the theme's
  * primary color stays reserved for the hover border, focus ring and current
- * app. The WSO2 mark, shown when no `icon` is given, takes the primary color
+ * app. The Choreo Labs mark, shown when no `icon` is given, takes the primary color
  * as well. Every color comes from the theme.
  */
 const AppSwitcherAppIcon = styled(Box, {
@@ -209,7 +209,7 @@ const AppSwitcherAppIcon = styled(Box, {
     }),
     borderRadius: '50%',
     backgroundColor: manage ? (theme.vars || theme).palette.action.hover : 'transparent',
-    // The WSO2 mark takes the theme's primary color; every other icon is neutral.
+    // The Choreo Labs mark takes the theme's primary color; every other icon is neutral.
     color: primaryMark
       ? (theme.vars || theme).palette.primary.main
       : (theme.vars || theme).palette.text.secondary,
@@ -274,7 +274,7 @@ export interface AppSwitcherAppProps {
    */
   url?: string | null;
   /**
-   * Mark shown above the name (default: the WSO2 logo). Give each category a
+   * Mark shown above the name (default: the Choreo Labs mark). Give each category a
    * matching glyph, e.g. `<Bot size={32} />` for Agent Management; it is drawn
    * in a neutral color, so any icon fits.
    */
@@ -341,9 +341,9 @@ const isModifiedClick = (event: React.MouseEvent<HTMLElement>) =>
  *
  * @example
  * ```tsx
- * <AppSwitcher.App name="API Management" url="https://api.wso2.com" icon={<Cpu size={32} />} />
+ * <AppSwitcher.App name="API Management" url="https://api.example.com" icon={<Cpu size={32} />} />
  * <AppSwitcher.App name="Analytics" disabled tooltip="Coming soon" icon={<ChartLine size={32} />} />
- * <AppSwitcher.App id="agent-management" name="Agent Management" url="https://agent.wso2.com" icon={<Bot size={32} />} />
+ * <AppSwitcher.App id="agent-management" name="Agent Management" url="https://agent.example.com" icon={<Bot size={32} />} />
  * ```
  */
 export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>(
@@ -484,7 +484,7 @@ export const AppSwitcherApp = React.forwardRef<HTMLElement, AppSwitcherAppProps>
             // Same size as the mark, so the card does not reflow.
             <CircularProgress color="inherit" size={markSize} thickness={5} />
           ) : (
-            (icon ?? <WSO2 size={markSize} />)
+            (icon ?? <ChoreoLabs size={markSize} />)
           )}
         </AppSwitcherAppIcon>
         <AppSwitcherAppName ownerState={ownerState}>{name}</AppSwitcherAppName>

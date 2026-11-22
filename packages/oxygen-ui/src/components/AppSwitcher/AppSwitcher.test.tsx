@@ -729,7 +729,7 @@ describe('AppSwitcher manage row and icons', () => {
     expect(manageHeight).not.toBe(getComputedStyle(cardFor('Agent Management')).height);
   });
 
-  it('draws a custom icon in a neutral color and the WSO2 mark in the theme primary color', () => {
+  it('draws a custom icon in a neutral color and the Choreo Labs mark in the theme primary color', () => {
     renderWithManageRow();
     openSwitcher();
 

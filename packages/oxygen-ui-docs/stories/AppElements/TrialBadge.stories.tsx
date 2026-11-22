@@ -100,7 +100,7 @@ const nestedUsage = {
         {
           title: 'Gateways',
           items: [
-            { label: 'WSO2 Managed', count: 0, limit: 1 },
+            { label: 'Cloud Managed', count: 0, limit: 1 },
             { label: 'Self-Hosted', count: 1, limit: 1 },
           ],
         },
@@ -143,7 +143,7 @@ export const WithUsagePanelSections: Story = {
  * first, that is how a plain row is placed *below* a titled group — as "Portals" is here.
  *
  * The indent comes out of the label column, which is already `noWrap` — keep a grouped row's
- * label short ("WSO2 Managed", not "WSO2 Managed Gateways") or it truncates.
+ * label short ("Cloud Managed", not "Cloud Managed Gateways") or it truncates.
  */
 export const WithUsagePanelNestedGroups: Story = {
   args: { daysLeft: 10, usage: nestedUsage },

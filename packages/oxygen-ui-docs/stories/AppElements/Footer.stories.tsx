@@ -199,9 +199,9 @@ export const Complete: Story = {
         <Footer.Copyright>© {new Date().getFullYear()} Choreo Labs. All rights reserved.</Footer.Copyright>
         <Footer.Divider />
         <Footer.Version>v3.0.0-beta.1</Footer.Version>
-        <Footer.Link href="https://wso2.com/terms">Terms & Conditions</Footer.Link>
-        <Footer.Link href="https://wso2.com/privacy">Privacy Policy</Footer.Link>
-        <Footer.Link href="https://docs.wso2.com">Documentation</Footer.Link>
+        <Footer.Link href="https://example.com/terms">Terms & Conditions</Footer.Link>
+        <Footer.Link href="https://example.com/privacy">Privacy Policy</Footer.Link>
+        <Footer.Link href="https://docs.example.com">Documentation</Footer.Link>
         <Footer.Link href="https://github.com/wso2">GitHub</Footer.Link>
       </Footer>
     </Box>

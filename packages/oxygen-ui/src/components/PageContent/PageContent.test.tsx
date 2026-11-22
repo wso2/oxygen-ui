@@ -34,7 +34,7 @@ describe('PageContent', () => {
         <PageContent
           footer={
             <Footer variant="plain">
-              <Footer.Copyright>© 2026 WSO2 LLC.</Footer.Copyright>
+              <Footer.Copyright>© 2026 Choreo Labs.</Footer.Copyright>
               <Footer.Link href="#support">Support</Footer.Link>
             </Footer>
           }

@@ -33,7 +33,7 @@ import {
   ArrowRightIcon,
   Calculator,
   ExternalLinkIcon,
-  WSO2,
+  ChoreoLabs,
 } from '@wso2/oxygen-ui-icons-react'
 
 /**
@@ -82,7 +82,7 @@ export const Default: Story = {
       <Form.CardHeader
         title={
           <Stack direction="row" spacing={1} alignItems="center">
-            <WSO2 size={24} />
+            <ChoreoLabs size={24} />
             <Typography
               variant="h5"
               component="div"

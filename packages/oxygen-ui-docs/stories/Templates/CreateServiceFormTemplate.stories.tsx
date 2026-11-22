@@ -71,13 +71,13 @@ const buildPresets = [
   { id: 'php', label: 'PHP', icon: <BoxIcon size={32} /> },
   { id: 'ruby', label: 'Ruby', icon: <BoxIcon size={32} /> },
   { id: 'docker', label: 'Docker', icon: <BoxIcon size={32} /> },
-  { id: 'wso2mi', label: 'WSO2 MI', icon: <BoxIcon size={32} /> },
+  { id: 'mi', label: 'Micro Integrator', icon: <BoxIcon size={32} /> },
   { id: 'prismmock', label: 'Prism Mock', icon: <BoxIcon size={32} /> },
 ]
 
 export const Default: Story = {
   render: () => {
-    const [organization, setOrganization] = useState('wso2-oxigen')
+    const [organization, setOrganization] = useState('choreo-labs')
     const [repository, setRepository] = useState('banking-app')
     const [branch, setBranch] = useState('main')
     const [componentDirectory, setComponentDirectory] = useState('/')
@@ -101,7 +101,7 @@ export const Default: Story = {
                 onChange={e => setOrganization(e.target.value as string)}
                 fullWidth
               >
-                <MenuItem value="wso2">wso2</MenuItem>
+                <MenuItem value="choreo-labs">choreo-labs</MenuItem>
                 <MenuItem value="asgardeo">asgardeo</MenuItem>
               </Select>
             </Form.ElementWrapper>

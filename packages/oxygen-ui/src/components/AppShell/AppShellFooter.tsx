@@ -35,7 +35,7 @@ export interface AppShellFooterProps {
  * ```tsx
  * <AppShell>
  *   <AppShell.Footer>
- *     <Footer companyName="WSO2 LLC" />
+ *     <Footer companyName="Choreo Labs" />
  *   </AppShell.Footer>
  * </AppShell>
  * ```

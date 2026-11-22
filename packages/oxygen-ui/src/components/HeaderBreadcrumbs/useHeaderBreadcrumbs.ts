@@ -32,7 +32,7 @@ import type { HeaderBreadcrumbsItem, HeaderBreadcrumbsLevel, HeaderBreadcrumbsVa
  * What `fetchItems` receives.
  */
 export interface HeaderBreadcrumbsFetchContext {
-  /** Selected ids of the levels above this one, for example `{ organization: 'wso2' }`. */
+  /** Selected ids of the levels above this one, for example `{ organization: 'choreo-labs' }`. */
   parents: HeaderBreadcrumbsValue;
   /** Aborted when the parents change, the level is refreshed again, or the hook unmounts. */
   signal: AbortSignal;

@@ -74,7 +74,7 @@ export interface AppSwitcherProps {
 }
 
 /**
- * AppSwitcher - Popover for navigating between WSO2 Cloud applications.
+ * AppSwitcher - Popover for navigating between Choreo Labs Cloud applications.
  *
  * A compound component pairing a grid icon button in the header with a popover
  * listing the available platforms. The trigger renders in place; every other
@@ -107,13 +107,13 @@ export interface AppSwitcherProps {
  *   <AppSwitcher>
  *     <AppSwitcher.Trigger />
  *     <AppSwitcher.Section label="Categories">
- *       <AppSwitcher.App name="Agent Management" url="https://agent.wso2.com" icon={<Bot size={32} />} />
- *       <AppSwitcher.App name="API Management" url="https://api.wso2.com" icon={<Cpu size={32} />} />
+ *       <AppSwitcher.App name="Agent Management" url="https://agent.example.com" icon={<Bot size={32} />} />
+ *       <AppSwitcher.App name="API Management" url="https://api.example.com" icon={<Cpu size={32} />} />
  *       <AppSwitcher.App name="Analytics" disabled tooltip="Coming soon" icon={<ChartLine size={32} />} />
  *     </AppSwitcher.Section>
  *     <AppSwitcher.Footer columns={2}>
- *       <AppSwitcher.App name="Cloud home" url="https://console.wso2.com" icon={<Home size={16} />} />
- *       <AppSwitcher.App name="Settings" url="https://console.wso2.com/settings" icon={<Settings size={16} />} />
+ *       <AppSwitcher.App name="Cloud home" url="https://console.example.com" icon={<Home size={16} />} />
+ *       <AppSwitcher.App name="Settings" url="https://console.example.com/settings" icon={<Settings size={16} />} />
  *     </AppSwitcher.Footer>
  *   </AppSwitcher>
  * </Header.Actions>

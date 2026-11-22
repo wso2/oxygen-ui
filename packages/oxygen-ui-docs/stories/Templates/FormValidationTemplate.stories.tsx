@@ -221,7 +221,7 @@ export const Default: Story = {
                           fullWidth
                         >
                           <MenuItem value="">Select an organization</MenuItem>
-                          <MenuItem value="wso2">WSO2</MenuItem>
+                          <MenuItem value="choreo-labs">Choreo Labs</MenuItem>
                           <MenuItem value="asgardeo">Asgardeo</MenuItem>
                           <MenuItem value="choreo">Choreo</MenuItem>
                         </Select>

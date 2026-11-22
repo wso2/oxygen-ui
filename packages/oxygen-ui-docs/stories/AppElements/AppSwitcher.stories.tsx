@@ -31,7 +31,7 @@ import {
 import { Bot, ChartLine, Cpu, Home, Settings, ShieldUser, Unplug } from '@wso2/oxygen-ui-icons-react';
 
 /**
- * AppSwitcher lets users move between the WSO2 Cloud product categories from a
+ * AppSwitcher lets users move between the Choreo Labs Cloud product categories from a
  * grid icon button in the header.
  */
 const meta: Meta<typeof AppSwitcher> = {
@@ -44,7 +44,7 @@ const meta: Meta<typeof AppSwitcher> = {
       description: {
         component: `
 The AppSwitcher pairs a grid icon button with a popover. A **Manage** row at the top links back to the
-WSO2 Cloud console (Cloud home and organization settings); below a divider, the **Categories** grid lists
+Choreo Labs Cloud console (Cloud home and organization settings); below a divider, the **Categories** grid lists
 the products a user can switch to.
 
 ### Compound component
@@ -56,7 +56,7 @@ arrow-key navigation, so the layout stays consistent while products keep control
 ### Features
 - Compound component pattern, matching the other app-shell components
 - Grid icon button that matches the other header icon buttons, including hover styling
-- Each category is a card with its icon above its name (the WSO2 mark by default); giving it a \`url\` renders a real link
+- Each category is a card with its icon above its name (the Choreo Labs mark by default); giving it a \`url\` renders a real link
 - A card given a \`url\` opens in a new tab by default; every enabled card lifts with an accent border on hover
 - Selecting a card leaves the popover open; only the trigger, an outside click or \`Esc\` dismisses it.
   The current app is the exception: it opens in the same tab and closes the popover
@@ -76,16 +76,16 @@ import { AppSwitcher, Header } from '@wso2/oxygen-ui';
   <AppSwitcher>
     <AppSwitcher.Trigger />
     <AppSwitcher.Section label="Manage" tone="manage" columns={2}>
-      <AppSwitcher.App name="Cloud home" url="https://console.wso2.com" icon={<Home size={16} />} />
+      <AppSwitcher.App name="Cloud home" url="https://console.example.com" icon={<Home size={16} />} />
       <AppSwitcher.App
         name="Organization settings"
-        url="https://console.wso2.com/settings"
+        url="https://console.example.com/settings"
         icon={<Settings size={16} />}
       />
     </AppSwitcher.Section>
     <AppSwitcher.Section label="Categories">
-      <AppSwitcher.App name="Agent Management" url="https://agent.wso2.com" icon={<Bot size={32} />} />
-      <AppSwitcher.App name="API Management" url="https://api.wso2.com" icon={<Cpu size={32} />} />
+      <AppSwitcher.App name="Agent Management" url="https://agent.example.com" icon={<Bot size={32} />} />
+      <AppSwitcher.App name="API Management" url="https://api.example.com" icon={<Cpu size={32} />} />
       <AppSwitcher.App name="Analytics" disabled tooltip="Coming soon" icon={<ChartLine size={32} />} />
     </AppSwitcher.Section>
   </AppSwitcher>
@@ -127,7 +127,7 @@ Pass \`icon\` to give each category a glyph that says what it is. The component 
 color (\`text.secondary\`, or \`text.disabled\` when the category is unavailable), so any
 \`@wso2/oxygen-ui-icons-react\` icon fits the grid and the theme's primary color stays reserved for the
 hover border, focus ring and current app. Size category icons at \`32\` and Manage icons at \`16\`. Without
-\`icon\`, a category card falls back to the WSO2 mark in the theme's primary color. The switcher has no
+\`icon\`, a category card falls back to the Choreo Labs mark in the theme's primary color. The switcher has no
 fixed colors of its own; everything follows the active theme.
 
 | Category | Icon |
@@ -183,18 +183,18 @@ export default meta;
 type Story = StoryObj<typeof AppSwitcher>;
 
 /**
- * The WSO2 Cloud console links shown in the Manage row at the top: Cloud home
+ * The Choreo Labs Cloud console links shown in the Manage row at the top: Cloud home
  * returns the user to the console home page and Organization settings opens the
  * organization's settings. Their glyphs sit on a neutral disc, so they read as
- * navigation rather than as products. They point at wso2.com here only so the
+ * navigation rather than as products. They point at example.com here only so the
  * demo links resolve; a product passes its own console URLs.
  */
 const cloudLinks = [
-  <AppSwitcher.App key="home" name="Cloud home" url="https://wso2.com" icon={<Home size={16} />} />,
+  <AppSwitcher.App key="home" name="Cloud home" url="https://example.com" icon={<Home size={16} />} />,
   <AppSwitcher.App
     key="organization-settings"
     name="Organization settings"
-    url="https://wso2.com"
+    url="https://example.com"
     icon={<Settings size={16} />}
   />,
 ];
@@ -203,36 +203,36 @@ const cloudLinks = [
 const CATEGORY_ICON_SIZE = 32;
 
 /**
- * The product category cards, as shown in the WSO2 Cloud design, each with a
+ * The product category cards, as shown in the Choreo Labs Cloud design, each with a
  * glyph that matches what it manages. Analytics is not yet available, so it
  * renders faded and explains itself with a tooltip.
  *
- * Every card points at wso2.com purely to demo the navigation: cards open in a
+ * Every card points at example.com purely to demo the navigation: cards open in a
  * new tab, so selecting one leaves Storybook intact.
  */
 const categories = [
   <AppSwitcher.App
     key="agent-management"
     name="Agent Management"
-    url="https://wso2.com"
+    url="https://example.com"
     icon={<Bot size={CATEGORY_ICON_SIZE} />}
   />,
   <AppSwitcher.App
     key="api-management"
     name="API Management"
-    url="https://wso2.com"
+    url="https://example.com"
     icon={<Cpu size={CATEGORY_ICON_SIZE} />}
   />,
   <AppSwitcher.App
     key="identity-access-management"
     name="Identity & Access Management"
-    url="https://wso2.com"
+    url="https://example.com"
     icon={<ShieldUser size={CATEGORY_ICON_SIZE} />}
   />,
   <AppSwitcher.App
     key="integration"
     name="Integration"
-    url="https://wso2.com"
+    url="https://example.com"
     icon={<Unplug size={CATEGORY_ICON_SIZE} />}
   />,
   <AppSwitcher.App
@@ -284,7 +284,7 @@ export const SingleCategory: Story = {
         <AppSwitcher.Section label="Categories">
           <AppSwitcher.App
             name="API Management"
-            url="https://wso2.com"
+            url="https://example.com"
             icon={<Cpu size={CATEGORY_ICON_SIZE} />}
           />
         </AppSwitcher.Section>
@@ -295,7 +295,7 @@ export const SingleCategory: Story = {
 
 /**
  * In context: the switcher sits in `Header.Actions` alongside the other header
- * icon buttons and shares their hover styling. Selecting a card opens wso2.com
+ * icon buttons and shares their hover styling. Selecting a card opens example.com
  * in a new tab and leaves the popover open, so the user can pick another
  * category; the grid icon, an outside click or `Esc` dismisses it.
  */
@@ -343,30 +343,30 @@ const categoryData: AppSwitcherAppItem[] = [
   {
     id: 'api-management',
     name: 'API Management',
-    url: 'https://wso2.com',
+    url: 'https://example.com',
     icon: <Cpu size={CATEGORY_ICON_SIZE} />,
   },
   {
     id: 'identity-access-management',
     name: 'Identity & Access Management',
-    url: 'https://wso2.com',
+    url: 'https://example.com',
     icon: <ShieldUser size={CATEGORY_ICON_SIZE} />,
   },
   {
     id: 'integration',
     name: 'Integration',
-    url: 'https://wso2.com',
+    url: 'https://example.com',
     icon: <Unplug size={CATEGORY_ICON_SIZE} />,
   },
   { id: 'analytics', name: 'Analytics', url: null, icon: <ChartLine size={CATEGORY_ICON_SIZE} /> },
 ];
 
 const cloudData: AppSwitcherAppItem[] = [
-  { id: 'cloud-home', name: 'Cloud home', url: 'https://wso2.com', icon: <Home size={16} /> },
+  { id: 'cloud-home', name: 'Cloud home', url: 'https://example.com', icon: <Home size={16} /> },
   {
     id: 'organization-settings',
     name: 'Organization settings',
-    url: 'https://wso2.com',
+    url: 'https://example.com',
     icon: <Settings size={16} />,
   },
 ];

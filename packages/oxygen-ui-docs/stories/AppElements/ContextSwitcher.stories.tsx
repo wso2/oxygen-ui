@@ -19,8 +19,7 @@
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { ContextSwitcher, Header, type ContextSwitcherValue } from '@wso2/oxygen-ui';
-// Storybook's indexer fails to parse a JSX tag named `WSO2`.
-import { WSO2 as Wso2Logo } from '@wso2/oxygen-ui-icons-react';
+import { ChoreoLabs } from '@wso2/oxygen-ui-icons-react';
 
 /**
  * ContextSwitcher is a chain of labeled fields for selecting through a hierarchy
@@ -50,7 +49,7 @@ import { ContextSwitcher, Header } from '@wso2/oxygen-ui';
   <ContextSwitcher value={value} onChange={setValue}>
     <ContextSwitcher.Level id="organization" label="Organization">
       <ContextSwitcher.Group label="Invited organizations">
-        <ContextSwitcher.Option value="wso2">Choreo Labs</ContextSwitcher.Option>
+        <ContextSwitcher.Option value="choreo-labs">Choreo Labs</ContextSwitcher.Option>
       </ContextSwitcher.Group>
     </ContextSwitcher.Level>
     <ContextSwitcher.Level id="project" label="Project">
@@ -69,13 +68,13 @@ export default meta;
 type Story = StoryObj<typeof ContextSwitcher>;
 
 const filledValue: ContextSwitcherValue = {
-  organization: 'wso2',
+  organization: 'choreo-labs',
   project: 'sales',
   component: 'salesforce-sync',
 };
 
 const Chain = ({
-  initial = { organization: 'wso2', project: 'finance-web' },
+  initial = { organization: 'choreo-labs', project: 'finance-web' },
   back = false,
 }: {
   initial?: ContextSwitcherValue;
@@ -88,7 +87,7 @@ const Chain = ({
       <ContextSwitcher.Level id="organization" label="Organization">
         <ContextSwitcher.Option value="personal">Personal</ContextSwitcher.Option>
         <ContextSwitcher.Group label="Invited organizations">
-          <ContextSwitcher.Option value="wso2">Choreo Labs</ContextSwitcher.Option>
+          <ContextSwitcher.Option value="choreo-labs">Choreo Labs</ContextSwitcher.Option>
           <ContextSwitcher.Option value="demo">Demo Organization</ContextSwitcher.Option>
           <ContextSwitcher.Option value="north-america">
             North American Enterprise Organization
@@ -115,7 +114,7 @@ const HeaderChain = ({ initial, back = false }: { initial?: ContextSwitcherValue
   <Header>
     <Header.Brand>
       <Header.BrandLogo>
-        <Wso2Logo size={28} aria-label="WSO2" />
+        <ChoreoLabs size={28} aria-label="Choreo Labs" />
       </Header.BrandLogo>
       <Header.BrandTitle>Developer Platform</Header.BrandTitle>
     </Header.Brand>
@@ -127,7 +126,7 @@ const HeaderChain = ({ initial, back = false }: { initial?: ContextSwitcherValue
 );
 
 /**
- * The chain in the header, beside the product name and the WSO2 mark. Organization
+ * The chain in the header, beside the product name and the Choreo Labs mark. Organization
  * and Project are selected, so Component stays on screen as "Select component".
  */
 export const InHeader: Story = {
@@ -199,9 +198,9 @@ export const Loading: Story = {
   parameters: { layout: 'padded' },
   render: () => (
     <OpenOnMount name="Project: Finance Web">
-      <ContextSwitcher value={{ organization: 'wso2', project: 'finance-web' }} onChange={() => undefined}>
+      <ContextSwitcher value={{ organization: 'choreo-labs', project: 'finance-web' }} onChange={() => undefined}>
         <ContextSwitcher.Level id="organization" label="Organization">
-          <ContextSwitcher.Option value="wso2">Choreo Labs</ContextSwitcher.Option>
+          <ContextSwitcher.Option value="choreo-labs">Choreo Labs</ContextSwitcher.Option>
         </ContextSwitcher.Level>
         <ContextSwitcher.Level id="project" label="Project" loading>
           <ContextSwitcher.Option value="finance-web">Finance Web</ContextSwitcher.Option>

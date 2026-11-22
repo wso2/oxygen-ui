@@ -146,7 +146,7 @@ export const TextInputMultiline: Story = {
  */
 export const SelectInputBasic: Story = {
   render: () => {
-    const [value, setValue] = useState('wso2')
+    const [value, setValue] = useState('choreo-labs')
     return (
       <Box sx={{ maxWidth: 400 }}>
         <Form.ElementWrapper label="Organization" name="organization">
@@ -156,7 +156,7 @@ export const SelectInputBasic: Story = {
             onChange={e => setValue(e.target.value as string)}
             fullWidth
           >
-            <MenuItem value="wso2">wso2</MenuItem>
+            <MenuItem value="choreo-labs">choreo-labs</MenuItem>
             <MenuItem value="asgardeo">asgardeo</MenuItem>
             <MenuItem value="choreo">choreo</MenuItem>
           </Select>
@@ -300,7 +300,7 @@ export const StackVertical: Story = {
  */
 export const StackHorizontal: Story = {
   render: () => {
-    const [org, setOrg] = useState('wso2')
+    const [org, setOrg] = useState('choreo-labs')
     const [repo, setRepo] = useState('banking-app')
 
     return (
@@ -312,7 +312,7 @@ export const StackHorizontal: Story = {
             onChange={e => setOrg(e.target.value as string)}
             fullWidth
           >
-            <MenuItem value="wso2">wso2</MenuItem>
+            <MenuItem value="choreo-labs">choreo-labs</MenuItem>
             <MenuItem value="asgardeo">asgardeo</MenuItem>
           </Select>
         </Form.ElementWrapper>

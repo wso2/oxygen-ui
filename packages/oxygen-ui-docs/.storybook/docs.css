@@ -105,6 +105,34 @@ body[data-color-scheme='dark'] .docblock-argstable td button {
     color: rgb(118 137 156) !important;
 }
 
+/* Markdown tables (e.g. Keyboard, Category icons): the light theme stripes even rows with a light
+   fill and keeps its dark grey text, which washes out on the dark page. Give every row a dark
+   surface, a faint stripe and full-strength text instead. The props table keeps its own rules. */
+body[data-color-scheme='dark'] .sbdocs table:not(.docblock-argstable) tr {
+    background-color: transparent !important;
+    border-color: rgb(255 255 255 / 12%) !important;
+}
+
+body[data-color-scheme='dark'] .sbdocs table:not(.docblock-argstable) th,
+body[data-color-scheme='dark'] .sbdocs table:not(.docblock-argstable) td {
+    background-color: rgb(255 255 255 / 2%) !important;
+    border-color: rgb(255 255 255 / 12%) !important;
+    color: #ededed !important;
+}
+
+body[data-color-scheme='dark'] .sbdocs table:not(.docblock-argstable) th {
+    background-color: rgb(255 255 255 / 6%) !important;
+}
+
+body[data-color-scheme='dark'] .sbdocs table:not(.docblock-argstable) tbody > tr:nth-of-type(2n) > * {
+    background-color: rgb(255 255 255 / 4%) !important;
+}
+
+/* Inline code inside table cells reads as a chip on any row */
+body[data-color-scheme='dark'] .sbdocs table:not(.docblock-argstable) :not(pre) > code {
+    color: #D7DBE4 !important;
+}
+
 /* Code snippets and "Show code" panels: the default theme's dark CodeBlock palette, with the same
    token mapping as CodeBlock (Void surface, Fog text, Azure keywords, Flare calls, green strings,
    amber numbers, muted comments). */
