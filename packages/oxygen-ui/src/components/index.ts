@@ -25,6 +25,13 @@ export { default as ColorSchemeImage } from './ColorSchemeImage';
 export type { ColorSchemeImageProps, ColorSchemeImageAttribute } from './ColorSchemeImage';
 export { default as ColorSchemeSVG } from './ColorSchemeSVG';
 export type { ColorSchemeSVGProps } from './ColorSchemeSVG';
+export { default as StatusIllustration } from './StatusIllustration';
+export type {
+  StatusIllustrationProps,
+  StatusIllustrationStatus,
+  StatusIllustrationHttpStatus,
+  StatusIllustrationState,
+} from './StatusIllustration';
 export { ColorSchemeToggle, default as ColorSchemeToggleDefault } from './ColorSchemeToggle';
 export { default as ComplexSelect } from './ComplexSelect';
 export type { ComplexSelectProps } from './ComplexSelect';

@@ -41,6 +41,11 @@ const MANAGE: AppSwitcherFooterLink[] = [
   { id: 'billing', name: 'Billing', url: 'https://console.example.com/billing' },
 ];
 
+const MANAGE_APPS: AppSwitcherAppItem[] = [
+  { id: 'orgs', name: 'Organizations', url: 'https://console.example.com/orgs' },
+  { id: 'billing', name: 'Billing', url: 'https://console.example.com/billing' },
+];
+
 type Config = Partial<Omit<AppSwitcherProps, 'children'>> & {
   apps?: AppSwitcherAppItem[];
   links?: AppSwitcherFooterLink[];
@@ -708,7 +713,7 @@ describe('AppSwitcher manage row and icons', () => {
       <OxygenUIThemeProvider>
         <AppSwitcher>
           <AppSwitcher.Trigger />
-          <AppSwitcher.Section aria-label="Manage" tone="manage" columns={2} apps={MANAGE} />
+          <AppSwitcher.Section aria-label="Manage" tone="manage" columns={2} apps={MANAGE_APPS} />
           <AppSwitcher.Section label="Services">
             <AppSwitcher.App
               name="Agent Management"
