@@ -21,7 +21,7 @@ import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import { alpha, styled } from '@mui/material/styles';
-import { APP_CARD_HEIGHT, AppSwitcherApp } from './AppSwitcherApp';
+import { APP_CARD_HEIGHT, APP_TILE_SIZE, AppSwitcherApp } from './AppSwitcherApp';
 import type { AppSwitcherAppItem, AppSwitcherAppTone } from './AppSwitcherApp';
 import { AppSwitcherFooterContext } from './context';
 
@@ -45,7 +45,7 @@ import { AppSwitcherFooterContext } from './context';
  * Styled section container.
  *
  * A `manage` section is the Choreo Labs Cloud row (Cloud home, organization settings)
- * placed above the categories. It takes the same faint wash as the footer and,
+ * placed above the services. It takes the same faint wash as the footer and,
  * when another section follows, a divider below it so the two kinds of
  * destination read as separate groups.
  */
@@ -90,7 +90,7 @@ const AppSwitcherSectionGrid = styled('ul', {
   name: 'MuiAppSwitcher',
   slot: 'SectionGrid',
   shouldForwardProp: (prop) => prop !== 'ownerState',
-})<{ ownerState: { columns: number } }>(({ theme, ownerState }) => ({
+})<{ ownerState: { columns: number; tone: AppSwitcherAppTone } }>(({ theme, ownerState }) => ({
   display: 'grid',
   gap: theme.spacing(1.5),
   gridTemplateColumns: '1fr',
@@ -98,7 +98,13 @@ const AppSwitcherSectionGrid = styled('ul', {
   margin: 0,
   padding: 0,
   [theme.breakpoints.up('sm')]: {
-    gridTemplateColumns: `repeat(${ownerState.columns}, minmax(0, 1fr))`,
+    // Service columns have a fixed minimum, so they set the popover's width and
+    // every tile keeps the same size whatever the column count. Manage columns
+    // take whatever width that leaves.
+    gridTemplateColumns:
+      ownerState.tone === 'platform'
+        ? `repeat(${ownerState.columns}, minmax(${theme.spacing(APP_TILE_SIZE)}, 1fr))`
+        : `repeat(${ownerState.columns}, minmax(0, 1fr))`,
   },
   '& > li': {
     display: 'contents',
@@ -153,19 +159,23 @@ export interface AppSwitcherSectionProps {
    * `url`, `onClick` or `component` renders disabled.
    */
   apps?: AppSwitcherAppItem[];
-  /** Section heading, rendered as an uppercase label (e.g. `"Categories"`) */
+  /** Section heading, rendered as an uppercase label (e.g. `"Services"`) */
   label?: string;
   /**
    * Accessible name for the grid when there is no visible `label`. Ignored
    * when `label` is set, since the heading already names the grid.
    */
   'aria-label'?: string;
-  /** Number of grid columns from the `sm` breakpoint up (default: 3) */
+  /**
+   * Number of grid columns from the `sm` breakpoint up. Defaults to 3, or to 2
+   * when the section holds exactly four cards, so four lay out as an even 2×2
+   * grid rather than a row of three with one left over.
+   */
   columns?: number;
   /**
    * Visual treatment for the section and its cards (default: `"manage"` inside
    * the footer, `"platform"` elsewhere). Use `"manage"` for the Choreo Labs Cloud row
-   * (Cloud home, organization settings) placed above the categories: its cards
+   * (Cloud home, organization settings) placed above the services: its cards
    * take the smaller neutral glyph, and a divider separates it from the next
    * section.
    */
@@ -185,14 +195,14 @@ export interface AppSwitcherSectionProps {
  *
  * @example
  * ```tsx
- * <AppSwitcher.Section label="Categories">
+ * <AppSwitcher.Section label="Services">
  *   <AppSwitcher.App name="Agent Management" url="https://agent.example.com" icon={<Bot size={32} />} />
  *   <AppSwitcher.App name="API Management" url="https://api.example.com" icon={<Cpu size={32} />} />
  * </AppSwitcher.Section>
  *
- * <AppSwitcher.Section label="Categories" apps={categories} loading={isLoading} />
+ * <AppSwitcher.Section label="Services" apps={services} loading={isLoading} />
  *
- * <AppSwitcher.Section label="Manage" tone="manage" columns={2} apps={cloudLinks} />
+ * <AppSwitcher.Section aria-label="Manage" tone="manage" columns={2} apps={cloudLinks} />
  * ```
  */
 export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
@@ -200,7 +210,7 @@ export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
   apps,
   label,
   'aria-label': ariaLabel,
-  columns = 3,
+  columns: columnsProp,
   tone: toneProp,
   loading = false,
   loadingCount,
@@ -281,6 +291,13 @@ export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
     cards[nextIndex].focus();
   };
 
+  const cards = children ?? (apps && renderAppItems(apps, { missingUrlIsUnavailable: true }));
+  // Four cards in three columns leave one on its own row; two columns keep the
+  // grid even and give long names room for a full line. While loading, the
+  // placeholders keep the usual single row of three.
+  const columns =
+    columnsProp ?? (!loading && React.Children.toArray(cards).length === 4 ? 2 : 3);
+
   const content = loading
     ? Array.from({ length: loadingCount ?? columns }, (_, index) => (
         <AppSwitcherAppSkeleton
@@ -291,14 +308,14 @@ export const AppSwitcherSection: React.FC<AppSwitcherSectionProps> = ({
           data-app-switcher-skeleton=""
         />
       ))
-    : (children ?? (apps && renderAppItems(apps, { missingUrlIsUnavailable: true })));
+    : cards;
 
   return (
     <AppSwitcherSectionRoot ownerState={{ manageRow: tone === 'manage' && !inFooter }}>
       {label && <AppSwitcherSectionLabel id={labelId}>{label}</AppSwitcherSectionLabel>}
       <AppSwitcherSectionGrid
         ref={gridRef}
-        ownerState={{ columns }}
+        ownerState={{ columns, tone }}
         role="list"
         aria-labelledby={label ? labelId : undefined}
         aria-label={label ? undefined : ariaLabel}

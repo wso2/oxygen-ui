@@ -454,7 +454,8 @@ describe('AppSwitcher loading state', () => {
     const { unmount } = renderSwitcher();
     openSwitcher();
     const platformHeight = getComputedStyle(cardFor('Agent Manager')).height;
-    const manageHeight = getComputedStyle(cardFor('Billing')).height;
+    // Manage cards grow to fit a two-line name, so their floor is the size to match.
+    const manageHeight = getComputedStyle(cardFor('Billing')).minHeight;
     unmount();
 
     renderSwitcher({ loading: true });
@@ -707,8 +708,8 @@ describe('AppSwitcher manage row and icons', () => {
       <OxygenUIThemeProvider>
         <AppSwitcher>
           <AppSwitcher.Trigger />
-          <AppSwitcher.Section label="Manage" tone="manage" columns={2} apps={MANAGE} />
-          <AppSwitcher.Section label="Categories">
+          <AppSwitcher.Section aria-label="Manage" tone="manage" columns={2} apps={MANAGE} />
+          <AppSwitcher.Section label="Services">
             <AppSwitcher.App
               name="Agent Management"
               url="https://agent.example.com"
@@ -738,5 +739,39 @@ describe('AppSwitcher manage row and icons', () => {
 
     const markHolder = cardFor('Integration').querySelector('[aria-hidden="true"]') as HTMLElement;
     expect(rulesFor(markHolder)).toMatch(/[^-]color:var\(--[\w-]*palette-primary-main/);
+  });
+});
+
+describe('AppSwitcher section columns', () => {
+  const app = (name: string) => <AppSwitcher.App key={name} name={name} url="https://example.com" />;
+  const renderSection = (names: string[], columns?: number) =>
+    render(
+      <OxygenUIThemeProvider>
+        <AppSwitcher>
+          <AppSwitcher.Trigger />
+          <AppSwitcher.Section label="Services" columns={columns}>
+            {names.map(app)}
+          </AppSwitcher.Section>
+        </AppSwitcher>
+      </OxygenUIThemeProvider>,
+    );
+  const gridRules = () => rulesFor(screen.getByRole('list', { name: 'Services' }));
+
+  it('lays out exactly four cards as a 2x2 grid', () => {
+    renderSection(['A', 'B', 'C', 'D']);
+    openSwitcher();
+    expect(gridRules()).toContain('repeat(2, minmax(');
+  });
+
+  it('keeps three columns for any other count', () => {
+    renderSection(['A', 'B', 'C', 'D', 'E']);
+    openSwitcher();
+    expect(gridRules()).toContain('repeat(3, minmax(');
+  });
+
+  it('honours an explicit columns prop with four cards', () => {
+    renderSection(['A', 'B', 'C', 'D'], 4);
+    openSwitcher();
+    expect(gridRules()).toContain('repeat(4, minmax(');
   });
 });

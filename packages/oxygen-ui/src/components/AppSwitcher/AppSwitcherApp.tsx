@@ -54,12 +54,19 @@ import { ChoreoLabs } from '@wso2/oxygen-ui-icons-react';
 /**
  * Visual treatments a card can take.
  *
- * - `platform` - Large mark, used for the category grid
+ * - `platform` - Large mark, used for the service grid
  * - `manage`   - Smaller neutral mark on a grey disc, used for the manage row
  */
 export type AppSwitcherAppTone = 'platform' | 'manage';
 
 const DEFAULT_UNAVAILABLE_LABEL = 'Coming soon';
+
+/**
+ * Smallest width of a service tile from the `sm` breakpoint up, in
+ * `theme.spacing` units. The grid uses it as its column minimum, so the popover
+ * sizes itself around tiles of this width.
+ */
+export const APP_TILE_SIZE = 17;
 
 /** Card height per tone, in `theme.spacing` units. Shared with the loading placeholders. */
 export const APP_CARD_HEIGHT: Record<AppSwitcherAppTone, number> = {
@@ -119,7 +126,11 @@ const AppSwitcherAppRoot = styled(Card, {
     // A fixed height rather than a floor, so every card in the switcher is the
     // same size whether its name runs to one line or two. The name itself is
     // clamped to two lines, so nothing can outgrow the box.
-    height: theme.spacing(APP_CARD_HEIGHT[ownerState.tone]),
+    // A manage card grows to fit a name that wraps to a second line; the grid
+    // stretches the other cards in its row to the same height.
+    ...(manage
+      ? { minHeight: theme.spacing(APP_CARD_HEIGHT.manage) }
+      : { height: theme.spacing(APP_CARD_HEIGHT.platform) }),
     padding: manage ? theme.spacing(1, 1) : theme.spacing(1.25, 1),
     textAlign: 'center',
     // A navigable card renders as an `<a>`, which underlines its text by
@@ -183,7 +194,7 @@ const AppSwitcherAppRoot = styled(Card, {
  * Platform marks carry no backplate, matching the design; manage marks sit on
  * a neutral disc so the two rows read as different kinds of destination.
  *
- * Category icons are neutral, so the grid reads as one set and the theme's
+ * Service icons are neutral, so the grid reads as one set and the theme's
  * primary color stays reserved for the hover border, focus ring and current
  * app. The Choreo Labs mark, shown when no `icon` is given, takes the primary color
  * as well. Every color comes from the theme.
@@ -247,12 +258,11 @@ const AppSwitcherAppName = styled(Typography, {
   // `minmax(0, 1fr)` grid tracks still let a long unbroken name push the card
   // wider, so wrap rather than overflow.
   overflowWrap: 'anywhere',
-  // The card is a fixed height, so a long name is clamped instead of spilling
-  // past the border. The manage row is sized for a single line, the platform
-  // row for two.
+  // Names wrap to at most two lines; anything longer is clamped instead of
+  // spilling past the border.
   display: '-webkit-box',
   WebkitBoxOrient: 'vertical',
-  WebkitLineClamp: ownerState.tone === 'manage' ? 1 : 2,
+  WebkitLineClamp: 2,
   overflow: 'hidden',
 }));
 
@@ -274,7 +284,7 @@ export interface AppSwitcherAppProps {
    */
   url?: string | null;
   /**
-   * Mark shown above the name (default: the Choreo Labs mark). Give each category a
+   * Mark shown above the name (default: the Choreo Labs mark). Give each service a
    * matching glyph, e.g. `<Bot size={32} />` for Agent Management; it is drawn
    * in a neutral color, so any icon fits.
    */

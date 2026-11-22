@@ -28,10 +28,10 @@ import {
   UserMenu,
   type AppSwitcherAppItem
 } from '@wso2/oxygen-ui';
-import { Bot, ChartLine, Cpu, Home, Settings, ShieldUser, Unplug } from '@wso2/oxygen-ui-icons-react';
+import { Blocks, Bot, ChartLine, Cpu, Home, Settings, ShieldUser } from '@wso2/oxygen-ui-icons-react';
 
 /**
- * AppSwitcher lets users move between the Choreo Labs Cloud product categories from a
+ * AppSwitcher lets users move between the Choreo Labs Cloud services from a
  * grid icon button in the header.
  */
 const meta: Meta<typeof AppSwitcher> = {
@@ -43,8 +43,8 @@ const meta: Meta<typeof AppSwitcher> = {
     docs: {
       description: {
         component: `
-The AppSwitcher pairs a grid icon button with a popover. A **Manage** row at the top links back to the
-Choreo Labs Cloud console (Cloud home and organization settings); below a divider, the **Categories** grid lists
+The AppSwitcher pairs a grid icon button with a popover. A Manage row at the top, with no visible heading, links back to the
+Choreo Labs Cloud console (Cloud home and organization settings); below a divider, the **Services** grid lists
 the products a user can switch to.
 
 ### Compound component
@@ -56,17 +56,20 @@ arrow-key navigation, so the layout stays consistent while products keep control
 ### Features
 - Compound component pattern, matching the other app-shell components
 - Grid icon button that matches the other header icon buttons, including hover styling
-- Each category is a card with its icon above its name (the Choreo Labs mark by default); giving it a \`url\` renders a real link
+- Each service is a card with its icon above its name (the Choreo Labs mark by default); giving it a \`url\` renders a real link
 - A card given a \`url\` opens in a new tab by default; every enabled card lifts with an accent border on hover
 - Selecting a card leaves the popover open; only the trigger, an outside click or \`Esc\` dismisses it.
   The current app is the exception: it opens in the same tab and closes the popover
 - Data-driven \`apps\` and \`links\`, with loading, unavailable and busy states
-- An unavailable category can carry a \`tooltip\` (e.g. "Coming soon") explaining why
+- An unavailable service can carry a \`tooltip\` (e.g. "Coming soon") explaining why
 - A Manage row at the top (\`AppSwitcher.Section\` with \`tone="manage"\`) with Cloud home and
-  Organization settings, separated from the categories by a divider
-- Neutral category icons, so the theme's primary color is left for hover, focus and the current app
-- \`AppSwitcher.Footer\` remains available for links that belong below the categories
-- Responsive popover: viewport-capped on mobile, fixed width from \`sm\` up
+  Organization settings, separated from the services by a divider
+- Neutral service icons, so the theme's primary color is left for hover, focus and the current app
+- \`AppSwitcher.Footer\` remains available for links that belong below the services
+- Exactly four cards lay out as a 2×2 grid; any other count uses three columns (set \`columns\` to override)
+- Square service tiles of one fixed size (about 136px), with names wrapping to two lines; the popover
+  sizes itself around them (about 320px for two columns, 460px for three) unless \`width\` is set
+- Responsive popover: viewport-capped on mobile, where cards stack in one full-width column
 
 ### Usage
 \`\`\`tsx
@@ -75,7 +78,7 @@ import { AppSwitcher, Header } from '@wso2/oxygen-ui';
 <Header.Actions>
   <AppSwitcher>
     <AppSwitcher.Trigger />
-    <AppSwitcher.Section label="Manage" tone="manage" columns={2}>
+    <AppSwitcher.Section aria-label="Manage" tone="manage" columns={2}>
       <AppSwitcher.App name="Cloud home" url="https://console.example.com" icon={<Home size={16} />} />
       <AppSwitcher.App
         name="Organization settings"
@@ -83,7 +86,7 @@ import { AppSwitcher, Header } from '@wso2/oxygen-ui';
         icon={<Settings size={16} />}
       />
     </AppSwitcher.Section>
-    <AppSwitcher.Section label="Categories">
+    <AppSwitcher.Section label="Services">
       <AppSwitcher.App name="Agent Management" url="https://agent.example.com" icon={<Bot size={32} />} />
       <AppSwitcher.App name="API Management" url="https://api.example.com" icon={<Cpu size={32} />} />
       <AppSwitcher.App name="Analytics" disabled tooltip="Coming soon" icon={<ChartLine size={32} />} />
@@ -93,7 +96,7 @@ import { AppSwitcher, Header } from '@wso2/oxygen-ui';
 \`\`\`
 
 ### Data-driven switchers
-Product consoles that share one list of categories can pass it as data instead of composing cards.
+Product consoles that share one list of services can pass it as data instead of composing cards.
 \`AppSwitcher.Section\` takes \`apps\` (and \`AppSwitcher.Footer\` takes \`links\`), both using the same
 \`AppSwitcherAppItem\` shape (\`id\`, \`name\`, \`url\`, plus the optional card props). The component does
 not fetch anything; the console fetches the list and passes it in.
@@ -101,8 +104,8 @@ not fetch anything; the console fetches the list and passes it in.
 \`\`\`tsx
 <AppSwitcher currentAppId="agent-management">
   <AppSwitcher.Trigger label="Switch platforms" />
-  <AppSwitcher.Section label="Manage" tone="manage" columns={2} apps={cloudLinks} loading={isLoading} />
-  <AppSwitcher.Section label="Categories" apps={categories} loading={isLoading} />
+  <AppSwitcher.Section aria-label="Manage" tone="manage" columns={2} apps={cloudLinks} loading={isLoading} />
+  <AppSwitcher.Section label="Services" apps={services} loading={isLoading} />
 </AppSwitcher>
 \`\`\`
 
@@ -117,25 +120,25 @@ not fetch anything; the console fetches the list and passes it in.
 - **Loading.** \`loading\` swaps the cards for placeholders of the same height (one row by default,
   \`loadingCount\` to change it) and marks the grid \`aria-busy\`.
 - **Busy cards.** \`busy\` shows a progress indicator in place of the mark and ignores clicks while an
-  action runs, e.g. granting access before opening the category. The card stays focusable. While busy it
+  action runs, e.g. granting access before opening the service. The card stays focusable. While busy it
   renders as a button rather than a link, so it cannot be opened from the context menu either.
 - **Safe links.** Only \`http:\`, \`https:\` and relative URLs reach \`href\`. Anything else, such as
   \`javascript:\` or \`data:\`, renders the card disabled and logs a warning.
 
-### Category icons
-Pass \`icon\` to give each category a glyph that says what it is. The component draws it in a neutral
-color (\`text.secondary\`, or \`text.disabled\` when the category is unavailable), so any
+### Service icons
+Pass \`icon\` to give each service a glyph that says what it is. The component draws it in a neutral
+color (\`text.secondary\`, or \`text.disabled\` when the service is unavailable), so any
 \`@wso2/oxygen-ui-icons-react\` icon fits the grid and the theme's primary color stays reserved for the
-hover border, focus ring and current app. Size category icons at \`32\` and Manage icons at \`16\`. Without
-\`icon\`, a category card falls back to the Choreo Labs mark in the theme's primary color. The switcher has no
+hover border, focus ring and current app. Size service icons at \`32\` and Manage icons at \`16\`. Without
+\`icon\`, a service card falls back to the Choreo Labs mark in the theme's primary color. The switcher has no
 fixed colors of its own; everything follows the active theme.
 
-| Category | Icon |
+| Service | Icon |
 | --- | --- |
 | Agent Management | \`Bot\` |
 | API Management | \`Cpu\` |
 | Identity & Access Management | \`ShieldUser\` |
-| Integration | \`Unplug\` |
+| Integration | \`Blocks\` |
 | Analytics | \`ChartLine\` |
 | Cloud home (Manage) | \`Home\` |
 | Organization settings (Manage) | \`Settings\` |
@@ -152,10 +155,10 @@ card does nothing at all. A second click of the grid trigger, a click outside, o
 
 ### Accessibility
 - The trigger is a labeled button ("Switch Platforms" by default) exposing \`aria-haspopup\`, \`aria-expanded\`, and \`aria-controls\`.
-- Each section's cards are grouped in a list labelled by its heading ("Manage", "Categories"). A footer
+- Each section's cards are grouped in a list named by its heading ("Services") or, for the Manage row, which has no visible heading, by \`aria-label="Manage"\`. A footer
   without a visible heading is named by \`aria-label\` ("Manage" by default).
-- Categories marked \`disabled\` carry \`aria-disabled\` and are drawn with a faded mark and muted label; they stay focusable so they remain discoverable, but never navigate.
-- "Coming soon" categories are disabled cards like the above, and their tooltip is read as the card's description. A card is one when its \`url\` is \`null\` or blank and it has no \`onClick\` or \`component\`; in a section's \`apps\`, an omitted \`url\` counts too.
+- Services marked \`disabled\` carry \`aria-disabled\` and are drawn with a faded mark and muted label; they stay focusable so they remain discoverable, but never navigate.
+- "Coming soon" services are disabled cards like the above, and their tooltip is read as the card's description. A card is one when its \`url\` is \`null\` or blank and it has no \`onClick\` or \`component\`; in a section's \`apps\`, an omitted \`url\` counts too.
 - The current app is marked \`aria-current="page"\`; its border uses the theme's primary color, which the Oxygen themes keep at 3:1 or more against the card.
 - A loading grid is marked \`aria-busy\`, and so is a busy card.
 - The popover is an MUI Popover with \`role="dialog"\`: focus is trapped while open, Escape closes it and returns focus to the trigger.
@@ -199,69 +202,62 @@ const cloudLinks = [
   />,
 ];
 
-/** Size of a category icon, matching the platform card's mark. */
-const CATEGORY_ICON_SIZE = 32;
+/** Size of a service icon, matching the platform card's mark. */
+const SERVICE_ICON_SIZE = 32;
 
 /**
- * The product category cards, as shown in the Choreo Labs Cloud design, each with a
+ * The service cards, as shown in the Choreo Labs Cloud design, each with a
  * glyph that matches what it manages. Analytics is not yet available, so it
  * renders faded and explains itself with a tooltip.
  *
  * Every card points at example.com purely to demo the navigation: cards open in a
  * new tab, so selecting one leaves Storybook intact.
  */
-const categories = [
+const services = [
   <AppSwitcher.App
     key="agent-management"
     name="Agent Management"
     url="https://example.com"
-    icon={<Bot size={CATEGORY_ICON_SIZE} />}
+    icon={<Bot size={SERVICE_ICON_SIZE} />}
   />,
   <AppSwitcher.App
     key="api-management"
     name="API Management"
     url="https://example.com"
-    icon={<Cpu size={CATEGORY_ICON_SIZE} />}
+    icon={<Cpu size={SERVICE_ICON_SIZE} />}
   />,
   <AppSwitcher.App
     key="identity-access-management"
     name="Identity & Access Management"
     url="https://example.com"
-    icon={<ShieldUser size={CATEGORY_ICON_SIZE} />}
+    icon={<ShieldUser size={SERVICE_ICON_SIZE} />}
   />,
   <AppSwitcher.App
     key="integration"
     name="Integration"
     url="https://example.com"
-    icon={<Unplug size={CATEGORY_ICON_SIZE} />}
-  />,
-  <AppSwitcher.App
-    key="analytics"
-    name="Analytics"
-    disabled
-    tooltip="Coming soon"
-    icon={<ChartLine size={CATEGORY_ICON_SIZE} />}
+    icon={<Blocks size={SERVICE_ICON_SIZE} />}
   />,
 ];
 
 /**
  * Default app switcher, matching the agreed design. Click the grid icon to open
- * the popover; every card opens its category in a new tab and leaves the
+ * the popover; every card opens its service in a new tab and leaves the
  * popover open. Click the grid icon again, or outside, to dismiss it.
  */
 export const Default: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
       <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
-        Click the grid icon to switch between categories
+        Click the grid icon to switch between services
       </Typography>
       <AppSwitcher>
         <AppSwitcher.Trigger />
-        <AppSwitcher.Section label="Manage" tone="manage" columns={2}>
+        <AppSwitcher.Section aria-label="Manage" tone="manage" columns={2}>
           {cloudLinks}
         </AppSwitcher.Section>
-        <AppSwitcher.Section label="Categories">
-          {categories}
+        <AppSwitcher.Section label="Services">
+          {services}
         </AppSwitcher.Section>
       </AppSwitcher>
     </Box>
@@ -269,23 +265,23 @@ export const Default: Story = {
 };
 
 /**
- * A single category. The grid does not stretch one card across the full width,
- * so an organization entitled to one category still gets a card the same size
+ * A single service. The grid does not stretch one card across the full width,
+ * so an organization entitled to one service still gets a card the same size
  * as everywhere else, under the Manage row.
  */
-export const SingleCategory: Story = {
+export const SingleService: Story = {
   render: () => (
     <Box sx={{ p: 4 }}>
       <AppSwitcher>
         <AppSwitcher.Trigger />
-        <AppSwitcher.Section label="Manage" tone="manage" columns={2}>
+        <AppSwitcher.Section aria-label="Manage" tone="manage" columns={2}>
           {cloudLinks}
         </AppSwitcher.Section>
-        <AppSwitcher.Section label="Categories">
+        <AppSwitcher.Section label="Services">
           <AppSwitcher.App
             name="API Management"
             url="https://example.com"
-            icon={<Cpu size={CATEGORY_ICON_SIZE} />}
+            icon={<Cpu size={SERVICE_ICON_SIZE} />}
           />
         </AppSwitcher.Section>
       </AppSwitcher>
@@ -297,7 +293,7 @@ export const SingleCategory: Story = {
  * In context: the switcher sits in `Header.Actions` alongside the other header
  * icon buttons and shares their hover styling. Selecting a card opens example.com
  * in a new tab and leaves the popover open, so the user can pick another
- * category; the grid icon, an outside click or `Esc` dismisses it.
+ * service; the grid icon, an outside click or `Esc` dismisses it.
  */
 export const InHeader: Story = {
   parameters: { layout: 'fullscreen' },
@@ -310,11 +306,11 @@ export const InHeader: Story = {
       <Header.Actions>
         <AppSwitcher>
           <AppSwitcher.Trigger />
-          <AppSwitcher.Section label="Manage" tone="manage" columns={2}>
+          <AppSwitcher.Section aria-label="Manage" tone="manage" columns={2}>
             {cloudLinks}
           </AppSwitcher.Section>
-          <AppSwitcher.Section label="Categories">
-            {categories}
+          <AppSwitcher.Section label="Services">
+            {services}
           </AppSwitcher.Section>
         </AppSwitcher>
         <ColorSchemeToggle />
@@ -328,37 +324,37 @@ export const InHeader: Story = {
 };
 
 /**
- * The shared category list, as a console would receive it. `url: null` marks a
- * category that is not available in this environment. The current app points
+ * The shared service list, as a console would receive it. `url: null` marks a
+ * service that is not available in this environment. The current app points
  * at an in-page anchor only so that selecting it, which opens in the same tab,
  * does not navigate Storybook away.
  */
-const categoryData: AppSwitcherAppItem[] = [
+const serviceData: AppSwitcherAppItem[] = [
   {
     id: 'agent-management',
     name: 'Agent Management',
     url: '#agent-management',
-    icon: <Bot size={CATEGORY_ICON_SIZE} />,
+    icon: <Bot size={SERVICE_ICON_SIZE} />,
   },
   {
     id: 'api-management',
     name: 'API Management',
     url: 'https://example.com',
-    icon: <Cpu size={CATEGORY_ICON_SIZE} />,
+    icon: <Cpu size={SERVICE_ICON_SIZE} />,
   },
   {
     id: 'identity-access-management',
     name: 'Identity & Access Management',
     url: 'https://example.com',
-    icon: <ShieldUser size={CATEGORY_ICON_SIZE} />,
+    icon: <ShieldUser size={SERVICE_ICON_SIZE} />,
   },
   {
     id: 'integration',
     name: 'Integration',
     url: 'https://example.com',
-    icon: <Unplug size={CATEGORY_ICON_SIZE} />,
+    icon: <Blocks size={SERVICE_ICON_SIZE} />,
   },
-  { id: 'analytics', name: 'Analytics', url: null, icon: <ChartLine size={CATEGORY_ICON_SIZE} /> },
+  { id: 'analytics', name: 'Analytics', url: null, icon: <ChartLine size={SERVICE_ICON_SIZE} /> },
 ];
 
 const cloudData: AppSwitcherAppItem[] = [
@@ -372,7 +368,7 @@ const cloudData: AppSwitcherAppItem[] = [
 ];
 
 /**
- * Driven from data, as every console does with the shared category list. The
+ * Driven from data, as every console does with the shared service list. The
  * user is in Agent Management, so its card carries the current-app border, opens
  * in the same tab and closes the popover. Analytics has no URL here, so it
  * renders disabled with a "Coming soon" tooltip.
@@ -382,8 +378,8 @@ export const DataDriven: Story = {
     <Box sx={{ p: 4 }}>
       <AppSwitcher currentAppId="agent-management">
         <AppSwitcher.Trigger label="Switch platforms" />
-        <AppSwitcher.Section label="Manage" tone="manage" columns={2} apps={cloudData} />
-        <AppSwitcher.Section label="Categories" apps={categoryData} />
+        <AppSwitcher.Section aria-label="Manage" tone="manage" columns={2} apps={cloudData} />
+        <AppSwitcher.Section label="Services" apps={serviceData} />
       </AppSwitcher>
     </Box>
   ),
@@ -405,13 +401,13 @@ export const Loading: Story = {
         <AppSwitcher currentAppId="agent-management">
           <AppSwitcher.Trigger />
           <AppSwitcher.Section
-            label="Manage"
+            aria-label="Manage"
             tone="manage"
             columns={2}
             apps={cloudData}
             loading={loading}
           />
-          <AppSwitcher.Section label="Categories" apps={categoryData} loading={loading} />
+          <AppSwitcher.Section label="Services" apps={serviceData} loading={loading} />
         </AppSwitcher>
       </Box>
     );
@@ -430,7 +426,7 @@ export const BusyCard: Story = {
 
     React.useEffect(() => () => clearTimeout(timer.current), []);
 
-    const apps = categoryData.map((app) =>
+    const apps = serviceData.map((app) =>
       app.id === 'api-management'
         ? {
             ...app,
@@ -451,8 +447,8 @@ export const BusyCard: Story = {
         </Typography>
         <AppSwitcher currentAppId="agent-management">
           <AppSwitcher.Trigger />
-          <AppSwitcher.Section label="Manage" tone="manage" columns={2} apps={cloudData} />
-          <AppSwitcher.Section label="Categories" apps={apps} />
+          <AppSwitcher.Section aria-label="Manage" tone="manage" columns={2} apps={cloudData} />
+          <AppSwitcher.Section label="Services" apps={apps} />
         </AppSwitcher>
       </Box>
     );

@@ -1387,7 +1387,7 @@ has two sections: a grid of platform cards, and a `Manage` section linking to th
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `children` | `ReactNode` | required | Trigger, sections and footer |
-| `width` | `number` | `460` | Popover width (px) from the `sm` breakpoint up |
+| `width` | `number` | fits content | Popover width (px) from the `sm` breakpoint up; by default it fits the service tiles |
 | `aria-label` | `string` | `'Applications'` | Accessible name for the popover surface |
 | `sx` | `SxProps<Theme>` | - | Additional styles applied to the popover |
 
@@ -1476,13 +1476,18 @@ import { Building2, CreditCard, UserRoundPlus } from '@wso2/oxygen-ui-icons-reac
 </Header.Actions>
 ```
 
-### Category icons
+### Service icons
 
-Pass `icon` to give each category a glyph that says what it is (for example `Bot` for Agent
-Management, `Cpu` for API Management, `ShieldUser` for Identity & Access Management, `Unplug` for
+Pass `icon` to give each service a glyph that says what it is (for example `Bot` for Agent
+Management, `Cpu` for API Management, `ShieldUser` for Identity & Access Management, `Blocks` for
 Integration). Icons are drawn in `text.secondary` (`text.disabled` when unavailable), so any
 `@wso2/oxygen-ui-icons-react` icon fits. Without `icon`, a card falls back to the Choreo Labs mark
 (the `ChoreoLabs` icon) in `palette.primary.main`.
+
+A section with exactly four cards lays out as a 2×2 grid; any other count uses three columns.
+Pass `columns` to override. From the `sm` breakpoint up, service cards are square tiles of one
+fixed size (about 136px) with names wrapping to two lines, and the popover sizes itself around
+them (about 320px for two columns, 460px for three) unless `width` is set.
 
 ### Card states
 
