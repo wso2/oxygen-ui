@@ -18,7 +18,7 @@
 
 import { extendTheme } from '@mui/material/styles';
 import type { TypographyVariant, TypographyVariantsOptions } from '@mui/material/styles';
-import OxygenThemeBase from '../OxygenThemeBase';
+import OxygenThemeBase, { gradientButtonVariants } from '../OxygenThemeBase';
 import { createOxygenTheme } from '../../utils/createOxygenTheme';
 import type { OxygenTheme } from '../OxygenThemeBase';
 
@@ -574,7 +574,9 @@ const DefaultThemeConfig = {
           },
         }),
       },
+      // The base theme's `gradient` color styles come first; a theme's own variants replace the base list.
       variants: [
+        ...gradientButtonVariants,
         // Outlined accent works like the other outlined buttons: a solid Burn outline that fills with
         // Burn and a white label on hover and keyboard focus, and darkens to Ember when pressed
         {

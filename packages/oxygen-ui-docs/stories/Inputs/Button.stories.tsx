@@ -18,7 +18,7 @@
 
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Button, Stack, CircularProgress, useTheme } from '@wso2/oxygen-ui';
-import { ArrowRight, Download, Plus, Trash2 } from '@wso2/oxygen-ui-icons-react';
+import { ArrowRight, Download, Plus, Sparkles, Trash2 } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';
 
 /**
@@ -75,7 +75,7 @@ export const Variants: Story = {
   },
 };
 
-const colors = ['primary', 'secondary', 'accent', 'error', 'success'] as const;
+const colors = ['primary', 'secondary', 'accent', 'gradient', 'error', 'success'] as const;
 const colorVariants = ['contained', 'outlined', 'text'] as const;
 const capitalize = (value: string) => value.charAt(0).toUpperCase() + value.slice(1);
 
@@ -83,9 +83,10 @@ export const ColorVariants: Story = {
   render: () => (
     <Stack direction="column" spacing={2}>
       {colorVariants.map((variant) => (
-        <Stack key={variant} direction="row" spacing={2}>
+        // Wraps onto another row when the buttons do not fit, so no label breaks onto two lines
+        <Stack key={variant} direction="row" spacing={2} useFlexGap flexWrap="wrap">
           {colors.map((color) => (
-            <Button key={color} variant={variant} color={color}>
+            <Button key={color} variant={variant} color={color} sx={{ whiteSpace: 'nowrap', flexShrink: 0 }}>
               {capitalize(color)} {capitalize(variant)}
             </Button>
           ))}
@@ -97,6 +98,7 @@ export const ColorVariants: Story = {
     docs: {
       description: {
         story: 'Every variant in each color. The `accent` color is defined by the default theme only. ' +
+          '`gradient` (violet to blue) sets apart AI features and is available in every theme. ' +
           'Use `error` for destructive actions such as delete; `success` is shown for completeness.',
       },
     },
@@ -105,6 +107,77 @@ export const ColorVariants: Story = {
 
 // Icon sizes that sit well with each button size's label
 const iconSize = { small: 16, medium: 18, large: 20 } as const;
+
+/**
+ * The `gradient` color as an AI assistant entry point: an outlined pill whose outline runs from violet to
+ * blue around a transparent fill, so it sits on any header or surface. The icon takes the gradient's
+ * solid midpoint color. See Gradient Animated for the moving version.
+ */
+export const Gradient: Story = {
+  render: () => (
+    <Stack direction="column" spacing={2}>
+      <Stack direction="row" spacing={2} alignItems="center">
+        <Button variant="outlined" color="gradient" startIcon={<Sparkles size={iconSize.medium} />}>
+          AI Assistant
+        </Button>
+        <Button variant="contained" color="gradient" startIcon={<Sparkles size={iconSize.medium} />}>
+          Generate with AI
+        </Button>
+        <Button variant="text" color="gradient" startIcon={<Sparkles size={iconSize.medium} />}>
+          Ask AI
+        </Button>
+      </Stack>
+      <Stack direction="row" spacing={2} alignItems="center">
+        {(['small', 'medium', 'large'] as const).map((size) => (
+          <Button key={size} variant="outlined" color="gradient" size={size} startIcon={<Sparkles size={iconSize[size]} />}>
+            AI Assistant
+          </Button>
+        ))}
+        <Button variant="outlined" color="gradient" disabled startIcon={<Sparkles size={iconSize.medium} />}>
+          AI Assistant
+        </Button>
+      </Stack>
+    </Stack>
+  ),
+};
+
+/**
+ * `animated` sets a `gradient` button's gradient moving: it circles the outline of an `outlined` button
+ * and flows across the fill of a `contained` button or the label of a `text` button. It has no effect on
+ * other colors, and the gradient holds still when the user prefers reduced motion or the button is
+ * disabled.
+ */
+export const GradientAnimated: Story = {
+  render: () => (
+    <Stack direction="column" spacing={2}>
+      <Stack direction="row" spacing={2} alignItems="center">
+        <Button variant="outlined" color="gradient" animated startIcon={<Sparkles size={iconSize.medium} />}>
+          AI Assistant
+        </Button>
+        <Button variant="contained" color="gradient" animated startIcon={<Sparkles size={iconSize.medium} />}>
+          Generate with AI
+        </Button>
+        <Button variant="text" color="gradient" animated startIcon={<Sparkles size={iconSize.medium} />}>
+          Ask AI
+        </Button>
+      </Stack>
+      <Stack direction="row" spacing={2} alignItems="center">
+        {(['small', 'medium', 'large'] as const).map((size) => (
+          <Button
+            key={size}
+            variant="outlined"
+            color="gradient"
+            size={size}
+            animated
+            startIcon={<Sparkles size={iconSize[size]} />}
+          >
+            AI Assistant
+          </Button>
+        ))}
+      </Stack>
+    </Stack>
+  ),
+};
 
 export const WithIcons: Story = {
   render: () => (

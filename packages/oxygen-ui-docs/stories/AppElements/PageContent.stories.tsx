@@ -250,11 +250,13 @@ export const MultipleBlocks: Story = {
 
 const platformFooter = (
   <Footer variant="plain">
-    <Footer.Copyright>© 2026 WSO2 LLC.</Footer.Copyright>
+    <Footer.Copyright>© 2026 Choreo Labs.</Footer.Copyright>
     <Footer.Link href="#documentation">Documentation</Footer.Link>
     <Footer.Link href="#support">Support</Footer.Link>
     <Footer.Link href="#terms">Terms of Use</Footer.Link>
     <Footer.Link href="#privacy">Privacy Policy</Footer.Link>
+    <Footer.Link href="#cookie-policy">Cookie Policy</Footer.Link>
+    <Footer.Link onClick={() => undefined}>Cookie settings</Footer.Link>
   </Footer>
 );
 

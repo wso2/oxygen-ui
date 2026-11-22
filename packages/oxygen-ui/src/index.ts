@@ -48,8 +48,8 @@ export * from "./hooks";
 export * from "./utils";
 
 // Named, because two `export *` of one name (./components and @mui/material) cancel each other out.
-export { TextField, Select } from './components';
-export type { TextFieldProps, TextFieldLabelPlacement, SelectProps, SelectLabelPlacement } from './components';
+export { Button, TextField, Select } from './components';
+export type { ButtonProps, TextFieldProps, TextFieldLabelPlacement, SelectProps, SelectLabelPlacement } from './components';
 
 // Re-export the entire @mui/material API
 // This allows consumers to import from @wso2/oxygen-ui instead of @mui/material
@@ -68,6 +68,11 @@ export * as DataGrid from '@mui/x-data-grid';
 // Re-export @mui/x-date-pickers as namespace to avoid conflicts
 // Usage: import { DatePickers } from '@wso2/oxygen-ui';
 export * as DatePickers from '@mui/x-date-pickers';
+
+// Re-export the date picker translations, which @mui/x-date-pickers keeps out of its main entry
+// Usage: import { DatePickersLocales } from '@wso2/oxygen-ui';
+//        DatePickersLocales.frFR.components.MuiLocalizationProvider.defaultProps.localeText
+export * as DatePickersLocales from '@mui/x-date-pickers/locales';
 
 // Re-export AdapterDateFns for date pickers (most commonly used adapter)
 // Other adapters (Dayjs, Luxon, Moment) can be imported directly from @mui/x-date-pickers if needed

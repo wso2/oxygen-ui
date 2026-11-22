@@ -33,7 +33,8 @@ import { AppSwitcherFooter } from './AppSwitcherFooter';
  *
  * Responsive behavior:
  * - Width capped to the viewport on xs (mobile)
- * - Fixed width from sm up (tablet/desktop)
+ * - From sm up, sized to fit its fixed-size service tiles (or `width`, when set),
+ *   with a floor so a switcher without services is not squeezed
  */
 
 /**
@@ -43,14 +44,19 @@ const AppSwitcherRoot = styled(Popover, {
   name: 'MuiAppSwitcher',
   slot: 'Root',
   shouldForwardProp: (prop) => prop !== 'ownerState',
-})<{ ownerState: { width: number } }>(({ theme, ownerState }) => ({
+})<{ ownerState: { width?: number } }>(({ theme, ownerState }) => ({
   '& .MuiPopover-paper': {
     width: `calc(100vw - ${theme.spacing(4)})`,
     maxWidth: '100%',
     marginTop: theme.spacing(1),
     overflow: 'hidden',
     [theme.breakpoints.up('sm')]: {
-      width: ownerState.width,
+      // `min-content` sizes the popover to its narrowest layout: service
+      // columns have a fixed minimum, so two columns give a narrow popover and
+      // three a wider one, every tile the same size and long names wrapping.
+      // (`auto` would instead widen it until every name fits on one line.)
+      width: ownerState.width ?? 'min-content',
+      minWidth: theme.spacing(40),
     },
   },
 }));
@@ -61,7 +67,10 @@ const AppSwitcherRoot = styled(Popover, {
 export interface AppSwitcherProps {
   /** Switcher content (Trigger, Section, App, Footer) */
   children: React.ReactNode;
-  /** Popover width in pixels from the `sm` breakpoint up (default: 460) */
+  /**
+   * Popover width in pixels from the `sm` breakpoint up. By default the popover
+   * fits its content: about 320px for two columns of services, 460px for three.
+   */
   width?: number;
   /** Accessible name for the popover surface (default: `"Applications"`) */
   'aria-label'?: string;
@@ -74,7 +83,7 @@ export interface AppSwitcherProps {
 }
 
 /**
- * AppSwitcher - Popover for navigating between WSO2 Cloud applications.
+ * AppSwitcher - Popover for navigating between Choreo Labs Cloud applications.
  *
  * A compound component pairing a grid icon button in the header with a popover
  * listing the available platforms. The trigger renders in place; every other
@@ -96,7 +105,7 @@ export interface AppSwitcherProps {
  * ```tsx
  * <AppSwitcher currentAppId="agent-manager">
  *   <AppSwitcher.Trigger label="Switch platforms" />
- *   <AppSwitcher.Section label="Categories" apps={platforms} loading={isLoading} />
+ *   <AppSwitcher.Section label="Services" apps={platforms} loading={isLoading} />
  *   <AppSwitcher.Footer columns={2} links={cloudLinks} loading={isLoading} />
  * </AppSwitcher>
  * ```
@@ -106,14 +115,14 @@ export interface AppSwitcherProps {
  * <Header.Actions>
  *   <AppSwitcher>
  *     <AppSwitcher.Trigger />
- *     <AppSwitcher.Section label="Categories">
- *       <AppSwitcher.App name="Agent Manager" url="https://agent.wso2.com" />
- *       <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
- *       <AppSwitcher.App name="Analytics" disabled tooltip="Coming soon" />
+ *     <AppSwitcher.Section label="Services">
+ *       <AppSwitcher.App name="Agent Management" url="https://agent.example.com" icon={<Bot size={32} />} />
+ *       <AppSwitcher.App name="API Management" url="https://api.example.com" icon={<Cpu size={32} />} />
+ *       <AppSwitcher.App name="Analytics" disabled tooltip="Coming soon" icon={<ChartLine size={32} />} />
  *     </AppSwitcher.Section>
  *     <AppSwitcher.Footer columns={2}>
- *       <AppSwitcher.App name="Cloud home" url="https://console.wso2.com" icon={<Home size={16} />} />
- *       <AppSwitcher.App name="Settings" url="https://console.wso2.com/settings" icon={<Settings size={16} />} />
+ *       <AppSwitcher.App name="Cloud home" url="https://console.example.com" icon={<Home size={16} />} />
+ *       <AppSwitcher.App name="Settings" url="https://console.example.com/settings" icon={<Settings size={16} />} />
  *     </AppSwitcher.Footer>
  *   </AppSwitcher>
  * </Header.Actions>
@@ -126,7 +135,7 @@ export const AppSwitcher: React.FC<AppSwitcherProps> & {
   Footer: typeof AppSwitcherFooter;
 } = ({
   children,
-  width = 460,
+  width,
   'aria-label': ariaLabelProp,
   sx,
   currentAppId,

@@ -190,7 +190,7 @@ export const subscribeHeaderBreadcrumbsState = (
 const EMPTY_VALUE: HeaderBreadcrumbsValue = Object.freeze({}) as HeaderBreadcrumbsValue;
 
 /**
- * Returns the stored selection, such as `{ organization: 'wso2', project: 'oxygen-ui' }`,
+ * Returns the stored selection, such as `{ organization: 'choreo-labs', project: 'oxygen-ui' }`,
  * and re-renders when it changes in this page, another tab or another app on the same
  * origin. Returns an empty object when nothing is stored. Works without rendering
  * HeaderBreadcrumbs, so any app can read the current context.

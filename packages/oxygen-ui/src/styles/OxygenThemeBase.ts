@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import { extendTheme, type Theme, type Shadows } from '@mui/material/styles';
+import { extendTheme, keyframes, type Theme, type Shadows } from '@mui/material/styles';
 import type {} from '@mui/x-data-grid/themeAugmentation';
 import { ChevronDown, X } from '@wso2/oxygen-ui-icons-react';
 import React from 'react';
@@ -74,9 +74,16 @@ declare module '@mui/material/styles' {
      * that is neither good nor bad). Use it for text, outlines and light tints, not for solid fills.
      */
     blue: Palette['primary'];
+    /**
+     * A violet-to-blue gradient for the `gradient` Button color, used to set apart AI features such as
+     * an assistant. `start` and `end` are the gradient stops; `main` is a solid midpoint for anything
+     * that needs a single color, such as an icon.
+     */
+    gradient: Palette['primary'] & { start: string; end: string };
   }
   interface PaletteOptions {
     blue?: PaletteOptions['primary'];
+    gradient?: PaletteOptions['primary'] & { start?: string; end?: string };
   }
   
   interface ThemeOptions extends Partial<CustomThemeProperties> {}
@@ -104,6 +111,12 @@ declare module '@mui/material/Chip' {
   }
 }
 
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    gradient: true;
+  }
+}
+
 export interface OxygenTheme extends Theme {
   vars: NonNullable<Theme['vars']>;
 }
@@ -113,6 +126,145 @@ const OxygenUIPrimitives = {
   primaryColor: '#ff7300',
   secondaryColor: '#757575',
 };
+
+/** Class the Oxygen `Button` adds for `animated`; the theme animates gradient buttons that carry it. */
+export const GRADIENT_ANIMATED_CLASS = 'OxygenButton-animated';
+
+/** Registered custom property the circling outline rotates through (see the Oxygen `Button`). */
+export const GRADIENT_ANGLE_PROPERTY = '--oxygen-gradient-angle';
+
+const gradientCircle = keyframes`
+  to { ${GRADIENT_ANGLE_PROPERTY}: 360deg; }
+`;
+
+const gradientFlow = keyframes`
+  to { background-position: 200% 0; }
+`;
+
+/** Start, end and start again, so a fill or label shifted by its own width loops without a seam. */
+const gradientLoop = (theme: Theme) => {
+  const { start, end } = (theme.vars || theme).palette.gradient;
+  return `linear-gradient(90deg, ${start}, ${end}, ${start})`;
+};
+
+const flowing = (theme: Theme) => ({
+  [`&.${GRADIENT_ANIMATED_CLASS}`]: {
+    backgroundImage: gradientLoop(theme),
+    backgroundSize: '200% 100%',
+    animation: `${gradientFlow} 4s linear infinite`,
+  },
+  '@media (prefers-reduced-motion: reduce)': {
+    [`&.${GRADIENT_ANIMATED_CLASS}`]: { animation: 'none' },
+  },
+});
+
+const gradientFill = (theme: Theme) => {
+  const { start, end } = (theme.vars || theme).palette.gradient;
+  return `linear-gradient(90deg, ${start}, ${end})`;
+};
+
+/**
+ * Styles for the `gradient` Button color, in every variant:
+ * - `contained` - the gradient as the fill
+ * - `outlined`  - a gradient outline around a transparent fill, as for an AI assistant entry point
+ * - `text`      - gradient label text
+ *
+ * The outline is drawn by a masked pseudo-element rather than `border-image`, which cannot follow the
+ * pill radius, so the fill stays transparent on any surface. Icons take the solid `main` color, since
+ * an SVG stroke cannot take a CSS gradient. Exported so themes that define their own Button variants
+ * can keep these.
+ */
+export const gradientButtonVariants = [
+  {
+    props: { variant: 'contained' as const, color: 'gradient' as const },
+    style: ({ theme }: { theme: Theme }) => ({
+      backgroundImage: gradientFill(theme),
+      color: (theme.vars || theme).palette.gradient.contrastText,
+      '&:hover, &.Mui-focusVisible, &:active': {
+        backgroundImage: gradientFill(theme),
+        color: (theme.vars || theme).palette.gradient.contrastText,
+        filter: 'brightness(1.08)',
+      },
+      ...flowing(theme),
+      [`&.Mui-disabled, &.Mui-disabled.${GRADIENT_ANIMATED_CLASS}`]: {
+        backgroundImage: 'none',
+        filter: 'none',
+        animation: 'none',
+      },
+    }),
+  },
+  {
+    props: { variant: 'outlined' as const, color: 'gradient' as const },
+    style: ({ theme }: { theme: Theme }) => ({
+      position: 'relative' as const,
+      // Keeps the outlined button's 1px border box so sizes match the other outlined buttons
+      borderColor: 'transparent',
+      backgroundColor: 'transparent',
+      color: (theme.vars || theme).palette.text.primary,
+      '&::before': {
+        content: '""',
+        position: 'absolute' as const,
+        // Sits exactly over the transparent 1px border, so the outline matches the other outlined buttons
+        inset: -1,
+        borderRadius: 'inherit',
+        padding: 1,
+        background: gradientFill(theme),
+        WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+        WebkitMaskComposite: 'xor',
+        maskComposite: 'exclude',
+        pointerEvents: 'none' as const,
+      },
+      '& .MuiButton-startIcon, & .MuiButton-endIcon': {
+        color: (theme.vars || theme).palette.gradient.main,
+      },
+      '&:hover, &.Mui-focusVisible, &:active': {
+        borderColor: 'transparent',
+        color: (theme.vars || theme).palette.text.primary,
+        backgroundColor: `color-mix(in srgb, ${(theme.vars || theme).palette.gradient.main} 12%, transparent)`,
+      },
+      // `animated`: the gradient circles the outline
+      [`&.${GRADIENT_ANIMATED_CLASS}::before`]: {
+        background: `conic-gradient(from var(${GRADIENT_ANGLE_PROPERTY}), ${(theme.vars || theme).palette.gradient.start}, ${(theme.vars || theme).palette.gradient.end}, ${(theme.vars || theme).palette.gradient.start})`,
+        animation: `${gradientCircle} 4s linear infinite`,
+      },
+      '@media (prefers-reduced-motion: reduce)': {
+        [`&.${GRADIENT_ANIMATED_CLASS}::before`]: { animation: 'none' },
+      },
+      '&.Mui-disabled::before': {
+        opacity: 0.4,
+        animation: 'none',
+      },
+    }),
+  },
+  {
+    props: { variant: 'text' as const, color: 'gradient' as const },
+    style: ({ theme }: { theme: Theme }) => ({
+      color: (theme.vars || theme).palette.gradient.main,
+      '& .MuiButton-startIcon, & .MuiButton-endIcon': {
+        color: (theme.vars || theme).palette.gradient.main,
+      },
+      // The label itself takes the gradient; the icons keep the solid color above
+      '@supports (background-clip: text)': {
+        backgroundImage: gradientFill(theme),
+        backgroundClip: 'text',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        // `animated`: the gradient flows across the label
+        ...flowing(theme),
+      },
+      '&:hover, &.Mui-focusVisible': {
+        backgroundColor: 'transparent',
+        filter: 'brightness(1.15)',
+      },
+      [`&.Mui-disabled, &.Mui-disabled.${GRADIENT_ANIMATED_CLASS}`]: {
+        backgroundImage: 'none',
+        WebkitTextFillColor: 'currentColor',
+        filter: 'none',
+        animation: 'none',
+      },
+    }),
+  },
+];
 
 const OxygenThemeBase = extendTheme({
   cssVarPrefix: 'oxygen',
@@ -185,6 +337,13 @@ const OxygenThemeBase = extendTheme({
           main: '#1F4FFF',
           contrastText: '#ffffff',
         },
+        // Deeper stops on light surfaces, so the outline and gradient text stay legible on white
+        gradient: {
+          main: '#5B4FF0',
+          start: '#7C3AED',
+          end: '#2563EB',
+          contrastText: '#ffffff',
+        },
         background: {
           default: '#fafafa',
           paper: '#ffffff',
@@ -204,6 +363,13 @@ const OxygenThemeBase = extendTheme({
         // Azure: Cobalt is too dark to read on dark surfaces
         blue: {
           main: '#3D8BFF',
+          contrastText: '#0B1633',
+        },
+        // Lighter stops on dark surfaces
+        gradient: {
+          main: '#8B9CFB',
+          start: '#A78BFA',
+          end: '#60A5FA',
           contrastText: '#0B1633',
         },
         background: {
@@ -251,6 +417,9 @@ const OxygenThemeBase = extendTheme({
           }),
         })),
       ],
+    },
+    MuiButton: {
+      variants: gradientButtonVariants,
     },
     MuiBreadcrumbs: {
       styleOverrides: {

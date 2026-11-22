@@ -290,7 +290,7 @@ function App() {
         </AppShell.Main>
 
         <AppShell.Footer>
-          <Footer companyName="WSO2 LLC" />
+          <Footer companyName="Choreo Labs" />
         </AppShell.Footer>
       </AppShell>
     </OxygenUIThemeProvider>

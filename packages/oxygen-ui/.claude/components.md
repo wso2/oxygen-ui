@@ -299,7 +299,7 @@ import { AppShell } from '@wso2/oxygen-ui';
   </AppShell.Main>
 
   <AppShell.Footer>
-    <Footer companyName="WSO2 LLC" />
+    <Footer companyName="Choreo Labs" />
   </AppShell.Footer>
 
   <AppShell.NotificationPanel>
@@ -1199,7 +1199,7 @@ import { Footer } from '@wso2/oxygen-ui';
 
 ```tsx
 <Footer>
-  <Footer.Copyright>© 2025 WSO2 LLC. All rights reserved.</Footer.Copyright>
+  <Footer.Copyright>© 2025 Choreo Labs. All rights reserved.</Footer.Copyright>
   <Footer.Divider />
   <Footer.Version>v2.1.0</Footer.Version>
   <Footer.Link href="/terms">Terms & Conditions</Footer.Link>
@@ -1377,7 +1377,7 @@ import { ContextSwitcher, Header } from '@wso2/oxygen-ui';
 import type { ContextSwitcherValue } from '@wso2/oxygen-ui';
 
 const [value, setValue] = useState<ContextSwitcherValue>({
-  organization: 'wso2',
+  organization: 'choreo-labs',
   project: 'finance-web',
 });
 
@@ -1386,7 +1386,7 @@ const [value, setValue] = useState<ContextSwitcherValue>({
     <ContextSwitcher.Level id="organization" label="Organization">
       <ContextSwitcher.Option value="personal">Personal</ContextSwitcher.Option>
       <ContextSwitcher.Group label="Invited organizations">
-        <ContextSwitcher.Option value="wso2">WSO2</ContextSwitcher.Option>
+        <ContextSwitcher.Option value="choreo-labs">Choreo Labs</ContextSwitcher.Option>
         <ContextSwitcher.Option value="demo">Demo Organization</ContextSwitcher.Option>
       </ContextSwitcher.Group>
     </ContextSwitcher.Level>
@@ -1487,7 +1487,7 @@ localStorage is per origin (protocol, host and port), so apps on different subdo
 
 ## AppSwitcher
 
-Popover for navigating between WSO2 Cloud platforms.
+Popover for navigating between Choreo Labs Cloud platforms.
 
 ```tsx
 import { AppSwitcher } from '@wso2/oxygen-ui';
@@ -1503,7 +1503,7 @@ The switcher is composed from sub-components, matching `Header`, `Sidebar` and `
 - `AppSwitcher.Footer` — the `Manage` section; its cards take the `manage` tone automatically
 
 The trigger renders where it sits; every other child goes inside the popover. A typical switcher
-has two sections: a grid of platform cards, and a `Manage` section linking to the WSO2 Cloud tabs
+has two sections: a grid of platform cards, and a `Manage` section linking to the Choreo Labs Cloud tabs
 (organizations, users, billing).
 
 ### AppSwitcher Props
@@ -1511,7 +1511,7 @@ has two sections: a grid of platform cards, and a `Manage` section linking to th
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `children` | `ReactNode` | required | Trigger, sections and footer |
-| `width` | `number` | `460` | Popover width (px) from the `sm` breakpoint up |
+| `width` | `number` | fits content | Popover width (px) from the `sm` breakpoint up; by default it fits the service tiles |
 | `aria-label` | `string` | `'Applications'` | Accessible name for the popover surface |
 | `sx` | `SxProps<Theme>` | - | Additional styles applied to the popover |
 
@@ -1538,7 +1538,7 @@ Extra props, including `aria-*` attributes and `ref`, are forwarded to the under
 |-------|------|---------|-------------|
 | `name` | `string` | required | Platform name (e.g. "API Platform") |
 | `url` | `string` | - | Destination URL; renders the card as an anchor |
-| `icon` | `ReactNode` | WSO2 mark | Mark shown above the name |
+| `icon` | `ReactNode` | Choreo Labs mark | Mark shown above the name |
 | `target` | `string` | `'_blank'` | Anchor target for a card with a `url`; such platforms open in a new tab by default |
 | `disabled` | `boolean` | `false` | Blocks navigation (e.g. a platform not yet available) |
 | `tooltip` | `ReactNode` | - | Tooltip on hover/focus, e.g. `"Coming soon"` on an unavailable platform |
@@ -1565,7 +1565,7 @@ The footer renders nothing when it has neither children nor links.
 | `key` | `string` | required | Stable identifier, used as the React key |
 | `name` | `string` | required | Link name (e.g. "Users & roles") |
 | `url` | `string` | - | Destination URL; renders the card as an anchor |
-| `icon` | `ReactNode` | WSO2 mark | Mark shown above the name |
+| `icon` | `ReactNode` | Choreo Labs mark | Mark shown above the name |
 | `target` | `string` | `'_blank'` | Anchor target |
 | `disabled` | `boolean` | `false` | Blocks navigation |
 | `tooltip` | `ReactNode` | - | Tooltip on hover/focus |
@@ -1583,29 +1583,35 @@ import { Building2, CreditCard, UserRoundPlus } from '@wso2/oxygen-ui-icons-reac
   <AppSwitcher>
     <AppSwitcher.Trigger />
     <AppSwitcher.Section label="Platforms">
-      <AppSwitcher.App name="Agent Manager" url="https://agent.wso2.com" />
-      <AppSwitcher.App name="Identity Platform" url="https://identity.wso2.com" />
-      <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
+      <AppSwitcher.App name="Agent Manager" url="https://agent.example.com" />
+      <AppSwitcher.App name="Identity Platform" url="https://identity.example.com" />
+      <AppSwitcher.App name="API Platform" url="https://api.example.com" />
       <AppSwitcher.App name="Analytics Platform" disabled tooltip="Coming soon" />
     </AppSwitcher.Section>
     <AppSwitcher.Footer label="Manage">
-      <AppSwitcher.App name="Organizations" url="https://console.wso2.com/organizations"
+      <AppSwitcher.App name="Organizations" url="https://console.example.com/organizations"
         icon={<Building2 size={18} />} />
-      <AppSwitcher.App name="Users & roles" url="https://console.wso2.com/users"
+      <AppSwitcher.App name="Users & roles" url="https://console.example.com/users"
         icon={<UserRoundPlus size={18} />} />
-      <AppSwitcher.App name="Billing" url="https://console.wso2.com/billing"
+      <AppSwitcher.App name="Billing" url="https://console.example.com/billing"
         icon={<CreditCard size={18} />} />
     </AppSwitcher.Footer>
   </AppSwitcher>
 </Header.Actions>
 ```
 
-### The platform mark
+### Service icons
 
-Every platform card carries the WSO2 mark, the `WSO2` icon from `@wso2/oxygen-ui-icons-react`,
-supplied by the component. Products do not pick their own artwork, so the grid stays uniform
-across the cloud. Pass `icon` only when a destination genuinely needs different artwork — the
-manage links do, which is why they take neutral glyphs.
+Pass `icon` to give each service a glyph that says what it is (for example `Bot` for Agent
+Management, `Cpu` for API Management, `ShieldUser` for Identity & Access Management, `Blocks` for
+Integration). Icons are drawn in `text.secondary` (`text.disabled` when unavailable), so any
+`@wso2/oxygen-ui-icons-react` icon fits. Without `icon`, a card falls back to the Choreo Labs mark
+(the `ChoreoLabs` icon) in `palette.primary.main`.
+
+A section with exactly four cards lays out as a 2×2 grid; any other count uses three columns.
+Pass `columns` to override. From the `sm` breakpoint up, service cards are square tiles of one
+fixed size (about 136px) with names wrapping to two lines, and the popover sizes itself around
+them (about 320px for two columns, 460px for three) unless `width` is set.
 
 ### Card states
 
@@ -1643,7 +1649,7 @@ anchor, so middle-click and "open in new tab" work. Cards target `_blank` by def
 platform is its own deployment; pass `target: '_self'` to navigate in place.
 
 ```tsx
-<AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
+<AppSwitcher.App name="API Platform" url="https://api.example.com" />
 <AppSwitcher.App name="Agent Manager" url="/agent" target="_self" />
 ```
 
@@ -1685,19 +1691,12 @@ Precedence: `component` wins over `url`; `disabled` blocks all navigation regard
 A `_blank` target always keeps `rel="noopener noreferrer"`; `componentProps` cannot
 override it.
 
-### Brand color
+### Theme colors
 
-The switcher is WSO2 Cloud chrome, so it uses the brand orange (`#FF7300`) even in a product
-running a different palette: the WSO2 mark, the hover border and the focus ring are all brand
-orange rather than `palette.primary`. There is no variant to opt out of this.
-
-**Contrast:** `#FF7300` is 2.73:1 on white. It is used only for the mark and the hover border —
-never for text, so the switcher has no brand-colored text to fail WCAG AA. The focus ring is
-author-defined, which WCAG 2.1 SC 1.4.11 holds to 3:1, so it uses a darker brand token
-(`#E56800`, 3.33:1 on the light card and 5.63:1 on the dark one) rather than `main`. The 2.73:1
-mark and hover border still fall under 3:1; that is a property of the brand palette rather than
-of this component (the standard card border, `#E0E0E0`, is 1.32:1), and is tracked in
-https://github.com/wso2/oxygen-ui/issues/558.
+The switcher has no fixed colors: the hover border, focus ring, current-app border and the
+Choreo Labs fallback mark all use `palette.primary.main`, and card icons use the neutral text
+colors, so it follows whichever Oxygen theme is active. The Oxygen themes keep `primary.main` at
+3:1 or more against the card surface, as WCAG 2.1 SC 1.4.11 asks of a focus indicator.
 
 ### Keyboard & Accessibility
 

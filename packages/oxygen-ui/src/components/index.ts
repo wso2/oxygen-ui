@@ -25,6 +25,13 @@ export { default as ColorSchemeImage } from './ColorSchemeImage';
 export type { ColorSchemeImageProps, ColorSchemeImageAttribute } from './ColorSchemeImage';
 export { default as ColorSchemeSVG } from './ColorSchemeSVG';
 export type { ColorSchemeSVGProps } from './ColorSchemeSVG';
+export { default as StatusIllustration } from './StatusIllustration';
+export type {
+  StatusIllustrationProps,
+  StatusIllustrationStatus,
+  StatusIllustrationHttpStatus,
+  StatusIllustrationState,
+} from './StatusIllustration';
 export { ColorSchemeToggle, default as ColorSchemeToggleDefault } from './ColorSchemeToggle';
 export { default as ComplexSelect } from './ComplexSelect';
 export type { ComplexSelectProps } from './ComplexSelect';
@@ -60,6 +67,8 @@ export { default as ListingCard } from './ListingCard';
 export type { ListingCardProps } from './ListingCard';
 export { default as RelativeTime } from './RelativeTime';
 export type { RelativeTimeProps } from './RelativeTime';
+export { default as Button } from './Button';
+export type { ButtonProps } from './Button';
 export { default as TextField } from './TextField';
 export type { TextFieldProps, TextFieldLabelPlacement } from './TextField';
 export { default as Select } from './Select';

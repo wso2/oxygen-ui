@@ -2,7 +2,7 @@
 
 Choreo Oxygen UI Icons library - Powered by [Lucide Icons](https://lucide.dev/).
 
-This package provides a comprehensive set of icons for use in Choreo Oxygen UI applications, including all Lucide icons plus custom WSO2-specific icons.
+This package provides a comprehensive set of icons for use in Choreo Oxygen UI applications, including all Lucide icons plus custom brand icons.
 
 ## Installation
 

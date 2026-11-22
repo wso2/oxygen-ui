@@ -46,7 +46,7 @@ describe('TrialBadge', () => {
     const { container } = renderBadge({ daysLeft: 0.5 });
 
     expect(screen.queryByText('Trial expired')).toBeNull();
-    expect(screen.getByText('1 day left')).toBeTruthy();
+    expect(screen.getByText('1 day')).toBeTruthy();
     expect(container.querySelector('[data-status="critical"]')).not.toBeNull();
   });
 
@@ -153,7 +153,7 @@ describe('TrialBadge', () => {
                 {
                   title: 'Gateways',
                   items: [
-                    { label: 'WSO2 Managed', count: 0, limit: 1 },
+                    { label: 'Cloud Managed', count: 0, limit: 1 },
                     { label: 'Self-Hosted', count: 1, limit: 1 },
                   ],
                 },
@@ -169,7 +169,7 @@ describe('TrialBadge', () => {
       expect(screen.getByRole('group', { name: 'Gateways' })).toBeTruthy();
       // The group's rows live inside it; the section's loose row does not.
       const group = screen.getByRole('group', { name: 'Gateways' });
-      expect(group.textContent).toContain('WSO2 Managed');
+      expect(group.textContent).toContain('Cloud Managed');
       expect(group.textContent).toContain('Self-Hosted');
       expect(group.textContent).not.toContain('Portals');
       expect(screen.getByText('Portals')).toBeTruthy();
@@ -188,7 +188,7 @@ describe('TrialBadge', () => {
                 {
                   title: 'Gateways',
                   items: [
-                    { label: 'WSO2 Managed', count: 0, limit: 1 },
+                    { label: 'Cloud Managed', count: 0, limit: 1 },
                     { label: 'Self-Hosted', count: 1, limit: 1 },
                   ],
                 },
@@ -214,7 +214,7 @@ describe('TrialBadge', () => {
             {
               title: 'Infrastructure',
               items: [{ label: 'Portals', count: 0, limit: 2 }],
-              groups: [{ title: 'Gateways', items: [{ label: 'WSO2 Managed', count: 4, limit: 4 }] }],
+              groups: [{ title: 'Gateways', items: [{ label: 'Cloud Managed', count: 4, limit: 4 }] }],
             },
           ],
         },
@@ -233,7 +233,7 @@ describe('TrialBadge', () => {
             {
               title: 'Infrastructure',
               items: [{ label: 'Portals', count: 1, limit: 1 }],
-              groups: [{ title: 'Gateways', items: [{ label: 'WSO2 Managed', count: 0, limit: 1 }] }],
+              groups: [{ title: 'Gateways', items: [{ label: 'Cloud Managed', count: 0, limit: 1 }] }],
             },
           ],
         },
@@ -255,7 +255,7 @@ describe('TrialBadge', () => {
             {
               title: 'Infrastructure',
               groups: [
-                { title: 'Gateways', items: [{ label: 'WSO2 Managed', count: 0, limit: 1 }] },
+                { title: 'Gateways', items: [{ label: 'Cloud Managed', count: 0, limit: 1 }] },
                 { items: [{ label: 'Portals', count: 1, limit: 1 }] },
               ],
             },

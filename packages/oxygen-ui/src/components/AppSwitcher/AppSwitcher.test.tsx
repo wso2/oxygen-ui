@@ -41,6 +41,11 @@ const MANAGE: AppSwitcherFooterLink[] = [
   { id: 'billing', name: 'Billing', url: 'https://console.example.com/billing' },
 ];
 
+const MANAGE_APPS: AppSwitcherAppItem[] = [
+  { id: 'orgs', name: 'Organizations', url: 'https://console.example.com/orgs' },
+  { id: 'billing', name: 'Billing', url: 'https://console.example.com/billing' },
+];
+
 type Config = Partial<Omit<AppSwitcherProps, 'children'>> & {
   apps?: AppSwitcherAppItem[];
   links?: AppSwitcherFooterLink[];
@@ -80,6 +85,20 @@ const nameOf = (card: Element) => card.textContent;
 
 const cardFor = (name: string) =>
   screen.getByText(name).closest('[data-app-switcher-app]') as HTMLElement;
+
+/**
+ * The CSS rules emotion generated for an element, optionally narrowed by a
+ * selector suffix. Theme colors are CSS variables, which jsdom cannot resolve,
+ * so tests check the rule text instead of the computed color.
+ */
+const rulesFor = (element: Element, suffix = '') => {
+  const cls = Array.from(element.classList).find((name) => name.startsWith('css-'));
+  const css = Array.from(document.querySelectorAll('style'))
+    .map((style) => style.textContent)
+    .join('');
+  const escapedSuffix = suffix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return (css.match(new RegExp(`\\.${cls}${escapedSuffix}\\{[^}]*\\}`, 'g')) ?? []).join('');
+};
 
 afterEach(() => {
   cleanup();
@@ -194,13 +213,14 @@ describe('AppSwitcher current app', () => {
     expect(trigger.getAttribute('aria-expanded')).toBe('false');
   });
 
-  it('gives the current app a persistent brand border', () => {
+  it('gives the current app a persistent border in the theme primary color', () => {
     renderSwitcher({ currentAppId: 'agent-manager' });
     openSwitcher();
 
-    const brand = 'rgb(229, 104, 0)';
-    expect(getComputedStyle(cardFor('Agent Manager')).borderColor).toBe(brand);
-    expect(getComputedStyle(cardFor('Identity Platform')).borderColor).not.toBe(brand);
+    expect(rulesFor(cardFor('Agent Manager'), '.MuiCard-root')).toMatch(
+      /border-color:var\(--[\w-]*palette-primary-main/,
+    );
+    expect(rulesFor(cardFor('Identity Platform'), '.MuiCard-root')).not.toMatch(/primary-main/);
   });
 });
 
@@ -439,7 +459,8 @@ describe('AppSwitcher loading state', () => {
     const { unmount } = renderSwitcher();
     openSwitcher();
     const platformHeight = getComputedStyle(cardFor('Agent Manager')).height;
-    const manageHeight = getComputedStyle(cardFor('Billing')).height;
+    // Manage cards grow to fit a two-line name, so their floor is the size to match.
+    const manageHeight = getComputedStyle(cardFor('Billing')).minHeight;
     unmount();
 
     renderSwitcher({ loading: true });
@@ -683,5 +704,79 @@ describe('AppSwitcher legacy behavior', () => {
     );
 
     expect(screen.getByRole('link', { name: 'Standalone' }).getAttribute('target')).toBe('_blank');
+  });
+});
+
+describe('AppSwitcher manage row and icons', () => {
+  const renderWithManageRow = () =>
+    render(
+      <OxygenUIThemeProvider>
+        <AppSwitcher>
+          <AppSwitcher.Trigger />
+          <AppSwitcher.Section aria-label="Manage" tone="manage" columns={2} apps={MANAGE_APPS} />
+          <AppSwitcher.Section label="Services">
+            <AppSwitcher.App
+              name="Agent Management"
+              url="https://agent.example.com"
+              icon={<svg data-testid="custom-icon" />}
+            />
+            <AppSwitcher.App name="Integration" url="https://integration.example.com" />
+          </AppSwitcher.Section>
+        </AppSwitcher>
+      </OxygenUIThemeProvider>,
+    );
+
+  it('gives a manage-tone section the shorter manage cards', () => {
+    renderWithManageRow();
+    openSwitcher();
+
+    expect(screen.getByRole('list', { name: 'Manage' })).toBeDefined();
+    const manageHeight = getComputedStyle(cardFor('Billing')).height;
+    expect(manageHeight).not.toBe(getComputedStyle(cardFor('Agent Management')).height);
+  });
+
+  it('draws a custom icon in a neutral color and the Choreo Labs mark in the theme primary color', () => {
+    renderWithManageRow();
+    openSwitcher();
+
+    const customHolder = screen.getByTestId('custom-icon').parentElement as HTMLElement;
+    expect(rulesFor(customHolder)).toMatch(/[^-]color:var\(--[\w-]*palette-text-secondary/);
+
+    const markHolder = cardFor('Integration').querySelector('[aria-hidden="true"]') as HTMLElement;
+    expect(rulesFor(markHolder)).toMatch(/[^-]color:var\(--[\w-]*palette-primary-main/);
+  });
+});
+
+describe('AppSwitcher section columns', () => {
+  const app = (name: string) => <AppSwitcher.App key={name} name={name} url="https://example.com" />;
+  const renderSection = (names: string[], columns?: number) =>
+    render(
+      <OxygenUIThemeProvider>
+        <AppSwitcher>
+          <AppSwitcher.Trigger />
+          <AppSwitcher.Section label="Services" columns={columns}>
+            {names.map(app)}
+          </AppSwitcher.Section>
+        </AppSwitcher>
+      </OxygenUIThemeProvider>,
+    );
+  const gridRules = () => rulesFor(screen.getByRole('list', { name: 'Services' }));
+
+  it('lays out exactly four cards as a 2x2 grid', () => {
+    renderSection(['A', 'B', 'C', 'D']);
+    openSwitcher();
+    expect(gridRules()).toContain('repeat(2, minmax(');
+  });
+
+  it('keeps three columns for any other count', () => {
+    renderSection(['A', 'B', 'C', 'D', 'E']);
+    openSwitcher();
+    expect(gridRules()).toContain('repeat(3, minmax(');
+  });
+
+  it('honours an explicit columns prop with four cards', () => {
+    renderSection(['A', 'B', 'C', 'D'], 4);
+    openSwitcher();
+    expect(gridRules()).toContain('repeat(4, minmax(');
   });
 });

@@ -171,7 +171,7 @@ import { AppShell, Header, Sidebar, Footer } from '@wso2/oxygen-ui';
   </AppShell.Main>
 
   <AppShell.Footer>
-    <Footer companyName="WSO2 LLC" />
+    <Footer companyName="Choreo Labs" />
   </AppShell.Footer>
 </AppShell>
 ```

@@ -256,9 +256,9 @@ describe('AppSwitcher', () => {
     columns?: number;
   };
 
-  const APPS: AppEntry[] = [{ key: 'api', name: 'API Platform', url: 'https://api.wso2.com' }];
+  const APPS: AppEntry[] = [{ key: 'api', name: 'API Platform', url: 'https://api.example.com' }];
   const FOOTER: AppSwitcherFooterProps = {
-    links: [{ key: 'billing', name: 'Billing', url: 'https://console.wso2.com/billing' }],
+    links: [{ key: 'billing', name: 'Billing', url: 'https://console.example.com/billing' }],
   };
 
   // Most cases vary one part of an otherwise standard switcher, so they pass a
@@ -353,7 +353,7 @@ describe('AppSwitcher', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
     const app = screen.getByRole('link', { name: 'API Platform' });
-    expect(app.getAttribute('href')).toBe('https://api.wso2.com');
+    expect(app.getAttribute('href')).toBe('https://api.example.com');
     expect(app.getAttribute('target')).toBe('_blank');
     expect(app.getAttribute('rel')).toBe('noopener noreferrer');
   });
@@ -369,13 +369,13 @@ describe('AppSwitcher', () => {
     expect(app.getAttribute('rel')).toBeNull();
   });
 
-  it('links the manage section to the WSO2 Cloud tabs in a new tab', () => {
+  it('links the manage section to the Choreo Labs Cloud tabs in a new tab', () => {
     renderSwitcher({
       footer: {
         links: [
-          { key: 'orgs', name: 'Organizations', url: 'https://console.wso2.com/organizations' },
-          { key: 'users', name: 'Users & roles', url: 'https://console.wso2.com/users' },
-          { key: 'billing', name: 'Billing', url: 'https://console.wso2.com/billing' },
+          { key: 'orgs', name: 'Organizations', url: 'https://console.example.com/organizations' },
+          { key: 'users', name: 'Users & roles', url: 'https://console.example.com/users' },
+          { key: 'billing', name: 'Billing', url: 'https://console.example.com/billing' },
         ],
       },
     });
@@ -384,9 +384,9 @@ describe('AppSwitcher', () => {
     const manage = screen.getByRole('list', { name: 'Manage' });
     const links = Array.from(manage.querySelectorAll('a'));
     expect(links.map((link) => link.getAttribute('href'))).toEqual([
-      'https://console.wso2.com/organizations',
-      'https://console.wso2.com/users',
-      'https://console.wso2.com/billing',
+      'https://console.example.com/organizations',
+      'https://console.example.com/users',
+      'https://console.example.com/billing',
     ]);
     links.forEach((link) => {
       expect(link.getAttribute('target')).toBe('_blank');
@@ -553,15 +553,21 @@ describe('AppSwitcher', () => {
     expect(billing.getAttribute('href')).toBe('/billing');
   });
 
-  it('paints platform marks in WSO2 orange whatever the product theme', () => {
-    // The switcher is WSO2 Cloud chrome, so the pulse is brand artwork rather
-    // than a themed accent and must not follow `palette.primary`.
+  it('paints the Choreo Labs fallback mark in the theme primary color', () => {
+    // Every switcher color comes from the theme, so the mark matches the
+    // product's palette. Theme colors are CSS variables, which jsdom cannot
+    // resolve, so check the generated rule instead of the computed color.
     renderSwitcher();
     fireEvent.click(screen.getByRole('button', { name: 'Switch Platforms' }));
 
     const tile = screen.getByRole('link', { name: 'API Platform' }).querySelector('svg')
       ?.parentElement as HTMLElement;
-    expect(getComputedStyle(tile).color).toBe('rgb(255, 115, 0)');
+    const cls = Array.from(tile.classList).find((name) => name.startsWith('css-'));
+    const css = Array.from(document.querySelectorAll('style'))
+      .map((style) => style.textContent)
+      .join('');
+    const rules = (css.match(new RegExp(`\\.${cls}\\{[^}]*\\}`, 'g')) ?? []).join('');
+    expect(rules).toMatch(/[^-]color:var\(--[\w-]*palette-primary-main/);
   });
 
   it('keeps manage marks neutral so they stay secondary to the platforms', () => {
@@ -897,7 +903,7 @@ describe('AppSwitcher', () => {
       <AppSwitcher>
         <AppSwitcher.Trigger />
         <AppSwitcher.Section label="Platforms">
-          <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
+          <AppSwitcher.App name="API Platform" url="https://api.example.com" />
         </AppSwitcher.Section>
         <AppSwitcher.Footer label="Manage">
           <AppSwitcher.App name="Billing" url="/billing" />
@@ -924,7 +930,7 @@ describe('AppSwitcher', () => {
       <AppSwitcher>
         <AppSwitcher.Trigger />
         <AppSwitcher.Section label="Platforms">
-          <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
+          <AppSwitcher.App name="API Platform" url="https://api.example.com" />
         </AppSwitcher.Section>
         <AppSwitcher.Footer label="Manage">
           {showBilling && <AppSwitcher.App name="Billing" url="/billing" />}
@@ -950,7 +956,7 @@ describe('AppSwitcher', () => {
       <AppSwitcher>
         <AppSwitcher.Trigger />
         <AppSwitcher.Section label="Platforms">
-          <AppSwitcher.App name="API Platform" url="https://api.wso2.com" />
+          <AppSwitcher.App name="API Platform" url="https://api.example.com" />
         </AppSwitcher.Section>
         <AppSwitcher.Footer
           label="Administration"

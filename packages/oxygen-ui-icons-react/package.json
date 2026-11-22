@@ -25,7 +25,9 @@
   ],
   "sideEffects": [
     "*.css",
-    "dist/icons.css"
+    "dist/icons.css",
+    "dist/index.js",
+    "dist/index.cjs"
   ],
   "scripts": {
     "build": "pnpm clean && pnpm generate:icons && tsc -p tsconfig.json && node esbuild.config.js",

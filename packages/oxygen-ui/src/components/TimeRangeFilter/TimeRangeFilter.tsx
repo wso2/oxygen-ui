@@ -141,8 +141,9 @@ export interface TimeRangeFilterProps extends Omit<ButtonProps, 'onChange' | 'va
   adapterLocale?: Locale;
   /**
    * Text of the pickers' own controls (the calendar buttons, and the OK and Cancel of the dialog
-   * shown on touch screens), for example `frFR.components.MuiLocalizationProvider.defaultProps.localeText`
-   * from `@mui/x-date-pickers/locales`.
+   * shown on touch screens), for example
+   * `DatePickersLocales.frFR.components.MuiLocalizationProvider.defaultProps.localeText`, with
+   * `DatePickersLocales` imported from `@wso2/oxygen-ui`.
    */
   localeText?: LocalizationProviderProps<Locale>['localeText'];
   /**

@@ -16,10 +16,8 @@
  * under the License.
  */
 
-import { deDE } from '@mui/x-date-pickers/locales';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Chip, Stack, TimeRangeFilter, Typography } from '@wso2/oxygen-ui';
-import type { TimeRange } from '@wso2/oxygen-ui';
+import { Chip, DatePickersLocales, Stack, TimeRangeFilter, Typography, type TimeRange } from '@wso2/oxygen-ui';
 import { de } from 'date-fns/locale';
 import React from 'react';
 
@@ -82,7 +80,7 @@ const [range, setRange] = React.useState<TimeRange | null>(null);
     applyLabel: { control: 'text', description: 'Text of the apply button' },
     invalidRangeLabel: { control: 'text', description: 'Error for an invalid custom range' },
     adapterLocale: { control: false, description: 'date-fns locale of the date and time fields, for example fr or de from date-fns/locale' },
-    localeText: { control: false, description: 'Text of the pickers own controls, for example from @mui/x-date-pickers/locales' },
+    localeText: { control: false, description: 'Text of the pickers own controls, for example from DatePickersLocales in @wso2/oxygen-ui' },
     dateFormat: { control: 'text', description: 'date-fns format of the date fields. Default dd MMM, yyyy' },
     timeFormat: { control: 'text', description: 'date-fns format of the time fields. Default HH:mm:ss' },
     rangeTooLongLabel: { control: 'text', description: 'Error for a custom range longer than maxRangeMs. Names the limit by default' },
@@ -134,7 +132,7 @@ export const CustomPresetsAndLabels: Story = {
           cancelLabel="Abbrechen"
           invalidRangeLabel="Wählen Sie einen gültigen Zeitraum."
           adapterLocale={de}
-          localeText={deDE.components.MuiLocalizationProvider.defaultProps.localeText}
+          localeText={DatePickersLocales.deDE.components.MuiLocalizationProvider.defaultProps.localeText}
           presets={[
             { id: '15m', label: 'Letzte 15 Minuten', durationMs: 15 * 60 * 1000 },
             { id: '1d', label: 'Letzter Tag', durationMs: DAY_MS },
