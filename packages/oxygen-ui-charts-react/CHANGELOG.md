@@ -1,5 +1,16 @@
 # @wso2/oxygen-ui-charts-react
 
+## 0.27.0
+
+### Minor Changes
+
+- [#712](https://github.com/wso2/oxygen-ui/pull/712) [`f209097`](https://github.com/wso2/oxygen-ui/commit/f209097768c6f48fa4f28b057c57f4a3014d62ef) Thanks [@jeradrutnam](https://github.com/jeradrutnam)! - Add StatusIllustration component + Gradient Button Style + Style tweaks to TrialBadge and some fixes to AppSwitcher
+
+### Patch Changes
+
+- Updated dependencies [[`f209097`](https://github.com/wso2/oxygen-ui/commit/f209097768c6f48fa4f28b057c57f4a3014d62ef)]:
+  - @wso2/oxygen-ui@0.27.0
+
 ## 0.26.0
 
 ### Minor Changes
