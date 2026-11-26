@@ -65,8 +65,8 @@ window.addEventListener('storage', (e) => {
   }
 });
 
-// Match the tab icon to the browser theme, as the Favicon guide shows: favicon-light.ico (black mark)
-// for light themes, favicon.ico (white mark) for dark ones, switched without a refresh.
+// The white mark disappears on light tabs and the black one on dark tabs, so the icon follows the
+// browser theme. Done in script because browsers disagree on `media` for icon links.
 const browserDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
 const applyFavicon = () => {
   document

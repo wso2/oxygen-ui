@@ -26,8 +26,8 @@ import CenterContentLayout from '../../layouts/CenterContentLayout';
 // Served from .storybook/public. Relative so it also works when Storybook is hosted under a sub path.
 const FAVICON_DIR = './favicon';
 
-// Each file is named for the browser theme it is shown in, as in other WSO2 apps. Each preview sits on
-// that theme's background.
+// Same names as other WSO2 apps, so teams don't mix up the files. Previews sit on their theme's
+// background because the white mark would be invisible on this page.
 const FAVICONS = [
   { file: 'favicon-light.ico', theme: 'light', mark: 'Black', background: '#ffffff' },
   { file: 'favicon.ico', theme: 'dark', mark: 'White', background: '#202124' },
