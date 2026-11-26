@@ -64,3 +64,14 @@ window.addEventListener('storage', (e) => {
     }
   }
 });
+
+// The white mark disappears on light tabs and the black one on dark tabs, so the icon follows the
+// browser theme. Done in script because browsers disagree on `media` for icon links.
+const browserDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+const applyFavicon = () => {
+  document
+    .querySelector('link[rel="icon"]')
+    ?.setAttribute('href', browserDarkMode.matches ? './favicon.ico' : './favicon-light.ico');
+};
+applyFavicon();
+browserDarkMode.addEventListener('change', applyFavicon);
