@@ -26,7 +26,7 @@ import CenterContentLayout from '../../layouts/CenterContentLayout';
 // Served from .storybook/public. Relative so it also works when Storybook is hosted under a sub path.
 const FAVICON_DIR = './favicon';
 
-// Same names as other WSO2 apps, so teams don't mix up the files. Previews sit on their theme's
+// Same names as other Choreo Labs apps, so teams don't mix up the files. Previews sit on their theme's
 // background because the white mark would be invisible on this page.
 const FAVICONS = [
   { file: 'favicon-light.ico', theme: 'light', mark: 'Black', background: '#ffffff' },
