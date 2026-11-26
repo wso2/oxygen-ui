@@ -38,7 +38,7 @@ const meta: Meta = {
         rules: { 'color-contrast': { enabled: false } },
       },
     },
-    layout: 'centered',
+    layout: 'fullscreen',
     docs: {
       page: () => (
         <>
