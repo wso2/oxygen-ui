@@ -64,3 +64,14 @@ window.addEventListener('storage', (e) => {
     }
   }
 });
+
+// Match the tab icon to the browser theme, as the Favicon guide shows: favicon-light.ico (black mark)
+// for light themes, favicon.ico (white mark) for dark ones, switched without a refresh.
+const browserDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+const applyFavicon = () => {
+  document
+    .querySelector('link[rel="icon"]')
+    ?.setAttribute('href', browserDarkMode.matches ? './favicon.ico' : './favicon-light.ico');
+};
+applyFavicon();
+browserDarkMode.addEventListener('change', applyFavicon);
