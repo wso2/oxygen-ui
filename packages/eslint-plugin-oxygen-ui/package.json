@@ -40,8 +40,8 @@
     "typescript": "catalog:"
   },
   "scripts": {
-    "build": "rm -rf dist && node esbuild.config.js && tsc --emitDeclarationOnly --outDir dist",
-    "clean": "rm -rf dist"
+    "build": "rimraf dist && node esbuild.config.js && tsc --emitDeclarationOnly --outDir dist",
+    "clean": "rimraf dist"
   },
   "nx": {
     "targets": {
