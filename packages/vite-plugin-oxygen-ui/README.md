@@ -46,12 +46,14 @@ export default defineConfig({
 import { Button, TextField, Box } from '@wso2/oxygen-ui';
 ```
 
-### Direct imports (Also works)
+### Direct imports (Also works, no plugin required)
 ```jsx
 import Button from '@wso2/oxygen-ui/Button';
 import TextField from '@wso2/oxygen-ui/TextField';
 ```
 
+Direct imports resolve to real package entries shipped by `@wso2/oxygen-ui`
+— the plugin is purely a build optimization for them, not a requirement.
 Both approaches benefit from the plugin's optimizations.
 
 ## Custom Components
